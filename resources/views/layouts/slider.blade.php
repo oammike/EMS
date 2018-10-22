@@ -19,7 +19,7 @@
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
                                
                                 <h4 class="text-primary"><br/>get ready to <span style="color:#f59c0f"> sing along</span> <br/><span style="color:#9c9fa0">to some 90s tunes...</span><br/>
-                                 </h4><img src="storage/uploads/back90-2.png" width="100%" /><br/>
+                                 </h4><img src="storage/uploads/back90-5.JPG" width="100%" /><br/>
                                 
                                 <div class="box-footer"><h5>RSVP Link: <a href="http://172.17.0.2/coffeebreak/2018/10/5458/" target="_blank" >http://172.17.0.2/coffeebreak/2018/10/5458/</a></h5>
                                 </div>
