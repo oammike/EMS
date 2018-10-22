@@ -1,0 +1,389 @@
+<aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <a href="{{action('UserController@show',Auth::user()->id)}}" class="user-image" >
+           @if ( file_exists('public/img/employees/'.Auth::user()->id.'.jpg') )
+              <img src="{{asset('public/img/employees/'.Auth::user()->id.'.jpg')}}" class="user-image" alt="User Image" width="50">
+              @else
+                <img src="{{asset('public/img/useravatar.png')}}" class="user-image" alt="User Image" width="40">
+
+                @endif
+
+              </a>
+
+         
+        </div>
+        <div class="pull-left info">
+          @if (is_null(Auth::user()->nickname))
+          <small><strong>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</strong></small><br/>
+
+          @else
+          <small><strong>{{ Auth::user()->nickname }} {{ Auth::user()->lastname }}</strong></small><br/>
+          @endif
+          <!-- Status -->
+          
+            
+              <small class="text-success"><i class="fa fa-circle text-success"></i> Online</small> 
+            
+          
+        </div>
+      </div>
+
+      <!-- search form (Optional) -->
+      <!-- <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>  -->
+
+      <!-- ******************** LEAVE CREDIT COUNTER ***************-->
+      <div class="row">
+        <div class="col-lg-1 col-sm-12"></div>
+        <div class="col-lg-4 col-sm-12 text-center">
+          
+          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"><i class="fa fa-plane"></i></span><span class="label label-primary">
+            <?php $u = OAMPI_Eval\User::find(Auth::user()->id); 
+            
+            $lengthOfservice = \Carbon\Carbon::parse($u->dateHired,"Asia/Manila")->diffInMonths();
+            $leave1 = \Carbon\Carbon::parse('first day of January '. date('Y'),"Asia/Manila")->format('Y-m-d');
+            $leave2 = \Carbon\Carbon::parse('last day of December '.date('Y'),"Asia/Manila")->format('Y-m-d');
+            $currentVLbalance ="N/A";
+            $updatedVL = false;
+            $currentSLbalance ="N/A";
+            $updatedSL = false;
+
+
+            if ($lengthOfservice > 6) //do this if only 6mos++
+            {
+              $today= date('m');//today();
+              $avail = $u->vlCredits;
+              $avail2 = $u->slCredits;
+
+              $approvedVLs = OAMPI_Eval\User_VL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
+              $approvedSLs = OAMPI_Eval\User_SL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
+
+                /************ for VL ************/
+                if (count($avail)>0){
+                  $vls = $u->vlCredits->sortByDesc('creditYear');
+
+                  if($vls->contains('creditYear',date('Y')))
+                  {
+                    $updatedVL=true;
+                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) - $vls->first()->paid;
+                  }
+                  else{
+                    
+                    if (count($approvedVLs)>0)
+                    {
+                      $bal = 0.0;
+                      foreach ($approvedVLs as $key) {
+                        $bal += $key->totalCredits;
+                      }
+
+                      $currentVLbalance = (0.84 * $today) - $bal;
+
+                    }else{
+
+                      $currentVLbalance = (0.84 * $today);
+                    }
+
+                  } 
+
+
+
+                }else {
+                  
+
+                  if (count($approvedVLs)>0){
+                    $bal = 0.0;
+                    foreach ($approvedVLs as $key) {
+                      $bal += $key->totalCredits;
+                    }
+
+                    $currentVLbalance = (0.84 * $today) - $bal;
+
+                  }else{
+
+                    $currentVLbalance = (0.84 * $today);
+                  }
+                  
+                }
+
+
+                /************ for SL ************/
+                 if (count($avail2)>0)
+                 {
+                  $sls = $u->slCredits->sortByDesc('creditYear');
+
+                  if($sls->contains('creditYear',date('Y')))
+                  {
+                    $updatedSL=true;
+                    $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used) - $sls->first()->paid;
+                  }
+                  else{
+                    
+                    if (count($approvedSLs)>0)
+                    {
+                      $bal = 0.0;
+                      foreach ($approvedSLs as $key) {
+                        $bal += $key->totalCredits;
+                      }
+
+                      $currentSLbalance = (0.84 * $today) - $bal;
+
+                    }else{
+
+                      $currentSLbalance = (0.84 * $today);
+                    }
+
+                  }
+                }else {
+                  
+
+                  if (count($approvedSLs)>0){
+                    $bal = 0.0;
+                    foreach ($approvedSLs as $key) {
+                      $bal += $key->totalCredits;
+                    }
+
+                    $currentSLbalance = (0.84 * $today) - $bal;
+
+                  }else{
+
+                    $currentSLbalance = (0.84 * $today);
+                  }
+                  
+                }
+
+            }
+            
+                //$avail = $this->user->availableVL;
+                
+            ?> {{$currentVLbalance}} </span></a></div>
+
+            
+        <div class="col-lg-4 col-sm-12 text-center">
+          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"> <i class="fa fa-stethoscope"></i></span><span class="label label-danger">{{$currentSLbalance}} </span></a></div>
+          <div class="col-lg-2 col-sm-12"></div>
+      </div>
+      <div class="row">
+        <div class="col-lg-1 col-sm-12"></div>
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> VL credit(s) 
+          @if (!$updatedVL)
+          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}" title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
+
+          @endif
+        </div>
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> SL credit(s) 
+          @if (!$updatedSL)
+          <a title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
+
+          @endif
+          <!-- <a title="Request HR/Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span> -->
+        </div>
+        <div class="col-lg-2 col-sm-12"></div>
+      </div><p>&nbsp;</p>
+      <!-- ******************** LEAVE CREDIT COUNTER ***************-->
+     
+     
+
+      
+      <!-- /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">MY TOOLS</li>
+       
+        <!-- Optionally, you can add icons to the links -->
+        <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
+
+        <li class="@if (Request::is('gallery')) active @endif"><a href="{{ action('HomeController@gallery') }}"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span> <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: 10px"><strong>New!</strong></span></a></li> 
+
+        
+        <li @if (Request::is("user/".Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" ><i class="fa fa-2x fa-address-card"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Profile</span></a></li>
+        <li  @if ( Request::is('user_dtr*') ) class="active" @endif ><a  @if ( Request::is('user_dtr*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-2x fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My DTR</a></li>
+
+         <li  @if ( Request::is('myRequests*') ) class="active" @endif ><a  @if ( Request::is('myRequests*') ) class="active" @endif href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My Requests</a></li>
+
+        @if( Auth::user()->isAleader )
+        <li @if (Request::is('myTeam')) class="active" @endif><a href="{{action('UserController@myTeam')}}" ><i class="fa fa-2x fa-users"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Team</span></a></li>
+        @endif
+
+        <li @if (Request::is('myEvals')) class="active" @endif><a href="{{action('UserController@myEvals')}}" ><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Evals</span></a></li>
+
+
+
+
+        <li class="header">OAMPI SYSTEM</li>
+        <li><a href="http://172.17.0.2/coffeebreak/" target="_blank"><i class="fa fa-coffee" ></i> <img src="{{ asset('public/img/logo_coffeebreak.png')}}" width="100" /> <span></span></a></li>
+
+         <li class="treeview @if (Request::is('campaign*')) active @endif">
+          <a href="#"><i class="fa fa-sitemap"></i> <span>Departments / Programs</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+           <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADD_NEW_PROGRAM') ){ ?> 
+            <li @if (Request::is('campaign/create')) class="active" @endif  style="padding-left:20px"><a href="{{action('CampaignController@create')}} "><i class="fa fa-plus"></i> Add New </a></li>
+            <?php }  ?>
+
+            <li style="padding-left:20px" @if (Request::is('campaign')) class="active" @endif ><a href="{{action('CampaignController@index')}} "><i class="fa fa-users"></i> View All</a></li>
+          </ul>
+        </li>
+
+
+        <li class="treeview @if ( Request::is('movement') || Request::is('editUser*') ) active @endif">
+          <a href="#"><i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+           
+            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADD_NEW_EMPLOYEE') ){ ?> 
+            <li @if (Request::is('user/create')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@create')}} "><i class="fa fa-plus"></i> Add New </a></li>
+            <?php }  ?>
+
+            <li style="padding-left:20px"@if (Request::is('user')) class="active" @endif><a href="{{action('UserController@index')}} "><i class="fa fa-users"></i> View All</a></li>
+
+            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('VIEW_ALL_EVALS') ){ ?> 
+            <li style="padding-left:20px"><a href="{{action('UserController@downloadAllUsers')}} "><i class="fa fa-download"></i> Download Masterlist</a></li>
+             <?php }  ?>
+
+
+             
+             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MOVE_EMPLOYEE') ){ ?> 
+            <li style="padding-left:20px" @if (Request::is('movement*')) class="active" @endif><a href="{{action('MovementController@index')}}"><i class="fa fa-exchange"></i> <span>Movements</span></a></li> 
+          <?php }else if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MANAGE_TEAM_DISTRIBUTION') ) {?>
+          <li style="padding-left:20px" @if (Request::is('movement*')) class="active" @endif><a href="{{action('MovementController@index')}}"><i class="fa fa-exchange"></i> <span>Team Distribution</span></a></li> 
+          <?php }  ?>
+            <!-- <li style="padding-left:20px"@if (Request::is('movement*')) class="active" @endif ><a href="{{action('MovementController@index')}}"><i class="fa fa-users"></i> <span>Personnel Change Notice</span></a></li> -->
+
+          </ul>
+        </li>
+
+
+         <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ACCESS_SETTINGS') ){ ?> 
+        <li class="treeview @if (Request::is('evalSetting') || Request::is('evalForm*')) active @endif">
+          <a href="#">
+            <i class="fa fa-check-square-o"></i> <span>Evaluation</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+          <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('VIEW_ALL_EVALS') ){ ?> 
+            <li style="padding-left:20px"><a href="{{action('EvalFormController@downloadReport')}} "><i class="fa fa-download"></i> Download Summary</a></li>
+            <li  @if (Request::is('evalForm')) class="active" @endif  style="padding-left:20px"><a href="{{action('EvalFormController@index')}} "><i class="fa fa-file-o"></i> View All</a></li>
+             <?php }  ?>
+
+            
+            <li style="padding-left:20px" @if (Request::is('evalSetting')) class="active" @endif ><a href="{{action('EvalSettingController@index')}} "><i class="fa fa-gears"></i> Settings</a></li>
+            
+
+            
+             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('CREATE_EVALS') ){ ?> 
+            <!-- <li style="padding-left:20px"><a href="#"><i class="fa fa-plus"></i> Create New </a></li> -->
+             <?php }  ?>
+
+            <!-- <li style="padding-left:20px"><a href="{{action('EvalFormController@printBlankEval', Auth::user()->id)}} "><i class="fa fa-plus"></i> Print Blank </a></li> -->
+            
+            
+
+           
+          </ul>
+        </li>  <?php }  ?>
+
+
+
+        
+        <li class="treeview @if (Request::is('immediateHead*')) active @endif">
+          <a href="#"><i class="fa fa-street-view"></i> <span>Leaders</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            
+             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADD_LEADER') ){ ?> 
+            <li @if (Request::is('immediateHead/create')) class="active" @endif  style="padding-left:20px"><a href="{{action('ImmediateHeadController@create')}} "><i class="fa fa-plus"></i> Add New Leader</a></li>
+             <?php }  ?>
+            <li style="padding-left:20px" @if (Request::is('immediateHead')) class="active" @endif><a href="{{action('ImmediateHeadController@index')}} "><i class="fa fa-users"></i> View All</a></li>
+          </ul>
+        </li>
+
+       
+
+
+
+
+         <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') ) active @endif ">
+          <a href="#">
+            <i class="fa fa-clock-o"></i> <span>Timekeeping</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+         
+            <li style="padding-left:20px" @if ( Request::is('user_dtr*') ) class="active" @endif ><a  @if ( Request::is('user_*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-calendar"></i> My DTR</a></li>
+           <!--  <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-bed"></i> Leaves</a></li>
+            <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-tachometer"></i> OT / UT</a></li> --><!-- 
+            <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-pencil"></i> CWS</a></li>
+            <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-calendar-times-o"></i> File DTRP</a></li> -->
+            <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><i class="fa fa-bar-chart"></i> Leave Credits</a></li>
+            <hr /><!--  --> 
+            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') ){ ?> 
+            <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload"><i class="fa fa-upload"></i>Upload Biometrics</a></li>
+
+            <?php } ?><br/>
+          </ul>
+        </li>
+
+
+
+
+
+
+
+
+
+
+
+       <?php //if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_NEW_RESOURCE') ){ ?> 
+        <li @if (Request::is('oampi-resources')) class="active" @endif><a href="{{action('ResourceController@index')}}" ><i class="fa fa-book"></i> <span>Resources</span></a></li>
+        <?php  //endif ?>
+
+        <li @if (Request::is('oampi-resources')) class="active" @endif><a href="{{action('FormBuilderController@index')}}"><i class="fa fa-list"></i> <span>Reports</span></a></li>
+       
+
+       
+
+
+        
+
+
+       
+
+        
+
+        
+
+       
+        
+        
+
+        
+
+        <li><a href="http://172.17.0.51/accessone/login" target="_blank"><i class="fa fa-file"></i> <span>HRIS</span></a></li>
+       <!--  <li><a href="http://oampayroll.openaccessbpo.com/" target="_blank"><i class="fa fa-usd"></i> <span>Payroll</span></a></li> -->
+       
+        
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+   @include('layouts.modals-upload', [
+                                'modelRoute'=>'biometrics.store',
+                                'modelID' => '_upload', 
+                                'modelName'=>"Biometrics file ", 
+                                'modalTitle'=>'Upload', 
+                                'modalMessage'=>'Select biometrics file to upload (*.csv):', 
+                                'formID'=>'uploadBio',
+                                'icon'=>'glyphicon-up' ])

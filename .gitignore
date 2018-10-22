@@ -1,0 +1,14 @@
+/vendor
+/node_modules
+/public/storage
+Homestead.yaml
+Homestead.json
+.env
+/config
+/database
+/logs
+package.json
+composer.lock
+composer.json
+/public/img/employees
+/tests

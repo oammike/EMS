@@ -1,0 +1,1 @@
+<div class="loader callout callout-info" style="text-align:center"><h3><i class="fa fa-download"></i> Fetching Google Data <i class="fa fa-spinner fa-spin"></i></h3></div>
