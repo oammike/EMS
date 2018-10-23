@@ -89,183 +89,6 @@ through New York's five boroughs as a first-time Open Access BPO representative 
 
                             </div>
 
-
-                            <div class="item text-center">
-
-                              <h3 class="text-danger"><small>Urgent Hiring </small><i class="fa fa-exclamation-triangle"></i> <br/><strong>E-mail Support </strong> Agents (Php 23k)<br/>
-                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','42')}} "> <img src="./public/img/logo_bird.png" width="120"></a></h3>
-                              <h5>Referral Bonus: <strong class="text-primary"> Php 5,000.00 <i class="fa fa-gift"></i></strong><br/>
-                              Training starts next week Monday (October 22 @ 3 PM - 12 MN)</h5>
-                              <p>Requirements: </p>
-                              <ul class="text-left">
-                                <li>Previous experience in live chat/email support/customer service/call center environment</li>
-                                <li>Strong customer service background</li>
-                                <li>High level of written English proficiency + a good sense of US culture/vibe</li>
-                                <li>Technical savvy (frequently uses smart phones applications, can navigate basic computer functions like copy /paste, opening multiple tabs, email etc pretty smoothly)</li>
-                                <li>CRM experience is an added plus</li>
-                                <li>Personality preferred: positive, kind empathetic and upbeat</li>
-                                <li>With background/experience in English Writing, Communications and Journalism</li>
-                              </ul>
-
-                              <p><small>Send your referrals to <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
-
-
-
-                            </div>    
-
-
-                             <!-- ********************************* CS WEEK contest ******************************** -->
-                            <div class="item text-center">
-                              <img src="storage/uploads/dressup1.jpg" />
-                              <h4 class="text-primary">Team Prim <br/> <span class="text-orange" style="font-size: smaller">Lebua</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-                            <div class="item text-center">
-                              <img src="storage/uploads/dressupWinner1.jpg" />
-                              <h4 class="text-primary">Team Prim <br/> <span class="text-orange" style="font-size: smaller">Lebua</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-                           <div class="item text-center">
-                              <img src="storage/uploads/dressupWinner2.jpg" />
-                              <h4 class="text-primary">Team Prim <br/> <span class="text-orange" style="font-size: smaller">Lebua</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-                           <div class="item text-center">
-                             <img src="storage/uploads/dressup2.jpg" />
-                              <h4 class="text-primary">Team Catherine de Alzon <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-                           <div class="item text-center">
-                             <img src="storage/uploads/dressupWinner3.jpg" />
-                              <h4 class="text-primary">Team Catherine de Alzon <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-                           <div class="item text-center">
-                             <img src="storage/uploads/dressupWinner4.jpg" />
-                              <h4 class="text-primary">Team Catherine de Alzon <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                             <img src="storage/uploads/dressup3.jpg" />
-                              <h4 class="text-primary">Team Geoff Catabay <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-                           <div class="item text-center">
-                             <img src="storage/uploads/dressupWinner5.jpg" />
-                              <h4 class="text-primary">Team Geoff Catabay <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-                           <div class="item text-center">
-                             <img src="storage/uploads/dressupWinner6.jpg" />
-                              <h4 class="text-primary">Team Geoff Catabay <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
-                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
-                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
-
-
-
-                            <div class="item text-center">
-
-                              <h2 class="text-danger"><small>Urgent Hiring </small><i class="fa fa-exclamation-triangle"></i> <br/><strong>36</strong> Call Center Associates <br/>
-                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','44')}} "> <img src="./public/img/logo_postmates.png" width="120"></a></h2>
-                              <h5>Referral Bonus: <strong class="text-primary"> Php 5,000.00 <i class="fa fa-gift"></i></strong></h5>
-                              <p>Requirements: </p>
-                              <ul class="text-left">
-                                <li>Good English communication skills</li>
-                                <li>Highly confident, spontaneous, smart, witty and dynamic</li>
-                                <li>Has exceptional phone skills and customer oriented</li>
-                                <li>Independent, Flexible, Energetic and a Team Player</li>
-                                <li>Open to fresh graduates</li>
-                                <li>Able to work on the night shift</li>
-                                <li>Can start immediately</li>
-                              </ul>
-
-                              <p><small>Send your referrals to <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
-
-
-
-                            </div>    
-
-
-                             <div class="item text-center">
-                             <br/>
-                              <img src="storage/uploads/2018-09-24_ig.jpg" /><br/></a>
-                            </div>
-
-
-                            
-
-
-
-                             <div class="item text-center">
-
-                              <h4 class="text-primary"><small>We're hiring!</small><br/><strong>Mandarin</strong> Customer Support Agent (Php 80k - morning shift)</h4>
-                              <h5>Referral Bonus: <strong class="text-danger">Php 20,000.00</strong></h5>
-                              <p><br/><br/>
-                              The agent will be working as a <br/><strong>non-voice customer support</strong> agent <br/>for an international company that develops <br/>products exclusively for women. </p>
-
-                              <p><small>Send your referrals to <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
-
-
-
-                            </div>                          
-  
-
-
-
-
-                              <!-- ************* ANNOUNCEMENTS ************-->
-                            
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend1.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend2.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend3.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend4.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend5.jpg" />
-                            </div>
-                            
-
-                            
-
                             @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
                             <div class="item text-center">
@@ -412,6 +235,144 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                             @endforeach
 
                             @endif
+
+
+
+
+                             <!-- ********************************* CS WEEK contest ******************************** -->
+                            <div class="item text-center">
+                              <img src="storage/uploads/dressup1.jpg" />
+                              <h4 class="text-primary">Team Prim <br/> <span class="text-orange" style="font-size: smaller">Lebua</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+                            <div class="item text-center">
+                              <img src="storage/uploads/dressupWinner1.jpg" />
+                              <h4 class="text-primary">Team Prim <br/> <span class="text-orange" style="font-size: smaller">Lebua</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+                           <div class="item text-center">
+                              <img src="storage/uploads/dressupWinner2.jpg" />
+                              <h4 class="text-primary">Team Prim <br/> <span class="text-orange" style="font-size: smaller">Lebua</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+                           <div class="item text-center">
+                             <img src="storage/uploads/dressup2.jpg" />
+                              <h4 class="text-primary">Team Catherine de Alzon <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+                           <div class="item text-center">
+                             <img src="storage/uploads/dressupWinner3.jpg" />
+                              <h4 class="text-primary">Team Catherine de Alzon <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+                           <div class="item text-center">
+                             <img src="storage/uploads/dressupWinner4.jpg" />
+                              <h4 class="text-primary">Team Catherine de Alzon <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                             <img src="storage/uploads/dressup3.jpg" />
+                              <h4 class="text-primary">Team Geoff Catabay <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+                           <div class="item text-center">
+                             <img src="storage/uploads/dressupWinner5.jpg" />
+                              <h4 class="text-primary">Team Geoff Catabay <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+                           <div class="item text-center">
+                             <img src="storage/uploads/dressupWinner6.jpg" />
+                              <h4 class="text-primary">Team Geoff Catabay <br/> <span class="text-orange" style="font-size: smaller">Zenefits</span></h4>
+                              <p>Thank you all for participating in this year's <a href="https://www.instagram.com/explore/tags/csweek/" target="_blank">#CSWeek </a></p>
+                              <p>More in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+
+
+
+                            <div class="item text-center">
+
+                              <h2 class="text-danger"><small>Urgent Hiring </small><i class="fa fa-exclamation-triangle"></i> <br/><strong>36</strong> Call Center Associates <br/>
+                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','44')}} "> <img src="./public/img/logo_postmates.png" width="120"></a></h2>
+                              <h5>Referral Bonus: <strong class="text-primary"> Php 5,000.00 <i class="fa fa-gift"></i></strong></h5>
+                              <p>Requirements: </p>
+                              <ul class="text-left">
+                                <li>Good English communication skills</li>
+                                <li>Highly confident, spontaneous, smart, witty and dynamic</li>
+                                <li>Has exceptional phone skills and customer oriented</li>
+                                <li>Independent, Flexible, Energetic and a Team Player</li>
+                                <li>Open to fresh graduates</li>
+                                <li>Able to work on the night shift</li>
+                                <li>Can start immediately</li>
+                              </ul>
+
+                              <p><small>Send your referrals to <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
+
+
+
+                            </div>    
+
+
+                             <div class="item text-center">
+                             <br/>
+                              <img src="storage/uploads/2018-09-24_ig.jpg" /><br/></a>
+                            </div>
+
+
+                            
+
+                              <!-- ************* ANNOUNCEMENTS ************-->
+                            
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend1.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend2.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend3.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend4.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend5.jpg" />
+                            </div>
+                            
+
+                            
+
+                            
 
                             <!-- ********************************* MENTAL HEALTH ******************************** -->
                             <!--
@@ -936,7 +897,48 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                               <img src="storage/uploads/wellness1k.jpg" />
                               <div style="padding:10px; position: absolute;bottom: 10px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                 <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage</small></a></div>
-                            </div>  -->
+                            </div>  
+
+
+
+                            <div class="item text-center">
+
+                              <h3 class="text-danger"><small>Urgent Hiring </small><i class="fa fa-exclamation-triangle"></i> <br/><strong>E-mail Support </strong> Agents (Php 23k)<br/>
+                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','42')}} "> <img src="./public/img/logo_bird.png" width="120"></a></h3>
+                              <h5>Referral Bonus: <strong class="text-primary"> Php 5,000.00 <i class="fa fa-gift"></i></strong><br/>
+                              Training starts next week Monday (October 22 @ 3 PM - 12 MN)</h5>
+                              <p>Requirements: </p>
+                              <ul class="text-left">
+                                <li>Previous experience in live chat/email support/customer service/call center environment</li>
+                                <li>Strong customer service background</li>
+                                <li>High level of written English proficiency + a good sense of US culture/vibe</li>
+                                <li>Technical savvy (frequently uses smart phones applications, can navigate basic computer functions like copy /paste, opening multiple tabs, email etc pretty smoothly)</li>
+                                <li>CRM experience is an added plus</li>
+                                <li>Personality preferred: positive, kind empathetic and upbeat</li>
+                                <li>With background/experience in English Writing, Communications and Journalism</li>
+                              </ul>
+
+                              <p><small>Send your referrals to <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
+
+
+
+                            </div>   
+
+                              <div class="item text-center">
+
+                              <h4 class="text-primary"><small>We're hiring!</small><br/><strong>Mandarin</strong> Customer Support Agent (Php 80k - morning shift)</h4>
+                              <h5>Referral Bonus: <strong class="text-danger">Php 20,000.00</strong></h5>
+                              <p><br/><br/>
+                              The agent will be working as a <br/><strong>non-voice customer support</strong> agent <br/>for an international company that develops <br/>products exclusively for women. </p>
+
+                              <p><small>Send your referrals to <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
+
+
+
+                            </div>        
+
+
+                          -->
 
 
 
