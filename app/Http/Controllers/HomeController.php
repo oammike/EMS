@@ -65,7 +65,7 @@ class HomeController extends Controller
       $col = new Collection;
 
        // Runner Jeff
-      for($i=1; $i<=6; $i++){
+      for($i=1; $i<=5; $i++){
         $col->push(['lowsrc'=>"storage/uploads/runner-jeff".$i.".jpg",
                     'fullsrc'=>"storage/uploads/runner-jeff".$i.".jpg",
                     'description'=>"2018 TCS New York City Marathon - Jeff Aspacio",
