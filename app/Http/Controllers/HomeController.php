@@ -67,12 +67,12 @@ class HomeController extends Controller
        // Runner Jeff
       for($i=1; $i<=6; $i++){
         $col->push(['lowsrc'=>"storage/uploads/runner-jeff".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/runner".$i.".jpg",
+                    'fullsrc'=>"storage/uploads/runner-jeff".$i.".jpg",
                     'description'=>"2018 TCS New York City Marathon - Jeff Aspacio",
                     'category'=>"2018 TCS New York City Marathon"]);
 
       }
-      
+
 
         // Dress up
       for($i=1; $i<=24; $i++){
