@@ -63,31 +63,7 @@ through New York's five boroughs as a first-time Open Access BPO representative 
 
                             
 
-                           <div class="item text-center" >
-
-                              <img src="./public/img/ana.jpg" style="z-index: 2" />
-
-                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
-                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
-
-                              </div>
-
-                               <h2 style="margin-top: -30px" class="text-danger"><strong>QA Apprentice </strong><br/>
-                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','44')}} "> <img src="./public/img/logo_postmates.png" width="120"></a></h2>
-
-                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Oct. 24, 2018 Wednesday </strong></h5>
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
-                              <ul class="text-left">
-                                <li>Excellent written and verbal English skills</li>
-                                <li>At least 1 yr. in Open Access</li>
-                                <li>No written warning within the last six months</li>
-                                <li>Exemplary Performance</li>
-                              </ul>
-
-                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
-
-
-                            </div>
+                           
 
                             @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
@@ -935,7 +911,34 @@ through New York's five boroughs as a first-time Open Access BPO representative 
 
 
 
-                            </div>        
+                            </div>      
+
+                            //POSTMATES INTERNAL HIRING
+                            <div class="item text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h2 style="margin-top: -30px" class="text-danger"><strong>QA Apprentice </strong><br/>
+                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','44')}} "> <img src="./public/img/logo_postmates.png" width="120"></a></h2>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Oct. 24, 2018 Wednesday </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
+                              <ul class="text-left">
+                                <li>Excellent written and verbal English skills</li>
+                                <li>At least 1 yr. in Open Access</li>
+                                <li>No written warning within the last six months</li>
+                                <li>Exemplary Performance</li>
+                              </ul>
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
+
+
+                            </div>  
 
 
                           -->
