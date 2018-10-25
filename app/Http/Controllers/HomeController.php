@@ -76,7 +76,7 @@ class HomeController extends Controller
 
         // Dress up
       for($i=1; $i<=24; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-dressupWinner".$i.".jpg",
+        $col->push(['lowsrc'=>"storage/uploads/thumb-dressupwinner".$i.".jpg",
                     'fullsrc'=>"storage/uploads/dressupWinner".$i.".jpg",
                     'description'=>"Dress Up Your Leader Contest - CS WEEK 2018",
                     'category'=>"Dress Up Your Leader 2018"]);
