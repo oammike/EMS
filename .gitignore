@@ -11,4 +11,5 @@ package.json
 composer.lock
 composer.json
 /public/img/employees
+/public/build/changes.txt
 /tests
