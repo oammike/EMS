@@ -1,5 +1,46 @@
                             <div class="item active text-center">
 
+                              <img src="storage/uploads/spooky-1.jpg" />
+                              
+                             
+                           </div> 
+
+                           <div class="item text-center">
+
+                              <img src="storage/uploads/spooky-2.jpg" />
+                              <h4 class="text-orange">Spooky Jar</h4>
+                              <p style="padding:20px; text-align: left">* Guess how many candies there are in the <strong class="text-danger">SPOOKY JAR </strong>located at the <strong>5F Marketing area</strong><br/>
+     * Employees can submit their guesses through <strong><a href="http://172.17.0.2/coffeebreak/2018/10/oam-spooky-halloween-activity-2018/" target="_blank">this link </a></strong><br/>
+     * First 10 employees to guess the correct number will win. In the event that nobody gets it right, the 5 bets closest to the right answer will win<br/>
+     * Deadline to submit your bets is until November 1, 11:59PM.<br/>
+     * Winners will be announced on November 2, 2018.</p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+
+                              <img src="storage/uploads/spooky-3.jpg" />
+                              <h4 class="text-orange">Spooky Jar</h4>
+                               <p style="padding:20px; text-align: left">* Guess how many candies there are in the <strong class="text-danger">SPOOKY JAR </strong>located at the <strong>5F Marketing area</strong><br/>
+     * Employees can submit their guesses through <strong><a href="http://172.17.0.2/coffeebreak/2018/10/oam-spooky-halloween-activity-2018/" target="_blank">this link </a></strong><br/>
+     * First 10 employees to guess the correct number will win. In the event that nobody gets it right, the 5 bets closest to the right answer will win<br/>
+     * Deadline to submit your bets is until November 1, 11:59PM.<br/>
+     * Winners will be announced on November 2, 2018.</p>
+                             
+                           </div> 
+
+                            <div class="item text-center">
+
+                              <img src="storage/uploads/spooky-4.jpg" />
+                             
+                              
+                             
+                           </div> 
+
+
+
+                            <div class="item text-center">
+
                               <img src="storage/uploads/nyc-jeff.jpg" />
                               <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                 <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSports #TCSNYCMarathon</small></a></div> 
