@@ -42245,6 +42245,7 @@ Niala,Clarence updated Oct 25 04:00:19 by DANIELLA, PAMILAR
 -------------------
  Viewed DTR of: AVILA[64] --Oct 25 03:28 PM by [64] AVILA
 -------------------
+<<<<<<< HEAD
  Viewed Form Submissions id[2] --Oct 26 12:33 PM by [2077] BANUELOS
 -------------------
  Viewed Profile of user: BANUELOS[2077] --Oct 26 12:33 PM by [2077] BANUELOS
@@ -43426,3 +43427,22 @@ Andrada,Evelyn updated Oct 29 02:16:32 by DANIELLA, PAMILAR
  Viewed Profile of user: MCKENZIE[471] --Oct 29 11:22 AM by [471] MCKENZIE
 -------------------
  Viewed all users - Oct 29 11:27 AM by [534] OLIVEROS
+=======
+ Viewed Gallery by [1502] FERNANDEZ
+-------------------
+ Clicked slider ad by [829] AMOROSO
+-------------------
+ Clicked slider ad by [829] AMOROSO
+-------------------
+ Clicked slider ad by [829] AMOROSO
+-------------------
+ Viewed Gallery by [829] AMOROSO
+-------------------
+ Viewed Profile of user: AMOROSO[829] --Oct 26 09:02 AM by [829] AMOROSO
+-------------------
+ Tried to View DTR of: AMOROSO[829] --Oct 26 09:02 AM by [829] AMOROSO
+-------------------
+ Viewed all users - Oct 26 09:03 AM by [829] AMOROSO
+-------------------
+ Viewed all campaigns - Oct 26 09:04 AM by [829] AMOROSO
+>>>>>>> 4d3fc0b33f0e9965e49765880d65a689b09b51c5
