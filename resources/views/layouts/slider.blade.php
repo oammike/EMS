@@ -38,6 +38,16 @@
                            </div> 
 
 
+                           <div class="item text-center">
+
+                              <img src="storage/uploads/runner-clint.jpg" />
+                              <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSports #TCSNYCMarathon</small></a></div> 
+                              <p style="padding:50px">Once a running friend, Clint worked his way out of a running intolerance and even managed to secure a spot in 2016's <strong>TCS New York City Marathon.</strong> He has since learned that the best way to defeat distance is through endurance and not speed. This year, he returns to New York to once again compete in the prestigious marathon. In the office, Clint is a Senior Program Manager for one fo our biggest campaigns.</p>
+                             
+                           </div> 
+
+
 
                             <div class="item text-center">
 
