@@ -295,7 +295,16 @@ class DTRController extends Controller
         $saanLocated = DB::table('team')->where('user_id','=',$user->id)->get();
 
         //if($saanLocated[0]->floor_id != 1 && $saanLocated[0]->floor_id != 2  )
-        if ($saanLocated[0]->campaign_id != 10 && $saanLocated[0]->campaign_id != 16 && $saanLocated[0]->campaign_id != 37 && $saanLocated[0]->campaign_id != 12 )
+        // 37 = BD
+        // 12 = Lebua
+        // 16 = Marketing
+        // 10 = Finance
+        // 31 = SheerID
+        // 32 = Circles
+        // 47 = Advance Wellness
+        // 26 = WV
+
+        if ($saanLocated[0]->campaign_id != 10 && $saanLocated[0]->campaign_id != 16 && $saanLocated[0]->campaign_id != 37 && $saanLocated[0]->campaign_id != 12 && $saanLocated[0]->campaign_id != 31 && $saanLocated[0]->campaign_id != 32 && $saanLocated[0]->campaign_id != 47 && $saanLocated[0]->campaign_id != 26 )
         {
           $message = '<br/><br/><h1><i class="fa fa-file-code-o fa-2x"></i></h1>';
           $message .='<h3>DTR Module Under Construction </h3>';
