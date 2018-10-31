@@ -65,6 +65,15 @@ class HomeController extends Controller
       $col = new Collection;
 
 
+       // Runner Euniz
+      for($i=1; $i<=6; $i++){
+        $col->push(['lowsrc'=>"storage/uploads/thumb-runner-euniz".$i.".jpg",
+                    'fullsrc'=>"storage/uploads/runner-euniz".$i.".jpg",
+                    'description'=>"2018 TCS New York City Marathon - Euniz Cantos",
+                    'category'=>"2018 TCS New York City Marathon"]);
+
+      }
+
        // Runner Clint
       for($i=1; $i<=5; $i++){
         $col->push(['lowsrc'=>"storage/uploads/thumb-runner-clint".$i.".jpg",
