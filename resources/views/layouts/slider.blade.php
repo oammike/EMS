@@ -1,9 +1,97 @@
                             <div class="item active text-center">
 
-                              <img src="storage/uploads/spooky-1.jpg" />
+                              <img src="storage/uploads/spooky-entries.jpg" />
                               
                              
                            </div> 
+
+                           <div class="item text-center">
+                            <img src="storage/uploads/thumb-spooky-entries1.jpg" />
+                              
+                              
+                              <p style="padding:10px"><h3 class="text-danger">Pick your Poison... </h3>
+                                <h4>Team Krystle <a href="campaign/51" target="_blank">Adore Me</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries2.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Boo! Adulting! </h3>
+                                <h4>Team Analie <a href="campaign/32" target="_blank">Circles.Life</a> </h4> </p>
+                             
+                           </div>
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries3.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Deliver us from evil. </h3>
+                                <h4>Team Liezl <a href="campaign/31" target="_blank">SheerID </a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries4.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Just because you're dead, doesn't mean you can't have fun.</h3>
+                                <h4> Team Jam  <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries5.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Do You Trust Your Friends On PURGE night?</h3>
+                                <h4>Team Geoff <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries6.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">A dose of your nightmare </h3>
+                                <h4> Team Liezl <a href="campaign/48" target="_blank"> AnOther </a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries7.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">When there's no more room in hell, the dead will walk the earth.  </h3>
+                                <h4>Team Con<a href="campaign/27" target="_blank"> Zenefits</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries8.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Get in, losers. We will haunt you.</h3>
+                                <h4> Team CY <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries9.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Veni, omnipotens aeterne diabolus" (Come, almighty eternal devil)  </h3>
+                                <h4>Team Cate<a href="campaign/27" target="_blank"> Zenefits</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries10.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Dare us to scare you </h3>
+                                <h4>Team Cess <a href="campaign/42" target="_blank">Bird</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries11.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">Evil wakes in vengeance, be careful what you choose. (Horror Game-Silent Hill_darknurses_pyramidhead) </h3>
+                                <h4>Team Loraine <a href="campaign/7" target="_blank">OAMClinic</a> </h4> </p>
+                             
+                           </div> 
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/thumb-spooky-entries12.jpg" />
+                              <p style="padding:10px"><h3 class="text-danger">The Doctor wants to see you now...</h3>
+                                <h4> Team Carla <a href="campaign/33" target="_blank">Boostability</a> </h4> </p>
+                             
+                           </div> 
+
+
 
                            <div class="item text-center">
 
@@ -17,7 +105,7 @@
                              
                            </div> 
 
-                           <div class="item text-center">
+                          <!--  <div class="item text-center">
 
                               <img src="storage/uploads/spooky-3.jpg" />
                               <h4 class="text-orange">Spooky Jar</h4>
@@ -35,9 +123,9 @@
                              
                               
                              
-                           </div> 
+                           </div>  -->
 
-                            <div class="item text-center">
+                          <div class="item text-center">
 
                               <img src="storage/uploads/runner-eunice.png" />
                               <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">

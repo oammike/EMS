@@ -65,6 +65,16 @@ class HomeController extends Controller
       $col = new Collection;
 
 
+      //Spooky Team
+      
+      for($i=1; $i<=11; $i++){
+        $col->push(['lowsrc'=>"storage/uploads/thumb-spooky-entries".$i.".jpg",
+                    'fullsrc'=>"storage/uploads/spooky-entries".$i.".jpg",
+                    'description'=>"Open Access Spooky Team 2018",
+                    'category'=>"Open Access Spooky Team 2018"]);
+
+      }
+
        // Runner Euniz
       for($i=1; $i<=6; $i++){
         $col->push(['lowsrc'=>"storage/uploads/thumb-runner-euniz".$i.".jpg",
