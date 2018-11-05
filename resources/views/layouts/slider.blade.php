@@ -9,105 +9,85 @@
                               <p><a href="user/1722" target="_blank"><img src="public/img/employees/1722.jpg" class="img-circle" width="50">&nbsp;&nbsp;Kathleen Manago - SheerID</a> <strong>[7,077]</strong></p>
                               <p><a href="user/1745" target="_blank"><img src="public/img/employees/1745.jpg" class="img-circle" width="50">&nbsp;&nbsp;Armando Cabuga - Zenefits</a> <strong>[6,800]</strong></p>
 
-                              <p>You may claim your prizes from the <strong>Marketing Department</strong> located at the 5F from Nov.5-9, 2018.
+                              <p style="padding:30px">You may claim your prizes from the <strong>Marketing Department</strong> located at the 5F from Nov.5-9, 2018.
 
-You may also start getting candies from the jar at the 5F Marketing area! Small cups are provided beside it. </p>
+You may also start getting candies from the jar at the 5F Marketing area! Small cups are provided beside it.<br/><br/>Thank you for participating in our activities for Spooky Halloween 2018!</p>
                              
                            </div> 
-
-                           <div class="item  text-center">
-                            <img src="storage/uploads/spooky-entries.jpg" />  
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                            <img src="storage/uploads/thumb-spooky-entries1.jpg" />
+                            <div class="item text-center">
+                              <img src="storage/uploads/spooky-team-winner.jpg" />
                               
-                              
-                              <p style="padding:10px"><h3 class="text-danger">Pick your Poison... </h3>
-                                <h4>Team Krystle <a href="campaign/51" target="_blank">Adore Me</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries2.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Boo! Adulting! </h3>
-                                <h4>Team Analie <a href="campaign/32" target="_blank">Circles.Life</a> </h4> </p>
+                              <p style="padding:50px"><em>Note: Judges for the SPOOKY TEAM are: <br/>
+                              Ben Davidowitz (CEO), Henry Chang (President), Joy Sebastian (VP for Operations)</em><br/><br/>
+                            <strong>Criteria:</strong><br/>
+                            Spookiness - 30%<br/>
+                            Creativity - 25%<br/>
+                            Relevance to the Theme  - 25%<br/>
+                            Execution - 20%</p>
+                            <h2 class="text-danger">Congratulations to...<br/><br/></h2>
                              
                            </div>
 
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries3.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Deliver us from evil. </h3>
-                                <h4>Team Liezl <a href="campaign/31" target="_blank">SheerID </a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries4.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Just because you're dead, doesn't mean you can't have fun.</h3>
+                           <div class="item text-center"><h2 class="text-danger">3rd Place</h2>
+                              
+                             <img src="storage/uploads/thumb-spooky-entries4.jpg" />
+                              <p style="padding:10px">
+                                <h3 class="text-orange">Just because you're dead, doesn't mean you can't have fun.</h3>
                                 <h4> Team Jam  <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
                              
                            </div> 
 
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries5.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Do You Trust Your Friends On PURGE night?</h3>
-                                <h4>Team Geoff <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center">
+                           <div class="item text-center"><h2 class="text-danger">2nd Place</h2>
                               <img src="storage/uploads/thumb-spooky-entries6.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">A dose of your nightmare </h3>
+                              <p style="padding:10px"><h3 class="text-orange">A dose of your nightmare </h3>
                                 <h4> Team Liezl <a href="campaign/48" target="_blank"> AnOther </a> </h4> </p>
                              
                            </div> 
 
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries7.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">When there's no more room in hell, the dead will walk the earth.  </h3>
-                                <h4>Team Con<a href="campaign/27" target="_blank"> Zenefits</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries8.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Get in, losers. We will haunt you.</h3>
-                                <h4> Team CY <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries9.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Veni, omnipotens aeterne diabolus" (Come, almighty eternal devil)  </h3>
-                                <h4>Team Cate<a href="campaign/27" target="_blank"> Zenefits</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries10.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Dare us to scare you </h3>
-                                <h4>Team Cess <a href="campaign/42" target="_blank">Bird</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center">
-                              <img src="storage/uploads/thumb-spooky-entries11.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">Evil wakes in vengeance, be careful what you choose. (Horror Game-Silent Hill_darknurses_pyramidhead) </h3>
-                                <h4>Team Loraine <a href="campaign/7" target="_blank">OAMClinic</a> </h4> </p>
-                             
-                           </div> 
-
-                            <div class="item text-center">
+                           <div class="item text-center"><h2 class="text-danger">1st Place</h2>
                               <img src="storage/uploads/thumb-spooky-entries12.jpg" />
-                              <p style="padding:10px"><h3 class="text-danger">The Doctor wants to see you now...</h3>
+                              <p style="padding:10px">
+
+                                <h3 class="text-orange">The Doctor wants to see you now...</h3>
                                 <h4> Team Carla <a href="campaign/33" target="_blank">Boostability</a> </h4> </p>
                              
                            </div> 
 
+                           <div class="item  text-center">
+                            <img src="storage/uploads/spooky-thanks.jpg" />  
+                            <p><br/><br/>View All Entries in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
+
+                            <div class="item text-center">
+
+                              <p style="padding:20px">In line with the clinic's <strong>HIV/AIDS Awareness Program,</strong>we are happy to invite everyone to participate in our activity below on Nov 8, 2018.  <br/><br/>
+
+<strong class="text-danger">WHAT:</strong> HIV 101 PROGRAM with onsite FREE HIV TESTING and one on one counseling ( this process will be treated with confidentiality)<br/>
+
+<strong class="text-danger">WHEN: </strong>Nov 8, 2018 (7pm - 3am)<br/>
+
+<strong class="text-danger">WHERE: </strong> 8TH FLOOR PANTRY SIDE<br/>
+
+<strong class="text-danger">WHO:</strong> Makati Social Hygiene Clinic Team from Makati City Hall<br/><br/>
+
+HIV/AIDS cases in the country are rapidly increasing its rate, from 2 cases/day back in 2009 and presently, 31 cases/day (HARP, 2018). The only way to stop this, is through keeping ourselves informed about how it is being transmitted, its prevention and get tested. <br/><br/>
+
+This will be the third time to have an HIV/AIDS Prevention Program in the company.<br/>
+
+For interested participants and for any questions, please email us at our gmail address: oamnurse@openaccessmarketing.com or nurse@openaccessbpo.net in zimbra.</p>
 
 
+
+                            </div> 
+
+                           
+                          
+
+
+
+                          <!-- 
                            <div class="item text-center">
 
                               <img src="storage/uploads/spooky-2.jpg" />
@@ -119,8 +99,7 @@ You may also start getting candies from the jar at the 5F Marketing area! Small 
      * Winners will be announced on November 2, 2018.</p>
                              
                            </div> 
-
-                          <!--  <div class="item text-center">
+ <div class="item text-center">
 
                               <img src="storage/uploads/spooky-3.jpg" />
                               <h4 class="text-orange">Spooky Jar</h4>
@@ -455,27 +434,7 @@ through New York's five boroughs as a first-time Open Access BPO representative 
 
 
 
-                            <div class="item text-center">
-
-                              <h2 class="text-danger"><small>Urgent Hiring </small><i class="fa fa-exclamation-triangle"></i> <br/><strong>36</strong> Call Center Associates <br/>
-                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','44')}} "> <img src="./public/img/logo_postmates.png" width="120"></a></h2>
-                              <h5>Referral Bonus: <strong class="text-primary"> Php 5,000.00 <i class="fa fa-gift"></i></strong></h5>
-                              <p>Requirements: </p>
-                              <ul class="text-left">
-                                <li>Good English communication skills</li>
-                                <li>Highly confident, spontaneous, smart, witty and dynamic</li>
-                                <li>Has exceptional phone skills and customer oriented</li>
-                                <li>Independent, Flexible, Energetic and a Team Player</li>
-                                <li>Open to fresh graduates</li>
-                                <li>Able to work on the night shift</li>
-                                <li>Can start immediately</li>
-                              </ul>
-
-                              <p><small>Send your referrals to <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small></p>
-
-
-
-                            </div>    
+                              
 
 
                              <div class="item text-center">
