@@ -1,7 +1,22 @@
                             <div class="item active text-center">
 
-                              <img src="storage/uploads/spooky-entries.jpg" />
-                              
+                              <img src="storage/uploads/spooky-jar-winner.jpg" />
+                              <h4>Answer: <strong class="text-orange">6,972</strong> jelly beans</h4>
+                              <h2 class="text-danger">Congratulations to: </h2>
+                              <p><a href="user/525" target="_blank"><img src="public/img/employees/525.jpg" class="img-circle" width="50">&nbsp;&nbsp;Adamson Oca - Circles.Life</a> <strong>[6,960]</strong></p>
+                              <p><a href="user/522" target="_blank"><img src="public/img/employees/522.jpg" class="img-circle" width="50">&nbsp;&nbsp;Lesle Novion - Zenefits</a> <strong>[6,920] &nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
+                              <p><a href="user/534" target="_blank"><img src="public/img/employees/534.jpg" class="img-circle" width="50">&nbsp;&nbsp;Luis Oliveros - Marketing</a> <strong>[6,882]&nbsp;&nbsp;</strong></p>
+                              <p><a href="user/1722" target="_blank"><img src="public/img/employees/1722.jpg" class="img-circle" width="50">&nbsp;&nbsp;Kathleen Manago - SheerID</a> <strong>[7,077]</strong></p>
+                              <p><a href="user/1745" target="_blank"><img src="public/img/employees/1745.jpg" class="img-circle" width="50">&nbsp;&nbsp;Armando Cabuga - Zenefits</a> <strong>[6,800]</strong></p>
+
+                              <p>You may claim your prizes from the <strong>Marketing Department</strong> located at the 5F from Nov.5-9, 2018.
+
+You may also start getting candies from the jar at the 5F Marketing area! Small cups are provided beside it. </p>
+                             
+                           </div> 
+
+                           <div class="item  text-center">
+                            <img src="storage/uploads/spooky-entries.jpg" />  
                              
                            </div> 
 
