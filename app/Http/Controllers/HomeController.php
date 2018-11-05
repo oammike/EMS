@@ -67,7 +67,7 @@ class HomeController extends Controller
 
       //Spooky Team
       
-      for($i=1; $i<=11; $i++){
+      for($i=1; $i<=12; $i++){
         $col->push(['lowsrc'=>"storage/uploads/thumb-spooky-entries".$i.".jpg",
                     'fullsrc'=>"storage/uploads/spooky-entries".$i.".jpg",
                     'description'=>"Open Access Spooky Team 2018",
