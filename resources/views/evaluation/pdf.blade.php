@@ -1542,13 +1542,13 @@
 
                               </td>
                               <td align="right">
-                                <h4 class="text-center"><img src="{{asset('public/img/new-oam-footer-logo.png')}}" style="float:left; padding-left:40px"  />
+                                <h4 class="text-center"><img src="{{asset('public/img/new-2018-logo.png')}}" style="float:left; padding-left:40px"  />
                                    {{$evalType->name}}<br/>
                                   <small>Evaluation Period: <strong> {{$startPeriod->format('M d')}} to  {{$endPeriod->format('M d, Y')}}  </strong> </small>
 
                                
                                 </h4>
-                                <h1 style="line-height:0.8; background-color:#67aa08; color:#fff; width:250px; padding-top:5px; float:right" id="overallScore"  data-score="{{$evalForm->overAllScore}}">
+                                <h1 style="line-height:0.8; background-color:#1a8fcb; color:#fff; width:250px; padding-top:5px; float:right" id="overallScore"  data-score="{{$evalForm->overAllScore}}">
                                   <span style="font-size:0.6em;" class="text-gray"><small>Performance Rating:</small> </span> {{$evalForm->overAllScore}}%<br/></h1>
                                   <div style="clear:both"></div>
 
