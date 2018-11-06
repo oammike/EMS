@@ -66,7 +66,7 @@ class HomeController extends Controller
 
       //Spooky Winners
       
-      for($i=1; $i<=5; $i++){
+      for($i=1; $i<=7; $i++){
         $col->push(['lowsrc'=>"storage/uploads/thumb-spookywinners-".$i.".jpg",
                     'fullsrc'=>"storage/uploads/spookywinners-".$i.".jpg",
                     'description'=>"Halloween 2018 Winners",
