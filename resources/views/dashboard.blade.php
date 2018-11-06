@@ -111,7 +111,18 @@ select:-webkit-autofill:focus {
 
 
 
-                 <!-- EVALS -->
+                
+
+                 
+                
+
+              </div>
+
+
+             
+             <div class="col-lg-7 col-sm-6 col-xs-12">
+
+               <!-- EVALS -->
                   <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Evaluations</h3>
@@ -149,12 +160,8 @@ select:-webkit-autofill:focus {
                 <!-- /.box -->
 
 
-                 
-                
 
-              </div>
-             
-             <div class="col-lg-7 col-sm-6 col-xs-12">
+
                  <!-- For approvals -->
                   <div class="box box-info"style="background: rgba(256, 256, 256, 0.5)">
                     <div class="box-header with-border">
