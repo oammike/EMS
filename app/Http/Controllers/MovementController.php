@@ -102,6 +102,35 @@ class MovementController extends Controller
             $sixMonths = Carbon::today()->subMonths(6);
 
             $movements = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->where('personnelChange_id',1)->orderBy('id','DESC')->get();
+
+            // we need to apply movements in the past to be DONE
+            DB::connection()->disableQueryLog();
+            $notYetDone = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->where('personnelChange_id',1)->where('isDone',0)->orderBy('id','DESC')->get();
+
+            foreach ($notYetDone as $n) {
+                
+                $moveIt = Movement_ImmediateHead::where('movement_id',$n->id)->first();
+                $updateTeam = Team::where('user_id',$n->user_id)->first();
+                $updateTeam->immediateHead_Campaigns_id = $moveIt->imHeadCampID_new;
+                $updateTeam->campaign_id = ImmediateHead_Campaign::find($moveIt->imHeadCampID_new)->campaign_id;
+                $updateTeam->floor_id = $moveIt->newFloor;
+
+                //update list of approver
+                $removeApprover = User_Leader::where('user_id',$n->user_id)->where('immediateHead_Campaigns_id',$moveIt->imHeadCampID_old)->get();
+
+
+                if (count($removeApprover)>0){
+                    $ra = $removeApprover->first();
+                    $ra->delete();
+                }
+
+                $newApprover = new User_Leader;
+                $newApprover->user_id = $n->user_id;
+                $newApprover->immediateHead_Campaigns_id = $moveIt->imHeadCampID_new;
+                $newApprover->save();
+
+                $updateTeam->save();$n->isDone = 1; $n->save();
+            }
             //$movements = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->get();//date('Y-m-d',strtotime("2017-12-31"))
             //return $programTransfers;
             
