@@ -355,6 +355,11 @@ trait TimekeepingTraits
                   
                 else { $billableForOT = 0; $OTattribute="&nbsp;&nbsp;&nbsp;"; } 
 
+                if ($hasHolidayToday)
+                          {
+                            $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                          }
+
               } 
               else 
                 { 
@@ -479,18 +484,18 @@ trait TimekeepingTraits
                     $billableForOT = $totalbill; $OTattribute=$icons;
                   }  else { $billableForOT = 0;  $OTattribute="&nbsp;&nbsp;&nbsp;";} 
 
-                   // if ($hasHolidayToday)
-                   //  {
-                   //    $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
-                   //  }
+                   if ($hasHolidayToday)
+                    {
+                      $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                    }
 
                 } //number_format(($endshift->diffInMinutes($out2))/60,2);}
                 else 
                   { $workedHours = number_format($wh/60,2); $billableForOT=0; 
-                    //  if ($hasHolidayToday)
-                    // {
-                    //   $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
-                    // }
+                     if ($hasHolidayToday)
+                    {
+                      $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                    }
                 }
                  //$UT = number_format($wh/60,2) - 8.0;
               
@@ -2360,6 +2365,11 @@ trait TimekeepingTraits
                       }
                         
                       else { $billableForOT = 0; /* $totalbill*/; $OTattribute= "&nbsp;&nbsp;&nbsp;";} 
+
+                      if ($hasHolidayToday)
+                          {
+                            $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                          }
 
 
                     } 
