@@ -47,83 +47,11 @@ select:-webkit-autofill:focus {
 
      <section class="content"><br/><br/><br/>
 
-
-
-                 <!-- ******** THE DATATABLE ********** -->
           <div class="row">
-             
-            
 
-              
+            <div class="col-lg-7 col-sm-6 col-xs-12">
 
-              <div class="col-lg-5 col-sm-6 col-xs-12">
-
-                <!-- SHOUT OUT -->
-                  <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Shoutout</h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body" id="ads">
-                     
-
-
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                          <!-- Indicators -->
-                          <!-- <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                            <li data-target="#myCarousel" data-slide-to="3"></li>
-                          </ol> -->
-
-                          <!-- Wrapper for slides -->
-                          <div class="carousel-inner" role="listbox">
-                            
-                            @include('layouts.slider')
-
-                          </div><!--end CAROUSEL -->
-
-                          <!-- Left and right controls -->
-                          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                          </a>
-                        </div>
-                      
-
-                    </div>
-                    <!-- /.box-body -->
-                    
-                    
-                  </div>
-                <!-- /.box -->
-
-
-
-                
-
-                 
-                
-
-              </div>
-
-
-             
-             <div class="col-lg-7 col-sm-6 col-xs-12">
-
-               <!-- EVALS -->
-                  <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+              <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Evaluations</h3>
 
@@ -156,11 +84,7 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-footer -->
                      {{Form::close()}}
-                  </div>
-                <!-- /.box -->
-
-
-
+              </div><!-- /.box -->
 
                  <!-- For approvals -->
                   <div class="box box-info"style="background: rgba(256, 256, 256, 0.5)">
@@ -225,27 +149,98 @@ select:-webkit-autofill:focus {
                   </div>
                 <!-- /.box-info -->
 
+
+
+                @if(count($groupedForm)>0 && !$reportsTeam )
+                <!-- ************* POSTMATE WIDGET CHART ************ -->
+                 @include('layouts.widget-Postmates')
+                @endif
+
+                @if($reportsTeam==1)
+                  <!-- ************* POSTMATE WIDGET CHART ************ -->
+                 @include('layouts.widget-Reports')
+
+                @endif
                
 
-             </div><!--end col7 -->
 
 
-             @if(count($groupedForm)>0 && !$reportsTeam )
-            <!-- ************* POSTMATE WIDGET CHART ************ -->
-             @include('layouts.widget-Postmates')
-            @endif
+                 <!-- ************* PERFORMANCE CHART ************ -->
+                 @include('layouts.charts')
 
-            @if($reportsTeam==1)
-              <!-- ************* POSTMATE WIDGET CHART ************ -->
-             @include('layouts.widget-Reports')
+               
 
-            @endif
-           
+             </div><!--end LEFT -->
+             
+            
+
+              
+
+              <div class="col-lg-5 col-sm-6 col-xs-12">
+
+                 
 
 
+                <!-- SHOUT OUT -->
+                  <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Shoutout</h3>
 
-             <!-- ************* PERFORMANCE CHART ************ -->
-             @include('layouts.charts')
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body" id="ads">
+                     
+
+
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                          <!-- Indicators -->
+                          <!-- <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                          </ol> -->
+
+                          <!-- Wrapper for slides -->
+                          <div class="carousel-inner" role="listbox">
+                            
+                            @include('layouts.slider')
+
+                          </div><!--end CAROUSEL -->
+
+                          <!-- Left and right controls -->
+                          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </div>
+                      
+
+                    </div>
+                    <!-- /.box-body -->
+                    
+                    
+                  </div>
+                <!-- /.box -->
+
+
+              </div><!--end RIGHT -->
+
+
+             
+             
+
+
+             
              
               <br/><br/><br/><hr/>
 

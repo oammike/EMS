@@ -60,64 +60,7 @@ You may also start getting candies from the jar at the 5F Marketing area! Small 
                              
                            </div> 
 
-                            <div class="item text-center">
-
-                              <p style="padding:20px">In line with the clinic's <strong>HIV/AIDS Awareness Program,</strong>we are happy to invite everyone to participate in our activity below on Nov 8, 2018.  <br/><br/>
-
-<strong class="text-danger">WHAT:</strong> HIV 101 PROGRAM with onsite FREE HIV TESTING and one on one counseling ( this process will be treated with confidentiality)<br/>
-
-<strong class="text-danger">WHEN: </strong>Nov 8, 2018 (7pm - 3am)<br/>
-
-<strong class="text-danger">WHERE: </strong> 8TH FLOOR PANTRY SIDE<br/>
-
-<strong class="text-danger">WHO:</strong> Makati Social Hygiene Clinic Team from Makati City Hall<br/><br/>
-
-HIV/AIDS cases in the country are rapidly increasing its rate, from 2 cases/day back in 2009 and presently, 31 cases/day (HARP, 2018). The only way to stop this, is through keeping ourselves informed about how it is being transmitted, its prevention and get tested. <br/><br/>
-
-This will be the third time to have an HIV/AIDS Prevention Program in the company.<br/>
-
-For interested participants and for any questions, please email us at our gmail address: oamnurse@openaccessmarketing.com or nurse@openaccessbpo.net in zimbra.</p>
-
-
-
-                            </div> 
-
-                           
-                          
-
-
-
-                          <!-- 
-                           <div class="item text-center">
-
-                              <img src="storage/uploads/spooky-2.jpg" />
-                              <h4 class="text-orange">Spooky Jar</h4>
-                              <p style="padding:20px; text-align: left">* Guess how many candies there are in the <strong class="text-danger">SPOOKY JAR </strong>located at the <strong>5F Marketing area</strong><br/>
-     * Employees can submit their guesses through <strong><a href="http://172.17.0.2/coffeebreak/2018/10/oam-spooky-halloween-activity-2018/" target="_blank">this link </a></strong><br/>
-     * First 10 employees to guess the correct number will win. In the event that nobody gets it right, the 5 bets closest to the right answer will win<br/>
-     * Deadline to submit your bets is until November 1, 11:59PM.<br/>
-     * Winners will be announced on November 2, 2018.</p>
-                             
-                           </div> 
- <div class="item text-center">
-
-                              <img src="storage/uploads/spooky-3.jpg" />
-                              <h4 class="text-orange">Spooky Jar</h4>
-                               <p style="padding:20px; text-align: left">* Guess how many candies there are in the <strong class="text-danger">SPOOKY JAR </strong>located at the <strong>5F Marketing area</strong><br/>
-     * Employees can submit their guesses through <strong><a href="http://172.17.0.2/coffeebreak/2018/10/oam-spooky-halloween-activity-2018/" target="_blank">this link </a></strong><br/>
-     * First 10 employees to guess the correct number will win. In the event that nobody gets it right, the 5 bets closest to the right answer will win<br/>
-     * Deadline to submit your bets is until November 1, 11:59PM.<br/>
-     * Winners will be announced on November 2, 2018.</p>
-                             
-                           </div> 
-
-                            <div class="item text-center">
-
-                              <img src="storage/uploads/spooky-4.jpg" />
-                             
-                              
-                             
-                           </div>  -->
+                            
 
                           <div class="item text-center">
 
@@ -468,7 +411,64 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                             </div>
                             
 
-                            
+                            <!-- <div class="item text-center">
+
+                              <p style="padding:20px">In line with the clinic's <strong>HIV/AIDS Awareness Program,</strong>we are happy to invite everyone to participate in our activity below on Nov 8, 2018.  <br/><br/>
+
+<strong class="text-danger">WHAT:</strong> HIV 101 PROGRAM with onsite FREE HIV TESTING and one on one counseling ( this process will be treated with confidentiality)<br/>
+
+<strong class="text-danger">WHEN: </strong>Nov 8, 2018 (7pm - 3am)<br/>
+
+<strong class="text-danger">WHERE: </strong> 8TH FLOOR PANTRY SIDE<br/>
+
+<strong class="text-danger">WHO:</strong> Makati Social Hygiene Clinic Team from Makati City Hall<br/><br/>
+
+HIV/AIDS cases in the country are rapidly increasing its rate, from 2 cases/day back in 2009 and presently, 31 cases/day (HARP, 2018). The only way to stop this, is through keeping ourselves informed about how it is being transmitted, its prevention and get tested. <br/><br/>
+
+This will be the third time to have an HIV/AIDS Prevention Program in the company.<br/>
+
+For interested participants and for any questions, please email us at our gmail address: oamnurse@openaccessmarketing.com or nurse@openaccessbpo.net in zimbra.</p>
+
+
+
+                            </div>  -->
+
+                           
+                          
+
+
+
+                          <!-- 
+                           <div class="item text-center">
+
+                              <img src="storage/uploads/spooky-2.jpg" />
+                              <h4 class="text-orange">Spooky Jar</h4>
+                              <p style="padding:20px; text-align: left">* Guess how many candies there are in the <strong class="text-danger">SPOOKY JAR </strong>located at the <strong>5F Marketing area</strong><br/>
+     * Employees can submit their guesses through <strong><a href="http://172.17.0.2/coffeebreak/2018/10/oam-spooky-halloween-activity-2018/" target="_blank">this link </a></strong><br/>
+     * First 10 employees to guess the correct number will win. In the event that nobody gets it right, the 5 bets closest to the right answer will win<br/>
+     * Deadline to submit your bets is until November 1, 11:59PM.<br/>
+     * Winners will be announced on November 2, 2018.</p>
+                             
+                           </div> 
+ <div class="item text-center">
+
+                              <img src="storage/uploads/spooky-3.jpg" />
+                              <h4 class="text-orange">Spooky Jar</h4>
+                               <p style="padding:20px; text-align: left">* Guess how many candies there are in the <strong class="text-danger">SPOOKY JAR </strong>located at the <strong>5F Marketing area</strong><br/>
+     * Employees can submit their guesses through <strong><a href="http://172.17.0.2/coffeebreak/2018/10/oam-spooky-halloween-activity-2018/" target="_blank">this link </a></strong><br/>
+     * First 10 employees to guess the correct number will win. In the event that nobody gets it right, the 5 bets closest to the right answer will win<br/>
+     * Deadline to submit your bets is until November 1, 11:59PM.<br/>
+     * Winners will be announced on November 2, 2018.</p>
+                             
+                           </div> 
+
+                            <div class="item text-center">
+
+                              <img src="storage/uploads/spooky-4.jpg" />
+                             
+                              
+                             
+                           </div>  -->
 
                             
 

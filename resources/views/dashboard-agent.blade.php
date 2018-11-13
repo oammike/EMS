@@ -50,6 +50,18 @@ select:-webkit-autofill:focus {
 
                  <!-- ******** THE DATATABLE ********** -->
           <div class="row">
+
+
+            <div class="col-lg-7 col-sm-6 col-xs-12">
+               @if(count($groupedForm)>0)
+            <!-- ************* POSTMATE WIDGET CHART ************ -->
+             @include('layouts.widget-Postmates')
+            @endif
+
+             
+             <!-- ************* PERFORMANCE CHART ************ -->
+             @include('layouts.charts')
+            </div>
              
             
 
@@ -114,14 +126,7 @@ select:-webkit-autofill:focus {
 
 
             
-            @if(count($groupedForm)>0)
-            <!-- ************* POSTMATE WIDGET CHART ************ -->
-             @include('layouts.widget-Postmates')
-            @endif
-
-             
-             <!-- ************* PERFORMANCE CHART ************ -->
-             @include('layouts.charts')
+           
              
               <br/><br/><br/><hr/>
                       

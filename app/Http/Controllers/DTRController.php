@@ -302,13 +302,34 @@ class DTRController extends Controller
         // 31 = SheerID
         // 32 = Circles
         // 47 = Advance Wellness
+        // 42 - Bird
+        // 48 - another
         // 26 = WV
 
-        if ($saanLocated[0]->campaign_id != 10 && $saanLocated[0]->campaign_id != 16 && $saanLocated[0]->campaign_id != 37 && $saanLocated[0]->campaign_id != 12 && $saanLocated[0]->campaign_id != 31 && $saanLocated[0]->campaign_id != 32 && $saanLocated[0]->campaign_id != 47 && $saanLocated[0]->campaign_id != 26 )
+        if ($saanLocated[0]->campaign_id != 10 && 
+            $saanLocated[0]->campaign_id != 12 && 
+            $saanLocated[0]->campaign_id != 16 && 
+            $saanLocated[0]->campaign_id != 26 &&
+            $saanLocated[0]->campaign_id != 37 && 
+            $saanLocated[0]->campaign_id != 31 && 
+            $saanLocated[0]->campaign_id != 32 && 
+            $saanLocated[0]->campaign_id != 42 && 
+            $saanLocated[0]->campaign_id != 47 && 
+            $saanLocated[0]->campaign_id != 48 
+             )
         {
           $message = '<br/><br/><h1><i class="fa fa-file-code-o fa-2x"></i></h1>';
           $message .='<h3>DTR Module Under Construction </h3>';
-          $message .='<p>Viewing of DTR sheet is currently available for the following test groups only: <strong>Marketing | Lebua | Business Dev | Finance</strong>. <br/>Workforce and Programming Team is still working on streamlining DTR processes for the rest of our office floors. <br/>We will let you know once we are done with beta testing.<br/><br/> Thank you.</p>';
+          $message .='<p>Viewing of DTR sheet is currently available for all 5F employees as test groups only: <br/>
+           <strong>Advance Wellness <br/>
+           AnOther <br/>
+           Bird <br/>
+           Circles.Life <br/>
+           Business Dev <br/>
+           Finance <br />
+           Marketing <br/> 
+           Lebua <br/>
+           SheerID </strong>. <br/><br/><br/> <em>Workforce and Programming Team is still working on streamlining DTR processes for the rest of our office floors. <br/>We will let you know once we are done with beta testing.</em><br/><br/> Thank you.</p>';
 
           $correct = Carbon::now('GMT+8'); //->timezoneName();
 
