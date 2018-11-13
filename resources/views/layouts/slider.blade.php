@@ -1,5 +1,15 @@
                             <div class="item active text-center">
 
+                              <img src="storage/uploads/stanlee.jpg" />
+                              <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OACelebratesHeroes #RIPStanLee #OAonKindness #WorldKindnessDay</small></a></div> 
+                              <p style="padding:50px">@TheRealStanLee will always be remembered as the man behind a universe of the greatest superheroes and one of the world's best storytellers. <br/><br/>May his works continue to inspire people across the globe towards greater kindness. <br/><br/> </p>
+                             
+                           </div> 
+
+
+                            <div class="item text-center">
+
                               <img src="storage/uploads/spooky-jar-winner.jpg" />
                               <h4>Answer: <strong class="text-orange">6,972</strong> jelly beans</h4>
                               <h2 class="text-danger">Congratulations to: </h2>

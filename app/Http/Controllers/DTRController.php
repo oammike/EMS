@@ -1749,7 +1749,7 @@ class DTRController extends Controller
                                                 if($isRDYest || $isAproblemShift || !$sameDayLog)
                                                 {
                                                   $data = $this->getComplicatedWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$isRDYest,$payday);
-                                                  //$coll->push(['workedHours'=>"(isRDYest || isAproblemShift || !sameDayLog) [CWH]"]);
+                                                  $coll->push(['workedHours'=>"(isRDYest || isAproblemShift || !sameDayLog)", 'checkLate'=>$data[0]['checkLate'],'biometricsID'=>$bioForTheDay->id]);
                                                 }
                                                 else
                                                   {
@@ -1890,7 +1890,7 @@ class DTRController extends Controller
             // $coll->push(['anApprover'=>$anApprover, 'TLapprover'=>$TLapprover]);
            //return $myDTR;
 
-          // return response()->json(['approvers'=> count($user->approvers)]);
+           //return response()->json(['coll'=> $coll]);
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 
