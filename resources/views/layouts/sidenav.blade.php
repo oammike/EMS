@@ -330,6 +330,8 @@
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') ){ ?> 
             <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload"><i class="fa fa-upload"></i>Upload Biometrics</a></li>
 
+             <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload2"><i class="fa fa-upload"></i>Upload Finance CSV</a></li>
+
             <?php } ?><br/>
           </ul>
         </li>
@@ -379,8 +381,17 @@
     <!-- /.sidebar -->
   </aside>
 
+  @include('layouts.modals-upload', [
+                                'modelRoute'=>'biometrics.uploadFinanceCSV',
+                                'modelID' => '_upload2', 
+                                'modelName'=>"Finance CSV file ", 
+                                'modalTitle'=>'Upload', 
+                                'modalMessage'=>'Select CSV file to upload (*.csv):', 
+                                'formID'=>'uploadBio2',
+                                'icon'=>'glyphicon-up' ])
+
    @include('layouts.modals-upload', [
-                                'modelRoute'=>'biometrics.store',
+                                'modelRoute'=>'biometrics.upload',
                                 'modelID' => '_upload', 
                                 'modelName'=>"Biometrics file ", 
                                 'modalTitle'=>'Upload', 

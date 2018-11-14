@@ -147,6 +147,7 @@ trait TimekeepingTraits
 
     $data = new Collection;
     $chenes ="";
+    $checkLate="init";
     $UT = 0; $actualIN=null; $actualOUT=null;$todayStart=null;$todayEnd=null;$isEarlyOUT=null;$isLateIN=null;
 
     $billableForOT=0; $endshift = Carbon::parse($shiftEnd); $diff = null; $OTattribute="";
@@ -259,7 +260,8 @@ trait TimekeepingTraits
 
           if ($isRDYest)
           {
-            
+            $getBioID = $userLogOUT[0]['logs']->sortByDesc('created_at');
+            $gbID = Biometrics::find($getBioID->first()->biometrics_id);
             $todayStart = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"); //->format('Y-m-d H:i:s');
             $todayEnd = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->addDay(); //->format('Y-m-d H:i:s');
             $actualIN = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"); //->format('Y-m-d H:i:s');
@@ -280,7 +282,7 @@ trait TimekeepingTraits
                  if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
               }
 
-            } else $isLateIN=false;
+            } else {$isLateIN=false;$checkLate = $gbID->productionDate."| ". $actualIN->format('Y-m-d H:i:s')." > ". $todayStart->format('Y-m-d H:i:s')." && ". $todayEnd->format('Y-m-d H:i:s');}
 
 
             if ($actualOUT > $todayStart && $actualOUT < $todayEnd) // EARLY OUT
@@ -354,6 +356,11 @@ trait TimekeepingTraits
                 }
                   
                 else { $billableForOT = 0; $OTattribute="&nbsp;&nbsp;&nbsp;"; } 
+
+                if ($hasHolidayToday)
+                          {
+                            $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                          }
 
               } 
               else 
@@ -479,18 +486,18 @@ trait TimekeepingTraits
                     $billableForOT = $totalbill; $OTattribute=$icons;
                   }  else { $billableForOT = 0;  $OTattribute="&nbsp;&nbsp;&nbsp;";} 
 
-                   // if ($hasHolidayToday)
-                   //  {
-                   //    $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
-                   //  }
+                   if ($hasHolidayToday)
+                    {
+                      $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                    }
 
                 } //number_format(($endshift->diffInMinutes($out2))/60,2);}
                 else 
                   { $workedHours = number_format($wh/60,2); $billableForOT=0; 
-                    //  if ($hasHolidayToday)
-                    // {
-                    //   $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
-                    // }
+                     if ($hasHolidayToday)
+                    {
+                      $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                    }
                 }
                  //$UT = number_format($wh/60,2) - 8.0;
               
@@ -806,7 +813,7 @@ trait TimekeepingTraits
             $workedHours = "<a title=\"Check your Biometrics data. \n It's possible that you pressed a wrong button, the machine malfunctioned, or you really didn't log in / out.\"><strong class=\"text-danger\">AWOL </strong></a>";
         }
 
-        $data->push(['checkLate'=>$chenes, 'payday'=>$payday, 
+        $data->push(['checkLate'=>$checkLate,'isLateIN'=>$isLateIN,  'payday'=>$payday, 
           'workedHours'=>$workedHours, 'billableForOT'=>$billableForOT, 
           'OTattribute'=>$OTattribute ,'UT'=>$UT,
          'actualIN'=>$actualIN, 'actualOUT'=>$actualOUT, 
@@ -1612,7 +1619,7 @@ trait TimekeepingTraits
 
                          $log = date('h:i:s A',strtotime($userLog->first()->logTime));
 
-                         $timing =  Carbon::parse($userLog->first()->logTime, "Asia/Manila");
+                         $timing =  Carbon::parse($userLog->first()->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
                          if (count($hasApprovedDTRP) > 0){
                             //$log = date('h:i:s A',strtotime($userLog->logTime));
                             switch ($logType_id) {
@@ -2360,6 +2367,11 @@ trait TimekeepingTraits
                       }
                         
                       else { $billableForOT = 0; /* $totalbill*/; $OTattribute= "&nbsp;&nbsp;&nbsp;";} 
+
+                      if ($hasHolidayToday)
+                          {
+                            $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                          }
 
 
                     } 

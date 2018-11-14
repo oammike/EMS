@@ -295,22 +295,52 @@ class DTRController extends Controller
         $saanLocated = DB::table('team')->where('user_id','=',$user->id)->get();
 
         //if($saanLocated[0]->floor_id != 1 && $saanLocated[0]->floor_id != 2  )
-        if ($saanLocated[0]->campaign_id != 10 && $saanLocated[0]->campaign_id != 16 && $saanLocated[0]->campaign_id != 37 && $saanLocated[0]->campaign_id != 12 )
-        {
-          $message = '<br/><br/><h1><i class="fa fa-file-code-o fa-2x"></i></h1>';
-          $message .='<h3>DTR Module Under Construction </h3>';
-          $message .='<p>Viewing of DTR sheet is currently available for the following test groups only: <strong>Marketing | Lebua | Business Dev | Finance</strong>. <br/>Workforce and Programming Team is still working on streamlining DTR processes for the rest of our office floors. <br/>We will let you know once we are done with beta testing.<br/><br/> Thank you.</p>';
+        // 37 = BD
+        // 12 = Lebua
+        // 16 = Marketing
+        // 10 = Finance
+        // 31 = SheerID
+        // 32 = Circles
+        // 47 = Advance Wellness
+        // 42 - Bird
+        // 48 - another
+        // 26 = WV
 
-          $correct = Carbon::now('GMT+8'); //->timezoneName();
+        if ($saanLocated[0]->campaign_id != 10 && 
+            $saanLocated[0]->campaign_id != 12 && 
+            $saanLocated[0]->campaign_id != 16 && 
+            $saanLocated[0]->campaign_id != 26 &&
+            $saanLocated[0]->campaign_id != 37 && 
+            $saanLocated[0]->campaign_id != 31 && 
+            $saanLocated[0]->campaign_id != 32 && 
+            $saanLocated[0]->campaign_id != 42 && 
+            $saanLocated[0]->campaign_id != 47 && 
+            $saanLocated[0]->campaign_id != 48 
+             )
+            {
+                    $message = '<br/><br/><h1><i class="fa fa-file-code-o fa-2x"></i></h1>';
+                    $message .='<h3>DTR Module Under Construction </h3>';
+                    $message .='<p>Viewing of DTR sheet is currently available for all 5F employees as test groups only: <br/>
+                     <strong>Advance Wellness <br/>
+                     AnOther <br/>
+                     Bird <br/>
+                     Circles.Life <br/>
+                     Business Dev <br/>
+                     Finance <br />
+                     Marketing <br/> 
+                     Lebua <br/>
+                     SheerID </strong>. <br/><br/><br/> <em>Workforce and Programming Team is still working on streamlining DTR processes for the rest of our office floors. <br/>We will let you know once we are done with beta testing.</em><br/><br/> Thank you.</p>';
 
-           if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Tried to View DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-                fclose($file);
-            }  
+                    $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-          return view('empty-page',['message'=>$message, 'title'=>"DTR Under Construction"]);
-        }
+                     if($this->user->id !== 564 ) {
+                        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                          fwrite($file, "-------------------\n Tried to View DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                          fclose($file);
+                      }  
+
+                    return view('empty-page',['message'=>$message, 'title'=>"DTR Under Construction"]);
+            }
         
 
         $collect = new Collection; 
@@ -1719,7 +1749,7 @@ class DTRController extends Controller
                                                 if($isRDYest || $isAproblemShift || !$sameDayLog)
                                                 {
                                                   $data = $this->getComplicatedWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$isRDYest,$payday);
-                                                  //$coll->push(['workedHours'=>"(isRDYest || isAproblemShift || !sameDayLog) [CWH]"]);
+                                                  $coll->push(['workedHours'=>"(isRDYest || isAproblemShift || !sameDayLog)", 'checkLate'=>$data[0]['checkLate'],'biometricsID'=>$bioForTheDay->id]);
                                                 }
                                                 else
                                                   {
@@ -1860,7 +1890,7 @@ class DTRController extends Controller
             // $coll->push(['anApprover'=>$anApprover, 'TLapprover'=>$TLapprover]);
            //return $myDTR;
 
-          // return response()->json(['approvers'=> count($user->approvers)]);
+           //return response()->json(['coll'=> $coll]);
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 

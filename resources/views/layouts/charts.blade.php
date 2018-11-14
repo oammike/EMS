@@ -1,6 +1,5 @@
 @if(count($performance)>0)
              
-             <div class="col-lg-7 col-sm-6 col-xs-12">
 
               @if (count($performance) <= 1)
                   <div class="box box-info"style="background: rgba(256, 256, 256, 0.9)">
@@ -48,13 +47,6 @@
                     </div>
                     <!-- /.box-body -->
                   </div>
-                @endif
-
-
-
-             </div>
-
-
-             
+                @endif             
 
              @endif

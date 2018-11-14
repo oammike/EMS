@@ -38,6 +38,7 @@ use OAMPI_Eval\Biometrics_Uploader;
 use OAMPI_Eval\Logs;
 use OAMPI_Eval\LogType;
 use OAMPI_Eval\TempUpload;
+use OAMPI_Eval\MonthlySchedules;
 class BiometricsController extends Controller
 {
    protected $user;
@@ -184,6 +185,217 @@ class BiometricsController extends Controller
 
 		      
 	    }
+    	
+
+    }
+
+    public function uploadFinanceCSV(Request $request)
+    {
+    	$today = date('Y-m-d');
+    	
+    	$bioFile = $request->file('biometricsData');
+    	
+	    //if (Input::file('biometricsData')->isValid()) 
+	    if (!empty($bioFile))
+	    {
+		      //$destinationPath = 'uploads'; // upload path
+		      $destinationPath = storage_path() . '/uploads/';
+		      $extension = Input::file('biometricsData')->getClientOriginalExtension(); // getting image extension
+		      $fileName = $today.'-biometrics-finance.'.$extension; // renameing image
+		      $bioFile->move($destinationPath, $fileName); // uploading file to given path
+		      
+
+
+
+				$file = fopen($destinationPath.$fileName, 'r');
+				$file2 = fopen($destinationPath.$fileName, 'r');
+				
+
+
+				$coll = new Collection;
+				$ctr=0;
+				$headers = [];
+				$flag = true;
+				DB::connection()->disableQueryLog();
+				$csvCol = fgets($file2); 
+
+				$headers = explode(',', $csvCol);
+				$totalCols = count($headers);
+				
+				//return response()->json(['totalCols'=>$totalCols, 'headers'=>$headers]);
+
+			    
+
+				
+				// rows
+				// NAME | EMP ID NO.| ACCESSCODE | SCHEDULE | APPROVER | 21-Oct-2018 | TIME IN | TIME OUT | LATE | ND | OT | TOTAL ND | TOTAL OT
+				while (($result = fgetcsv($file)) !== false)
+					{
+						//$coll->push(['result'=>$result]);
+						if ($flag) $flag=false;
+						else{
+
+							for ($i=5; $i < $totalCols ; $i++) {
+								//$coll->push(['item'=>$headers[$i], 'keme'=>strpos($headers[$i],"TOTAL") ]);
+
+								if (strpos($headers[$i],"OT") !== false || strpos($headers[$i],"ND") !== false || strpos($headers[$i],"TIME") !== false || strpos($headers[$i],"LATE") !== false || strpos($headers[$i],"Approver") !== false || empty($result[3]) || empty($result[$i]) ) 
+								{
+									// do this things kung may laman lang kung waley dont do it
+
+								}
+								else if (Carbon::createFromFormat('d-M-Y',$headers[$i]) !== false) {
+									$paydate = Carbon::createFromFormat('d-M-Y',$headers[$i],'Asia/Manila');
+									$paydate2 = Carbon::createFromFormat('d-M-Y',$headers[$i],'Asia/Manila');
+									$bio = Biometrics::where('productionDate',$paydate->format('Y-m-d'))->get();
+									if (count($bio)>0) $b = $bio->first(); 
+									else {
+										// create new Biometrics
+										$b = new Biometrics;
+										$b->productionDate = $paydate->format('Y-m-d');
+										$b->save();
+
+									} 
+									$u = User::where('accesscode',$result[2])->get();
+									if (count($u)>0){
+										$emp = $u->first();
+										$user = $emp->firstname.' '.$emp->lastname;
+
+										$existingSched = MonthlySchedules::where('user_id', $emp->id)->where('productionDate',$paydate->format('Y-m-d'))->orderBy('created_at','DESC')->get();
+
+										if (count($existingSched) > 0)
+										{
+											$worksched = $existingSched->first();
+
+										} else {
+											// setup worksched. Kung may DTRP submitted and approved yun ang gamitin
+											// else save it as user-monthlysched
+											//save it as MOnthlysched
+
+											$sched = explode("-", $result[3]);
+											$startSched = date('H:i:s',strtotime($sched[0]));
+											$endSched = date('H:i:s',strtotime($sched[1]));
+
+											$worksched = new MonthlySchedules;
+											$worksched->user_id = $emp->id;
+											$worksched->productionDate = $paydate->format('Y-m-d');
+											$worksched->timeStart = $startSched;
+											$worksched->timeEnd = $endSched;
+
+											($result[$i] == "RD") ? $worksched->isRD = true : $worksched->isRD = false;
+											(strtoupper($result[3]) == "FLEXI") ? $worksched->isFlexitime = true : $worksched->isFlexitime = false;
+
+											$worksched->save();
+
+										}
+
+										// WE NOW SAVE THE LOGS
+										if ($result[$i] != "RD" && $result[$i+1] != '0')
+										{
+											$log = new Logs;
+											$log->user_id = $emp->id;
+											$log->biometrics_id = $b->id;
+											$log->logTime = date('H:i:s',strtotime($result[$i+1]));
+											$log->logType_id = 1; //LogIN
+											$log->save();
+
+											// check if Next-day logout; ie complicated sched
+											// This is assuming na hindi UNDERTIME si employee
+											// ** there must be some form of indicator kung undertime si employee
+
+											if ($worksched->timeStart >= date('H:i:s',strtotime("3PM"))) {
+												$pd = $paydate2->addHours(24)->format('Y-m-d');
+												$bioNext = Biometrics::where('productionDate',$pd)->get();
+
+												if (count($bioNext)>0) $bNext = $bioNext->first(); 
+												else {
+													// create new Biometrics
+													$bNext = new Biometrics;
+													$bNext->productionDate = $pd;
+													$bNext->save();
+
+												} 
+
+												$log = new Logs;
+												$log->user_id = $emp->id;
+												$log->biometrics_id = $bNext->id;
+												$log->logTime = date('H:i:s',strtotime($result[$i+2]));
+												$log->logType_id = 2; //LogOUT
+												$log->save();
+
+											} else {
+													$log = new Logs;
+													$log->user_id = $emp->id;
+													$log->biometrics_id = $b->id;
+													$log->logTime = date('H:i:s',strtotime($result[$i+2]));
+													$log->logType_id = 2; //LogOUT
+													$log->save();
+											}
+
+											
+
+										}
+										
+
+
+
+
+
+									}  else $user = null;
+
+
+									if (!is_null($user)){
+										if ($worksched->isRD)
+										$coll->push(['user'=>$user,
+										'biometrics'=> $b->id, 
+										'schedule1'=>"* RD",
+										'schedule2'=>"RD *",
+										'timeIN'=>date('H:i:s',strtotime($result[$i+1])),
+										'timeOUT'=> date('H:i:s',strtotime($result[$i+2])),
+										'late'=> $result[$i+3],
+										'nd'=> $result[$i+4],
+										'ot' => $result[$i+5]]);
+									else
+										$coll->push(['user'=>$user,
+										'biometrics'=> $b->id, 
+										'schedule1'=>$worksched->timeStart,
+										'schedule2'=>$worksched->timeEnd,
+										'timeIN'=>date('H:i:s',strtotime($result[$i+1])),
+										'timeOUT'=> date('H:i:s',strtotime($result[$i+2])),
+										'late'=> $result[$i+3],
+										'nd'=> $result[$i+4],
+										'ot' => $result[$i+5],
+
+								]); 
+
+
+									}
+									
+								} else{ 
+									
+									// do nothing
+									//( strtoupper($csvCol[$i]) == 'TIME IN' )
+									# code...
+								}
+					    	}//end for
+
+						}//end else
+						
+
+						
+					    $ctr++;
+					    
+					}//end while
+
+			    fclose($file);fclose($file2);
+
+			   return response()->json($coll);
+
+
+				   // return redirect()->action('TempUploadController@index');
+
+		      
+	    }
+	    else return response()->json(['success'=>false]);
     	
 
     }

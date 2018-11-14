@@ -10,7 +10,7 @@
       <div class="modal-body-upload">
        
 
-        {{ Form::open(['route' => 'biometrics.upload','class'=>'col-lg-12', 'id'=>'uploadBio', 'name'=>'uploadBio', 'files'=>'true' ]) }} <br/><br/>
+        {{ Form::open(['route' => $modelRoute,'class'=>'col-lg-12', 'id'=>$formID, 'name'=>'uploadBio', 'files'=>'true' ]) }} <br/><br/>
 
          <h5>{{ $modalMessage }}</h5>
 
