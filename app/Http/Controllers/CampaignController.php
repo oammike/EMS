@@ -525,7 +525,7 @@ class CampaignController extends Controller
         foreach($scheds_data as $key=>$value){
           $labels[] = $key;
           $workhours[] = $value['hours'];
-          $agentcount[] = $value['agent_count'];
+          $agentcount[] = isset($value['agent_count']) ? $value['agent_count'] : 0;
         }
         $scheds = new \stdClass();
         $scheds->labels = $labels;
