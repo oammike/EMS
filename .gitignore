@@ -14,3 +14,4 @@ composer.json
 /public/build/changes.txt
 /tests
 **/.DS_Store
+.DS_Store
