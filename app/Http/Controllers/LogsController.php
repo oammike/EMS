@@ -112,6 +112,29 @@ class LogsController extends Controller
     	return view('timekeeping.myDTR', compact('myDTR','camps','user'));
     }
 
+    public function saveDashboardLog(Request $request)
+    {
+        $log = new Logs;
+        $log->logTime = Carbon::parse($request->clocktime,'Asia/Manila')->format('H:i:s');
+        $log->logType_id = $request->logtype_id;
+        $log->manual = true;
+        $log->user_id = $this->user->id;
+
+        $bio = Biometrics::where('productionDate',date('Y-m-d'))->get();
+        if (count($bio) > 0)
+            $log->biometrics_id = $bio->first()->id;
+        else{
+            $b = new Biometrics;
+            $b->productionDate = date('Y-m-d');
+            $b->save();
+            $log->biometrics_id = $b->id;
+        }
+        $log->save();
+
+        return response()->json(['success'=>'1','logs'=>$log]);
+
+    }
+
 
     public function saveDailyUserLogs(Request $request)
     {

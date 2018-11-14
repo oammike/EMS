@@ -29,6 +29,7 @@ use OAMPI_Eval\User_DTRP;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_Memo;
 use OAMPI_Eval\Memo;
+use OAMPI_Eval\Logs;
 use OAMPI_Eval\Biometrics;
 use OAMPI_Eval\NotifType;
 use OAMPI_Eval\FormBuilder;
@@ -299,6 +300,48 @@ class HomeController extends Controller
 
             };
 
+
+            /************* for TIMEKEEPING WIDGET ***************/
+
+            //check if user has already logged in
+
+            $startToday = Carbon::now('GMT+8');
+
+            if ($startToday->format('H:i') > date('H:i',strtotime('12AM')) && $startToday->format('H:i') <= date('H:i', strtotime('8AM')) ) //for those with 11pm-8am shift
+            {
+              $tomBio = Biometrics::where('productionDate', Carbon::now()->addHours(-12)->format('Y-m-d'))->get();
+              if (count($tomBio) > 0)
+                $b = $tomBio->first();
+              else {
+                $b = new Biometrics;
+                $b->productionDate = Carbon::now()->addHours(-12)->format('Y-m-d');
+                $b->save();
+
+              }
+              //$loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('created_at','>=',Carbon::now()->addHours(-12)->format('Y-m-d H:i:s'))->get();
+              //$loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometics_id',$b->id)->get();
+             
+
+            }else {
+              //$loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('created_at','>=',Carbon::now()->startOfDay()->format('Y-m-d H:i:s'))->get();
+              $tomBio = Biometrics::where('productionDate', Carbon::now()->format('Y-m-d'))->get();
+              if (count($tomBio) > 0)
+                $b = $tomBio->first();
+              else {
+                $b = new Biometrics;
+                $b->productionDate = Carbon::now()->addHours(-12)->format('Y-m-d');
+                $b->save();
+
+              }
+             
+            }
+
+            $loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometrics_id',$b->id)->get();
+
+            if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;
+            
+            //return response()->json(['startToday'=>$startToday->format('H:i'), 'log'=> $loggedIn, 'alreadyLoggedIN'=>$alreadyLoggedIN]);// $loggedIn;
+
                
 
 
@@ -360,7 +403,7 @@ class HomeController extends Controller
                     //return redirect()->route('user.show',['id'=>$this->user->id]);
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
-                    return view('dashboard-agent', compact('performance', 'firstYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo'));
+                    return view('dashboard-agent', compact('performance', 'firstYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN'));
                     
 
 
@@ -372,7 +415,7 @@ class HomeController extends Controller
 
                    //return $groupedForm; 
 
-                    return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo'));
+                    return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN'));
                     //return $pass = bcrypt('emelda'); $2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
 

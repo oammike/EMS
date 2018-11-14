@@ -765,6 +765,18 @@
 
       </div>
 
+      <!----------------- MEMO ---------------->
+      @if (!is_null($memo) && $notedMemo != true)
+        @include('layouts.modals-memo', [
+                                  'modelRoute'=>'user_memo.store',
+                                  'modelID' => $memo->id, 
+                                  'modelName'=>$memo->title, 
+                                  'modalTitle'=>$memo->title, 
+                                  'modalMessage'=> $memo->body, 
+                                  'formID'=>'memo',
+                                  'icon'=>'glyphicon-check' ])
+      @endif
+
          
 
      
@@ -784,6 +796,41 @@
 <script type="text/javascript">
 $(function () 
 {
+
+  /*----------------- MEMO ----------------*/
+
+    $(window).bind("load", function() {
+
+       @if (!is_null($memo) && $notedMemo != true)
+       $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
+       @endif
+  });
+      
+   @if (!is_null($memo) && $notedMemo != true)
+      $('#yesMemo').on('click',function(){
+
+        var _token = "{{ csrf_token() }}";
+        
+
+        //--- update user notification first
+        $.ajax({
+            url: "{{action('UserMemoController@saveUserMemo')}}",
+            type:'POST',
+            data:{ 
+              'id': "{{$memo->id}}",
+              '_token':_token
+            },
+
+            success: function(res){
+                    console.log(res);
+            },
+          });
+
+      });
+   @endif
+
+
+
 
   $( ".datepicker" ).on('click', function()
     { 

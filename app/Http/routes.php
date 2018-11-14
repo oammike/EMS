@@ -120,6 +120,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'logs.saveDailyUserLogs',
       'uses'=>'LogsController@viewRawBiometricsData') );
 
+    Route::post('/saveDashboardLog', array(
+      'as'=> 'logs.saveDashboardLog',
+      'uses'=>'LogsController@saveDashboardLog') );
+
     Route::post('/user_cws/process', array(
       'as'=> 'user_cws.process',
       'uses'=>'UserCWSController@process') );

@@ -49,6 +49,8 @@ use OAMPI_Eval\User_Notification;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
+use OAMPI_Eval\Memo;
+use OAMPI_Eval\User_Memo;
 
 
 
@@ -292,7 +294,7 @@ class DTRController extends Controller
         if (is_null($user)) return view('empty');
 
         /*--check floor for Beta testing --*/
-        $saanLocated = DB::table('team')->where('user_id','=',$user->id)->get();
+        //$saanLocated = DB::table('team')->where('user_id','=',$user->id)->get();
 
         //if($saanLocated[0]->floor_id != 1 && $saanLocated[0]->floor_id != 2  )
         // 37 = BD
@@ -306,41 +308,41 @@ class DTRController extends Controller
         // 48 - another
         // 26 = WV
 
-        if ($saanLocated[0]->campaign_id != 10 && 
-            $saanLocated[0]->campaign_id != 12 && 
-            $saanLocated[0]->campaign_id != 16 && 
-            $saanLocated[0]->campaign_id != 26 &&
-            $saanLocated[0]->campaign_id != 37 && 
-            $saanLocated[0]->campaign_id != 31 && 
-            $saanLocated[0]->campaign_id != 32 && 
-            $saanLocated[0]->campaign_id != 42 && 
-            $saanLocated[0]->campaign_id != 47 && 
-            $saanLocated[0]->campaign_id != 48 
-             )
-            {
-                    $message = '<br/><br/><h1><i class="fa fa-file-code-o fa-2x"></i></h1>';
-                    $message .='<h3>DTR Module Under Construction </h3>';
-                    $message .='<p>Viewing of DTR sheet is currently available for all 5F employees as test groups only: <br/>
-                     <strong>Advance Wellness <br/>
-                     AnOther <br/>
-                     Bird <br/>
-                     Circles.Life <br/>
-                     Business Dev <br/>
-                     Finance <br />
-                     Marketing <br/> 
-                     Lebua <br/>
-                     SheerID </strong>. <br/><br/><br/> <em>Workforce and Programming Team is still working on streamlining DTR processes for the rest of our office floors. <br/>We will let you know once we are done with beta testing.</em><br/><br/> Thank you.</p>';
+        // if ($saanLocated[0]->campaign_id != 10 && 
+        //     $saanLocated[0]->campaign_id != 12 && 
+        //     $saanLocated[0]->campaign_id != 16 && 
+        //     $saanLocated[0]->campaign_id != 26 &&
+        //     $saanLocated[0]->campaign_id != 37 && 
+        //     $saanLocated[0]->campaign_id != 31 && 
+        //     $saanLocated[0]->campaign_id != 32 && 
+        //     $saanLocated[0]->campaign_id != 42 && 
+        //     $saanLocated[0]->campaign_id != 47 && 
+        //     $saanLocated[0]->campaign_id != 48 
+        //      )
+        //     {
+        //             $message = '<br/><br/><h1><i class="fa fa-file-code-o fa-2x"></i></h1>';
+        //             $message .='<h3>DTR Module Under Construction </h3>';
+        //             $message .='<p>Viewing of DTR sheet is currently available for all 5F employees as test groups only: <br/>
+        //              <strong>Advance Wellness <br/>
+        //              AnOther <br/>
+        //              Bird <br/>
+        //              Circles.Life <br/>
+        //              Business Dev <br/>
+        //              Finance <br />
+        //              Marketing <br/> 
+        //              Lebua <br/>
+        //              SheerID </strong>. <br/><br/><br/> <em>Workforce and Programming Team is still working on streamlining DTR processes for the rest of our office floors. <br/>We will let you know once we are done with beta testing.</em><br/><br/> Thank you.</p>';
 
-                    $correct = Carbon::now('GMT+8'); //->timezoneName();
+        //             $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-                     if($this->user->id !== 564 ) {
-                        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                          fwrite($file, "-------------------\n Tried to View DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-                          fclose($file);
-                      }  
+        //              if($this->user->id !== 564 ) {
+        //                 $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+        //                   fwrite($file, "-------------------\n Tried to View DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+        //                   fclose($file);
+        //               }  
 
-                    return view('empty-page',['message'=>$message, 'title'=>"DTR Under Construction"]);
-            }
+        //             return view('empty-page',['message'=>$message, 'title'=>"DTR Under Construction"]);
+        //     }
         
 
         $collect = new Collection; 
@@ -1664,7 +1666,7 @@ class DTRController extends Controller
 
                                       $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
                                       //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
-                                      //$coll->push(['workedHours:'=> "Workday sameDayLog - LOG IN (WH) "]);
+                                      $coll->push(['ret workedHours:'=> $data]);
 
                                      
                                         $workedHours= $data[0]['workedHours'];
@@ -1898,9 +1900,25 @@ class DTRController extends Controller
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Viewed DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
-            }  
+            } 
 
-           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom'));
+
+            /*----------- check for available MEMOS --------------*/
+                $activeMemo = Memo::where('active',1)->orderBy('created_at','DESC')->get();
+                if (count($activeMemo)>0){
+                  $memo = $activeMemo->first();
+
+                  //check if nakita na ni user yung memo
+                  $seenMemo = User_Memo::where('user_id',$this->user->id)->where('memo_id',$memo->id)->get();
+                  if (count($seenMemo)>0)
+                    $notedMemo = true;
+                  else $notedMemo = false;
+
+                }else { $notedMemo=false; $memo=null; } 
+
+
+
+           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo'));
 
 
         } else return view('access-denied');
