@@ -40,7 +40,7 @@
 
       </i> Back to all Programs </a>
       
-      @if(!is_null($campaign[0]->campaign_id) && $campaign[0]->has_vicidial==1)
+      @if(!is_null($campaign[0]->campaign_id) && $campaign[0]->has_vicidial)
         
         
       <a style="margin-top:30px; margin-left: 10px" class="btn btn-xs btn-default" href="{{ url('campaignStats/'.$campaign[0]->campaign_id) }}">View Campaign Stats</a>
@@ -121,7 +121,7 @@
 
 
                                     
-   q                                
+                                   
                                     
                                   </div>
 

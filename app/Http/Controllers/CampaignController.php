@@ -274,7 +274,7 @@ class CampaignController extends Controller
                         ])->
                         leftJoin('positions','users.position_id','=','positions.id')->
                         leftJoin('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                        select('campaign.id as campaign_id','campaign.name','campaign_logos.filename', 'immediateHead.firstname as TLfname','immediateHead.lastname as TLlname','positions.name as jobTitle', 'immediateHead_Campaigns.id as ihCamp_id','users.id as user_TL_id','users.nickname', 'team.user_id as memberID','immediateHead_Campaigns.disabled as disabled')->
+                        select('campaign.id as campaign_id','campaign.name','campaign_logos.filename', 'immediateHead.firstname as TLfname','immediateHead.lastname as TLlname','positions.name as jobTitle', 'immediateHead_Campaigns.id as ihCamp_id','users.id as user_TL_id','users.nickname', 'team.user_id as memberID','immediateHead_Campaigns.disabled as disabled','campaign.has_vicidial')->
                         orderBy('users.lastname','ASC')->get();
 
         $uData = DB::table('team')->where('team.campaign_id',$id)->
