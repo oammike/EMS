@@ -1440,7 +1440,7 @@ trait TimekeepingTraits
                 $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila");
                 
                 //$maxEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila")->addHour(6);
-                $probTime1 = Carbon::parse($thisPayrollDate." 06:00:00","Asia/Manila");
+                $probTime1 = Carbon::parse($thisPayrollDate." 04:00:00","Asia/Manila");
                 $probTime2 = Carbon::parse($thisPayrollDate." 14:30:00","Asia/Manila");
 
                 if (!($beginShift >= $probTime1 && $beginShift <= $probTime2)) // if shift is NOT within the day

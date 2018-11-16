@@ -834,10 +834,11 @@ class DTRController extends Controller
                             if (count($check_fixed_WS) > 0) //if may fixed WS, check mo kung ano mas updated vs monthly sched
                             {
                               $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
+                              //$coll->push(['check_monthly_WS'=>$check_monthly_WS]);
 
                               if (count($check_monthly_WS) > 0)// if may monthly, compare it vs fixed
                               {
-                                if( $check_monthly_WS->first()->created_at > $check_fixed_WS->first()->created_at ) //mas bago si Monthly
+                                if( $check_monthly_WS->first()->created_at > $check_fixed_WS->first()->created_at  ) //mas bago si Monthly
                                 {
 
                                   $workSched = $hybridSched_WS_monthly;
@@ -1640,7 +1641,7 @@ class DTRController extends Controller
 
                                     //if ($shiftStart >= date('h:i A', strtotime("06:00:00")) && $shiftStart <= date('h:i A', strtotime("14:59:00")))
                                     $ss = Carbon::parse($payday." ".$shiftStart,"Asia/Manila");
-                                    $sixam = Carbon::parse($payday." 06:00:00","Asia/Manila");
+                                    $sixam = Carbon::parse($payday." 04:00:00","Asia/Manila");
                                     $threepm = Carbon::parse($payday." 14:59:00","Asia/Manila");
                                     if ($ss >= $sixam && $ss <= $threepm )
                                     {
@@ -1666,7 +1667,7 @@ class DTRController extends Controller
 
                                       $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
                                       //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
-                                      $coll->push(['ret workedHours:'=> $data]);
+                                      $coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                      
                                         $workedHours= $data[0]['workedHours'];

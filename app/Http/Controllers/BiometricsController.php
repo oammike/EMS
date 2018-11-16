@@ -39,6 +39,12 @@ use OAMPI_Eval\Logs;
 use OAMPI_Eval\LogType;
 use OAMPI_Eval\TempUpload;
 use OAMPI_Eval\MonthlySchedules;
+use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_SL;
+use OAMPI_Eval\User_OT;
+use OAMPI_Eval\User_OBT;
+use OAMPI_Eval\User_LWOP;
+
 class BiometricsController extends Controller
 {
    protected $user;
@@ -255,85 +261,208 @@ class BiometricsController extends Controller
 										$b->save();
 
 									} 
+
 									$u = User::where('accesscode',$result[2])->get();
-									if (count($u)>0){
+									
+									if (count($u)>0 ){
 										$emp = $u->first();
-										$user = $emp->firstname.' '.$emp->lastname;
 
-										$existingSched = MonthlySchedules::where('user_id', $emp->id)->where('productionDate',$paydate->format('Y-m-d'))->orderBy('created_at','DESC')->get();
+										
+											$user = $emp->firstname.' '.$emp->lastname;
 
-										if (count($existingSched) > 0)
-										{
-											$worksched = $existingSched->first();
+											$existingSched = MonthlySchedules::where('user_id', $emp->id)->where('productionDate',$paydate->format('Y-m-d'))->orderBy('created_at','DESC')->get();
 
-										} else {
-											// setup worksched. Kung may DTRP submitted and approved yun ang gamitin
-											// else save it as user-monthlysched
-											//save it as MOnthlysched
+											if (count($existingSched) > 0)
+											{
+												//$worksched = $existingSched->first();
+												foreach ($existingSched as $key) {
+												 	# code...
+												 	$key->delete();
+												 } 
+												//$coll->push(['user'=>$emp->lastname, 'sched'=>$worksched]);
 
-											$sched = explode("-", $result[3]);
-											$startSched = date('H:i:s',strtotime($sched[0]));
-											$endSched = date('H:i:s',strtotime($sched[1]));
+											} 
 
-											$worksched = new MonthlySchedules;
-											$worksched->user_id = $emp->id;
-											$worksched->productionDate = $paydate->format('Y-m-d');
-											$worksched->timeStart = $startSched;
-											$worksched->timeEnd = $endSched;
+												if(strpos(strtoupper($result[3]), "FLEXI")  == false && strtoupper($result[3])!=="FLEXIBLE" && strtoupper($result[3])!=="FLEXI" ) 
+												{
+													// setup worksched. Kung may DTRP submitted and approved yun ang gamitin
+													// else save it as user-monthlysched
+													//save it as MOnthlysched
 
-											($result[$i] == "RD") ? $worksched->isRD = true : $worksched->isRD = false;
-											(strtoupper($result[3]) == "FLEXI") ? $worksched->isFlexitime = true : $worksched->isFlexitime = false;
+													$sched = explode("-", $result[3]);
+													//$coll->push(['user'=>$emp->lastname, 'sched'=>$sched]);
 
-											$worksched->save();
+													$startSched = date('H:i:s',strtotime($sched[0]));
+													$endSched = date('H:i:s',strtotime($sched[1]));
 
-										}
+													$worksched = new MonthlySchedules;
+													$worksched->user_id = $emp->id;
+													$worksched->productionDate = $paydate->format('Y-m-d');
+													$worksched->timeStart = $startSched;
+													$worksched->timeEnd = $endSched;
 
-										// WE NOW SAVE THE LOGS
-										if ($result[$i] != "RD" && $result[$i+1] != '0')
-										{
-											$log = new Logs;
-											$log->user_id = $emp->id;
-											$log->biometrics_id = $b->id;
-											$log->logTime = date('H:i:s',strtotime($result[$i+1]));
-											$log->logType_id = 1; //LogIN
-											$log->save();
+													($result[$i] == "RD") ? $worksched->isRD = true : $worksched->isRD = false;
+													(strtoupper($result[3]) == "FLEXI") ? $worksched->isFlexitime = true : $worksched->isFlexitime = false;
 
-											// check if Next-day logout; ie complicated sched
-											// This is assuming na hindi UNDERTIME si employee
-											// ** there must be some form of indicator kung undertime si employee
+													$worksched->save();
+													$coll->push(['created sched'=>'yes']);
 
-											if ($worksched->timeStart >= date('H:i:s',strtotime("3PM"))) {
-												$pd = $paydate2->addHours(24)->format('Y-m-d');
-												$bioNext = Biometrics::where('productionDate',$pd)->get();
+												} else {
+													$worksched = new MonthlySchedules;
+													$worksched->timeStart = "flexi";
+													$worksched->timeEnd = "flexi";
+													$worksched->isRD = false;
+													$coll->push(['created sched'=>'no']);
+												}
 
-												if (count($bioNext)>0) $bNext = $bioNext->first(); 
-												else {
-													// create new Biometrics
-													$bNext = new Biometrics;
-													$bNext->productionDate = $pd;
-													$bNext->save();
 
-												} 
-
-												$log = new Logs;
-												$log->user_id = $emp->id;
-												$log->biometrics_id = $bNext->id;
-												$log->logTime = date('H:i:s',strtotime($result[$i+2]));
-												$log->logType_id = 2; //LogOUT
-												$log->save();
-
-											} else {
-													$log = new Logs;
-													$log->user_id = $emp->id;
-													$log->biometrics_id = $b->id;
-													$log->logTime = date('H:i:s',strtotime($result[$i+2]));
-													$log->logType_id = 2; //LogOUT
-													$log->save();
-											}
 
 											
 
-										}
+											
+
+											// WE NOW SAVE THE LOGS
+											// BUT first, check if may existing logs na
+											// if meron, deadma nalang
+											$hasExistingLogs = Logs::where('user_id',$emp->id)->where('biometrics_id',$b->id)->get();
+
+											if (count($hasExistingLogs) <= 1 )
+											{
+												// ------if workday OR Restday OT, save the log
+												if (($result[$i] != "RD" && $result[$i+1] != '0') || ($result[$i] == "RD" && $result[$i+5] != '0'))
+												{
+													$log = new Logs;
+													$log->user_id = $emp->id;
+													$log->biometrics_id = $b->id;
+													$log->logTime = date('H:i:s',strtotime($result[$i+1]));
+													$log->logType_id = 1; //LogIN
+													$log->save();
+
+													// check if Next-day logout; ie complicated sched
+													// This is assuming na hindi UNDERTIME si employee
+													// ** there must be some form of indicator kung undertime si employee
+
+													if ($worksched->timeStart >= date('H:i:s',strtotime("3PM"))) {
+														$pd = $paydate2->addDays(1)->format('Y-m-d');
+														$bioNext = Biometrics::where('productionDate',$pd)->get();
+
+														if (count($bioNext)>0) $bNext = $bioNext->first(); 
+														else {
+															// create new Biometrics
+															$bNext = new Biometrics;
+															$bNext->productionDate = $pd;
+															$bNext->save();
+
+														} 
+
+														$log = new Logs;
+														$log->user_id = $emp->id;
+														$log->biometrics_id = $bNext->id;
+														$log->logTime = date('H:i:s',strtotime($result[$i+2]));
+														$log->logType_id = 2; //LogOUT
+														$log->save();
+
+													} else {
+															$log = new Logs;
+															$log->user_id = $emp->id;
+															$log->biometrics_id = $b->id;
+															$log->logTime = date('H:i:s',strtotime($result[$i+2]));
+															$log->logType_id = 2; //LogOUT
+															$log->save();
+													}
+
+													
+
+												} else if($result[$i] == 'VL' || $result[$i] == 'ML' ){
+
+													$vl = new User_VL;
+													$vl->user_id = $emp->id;
+													$vl->leaveStart = $paydate->format('Y-m-d')." ".$worksched->timeStart;
+													$vl->leaveEnd = $paydate->format('Y-m-d')." ".$worksched->timeEnd;
+													$vl->totalCredits = 1.00;
+													$vl->halfdayFrom = 1;
+													$vl->halfdayTo = 1;
+
+													if ($result[$i] == 'ML')
+													$vl->notes = "Maternity Leave filed via CSV upload from Google sheet Timekeeping tracker. Check with immediate head and/or Finance for complete details.";
+													else
+													$vl->notes = "VL filed via CSV upload from Google sheet Timekeeping tracker. Check with immediate head and/or Finance for complete details.";
+
+													$vl->isApproved = true;
+
+													// get approver
+													$vl->approver = $emp->supervisor->immediateHead_Campaigns_id;
+													$vl->save();
+
+
+
+												}
+												else if($result[$i] == 'SL' || $result[$i] == 'MC'){
+
+													$vl = new User_SL;
+													$vl->user_id = $emp->id;
+													$vl->leaveStart = $paydate->format('Y-m-d')." ".$worksched->timeStart;
+													$vl->leaveEnd = $paydate->format('Y-m-d')." ".$worksched->timeEnd;
+													$vl->totalCredits = 1.00;
+													$vl->halfdayFrom = 1;
+													$vl->halfdayTo = 1;
+													if ($result[$i] == 'MC')
+													$vl->notes = "MC filed via CSV upload from Google sheet Timekeeping tracker. Check with immediate head and/or Finance for complete details.";
+													else
+														$vl->notes = "SL filed via CSV upload from Google sheet Timekeeping tracker. Check with immediate head and/or Finance for complete details.";
+
+													$vl->isApproved = true;
+													$vl->attachments = null;
+
+													// get approver
+													$vl->approver = $emp->supervisor->immediateHead_Campaigns_id;
+													$vl->save();
+
+
+
+												}
+												else if($result[$i] == 'LWOP'){
+
+													$vl = new User_LWOP;
+													$vl->user_id = $emp->id;
+													$vl->leaveStart = $paydate->format('Y-m-d')." ".$worksched->timeStart;
+													$vl->leaveEnd = $paydate->format('Y-m-d')." ".$worksched->timeEnd;
+													$vl->totalCredits = 1.00;
+													$vl->halfdayFrom = 1;
+													$vl->halfdayTo = 1;
+													$vl->notes = "LWOP filed via CSV upload from Google sheet Timekeeping tracker. Check with immediate head and/or Finance for complete details.";
+													$vl->isApproved = true;
+													
+													// get approver
+													$vl->approver = $emp->supervisor->immediateHead_Campaigns_id;
+													$vl->save();
+
+												}
+												else if($result[$i] == 'OBT'){
+
+													$vl = new User_OBT;
+													$vl->user_id = $emp->id;
+													$vl->leaveStart = $paydate->format('Y-m-d')." ".$worksched->timeStart;
+													$vl->leaveEnd = $paydate->format('Y-m-d')." ".$worksched->timeEnd;
+													$vl->totalCredits = 1.00;
+													$vl->halfdayFrom = 1;
+													$vl->halfdayTo = 1;
+													$vl->notes = "OBT filed via CSV upload from Google sheet Timekeeping tracker. Check with immediate head and/or Finance for complete details.";
+													$vl->isApproved = true;
+													
+
+													// get approver
+													$vl->approver = $emp->supervisor->immediateHead_Campaigns_id;
+													$vl->save();
+
+												}
+
+											}//end hasExistingLogs
+
+										
+										
+
+
 										
 
 
@@ -343,39 +472,23 @@ class BiometricsController extends Controller
 									}  else $user = null;
 
 
+
+
 									if (!is_null($user)){
 										if ($worksched->isRD)
-										$coll->push(['user'=>$user,
-										'biometrics'=> $b->id, 
-										'schedule1'=>"* RD",
-										'schedule2'=>"RD *",
-										'timeIN'=>date('H:i:s',strtotime($result[$i+1])),
-										'timeOUT'=> date('H:i:s',strtotime($result[$i+2])),
-										'late'=> $result[$i+3],
-										'nd'=> $result[$i+4],
-										'ot' => $result[$i+5]]);
+										$coll->push(['user'=>$user]);
 									else
-										$coll->push(['user'=>$user,
-										'biometrics'=> $b->id, 
-										'schedule1'=>$worksched->timeStart,
-										'schedule2'=>$worksched->timeEnd,
-										'timeIN'=>date('H:i:s',strtotime($result[$i+1])),
-										'timeOUT'=> date('H:i:s',strtotime($result[$i+2])),
-										'late'=> $result[$i+3],
-										'nd'=> $result[$i+4],
-										'ot' => $result[$i+5],
-
-								]); 
+										$coll->push(['user'=>$user]); 
 
 
-									}
+									} 
 									
 								} else{ 
 									
 									// do nothing
 									//( strtoupper($csvCol[$i]) == 'TIME IN' )
 									# code...
-								}
+								} 
 					    	}//end for
 
 						}//end else
