@@ -244,7 +244,7 @@ class BiometricsController extends Controller
 							for ($i=5; $i < $totalCols ; $i++) {
 								//$coll->push(['item'=>$headers[$i], 'keme'=>strpos($headers[$i],"TOTAL") ]);
 
-								if (strpos($headers[$i],"OT") !== false || strpos($headers[$i],"ND") !== false || strpos($headers[$i],"TIME") !== false || strpos($headers[$i],"LATE") !== false || strpos($headers[$i],"Approver") !== false || empty($result[3]) || empty($result[$i]) ) 
+								if (strpos($headers[$i],"OT") !== false || strpos($headers[$i],"ND") !== false || strpos($headers[$i],"TIME") !== false || strpos($headers[$i],"LATE") !== false || strpos($headers[$i],"Approver") !== false || empty($result[3]) || empty($result[$i]) || strpos($result[$i],"biologs") !== false ) 
 								{
 									// do this things kung may laman lang kung waley dont do it
 
@@ -289,8 +289,8 @@ class BiometricsController extends Controller
 													// else save it as user-monthlysched
 													//save it as MOnthlysched
 
-													$sched = explode("-", $result[3]);
-													//$coll->push(['user'=>$emp->lastname, 'sched'=>$sched]);
+													$sched = explode("-", trim($result[3]));
+													$coll->push(['user'=>$emp->lastname, 'sched'=>$sched]);
 
 													$startSched = date('H:i:s',strtotime($sched[0]));
 													$endSched = date('H:i:s',strtotime($sched[1]));
@@ -475,10 +475,10 @@ class BiometricsController extends Controller
 
 
 									if (!is_null($user)){
-										if ($worksched->isRD)
-										$coll->push(['user'=>$user]);
-									else
-										$coll->push(['user'=>$user]); 
+										//if ($worksched->isRD)
+										//$coll->push(['user'=>$user]);
+									//else
+										//$coll->push(['user'=>$user]); 
 
 
 									} 
