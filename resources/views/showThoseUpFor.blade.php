@@ -340,7 +340,9 @@
                                         <span class="pull-left">{{$evalSetting->name}} <br/>
                                           <small>
                                          
-                                           Period covered: </small></span><h5 class="pull-right text-danger text-center"> {{date('M d, Y',strtotime($doneMovedEvals[$ctr]['startPeriod']))  }} <br/>to<br/> {{date('M d, Y',strtotime($doneMovedEvals[$ctr]['endPeriod']))  }} </h5></a></li>
+                                           Period covered: </small></span><h5 class="pull-right text-danger text-center"> 
+                                            <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
+                                   {{$x->first()['startPeriod']}}<br/> to<br/> {{$x->first()['endPeriod']}}  </h5></a></li>
                                     
                                     
 
@@ -431,9 +433,10 @@
                                     <td>{{$employee['position']}}</td>
                                     <td>{{$employee['status']}}</td>
                                     @if ($doneMovedEvals[$ctr]['isDraft'] == '1')
-                                    <td>{{ date('M d, Y', strtotime($doneMovedEvals[$ctr]['startPeriod'])) }} to {{ date('M d, Y', strtotime($doneMovedEvals[$ctr]['endPeriod'])) }} </td>
+                                    <td>{{ $doneMovedEvals[$ctr]['startPeriod'] }} to {{ $doneMovedEvals[$ctr]['endPeriod']}} </td>
                                     @else
-                                    <td>{{$doneMovedEvals[$ctr]['startPeriod']}} to {{$doneMovedEvals[$ctr]['endPeriod']}} </td>
+                                    <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
+                                    <td> {{$x->first()['startPeriod']}} to {{$x->first()['endPeriod']}} </td>
 
                                     @endif
 

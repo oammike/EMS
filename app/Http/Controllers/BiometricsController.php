@@ -329,7 +329,7 @@ class BiometricsController extends Controller
 											if (count($hasExistingLogs) <= 1 )
 											{
 												// ------if workday OR Restday OT, save the log
-												if (($result[$i] != "RD" && $result[$i+1] != '0') || ($result[$i] == "RD" && $result[$i+5] != '0'))
+												if (($result[$i] != "RD" && $result[$i+1] != '0') || ($result[$i] == "RD" && $result[$i+5] != '0' || strpos($result[$i], 'bio') !== false ))
 												{
 													$log = new Logs;
 													$log->user_id = $emp->id;

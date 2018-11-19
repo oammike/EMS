@@ -1703,6 +1703,7 @@ class EvalFormController extends Controller
                             $changedImmediateHeads = new Collection;
                             $doneMovedEvals = new Collection;
                             $data = $this->getPastMemberEvals($mc, $evalSetting, null,null, $request->evalType_id);
+                            //return $data;
 
                              $changedImmediateHeads1 = $data->first()['changedImmediateHeads'];
                             //return $changedImmediateHeads1;
@@ -1713,6 +1714,7 @@ class EvalFormController extends Controller
                                 $changedImmediateHeads->push($ch);
                             }
                             $doneMovedEvals = $data->first()['doneMovedEvals'];
+
 
                            
                             return view('showThoseUpFor', compact('mySubordinates', 'myCampaign', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
