@@ -244,17 +244,18 @@ trait EvaluationTraits
                                      // **** fix for movements na di pa complete yung previous eval:
                                     if ($key->effectivity >= $endPeriod->format('Y-m-d'))
                                     {
-                                        $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila'); //$endPeriod;
+                                        $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila')->addDays(-1); //$endPeriod;
 
                                     } elseif ($key->effectivity < $fr) { //pag super tagal na prior to start of eval period, 
-                                        $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila'); //$endPeriod;
-                                    } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila'); //
+                                        $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila')->addDays(-1); //$endPeriod;
+                                    } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila')->addDays(-1); //
 
                                    
                                     $evalBy = $me->id;  
                                     //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
+                                    //->where('evaluatedBy', $evalBy)
 
-                                    $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evaluatedBy', $evalBy)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
+                                    $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
                                     //$coll2->push(['evaluated'=>$evaluated]);
                                 
                                  
@@ -270,10 +271,10 @@ trait EvaluationTraits
                                         $truegrade = $theeval->overAllScore;
 
                                         if ($theeval->isDraft) 
-                                          $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
+                                          $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
                                         else
                                         //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                        $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                        $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
 
 
 

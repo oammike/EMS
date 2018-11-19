@@ -286,6 +286,8 @@
                   <?php $ctr=0; ?>
                   @foreach ($changedImmediateHeads as $employee)
                   @if($employee['user_id'] !== Auth::user()->id )
+
+                  <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
                   <div class="col-lg-3 col-sm-6 col-xs-12"><!-- && $doneEval[$employee['id']] !== null -->
                      <!-- Widget: user widget style 1 -->
                                 <div class="box box-widget widget-user-2">
@@ -325,12 +327,12 @@
 
                                      
 
-                                      @if ($doneMovedEvals[$ctr]['evaluated' ]&& $doneMovedEvals[$ctr]['score'] != 0)
+                                      @if ($x->first()['evaluated' ]&& $x->first()['score'] != 0)
                                       <li><a href="#">
                                         <span class="pull-left"><strong>Current Rating</strong> <br/>
                                           <small>
                                          
-                                            {{date('M d, Y',strtotime($doneMovedEvals[$ctr]['startPeriod']))  }} to  {{date('M d, Y',strtotime($doneMovedEvals[$ctr]['endPeriod']))  }}</small></span><h3 class="pull-right text-danger">{{$doneMovedEvals[$ctr]['score']}} %</h3></a></li>
+                                            {{date('M d, Y',strtotime($x->first()['startPeriod']))  }} to  {{date('M d, Y',strtotime($x->first()['endPeriod']))  }}</small></span><h3 class="pull-right text-danger">{{$x->first()['score']}} %</h3></a></li>
                                     
 
                                       @else
@@ -341,7 +343,7 @@
                                           <small>
                                          
                                            Period covered: </small></span><h5 class="pull-right text-danger text-center"> 
-                                            <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
+                                            
                                    {{$x->first()['startPeriod']}}<br/> to<br/> {{$x->first()['endPeriod']}}  </h5></a></li>
                                     
                                     
@@ -351,8 +353,8 @@
                                     </ul>
 
                                       
-                                    @if ($doneMovedEvals[$ctr]['evaluated'] && !$doneMovedEvals[$ctr]['isDraft'] && $doneMovedEvals[$ctr]['score'] > 0 )
-                                     <p class="text-center"><a class="btn btn-md btn-default" href="{{action('EvalFormController@show',$doneMovedEvals[$ctr]['evalForm_id']) }} "><i class="fa fa-check"></i> See Evaluation</a><br/>
+                                    @if ($x->first()['evaluated'] && !$x->first()['isDraft'] && $x->first()['score'] > 0 )
+                                     <p class="text-center"><a class="btn btn-md btn-default" href="{{action('EvalFormController@show',$x->first()['evalForm_id']) }} "><i class="fa fa-check"></i> See Evaluation</a><br/>
                                      <!-- <a href="#"  style="margin-top:5px" class="btn btn-xs btn-flat btn-default" data-toggle="modal" data-target="#myModal{{$doneMovedEvals[$ctr]['evalForm_id']}}"><i class="fa fa-trash"></i> Delete</a> --><div class="clearfix"></div>
 
                                      @include('layouts.modals', [
@@ -367,10 +369,10 @@
 
                                     </p>
 
-                                    @elseif ($doneMovedEvals[$ctr]['isDraft'] == '1' && $doneMovedEvals[$ctr]['evaluated'] &&  $doneMovedEvals[$ctr]['score'] > 0 ) 
-                                    <p class="text-center"><a class="btn btn-md btn-danger" href="{{action('EvalFormController@edit',$doneMovedEvals[$ctr]['evalForm_id']) }} "><i class="fa fa-check"></i> Continue Evaluating </a></p>
+                                    @elseif ($x->first()['isDraft'] == '1' && $x->first()['evaluated'] &&  $x->first()['score'] > 0 ) 
+                                    <p class="text-center"><a class="btn btn-md btn-danger" href="{{action('EvalFormController@edit',$x->first()['evalForm_id']) }} "><i class="fa fa-check"></i> Continue Evaluating </a></p>
                              
-                                    @else <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=> $doneMovedEvals[$ctr]['startPeriod'], 'endPeriod'=>$doneMovedEvals[$ctr]['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now</a></p> 
+                                    @else <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=> $x->first()['startPeriod'], 'endPeriod'=>$x->first()['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now</a></p> 
                                     @endif
                                   <div class="clearfix"></div>
 
@@ -416,7 +418,9 @@
                                   <tbody>
                                     @foreach ($changedImmediateHeads as $employee)
 
-                                    @if ($employee['id'] !== Auth::user()->id && $doneMovedEvals[$ctr] !== null)
+                                     <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
+
+                                    @if ($employee['id'] !== Auth::user()->id && $x->first() !== null)
                                   <tr id="row{{$employee['id']}}">
                                     <td class="text-center ">
                                       <a href="{{action('UserController@show',$employee['id'])}}">
@@ -432,20 +436,20 @@
                                     <td>{{$employee['firstname']}}</td>
                                     <td>{{$employee['position']}}</td>
                                     <td>{{$employee['status']}}</td>
-                                    @if ($doneMovedEvals[$ctr]['isDraft'] == '1')
-                                    <td>{{ $doneMovedEvals[$ctr]['startPeriod'] }} to {{ $doneMovedEvals[$ctr]['endPeriod']}} </td>
+                                    @if ($x->first()['isDraft'] == '1')
+                                    <td>{{ $x->first()['startPeriod'] }} to {{ $x->first()['endPeriod']}} </td>
                                     @else
-                                    <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
+                                    
                                     <td> {{$x->first()['startPeriod']}} to {{$x->first()['endPeriod']}} </td>
 
                                     @endif
 
                                     <td class="text-danger">
-                                       @if ($doneMovedEvals[$ctr]['isDraft'] == '1' && $doneMovedEvals[$ctr]['evaluated'] ) 
+                                       @if ($x->first()['isDraft'] == '1' && $x->first()['evaluated'] ) 
                                        <h5 class="text-center">* Draft *</h5>
 
                                        @else
-                                      <h4 class="text-center">@if($doneMovedEvals[$ctr]['score'] > 0) {{$doneMovedEvals[$ctr]['score']}} % @endif</h4>
+                                      <h4 class="text-center">@if($x->first()['score'] > 0) {{$x->first()['score']}} % @endif</h4>
                                       @endif
 
                                     </td>
@@ -454,14 +458,14 @@
                                        
 
 
-                                      @if ($doneMovedEvals[$ctr]['evaluated'] && !$doneMovedEvals[$ctr]['isDraft'] && $doneMovedEvals[$ctr]['score'] > 0 )
-                                           <p><a class="btn btn-sm btn-primary" href="{{action('EvalFormController@show',$doneMovedEvals[$ctr]['evalForm_id']) }} " style="margin-bottom:5px"><i class="fa fa-check"></i> See Evaluation</a>
+                                      @if ($x->first()['evaluated'] && !$x->first()['isDraft'] && $x->first()['score'] > 0 )
+                                           <p><a class="btn btn-sm btn-primary" href="{{action('EvalFormController@show',$x->first()['evalForm_id']) }} " style="margin-bottom:5px"><i class="fa fa-check"></i> See Evaluation</a>
                                             <!-- <a href="#"  style="margin-top:5px" class="btn btn-xs btn-flat btn-default" data-toggle="modal" data-target="#myModal{{$doneMovedEvals[$ctr]['evalForm_id']}}"><i class="fa fa-trash"></i> Delete</a> --><div class="clearfix"></div>
                                           </p>
 
                                           @include('layouts.modals', [
                                       'modelRoute'=>'evalForm.destroy',
-                                      'modelID' => $doneMovedEvals[$ctr]['evalForm_id'], 
+                                      'modelID' => $x->first()['evalForm_id'], 
                                       'modelName'=>"Evaluation of: ". $employee['firstname']." ". $employee['lastname'], 
                                       'modalTitle'=>'Delete', 
                                       'modalMessage'=>'Are you sure you want to delete this?', 
@@ -471,13 +475,13 @@
 
                                           
                                           
-                                           @elseif ($doneMovedEvals[$ctr]['isDraft'] == '1' && $doneMovedEvals[$ctr]['evaluated'] ) 
+                                           @elseif ($x->first()['isDraft'] == '1' && $x->first()['evaluated'] ) 
                                           
-                                          <p class="text-center"><a class="btn btn-sm btn-danger" href="{{action('EvalFormController@edit',$doneMovedEvals[$ctr]['evalForm_id']) }} "><i class="fa fa-check"></i> Continue Evaluating </a></p>
+                                          <p class="text-center"><a class="btn btn-sm btn-danger" href="{{action('EvalFormController@edit',$x->first()['evalForm_id']) }} "><i class="fa fa-check"></i> Continue Evaluating </a></p>
 
                                           @else
                                          
-                                          <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=>$doneMovedEvals[$ctr]['startPeriod'], 'endPeriod'=>$doneMovedEvals[$ctr]['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now </a></p> 
+                                          <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=>$x->first()['startPeriod'], 'endPeriod'=>$x->first()['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now </a></p> 
                                        </p> 
                                           @endif
                                       
