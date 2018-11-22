@@ -95,14 +95,40 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/formSubmissions/process', array(
       'as'=> 'formSubmissions.process',
       'uses'=>'FormSubmissionsController@process') );
+    
 
-     Route::get('/formSubmissions/getAll/{id}', array(
-      'as'=> 'formSubmissions.getAll',
-      'uses'=>'FormSubmissionsController@getAll') );
+
+    Route::post('/formSubmissions/downloadCSV/{id}', array(
+      'as'=> 'formSubmissions.downloadCSV',
+      'uses'=>'FormSubmissionsController@downloadCSV') );
+
+     Route::get('/formSubmissions/fetchFrom/{id}', array(
+      'as'=> 'formSubmissions.fetchFrom',
+      'uses'=>'FormSubmissionsController@fetchFrom') );
+
+     Route::get('/formSubmissions/fetchRanking/{id}', array(
+      'as'=> 'formSubmissions.fetchRanking',
+      'uses'=>'FormSubmissionsController@fetchRanking') );
 
       Route::get('/formSubmissions/getRanking/{type}', array(
       'as'=> 'formSubmissions.getRanking',
       'uses'=>'FormSubmissionsController@getRanking') );
+
+      Route::post('/formSubmissions/getAll/{id}', array(
+      'as'=> 'formSubmissions.getAll',
+      'uses'=>'FormSubmissionsController@getAll') );
+
+      Route::post('/formSubmissions/getEscalations/{id}', array(
+      'as'=> 'formSubmissions.getEscalations',
+      'uses'=>'FormSubmissionsController@getEscalations') );
+
+     Route::post('/formSubmissions/getOrderStatus/{id}', array(
+      'as'=> 'formSubmissions.getOrderStatus',
+      'uses'=>'FormSubmissionsController@getOrderStatus') );
+
+      Route::post('/formSubmissions/uploadCSV', array(
+      'as'=> 'formSubmissions.uploadCSV',
+      'uses'=>'FormSubmissionsController@uploadCSV') );
 
     /********** FORM BUILDER **************/
 

@@ -389,6 +389,7 @@ class HomeController extends Controller
                 }else { $notedMemo=false; $memo=null; } 
                 
 
+                //return $pass = bcrypt('ksalde'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
                 // ------------------------------------------------------------------------------ if user has no subordinates -----------
                
@@ -416,7 +417,7 @@ class HomeController extends Controller
                    //return $groupedForm; 
 
                     return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN'));
-                    //return $pass = bcrypt('emelda'); $2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+                   
 
 
                 } 

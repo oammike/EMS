@@ -57,7 +57,7 @@ class FormSubmissionsController extends Controller
 {
     protected $user;
     protected $formBuilder;
-    //use Traits\UserTraits;
+    use Traits\FormBuilderTraits;
     //use Traits\TimekeepingTraits;
 
      public function __construct(FormSubmissions $formSubmissions)
@@ -71,6 +71,410 @@ class FormSubmissionsController extends Controller
     public function index()
     {
     	return view('forms.formBuilder-index');
+    }
+
+    public function downloadCSV($id, Request $request)
+    {
+
+        DB::connection()->disableQueryLog();
+        //switch (Input::get('by')) {
+        
+        $from = Carbon::parse($request->from, 'Asia/Manila')->format('Y-m-d H:i:s');
+        $to =  Carbon::parse($request->to, 'Asia/Manila')->format('Y-m-d H:i:s');
+
+        switch($id)
+        {
+            case '1': 
+            {
+                $sheetTitle = FormBuilder::find($id)->title;
+                $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                        where('form_submissions_users.created_at','>=',$from)->
+                        where('form_submissions_users.created_at','<=',$to)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                $submissions = collect($form)->groupBy('submissionID');
+                $headers = array('Agent','Customer Name ', 'Merchant Name', 'Merchant Phone Number','Escalation/level 1','Escalation/level 2', 'Order Status','Notes','Date Submitted','PST hour');
+                $description = "agent submission for Postmates' ". $sheetTitle;
+            }break;
+
+            case '2': 
+            {
+                $sheetTitle = FormBuilder::find($id)->title;
+               
+                $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    where('form_submissions_users.created_at','>=',$from)->
+                    where('form_submissions_users.created_at','<=',$to)->
+                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                    $submissions = collect($form)->groupBy('submissionID');
+
+                    //return response()->json($submissions);
+                    $headers = array('Agent','Merchant Name', 'Merchant Phone Number','Confirmation/level 1','Confirmation/level 2', 'Confirmation/level 3','Confirmation/level 4', 'Notes','Date Submitted','PST hour');
+
+                    $description = "agent submission for Postmates' ". $sheetTitle;
+                    
+                 
+
+                
+            }break;
+        
+        }
+
+
+        Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description) 
+           {
+                  $excel->setTitle($sheetTitle.' Summary Report');
+
+                  // Chain the setters
+                  $excel->setCreator('Programming Team')
+                        ->setCompany('OpenAccess');
+
+                  // Call them separately
+                  $excel->setDescription($description);
+                  $excel->sheet("Sheet 1", function($sheet) use ($id,$submissions, $headers)
+                  {
+                    $sheet->appendRow($headers);
+                    switch ($id) {
+                        case '1':
+                        {
+                            foreach($submissions as $item)
+                            {
+                                
+                                $k = $item->pluck('value');
+                                $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $k[0],$k[1],$k[2],$k[3],$k[4],$k[5], $k[6],
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+                                $sheet->appendRow($arr);
+
+                            }
+
+                        }break;
+
+                        case '2':
+                        {
+                            foreach($submissions as $item)
+                            {
+                                $ctI = count($item);
+
+                                if ($ctI==5){
+                                     $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                             '-', '-',
+                                            $item[4]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+
+                                 }
+                                if ($ctI == 6)
+                                {
+                                    
+                                    //Agent','Customer Name ', 'Merchant Name', 'Merchant Phone Number','Confirmation/level 1','Confirmation/level 2', 'Confirmation/level 3','Confirmation/level 4', 'Notes','Date Submitted','PST hour'
+                                     $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            '-', 
+                                            $item[5]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+                                }
+                                
+                                elseif ($ctI == 7)
+                                {
+                                    
+                                     $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            $item[5]->value,
+                                            $item[6]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+                                }
+                                
+                                 elseif ($ctI == 8)
+                                 {
+                                    
+                                    $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            $item[5]->value,
+                                            $item[6]->value,
+                                            $item[7]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+                                 }else{
+
+                                     $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,'-', '-','-',
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+
+                                 
+                                 }
+                                 
+                                 
+
+                               
+                                $sheet->appendRow($arr);
+
+                            }
+
+
+                        }break;
+                        
+                       
+                    }
+
+                    
+                 });//end sheet1
+
+
+
+          })->export('xls');
+
+          return "Download";
+
+    
+
+    }
+
+    public function fetchFrom($id)
+    {
+        DB::connection()->disableQueryLog();
+        //switch (Input::get('by')) {
+        $from = Input::get('from');
+        $to = Input::get('to');
+
+
+        switch($id){ 
+
+            //protocol
+            case 'p': 
+            {
+                $protocol = FormBuilder_Items::where('label','Escalation')->first();
+                $merchant = FormBuilder_Items::where('label','Merchant Name')->first();
+                $form1 = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    rightJoin('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    where('form_submissions.formBuilder_itemID','=',$protocol->id);
+
+                 $form2 = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    rightJoin('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    where('form_submissions.formBuilder_itemID','=',$merchant->id)->
+                    union($form1)->get();
+
+                    return $form2;
+
+                    //join('users','form_submissions_users.user_id','=','users.id')->
+                    //select('users.email', 'form_submissions.value as orderProtocol','form_submissions.created_at as dateSubmitted')->get();
+
+                 
+                //$merchant = FormBuilder_Items::where('label','Merchant Name')->first();
+                    //['form_submissions.formBuilder_itemID','=',$merchant->id],
+                // $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                //     rightJoin('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                //     where('form_submissions.formBuilder_itemID','=',$protocol->id)->
+                //     join('users','form_submissions_users.user_id','=','users.id')->
+                //     select('users.email', 'form_submissions.value as orderProtocol','form_submissions.created_at as dateSubmitted')->get();
+                   
+
+            }break;
+
+            case '1': 
+            {
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                    
+            
+                }else{
+
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                    
+
+                }
+                $submissions = collect($form)->groupBy('submissionID');
+                    $headers = collect($form)->groupBy('label');
+                    $coll = new Collection;
+
+                    
+                    foreach($submissions as $item) {
+
+                        $c = new Collection;
+                        $k = $item->pluck('value');
+                        
+                        $coll->push(['merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->firstname." ". $item->first()->lastname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                       
+                        
+                    }
+                
+
+                
+            }break;
+
+            case '2': 
+            {
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                         where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                }else
+                {
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                        
+                }
+
+                $submissions = collect($form)->groupBy('submissionID');
+                        $headers = collect($form)->groupBy('label');
+                        $coll = new Collection;
+
+                        
+                        foreach($submissions as $item) {
+
+                            $c = new Collection;
+                            $ctI = count($item);
+
+                            //$k = $item->pluck('value');
+                            
+                            //$agent = $item->first()->firstname." ". $item->first()->lastname;
+                            if ($ctI == 6)
+                            $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                                        $item[0]->label=>$item[0]->value,
+                                        $item[1]->label=>$item[1]->value,
+                                        $item[2]->label=>$item[2]->value, 
+                                        $item[3]->label=>$item[3]->value,
+                                        $item[4]->label=>$item[4]->value,
+                                        $item[5]->label=>$item[5]->value,
+                                        'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
+                                        'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                            elseif ($ctI == 7)
+                            $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                                        $item[0]->label=>$item[0]->value,
+                                        $item[1]->label=>$item[1]->value,
+                                        $item[2]->label=>$item[2]->value, 
+                                        $item[3]->label=>$item[3]->value,
+                                        $item[4]->label=>$item[4]->value,
+                                        $item[5]->label=>$item[5]->value,
+                                        $item[6]->label=>$item[6]->value,
+                                        'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
+                                        'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                             elseif ($ctI == 8)
+                            $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                                        $item[0]->label=>$item[0]->value,
+                                        $item[1]->label=>$item[1]->value,
+                                        $item[2]->label=>$item[2]->value, 
+                                        $item[3]->label=>$item[3]->value,
+                                        $item[4]->label=>$item[4]->value,
+                                        $item[5]->label=>$item[5]->value,
+                                        $item[6]->label=>$item[6]->value,
+                                        $item[7]->label=>$item[7]->value,
+                                        'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
+                                        'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]); 
+                                        
+                           
+                            
+                        }
+
+                    
+
+                
+            }break;
+            
+            default: 
+            {
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+
+                     $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                      where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                      join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                      join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                      leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                      select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                } else
+
+                $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+
+
+                    $submissions = collect($form)->groupBy('submissionID');
+                    $headers = collect($form)->groupBy('label');
+                    $coll = new Collection;
+
+                    return $submissions;
+                    foreach($submissions as $item) {
+
+                        $c = new Collection;
+                        $k = $item->pluck('value');
+                        
+                        $coll->push(['merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->firstname." ". $item->first()->lastname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                       
+                        
+                    }
+
+                
+            }break;
+        }
+        
+
+        //return $coll;
+        switch (Input::get('type')) {
+            case 'dt': return response()->json(['data'=>$coll]); break;
+            case 'label': return response()->json($headers); break;
+            
+            default: return response()->json(['data'=>$coll]); break;
+        }
+        
+        
+
     }
 
     public function getAll($id)
@@ -234,6 +638,305 @@ class FormSubmissionsController extends Controller
         
         
 
+    }
+
+    public function getOrderStatus($id, Request $request)
+    {
+        $data = new Collection;
+        $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',$id)->
+                            where('formBuilder_items.label','=','Order Status')->
+                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+
+        $total = 0;
+        $from = Carbon::parse($request->from,'Asia/Manila')->format('Y-m-d H:i:s');
+        $to = Carbon::parse($request->to,'Asia/Manila')->format('Y-m-d H:i:s');
+
+        foreach($orderStatus as $e){
+            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->where('created_at','>=',$from)->get();
+            //->where('created_at','>=',$to)
+            $data->push(["label"=>$e->label, "count"=>count($fs)]);
+            $total += count($fs);
+        }
+
+        return response()->json(['data'=>$data,'total'=>$total,'from'=>$from,'to'=>$to]);
+    }
+
+    public function fetchRanking($type)
+    {
+        $from = Input::get('from');
+        $to = Input::get('to');
+        switch ($type) {
+
+            case '1': 
+            { 
+                DB::connection()->disableQueryLog();
+                $form = FormBuilder::find($type);
+                $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
+
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value','form_submissions_users.created_at')->get();
+                }
+                
+                else
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+
+
+                        
+                $topPips = collect($rankings)->groupBy('userID');
+                $ranks = new Collection;
+                foreach ($topPips as $t) {
+                    $type = collect($t)->groupBy('value');
+                    $ct = count($type);
+                    $k = new Collection;
+
+                   
+                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
+
+                    $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
+                                'lastname'=>$t->first()->lastname,
+                                'submissions'=>$k,'claimed'=>count($t),'created'=>$t->first()->created_at]);
+                   
+                        
+                }
+
+                //$kol = $ranks->sortByDesc('claimed');
+                return response()->json(['data'=>$ranks]);//->values()->all()] 
+
+            } break;
+
+            case '2': 
+            { 
+                DB::connection()->disableQueryLog();
+
+                $form = FormBuilder::find($type); 
+                $rankCategory = FormBuilder_Items::where('label','Confirmation')->where('formBuilder_id',$type)->first(); 
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+                }else
+
+                $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+
+                   // return $rankings;    
+                $topPips = collect($rankings)->groupBy('userID');
+
+                //return $topPips;
+                $ranks = new Collection;
+                foreach ($topPips as $t) {
+                    $type = collect($t)->groupBy('value');
+                    $ct = count($type);
+                    $k = new Collection;
+
+                   
+                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
+
+                    $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
+                                'lastname'=>$t->first()->lastname,
+                                'submissions'=>$k,'claimed'=>count($t)]);
+                   
+                        
+                }
+
+                //$kol = $ranks->sortByDesc('claimed');
+                return response()->json(['data'=>$ranks]);//->values()->all()] 
+
+            } break;
+            
+            default: 
+            {
+                $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
+                $form = FormBuilder::find($type);
+
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value','form_submissions_users.created_at')->get();
+                }else
+                $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+
+                        
+                $topPips = collect($rankings)->groupBy('userID');
+                $ranks = new Collection;
+                foreach ($topPips as $t) {
+                    $type = collect($t)->groupBy('value');
+                    $ct = count($type);
+                    $k = new Collection;
+
+                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
+
+                            $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
+                                        'lastname'=>$t->first()->lastname,
+                                        'submissions'=>$k]);
+                      
+                        
+                }
+
+                return response()->json(['data'=>$ranks]); 
+
+            }break; 
+        }
+
+          
+
+    }
+
+    public function getEscalations($type, Request $request)
+    {
+        $from = Carbon::parse($request->from,'Asia/Manila')->format('Y-m-d H:i:s');
+         switch ($type) {
+            
+            // POSTMATE ORDERING FORM
+            case '1':{
+                        $data = new Collection;
+                        $campaign = Campaign::where('name',"Postmates")->first();
+                        $camp = $campaign->logo;
+                        $logo = "../public/img/".$camp->filename;
+
+                        $pips = DB::table('team')->where('campaign_id',$campaign->id)->
+                                        join('users','users.id','=','team.user_id')->
+                                        where([
+                                                ['status_id','!=',7],
+                                                ['status_id','!=',8],
+                                                ['status_id','!=',9],
+
+                                        ])->
+                                        //rightJoin('form_submissions_users','form_submissions_users.user_id','=','users.id')->
+                                        select('users.firstname','users.nickname','users.lastname','users.id as userID')->get();
+
+                        $agents = new Collection;
+                        foreach($pips as $p)
+                        {
+                            if( count(ImmediateHead::where('employeeNumber',User::find($p->userID)->employeeNumber)->get())< 1 )
+                                $agents->push($p);
+                        }
+
+                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',$type)->
+                                            where('formBuilder_items.label','=','Escalation')->
+                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+
+                        foreach($escalations as $e){
+                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->where('created_at','>=',$from)->get();
+                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
+                        }
+
+                        
+
+                    }break;
+
+
+            case '2':{
+                        $data = new Collection;
+                        $campaign = Campaign::where('name',"Postmates")->first();
+                        $camp = $campaign->logo;
+                        $logo = "../public/img/".$camp->filename;
+
+                        $pips = DB::table('team')->where('campaign_id',$campaign->id)->
+                                        join('users','users.id','=','team.user_id')->
+                                        where([
+                                                ['status_id','!=',7],
+                                                ['status_id','!=',8],
+                                                ['status_id','!=',9],
+
+                                        ])->
+                                        //rightJoin('form_submissions_users','form_submissions_users.user_id','=','users.id')->
+                                        select('users.firstname','users.nickname','users.lastname','users.id as userID')->get();
+
+                        $agents = new Collection;
+                        foreach($pips as $p)
+                        {
+                            if( count(ImmediateHead::where('employeeNumber',User::find($p->userID)->employeeNumber)->get())< 1 )
+                                $agents->push($p);
+                        }
+
+                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',$type)->
+                                            where('formBuilder_items.label','=','Confirmation')->
+                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                                           select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+
+                      
+                        foreach($escalations as $e){
+                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->where('created_at','>=',$from)->get();
+                            if (!empty($e->value))
+                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
+                        }
+
+                       
+                    }break;
+            
+            default:{
+                        $data = new Collection;
+                        $campaign = Campaign::where('name',"Postmates")->first();
+                        $camp = $campaign->logo;
+                        $logo = "../public/img/".$camp->filename;
+
+                        $pips = DB::table('team')->where('campaign_id',$campaign->id)->
+                                        join('users','users.id','=','team.user_id')->
+                                        where([
+                                                ['status_id','!=',7],
+                                                ['status_id','!=',8],
+                                                ['status_id','!=',9],
+
+                                        ])->
+                                        //rightJoin('form_submissions_users','form_submissions_users.user_id','=','users.id')->
+                                        select('users.firstname','users.nickname','users.lastname','users.id as userID')->get();
+
+                        $agents = new Collection;
+                        foreach($pips as $p)
+                        {
+                            if( count(ImmediateHead::where('employeeNumber',User::find($p->userID)->employeeNumber)->get())< 1 )
+                                $agents->push($p);
+                        }
+
+                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
+                                            where('formBuilder_items.label','=','Escalation')->
+                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+
+                                           
+                        foreach($escalations as $e){
+                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
+                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
+                        }
+
+
+                       
+
+                    }break;
+        }
+
+        return response()->json($data);
     }
 
     public function getRanking($type)
@@ -476,27 +1179,27 @@ class FormSubmissionsController extends Controller
                                 $agents->push($p);
                         }
 
-                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                                            where('formBuilder_items.label','=','Escalation')->
-                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+                        // $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
+                        //                     where('formBuilder_items.label','=','Escalation')->
+                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
 
-                        $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                                            where('formBuilder_items.label','=','Order Status')->
-                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();                    
-                        foreach($escalations as $e){
-                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
-                        }
+                        // $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',1)->
+                        //                     where('formBuilder_items.label','=','Order Status')->
+                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();                    
+                        // foreach($escalations as $e){
+                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
+                        //     $data->push(["label"=>$e->label, "count"=>count($fs)]);
+                        // }
 
 
-                        $total = 0;
-                        foreach($orderStatus as $e){
-                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                            $data2->push(["label"=>$e->label, "count"=>count($fs)]);
-                            $total += count($fs);
-                        }
+                        // $total = 0;
+                        // foreach($orderStatus as $e){
+                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
+                        //     $data2->push(["label"=>$e->label, "count"=>count($fs)]);
+                        //     $total += count($fs);
+                        // }
 
                     }break;
 
@@ -579,27 +1282,27 @@ class FormSubmissionsController extends Controller
                                 $agents->push($p);
                         }
 
-                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                                            where('formBuilder_items.label','=','Escalation')->
-                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+                        // $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
+                        //                     where('formBuilder_items.label','=','Escalation')->
+                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
 
-                        $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                                            where('formBuilder_items.label','=','Order Status')->
-                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();                    
-                        foreach($escalations as $e){
-                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
-                        }
+                        // $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',1)->
+                        //                     where('formBuilder_items.label','=','Order Status')->
+                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();                    
+                        // foreach($escalations as $e){
+                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
+                        //     $data->push(["label"=>$e->label, "count"=>count($fs)]);
+                        // }
 
 
-                        $total = 0;
-                        foreach($orderStatus as $e){
-                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                            $data2->push(["label"=>$e->label, "count"=>count($fs)]);
-                            $total += count($fs);
-                        }
+                        // $total = 0;
+                        // foreach($orderStatus as $e){
+                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
+                        //     $data2->push(["label"=>$e->label, "count"=>count($fs)]);
+                        //     $total += count($fs);
+                        // }
 
                     }break;
         }
@@ -609,6 +1312,95 @@ class FormSubmissionsController extends Controller
         
 
 
-        return view('forms.formSubmissions-show',compact('form','data','data2','total','logo'));
+        return view('forms.formSubmissions-show',compact('form','logo'));
+    }
+
+
+    public function uploadCSV(Request $request)
+     {
+        $today = date('Y-m-d');
+        
+        $bioFile = $request->file('biometricsData');
+        if (!empty($bioFile))
+        {
+              //$destinationPath = 'uploads'; // upload path
+              $destinationPath = storage_path() . '/uploads/';
+              $extension = Input::file('biometricsData')->getClientOriginalExtension(); // getting image extension
+              $fileName = $today.'-postmates.'.$extension; // renameing image
+              $bioFile->move($destinationPath, $fileName); // uploading file to given path
+              $file = fopen($destinationPath.$fileName, 'r');
+              $file2 = fopen($destinationPath.$fileName, 'r');
+                
+
+
+                $coll = new Collection;
+                $ctr=0;
+                $headers = [];
+                $flag = true;
+                DB::connection()->disableQueryLog();
+                $csvCol = fgets($file2); 
+
+                $headers = explode(',', $csvCol);
+                $totalCols = count($headers);
+                
+                //return response()->json(['totalCols'=>$totalCols, 'headers'=>$headers]);
+
+                
+
+                
+                // rows
+                // 14 = Order Placing
+
+                // #   | Agent Email | Customer Name |  Merchant Name | Merchant Phone Number | Escalation/level 1  
+                //     Escalation/level 2 |  Order Status | Notes | Date Created | IP Address | Status | Referer | URL | Comments
+
+                // #   Agent Email | Merchant Name | Merchant Phone Number | Confirmation/level 1 | Confirmation/level 2    
+                //     Confirmation/level 3 | Confirmation/level 4 |  Notes | Date Created | IP Address | Status | Referer | URL | Comments
+
+                while (($result = fgetcsv($file)) !== false)
+                    {
+                        //$coll->push(['result'=>$result]);
+                        if ($flag) $flag=false;
+                        else{
+
+                            $employee = User::where('email',$result[1])->get();
+                            if (count($employee) > 0){
+                                $created_at = Carbon::parse($result[9],'Asia/Manila')->format('Y-m-d H:i:s');
+                                $user = $employee->first();
+                                $formSubmit = new FormSubmissionsUser;
+                                $formSubmit->formBuilder_id = '1';
+                                $formSubmit->user_id = $user->id;
+                                $formSubmit->created_at = $created_at;
+                                $formSubmit->save();
+
+                                //we now save form items and values submitted
+                                $this->saveFormSubmission($headers[2],$result[2],$created_at,$formSubmit); /* Customer/Merchant name*/
+                                $this->saveFormSubmission($headers[3],$result[3],$created_at,$formSubmit); /* Merchant Name/Phone/*/
+                                $this->saveFormSubmission($headers[4],$result[4],$created_at,$formSubmit); /* Merchant Phone/Conf 1/*/
+                                
+                            }
+
+                            
+
+                        }//end else
+                        
+
+                        
+                        $ctr++;
+                        
+                    }//end while
+
+                fclose($file);fclose($file2);
+
+               return response()->json($coll);
+
+
+                   // return redirect()->action('TempUploadController@index');
+
+              
+        }
+        else return response()->json(['success'=>false]);
+        
+
     }
 }
