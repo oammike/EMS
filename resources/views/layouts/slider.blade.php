@@ -1,4 +1,175 @@
+                             @if(count($firstYears) >= 1)
+                            <!-- ******** FIRST YEAR ANNIV ******* -->
                             <div class="item active text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <br/><br/>
+                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
+                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
+                                
+                                <div class="widget-user-image">
+                                   
+
+                                 
+
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                              </div>
+                            </div>
+                            @foreach($firstYears as $n)
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span></h4>
+                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                                @if (is_null($n->hascoverphoto) )  
+                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                                
+                                @else
+                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                               @endif
+                                  
+                                  
+                                </div>
+                                <div class="widget-user-image">
+                                   
+
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                  @else
+                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                  @endif
+
+                                </div>
+                                
+                                <div class="box-footer">
+                                  @if (empty($n->nickname) || $n->nickname==" ")
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @else
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @endif
+
+                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                                  @if ($n->filename == null) 
+                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                                  @else
+                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                                  
+                                  @endif
+                                  <br/>
+                                </div>
+                              </div>
+                            </div>
+
+                            @endforeach
+
+                            @endif
+
+
+
+                           
+                            
+
+
+                            @if (count($newHires) >= 1)
+                            <!-- **** NEW HIRES ******************** -->
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <br/><br/>
+                                <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
+                                  <br/><span style="font-size:smaller">of our growing family...</span></h4>
+                                
+                                <div class="widget-user-image">
+                                   
+
+                                 
+
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                              </div>
+                            </div>
+
+                            @foreach($newHires as $n)
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
+                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                                @if (is_null($n->hascoverphoto) )  
+                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                                
+                                @else
+                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                               @endif
+                                  
+                                  
+                                </div>
+                                <div class="widget-user-image">
+                                   
+
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                  @else
+                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                  @endif
+
+                                </div>
+                                
+                                <div class="box-footer">
+                                  @if (empty($n->nickname))
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
+                                 @else
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
+                                 @endif
+
+                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                                  @if ($n->filename == null) 
+                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                                  @else
+                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                                  
+                                  @endif
+                                  <br/>
+                                </div>
+                              </div>
+                            </div>
+
+                            @endforeach
+
+                            @endif
+
+
+                             <!-- ************* ANNOUNCEMENTS ************-->
+                            
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend1.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend2.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend3.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend4.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend5.jpg" />
+                            </div>
+
+
+                            <div class="item text-center">
 
                               <img src="storage/uploads/stanlee.jpg" />
                               <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
@@ -160,152 +331,7 @@ through New York's five boroughs as a first-time Open Access BPO representative 
 
                            
 
-                            @if(count($firstYears) >= 1)
-                            <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
-                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-                            @foreach($firstYears as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                <div class="widget-user-image">
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
-                                  @else
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if (empty($n->nickname) || $n->nickname==" ")
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                            @endif
-
-
-
                            
-                            
-
-
-                            @if (count($newHires) >= 1)
-                            <!-- **** NEW HIRES ******************** -->
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
-                                  <br/><span style="font-size:smaller">of our growing family...</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-
-                            @foreach($newHires as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                <div class="widget-user-image">
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
-                                  @else
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if (empty($n->nickname))
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                            @endif
 
 
 
@@ -398,27 +424,7 @@ through New York's five boroughs as a first-time Open Access BPO representative 
 
                             
 
-                              <!-- ************* ANNOUNCEMENTS ************-->
-                            
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend1.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend2.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend3.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend4.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend5.jpg" />
-                            </div>
+                             
                             
 
                             <!-- <div class="item text-center">
