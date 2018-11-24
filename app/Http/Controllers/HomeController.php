@@ -201,9 +201,10 @@ class HomeController extends Controller
        /* --- WE NOW CHECK FOR CAMPAIGN WIDGETS from FormBuilder --*/
 
        if (empty($leadershipcheck)) {
-            $myCampaign = collect($this->user->campaign->first()->id);} 
+            $myCampaign = collect($this->user->campaign->first()->id);$prg=$myCampaign;} 
        else { 
               $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
+              $prg = collect(Campaign::where('name',"Postmates")->first()->id); //for widget
               }//end if else
 
           foreach ($myCampaign as $c) {
@@ -215,7 +216,7 @@ class HomeController extends Controller
                   leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
                   leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
                   select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
-                    'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
+                    'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','DESC')->get(); 
 
 
                   if (!empty($d)) $forms->push($d);
@@ -394,7 +395,7 @@ class HomeController extends Controller
                 // ------------------------------------------------------------------------------ if user has no subordinates -----------
                
                 
-                
+                //return $prg;
                 if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || ($this->user->userType->name == "agent") )
                     
 
@@ -404,7 +405,7 @@ class HomeController extends Controller
                     //return redirect()->route('user.show',['id'=>$this->user->id]);
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
-                    return view('dashboard-agent', compact('performance', 'firstYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN'));
+                    return view('dashboard-agent', compact('performance', 'firstYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg'));
                     
 
 
@@ -416,7 +417,7 @@ class HomeController extends Controller
 
                    //return $groupedForm; 
 
-                    return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN'));
+                    return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg'));
                    
 
 

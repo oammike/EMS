@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Dashboard | OAMPI Evaluation System</title>
+<title>Dashboard | Employee Management System</title>
 <style type="text/css">
 .box.box-widget.widget-user-2{min-height: 455px;}
 
@@ -54,6 +54,13 @@ select:-webkit-autofill:focus {
 
             <div class="col-lg-7 col-sm-6 col-xs-12">
 
+
+               @if(count($groupedForm)>0)
+            <!-- ************* POSTMATE WIDGET CHART ************ -->
+             @include('layouts.widget-Postmates')
+            @endif
+
+
               <!-- ************* TIMEKEEPING BACKUP ************ -->
               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                 <div class="box-header with-border">
@@ -82,11 +89,6 @@ select:-webkit-autofill:focus {
                     </div>
               </div>
 
-
-               @if(count($groupedForm)>0)
-            <!-- ************* POSTMATE WIDGET CHART ************ -->
-             @include('layouts.widget-Postmates')
-            @endif
 
              
              <!-- ************* PERFORMANCE CHART ************ -->

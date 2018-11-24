@@ -56,130 +56,41 @@ class CampaignController extends Controller
 
      public function index()
      {
-        DB::connection()->disableQueryLog();
-        
-        if (Input::get('sort')=='Z'){
+            DB::connection()->disableQueryLog();
+            if (Input::get('sort')=='Z'){
 
-            $allCamps = DB::table('campaign')->where([
-                        ['name','!=',""],
-                        ['name','!='," "]
-                    ])
-                    ->leftJoin('campaign_logos','campaign_logos.campaign_id','=','campaign.id')
-                    ->orderBy('name','DESC')->select('campaign.name','campaign.id','campaign_logos.filename')->get();
+                $allCamps = DB::table('campaign')->where([
+                            ['name','!=',""],
+                            ['name','!='," "]
+                        ])
+                        ->leftJoin('campaign_logos','campaign_logos.campaign_id','=','campaign.id')
+                        ->orderBy('name','DESC')->select('campaign.name','campaign.id','campaign_logos.filename')->get();
 
-            $sort=2;
-        }
-        else {
-            $sort=1;
-            $allCamps = DB::table('campaign')->where([
-                        ['name','!=',""],
-                        ['name','!='," "]
-                    ])
-                    ->leftJoin('campaign_logos','campaign_logos.campaign_id','=','campaign.id')
-                    ->orderBy('name','ASC')->select('campaign.name','campaign.id','campaign_logos.filename')->get();
-        }
-
-
-        $correct = Carbon::now('GMT+8');
-
-        if($this->user->id !== 564 ) {
-            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n Viewed all campaigns - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-            fclose($file);
-        }
-
-       
-
-        return view('people.campaigns-index',compact('allCamps','sort'));
-    }
+                $sort=2;
+            }
+            else {
+                $sort=1;
+                $allCamps = DB::table('campaign')->where([
+                            ['name','!=',""],
+                            ['name','!='," "]
+                        ])
+                        ->leftJoin('campaign_logos','campaign_logos.campaign_id','=','campaign.id')
+                        ->orderBy('name','ASC')->select('campaign.name','campaign.id','campaign_logos.filename')->get();
+            }
 
 
-/*
-        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
-        $canDelete =  ($roles->contains('DELETE_EMPLOYEE')) ? '1':'0';
+            $correct = Carbon::now('GMT+8');
 
-
-        $allcampaigns = Campaign::orderBy('name','ASC')->get();
-
-        $allcamp = $allcampaigns->filter(function($c){
-            return $c->name !== "" && $c->name !=' ';
-
-        });
-
-        $campaigns = new Collection;
-        $coll = new Collection;
-
-        foreach ($allcamp as $camp) {
-            $leaders = new Collection;
+            if($this->user->id !== 564 ) {
+                $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed all campaigns - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
 
            
-            $leads = $camp->leaders;
-            $l = $leads->filter(function($e){ return $e->firstname != '';});
-            $lead = new Collection;
 
-
-
-
-            foreach ($l as $ldr) {
-                $checkActive = User::where('employeeNumber',$ldr->employeeNumber)->first();
-                $lead->push($ldr);
-            }
-
-
-
-            foreach ($lead->sortBy('lastname') as $l) {
-
-                $team = ImmediateHead_Campaign::where('immediateHead_id',$l->id)->where('campaign_id',$camp->id)->first();
-                $ih = ImmediateHead::find($team->immediateHead_id);
-                $members = DB::table('team')->where('ImmediateHead_Campaigns_id','=',$team->id)->leftJoin('users','team.user_id','=','users.id')->where('users.employeeNumber', '!=',$ih->employeeNumber)
-                                ->where('users.status_id','!=','7')->where('users.status_id','!=','8')->where('users.status_id','!=',9)
-                                ->select('users.id','users.lastname','users.firstname','users.middlename','users.position_id')->orderBy('lastname')->get();
-
-             
-               $leaderInfo = User::where('employeeNumber',$l->employeeNumber)->first();
-
-               if (!empty($leaderInfo) && $team->disabled == null )
-               {
-                    //RESIGNED || TERMINATED || ENDO
-                   if($leaderInfo->status_id != 7 && $leaderInfo->status_id != 8 && $leaderInfo->status_id != 9)
-                   {
-                        $leaders->push([
-                         'tl'=> $l->lastname.", ". $l->firstname,
-                         'id'=> $leaderInfo['id'], 
-                         'employeeNumber'=> $l->employeeNumber, 
-                         'position'=>$leaderInfo['position']['name'],
-                         'members'=>$members,
-                         'ImmediateHead_Campaigns_id' => $team->id,
-                         
-                      ]);
-
-                   }
-
-               }
-      
-               
-            }
-            $logo = null;
-
-            $logo = $camp->logo;
-
-
-             
-            $campaigns->push(['id'=>$camp->id, 'name'=>$camp->name, 'leaders'=>$leaders, 'logo'=>$logo ]); //$leaders, "members"=> $teams
-        }
-        
-
-       
-       
-        return view('people.campaigns', compact('campaigns','canDelete'));
-        //return $campaigns;
-        */
-    
-
-
-   
-
-    
+            return view('people.campaigns-index',compact('allCamps','sort'));
+     }
 
     public function getAllCampaigns()
     {
@@ -286,23 +197,7 @@ class CampaignController extends Controller
                         ])->
                         leftJoin('positions','users.position_id','=','positions.id')->
                         select('users.firstname','users.nickname','users.lastname','users.id','positions.name as jobTitle')->get();
-                        //join('team')->get();
-
-                        // leftJoin('team','team.campaign_id','=','campaign.id')->
-                        // leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
                         
-
-                        //select('immediateHead.firstname','immediateHead.lastname','campaign.name as program')->get();
-                        /*
-                        join('users','team.user_id','=','users.id')->where([
-                            ['status_id','!=',7],
-                            ['status_id','!=',8],
-                            ['status_id','!=',9],
-                        ])->
-                        join('positions','users.position_id','=','positions.id')->
-                        select('campaign.name','campaign_logos.filename','users.firstname','users.lastname', 
-                               'users.nickname', 'positions.name as jobTitle','users.id as user_id')->
-                        orderBy('users.lastname','ASC')->get();*/
 
         $campaigns = collect($campaign1);
         $campaign = $campaigns->sortBy('TLlname');
@@ -344,6 +239,43 @@ class CampaignController extends Controller
     public function update($id)
     {
 
+    }
+
+    public function widgets($id)
+    {
+        $canDo = UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS');
+        if (count($canDo)> 0 ) $reportsTeam=1; else $reportsTeam=0;
+
+        $forms = new Collection;
+        if (is_null($camp=Campaign::find($id))) return view('empty');
+        
+            $wID = Input::get('wID');
+            $camp = Campaign::find($id);
+            $widgets = DB::table('campaign_forms')->where('campaign_id','=',$camp->id)->
+                  join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+                  join('campaign','campaign_forms.campaign_id','=','campaign.id')->
+                  leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
+                  leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
+                  leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
+                  leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                  select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
+                    'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','ASC')->get();
+            if (!empty($widgets)) $forms->push($widgets);
+
+            if (!empty($forms) && !$reportsTeam)
+            {
+                $widget = collect($forms->first());
+                //$groupedF = $widget->groupBy('formID');//where('formID',$wID);//
+                $groupedForm = $widget->groupBy('formID');
+                $groupedSelects = $widget->groupBy('selectGroup');
+            }else
+            {
+                $groupedForm = null; $groupedSelects=null;
+            }
+            
+            //return $groupedForm[$wID];
+
+        return view("people.campaign-widgets", compact('camp','groupedForm','groupedSelects','wID'));
     }
     
     public function getIndividualStat(Request $request){

@@ -663,6 +663,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
           'uses'=>'UserMemoController@saveUserMemo') );
 
 
+    Route::get('/program/{id}/widgets/', array(
+          'as'=> 'widgets',
+          'uses'=>'CampaignController@widgets') );
+
+
     /* ---------- FOR OPERATIONS stat reports-------------------*/
 
     Route::get('/campaignStats/{id}', 'CampaignController@showStats');
