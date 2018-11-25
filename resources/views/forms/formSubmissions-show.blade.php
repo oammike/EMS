@@ -49,7 +49,7 @@
                         {{Form::open(['action'=>['FormSubmissionsController@downloadCSV',$form->id ]]) }}
                         <input type="hidden" id="from" name="from" />
                         <input type="hidden" id="to" name="to" />
-                         <button type="submit" id="download" data-from="" data-to="" style="margin:3px 5px" class="pull-right btn-success btn-sm btn"><i class="fa fa-download"></i> Download Spreadsheet</button> 
+                         <button @if($canAdminister==false)disabled="disabled" @endif type="submit" id="download" data-from="" data-to="" style="margin:3px 5px" class="pull-right btn-success btn-sm btn"><i class="fa fa-download"></i> Download Spreadsheet</button> 
 
                          {{Form::close()}}
 
@@ -198,18 +198,47 @@
             "deferRender": true,
             "order": [ 4, "desc" ],
             "processing":true,
-            "stateSave": false,
+            "stateSave": true,
             "lengthMenu": [10, 50, 100],//[5, 20, 50, -1],
             "columns": [
                  
-                  { title: "Agent", defaultContent: "<i>none</i>" , data:'agent',render:function(data,type,full,meta){return '<small>'+data+'</small>';}}, // width:'180'}, 
-                  { title: "Status", defaultContent: "<i>none</i>" , data:'orderStatus'}, // width:'180'}, 
+                 @if($canAdminister)
+                  { title: "Agent", defaultContent: "<i>none</i>" ,width:'180', data:'agent',render:function(data,type,full,meta)
+                            {
+                              var _token = "{{ csrf_token() }}";
+                              var delModal ='<div class="modal fade" id="dupe'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this duplicate entry?</div><div class="modal-footer no-border"><form action="../formSubmissions/deleteThis/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
+
+                              return '<small><a data-toggle="modal" data-target="#dupe'+full.id+'"  href="#">['+full.id+']</a> '+data+' </small>'+delModal;
+
+                            }
+                  }, // width:'180'}, 
+                  { title: "Status", defaultContent: "<i>none</i>" , data:'orderStatus', width:'120'}, // width:'180'}, 
                   { title: "Order Protocol", defaultContent: "<i>none</i>" , data:'protocol', width:'120'}, // width:'180'}, 
                   { title: "Merchant", defaultContent: "<i>none</i>" , data:'merchant'}, // width:'180'},  
-                  { title: "Date", defaultContent: "<i>none</i>" , data:'submitted'}, // width:'180'},
-                  { title: "Hour (PST)", defaultContent: "<i>none</i>" , data:'hour',width:'90'},        
+                  { title: "Date", defaultContent: "<i>none</i>" , data:'submitted',width:'100'}, // width:'180'},
+                  { title: "Hour (PST)", defaultContent: "<i>none</i>" , data:'hour',width:'70'},        
 
               ],
+
+              @else
+
+              { title: "Agent", defaultContent: "<i>none</i>" ,width:'180', data:'agent',render:function(data,type,full,meta)
+                            {
+
+                              return '<small>'+data+' </small>';
+
+                            }
+                  }, // width:'180'}, 
+                  { title: "Status", defaultContent: "<i>none</i>" , data:'orderStatus', width:'120'}, // width:'180'}, 
+                  { title: "Order Protocol", defaultContent: "<i>none</i>" , data:'protocol', width:'120'}, // width:'180'}, 
+                  { title: "Merchant", defaultContent: "<i>none</i>" , data:'merchant'}, // width:'180'},  
+                  { title: "Date", defaultContent: "<i>none</i>" , data:'submitted',width:'100'}, // width:'180'},
+                  { title: "Hour (PST)", defaultContent: "<i>none</i>" , data:'hour',width:'70'},        
+
+              ],
+
+
+              @endif
 
             "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
           

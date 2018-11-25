@@ -73,6 +73,14 @@ class FormSubmissionsController extends Controller
     	return view('forms.formBuilder-index');
     }
 
+    public function deleteThis($id)
+    {
+        $del = FormSubmissionsUser::find($id);
+        $del->delete();
+        return back();
+        //return response()->json(['success'=>1]);
+    }
+
     public function downloadCSV($id, Request $request)
     {
 
@@ -329,6 +337,7 @@ class FormSubmissionsController extends Controller
 
                 }
                 $submissions = collect($form)->groupBy('submissionID');
+                //return $submissions;
                     $headers = collect($form)->groupBy('label');
                     $coll = new Collection;
 
@@ -338,7 +347,7 @@ class FormSubmissionsController extends Controller
                         $c = new Collection;
                         $k = $item->pluck('value');
                         
-                        $coll->push(['merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->firstname." ". $item->first()->lastname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                        $coll->push(['id'=>$item->first()->submissionID, 'merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->firstname." ". $item->first()->lastname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
                        
                         
                     }
@@ -1149,6 +1158,8 @@ class FormSubmissionsController extends Controller
             fclose($file);
         }
 
+        $canAdminister = ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
+
         if(empty($form)) return view('empty');
 
         switch ($form->id) {
@@ -1179,27 +1190,7 @@ class FormSubmissionsController extends Controller
                                 $agents->push($p);
                         }
 
-                        // $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                        //                     where('formBuilder_items.label','=','Escalation')->
-                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
-
-                        // $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                        //                     where('formBuilder_items.label','=','Order Status')->
-                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();                    
-                        // foreach($escalations as $e){
-                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                        //     $data->push(["label"=>$e->label, "count"=>count($fs)]);
-                        // }
-
-
-                        // $total = 0;
-                        // foreach($orderStatus as $e){
-                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                        //     $data2->push(["label"=>$e->label, "count"=>count($fs)]);
-                        //     $total += count($fs);
-                        // }
+                       
 
                     }break;
 
@@ -1254,7 +1245,7 @@ class FormSubmissionsController extends Controller
                         $data2 = [];
 
                         //return $data;
-                        return view('forms.formSubmissions-show2',compact('form','data','data2','total','logo'));
+                        return view('forms.formSubmissions-show2',compact('form','data','data2','total','logo','canAdminister'));
                     }break;
             
             default:{
@@ -1282,37 +1273,17 @@ class FormSubmissionsController extends Controller
                                 $agents->push($p);
                         }
 
-                        // $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                        //                     where('formBuilder_items.label','=','Escalation')->
-                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
-
-                        // $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                        //                     where('formBuilder_items.label','=','Order Status')->
-                        //                     leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                        //                     select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();                    
-                        // foreach($escalations as $e){
-                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                        //     $data->push(["label"=>$e->label, "count"=>count($fs)]);
-                        // }
-
-
-                        // $total = 0;
-                        // foreach($orderStatus as $e){
-                        //     $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                        //     $data2->push(["label"=>$e->label, "count"=>count($fs)]);
-                        //     $total += count($fs);
-                        // }
+                       
 
                     }break;
         }
         //return $data2;
         //return $topAgents;
-
+        //return response()->json(['canAdminister'=>$canAdminister]);
         
 
 
-        return view('forms.formSubmissions-show',compact('form','logo'));
+        return view('forms.formSubmissions-show',compact('form','logo','canAdminister'));
     }
 
 

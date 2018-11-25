@@ -51,7 +51,7 @@
                         {{Form::open(['action'=>['FormSubmissionsController@downloadCSV',$form->id ]]) }}
                         <input type="hidden" id="from" name="from" />
                         <input type="hidden" id="to" name="to" />
-                         <button type="submit" id="download" data-from="" data-to="" style="margin:3px 5px" class="pull-right btn-success btn-sm btn"><i class="fa fa-download"></i> Download Spreadsheet</button> 
+                         <button type="submit" @if($canAdminister==false)disabled="disabled" @endif id="download" data-from="" data-to="" style="margin:3px 5px" class="pull-right btn-success btn-sm btn"><i class="fa fa-download"></i> Download Spreadsheet</button> 
 
                          {{Form::close()}}
                         
