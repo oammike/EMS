@@ -331,8 +331,8 @@
 
         //--- update status bars
         $.ajax({
-            url: "{{action('FormSubmissionsController@getOrderStatus',$form->id)}}",
-            type:'POST',
+            url: "../formSubmissions/getOrderStatus/{{$form->id}}?from="+start.format('YYYY-MM-DD')+"&to="+end.format('YYYY-MM-DD'),
+            type:'GET',
             data:{
              'from': start.format('YYYY-MM-DD'),
              'to':end.format('YYYY-MM-DD'),
@@ -369,13 +369,9 @@
 
         // DONUT CHART
         $.ajax({
-          url:"{{action('FormSubmissionsController@getEscalations',$form->id)}}",
-          type:"POST",
-          data:{
-            'from': start.format('YYYY-MM-DD'),
-             'to':end.format('YYYY-MM-DD'),
-              '_token':_token
-          },
+          url:"../formSubmissions/getEscalations/{{$form->id}}?from="+start.format('YYYY-MM-DD')+"&to="+end.format('YYYY-MM-DD'),
+          type:"GET",
+          
           success: function(res){
             console.log("donut");
             console.log(res);

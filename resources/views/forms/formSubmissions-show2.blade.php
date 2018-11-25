@@ -374,8 +374,8 @@
 
         // DONUT CHART
         $.ajax({
-          url:"{{action('FormSubmissionsController@getEscalations',$form->id)}}",
-          type:"POST",
+          url:"../formSubmissions/getEscalations/{{$form->id}}?from="+start.format('YYYY-MM-DD')+"&to="+end.format('YYYY-MM-DD'),
+          type:"GET",
           data:{
             'from': start.format('YYYY-MM-DD'),
              'to':end.format('YYYY-MM-DD'),

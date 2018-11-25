@@ -649,26 +649,46 @@ class FormSubmissionsController extends Controller
 
     }
 
-    public function getOrderStatus($id, Request $request)
+    public function getOrderStatus($id)
     {
-        $data = new Collection;
-        $orderStatus = DB::table('formBuilder_items')->where('formBuilder_id',$id)->
-                            where('formBuilder_items.label','=','Order Status')->
-                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+        DB::connection()->disableQueryLog();
+        $from = Input::get('from');
+        $to = Input::get('to');
+        $orders = new Collection;
 
-        $total = 0;
-        $from = Carbon::parse($request->from,'Asia/Manila')->format('Y-m-d H:i:s');
-        $to = Carbon::parse($request->to,'Asia/Manila')->format('Y-m-d H:i:s');
+        $form = FormBuilder::find($id);
+        $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
 
-        foreach($orderStatus as $e){
-            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->where('created_at','>=',$from)->get();
-            //->where('created_at','>=',$to)
-            $data->push(["label"=>$e->label, "count"=>count($fs)]);
-            $total += count($fs);
+        if (!is_null($from) && !is_null($to)){
+            $f = Carbon::parse($from,'Asia/Manila');
+            $t = Carbon::parse($to,'Asia/Manila');
+            $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value','form_submissions_users.created_at')->get();
         }
+        
+        else
+            $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
 
-        return response()->json(['data'=>$data,'total'=>$total,'from'=>$from,'to'=>$to]);
+
+        $data = collect($rankings)->groupBy('value');
+
+        foreach ($data as $d) {
+           $orders->push(["label"=>$d->first()->value, "count"=>count($d)]);
+        }
+        
+        return response()->json(['data'=>$orders,'total'=>count($rankings),'from'=>$from,'to'=>$to]);
+       
+
+
+       
     }
 
     public function fetchRanking($type)
@@ -820,132 +840,95 @@ class FormSubmissionsController extends Controller
 
     }
 
-    public function getEscalations($type, Request $request)
+    public function getEscalations($id)
     {
-        $from = Carbon::parse($request->from,'Asia/Manila')->format('Y-m-d H:i:s');
-         switch ($type) {
+        DB::connection()->disableQueryLog();
+        //switch (Input::get('by')) {
+        $from = Input::get('from');
+        $to = Input::get('to');
+        $data = new Collection;
+
+
+        switch($id){ 
+
+            case '1': 
+            {
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+
+                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->where('formBuilder_items.id',6)->get();
+                    
             
-            // POSTMATE ORDERING FORM
-            case '1':{
-                        $data = new Collection;
-                        $campaign = Campaign::where('name',"Postmates")->first();
-                        $camp = $campaign->logo;
-                        $logo = "../public/img/".$camp->filename;
+                }else{
 
-                        $pips = DB::table('team')->where('campaign_id',$campaign->id)->
-                                        join('users','users.id','=','team.user_id')->
-                                        where([
-                                                ['status_id','!=',7],
-                                                ['status_id','!=',8],
-                                                ['status_id','!=',9],
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                    
 
-                                        ])->
-                                        //rightJoin('form_submissions_users','form_submissions_users.user_id','=','users.id')->
-                                        select('users.firstname','users.nickname','users.lastname','users.id as userID')->get();
+                }
 
-                        $agents = new Collection;
-                        foreach($pips as $p)
-                        {
-                            if( count(ImmediateHead::where('employeeNumber',User::find($p->userID)->employeeNumber)->get())< 1 )
-                                $agents->push($p);
-                        }
+                
+                $submissions = collect($form)->groupBy('value');
+                foreach($submissions as $item) {
 
-                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',$type)->
-                                            where('formBuilder_items.label','=','Escalation')->
-                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
+                    $data->push(["label"=>$item->first()->value, "count"=>count($item)]);
+                }
 
-                        foreach($escalations as $e){
-                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->where('created_at','>=',$from)->get();
-                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
-                        }
+                return $data;
+                
 
+                
+            }break;
+
+            case '2': 
+            {
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                         where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->where('formBuilder_items.id',18)->get();
+                }else
+                {
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                        
+                }
+
+                $submissions = collect($form)->groupBy('value');
+                foreach($submissions as $item) {
+
+                    $data->push(["label"=>$item->first()->value, "count"=>count($item)]);
+                }
+
+                return $data;
+                
                         
 
-                    }break;
-
-
-            case '2':{
-                        $data = new Collection;
-                        $campaign = Campaign::where('name',"Postmates")->first();
-                        $camp = $campaign->logo;
-                        $logo = "../public/img/".$camp->filename;
-
-                        $pips = DB::table('team')->where('campaign_id',$campaign->id)->
-                                        join('users','users.id','=','team.user_id')->
-                                        where([
-                                                ['status_id','!=',7],
-                                                ['status_id','!=',8],
-                                                ['status_id','!=',9],
-
-                                        ])->
-                                        //rightJoin('form_submissions_users','form_submissions_users.user_id','=','users.id')->
-                                        select('users.firstname','users.nickname','users.lastname','users.id as userID')->get();
-
-                        $agents = new Collection;
-                        foreach($pips as $p)
-                        {
-                            if( count(ImmediateHead::where('employeeNumber',User::find($p->userID)->employeeNumber)->get())< 1 )
-                                $agents->push($p);
-                        }
-
-                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',$type)->
-                                            where('formBuilder_items.label','=','Confirmation')->
-                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                                           select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
-
-                      
-                        foreach($escalations as $e){
-                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->where('created_at','>=',$from)->get();
-                            if (!empty($e->value))
-                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
-                        }
-
-                       
-                    }break;
+                
+            }break;
             
-            default:{
-                        $data = new Collection;
-                        $campaign = Campaign::where('name',"Postmates")->first();
-                        $camp = $campaign->logo;
-                        $logo = "../public/img/".$camp->filename;
-
-                        $pips = DB::table('team')->where('campaign_id',$campaign->id)->
-                                        join('users','users.id','=','team.user_id')->
-                                        where([
-                                                ['status_id','!=',7],
-                                                ['status_id','!=',8],
-                                                ['status_id','!=',9],
-
-                                        ])->
-                                        //rightJoin('form_submissions_users','form_submissions_users.user_id','=','users.id')->
-                                        select('users.firstname','users.nickname','users.lastname','users.id as userID')->get();
-
-                        $agents = new Collection;
-                        foreach($pips as $p)
-                        {
-                            if( count(ImmediateHead::where('employeeNumber',User::find($p->userID)->employeeNumber)->get())< 1 )
-                                $agents->push($p);
-                        }
-
-                        $escalations = DB::table('formBuilder_items')->where('formBuilder_id',1)->
-                                            where('formBuilder_items.label','=','Escalation')->
-                                            leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                                            select('formBuilderElem_values.label','formBuilderElem_values.value','formBuilder_items.id')->get();
-
-                                           
-                        foreach($escalations as $e){
-                            $fs = FormSubmissions::where('formBuilder_itemID',$e->id)->where('value',$e->value)->get();
-                            $data->push(["label"=>$e->label, "count"=>count($fs)]);
-                        }
-
-
-                       
-
-                    }break;
+            
         }
+       
 
-        return response()->json($data);
+       
     }
 
     public function getRanking($type)

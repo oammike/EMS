@@ -121,11 +121,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'formSubmissions.getAll',
       'uses'=>'FormSubmissionsController@getAll') );
 
-      Route::post('/formSubmissions/getEscalations/{id}', array(
+      Route::get('/formSubmissions/getEscalations/{id}', array(
       'as'=> 'formSubmissions.getEscalations',
       'uses'=>'FormSubmissionsController@getEscalations') );
 
-     Route::post('/formSubmissions/getOrderStatus/{id}', array(
+     Route::get('/formSubmissions/getOrderStatus/{id}', array(
       'as'=> 'formSubmissions.getOrderStatus',
       'uses'=>'FormSubmissionsController@getOrderStatus') );
 
