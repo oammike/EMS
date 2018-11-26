@@ -63,7 +63,7 @@ class Zenefits extends Command
         exit;
       }
       
-      $campaigns = array('Zenefits','Postmates','Cebu Pacific','Patch', 'Circles.Life');
+      $campaigns = array('Zenefits','Postmates','Cebu Pacific','Patch', 'Circles.Life', 'Adore');
       if (!in_array($campaign, $campaigns)) {
         $this->error('invalid args');
         exit;
@@ -89,7 +89,7 @@ class Zenefits extends Command
       
       $agents = User::whereHas(
         'campaign', function ($query) {
-            $query->where('campaign.name', '=', $this->argument('campaign'));
+            $query->where('campaign.name', '=', ( $this->argument('campaign')==="Adore" ? "Adore Me" : $this->argument('campaign') ) );
         }
       )
       ->with('campaign')

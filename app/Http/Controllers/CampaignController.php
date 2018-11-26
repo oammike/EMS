@@ -504,14 +504,16 @@ class CampaignController extends Controller
           27 => "ZEN",
           32 => "CIRCLES",
           44 => "POST",
-          34 => "PATCH_C&group[]=PATCH_E&group[]=PATCH_S"
+          34 => "PATCH_C&group[]=PATCH_E&group[]=PATCH_S",
+          51 => "ADOREME"
         ];
         
         $user_codes = [
           27 => "ZEN",
           32 => "CIRCLES",
           44 => "POST",
-          34 => "PATCH"
+          34 => "PATCH",
+          51 => "ADOREME"
         ];
         
         $auth = base64_encode("qa:Variable8");
