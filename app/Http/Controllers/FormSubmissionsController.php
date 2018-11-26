@@ -364,7 +364,7 @@ class FormSubmissionsController extends Controller
                         $c = new Collection;
                         $k = $item->pluck('value');
                         
-                        $coll->push(['id'=>$item->first()->submissionID, 'merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->firstname." ". $item->first()->lastname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                        $coll->push(['id'=>$item->first()->submissionID, 'merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->lastname.", ".$item->first()->firstname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
                        
                         
                     }
@@ -408,7 +408,7 @@ class FormSubmissionsController extends Controller
                             
                             //$agent = $item->first()->firstname." ". $item->first()->lastname;
                             if ($ctI == 6)
-                            $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                            $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
                                         $item[0]->label=>$item[0]->value,
                                         $item[1]->label=>$item[1]->value,
                                         $item[2]->label=>$item[2]->value, 
@@ -418,7 +418,7 @@ class FormSubmissionsController extends Controller
                                         'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
                                         'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
                             elseif ($ctI == 7)
-                            $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                            $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
                                         $item[0]->label=>$item[0]->value,
                                         $item[1]->label=>$item[1]->value,
                                         $item[2]->label=>$item[2]->value, 
@@ -429,7 +429,7 @@ class FormSubmissionsController extends Controller
                                         'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
                                         'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
                              elseif ($ctI == 8)
-                            $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                            $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
                                         $item[0]->label=>$item[0]->value,
                                         $item[1]->label=>$item[1]->value,
                                         $item[2]->label=>$item[2]->value, 
@@ -557,7 +557,7 @@ class FormSubmissionsController extends Controller
                         $c = new Collection;
                         $k = $item->pluck('value');
                         
-                        $coll->push(['merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->firstname." ". $item->first()->lastname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                        $coll->push(['merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->lastname.", ".$item->first()->firstname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
                        
                         
                     }
@@ -586,7 +586,7 @@ class FormSubmissionsController extends Controller
                         
                         //$agent = $item->first()->firstname." ". $item->first()->lastname;
                         if ($ctI == 6)
-                        $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                        $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
                                     $item[0]->label=>$item[0]->value,
                                     $item[1]->label=>$item[1]->value,
                                     $item[2]->label=>$item[2]->value, 
@@ -596,7 +596,7 @@ class FormSubmissionsController extends Controller
                                     'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
                                     'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
                         elseif ($ctI == 7)
-                        $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                        $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
                                     $item[0]->label=>$item[0]->value,
                                     $item[1]->label=>$item[1]->value,
                                     $item[2]->label=>$item[2]->value, 
@@ -607,7 +607,7 @@ class FormSubmissionsController extends Controller
                                     'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
                                     'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
                          elseif ($ctI == 8)
-                        $coll->push(['agent'=>$item->first()->firstname." ". $item->first()->lastname,
+                        $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
                                     $item[0]->label=>$item[0]->value,
                                     $item[1]->label=>$item[1]->value,
                                     $item[2]->label=>$item[2]->value, 
