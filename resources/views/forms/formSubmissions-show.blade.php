@@ -317,7 +317,7 @@
                 "lengthMenu": [10, 50, 100],//[5, 20, 50, -1],
                 "columns": [
                      
-                      { title: "Agent", defaultContent: "<i>0</i>" , data:'id',render:function(data,type,full,meta){return '<small>'+full.lastname.toUpperCase()+', '+ full.firstname.toUpperCase()+'</small>';}}, // width:'180'}, 
+                      { title: "Agent", defaultContent: "<i>0</i>" , data:'id',render:function(data,type,full,meta){return '<small>'+full.lastname.toUpperCase()+', '+ full.firstname+'</small>';}}, // width:'180'}, 
                        
                       { title: "Placed", width:'70',defaultContent: "<i>none</i>" , data:'id',render:function(data,type,full,meta){
                         for(var x=0; x< full.submissions.length; x++){ 
