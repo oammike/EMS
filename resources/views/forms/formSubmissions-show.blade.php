@@ -133,6 +133,9 @@
                 <h2 class="pull-right">Raw Data</h2>
                 <h3 class="text-danger" id="alldata"></h3>
                 <table class="table no-margin table-bordered table-striped" id="forms" style="background: rgba(256, 256, 256, 0.3)" ></table>
+                @if($canAdminister)
+                <button id="deldupes"><i class="fa fa-trash"></i> Remove Duplicates</button>
+                @endif
 
                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                             
@@ -187,6 +190,52 @@
 
 
    /*----------------- Report generation -------------*/
+
+   @if($canAdminister)
+   $('#deldupes').on('click',function(){
+    var _token = "{{ csrf_token() }}";
+    var checkeditems = $('.dupes:checkbox:checked').map(function() {
+                          return this.value;
+                      }).get();
+
+    $.ajax({
+                        url: "{{action('FormSubmissionsController@deleteDupes')}}",
+                        type:'POST',
+                        data:{ 
+                          'items': checkeditems,
+                          '_token':_token
+                        },
+
+                       
+                        success: function(res)
+                        {
+                          
+                          if (res.status == '0')
+                            $.notify("An error occured. Please try again later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                          else {
+                            //$('button[name="submit"]').fadeOut();
+                            $.notify("Duplicate items successfully deleted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                            console.log(res);
+                            var allforms = $("#forms").DataTable();
+                            allforms.ajax.reload();
+                            
+                          }
+
+                           
+                        }, error: function(res){
+                          console.log("ERROR");
+                          $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                            
+                        }
+
+
+              });
+    //console.log(checkeditems);
+
+   });
+   //end duplicate delete
+   @endif
+
     window.start = moment().subtract(6, 'days');
     window.end = moment();
     $('#from').val(window.start.format('YYYY-MM-DD'));
@@ -206,9 +255,9 @@
                   { title: "Agent", defaultContent: "<i>none</i>" ,width:'180', data:'agent',render:function(data,type,full,meta)
                             {
                               var _token = "{{ csrf_token() }}";
-                              var delModal ='<div class="modal fade" id="dupe'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this duplicate entry?</div><div class="modal-footer no-border"><form action="../formSubmissions/deleteThis/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
+                              // var delModal ='<div class="modal fade" id="dupe'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this duplicate entry?</div><div class="modal-footer no-border"><form action="../formSubmissions/deleteThis/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
 
-                              return '<small><a data-toggle="modal" data-target="#dupe'+full.id+'"  href="#">['+full.id+']</a> '+data+' </small>'+delModal;
+                              return '<input class="dupes form-check-input" type="checkbox" name="dupes" value="'+full.id+'" /> <small>'+data+' </small>';
 
                             }
                   }, // width:'180'}, 
@@ -239,8 +288,16 @@
 
 
               @endif
-
-            "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
+            //"dom": 'Bfrtip',
+            "dom": '<"col-xs-1"fb><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
+            // "buttons": [
+            //               {
+            //                   text: 'My button',
+            //                   action: function ( e, dt, node, config ) {
+            //                       alert( 'Button activated' );
+            //                   }
+            //               }
+            //           ],
           
             "oLanguage": {
                "sSearch": "<strong>All Submitted Data</strong> <br/><br/>To re-order entries, click the sort icon on the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",

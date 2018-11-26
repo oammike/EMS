@@ -73,6 +73,21 @@ class FormSubmissionsController extends Controller
     	return view('forms.formBuilder-index');
     }
 
+    public function deleteDupes(Request $request)
+    {
+        $coll = new Collection;
+        foreach($request->items as $d)
+        {
+            $del = FormSubmissionsUser::find($d);
+            $coll->push($del);
+            $del->delete();
+            
+        }
+        
+        //return back();
+        return response()->json(['success'=>1,'items'=>$coll]);
+    }
+
     public function deleteThis($id)
     {
         $del = FormSubmissionsUser::find($id);
@@ -80,6 +95,8 @@ class FormSubmissionsController extends Controller
         return back();
         //return response()->json(['success'=>1]);
     }
+
+
 
     public function downloadCSV($id, Request $request)
     {
