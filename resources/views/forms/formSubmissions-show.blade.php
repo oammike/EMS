@@ -133,7 +133,9 @@
                 <h2 class="pull-right">Raw Data</h2>
                 <h3 class="text-danger" id="alldata"></h3>
                 <table class="table no-margin table-bordered table-striped" id="forms" style="background: rgba(256, 256, 256, 0.3)" ></table>
+                @if($canAdminister)
                 <button id="deldupes"><i class="fa fa-trash"></i> Remove Duplicates</button>
+                @endif
 
                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                             
@@ -189,6 +191,7 @@
 
    /*----------------- Report generation -------------*/
 
+   @if($canAdminister)
    $('#deldupes').on('click',function(){
     var _token = "{{ csrf_token() }}";
     var checkeditems = $('.dupes:checkbox:checked').map(function() {
@@ -230,6 +233,8 @@
     //console.log(checkeditems);
 
    });
+   //end duplicate delete
+   @endif
 
     window.start = moment().subtract(6, 'days');
     window.end = moment();
