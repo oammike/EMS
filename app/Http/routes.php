@@ -96,7 +96,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'formSubmissions.process',
       'uses'=>'FormSubmissionsController@process') );
     
-     Route::post('/formSubmissions/deleteThis/{id}', array(
+    Route::post('/formSubmissions/deleteDupes', array(
+      'as'=> 'formSubmissions.deleteDupes',
+      'uses'=>'FormSubmissionsController@deleteDupes') );
+
+    Route::post('/formSubmissions/deleteThis/{id}', array(
       'as'=> 'formSubmissions.deleteThis',
       'uses'=>'FormSubmissionsController@deleteThis') );
 

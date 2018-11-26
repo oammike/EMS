@@ -414,7 +414,16 @@ class UserSLController extends Controller
             $vl->isApproved=false;
         }
 
-        $vl->push();
+        $vl->save();
+
+        /***** once saved, update your leave credits ***/
+        $userVLs = User_SLcredits::where('user_id',$vl->user_id)->orderBy('creditYear','DESC')->get();
+        if (count($userVLs) > 0 && $vl->isApproved)
+        {
+            $vlcredit = $userVLs->first();
+            $vlcredit->used += $vl->totalCredits;
+            $vlcredit->push();
+        }
 
          //**** send notification to the sender
         $theNotif = Notification::where('relatedModelID', $vl->id)->where('type',11)->get();
