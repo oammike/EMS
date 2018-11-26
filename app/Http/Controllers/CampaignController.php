@@ -630,6 +630,7 @@ class CampaignController extends Controller
                 for($i=2;$i<count($csvLine);$i++){
                   $column_labels[] = $csvLine[$i];
                 }
+                $column_labels[] = "DED";
                 $line = $line + 1;
                 continue;
               }
@@ -642,9 +643,35 @@ class CampaignController extends Controller
                 
                 if($user!==null){
                   $username = $user->firstname . " ". $user->lastname;
+                  $data["DED"][$username] = 0;
                   for($i=2;$i<count($csvLine);$i++){
                     $data[$column_labels[$i-2]][$username] = $csvLine[$i];
+                    
+                    /** add all deductibles **/
+                    if($column_labels[$id-2]==="TeamM" || $column_labels[$id-2]==="Coachi" || $column_labels[$id-2]==="Idle"){
+                      $splitted = explode(":",$csvLine[$i]);
+                      if(count($splitted)===1){
+                        $data["DED"][$username] = $data["DED"][$username] + intval($splitted);
+                      }
+                      if(count($splitted)===2){
+                        $duration = intval($splitted[1]) + (intval($splitted[0])*60);
+                        $data["DED"][$username] = $data["DED"][$username] + $duration;
+                      }
+                      if(count($splitted)===3){
+                        $duration = intval($splitted[2]) + (intval($splitted[1])*60) + (intval($splitted[0])*3600);
+                        $data["DED"][$username] = $data["DED"][$username] + $duration;
+                      }
+                    }
                   }
+                  /** CONVERT deductibles back to HH:MM:SS format **/
+                  if($data["DED"][$username]!==0){
+                    $hours = floor($data["DED"][$username] / 3600);
+                    $data["DED"][$username] %= 3600;
+                    $minutes = floor($data["DED"][$username] / 60);
+                    $seconds = $startTotalSeconds - ($minutes * 60);
+                    $data["DED"][$username] = sprintf("%02d",$hours) . ":" . sprintf("%02d",$minutes) . ":" .sprintf("%.1f", $seconds);
+                  }
+                  
                 }
                 $line = $line + 1;
               }
