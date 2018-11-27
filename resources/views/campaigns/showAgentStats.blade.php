@@ -55,6 +55,13 @@
                     <i class="fa fa-caret-down"></i>
                   </button>
                 </div>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default" id="bt_stats_export">
+                    <span>
+                      <i class="fa fa-download"></i> Export
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
             <div class="box-body">
@@ -101,6 +108,21 @@
       "red", "orange", "yellow", "green", "blue", "purple", "grey", "darkblue", "lightblue", "black"
     ];
     
+    
+    $('.bt_stats_export').on('click',function(){
+      var mData = {
+        "campaign_id": window.campaign_id,
+        "start": window.start.unix(),
+        "end": window.end.unix(),
+        "_token": "{{ csrf_token() }}",
+        "export": "TRUE"
+      };
+      $.ajax({
+        url: "{{ url('/getAgentStats') }}",
+        type: "POST",
+        data: mData
+      });  
+    });
     
 
     
