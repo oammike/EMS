@@ -488,6 +488,7 @@ class CampaignController extends Controller
       $return_data = new \stdClass();
       $return_data->stats = [];
       $pause_codes = [];
+      $export_lines = [];
       $domain = "";
       if($request->input('campaignId','')!==''){
         $return_data;
@@ -597,8 +598,13 @@ class CampaignController extends Controller
                           $duration = intval($splitted[2]) + (intval($splitted[1])*60) + (intval($splitted[0])*3600);
                           $data["DED"][$username] = $data["DED"][$username] + $duration;
                         }
+                        $csvLine[] = $data["DED"][$username];
                       }
                     
+                    }
+                    
+                    if($request->input('export',FALSE)===TRUE){
+                      $export_lines[] = $csvLine;
                     }
 
                   }
@@ -633,26 +639,25 @@ class CampaignController extends Controller
       if($request->input('export',FALSE)===TRUE){
         $headers = array(
           "Content-type" => "text/csv",
-          "Content-Disposition" => "attachment; filename=file.csv",
+          "Content-Disposition" => "attachment; filename=export.csv",
           "Pragma" => "no-cache",
           "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
           "Expires" => "0"
         );
     
-        $reviews = Reviews::getReviewExport($this->hw->healthwatchID)->get();
         $columns = array('ReviewID', 'Provider', 'Title', 'Review', 'Location', 'Created', 'Anonymous', 'Escalate', 'Rating', 'Name');
     
-        $callback = function() use ($reviews, $columns)
+        $callback = function() use ($export_lines, $column_labels)
         {
             $file = fopen('php://output', 'w');
-            fputcsv($file, $columns);
+            fputcsv($file, $column_labels);
     
-            foreach($reviews as $review) {
-                fputcsv($file, array($review->reviewID, $review->provider, $review->title, $review->review, $review->location, $review->review_created, $review->anon, $review->escalate, $review->rating, $review->name));
+            foreach($export_lines as $line) {
+              fputcsv($file, $line);
             }
             fclose($file);
         };
-        return Response::stream($callback, 200, $headers);  
+        return Response::stream($callback, 200, $headers);
       } else {
         return response()->json($return_data);
       }

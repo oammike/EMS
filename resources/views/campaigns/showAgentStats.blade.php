@@ -151,7 +151,6 @@
         success: function(rtnData) {
           if(window.activityChart!==undefined) window.activityChart.destroy();
           
-          
           $('#dd_metrics').empty();
           rtnData.columns.forEach(function(key,value){
             $('#dd_metrics').append($('<li><a href="#" class="metric_toggles" data-key="'+key+'">'+key+'</a></li>'));
