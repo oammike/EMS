@@ -1135,7 +1135,7 @@ class DTRController extends Controller
                               $fromRDtoWD = User_CWS::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$bioForTheDay->id)->where('timeStart_old',"00:00:00")->where('timeEnd_old',"00:00:00")->orderBy('updated_at','DESC')->get();
                               $fromWDtoRD = User_CWS::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$bioForTheDay->id)->where('timeStart',"00:00:00")->where('timeEnd',"00:00:00")->orderBy('updated_at','DESC')->get();
 
-                              $coll->push(['payday'=>$payday, 'fromWDtoRD'=>$fromWDtoRD]);
+                              //$coll->push(['payday'=>$payday, 'fromWDtoRD'=>$fromWDtoRD]);
 
                               //return $coll2->push(['noWorkSched'=>$noWorkSched]);
 
@@ -1273,7 +1273,7 @@ class DTRController extends Controller
                                 //----------- else if fromWD > 0 ->rdToday = true
 
                                
-                                $coll->push(["RDtoWD"=>$fromRDtoWD]);
+                                //$coll->push(["RDtoWD"=>$fromRDtoWD]);
 
                                 if (count($fromRDtoWD)>0 ) //but we need to check first alin mas updated: cws or the plotted sched
                                 {
@@ -1385,7 +1385,7 @@ class DTRController extends Controller
                                     $rd = $RDsched->where('isRD',1)->where('productionDate',$payday)->all(); 
                                     if (count($rd)<= 0 ) $isRDToday=false; else $isRDToday=true;
 
-                                    //$coll2->push(['from: '=>"reg else"]);
+                                    $coll->push(['from: '=>"regular else"]);
                                   }
                                 }
                               
@@ -1916,6 +1916,8 @@ class DTRController extends Controller
                   else $notedMemo = false;
 
                 }else { $notedMemo=false; $memo=null; } 
+
+                $notedMemo=true; $memo=null; //override for tour
 
 
 
