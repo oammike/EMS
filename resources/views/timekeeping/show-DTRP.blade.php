@@ -128,6 +128,8 @@
                                               </table>
                                               <br/><br/><br/>
                                                <a style="margin-left: 5px" href="{{action('DTRController@show', $user->id)}}" class="btn btn-flat btn-sm btn-default pull-right"><i class="fa fa-calendar"></i> View DTR</a>
+                                               
+                                               <a style="margin-left: 5px" href="{{action('UserController@userRequests', $user->id)}}" class="btn btn-flat btn-sm btn-default pull-right"><i class="fa fa-clipboard"></i> View All Requests</a>
 
                                               <a href="{{action('NotificationController@index')}}" class="text-primary pull-left"><i class="fa fa-arrow-left"></i> Back to All Notifications</a>
                                               <br/><br/>

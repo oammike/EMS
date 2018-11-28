@@ -681,43 +681,6 @@ class UserController extends Controller
 
         /* ------- faster method ----------- */
 
-        
-
-        // $leaders = DB::table('users')->where([
-        //             ['status_id', '!=', 7],
-        //             ['status_id', '!=', 8],
-        //             ['status_id', '!=', 9],
-        //         ])->join('immediateHead','users.employeeNumber','=','immediateHead.employeeNumber')->
-        //         leftJoin('immediateHead_Campaigns','immediateHead.id','=','immediateHead_Campaigns.immediateHead_id')->
-        //         select('users.id','users.firstname', 'users.lastname','immediateHead.id as ihID','immediateHead_Campaigns.campaign_id as programs')->get();
-
-        // $users = DB::table('users')->where([
-        //             ['status_id', '!=', 7],
-        //             ['status_id', '!=', 8],
-        //             ['status_id', '!=', 9],
-        //         ])->leftJoin('positions','users.position_id','=','positions.id')->
-        //         select('users.id', 'users.firstname','users.lastname','positions.name as jobTitle')->get();
-        //         //union($leaders)->groupBy('users.id')->get();
-
-        // $allusers = array_merge($leaders,$users);// $leaders->merge($users)->groupBy('id');
-
-        // return response()->json(['data'=>$allusers]);
-
-
-
-        // where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
-        // leftJoin('positions','users.position_id','=','positions.id')->
-        // innerJoin('team','team.user_id','=','users.id')select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','users.employeeNumber',)->orderBy('users.lastname')->get();
-
-
-        // leftJoin('campaign','team.campaign_id','=','campaign.id')->
-        // leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-        // leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-        
-        // leftJoin('floor','team.floor_id','=','floor.id')->
-        // select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
-
-
 
         $users = DB::table('users')->where([
                     ['status_id', '!=', 7],
@@ -1993,7 +1956,7 @@ class UserController extends Controller
         //Timekeeping Trait
         $canView = $this->checkIfAnApprover($approvers, $this->user);
 
-        if ($canView)
+        if ($canView || $this->user->id == $id)
           return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView]);
         else
           return view('access-denied');

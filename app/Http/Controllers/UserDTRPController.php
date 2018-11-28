@@ -85,25 +85,6 @@ class UserDTRPController extends Controller
         else return response()->json(['success'=>"ok"]);
 
 
-
-
-
-
-        // //find all notifications related to that OT
-        // $theNotif = Notification::where('relatedModelID', $theDTRP->id)->where('type',$request->notifType)->get();
-
-        // if (count($theNotif) > 0){
-        //     $allNotifs = User_Notification::where('notification_id', $theNotif->first()->id)->get();
-        //     foreach ($allNotifs as $key) {
-        //         $key->delete();
-                
-        //     }
-        // }
-        // $theDTRP->delete();
-
-        // if ($request->redirect == '1')
-        //     return redirect()->back();
-        // else return response()->json(['success'=>"ok"]);
         
     }
 

@@ -148,10 +148,19 @@
                                         <td class="text-center"> N/A </td>
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">{{ number_format( ($v->beginBalance - $v->used)-$v->paid, 2) }}</td>
                                         <td class="text-center">
-                                          <!-- <a href="" class="btn btn-xs btn-default" style="margin-right: 5px"><i class="fa fa-list"></i> Details </a>  -->
+                                         
+                                         @if($canUpdateLeaves)
+
                                           <a class="editLeave btn btn-xs btn-default" data-leavetype="vl" data-leaveid="{{$v->id}}" data-toggle="modal"  data-target="#myModal_edit_vl{{$v->id}}" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a> 
-                                          <a data-toggle="modal"  data-target="#myModal_vl{{$v->id}}"  class="btn btn-xs btn-default" style="margin-right: 5px"><i class="fa fa-trash"></i> Delete</a></td>
+                                          <a data-toggle="modal"  data-target="#myModal_vl{{$v->id}}"  class="btn btn-xs btn-default" style="margin-right: 5px"><i class="fa fa-trash"></i> Delete</a>
+
+                                          @endif
+
+                                        </td>
                                       </tr>
+
+
+                                      @if ($canUpdateLeaves)
 
                                       @include('layouts.modals-del', [
                                         'modelRoute'=>'user_vl.deleteCredit',
@@ -173,6 +182,8 @@
                                         'modalTitle'=>'Edit', 
                                         'formID'=>'editVL',
                                         'icon'=>'glyphicon-up' ])
+
+                                        @endif
 
 
 
@@ -224,11 +235,15 @@
                                         <td class="text-center">{{$v->paid}}  </td>
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">{{ number_format(($v->beginBalance - $v->used)-$v->paid,2) }}</td>
                                         <td class="text-center">
-                                          <!-- <a href="" class="btn btn-xs btn-default" style="margin-right: 5px"><i class="fa fa-list"></i> Details </a>  -->
+                                          @if($canUpdateLeaves)
                                           <a class="editLeave btn btn-xs btn-default" data-leavetype="vl" data-leaveid="{{$v->id}}" data-toggle="modal"  data-target="#myModal_edit_sl{{$v->id}}" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a> 
-                                          <a data-toggle="modal"  data-target="#myModal_sl{{$v->id}}"  class="btn btn-xs btn-default" style="margin-right: 5px"><i class="fa fa-trash"></i> Delete</a></td>
+                                          <a data-toggle="modal"  data-target="#myModal_sl{{$v->id}}"  class="btn btn-xs btn-default" style="margin-right: 5px"><i class="fa fa-trash"></i> Delete</a>
+                                          @endif
+                                        </td>
                                       </tr>
 
+                                      @if($canUpdateLeaves)
+                                      
                                       @include('layouts.modals-del', [
                                         'modelRoute'=>'user_sl.deleteCredit',
                                         'modelID' => $v->id, 
@@ -249,6 +264,8 @@
                                         'modalTitle'=>'Edit', 
                                         'formID'=>'editSL',
                                         'icon'=>'glyphicon-up' ])
+
+                                        @endif
 
 
 

@@ -206,7 +206,7 @@
         <!-- Optionally, you can add icons to the links -->
         <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
-        <li class="@if (Request::is('gallery')) active @endif"><a href="{{ action('HomeController@gallery') }}"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span> <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: 10px"><strong>New!</strong></span></a></li> 
+        <li class="@if (Request::is('gallery')) active @endif"><a href="{{ action('HomeController@gallery') }}"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span><!--  <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: 10px"><strong>New!</strong></span> --></a></li> 
 
         
         <li @if (Request::is("user/".Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" ><i class="fa fa-2x fa-address-card"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Profile</span></a></li>
@@ -330,7 +330,11 @@
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') ){ ?> 
             <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload"><i class="fa fa-upload"></i>Upload Biometrics</a></li>
 
-             <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload2"><i class="fa fa-upload"></i>Upload Finance CSV</a></li>
+            <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload2"><i class="fa fa-upload"></i>Upload Finance CSV</a></li>
+
+            <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload3"><i class="fa fa-upload"></i>Upload VL Credits</a></li>
+
+            <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload4"><i class="fa fa-upload"></i>Upload SL Credits</a></li>
 
             <?php } ?><br/>
           </ul>
@@ -370,9 +374,9 @@
         
 
         
-
+<!--
         <li><a href="http://172.17.0.51/accessone/login" target="_blank"><i class="fa fa-file"></i> <span>HRIS</span></a></li>
-       <!--  <li><a href="http://oampayroll.openaccessbpo.com/" target="_blank"><i class="fa fa-usd"></i> <span>Payroll</span></a></li> -->
+         <li><a href="http://oampayroll.openaccessbpo.com/" target="_blank"><i class="fa fa-usd"></i> <span>Payroll</span></a></li> -->
        
         
       </ul>
@@ -380,6 +384,25 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  @if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') )
+  @include('layouts.modals-upload', [
+                                'modelRoute'=>'user_sl.uploadCredits',
+                                'modelID' => '_upload4', 
+                                'modelName'=>"SL Credits", 
+                                'modalTitle'=>'Upload', 
+                                'modalMessage'=>'Select CSV file to upload (*.csv):', 
+                                'formID'=>'uploadBio4',
+                                'icon'=>'glyphicon-up' ])
+  @include('layouts.modals-upload', [
+                                'modelRoute'=>'user_vl.uploadCredits',
+                                'modelID' => '_upload3', 
+                                'modelName'=>"VL Credits", 
+                                'modalTitle'=>'Upload', 
+                                'modalMessage'=>'Select CSV file to upload (*.csv):', 
+                                'formID'=>'uploadBio3',
+                                'icon'=>'glyphicon-up' ])
+
 
   @include('layouts.modals-upload', [
                                 'modelRoute'=>'biometrics.uploadFinanceCSV',
@@ -398,3 +421,5 @@
                                 'modalMessage'=>'Select biometrics file to upload (*.csv):', 
                                 'formID'=>'uploadBio',
                                 'icon'=>'glyphicon-up' ])
+
+@endif

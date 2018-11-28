@@ -390,7 +390,7 @@ class HomeController extends Controller
                 }else { $notedMemo=false; $memo=null; } 
                 
 
-                //return $pass = bcrypt('ksalde'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+                //return $pass = bcrypt('vhernandez'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
                 // ------------------------------------------------------------------------------ if user has no subordinates -----------
                
