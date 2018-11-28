@@ -274,7 +274,7 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <li  data-step="4" data-intro="Lastly, please don't forget to <br/><strong>change your default password<br/> </strong> if you haven't done it yet, okay?<br/><br/>Have a great day ahead!" data-position='right'>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>

@@ -37,8 +37,9 @@
      <section class="content">
 
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" >
            @if ($user->id == Auth::user()->id) 
+
           <span style="text-align: left; font-size:12px"><em>Click on the buttons below to file new requests:</em></span><br/><br/>
           <p class="text-center">
             <strong><a href="{{action('UserSLController@create')}}" class="btn btn-sm btn-danger"><i class="fa fa-2x fa-stethoscope"></i> New Sick Leave <strong>(SL)</strong></a>

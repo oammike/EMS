@@ -1,57 +1,4 @@
-<aside class="main-sidebar">
-
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <a href="{{action('UserController@show',Auth::user()->id)}}" class="user-image" >
-           @if ( file_exists('public/img/employees/'.Auth::user()->id.'.jpg') )
-              <img src="{{asset('public/img/employees/'.Auth::user()->id.'.jpg')}}" class="user-image" alt="User Image" width="50">
-              @else
-                <img src="{{asset('public/img/useravatar.png')}}" class="user-image" alt="User Image" width="40">
-
-                @endif
-
-              </a>
-
-         
-        </div>
-        <div class="pull-left info">
-          @if (is_null(Auth::user()->nickname))
-          <small><strong>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</strong></small><br/>
-
-          @else
-          <small><strong>{{ Auth::user()->nickname }} {{ Auth::user()->lastname }}</strong></small><br/>
-          @endif
-          <!-- Status -->
-          
-            
-              <small class="text-success"><i class="fa fa-circle text-success"></i> Online</small> 
-            
-          
-        </div>
-      </div>
-
-      <!-- search form (Optional) -->
-      <!-- <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>  -->
-
-      <!-- ******************** LEAVE CREDIT COUNTER ***************-->
-      <div class="row">
-        <div class="col-lg-1 col-sm-12"></div>
-        <div class="col-lg-4 col-sm-12 text-center">
-          
-          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"><i class="fa fa-plane"></i></span><span class="label label-primary">
-            <?php $u = OAMPI_Eval\User::find(Auth::user()->id); 
+<?php $u = OAMPI_Eval\User::find(Auth::user()->id); 
             
             $lengthOfservice = \Carbon\Carbon::parse($u->dateHired,"Asia/Manila")->diffInMonths();
             $leave1 = \Carbon\Carbon::parse('first day of January '. date('Y'),"Asia/Manila")->format('Y-m-d');
@@ -168,7 +115,62 @@
             
                 //$avail = $this->user->availableVL;
                 
-            ?> {{$currentVLbalance}} </span></a></div>
+            ?>
+
+<aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <a href="{{action('UserController@show',Auth::user()->id)}}" class="user-image" >
+           @if ( file_exists('public/img/employees/'.Auth::user()->id.'.jpg') )
+              <img src="{{asset('public/img/employees/'.Auth::user()->id.'.jpg')}}" class="user-image" alt="User Image" width="50">
+              @else
+                <img src="{{asset('public/img/useravatar.png')}}" class="user-image" alt="User Image" width="40">
+
+                @endif
+
+              </a>
+
+         
+        </div>
+        <div class="pull-left info">
+          @if (is_null(Auth::user()->nickname))
+          <small><strong>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</strong></small><br/>
+
+          @else
+          <small><strong>{{ Auth::user()->nickname }} {{ Auth::user()->lastname }}</strong></small><br/>
+          @endif
+          <!-- Status -->
+          
+            
+              <small class="text-success"><i class="fa fa-circle text-success"></i> Online</small> 
+            
+          
+        </div>
+      </div>
+
+      <!-- search form (Optional) -->
+      <!-- <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>  -->
+
+      <!-- ******************** LEAVE CREDIT COUNTER ***************-->
+      <div class="row" data-step="1" data-intro="Hi @if(empty(Auth::user()->nickname)){{Auth::user()->firstname}} @else {{Auth::user()->nickname}}@endif!<br/>Welcome to Open Access EMS. <br/><br/>These are your latest leave credits as of <span class='text-danger'><strong>NOV 20, 2018</strong></span>.<br/><strong>VL: </strong>{{$currentVLbalance}}<br/><strong> SL: </strong>{{$currentSLbalance}}<br/> <br/>To file for leave requests..." data-position="right">
+        <div class="col-lg-1 col-sm-12"></div>
+        <div class="col-lg-4 col-sm-12 text-center">
+          
+          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"><i class="fa fa-plane"></i></span><span class="label label-primary">
+             {{$currentVLbalance}} </span></a></div>
 
             
         <div class="col-lg-4 col-sm-12 text-center">
@@ -210,9 +212,9 @@
 
         
         <li @if (Request::is("user/".Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" ><i class="fa fa-2x fa-address-card"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Profile</span></a></li>
-        <li  @if ( Request::is('user_dtr*') ) class="active" @endif ><a  @if ( Request::is('user_dtr*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-2x fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My DTR</a></li>
+        <li data-step="3" data-intro="Or head over to your <br/><span style='font-weight:bold' class='text-danger'>'DTR Sheet'</span> and click on the push-pin icons to file a DTRP for that specific production date. <br/><br/><strong>Note:</strong> Again, don't forget to include a brief reason when submitting requests!" data-position='right'  @if ( Request::is('user_dtr*') ) class="active" @endif ><a  @if ( Request::is('user_dtr*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-2x fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My DTR</a></li>
 
-         <li  @if ( Request::is('myRequests*') ) class="active" @endif ><a  @if ( Request::is('myRequests*') ) class="active" @endif href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My Requests</a></li>
+         <li  data-step="2" data-intro="..you may go to <br/><span style='font-weight:bold' class='text-danger'>'My Requests</span>' page and then select the type of request you want to submit. <br/><br/><strong>Note:</strong> Always include a brief reason when submitting requests." data-position='right'  @if ( Request::is('myRequests*') ) class="active" @endif ><a  @if ( Request::is('myRequests*') ) class="active" @endif href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My Requests</a></li>
 
         @if( Auth::user()->isAleader )
         <li @if (Request::is('myTeam')) class="active" @endif><a href="{{action('UserController@myTeam')}}" ><i class="fa fa-2x fa-users"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Team</span></a></li>

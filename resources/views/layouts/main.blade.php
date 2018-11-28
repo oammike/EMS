@@ -22,6 +22,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
  <link href="{{asset('public'.elixir('css/all.css'))}}" rel="stylesheet" />
  <link href="{{asset('public/css/font-awesome.min.css')}}" rel="stylesheet">
+ <!-- Add IntroJs styles -->
+<link href="{{asset('public/css/introjs.css')}}" rel="stylesheet">
  <style type="text/css"> 
  .navbar{ -webkit-box-shadow:6px 6px 13px 0px rgba(0, 0, 0, 0.19); }
  .skin-blue .main-header .navbar, .skin-blue .main-header .logo{background-color: #1a8fcb;}
@@ -106,7 +108,7 @@ desired effect
 
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+  <aside id="controlsidebar" class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
       <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-users"></i> <br/><small>User Settings</small></a></li>

@@ -29,6 +29,8 @@ select:-webkit-autofill:focus {
 
 </style>
 
+
+
 @endsection
 
 @section('content')
@@ -46,6 +48,8 @@ select:-webkit-autofill:focus {
     </section>
 
      <section class="content"><br/><br/><br/>
+
+          
 
           <div class="row">
 
@@ -326,7 +330,8 @@ select:-webkit-autofill:focus {
 
 <script type="text/javascript" src="{{asset('public/js/morris.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/js/raphael.min.js')}}"></script>
-
+<script type="text/javascript" src="{{asset('public/js/intro.js')}}"></script>
+   
 <script>
 
   $(function () {
@@ -340,26 +345,27 @@ select:-webkit-autofill:focus {
    // OPS
 
 
-   function startTime() {
+   function startTime() 
+   {
     
-    var d = new Date();
-    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    var today = new Date(utc + (3600000*8));
+      var d = new Date();
+      var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+      var today = new Date(utc + (3600000*8));
 
-    
-    var h = today.getHours() > 12 ? today.getHours() - 12 : today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
+      
+      var h = today.getHours() > 12 ? today.getHours() - 12 : today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
 
-    var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+      var am_pm = today.getHours() >= 12 ? "PM" : "AM";
 
-    m = checkTime(m);
-    s = checkTime(s);
+      m = checkTime(m);
+      s = checkTime(s);
 
-    document.getElementById('clock').innerHTML =
-    h + ":" + m + ":" + s + " " + am_pm
-    var t = setTimeout(startTime, 500);
-  }
+      document.getElementById('clock').innerHTML =
+      h + ":" + m + ":" + s + " " + am_pm
+      var t = setTimeout(startTime, 500);
+   }
 
   function checkTime(i) {
       if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
@@ -369,64 +375,57 @@ select:-webkit-autofill:focus {
 
    $('.timekeeping').on('click', function(){
 
-    var logtype_id = $(this).attr('data-timetype');
-    var btn = $(this);
-    var _token = "{{ csrf_token() }}";
+      var logtype_id = $(this).attr('data-timetype');
+      var btn = $(this);
+      var _token = "{{ csrf_token() }}";
 
-    var clocktime = $('#clock').text();
-    $.ajax({
-        url: "{{action('LogsController@saveDashboardLog')}}",
-        type:'POST',
-        data:{ 
-          'logtype_id': logtype_id,
-          'clocktime': clocktime,
-          '_token':_token
-        },
+      var clocktime = $('#clock').text();
+      $.ajax({
+          url: "{{action('LogsController@saveDashboardLog')}}",
+          type:'POST',
+          data:{ 
+            'logtype_id': logtype_id,
+            'clocktime': clocktime,
+            '_token':_token
+          },
 
-        success: function(res){
-                console.log(res);
+          success: function(res){
+                  console.log(res);
 
-                switch(logtype_id){
-                  case '1': {
-                                $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-                                btn.fadeOut("slow");
-                              } break;
-                  case '2': { 
-                                $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-                                btn.fadeOut("slow");
+                  switch(logtype_id){
+                    case '1': {
+                                  $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
+                                  btn.fadeOut("slow");
+                                } break;
+                    case '2': { 
+                                  $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
+                                  btn.fadeOut("slow");
 
-                            }break;
-                  case '3': { 
-                                $.notify("End Breaktime. \n\n",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-                                btn.attr('disabled',true);
-                                $('#btn_breakin').attr('disabled',false);
+                              }break;
+                    case '3': { 
+                                  $.notify("End Breaktime. \n\n",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
+                                  btn.attr('disabled',true);
+                                  $('#btn_breakin').attr('disabled',false);
 
-                            }break;
-                  case '4': { 
+                              }break;
+                    case '4': { 
 
-                            btn.attr("disabled",'disabled');
-                            $('#btn_breakout').attr('disabled',false);
-
-
-                            $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} ); }break;
-
-                }
-                
-                
-        },
-        error: function(res){
-              $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-
-        }
-      }); 
+                              btn.attr("disabled",'disabled');
+                              $('#btn_breakout').attr('disabled',false);
 
 
+                              $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} ); }break;
 
-    
+                  }
+                  
+                  
+          },
+          error: function(res){
+                $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
 
-     
-
-   });
+          }
+        }); 
+  });
 
 
 
@@ -670,14 +669,43 @@ select:-webkit-autofill:focus {
 
    $(window).bind("load", function() {
 
-       getNewNotifications();
+      getNewNotifications();
       startTime();
 
+     @if (!is_null($memo) && $notedMemo != true)
+     $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
+     @endif
+
+     @if(!is_null($siteTour) && $notedTour != true)
+     
+     introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
+      $('#controlsidebar').addClass('control-sidebar-open');
+      var _token = "{{ csrf_token() }}";
+        
+
+        //--- update user notification first
+        $.ajax({
+            url: "{{action('UserMemoController@saveUserMemo')}}",
+            type:'POST',
+            data:{ 
+              'id': "{{$siteTour->id}}",
+              '_token':_token
+            },
+
+            success: function(res){
+                    console.log(res);
+            },
+          });
+
+      console.log("open it");
+     });
+     @endif
+
+     // introJs().setOption('doneLabel', 'AND THEN...').start().oncomplete(function() {
+     //      window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+     //    });control-sidebar.control-sidebar-dark
 
 
-       @if (!is_null($memo) && $notedMemo != true)
-       $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
-       @endif
 });
 
 @if(count($performance)>0)

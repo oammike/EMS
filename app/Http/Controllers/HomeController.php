@@ -319,12 +319,10 @@ class HomeController extends Controller
                 $b->save();
 
               }
-              //$loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('created_at','>=',Carbon::now()->addHours(-12)->format('Y-m-d H:i:s'))->get();
-              //$loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometics_id',$b->id)->get();
-             
+              
 
             }else {
-              //$loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('created_at','>=',Carbon::now()->startOfDay()->format('Y-m-d H:i:s'))->get();
+              
               $tomBio = Biometrics::where('productionDate', Carbon::now()->format('Y-m-d'))->get();
               if (count($tomBio) > 0)
                 $b = $tomBio->first();
@@ -388,6 +386,22 @@ class HomeController extends Controller
                   else $notedMemo = false;
 
                 }else { $notedMemo=false; $memo=null; } 
+
+
+                 /*----------- check if done with TOUR --------------*/
+
+                $tour = Memo::where('active',1)->where('type',"tour")->orderBy('created_at','DESC')->get();
+                if (count($tour)>0){
+                  $siteTour = $tour->first();
+                  $memo=null; $notedMemo=true;
+
+                  //check if nakita na ni user yung memo
+                  $toured = User_Memo::where('user_id',$this->user->id)->where('memo_id',$siteTour->id)->get();
+                  if (count($toured)>0)
+                    $notedTour = true;
+                  else $notedTour = false;
+
+                }else { $notedTour=false; $siteTour=null; } 
                 
 
                 //return $pass = bcrypt('vhernandez'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
@@ -405,7 +419,7 @@ class HomeController extends Controller
                     //return redirect()->route('user.show',['id'=>$this->user->id]);
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
-                    return view('dashboard-agent', compact('performance', 'firstYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg'));
+                    return view('dashboard-agent', compact('performance', 'firstYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                     
 
 
@@ -417,7 +431,7 @@ class HomeController extends Controller
 
                    //return $groupedForm; 
 
-                    return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg'));
+                    return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                    
 
 
