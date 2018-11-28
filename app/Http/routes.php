@@ -254,6 +254,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::post('/user_vl/process', array(
       'as'=> 'user_vl.process',
       'uses'=>'UserVLController@process') );
+
+      Route::post('/user_vl/uploadCredits', array(
+      'as'=> 'user_vl.uploadCredits',
+      'uses'=>'UserVLController@uploadCredits') );
        /*********** VL **********/
 
 
@@ -296,6 +300,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::post('/user_sl/process', array(
       'as'=> 'user_sl.process',
       'uses'=>'UserSLController@process') );
+
+      Route::post('/user_sl/uploadCredits', array(
+      'as'=> 'user_sl.uploadCredits',
+      'uses'=>'UserSLController@uploadCredits') );
 
        Route::get('/user_sl/medCert/{id}', array(
       'as'=> 'user_sl.item',

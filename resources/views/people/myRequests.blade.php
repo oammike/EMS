@@ -1,7 +1,15 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>My Requests | Employee Management System</title>
+@if ($user->id == Auth::user()->id) 
+         <title>My Requests | Employee Management System</title>
+       @else 
+          @if(is_null($user->nickname))<title>{{$user->firstname}}'s Requests | Employee Management System</title>  
+          @else <title>{{$user->nickname}}'s Requests | Employee Management System</title> 
+          @endif
+      @endif
+
+
 @endsection
 
 @section('content')
@@ -41,6 +49,8 @@
             
              
              <a  href="{{action('UserOBTController@create')}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <strong>(OBT)</strong></a></strong>
+
+             <br/><br/><br/>
            </p>
          
            @elseif ($forOthers)
@@ -54,7 +64,8 @@
             
              
              <a  href="{{action('UserOBTController@create',['for'=>$user->id])}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <strong>(OBT)</strong></a></strong>
-           </p>
+           </p><br/>
+           <p class="text-center" ><a class="btn btn-xs btn-default btn-flat" href="{{action('DTRController@show',$user->id)}}"><i class="fa fa-calendar"></i>  {{$user->firstname}}'s DTR Sheet</a> </p>
          
            @endif
 
@@ -72,7 +83,7 @@
           <div class="row">
              <div class="col-lg-1 col-sm-4  col-xs-9">
               </div>
-              <div class="col-lg-10 col-sm-4 col-xs-12" ><!--style="background-color:#fff"--><br/><br/><br/><br/>
+              <div class="col-lg-10 col-sm-4 col-xs-12" ><!--style="background-color:#fff"-->
                 <table class="table no-margin table-bordered table-striped" id="requests" style="background: rgba(256, 256, 256, 0.3)" ></table>
 
                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -266,7 +277,7 @@
 
 
                             case '8': {  /*------- DTRP IN --------*/
-                                          var deleteLink = "./user_dtrp/deleteThisDTRP/"+data_id;
+                                          var deleteLink = "../user_dtrp/deleteThisDTRP/"+data_id;
                                           var shiftStart_new = new Date(full.productionDate+ " "+full.details.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
                                           var shiftEnd_new = new Date(full.productionDate+ " "+full.details.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
 
@@ -535,6 +546,11 @@
                         {
                           modalcode +='<h4 class="bg-yellow" style="padding:5px">Pending Approval </h4>';
 
+                          @if($anApprover)
+                          modalcode +='<br/><br/><a class="processThis btn btn-lg btn-success" data-approve="1" data-formtype="'+typeid+'"  data-dataid="'+data_id+'"><i class="fa fa-thumbs-up"></i> Approve</a> &nbsp;&nbsp&nbsp;<a class="processThis btn btn-lg btn-danger" data-approve="0" data-formtype="'+typeid+'" data-dataid="'+data_id+'"><i class="fa fa-thumbs-down"></i> Deny</a> <br/><br/><br/>';
+
+                          @endif
+
                           modalcode += '        </div>';
                           modalcode += '        <!-- /.direct-chat-text -->';
                           modalcode += '      </div>';
@@ -672,6 +688,60 @@
 
                       
               });
+
+
+
+        $('#requests').on('click','.processThis',function(e){
+              e.preventDefault();
+              var isApproved = $(this).attr('data-approve');
+              var formtype = $(this).attr('data-formtype');
+              var dataid = $(this).attr('data-dataid');
+              var _token = "{{ csrf_token() }}";
+
+              switch(formtype){
+                case '6': {var requesttype="Change Work Schedule"; var processlink = "{{action('UserCWSController@process')}}"; }break;
+                case '7': {var requesttype="Overtime"; var processlink = "{{action('UserOTController@process')}}"; }break;
+                case '8': {var requesttype="DTRP IN"; var processlink = "{{action('UserDTRPController@process')}}"; }break;
+                case '9': {var requesttype="DTRP IN"; var processlink = "{{action('UserDTRPController@process')}}"; }break;
+                case '10': {var requesttype="Vacation Leave"; var processlink = "{{action('UserVLController@process')}}"; }break;
+                case '11': {var requesttype="Sick Leave"; var processlink = "{{action('UserSLController@process')}}"; }break;
+                case '12': {var requesttype="Leave Without Pay"; var processlink = "{{action('UserLWOPController@process')}}"; }break;
+                case '13': {var requesttype="Official Business Leave"; var processlink = "{{action('UserOBTController@process')}}"; }break;
+              }
+
+              $.ajax({
+                url: processlink,
+                type:'POST',
+                data:{ 
+                  'id': dataid,
+                  'isApproved': isApproved,
+                  '_token':_token
+                },
+                success: function(res){
+                  $('#myModal_DTRP'+dataid).modal('hide');
+
+                    if (isApproved == '1')
+                     $.notify("Submitted "+requesttype+ " for "+res.firstname+" :  Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                   else
+                     $.notify("Submitted "+requesttype+ " for "+res.firstname+" :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                    $("#requests").DataTable().ajax.reload();
+
+                },
+                error: function(){
+                  $('#myModal_DTRP'+dataid).modal('hide');
+
+                   $.notify("An error occured. Please try again later.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                    $("#requests").DataTable().ajax.reload();
+                }
+
+
+              });
+
+               
+              
+        }); 
          
 
         

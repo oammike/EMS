@@ -25,7 +25,7 @@
 
       <div class="row">
          @if(Auth::user()->id == $user->id)
-        <div class="col-lg-6"><a href="{{action('UserController@myRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to My Requests</a></div>
+        <div class="col-lg-6"><a href="{{action('UserController@userRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to My Requests</a></div>
         @else
         <div class="col-lg-6"><a href="{{action('UserController@userRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to 
           @if(is_null($user->nickname)) {{$user->firstname}}'s  Requests
@@ -282,7 +282,7 @@
                                       '_token':_token
                                     },
                                     success: function(response){
-                                      
+                                      $('#save').fadeOut();
                                      // $(this).fadeOut();//prop('disabled',"disabled");
 
                                       if (response.success == '1')
@@ -292,7 +292,7 @@
                                       
                                       console.log(response);
                                       window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                                       }, 4000);
                                     }
                                   });
@@ -313,7 +313,7 @@
                                     },
                                     success: function(response){
                                       
-                                     
+                                     $('#save').fadeOut();
 
                                       if (response.success == '1')
                                         $.notify("LWOP saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
@@ -322,7 +322,7 @@
                                       
                                       console.log(response);
                                       window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                                       }, 4000);
                                     }
                                   });
@@ -406,7 +406,7 @@
                                       '_token':_token
                                     },
                                     success: function(response){
-                                      
+                                      $('#save').fadeOut();
                                      
 
                                       if (response.success == '1')
@@ -416,7 +416,7 @@
                                       
                                       console.log(response);
                                       window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                                       }, 4000);
                                     }
                                   });
@@ -437,7 +437,7 @@
                                       '_token':_token
                                     },
                                     success: function(response){
-                                      
+                                      $('#save').fadeOut();
                                      
 
                                       if (response.success == '1')
@@ -447,7 +447,7 @@
                                       
                                       console.log(response);
                                       window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                                       }, 4000);
                                     }
                                   });

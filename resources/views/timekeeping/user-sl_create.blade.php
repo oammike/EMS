@@ -25,7 +25,7 @@
 
       <div class="row">
         @if(Auth::user()->id == $user->id)
-        <div class="col-lg-6"><a href="{{action('UserController@myRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to My Requests</a></div>
+        <div class="col-lg-6"><a href="{{action('UserController@userRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to My Requests</a></div>
         @else
         <div class="col-lg-6"><a href="{{action('UserController@userRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to 
           @if(is_null($user->nickname)) {{$user->firstname}}'s  Requests
@@ -50,6 +50,8 @@
             <a href="{{action('UserOBTController@create',['for'=>$user->id])}}"class="btn btn-sm  bg-purple"><i class="fa fa-2x fa-briefcase"></i>  OBT</a>
 
             @endif
+
+            <a class="btn btn-md btn-default" id="biometrics">Generate Bio</a>
           </strong>
         </div>
       </div>
@@ -211,6 +213,8 @@
 
      //****** initialize for those with URL param from DTR
      var _token = "{{ csrf_token() }}";
+
+
              $.ajax({
                 url: "{{action('UserController@getWorkSchedForTheDay',$user->id)}}",
                 type:'POST',
@@ -230,7 +234,42 @@
     //****** initialize for those with URL param from DTR
 
     
+    $("#biometrics").on('click',function(){
 
+       $.ajax({
+                url: "http://172.18.201.68/csl/query?action=run",
+                type:'POST',
+                headers:{
+                  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+// 'Accept-Encoding': 'gzip, deflate',
+'Accept-Language': 'en-US,en;q=0.9',
+'Cache-Control': 'no-cache',
+// 'Connection': 'keep-alive',
+// 'Content-Length': '50',
+'Content-Type': 'application/x-www-form-urlencoded',
+// 'Cookie': 'SessionID=1543307763',
+// 'Host': '172.18.201.68',
+//'Origin': 'http://172.18.201.68',
+'Pragma': 'no-cache',
+// 'Referer': 'http://172.18.201.68/csl/query?first=40&last=60',
+'Upgrade-Insecure-Requests': '0',
+
+                },
+                data:{ 
+                 'sdate': '2018-11-23',
+                 'edate': '2018-11-27',
+                 'period': 1,
+                 'uid': 282
+                },
+                success: function(response){
+                  console.log(response);
+                  
+
+                  
+                }
+              });
+
+    });
 
 
 
@@ -318,7 +357,7 @@
                               dataType: 'json',
                               
                               success: function(response){
-
+                                $('#save').fadeOut();
                                 if (response.success == '1'){
                                   $.notify("Sick Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
                                   $('a#save').fadeOut();
@@ -330,9 +369,10 @@
                                   }
                                 
                                 console.log(response);
+                                //location.reload();
                                 window.setTimeout(function(){
-                                  window.location.href = "{{action('UserController@myRequests',$user->id)}}";
-                                }, 4000);
+                                  window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                }, 2000);
                               }
                             });
                             
@@ -429,7 +469,7 @@
 
                               },
                               success: function(res){
-
+                                $('#save').fadeOut();
                                 if(res.existing == '0'){
                                   $.ajax({
                                             url: "{{action('UserSLController@requestSL')}}",
@@ -454,7 +494,7 @@
                                               console.log(response); 
                                               $('a#save').fadeOut();
                                               window.setTimeout(function(){
-                                                window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+                                                window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                                               }, 4000);
                                             }
                                           });
@@ -514,7 +554,14 @@
                     var vl_credits = $("span#credits_vl");
                     var theshift = $(this).val();
                     var vl_from1 = moment(vl_from,"MM/DD/YYYY");
+
+                    if (theshift == '1')
                     var creditsleft = {{$creditsLeft}};// $('#creditsleft').attr('data-left');
+                    else {
+                      var creditsleft =  {{$creditsLeft}};
+                      creditsleft += 0.5;
+                    }
+                   
 
                     console.log("vl_from:");
                     console.log(vl_from);

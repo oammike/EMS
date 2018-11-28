@@ -143,7 +143,7 @@ class UserSLController extends Controller
                 {
 
                     $today=Carbon::today();/*------- check first if user is entitled for a leave (Regualr employee or lengOfService > 6mos) *********/
-                    $lengthOfService = Carbon::parse($this->user->dateHired,"Asia/Manila")->diffInMonths($today);
+                    $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
 
                     if ($lengthOfService >= 6)
                     {
@@ -154,7 +154,7 @@ class UserSLController extends Controller
                         
                         $hasSavedCredits=false;
 
-                        $savedCredits = User_SLcredits::where('user_id', $this->user->id)->where('creditYear',date('Y'))->get();
+                        $savedCredits = User_SLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
 
                         
                         
@@ -168,7 +168,7 @@ class UserSLController extends Controller
                                  }else {
 
                                     //check muna kung may existing approved VLs
-                                    $approvedVLs = User_SL::where('user_id',$this->user->id)->where('isApproved',true)->get();
+                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
                                     if (count($approvedVLs) > 0 )
                                     {
                                         $usedC = 0;
@@ -190,7 +190,7 @@ class UserSLController extends Controller
                                  }else {
 
                                     //check muna kung may existing approved VLs
-                                    $approvedVLs = User_SL::where('user_id',$this->user->id)->where('isApproved',true)->get();
+                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
                                     if (count($approvedVLs) > 0 )
                                     {
                                         $usedC = 0;
@@ -245,7 +245,20 @@ class UserSLController extends Controller
                 
             }
         }
+        
+
+     /***** once saved, update your leave credits ***/
+        $userVLs = User_SLcredits::where('user_id',$theVL->user_id)->orderBy('creditYear','DESC')->get();
+        if (count($userVLs) > 0 )
+        {
+            $vlcredit = $userVLs->first();
+            $vlcredit->used -= $theVL->totalCredits;
+            $vlcredit->push();
+        }
+
+
         $theVL->delete();
+
 
         if ($request->redirect == '1')
             return redirect()->back();
@@ -270,13 +283,46 @@ class UserSLController extends Controller
     {
     	$user = User::find($request->user_id);
     	$vl_from = Carbon::parse($request->date_from,"Asia/Manila");
+        $vf = Carbon::parse($request->date_from,"Asia/Manila");
         $dateFrom = Carbon::parse($request->date_from,"Asia/Manila");
         $creditsleft =$request->creditsleft;
+        $coll = new Collection;
     	
     	
     	$shift_from = $request->shift_from;$shift_to = $request->shift_to;
     	$schedules = new Collection;
         $displayShift = "";
+
+
+        $hasVLalready=false;
+        
+
+        /*** we need to check first kung may existing pending or approved VL na
+             para iwas doble filing **/
+
+        //$mayExisting = User_VL::where('user_id',$user->id)->where('leaveStart','>=',$vf->startOfDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))get();
+
+        $mayExisting = User_SL::where('user_id',$user->id)->where('leaveEnd','>=',$vf->endOfDay()->format('Y-m-d H:i:s'))->get();
+        $interval = new \DateInterval("P1D");
+
+        /*if (count($mayExisting) > 0)
+        {*/
+
+            foreach ($mayExisting as $key) {
+                $period = new \DatePeriod(new \DateTime(Carbon::parse($key->leaveStart,'Asia/Manila')->format('Y-m-d')),$interval, new \DateTime(Carbon::parse($key->leaveEnd,'Asia/Manila')->format('Y-m-d')));
+
+                foreach ($period as $p) {
+                    if($p->format('M d, Y') == $vf->format('M d, Y') ){
+                        $hasVLalready=true;
+                        $coll->push($p->format('M d, Y'));
+                        goto mayExistingReturn;
+                        //break 2;
+                    }
+                }
+                
+            }
+            
+
     	
 
         
@@ -303,6 +349,9 @@ class UserSLController extends Controller
             //if ($shift_from == '2' || $shift_from=='3') $credits -= 0.5;
             if ($shift_to == '2' && $request->date_to !== null)
             {
+                //check mo muna kung RD to or holiday, wag ka na mag deduct
+                    $schedForTheDay = $this->getWorkSchedForTheDay($user,$vl_to,$mayExisting);
+                    if ( strpos($schedForTheDay['title'], "Rest") !== false || count(Holiday::where('holidate',$vl_to->format('Y-m-d'))->get())>0 ){ }
                 $credits -= 0.5;
             } 
 
@@ -327,6 +376,13 @@ class UserSLController extends Controller
                             $displayShift = $start." - ".$end;
                          }break;
             }
+
+
+
+                
+                $credits -= $holidays;
+                $creditsleft -= $credits;
+                $creditsleft++; //fix for initially 1 credit deducted from loading
 
 
 	    	
@@ -367,19 +423,29 @@ class UserSLController extends Controller
             else $holidays = 0;*/
     	}
 
-        // final credits less all holidays
+        /*-------------we now check for excess filing, file it as LWOP instead ------------------ */
+            $creditsToEarn = 0;
+            $forLWOP=0;
 
-        //$credits -= $holidays;
-        $creditsleft -= $credits;
-    	
-    	
+            if ($creditsleft < 0)
+            {
+                $creditsToEarn = ( 12 - date('m') )* 0.84;
 
-    	
-    	
+                if($creditsToEarn < abs($creditsleft))
+                {
+                    $forLWOP = $creditsToEarn - abs($creditsleft);
+                }
 
-    	//return $schedules;
-    	return response()->json(['creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
-    	//return response()->json(['user: '=>$user->lastname, 'from: '=> $vl_from, 'to: '=>$vl_to, 'shift_from: '=>$shift_from, 'shift_to'=>$shift_to]);
+            }
+
+
+    	return response()->json(['shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
+
+
+         mayExistingReturn:
+        return response()->json(['hasVLalready'=>$hasVLalready,'existingVL'=>$coll, 'creditsToEarn'=>0, 'forLWOP'=>0, 'creditsleft'=>0, 'credits'=> 0 , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>null]);
+
+
 
 
     }
@@ -478,6 +544,9 @@ class UserSLController extends Controller
         if ($anApprover)
         {
             $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
+
+           
+
         } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
 
 
@@ -506,6 +575,19 @@ class UserSLController extends Controller
 
 
         $vl->save();
+
+        if ($anApprover){
+             /***** once saved, update your leave credits ***/
+            $userVLs = User_SLcredits::where('user_id',$employee->id)->orderBy('creditYear','DESC')->get();
+            if (count($userVLs) > 0 && $vl->isApproved)
+            {
+                $vlcredit = $userVLs->first();
+                $vlcredit->used += $vl->totalCredits;
+                $vlcredit->push();
+            }
+        }
+        
+
 
         if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
         {//--- notify the  APPROVERS
@@ -607,6 +689,55 @@ class UserSLController extends Controller
 
 
     }
+
+     public function uploadCredits(Request $request)
+    {
+        $today = date('Y-m-d');
+        
+        $bioFile = $request->file('biometricsData');
+        if (!empty($bioFile))
+        {
+              //$destinationPath = 'uploads'; // upload path
+              $destinationPath = storage_path() . '/uploads/';
+              $extension = Input::file('biometricsData')->getClientOriginalExtension(); // getting image extension
+              $fileName = $today.'-slCredits.'.$extension; // renameing image
+              $bioFile->move($destinationPath, $fileName); // uploading file to given path
+
+                $file = fopen($destinationPath.$fileName, 'r');
+                $coll = new Collection;
+                $ctr=0;
+                DB::connection()->disableQueryLog();
+                while (($result = fgetcsv($file)) !== false)
+                {
+                    $user = User::find($result[0]);
+                    $vlCredits = User_SLcredits::where('user_id',$user->id)->where('creditYear',date('Y'))->get();
+                    foreach($vlCredits as $vl){ $vl->delete(); }
+
+                    $newCredit = new User_SLcredits;
+                    $newCredit->user_id = $user->id;
+                    $newCredit->beginBalance = $result[1];
+                    $newCredit->used =0.0;
+                    $newCredit->paid =0.0;
+                    $newCredit->creditYear = date('Y');
+                    $newCredit->save();
+                    $coll->push($newCredit);
+
+                            
+
+                        
+                }//end while
+
+                fclose($file);
+
+               return response()->json($coll);
+
+
+              
+        }
+        else return response()->json(['success'=>false]);
+        
+
+    } 
 
 
 }

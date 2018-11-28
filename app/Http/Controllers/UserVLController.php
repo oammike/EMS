@@ -152,7 +152,7 @@ class UserVLController extends Controller
                 {
                     /*------- check first if user is entitled for a leave (Regualr employee or lengOfService > 6mos) *********/
                     $today=Carbon::today();
-                    $lengthOfService = Carbon::parse($this->user->dateHired,"Asia/Manila")->diffInMonths($today);
+                    $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
 
                     if ($lengthOfService >= 6)
                     {
@@ -163,7 +163,7 @@ class UserVLController extends Controller
                         
                         $hasSavedCredits=false;
 
-                        $savedCredits = User_VLcredits::where('user_id', $this->user->id)->where('creditYear',date('Y'))->get();
+                        $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
 
                         
                         
@@ -177,7 +177,7 @@ class UserVLController extends Controller
                                  }else {
 
                                     //check muna kung may existing approved VLs
-                                    $approvedVLs = User_VL::where('user_id',$this->user->id)->where('isApproved',true)->get();
+                                    $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
                                     if (count($approvedVLs) > 0 )
                                     {
                                         $usedC = 0;
@@ -199,7 +199,7 @@ class UserVLController extends Controller
                                  }else {
 
                                     //check muna kung may existing approved VLs
-                                    $approvedVLs = User_VL::where('user_id',$this->user->id)->where('isApproved',true)->get();
+                                    $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
                                     if (count($approvedVLs) > 0 )
                                     {
                                         $usedC = 0;
@@ -406,7 +406,7 @@ class UserVLController extends Controller
                                 $start = Carbon::parse($schedForTheDay['start'])->format('h:i A');
                                 $end = Carbon::parse($schedForTheDay['start'])->addHour(4)->format('h:i A');
                                 $displayShift = $start." - ".$end;
-                                $creditsleft -= $credits;
+                                //$creditsleft -= $credits;
                              }break;
 
                     
@@ -415,7 +415,7 @@ class UserVLController extends Controller
                                 $start = Carbon::parse($schedForTheDay['end'])->addHour(-4)->format('h:i A');
                                 $end = Carbon::parse($schedForTheDay['end'])->format('h:i A');
                                 $displayShift = $start." - ".$end;
-                                $creditsleft -= $credits;
+                                //$creditsleft -= $credits;
                              }break;
                     default:{
                                 (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits = 1.00;
@@ -443,7 +443,7 @@ class UserVLController extends Controller
             }
 
 
-            return response()->json(['shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
+            return response()->json(['request->date_to'=>$request->date_to, 'shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
 
 
 
@@ -542,6 +542,20 @@ class UserVLController extends Controller
 
 
         $vl->save();
+
+        if ($anApprover)
+        {
+            /***** once saved, update your leave credits ***/
+            $userVLs = User_VLcredits::where('user_id',$vl->user_id)->orderBy('creditYear','DESC')->get();
+            if (count($userVLs) > 0 && $vl->isApproved)
+            {
+                $vlcredit = $userVLs->first();
+                $vlcredit->used += $vl->totalCredits;
+                $vlcredit->push();
+            }
+        }
+       
+
 
         if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
         {//--- notify the  APPROVERS
@@ -653,9 +667,6 @@ class UserVLController extends Controller
         ($canEditEmployees1->isEmpty()) ? $canEditEmployees=false : $canEditEmployees=true;
         ($canUpdateLeaves1->isEmpty()) ? $canUpdateLeaves=false : $canUpdateLeaves=true;
 
-        
-
-        
             
             $personnel = User::find($id);
             
@@ -678,11 +689,60 @@ class UserVLController extends Controller
             $approvers = $personnel->approvers;
             $fromYr = Carbon::parse($personnel->dateHired)->addMonths(6)->format('Y');
 
-            
             return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'page', 'approvers', 'myCampaign', 'personnel'));
 
 
     }
+
+    public function uploadCredits(Request $request)
+    {
+        $today = date('Y-m-d');
+        
+        $bioFile = $request->file('biometricsData');
+        if (!empty($bioFile))
+        {
+              //$destinationPath = 'uploads'; // upload path
+              $destinationPath = storage_path() . '/uploads/';
+              $extension = Input::file('biometricsData')->getClientOriginalExtension(); // getting image extension
+              $fileName = $today.'-vlCredits.'.$extension; // renameing image
+              $bioFile->move($destinationPath, $fileName); // uploading file to given path
+
+                $file = fopen($destinationPath.$fileName, 'r');
+                $coll = new Collection;
+                $ctr=0;
+                DB::connection()->disableQueryLog();
+                while (($result = fgetcsv($file)) !== false)
+                {
+                    $user = User::find($result[0]);
+                    $vlCredits = User_VLcredits::where('user_id',$user->id)->where('creditYear',date('Y'))->get();
+                    foreach($vlCredits as $vl){ $vl->delete(); }
+
+                    $newCredit = new User_VLcredits;
+                    $newCredit->user_id = $user->id;
+                    $newCredit->beginBalance = $result[1];
+                    $newCredit->used =0.0;
+                    $newCredit->paid =0.0;
+                    $newCredit->creditYear = date('Y');
+                    $newCredit->save();
+                    $coll->push($newCredit);
+
+                            
+
+                        
+                }//end while
+
+                fclose($file);
+
+               return response()->json($coll);
+
+
+              
+        }
+        else return response()->json(['success'=>false]);
+        
+
+    } 
+    
 
 
 }

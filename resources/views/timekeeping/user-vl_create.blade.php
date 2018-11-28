@@ -25,7 +25,7 @@
 
       <div class="row">
         @if(Auth::user()->id == $user->id)
-        <div class="col-lg-6"><a href="{{action('UserController@myRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to My Requests</a></div>
+        <div class="col-lg-6"><a href="{{action('UserController@userRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to My Requests</a></div>
         @else
         <div class="col-lg-6"><a href="{{action('UserController@userRequests',$user->id)}} "><i class="fa fa-arrow-left"></i> Back to 
           @if(is_null($user->nickname)) {{$user->firstname}}'s  Requests
@@ -275,8 +275,7 @@
                         if (reason_vl == ""){  $.notify("Please include a brief reason about your leave for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
                         else{
 
-                          $('input[name="leaveFrom"]').val(leaveFrom);
-                              $('input[name="leaveTo"]').val(leaveTo);
+                          $('input[name="leaveFrom"]').val(leaveFrom);$('input[name="leaveTo"]').val(leaveTo);
 
                               console.log("Do ajax");
             
@@ -294,7 +293,7 @@
                                       '_token':_token
                                     },
                                     success: function(response){
-                                      
+                                      $('#save').fadeOut();
                                      
 
                                       if (response.success == '1')
@@ -304,7 +303,7 @@
                                       
                                       console.log(response);
                                       window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                                       }, 4000);
                                     }
                                   });
@@ -385,7 +384,7 @@
                                     },
                                     success: function(response){
                                       
-                                     
+                                      $('#save').fadeOut();
 
                                       if (response.success == '1')
                                         $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
@@ -394,8 +393,8 @@
                                       
                                       console.log(response);
                                       window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@myRequests',$user->id)}}";
-                                      }, 4000);
+                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                      }, 2000);
                                     }
                                   });
                                   
@@ -438,16 +437,23 @@
                     var vl_credits = $("span#credits_vl");
                     var theshift = $(this).val();
                     var vl_from1 = moment(vl_from,"MM/DD/YYYY");
+                    if (theshift == '1')
                     var creditsleft = {{$creditsLeft}};// $('#creditsleft').attr('data-left');
+                    else {
+                      var creditsleft =  {{$creditsLeft}};
+                      creditsleft += 0.5;
+                    }
 
-                    console.log("vl_from:");
-                    console.log(vl_from);
-                    console.log("vl_to");
-                    console.log(vl_to);
-                    console.log("shift2:");
-                    console.log(shift2);
-                    console.log("vl_credits");
-                    console.log(vl_credits);
+                    console.log("creditsleft: ");
+                    console.log(creditsleft);
+                    // console.log("vl_from:");
+                    // console.log(vl_from);
+                    // console.log("vl_to");
+                    // console.log(vl_to);
+                    // console.log("shift2:");
+                    // console.log(shift2);
+                    // console.log("vl_credits");
+                    // console.log(vl_credits);
 
                         checkIfRestday(vl_from);
 
@@ -588,7 +594,7 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
         var totalcredits = 0;
 
-        console.log("IN--computeCredits");
+        //console.log("IN--computeCredits");
 
         $.ajax({
                   url: "{{action('UserVLController@getCredits')}}",
@@ -603,6 +609,7 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
                     '_token':_token
                   },
                   success: function(response){
+                    console.log("from: getCredits");
                     console.log(response);
 
                     if(response.hasVLalready==true)
