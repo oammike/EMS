@@ -700,7 +700,7 @@ class UserSLController extends Controller
               //$destinationPath = 'uploads'; // upload path
               $destinationPath = storage_path() . '/uploads/';
               $extension = Input::file('biometricsData')->getClientOriginalExtension(); // getting image extension
-              $fileName = $today.'-slCredits.'.$extension; // renameing image
+              $fileName = $today.'-slredits.'.$extension; // renameing image
               $bioFile->move($destinationPath, $fileName); // uploading file to given path
 
                 $file = fopen($destinationPath.$fileName, 'r');
