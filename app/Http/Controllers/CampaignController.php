@@ -639,7 +639,7 @@ class CampaignController extends Controller
 
       }
       
-      if($request->input('export',FALSE)===TRUE){
+      if($request->input('export',FALSE)==="TRUE"){
         $headers = array(
           "Content-type" => "text/csv",
           "Content-Disposition" => "attachment; filename=export.csv",
