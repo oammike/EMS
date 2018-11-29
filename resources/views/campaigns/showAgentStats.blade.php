@@ -74,6 +74,14 @@
 
     </section>
     
+    <form action="{{ url('/getAgentStats') }}" id="get_agent_stats_form">
+      <input type="hidden" name="campaign_id" value="{{ $campaign->id }}" />
+      <input type="hidden" name="_token" value="{{ csrf_token() }}"  />
+      <input type="hidden" name="export" value="TRUE"  />
+      <input type="hidden" name="start" value="" id="frm_start"  />
+      <input type="hidden" name="end" value="" id="frm_end"  />
+    </form>
+    
     <div id="chartjs-tooltip"></div>
 
 @stop
@@ -110,18 +118,10 @@
     
     
     $('.bt_stats_export').click(function(){
-      var mData = {
-        "campaign_id": window.campaign_id,
-        "start": window.start.unix(),
-        "end": window.end.unix(),
-        "_token": "{{ csrf_token() }}",
-        "export": "TRUE"
-      };
-      $.ajax({
-        url: "{{ url('/getAgentStats') }}",
-        type: "POST",
-        data: mData
-      });  
+      $('#frm_start').val(window.start.unix());
+      $('#frm_end').val(window.end.unix());
+      $('#get_agent_stats_form').submit();
+      
     });
     
 
