@@ -109,7 +109,7 @@
                       <!-- ********* LEAVE CREDITS PANE ************ -->
 
                       <div class="chart tab-pane active id="leaveCredits_pane" style="position: relative; height: auto;">
-                        <p style="padding: 20px; font-size: smaller"><i class="fa fa-info-circle"></i> Note: Regular employees who have  completed six  (6)  months  shall be  entitled  to  five   (5)  days  of  sick  leave and five (5) days of vacation leave.  For every month thereafter, employee  will  earn  an  additional  0.84  days  per month worked. Probationary, contractual employees may be  allowed to  take  sick/vacation  leave days  but will  not be  considered  as  paid  leave. Even if  the employee  has no  leave credit  yet,  filing of  LWOP (leave without pay) is  mandatory as  basis of  excused absence/s. </p>
+                        <p style="padding: 20px; font-size: smaller"><i class="fa fa-info-circle"></i> Note: Regular employees who have  completed six  (6)  months  shall be  entitled  to  five   (5)  days  of  sick  leave and five (5) days of vacation leave. Employee  will  earn  an  additional  0.42  leave credits after the 5th and 20th day of the month worked. Probationary, contractual employees may be  allowed to  take  sick/vacation  leave days  but will  not be  considered  as  paid  leave. Even if  the employee  has no  leave credit  yet,  filing of  LWOP (leave without pay) is  mandatory as  basis of  excused absence/s. </p>
                         <table class="table" style="margin-top: 40px">
                           <tr>
                               <td colspan="3" style="background-color: #e6e6e6;">
