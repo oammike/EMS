@@ -74,7 +74,7 @@
 
     </section>
     
-    <form action="{{ url('/getAgentStats') }}" id="get_agent_stats_form">
+    <form action="{{ url('/getAgentStats') }}" id="get_agent_stats_form" method="POST">
       <input type="hidden" name="campaign_id" value="{{ $campaign->id }}" />
       <input type="hidden" name="_token" value="{{ csrf_token() }}"  />
       <input type="hidden" name="export" value="TRUE"  />
@@ -117,7 +117,7 @@
     ];
     
     
-    $('.bt_stats_export').click(function(){
+    $('#bt_stats_export').click(function(){
       $('#frm_start').val(window.start.unix());
       $('#frm_end').val(window.end.unix());
       $('#get_agent_stats_form').submit();
