@@ -565,7 +565,10 @@ class CampaignController extends Controller
                 for($i=2;$i<count($csvLine);$i++){
                   $column_labels[] = $csvLine[$i];
                 }
-                $column_labels[] = "DED";
+                
+                if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
+                  $column_labels[] = "DED";
+                }
                 $line = $line + 1;
                 continue;
               }
@@ -585,7 +588,7 @@ class CampaignController extends Controller
                     /** add all deductibles **/
                     if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
                     
-                      if($column_labels[$i-2]==="TeamM" || $column_labels[$i-2]==="Coachi" || $column_labels[$i-2]==="Idle" || $column_labels[$i-2]==="Coach"){
+                      if($column_labels[$i-2]==="TeamM" || $column_labels[$i-2]==="Coachi" || $column_labels[$i-2]==="Idle" || $column_labels[$i-2]==="COACH"){
                         $splitted = explode(":",$csvLine[$i]);
                         if(count($splitted)===1){
                           $data["DED"][$username] = $data["DED"][$username] + intval($splitted);

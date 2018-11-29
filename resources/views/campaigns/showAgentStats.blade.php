@@ -109,7 +109,7 @@
     ];
     
     
-    $('.bt_stats_export').on('click',function(){
+    $('.bt_stats_export').click(function(){
       var mData = {
         "campaign_id": window.campaign_id,
         "start": window.start.unix(),
