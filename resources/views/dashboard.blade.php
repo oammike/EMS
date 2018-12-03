@@ -337,6 +337,47 @@ select:-webkit-autofill:focus {
   $(function () {
    'use strict';
 
+   $(window).bind("load", function() {
+
+      getNewNotifications();
+      startTime();
+
+     @if (!is_null($memo) && $notedMemo != true)
+     $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
+     @endif
+
+     @if(!is_null($siteTour) && $notedTour != true)
+     
+     introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
+      $('#controlsidebar').addClass('control-sidebar-open');
+      var _token = "{{ csrf_token() }}";
+        
+
+        //--- update user notification first
+        $.ajax({
+            url: "{{action('UserMemoController@saveUserMemo')}}",
+            type:'POST',
+            data:{ 
+              'id': "{{$siteTour->id}}",
+              '_token':_token
+            },
+
+            success: function(res){
+                    console.log(res);
+            },
+          });
+
+      console.log("open it");
+     });
+     @endif
+
+     // introJs().setOption('doneLabel', 'AND THEN...').start().oncomplete(function() {
+     //      window.location.href = "{{action('UserController@myRequests',$user->id)}}";
+     //    });control-sidebar.control-sidebar-dark
+
+
+});
+
    /*------------- TIMEKEEPING --------------*/
    //QUORA
    // MOUS
@@ -634,6 +675,17 @@ select:-webkit-autofill:focus {
                         success: function(res)
                         {
                           console.log(res);
+                          $.ajax({
+                                      url: "{{action('HomeController@logAction','3')}}",
+                                      type: "GET",
+                                      data: {'action': '3','formid': res.formid, 'usersubmit':res.usersubmit},
+                                      success: function(response){
+                                                console.log(response);
+
+                                    }
+
+                          });
+
                           if (res.status == '0')
                             $.notify(res.error,{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
                           else {
@@ -667,46 +719,7 @@ select:-webkit-autofill:focus {
 
 
 
-   $(window).bind("load", function() {
-
-      getNewNotifications();
-      startTime();
-
-     @if (!is_null($memo) && $notedMemo != true)
-     $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
-     @endif
-
-     @if(!is_null($siteTour) && $notedTour != true)
-     
-     introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
-      $('#controlsidebar').addClass('control-sidebar-open');
-      var _token = "{{ csrf_token() }}";
-        
-
-        //--- update user notification first
-        $.ajax({
-            url: "{{action('UserMemoController@saveUserMemo')}}",
-            type:'POST',
-            data:{ 
-              'id': "{{$siteTour->id}}",
-              '_token':_token
-            },
-
-            success: function(res){
-                    console.log(res);
-            },
-          });
-
-      console.log("open it");
-     });
-     @endif
-
-     // introJs().setOption('doneLabel', 'AND THEN...').start().oncomplete(function() {
-     //      window.location.href = "{{action('UserController@myRequests',$user->id)}}";
-     //    });control-sidebar.control-sidebar-dark
-
-
-});
+   
 
 @if(count($performance)>0)
 @include('layouts.charts-scripts')

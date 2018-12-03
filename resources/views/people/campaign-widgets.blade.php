@@ -401,6 +401,18 @@ select:-webkit-autofill:focus {
                         success: function(res)
                         {
                           console.log(res);
+
+                          $.ajax({
+                                      url: "{{action('HomeController@logAction','4')}}",
+                                      type: "GET",
+                                      data: {'action': '4', 'formid': res.formid, 'usersubmit':res.usersubmit},
+                                      success: function(response){
+                                                console.log(response);
+
+                                    }
+
+                          });
+
                           if (res.status == '0')
                             $.notify(res.error,{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
                           else {

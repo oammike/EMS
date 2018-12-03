@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use \DB;
 use \Hash;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use OAMPI_Eval\Http\Requests;
@@ -469,7 +470,31 @@ class HomeController extends Controller
                         fclose($file);
                     } 
 
-        }
+        }break;
+
+        case '3':{
+                    if($this->user->id !== 564 ) {
+                      $user = User::find(Input::get('id'));
+                      $formID = Input::get('formid');
+                      $usersubmit = Input::get('usersubmit');
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Submitted Form [".$formID."][".$usersubmit."] via widget: " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                        fclose($file);
+                    } 
+
+        }break;
+
+        case '4':{
+                    if($this->user->id !== 564 ) {
+                      $user = User::find(Input::get('id'));
+                      $formID = Input::get('formid');
+                      $usersubmit = Input::get('usersubmit');
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Submitted Form [".$formID."][".$usersubmit."] via tab: " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                        fclose($file);
+                    } 
+
+        }break;
         
         
       }

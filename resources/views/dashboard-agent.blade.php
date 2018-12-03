@@ -214,6 +214,70 @@ select:-webkit-autofill:focus {
   $(function () {
    'use strict';
 
+
+   /*----------------- MEMO ----------------*/
+
+    $(window).bind("load", function() {
+
+       startTime();
+
+       @if (!is_null($memo) && $notedMemo != true)
+       $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
+       @endif
+
+      @if(!is_null($siteTour) && $notedTour != true)
+     
+       introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
+        $('#controlsidebar').addClass('control-sidebar-open');
+        var _token = "{{ csrf_token() }}";
+          
+
+          //--- update user notification first
+          $.ajax({
+              url: "{{action('UserMemoController@saveUserMemo')}}",
+              type:'POST',
+              data:{ 
+                'id': "{{$siteTour->id}}",
+                '_token':_token
+              },
+
+              success: function(res){
+                      console.log(res);
+              },
+            });
+
+        console.log("open it");
+       });
+       @endif
+
+
+  });
+      
+   @if (!is_null($memo) && $notedMemo != true)
+      $('#yesMemo').on('click',function(){
+
+        var _token = "{{ csrf_token() }}";
+        
+
+        //--- update user notification first
+        $.ajax({
+            url: "{{action('UserMemoController@saveUserMemo')}}",
+            type:'POST',
+            data:{ 
+              'id': "{{$memo->id}}",
+              '_token':_token
+            },
+
+            success: function(res){
+                    console.log(res);
+            },
+          });
+
+      });
+   @endif
+
+   
+
    /*------------- TIMEKEEPING --------------*/
    //QUORA
    // MOUS
@@ -310,66 +374,7 @@ select:-webkit-autofill:focus {
 
    });
 
-    /*----------------- MEMO ----------------*/
-
-    $(window).bind("load", function() {
-
-       startTime();
-
-       @if (!is_null($memo) && $notedMemo != true)
-       $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
-       @endif
-
-      @if(!is_null($siteTour) && $notedTour != true)
-     
-       introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
-        $('#controlsidebar').addClass('control-sidebar-open');
-        var _token = "{{ csrf_token() }}";
-          
-
-          //--- update user notification first
-          $.ajax({
-              url: "{{action('UserMemoController@saveUserMemo')}}",
-              type:'POST',
-              data:{ 
-                'id': "{{$siteTour->id}}",
-                '_token':_token
-              },
-
-              success: function(res){
-                      console.log(res);
-              },
-            });
-
-        console.log("open it");
-       });
-       @endif
-
-
-  });
-      
-   @if (!is_null($memo) && $notedMemo != true)
-      $('#yesMemo').on('click',function(){
-
-        var _token = "{{ csrf_token() }}";
-        
-
-        //--- update user notification first
-        $.ajax({
-            url: "{{action('UserMemoController@saveUserMemo')}}",
-            type:'POST',
-            data:{ 
-              'id': "{{$memo->id}}",
-              '_token':_token
-            },
-
-            success: function(res){
-                    console.log(res);
-            },
-          });
-
-      });
-   @endif
+    
 
 
    /*---------- POSTMATES WIDGET ----------- */
@@ -543,7 +548,19 @@ select:-webkit-autofill:focus {
                        
                         success: function(res)
                         {
+  
                           console.log(res);
+                          $.ajax({
+                                      url: "{{action('HomeController@logAction','3')}}",
+                                      type: "GET",
+                                      data: {'action': '3', 'formid': res.formid, 'usersubmit':res.usersubmit},
+                                      success: function(response){
+                                                console.log(response);
+
+                                    }
+
+                          });
+
                           if (res.status == '0')
                             $.notify(res.error,{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
                           else {

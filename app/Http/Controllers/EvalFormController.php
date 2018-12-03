@@ -1715,7 +1715,7 @@ class EvalFormController extends Controller
                             }
                             $doneMovedEvals = $data->first()['doneMovedEvals'];
 
-                            //return $doneMovedEvals;
+                            $doneMovedEvals=null;
 
                            
                             return view('showThoseUpFor', compact('mySubordinates', 'myCampaign', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));

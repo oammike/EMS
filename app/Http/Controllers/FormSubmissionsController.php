@@ -1134,7 +1134,7 @@ class FormSubmissionsController extends Controller
             // }
 
 
-            return response()->json(['status'=>"ok", 'items'=>$coll]);
+            return response()->json(['status'=>"ok", 'items'=>$coll,'formid'=>$formItem->formBuilder_id,'usersubmit'=>$userSubmission->id]);
 
         }
                 
