@@ -114,7 +114,7 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p style="font-size: smaller;" class="text-center">Get ready to hop on to the wayback machine as <strong>Open Access BPO</strong> revisits the <strong>'90s</strong> this <strong class="text-orange">December 16th </strong>at the <strong class="text-danger">Harbor Tent, Sofitel Manila!</strong>
+                      <p style="font-size: smaller;" class="text-center">Get ready to hop on to the wayback machine as <strong>Open Access BPO</strong> revisits the <strong>'90s</strong> this <strong class="text-orange">December 15th </strong>at the <strong class="text-danger">Harbor Tent, Sofitel Manila!</strong>
                         <br/><br/><a href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #BackToThe90s #The2018YEP</a></p>
                       
                       <video id="teaser" style="margin-top: -50px" src="storage/uploads/teaser90s.webm" width="100%" height="480" loop controls></video>
