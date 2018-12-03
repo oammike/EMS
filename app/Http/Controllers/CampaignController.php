@@ -583,33 +583,37 @@ class CampaignController extends Controller
                   $username = $user->firstname . " ". $user->lastname;
                   $data["DED"][$username] = 0;
                   for($i=2;$i<count($csvLine);$i++){
-                    
-                    
-                    /** add all deductibles **/
-                    if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
-                    
-                      if($column_labels[$i-2]==="TeamM" || $column_labels[$i-2]==="Coachi" || $column_labels[$i-2]==="Idle" || $column_labels[$i-2]==="COACH"){
-                        $splitted = explode(":",$csvLine[$i]);
-                        if(count($splitted)===1){
-                          $data["DED"][$username] = $data["DED"][$username] + intval($splitted);
+                    if(array_key_exists($i-2, $column_labels)){
+                      $data[$column_labels[$i-2]][$username] = $csvLine[$i];
+                      
+                      
+                      /** add all deductibles **/
+                      if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
+                      
+                        if($column_labels[$i-2]==="TeamM" || $column_labels[$i-2]==="Coachi" || $column_labels[$i-2]==="Idle" || $column_labels[$i-2]==="COACH"){
+                          $splitted = explode(":",$csvLine[$i]);
+                          if(count($splitted)===1){
+                            $data["DED"][$username] = $data["DED"][$username] + intval($splitted);
+                          }
+                          if(count($splitted)===2){
+                            $duration = intval($splitted[1]) + (intval($splitted[0])*60);
+                            $data["DED"][$username] = $data["DED"][$username] + $duration;
+                          }
+                          if(count($splitted)===3){
+                            $duration = intval($splitted[2]) + (intval($splitted[1])*60) + (intval($splitted[0])*3600);
+                            $data["DED"][$username] = $data["DED"][$username] + $duration;
+                          }
+                          $csvLine[] = $data["DED"][$username];
                         }
-                        if(count($splitted)===2){
-                          $duration = intval($splitted[1]) + (intval($splitted[0])*60);
-                          $data["DED"][$username] = $data["DED"][$username] + $duration;
-                        }
-                        if(count($splitted)===3){
-                          $duration = intval($splitted[2]) + (intval($splitted[1])*60) + (intval($splitted[0])*3600);
-                          $data["DED"][$username] = $data["DED"][$username] + $duration;
-                        }
-                        $csvLine[] = $data["DED"][$username];
+                      
+                      }
+                        
+                      
+                      
+                      if($request->input('export',FALSE)===TRUE){
+                        $export_lines[] = $csvLine;
                       }
                     
-                    } else {
-                      $data[$column_labels[$i-2]][$username] = $csvLine[$i];
-                    }
-                    
-                    if($request->input('export',FALSE)===TRUE){
-                      $export_lines[] = $csvLine;
                     }
 
                   }
