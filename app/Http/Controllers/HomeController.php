@@ -495,6 +495,16 @@ class HomeController extends Controller
                     } 
 
         }break;
+
+        case '5':{
+                    if($this->user->id !== 564 ) {
+                      $user = User::find(Input::get('id'));
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Played Video by [". $this->user->id."] ".$this->user->lastname."\n");
+                        fclose($file);
+                    } 
+
+        }break;
         
         
       }
