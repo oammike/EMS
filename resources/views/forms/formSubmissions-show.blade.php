@@ -236,7 +236,7 @@
    //end duplicate delete
    @endif
 
-    window.start = moment().subtract(6, 'days');
+    window.start = moment().subtract(2, 'days');
     window.end = moment();
     $('#from').val(window.start.format('YYYY-MM-DD'));
     $('#to').val(window.end.format('YYYY-MM-DD'));
@@ -475,7 +475,7 @@
     $('#daterange-btn1').daterangepicker(
       {
         ranges   : {
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 2 Days' : [moment().subtract(2, 'days'), moment()],
           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
           'This Month'  : [moment().startOf('month'), moment().endOf('month')],
           'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
