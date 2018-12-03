@@ -583,7 +583,7 @@ class CampaignController extends Controller
                   $username = $user->firstname . " ". $user->lastname;
                   $data["DED"][$username] = 0;
                   for($i=2;$i<count($csvLine);$i++){
-                    $data[$column_labels[$i-2]][$username] = $csvLine[$i];
+                    
                     
                     /** add all deductibles **/
                     if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
@@ -604,6 +604,8 @@ class CampaignController extends Controller
                         $csvLine[] = $data["DED"][$username];
                       }
                     
+                    } else {
+                      $data[$column_labels[$i-2]][$username] = $csvLine[$i];
                     }
                     
                     if($request->input('export',FALSE)===TRUE){
