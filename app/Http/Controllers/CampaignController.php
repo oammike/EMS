@@ -617,6 +617,7 @@ class CampaignController extends Controller
                   }
                   
                   
+                  
                   if($request->input('export',FALSE)==="TRUE"){
                     $export_lines[] = $csvLine;
                   }
@@ -627,6 +628,9 @@ class CampaignController extends Controller
                     $minutes = floor($data["DED"][$username] / 60);
                     $seconds = $data["DED"][$username] - ($minutes * 60);
                     $data["DED"][$username] = sprintf("%02d",$hours) . ":" . sprintf("%02d",$minutes) . ":" .sprintf("%.1f", $seconds);
+                  }
+                  
+                  if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
                     $csvLine[] = $data["DED"][$username];
                   }
                   
