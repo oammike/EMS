@@ -610,7 +610,7 @@ class CampaignController extends Controller
                         
                       
                       
-                      if($request->input('export',FALSE)===TRUE){
+                      if($request->input('export',FALSE)==="TRUE"){
                         $export_lines[] = $csvLine;
                       }
                     
