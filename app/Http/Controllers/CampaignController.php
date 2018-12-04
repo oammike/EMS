@@ -659,6 +659,7 @@ class CampaignController extends Controller
         $callback = function() use ($export_lines, $column_labels)
         {
             $file = fopen('php://output', 'w');
+            array_unshift($column_labels, "Agent","Username");
             fputcsv($file, $column_labels);
     
             foreach($export_lines as $line) {
