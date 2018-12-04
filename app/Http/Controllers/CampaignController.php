@@ -662,6 +662,7 @@ class CampaignController extends Controller
             fputcsv($file, $column_labels);
     
             foreach($export_lines as $line) {
+              $line = implode(",", $line);
               fputcsv($file, $line);
             }
             fclose($file);
