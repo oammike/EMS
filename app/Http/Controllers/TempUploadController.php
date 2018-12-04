@@ -62,22 +62,25 @@ class TempUploadController extends Controller
     		$perdate = TempUpload::orderBy('productionDate')->pluck('productionDate');
 			$productionDates = $perdate->unique();
 
+            //return $productionDates;
+
 			$currentBios = new Collection;
 
 			//save biometrics table
 			foreach ($productionDates as $prod) {
 				$existingBio = Biometrics::where('productionDate',$prod)->get();
-				if (count($existingBio) < 1)
+				if (count($existingBio) > 0)
 				{
-					$biometrics = new Biometrics;
-					$biometrics->productionDate = $prod;
-					$biometrics->save();
-
-					$currentBios->push(['id'=>$biometrics->id, 'productionDates'=> $prod]);
+                    $currentBios->push(['id'=>$existingBio->first()->id, 'productionDates'=> $prod]);
+					
 
 				} else
 				{
-					$currentBios->push(['id'=>$existingBio->first()->id, 'productionDates'=> $prod]);
+					$biometrics = new Biometrics;
+                    $biometrics->productionDate = $prod;
+                    $biometrics->save();
+
+                    $currentBios->push(['id'=>$biometrics->id, 'productionDates'=> $prod]);
 
 				}
 			}
