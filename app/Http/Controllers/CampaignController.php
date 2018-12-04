@@ -603,7 +603,7 @@ class CampaignController extends Controller
                             $duration = intval($splitted[2]) + (intval($splitted[1])*60) + (intval($splitted[0])*3600);
                             $data["DED"][$username] = $data["DED"][$username] + $duration;
                           }
-                          $csvLine[] = $data["DED"][$username];
+                          
                         }
                       
                       }
@@ -615,6 +615,11 @@ class CampaignController extends Controller
                     }
 
                   }
+                  
+                  if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
+                    $csvLine[] = $data["DED"][$username];
+                  }
+                  
                   if($request->input('export',FALSE)==="TRUE"){
                     $export_lines[] = $csvLine;
                   }
