@@ -610,12 +610,13 @@ class CampaignController extends Controller
                         
                       
                       
-                      if($request->input('export',FALSE)==="TRUE"){
-                        $export_lines[] = $csvLine;
-                      }
+                      
                     
                     }
 
+                  }
+                  if($request->input('export',FALSE)==="TRUE"){
+                    $export_lines[] = $csvLine;
                   }
                   /** CONVERT deductibles back to HH:MM:SS format **/
                   if($data["DED"][$username]!==0){
@@ -658,7 +659,7 @@ class CampaignController extends Controller
     
         $callback = function() use ($export_lines, $column_labels)
         {
-            $file = fopen('php://output', 'w');
+            $file = fopen('php://output', 'w'); 
             array_unshift($column_labels, "Agent","Username");
             fputcsv($file, $column_labels);
     
