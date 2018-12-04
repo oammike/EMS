@@ -616,11 +616,6 @@ class CampaignController extends Controller
 
                   }
                   
-                  
-                  
-                  if($request->input('export',FALSE)==="TRUE"){
-                    $export_lines[] = $csvLine;
-                  }
                   /** CONVERT deductibles back to HH:MM:SS format **/
                   if($data["DED"][$username]!==0){
                     $hours = floor($data["DED"][$username] / 3600);
@@ -632,6 +627,9 @@ class CampaignController extends Controller
                   
                   if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
                     $csvLine[] = $data["DED"][$username];
+                  }
+                  if($request->input('export',FALSE)==="TRUE"){
+                    $export_lines[] = $csvLine;
                   }
                   
                 }
