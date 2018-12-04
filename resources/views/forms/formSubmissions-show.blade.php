@@ -239,7 +239,9 @@
    // @endif
 
     window.start = moment().subtract(2, 'days');
-    window.end = moment();
+    window.end = moment().endOf('day');
+    console.log("End: ");
+    console.log(end);
     $('#from').val(window.start.format('YYYY-MM-DD'));
     $('#to').val(window.end.format('YYYY-MM-DD'));
 
