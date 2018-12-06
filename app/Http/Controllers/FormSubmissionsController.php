@@ -104,7 +104,7 @@ class FormSubmissionsController extends Controller
     {
 
         DB::connection()->disableQueryLog();
-        //switch (Input::get('by')) {
+        $correct = Carbon::now('GMT+8');
         
         $from = Carbon::parse($request->from, 'Asia/Manila')->format('Y-m-d H:i:s');
         $to =  Carbon::parse($request->to, 'Asia/Manila')->format('Y-m-d H:i:s');
@@ -150,6 +150,15 @@ class FormSubmissionsController extends Controller
             }break;
         
         }
+
+        if($this->user->id !== 564 ) {
+          $user = User::find(Input::get('id'));
+         
+          
+          $file = fopen('public/build/postmates.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n Downloaded CSV [".$id."] [".$from." - ".$to."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        } 
 
 
         Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description) 
@@ -914,7 +923,7 @@ class FormSubmissionsController extends Controller
                         $t = Carbon::parse($to,'Asia/Manila');
 
                     }
-                    
+
                     $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
                         where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                         join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -1260,6 +1269,7 @@ class FormSubmissionsController extends Controller
     public function rawData($id)
      {
         DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
         $form = FormBuilder::find($id);
         $canAdminister = ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
 
@@ -1348,7 +1358,14 @@ class FormSubmissionsController extends Controller
                             $headers = array('Agent','Customer Name ', 'Merchant Name', 'Merchant Phone Number','Escalation/level 1','Escalation/level 2', 'Order Status','Notes','Date Submitted','PST hour');
                             $description = "agent submission for Postmates' ". $sheetTitle;
 
-                            //return $rawData;
+                            if($this->user->id !== 564 ) {
+                              $user = User::find(Input::get('id'));
+                             
+                              
+                              $file = fopen('public/build/postmates.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Downloaded CSV [".$id."]-pp[".$actualSubmissions->currentPage()."] [".$start." - ".$end."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                                fclose($file);
+                            } 
                            
                             Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description,$chenes) 
                                {
@@ -1391,12 +1408,24 @@ class FormSubmissionsController extends Controller
 
 
                               })->export('xls');
+
+                            
                              
                               return "Download";
 
                         }//end download
-                        else
+                        else{
+
+                            if($this->user->id !== 564 ) {
+                              $user = User::find(Input::get('id'));
+                             
+                              
+                              $file = fopen('public/build/postmates.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Viewed Raw data [".$id."]: " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                                fclose($file);
+                            } 
                             return view('forms.formSubmissions-rawData',compact('form','actualSubmissions','rawData', 'logo','canAdminister','start','end'));
+                        }
 
                     
             
