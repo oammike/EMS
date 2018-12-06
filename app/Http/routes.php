@@ -265,6 +265,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::post('/user_vl/uploadCredits', array(
       'as'=> 'user_vl.uploadCredits',
       'uses'=>'UserVLController@uploadCredits') );
+
+      Route::get('/updateVLCredits', array(
+      'as'=> 'user_vl.updateCredits',
+      'uses'=>'UserVLController@updateCredits') );
        /*********** VL **********/
 
 
@@ -307,6 +311,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::post('/user_sl/process', array(
       'as'=> 'user_sl.process',
       'uses'=>'UserSLController@process') );
+
+      Route::get('/updateSLCredits', array(
+      'as'=> 'user_sl.updateCredits',
+      'uses'=>'UserSLController@updateCredits') );
 
       Route::post('/user_sl/uploadCredits', array(
       'as'=> 'user_sl.uploadCredits',

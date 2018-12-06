@@ -48,6 +48,8 @@ use OAMPI_Eval\Paycutoff;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_VLcredits;
+use OAMPI_Eval\VLupdate;
+use OAMPI_Eval\SLupdate;
 use OAMPI_Eval\Notification;
 use OAMPI_Eval\User_Notification;
 
@@ -692,6 +694,42 @@ class UserVLController extends Controller
             return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'page', 'approvers', 'myCampaign', 'personnel'));
 
 
+    }
+
+
+    public function updateCredits()
+    {
+        
+        $for = Input::get('for');
+        $credits = Input::get('credits');
+        $period = Carbon::parse($for,"Asia/Manila");
+
+        $coll = new Collection;
+
+        $done = DB::table('vlupdate')->where('period',$period->format('Y-m-d'))->get();
+
+        if (count($done) > 0){
+
+        }else{
+
+            $updates = new VLupdate;
+            $updates->period = $period->format('Y-m-d');
+            $updates->credits = $credits;
+            $updates->save();
+
+            $allLeaves = User_VLcredits::where('creditYear',$period->format('Y'))->get();
+
+            foreach ($allLeaves as $key) {
+
+                $key->beginBalance += $credits;
+                $key->lastUpdated = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                $key->save();
+                $coll->push($key);
+            }
+
+        }
+
+        return $coll;
     }
 
     public function uploadCredits(Request $request)

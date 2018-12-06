@@ -114,6 +114,7 @@
             }
             
                 //$avail = $this->user->availableVL;
+            $updatedVLcredits = OAMPI_Eval\VLupdate::orderBy('period','DESC')->get();
                 
             ?>
 <aside class="main-sidebar">
@@ -153,7 +154,14 @@
 
 
       <!-- ******************** LEAVE CREDIT COUNTER ***************-->
-      <div class="row" data-step="1" data-intro="Hi @if(empty(Auth::user()->nickname)){{Auth::user()->firstname}} @else {{Auth::user()->nickname}}@endif!<br/>Welcome to Open Access EMS. <br/><br/>These are your updated leave credits as of <span class='text-danger'><strong>NOV 20, 2018</strong></span>.<br/><br/><strong>VL: </strong>{{$currentVLbalance}}<br/><strong> SL: </strong>{{$currentSLbalance}}<br/> <br/><strong class='text-primary'><i class='fa fa-info-circle'></i>Note: </strong><span style='font-size:0.7em'>Regular employees who have  completed six  (6)  months  shall be  entitled  to  five   (5)  days  of  sick  leave and five (5) days of vacation leave. Employee  will  earn  an  additional  <strong class='text-danger'>0.42</strong>  leave credits after the <strong class='text-danger'> 5th and 20th </strong>day of the month worked.</span><br/><br/>To file for leave requests..." data-position="right">
+      @if(count($updatedVLcredits) > 0)
+      <div class="row" data-step="1" data-intro="Hi @if(empty(Auth::user()->nickname)){{Auth::user()->firstname}} @else {{Auth::user()->nickname}}@endif!<br/>Welcome to Open Access EMS. <br/><br/>These are your updated leave credits as of <span class='text-danger'><strong>{{date('M d, Y',strtotime($updatedVLcredits->first()->period))}} </strong></span>.<br/><br/><strong>VL: </strong>{{$currentVLbalance}}<br/><strong> SL: </strong>{{$currentSLbalance}}<br/> <br/><strong class='text-primary'><i class='fa fa-info-circle'></i>Note: </strong><span style='font-size:0.7em'>Regular employees who have  completed six  (6)  months  shall be  entitled  to  five   (5)  days  of  sick  leave and five (5) days of vacation leave. Employee  will  earn  an  additional  <strong class='text-danger'>0.42</strong>  leave credits after the <strong class='text-danger'> 5th and 20th </strong>day of the month worked.</span><br/><br/>To file for leave requests..." data-position="right">
+
+      @else
+
+      <div class="row" data-step="1" data-intro="Hi @if(empty(Auth::user()->nickname)){{Auth::user()->firstname}} @else {{Auth::user()->nickname}}@endif!<br/>Welcome to Open Access EMS. <br/><br/>These are your updated leave credits as of <span class='text-danger'><strong>NOV. 20, 2018 </strong></span>.<br/><br/><strong>VL: </strong>{{$currentVLbalance}}<br/><strong> SL: </strong>{{$currentSLbalance}}<br/> <br/><strong class='text-primary'><i class='fa fa-info-circle'></i>Note: </strong><span style='font-size:0.7em'>Regular employees who have  completed six  (6)  months  shall be  entitled  to  five   (5)  days  of  sick  leave and five (5) days of vacation leave. Employee  will  earn  an  additional  <strong class='text-danger'>0.42</strong>  leave credits after the <strong class='text-danger'> 5th and 20th </strong>day of the month worked.</span><br/><br/>To file for leave requests..." data-position="right">
+
+      @endif
         <div class="col-lg-1 col-sm-12"></div>
         <div class="col-lg-4 col-sm-12 text-center">
           
