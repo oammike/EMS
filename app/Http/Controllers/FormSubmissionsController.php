@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Yajra\Datatables\Facades\Datatables;
 
 //use OAMPI_Eval\Http\Requests;
@@ -332,15 +334,60 @@ class FormSubmissionsController extends Controller
             case '1': 
             {
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
 
-                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
-                    where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
-                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
-                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
-                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
-                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+
+                    
+
+                    $actualSubmissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        // 
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        // join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        // join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        
+                        
+                     // where([
+                     //         ['formBuilder_items.label',"Escalation"],
+                        //     ['formBuilder_items.label','==',"Notes"],
+
+                        // ])->
+                        select('form_submissions_users.id as submissionID', 'form_submissions_users.user_id as user', 'users.firstname','users.lastname')->
+                        orderBy('submissionID','DESC')->paginate(500);
+                        
+                        // chunk(100, function($items) use ($form)
+                        //                 {
+                        //                     foreach ($items as $item) {
+                        //                         $form->push(["Agent"=>$item->lastname, "Submitted"=>$item->submissionID]);
+                        //                     }
+                            
+                        //                 });
+                        //$submissions = collect($form)->groupBy('submissionID')
+                        $forms = $actualSubmissions->groupBy('submissionID');
+                        
+                        $rawData = new Collection;
+                        foreach ($forms as $f) {
+                            $d = DB::table('form_submissions_users')->where('form_submissions_users.id',$f->first()->submissionID)->
+                                // leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                                join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                                join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                                select('formBuilder_items.label as item','form_submissions.value','form_submissions_users.created_at')->get();
+
+                                $agent = User::find($f->first()->user);
+                                //$rawData->push(['lastname'=>$agent->lastname, 'firstname'=>$agent->firstname, 'submissions'=>collect($d)]);
+                                $rawData->push(['id'=>$f->first()->submissionID, 'merchant'=>$d[1]->value,'orderStatus'=>$d[5]->value,'protocol'=>$d[3]->value,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>Carbon::parse($d[0]->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($d[0]->created_at)->setTimeZone('PST')->format('H:i')]);
+                               
+                            
+                            //$rawData->push(FormSubmissions::where('submission_user',$f->first()->submissionID)->get());
+
+                        }
+                        return response()->json(['data'=>$rawData]);
                     
             
                 }else{
@@ -354,7 +401,7 @@ class FormSubmissionsController extends Controller
 
                 }
                 $submissions = collect($form)->groupBy('submissionID');
-                //return $submissions;
+                return $submissions;
                     $headers = collect($form)->groupBy('label');
                     $coll = new Collection;
 
@@ -376,8 +423,15 @@ class FormSubmissionsController extends Controller
             case '2': 
             {
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
                     $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
                          where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                         join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -453,8 +507,15 @@ class FormSubmissionsController extends Controller
             default: 
             {
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
 
                      $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
                       where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
@@ -671,14 +732,23 @@ class FormSubmissionsController extends Controller
         DB::connection()->disableQueryLog();
         $from = Input::get('from');
         $to = Input::get('to');
+
+
         $orders = new Collection;
 
         $form = FormBuilder::find($id);
         $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
 
         if (!is_null($from) && !is_null($to)){
-            $f = Carbon::parse($from,'Asia/Manila');
-            $t = Carbon::parse($to,'Asia/Manila');
+            if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
             $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
                 where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                 join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -712,6 +782,9 @@ class FormSubmissionsController extends Controller
     {
         $from = Input::get('from');
         $to = Input::get('to');
+
+        
+
         switch ($type) {
 
             case '1': 
@@ -721,8 +794,16 @@ class FormSubmissionsController extends Controller
                 $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
 
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+
                     $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
                         where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                         join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -769,8 +850,16 @@ class FormSubmissionsController extends Controller
                 $form = FormBuilder::find($type); 
                 $rankCategory = FormBuilder_Items::where('label','Confirmation')->where('formBuilder_id',$type)->first(); 
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+
                     $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
                         where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                         join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -816,8 +905,16 @@ class FormSubmissionsController extends Controller
                 $form = FormBuilder::find($type);
 
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+                    
                     $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
                         where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                         join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -871,9 +968,15 @@ class FormSubmissionsController extends Controller
             case '1': 
             {
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
 
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
                     $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
                     where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                     join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -910,8 +1013,15 @@ class FormSubmissionsController extends Controller
             case '2': 
             {
                 if (!is_null($from) && !is_null($to)){
-                    $f = Carbon::parse($from,'Asia/Manila');
-                    $t = Carbon::parse($to,'Asia/Manila');
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
                     $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
                          where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                         join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
@@ -1142,6 +1252,292 @@ class FormSubmissionsController extends Controller
         
         
 
+
+    }
+
+   
+
+    public function rawData($id)
+     {
+        DB::connection()->disableQueryLog();
+        $form = FormBuilder::find($id);
+        $canAdminister = ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
+
+        $data = new Collection;
+        $data2 = new Collection;
+        $campaign = Campaign::where('name',"Postmates")->first();
+        $camp = $campaign->logo;
+        $logo = "../public/img/".$camp->filename;
+
+
+        $from = Input::get('from');
+        $to = Input::get('to');
+        $download = Input::get('dl');
+
+        $rawData = new Collection;
+
+        switch($id){ 
+
+            
+
+            case '1': 
+            {
+                if (!is_null($from) && !is_null($to)){
+
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+
+                   
+                    
+                    $start = Carbon::parse($from,'Asia/Manila')->format('Y-m-d');$end =  Carbon::parse($to,'Asia/Manila')->format('Y-m-d');
+
+                    
+
+                    $actualSubmissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        // 
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        
+                        select('form_submissions_users.id as submissionID', 'form_submissions_users.user_id as user', 'users.firstname','users.lastname')->
+                        orderBy('submissionID','DESC')->paginate(500);
+
+
+                        $forms = $actualSubmissions->groupBy('submissionID');
+                        //return $actualSubmissions;
+                         
+                        //return $rawData;
+                       
+                        foreach ($forms as $f) {
+                            //$rawData->push(['from'=>$f, 'to'=>$t,'f'=>$f]);
+                            $d = DB::table('form_submissions_users')->where('form_submissions_users.id',$f->first()->submissionID)->
+                                
+                                join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                                join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                                select('formBuilder_items.label as item','form_submissions.value','form_submissions_users.created_at')->get();
+
+                                $agent = User::find($f->first()->user);
+                                //$rawData->push($d);
+
+                               
+                                 if (count($d)>=7)
+                                
+                                $rawData->push(['id'=>$f->first()->submissionID,'customer'=>$d[0]->value, 'merchant'=>$d[1]->value,'phone'=>$d[2]->value, 'orderStatus'=>$d[5]->value,'protocol'=>$d[3]->value,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>Carbon::parse($d[0]->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($d[0]->created_at)->setTimeZone('PST')->format('H:i'),'notes'=>$d[6]->value,'escalation'=>$d[4]->value ]);
+                                else if (empty($d))
+                                    $rawData->push(['id'=>$f->first()->submissionID,'custome'=>null, 'merchant'=>null,'phone'=>null, 'orderStatus'=>null,'protocol'=>null,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>null, 'hour'=> null,'notes'=>null ,'escalation'=>null]);
+                                else
+                                    $rawData->push(['id'=>$f->first()->submissionID,'customer'=>$d[0]->value, 'merchant'=>$d[1]->value,'phone'=>$d[2]->value, 'orderStatus'=>$d[4]->value,'protocol'=>$d[3]->value,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>Carbon::parse($d[0]->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($d[0]->created_at)->setTimeZone('PST')->format('H:i'),'notes'=>$d[5]->value,'escalation'=>$d[4]->value]);
+
+                               
+
+                        }
+
+                        
+
+                        if($download==1)
+                        {
+                            $sheetTitle = FormBuilder::find($id)->title;
+                            $submissions = $rawData;
+                            $chenes = new Collection;
+                            //return $submissions;
+                            $headers = array('Agent','Customer Name ', 'Merchant Name', 'Merchant Phone Number','Escalation/level 1','Escalation/level 2', 'Order Status','Notes','Date Submitted','PST hour');
+                            $description = "agent submission for Postmates' ". $sheetTitle;
+
+                            //return $rawData;
+                           
+                            Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description,$chenes) 
+                               {
+                                      $excel->setTitle($sheetTitle.' Summary Report');
+
+                                      // Chain the setters
+                                      $excel->setCreator('Programming Team')
+                                            ->setCompany('OpenAccess');
+
+                                      // Call them separately
+                                      $excel->setDescription($description);
+                                      $excel->sheet("Sheet 1", function($sheet) use ($id,$submissions, $headers,$chenes)
+                                      {
+                                        $sheet->appendRow($headers);
+                                        foreach($submissions as $item)
+                                        {
+                                            $arr = array($item['agent'],
+                                                         $item['customer'],
+                                                         $item['merchant'],
+                                                         $item['phone'],
+                                                         $item['protocol'],
+                                                         $item['escalation'],
+                                                         $item['orderStatus'],
+                                                         $item['notes'],
+                                                         $item['submitted'],
+                                                         $item['hour']
+                                                    );
+                                            $sheet->appendRow($arr);
+                                           
+
+                                        }
+
+                                     
+
+                                        
+                                     });//end sheet1
+
+                                    
+
+
+
+                              })->export('xls');
+                             
+                              return "Download";
+
+                        }//end download
+                        else
+                            return view('forms.formSubmissions-rawData',compact('form','actualSubmissions','rawData', 'logo','canAdminister','start','end'));
+
+                    
+            
+                }else{
+
+                    return view('empty-page',['message'=>"<br/><br/><br/><br/><p class='text-center'>Sorry, there's something wrong with your request. <br/>Please check parameters and try again</p>.",'title'=>"No Raw Data Found"]);
+
+                }
+                
+                
+
+                
+            }break;
+
+            case '2': 
+            {
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                         where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                }else
+                {
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                        
+                }
+
+                $submissions = collect($form)->groupBy('submissionID');
+                        $headers = collect($form)->groupBy('label');
+                        $coll = new Collection;
+
+                        
+                        foreach($submissions as $item) {
+
+                            $c = new Collection;
+                            $ctI = count($item);
+
+                            //$k = $item->pluck('value');
+                            
+                            //$agent = $item->first()->firstname." ". $item->first()->lastname;
+                            if ($ctI == 6)
+                            $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
+                                        $item[0]->label=>$item[0]->value,
+                                        $item[1]->label=>$item[1]->value,
+                                        $item[2]->label=>$item[2]->value, 
+                                        $item[3]->label=>$item[3]->value,
+                                        $item[4]->label=>$item[4]->value,
+                                        $item[5]->label=>$item[5]->value,
+                                        'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
+                                        'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                            elseif ($ctI == 7)
+                            $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
+                                        $item[0]->label=>$item[0]->value,
+                                        $item[1]->label=>$item[1]->value,
+                                        $item[2]->label=>$item[2]->value, 
+                                        $item[3]->label=>$item[3]->value,
+                                        $item[4]->label=>$item[4]->value,
+                                        $item[5]->label=>$item[5]->value,
+                                        $item[6]->label=>$item[6]->value,
+                                        'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
+                                        'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                             elseif ($ctI == 8)
+                            $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
+                                        $item[0]->label=>$item[0]->value,
+                                        $item[1]->label=>$item[1]->value,
+                                        $item[2]->label=>$item[2]->value, 
+                                        $item[3]->label=>$item[3]->value,
+                                        $item[4]->label=>$item[4]->value,
+                                        $item[5]->label=>$item[5]->value,
+                                        $item[6]->label=>$item[6]->value,
+                                        $item[7]->label=>$item[7]->value,
+                                        'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
+                                        'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]); 
+                                        
+                           
+                            
+                        }
+
+                    
+
+                
+            }break;
+            
+            default: 
+            {
+                if (!is_null($from) && !is_null($to)){
+                    $f = Carbon::parse($from,'Asia/Manila');
+                    $t = Carbon::parse($to,'Asia/Manila');
+
+                     $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                      where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                      join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                      join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                      leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                      select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                } else
+
+                $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                    join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                    leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                    select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+
+
+                    $submissions = collect($form)->groupBy('submissionID');
+                    $headers = collect($form)->groupBy('label');
+                    $coll = new Collection;
+
+                    return $submissions;
+                    foreach($submissions as $item) {
+
+                        $c = new Collection;
+                        $k = $item->pluck('value');
+                        
+                        $coll->push(['merchant'=>$k[1],'orderStatus'=>$k[5],'protocol'=>$k[3],'agent'=>$item->first()->firstname." ". $item->first()->lastname,'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]);
+                       
+                        
+                    }
+
+                
+            }break;
+        }
+        
+
+        //return $coll;
+        switch (Input::get('type')) {
+            case 'dt': return response()->json(['data'=>$coll]); break;
+            case 'label': return response()->json($headers); break;
+            
+            default: return response()->json(['data'=>$coll]); break;
+        }
+        
+        
 
     }
 

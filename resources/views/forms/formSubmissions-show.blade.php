@@ -20,7 +20,7 @@
      <section class="content">
         <div class="row">
           <div class="col-md-12">
-              <div class="box">
+              <div class="box" style="height: 700px;background: none">
                 <div class="box-header with-border">
                   <h3 class="box-title pull-left"><img class="pull-left" src="{{$logo}}" width="150" /> </h3>
 
@@ -46,12 +46,17 @@
 
                       <div class="text-right" id="realtime" data-toggle="btn-toggle">
                         <p style="margin-right: 230px">Select Report Date Range: </p>
-                        {{Form::open(['action'=>['FormSubmissionsController@downloadCSV',$form->id ]]) }}
+                        <!-- {{Form::open(['action'=>['FormSubmissionsController@downloadCSV',$form->id ]]) }} -->
+                       
+
                         <input type="hidden" id="from" name="from" />
                         <input type="hidden" id="to" name="to" />
-                         <button disabled="disabled" type="submit" id="download" data-from="" data-to="" style="margin:3px 5px" class="pull-right btn-success btn-sm btn"><i class="fa fa-download"></i> Download Spreadsheet</button> 
 
-                         {{Form::close()}}
+                        <!--  <button @if(Auth::user()->id != 564 )disabled="disabled" @endif type="submit" id="download" data-from="" data-to="" style="margin:3px 5px" class="pull-right btn-success btn-sm btn"><i class="fa fa-download"></i> Download Spreadsheet</button>  -->
+                        
+                        <a @if(Auth::user()->id != 564 )disabled="disabled" @endif id="rawdata" data-from="" data-to="" style="margin:0px 5px" class="pull-right btn-primary btn-md btn"><i class="fa fa-list-ol"></i> View Raw Data</a>
+
+                        
 
                         <button type="button" class="btn btn-default pull-right" id="daterange-btn1">
                           <span>
@@ -67,7 +72,7 @@
                         <span class="text-primary" style="font-size:2em;">Rankings</span>
                       </p>
 
-                      <div class="chart" style="max-height: 400px; overflow: scroll;">
+                      <div class="chart" style="max-height: 900px; overflow: scroll;">
                         <table class="table no-margin table-bordered table-striped" id="ranking" style="background: rgba(256, 256, 256, 0.3)" ></table>
 
                        
@@ -125,30 +130,6 @@
 
 
 
-             <!-- ******** THE DATATABLE ********** -->
-          <div class="row">
-             <div class="col-lg-1 col-sm-4  col-xs-9">
-              </div>
-              <div class="col-lg-10 col-sm-4 col-xs-12" >
-                <h2 class="pull-right">Raw Data</h2>
-                <h3 class="text-danger" id="alldata"></h3><br/><br/>
-                <h5 class="text-default text-center"><i class="fa fa-exclamation-triangle"></i> Summary table for raw data submissions currently under maintenance. <i class="fa fa-wrench"></i> <br/>
-                  <span style="font-size: smaller; color:#fff">Sorry for the inconvenience.</span></h5>
-                <!-- <table class="table no-margin table-bordered table-striped" id="forms" style="background: rgba(256, 256, 256, 0.3)" ></table>
-                @if($canAdminister)
-                <button id="deldupes"><i class="fa fa-trash"></i> Remove Duplicates</button>
-                @endif -->
-
-                        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                            
-              </div> 
-              <div class="col-lg-1 col-sm-4  col-xs-9">
-              </div>
-              <div class="holder"></div>
-
-
-              <div class="clearfix"></div>
-          </div>
 
 
 
@@ -191,125 +172,127 @@
    'use strict';
 
 
+
    /*----------------- Report generation -------------*/
 
-   // @if($canAdminister)
-   // $('#deldupes').on('click',function(){
-   //  var _token = "{{ csrf_token() }}";
-   //  var checkeditems = $('.dupes:checkbox:checked').map(function() {
-   //                        return this.value;
-   //                    }).get();
+   @if($canAdminister)
+   $('#deldupes').on('click',function(){
+    var _token = "{{ csrf_token() }}";
+    var checkeditems = $('.dupes:checkbox:checked').map(function() {
+                          return this.value;
+                      }).get();
 
-   //  $.ajax({
-   //                      url: "{{action('FormSubmissionsController@deleteDupes')}}",
-   //                      type:'POST',
-   //                      data:{ 
-   //                        'items': checkeditems,
-   //                        '_token':_token
-   //                      },
+    $.ajax({
+                        url: "{{action('FormSubmissionsController@deleteDupes')}}",
+                        type:'POST',
+                        data:{ 
+                          'items': checkeditems,
+                          '_token':_token
+                        },
 
                        
-   //                      success: function(res)
-   //                      {
+                        success: function(res)
+                        {
                           
-   //                        if (res.status == '0')
-   //                          $.notify("An error occured. Please try again later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-   //                        else {
-   //                          //$('button[name="submit"]').fadeOut();
-   //                          $.notify("Duplicate items successfully deleted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-   //                          console.log(res);
-   //                          var allforms = $("#forms").DataTable();
-   //                          allforms.ajax.reload();
+                          if (res.status == '0')
+                            $.notify("An error occured. Please try again later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                          else {
+                            //$('button[name="submit"]').fadeOut();
+                            $.notify("Duplicate items successfully deleted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                            console.log(res);
+                            var allforms = $("#forms").DataTable();
+                            allforms.ajax.reload();
                             
-   //                        }
+                          }
 
                            
-   //                      }, error: function(res){
-   //                        console.log("ERROR");
-   //                        $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                        }, error: function(res){
+                          console.log("ERROR");
+                          $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
                             
-   //                      }
+                        }
 
 
-   //            });
+              });
     
 
-   // });
-   // //end duplicate delete
-   // @endif
+   });
+   //end duplicate delete
+   @endif
 
-    window.start = moment().subtract(2, 'days');
+    window.start = moment().startOf('day');//subtract(1, 'days').
     window.end = moment().endOf('day');
     console.log("End: ");
     console.log(end);
     $('#from').val(window.start.format('YYYY-MM-DD'));
     $('#to').val(window.end.format('YYYY-MM-DD'));
+    $('#rawdata').attr('href','rawData/1?from='+window.start.format('YYYY-MM-DD')+'&to='+window.end.format('YYYY-MM-DD'));
 
-    // var dtforms = $("#forms").DataTable({
+    var dtforms = $("#forms").DataTable({
 
-    //         "ajax": "../formSubmissions/fetchFrom/{{$form->id}}?from="+window.start.format('YYYY-MM-DD')+"&to="+window.end.format('YYYY-MM-DD'),
-    //         "deferRender": true,
-    //         "order": [ 4, "desc" ],
-    //         "processing":true,
-    //         "stateSave": true,
-    //         "lengthMenu": [10, 50, 100],//[5, 20, 50, -1],
-    //         "columns": [
+            "ajax": "../formSubmissions/fetchFrom/{{$form->id}}?from="+window.start.format('YYYY-MM-DD')+"&to="+window.end.format('YYYY-MM-DD'),
+            "deferRender": true,
+            "order": [ 4, "desc" ],
+            "processing":true,
+            "stateSave": true,
+            "lengthMenu": [10, 50, 100],//[5, 20, 50, -1],
+            "columns": [
                  
-    //              @if($canAdminister)
-    //               { title: "Agent", defaultContent: "<i>none</i>" ,width:'180', data:'agent',render:function(data,type,full,meta)
-    //                         {
-    //                           var _token = "{{ csrf_token() }}";
-    //                           // var delModal ='<div class="modal fade" id="dupe'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this duplicate entry?</div><div class="modal-footer no-border"><form action="../formSubmissions/deleteThis/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
+                 @if($canAdminister)
+                  { title: "Agent", defaultContent: "<i>none</i>" ,width:'180', data:'agent',render:function(data,type,full,meta)
+                            {
+                              var _token = "{{ csrf_token() }}";
+                              // var delModal ='<div class="modal fade" id="dupe'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this duplicate entry?</div><div class="modal-footer no-border"><form action="../formSubmissions/deleteThis/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
 
-    //                           return '<input class="dupes form-check-input" type="checkbox" name="dupes" value="'+full.id+'" /> <small>'+data+' </small>';
+                              return '<input class="dupes form-check-input" type="checkbox" name="dupes" value="'+full.id+'" /> <small>'+data+' </small>';
 
-    //                         }
-    //               }, // width:'180'}, 
-    //               { title: "Status", defaultContent: "<i>none</i>" , data:'orderStatus', width:'120'}, // width:'180'}, 
-    //               { title: "Order Protocol", defaultContent: "<i>none</i>" , data:'protocol', width:'120'}, // width:'180'}, 
-    //               { title: "Merchant", defaultContent: "<i>none</i>" , data:'merchant'}, // width:'180'},  
-    //               { title: "Date", defaultContent: "<i>none</i>" , data:'submitted',width:'100'}, // width:'180'},
-    //               { title: "Hour (PST)", defaultContent: "<i>none</i>" , data:'hour',width:'70'},        
+                            }
+                  }, // width:'180'}, 
+                  { title: "Status", defaultContent: "<i>none</i>" , data:'orderStatus', width:'120'}, // width:'180'}, 
+                  { title: "Order Protocol", defaultContent: "<i>none</i>" , data:'protocol', width:'120'}, // width:'180'}, 
+                  { title: "Merchant", defaultContent: "<i>none</i>" , data:'merchant'}, // width:'180'},  
+                  { title: "Date", defaultContent: "<i>none</i>" , data:'submitted',width:'100'}, // width:'180'},
+                  { title: "Hour (PST)", defaultContent: "<i>none</i>" , data:'hour',width:'70'},        
 
-    //           ],
+              ],
 
-    //           @else
+              @else
 
-    //           { title: "Agent", defaultContent: "<i>none</i>" ,width:'180', data:'agent',render:function(data,type,full,meta)
-    //                         {
+              { title: "Agent", defaultContent: "<i>none</i>" ,width:'180', data:'agent',render:function(data,type,full,meta)
+                            {
 
-    //                           return '<small>'+data+' </small>';
+                              return '<small>'+data+' </small>';
 
-    //                         }
-    //               }, // width:'180'}, 
-    //               { title: "Status", defaultContent: "<i>none</i>" , data:'orderStatus', width:'120'}, // width:'180'}, 
-    //               { title: "Order Protocol", defaultContent: "<i>none</i>" , data:'protocol', width:'120'}, // width:'180'}, 
-    //               { title: "Merchant", defaultContent: "<i>none</i>" , data:'merchant'}, // width:'180'},  
-    //               { title: "Date", defaultContent: "<i>none</i>" , data:'submitted',width:'100'}, // width:'180'},
-    //               { title: "Hour (PST)", defaultContent: "<i>none</i>" , data:'hour',width:'70'},        
+                            }
+                  }, // width:'180'}, 
+                  { title: "Status", defaultContent: "<i>none</i>" , data:'orderStatus', width:'120'}, // width:'180'}, 
+                  { title: "Order Protocol", defaultContent: "<i>none</i>" , data:'protocol', width:'120'}, // width:'180'}, 
+                  { title: "Merchant", defaultContent: "<i>none</i>" , data:'merchant'}, // width:'180'},  
+                  { title: "Date", defaultContent: "<i>none</i>" , data:'submitted',width:'100'}, // width:'180'},
+                  { title: "Hour (PST)", defaultContent: "<i>none</i>" , data:'hour',width:'70'},        
 
-    //           ],
+              ],
 
 
-    //           @endif
-    //         //"dom": 'Bfrtip',
-    //         "dom": '<"col-xs-1"fb><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
-    //         // "buttons": [
-    //         //               {
-    //         //                   text: 'My button',
-    //         //                   action: function ( e, dt, node, config ) {
-    //         //                       alert( 'Button activated' );
-    //         //                   }
-    //         //               }
-    //         //           ],
+              @endif
+            //"dom": 'Bfrtip',
+            "dom": '<"col-xs-1"fb><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
+            // "buttons": [
+            //               {
+            //                   text: 'My button',
+            //                   action: function ( e, dt, node, config ) {
+            //                       alert( 'Button activated' );
+            //                   }
+            //               }
+            //           ],
           
-    //         "oLanguage": {
-    //            "sSearch": "<strong>All Submitted Data</strong> <br/><br/>To re-order entries, click the sort icon on the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",
-    //            "class": "pull-left"
-    //          },
+            "oLanguage": {
+               "sSearch": "<strong>All Submitted Data</strong> <br/><br/>To re-order entries, click the sort icon on the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",
+               "class": "pull-left"
+             },
 
                       
-    // });
+    });
 
     var dtranks = $("#ranking").DataTable({
 
@@ -460,9 +443,9 @@
     }
     
    function fetchAllData(start,end) {
-     // var newsource = "../formSubmissions/fetchFrom/{{$form->id}}?from="+start.format('YYYY-MM-DD')+"&to="+end.format('YYYY-MM-DD');
+      var newsource = "../formSubmissions/fetchFrom/{{$form->id}}?from="+start.format('YYYY-MM-DD')+"&to="+end.format('YYYY-MM-DD');
             
-     // dtforms.ajax.url(newsource).load();
+      dtforms.ajax.url(newsource).load();
     } 
     
     
@@ -472,15 +455,15 @@
         $('#dateescal').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         $('#alldata').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         fetchRankings(start,end);
-        // fetchAllData(start,end);
+        fetchAllData(start,end);
     }
 
 
     $('#daterange-btn1').daterangepicker(
       {
         ranges   : {
-          'Last 2 Days' : [moment().subtract(2, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'Today' : [moment().startOf('day'), moment().endOf('day')],
+          'Yesterday': [moment().subtract(1, 'days').startOf('day'),moment().subtract(1, 'days').endOf('day')],
           'This Month'  : [moment().startOf('month'), moment().endOf('month')],
           'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
@@ -493,6 +476,8 @@
         window.end = end;
         $('#from').val(start.format('YYYY-MM-DD'));
         $('#to').val(end.format('YYYY-MM-DD'));
+        $('#rawdata').attr('href','rawData/1?from='+window.start.format('YYYY-MM-DD')+'&to='+window.end.format('YYYY-MM-DD'));
+
         
         loadRankings(start,end);
 

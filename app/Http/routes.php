@@ -109,7 +109,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'formSubmissions.downloadCSV',
       'uses'=>'FormSubmissionsController@downloadCSV') );
 
-     Route::get('/formSubmissions/fetchFrom/{id}', array(
+    Route::get('/formSubmissions/fetchFrom/{id}', array(
       'as'=> 'formSubmissions.fetchFrom',
       'uses'=>'FormSubmissionsController@fetchFrom') );
 
@@ -133,7 +133,14 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'formSubmissions.getOrderStatus',
       'uses'=>'FormSubmissionsController@getOrderStatus') );
 
-      Route::post('/formSubmissions/uploadCSV', array(
+
+     Route::get('/formSubmissions/rawData/{id}', array(
+      'as'=> 'formSubmissions.rawData',
+      'uses'=>'FormSubmissionsController@rawData') );
+
+    
+
+    Route::post('/formSubmissions/uploadCSV', array(
       'as'=> 'formSubmissions.uploadCSV',
       'uses'=>'FormSubmissionsController@uploadCSV') );
 
