@@ -1,6 +1,109 @@
+                             <div class="item active text-center">
+                              <img src="storage/uploads/bg_awardees.png" />
+                             </div>
+
+                             @if(count($tenYears) >= 1)
+
+                             @foreach($tenYears as $n)
+                              <div class="item text-center">
+                                <div style="background:url('storage/uploads/bg_mario.jpg') top center no-repeat; background-size: 100%" >
+                                  <!-- Add the bg color to the header using any of the bg-* classes -->
+                                  <h4  style="color: #fbf970"  ><br/>Happy 10th Year<span style="color:#fff"> @ Open Access!</span></h4>
+                                  
+                                  
+                                  <div class="widget-user-image">
+                                     
+
+                                    @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                    <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                    @else
+                                    <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                    @endif
+
+                                  </div>
+                                  
+                                  <div>
+                                      @if (empty($n->nickname) || $n->nickname==" ")
+                                         <h3 class="widget-user-username" style="line-height: 0.2em"><a style="color: #fff" href="{{action('UserController@show',$n->id)}}"><small  style="color: #fff"  >{{$n->firstname}} {{$n->lastname}} </small></a><br/></h3>
+                                     @else
+                                         <h3 class="widget-user-username text-white" style="line-height: 0.2em"><a href="{{action('UserController@show',$n->id)}}"><small style="color: #fff"  >{{$n->nickname}} {{$n->lastname}} </small></a><br/></h3>
+                                     @endif
+                                     <h5 style="margin-top: -7px"><small style="color:#9cff36; font-weight: bolder"> {{$n->name}} </small><br/>
+
+                                    @if ($n->filename == null) 
+                                     <span class="text-white"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5><br/><br/><br/><br/><br/>
+                                    @else
+                                   <img src="{{ asset('public/img/'.$n->filename) }}" height="30" style="margin-top: 40px" /> </h5>
+                                    
+                                    @endif
+                                    
+                                  </div><br/><br/>
+                                </div>
+                              </div>
+
+                              @endforeach
+
+                             @endif
+
+
+                             @if(count($fiveYears) >= 1)
+
+                             @foreach($fiveYears as $n)
+                              <div class="item text-center">
+                                <div style="background:url('storage/uploads/bg_mario.jpg') top center no-repeat; background-size: 100%" >
+                                  <!-- Add the bg color to the header using any of the bg-* classes -->
+                                  <h4  style="color: #fbf970"  ><br/>Happy 5th Year<span style="color:#fff"> @ Open Access!</span></h4>
+                                  
+                                  
+                                  <div class="widget-user-image">
+                                     
+
+                                    @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                    <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                    @else
+                                    <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                    @endif
+
+                                  </div>
+                                  
+                                  <div>
+                                      @if (empty($n->nickname) || $n->nickname==" ")
+                                         <h3 class="widget-user-username" style="line-height: 0.2em"><a style="color: #fff" href="{{action('UserController@show',$n->id)}}"><small  style="color: #fff"  >{{$n->firstname}} {{$n->lastname}} </small></a><br/></h3>
+                                     @else
+                                         <h3 class="widget-user-username text-white" style="line-height: 0.2em"><a href="{{action('UserController@show',$n->id)}}"><small style="color: #fff"  >{{$n->nickname}} {{$n->lastname}} </small></a><br/></h3>
+                                     @endif
+                                     <h5 style="margin-top: -7px"><small style="color:#9cff36; font-weight: bolder"> {{$n->name}} </small><br/>
+
+                                    @if ($n->filename == null) 
+                                     <span class="text-white"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5><br/><br/><br/><br/><br/>
+                                    @else
+                                   <img src="{{ asset('public/img/'.$n->filename) }}" height="30" style="margin-top: 40px" /> </h5>
+                                    
+                                    @endif
+                                    
+                                  </div><br/><br/>
+                                </div>
+                              </div>
+
+                              @endforeach
+
+                             @endif
+
+
+                             <div class="item text-center">
+                              <p style="font-size: smaller;" class="text-center">Get ready to hop on to the wayback machine as <strong>Open Access BPO</strong> revisits the <strong>'90s</strong> this <strong class="text-orange">December 15th </strong>at the <strong class="text-danger">Harbor Tent, Sofitel Manila!</strong>
+                                <br/><br/><a href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #BackToThe90s #The2018YEP</a></p>
+                              
+                              <video id="teaser" style="margin-top: -50px" src="storage/uploads/teaser90s.webm" width="100%" height="480" loop controls></video>
+                            </div>
+
+
+
+
+
                              @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item active text-center">
+                            <div class="item text-center">
                               <div class="box box-widget widget-user">
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
                                 <br/><br/>

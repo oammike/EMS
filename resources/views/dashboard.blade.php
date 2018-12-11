@@ -215,29 +215,7 @@ select:-webkit-autofill:focus {
               <div class="col-lg-5 col-sm-6 col-xs-12">
 
 
-                <!-- VIDEOS -->
-                  <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Videos</h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <p style="font-size: smaller;" class="text-center">Get ready to hop on to the wayback machine as <strong>Open Access BPO</strong> revisits the <strong>'90s</strong> this <strong class="text-orange">December 15th </strong>at the <strong class="text-danger">Harbor Tent, Sofitel Manila!</strong>
-                        <br/><br/><a href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #BackToThe90s #The2018YEP</a></p>
-                      
-                      <video id="teaser" style="margin-top: -50px" src="storage/uploads/teaser90s.webm" width="100%" height="480" loop controls></video>
-                    </div>
-                    <!-- /.box-body -->
-                    
-                    
-                  </div>
-                <!-- /.box -->
+               
 
                 
 

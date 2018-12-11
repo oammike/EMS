@@ -349,10 +349,18 @@ class HomeController extends Controller
                 $bago = Carbon::today()->subWeeks(1);
                 $annivs = Carbon::today()->subWeeks(1)->subYear(1);
                 $annivs2 = Carbon::today()->subYear(1);
+                $anniv10s = Carbon::today()->subYear(10)->startOfYear();
+                $anniv10e = Carbon::today()->subYear(10)->endOfYear();
+                $anniv5s = Carbon::today()->subYear(5)->startOfYear();
+                $anniv5e = Carbon::today()->subYear(5)->endOfYear();
                 
                 $newHires = DB::table('users')->where('dateHired','>=',$bago->format('Y-m-d'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',7)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
 
                 $firstYears = DB::table('users')->where('dateHired','>=',$annivs->format('Y-m-d H:i:s'))->where('dateHired','<=',$annivs2->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+
+                $tenYears = DB::table('users')->where('dateHired','>=',$anniv10s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv10e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+
+                $fiveYears = DB::table('users')->where('dateHired','>=',$anniv5s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv5e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('team.campaign_id','ASC')->get();
 
                 //$filtered = array_group_by($newHires,'id');
 
@@ -420,7 +428,7 @@ class HomeController extends Controller
                     //return redirect()->route('user.show',['id'=>$this->user->id]);
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
-                    return view('dashboard-agent', compact('performance', 'firstYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard-agent', compact('performance', 'firstYears','tenYears','fiveYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                     
 
 
@@ -432,7 +440,7 @@ class HomeController extends Controller
 
                    //return $groupedForm; 
 
-                    return view('dashboard', compact('performance', 'firstYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard', compact('performance', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                    
 
 
