@@ -584,14 +584,12 @@ class CampaignController extends Controller
                 }
               }
               
-              $return_data->columns = $column_labels;
-              $return_data->data = $data;
-              
               
               
             }
           }catch(Exception $e){
-            $return_data->error  = "sched url unreachable" ;
+            //$return_data->error  = "sched url unreachable" ;
+            abort(500, $e->getMessage());
           }
         }
         

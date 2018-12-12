@@ -142,8 +142,6 @@ $('#bt_stats_export').click(function(){
       $('#frm_start').val(window.start.unix());
       $('#frm_end').val(window.end.unix());
       $('#get_agent_stats_form').submit(function(){
-            //test
-            console.log('tried to submit');
       });
       
     });
