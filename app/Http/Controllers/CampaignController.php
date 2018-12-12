@@ -572,8 +572,9 @@ class CampaignController extends Controller
                 if ($header) {
                   $header = false;
                 } else {
-                  if($csvLine[2]==="TOTALS"){
+                  if($csvLine[2]==="TOTALS" || $csvLine[2]==="(in HH:MM:SS)"){
                     $header = false;
+                    $line = $line + 1;
                     continue;
                   } else {
                     $csvLine[0] = $agent->lastname . ", ".$agent->firstname . " " . $agent->middlename;
