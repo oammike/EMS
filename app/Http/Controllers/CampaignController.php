@@ -572,7 +572,7 @@ class CampaignController extends Controller
                 if ($header) {
                   $header = false;
                 } else {
-                  if($csvLine[2]==="TOTAL"){
+                  if($csvLine[2]==="TOTALS"){
                     $header = false;
                     continue;
                   } else {
