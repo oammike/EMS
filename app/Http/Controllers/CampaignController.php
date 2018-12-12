@@ -537,7 +537,7 @@ class CampaignController extends Controller
           'campaign', function ($query) use ($campaign) {
               $query->where('campaign.name', '=', $campaign->name );
           }
-        )->with('campaign')->limit(3)->get();
+        )->with('campaign')->get();
         
         foreach($agents as $agent){
           $stats_url = "http://".$domain."/vicidial/user_stats.php?DB=&did_id=&did=&begin_date=".urlencode( $date_start )."&end_date=".urlencode( $date_end )."&user=".$agent->name."&submit=submit&file_download=7";
