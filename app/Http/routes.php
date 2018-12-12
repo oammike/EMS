@@ -709,7 +709,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/getAgentScheds', 'CampaignController@getAgentScheds');
 
     Route::post('/getIndividualStat', 'CampaignController@getIndividualStat');
-
+    Route::post('/exportAgentActivity', 'CampaignController@exportAgentActivity');
 
 
   });

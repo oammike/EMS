@@ -74,7 +74,7 @@
 
     </section>
     
-    <form action="{{ url('/getAgentStats') }}" id="get_agent_stats_form" method="POST">
+    <form action="{{ url('/exportAgentActivity') }}" id="get_agent_stats_form" method="POST">
       <input type="hidden" name="campaign_id" value="{{ $campaign->id }}" />
       <input type="hidden" name="_token" value="{{ csrf_token() }}"  />
       <input type="hidden" name="export" value="TRUE"  />

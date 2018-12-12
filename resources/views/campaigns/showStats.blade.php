@@ -19,6 +19,7 @@
       <a style="margin-top:30px; margin-left: 10px" class="btn btn-xs btn-default" href="{{ url('campaign/'.$campaign->id) }}"><i class="fa fa-arrow-left"></i> Back to Overview</a>
       
       <a style="margin-top:30px; margin-left: 10px" class="btn btn-xs btn-default" href="{{ url('agentStats/'.$campaign->id) }}">View Agent Stats</a>
+            
       
       <ol class="breadcrumb">
         <li><a href="{{ action('HomeController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -45,6 +46,13 @@
                       <i class="fa fa-calendar"></i> Date range
                     </span>
                     <i class="fa fa-caret-down"></i>
+                  </button>
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default" id="bt_stats_export">
+                    <span>
+                      <i class="fa fa-download"></i> Export
+                    </span>
                   </button>
                 </div>
               </div>
@@ -88,6 +96,14 @@
     </section>
     
     <div id="chartjs-tooltip"></div>
+      
+      <form action="{{ url('/getAgentStats') }}" id="get_agent_stats_form" method="POST">
+      <input type="hidden" name="campaign_id" value="{{ $campaign->id }}" />
+      <input type="hidden" name="_token" value="{{ csrf_token() }}"  />
+      <input type="hidden" name="export" value="TRUE"  />
+      <input type="hidden" name="start" value="" id="frm_start"  />
+      <input type="hidden" name="end" value="" id="frm_end"  />
+    </form>
 
 @stop
 
@@ -122,7 +138,12 @@
     ];
     
     
-
+$('#bt_stats_export').click(function(){
+      $('#frm_start').val(window.start.unix());
+      $('#frm_end').val(window.end.unix());
+      $('#get_agent_stats_form').submit();
+      
+    });
     
     function pad(num) {
       return ("0"+num).slice(-2);

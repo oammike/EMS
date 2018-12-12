@@ -483,6 +483,124 @@ class CampaignController extends Controller
       
     }
     
+    public function exportAgentActivity(Request $request){
+      if($request->input('campaignId','')!==''){
+        abort(403, 'Unauthorized action.');
+      }
+      
+      $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=export.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+      );
+      
+      $callback = function() use ($request) {
+        $file = fopen('php://output', 'w');
+        
+        $domain = "";
+        $campaign_id = $request->input('campaign_id','');
+        $campaign =  Campaign::find($campaign_id);
+        if($campaign->name==="Cebu Pacific"){
+          $domain = "208.74.77.172";
+        }else{
+          $domain = "208.74.77.167";
+        }
+        
+        $auth = base64_encode("qa:Variable8");
+        $context = stream_context_create(
+          [
+            'http' =>
+            [
+              'header' => "Content-Type: application/x-www-form-urlencoded\r\n"."Authorization: Basic ".$auth."\r\n",
+              "method" => 'GET'
+            ]
+          ]
+        );
+
+        $default = Carbon::createFromTimestamp(1);
+        $date_start = Carbon::createFromTimestamp($request->input('start',$default->timestamp));
+        $date_end = Carbon::createFromTimestamp($request->input('end',$default->timestamp));
+        $date_start->timezone = 'Asia/Singapore';
+        $date_end->timezone = 'Asia/Singapore';
+        $date_start->hour = 0;
+        $date_start->minute = 0;
+        $date_end->hour = 23;
+        $date_end->minute = 59;
+        $date_start = $date_start->toDateTimeString();
+        $date_end = $date_end->toDateTimeString();
+        
+        $columns_constructed = false;
+        
+        $agents = User::whereHas(
+          'campaign', function ($query) {
+              $query->where('campaign.name', '=', $campaign->name );
+          }
+        )->with('campaign')->limit(3)->get();
+        
+        foreach($agents as $agent){
+          $stats_url = "http://".$domain."/vicidial/user_stats.php?DB=&did_id=&did=&begin_date=".urlencode( $date_start )."&end_date=".urlencode( $date_end )."&user=".$agent->name."&submit=submit&file_download=7";
+          try{
+            $result = file_get_contents($stats_url, false, $context);
+            if ($result === false) {
+              //$return_data->error( "could not read user sched" );
+            } else {
+            
+              file_put_contents("/var/www/html/evaluation/logs/agentstats".Auth::user()->id.".csv", $result);
+              $handle = fopen('/var/www/html/evaluation/logs/agentstats'.Auth::user()->id.'.csv', "r");
+              $header = true;
+              $line = 1;
+              $column_labels = [];
+              $data = [];
+              while ($csvLine = fgetcsv($handle, 1000, ",")) {
+                if($line===2){
+                  if($columns_constructed === false){
+                    $column_labels = $csvLine;
+                    //$column_labels = array_shift($column_labels);
+                    $column_labels[0] = "Agent";
+                    $column_labels[1] = "Username";
+                    fputcsv($file, $column_labels);
+                    $columns_constructed = true;
+                  }
+                }
+                if($line < 3){
+                  //skip line that describes column headers
+                  $line = $line + 1;
+                  continue;
+                }
+                if ($header) {
+                  $header = false;
+                } else {
+                  if($csvLine[2]==="TOTAL"){
+                    $header = false;
+                    continue;
+                  } else {
+                    $csvLine[0] = $agent->lastname . ", ".$agent->firstname . " " . $agent->middlename;
+                    $csvLine[1] = $agent->name;
+                    fputcsv($file, $csvLine);
+                    $line = $line + 1;
+                  }
+                }
+              }
+              
+              $return_data->columns = $column_labels;
+              $return_data->data = $data;
+              
+              
+              
+            }
+          }catch(Exception $e){
+            $return_data->error  = "sched url unreachable" ;
+          }
+        }
+        
+        fclose($file);
+      };
+        
+      return Response::stream($callback, 200, $headers);
+    }
+    
     
     public function getAgentStats(Request $request){
       $return_data = new \stdClass();
@@ -541,6 +659,8 @@ class CampaignController extends Controller
         $date_end = $date_end->toDateTimeString();
         
         $stats_url = "http://".$domain."/vicidial/AST_agent_performance_detail.php?query_date=".urlencode( $date_start )."&end_date=".urlencode( $date_end )."&group[]=".$group_codes[$campaign->id]."&user_group[]=".$user_codes[$campaign->id]."&shift=ALL&DB=&stage=&file_download=2";
+        
+        
         
         try{
           $result = file_get_contents($stats_url, false, $context);
