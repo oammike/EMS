@@ -534,7 +534,7 @@ class CampaignController extends Controller
         $columns_constructed = false;
         
         $agents = User::whereHas(
-          'campaign', function ($query) {
+          'campaign', function ($query) use ($campaign) {
               $query->where('campaign.name', '=', $campaign->name );
           }
         )->with('campaign')->limit(3)->get();
