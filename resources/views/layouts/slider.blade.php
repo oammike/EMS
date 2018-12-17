@@ -1,12 +1,4 @@
-                              <!-- <div class="item active text-center">
-                              <p style="font-size: smaller;" class="text-center">Watch <strong class="text-primary">Open Access BPO</strong> <strong>Back To The '90s</strong> Year End Party <br/> <strong class="text-orange" style="font-size: 1.8em">Same-Day Edit <span class="text-primary"> video</span>  </strong> 
-                               </p>
-
-                                <p>Photos uploaded in our Gallery Page </p> 
-                                <a style="font-size: smaller;" href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #OABackToThe90s #The2018YEP</a>
                               
-                              <video id="teaser" style="margin-top: -50px" src="storage/uploads/teaser90s.webm" width="100%" height="480" loop controls></video>
-                            </div> -->
 
 
 
