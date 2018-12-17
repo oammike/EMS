@@ -1,3 +1,15 @@
+                              <!-- <div class="item active text-center">
+                              <p style="font-size: smaller;" class="text-center">Watch <strong class="text-primary">Open Access BPO</strong> <strong>Back To The '90s</strong> Year End Party <br/> <strong class="text-orange" style="font-size: 1.8em">Same-Day Edit <span class="text-primary"> video</span>  </strong> 
+                               </p>
+
+                                <p>Photos uploaded in our Gallery Page </p> 
+                                <a style="font-size: smaller;" href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #OABackToThe90s #The2018YEP</a>
+                              
+                              <video id="teaser" style="margin-top: -50px" src="storage/uploads/teaser90s.webm" width="100%" height="480" loop controls></video>
+                            </div> -->
+
+
+
                              <div class="item active text-center">
                               <img src="storage/uploads/bg_awardees.png" />
                              </div>
@@ -90,13 +102,7 @@
                              @endif
 
 
-                             <div class="item text-center">
-                              <p style="font-size: smaller;" class="text-center">Get ready to hop on to the wayback machine as <strong>Open Access BPO</strong> revisits the <strong>'90s</strong> this <strong class="text-orange">December 15th </strong>at the <strong class="text-danger">Harbor Tent, Sofitel Manila!</strong>
-                                <br/><br/><a href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #BackToThe90s #The2018YEP</a></p>
-                              
-                              <video id="teaser" style="margin-top: -50px" src="storage/uploads/teaser90s.webm" width="100%" height="480" loop controls></video>
-                            </div>
-
+                            
 
 
 
@@ -251,7 +257,7 @@
 
                              <!-- ************* ANNOUNCEMENTS ************-->
                             
-                            <div class="item text-center">
+                           <!--  <div class="item text-center">
                               <img src="storage/uploads/yearend1.jpg" />
                             </div>
 
@@ -269,7 +275,7 @@
 
                             <div class="item text-center">
                               <img src="storage/uploads/yearend5.jpg" />
-                            </div>
+                            </div> -->
 
 
                             <div class="item text-center">
@@ -380,7 +386,7 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                              
                            </div> 
 
-                             <div class="item text-center">
+                            <?php /* <div class="item text-center">
                               <div class="box box-widget widget-user">
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
                                
@@ -428,6 +434,8 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                                 </div>
                               </div>
                             </div>
+
+                            */ ?>
 
 
                             

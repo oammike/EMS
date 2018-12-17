@@ -26,7 +26,7 @@
      <section class="content" id='holder'>
       
        <div class="row">
-        <div class="col-lg-12"style="padding-bottom: 16000px; display: block;">
+        <div class="col-lg-12"style="padding-bottom: 18000px; display: block;">
           <h5 class="text-center"><i>"Life is like a camera <i class="fa fa-camera"></i>, <br/>
            you <strong>focus </strong> on the things that matter and <strong>capture</strong> the moments, <br/>
            <strong>develop</strong> from the <strong>negatives</strong>, and if things don't work out -- <br/>
@@ -73,13 +73,22 @@
 
     var gallery = $('#gallery').galereya({
                   load: function(next) {
+
+                    @if(empty($album))
                       $.getJSON("{{action('HomeController@getImages')}}", function(data) {
                           next(data);
                       });
+
+                      @else 
+                      $.getJSON("{{action('HomeController@getImages',['a'=>$album])}}", function(data) {
+                          next(data);
+                      });
+
+                    @endif
                       
                   }
               })
-    gallery.changeCategory("CS Week 2018");
+    //gallery.changeCategory("CS Week 2018");
     
     
     $('#gallery').on('click','li.galereya-cats-item', function(){

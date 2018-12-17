@@ -59,122 +59,159 @@ class HomeController extends Controller
 
     public function gallery()
     {
-      return view('gallery');
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+      $album = Input::get('a');
+      if (empty($album))
+        return view('gallery',['album'=>null]);
+      else
+      {
+         if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed Year End 2018 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                    fclose($file);
+                                } 
+        return view('gallery',compact('album'));
+      }
     }
 
     public function getImages()
     {
+      $album = Input::get('a');
       $col = new Collection;
 
-      //Spooky Winners
+      switch ($album) {
+        case '1': {
+
+                    //Back to the 90s
       
-      for($i=1; $i<=7; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-spookywinners-".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/spookywinners-".$i.".jpg",
-                    'description'=>"Halloween 2018 Winners",
-                    'category'=>"Halloween 2018 Winners"]);
+                  for($i=1; $i<=175; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-backto90s-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/backto90s-".$i.".jpg",
+                                'description'=>"Back to the 90s Year End Party",
+                                'category'=>"2018 Year End Party"]);
 
-      }
+                  }
 
-      //Spooky Team
+        } break;
+        
+        default: {
+
+                  //Spooky Winners
       
-      for($i=1; $i<=12; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-spooky-entries".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/spooky-entries".$i.".jpg",
-                    'description'=>"Open Access Spooky Team 2018",
-                    'category'=>"Open Access Spooky Team 2018"]);
+                  for($i=1; $i<=7; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-spookywinners-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/spookywinners-".$i.".jpg",
+                                'description'=>"Halloween 2018 Winners",
+                                'category'=>"Halloween 2018 Winners"]);
 
+                  }
+
+                  //Spooky Team
+                  
+                  for($i=1; $i<=12; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-spooky-entries".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/spooky-entries".$i.".jpg",
+                                'description'=>"Open Access Spooky Team 2018",
+                                'category'=>"Open Access Spooky Team 2018"]);
+
+                  }
+
+                   // Runner Euniz
+                  for($i=1; $i<=6; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-runner-euniz".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/runner-euniz".$i.".jpg",
+                                'description'=>"2018 TCS New York City Marathon - Euniz Cantos",
+                                'category'=>"2018 TCS New York City Marathon"]);
+
+                  }
+
+                   // Runner Clint
+                  for($i=1; $i<=5; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-runner-clint".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/runner-clint".$i.".jpg",
+                                'description'=>"2018 TCS New York City Marathon - Clint Ortiz",
+                                'category'=>"2018 TCS New York City Marathon"]);
+
+                  }
+
+                   // Runner Jeff
+                  for($i=1; $i<=5; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-runner-jeff".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/runner-jeff".$i.".jpg",
+                                'description'=>"2018 TCS New York City Marathon - Jeff Aspacio",
+                                'category'=>"2018 TCS New York City Marathon"]);
+
+                  }
+
+
+                    // Dress up
+                  for($i=1; $i<=24; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-dressupwinner".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/dressupWinner".$i.".jpg",
+                                'description'=>"Dress Up Your Leader Contest - CS WEEK 2018",
+                                'category'=>"Dress Up Your Leader 2018"]);
+
+                  }
+
+
+                   // CS WEEK
+                  for($i=1; $i<=32; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-photobooth".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/photobooth".$i.".jpg",
+                                'description'=>"Thank you all for participating in this year's CS Week!",
+                                'category'=>"Photobooth"]);
+
+                  }
+
+                  // CS WEEK
+                  for($i=1; $i<=22; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-cs_".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/cs_".$i.".jpg",
+                                'description'=>"Thank you all for participating in this year's CS Week!",
+                                'category'=>"CS Week 2018"]);
+
+                  }
+
+                  //appreciation
+                  for($i=1; $i<=10; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-appreciate".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/appreciate".$i.".jpg",
+                                'description'=>"\"Gratitude can transform common days into Thanksgiving, turn routine jobs into joy and change opportunities into blessings.\" - William Arthur Ward ",
+                                'category'=>"CS Week 2018"]);
+
+                  }
+
+                  //donuts
+                  for($i=1; $i<=24; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-donuts".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/donuts".$i.".jpg",
+                                'description'=>"Dunkin' is in the house! Get your free donuts and coffee at the 8th floor pantry today. Happy <a href=\"https://www.instagram.com/explore/tags/csweek/\" target=\"_blank\">#CSWeek </a>everyone! ",
+                                'category'=>"Dunkin' In The House"]);
+
+                  }
+
+
+                  //wellness
+                  for($i=1; $i<=11; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-wellness".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/wellness".$i.".jpg",
+                                'description'=>"Thanks to all employees who visited the booths at the 8th floor and to our partners for helping us keep our employees' health in check.",
+                                'category'=>"Health and Wellness Program"]);
+
+                  }
+
+                   if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed Gallery by [". $this->user->id."] ".$this->user->lastname."\n");
+                                    fclose($file);
+                                } 
+
+
+
+        } break;
       }
 
-       // Runner Euniz
-      for($i=1; $i<=6; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-runner-euniz".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/runner-euniz".$i.".jpg",
-                    'description'=>"2018 TCS New York City Marathon - Euniz Cantos",
-                    'category'=>"2018 TCS New York City Marathon"]);
-
-      }
-
-       // Runner Clint
-      for($i=1; $i<=5; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-runner-clint".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/runner-clint".$i.".jpg",
-                    'description'=>"2018 TCS New York City Marathon - Clint Ortiz",
-                    'category'=>"2018 TCS New York City Marathon"]);
-
-      }
-
-       // Runner Jeff
-      for($i=1; $i<=5; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-runner-jeff".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/runner-jeff".$i.".jpg",
-                    'description'=>"2018 TCS New York City Marathon - Jeff Aspacio",
-                    'category'=>"2018 TCS New York City Marathon"]);
-
-      }
-
-
-        // Dress up
-      for($i=1; $i<=24; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-dressupwinner".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/dressupWinner".$i.".jpg",
-                    'description'=>"Dress Up Your Leader Contest - CS WEEK 2018",
-                    'category'=>"Dress Up Your Leader 2018"]);
-
-      }
-
-
-       // CS WEEK
-      for($i=1; $i<=32; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-photobooth".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/photobooth".$i.".jpg",
-                    'description'=>"Thank you all for participating in this year's CS Week!",
-                    'category'=>"Photobooth"]);
-
-      }
-
-      // CS WEEK
-      for($i=1; $i<=22; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-cs_".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/cs_".$i.".jpg",
-                    'description'=>"Thank you all for participating in this year's CS Week!",
-                    'category'=>"CS Week 2018"]);
-
-      }
-
-      //appreciation
-      for($i=1; $i<=10; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-appreciate".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/appreciate".$i.".jpg",
-                    'description'=>"\"Gratitude can transform common days into Thanksgiving, turn routine jobs into joy and change opportunities into blessings.\" - William Arthur Ward ",
-                    'category'=>"CS Week 2018"]);
-
-      }
-
-      //donuts
-      for($i=1; $i<=24; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-donuts".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/donuts".$i.".jpg",
-                    'description'=>"Dunkin' is in the house! Get your free donuts and coffee at the 8th floor pantry today. Happy <a href=\"https://www.instagram.com/explore/tags/csweek/\" target=\"_blank\">#CSWeek </a>everyone! ",
-                    'category'=>"Dunkin' In The House"]);
-
-      }
-
-
-      //wellness
-      for($i=1; $i<=11; $i++){
-        $col->push(['lowsrc'=>"storage/uploads/thumb-wellness".$i.".jpg",
-                    'fullsrc'=>"storage/uploads/wellness".$i.".jpg",
-                    'description'=>"Thanks to all employees who visited the booths at the 8th floor and to our partners for helping us keep our employees' health in check.",
-                    'category'=>"Health and Wellness Program"]);
-
-      }
-
-       if($this->user->id !== 564 ) {
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed Gallery by [". $this->user->id."] ".$this->user->lastname."\n");
-                        fclose($file);
-                    } 
+      
 
       return response()->json($col);
     }

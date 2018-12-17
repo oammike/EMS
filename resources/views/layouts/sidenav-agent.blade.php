@@ -203,7 +203,15 @@
         <!-- <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li> -->
         <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
-        <li class="@if (Request::is('gallery')) active @endif"><a href="{{ action('HomeController@gallery') }}"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span> <!-- <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: 10px"><strong>New!</strong></span> --></a></li> 
+         <li class="treeview @if ( Request::is('gallery') ) active @endif">
+          <a href="#"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-beer"></i> Back to the 90s <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong>New!</strong></span></a> </li>
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery') }}"><i class="fa fa-picture-o"></i> Past Events </a></li>
+           
+          </ul>
+        </li>
 
         
         <li @if (Request::is('user/'.Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" > <i class="fa fa-2x fa-address-card-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My Profile</span></a></li>
