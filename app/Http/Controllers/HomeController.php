@@ -550,6 +550,15 @@ class HomeController extends Controller
                     } 
 
         }break;
+
+         case '6':{
+                    if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n View 360Pose by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+        }
         
         
       }

@@ -343,6 +343,26 @@ function validateRequired(param, availability, defaultval) {
 
      
 
+<script>
 
+  $(function () {
+   'use strict';
+
+   $('#pose360').on('click', function(){
+    $.ajax({
+                url: "{{action('HomeController@logAction','6')}}",
+                type: "GET",
+                data: {'action': '6'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+
+   });
+ });
+ </script>
+ 
 </body>
 </html>
