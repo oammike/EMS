@@ -361,6 +361,19 @@ function validateRequired(param, availability, defaultval) {
         });
 
    });
+   $('#photobooth').on('click', function(){
+    $.ajax({
+                url: "{{action('HomeController@logAction','7')}}",
+                type: "GET",
+                data: {'action': '7'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+
+   });
  });
  </script>
  
