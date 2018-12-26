@@ -93,6 +93,20 @@ class HomeController extends Controller
                   }
 
         } break;
+
+        case '2': {
+ 
+                    //Back to the 90s PHOTOBOOTH
+      
+                  for($i=1; $i<=120; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-booth-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/booth-".$i.".jpg",
+                                'description'=>"Photo booth: Back to the 90s Year End Party",
+                                'category'=>"Photo booth: 2018 Year End Party"]);
+
+                  }
+
+        } break;
         
         default: {
 
