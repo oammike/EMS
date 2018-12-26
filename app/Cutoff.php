@@ -101,6 +101,7 @@ class Cutoff extends Model
     public function getCurrentPeriod(){
 
         $today = date('d');
+
         
         if ($today <= ($this->first + $this->paydayInterval)){
             if (date('m') === "01"){
@@ -113,6 +114,8 @@ class Cutoff extends Model
             
             $from .= date('m',strtotime("last month"))."-";
             $from .= ($this->second+1);
+
+
             
             $to = date('Y')."-";
             $to .= (date('m'))."-";
@@ -122,10 +125,15 @@ class Cutoff extends Model
             $from = date('Y')."-";
             $from .= (date('m'))."-";
             $from .= ($this->first+1);
+
+
             
             $to = date('Y')."-";
             $to .= (date('m'))."-";
             $to .= ($this->second);
+            
+            
+            
             
 
         } else {
@@ -133,10 +141,19 @@ class Cutoff extends Model
             $from = date('Y')."-";
             $from .= (date('m'))."-";
             $from .= ($this->second+1);
+
+            if(date('m') == 12 ){
+                $to = (date('Y')+1)."-";
+                $to .= date('m',strtotime("next month"))."-";
+                $to .= ($this->first);
+            }
+            else{
+                $to = date('Y')."-";
+                $to .= date('m',strtotime("next month"))."-";
+                $to .= ($this->first);
+            }
             
-            $to = date('Y')."-";
-            $to .= date('m',strtotime("next month"))."-";
-            $to .= ($this->first);
+            
             
         }
 
@@ -144,6 +161,7 @@ class Cutoff extends Model
         $period .= $to;
 
         return $period;
+        //return $today;
     }
 
 

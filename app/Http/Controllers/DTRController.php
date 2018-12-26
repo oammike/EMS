@@ -417,9 +417,12 @@ class DTRController extends Controller
           {
 
             $currPeriod =  Cutoff::first()->getCurrentPeriod();
+
             $currentPeriod = explode('_', $currPeriod);
-            $cutoffStart = new Carbon(Cutoff::first()->startingPeriod());
-            $cutoffEnd = new Carbon(Cutoff::first()->endingPeriod());
+            
+
+            $cutoffStart = new Carbon($currentPeriod[0],'Asia/Manila'); //(Cutoff::first()->startingPeriod());
+            $cutoffEnd = new Carbon($currentPeriod[1],'Asia/Manila'); //(Cutoff::first()->endingPeriod());
             //$cutoffID = Paycutoff::where('fromDate',$currentPeriod[0])->first()->id;
 
             $cID = Paycutoff::where('fromDate',$currentPeriod[0])->get();
@@ -495,6 +498,7 @@ class DTRController extends Controller
 
              //Timekeeping Trait
              $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+             
 
 
              // ---------------------------  INITIALIZATIONS
