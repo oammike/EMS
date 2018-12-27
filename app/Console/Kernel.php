@@ -34,23 +34,23 @@ class Kernel extends ConsoleKernel
         $schedule->command('data:extract Circles.Life')->dailyAt('04:15')->withoutOverlapping()->appendOutputTo($logpath);
         $schedule->command('data:extract Adore')->dailyAt('04:30')->withoutOverlapping()->appendOutputTo($logpath);
 
-        $schedule->command('data:extract Lebua')->dailyAt('13:15')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract An Other Associates Ltd.')->dailyAt('13:20')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract Ava Women')->dailyAt('13:25')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract Boostability')->dailyAt('13:30')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract DilMil')->dailyAt('13:35')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract DMOPC')->dailyAt('13:40')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract ED Training')->dailyAt('13:45')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract SKUVantage')->dailyAt('13:50')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract TurnTo')->dailyAt('13:55')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract SheerID')->dailyAt('13:00')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract Glassdoor')->dailyAt('13:05')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract IMO')->dailyAt('13:10')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract TaskRabbit')->dailyAt('13:20')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract Bird')->dailyAt('13:25')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract Mous')->dailyAt('13:30')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract Quora')->dailyAt('13:35')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract WorldVentures')->dailyAt('13:40')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Lebua')->dailyAt('09:50')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract An Other Associates Ltd.')->dailyAt('09:51')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Ava Women')->dailyAt('09:52')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Boostability')->dailyAt('09:53')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract DilMil')->dailyAt('09:54')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract DMOPC')->dailyAt('09:55')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract ED Training')->dailyAt('09:56')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract SKUVantage')->dailyAt('09:57')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract TurnTo')->dailyAt('09:58')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract SheerID')->dailyAt('09:59')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Glassdoor')->dailyAt('09:49')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract IMO')->dailyAt('09:48')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract TaskRabbit')->dailyAt('09:47')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Bird')->dailyAt('09:46')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Mous')->dailyAt('10:00')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Quora')->dailyAt('10:05')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract WorldVentures')->dailyAt('10:10')->withoutOverlapping()->appendOutputTo($logpath);
 
 
         
