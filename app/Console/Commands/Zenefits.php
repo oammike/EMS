@@ -62,8 +62,12 @@ class Zenefits extends Command
         $this->error('invalid args');
         exit;
       }
+     
+
+
+      $campaigns = array('Zenefits','Postmates','Cebu Pacific','Patch', 'Circles.Life', 'Adore','Lebua','An Other Associates Ltd.','Ava Women','Boostability','DilMil','DMOPC','ED Training','SKUVantage','TurnTo','SheerID','Glassdoor','IMO','TaskRabbit','Bird','Mous','Quora','WorldVentures');
+
       
-      $campaigns = array('Zenefits','Postmates','Cebu Pacific','Patch', 'Circles.Life', 'Adore');
       if (!in_array($campaign, $campaigns)) {
         $this->error('invalid args');
         exit;
