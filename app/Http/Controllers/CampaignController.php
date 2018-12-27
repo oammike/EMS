@@ -623,7 +623,25 @@ class CampaignController extends Controller
           32 => "CIRCLES",
           44 => "POST",
           34 => "PATCH_C&group[]=PATCH_E&group[]=PATCH_S",
-          51 => "ADOREME"
+          51 => "ADOREME",
+          12 => "LEBUA",
+          48 => "AN-OTHER",
+          45 => "AVA",
+          33 => "BOOST",
+          40 => "DILMIL",
+           1 => "DMOPC",
+           4 => "EDTRAIN",
+          20 => "SKU",
+          36 => "TURNTO",
+          31 => "SHEER",
+           8 => "GLASS01&group[]=GLASS02&group[]=GLASS03&group[]=GLASS04&group[]=GLASS05",
+          39 => "IMO",
+          46 => "RABBIT",
+          42 => "BIRD01&group[]=BIRD02",
+          49 => "MOUS",
+          38 => "QUORA01&group[]=QUORA02",
+          26 => "WV"
+
         ];
         
         $user_codes = [
@@ -631,7 +649,24 @@ class CampaignController extends Controller
           32 => "CIRCLES",
           44 => "POST",
           34 => "PATCH",
-          51 => "ADOREME"
+          51 => "ADOREME",
+          12 => "LEBUA",
+          48 => "AN-OTHER",
+          45 => "AVA",
+          33 => "BOOST",
+          40 => "DILMIL",
+           1 => "DMOPC",
+           4 => "EDTRAIN",
+          20 => "SKU",
+          36 => "TURNTO",
+          31 => "SHEER",
+           8 => "GLASS01&group[]=GLASS02&group[]=GLASS03&group[]=GLASS04&group[]=GLASS05",
+          39 => "IMO",
+          46 => "RABBIT",
+          42 => "BIRD01&group[]=BIRD02",
+          49 => "MOUS",
+          38 => "QUORA01&group[]=QUORA02",
+          26 => "WV"
         ];
         
         $auth = base64_encode("qa:Variable8");
@@ -685,9 +720,9 @@ class CampaignController extends Controller
                   $column_labels[] = $csvLine[$i];
                 }
                 
-                if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
+                // if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
                   $column_labels[] = "DED";
-                }
+                //}
                 $line = $line + 1;
                 continue;
               }
@@ -707,7 +742,7 @@ class CampaignController extends Controller
                       
                       
                       /** add all deductibles **/
-                      if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
+                      // if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
                       
                         if($column_labels[$i-2]==="TeamM" || $column_labels[$i-2]==="Coachi" || $column_labels[$i-2]==="Idle" || $column_labels[$i-2]==="COACH"){
                           $splitted = explode(":",$csvLine[$i]);
@@ -725,7 +760,7 @@ class CampaignController extends Controller
                           
                         }
                       
-                      }
+                      //}
                         
                       
                       
@@ -744,9 +779,9 @@ class CampaignController extends Controller
                     $data["DED"][$username] = sprintf("%02d",$hours) . ":" . sprintf("%02d",$minutes) . ":" .sprintf("%.1f", $seconds);
                   }
                   
-                  if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
+                  //if($user_codes[$campaign->id]==="CIRCLES" || $user_codes[$campaign->id]==="ADOREME" || $user_codes[$campaign->id]==="POST"){
                     $csvLine[] = $data["DED"][$username];
-                  }
+                  //}
                   if($request->input('export',FALSE)==="TRUE"){
                     $export_lines[] = $csvLine;
                   }
