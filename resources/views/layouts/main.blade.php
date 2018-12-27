@@ -374,6 +374,34 @@ function validateRequired(param, availability, defaultval) {
         });
 
    });
+
+   $('#cam1').on('click', function(){
+    $.ajax({
+                url: "{{action('HomeController@logAction','8')}}",
+                type: "GET",
+                data: {'action': '8'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+
+   });
+
+   $('#cam2').on('click', function(){
+    $.ajax({
+                url: "{{action('HomeController@logAction','9')}}",
+                type: "GET",
+                data: {'action': '9'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+
+   });
  });
  </script>
  

@@ -107,6 +107,35 @@ class HomeController extends Controller
                   }
 
         } break;
+
+        case '3': {
+ 
+                    //Back to the 90s PHOTOBOOTH
+      
+                  for($i=1; $i<=331; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-official2018cam1-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/official2018cam1-".$i.".jpg",
+                                'description'=>"Cam1: Back to the 90s Year End Party",
+                                'category'=>"2018 Year End Party [cam1]"]);
+
+                  }
+
+        } break;
+
+
+        case '4': {
+ 
+                    //Back to the 90s PHOTOBOOTH
+      
+                  for($i=1; $i<=330; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-official2018cam2-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/official2018cam2-".$i.".jpg",
+                                'description'=>"Cam2: Back to the 90s Year End Party",
+                                'category'=>"2018 Year End Party [cam2]"]);
+
+                  }
+
+        } break;
         
         default: {
 
@@ -578,6 +607,24 @@ class HomeController extends Controller
                     if($this->user->id !== 564 ) {
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View Booth by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+        }
+
+        case '8':{
+                    if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n View YEP1 by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+        }
+
+        case '9':{
+                    if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n View YEP2 by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                     } 
 
