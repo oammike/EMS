@@ -683,8 +683,8 @@ class CampaignController extends Controller
         $default = Carbon::createFromTimestamp(1);
         $date_start = Carbon::createFromTimestamp($request->input('start',$default->timestamp));
         $date_end = Carbon::createFromTimestamp($request->input('end',$default->timestamp));
-        $date_start->timezone = 'Asia/Singapore';
-        $date_end->timezone = 'Asia/Singapore';
+        $date_start->timezone = 'Asia/Manila';
+        $date_end->timezone = 'Asia/Manila';
         $date_start->hour = 0;
         $date_start->minute = 0;
         $date_end->hour = 23;
