@@ -518,8 +518,7 @@ trait EvaluationTraits
                     $changedHeads->push($m->info);
                     
                 }
-                //$coll2->push($changedHeads);
-
+               
 
                 foreach ($changedHeads as $mvt) {
                   
@@ -725,10 +724,10 @@ trait EvaluationTraits
                                             $truegrade = $theeval->overAllScore;
 
                                             if ($theeval->isDraft) 
-                                              $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
+                                              $doneMovedEvals[$ctr] = ['evaluated'=>1,'user_id'=>$emp->user_id, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
                                             else
                                             //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                            $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                            $doneMovedEvals[$ctr] = ['evaluated'=>1,'user_id'=>$emp->user_id, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
 
 
                                             
