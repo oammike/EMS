@@ -47,7 +47,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('data:extract Glassdoor')->dailyAt('01:25')->withoutOverlapping()->appendOutputTo($logpath);
         $schedule->command('data:extract IMO')->dailyAt('01:26')->withoutOverlapping()->appendOutputTo($logpath);
         $schedule->command('data:extract TaskRabbit')->dailyAt('01:27')->withoutOverlapping()->appendOutputTo($logpath);
-        $schedule->command('data:extract Bird')->dailyAt('01:28')->withoutOverlapping()->appendOutputTo($logpath);
+        $schedule->command('data:extract Bird')->dailyAt('01:45')->withoutOverlapping()->appendOutputTo($logpath);
         $schedule->command('data:extract Mous')->dailyAt('01:29')->withoutOverlapping()->appendOutputTo($logpath);
         $schedule->command('data:extract Quora')->dailyAt('01:30')->withoutOverlapping()->appendOutputTo($logpath);
         $schedule->command('data:extract WorldVentures')->dailyAt('01:35')->withoutOverlapping()->appendOutputTo($logpath);
