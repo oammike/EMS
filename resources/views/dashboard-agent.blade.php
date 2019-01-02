@@ -264,30 +264,30 @@ select:-webkit-autofill:focus {
        $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
        @endif
 
-      @if(!is_null($siteTour) && $notedTour != true)
+      // * if(!is_null($siteTour) && $notedTour != true)
      
-       introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
-        $('#controlsidebar').addClass('control-sidebar-open');
-        var _token = "{{ csrf_token() }}";
+      //  introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
+      //   $('#controlsidebar').addClass('control-sidebar-open');
+      //   var _token = "{{ csrf_token() }}";
           
 
-          //--- update user notification first
-          $.ajax({
-              url: "{{action('UserMemoController@saveUserMemo')}}",
-              type:'POST',
-              data:{ 
-                'id': "{{$siteTour->id}}",
-                '_token':_token
-              },
+      //     //--- update user notification first
+      //     $.ajax({
+      //         url: "{{action('UserMemoController@saveUserMemo')}}",
+      //         type:'POST',
+      //         data:{ 
+      //           'id': "{{$siteTour->id}}",
+      //           '_token':_token
+      //         },
 
-              success: function(res){
-                      console.log(res);
-              },
-            });
+      //         success: function(res){
+      //                 console.log(res);
+      //         },
+      //       });
 
-        console.log("open it");
-       });
-       @endif
+      //   console.log("open it");
+      //  });
+      //  * endif
 
 
   });
