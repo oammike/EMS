@@ -1,5 +1,5 @@
                               
-
+<?php /*
 
 
                              <div class="item active text-center">
@@ -94,14 +94,14 @@
                              @endif
 
 
-                            
+  <?php */ ?>                          
 
 
 
 
                              @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item text-center">
+                            <div class="item active text-center">
                               <div class="box box-widget widget-user">
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
                                 <br/><br/>
@@ -270,77 +270,7 @@
                             </div> -->
 
 
-                            <div class="item text-center">
-
-                              <img src="storage/uploads/stanlee.jpg" />
-                              <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OACelebratesHeroes #RIPStanLee #OAonKindness #WorldKindnessDay</small></a></div> 
-                              <p style="padding:50px">@TheRealStanLee will always be remembered as the man behind a universe of the greatest superheroes and one of the world's best storytellers. <br/><br/>May his works continue to inspire people across the globe towards greater kindness. <br/><br/> </p>
-                             
-                           </div> 
-
-
-                            <div class="item text-center">
-
-                              <img src="storage/uploads/spooky-jar-winner.jpg" />
-                              <h4>Answer: <strong class="text-orange">6,972</strong> jelly beans</h4>
-                              <h2 class="text-danger">Congratulations to: </h2>
-                              <p><a href="user/525" target="_blank"><img src="public/img/employees/525.jpg" class="img-circle" width="50">&nbsp;&nbsp;Adamson Oca - Circles.Life</a> <strong>[6,960]</strong></p>
-                              <p><a href="user/522" target="_blank"><img src="public/img/employees/522.jpg" class="img-circle" width="50">&nbsp;&nbsp;Lesle Novion - Zenefits</a> <strong>[6,920] &nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
-                              <p><a href="user/534" target="_blank"><img src="public/img/employees/534.jpg" class="img-circle" width="50">&nbsp;&nbsp;Luis Oliveros - Marketing</a> <strong>[6,882]&nbsp;&nbsp;</strong></p>
-                              <p><a href="user/1722" target="_blank"><img src="public/img/employees/1722.jpg" class="img-circle" width="50">&nbsp;&nbsp;Kathleen Manago - SheerID</a> <strong>[7,077]</strong></p>
-                              <p><a href="user/1745" target="_blank"><img src="public/img/employees/1745.jpg" class="img-circle" width="50">&nbsp;&nbsp;Armando Cabuga - Zenefits</a> <strong>[6,800]</strong></p>
-
-                              <p style="padding:30px">You may claim your prizes from the <strong>Marketing Department</strong> located at the 5F from Nov.5-9, 2018.
-
-You may also start getting candies from the jar at the 5F Marketing area! Small cups are provided beside it.<br/><br/>Thank you for participating in our activities for Spooky Halloween 2018!</p>
-                             
-                           </div> 
-                            <div class="item text-center">
-                              <img src="storage/uploads/spooky-team-winner.jpg" />
-                              
-                              <p style="padding:50px"><em>Note: Judges for the SPOOKY TEAM are: <br/>
-                              Ben Davidowitz (CEO), Henry Chang (President), Joy Sebastian (VP for Operations)</em><br/><br/>
-                            <strong>Criteria:</strong><br/>
-                            Spookiness - 30%<br/>
-                            Creativity - 25%<br/>
-                            Relevance to the Theme  - 25%<br/>
-                            Execution - 20%</p>
-                            <h2 class="text-danger">Congratulations to...<br/><br/></h2>
-                             
-                           </div>
-
-                           <div class="item text-center"><h2 class="text-danger">3rd Place</h2>
-                              
-                             <img src="storage/uploads/thumb-spooky-entries4.jpg" />
-                              <p style="padding:10px">
-                                <h3 class="text-orange">Just because you're dead, doesn't mean you can't have fun.</h3>
-                                <h4> Team Jam  <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center"><h2 class="text-danger">2nd Place</h2>
-                              <img src="storage/uploads/thumb-spooky-entries6.jpg" />
-                              <p style="padding:10px"><h3 class="text-orange">A dose of your nightmare </h3>
-                                <h4> Team Liezl <a href="campaign/48" target="_blank"> AnOther </a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item text-center"><h2 class="text-danger">1st Place</h2>
-                              <img src="storage/uploads/thumb-spooky-entries12.jpg" />
-                              <p style="padding:10px">
-
-                                <h3 class="text-orange">The Doctor wants to see you now...</h3>
-                                <h4> Team Carla <a href="campaign/33" target="_blank">Boostability</a> </h4> </p>
-                             
-                           </div> 
-
-                           <div class="item  text-center">
-                            <img src="storage/uploads/spooky-thanks.jpg" />  
-                            <p><br/><br/>View All Entries in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
-                              
-                             
-                           </div> 
+                           
 
                             
 
@@ -427,19 +357,84 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                               </div>
                             </div>
 
-                            */ ?>
 
 
-                            
+                            //********************** SPOOKY JAR ******************
+                             <div class="item text-center">
 
-                           
+                              <img src="storage/uploads/stanlee.jpg" />
+                              <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OACelebratesHeroes #RIPStanLee #OAonKindness #WorldKindnessDay</small></a></div> 
+                              <p style="padding:50px">@TheRealStanLee will always be remembered as the man behind a universe of the greatest superheroes and one of the world's best storytellers. <br/><br/>May his works continue to inspire people across the globe towards greater kindness. <br/><br/> </p>
+                             
+                           </div> 
 
-                           
+
+                            <div class="item text-center">
+
+                              <img src="storage/uploads/spooky-jar-winner.jpg" />
+                              <h4>Answer: <strong class="text-orange">6,972</strong> jelly beans</h4>
+                              <h2 class="text-danger">Congratulations to: </h2>
+                              <p><a href="user/525" target="_blank"><img src="public/img/employees/525.jpg" class="img-circle" width="50">&nbsp;&nbsp;Adamson Oca - Circles.Life</a> <strong>[6,960]</strong></p>
+                              <p><a href="user/522" target="_blank"><img src="public/img/employees/522.jpg" class="img-circle" width="50">&nbsp;&nbsp;Lesle Novion - Zenefits</a> <strong>[6,920] &nbsp;&nbsp;&nbsp;&nbsp;</strong></p>
+                              <p><a href="user/534" target="_blank"><img src="public/img/employees/534.jpg" class="img-circle" width="50">&nbsp;&nbsp;Luis Oliveros - Marketing</a> <strong>[6,882]&nbsp;&nbsp;</strong></p>
+                              <p><a href="user/1722" target="_blank"><img src="public/img/employees/1722.jpg" class="img-circle" width="50">&nbsp;&nbsp;Kathleen Manago - SheerID</a> <strong>[7,077]</strong></p>
+                              <p><a href="user/1745" target="_blank"><img src="public/img/employees/1745.jpg" class="img-circle" width="50">&nbsp;&nbsp;Armando Cabuga - Zenefits</a> <strong>[6,800]</strong></p>
+
+                              <p style="padding:30px">You may claim your prizes from the <strong>Marketing Department</strong> located at the 5F from Nov.5-9, 2018.
+
+You may also start getting candies from the jar at the 5F Marketing area! Small cups are provided beside it.<br/><br/>Thank you for participating in our activities for Spooky Halloween 2018!</p>
+                             
+                           </div> 
+                            <div class="item text-center">
+                              <img src="storage/uploads/spooky-team-winner.jpg" />
+                              
+                              <p style="padding:50px"><em>Note: Judges for the SPOOKY TEAM are: <br/>
+                              Ben Davidowitz (CEO), Henry Chang (President), Joy Sebastian (VP for Operations)</em><br/><br/>
+                            <strong>Criteria:</strong><br/>
+                            Spookiness - 30%<br/>
+                            Creativity - 25%<br/>
+                            Relevance to the Theme  - 25%<br/>
+                            Execution - 20%</p>
+                            <h2 class="text-danger">Congratulations to...<br/><br/></h2>
+                             
+                           </div>
+
+                           <div class="item text-center"><h2 class="text-danger">3rd Place</h2>
+                              
+                             <img src="storage/uploads/thumb-spooky-entries4.jpg" />
+                              <p style="padding:10px">
+                                <h3 class="text-orange">Just because you're dead, doesn't mean you can't have fun.</h3>
+                                <h4> Team Jam  <a href="campaign/27" target="_blank">Zenefits</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center"><h2 class="text-danger">2nd Place</h2>
+                              <img src="storage/uploads/thumb-spooky-entries6.jpg" />
+                              <p style="padding:10px"><h3 class="text-orange">A dose of your nightmare </h3>
+                                <h4> Team Liezl <a href="campaign/48" target="_blank"> AnOther </a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item text-center"><h2 class="text-danger">1st Place</h2>
+                              <img src="storage/uploads/thumb-spooky-entries12.jpg" />
+                              <p style="padding:10px">
+
+                                <h3 class="text-orange">The Doctor wants to see you now...</h3>
+                                <h4> Team Carla <a href="campaign/33" target="_blank">Boostability</a> </h4> </p>
+                             
+                           </div> 
+
+                           <div class="item  text-center">
+                            <img src="storage/uploads/spooky-thanks.jpg" />  
+                            <p><br/><br/>View All Entries in our <a href="{{action('HomeController@gallery')}}">Gallery Page <i class="fa fa-picture-o"></i></a></p>
+                              
+                             
+                           </div> 
 
 
 
-
-                             <!-- ********************************* CS WEEK contest ******************************** -->
+                           <!-- ********************************* CS WEEK contest ******************************** -->
                             <div class="item text-center">
                               <img src="storage/uploads/dressup1.jpg" />
                               <h4 class="text-primary">Team Prim <br/> <span class="text-orange" style="font-size: smaller">Lebua</span></h4>
@@ -524,6 +519,20 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                               <img src="storage/uploads/2018-09-24_ig.jpg" /><br/></a>
                             </div>
 
+
+                            */ ?>
+
+
+                            
+
+                           
+
+                           
+
+
+
+
+                             
 
                             
 
