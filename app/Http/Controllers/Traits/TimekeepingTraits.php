@@ -1327,6 +1327,7 @@ trait TimekeepingTraits
     $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
     $pendingDTRP = null; 
     $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
+    $logPalugit=null;
 
     
     $theDay = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
@@ -1443,12 +1444,15 @@ trait TimekeepingTraits
                 $probTime1 = Carbon::parse($thisPayrollDate." 04:00:00","Asia/Manila");
                 $probTime2 = Carbon::parse($thisPayrollDate." 14:30:00","Asia/Manila");
 
-                if (!($beginShift >= $probTime1 && $beginShift <= $probTime2)) // if shift is NOT within the day
+                if (!($beginShift >= $probTime1 && $beginShift <= $probTime2) || is_null($schedForToday)) // if shift is NOT within the day
                 {
                   $userLog = null;
+                  //$userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
                   goto proceedToLogTomorrow;
 
-                } else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                }
+                 else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
 
               } else
 
@@ -1463,6 +1467,7 @@ trait TimekeepingTraits
       /*--- after getting the logs, IF (logIN_type) go to another filter pass
             else, just proceed -- */
             
+     
 
       if (is_null($userLog) || count($userLog)<1)
       {  
@@ -1548,7 +1553,7 @@ trait TimekeepingTraits
                         $pal = $palugitDate;
                        
 
-                        if (  $palugitDate >= $beginShift && $palugitDate <= $maxOut  )
+                        if ( (  $palugitDate >= $beginShift && $palugitDate <= $maxOut  ) || is_null($schedForToday) )
                         {
                           $userLog = $logPalugit;
                           goto proceedWithLogs;
@@ -1605,7 +1610,7 @@ trait TimekeepingTraits
 
                                 }
                                 
-                                $timing=Carbon::parse('22:22:22');
+                                $timing=null; //Carbon::parse('22:22:22');
                                 $UT = $undertime;
 
           }
@@ -1705,8 +1710,9 @@ trait TimekeepingTraits
 
 
 
-       $data->push([ 'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
-                      'sl'=>$slDeet,
+       $data->push([ 'logPalugit'=>$logPalugit,
+                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
+                    'sl'=>$slDeet,
                     'UT'=>$UT, 'logTxt'=>$log,
                     'hasPendingDTRP' => $hasPendingDTRP,
                     'pendingDTRP' => $pendingDTRP, 

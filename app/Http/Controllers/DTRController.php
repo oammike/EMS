@@ -1664,7 +1664,7 @@ class DTRController extends Controller
 
                                       $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea);
                                       $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea);
-                                      //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); //$userLogIN[0]['UT']
+                                      $coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); //$userLogIN[0]['UT']
 
                                       
 
@@ -1895,7 +1895,7 @@ class DTRController extends Controller
             
              
             // $coll->push(['anApprover'=>$anApprover, 'TLapprover'=>$TLapprover]);
-           //return $myDTR;
+           //return $coll;
 
            //return response()->json(['coll'=> $coll]);
 
