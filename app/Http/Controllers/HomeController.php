@@ -391,12 +391,13 @@ class HomeController extends Controller
 
             if ($startToday->format('H:i') > date('H:i',strtotime('12AM')) && $startToday->format('H:i') <= date('H:i', strtotime('8AM')) ) //for those with 11pm-8am shift
             {
-              $tomBio = Biometrics::where('productionDate', Carbon::now()->addHours(-12)->format('Y-m-d'))->get();
+              //$tomBio = Biometrics::where('productionDate', Carbon::now()->addHours(-12)->format('Y-m-d'))->get();
+              $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d'))->get();
               if (count($tomBio) > 0)
                 $b = $tomBio->first();
               else {
                 $b = new Biometrics;
-                $b->productionDate = Carbon::now()->addHours(-12)->format('Y-m-d');
+                $b->productionDate = Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d');
                 $b->save();
 
               }
@@ -404,12 +405,12 @@ class HomeController extends Controller
 
             }else {
               
-              $tomBio = Biometrics::where('productionDate', Carbon::now()->format('Y-m-d'))->get();
+              $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->format('Y-m-d'))->get();
               if (count($tomBio) > 0)
                 $b = $tomBio->first();
               else {
                 $b = new Biometrics;
-                $b->productionDate = Carbon::now()->addHours(-12)->format('Y-m-d');
+                $b->productionDate = Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d');
                 $b->save();
 
               }
