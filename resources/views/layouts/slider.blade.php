@@ -94,14 +94,27 @@
                              @endif
 
 
-  <?php */ ?>                          
+  <?php */ ?>              <div class="item active text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-exclamation-triangle"></i> Attention: <i class="fa fa-exclamation-triangle"></i> <br/>ALL LEADERS </strong> <br/>
+                              </h3><BR/><BR/>
+                              
+                              <h4>Kindly accomplish and submit your <br/><strong style="font-size:20px;" class="text-primary">2018 July-December SEMI ANNUAL EVALUATIONS</strong> <br/>on or before <strong class="text-orange">January 15th</strong> <br/><br/>
+                            The deadline of submission will be strictly enforced</h4>
+
+                              <p>Thank you.</p>
+                              
+
+
+
+                            </div>             
 
 
 
 
                              @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item active text-center">
+                            <div class="item  text-center">
                               <div class="box box-widget widget-user">
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
                                 <br/><br/>
