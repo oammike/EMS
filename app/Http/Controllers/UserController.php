@@ -2244,7 +2244,7 @@ class UserController extends Controller
 
           
            
-           $userEvals1 = $user->evaluations->sortByDesc('created_at')->filter(function($eval){
+           $userEvals1 = $user->evaluations->sortByDesc('startPeriod')->filter(function($eval){
                                   return $eval->overAllScore > 0;
 
                       }); //->pluck('created_at','evalSetting_id','overAllScore'); 
@@ -2283,12 +2283,13 @@ class UserController extends Controller
         {
 
           //****** for capability to see all eval grades:
-           if ($this->user->campaign_id == $hrDept->id || $theOwner
+           if (Team::where('user_id',$this->user->id)->first()->campaign_id == $hrDept->id || $theOwner
               || $immediateHead->employeeNumber == $this->user->employeeNumber || $this->user->employeeNumber==$leader_L1->employeeNumber
-              || $this->user->employeeNumber==$leader_L0->employeeNumber || $this->user->employeeNumber==$leader_PM->employeeNumber  )
+              || $this->user->employeeNumber==$leader_L0->employeeNumber || $this->user->employeeNumber==$leader_PM->employeeNumber 
+              || $this->user->userType_id == 1 )
               $canViewAllEvals = true; 
 
-            //return $workSchedule;
+            //return $userEvals;
 
             $shifts = $this->generateShifts('12H');
             //return $workSchedule;

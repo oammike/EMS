@@ -369,7 +369,7 @@
 
                                 <tr>
                                   <td>{{date('Y', strtotime($eval->first()->startPeriod))}} &nbsp;<?php echo OAMPI_Eval\EvalType::find($eval->first()->evalSetting_id)->name; ?><br/><small><em>by: <?php $tiel = OAMPI_Eval\ImmediateHead_Campaign::find($eval->first()->evaluatedBy); $tl = OAMPI_Eval\ImmediateHead::find($tiel->immediateHead_id); ?> {{$tl->firstname}} {{$tl->lastname}} </em></small> </td> 
-                                   <td> {{date('M d, Y', strtotime($eval->first()->created_at))}} </td>
+                                   <td> {{date('Y-m-d', strtotime($eval->first()->created_at))}} </td>
                                   
                                    @if($canViewAllEvals)
                                   <td>{{$eval->first()->overAllScore}} </td>
