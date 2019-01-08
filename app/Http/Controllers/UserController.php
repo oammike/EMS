@@ -44,6 +44,7 @@ use OAMPI_Eval\Restday;
 use OAMPI_Eval\Biometrics;
 use OAMPI_Eval\User_VLcredits;
 use OAMPI_Eval\User_SLcredits;
+use OAMPI_Eval\EvalType;
 
 class UserController extends Controller
 {
@@ -2255,9 +2256,180 @@ class UserController extends Controller
                                   });
 
         $userEvals = new Collection;
+        $userEvals2 = new Collection;
+        $guserEvals = new Collection;
         foreach ($byDateEvals as $evs) {
-          $userEvals->push($evs->unique('overAllScore'));
+          $eval = $evs->unique('overAllScore');
+          $evalT = EvalType::find($eval->first()->evalSetting_id);
+          $evalY = date('Y', strtotime($eval->first()->startPeriod));
+          $evalTitle = $evalY.  " ". $evalT->name;
+          
+          $tiel = ImmediateHead_Campaign::find($evs->first()->evaluatedBy)->immediateHeadInfo; 
+          $tl = ImmediateHead::find($tiel->immediateHead_id);
+          $evalBy = $tiel->firstname. " " . $tiel->lastname;
+
+          $userEvals2->push(['evalType'=>$evalT->name, 'evalTypeID'=>$evalT->id, 'evalTitle'=>$evalTitle,'evalY'=>$evalY, 'evalBy'=>$evalBy, 'eval'=>$eval]);
         };
+
+        $guserEvals = $userEvals2->groupBy('evalTitle');
+
+        //*********** we need to compute real score for multiple evals **************
+
+        foreach ($guserEvals as $e) {
+          if (count($e) > 1 )
+          {
+
+            $setting = EvalSetting::find($e[0]['eval'][0]['evalSetting_id']);
+            if ( ($setting->id == 1) || ($setting->id == 2) ) //if semi annuals
+            {
+              $start = Carbon::parse($e[0]['evalY']."-".$setting->startMonth."-".$setting->startDate,"Asia/Manila");
+              $end = Carbon::parse($e[0]['evalY']."-".$setting->endMonth."-".$setting->endDate,"Asia/Manila");
+              $totalDays = $start->diffInDays($end);
+
+            }else{
+              $hired = User::find($e[0]['eval'][0]['user_id'])->dateHired;
+              $start = Carbon::parse($hired,"Asia/Manila");
+              $end = Carbon::parse($hired,"Asia/Manila")->addMonths(6);
+              $totalDays = $start->diffInDays($end);
+            }
+            
+            $finalGrade = 0;
+            $daysCtr = 0;
+
+            foreach ($e as $ev) {
+
+              
+                $startP =Carbon::parse($ev['eval'][0]['startPeriod'],"Asia/Manila");
+                $endP = Carbon::parse($ev['eval'][0]['endPeriod'],"Asia/Manila");
+                $daysHandled = $startP->diffInDays($endP);
+
+              //$end = Carbon::parse($e[0]['evalY']."-".$setting->endMonth."-".$setting->endDate,"Asia/Manila");
+
+              if ($totalDays !== 0){
+
+                $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
+                $userEvals->push([
+                'evalTitle'=> $ev['evalTitle'],
+                'by'=>$ev['evalBy'],
+                'start'=>$start->format('Y-m-d'),
+                'end'=>$end->format('Y-m-d'),
+                'totalDays'=>$totalDays, 
+                'sP'=>$startP->format('Y-m-d'), 
+                'eP'=> $endP->format('Y-m-d'), 
+                'daysHandled'=>$daysHandled, 
+                'percentage'=> $daysHandled/$totalDays,
+                'grade'=> $g,
+                'finalGrade'=> $finalGrade+=$g,
+                'daysCtr'=> $daysCtr+=$daysHandled,
+                'missing'=> $totalDays-$daysCtr,
+                'details'=>$ev['eval']]);
+
+              }
+              
+            else
+             
+              $userEvals->push([
+                'evalTitle'=> $ev['evalTitle'],
+                'by'=>$ev['evalBy'],
+                'start'=>$start->format('Y-m-d'),
+                'end'=>$end->format('Y-m-d'),
+                'totalDays'=>$totalDays, 
+                'sP'=>$startP->format('Y-m-d'), 
+                'eP'=> $endP->format('Y-m-d'), 
+                'daysHandled'=>$daysHandled, 
+                'percentage'=> 0,
+                'grade'=> $g,
+                'finalGrade'=> $finalGrade+=$g,
+                'daysCtr'=> $daysCtr+=$daysHandled,
+                'missing'=> $totalDays-$daysCtr,
+                'details'=>$ev['eval']]);
+
+
+
+            }
+
+          }else 
+          {
+            $setting = EvalSetting::find($e[0]['eval'][0]['evalSetting_id']);
+            if ( ($setting->id == 1) || ($setting->id == 2) ) //if semi annuals
+            {
+              $start = Carbon::parse($e[0]['evalY']."-".$setting->startMonth."-".$setting->startDate,"Asia/Manila");
+              $end = Carbon::parse($e[0]['evalY']."-".$setting->endMonth."-".$setting->endDate,"Asia/Manila");
+              $totalDays = $start->diffInDays($end);
+
+            }else{
+              $hired = User::find($e[0]['eval'][0]['user_id'])->dateHired;
+              $start = Carbon::parse($hired,"Asia/Manila");
+              $end = Carbon::parse($hired,"Asia/Manila")->addMonths(6);
+              $totalDays = $start->diffInDays($end);
+            }
+            
+            $finalGrade = 0;
+            $daysCtr = 0;
+
+            foreach ($e as $ev) 
+            {
+
+              
+                $startP =Carbon::parse($ev['eval'][0]['startPeriod'],"Asia/Manila");
+                $endP = Carbon::parse($ev['eval'][0]['endPeriod'],"Asia/Manila");
+                $daysHandled = $startP->diffInDays($endP);
+
+              //$end = Carbon::parse($e[0]['evalY']."-".$setting->endMonth."-".$setting->endDate,"Asia/Manila");
+
+              if ($totalDays !== 0){
+
+                $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
+                $userEvals->push([
+                'evalTitle'=> $ev['evalTitle'],
+                'by'=>$ev['evalBy'],
+                'start'=>$start->format('Y-m-d'),
+                'end'=>$end->format('Y-m-d'),
+                'totalDays'=>$totalDays, 
+                'sP'=>$startP->format('Y-m-d'), 
+                'eP'=> $endP->format('Y-m-d'), 
+                'daysHandled'=>$daysHandled, 
+                'percentage'=> $daysHandled/$totalDays,
+                'grade'=> $g,
+                'finalGrade'=> $finalGrade+=$g,
+                'daysCtr'=> $daysCtr+=$daysHandled,
+                'missing'=> $totalDays-$daysCtr,
+                'details'=>$ev['eval']]);
+
+              }
+              
+            else
+             
+              $userEvals->push([
+                'evalTitle'=> $ev['evalTitle'],
+                'by'=>$ev['evalBy'],
+                'start'=>$start->format('Y-m-d'),
+                'end'=>$end->format('Y-m-d'),
+                'totalDays'=>$totalDays, 
+                'sP'=>$startP->format('Y-m-d'), 
+                'eP'=> $endP->format('Y-m-d'), 
+                'daysHandled'=>$daysHandled, 
+                'percentage'=> 0,
+                'grade'=> $g,
+                'finalGrade'=> $finalGrade+=$g,
+                'daysCtr'=> $daysCtr+=$daysHandled,
+                'missing'=>$totalDays-$daysCtr,
+                'details'=>$ev['eval']]);
+
+
+
+            }
+
+
+
+          } //END NO MULTIPLE EVALS$userEvals->push($e);
+
+        }
+
+
+
+
+
 
         $approvers = $user->approvers;
 

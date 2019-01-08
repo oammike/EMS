@@ -294,7 +294,7 @@
                               @if (empty($workSchedule))
                                <a href="{{action('DTRController@show',$user->id)}}" class="btn btn-sm btn-default pull-left"><i class="fa fa-calendar"></i> View Daily Time Record</a>
                                 <h3 class="text-center text-primary"><br/><br/><i class="fa fa-clock-o"></i>&nbsp;&nbsp; No Work Schedule defined</h3>
-                                <p class="text-center"><small>Kindly inform HR or immediate head to plot {{$user->firstname}}'s  work schedule.</small><br/><br/><br/>
+                                <p class="text-center"><small>Kindly inform immediate head OR Workforce to plot {{$user->firstname}}'s  work schedule.</small><br/><br/><br/>
 
                                 @if ($anApprover || $canEditEmployees)  
                                 <a href="{{action('UserController@createSchedule', $user->id)}}" class="btn btn-md btn-success"><i class="fa fa-calendar"></i> Plot Schedule Now</a>
@@ -357,37 +357,132 @@
                              <div class="tab-pane" id="tab_4">
                               <h4 style="margin-top:30px"><i class="fa fa-file"></i> EVALUATIONS <br/><br/></h4>
                               <table class="table">
-                                <tr>
-                                  <th>Evaluation type</th>
-                                  <th>Date Evaluated</th>
-                                  <th>Rating</th>
-                                  <th></th>
+                              <?php $ctr=0; ?>
+                             
 
-                                </tr>
+                              @foreach ($userEvals->groupBy('evalTitle') as $eval)
 
-                                @foreach ($userEvals as $eval)
+                              
 
-                                <tr>
-                                  <td>{{date('Y', strtotime($eval->first()->startPeriod))}} &nbsp;<?php echo OAMPI_Eval\EvalType::find($eval->first()->evalSetting_id)->name; ?><br/><small><em>by: <?php $tiel = OAMPI_Eval\ImmediateHead_Campaign::find($eval->first()->evaluatedBy); $tl = OAMPI_Eval\ImmediateHead::find($tiel->immediateHead_id); ?> {{$tl->firstname}} {{$tl->lastname}} </em></small> </td> 
-                                   <td> {{date('Y-m-d', strtotime($eval->first()->created_at))}} </td>
-                                  
-                                   @if($canViewAllEvals)
-                                  <td>{{$eval->first()->overAllScore}} </td>
-                                  @else
-                                  <td> <em>* Access Denied * </em></td>
-                                  @endif
-                                  <td>
-                                    @if($canViewAllEvals)
-                                    <a class="btn btn-xs btn-success" target="_blank" href="{{ action('EvalFormController@show',$eval->first()->id)}} "><i class="fa fa-file"></i> View </a>  
-                                    <a class="btn btn-xs btn-primary" target="_blank" href="{{ action('EvalFormController@printEval',$eval->first()->id)}} "><i class="fa fa-print"></i> Print </a> 
-                                    @endif
-                                  </td>
+
+                               
+
+                                  @foreach($eval as $ev)
+
+                                    @if($ctr < 1)
+                                      <tr>
+                                        <th>{{ $eval[0]['evalTitle'] }}</th>
+                                        <th>Date Evaluated</th>
+                                        <th>Rating</th>
+                                        <th>Eval Weight</th>
+                                        <th>Final Rating</th>
+                                        
+                                        <th></th>
+
+                                      </tr>
+                                      @endif
+
+                                      <tr>
+                                      <td><small><em>by:{{ $ev['by'] }} </em><br>
+                                        <strong>Period:</strong> {{$ev['sP']}} to {{$ev['eP']}} <br/>
+                                        <strong>Days covered:</strong> {{$ev['daysHandled']}} of {{$ev['totalDays']}} </small> </td> 
+                                      
+                                      <td> {{ date('Y-m-d',strtotime($ev['details'][0]['created_at'])) }} </td>
+                                      
+                                       @if($canViewAllEvals)
+                                      <td>{{$ev['details'][0]['overAllScore']}} </td>
+                                      @else
+                                      <td> <em>* Access Denied * </em></td>
+                                      @endif
+
+
+
+                                      <!-- ******* if may missing dates na minimal, add it to first eval nalang *********-->
+                                      @if($ev['missing'] > 0 && $ev['missing']<= count($eval))
+
+                                      <td>{{ number_format( ( ($ev['daysHandled']+$ev['missing'])/$ev['totalDays'])*100,2) }}% </td>
+                                      <td>{{ number_format((  ($ev['daysHandled']+$ev['missing'])/$ev['totalDays'])* $ev['details'][0]['overAllScore'] ,2) }} </td>
+
+                                      @else
+                                      <td>{{ number_format( ($ev['daysHandled']/$ev['totalDays'])*100,2) }}% </td>
+                                      <td>{{ $ev['grade'] }} </td>
+
+                                      @endif
+
+                                      
+                                     
+
+                                      <td>
+                                        @if($canViewAllEvals)
+                                        <a class="btn btn-xs btn-success" target="_blank" href="{{ action('EvalFormController@show',$eval[0]['details'][0]['id'])}} "><i class="fa fa-file"></i> View </a>  
+                                        <a class="btn btn-xs btn-primary" target="_blank" href="{{ action('EvalFormController@printEval',$eval[0]['details'][0]['id'])}} "><i class="fa fa-print"></i> Print </a> 
+                                        @endif
+                                      </td>
+                                      
+                                        
+                                    </tr>
+
+                                    <?php 
+
+                                    $ctr++; 
+                                    if(count($eval) == $ctr)
+                                    {
+                                      $ctr=0;
+                                      if ( ( $ev['daysCtr'] < $ev['totalDays']) && ( $ev['daysCtr']+1 !== $ev['totalDays']) && ($ev['missing']> count($eval))  )
+                                      {
+                                        //$missing = $ev['totalDays']-$ev['daysCtr'];
+
+                                       ?>
+                                      <tr style="background-color: #d8f2ff">
+                                        <th></th>
+                                        <th>({{$ev['daysCtr']}} of {{$ev['totalDays']}} days ) completed</th>
+                                        <th></th>
+                                        <th class="text-danger">Missing evals</th>
+                                        <th>{{$ev['missing']}}days </th>
+                                        <th></th>
+
+                                      </tr>
+
+
+                                      <?php } else { ?>
+
+                                      <tr style="background-color: #d8f2ff">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th class="text-primary">Overall Rating</th>
+
+                                        @if($ev['missing'] > 0 && $ev['missing']<= count($eval))
+                                        <?php $diff = ((($ev['daysHandled']+$ev['missing'])/$ev['totalDays'])* $ev['details'][0]['overAllScore']) - $ev['grade'];  ?>
+                                        <th style="font-size: x-large;" class="text-primary">{{number_format($diff+ $ev['finalGrade'],2)}} </th>
+                                        @else
+                                        <th style="font-size: x-large;" class="text-primary">{{$ev['finalGrade']}} </th>
+                                        @endif
+
+                                        <th></th>
+
+                                      </tr>
+
+
+                                      <?php }
+
+                                    }   ?>
+
+                                  @endforeach
+
                                     
-                                </tr>
 
-                                @endforeach
 
-                              </table>
+                                    
+
+                                  
+
+                               
+
+                                
+
+                              @endforeach
+                            </table>
                             </div>
                             <!-- /.tab-pane -->
                             
@@ -501,6 +596,24 @@
       window.colorKeys = [
         "red", "orange", "yellow", "green", "blue", "purple", "grey", "darkblue", "lightblue", "black"
       ];
+
+
+      $('a#tab_4').on('click',function(){
+     
+        //log eval viewing;
+        $.ajax({
+                url: "{{action('HomeController@logAction','10')}}",
+                type: "GET",
+                data: {'action': '10'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+    
+
+      });
       
       function pad(num) {
         return ("0"+num).slice(-2);
