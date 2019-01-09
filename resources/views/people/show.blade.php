@@ -414,8 +414,22 @@
 
                                       <td>
                                         @if($canViewAllEvals)
-                                        <a class="btn btn-xs btn-success" target="_blank" href="{{ action('EvalFormController@show',$eval[0]['details'][0]['id'])}} "><i class="fa fa-file"></i> View </a>  
-                                        <a class="btn btn-xs btn-primary" target="_blank" href="{{ action('EvalFormController@printEval',$eval[0]['details'][0]['id'])}} "><i class="fa fa-print"></i> Print </a> 
+                                        <a class="btn btn-xs btn-success" target="_blank" href="{{ action('EvalFormController@show',$ev['details'][0]['id'])}} "><i class="fa fa-file"></i> View </a>  
+                                        <a class="btn btn-xs btn-primary" target="_blank" href="{{ action('EvalFormController@printEval',$ev['details'][0]['id'])}} "><i class="fa fa-print"></i> Print </a> 
+
+                                          @if($canEditEmployees)
+                                        <a class="btn btn-xs btn-default" target="_blank" data-toggle="modal" data-target="#myModalEVAL{{$ev['details'][0]['id']}}"><i class="fa fa-trash"></i>&nbsp; </a> 
+                                          @include('layouts.modals-del', [
+                                            'modelRoute'=>'evalForm.deleteThisEval',
+                                            'modelID' => $ev['details'][0]['id'], 
+                                            'modelName'=>"Eval by ".  $ev['by'],
+                                            'modelType'=>"EVAL", 
+                                            'modalTitle'=>'Delete', 
+                                            'modalMessage'=>'Are you sure you want to delete this?', 
+                                            'formID'=>'deleteEval',
+                                            'icon'=>'glyphicon-trash' ])
+
+                                          @endif
                                         @endif
                                       </td>
                                       
