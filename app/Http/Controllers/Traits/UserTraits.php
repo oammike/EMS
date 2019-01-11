@@ -244,9 +244,17 @@ trait UserTraits
 
                                       if (empty($b))
                                       {
-                                        $bio = new Biometrics;
-                                        $bio->productionDate = $cws->created_at;
-                                        $bio->save();
+                                        $b = Biometrics::where('productionDate',date('Y-m-d',strtotime($cws->created_at)))->orderBy('id','DESC')->get();
+
+                                        if (empty($b)){
+                                          $bio = new Biometrics;
+                                          $bio->productionDate = $cws->created_at;
+                                          $bio->save();
+
+                                        }
+                                        else { $bio = $b->first(); }
+
+                                        
 
                                       }else { $bio = $b; }
 
@@ -279,9 +287,16 @@ trait UserTraits
 
                                       if (empty($b))
                                       {
-                                        $bio = new Biometrics;
-                                        $bio->productionDate = $ots->created_at;
-                                        $bio->save();
+                                        $b = Biometrics::where('productionDate',date('Y-m-d',strtotime($ots->created_at)))->orderBy('id','DESC')->get();
+
+                                        if (empty($b)){
+                                          $bio = new Biometrics;
+                                          $bio->productionDate = $ots->created_at;
+                                          $bio->save();
+
+                                        }
+                                        else { $bio = $b->first(); }
+
 
                                       }else { $bio = $b; }
 
@@ -309,9 +324,16 @@ trait UserTraits
 
                                       if (empty($b))
                                       {
-                                        $bio = new Biometrics;
-                                        $bio->productionDate = $in->created_at;
-                                        $bio->save();
+                                        $b = Biometrics::where('productionDate',date('Y-m-d',strtotime($in->created_at)))->orderBy('id','DESC')->get();
+
+                                        if (empty($b)){
+                                          $bio = new Biometrics;
+                                          $bio->productionDate = $in->created_at;
+                                          $bio->save();
+
+                                        }
+                                        else { $bio = $b->first(); }
+
 
                                       }else { $bio = $b; }
 
@@ -339,9 +361,16 @@ trait UserTraits
 
                                       if (empty($b))
                                       {
-                                        $bio = new Biometrics;
-                                        $bio->productionDate = $out->created_at;
-                                        $bio->save();
+                                        $b = Biometrics::where('productionDate',date('Y-m-d',strtotime($out->created_at)))->orderBy('id','DESC')->get();
+
+                                        if (empty($b)){
+                                          $bio = new Biometrics;
+                                          $bio->productionDate = $out->created_at;
+                                          $bio->save();
+
+                                        }
+                                        else { $bio = $b->first(); }
+
 
                                       }else { $bio = $b; }
 
