@@ -240,6 +240,16 @@ trait UserTraits
                                     $cws = User_CWS::find($detail->relatedModelID);
                                     if (count($cws) > 0)
                                     {
+                                      $b = Biometrics::find($cws->biometrics_id);
+
+                                      if (empty($b))
+                                      {
+                                        $bio = new Biometrics;
+                                        $bio->productionDate = $cws->created_at;
+                                        $bio->save();
+
+                                      }else { $bio = $b; }
+
                                       if (is_null($cws->isApproved) )
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-calendar-times-o",
                                                     'requestor'=>$emp->id,
@@ -248,8 +258,8 @@ trait UserTraits
                                                     'type'=>NotifType::find($detail->type)->title, 
                                                     'typeID'=>$detail->type,
                                                     'created_at'=> $detail->created_at->format('M d, Y'),
-                                                    'productionDate'=>date('M d, Y', strtotime(Biometrics::find($cws->biometrics_id)->productionDate)),
-                                                    'productionDay'=>date('D', strtotime(Biometrics::find($cws->biometrics_id)->productionDate)),
+                                                    'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
+                                                    'productionDay'=>date('D', strtotime($bio->productionDate)),
                                                     'deets'=> $cws]);
 
                                     }
@@ -260,8 +270,21 @@ trait UserTraits
                           case 7: //OT
                                   {
                                     $ots = User_OT::find($detail->relatedModelID);
+
+                                    
+
                                     if (count($ots) > 0)
                                     {
+                                      $b = Biometrics::find($ots->biometrics_id);
+
+                                      if (empty($b))
+                                      {
+                                        $bio = new Biometrics;
+                                        $bio->productionDate = $ots->created_at;
+                                        $bio->save();
+
+                                      }else { $bio = $b; }
+
                                         if (is_null($ots->isApproved))
                                         $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-hourglass",
                                                       'requestor'=>$emp->id,
@@ -270,8 +293,8 @@ trait UserTraits
                                                       'type'=>NotifType::find($detail->type)->title,
                                                       'typeID'=>$detail->type, 
                                                       'created_at'=> $detail->created_at->format('M d, Y'),
-                                                      'productionDate'=>date('M d,Y', strtotime(Biometrics::find($ots->biometrics_id)->productionDate)),
-                                                       'productionDay'=>date('D', strtotime(Biometrics::find($ots->biometrics_id)->productionDate)),
+                                                      'productionDate'=>date('M d,Y', strtotime($bio->productionDate)),
+                                                       'productionDay'=>date('D', strtotime($bio->productionDate)),
                                                       'deets'=> $ots]);
 
                                     }
@@ -282,6 +305,16 @@ trait UserTraits
                                     $in = User_DTRP::find($detail->relatedModelID);
                                     if (count($in) > 0)
                                     { 
+                                      $b = Biometrics::find($in->biometrics_id);
+
+                                      if (empty($b))
+                                      {
+                                        $bio = new Biometrics;
+                                        $bio->productionDate = $in->created_at;
+                                        $bio->save();
+
+                                      }else { $bio = $b; }
+
                                         if (is_null($in->isApproved))
                                         $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-sign-in",
                                                       'requestor'=>$emp->id,
@@ -290,8 +323,9 @@ trait UserTraits
                                                       'type'=>NotifType::find($detail->type)->title, 
                                                       'typeID'=>$detail->type,
                                                       'created_at'=> $detail->created_at->format('M d, Y'),
-                                                      'productionDate'=>date('M d,Y', strtotime(Biometrics::find($in->biometrics_id)->productionDate)),
-                                                       'productionDay'=>date('D', strtotime(Biometrics::find($in->biometrics_id)->productionDate)),
+                                                      'KEME'=>Biometrics::find($in->biometrics_id),
+                                                      'productionDate'=>date('M d,Y', strtotime($bio->productionDate)),
+                                                       'productionDay'=>date('D', strtotime($bio->productionDate)),
                                                       'deets'=> $in]);
                                     }
 
@@ -300,6 +334,18 @@ trait UserTraits
                                   {
                                     $out = User_DTRP::find($detail->relatedModelID); 
                                     if (count($out) > 0) {
+
+                                      $b = Biometrics::find($out->biometrics_id);
+
+                                      if (empty($b))
+                                      {
+                                        $bio = new Biometrics;
+                                        $bio->productionDate = $out->created_at;
+                                        $bio->save();
+
+                                      }else { $bio = $b; }
+
+
                                       if (is_null($out->isApproved))
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-sign-out",
                                                     'requestor'=>$emp->id,
@@ -308,8 +354,9 @@ trait UserTraits
                                                     'type'=>NotifType::find($detail->type)->title,
                                                     'typeID'=>$detail->type, 
                                                     'created_at'=> $detail->created_at->format('M d, Y'),
-                                                    'productionDate'=>date('M d,Y', strtotime(Biometrics::find($out->biometrics_id)->productionDate)),
-                                                     'productionDay'=>date('D', strtotime(Biometrics::find($out->biometrics_id)->productionDate)),
+                                                    'KEME'=>Biometrics::find($out->biometrics_id),
+                                                    'productionDate'=>date('M d,Y', strtotime($bio->productionDate)),
+                                                     'productionDay'=>date('D', strtotime($bio->productionDate)),
                                                     'deets'=> $out]);
 
                                     }
@@ -321,6 +368,7 @@ trait UserTraits
                                     $vl = User_VL::find($detail->relatedModelID);
                                     if (count($vl) > 0)
                                     {
+                                      
                                       if (is_null($vl->isApproved) )
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-plane",
                                                     'requestor'=>$emp->id,
