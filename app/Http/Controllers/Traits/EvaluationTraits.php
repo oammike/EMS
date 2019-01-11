@@ -565,7 +565,7 @@ trait EvaluationTraits
 
 
                     /*--- JUNE 2018 update: filter out non-regularized employees --- */
-                    if ($employ->status_id == 4 || $employ->status_id == 5 || $employ->status_id == 6 
+                    if ($employ->status_id == 1 || $employ->status_id == 4 || $employ->status_id == 5 || $employ->status_id == 6 
                         || $employ->status_id == 11 || $employ->status_id == 12  )
                     {
 
@@ -631,6 +631,7 @@ trait EvaluationTraits
 
                                 // if ($employ->supervisor->first()->immediateHead_id !== $me->id)
                                 // {
+                                        //$changedImmediateHeads->push($chIH);
                                         $changedImmediateHeads->push([
                                                                 'movement_id'=> $emp->id,
                                                                 'id'=>$employ->id, 
