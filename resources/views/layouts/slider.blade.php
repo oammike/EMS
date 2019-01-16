@@ -96,11 +96,28 @@
 
   <?php */ ?>              <div class="item active text-center">
 
-                              <h3 class="text-danger"><strong><i class="fa fa-exclamation-triangle"></i> Attention: <i class="fa fa-exclamation-triangle"></i> <br/>ALL LEADERS </strong> <br/>
+                              <h3 class="text-danger"><strong><i class="fa fa-exclamation-triangle"></i> Attention: <i class="fa fa-exclamation-triangle"></i> <br/>NO CEDULA, NO TAX REFUND </strong> <br/>
+                                <img src="storage/uploads/cedula.png" width="80%" />
                               </h3><BR/><BR/>
                               
-                              <h4>Kindly accomplish and submit your <br/><strong style="font-size:20px;" class="text-primary">2018 July-December SEMI ANNUAL EVALUATIONS</strong> <br/>on or before <strong class="text-orange">January 15th</strong> <br/><br/>
-                            The deadline of submission will be strictly enforced</h4>
+                              <h5>Please be informed that you need to submit a <br/><strong>2018 or 2019 CEDULA (Community Tax Certificate)</strong><br/> to Finance Department at the 7th floor HRC Center Bldg. <br/>on or before <strong>JANUARY 21, 2019</strong>, for the following purposes.</h5>
+
+                              <ol class="text-left" style="margin-left: 50px">
+                                <li>BIR 2316 for the year 2018</li>
+                                <li>Tax Refund (if entitled)</li>
+                              </ol>
+
+                              <h5><br/>For 2018 Hires, you need to submit the following:</h5>
+                              
+                              <ol class="text-left" style="margin-left: 50px">
+                                <li>BIR 2316 from previous employer</li>
+                                <li>2018/2019 Cedula</li>
+                              </ol>
+
+                              <p><br/><br/>For further inquiries, send an e-mail to 
+                                <br/>Ronel Ambrocio (rambrocio@openaccessbpo.net; 
+                                <br/>rambrocio@openaccessmarketing.com) & 
+                                <br/>Salary Inquiry (salaryinquiry@openaccessbpo.net; salaryinquiry@openaccessmarketing.com)</p>
 
                               <p>Thank you.</p>
                               
