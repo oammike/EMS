@@ -287,7 +287,7 @@
                   @foreach ($changedImmediateHeads as $employee)
                   @if($employee['user_id'] !== Auth::user()->id )
 
-                  <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
+                  <?php $x = $doneMovedEvals->where('user_id',$employee['user_id']);?>
                   <div class="col-lg-3 col-sm-6 col-xs-12"><!-- && $doneEval[$employee['id']] !== null -->
                      <!-- Widget: user widget style 1 -->
                                 <div class="box box-widget widget-user-2">
@@ -303,8 +303,8 @@
                                     
                                       <div class="widget-user-image">
                                       <a href="{{action('UserController@show',$employee['id'])}}" class="text-primary"> 
-                                       @if ( file_exists('public/img/employees/'.$employee['id'].'.jpg') )
-                                     <img src="{{asset('public/img/employees/'.$employee['id'].'.jpg')}}" class="img-circle pull-left" alt="User Image" width="70" style="margin-top:-10px" >
+                                       @if ( file_exists('public/img/employees/'.$employee['user_id'].'.jpg') )
+                                     <img src="{{asset('public/img/employees/'.$employee['user_id'].'.jpg')}}" class="img-circle pull-left" alt="User Image" width="70" style="margin-top:-10px" >
                                       @else
                                         <img src="{{asset('public/img/useravatar.png')}}" class="img-circle pull-left" alt="Employee Image"  width="70" style="margin-top:-10px">
 
@@ -460,7 +460,7 @@
 
                                       @if ($x->first()['evaluated'] && !$x->first()['isDraft'] && $x->first()['score'] > 0 )
                                            <p><a class="btn btn-sm btn-primary" href="{{action('EvalFormController@show',$x->first()['evalForm_id']) }} " style="margin-bottom:5px"><i class="fa fa-check"></i> See Evaluation</a>
-                                            <!-- <a href="#"  style="margin-top:5px" class="btn btn-xs btn-flat btn-default" data-toggle="modal" data-target="#myModal{{$doneMovedEvals[$ctr]['evalForm_id']}}"><i class="fa fa-trash"></i> Delete</a> --><div class="clearfix"></div>
+                                            <div class="clearfix"></div>
                                           </p>
 
                                           @include('layouts.modals', [

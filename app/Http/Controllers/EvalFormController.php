@@ -1548,6 +1548,10 @@ class EvalFormController extends Controller
                             $doneMovedEvals = new Collection;
                             $data = $this->getPastMemberEvals($mc, $evalSetting,null,null,$request->evalType_id);
 
+                            //return ['doneEval'=>count($data->first()['doneMovedEvals']), 'changedImmediateHeads'=>count($data->first()['changedImmediateHeads']),'changedHeads'=>count($data->first()['changedHeads'])];
+
+                            //return $data;
+
                              $changedImmediateHeads1 = $data->first()['changedImmediateHeads'];
                             //return $changedImmediateHeads1;
                             foreach($changedImmediateHeads1 as $ch){
