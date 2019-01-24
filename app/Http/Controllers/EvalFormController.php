@@ -952,7 +952,7 @@ class EvalFormController extends Controller
                             {
                                   $mySubordinates1 =  $myActiveTeam->filter(function ($employee)
                                                       {   // Contrctual || Regular or Consultant or Floating or Contractual extended
-                                                          return ($employee->status_id == 1 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 );
+                                                          return ($employee->status_id == 1 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 );
                                                       });
                                  
                                    /* ------------
@@ -1224,7 +1224,7 @@ class EvalFormController extends Controller
                             {
                                   $mySubordinates1 =  $myActiveTeam->filter(function ($employee)
                                                       {   // Contrctual || Regular or Consultant or Floating or Contractual extended
-                                                          return ($employee->status_id == 1 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 );
+                                                          return ($employee->status_id == 1 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 );
                                                       });
                                  
                                   
@@ -1451,7 +1451,7 @@ class EvalFormController extends Controller
                          {
                             $mySubordinates1 = $myActiveTeam->filter(
                               function ($employee) {
-                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10); 
+                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11); 
                             }); //filter out regular employees
 
                             foreach ($mySubordinates1 as $emp)
