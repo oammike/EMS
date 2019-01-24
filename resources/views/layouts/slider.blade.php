@@ -94,7 +94,41 @@
                              @endif
 
 
-  <?php */ ?>              <div class="item active text-center">
+  <?php */ ?>              
+                          <div class="item active text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 10,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start training this <strong>Monday, January 28</strong></span></br/><br/>
+                                <span class="text-primary">Customer Happiness Expert <br/>(Email & Chat support)</span> <br/>
+                                <img src="public/img/logo_circleslife.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+                              
+                             <h5><br/>Qualifications:</h5>
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Prior experience in customer service across different lines of businesses (BPO, E-Commerce and Retail, Telecom) and have assisted customers either via phone, email, chat, and social media with their billing, technical, and some other sudden spur-of-the-moment unexpected questions</li>
+                                <li>Flawless communication skills be it verbal, and on written communication</li>
+                                <li>Basic, and we mean really basic MS Office skills, although advance is BIG plus</li>
+                                <li>Experience falling of the cracks and getting hands dirty (whereby instances) gained in a start-up environment</li>
+                                <li>Can start training this Monday, January 28</li>
+                              </ol>
+
+                              
+                              
+                             
+
+
+                              <p><br/><br/>Please have your referrals come this FRIDAY and SATURDAY<br/>
+                              Recruitment is open from 8 AM - 7 PM</p>
+
+                              <p>Thank you.</p>
+                              
+
+
+
+                            </div>
+
+                          <div class="item text-center">
 
                               <h3 class="text-danger"><strong><i class="fa fa-exclamation-triangle"></i> Attention: <i class="fa fa-exclamation-triangle"></i> <br/>NO CEDULA, NO TAX REFUND </strong> <br/>
                                 <img src="storage/uploads/cedula.png" width="80%" />
