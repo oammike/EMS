@@ -8,7 +8,7 @@ class User extends Authenticatable
 {
     protected $table = "users";
     protected $fillable = [
-        'name', 'email','external','employeeNumber','accesscode', 'password','firstname','middlename','lastname','position_id', 'dateHired','userType_id','status_id','hascoverphoto','leadOverride'
+        'name', 'email','external','employeeNumber','accesscode', 'password','firstname','middlename','lastname','position_id', 'dateHired','userType_id','status_id','hascoverphoto','leadOverride','startTraining','endTraining'
         //'immediateHead_id','campaign_id','immediateHead_Campaigns_id',
     ];
 

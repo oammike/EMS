@@ -189,9 +189,23 @@
                     </tr>
 
                     <tr>
-                      <td><label>Date Hired: </label> <input tabindex="14" required type="text" class="form-control datepicker" style="width:50%" name="dateHired" id="dateHired" placeholder="MM/DD/YYYY" />
-                       <div id="alert-dateHired" style="margin-top:10px"></div></td>
-                      <td><label>Date Regularized: </label> <input tabindex="15" type="text" class="form-control datepicker" style="width:50%" name="dateRegularized" id="dateRegularized" placeholder="MM/DD/YYYY" /> 
+                      <td>
+
+                       <label>Training Start Date: </label> <input tabindex="14" type="text" class="form-control datepicker" style="width:50%" name="startTraining" id="startTraining" placeholder="MM/DD/YYYY" />
+
+                       <label>Training End Date: </label> <input tabindex="15" type="text" class="form-control datepicker" style="width:50%" name="endTraining" id="endTraining" placeholder="MM/DD/YYYY" />
+                       
+
+                     </td>
+                      <td>
+
+                       
+
+                      <label>Date Hired: </label> <input tabindex="16" required type="text" class="form-control datepicker" style="width:50%" name="dateHired" id="dateHired" placeholder="MM/DD/YYYY" />
+                       <div id="alert-dateHired" style="margin-top:10px"></div>
+
+
+                        <label>Date Regularized: </label> <input tabindex="17" type="text" class="form-control datepicker" style="width:50%" name="dateRegularized" id="dateRegularized" placeholder="MM/DD/YYYY" /> 
                       <div id="alert-dateRegularized" style="margin-top:10px"></div></td>
 
                     </tr>
@@ -201,7 +215,7 @@
                         <div id="alert-userType" style="margin-top:10px"></div>
                         @foreach ($userTypes as $type)
 
-                        <label> <input tabindex="16" type="radio" name="userType_id" required value="{{$type->id}}" /> {{$type->name}} </label><br/>
+                        <label> <input tabindex="18" type="radio" name="userType_id" required value="{{$type->id}}" /> {{$type->name}} </label><br/>
 
                         @endforeach
                         
@@ -214,7 +228,7 @@
                         <div id="alert-status" style="margin-top:10px"></div>
                         @foreach ($statuses as $status)
 
-                        <label> <input tabindex="17" type="radio" name="status_id" required value="{{$status->id}}" /> {{$status->name}} </label><br/>
+                        <label> <input tabindex="19" type="radio" name="status_id" required value="{{$status->id}}" /> {{$status->name}} </label><br/>
 
                         @endforeach
                       
@@ -235,7 +249,7 @@
                     <input name="name" id="name" type="hidden" />
                     <input name="email" id="email" type="hidden"/>
                     <input name="password" id="password" type="hidden"/>
-                    <input tabindex="18" type="submit" class="btn btn-lg btn-default" name='submit' value="Save" />
+                    <input tabindex="20" type="submit" class="btn btn-lg btn-default" name='submit' value="Save" />
                     <div id="alert-submit" style="margin-top:20px"></div>
                   </p>
 
@@ -377,6 +391,9 @@
       var dateHired = $('#dateHired').val();
       var dateRegularized = $('#dateRegularized').val();
 
+      var startTraining = $('#startTraining').val();
+      var endTraining  = $('#endTraining').val();
+
       var alertCampaign = $('#alert-campaign');
       var alertImmediateHead = $('#alert-immediateHead');
       var alertPosition = $('#alert-position');
@@ -449,7 +466,7 @@
                                     //save employee
                                     console.log("Save employee then");
                                     var emailaddie = uname+"@openaccessbpo.net";
-                                    saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,emailaddie,dateHired,dateRegularized, userType_id,status_id,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
+                                    saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,emailaddie,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
 
                                   }
 
@@ -479,7 +496,7 @@
             console.log("userType_id: "+ userType_id);
             console.log("status_id: "+ status_id);
             
-            saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,emailaddie,dateHired,dateRegularized, userType_id,status_id,position_id,campaign_id,floor_id, immediateHead_Campaigns_id, _token );
+            saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,emailaddie,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,campaign_id,floor_id, immediateHead_Campaigns_id, _token );
 
           }
 
@@ -499,7 +516,7 @@
 
    });
 
-function saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, userType_id,status_id,position_id,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
+function saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
 
    //save movement
 
@@ -521,6 +538,8 @@ function saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthd
               'updatedPass': false,
               'dateHired': dateHired,
               'dateRegularized': dateRegularized,
+              'startTraining': startTraining,
+              'endTraining': endTraining,
               'userType_id': userType_id,
               'status_id': status_id,
               'position_id': position_id,

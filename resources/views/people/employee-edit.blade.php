@@ -198,6 +198,7 @@ input.cropit-image-zoom-input {
                                   <input type="text" name="lastname" id="lastname" value="{{$personnel->lastname}}" class="form-control required" />
                                   <div id="alert-lastname" style="margin-top:10px"></div>
 
+                                  <label>Nick Name: </label>
                                   <input tabindex="6" type="text" name="nickname" id="nickname" @if (empty($personnel->nickname) ) placeholder="Nickname or alias" @else value="{{$personnel->nickname}}" placeholder="{{$personnel->nickname}}" @endif  class="form-control " />
                                   <div id="alert-nickname" style="margin-top:10px"></div>
 
@@ -303,9 +304,19 @@ input.cropit-image-zoom-input {
                                 </tr>
 
                                 <tr>
-                                  <td><label>Date Hired: </label> <input required type="text" class="form-control datepicker" style="width:50%" name="dateHired" id="dateHired" value="{{date('m/d/Y',strtotime($personnel->dateHired) ) }} " />
-                                   <div id="alert-dateHired" style="margin-top:10px"></div></td>
-                                  <td><label>Date Regularized: </label> <input type="text" class="form-control datepicker" style="width:50%" name="dateRegularized" id="dateRegularized" <?php  if ( $personnel->dateRegularized !== null ) { ?> value="{{date('m/d/Y',strtotime($personnel->dateRegularized) ) }}" <?php } else {?> placeholder="specify date" <?php }; ?>   /> 
+                                  <td>
+                                    <label>Training Start Date: </label> <input type="text" class="form-control datepicker" style="width:50%" name="startTraining" id="startTraining" value="{{date('m/d/Y',strtotime($personnel->startTraining) ) }} " />
+                                  
+
+                                   <label>Training End Date: </label> <input type="text" class="form-control datepicker" style="width:50%" name="endTraining" id="endTraining" value="{{date('m/d/Y',strtotime($personnel->endTraining) ) }} " />
+                                   
+
+                                  </td>
+                                  <td>
+                                    <label>Date Hired: </label> <input required type="text" class="form-control datepicker" style="width:50%" name="dateHired" id="dateHired" value="{{date('m/d/Y',strtotime($personnel->dateHired) ) }} " />
+                                   <div id="alert-dateHired" style="margin-top:10px"></div>
+
+                                    <label>Date Regularized: </label> <input type="text" class="form-control datepicker" style="width:50%" name="dateRegularized" id="dateRegularized" <?php  if ( $personnel->dateRegularized !== null ) { ?> value="{{date('m/d/Y',strtotime($personnel->dateRegularized) ) }}" <?php } else {?> placeholder="specify date" <?php }; ?>   /> 
                                   <div id="alert-dateRegularized" style="margin-top:10px"></div></td>
 
                                 </tr>
@@ -712,6 +723,8 @@ $('input[name="dateHired"]').on('focusout',function(){
   });
 
 
+
+
    $('#addEmployee').on('submit', function(e) {
 
     e.preventDefault();
@@ -743,6 +756,9 @@ $('input[name="dateHired"]').on('focusout',function(){
       
       var dateHired = $('#dateHired').val();
       var dateRegularized = $('#dateRegularized').val();
+
+      var startTraining = $('#startTraining').val();
+      var endTraining = $('#endTraining').val();
 
       var alertCampaign = $('#alert-campaign');
       var alertImmediateHead = $('#alert-immediateHead');
@@ -798,7 +814,7 @@ $('input[name="dateHired"]').on('focusout',function(){
                                     //save employee
                                     console.log("Save employee then");
                                     
-                                    saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, userType_id,status_id,leadOverride,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
+                                    saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,leadOverride,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
 
                                   }
 
@@ -820,7 +836,7 @@ $('input[name="dateHired"]').on('focusout',function(){
            
             
 
-            setTimeout(saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token ),1);
+            setTimeout(saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token ),1);
             
             
          }
@@ -842,7 +858,7 @@ $('input[name="dateHired"]').on('focusout',function(){
 });
 
 
-function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
+function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
 
    //save movement
    console.log("Enter function");
@@ -863,6 +879,8 @@ function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,emp
               'email': email,
               'dateHired': dateHired,
               'dateRegularized': dateRegularized,
+              'startTraining': startTraining,
+              'endTraining': endTraining,
               'userType_id': userType_id,
               'status_id': status_id,
               'position_id': position_id,
