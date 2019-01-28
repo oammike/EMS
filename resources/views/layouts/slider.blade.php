@@ -103,7 +103,7 @@
 
 
 
-Before the month ends, <br/><strong class="text-orange">we invite you to a breakfast/ dinner</strong> <br/>to sit down and catch up with you, and just get to know you better. This is also a great opportunity to meet other employees from different campaigns and departments and our executive leaders as well!<br/><br/>
+Before the month ends, <br/><strong class="text-orange">we invite you to a breakfast/ dinner</strong> <br/>to sit down and catch up with you, and just get to know you better. This is also a great opportunity to meet other employees from different programs/departments and our executive leaders as well!<br/><br/>
 
 
 
@@ -127,7 +127,7 @@ If your preferred schedule is still in conflict with your shift, no need to worr
 
 
 
-<span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet everyone this year as we aim for this to be a monthly activity.</span>
+<span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
 
 
 <!--
