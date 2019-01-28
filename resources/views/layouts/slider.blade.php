@@ -94,10 +94,48 @@
                              @endif
 
 
-  <?php */ ?>              
-                          
+  <?php */ ?>  
 
                             <div class="item active text-center" >
+
+                              <img src="./public/img/hellos_grubs.jpg" style="z-index: 2" />
+                              <p style="padding:20px">Thank you for all your hard work and for being with the Open Access BPO family. This year is full of exciting things ahead as a lot of activities await you while we continue to grow.<br/><br/>
+
+
+
+Before the month ends, <br/><strong class="text-orange">we invite you to a breakfast/ dinner</strong> <br/>to sit down and catch up with you, and just get to know you better. This is also a great opportunity to meet other employees from different campaigns and departments and our executive leaders as well!<br/><br/>
+
+
+
+Your breakfast / dinner is on us! <br/>Here’s the schedule:<br/>
+
+<strong>January 30, 2019 (Wednesday) – 7:00am-10:00am<br/>
+               OR<br/>
+
+January 31, 2019 (Thursday) – 7:00pm-10:00pm<br/></strong>
+
+
+Venue: TBA (but will be walking distance from the Jaka Building office)<br/><br/>
+
+
+
+Kindly choose the date that works best for you. The registration is now open and will end on January 28, 2019 (Monday) at exactly 11:00am. Final list of participants will be picked randomly via lottery and will be notified on January 29, 2019 (Tuesday) via email.<br/><br/>
+
+
+
+If your preferred schedule is still in conflict with your shift, no need to worry as we will do our best to adjust your work schedule.<br/><br/>
+
+
+
+<span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet everyone this year as we aim for this to be a monthly activity.</span>
+
+
+<!--
+<h4><a href="http://172.17.0.2/coffeebreak/event/open-access-bpo-hellos-and-grubs/" target="_blank">Click on this link to sign up now!</a></h4> --></p>
+                            </div>            
+                          
+
+                            <div class="item text-center" >
 
                               <img src="./public/img/ana.jpg" style="z-index: 2" />
 
