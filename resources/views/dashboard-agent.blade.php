@@ -101,7 +101,33 @@ select:-webkit-autofill:focus {
 
               <div class="col-lg-5 col-sm-6 col-xs-12">
 
-                <!--VIDEOS -->
+                 <!--VIDEOS -->
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Videos</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <p class="text-center"><strong class="text-orange" style="font-size: 1.8em">Join our <span class="text-primary"> #HobbyMonth Activity!</span></strong></p>
+                      <video id="teaser" src="storage/uploads/hobbymonth.webm" width="100%" loop controls></video>
+
+                     
+
+                                <p style="font-size: 0.8em;" align="center">Upload a photo or two showing your favorite hobbies and include a short description telling us why you love doing it or how you came to love doing it - we're all ears! <br/><br/>
+                                  Don't forget to include our official hashtags as seen in this post and tag @OpenAccessBPO. Also, comment DONE on our IG post so we can easily track your posts and TAG your teammates so we can learn a little bit more about them, too. On the 31st, we'll choose 5 employees (via lottery) who'll get the chance to be featured in our pagfe and take part in one of the exciting things coming our way this year! <br/><br/>
+
+                                #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</p> 
+                              
+                              
+                    </div>
+                  </div>
+                <?php /*
                   <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos</h3>
@@ -123,6 +149,9 @@ select:-webkit-autofill:focus {
                               <video id="teaser" src="storage/uploads/sde-back_to_the_90s.webm" width="100%" loop controls></video>
                     </div>
                   </div>
+                  */ ?>
+
+
 
 
                 <!-- SHOUT OUT -->
