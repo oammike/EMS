@@ -119,7 +119,7 @@ Venue: TBA (but will be walking distance from the Jaka Building office)<br/><br/
 
 
 
-Kindly choose the date that works best for you. The registration is now open and will end on January 28, 2019 (Monday) at exactly 11:00am. Final list of participants will be picked randomly via lottery and will be notified on January 29, 2019 (Tuesday) via email.<br/><br/>
+Kindly choose the date that works best for you. <!-- The registration is now open and will end on January 28, 2019 (Monday) at exactly 11:00am. --> Final list of participants will be picked randomly via lottery and will be notified on January 29, 2019 (Tuesday) via email.<br/><br/>
 
 
 
