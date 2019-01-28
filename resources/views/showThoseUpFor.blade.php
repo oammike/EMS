@@ -356,7 +356,7 @@
                                       
                                     @if ($x->first()['evaluated'] && !$x->first()['isDraft'] && $x->first()['score'] > 0 )
                                      <p class="text-center"><a class="btn btn-md btn-default" href="{{action('EvalFormController@show',$x->first()['evalForm_id']) }} "><i class="fa fa-check"></i> See Evaluation</a><br/>
-                                     <!-- <a href="#"  style="margin-top:5px" class="btn btn-xs btn-flat btn-default" data-toggle="modal" data-target="#myModal{{$doneMovedEvals[$ctr]['evalForm_id']}}"><i class="fa fa-trash"></i> Delete</a> --><div class="clearfix"></div>
+                                     <div class="clearfix"></div>
 
                                      @include('layouts.modals', [
                                 'modelRoute'=>'evalForm.destroy',

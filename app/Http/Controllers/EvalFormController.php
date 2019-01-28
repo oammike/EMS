@@ -1722,14 +1722,14 @@ class EvalFormController extends Controller
                             $data = $this->getPastMemberEvals($mc, $evalSetting, null,null, $request->evalType_id);
                             //return $data;
 
-                             $changedImmediateHeads1 = $data->first()['changedImmediateHeads'];
+                             $changedImmediateHeads = $data->first()['changedImmediateHeads'];
                             //return $changedImmediateHeads1;
-                            foreach($changedImmediateHeads1 as $ch){
-                              $stat = User::find($ch['user_id'])->status_id;
-                              // contractual | trainee | probi | consult | extended | projectBased
-                              if ($stat == 1 || $stat == 2 || $stat == 3 || $stat == 5 || $stat == 6 || $stat == 10 || $stat == 11)
-                                $changedImmediateHeads->push($ch);
-                            }
+                            // foreach($changedImmediateHeads1 as $ch){
+                            //   $stat = User::find($ch['user_id'])->status_id;
+                            //   // contractual | trainee | probi | consult | extended | projectBased
+                            //   if ($stat == 1 || $stat == 2 || $stat == 3 || $stat == 5 || $stat == 6 || $stat == 10 || $stat == 11)
+                            //     $changedImmediateHeads->push($ch);
+                            // }
                             $doneMovedEvals = $data->first()['doneMovedEvals'];
 
                             //$doneMovedEvals=null;
