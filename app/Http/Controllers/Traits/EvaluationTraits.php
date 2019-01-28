@@ -108,6 +108,7 @@ trait EvaluationTraits
                   
                   //$effective = Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila');
 
+
                   // if movement is within the range of eval period
                   if ($mvt->isDone )
                   {
@@ -118,12 +119,12 @@ trait EvaluationTraits
                                                         
                 }
 
-                $coll2->push($changedHeads);
+                //$coll2->push(['chIH'=>$chIH] );
 
 
 
 
-
+                //return $chIH;
 
                 foreach ($chIH as $emp) 
                 {
@@ -139,13 +140,17 @@ trait EvaluationTraits
                      
                      if ($evalType==3){
                         $endPeriod = $cPeriod->addMonths(6);
+
+                        if ($employ->status_id == 4) goto skipIt;
+
                     }else if($evalType==4 || $evalType==5){
                         $endPeriod = $cPeriod->addMonths(3);
+                        if ($employ->status_id == 4) goto skipIt;
                     }
 
 
                      // GET ALL his POSITION movements from latest to oldest
-                    $checkMovements = Movement::where('user_id',$emp->user_id)->where('personnelChange_id','2')->where('isDone','1')->where('effectivity','>=',$currentPeriod->toDateString())->where('effectivity','<=',$endPeriod->toDateString())->orderBy('effectivity','DESC')->get(); 
+                    $checkMovements = Movement::where('user_id',$employ->user_id)->where('personnelChange_id','2')->where('isDone','1')->where('effectivity','>=',$currentPeriod->toDateString())->where('effectivity','<=',$endPeriod->toDateString())->orderBy('effectivity','DESC')->get(); 
 
                     
                     if (count($checkMovements) > 0)
@@ -181,8 +186,6 @@ trait EvaluationTraits
                         $mustPosition = $employ->position->name;
                     }
 
-                    //$coll2->push(['movedPos'=>$movedPos, 'oldPos'=>$oldPos, 'newPos'=>$newPos]);
-
 
                     //disregard resigned or terminated employees
 
@@ -203,14 +206,18 @@ trait EvaluationTraits
                         $checkTransfer = Movement::where('user_id',$emp->user_id)->where('personnelChange_id','1')->where('isDone',1)->
                                             where('effectivity','>=',$currentPeriod->toDateString())->where('effectivity','<=',$cPeriod->format('Y-m-d'))->get();
 
+                        $coll2->push(['checkTransfer'=>$checkTransfer, 'of'=>$employ->id]);
+
                         if (count($checkTransfer)>0)
                         {
                             //
                             $myCampaigns =ImmediateHead_Campaign::where('immediateHead_id',ImmediateHead::where('employeeNumber',User::find($this->user->id)->employeeNumber)->first()->id)->get()->pluck('id')->toArray();
                             $coll2->push(['transfer'=>$checkTransfer,'campaigns'=>$myCampaigns, 'user'=>$emp->user_id]);
                             
-                            foreach ($checkTransfer as $key) {
+                            foreach ($checkTransfer as $key) 
+                            {
                                 $moved = Movement_ImmediateHead::where('movement_id',$key->id)->first();
+                                
                                 if(in_array($moved->imHeadCampID_old, $myCampaigns)){
 
                                     $changedImmediateHeads->push([
@@ -353,115 +360,16 @@ trait EvaluationTraits
 
 
                         }//end if else no checktransfer
-                        
 
-                                
-
-
+                        skipIt:
+                            $ctr++;
 
 
-                        // }// end if you're not the current immediateHead
-
-                        
-                          $ctr++;
 
 
                     }//end if not resigned, terminated or end of contract
 
-                    //**** !!! we have to check kung complete nya yung eval period before resignation
-                    /*else
-                    {
-
-
-                        $hisTeam = $employ->team;
-                        $hisTL = ImmediateHead::find(Team::find($hisTeam->id)->leader->immediateHead_id);
-                        
-
-                        // -------- we need to check first if YOU are the CURRENT TL. if yes,no need to be added to changedImmediateHeads  ----- 
-
-                        // if ($employ->supervisor->first()->immediateHead_id !== $me->id)
-                        // {
-                                $changedImmediateHeads->push([
-                                                        'movement_id'=> $emp->id,
-                                                        'id'=>$employ->id, 
-                                                        'index'=> $ctr,
-                                                        'user_id'=>$employ->id, 
-                                                        'userType_id'=>$employ->userType_id, 
-                                                        'dateHired'=>$employ->dateHired, 
-                                                        'firstname'=> $employ->firstname, 
-                                                        'lastname'=>$employ->lastname, 
-                                                        'position'=>$mustPosition, 
-                                                        'isLead'=>$isLead,
-                                                        'status'=>$employ->status->name]);
-
-                              
-                                
-                                $resignation = DB::table('movement')->where('user_id',$employ->id)
-                                // Movement::where('user_id',$employ->id)->where('personnelChange_id',3)
-                                $effective = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila');
-
-                                // **** GET THE EVAL RANGES, pag fromPeriod eh wayy past currentPeriod -- get current
-                                if($emp->fromPeriod < $currentPeriod->startOfDay()->format('Y-m-d H:i:s')) {
-
-                                    $fr = $currentPeriod->startOfDay(); // Carbon::createFromFormat('Y-m-d H:i:s', $tillWhen->first()->fromPeriod, 'Asia/Manila'); 
-
-                                } elseif ($emp->fromPeriod > $currentPeriod->format('Y-m-d H:i:s')) { //pag in the future pa, kunin mo currentperiod
-                                    $fr = $currentPeriod->startOfDay();
-                                } else $fr = Carbon::createFromFormat('Y-m-d H:i:s', $emp->fromPeriod, 'Asia/Manila'); 
-
-                                //------- update Sep 21
-                                 // **** fix for movements na di pa complete yung previous eval:
-                                if ($emp->effectivity >= $endPeriod->format('Y-m-d'))
-                                {
-                                    $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //$endPeriod;
-
-                                } elseif ($emp->effectivity < $fr) { //pag super tagal na prior to start of eval period, 
-                                    $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //$endPeriod;
-                                } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //
-
-                               
-                                $evalBy = $me->id;  
-                                //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
-
-                                $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evaluatedBy', $evalBy)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
-                                //$coll2->push(['evaluated'=>$evaluated]);
-                            
-                             
-
-                                if ( count($evaluated) == 0)
-                                {
-                                    $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
-
-                                    
-                                } else {
-
-                                    $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
-                                    $truegrade = $theeval->overAllScore;
-
-                                    if ($theeval->isDraft) 
-                                      $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
-                                    else
-                                    //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                    $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
-
-
-
-                                    
-                                }
-
-
-
-
-                        // }// end if you're not the current immediateHead
-
-                        
-                          $ctr++;
-
-
                     
-
-                    }//end ifelse resigned
-                    */
                     
                    
                 }//end foreach chIH
@@ -473,8 +381,8 @@ trait EvaluationTraits
             }//end foreach campaign
             //return $coll2;
 
-            $coll = new Collection;
-            $coll->push(['doneMovedEvals'=>$doneMovedEvals, 'changedImmediateHeads'=>$changedImmediateHeads, 'changedHeads'=>$changedHeads, 'chIH'=>$chIH, 'endPeriod'=>null, 'startPeriod'=>null]);
+            $coll = new Collection; //'changedHeads'=>$changedHeads,
+            $coll->push(['doneMovedEvals'=>$doneMovedEvals, 'changedImmediateHeads'=>$changedImmediateHeads,  'chIH'=>$chIH, 'endPeriod'=>null, 'startPeriod'=>null]);
 
 
         } else //regular evals
@@ -778,6 +686,7 @@ trait EvaluationTraits
       
         return $coll;
         //return $coll2;
+        //return $chIH;
 		
 	}
 

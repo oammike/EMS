@@ -1454,6 +1454,10 @@ class EvalFormController extends Controller
                               return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11); 
                             }); //filter out regular employees
 
+                            //return $mySubordinates1;
+
+
+
                             foreach ($mySubordinates1 as $emp)
                             {
                                $leadershipcheck = ImmediateHead::where('employeeNumber', $emp->employeeNumber)->get();
@@ -1479,7 +1483,7 @@ class EvalFormController extends Controller
                                     //$checkMovement = User::find($emp->id)->movements;
                                     $checkMovement = Movement::where('user_id',$emp->id)->where('personnelChange_id','1')->where('isDone',true)->where('effectivity','>=',$currentPeriod->startOfDay())->where('effectivity','<=',$endPeriod->startOfDay())->first();
                                    
-                                    //$coll->push($checkMovement);
+                                   // $coll->push(['emp'=>$emp->id]);
 
                                     if (!empty($checkMovement)){
                                        //$existing = EvalForm::where('user_id', $emp->id)->where('startPeriod',$currentPeriod)->get();
@@ -1529,6 +1533,8 @@ class EvalFormController extends Controller
 
                                     } 
 
+                                    $coll->push(['done'=>$doneEval[$emp->id]]);
+
 
 
                             }//end foreach
@@ -1546,21 +1552,28 @@ class EvalFormController extends Controller
 
                             $changedImmediateHeads = new Collection;
                             $doneMovedEvals = new Collection;
+
+
                             $data = $this->getPastMemberEvals($mc, $evalSetting,null,null,$request->evalType_id);
 
                             //return ['doneEval'=>count($data->first()['doneMovedEvals']), 'changedImmediateHeads'=>count($data->first()['changedImmediateHeads']),'changedHeads'=>count($data->first()['changedHeads'])];
 
                             //return $data;
 
-                             $changedImmediateHeads1 = $data->first()['changedImmediateHeads'];
+                             $changedImmediateHeads = $data->first()['changedImmediateHeads'];
                             //return $changedImmediateHeads1;
-                            foreach($changedImmediateHeads1 as $ch){
+                            /*foreach($changedImmediateHeads1 as $ch){
+                              
                               $stat = User::find($ch['user_id'])->status_id;
                               // contractual | trainee | probi | consult | extended | projectBased
                               if ($stat == 1 || $stat == 2 || $stat == 3 || $stat == 5 || $stat == 6 || $stat == 10 || $stat == 11)
                                 $changedImmediateHeads->push($ch);
-                            }
+
+                            }*/
                             $doneMovedEvals = $data->first()['doneMovedEvals'];
+
+
+                            //return (['doneMovedEvals'=>$doneMovedEvals, 'changedImmediateHeads'=>$changedImmediateHeads]);
 
                            
                             return view('showThoseUpFor', compact('mySubordinates', 'myCampaign', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));

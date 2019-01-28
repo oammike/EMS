@@ -62,7 +62,7 @@
                
                
 
-      @if (count($mySubordinates) < 8)
+      @if (count($mySubordinates) <= 8)
 
       <!-- ******** LESS THAN 8 ********** -->
           <div class="row">
@@ -288,7 +288,8 @@
                   @if($employee['user_id'] !== Auth::user()->id )
 
                   <?php $x = $doneMovedEvals->where('user_id',$employee['user_id']);?>
-                  <div class="col-lg-3 col-sm-6 col-xs-12"><!-- && $doneEval[$employee['id']] !== null -->
+
+                  <div class="col-lg-3 col-sm-6 col-xs-12">
                      <!-- Widget: user widget style 1 -->
                                 <div class="box box-widget widget-user-2">
                                   <!-- Add the bg color to the header using any of the bg-* classes 
@@ -298,11 +299,11 @@
                                   !done & agent = green
 
                                 -->
-                                  <div class="widget-user-header  @if ($doneMovedEvals[$ctr]['evaluated'] && ($employee['userType_id'] == '4') ) bg-gray @elseif ($doneMovedEvals[$ctr]['evaluated'] && ($employee['userType_id'] !== '4') ) bg-black @elseif (!$doneMovedEvals[$ctr]['evaluated'] && ($employee['userType_id'] !== '4') )bg-darkgreen  @else bg-green @endif">
+                                  <div class="widget-user-header  @if ($doneMovedEvals[$employee['index']]['evaluated'] && ($employee['userType_id'] == '4') ) bg-gray @elseif ($doneMovedEvals[$employee['index']]['evaluated'] && ($employee['userType_id'] !== '4') ) bg-black @elseif (!$doneMovedEvals[$employee['index']]['evaluated'] && ($employee['userType_id'] !== '4') )bg-darkgreen  @else bg-green @endif">
 
                                     
                                       <div class="widget-user-image">
-                                      <a href="{{action('UserController@show',$employee['id'])}}" class="text-primary"> 
+                                      <a href="{{action('UserController@show',$employee['user_id'])}}" class="text-primary"> 
                                        @if ( file_exists('public/img/employees/'.$employee['user_id'].'.jpg') )
                                      <img src="{{asset('public/img/employees/'.$employee['user_id'].'.jpg')}}" class="img-circle pull-left" alt="User Image" width="70" style="margin-top:-10px" >
                                       @else
@@ -359,7 +360,7 @@
 
                                      @include('layouts.modals', [
                                 'modelRoute'=>'evalForm.destroy',
-                                'modelID' => $doneMovedEvals[$ctr]['evalForm_id'], 
+                                'modelID' => $doneMovedEvals[$employee['index']]['evalForm_id'], 
                                 'modelName'=>"Evaluation of: ". $employee['firstname']." ". $employee['lastname'], 
                                 'modalTitle'=>'Delete', 
                                 'modalMessage'=>'Are you sure you want to delete this?', 
@@ -372,7 +373,7 @@
                                     @elseif ($x->first()['isDraft'] == '1' && $x->first()['evaluated'] &&  $x->first()['score'] > 0 ) 
                                     <p class="text-center"><a class="btn btn-md btn-danger" href="{{action('EvalFormController@edit',$x->first()['evalForm_id']) }} "><i class="fa fa-check"></i> Continue Evaluating </a></p>
                              
-                                    @else <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=> $x->first()['startPeriod'], 'endPeriod'=>$x->first()['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now</a></p> 
+                                    @else <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['user_id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=> $x->first()['startPeriod'], 'endPeriod'=>$x->first()['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now</a></p> 
                                     @endif
                                   <div class="clearfix"></div>
 
@@ -382,6 +383,7 @@
                                 <!-- /.widget-user -->
 
                   </div><!--end employee card-->
+               
                   @endif
                   <?php $ctr++; ?>
                   @endforeach
@@ -418,14 +420,15 @@
                                   <tbody>
                                     @foreach ($changedImmediateHeads as $employee)
 
-                                     <?php $x = $doneMovedEvals->where('user_id',$employee['id']);?>
+                                     <?php $x = $doneMovedEvals->where('user_id',$employee['user_id']);?>
 
-                                    @if ($employee['id'] !== Auth::user()->id && $x->first() !== null)
-                                  <tr id="row{{$employee['id']}}">
+
+                                    @if ($employee['user_id'] !== Auth::user()->id && $x->first() !== null)
+                                  <tr id="row{{$employee['user_id']}}">
                                     <td class="text-center ">
-                                      <a href="{{action('UserController@show',$employee['id'])}}">
-                                     @if ( file_exists('public/img/employees/'.$employee['id'].'.jpg') )
-                                     <img src="{{asset('public/img/employees/'.$employee['id'].'.jpg')}}" width='60' height='60' class="img-circle" alt="User Image"/> 
+                                      <a href="{{action('UserController@show',$employee['user_id'])}}">
+                                     @if ( file_exists('public/img/employees/'.$employee['user_id'].'.jpg') )
+                                     <img src="{{asset('public/img/employees/'.$employee['user_id'].'.jpg')}}" width='60' height='60' class="img-circle" alt="User Image"/> 
                                      @else
                                      <img src="{{asset('public/img/useravatar.png')}}" class="img-circle" width='60' height='60' alt="User Image"> 
                                      @endif
@@ -481,7 +484,7 @@
 
                                           @else
                                          
-                                          <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=>$x->first()['startPeriod'], 'endPeriod'=>$x->first()['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now </a></p> 
+                                          <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['user_id'], 'evalType_id'=>$evalSetting->id, 'currentPeriod'=>$x->first()['startPeriod'], 'endPeriod'=>$x->first()['endPeriod'],'isLead'=>$employee['isLead'],'oldPos'=>$employee['position'] ]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now </a></p> 
                                        </p> 
                                           @endif
                                       
@@ -496,7 +499,7 @@
                                   </tr>
                                    @endif <!--end if self check -->
 
-
+                                
                                     <?php $ctr++; ?>
                                   @endforeach
                                   </tbody>
