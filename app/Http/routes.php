@@ -58,6 +58,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('category','CategoryController');
     Route::resource('approver','UserLeaderController');
 
+    Route::resource('survey','SurveyController');
+
 
     Route::get('/logAction/{action}', array(
       'as'=>'page.logAction',
@@ -686,6 +688,13 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/user/{id}/getWorkSchedForTheDay/', array(
           'as'=> 'user.getWorkSchedForTheDay',
           'uses'=>'UserController@getWorkSchedForTheDay') );
+
+
+    /* ---------- SURVEY ---------------*/
+
+    Route::post('/saveSurvey', array(
+      'as'=> 'survey.saveSurvey',
+      'uses'=>'SurveyController@saveSurvey') );
 
     /* ---------- MEMO ---------------*/
     Route::post('/saveUserMemo', array(
