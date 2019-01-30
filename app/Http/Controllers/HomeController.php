@@ -466,8 +466,8 @@ class HomeController extends Controller
                 $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
 
 
-                //******* show memo for test people only jill,paz,ems,joy,raf
-                $testgroup = [564,508,1644,1611,1784,1786];
+                //******* show memo for test people only jill,paz,ems,joy,raf,jaja
+                $testgroup = [564,508,1644,1611,1784,1786,491];
                 if (in_array($this->user->id, $testgroup))
                 {
                   /*----------- check for available MEMOS --------------*/
