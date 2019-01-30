@@ -20,7 +20,7 @@
          <div id="memo"></div>  
          <input type='hidden' name='id' id='id' value='{{$modelID}}' />   
           <!-- <button type="submit" id="yes" class="btn btn-primary {{$icon}} glyphicon "> YES, I agree </button> -->
-          <button data-dismiss="modal" type="button" id="yesMemo" class="yes btn btn-primary btn-md" data-resID="{{$modelID}}"><i class="fa fa-check-square-o"></i> Okay, got it. Don't show this message again.</button>
+          <button data-dismiss="modal" type="button" id="yesMemo" class="yes btn btn-primary btn-md" data-resID="{{$modelID}}"><i class="fa fa-check-square-o"></i> Start Survey </button>
           <!-- <a href="#" id="no" class="no btn btn-success btn-md "> Proceed anyway </a> -->
           <!-- <button title="You may view and agree later on" type="button" id="no" class="no btn btn-success btn-md" data-resID="{{$modelID}}"><i class="fa fa-square-o"></i> View now, I'll agree later... </button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->

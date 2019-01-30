@@ -10,7 +10,7 @@
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1><i class="fa fa-file"></i> Surveys </h1>
+      <h1><i class="fa fa-file"></i> Survey Title Goes Here </h1>
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Access Denied</li>
@@ -55,21 +55,22 @@
                      </div>
                     
                     <!-- /.info-box -->
-                    <h5 id="currItem" data-val="{{$startFrom}}" style="position: absolute;top:0px">{{$startFrom}}</h5>
+                    <h1 id="currItem" data-val="{{$startFrom}}" style="position: absolute;top:0px">{{$startFrom}}</h1>
                     <?php $ctr=1; ?>
                     @foreach($questions as $q)
 
-                    @if($ctr==1)
+                    @if($ctr==1 && is_null($latest))
                     <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))survey.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; top:0px; left:0px;" width="100%" />
                     @else
-                    <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))survey.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; display:none top:0px; left:0px;" width="100%" />
+                    <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))survey.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; display:none; top:0px; left:0px;" width="100%" />
                     @endif
                      <!--  -->
                    
                       
-                      @if($ctr==1)
+                      @if($ctr==1 && is_null($latest))
                        <div class="question{{$ctr}}" style="background: rgba(255, 255, 255, 0.85); padding:30px; min-height: 287px; position: absolute; top:25%;left:25px; width: 95%">
                         <h2 class="question{{$ctr}} text-center" style="width: 100%; text-align: center;" >{{ $q->question }}</h2>
+
                         <br/><br/>
 
                         @if($q->responseType==1)
@@ -80,7 +81,7 @@
                         </div><br/><br/><br/>
 
                           @foreach($options as $o)
-                          <label><input type="radio" name="answer" id="answer{{$ctr}}_{{$o->ordering}}" class="answer{{$ctr}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                          <label><input type="radio" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
 
@@ -91,7 +92,7 @@
                         @endif
                             <br/><br/>
 
-                          <a id="next{{$ctr}}" class="next btn btn-lg btn-primary pull-right" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
+                          <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary pull-right" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
                         </div>
 
 
@@ -108,7 +109,7 @@
                         </div><br/><br/><br/>
 
                           @foreach($options as $o)
-                          <label><input type="radio" name="answer" id="answer{{$ctr}}_{{$o->ordering}}" class="answer{{$ctr}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                          <label><input type="radio" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}"/> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
 
@@ -119,7 +120,7 @@
                         @endif
                             <br/><br/>
 
-                            <a id="submit" class="btn btn-lg btn-success pull-right" data-item="{{$ctr+1}}">Submit <i class="fa fa-check"></i></a>
+                            <a id="submit" class="btn btn-lg btn-success pull-right" data-questionid="{{$q->id}}" data-item="{{$ctr+1}}">Submit <i class="fa fa-check"></i></a>
 
                           
                         </div>
@@ -136,7 +137,7 @@
                         </div><br/><br/><br/>
 
                           @foreach($options as $o)
-                          <label><input type="radio" name="answer" id="answer{{$ctr}}_{{$o->ordering}}" class="answer{{$ctr}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                          <label><input type="radio" name="answer{{$q->id}}" value="{{$o->id}}" id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
 
@@ -147,7 +148,7 @@
                         @endif
                             <br/><br/>
 
-                            <a id="next{{$ctr}}" class="next btn btn-lg btn-primary pull-right" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
+                            <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary pull-right" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
 
                           
                         </div>
@@ -210,7 +211,31 @@
 
     
    'use strict';
+
+   
+
+
    $('.next').fadeOut();//css('display','none');
+
+   @if( !is_null($latest))
+
+     var perc = (({{$latest->ordering+1}}/{{$totalItems}})*100).toFixed(0);
+
+    $('.question{{$latest->ordering}}').hide();
+    $('.question{{$latest->ordering}}').css('display','none');
+    $('.question{{$latest->ordering + 1}}').fadeIn();//css("display","block");
+    $('.question{{$latest->ordering + 1}}').css("display","block");
+    $('.progress-description').html(perc+" %");
+    $('.progress-bar').css('width',perc+"%");
+
+    $('#currItem').attr('data-val',{{$latest->ordering + 1}});
+
+    // hide submit button if done with survey
+    @if($userSurvey->isDone)
+      $('#submit').hide();
+    @endif
+
+   @endif
 
    $('input:radio').on('click',function(){
     var val=$('#currItem').attr('data-val');
@@ -223,33 +248,77 @@
       var curr = item-1;
       var perc = ((item/{{$totalItems}})*100).toFixed(0);
       //alert("Next: "+curr);
-      $('.question'+curr).hide();
-      $('.question'+item).fadeIn();//css("display","block");
-      $('.question'+item).css("display","block");
-      $('.progress-description').html(perc+" %");
-      $('.progress-bar').css('width',perc+"%");
+      
 
       $('#currItem').html(item);
       $('#currItem').attr('data-val',item);
-      //$('.answer'+item).css('display','block'); 
+
+
+
+      // we now save his answer
+      var _token = "{{ csrf_token() }}";
+      var questionid = $(this).attr('data-questionid');
+      var survey_optionsid = $('input[name="answer'+questionid+'"]:checked').val();
+      console.log("questionid: " + questionid);
+      console.log(survey_optionsid);
+      $.ajax({
+                url: "{{action('SurveyController@saveItem')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': questionid,
+                  'survey_optionsid': survey_optionsid,
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+
+                  $('.question'+curr).hide();
+                  $('.question'+item).fadeIn();//css("display","block");
+                  $('.question'+item).css("display","block");
+                  $('.progress-description').html(perc+" %");
+                  $('.progress-bar').css('width',perc+"%");
+                }
+              });
+      
 
    });
 
-   $('#submit').on('click',function(){
+   
+  $('#submit').on('click',function(){
+
+    var questionid = $(this).attr('data-questionid');
 
 
     if ($('#essay').val() == '' ) $.notify("We would like to hear from you, so kindly fill out the comment box. Thanks!",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
     else {
       $(this).fadeOut();
+      var _token = "{{ csrf_token() }}";
+
+      $.ajax({
+                url: "{{action('SurveyController@saveItem')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': questionid,
+                  'survey_optionsid': 'x',
+                  'survey_id': '{{$id}}',
+                  'answer': $('#essay').val(),
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+                   $.notify("Thank you for taking the time answering our survey!",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                }
+              });
       
 
 
-      $.notify("Thank you for taking the time answering our survey!",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+     
     }
 
    });
 
-   $('body').keyup(function (e){
+  $('body').keyup(function (e){
 
     var val=$('#currItem').attr('data-val');
     //var con = $("answer"+val+"_1");
@@ -275,13 +344,15 @@
       //$('#answer1_5').attr('checked',true);
      document.getElementById("answer"+val+"_5").click();
    } 
-})
+ })
 
    
 
 
       
-      
+    
+
+
    });
 
    

@@ -338,6 +338,7 @@ select:-webkit-autofill:focus {
 
             success: function(res){
                     console.log(res);
+                    location.replace('./survey/1');
             },
           });
 

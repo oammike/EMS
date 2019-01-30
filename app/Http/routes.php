@@ -696,6 +696,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'survey.saveSurvey',
       'uses'=>'SurveyController@saveSurvey') );
 
+    Route::post('/saveItem', array(
+      'as'=> 'survey.saveItem',
+      'uses'=>'SurveyController@saveItem') );
+
     /* ---------- MEMO ---------------*/
     Route::post('/saveUserMemo', array(
           'as'=> 'user_memo.saveUserMemo',

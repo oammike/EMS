@@ -466,18 +466,29 @@ class HomeController extends Controller
                 $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
 
 
-                /*----------- check for available MEMOS --------------*/
-                $activeMemo = Memo::where('active',1)->orderBy('created_at','DESC')->get();
-                if (count($activeMemo)>0){
-                  $memo = $activeMemo->first();
+                //******* show memo for test people only jill,paz,ems,joy,raf
+                $testgroup = [564,508,1644,1611,1784,1786];
+                if (in_array($this->user->id, $testgroup))
+                {
+                  /*----------- check for available MEMOS --------------*/
+                    $activeMemo = Memo::where('active',1)->where('type','modal')->orderBy('created_at','DESC')->get();
+                    if (count($activeMemo)>0){
+                      $memo = $activeMemo->first();
 
-                  //check if nakita na ni user yung memo
-                  $seenMemo = User_Memo::where('user_id',$this->user->id)->where('memo_id',$memo->id)->get();
-                  if (count($seenMemo)>0)
-                    $notedMemo = true;
-                  else $notedMemo = false;
+                      //check if nakita na ni user yung memo
+                      $seenMemo = User_Memo::where('user_id',$this->user->id)->where('memo_id',$memo->id)->get();
+                      if (count($seenMemo)>0)
+                        $notedMemo = true;
+                      else $notedMemo = false;
 
-                }else { $notedMemo=false; $memo=null; } 
+                    }else { $notedMemo=false; $memo=null; } 
+
+                }else {$notedMemo=false; $memo=null;}
+
+
+                
+
+               
 
 
                  /*----------- check if done with TOUR --------------*/
@@ -485,7 +496,7 @@ class HomeController extends Controller
                 $tour = Memo::where('active',1)->where('type',"tour")->orderBy('created_at','DESC')->get();
                 if (count($tour)>0){
                   $siteTour = $tour->first();
-                  $memo=null; $notedMemo=true;
+                 // $memo=null; $notedMemo=true;
 
                   //check if nakita na ni user yung memo
                   $toured = User_Memo::where('user_id',$this->user->id)->where('memo_id',$siteTour->id)->get();
@@ -511,6 +522,7 @@ class HomeController extends Controller
                     //return redirect()->route('user.show',['id'=>$this->user->id]);
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
+                    
                     return view('dashboard-agent', compact('performance', 'firstYears','tenYears','fiveYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                     
 
@@ -521,8 +533,7 @@ class HomeController extends Controller
 
                     //-- Initialize Approvals Dashlet
 
-                   //return $groupedForm; 
-
+                   
                     return view('dashboard', compact('performance', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                    
 
