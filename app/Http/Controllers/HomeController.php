@@ -467,7 +467,7 @@ class HomeController extends Controller
 
 
                 //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
-                $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367];
+                $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
                 if (in_array($this->user->id, $testgroup))
                 {
                   /*----------- check for available MEMOS --------------*/
