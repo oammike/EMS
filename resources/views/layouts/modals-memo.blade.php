@@ -7,7 +7,7 @@
           <h4 class="modal-title" id="myModalLabel"><img src="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}" width="30px" align="center" /> {{$modelName}} </h4>
         
       </div>
-      <div class="modal-body" style="padding:80px;">
+      <div class="modal-body" style="padding:40px 50px">
         
         {!! $modalMessage !!}
 

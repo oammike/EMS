@@ -233,7 +233,7 @@ select:-webkit-autofill:focus {
                      
 
                                 <p style="font-size: 0.8em;" align="center">Upload a photo or two showing your favorite hobbies and include a short description telling us why you love doing it or how you came to love doing it - we're all ears! <br/><br/>
-                                  Don't forget to include our official hashtags as seen in this post and tag @OpenAccessBPO. Also, comment DONE on our IG post so we can easily track your posts and TAG your teammates so we can learn a little bit more about them, too. On the 31st, we'll choose 5 employees (via lottery) who'll get the chance to be featured in our pagfe and take part in one of the exciting things coming our way this year! <br/><br/>
+                                  Don't forget to include our official hashtags as seen in this post and tag @OpenAccessBPO. Also, comment DONE on our IG post so we can easily track your posts and TAG your teammates so we can learn a little bit more about them, too. On February 1st, we'll choose 5 employees (via lottery) who'll get the chance to be featured in our pagfe and take part in one of the exciting things coming our way this year! <br/><br/>
 
                                 #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</p> 
                               

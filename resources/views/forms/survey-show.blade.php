@@ -10,7 +10,7 @@
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1><i class="fa fa-file"></i> Survey Title Goes Here </h1>
+      <h1><i class="fa fa-file"></i> 2019 Employee Experience Survey </h1>
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Access Denied</li>
@@ -32,10 +32,11 @@
                 
                 <tr>
                   <td class="text-center" style="overflow: hidden; background-color: #000; position: absolute; height: 670px; width: 100%">
-                    <div style="background: rgba(0, 0, 0, 0.4); position: absolute;top:10px; font-size: 0.95em;color:#fff; z-index: 100;padding: 5px" ><i class="fa fa-info"></i> <em>Click on the radio buttons below, OR use number keys <strong>1-5</strong> on your keyboard to give a rating.</em></div>
+                    <div id="instructions" style="background: rgba(0, 0, 0, 0.4); position: absolute;bottom:45px; font-size: 0.95em;color:#fff; z-index: 100;padding: 5px; text-align: left;" ><i class="fa fa-info"></i> <em>The items above describe statements about different aspects of our work here at Open Access.<br/>
+Indicate your range of agreement or disagreement by <span class="text-orange" style="font-weight: bolder;">clicking the appropriate radio button</span> OR <span class="text-orange" style="font-weight: bolder;">pressing keys 1-5 on your keyboard</span>. <br/>(Ranging from <strong>5 </strong> for when it's so awesome, all the way down to<strong> 1 </strong> when it's so horrible.) </em></div>
                      
                      <!-- /.info-box -->
-                     <div style="position: absolute;bottom: 90px;left:25px; width: 95%">
+                     <div style="position: absolute;top: 50px;left:25px; width: 95%">
 
                       <div class="info-box" style="min-height: 20px;background-color: #666">
                         
@@ -59,96 +60,106 @@
                     <?php $ctr=1; ?>
                     @foreach($questions as $q)
 
-                    @if($ctr==1 && is_null($latest))
-                    <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))survey.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; top:0px; left:0px;" width="100%" />
+                    @if($ctr==1 && is_null($latest) && ($extraDataNa != '1'))
+                    <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))backto90s-30.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; top:0px; left:0px;" width="100%" />
                     @else
-                    <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))survey.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; display:none; top:0px; left:0px;" width="100%" />
+                      @if($extraDataNa != '1')
+                      <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))backto90s-30.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; display:none; top:0px; left:0px;" width="100%" />
+                      @endif
                     @endif
                      <!--  -->
                    
                       
                       @if($ctr==1 && is_null($latest))
-                       <div class="question{{$ctr}}" style="background: rgba(255, 255, 255, 0.85); padding:30px; min-height: 287px; position: absolute; top:25%;left:25px; width: 95%">
+                       <div class="question{{$ctr}}" style="background: rgba(255, 255, 255, 0.85); padding:30px; min-height: 287px; position: absolute; top:15%;left:25px; width: 95%">
                         <h2 class="question{{$ctr}} text-center" style="width: 100%; text-align: center;" >{{ $q->question }}</h2>
 
                         <br/><br/>
 
                         @if($q->responseType==1)
 
-                        <div style="background-image: linear-gradient(to right, red , yellow); width: 70%; height: 5px; margin:0 auto;" >
+                        <div style="background-image: linear-gradient(to right, red , yellow, aqua, #5bc8ff); width: 70%; height: 5px; margin:0 auto;" >
                           <i class="fa fa-3x fa-frown-o pull-left" style="margin-top: 7px"></i>
                           <i class="fa fa-3x fa-smile-o pull-right" style="margin-top: 7px"></i>
                         </div><br/><br/><br/>
 
                           @foreach($options as $o)
-                          <label><input type="radio" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                          <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
+
+                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$ctr}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
                           <textarea name="essay" id="essay"></textarea>
 
                         @endif
-                            <br/><br/>
-
-                          <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary pull-right" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
+                           <div class="clearfix"><br/></div>
+                            <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
                         </div>
 
+                      <!-- ******* LAST SLIDE *********** -->
+                      @elseif (($ctr == $totalItems) && ($extraDataNa != '1'))
 
-                      @elseif($ctr == $totalItems)
-
-                      <div class="question{{$ctr}}" style="background: rgba(255, 255, 255, 0.8); padding:30px; min-height: 287px; position: absolute; top:25%;left:25px; width: 95%; display: none">
+                      <div class="question{{$ctr}}" style="background: rgba(255, 255, 255, 0.8); padding:30px; min-height: 287px; position: absolute; top:15%;left:25px; width: 95%; display: none">
                         <h2 class="question{{$ctr}} text-center" style="width: 100%; text-align: center;" >{{ $q->question }}</h2>
                         <br/><br/>
 
                         @if($q->responseType==1)
-                        <div style="background-image: linear-gradient(to right, red , yellow); width: 70%; height: 5px; margin:0 auto;" >
+                        <div style="background-image: linear-gradient(to right, red , yellow, aqua, #5bc8ff); width: 70%; height: 5px; margin:0 auto;" >
                           <i class="fa fa-3x fa-frown-o pull-left" style="margin-top: 7px"></i>
                           <i class="fa fa-3x fa-smile-o pull-right" style="margin-top: 7px"></i>
                         </div><br/><br/><br/>
 
                           @foreach($options as $o)
-                          <label><input type="radio" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}"/> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                          <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}"/> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
+                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$ctr}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
-                          <textarea class="form-control" name="essay" id="essay" placeholder="type in your comments and/or suggestions..."></textarea>
+                          <textarea class="form-control" name="essay" id="essay" placeholder="type in your answer"></textarea>
 
                         @endif
-                            <br/><br/>
+                            <div class="clearfix"><br/></div>
 
-                            <a id="submit" class="btn btn-lg btn-success pull-right" data-questionid="{{$q->id}}" data-item="{{$ctr+1}}">Submit <i class="fa fa-check"></i></a>
+                          
+                             <a id="submit1" class="btn btn-lg btn-primary" data-questionid="{{$q->id}}" data-item="{{$ctr+1}}">One more to go... <i class="fa fa-arrow-right"></i></a>
 
                           
                         </div>
 
-                      @else
-                     <div class="question{{$ctr}}" style="background: rgba(255, 255, 255, 0.8); padding:30px; min-height: 287px; position: absolute; top:25%;left:25px; width: 95%; display: none">
+
+
+
+                        <!-- ******* LAST SLIDE *********** -->
+
+                      @elseif ( $extraDataNa != '1')
+                     <div class="question{{$ctr}}" style="background: rgba(255, 255, 255, 0.8); padding:30px; min-height: 287px; position: absolute; top:15%;left:25px; width: 95%; display: none">
                         <h2 class="question{{$ctr}} text-center" style="width: 100%; text-align: center;" >{{ $q->question }}</h2>
                         <br/><br/>
 
                         @if($q->responseType==1)
-                       <div style="background-image: linear-gradient(to right, red , yellow); width: 70%; height: 5px; margin:0 auto;" >
-                          <i class="fa fa-3x fa-frown-o pull-left" style="margin-top: 7px"></i>
-                          <i class="fa fa-3x fa-smile-o pull-right" style="margin-top: 7px"></i>
-                        </div><br/><br/><br/>
+                           <div style="background-image: linear-gradient(to right, red , yellow, aqua, #5bc8ff); width: 70%; height: 5px; margin:0 auto;" >
+                              <i class="fa fa-3x fa-frown-o pull-left" style="margin-top: 7px"></i>
+                              <i class="fa fa-3x fa-smile-o pull-right" style="margin-top: 7px"></i>
+                            </div><br/><br/><br/>
 
-                          @foreach($options as $o)
-                          <label><input type="radio" name="answer{{$q->id}}" value="{{$o->id}}" id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                              @foreach($options as $o)
+                              <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}" id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
-                          @endforeach
+                              @endforeach
+                               <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$ctr}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
                           <textarea name="essay" id="essay"></textarea>
 
                         @endif
-                            <br/><br/>
-
-                            <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary pull-right" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
+                           <div class="clearfix"><br/></div>
+                            <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
 
                           
                         </div>
@@ -157,6 +168,58 @@
                       
                     <?php $ctr++; ?>
                     @endforeach
+
+
+                    <img class="extra" src="../storage/uploads/cs_6.jpg" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; display:none; top:0px; left:0px;" width="100%" />
+                    <div class="extra" style="background: rgba(255, 255, 255, 0.8); padding:30px; min-height: 287px; position: absolute; top:15%;left:25px; width: 95%; display: none">
+                            <h4 class="extra text-center" style="width: 100%; text-align: center;" >Help us improve our employee engagement activities by filling out the form below: </h4>
+                            <br/>
+                            <div class="row">
+                              <div class="col-xs-6 text-left">
+                                <label>What best describes your gender?</label><br/>
+                                <label><input type="radio" data-rtype="g" value="Female" name="gender"> Female</label>&nbsp;&nbsp;
+                                <label><input type="radio" data-rtype="g" value="Male" name="gender"> Male</label>&nbsp;&nbsp;
+                                <label><input type="radio" data-rtype="g" value="Prefer Not to Say" name="gender"> Prefer not to say</label>&nbsp;&nbsp;
+                                <label><input type="radio" data-rtype="g" value="Self describe" name="gender"> Prefer to Self-describe</label>&nbsp;&nbsp;
+                                <input type="text" name="genderdesc" class="form-control genderdesc" id="genderdesc" style="width: 70%" placeholder="indicate you gender identity" />
+                              
+                                <div class="clearfix"></div>
+                                <label><br/>Education Level:</label><br/>
+                                <label><input type="radio" data-rtype="e" value="High School" name="education"> High School</label>&nbsp;&nbsp;
+                                <label><input type="radio" data-rtype="e" value="College" name="education"> College</label>&nbsp;&nbsp;
+                                <label><input type="radio" data-rtype="e" value="Postgraduate" name="education"> Postgraduate</label>&nbsp;&nbsp;
+                                <label><input type="radio" data-rtype="e" value="Others" name="education"> Others</label><br/>
+                                <label class="course"  style="width: 100%" ><span>Course:</span> <input type="text" name="course" class="form-control course" id="course"  style="width: 70%"  /></label>
+                              </div>
+                              <div class="col-xs-6 text-left">
+                                 <label>Hobbies and Interests</label><br/>
+                                <textarea class="form-control" name="hobbies" id="hobbies" style="width: 80%"></textarea>
+
+                               
+                                <br/>
+                                 <label>Current Town/City/Province of Residence</label>
+                                <input required="required" type="text" class="form-control" name="city" id="city" placeholder="indicate current city,town or province" style="width: 80%"  />
+                                <br/>
+                                <label>Daily Commute Time (to and from the office)</label><br/>
+                                <label class="pull-left" style="width:120px"><input type="text" class="form-control" name="hrs" id="hrs" placeholder="00" style="width:40%"  />hour(s)</label>
+                                <label class="pull-left" style="margin-left:-60px"><input type="text" class="form-control" name="mins" id="mins" placeholder="00" style="width:40%"  />minutes</label>
+                               
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-xs-6 text-left"><br/>
+                                
+                              </div>
+                              <div class="col-xs-6 text-left">
+                                </div>
+                            </div>
+                            
+                            
+
+                            <a style="margin-top: 20px" id="submit2" class="btn btn-lg btn-success" data-questionid="{{$totalItems+1}}" data-item="{{$totalItems+1}}">Submit <i class="fa fa-check"></i></a>
+                    </div>
+
+
                   </td>
                 </tr>
 
@@ -216,30 +279,73 @@
 
 
    $('.next').fadeOut();//css('display','none');
+   $('textarea[name="notes"]').fadeOut();
+   $('.course').fadeOut();
+   $('.genderdesc').fadeOut();
+
+   @if($extraDataNa == 1)
+
+       $('.question{{$startFrom}}').css('display','none');
+       $('.extra').fadeIn();//css("display","block");
+       $('#instructions').fadeOut();
+       $('.info-box').fadeOut();
+
+   @endif
 
    @if( !is_null($latest))
 
-     var perc = (({{$latest->ordering+1}}/{{$totalItems}})*100).toFixed(0);
+      var perc = (({{$latest->ordering+1}}/{{$totalItems}})*100).toFixed(0);
 
-    $('.question{{$latest->ordering}}').hide();
-    $('.question{{$latest->ordering}}').css('display','none');
-    $('.question{{$latest->ordering + 1}}').fadeIn();//css("display","block");
-    $('.question{{$latest->ordering + 1}}').css("display","block");
-    $('.progress-description').html(perc+" %");
-    $('.progress-bar').css('width',perc+"%");
+      $('.question{{$latest->ordering}}').hide();
+      $('.question{{$latest->ordering}}').css('display','none');
+      $('.question{{$latest->ordering + 1}}').fadeIn();//css("display","block");
+      $('.question{{$latest->ordering + 1}}').css("display","block");
+      $('.progress-description').html(perc+" %");
+      $('.progress-bar').css('width',perc+"%");
 
-    $('#currItem').attr('data-val',{{$latest->ordering + 1}});
+      $('#currItem').attr('data-val',{{$latest->ordering + 1}});
 
-    // hide submit button if done with survey
-    @if($userSurvey->isDone)
-      $('#submit').hide();
-    @endif
+      // hide submit button if done with survey
+      @if($userSurvey->isDone)
+        $('#submit').hide();
+      @endif
 
    @endif
 
    $('input:radio').on('click',function(){
-    var val=$('#currItem').attr('data-val');
-    $('#next'+val).fadeIn(); //css('display','block')
+
+      var rtype = $(this).attr('data-rtype');
+
+      if (rtype == 's') //rbutton for Surveys
+      {
+        var val=$('#currItem').attr('data-val');
+        $('#next'+val).fadeIn(); //css('display','block')
+
+        
+        var r = $(this).val();
+        if (r == 1 || r == 5) $('#notes_q'+val).fadeIn();
+        else $('#notes_q'+val).fadeOut();
+
+      } else if(rtype == 'e')
+      { //rbutton for educ
+
+        var educ = $(this).val();
+
+        if (educ == 'College' || educ == 'Postgraduate'){
+          $('.course').fadeIn();
+          $('.course span').html('Course: ');
+        }else if(educ == 'Others'){
+
+          $('.course span').html('Please specify: ');
+
+        }else $('.course').fadeOut();
+
+      }else if(rtype == 'g'){
+        var desc =  $(this).val();
+        if (desc == 'Self describe') $('#genderdesc').fadeIn();
+        else $('#genderdesc').fadeOut();
+      }
+      
 
    });
 
@@ -260,13 +366,18 @@
       var questionid = $(this).attr('data-questionid');
       var survey_optionsid = $('input[name="answer'+questionid+'"]:checked').val();
       console.log("questionid: " + questionid);
-      console.log(survey_optionsid);
+      //console.log(survey_optionsid);
+
+      //get if may existing comment
+      var comment = $('#notes_q'+questionid).val();
+     
       $.ajax({
                 url: "{{action('SurveyController@saveItem')}}",
                 type:'POST',
                 data:{ 
                   'questionid': questionid,
                   'survey_optionsid': survey_optionsid,
+                  'comment': comment,
                   '_token':_token
                 },
                 success: function(response){
@@ -283,13 +394,18 @@
 
    });
 
+
+
+
    
-  $('#submit').on('click',function(){
+  $('#submit1').on('click',function(){
 
     var questionid = $(this).attr('data-questionid');
+    var item = $(this).attr('data-item');
+    var curr = item-1;
 
 
-    if ($('#essay').val() == '' ) $.notify("We would like to hear from you, so kindly fill out the comment box. Thanks!",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+    if ($('#essay').val() == '' ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
     else {
       $(this).fadeOut();
       var _token = "{{ csrf_token() }}";
@@ -299,14 +415,19 @@
                 type:'POST',
                 data:{ 
                   'questionid': questionid,
-                  'survey_optionsid': 'x',
+                  'survey_optionsid': 'e',
                   'survey_id': '{{$id}}',
                   'answer': $('#essay').val(),
                   '_token':_token
                 },
                 success: function(response){
                   console.log(response);
-                   $.notify("Thank you for taking the time answering our survey!",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                  $('.question'+curr).hide();
+                  $('.extra').fadeIn();//css("display","block");
+                  $('#instructions').fadeOut();
+                  $('.info-box').fadeOut();
+                 
 
                 }
               });
@@ -317,6 +438,65 @@
     }
 
    });
+
+
+  $('#submit2').on('click',function(){
+
+    //check first required values
+    if ( ($('input[name="gender"]:checked').length > 0) && 
+
+         ($('input[name="education"]:checked').length > 0) && ($('#hobbies').val().length > 0) && ( $('#hrs').val().length > 0 || $('#mins').val().length > 0 ) && $('#city').val().length > 0 )
+    {
+      //console.log($('#hobbies').val() );
+      var _token = "{{ csrf_token() }}";
+      var g = $('input[name="gender"]:checked').val();
+
+      if (g == "Self describe"){ var gender = $('input[name="genderdesc"]').val(); }
+      else var gender = g;
+
+      var ed = $('input[name="education"]:checked').val();
+      if (ed == "High School"){ var course = "Senior High"}
+      else { var course = $('input[name="course"]').val();}
+
+      var currentlocation = $('input[name="city"]').val();
+      var hr = $('input[name="hrs"]').val();
+      var mins = $('input[name="mins"]').val();
+
+      $.ajax({
+                url: "{{action('SurveyController@saveItem')}}",
+                type:'POST',
+                data:{ 
+                  
+                  'survey_optionsid': 'x',
+                  'survey_id': '{{$id}}',
+                  'gender': gender,
+                  'education': ed,
+                  'course': course,
+                  'currentlocation': currentlocation,
+                  'hr': hr,
+                  'mins': mins,
+                  'hobbiesinterest': $('#hobbies').val(),
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+                  $('#submit2').fadeOut();
+                   $.notify("Form submitted successfully!",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                   location.replace('../surveyResults/{{$id}}');
+
+                }
+              });
+      
+    } else{
+
+      $.notify("All fields are required. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+      return false;
+
+    }
+
+      
+
+  });
 
   $('body').keyup(function (e){
 

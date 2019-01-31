@@ -696,6 +696,14 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'survey.saveSurvey',
       'uses'=>'SurveyController@saveSurvey') );
 
+    Route::post('/bePart', array(
+      'as'=> 'survey.bePart',
+      'uses'=>'SurveyController@bePart') );
+
+    Route::get('/surveyResults/{id}', array(
+      'as'=> 'survey.surveyResults',
+      'uses'=>'SurveyController@surveyResults') );
+
     Route::post('/saveItem', array(
       'as'=> 'survey.saveItem',
       'uses'=>'SurveyController@saveItem') );
