@@ -421,7 +421,7 @@ class SurveyController extends Controller
         $m = $my->where('user_id',$this->user->id);
         $m2 = collect($m);
         $n = $m2->whereIn('question',[13,15,44,45,49]);
-        $nps = ($n->pluck('answer')->sum())/count($n->pluck('answer'));
+        $nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
         $promoter=false;
         $detractor=false;
 
