@@ -73,7 +73,7 @@
                   <div class="progress-bar" style="width: {{$percentage}}%"></div>
                 </div>
                 <span class="progress-description">
-                      {{$completed}} <small>out of</small> {{$actives}} Open Access Employees have completed the Employee Experience Survey
+                      {{$completed}} <small>out of</small> {{$actives}} Open Access Employees ( Makati | Davao ) have completed the Employee Experience Survey
                     </span>
               </div>
               <!-- /.info-box-content -->

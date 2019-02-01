@@ -93,13 +93,13 @@ class SurveyController extends Controller
 
             $e = $extraData->first();
 
-            if ($request->nps > 4.5){
+            if ($request->nps >= 4){
                 
                 $e->beEEC = $request->bepart;
                 $e->save();
                 return response()->json($e);
 
-            } else if ($request->nps < 1.6){
+            } else if ($request->nps <= 2.5 ){
 
                 
                 $e->forGD = $request->bepart;
@@ -405,8 +405,18 @@ class SurveyController extends Controller
         if (count($e) > 0) $extraData = $e->first()->beEEC;
         else $extraData=null;
 
+        //$actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+        //                select('users.status_id')->get());
+
+        //exclude Taipei and Xiamen
         $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
-                        select('users.status_id')->get());
+                        leftJoin('team','team.user_id','=','users.id')->
+                        select('users.id','team.floor_id')->
+                        where('team.floor_id','!=',10)->
+                        where('team.floor_id','!=',11)->get());
+
+        //return count($actives);
+                    //);
         $completed = count(Survey_User::where('isDone',true)->get());
         $percentage = number_format(($completed / $actives)*100,2);
 
