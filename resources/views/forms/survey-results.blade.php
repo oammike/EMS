@@ -30,9 +30,9 @@
             <div class="col-lg-10">
 
               <div class="chart" style="width: 25%; float: right;">
-                        <!-- Sales Chart Canvas -->
-                        <div class="chart" id="sales-chart" style="height: 250px;"></div>
-                  </div>
+                <div class="chart" id="sales-chart" style="height: 250px;"></div>
+                <p style="font-size: 0.8em;" class="text-center">* ( your employee <strong>N</strong>et <strong>P</strong>romoter <strong>S</strong>core )</p>
+              </div>
 
               <h1 class="text-primary"><br/><br/>Thank you</h1>
                    <h3 style="font-weight: lighter;"> for completing the Employee Experience Survey and sharing your thoughts and insights - we value them. <br/><br/>
@@ -139,7 +139,7 @@
 
    var vals =[];
 
-    vals[0] = { label:"NPS", value:{{$nps}} };
+    vals[0] = { label:"eNPS", value:{{$nps}} };
 
    var donut = new Morris.Donut({
               element  : 'sales-chart',
