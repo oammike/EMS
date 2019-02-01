@@ -174,7 +174,10 @@ class SurveyController extends Controller
             if (!empty($request->hr)) $hr = $request->hr * 60;
             else $hr = 0;
 
-            $extra->commuteTime = $hr + $request->mins;
+            if (!empty($request->mins)) $mins = $request->mins;
+            else $mins = 0;
+
+            $extra->commuteTime = $hr + $mins;
             $extra->hobbiesinterest = $request->hobbiesinterest;
             $extra->save();
 
