@@ -425,10 +425,10 @@ class SurveyController extends Controller
         $promoter=false;
         $detractor=false;
 
-        if ($nps > 4.5) {$color = "#3c8dbc"; $promoter=true; } //blue;
-        else if ($nps > 3.6 && $nps <= 4.5 ) $color="#8ccb2c"; //green
-        else if ($nps >= 2.6 && $nps <= 3.5 ) $color="#ffe417"; //yellow
-        else if ($nps >= 1.6 && $nps <= 2.5 ) $color="#f36b19"; //orange
+        if ($nps >= 4.0) {$color = "#3c8dbc"; $promoter=true; } //blue;
+        //else if ($nps > 3.6 && $nps <= 4.5 ) $color="#8ccb2c"; //green
+        else if ($nps >= 2.1 && $nps <= 3.9 ) $color="#ffe417"; //yellow
+        //else if ($nps >= 1.6 && $nps <= 2.1 ) $color="#f36b19"; //orange
         else { $color="#fd1e1e"; $detractor=true; } //red
 
        

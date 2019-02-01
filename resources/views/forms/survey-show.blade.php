@@ -335,7 +335,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
           $('.course').fadeIn();
           $('.course span').html('Course: ');
         }else if(educ == 'Others'){
-
+          $('.course').fadeIn();
           $('.course span').html('Please specify: ');
 
         }else $('.course').fadeOut();
