@@ -96,10 +96,17 @@
 
   <?php */ ?>  
 
-
-
-
                             <div class="item active text-center" >
+
+                              <img src="./storage/uploads/ees.jpg" style="z-index: 2" />
+                              <br/><br/>
+                              <a class="btn btn-lg btn-primary" href="./survey/1">Start Survey</a><br/><br/>
+                            </div>
+
+
+
+
+                            <div class="item text-center" >
 
                               <img src="./public/img/hellos_grubs.jpg" style="z-index: 2" />
                               <p style="padding:20px">Thank you for all your hard work and for being with the Open Access BPO family. This year is full of exciting things ahead as a lot of activities await you while we continue to grow.<br/><br/>
