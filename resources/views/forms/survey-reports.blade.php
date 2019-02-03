@@ -244,7 +244,7 @@
     var donut = new Morris.Donut({
       element  : 'sales-chart',
       resize   : true,
-      colors   : [  '#3c8dbc', '#8ccb2c', '#ffe417','#fd1e1e',],//'#f39c12',
+      colors   : [  '#3c8dbc', '#8ccb2c', '#ffe417','#f39c12','#fd1e1e',],//',
       data     : vals,
       hideHover: 'auto'
     });
