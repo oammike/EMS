@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categorytag extends Model
 {
-    protected $table='categorytags';
+    protected $table='categoryTags';
 
     protected $fillable = [
         'value','label'
