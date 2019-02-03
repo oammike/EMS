@@ -230,8 +230,8 @@ class SurveyController extends Controller
 
         DB::connection()->disableQueryLog(); 
 
-        $existing = Survey::find($id);
-        if (empty($existing)) return view('empty');
+        $survey = Survey::find($id);
+        if (empty($survey)) return view('empty');
 
         $us = Survey_User::where('user_id',$this->user->id)->where('survey_id',$id)->get();
 
@@ -323,7 +323,7 @@ class SurveyController extends Controller
         // $survey->push(['answers'=>$options, 'questions'=>$questions]);
 
 
-        return view('forms.survey-show', compact('id','totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+        return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
 
 
                    

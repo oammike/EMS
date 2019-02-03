@@ -163,7 +163,7 @@
 
     var c = $('#bepart').is(':checked');
     var _token = "{{ csrf_token() }}";
-    if (c) {var bepart = '1'; var msg = "Thank you!"; var cname = "success"} else {var bepart='0'; var msg= "Noted."; var cname="error"; } 
+    if (c) {var bepart = '1'; var msg = "Thank you for taking interest to be part of it. We will keep you posted for further details."; var cname = "success"} else {var bepart='0'; var msg= "Okay, this is noted. Hope you'd change your mind and reconsider to take part on this."; var cname="error"; } 
 
 
 

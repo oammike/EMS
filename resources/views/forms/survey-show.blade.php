@@ -10,10 +10,11 @@
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1><i class="fa fa-file"></i> 2019 Employee Experience Survey </h1>
+      <h4><i class="fa fa-file"></i> {{$survey->name}} </h4>
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Access Denied</li>
+        <li>Surveys</li>
+        <li class="active"> {{$survey->name}} </li>
       </ol>
     </section>
 
@@ -56,7 +57,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                      </div>
                     
                     <!-- /.info-box -->
-                    <h1 id="currItem" data-val="{{$startFrom}}" style="position: absolute;top:0px">{{$startFrom}}</h1>
+                    <h5 id="currItem" data-val="{{$startFrom}}" style="position: absolute;top:0px">{{$startFrom}}</h5>
                     <?php $ctr=1; ?>
                     @foreach($questions as $q)
 
@@ -323,7 +324,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
         
         var r = $(this).val();
-        if (r == 1 || r == 5) $('#notes_q'+val).fadeIn();
+        if (r != 3) $('#notes_q'+val).fadeIn();
         else $('#notes_q'+val).fadeOut();
 
       } else if(rtype == 'e')
@@ -404,8 +405,10 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
     var item = $(this).attr('data-item');
     var curr = item-1;
 
+    console.log($('#essay').val().length);
 
-    if ($('#essay').val() == '' ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+    if ($('#essay').val() == '' || $('#essay').val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
     else {
       $(this).fadeOut();
       var _token = "{{ csrf_token() }}";
@@ -441,6 +444,24 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
 
   $('#submit2').on('click',function(){
+
+    //check if gay
+    if ($('input[name="gender"]:checked').val() == 'Self describe')
+    {
+      if ($('#genderdesc').val() == ''){
+
+        $.notify("All fields are required. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );return false;
+      }
+      
+    } else if ($('input[name="education"]:checked').val() != 'High School'){
+
+      if($('#course').val() == ''){
+         $.notify("All fields are required. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );return false;
+      }
+
+    }
+
+
 
     //check first required values
     if ( ($('input[name="gender"]:checked').length > 0) && 

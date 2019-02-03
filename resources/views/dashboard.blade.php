@@ -214,6 +214,32 @@ select:-webkit-autofill:focus {
 
               <div class="col-lg-5 col-sm-6 col-xs-12">
 
+                <!--EES -->
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">EES 2019</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <div class="item active text-center" >
+                          <img src="./storage/uploads/ees.jpg" style="z-index: 2" width="95%" />
+                          <br/><br/>
+                          <a class="btn btn-lg btn-primary" href="./survey/1">Start Survey</a><br/><br/>
+                        </div>
+                    </div>
+                  </div>
+
+
+                
+                <?php /*
+
                 <!--VIDEOS -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
@@ -240,7 +266,8 @@ select:-webkit-autofill:focus {
                               
                     </div>
                   </div>
-                <?php /*
+
+
                   <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos</h3>
@@ -390,20 +417,22 @@ select:-webkit-autofill:focus {
   $(function () {
    'use strict';
 
-   var vid = document.getElementById("teaser");
-   vid.onplay = function() {
-        //alert("The video has started to play");
-        $.ajax({
-                url: "{{action('HomeController@logAction','5')}}",
-                type: "GET",
-                data: {'action': '5'},
-                success: function(response){
-                          console.log(response);
+   /* ---- VIDEO PLAYER -------- */
+   // var vid = document.getElementById("teaser");
+   // vid.onplay = function() {
+   //      //alert("The video has started to play");
+   //      $.ajax({
+   //              url: "{{action('HomeController@logAction','5')}}",
+   //              type: "GET",
+   //              data: {'action': '5'},
+   //              success: function(response){
+   //                        console.log(response);
 
-              }
+   //            }
 
-        });
-    };
+   //      });
+   //  };
+     /* ---- VIDEO PLAYER -------- */
 
    $(window).bind("load", function() {
 
