@@ -72,13 +72,13 @@ class SurveyController extends Controller
     public function index()
     {
       $surveys = Survey::all();
-      return $surveys;
+
+      return view('forms.survey-index',compact('surveys'));
+      
 
     }
 
-    
 
-   
 
     public function create()
     {
@@ -140,6 +140,96 @@ class SurveyController extends Controller
 
         
        
+    }
+
+    public function report($id)
+    {
+      $survey = Survey::find($id);
+
+      DB::connection()->disableQueryLog(); 
+
+      $surveyData = new Collection;
+      $npsData = new Collection;
+      $programData = new Collection;
+
+      $categoryTags = Categorytag::all();
+
+      $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
+                    join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+                    join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                    join('users','users.id','=','survey_user.user_id')->
+                    join('team','team.user_id','=','survey_user.user_id')->
+                    join('campaign','team.campaign_id','=','campaign.id')->
+                    //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
+                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice')->
+                    where('survey_user.isDone',1)->get();
+
+
+      $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
+     
+
+      $groupedResp = collect($allResp)->groupBy('userID');
+      $groupedNPS = collect($nspResponses)->groupBy('userID'); 
+
+      foreach ($groupedNPS as $n) {
+          $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
+          $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps), 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
+
+      }
+
+      $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
+      $passives = collect($npsData)->whereIn('roundedNPS',['3']);
+      $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
+     
+
+
+
+     
+      //$nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
+     
+
+      foreach ($groupedResp as $key) {
+
+        $avg = number_format(collect($key)->pluck('rating')->avg(),2);
+
+        $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg,'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
+          # code...
+      }
+
+      $totalBackoffice = count(collect($surveyData)->where('backOffice',1));
+      $totalOps = count(collect($surveyData)->where('backOffice',0));
+      
+      $groupedRatings = collect($surveyData)->groupBy('rounded');
+
+      $programs = collect($surveyData)->groupBy('program')->sort(); 
+
+
+
+
+      foreach ($programs->sort() as $p) {
+        //$programData->push(['count'=>count($p), 'p'=>$p[0]['programID']]);
+
+          $total = count(DB::table('team')->where('campaign_id',$p[0]['programID'])->
+                        join('users','users.id','=','team.user_id')->
+                        select('users.status_id')->
+                        where('users.status_id',"!=",7)->
+                        where('users.status_id',"!=",8)->
+                        where('users.status_id',"!=",9)->get()); //count(Team::where('campaign_id',$p[0]['programID'])->get());
+          $l = Campaign::find($p[0]['programID'])->logo['filename'];
+
+          if (empty($l)) $logo = "white_logo_small.png";
+          else $logo = $l;
+
+          $programData->push(['name'=>$p[0]['program'],'respondents'=>count($p), 'total'=>$total, 'logo'=>$logo]);
+      }
+     
+
+
+      
+
+      return view('forms.survey-reports',compact('survey','categoryTags', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData'));
+      
+
     }
 
     public function saveItem(Request $request)
