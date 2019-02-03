@@ -96,48 +96,260 @@
 
   <?php */ ?>  
 
+
+                      <div class="item active text-center" >
+                              
+                              <img src="./storage/uploads/hello_grubs1.jpg" style="z-index: 2" />
+                              <h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                              <p style="padding:20px">Our 2019 kicked off with a splendid breakfast filled with fun conversations shared by the Open Access BPO executives and employees -- what a great way to start the year! 
+                                Thanks to everyone who joined us earlier on our first <strong class="text-orange">Hellos &amp; Grubs</strong> session!<br/><br/>We can't wait to meet the next batch in a few days!</p>
+                                <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
+                       </div>  
+
+
+                       <div class="item text-center">
+
+                        
+
+                          <img src="./storage/uploads/hobbyist_1.jpg" style="z-index: 2" />
+                          
+                          <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/531" target="_blank">Patrick Ocampo</a> is a Team Leader from one of our amazing campaigns. He loves to spend his time off work with activities that stimulate the body and brain.<br/><br/>
+
+                          <strong class="text-primary">@idrewwithacamera: </strong>
+                          January is Hobby Month! Activities that stimulate the body and brain: improv theater, badminton, console gaming, puzzles, reading! </p>
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                       </div>
+
+                       <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_2.jpg" style="z-index: 2" />
                             
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/531" target="_blank">Patrick Ocampo</a> is a Team Leader from one of our amazing campaigns. He loves to spend his time off work with activities that stimulate the body and brain.<br/><br/>
+
+                            <strong class="text-primary">@idrewwithacamera: </strong>
+                            January is Hobby Month! Activities that stimulate the body and brain: improv theater, badminton, console gaming, puzzles, reading! </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                       </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_3.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/531" target="_blank">Patrick Ocampo</a> is a Team Leader from one of our amazing campaigns. He loves to spend his time off work with activities that stimulate the body and brain.<br/><br/>
+
+                            <strong class="text-primary">@idrewwithacamera: </strong>
+                            January is Hobby Month! Activities that stimulate the body and brain: improv theater, badminton, console gaming, puzzles, reading! </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_4.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/1958" target="_blank">Riech Heherson de Vera</a>  is a Customer Care Associate from one of our new campaigns. Off work, he spends his time on theatre acting or by creating astounding makeup looks.<br/><br/>
+
+                            <strong class="text-primary"> @itsmesondevera:</strong>
+                           Creating beauty as a makeup artist and portraying different characters as an actor gives pleasure to my mind, body and soul. @lsdvglamteam @itsmesondevera </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_5.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/1958" target="_blank">Riech Heherson de Vera</a>  is a Customer Care Associate from one of our new campaigns. Off work, he spends his time on theatre acting or by creating astounding makeup looks.<br/><br/>
+
+                            <strong class="text-primary"> @itsmesondevera:</strong>
+                           Creating beauty as a makeup artist and portraying different characters as an actor gives pleasure to my mind, body and soul. @lsdvglamteam @itsmesondevera </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_6.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/1958" target="_blank">Riech Heherson de Vera</a>  is a Customer Care Associate from one of our new campaigns. Off work, he spends his time on theatre acting or by creating astounding makeup looks.<br/><br/>
+
+                            <strong class="text-primary"> @itsmesondevera:</strong>
+                           Creating beauty as a makeup artist and portraying different characters as an actor gives pleasure to my mind, body and soul. @lsdvglamteam @itsmesondevera </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_7.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/62" target="_blank">Jeffrey Aspacio</a> is @openaccessbpo's Senior SEO Strategist. Aside from having an active lifestyle, he also loves to spend his time off work with his family and by playing musical instruments. <br/><br/>
+
+                            <strong class="text-primary">@jaspacio: </strong>
+                           Top 5 activities that I enjoy, when I'm not wearing my hat 🎩 as Sr SEO Strategist for @openaccessbpo:<br/>
+
+                            1. Spending time with #family 👪 <br/>
+                            2. Running 🏃 (📸 @icanyoucanofficial)<br/>
+                            3. Playing the #drums <br/>
+                            4. Playing the 🎸 #guitar <br/>
+                            5. Playing #football <br/>
+
+                            I ❤ these because they make me feel alive.  </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_8.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/62" target="_blank">Jeffrey Aspacio</a> is @openaccessbpo's Senior SEO Strategist. Aside from having an active lifestyle, he also loves to spend his time off work with his family and by playing musical instruments. <br/><br/>
+
+                            <strong class="text-primary">@jaspacio: </strong>
+                           Top 5 activities that I enjoy, when I'm not wearing my hat 🎩 as Sr SEO Strategist for @openaccessbpo:<br/>
+
+                            1. Spending time with #family 👪 <br/>
+                            2. Running 🏃 (📸 @icanyoucanofficial)<br/>
+                            3. Playing the #drums <br/>
+                            4. Playing the 🎸 #guitar <br/>
+                            5. Playing #football <br/>
+
+                            I ❤ these because they make me feel alive.  </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_9.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/62" target="_blank">Jeffrey Aspacio</a> is @openaccessbpo's Senior SEO Strategist. Aside from having an active lifestyle, he also loves to spend his time off work with his family and by playing musical instruments. <br/><br/>
+
+                            <strong class="text-primary">@jaspacio: </strong>
+                           Top 5 activities that I enjoy, when I'm not wearing my hat 🎩 as Sr SEO Strategist for @openaccessbpo:<br/>
+
+                            1. Spending time with #family 👪 <br/>
+                            2. Running 🏃 (📸 @icanyoucanofficial)<br/>
+                            3. Playing the #drums <br/>
+                            4. Playing the 🎸 #guitar <br/>
+                            5. Playing #football <br/>
+
+                            I ❤ these because they make me feel alive.  </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_10.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/534" target="_blank">Luis Anthony Oliveros</a> is @openaccessbpo's lead Digital Content Specialist. During his spare time, he likes to do things he enjoys most such as drawing and listening to podcasts. <br/><br/>
+
+                            <strong class="text-primary">@greyweed: </strong>
+                           
+                              Sharing my hobbies because January is apparently #HobbyMonth [tagged by @JAspacio]<br/>
+
+                              1. #DRAWING. Been doing #pen and #ink #drawings since grade school and added some digital coloring during college. The ones I've managed to post here are tagged #DesksideDoodles.<br/>
+
+                              2. #IMPROV. I've wanted to get into improv since high school, but only took the plunge last year.<br/>
+
+                              3. GEOLOCATION GAMES. Playing location-based AR games like @PokemonGoApp and @Ingress Prime.<br/>
+
+                              4. #PODCASTS. I listen to nearly 30 comedy, horror, geek-themed, and pop culture podcasts.<br/>
+
+                              5. READING. Love sci-fi- and mystery-themed books and Filipino graphic novels. Sadly, I've been busy recently with my other hobbies, but I plan on denting my unread book pile this year.<br/>
+
+                              6. SCULPTING. Another hobby that's been in the backburner for months now: molding things out of polymer clay. </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_11.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/534" target="_blank">Luis Anthony Oliveros</a>  is @openaccessbpo's lead Digital Content Specialist. During his spare time, he likes to do things he enjoys most such as drawing and listening to podcasts. <br/><br/>
+
+                            <strong class="text-primary">@greyweed: </strong>
+                           
+                              Sharing my hobbies because January is apparently #HobbyMonth [tagged by @JAspacio]<br/>
+
+                              1. #DRAWING. Been doing #pen and #ink #drawings since grade school and added some digital coloring during college. The ones I've managed to post here are tagged #DesksideDoodles.<br/>
+
+                              2. #IMPROV. I've wanted to get into improv since high school, but only took the plunge last year.<br/>
+
+                              3. GEOLOCATION GAMES. Playing location-based AR games like @PokemonGoApp and @Ingress Prime.<br/>
+
+                              4. #PODCASTS. I listen to nearly 30 comedy, horror, geek-themed, and pop culture podcasts.<br/>
+
+                              5. READING. Love sci-fi- and mystery-themed books and Filipino graphic novels. Sadly, I've been busy recently with my other hobbies, but I plan on denting my unread book pile this year.<br/>
+
+                              6. SCULPTING. Another hobby that's been in the backburner for months now: molding things out of polymer clay. </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_12.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/534" target="_blank">Luis Anthony Oliveros</a>  is @openaccessbpo's lead Digital Content Specialist. During his spare time, he likes to do things he enjoys most such as drawing and listening to podcasts. <br/><br/>
+
+                            <strong class="text-primary">@greyweed: </strong>
+                           
+                              Sharing my hobbies because January is apparently #HobbyMonth [tagged by @JAspacio]<br/>
+
+                              1. #DRAWING. Been doing #pen and #ink #drawings since grade school and added some digital coloring during college. The ones I've managed to post here are tagged #DesksideDoodles.<br/>
+
+                              2. #IMPROV. I've wanted to get into improv since high school, but only took the plunge last year.<br/>
+
+                              3. GEOLOCATION GAMES. Playing location-based AR games like @PokemonGoApp and @Ingress Prime.<br/>
+
+                              4. #PODCASTS. I listen to nearly 30 comedy, horror, geek-themed, and pop culture podcasts.<br/>
+
+                              5. READING. Love sci-fi- and mystery-themed books and Filipino graphic novels. Sadly, I've been busy recently with my other hobbies, but I plan on denting my unread book pile this year.<br/>
+
+                              6. SCULPTING. Another hobby that's been in the backburner for months now: molding things out of polymer clay. </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_13.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/1717" target="_blank">Wendy Pilar </a>  is @openaccessbpo's Digital Content Specialist. She loves to take photographs, paint, and watch drama series on her leisure time.  <br/><br/>
+
+                            <strong class="text-primary"> @wndunne:  </strong><br/>
+                              Happy Hobby Month! 
+                              I have three hobbies I usually spend my time off work on: photography, watercolor painting, and watching Chinese/Korean/Thai drama series. 
+                              Among the three, photography brings me joy the most. It's where I also feel most at peace. </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                       <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_14.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/1717" target="_blank">Wendy Pilar </a>  is @openaccessbpo's Digital Content Specialist. She loves to take photographs, paint, and watch drama series on her leisure time.  <br/><br/>
+
+                            <strong class="text-primary"> @wndunne:  </strong><br/>
+                              Happy Hobby Month! 
+                              I have three hobbies I usually spend my time off work on: photography, watercolor painting, and watching Chinese/Korean/Thai drama series. 
+                              Among the three, photography brings me joy the most. It's where I also feel most at peace. </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                       <div class="item text-center">
+                          <img src="./storage/uploads/hobbyist_15.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px"><strong>#FeaturedHobbyist:</strong> <a href="./user/1717" target="_blank">Wendy Pilar </a>  is @openaccessbpo's Digital Content Specialist. She loves to take photographs, paint, and watch drama series on her leisure time.  <br/><br/>
+
+                            <strong class="text-primary"> @wndunne:  </strong><br/>
+                              Happy Hobby Month! 
+                              I have three hobbies I usually spend my time off work on: photography, watercolor painting, and watching Chinese/Korean/Thai drama series. 
+                              Among the three, photography brings me joy the most. It's where I also feel most at peace. </p>
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      
 
 
 
 
-                            <div class="item active text-center" >
-
-                              <img src="./public/img/hellos_grubs.jpg" style="z-index: 2" />
-                              <p style="padding:20px">Thank you for all your hard work and for being with the Open Access BPO family. This year is full of exciting things ahead as a lot of activities await you while we continue to grow.<br/><br/>
-
-
-
-Before the month ends, <br/><strong class="text-orange">we invite you to a breakfast/ dinner</strong> <br/>to sit down and catch up with you, and just get to know you better. This is also a great opportunity to meet other employees from different programs/departments and our executive leaders as well!<br/><br/>
-
-
-
-Your breakfast / dinner is on us! <br/>Here’s the schedule:<br/>
-
-<strong>January 30, 2019 (Wednesday) – 7:00am-10:00am<br/>
-               OR<br/>
-
-January 31, 2019 (Thursday) – 7:00pm-10:00pm<br/></strong>
-
-
-Venue: TBA (but will be walking distance from the Jaka Building office)<br/><br/>
-
-
-
-Kindly choose the date that works best for you. <!-- The registration is now open and will end on January 28, 2019 (Monday) at exactly 11:00am. --> Final list of participants will be picked randomly via lottery and will be notified on January 29, 2019 (Tuesday) via email.<br/><br/>
-
-
-
-If your preferred schedule is still in conflict with your shift, no need to worry as we will do our best to adjust your work schedule.<br/><br/>
-
-
-
-<span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
-
-
-<!--
-<h4><a href="http://172.17.0.2/coffeebreak/event/open-access-bpo-hellos-and-grubs/" target="_blank">Click on this link to sign up now!</a></h4> --></p>
-                            </div>            
+                                      
                           
 
                            
@@ -353,7 +565,13 @@ If your preferred schedule is still in conflict with your shift, no need to worr
 
                             
 
-                          <div class="item text-center">
+                          
+
+                            <?php /* 
+
+
+                            <!-- RUNNERS -->
+                            <div class="item text-center">
 
                               <img src="storage/uploads/runner-eunice.png" />
                               <div style="padding:10px; position: absolute;bottom: -20px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
@@ -387,7 +605,47 @@ through New York's five boroughs as a first-time Open Access BPO representative 
                              
                            </div> 
 
-                            <?php /* 
+                            <!--HELLO GRUBS -->
+                            <div class="item active text-center" >
+
+                              <img src="./public/img/hellos_grubs.jpg" style="z-index: 2" />
+                              <p style="padding:20px">Thank you for all your hard work and for being with the Open Access BPO family. This year is full of exciting things ahead as a lot of activities await you while we continue to grow.<br/><br/>
+
+
+
+Before the month ends, <br/><strong class="text-orange">we invite you to a breakfast/ dinner</strong> <br/>to sit down and catch up with you, and just get to know you better. This is also a great opportunity to meet other employees from different programs/departments and our executive leaders as well!<br/><br/>
+
+
+
+Your breakfast / dinner is on us! <br/>Here’s the schedule:<br/>
+
+<strong>January 30, 2019 (Wednesday) – 7:00am-10:00am<br/>
+               OR<br/>
+
+January 31, 2019 (Thursday) – 7:00pm-10:00pm<br/></strong>
+
+
+Venue: TBA (but will be walking distance from the Jaka Building office)<br/><br/>
+
+
+
+Kindly choose the date that works best for you. <!-- The registration is now open and will end on January 28, 2019 (Monday) at exactly 11:00am. --> Final list of participants will be picked randomly via lottery and will be notified on January 29, 2019 (Tuesday) via email.<br/><br/>
+
+
+
+If your preferred schedule is still in conflict with your shift, no need to worry as we will do our best to adjust your work schedule.<br/><br/>
+
+
+
+<span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
+
+
+<!--
+<h4><a href="http://172.17.0.2/coffeebreak/event/open-access-bpo-hellos-and-grubs/" target="_blank">Click on this link to sign up now!</a></h4> --></p>
+                            </div>  
+
+
+
 
                              <div class="item text-center" >
 
