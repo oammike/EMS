@@ -13,7 +13,8 @@
       <h1><i class="fa fa-file"></i> {{$survey->name}} </h1>
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Access Denied</li>
+        <li><a href="{{action('SurveyController@index')}}"><i class="fa fa-question"></i> Surveys</a></li>
+        <li class="active">{{$survey->name}} </li>
       </ol>
     </section>
 

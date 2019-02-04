@@ -27,7 +27,9 @@
             <div class="box-header with-border">
               <h3 class="box-title">{{$survey->name}}</h3>
 
+
               <div class="box-tools pull-right">
+                <a class="btn btn-xs btn-default" style="margin-right: 35px"><i class="fa fa-download"></i> Download Raw Data</a>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <div class="btn-group">
@@ -40,7 +42,8 @@
                     <li class="divider"></li>
                     <li><a href="#">Separated link</a></li>
                   </ul>
-                </div>
+
+                </div> 
                 <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
               </div>
             </div>
@@ -54,6 +57,25 @@
 
                   <!-- DONUT CHART -->
                   <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+
+
+                  <div class="info-box bg-blue" style="margin-top: 28px">
+                    <span class="info-box-icon"><img src="../../public/img/white_logo_small.png" width="90%" /></span>
+
+                    <div class="info-box-content">
+                      <span class="info-box-text"></span>
+                      <span class="info-box-number">{{$percentage}}% </span>
+
+                      <div class="progress">
+                        <div class="progress-bar" style="width: {{$percentage}}%"></div>
+                      </div>
+                      <span class="progress-description">
+                            {{ count($surveyData)}} <small>out of</small> {{$actives}} Open Access Employees ( Makati | Davao ) <br/>
+                            <span style="font-size: x-small;">have completed the Employee Experience Survey</span>
+                          </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
                  
                   <!-- /.chart-responsive -->
                 </div>
@@ -110,6 +132,8 @@
                     </div>
                   </div>
                   <!-- /.progress-group -->
+
+                  <h1 style="padding:25px; background:rgba(154,245,38,0.5);" class="text-center">eNPS : <strong>{{ $eNPS }} </strong><span style="font-size: 0.5em;"><i class="fa fa-smile-o"></i></span> </h1>
                 </div>
                 <!-- /.col -->
               </div>
@@ -140,22 +164,45 @@
             <div class="box-footer">
               <h3 class="text-primary"><i class="fa fa-check"></i> Compliance per Program</h3><br/>
 
+
               @foreach($programData->sortBy('name') as $p)
-              <div class="info-box bg-blue pull-left" style="width: 48%; margin-right: 10px">
-                @if ($p['logo'] == "white_logo_small.png")
-                  <span class="info-box-icon"><img src="../../public/img/{{$p['logo']}}" width="50%" /></span>
+
+              @if ($p['logo'] == "white_logo_small.png")
+
+                  <span class="info-box-icon" style=" width: 180px;margin-left: 20px; background:url(../../public/img/{{$p['logo']}}) no-repeat; background-color: #dedede ">
+                    <h4 style="padding-top: 25px">{{$p['name']}} </h4>
+                    
+                  </span>
+
                 @else
-                  <span class="info-box-icon" style="background-color: #fff"><img src="../../public/img/{{$p['logo']}}" width="80%" /></span>
+                  <span class="info-box-icon" style="background-color: #fff; border:solid 1px #0073b7; overflow: hidden; width: 180px;margin-left: 20px">
+                    <a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">
+                    <img src="../../public/img/{{$p['logo']}}" width="140px" /></a></span>
                 @endif
 
-                  <div class="info-box-content">
-                    <span class="info-box-text">{{$p['name']}} </span>
-                    <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% </span>
+              <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px">
+                
 
+                  <div class="info-box-content" style="margin-left: 0px;">
+                   
+                    <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+                    <span class="progress-description">{{$p['respondents']}} / {{$p['total']}} <em style="font-size: smaller;">employee respondents</em> </span>
                     <div class="progress">
                       <div class="progress-bar" style="width: {{$p['respondents']/$p['total']*100 }}%"></div>
                     </div>
-                    <span class="progress-description">{{$p['respondents']}} out of {{$p['total']}} </span>
+                    
+                    Experience: 
+                    <span style="color:#ffda46">
+                      @for ($i = 1; $i <= $p['aveRating']; $i++)
+                      <i class="fa fa-star"></i>
+                      @endfor
+
+                      @for ($c = 5; $c > $p['aveRating']; $c-- ) 
+                      <i class="fa fa-star-o"></i>
+                      @endfor
+                      
+                    </span><!-- <span class="label label-success" style="font-size: large;">5</span> -->
+                    <span style="font-size: x-small;">&nbsp;&nbsp;(average)</span>
                   </div>
                   <!-- /.info-box-content -->
               </div>
@@ -232,8 +279,10 @@
     var i = 0;
     @foreach($groupedRatings as $g)
 
-    
+          
           vals[i] = {label:"Rating: [{{$g[0]['rounded']}}]", value:"{{count($g)}}" };
+          
+          // vals[i] = {label:"Rating: [{{$g[0]['rounded']}}]", value:"{{count($g)}}" };
           i++;
       
     @endforeach

@@ -165,28 +165,14 @@ class SurveyController extends Controller
                     where('survey_user.isDone',1)->get();
 
 
+
       $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
      
 
       $groupedResp = collect($allResp)->groupBy('userID');
       $groupedNPS = collect($nspResponses)->groupBy('userID'); 
 
-      foreach ($groupedNPS as $n) {
-          $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
-          $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps), 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
 
-      }
-
-      $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
-      $passives = collect($npsData)->whereIn('roundedNPS',['3']);
-      $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
-     
-
-
-
-     
-      //$nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
-     
 
       foreach ($groupedResp as $key) {
 
@@ -202,6 +188,20 @@ class SurveyController extends Controller
       $groupedRatings = collect($surveyData)->groupBy('rounded');
 
       $programs = collect($surveyData)->groupBy('program')->sort(); 
+
+
+     foreach ($groupedNPS as $n) {
+          $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
+          $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps), 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
+
+      }
+
+      $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
+      $passives = collect($npsData)->whereIn('roundedNPS',['3']);
+      $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
+
+      $eNPS = round((count($promoters)/count($surveyData))*100 - (count($detractors)/count($surveyData))*100);
+     
 
 
 
@@ -220,14 +220,21 @@ class SurveyController extends Controller
           if (empty($l)) $logo = "white_logo_small.png";
           else $logo = $l;
 
-          $programData->push(['name'=>$p[0]['program'],'respondents'=>count($p), 'total'=>$total, 'logo'=>$logo]);
+          $progAve = round(number_format($surveyData->where('programID',$p[0]['programID'])->pluck('rating')->avg(),1));
+
+          $programData->push(['id'=>$p[0]['programID'], 'name'=>$p[0]['program'],'respondents'=>count($p), 'total'=>$total, 'aveRating'=>$progAve, 'logo'=>$logo]);
       }
-     
 
 
-      
-
-      return view('forms.survey-reports',compact('survey','categoryTags', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData'));
+      //exclude Taipei and Xiamen
+        $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+                        leftJoin('team','team.user_id','=','users.id')->
+                        select('users.id','team.floor_id')->
+                        where('team.floor_id','!=',10)->
+                        where('team.floor_id','!=',11)->get());
+        $percentage = number_format( (  count($surveyData)/ $actives) * 100,2);
+       
+      return view('forms.survey-reports',compact('survey','categoryTags', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage'));
       
 
     }

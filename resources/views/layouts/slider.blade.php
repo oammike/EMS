@@ -106,6 +106,18 @@
                                 <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
                        </div>  
 
+                       <div class="item text-center" >
+                              
+                              <img src="./storage/uploads/letsgetphysical.jpg" style="z-index: 2" />
+                              <p style="padding:20px">We are going to have free Zumba & Yogalates classes this week at the G2 office. The sign-up form has been sent out through Zimba already, and we are asking for your support to remind your respective teams to check out the email on Zimbra! For quick reference, here's the link: <br/><br/><a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+
+                              The classes are free, and the employees may also use the shower rooms at the G2 office after each session. For those who will take the Yogalates class, the yoga mats will be provided.<br/><br/>
+
+                              Employees may come before/after their shifts, during their break times, or rest days. However, should this coincide with their work schedule, they may approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated.<br/><br/>
+
+                              This week will be a test run and may be offered weekly, depending on the response this week.</p>
+                        </div>
+
 
                        <div class="item text-center">
 
