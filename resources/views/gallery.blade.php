@@ -32,7 +32,12 @@
            <strong>develop</strong> from the <strong>negatives</strong>, and if things don't work out -- <br/>
            you just take another <strong>shot</strong>".</i></h5>
 
-          <div id="gallery"></div>
+          <div id="gallery">
+            
+            <h2 class="text-center" style="position: absolute; top: 0; left:auto; width: 100%"><br/><br/><br/><br/>
+              Loading images. Please wait...<i class="fa fa-refresh"></i> <br/>
+             </h2>
+          </div>
      
           
         </div>
