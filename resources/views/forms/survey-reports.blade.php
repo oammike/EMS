@@ -51,7 +51,7 @@
             <div class="box-body">
               <div class="row">
                 <div class="col-md-8">
-                  <h5 class="text-center">Data as of: <span class="text-primary">{{ date('M d, Y H:i') }}</span> </h5>
+                  <h5 class="text-center">Data as of: <span class="text-primary">{{ $asOf }}</span> </h5>
                   <p class="text-center">
                     <strong>Average Satisfaction Rating</strong>
                   </p>

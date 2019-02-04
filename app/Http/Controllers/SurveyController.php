@@ -233,8 +233,10 @@ class SurveyController extends Controller
                         where('team.floor_id','!=',10)->
                         where('team.floor_id','!=',11)->get());
         $percentage = number_format( (  count($surveyData)/ $actives) * 100,2);
+
+        $asOf = Carbon::now('GMT+8')->format('M d, Y h:i A');
        
-      return view('forms.survey-reports',compact('survey','categoryTags', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage'));
+      return view('forms.survey-reports',compact('survey','categoryTags', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
       
 
     }
