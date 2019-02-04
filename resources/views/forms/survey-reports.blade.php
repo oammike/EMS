@@ -51,6 +51,7 @@
             <div class="box-body">
               <div class="row">
                 <div class="col-md-8">
+                  <h5 class="text-center">Data as of: <span class="text-primary">{{ date('M d, Y H:i') }}</span> </h5>
                   <p class="text-center">
                     <strong>Average Satisfaction Rating</strong>
                   </p>
@@ -106,7 +107,7 @@
                   <p><br/></p>
                   <h4><i class="fa fa-users"></i> Respondent Type<br/><br/></h4>
                   <div class="progress-group">
-                    <span class="progress-text">Promoters <span class="text-primary">( {{number_format(  ( count($promoters)/count($surveyData) )*100 ,1) }}% ) </span></span>
+                    <span class="progress-text">Promoters <span class="text-primary">( {{number_format(  round(( count($promoters)/count($surveyData) )*100 ,1)) }}% ) </span></span>
                     <span class="progress-number"><b>{{ count($promoters) }} </b>/ {{count($surveyData)}} </span>
 
                     <div class="progress sm">
@@ -115,7 +116,7 @@
                   </div>
 
                   <div class="progress-group">
-                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  ( count($passives)/count($surveyData) )*100 ,1) }}% ) </span></span>
+                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1)) }}% ) </span></span>
                     <span class="progress-number"><b>{{ count($passives) }}</b>/ {{count($surveyData)}}</span>
 
                     <div class="progress sm">
@@ -124,7 +125,7 @@
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Detractors <span class="text-primary">( {{number_format(  ( count($detractors)/count($surveyData) )*100 ,1) }}% ) </span></span>
+                    <span class="progress-text">Detractors <span class="text-primary">( {{number_format(  round(( count($detractors)/count($surveyData) )*100 ,1)) }}% ) </span></span>
                     <span class="progress-number"><b>{{ count($detractors) }}</b>/ {{count($surveyData)}}</span>
 
                     <div class="progress sm">
@@ -133,7 +134,7 @@
                   </div>
                   <!-- /.progress-group -->
 
-                  <h1 style="padding:25px; background:rgba(154,245,38,0.5);" class="text-center">eNPS : <strong>{{ $eNPS }} </strong><span style="font-size: 0.5em;"><i class="fa fa-smile-o"></i></span> </h1>
+                  <h1 style="margin-top: 55px; padding:25px; background:rgba(154,245,38,0.5); color:#666" class="text-center">eNPS : <strong style="color: #000">{{ $eNPS }} </strong><span style="font-size: 0.5em;"></span> </h1>
                 </div>
                 <!-- /.col -->
               </div>

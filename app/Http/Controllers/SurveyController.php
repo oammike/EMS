@@ -200,7 +200,7 @@ class SurveyController extends Controller
       $passives = collect($npsData)->whereIn('roundedNPS',['3']);
       $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
 
-      $eNPS = round((count($promoters)/count($surveyData))*100 - (count($detractors)/count($surveyData))*100);
+      $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
      
 
 
