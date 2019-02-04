@@ -151,8 +151,8 @@ class SurveyController extends Controller
       $surveyData = new Collection;
       $npsData = new Collection;
       $programData = new Collection;
+      $categoryData = new Collection;
 
-      $categoryTags = Categorytag::all();
 
       $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
                     join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
@@ -229,11 +229,15 @@ class SurveyController extends Controller
 
 
       //****** ALL CATEGORY RELATED DATA
+      foreach ($groupedCat as $key) {
 
+            //$r = collect($key)->pluck('rating')->
+            $r = number_format(collect($key)->pluck('rating')->avg(),2);
+            $categoryData->push(['categoryID'=>$key[0]->categoryID, 'aveRating'=>$r,'categoryName'=>$key[0]->categoryLabel]);
+          # code...
+      }
 
-
-
-
+     
         //exclude Taipei and Xiamen
         $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
                         leftJoin('team','team.user_id','=','users.id')->
@@ -252,7 +256,7 @@ class SurveyController extends Controller
         }
 
        
-      return view('forms.survey-reports',compact('survey','categoryTags', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+      return view('forms.survey-reports',compact('survey','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
       
 
     }
@@ -442,6 +446,11 @@ class SurveyController extends Controller
 
 
                    
+    }
+
+    public function showCategory($id)
+    {
+        # code...
     }
 
      public function store(Request $request)

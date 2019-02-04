@@ -142,14 +142,31 @@
             </div>
             <!-- ./box-body -->
             <div class="box-footer">
+              <h4 class="text-center" style="padding:20px">Average Rating per Category</h4>
               <div class="row">
 
-                @foreach($categoryTags as $ct)
+
+                @foreach($categoryData as $ct)
                 <div class="col-sm-3 col-xs-6">
                   <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> %</span>
-                    <h5 class="description-header"></h5>
-                    <span class="description-text">{{$ct->label}} </span>
+                    
+                    @if( $ct['aveRating'] >= 4.0 )
+                    <h4 class="description-header text-blue"> {{$ct['aveRating']}} </h4>
+                    @elseif ($ct['aveRating'] >= 3.8 && $ct['aveRating'] < 3.99 )
+                    <h4 class="description-header text-green"> {{$ct['aveRating']}}  </h4>
+                    @elseif ($ct['aveRating'] >= 3.5 && $ct['aveRating'] < 3.89 )
+                    <h4 class="description-header text-orange"> {{$ct['aveRating']}}</h4>
+                    @elseif ($ct['aveRating'] >= 2.0 && $ct['aveRating'] < 3.49 )
+                    <h4 class="description-header text-red"> {{$ct['aveRating']}}</h4>
+                    @elseif ($ct['aveRating'] < 1.99 )
+                    <h4 class="description-header text-red"> {{$ct['aveRating']}} </h4>
+                    @endif
+                    <span class="description-text">
+                      <!-- <a style="font-weight: bolder; font-size: smaller; color: #333; text-decoration: underline;" href="{{action('SurveyController@showCategory',$ct['categoryID'])}} "><i class="fa fa-external-link"></i> -->
+                        {{$ct['categoryName']}} &nbsp; 
+                        <span style="font-size: smaller;"> </span> 
+                      <!-- </a> -->
+                    </span>
                   </div>
                   <!-- /.description-block -->
                 </div>
