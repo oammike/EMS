@@ -160,20 +160,25 @@ class SurveyController extends Controller
                     join('users','users.id','=','survey_user.user_id')->
                     join('team','team.user_id','=','survey_user.user_id')->
                     join('campaign','team.campaign_id','=','campaign.id')->
+                    join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
+                    join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
                     //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice')->
+                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice')->
                     where('survey_user.isDone',1)->get();
+
+
 
 
 
       $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
      
-
       $groupedResp = collect($allResp)->groupBy('userID');
       $groupedNPS = collect($nspResponses)->groupBy('userID'); 
+      $groupedCat = collect($allResp)->groupBy('categoryID');
 
 
 
+      //****** ALL SURVEY DATA
       foreach ($groupedResp as $key) {
 
         $avg = number_format(collect($key)->pluck('rating')->avg(),2);
@@ -190,6 +195,7 @@ class SurveyController extends Controller
       $programs = collect($surveyData)->groupBy('program')->sort(); 
 
 
+      //****** ALL NSP DATA
      foreach ($groupedNPS as $n) {
           $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
           $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps), 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
@@ -203,12 +209,8 @@ class SurveyController extends Controller
       $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
      
 
-
-
-
+      //****** ALL CAMPAIGN RELATED DATA
       foreach ($programs->sort() as $p) {
-        //$programData->push(['count'=>count($p), 'p'=>$p[0]['programID']]);
-
           $total = count(DB::table('team')->where('campaign_id',$p[0]['programID'])->
                         join('users','users.id','=','team.user_id')->
                         select('users.status_id')->
@@ -226,7 +228,13 @@ class SurveyController extends Controller
       }
 
 
-      //exclude Taipei and Xiamen
+      //****** ALL CATEGORY RELATED DATA
+
+
+
+
+
+        //exclude Taipei and Xiamen
         $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
                         leftJoin('team','team.user_id','=','users.id')->
                         select('users.id','team.floor_id')->
