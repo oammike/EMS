@@ -45,20 +45,31 @@
                      @if($promoter)
 
                      <div style="border: 2px dotted #fff; padding:30px; background: rgba(255, 255, 255, 0.4);">
+                      <a href="{{action('SurveyController@report',$survey->id)}}" class="btn btn-success btn-xs pull-right"><i class="fa fa-bar-chart"></i> Survey Results </a>
+
                        <label><input type="checkbox" name="bepart" id="bepart" /> &nbsp;&nbsp; <em>I would like to be a part of Employee Engagement Committee.</em> </label>
                       
 
                      </div><!--end dotted box-->
 
-                     @endif
+                     @elseif ($detractor)
 
-                     @if($detractor)
+                     <div style="border: 2px dotted #fff; padding:30px; background: rgba(255, 255, 255, 0.4);"> 
 
-                     <div style="border: 2px dotted #fff; padding:30px; background: rgba(255, 255, 255, 0.4);">
+                      <a href="{{action('SurveyController@report',$survey->id)}}" class="btn btn-success btn-xs pull-right"><i class="fa fa-bar-chart"></i> Survey Results </a>
+
                        <label><input type="checkbox" name="bepart" id="bepart" /> &nbsp;&nbsp; <em>I would like join a focused group discussion to address top concerns.</em> </label>
+
+
+
                       
 
                      </div><!--end dotted box-->
+
+                     @else
+
+                      <a href="{{action('SurveyController@report',$survey->id)}}" class="btn btn-success btn-xs pull-right"><i class="fa fa-bar-chart"></i> Survey Results </a>
+
 
                      @endif
 

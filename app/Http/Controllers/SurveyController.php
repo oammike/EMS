@@ -255,8 +255,14 @@ class SurveyController extends Controller
             fclose($file);
         }
 
-       
-      return view('forms.survey-reports',compact('survey','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+        //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
+        $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+        if (in_array($this->user->id, $testgroup)){
+
+            return view('forms.survey-reports',compact('survey','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+
+        }else
+            return view('forms.survey-reports2',compact('survey','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
       
 
     }

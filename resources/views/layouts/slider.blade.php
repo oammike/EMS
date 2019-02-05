@@ -96,15 +96,17 @@
 
   <?php */ ?>  
 
-
                       <div class="item active text-center" >
                               
-                              <img src="./storage/uploads/hello_grubs1.jpg" style="z-index: 2" />
-                              <h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
-                              <p style="padding:20px">Our 2019 kicked off with a splendid breakfast filled with fun conversations shared by the Open Access BPO executives and employees -- what a great way to start the year! 
-                                Thanks to everyone who joined us earlier on our first <strong class="text-orange">Hellos &amp; Grubs</strong> session!<br/><br/>We can't wait to meet the next batch in a few days!</p>
-                                <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
-                       </div>  
+                            <img src="./storage/uploads/cny2019.jpg" style="z-index: 2" />
+                            <h1 class="text-danger text-center">新年快乐!</h1>
+                            <p style="padding: 30px; margin-bottom: 0px">To all our Chinese colleagues, families, and compatriots, wishing you happiness, good health, and prosperity in the Year of the Pig! <br/><br/>#WeSpeakYourLanguage #OAonChineseNewYear #CNY2019
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonChineseNewYear #CNY2019</small></a></div> <br/><br/><br/><br/>
+                       </div> 
+
 
                        <div class="item text-center" >
                               
@@ -117,6 +119,18 @@
 
                               This week will be a test run and may be offered weekly, depending on the response this week.</p>
                         </div>
+
+
+                      <div class="item text-center" >
+                              
+                              <img src="./storage/uploads/hello_grubs1.jpg" style="z-index: 2" />
+                              <h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                              <p style="padding:20px">Our 2019 kicked off with a splendid breakfast filled with fun conversations shared by the Open Access BPO executives and employees -- what a great way to start the year! 
+                                Thanks to everyone who joined us earlier on our first <strong class="text-orange">Hellos &amp; Grubs</strong> session!<br/><br/>We can't wait to meet the next batch in a few days!</p>
+                                <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
+                       </div>  
+
+                       
 
 
                        <div class="item text-center">
