@@ -461,6 +461,12 @@ class SurveyController extends Controller
 
         if (empty($category)) return view('empty');
 
+        //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan 508,1644,,491, 471, 367
+        $testgroup = [564,1611,1784,1,184,344];
+        if (!in_array($this->user->id, $testgroup)){
+            return view('access-denied');
+        }
+
         $categoryData = DB::table('categoryTags')->where('categoryTags.id',$id)->
                         join('survey_questions_category','survey_questions_category.categoryTag_id','=','categoryTags.id')->
                         join('survey_questions','survey_questions_category.survey_questionID','=','survey_questions.id')->
