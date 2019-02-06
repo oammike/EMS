@@ -2112,7 +2112,52 @@ class MovementController extends Controller
 
                 }
 
-        $pdf = PDF::loadView('evaluation.pdf-movement', compact('oldCampaign','newCampaign', 'hrPersonnel', 'movement', 'employee','reason','requestedBy', 'movementdetails', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue') );
+
+        //********* we get the PM or Director for approval
+                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                $theApprover = null;
+                $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+
+                $l1 = User::find($movement->user_id)->supervisor;
+                
+                if (count($l1) > 0){
+                    $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                    //return $l2;
+                    
+                    if (in_array($l2->id, $allowedPMs))
+                    {
+                        $theApprover = $l2;
+                    }else{
+
+
+                        $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                       
+                        if (in_array($l3->id, $allowedPMs)){
+
+                            $theApprover = $l3;
+
+                        } else{
+
+                            $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+                            
+
+                            if (in_array($l4->id, $allowedPMs)){
+                                $theApprover = $l4;
+
+                            } else $theApprover = User::find(1784);
+                        }
+
+                    }
+
+                }else $theApprover= User::find(1784);
+
+
+
+        $theApproverTitle = Position::find($theApprover->position_id);        
+
+        $pdf = PDF::loadView('evaluation.pdf-movement', compact('theApprover','theApproverTitle', 'oldCampaign','newCampaign', 'hrPersonnel', 'movement', 'employee','reason','requestedBy', 'movementdetails', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue') );
         return $pdf->stream('movement_'.$employee->lastname."_".$employee->firstname.'.pdf');
 
     }

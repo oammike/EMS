@@ -1654,7 +1654,7 @@
                           @endif
                            
                         @if ( $signatureRequestedBy !== null )
-                         <img class="signature" src="{{$signatureRequestedBy}}" width="140" /><br/>
+                         <!-- <img class="signature" src="{{$signatureRequestedBy}}" width="140" /> --><br/>
 
                           @else
                          <br/><br/>
@@ -1670,14 +1670,14 @@
                       <td  class="text-center"  style="border:solid 0px #fff" ><strong>Approved by: <br /><br/><br/> 
 
                        @if($signatureHR !== null)
-                        <img class="signature" src="{{$signatureOpsMgr}}" width="140" /><br/>
+                       <!--  <img class="signature" src="{{$signatureOpsMgr}}" width="140" /> --><br/>
                          @else
                         <p>&nbsp;</p><p>&nbsp;</p>
                         @endif
                         
                          
-                        Michael Chang</strong><br>
-                        <em>Operations Manager</em></td>
+                        {{$theApprover->firstname}} {{$theApprover->lastname}} </strong><br>
+                        <em>{{$theApproverTitle->name}} </em></td>
 
                     </tr>
 
@@ -1686,7 +1686,7 @@
 
                                                 
                         @if ( $signatureRequestedTo !== null )
-                         <img class="signature" src="{{$signatureRequestedTo}}" width="140" /><br/>
+                         <!-- <img class="signature" src="{{$signatureRequestedTo}}" width="140" /> --><br/>
 
                          @else
                          <br/><br/><br/><br/>
