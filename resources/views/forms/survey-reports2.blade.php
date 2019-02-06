@@ -29,28 +29,16 @@
 
 
               <div class="box-tools pull-right">
-                <a class="btn btn-xs btn-default" style="margin-right: 35px"><i class="fa fa-download"></i> Download Raw Data</a>
+                
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-wrench"></i></button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-
-                </div> 
-                <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                   <h5 class="text-center">Data as of: <span class="text-primary">{{ $asOf }}</span> </h5>
                   <p class="text-center">
                     <strong>Average Satisfaction Rating</strong>
@@ -81,96 +69,17 @@
                   <!-- /.chart-responsive -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-4">
-                  <p class="text-center">
-                    <strong>Survey Respondents</strong>
-                  </p>
-
-                  <div class="progress-group">
-                    <span class="progress-text">Back Office ({{ number_format( ( $totalBackoffice/count($surveyData) )*100 ,1)}}%) </span>
-                    <span class="progress-number"><b>{{$totalBackoffice}} </b>/ {{count($surveyData)}} </span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-pink" style="width: {{( $totalBackoffice/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Operations  ({{ number_format( ( $totalOps/count($surveyData) )*100 ,1)}}%) </span>
-                    <span class="progress-number"><b>{{$totalOps}} </b>/{{count($surveyData)}}</span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-pink" style="width: {{( $totalOps/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <p><br/></p>
-                  <h4><i class="fa fa-users"></i> Respondent Type<br/><br/></h4>
-                  <div class="progress-group">
-                    <span class="progress-text">Promoters <span class="text-primary">( {{number_format(  round(( count($promoters)/count($surveyData) )*100 ,1)) }}% ) </span></span>
-                    <span class="progress-number"><b>{{ count($promoters) }} </b>/ {{count($surveyData)}} </span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-aqua" style="width: {{( count($promoters)/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-
-                  <div class="progress-group">
-                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1)) }}% ) </span></span>
-                    <span class="progress-number"><b>{{ count($passives) }}</b>/ {{count($surveyData)}}</span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-green" style="width: {{( count($passives)/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Detractors <span class="text-primary">( {{number_format(  round(( count($detractors)/count($surveyData) )*100 ,1)) }}% ) </span></span>
-                    <span class="progress-number"><b>{{ count($detractors) }}</b>/ {{count($surveyData)}}</span>
-
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-red" style="width: {{( count($detractors)/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-
-                  <h1 style="margin-top: 55px; padding:25px; background:rgba(154,245,38,0.5); color:#666" class="text-center">eNPS : <strong style="color: #000">{{ $eNPS }} </strong><span style="font-size: 0.5em;"></span> </h1>
-                </div>
-                <!-- /.col -->
+                
               </div>
               <!-- /.row -->
             </div>
             <!-- ./box-body -->
             <div class="box-footer">
-              <h4 class="text-center" style="padding:20px">Average Rating per Category</h4>
+              
               <div class="row">
 
 
-                @foreach($categoryData as $ct)
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    
-                    @if( $ct['aveRating'] >= 4.0 )
-                    <h4 class="description-header text-blue"> {{$ct['aveRating']}} </h4>
-                    @elseif ($ct['aveRating'] >= 3.8 && $ct['aveRating'] < 3.99 )
-                    <h4 class="description-header text-green"> {{$ct['aveRating']}}  </h4>
-                    @elseif ($ct['aveRating'] >= 3.5 && $ct['aveRating'] < 3.89 )
-                    <h4 class="description-header text-orange"> {{$ct['aveRating']}}</h4>
-                    @elseif ($ct['aveRating'] >= 2.0 && $ct['aveRating'] < 3.49 )
-                    <h4 class="description-header text-red"> {{$ct['aveRating']}}</h4>
-                    @elseif ($ct['aveRating'] < 1.99 )
-                    <h4 class="description-header text-red"> {{$ct['aveRating']}} </h4>
-                    @endif
-                    <span class="description-text">
-                      <a style="font-weight: lighter; font-size:0.9em; ; color: #333; text-decoration: underline;" href="{{action('SurveyController@showCategory',$ct['categoryID'])}} ">
-                        {{$ct['categoryName']}} &nbsp; 
-                        <span style="font-size: smaller;"><i class="fa fa-external-link"></i> </span> 
-                      </a>
-                    </span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                @endforeach
+                
                 
               </div>
               <!-- /.row -->
@@ -188,9 +97,7 @@
               @if ($p['logo'] == "white_logo_small.png")
 
                   <span class="info-box-icon" style=" width: 180px;margin-left: 20px; background:url(../../public/img/{{$p['logo']}}) no-repeat; background-color: #dedede ">
-                    <h4 style="padding-top: 25px">
-                      <a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">{{$p['name']}}</a>
-                    </h4>
+                    <h4 style="padding-top: 25px"><a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">{{$p['name']}}</a> </h4>
                     
                   </span>
 
@@ -313,7 +220,7 @@
     var donut = new Morris.Donut({
       element  : 'sales-chart',
       resize   : true,
-      colors   : [   '#8ccb2c', '#3c8dbc','#ffe417','#f39c12','#fd1e1e',],//',
+      colors   : [  '#3c8dbc', '#8ccb2c', '#ffe417','#f39c12','#fd1e1e',],//',
       data     : vals,
       hideHover: 'auto'
     });

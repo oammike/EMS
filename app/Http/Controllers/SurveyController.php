@@ -456,7 +456,74 @@ class SurveyController extends Controller
 
     public function showCategory($id)
     {
-        # code...
+        DB::connection()->disableQueryLog(); 
+        $category = Categorytag::find($id);
+
+        if (empty($category)) return view('empty');
+
+        $categoryData = DB::table('categoryTags')->where('categoryTags.id',$id)->
+                        join('survey_questions_category','survey_questions_category.categoryTag_id','=','categoryTags.id')->
+                        join('survey_questions','survey_questions_category.survey_questionID','=','survey_questions.id')->
+                        join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+                        leftJoin('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                        join('team','team.user_id','=','survey_responses.user_id')->
+                        //join('users','users.id','=','survey_responses.user_id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        //leftJoin('survey_notes','survey_notes.user_id','=','survey_responses.user_id')->
+                        select('categoryTags.label','survey_questions.value as question','survey_questions.id as questionID','survey_questions.img',  'survey_responses.survey_optionsID as answer', 'campaign.name as program', 'survey_responses.user_id', 'survey_user.isDone')->
+                        where('survey_user.isDone',1)->get();
+        $questions = collect($categoryData)->groupBy('questionID');
+
+        //return $questions;
+
+        $chartData = new Collection;
+        $colors = [ "rgba(255,92,83,1)","#f99123","#f9e123","#37d04b","#3b8ee6","#6551d0","#d17de4","#ef5cac","#56f6ff","#9bda38"];
+        
+        //["rgba(255,92,83,1)","rgba(237,243,13,1)","rgba(58,217,218,1)","rgba(153,239,91,1)","rgba(255,92,83,1)","rgba(237,243,13,1)","rgba(58,217,218,1)","rgba(153,239,91,1)","rgba(255,92,83,1)","rgba(237,243,13,1)","rgba(58,217,218,1)","rgba(153,239,91,1)",];
+        
+
+        foreach ($questions as $key) {
+
+            $q1 = collect($key)->whereIn('answer',[1]);
+            $q2 = collect($key)->whereIn('answer',[2]);
+            $q3 = collect($key)->whereIn('answer',[3]);
+            $q4 = collect($key)->whereIn('answer',[4]);
+            $q5 = collect($key)->whereIn('answer',[5]);
+            //$u = collect($key)->sortBy('user_id')->pluck('user_id');
+            
+
+            $note = DB::table('survey_notes')->where('survey_notes.question_id',$key[0]->questionID)->where('comments','!=',null)->
+                    //leftJoin('survey_responses','survey_notes.user_id','=', 'survey_responses.user_id')->
+                    join('users','survey_notes.user_id','=','users.id')->
+                    join('team','team.user_id','=','survey_notes.user_id')->
+                    join('campaign','campaign.id','=','team.campaign_id')->
+                    select('users.id as user_id','survey_notes.comments', 'users.dateHired','campaign.name as program','campaign.isBackoffice')->get();//'survey_responses.survey_optionsID as rating',
+
+            //***** get notes/comments
+            $ratings = new Collection;
+            foreach ($note as $n) {
+                $r = Survey_Response::where('question_id',$key[0]->questionID)->where('user_id',$n->user_id)->first();
+
+                $ratings->push($r->survey_optionsID);
+            }
+           $asOf = Carbon::now('GMT+8')->format('M d, Y h:i A');
+
+            $chartData->push(['question'=>$key[0]->question,'questionID'=>$key[0]->questionID,'bg'=>$key[0]->img,  '1s'=>count($q1),'2s'=>count($q2),'3s'=>count($q3),'4s'=>count($q4),'5s'=>count($q5),'total'=>count($key),'notes'=>$note, 'ratings'=>$ratings]);
+
+            # code...
+        }
+
+
+         if($this->user->id !== 564 ) {
+          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n Viewed Survey Cat (".$id.") by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        }
+
+
+        //return $chartData->sortBy('questionID');
+        return view('forms.survey-category',compact('category','chartData','asOf','colors'));
+
     }
 
      public function store(Request $request)
