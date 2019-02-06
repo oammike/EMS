@@ -176,8 +176,8 @@
                         <br>
                         <em id="requestorPosition"></em></td>
                       <td  class="text-center"><strong>Approved by: <br /><br/><br/> <p>&nbsp;</p><p>&nbsp;</p>
-                        Michael Chang</strong><br>
-                        <em>Operations Manager</em></td>
+                        {{$theApprover->firstname}} {{$theApprover->lastname}} </strong><br>
+                        <em>{{$theApproverTitle->name}} </em></td>
 
                     </tr>
 

@@ -206,10 +206,11 @@
                        
                         
                          @if ( $isTheRequestor && ($signatureRequestedBy == null) )
-                         <p class="text-center"> <a href="#" class="notedBtn btn btn-md btn-success" data-type="isNotedFrom"><i class="fa fa-check"></i> Acknowledge and Sign Digitally</a></p> 
+                         <p class="text-center"> <a href="#" class="notedBtn btn btn-md btn-success" data-type="isNotedFrom"><i class="fa fa-check"></i> Acknowledge </a></p> 
 
                          @else
-                         <img class="signature" src="{{$signatureRequestedBy}}" width="200" /><br/>
+                         <!-- <img class="signature" src="$signatureRequestedBy" width="200" /> -->
+                         <br/>
 
 
                          @endif
@@ -221,13 +222,14 @@
                       <td  class="text-center"><strong>Approved by: <br /><br/><br/> <p>&nbsp;</p>
                        
                        @if($signatureHR !== null)
-                        <img class="signature" src="{{$signatureOpsMgr}}" width="200" /><br/>
+                        <!-- <img class="signature" src="{{$signatureOpsMgr}}" width="200" /> -->
+                        <br/>
                          @else
                         <p>&nbsp;</p><p>&nbsp;</p>
                         @endif
 
-                        Michael Chang</strong><br>
-                        <em>Operations Manager</em></td>
+                        {{$theApprover->firstname}} {{$theApprover->lastname}}</strong><br>
+                        <em>{{$theApproverTitle->name}} </em></td>
 
                     </tr>
 
@@ -235,7 +237,7 @@
                       <td class="text-center"style="padding-top:40px;"><br /><br/><br/>
 
                         @if ( $noteTo && ($signatureRequestedTo == null) )
-                         <p class="text-center"> <a href="#" class="notedBtn btn btn-md btn-success" data-type="isNotedTo"><i class="fa fa-check"></i> Acknowledge and Sign Digitally</a></p> 
+                         <p class="text-center"> <a href="#" class="notedBtn btn btn-md btn-success" data-type="isNotedTo"><i class="fa fa-check"></i> Acknowledge <!-- and Sign Digitally --></a></p> 
 
                          @else
                          <img class="signature" src="{{$signatureRequestedTo}}" width="200" /><br/>
@@ -249,7 +251,7 @@
                       <td class="text-center"style="padding-top:40px;"><strong>Noted by:</strong> <br /><br/><p>&nbsp;</p>
                        
                         @if($signatureHR !== null)
-                        <img class="signature" src="{{$signatureHR}}" width="200" /><br/>
+                        <!-- <img class="signature" src="{{$signatureHR}}" width="200" /> --><br/>
                          @else
                         <p>&nbsp;</p><p>&nbsp;</p>
                         @endif
@@ -266,7 +268,7 @@
                   @if ( $movement->isApproved==false && ($movement->personnelChange_id == 3 || $movement->personnelChange_id == 4) && (!empty($canAttachSignatures) && !$transferredToMe )  )
                   <p class="text-center"> <a href="#" class="btn btn-md btn-flat btn-success" id="approve" data-interCampaign="false"><i class="fa fa-check"></i> Approve Movement</a></p> 
                   @elseif ( ((!empty($canAttachSignatures) && !$transferredToMe ) && $movement->isApproved==false) && $interCampaign == true)
-                   <p class="text-center"> <a href="#" class="notedBtn btn btn-md btn-flat btn-success" data-type="interCampaign"><i class="fa fa-check"></i> Acknowledge and Attach Digital Signatures</a></p> 
+                   <p class="text-center"> <a href="#" class="notedBtn btn btn-md btn-flat btn-success" data-type="interCampaign"><i class="fa fa-check"></i> Acknowledge </a></p> 
                    @elseif ( ((!empty($canAttachSignatures) && !$transferredToMe ) && $movement->isApproved==false) && $interCampaign == false)
                    <p class="text-center"> <a href="#" class="btn btn-md btn-flat btn-success" id="approve" data-interCampaign="false"><i class="fa fa-check"></i> Approve Movement</a></p> 
                    @endif

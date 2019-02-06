@@ -294,8 +294,51 @@ class MovementController extends Controller
                        
                     } 
 
+                    //********* we get the PM or Director for approval
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                    $theApprover = null;
+                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+
+
+                        $l1 = $personnel->supervisor;
+                        
+                        if (count($l1) > 0){
+                            $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                            
+                            if (in_array($l2->id, $allowedPMs))
+                            {
+                                $theApprover = $l2;
+                            }else{
+
+
+                                $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                                //return $l3;
+                                if (in_array($l3->id, $allowedPMs)){
+
+                                    $theApprover = $l3;
+
+                                } else{
+
+                                    $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                                    if (in_array($l4->id, $allowedPMs)){
+                                        $theApprover = $l4;
+
+                                    } else $theApprover = User::find(1784);
+                                }
+
+                            }
+
+                        }else $theApprover= User::find(1784);
+
+
+
+                $theApproverTitle = Position::find($theApprover->position_id); 
+
                     
-                       return view('people.changePersonnel', compact('users','leaders','requestor', 'signatureRequestedBy','requestorPosition', 'requestorCampaign', 'hrPersonnels',  'campaigns', 'floors', 'personnel', 'immediateHead', 'statuses','changes', 'positions'));//'myCampaign',
+                       return view('people.changePersonnel', compact('theApproverTitle','theApprover', 'users','leaders','requestor', 'signatureRequestedBy','requestorPosition', 'requestorCampaign', 'hrPersonnels',  'campaigns', 'floors', 'personnel', 'immediateHead', 'statuses','changes', 'positions'));//'myCampaign',
 
                 } else 
                 {
@@ -514,9 +557,53 @@ class MovementController extends Controller
 
                 }
 
-              
 
-                return view('people.changePersonnel', compact('signatureRequestedBy', 'users','canMoveOthers','requestor', 'requestorPosition', 'requestorCampaign','leaders','immediateHead', 'hrPersonnels', 'campaigns', 'floors', 'personnel','statuses','changes', 'positions')); //'myCampaign', 
+                 //********* we get the PM or Director for approval
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                    $theApprover = null;
+                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+
+
+                        $l1 = $personnel->supervisor;
+                        
+                        if (count($l1) > 0){
+                            $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                            
+                            if (in_array($l2->id, $allowedPMs))
+                            {
+                                $theApprover = $l2;
+                            }else{
+
+
+                                $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                                //return $l3;
+                                if (in_array($l3->id, $allowedPMs)){
+
+                                    $theApprover = $l3;
+
+                                } else{
+
+                                    $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                                    if (in_array($l4->id, $allowedPMs)){
+                                        $theApprover = $l4;
+
+                                    } else $theApprover = User::find(1784);
+                                }
+
+                            }
+
+                        }else $theApprover= User::find(1784);
+
+
+
+                $theApproverTitle = Position::find($theApprover->position_id); 
+
+            
+
+                return view('people.changePersonnel', compact('theApprover','theApproverTitle', 'signatureRequestedBy', 'users','canMoveOthers','requestor', 'requestorPosition', 'requestorCampaign','leaders','immediateHead', 'hrPersonnels', 'campaigns', 'floors', 'personnel','statuses','changes', 'positions')); //'myCampaign', 
 
     }
 
@@ -1648,7 +1735,7 @@ class MovementController extends Controller
       
 
         $canAttachSignatures = UserType::find($this->user->userType_id)->roles->where('label','APPROVE_MOVEMENTS')->first();
-
+        $signatureHR =null;
         
 
 
@@ -1656,22 +1743,33 @@ class MovementController extends Controller
         //check if this movement has been approved, then display all necessary signatures
         if($movement->isApproved)
         {
-                $opsMgr = User::where('lastname','Chang')->where('firstname','Michael')->first();
+            goto getPM;
+                //$opsMgr = User::where('lastname','Chang')->where('firstname','Michael')->first();
+                $opsMgr = null;
                 $notedBy = User::find($movement->notedBy);
 
-                if ( file_exists('public/img/employees/'.$opsMgr->id.'-sign.png') )
-                 {
-                    $signatureOpsMgr = asset('public/img/employees/'.$opsMgr->id.'-sign.png');
-                 } else {
-                    $signatureOpsMgr = asset('public/img/employees/signature.png');
-                 }
+               
 
-                 if ( file_exists('public/img/employees/'.$notedBy->id.'-sign.png') )
-                 {
-                    $signatureHR = asset('public/img/employees/'.$notedBy->id.'-sign.png');
-                 } else {
-                    $signatureHR = asset('public/img/employees/signature.png');
-                 }
+        //         $leader_L2 = User::where('employeeNumber',$immediateHead->employeeNumber)->first();
+        // $leader_L1 = ImmediateHead::find(ImmediateHead_Campaign::find($leader_L2->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
+        // $leader_L0 = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L1->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
+        // $leader_PM = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L0->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
+
+
+
+                // if ( file_exists('public/img/employees/'.$opsMgr->id.'-sign.png') )
+                //  {
+                //     $signatureOpsMgr = null;// asset('public/img/employees/'.$opsMgr->id.'-sign.png');
+                //  } else {
+                    $signatureOpsMgr = null; // asset('public/img/employees/signature.png');
+                 //}
+
+                 // if ( file_exists('public/img/employees/'.$notedBy->id.'-sign.png') )
+                 // {
+                    $signatureHR = null; // asset('public/img/employees/'.$notedBy->id.'-sign.png');
+                 // } else {
+                 //    $signatureHR = null; //asset('public/img/employees/signature.png');
+                 // }
 
             
         } else {
@@ -1679,7 +1777,50 @@ class MovementController extends Controller
             $signatureOpsMgr=null; $signatureHR = null;
         }
 
+        getPM:
+                //********* we get the PM or Director for approval
+                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                $theApprover = null;
+                $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
 
+                $l1 = User::find($movement->user_id)->supervisor;
+                
+                if (count($l1) > 0){
+                    $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                    //return $l2;
+                    
+                    if (in_array($l2->id, $allowedPMs))
+                    {
+                        $theApprover = $l2;
+                    }else{
+
+
+                        $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                       
+                        if (in_array($l3->id, $allowedPMs)){
+
+                            $theApprover = $l3;
+
+                        } else{
+
+                            $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+                            
+
+                            if (in_array($l4->id, $allowedPMs)){
+                                $theApprover = $l4;
+
+                            } else $theApprover = User::find(1784);
+                        }
+
+                    }
+
+                }else $theApprover= User::find(1784);
+
+
+
+        $theApproverTitle = Position::find($theApprover->position_id);        
         $requestedBy = ImmediateHead::find($movement->requestedBy);
 
         //$requestedBy = ImmediateHead::find(ImmediateHead_Campaign::find($movement->requestedBy)->immediateHead_id);
@@ -1809,7 +1950,7 @@ class MovementController extends Controller
 
                                 
                                  //ImmediateHead::where('campaign_id',$hisNew->id)->orderBy('lastname', 'ASC')->get();
-                                 return view('people.movement-show',compact('interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
+                                 return view('people.movement-show',compact('theApprover','theApproverTitle', 'interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
 
 
                             }break;
@@ -1820,7 +1961,7 @@ class MovementController extends Controller
                                 $hisNewIDvalue = $movementdetails->position_id_new;
                                 $interCampaign=false;
                                 
-                                return view('people.movement-show',compact('interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
+                                return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
 
 
                             }break;
@@ -1830,7 +1971,7 @@ class MovementController extends Controller
                                 $hisOld = Status::find($movementdetails->status_id_old);
                                 $hisNewIDvalue = $movementdetails->status_id_new;
                                 $interCampaign=true;
-                                return view('people.movement-show',compact('interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
+                                return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
 
 
                             }break;
