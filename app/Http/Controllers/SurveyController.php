@@ -163,8 +163,12 @@ class SurveyController extends Controller
                     join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
                     join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
                     //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice')->
-                    where('survey_user.isDone',1)->get();
+                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
+                    where('survey_user.isDone',1)->
+                    where('team.floor_id','!=',10)->
+                    where('team.floor_id','!=',11)->get();
+
+
 
 
 
@@ -216,7 +220,9 @@ class SurveyController extends Controller
                         select('users.status_id')->
                         where('users.status_id',"!=",7)->
                         where('users.status_id',"!=",8)->
-                        where('users.status_id',"!=",9)->get()); //count(Team::where('campaign_id',$p[0]['programID'])->get());
+                        where('users.status_id',"!=",9)->
+                        where('team.floor_id','!=',10)->
+                        where('team.floor_id','!=',11)->get()); //count(Team::where('campaign_id',$p[0]['programID'])->get());
           $l = Campaign::find($p[0]['programID'])->logo['filename'];
 
           if (empty($l)) $logo = "white_logo_small.png";
