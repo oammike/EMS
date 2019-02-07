@@ -120,6 +120,15 @@
                               This week will be a test run and may be offered weekly, depending on the response this week.</p>
                         </div>
 
+                        <div class="item text-center" >
+                          <img src="./storage/uploads/zumba-2.jpg" style="z-index: 2" />
+                          
+                        </div>
+                        <div class="item text-center" >
+                          <img src="./storage/uploads/zumba.jpg" style="z-index: 2" />
+                          
+                        </div>
+
 
                       <div class="item text-center" >
                               
