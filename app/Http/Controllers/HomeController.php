@@ -136,6 +136,22 @@ class HomeController extends Controller
                   }
 
         } break;
+
+        case '5': {
+ 
+                    //LETS GET PHYSICAL
+      
+                  for($i=1; $i<=40; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-letsgetphysical-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/letsgetphysical-".$i.".jpg",
+                                'description'=>"Let's Get Physical",
+                                'category'=>"Let's Get Physical"]);
+
+                  }
+
+        } break;
+
+
         
         default: {
 
@@ -648,6 +664,15 @@ class HomeController extends Controller
                     if($this->user->id !== 564 ) {
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View EvalSum [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+        }
+
+        case '11':{
+                    if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n View Physical [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                     } 
 
