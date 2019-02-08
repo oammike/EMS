@@ -65,9 +65,43 @@ class HomeController extends Controller
         return view('gallery',['album'=>null]);
       else
       {
+        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
          if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                    fwrite($file, "-------------------\n Viewed Year End 2018 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+          switch ($album) {
+            case '5':{
+               fwrite($file, "-------------------\n Viewed Physical by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
+            case '4':{
+               fwrite($file, "-------------------\n Viewed Cam2 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
+            case '3':{
+               fwrite($file, "-------------------\n Viewed Cam1 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
+            case '2':{
+               fwrite($file, "-------------------\n Viewed Booth by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
+            case '1':{
+               fwrite($file, "-------------------\n Viewed Year End 2018 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+            
+            default:{
+               fwrite($file, "-------------------\n Viewed Year End 2018 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+            }
+              # code...
+              break;
+          }
+                                  
+                                   
                                     fclose($file);
                                 } 
         return view('gallery',compact('album'));
