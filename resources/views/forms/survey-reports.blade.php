@@ -116,7 +116,7 @@
                   </div>
 
                   <div class="progress-group">
-                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1))+1 }}% ) </span></span>
+                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1)) }}% ) </span></span>
                     <span class="progress-number"><b>{{ count($passives) }}</b>/ {{count($surveyData)}}</span>
 
                     <div class="progress sm">
