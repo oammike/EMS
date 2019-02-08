@@ -404,7 +404,7 @@ function validateRequired(param, availability, defaultval) {
 
     $('#phys').on('click', function(){
     $.ajax({
-                url: "{{action('HomeController@logAction','10')}}",
+                url: "{{action('HomeController@logAction','11')}}",
                 type: "GET",
                 data: {'action': '11'},
                 success: function(response){
