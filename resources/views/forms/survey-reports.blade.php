@@ -152,13 +152,13 @@
                     
                     @if( $ct['aveRating'] >= 4.0 )
                     <h4 class="description-header text-blue"> {{$ct['aveRating']}} </h4>
-                    @elseif ($ct['aveRating'] >= 3.8 && $ct['aveRating'] < 3.99 )
+                    @elseif ($ct['aveRating'] >= 3.8 && $ct['aveRating'] <= 3.99 )
                     <h4 class="description-header text-green"> {{$ct['aveRating']}}  </h4>
-                    @elseif ($ct['aveRating'] >= 3.5 && $ct['aveRating'] < 3.89 )
+                    @elseif ($ct['aveRating'] >= 3.5 && $ct['aveRating'] <= 3.89 )
                     <h4 class="description-header text-orange"> {{$ct['aveRating']}}</h4>
-                    @elseif ($ct['aveRating'] >= 2.0 && $ct['aveRating'] < 3.49 )
+                    @elseif ($ct['aveRating'] >= 2.0 && $ct['aveRating'] <= 3.49 )
                     <h4 class="description-header text-red"> {{$ct['aveRating']}}</h4>
-                    @elseif ($ct['aveRating'] < 1.99 )
+                    @elseif ($ct['aveRating'] <= 1.99 )
                     <h4 class="description-header text-red"> {{$ct['aveRating']}} </h4>
                     @endif
                     <span class="description-text">

@@ -234,6 +234,33 @@ class SurveyController extends Controller
       }
 
 
+
+      //****** ALL SUBMITTED ESSAYS
+      // the last question
+      $allEssays = DB::table('survey_questions')->where('survey_questions.id',52)->
+                        join('survey_essays','survey_essays.question_id','=','survey_questions.id')->
+                        join('users','survey_essays.user_id','=','users.id')->
+                        join('team','team.user_id','=','users.id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at')->orderBy('survey_essays.created_at','DESC')->get();
+/*
+
+                        $array = collect($allEssays)->pluck('answer');
+                        
+                        $commons =[];
+                        $ci = 0;
+                        foreach ($array as $key ) {
+                           $commons[$ci] = str_word_count($key,1);
+                           $ci++;
+                        }
+                        //return response()->json(['array'=>collect($commons)->flatten(),'count'=>$ci]); 
+
+                        $values = array_count_values(collect($commons)->flatten()->toArray());
+                        return collect($values)->sort();
+
+                       */
+
+
       //****** ALL CATEGORY RELATED DATA
       foreach ($groupedCat as $key) {
 
