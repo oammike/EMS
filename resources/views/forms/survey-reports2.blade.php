@@ -94,10 +94,14 @@
 
               @foreach($programData->sortBy('name') as $p)
 
+              @if ($p['respondents'] !== 0 && $p['total'] !== 0 )
+
               @if ($p['logo'] == "white_logo_small.png")
 
                   <span class="info-box-icon" style=" width: 180px;margin-left: 20px; background:url(../../public/img/{{$p['logo']}}) no-repeat; background-color: #dedede ">
-                    <h4 style="padding-top: 25px"><a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">{{$p['name']}}</a> </h4>
+                    <h4 style="padding-top: 25px">
+                      <a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">{{$p['name']}}</a>
+                    </h4>
                     
                   </span>
 
@@ -105,18 +109,29 @@
                   <span class="info-box-icon" style="background-color: #fff; border:solid 1px #0073b7; overflow: hidden; width: 180px;margin-left: 20px">
                     <a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">
                     <img src="../../public/img/{{$p['logo']}}" width="140px" /></a></span>
-                @endif
+                @endif 
 
-              <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px">
+                
+              @if ($p['respondents'] ==  $p['total'])
+              <div class="info-box pull-left" style="width: 25%; margin-right: 10px; background-color: #75838c;">
+              @else
+              <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px;">
+              @endif
                 
 
                   <div class="info-box-content" style="margin-left: 0px;">
                    
-                    <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+                  @if ($p['respondents'] ==  $p['total'])
+                    <span class="info-box-number" style="color:#fff">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+                  @else
+                  <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+
+                  @endif
                     <span class="progress-description">{{$p['respondents']}} / {{$p['total']}} <em style="font-size: smaller;">employee respondents</em> </span>
                     <div class="progress">
                       <div class="progress-bar" style="width: {{$p['respondents']/$p['total']*100 }}%"></div>
                     </div>
+
                     
                     Experience: 
                     <span style="color:#ffda46">
@@ -133,12 +148,16 @@
                   </div>
                   <!-- /.info-box-content -->
               </div>
+
+              @endif
+
               @endforeach
 
              
 
 
             </div>
+          </div>
           </div>
              
 

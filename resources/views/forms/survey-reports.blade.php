@@ -116,7 +116,7 @@
                   </div>
 
                   <div class="progress-group">
-                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1)) }}% ) </span></span>
+                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1))+1 }}% ) </span></span>
                     <span class="progress-number"><b>{{ count($passives) }}</b>/ {{count($surveyData)}}</span>
 
                     <div class="progress sm">
@@ -203,14 +203,21 @@
                 @endif 
 
                 
-
-              <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px">
+              @if ($p['respondents'] ==  $p['total'])
+              <div class="info-box pull-left" style="width: 25%; margin-right: 10px; background-color: #75838c;">
+              @else
+              <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px;">
+              @endif
                 
 
                   <div class="info-box-content" style="margin-left: 0px;">
                    
-                  
-                    <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+                  @if ($p['respondents'] ==  $p['total'])
+                    <span class="info-box-number" style="color:#fff">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+                  @else
+                  <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+
+                  @endif
                     <span class="progress-description">{{$p['respondents']}} / {{$p['total']}} <em style="font-size: smaller;">employee respondents</em> </span>
                     <div class="progress">
                       <div class="progress-bar" style="width: {{$p['respondents']/$p['total']*100 }}%"></div>
