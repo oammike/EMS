@@ -261,6 +261,8 @@ class SurveyController extends Controller
             fclose($file);
         }
 
+        //return $programData;
+
         //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
         $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
         if (in_array($this->user->id, $testgroup)){
@@ -509,7 +511,8 @@ class SurveyController extends Controller
                     join('users','survey_notes.user_id','=','users.id')->
                     join('team','team.user_id','=','survey_notes.user_id')->
                     join('campaign','campaign.id','=','team.campaign_id')->
-                    select('users.id as user_id','survey_notes.comments', 'users.dateHired','campaign.name as program','campaign.isBackoffice')->get();//'survey_responses.survey_optionsID as rating',
+                    select('users.id as user_id','survey_notes.comments','survey_notes.created_at', 'users.dateHired','campaign.name as program','campaign.isBackoffice')->
+                    orderBy('survey_notes.created_at','DESC')->get();//'survey_responses.survey_optionsID as rating',
 
             //***** get notes/comments
             $ratings = new Collection;

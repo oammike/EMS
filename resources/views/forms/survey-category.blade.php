@@ -158,6 +158,7 @@
 
                                   <p style="color:#000; margin-bottom: 20px; clear: both">
 
+                                    <span style="font-size: smaller; " class="pull-right">{{ date('M d, Y h:i A', strtotime($n->created_at))}} </span><br/>
                                     <em> {{$n->comments}}</em> <br/>
                                     <span style="color:#b78a01">
                                     @for ($i = 1; $i <= $cd['ratings'][$ct]; $i++)
