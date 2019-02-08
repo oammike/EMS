@@ -185,6 +185,8 @@
 
               @foreach($programData->sortBy('name') as $p)
 
+              @if ($p['respondents'] !== 0 && $p['total'] !== 0 )
+
               @if ($p['logo'] == "white_logo_small.png")
 
                   <span class="info-box-icon" style=" width: 180px;margin-left: 20px; background:url(../../public/img/{{$p['logo']}}) no-repeat; background-color: #dedede ">
@@ -200,7 +202,7 @@
                     <img src="../../public/img/{{$p['logo']}}" width="140px" /></a></span>
                 @endif 
 
-                @if ($p['respondents'] !== 0 && $p['total'] !== 0 )
+                
 
               <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px">
                 
@@ -232,7 +234,7 @@
               </div>
 
               @endif
-              
+
               @endforeach
 
              
