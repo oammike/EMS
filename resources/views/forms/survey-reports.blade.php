@@ -198,18 +198,22 @@
                   <span class="info-box-icon" style="background-color: #fff; border:solid 1px #0073b7; overflow: hidden; width: 180px;margin-left: 20px">
                     <a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">
                     <img src="../../public/img/{{$p['logo']}}" width="140px" /></a></span>
-                @endif
+                @endif 
+
+                @if ($p['respondents'] !== 0 && $p['total'] !== 0 )
 
               <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px">
                 
 
                   <div class="info-box-content" style="margin-left: 0px;">
                    
+                  
                     <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
                     <span class="progress-description">{{$p['respondents']}} / {{$p['total']}} <em style="font-size: smaller;">employee respondents</em> </span>
                     <div class="progress">
                       <div class="progress-bar" style="width: {{$p['respondents']/$p['total']*100 }}%"></div>
                     </div>
+
                     
                     Experience: 
                     <span style="color:#ffda46">
@@ -226,6 +230,9 @@
                   </div>
                   <!-- /.info-box-content -->
               </div>
+
+              @endif
+              
               @endforeach
 
              
