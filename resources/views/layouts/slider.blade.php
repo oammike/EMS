@@ -94,9 +94,96 @@
                              @endif
 
 
-  <?php */ ?>  
+  <?php */ ?> 
 
-                      <div class="item active text-center" >
+                      <div class="item active text-center">
+                             
+
+                               <h4 class="text-primary">What: OAM Clinic Wellness Program</h4>
+                                <img src="storage/uploads/wellness3.jpg" />
+
+  
+                              <p><strong>Where:</strong> <span class="text-danger" style="font-size: larger"> 5th Floor</span><br/>
+                              <strong>When:</strong> <strong class="text-danger">February 13, 2019, Wednesday, 10AM- 7PM</strong><br/>
+                              
+                              <small>Should you have questions or concerns, please feel free to drop by the clinic or email our nurses at <strong>nurse@openaccessbpo.net / nurse@openaccessmarketing.com.</strong></small>
+                              
+                      </div>
+
+                      <div class="item text-center" >
+                        <h4 class="text-primary">Let's Get Physical</h4>
+                        <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!<br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        <h4 class="text-primary">Let's Get Physical</h4>
+                        <img src="./storage/uploads/letsgetphysical-11.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!<br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        <h4 class="text-primary">Let's Get Physical</h4>
+                        <img src="./storage/uploads/letsgetphysical-29.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!<br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                        <img src="./storage/uploads/grubs2_1.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
+                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
+                      </div> 
+
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2><br/>
+                        <img src="./storage/uploads/grubs2_2.jpg" style="z-index: 2" /> 
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
+                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
+                      </div> 
+
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                        <img src="./storage/uploads/grubs2_3.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
+                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
+                      </div> 
+
+
+
+
+                      <div class="item text-center" >
                               
                             <img src="./storage/uploads/cny2019.jpg" style="z-index: 2" />
                             <h1 class="text-danger text-center">新年快乐!</h1>
