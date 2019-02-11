@@ -221,6 +221,7 @@ class SurveyController extends Controller
                         where('users.status_id',"!=",7)->
                         where('users.status_id',"!=",8)->
                         where('users.status_id',"!=",9)->
+                        where('users.status_id',"!=",13)->
                         where('team.floor_id','!=',10)->
                         where('team.floor_id','!=',11)->get()); //count(Team::where('campaign_id',$p[0]['programID'])->get());
           $l = Campaign::find($p[0]['programID'])->logo['filename'];
@@ -279,7 +280,10 @@ class SurveyController extends Controller
 
      
         //exclude Taipei and Xiamen
-        $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+        $actives = count(DB::table('users')->where('status_id','!=',7)->
+                        where('status_id','!=',8)->
+                        where('status_id','!=',9)->
+                        where('status_id','!=',13)->
                         leftJoin('team','team.user_id','=','users.id')->
                         select('users.id','team.floor_id')->
                         where('team.floor_id','!=',10)->
