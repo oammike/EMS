@@ -243,6 +243,13 @@ class SurveyController extends Controller
                         join('team','team.user_id','=','users.id')->
                         join('campaign','team.campaign_id','=','campaign.id')->
                         select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at')->orderBy('survey_essays.created_at','DESC')->get();
+
+      $groupedEssays = collect($allEssays)->groupBy('program')->sortBy('program');
+
+      $eq = DB::table('survey_questions')->where('responseType',2)->get();
+      (count($eq)>0) ? $essayQ = $eq[0] : $essayQ = null;
+
+      //return $groupedEssays;
 /*
 
                         $array = collect($allEssays)->pluck('answer');
@@ -292,12 +299,17 @@ class SurveyController extends Controller
 
         //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
         $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
-        if (in_array($this->user->id, $testgroup)){
+        $keyGroup = [564,1611,1784,1,184,344];
+        (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+        (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
-            return view('forms.survey-reports',compact('survey','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+        if ($canAccess){
+        
+
+            return view('forms.survey-reports',compact('survey','essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
 
         }else
-            return view('forms.survey-reports2',compact('survey','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+            return view('forms.survey-reports2',compact('survey','essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
       
 
     }

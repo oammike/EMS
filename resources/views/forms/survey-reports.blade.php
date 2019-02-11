@@ -174,12 +174,123 @@
                 
               </div>
               <!-- /.row -->
+
+              @if ($essayQ !== null)
+              <div class="row">
+                <div class="col-sm-12"><h4 class="text-center"><br/><br/>Q: {{$essayQ->value}} <br/><br/></h4>
+
+                  @foreach($groupedEssays as $ge)
+                  <div class="col-md-6">
+                    <!-- DIRECT CHAT PRIMARY -->
+                    <div class="box box-primary direct-chat direct-chat-primary">
+                      <div class="box-header with-border">
+                        <h3 class="box-title"> {{$ge[0]->program}} </h3>
+
+                        <div class="box-tools pull-right">
+                          <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">{{count($ge)}} </span>
+                          <button name="minimize" type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- /.box-header -->
+
+                      
+                      <div class="box-body">
+                        
+                        <div class="direct-chat-messages">
+
+                        @if ($canViewAll)
+
+                        @for($i = 0; $i < count($ge); $i++)
+
+                            @if ( $i % 2 == 0)
+                            <!-- Message. Default to the left -->
+                            <div class="direct-chat-msg">
+                               <img class="direct-chat-img" src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" alt="Message User Image"><!-- /.direct-chat-img -->
+                              <div class="direct-chat-text">
+                                {{$ge[$i]->answer}}
+                              </div>
+                              <!-- /.direct-chat-text -->
+                              <div class="direct-chat-info clearfix">
+                                 <?php  $tenure = \Carbon\Carbon::parse($ge[$i]->dateHired,"Asia/Manila")->diffInYears(); 
+                                        if($tenure > 3) $stayed = "employee for 3+ years";
+                                        else if ($tenure >= 1 && $tenure <3) $stayed = "employee for 1-3 years";
+                                        else $stayed = "employee for < 1 year";
+                                 ?>
+                                <span class="direct-chat-name pull-left"> {{$stayed}} </span>
+                                <span class="direct-chat-timestamp pull-right">{{ date('M d, Y h:i A', strtotime($ge[$i]->created_at)) }} </span>
+                              </div>
+                              <!-- /.direct-chat-info -->
+                             
+                            </div>
+                            <!-- /.direct-chat-msg -->
+                            @else
+
+                            <!-- Message to the right -->
+                            <div class="direct-chat-msg right">
+                              <img class="direct-chat-img" src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" alt="Message User Image"><!-- /.direct-chat-img -->
+                              <div class="direct-chat-text">
+                                {{$ge[$i]->answer}}
+                              </div>
+                              <!-- /.direct-chat-text -->
+
+                              <div class="direct-chat-info clearfix">
+
+                                <span class="direct-chat-name pull-right">{{$stayed}}</span>
+                                <span class="direct-chat-timestamp pull-left">{{ date('M d, Y h:i A', strtotime($ge[$i]->created_at)) }}</span>
+                              </div>
+                              <!-- /.direct-chat-info -->
+                              
+                            </div>
+
+                            @endif
+                            <!-- /.direct-chat-msg -->
+                        
+
+                        
+
+                        @endfor
+
+                        @else
+
+                        <h4 class="text-danger text-center">Access Denied.</h4>
+                        <h5> Sorry, you don't have enough permissions to view these data.</h5>
+                        @endif
+                      </div>
+                        <!--/.direct-chat-messages-->
+
+                     
+
+
+                        <!-- /.direct-chat-pane -->
+                      </div>
+                      <!-- /.box-body -->
+                      <div class="box-footer">
+                        
+                      </div>
+                      <!-- /.box-footer-->
+                    </div>
+                    <!--/.direct-chat -->
+                  </div>
+                  @endforeach
+
+                 
+                </div>
+              </div>
+              @endif
+              
               
             </div>
             <!-- /.box-footer -->
 
 
+
             <div class="box-footer">
+
+              
+
+
+
               <h3 class="text-primary"><i class="fa fa-check"></i> Compliance per Program</h3><br/>
 
 
@@ -194,12 +305,15 @@
                       <a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">{{$p['name']}}</a>
                     </h4>
                     
+                    
                   </span>
 
                 @else
                   <span class="info-box-icon" style="background-color: #fff; border:solid 1px #0073b7; overflow: hidden; width: 180px;margin-left: 20px">
                     <a href="{{action('CampaignController@show',$p['id'])}}" target="_blank">
-                    <img src="../../public/img/{{$p['logo']}}" width="140px" /></a></span>
+                    <img src="../../public/img/{{$p['logo']}}" width="140px" /></a>
+
+                  </span>
                 @endif 
 
                 
@@ -238,9 +352,13 @@
                     <span style="font-size: x-small;">&nbsp;&nbsp;(average)</span>
                   </div>
                   <!-- /.info-box-content -->
+
+
               </div>
 
               @endif
+
+
 
               @endforeach
 
@@ -302,14 +420,15 @@
 <script src="{{URL::asset('public/js/morris.min.js')}}"></script>
 
 <script>
-
-
-
-
   $(function () {
 
     
    'use strict';
+
+   $(document).ready(function() { 
+    $('button[name="minimize"]').click();
+  });
+   
 
     var vals = [];
     var i = 0;
@@ -351,16 +470,6 @@
 
    
 
-  /*
-   * Custom Label formatter
-   * ----------------------
-   */
-  function labelFormatter(label, series) {
-    return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
-        + label
-        + "<br>"
-        + Math.round(series.percent) + "%</div>";
-  }
 </script>
 <!-- end Page script -->
 

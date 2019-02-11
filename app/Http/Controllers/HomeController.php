@@ -432,6 +432,10 @@ class HomeController extends Controller
 
             };
 
+            /************* for SURVEY WIDGET ***************/
+            $doneS = DB::table('survey_user')->where('user_id',$this->user->id)->where('isDone',1)->get();
+            (count($doneS) > 0) ? $doneSurvey=1 : $doneSurvey=0;
+
 
             /************* for TIMEKEEPING WIDGET ***************/
 
@@ -573,7 +577,7 @@ class HomeController extends Controller
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
                     
-                    return view('dashboard-agent', compact('performance', 'firstYears','tenYears','fiveYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard-agent', compact('performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                     
 
 
@@ -584,7 +588,7 @@ class HomeController extends Controller
                     //-- Initialize Approvals Dashlet
 
                    
-                    return view('dashboard', compact('performance', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard', compact('performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                    
 
 
