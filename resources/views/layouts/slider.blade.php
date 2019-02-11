@@ -114,7 +114,11 @@
                         <h4 class="text-primary">Let's Get Physical</h4>
                         <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" />
                             
-                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!<br/><br/>
+                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle! Here are the schedules:<br/><br/>
+                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
+                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
 
                            
@@ -126,7 +130,13 @@
                         <h4 class="text-primary">Let's Get Physical</h4>
                         <img src="./storage/uploads/letsgetphysical-11.jpg" style="z-index: 2" />
                             
-                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!<br/><br/>
+                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!
+                              Here are the schedules:<br/><br/>
+                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
+                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
 
                            
@@ -138,7 +148,13 @@
                         <h4 class="text-primary">Let's Get Physical</h4>
                         <img src="./storage/uploads/letsgetphysical-29.jpg" style="z-index: 2" />
                             
-                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!<br/><br/>
+                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!
+                              Here are the schedules:<br/><br/>
+                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
+                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
 
                            
@@ -209,10 +225,22 @@
 
                         <div class="item text-center" >
                           <img src="./storage/uploads/zumba-2.jpg" style="z-index: 2" />
+                          Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!
+                              Here are the schedules:<br/><br/>
+                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
+                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
                           
                         </div>
                         <div class="item text-center" >
                           <img src="./storage/uploads/zumba.jpg" style="z-index: 2" />
+                          Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!
+                              Here are the schedules:<br/><br/>
+                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
+                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
                           
                         </div>
 

@@ -187,7 +187,12 @@
                         <h3 class="box-title"> {{$ge[0]->program}} </h3>
 
                         <div class="box-tools pull-right">
-                          <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">{{count($ge)}} </span>
+                          @if (count($ge) > 1)
+                          <span data-toggle="tooltip" title="3 New Messages" class="badge bg-orange">{{count($ge)}} </span> <small>responses</small>
+
+                          @else
+                          <span data-toggle="tooltip" title="3 New Messages" class="badge bg-orange">{{count($ge)}} </span> <small>response</small>
+                          @endif
                           <button name="minimize" type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                           </button>
                         </div>
@@ -203,6 +208,13 @@
 
                         @for($i = 0; $i < count($ge); $i++)
 
+                        <?php  $tenure = \Carbon\Carbon::parse($ge[$i]->dateHired,"Asia/Manila")->diffInYears();
+                                        $posted = \Carbon\Carbon::parse($ge[$i]->created_at,"Asia/Manila")->format('M d, Y h:i A'); 
+                                        if($tenure > 3) $stayed = "employee for 3+ years";
+                                        else if ($tenure >= 1 && $tenure <3) $stayed = "employee for 1-3 years";
+                                        else $stayed = "employee for < 1 year";
+                                 ?>
+
                             @if ( $i % 2 == 0)
                             <!-- Message. Default to the left -->
                             <div class="direct-chat-msg">
@@ -212,13 +224,9 @@
                               </div>
                               <!-- /.direct-chat-text -->
                               <div class="direct-chat-info clearfix">
-                                 <?php  $tenure = \Carbon\Carbon::parse($ge[$i]->dateHired,"Asia/Manila")->diffInYears(); 
-                                        if($tenure > 3) $stayed = "employee for 3+ years";
-                                        else if ($tenure >= 1 && $tenure <3) $stayed = "employee for 1-3 years";
-                                        else $stayed = "employee for < 1 year";
-                                 ?>
+                                 
                                 <span class="direct-chat-name pull-left"> {{$stayed}} </span>
-                                <span class="direct-chat-timestamp pull-right">{{ date('M d, Y h:i A', strtotime($ge[$i]->created_at)) }} </span>
+                                <span class="direct-chat-timestamp pull-right">{{ $posted }} </span>
                               </div>
                               <!-- /.direct-chat-info -->
                              
@@ -237,7 +245,7 @@
                               <div class="direct-chat-info clearfix">
 
                                 <span class="direct-chat-name pull-right">{{$stayed}}</span>
-                                <span class="direct-chat-timestamp pull-left">{{ date('M d, Y h:i A', strtotime($ge[$i]->created_at)) }}</span>
+                                <span class="direct-chat-timestamp pull-left">{{ $posted }}</span>
                               </div>
                               <!-- /.direct-chat-info -->
                               
