@@ -97,6 +97,10 @@
   <?php */ ?> 
 
                       <div class="item active text-center">
+                        <img src="storage/uploads/myhealthally.png" />
+
+                      </div>
+                      <div class="item  text-center">
                              
 
                                <h4 class="text-primary">What: OAM Clinic Wellness Program</h4>

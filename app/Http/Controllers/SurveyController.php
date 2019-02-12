@@ -142,6 +142,98 @@ class SurveyController extends Controller
        
     }
 
+    public function participants($id)
+    {
+        $type = Input::get('type');
+
+        if (empty($type)) return view('empty');
+
+        $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+        $keyGroup = [564,1611,1784,1,184,344,491];
+        //(in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+        (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
+
+        if (!$canViewAll) return view('access-denied');
+        else
+            {   DB::connection()->disableQueryLog(); 
+                $npsData = new Collection;
+
+                $survey = Survey::find($id);
+
+                $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
+                            join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+                            join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                            join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
+                            join('users','users.id','=','survey_user.user_id')->
+                            join('team','team.user_id','=','survey_user.user_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            //join('campaign_logos','campaign_logos.campaign_id','=', 'team.campaign_id')->
+                            join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
+                            join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
+                            //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
+                            select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','positions.name as jobTitle')->
+                            where('survey_user.isDone',1)->
+                            where('team.floor_id','!=',10)->
+                            where('team.floor_id','!=',11)->get();
+
+                $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
+                $groupedNPS = collect($nspResponses)->groupBy('userID'); 
+
+                //****** ALL NSP DATA
+
+                  $eeCommittee = 0;
+                  $forGD = 0;
+                     foreach ($groupedNPS as $n) {
+                          $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
+
+                          if ($n[0]->beEEC) $eeCommittee++;
+                          if ($n[0]->forGD) $forGD++;
+
+                          $l = Campaign::find($n[0]->programID)->logo['filename'];
+
+                          if (empty($l)) $logo = "white_logo_small.png";
+                          else $logo = $l;
+
+                          if  ( file_exists('public/img/employees/'.$n[0]->userID.'.jpg') )
+                            $pic = asset('public/img/employees/'.$n[0]->userID.'.jpg');
+                          else
+                            $pic = asset('public/img/useravatar.png');
+
+
+                          $npsData->push(['respondentID'=>$n[0]->userID,'pic'=>$pic, 'programID'=>$n[0]->programID, 'program'=>$n[0]->program,'logo'=>$logo, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname,'jobTitle'=>$n[0]->jobTitle,  'nps'=>$nps,'roundedNPS'=>(string)round($nps),'eeCommittee'=>$n[0]->beEEC, 'forGD'=>$n[0]->forGD, 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
+
+                      }
+
+                  $promoters = collect($npsData)->whereIn('roundedNPS',['4','5'])->where('eeCommittee',1)->sortBy('program')->groupBy('program');
+                  //$passives = collect($npsData)->whereIn('roundedNPS',['3']);
+                  $detractors = collect($npsData)->whereIn('roundedNPS',['1','2'])->where('forGD',1)->sortBy('program')->groupBy('program');
+                
+                switch ($type) {
+                    case '1':
+                    {
+                        $participants = $promoters;
+                        $activity = "Interested to be part of <strong>Employee Engagement Committee</strong>";
+                        //return $participants;
+                        return view('forms.survey-participants',compact('participants','survey','activity','type'));
+                        // response()->json(['promoters'=>$promoters, 'total'=> count($promoters)]);
+                    }
+                        break;
+
+                    case '2':
+                    {
+                        $participants = $detractors;
+                        $activity = "Interested to join a <strong>Group Discussion</strong>.";
+                        return view('forms.survey-participants',compact('participants','survey','activity','type'));
+                    }
+                        break;
+                    
+                    default: return view('empty');
+                        break;
+                }
+            }
+    }
+
     public function report($id)
     {
       $survey = Survey::find($id);
@@ -168,13 +260,6 @@ class SurveyController extends Controller
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
                     where('team.floor_id','!=',11)->get();
-
-
-
-
-
-
-
       $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
      
       $groupedResp = collect($allResp)->groupBy('userID');
@@ -183,12 +268,11 @@ class SurveyController extends Controller
 
 
       //****** ALL SURVEY DATA
-      foreach ($groupedResp as $key) {
-
+      foreach ($groupedResp as $key) 
+      {
         $avg = number_format(collect($key)->pluck('rating')->avg(),2);
-
         $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
-          # code...
+        
       }
 
       $totalBackoffice = count(collect($surveyData)->where('backOffice',1));
@@ -203,14 +287,14 @@ class SurveyController extends Controller
 
       $eeCommittee = 0;
       $forGD = 0;
-     foreach ($groupedNPS as $n) {
-          $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
+         foreach ($groupedNPS as $n) {
+              $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
 
-          if ($n[0]->beEEC) $eeCommittee++;
-          if ($n[0]->forGD) $forGD++;
-          $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps),'eeCommittee'=>$n[0]->beEEC, 'forGD'=>$n[0]->forGD, 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
+              if ($n[0]->beEEC) $eeCommittee++;
+              if ($n[0]->forGD) $forGD++;
+              $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps),'eeCommittee'=>$n[0]->beEEC, 'forGD'=>$n[0]->forGD, 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
 
-      }
+          }
 
       $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
       $passives = collect($npsData)->whereIn('roundedNPS',['3']);
@@ -253,28 +337,12 @@ class SurveyController extends Controller
                         join('campaign','team.campaign_id','=','campaign.id')->
                         select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at')->orderBy('survey_essays.created_at','DESC')->get();
 
-      $groupedEssays = collect($allEssays)->groupBy('program')->sortBy('program');
+      $groupedEssays = collect($allEssays)->sortBy('program')->groupBy('program');
 
       $eq = DB::table('survey_questions')->where('responseType',2)->get();
       (count($eq)>0) ? $essayQ = $eq[0] : $essayQ = null;
 
-      //return $groupedEssays;
-/*
-
-                        $array = collect($allEssays)->pluck('answer');
-                        
-                        $commons =[];
-                        $ci = 0;
-                        foreach ($array as $key ) {
-                           $commons[$ci] = str_word_count($key,1);
-                           $ci++;
-                        }
-                        //return response()->json(['array'=>collect($commons)->flatten(),'count'=>$ci]); 
-
-                        $values = array_count_values(collect($commons)->flatten()->toArray());
-                        return collect($values)->sort();
-
-                       */
+      
 
 
       //****** ALL CATEGORY RELATED DATA
@@ -293,10 +361,13 @@ class SurveyController extends Controller
                         where('status_id','!=',9)->
                         where('status_id','!=',13)->
                         leftJoin('team','team.user_id','=','users.id')->
-                        select('users.id','team.floor_id')->
+                        select('users.id','users.lastname','team.floor_id','team.campaign_id')->
                         where('team.floor_id','!=',10)->
-                        where('team.floor_id','!=',11)->get());
+                        where('team.floor_id','!=',11)->
+                        where('team.campaign_id','=',28)->get());//;return $actives;
         $percentage = number_format( (  count($surveyData)/ $actives) * 100,2);
+
+        
 
         $asOf = Carbon::now('GMT+8')->format('M d, Y h:i A');
 

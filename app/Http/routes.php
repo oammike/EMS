@@ -700,6 +700,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'survey.report',
       'uses'=>'SurveyController@report') );
 
+    Route::get('/survey/participants/{id}', array(
+      'as'=> 'survey.participants',
+      'uses'=>'SurveyController@participants') );
+
     Route::get('/survey/category/{id}', array(
       'as'=> 'survey.showCategory',
       'uses'=>'SurveyController@showCategory') );

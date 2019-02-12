@@ -291,7 +291,7 @@
             </div>
             <!-- /.box-footer -->
 
-            <!-- Be Part OF -->
+            <!-- ******************* Be Part OF ******************* -->
             <div class="row">
               <div class="col-lg-6 col-xs-12">
                 <!-- small box -->
@@ -299,12 +299,12 @@
                   <div class="inner">
                     <h3>{{$participants['eePercent']}} % </h3> 
 
-                    <p><strong>{{$participants['eeCommittee']}} out of {{$participants['totalPromoters']}} promoters </strong>would like to be a part of <br/><strong>Employee Engagement Committee</strong></p>
+                    <p><strong><span style="font-size: larger">{{$participants['eeCommittee']}} </span> out of <span style="font-size: larger;">{{$participants['totalPromoters']}} promoters</span> </strong>would like to be a part of <br/><strong>Employee Engagement Committee</strong></p>
                   </div>
                   <div class="icon">
                     <i class="fa fa-smile-o"></i>
                   </div>
-                  <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                  <a href="{{action('SurveyController@participants',['id'=>$survey->id, 'type'=>'1'])}}" class="small-box-footer">Show Details <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <!-- ./col -->
@@ -312,21 +312,22 @@
               <!-- ./col -->
               <div class="col-lg-6 col-xs-12">
                 <!-- small box -->
-                <div class="small-box bg-yellow">
+                <div class="small-box bg-red">
                   <div class="inner">
                     <h3>{{$participants['gdPercent']}} %</h3>
 
-                    <p><strong>{{$participants['forGD']}} out of {{$participants['totalDetractors']}} detractors </strong> would like join a <br/><strong>focused group discussion</strong> to address top concerns</p>
+                    <p><strong><span style="font-size: larger">{{$participants['forGD']}}</span> </strong> out of <span style="font-size: larger">{{$participants['totalDetractors']}} detractors </span> </strong> would like join a <br/><strong>focused group discussion</strong> to address top concerns</p>
                   </div>
                   <div class="icon">
                     <i class="fa fa-comments-o"></i>
                   </div>
-                 <!--  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                  <a href="{{action('SurveyController@participants',['id'=>$survey->id, 'type'=>'2'])}}"  class="small-box-footer">Show Details <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
              
             </div>
             <!-- /.row -->
+             <!-- ******************* Be Part OF ******************* -->
 
 
 
