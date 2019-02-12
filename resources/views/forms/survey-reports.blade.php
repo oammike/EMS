@@ -134,7 +134,7 @@
                   </div>
                   <!-- /.progress-group -->
 
-                  <h1 style="margin-top: 55px; padding:25px; background:rgba(154,245,38,0.5); color:#666" class="text-center">eNPS : <strong style="color: #000">{{ $eNPS }} </strong><span style="font-size: 0.5em;"></span> </h1>
+                  <h1 style="margin-top: 55px; padding:25px; background:rgba(154,245,38,0.5); color:#666" class="text-center">eNPS : <strong style="color: #000">{{number_format(  round(( count($promoters)/count($surveyData) )*100 ,1) -  round(( count($detractors)/count($surveyData) )*100 ,1) ) }} </strong><span style="font-size: 0.5em;"></span> </h1>
                 </div>
                 <!-- /.col -->
               </div>
