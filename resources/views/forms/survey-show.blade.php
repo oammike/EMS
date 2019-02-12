@@ -61,6 +61,8 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                     <?php $ctr=1; ?>
                     @foreach($questions as $q)
 
+
+
                     @if($ctr==1 && is_null($latest) && ($extraDataNa != '1'))
                     <img class="question{{$ctr}}" src="../storage/uploads/@if(is_null($q->img))backto90s-30.jpg @else{{$q->img}}@endif" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; top:0px; left:0px;" width="100%" />
                     @else
@@ -89,7 +91,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
                           @endforeach
 
-                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$ctr}}" placeholder="Notes / Comments"></textarea>
+                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->id}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
@@ -152,7 +154,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                               <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}" id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                               @endforeach
-                               <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$ctr}}" placeholder="Notes / Comments"></textarea>
+                               <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->id}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
@@ -320,7 +322,12 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
       if (rtype == 's') //rbutton for Surveys
       {
         var val=$('#currItem').attr('data-val');
-        $('#next'+val).fadeIn(); //css('display','block')
+        var bval = val;
+        if (val >= 27) val = parseInt(val)+2;
+
+
+        $('#next'+bval).fadeIn(); //css('display','block')
+        console.log(val);
 
         
         var r = $(this).val();
