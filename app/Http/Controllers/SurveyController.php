@@ -363,10 +363,9 @@ class SurveyController extends Controller
                         leftJoin('team','team.user_id','=','users.id')->
                         select('users.id','users.lastname','team.floor_id','team.campaign_id')->
                         where('team.floor_id','!=',10)->
-                        where('team.floor_id','!=',11)->
-                        where('team.campaign_id','=',28)->get());//;return $actives;
+                        where('team.floor_id','!=',11)->get());//;return $actives;
         $percentage = number_format( (  count($surveyData)/ $actives) * 100,2);
-
+        
         
 
         $asOf = Carbon::now('GMT+8')->format('M d, Y h:i A');
