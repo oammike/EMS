@@ -157,13 +157,14 @@ class SurveyController extends Controller
       $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
                     join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
                     join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                    join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
                     join('users','users.id','=','survey_user.user_id')->
                     join('team','team.user_id','=','survey_user.user_id')->
                     join('campaign','team.campaign_id','=','campaign.id')->
                     join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
                     join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
                     //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
+                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
                     where('team.floor_id','!=',11)->get();
@@ -181,13 +182,12 @@ class SurveyController extends Controller
       $groupedCat = collect($allResp)->groupBy('categoryID');
 
 
-
       //****** ALL SURVEY DATA
       foreach ($groupedResp as $key) {
 
         $avg = number_format(collect($key)->pluck('rating')->avg(),2);
 
-        $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg,'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
+        $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
           # code...
       }
 
@@ -200,18 +200,26 @@ class SurveyController extends Controller
 
 
       //****** ALL NSP DATA
+
+      $eeCommittee = 0;
+      $forGD = 0;
      foreach ($groupedNPS as $n) {
           $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
-          $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps), 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
+
+          if ($n[0]->beEEC) $eeCommittee++;
+          if ($n[0]->forGD) $forGD++;
+          $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps),'eeCommittee'=>$n[0]->beEEC, 'forGD'=>$n[0]->forGD, 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
 
       }
 
       $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
       $passives = collect($npsData)->whereIn('roundedNPS',['3']);
       $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
+      $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>number_format($eeCommittee/count($promoters)*100,2), 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=> number_format($forGD/count($detractors)*100,2)];
 
       $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
      
+    
 
       //****** ALL CAMPAIGN RELATED DATA
       foreach ($programs->sort() as $p) {
@@ -303,17 +311,17 @@ class SurveyController extends Controller
 
         //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
         $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
-        $keyGroup = [564,1611,1784,1,184,344];
+        $keyGroup = [564,1611,1784,1,184,344,491];
         (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
         if ($canAccess){
         
 
-            return view('forms.survey-reports',compact('survey','essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+            return view('forms.survey-reports',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
 
         }else
-            return view('forms.survey-reports2',compact('survey','essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+            return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
       
 
     }

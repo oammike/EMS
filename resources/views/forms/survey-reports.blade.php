@@ -291,6 +291,43 @@
             </div>
             <!-- /.box-footer -->
 
+            <!-- Be Part OF -->
+            <div class="row">
+              <div class="col-lg-6 col-xs-12">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                  <div class="inner">
+                    <h3>{{$participants['eePercent']}} % </h3> 
+
+                    <p><strong>{{$participants['eeCommittee']}} out of {{$participants['totalPromoters']}} promoters </strong>would like to be a part of <br/><strong>Employee Engagement Committee</strong></p>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-smile-o"></i>
+                  </div>
+                  <!-- <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                </div>
+              </div>
+              <!-- ./col -->
+              
+              <!-- ./col -->
+              <div class="col-lg-6 col-xs-12">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                  <div class="inner">
+                    <h3>{{$participants['gdPercent']}} %</h3>
+
+                    <p><strong>{{$participants['forGD']}} out of {{$participants['totalDetractors']}} detractors </strong> would like join a <br/><strong>focused group discussion</strong> to address top concerns</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-comments-o"></i>
+                  </div>
+                 <!--  <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
+                </div>
+              </div>
+             
+            </div>
+            <!-- /.row -->
+
 
 
             <div class="box-footer">
