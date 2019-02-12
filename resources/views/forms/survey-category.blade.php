@@ -280,7 +280,7 @@ $(function () {
 
   
   var areaChartData = {
-      labels  : ['(1s)', '(2s)', '(3s)', '(4s)', '(5s)'],
+      labels  : ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'],
       datasets: [
 <?php $ctr=0; ?>
       @foreach($chartData as $c)
