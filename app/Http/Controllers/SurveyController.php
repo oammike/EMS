@@ -742,11 +742,20 @@ class SurveyController extends Controller
         //                select('users.status_id')->get());
 
         //exclude Taipei and Xiamen
-        $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+        $actives = count(DB::table('users')->where('status_id','!=',7)->
+                        where('status_id','!=',8)->
+                        where('status_id','!=',9)->
+                        where('status_id','!=',13)->
                         leftJoin('team','team.user_id','=','users.id')->
-                        select('users.id','team.floor_id')->
+                        select('users.id','users.lastname','team.floor_id','team.campaign_id')->
                         where('team.floor_id','!=',10)->
-                        where('team.floor_id','!=',11)->get());
+                        where('team.floor_id','!=',11)->get());//;return $actives;
+        
+        // $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+        //                 leftJoin('team','team.user_id','=','users.id')->
+        //                 select('users.id','team.floor_id')->
+        //                 where('team.floor_id','!=',10)->
+        //                 where('team.floor_id','!=',11)->get());
 
         //return count($actives);
                     //);
