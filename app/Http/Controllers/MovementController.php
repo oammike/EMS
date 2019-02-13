@@ -150,6 +150,7 @@ class MovementController extends Controller
 
     public function changePersonnel($id)
     {
+        DB::connection()->disableQueryLog(); 
 
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
@@ -184,10 +185,8 @@ class MovementController extends Controller
                     $req = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->first(); 
                     $requestor = ImmediateHead_Campaign::where('immediateHead_id',$req->id)->where('campaign_id',User::find($id)->team->campaign_id)->first();
                     $requestorPosition = Position::find($this->user->position_id)->name;
-                    //$requestorCampaign = Campaign::find(ImmediateHead_Campaign::where('immediateHead_id',$requestor->id)->where('campaign_id',$personnel->team->campaign_id)->first()->campaign_id);
-
-                    
-                    $requestorCampaign = Campaign::find($requestor->campaign_id); //Campaign::find(ImmediateHead_Campaign::where('immediateHead_id',$requestor->id)->first()->campaign_id);
+                   
+                    $requestorCampaign = Campaign::find($requestor->campaign_id); //Campaign::find(
 
                     if ( file_exists('public/img/employees/'.$this->user->id.'-sign.png') )
                              {
@@ -266,7 +265,7 @@ class MovementController extends Controller
                    
                     $hrPersonnels = new Collection;
 
-                    //return $hrs;
+                    //return $leaders;
 
                     foreach ($hrs as $tl) {
                         //$hisPOsition = User::where('employeeNumber', $tl->employeeNumber)->first();
@@ -410,6 +409,7 @@ class MovementController extends Controller
 
      public function createNew($id)
     {
+        DB::connection()->disableQueryLog(); 
         
         $changes = PersonnelChange::all();
 
@@ -436,67 +436,98 @@ class MovementController extends Controller
         $users = User::where('lastname','!=','')->orderBy('lastname', 'ASC')->get();
 
         $hrDept = Campaign::where('name','HR')->first();
-        $hrs = Team::where('campaign_id', $hrDept->id)->get();
+        //$hrs = Team::where('campaign_id', $hrDept->id)->get();
 
 
 
 
         $campaigns = Campaign::where('id', '!=', $personnel->campaign_id)->where('name','!=','')->orderBy('name', 'ASC')->get();
 
-            $leaders1 = new Collection;
+        /* ------- optimize ---------*/
+        $leaders = DB::table('immediateHead_Campaigns')->
+                        join('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                        join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
+                        leftJoin('users','immediateHead.employeeNumber','=', 'users.employeeNumber')->
+                        join('positions','positions.id','=','users.position_id')->
+                        select('immediateHead_Campaigns.id','positions.name as position','users.lastname','users.firstname','campaign.name as campaign','campaign.id as campaign_id')->
+                        orderBy('users.lastname','ASC')->
+                        where('users.status_id','!=',7)->
+                        where('users.status_id','!=',8)->
+                        where('users.status_id','!=',9)->
+                        get();
 
-            foreach ($TLs as $tl) {
 
-                        //$data = $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
-                        $data = ImmediateHead::find($tl->immediateHead_id)->userData;
+        $hrPersonnels = DB::table('team')->where('campaign_id',$hrDept->id)->
+                            leftJoin('users','team.user_id','=', 'users.id')->
+                            join('positions','positions.id','=','users.position_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            select('users.id','positions.name as position','users.lastname','users.firstname','campaign.name as campaign')->
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->
+                            orderBy('users.lastname','ASC')->
+                            get();
+        //return $hrPersonnels[0]->lastname;
 
-                        if( !empty($data['firstname']) &&  !empty($data['lastname']) && $data['firstname'] !== " " && $data['lastname'] !== " " ) //to ensure no dummy DB entries
-                        {
-                            $hisPOsition = Position::where('id',$data['position_id'])->first();
+
+        
+        /* ------- optimize ---------*/
+
+            //$leaders1 = new Collection;
+
+            // foreach ($TLs as $tl) {
+
+            //             //$data = $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
+            //             $data = ImmediateHead::find($tl->immediateHead_id)->userData;
+
+            //             if( !empty($data['firstname']) &&  !empty($data['lastname']) && $data['firstname'] !== " " && $data['lastname'] !== " " ) //to ensure no dummy DB entries
+            //             {
+            //                 $hisPOsition = Position::where('id',$data['position_id'])->first();
                                                     
-                                $leaders1->push([
-                                'id'=>$tl->id,
-                                'position'=> $hisPOsition['name'], //Position::find($hisPOsition['position_id']), //->position,
-                                'lastname'=>  $data['lastname'], //$tl->lastname,
-                                'firstname'=> $data['firstname'], //$tl->firstname,
-                                'campaign'=> Campaign::find($tl->campaign_id)->name, // $tl->campaigns->first()->name,
-                                'campaign_id'=> $tl->campaign_id]); // $tl->campaigns->first()->id]);
+            //                     $leaders1->push([
+            //                     'id'=>$tl->id,
+            //                     'position'=> $hisPOsition['name'], //Position::find($hisPOsition['position_id']), //->position,
+            //                     'lastname'=>  $data['lastname'], //$tl->lastname,
+            //                     'firstname'=> $data['firstname'], //$tl->firstname,
+            //                     'campaign'=> Campaign::find($tl->campaign_id)->name, // $tl->campaigns->first()->name,
+            //                     'campaign_id'=> $tl->campaign_id]); // $tl->campaigns->first()->id]);
                            
 
-                        }
+            //             }
                                                 
-            }
+            // }
 
-            $leaders = $leaders1->sortBy('lastname');
+            // $leaders = $leaders1->sortBy('lastname');
 
+            // return $leaders;
 
-            $hrPersonnels = new Collection;
+            // $hrPersonnels = new Collection;
 
-            foreach ($hrs as $tl) {
-                        //$hisPOsition = User::where('employeeNumber', $tl->employeeNumber)->first();
+            // foreach ($hrs as $tl) {
+            //             //$hisPOsition = User::where('employeeNumber', $tl->employeeNumber)->first();
 
-                        $data = User::find($tl->user_id); // $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
+            //             $data = User::find($tl->user_id); // $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
 
-                        //remove all resigned | terminated | endo
-                        if ($data->status_id !== 7 && $data->status_id !== 8 && $data->status_id !== 9 )
-                        {
+            //             //remove all resigned | terminated | endo
+            //             if ($data->status_id !== 7 && $data->status_id !== 8 && $data->status_id !== 9 )
+            //             {
                             
-                             $hisPOsition = Position::where('id',$data->position_id)->first()->name;
+            //                  $hisPOsition = Position::where('id',$data->position_id)->first()->name;
 
 
-                            //$hisPOsition = User::find($tl->user_id);
-                            $hrPersonnels->push([
-                                'id'=>$data->id,
-                                'position'=> $hisPOsition, //$posid, //hisPOsition['name'],
-                                'lastname'=> $data->lastname,
-                                'firstname'=>$data->firstname,
-                                'campaign'=>$data->campaign[0]->name ]); //[0]->name ]);
+            //                 //$hisPOsition = User::find($tl->user_id);
+            //                 $hrPersonnels->push([
+            //                     'id'=>$data->id,
+            //                     'position'=> $hisPOsition, //$posid, //hisPOsition['name'],
+            //                     'lastname'=> $data->lastname,
+            //                     'firstname'=>$data->firstname,
+            //                     'campaign'=>$data->campaign[0]->name ]); //[0]->name ]);
 
-                        }
+            //             }
 
 
                        
-                    } 
+            //         } 
 
             
 
@@ -1250,6 +1281,8 @@ class MovementController extends Controller
 
                 $floors = Floor::all();
                 $hisFloor = Floor::find($personnel->team->floor_id);
+
+                $previousTL=null; $previousCamp=null;
                
 
                 switch ($movement->personnelChange_id){
@@ -1331,6 +1364,13 @@ class MovementController extends Controller
 
                                     $coll->push(['tlSet'=>$TLset]);
                                 }
+
+                                // get old TL from Movement_ImmHead
+                                $pTL =  ImmediateHead_Campaign::find(Movement_ImmediateHead::where('movement_id', $movement->id)->first()->imHeadCampID_old);
+                                $previousTL =  $pTL->immediateHeadInfo;
+                                $previousCamp = Campaign::find($pTL->campaign_id)->name;
+
+                                
                                 
                                 
                                  //ImmediateHead::where('campaign_id',$hisNew->id)->orderBy('lastname', 'ASC')->get();
@@ -1352,8 +1392,6 @@ class MovementController extends Controller
                 }
 
 
-               
-               
 
                     //$TLs = ImmediateHead::where('lastname','!=','')->orderBy('lastname','ASC')->get();
                     $TLs = ImmediateHead_Campaign::all();
@@ -1372,111 +1410,75 @@ class MovementController extends Controller
 
                     $campaigns = Campaign::where('id', '!=', $personnel->campaign_id)->where('name','!=','')->orderBy('name', 'ASC')->get();
 
-                        $leaders1 = new Collection;
+                    /* ------- optimize ---------*/
+                    $leaders = DB::table('immediateHead_Campaigns')->
+                                    join('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                                    join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
+                                    leftJoin('users','immediateHead.employeeNumber','=', 'users.employeeNumber')->
+                                    join('positions','positions.id','=','users.position_id')->
+                                    select('immediateHead_Campaigns.id','positions.name as position','users.lastname','users.firstname','campaign.name as campaign','campaign.id as campaign_id')->
+                                    orderBy('users.lastname','ASC')->
+                                    where('users.status_id','!=',7)->
+                                    where('users.status_id','!=',8)->
+                                    where('users.status_id','!=',9)->
+                                    get();
 
-                        foreach ($TLs as $tl) {
 
-                                    //$data = $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
-                                    $data = ImmediateHead::find($tl->immediateHead_id)->userData;
-
-                                    if( !empty($data['firstname']) &&  !empty($data['lastname']) && $data['firstname'] !== " " && $data['lastname'] !== " " && ($data['status_id']!== 7 && $data['status_id']!== 8 && $data['status_id']!== 9) ) //to ensure no dummy DB entries
-                                    {
-                                        $hisPOsition = Position::where('id',$data['position_id'])->first();
-                                                                
-                                            $leaders1->push([
-                                            'id'=>$tl->id,
-                                            'position'=> $hisPOsition['name'], //Position::find($hisPOsition['position_id']), //->position,
-                                            'lastname'=>  $data['lastname'], //$tl->lastname,
-                                            'firstname'=> $data['firstname'], //$tl->firstname,
-                                            'campaign'=> Campaign::find($tl->campaign_id)->name, // $tl->campaigns->first()->name,
-                                            'campaign_id'=> $tl->campaign_id]); // $tl->campaigns->first()->id]);
-                                        
-                                       
-
-                                    }
-                                                            
-                        }
-
-                        $leaders = $leaders1->sortBy('lastname');
+                    $hrPersonnels = DB::table('team')->where('campaign_id',$hrDept->id)->
+                                        leftJoin('users','team.user_id','=', 'users.id')->
+                                        join('positions','positions.id','=','users.position_id')->
+                                        join('campaign','team.campaign_id','=','campaign.id')->
+                                        select('users.id','positions.name as position','users.lastname','users.firstname','campaign.name as campaign')->
+                                        where('users.status_id','!=',7)->
+                                        where('users.status_id','!=',8)->
+                                        where('users.status_id','!=',9)->
+                                        orderBy('users.lastname','ASC')->
+                                        get();
 
 
 
-                    /*
+                    //********* we get the PM or Director for approval
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                    $theApprover = null;
+                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
 
-                    $campaigns = Campaign::where('name','!=','')->where('id','!=',$hisCampaign->first()->id)->orderBy('name','ASC')->get();
-                    
-                    //$campaigns = Campaign::where('id', '!=', $personnel->campaign_id)->orderBy('name', 'ASC')->get();
-                    $leaders = new Collection;
-                    foreach ($TLs as $tl) {
 
-                        //$data = $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
-                        $data = ImmediateHead::find($tl->immediateHead_id)->userData;
-                        $hisPOsition = Position::where('id',$data['position_id'])->first();
+                        $l1 = $personnel->supervisor;
                         
+                        if (count($l1) > 0){
+                            $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
-                        //check for multiple campaign handle
-                        
-                        // if (count($tl->campaigns) > 1) 
-                        // {
-                        //     foreach ($tl->campaigns as $t) {
-                        //        $leaders->push([
-                        //         'id'=>$tl->id,
-                        //         'position'=>$hisPOsition['name'],
-                        //         'lastname'=> $tl->lastname,
-                        //         'firstname'=>$tl->firstname." - ". $t->name,
-                        //         'campaign'=>$t->name ]);
-                        //         }
                             
-
-                        // } else
-                        // {
-                        //     $leaders->push([
-                        //     'id'=>$tl->id,
-                        //     'position'=> $hisPOsition['name'], //Position::find($hisPOsition['position_id']), //->position,
-                        //     'lastname'=> $tl->lastname,
-                        //     'firstname'=>$tl->firstname,
-                        //     'campaign'=>$tl->campaigns->first()->name ]);
-
-                        // }
-
-                         $leaders->push([
-                            'id'=>$tl->id,
-                            'position'=> $hisPOsition['name'], //Position::find($hisPOsition['position_id']), //->position,
-                            'lastname'=> $data['lastname'],
-                            'firstname'=>$data['firstname'],
-                            'campaign'=> Campaign::find($tl->campaign_id)->name ]); //$tl->campaigns->first()->name ]);
+                            if (in_array($l2->id, $allowedPMs))
+                            {
+                                $theApprover = $l2;
+                            }else{
 
 
-                        
-                    }
+                                $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
-                    */
+                                //return $l3;
+                                if (in_array($l3->id, $allowedPMs)){
 
-                  //return $leaders->sortBy('lastname');
+                                    $theApprover = $l3;
 
-                    $hrPersonnels = new Collection;
+                                } else{
 
-                    foreach ($hrs as $tl) {
-                        //$hisPOsition = User::where('employeeNumber', $tl->employeeNumber)->first();
+                                    $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
-                        $data = User::find($tl->user_id); // $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
+                                    if (in_array($l4->id, $allowedPMs)){
+                                        $theApprover = $l4;
 
+                                    } else $theApprover = User::find(1784);
+                                }
 
-                        $hisPOsition = Position::where('id',$data['position_id'])->first();
+                            }
 
+                        }else $theApprover= User::find(1784);
+                        $theApproverTitle = Position::find($theApprover->position_id); 
 
-                        //$hisPOsition = User::find($tl->user_id);
-                        $hrPersonnels->push([
-                            'id'=>$tl->user_id,
-                            'position'=>$hisPOsition['name'],
-                            'lastname'=> $data->lastname,
-                            'firstname'=>$data->firstname,
-                            'campaign'=>$data->campaign[0]->name ]); //[0]->name ]);
-                    }
-
-                        //return $leaders;
-                    return $coll;
-                        return view('people.changePersonnel-edit', compact('users','floors','hisFloor', 'movementTypes', 'leaders', 'TLset', 'hisNew', 'hisNewIDvalue',  'hrPersonnels', 'hisCampaign','personnel',  'campaigns', 'movement','statuses','positions'));
+                 
+                        return view('people.changePersonnel-edit', compact('users','floors','hisFloor', 'movementTypes', 'leaders', 'TLset', 'hisNew', 'hisNewIDvalue',  'hrPersonnels','theApproverTitle','theApprover', 'hisCampaign','personnel',  'campaigns', 'movement','statuses','positions','previousCamp','previousTL'));
 
 
         }//end if else can Edit

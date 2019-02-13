@@ -2157,7 +2157,7 @@ class UserController extends Controller
         ($user->id == $this->user->id) ? $theOwner = true : $theOwner=false;
         
 
-        (is_null($user->nickname)) ? $greeting = $user->firstname : $greeting = $user->nickname;
+        (is_null($user->nickname) || $user->nickname == " " || empty($user->nickname) ) ? $greeting = $user->firstname : $greeting = $user->nickname;
 
         $leadershipcheck1 = ImmediateHead::where('employeeNumber', $user->employeeNumber)->get();
         if ($leadershipcheck1->isEmpty()) $leadershipcheck=null;

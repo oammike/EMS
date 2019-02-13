@@ -80,7 +80,7 @@
                 <div class="box-header">
 
                  
-                  <h2 class="text-center"> <img class="text-center" src="{{asset('public/img/logo-transparent.png')}}" width="90" /></h2>
+                  <h2 class="text-center"> <img class="text-center" src="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}" width="90" /></h2>
                   <h3 class="text-center"> Personnel Change Notice <br/><br/><br/></h3>
                   
 
@@ -160,19 +160,25 @@
                       <td class="text-center" ><strong id="requestedLabel">Requested by:</strong> <br /><br/> <br /><p>&nbsp;</p><p>&nbsp;</p>
 
                         <div id="alert-requestedBy" style="margin-top:10px"></div>
-                        @if (!empty($requestor))<img class="signature" src="{{$signatureRequestedBy}}" width="200" /><br/>@endif
+                        @if (!empty($requestor))
+                        <!-- <img class="signature" src="{{$signatureRequestedBy}}" width="200" /> <br/>-->@endif
                         <select name="requestedBy" id="requestedBy" class="required form-control text-left"style="width:70%; margin:0 auto; text-transform:uppercase">
                           @if (empty($requestor))
                               <option value="0" class="text-center"> -- Select a leader --</option>
                               @foreach ($leaders as $leader)
-                                <option class="text-left" style="text-transform:uppercase" value="{{$leader['id']}}" data-position="{{$leader['position']}}" data-campaign="{{$leader['campaign']}}">{{$leader['lastname']}}, {{$leader['firstname']}} -- {{$leader['campaign']}}</option>
+                                <option class="text-left" style="text-transform:uppercase" value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} -- {{$leader->campaign}}</option>
                               @endforeach
+                              </select>
+
                           @else
 
                           <option class="text-left" style="text-transform:uppercase"  value="{{$requestor->id}}" data-position="{{$requestorPosition}}" data-campaign="{{$requestorCampaign->name}} "><?php  echo OAMPI_Eval\ImmediateHead::find($requestor->immediateHead_id)->lastname;?>, <?php  echo OAMPI_Eval\ImmediateHead::find($requestor->immediateHead_id)->firstname;?> </option>
 
-                          @endif
                         </select>
+                        <br/>{{$requestorPosition}}
+
+                          @endif
+                        
                         <br>
                         <em id="requestorPosition"></em></td>
                       <td  class="text-center"><strong>Approved by: <br /><br/><br/> <p>&nbsp;</p><p>&nbsp;</p>
@@ -189,9 +195,10 @@
                         <div id="alert-hrPersonnel" style="margin-top:10px"></div>
                         <select name="hrPersonnel" id="hrPersonnel" class="form-control text-left" style="text-transform:uppercase; width:45%; margin:0 auto" required>
                           <option value="0" class="text-left"> -- Select HR personnel --</option>
-                          @foreach ($hrPersonnels->sortBy('lastname') as $leader)
+                          
+                          @foreach ($hrPersonnels as $leader)
                             
-                            <option class="text-left" value="{{$leader['id']}}" data-position="{{$leader['position']}}" data-campaign="{{$leader['campaign']}}">{{$leader['lastname']}}, {{$leader['firstname']}} </option>
+                            <option class="text-left" value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} </option>
                           @endforeach
                         </select><br>
                         <em id="personnelPosition"></em></td>
@@ -569,7 +576,7 @@
      var pos =  $(this).find(':selected').attr('data-position');
      var camp =  $(this).find(':selected').attr('data-campaign');
      $('#personnelPosition').html('');
-     $('#personnelPosition').html(pos +', <strong></strong>');
+     $('#personnelPosition').html('<strong>'+pos+'</strong>');
 
    });
 
@@ -863,7 +870,5 @@ function validateRequired(param, availability, defaultval) {
  
 </script>
 <!-- end Page script -->
-
-<!-- <script type="text/javascript" src="{{asset('public/js/jquery.validate.js')}}"></script> -->
 
 @stop

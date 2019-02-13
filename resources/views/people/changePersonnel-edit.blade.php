@@ -80,7 +80,7 @@
                 <div class="box-header">
 
                  
-                  <h2 class="text-center"> <img class="text-center" src="{{asset('public/img/logo-transparent.png')}}" width="90" /></h2>
+                  <h2 class="text-center"> <img class="text-center" src="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}" width="90" /></h2>
                   <h3 class="text-center"> Personnel Change Notice <br/><br/><br/></h3>
                   
 
@@ -138,7 +138,7 @@
 
                           <tr id="details">
                             @if ($movement->personnelChange_id == "1")
-                            <td>Program: <strong>{{$personnel->campaign[0]->name}} </strong></td>
+                            <td>Program: <strong>{{$previousCamp}} <br/> --   {{$previousTL->firstname}} {{$previousTL->lastname}}</strong></td>
                             <td><select name="program" id="program" class="choices form-control">
                               
                               @foreach ($campaigns as $c)<option @if ($hisNew->id == $c->id) selected="selected" @endif value="{{$c->id}}">{{$c->name}} </option> @endforeach</select>
@@ -228,14 +228,14 @@
                         <select name="requestedBy" id="requestedBy" class="required form-control text-center"style="width:70%; margin:0 auto">
                           <option value="0" class="text-center"  selected="selected"> -- Select a leader --</option>
                           @foreach ($leaders as $leader)
-                            <option @if ($movement->requestedBy == $leader['id']) @endif value="{{$leader['id']}}" data-position="{{$leader['position']}}" data-campaign="{{$leader['campaign']}}">{{$leader['lastname']}}, {{$leader['firstname']}} -- {{$leader['campaign']}} </option>
+                            <option @if ($movement->requestedBy == $leader->id) @endif value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} -- {{$leader->campaign}} </option>
                           @endforeach
                         </select>
                         <br>
                         <em id="requestorPosition"></em></td>
-                      <td  class="text-center"><strong>Approved by: <br /><br/><br/> <p>&nbsp;</p><p>&nbsp;</p>
-                        Michael Chang</strong><br>
-                        <em>Operations Manager</em></td>
+                     <td  class="text-center"><strong>Approved by: <br /><br/><br/> <p>&nbsp;</p><p>&nbsp;</p>
+                        {{$theApprover->firstname}} {{$theApprover->lastname}} </strong><br>
+                        <em>{{$theApproverTitle->name}} </em></td>
 
                     </tr>
 
@@ -248,7 +248,7 @@
                         <select name="hrPersonnel" id="hrPersonnel" class="form-control text-center" style="width:45%; margin:0 auto" required>
                           <option value="0"> -- Select HR personnel --</option>
                           @foreach ($hrPersonnels as $leader)
-                            <option @if ($movement->notedBy == $leader['id']) selected="selected" @endif class="text-center" value="{{$leader['id']}}" data-position="{{$leader['position']}}" data-campaign="{{$leader['campaign']}}">{{$leader['lastname']}}, {{$leader['firstname']}} </option>
+                            <option @if ($movement->notedBy == $leader->id) selected="selected" @endif class="text-center" value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} </option>
                           @endforeach
                         </select><br>
                         <em id="personnelPosition"></em></td>
@@ -517,7 +517,7 @@
      var pos =  $(this).find(':selected').attr('data-position');
      var camp =  $(this).find(':selected').attr('data-campaign');
      $('#personnelPosition').html('');
-     $('#personnelPosition').html(pos +', <strong>'+camp+'</strong>');
+     $('#personnelPosition').html(' <strong>'+pos+'</strong>');
 
    });
 
