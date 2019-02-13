@@ -109,7 +109,8 @@
                             @foreach ($p as $emp)
 
                               @if ($ctr <= $s)
-                              <img src="{{$emp['pic']}}" class="user-image" width="50" /> <strong>{{ $emp['respondent'] }}</strong>
+                              <!-- <img src="{{$emp['pic']}}" class="user-image" width="50" />  -->
+                              <strong><a href="{{action('UserController@show',$emp['respondentID'])}}">{{ $emp['respondent'] }}</a></strong>
                                - <small>{{$emp['jobTitle']}}</small><br/>
 
 
@@ -119,11 +120,13 @@
                                   @if ($ctr == $s+1)
                                 </td>
                                 <td>
-                                  <img src="{{$emp['pic']}}" class="user-image" width="50" /> <strong>{{ $emp['respondent'] }}</strong>
+                                  <!-- <img src="{{$emp['pic']}}" class="user-image" width="50" /> --> 
+                                 <strong><a href="{{action('UserController@show',$emp['respondentID'])}}">{{ $emp['respondent'] }}</a></strong>
                                - <small>{{$emp['jobTitle']}}</small><br/>
 
                                   @else
-                                  <img src="{{$emp['pic']}}" class="user-image" width="50" /> <strong>{{ $emp['respondent'] }}</strong>
+                                  <!-- <img src="{{$emp['pic']}}" class="user-image" width="50" />  -->
+                                  <strong><a href="{{action('UserController@show',$emp['respondentID'])}}">{{ $emp['respondent'] }}</a></strong>
                                - <small>{{$emp['jobTitle']}}</small><br/>
 
                                   @endif
