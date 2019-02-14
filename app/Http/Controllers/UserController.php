@@ -1998,6 +1998,46 @@ class UserController extends Controller
 
         $campaigns = "";
 
+        /* --------- optimize ---------- */
+        
+        
+
+        if (is_null($leadershipcheck))
+        {
+          $allTeams = DB::table('team')->where('team.campaign_id',$this->user->campaign->first()->id)->
+                          join('users','team.user_id','=','users.id')->
+                          join('positions','users.position_id','=','positions.id')->
+                          where('users.status_id','!=',7)->
+                          where('users.status_id','!=',8)->
+                          where('users.status_id','!=',9)->get();
+                          //join('users','team.user_id','=','users.id')->get();
+          return $allTeams;
+        
+
+          //$allTeams = DB::table('team')->where('team.campaign_id',$this->user->campaign->id)
+
+        } else {
+          $allTeams = DB::table('team')->where('team.campaign_id',$this->user->campaign->first()->id)->
+                          join('users','team.user_id','=','users.id')->
+                          join('positions','users.position_id','=','positions.id')->
+                          where('users.status_id','!=',7)->
+                          where('users.status_id','!=',8)->
+                          where('users.status_id','!=',9)->get();
+          return $allTeams;
+
+          //$allTeams = DB::table('immediateHead_Campaigns')->where('immediateHead_id',$leadershipcheck->id)->
+          //              join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->get();
+
+        }
+
+        
+
+                        return $allTeams;
+
+        /* --------- optimize ---------- */
+
+
+
         $allTeams = new Collection;
         foreach ($campaigns1->sortBy('name') as $camp) {
             $campaigns .= " | ".$camp->name;
