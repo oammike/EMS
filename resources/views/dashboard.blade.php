@@ -241,7 +241,7 @@ select:-webkit-autofill:focus {
 
 
                 
-                <?php /*
+                
 
                 <!--VIDEOS -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
@@ -256,21 +256,23 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-orange" style="font-size: 1.8em">Join our <span class="text-primary"> #HobbyMonth Activity!</span></strong></p>
-                      <video id="teaser" src="storage/uploads/hobbymonth.webm" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-orange" style="font-size: 1.8em">Let's Get <span class="text-primary"> Physical!</span></strong></p>
+                      <video id="teaser" src="storage/uploads/timelapse.webm" width="100%" loop controls></video>
 
                      
 
-                                <p style="font-size: 0.8em;" align="center">Upload a photo or two showing your favorite hobbies and include a short description telling us why you love doing it or how you came to love doing it - we're all ears! <br/><br/>
-                                  Don't forget to include our official hashtags as seen in this post and tag @OpenAccessBPO. Also, comment DONE on our IG post so we can easily track your posts and TAG your teammates so we can learn a little bit more about them, too. On February 1st, we'll choose 5 employees (via lottery) who'll get the chance to be featured in our pagfe and take part in one of the exciting things coming our way this year! <br/><br/>
+                                <p style="font-size: 1em;" align="center">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle! Here are the schedules:<br/><br/>
+                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
+                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
 
-                                #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</p> 
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness</p> 
                               
                               
                     </div>
                   </div>
 
-
+<?php /*
                   <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos</h3>
@@ -421,20 +423,20 @@ select:-webkit-autofill:focus {
    'use strict';
 
    /* ---- VIDEO PLAYER -------- */
-   // var vid = document.getElementById("teaser");
-   // vid.onplay = function() {
-   //      //alert("The video has started to play");
-   //      $.ajax({
-   //              url: "{{action('HomeController@logAction','5')}}",
-   //              type: "GET",
-   //              data: {'action': '5'},
-   //              success: function(response){
-   //                        console.log(response);
+   var vid = document.getElementById("teaser");
+   vid.onplay = function() {
+        //alert("The video has started to play");
+        $.ajax({
+                url: "{{action('HomeController@logAction','5')}}",
+                type: "GET",
+                data: {'action': '5'},
+                success: function(response){
+                          console.log(response);
 
-   //            }
+              }
 
-   //      });
-   //  };
+        });
+    };
      /* ---- VIDEO PLAYER -------- */
 
    $(window).bind("load", function() {

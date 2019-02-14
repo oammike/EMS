@@ -96,25 +96,10 @@
 
   <?php */ ?> 
 
-                      <div class="item active text-center">
-                        <img src="storage/uploads/myhealthally.png" />
+                      
+                      
 
-                      </div>
-                      <div class="item  text-center">
-                             
-
-                               <h4 class="text-primary">What: OAM Clinic Wellness Program</h4>
-                                <img src="storage/uploads/wellness3.jpg" />
-
-  
-                              <p><strong>Where:</strong> <span class="text-danger" style="font-size: larger"> 5th Floor</span><br/>
-                              <strong>When:</strong> <strong class="text-danger">February 13, 2019, Wednesday, 10AM- 7PM</strong><br/>
-                              
-                              <small>Should you have questions or concerns, please feel free to drop by the clinic or email our nurses at <strong>nurse@openaccessbpo.net / nurse@openaccessmarketing.com.</strong></small>
-                              
-                      </div>
-
-                      <div class="item text-center" >
+                      <div class="item active text-center" >
                         <h4 class="text-primary">Let's Get Physical</h4>
                         <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" />
                             
@@ -722,6 +707,25 @@
                           
 
                             <?php /* 
+
+                            <div class="item  text-center">
+                             
+
+                               <h4 class="text-primary">What: OAM Clinic Wellness Program</h4>
+                                <img src="storage/uploads/wellness3.jpg" />
+
+  
+                              <p><strong>Where:</strong> <span class="text-danger" style="font-size: larger"> 5th Floor</span><br/>
+                              <strong>When:</strong> <strong class="text-danger">February 13, 2019, Wednesday, 10AM- 7PM</strong><br/>
+                              
+                              <small>Should you have questions or concerns, please feel free to drop by the clinic or email our nurses at <strong>nurse@openaccessbpo.net / nurse@openaccessmarketing.com.</strong></small>
+                              
+                      </div>
+
+                            <div class="item active text-center">
+                        <img src="storage/uploads/myhealthally.png" />
+
+                      </div>
 
 
                             <!-- RUNNERS -->
