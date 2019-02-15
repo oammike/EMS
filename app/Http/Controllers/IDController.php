@@ -20,7 +20,7 @@ class IDController extends Controller
     public function index()
     {
            
-        return view('camera.index',['user' => $this->user, 'url'=> $this->url->to('/') ]);
+        return view('camera.index2',['user' => $this->user, 'url'=> $this->url->to('/') ]);
     }
     
     public function trainee()
