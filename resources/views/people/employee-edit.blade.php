@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Update Employee | OAMPI Evaluation System</title>
+<title>Update Employee | EMS </title>
 
 
 

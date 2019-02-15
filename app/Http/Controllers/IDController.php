@@ -19,12 +19,13 @@ class IDController extends Controller
     
     public function index()
     {
-        return view('camera.index', ['user' => User::findOrFail($id)->with('position')->get(), 'url'=> $this->url->to('/') ]);
+           
+        return view('camera.index',['user' => $this->user, 'url'=> $this->url->to('/') ]);
     }
     
     public function trainee()
     {
-        return view('camera.trainee', ['user' => User::findOrFail($id)->with('position')->get(), 'url'=> $this->url->to('/') ]);
+        return view('camera.trainee', ['user' => $this->user, 'url'=> $this->url->to('/') ]);
     }
     
     public function load_single($id)
