@@ -561,6 +561,12 @@ trait UserTraits
             foreach ($mySub as $em){
 
                 $emp = User::find($em->user_id);
+                $empCamp = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id)->name;
+
+                $l = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id)->logo['filename'];
+
+                if (empty($l)) $logo = "white_logo_small.png";
+                else $logo = $l;
 
                 if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9){
 
@@ -596,11 +602,11 @@ trait UserTraits
                                 //$completedEvals = EvalForm::where('evaluatedBy', $isTL->id)->where('overAllScore','>','0.00')->get();
                                 
                                 
-                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname, 'position'=>$emp->position->name, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
+                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname, 'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
 
                             } 
                             else {
-                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname, 'position'=>$emp->position->name, 'subordinates'=>null, 'completedEvals'=>null ]);
+                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname, 'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>null, 'completedEvals'=>null ]);
                             }
 
                         }//end if not himsself

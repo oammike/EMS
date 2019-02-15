@@ -307,15 +307,16 @@ class SurveyController extends Controller
 
       //****** ALL CAMPAIGN RELATED DATA
       foreach ($programs->sort() as $p) {
-          $total = count(DB::table('team')->where('campaign_id',$p[0]['programID'])->
+          $totalData = DB::table('team')->where('campaign_id',$p[0]['programID'])->
                         join('users','users.id','=','team.user_id')->
-                        select('users.status_id')->
+                        select('users.status_id','users.firstname','users.lastname','users.id')->
                         where('users.status_id',"!=",7)->
                         where('users.status_id',"!=",8)->
                         where('users.status_id',"!=",9)->
                         where('users.status_id',"!=",13)->
                         where('team.floor_id','!=',10)->
-                        where('team.floor_id','!=',11)->get()); //count(Team::where('campaign_id',$p[0]['programID'])->get());
+                        where('team.floor_id','!=',11)->get();
+          $total = count($totalData); //count(Team::where('campaign_id',$p[0]['programID'])->get());
           $l = Campaign::find($p[0]['programID'])->logo['filename'];
 
           if (empty($l)) $logo = "white_logo_small.png";
@@ -323,8 +324,10 @@ class SurveyController extends Controller
 
           $progAve = round(number_format($surveyData->where('programID',$p[0]['programID'])->pluck('rating')->avg(),1));
 
-          $programData->push(['id'=>$p[0]['programID'], 'name'=>$p[0]['program'],'respondents'=>count($p), 'total'=>$total, 'aveRating'=>$progAve, 'logo'=>$logo]);
+          $programData->push(['id'=>$p[0]['programID'], 'name'=>$p[0]['program'],'respondents'=>count($p),'totalData'=>$totalData,  'total'=>$total, 'aveRating'=>$progAve, 'logo'=>$logo]);
       }
+
+      //return collect($programData)->sortBy('name');
 
 
 

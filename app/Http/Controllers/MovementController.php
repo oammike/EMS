@@ -58,6 +58,7 @@ class MovementController extends Controller
 
      public function index()
     {
+        $correct = Carbon::now('GMT+8');
 
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
@@ -131,8 +132,13 @@ class MovementController extends Controller
 
                 $updateTeam->save();$n->isDone = 1; $n->save();
             }
-            //$movements = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->get();//date('Y-m-d',strtotime("2017-12-31"))
-            //return $programTransfers;
+            
+
+             if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed MVT_idx[".$typeID."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
+                fclose($file);
+            }
             
 
 
@@ -183,10 +189,19 @@ class MovementController extends Controller
                 { //not super admin but a leader so you need to display their name and from what campaign
                     
                     $req = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->first(); 
-                    $requestor = ImmediateHead_Campaign::where('immediateHead_id',$req->id)->where('campaign_id',User::find($id)->team->campaign_id)->first();
+                    $requestor1 = ImmediateHead_Campaign::where('immediateHead_id',$req->id)->where('campaign_id',User::find($id)->team->campaign_id)->get();
+
+                    if (count($requestor1) < 1){
+                        $requestorCampaign = Campaign::find(Team::where('user_id',$this->user->id)->first()->campaign_id);
+                        // $requestor->campaign_id);
+
+                    } else {
+                        $requestor = $requestor1->first();
+                        $requestorCampaign = Campaign::find($requestor->campaign_id);
+                    }
                     $requestorPosition = Position::find($this->user->position_id)->name;
                    
-                    $requestorCampaign = Campaign::find($requestor->campaign_id); //Campaign::find(
+                     //Campaign::find(
 
                     if ( file_exists('public/img/employees/'.$this->user->id.'-sign.png') )
                              {
@@ -233,65 +248,29 @@ class MovementController extends Controller
 
                     
 
-                    foreach ($TLs as $tl) {
+                    /* ------- optimize ---------*/
+                    $leaders = DB::table('immediateHead_Campaigns')->
+                        join('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                        join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
+                        leftJoin('users','immediateHead.employeeNumber','=', 'users.employeeNumber')->
+                        join('positions','positions.id','=','users.position_id')->
+                        select('immediateHead_Campaigns.id','positions.name as position','users.lastname','users.firstname','campaign.name as campaign','campaign.id as campaign_id')->
+                        orderBy('users.lastname','ASC')->
+                        where('users.status_id','!=',7)->
+                        where('users.status_id','!=',8)->
+                        where('users.status_id','!=',9)->
+                        get();
 
-                        //$data = $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
-                        $data = ImmediateHead::find($tl->immediateHead_id)->userData;
-
-                        if( !empty($data['firstname']) &&  !empty($data['lastname']) && $data['firstname'] !== " " && $data['lastname'] !== " " ) //to ensure no dummy DB entries
-                        {
-                            $hisPOsition = Position::where('id',$data['position_id'])->first();
-                        
-
-                            
-                                $leaders1->push([
-                                'id'=>$tl->id,
-                                'position'=> $hisPOsition['name'], //Position::find($hisPOsition['position_id']), //->position,
-                                'lastname'=>  $data['lastname'], //$tl->lastname,
-                                'firstname'=> $data['firstname'], //$tl->firstname,
-                                'campaign'=> Campaign::find($tl->campaign_id)->name, // $tl->campaigns->first()->name,
-                                'campaign_id'=> $tl->campaign_id]); // $tl->campaigns->first()->id]);
-
-                           
-
-                        }
-                        
-
-                        
-                    }
-
-                    //return $coll;
-                    $leaders = $leaders1->sortBy('lastname');
-                   
-                    $hrPersonnels = new Collection;
-
-                    //return $leaders;
-
-                    foreach ($hrs as $tl) {
-                        //$hisPOsition = User::where('employeeNumber', $tl->employeeNumber)->first();
-
-                        $data = User::find($tl->user_id); // $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
-
-                        //remove all resigned | terminated | endo
-                        if ($data->status_id !== 7 && $data->status_id !== 8 && $data->status_id !== 9 )
-                        {
-                            
-                             $hisPOsition = Position::where('id',$data->position_id)->first()->name;
-
-
-                            //$hisPOsition = User::find($tl->user_id);
-                            $hrPersonnels->push([
-                                'id'=>$tl->id,
-                                'position'=> $hisPOsition, //$posid, //hisPOsition['name'],
-                                'lastname'=> $data->lastname,
-                                'firstname'=>$data->firstname,
-                                'campaign'=>$data->campaign[0]->name ]); //[0]->name ]);
-
-                        }
-
-
-                       
-                    } 
+                    $hrPersonnels = DB::table('team')->where('campaign_id',$hrDept->id)->
+                            leftJoin('users','team.user_id','=', 'users.id')->
+                            join('positions','positions.id','=','users.position_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            select('users.id','positions.name as position','users.lastname','users.firstname','campaign.name as campaign')->
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->
+                            orderBy('users.lastname','ASC')->
+                            get();
 
                     //********* we get the PM or Director for approval
                     // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
@@ -336,7 +315,13 @@ class MovementController extends Controller
 
                 $theApproverTitle = Position::find($theApprover->position_id); 
 
-                    
+                if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Viewed MVT of [". $id."] by:".$this->user->lastname."\n");
+                    fclose($file);
+                }
+
+                    //return $hrPersonnels;
                        return view('people.changePersonnel', compact('theApproverTitle','theApprover', 'users','leaders','requestor', 'signatureRequestedBy','requestorPosition', 'requestorCampaign', 'hrPersonnels',  'campaigns', 'floors', 'personnel', 'immediateHead', 'statuses','changes', 'positions'));//'myCampaign',
 
                 } else 
@@ -396,7 +381,12 @@ class MovementController extends Controller
                     }
 
                    
-                   
+                   if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed MVT of [". $id."] by:".$this->user->lastname."\n");
+                        fclose($file);
+                    }
+
                     return view('people.movement-employee', compact('movements','canEditMvt', 'canDeleteMvt', 'canMoveOthers', 'requestor', 'personnel'));
 
                 } //end else employee has existing movements
@@ -538,7 +528,15 @@ class MovementController extends Controller
                 // *** you need to check if this employee has been moved or not
                     //$requestor = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->first(); 
                     $req = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->first(); 
-                    $requestor = ImmediateHead_Campaign::where('immediateHead_id',$req->id)->where('campaign_id',User::find($id)->team->campaign_id)->first();
+                    $requestor1 = ImmediateHead_Campaign::where('immediateHead_id',$req->id)->where('campaign_id',User::find($id)->team->campaign_id)->get();
+
+                    if (count($requestor1) > 0){
+                        $requestor = $requestor1->first();
+
+                    } else {
+                        $requestorCampaign = Campaign::find(Team::where('user_id',$this->user->id)->first()->campaign_id);
+                        $requestor =  ImmediateHead_Campaign::where('immediateHead_id',$req->id)->first();
+                    }
                     $requestorPosition = Position::find($this->user->position_id)->name;
 
                     if (count($requestor->myCampaigns) > 1) //if marami syang campaigns na hawak, indicate mo lahat
@@ -549,12 +547,11 @@ class MovementController extends Controller
 
                     } else $requestorCampaign = Campaign::find($requestor->campaign_id);
 
-                    if ( file_exists('public/img/employees/'.$req->userData->id.'-sign.png') )
-                             {
-                                $signatureRequestedBy = asset('public/img/employees/'.$req->userData->id.'-sign.png');
-                             } else {
-                                $signatureRequestedBy = asset('public/img/employees/signature.png');
-                             }
+                    if ( file_exists('public/img/employees/'.$req->userData->id.'-sign.png') ){
+                        $signatureRequestedBy = asset('public/img/employees/'.$req->userData->id.'-sign.png');
+                     } else {
+                        $signatureRequestedBy = asset('public/img/employees/signature.png');
+                     }
                    
 
                 } else {$requestor = null; $requestorPosition=null; $requestorCampaign=null;} //user is a super admin, he can assign who the requestor is
@@ -1727,6 +1724,7 @@ class MovementController extends Controller
 
     public function show($id)
     {
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
         $movement = Movement::find($id);
 
         if ( empty($movement)) return view('empty');
@@ -1950,6 +1948,11 @@ class MovementController extends Controller
                                 if ($oldCampaign->id !== $newCampaign->id) $interCampaign = false; else $interCampaign= true;
 
 
+                                if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed MVT_IH of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
+                                    fclose($file);
+                                }
                                 
                                  //ImmediateHead::where('campaign_id',$hisNew->id)->orderBy('lastname', 'ASC')->get();
                                  return view('people.movement-show',compact('theApprover','theApproverTitle', 'interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
@@ -1962,6 +1965,12 @@ class MovementController extends Controller
                                 $hisOld = Position::find($movementdetails->position_id_old);
                                 $hisNewIDvalue = $movementdetails->position_id_new;
                                 $interCampaign=false;
+
+                                 if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed MVT_Pos of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
+                                    fclose($file);
+                                }
                                 
                                 return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
 
@@ -1973,6 +1982,15 @@ class MovementController extends Controller
                                 $hisOld = Status::find($movementdetails->status_id_old);
                                 $hisNewIDvalue = $movementdetails->status_id_new;
                                 $interCampaign=true;
+
+
+                                 if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed MVT_Stat of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
+                                    fclose($file);
+                                }
+
+
                                 return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
 
 
