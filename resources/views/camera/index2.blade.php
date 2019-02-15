@@ -12,8 +12,8 @@
       </div>
     </div>
     <div id="employee_details1">
-      <p id="employee_nick" class="medium">{{$user->firstname}}</p>
-      <p id="employee_name" class="light">{{$user->firstname}} {{$user->middlename }} {{$user->lastname}}</p>
+      <p id="employee_nick" class="medium">{{$user->nickname}}</p>
+      <p id="employee_name" class="light">{{$user->firstname}} {{$user->lastname}}</p>
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
   </div>
@@ -22,11 +22,11 @@
         <table>
           <tr>
             <td>Nickname:</td>
-            <td><input type="text" value="{{ $user->firstname }}" name="emp_name" id="emp_nick"></td>
+            <td><input type="text" value="{{ $user->nickname }}" name="emp_name" id="emp_nick"></td>
           </tr>
           <tr>
             <td>Full Name:</td>
-            <td><input type="text" value="{{ $user->firstname }} {{ $user->middlename }} {{ $user->lastname }}" name="emp_name" id="emp_name"></td>
+            <td><input type="text" value="{{ $user->firstname }} {{ $user->lastname }}" name="emp_name" id="emp_name"></td>
           </tr>
           <tr>
             <td>Position:</td>
