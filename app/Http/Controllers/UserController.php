@@ -559,6 +559,7 @@ class UserController extends Controller
 
     public function editUser($id, Request $request)
     {
+        DB::connection()->disableQueryLog(); 
 
         $canEditEmployees1 = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
         $canUpdateLeaves1 = UserType::find($this->user->userType_id)->roles->where('label','UPDATE_LEAVES');
@@ -602,9 +603,24 @@ class UserController extends Controller
             $campaigns = Campaign::where('name','!=','')->orderBy('name','ASC')->get();// $camp->filter(function($c){ return $c->name !== '' && $c->name !==' ';});
             $floors = Floor::all();
 
-            $leaders = new Collection;
-            //return $TLs;
-            foreach ($TLs as $tl) {
+           
+
+             /* ------- optimize ---------*/
+            $leaders = DB::table('immediateHead_Campaigns')->
+                join('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
+                leftJoin('users','immediateHead.employeeNumber','=', 'users.employeeNumber')->
+                join('positions','positions.id','=','users.position_id')->
+                select('immediateHead_Campaigns.id','positions.name as position','users.lastname','users.firstname','campaign.name as campaign','campaign.id as campaign_id')->
+                orderBy('users.lastname','ASC')->
+                where('users.status_id','!=',7)->
+                where('users.status_id','!=',8)->
+                where('users.status_id','!=',9)->
+                get();
+
+                //return $leaders;
+
+            /*foreach ($TLs as $tl) {
                 $hisPosition = Position::find($tl->userData['position_id']); //User::where('employeeNumber', $tl->employeeNumber)->first();
 
                 //check for multiple campaign handle
@@ -655,7 +671,7 @@ class UserController extends Controller
 
                 }
                 
-            }
+            }*/
 
             //--- GENERATE TEAM MATES : UserTrait
             
@@ -667,6 +683,7 @@ class UserController extends Controller
             $approvers = $personnel->approvers;
             $currentTLcamp = Campaign::where('id',ImmediateHead_Campaign::find($personnelTL_ihCampID)->campaign_id)->get();
 
+           
 
             return view('people.employee-edit', compact('fromYr','canEditEmployees','canUpdateLeaves', 'page', 'approvers','teamMates', 'currentTLcamp', 'personnelTL_ihCampID', 'users','floors', 'userTypes', 'leaders', 'myCampaign', 'campaigns', 'personnel','personnelTL', 'statuses','changes', 'positions'));
 

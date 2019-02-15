@@ -163,57 +163,30 @@ input.cropit-image-zoom-input {
                         {{ Form::open(['route' => ['user.update', $personnel->id], 'method'=>'put','class'=>'col-lg-12', 'id'=> 'addEmployee' ]) }}
                             
 
-                        <!--
-                          <div id="image-cropper" class="pull-right" style="width:250px;">
-                              <div class="row">
-                                <div class="col-lg-12">
-                                 
-                                  <div class="cropit-preview"></div>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-lg-1"><i class="fa fa-picture-o fa-2x"></i></div>
-                                <div class="col-lg-8"><input type="range" class="cropit-image-zoom-input" /></div>
-                                <div class="col-lg-1"><i class="fa fa-picture-o fa-3x"></i></div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-lg-12"><input type="file" class="cropit-image-input form-control" /></div>
-                              </div>
-                            </div>
-                            -->
-
 
                             <table class="table" style="width:85%; margin: 40px auto; background: rgba(256, 256, 256, 0.5)">
                                 <tr>
                                   <td>
-                                    <label>Employee Name: </label>
-                                    <input type="text" name="firstname" id="firstname" value="{{$personnel->firstname}}" class="form-control required" />
-                                    <div id="alert-firstname" style="margin-top:10px"></div>
+                                      <label>Employee Name: </label>
+                                      <input type="text" name="firstname" id="firstname" value="{{$personnel->firstname}}" class="form-control required" />
+                                      <div id="alert-firstname" style="margin-top:10px"></div>
 
-                                   <input type="text" name="middlename" id="middlename"  value="{{$personnel->middlename}}" class="form-control required" />
-                                   <div id="alert-middlename" style="margin-top:10px"></div>
+                                      <input type="text" name="middlename" id="middlename"  value="{{$personnel->middlename}}" class="form-control required" />
+                                      <div id="alert-middlename" style="margin-top:10px"></div>
 
-                                  <input type="text" name="lastname" id="lastname" value="{{$personnel->lastname}}" class="form-control required" />
-                                  <div id="alert-lastname" style="margin-top:10px"></div>
+                                      <input type="text" name="lastname" id="lastname" value="{{$personnel->lastname}}" class="form-control required" />
+                                      <div id="alert-lastname" style="margin-top:10px"></div>
 
-                                  <label>Nick Name: </label>
-                                  <input tabindex="6" type="text" name="nickname" id="nickname" @if (empty($personnel->nickname) ) placeholder="Nickname or alias" @else value="{{$personnel->nickname}}" placeholder="{{$personnel->nickname}}" @endif  class="form-control " />
-                                  <div id="alert-nickname" style="margin-top:10px"></div>
+                                      <label>Nick Name: </label>
+                                      <input tabindex="6" type="text" name="nickname" id="nickname" @if (empty($personnel->nickname) ) placeholder="Nickname or alias" @else value="{{$personnel->nickname}}" placeholder="{{$personnel->nickname}}" @endif  class="form-control " />
+                                      <div id="alert-nickname" style="margin-top:10px"></div>
 
-                                
-
-
-
-                                  <div class="clearfix" style="margin-top:20px"></div>
-                                  <label> <input tabindex="8" type="radio" name="gender" required value="M" @if($personnel->gender=='M')checked="checked" @endif /> Male </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                  <label> <input tabindex="9" type="radio" name="gender" required value="F" @if($personnel->gender=='F')checked="checked" @endif /> Female </label>
-
-
-
+                                      <div class="clearfix" style="margin-top:20px"></div>
+                                      <label> <input tabindex="8" type="radio" name="gender" required value="M" @if($personnel->gender=='M')checked="checked" @endif /> Male </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                      <label> <input tabindex="9" type="radio" name="gender" required value="F" @if($personnel->gender=='F')checked="checked" @endif /> Female </label>
 
                                       <br/><br/><br/>
+
                                       <label>Position: </label>
                                       <select class="form-control" name="position_id" id="position_id">
                                         <option value="0">- Select job title - </option>
@@ -246,8 +219,8 @@ input.cropit-image-zoom-input {
                                         <label>Immediate Supervisor: </label>
                                         <select name='immediateHead_Campaigns_id' id='immediateHead_Campaigns_id' class='form-control'  style="text-transform:uppercase">
                                           <option value='0'> -- Select Leader -- </option>
-                                          @foreach ($leaders as $tl)
-                                          <option value="{{$tl['id']}}" @if ($tl['id'] == $personnelTL_ihCampID) selected="selected" @endif><span style="text-transform:uppercase"> {{$tl['lastname']}}, </span>{{$tl['firstname']}} </option>
+                                          @foreach (collect($leaders)->where('campaign_id',$personnel->campaign[0]->id) as $tl)
+                                          <option value="{{$tl->id}}" @if ($tl->id == $personnelTL_ihCampID) selected="selected" @endif><span style="text-transform:uppercase"> {{$tl->lastname}}, </span>{{$tl->firstname}} ___ <em>({{$tl->position}})</em> </option>
                                           @endforeach
                                            </select><br/><div id='alert-immediateHead'></div>
 
@@ -255,7 +228,6 @@ input.cropit-image-zoom-input {
 
                                   </td>
                                   <td>
-                                    
                                     <label>Employee Number: </label> <input type="text" class="form-control required" name="employeeNumber" id="employeeNumber" value="{{$personnel->employeeNumber}}" /> 
                                      <div id="alert-employeeNumber" style="margin-top:10px"></div>
 
@@ -271,7 +243,7 @@ input.cropit-image-zoom-input {
 
 
                                      <label class="pull-left">Date of Birth:  </label> <input tabindex="14" type="text" class="form-control datepicker pull-left" style="margin-left: 15px; width:50%" name="birthday" id="birthday" @if($personnel->birthday ==='0000-00-00' || $personnel->birthday == '1970-01-01') placeholder="MM/DD/YYYY" @else value="{{ date('m/d/Y',strtotime($personnel->birthday)) }}" @endif />
-                       <div id="alert-birthday" style="margin-top:10px"></div>
+                                      <div id="alert-birthday" style="margin-top:10px"></div>
 
 
 
@@ -348,11 +320,6 @@ input.cropit-image-zoom-input {
                                   </td>
 
                                 </tr>
-
-                                
-
-
-                                
 
 
                                 <tr>

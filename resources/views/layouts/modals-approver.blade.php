@@ -11,14 +11,14 @@
         <input type="hidden" name="user_id" value="{{$personnel->id}}" />
    
         <p style="color: #000">Choose one or more leaders:</p>
-        <?php $campLeads = $leaders->where('campaign',$currentTLcamp[0]->name);?>
+        <?php $campLeads = collect($leaders)->where('campaign',$currentTLcamp[0]->name);?>
         <table class="no-border">
           <tr>
             <?php if (count($teamMates) < 1){ ?>
 
             <td valign="top" class="text-left">
               @foreach($campLeads as $lead)
-          <label class="text-primary"><input type="checkbox" value="{{$lead['id']}}" name="leader[]" <?php if( in_array($lead['id'], $approvers->pluck('id')->toArray())) { ?>checked="checked" <?php } ?> /> {{ strtoupper($lead['lastname'])}}, {{ $lead['firstname']}}</label> <br/>
+          <label class="text-primary"><input type="checkbox" value="{{$lead->id}}" name="leader[]" <?php if( in_array($lead->id, $approvers->pluck('id')->toArray())) { ?>checked="checked" <?php } ?> /> {{ strtoupper($lead->lastname)}}, {{ $lead->firstname}}</label> <br/>
         @endforeach
               
 
@@ -28,7 +28,7 @@
             else { ?>
             <td width="52%" valign="top">
               @foreach($campLeads as $lead)
-                <label class="text-primary"><input type="checkbox" value="{{$lead['id']}}" name="leader[]" <?php if( in_array($lead['id'], $approvers->pluck('id')->toArray())) { ?>checked="checked" <?php } ?> /> {{ strtoupper($lead['lastname'])}}, {{ $lead['firstname']}}</label> <br/>
+                <label class="text-primary"><input type="checkbox" value="{{$lead->id}}" name="leader[]" <?php if( in_array($lead->id, $approvers->pluck('id')->toArray())) { ?>checked="checked" <?php } ?> /> {{ strtoupper($lead->lastname)}}, {{ $lead->firstname}}</label> <br/>
               @endforeach
               
 
