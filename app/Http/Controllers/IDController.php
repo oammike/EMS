@@ -10,10 +10,11 @@ use Illuminate\Routing\UrlGenerator;
 
 class IDController extends Controller
 {
-    public function __construct()
+    public function __construct(UrlGenerator $url)
     {
         $this->middleware('auth');
         $this->user =  User::find(Auth::user()->id);
+        $this->url = $url;
     }
     
     public function index()
