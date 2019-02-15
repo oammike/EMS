@@ -1,0 +1,166 @@
+@font-face {
+  font-family: "light";
+  src:url("../fonts/futura-light.ttf");
+}
+.light{
+  font-family:"light";
+}
+@font-face {
+  font-family: "medium";
+  src:url("../fonts/futura-medium.ttf");
+}
+.medium{
+  font-family:"medium";
+} 
+#id_wrapper{
+  width: 644px;
+  height: 1008px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+}
+#id_container {
+  width: 644px;
+  height: 1008px;
+  overflow: hidden;
+}         
+#videoElement {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  width: 360px;
+  height: 640px;
+  display: none;
+  clear: both;
+  float: right;
+}
+#seriousCanvas{
+  background: transparent;
+  position: relative;
+  left: 317px;
+  top: 288px;  
+  width: 720px;
+  height: 720px;
+}
+#imageElementWrapper{
+  width: 320px;
+}
+#imageElement{
+  display: hidden;
+  width: 50%;
+  margin: 0 auto;
+  clear: both;
+  float: right;
+}
+#canvasElement {
+  position: absolute;
+  top: 310px;
+  left: 2px;
+  background-color: transparent;
+}
+#employee_details1, #employee_details2{
+  position: absolute;
+  top: 375px;
+  left: 45px;
+  width: 317px;
+}
+#employee_details1 p{
+  text-align: left;
+  color: #5e5e5e;
+  font-size: 20px;
+  line-height: 36px;
+  padding:0;
+  margin:0;
+  letter-spacing: 2px;
+}
+p#employee_name{
+  font-size: 30px;
+  line-height: 40px;
+}
+p#employee_nick{
+  color: #219fec;
+  font-size: 60px;
+  line-height: 80px;
+}
+p#employee_position{
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 1px;
+}
+#foreground{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 644px;
+  height: 1008px;
+}
+#controls{
+  width: 640px;
+  position: fixed;
+  right: 0;
+  top: 0; 
+}
+#inputs{
+  float: right;
+}
+.buttons{
+  width: 150px;
+  height: 75px;
+  display: block;
+  margin: 10px 0;
+  float: right;
+  clear: both;
+}
+table{
+  width: 255px;
+  float: right;
+  clear:both;
+}
+#signature_wrapper{
+  border: 1px #ccc solid;
+  background: #fff;
+  width: 848px;
+  height: 480px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+#signature_canvas{
+  width: 768px;
+  height: 432px;
+  margin: 0 auto;
+}
+#signature_controls{
+  width: 100%;
+  height: 48px;
+}
+#dimmer{
+  margin: 0;
+  border: 0;
+  padding: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.8;
+}
+.stop-scrolling {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  overflow: hidden;
+}
+
+#id_signature{
+  max-width: 100%;
+    height: auto;
+}
+#id_signature_wrapper{
+  width: 430px;
+  height: 243px;
+  position: absolute;
+  bottom: 120px;
+  left: 0;
+}
