@@ -29,72 +29,192 @@
                       </div><!--end box-header-->
 
                       <div class="box-body">
-                        <table class="table no-margin table-bordered table-striped" id="manpower" style="background: rgba(256, 256, 256, 0.3)" >
-                          <thead><tr>
-                            <th></th>
-                            <th>Lastname</th>
-                            <th>Firstname</th>
-                            <th>Title</th>
-                            <th>Program / Dept.</th>
-                            <th class="text-center" style="width: 45%">Actions</th>
-                          </tr></thead>
 
-                          <tbody>
+                        @if (!is_null($leadershipcheck))
+                         <!-- Custom Tabs -->
+                        <div class="nav-tabs-custom">
+                          <ul class="nav nav-tabs">
+                           <?php $c=0; ?>
+                           @foreach($allTeams as $pip)
+                              @if ($c==0)
+                              <li class="active"><a href="#tab_{{$pip[0]->programID}}" data-toggle="tab"><strong class="text-primary ">{{$pip[0]->program}} </strong></a></li>
+                              @else
+                              <li><a href="#tab_{{$pip[0]->programID}}" data-toggle="tab"><strong class="text-primary ">{{$pip[0]->program}} </strong></a></li>
 
-                          @foreach($allTeams as $pip)
-                          <tr>
-                            <td><a href="{{action('UserController@show',$pip['id'])}}"> <img src="{{$pip['pic']}}" width="40" class="user-img" /></a></td>
-                            <td><a href="{{action('UserController@show',$pip['id'])}}"> {{$pip['lastname'] }}</a></td>
-                            <td><a href="{{action('UserController@show',$pip['id'])}}"> {{$pip['firstname']}} @if(!is_null($pip['nickname'])) <br/><strong style="font-size: x-small;"><em>({{$pip['nickname']}} )</em></strong> @endif </a></td>
-                            <td><small>{{$pip['position']}}</small> </td>
-                            <td>{{$pip['program']}} </td>
-                            <td class="text-center">
+                              @endif
+                              <?php $c++;?>
+                           @endforeach
+                            
+                           
+                           
+                            
+                          </ul>
 
-                              @if ($pip['anApprover'] )
-                               <a target="_blank" href="{{action('MovementController@changePersonnel',$pip['id'])}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-exchange"></i> Movement </a>
-                               @endif
+                          <div class="tab-content">
 
-                               @if ($pip['anApprover'] || $canUpdateLeaves )
+                            <?php $ctr = 0;?>
 
-                                @if(Auth::user()->id == $pip['id'])
-                                <a href="{{action('UserController@myRequests',$pip['id'])}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
+                            @foreach($allTeams as $pip)
 
-                                @else
-                                <a  target="_blank" href="{{action('UserController@userRequests',$pip['id'])}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
+                            <div class="tab-pane @if($ctr==0)active @endif" id="tab_{{$pip[0]->programID}}">
+                              <div class="row" >
+                                <div class="col-lg-12">
 
-                                @endif
+                                  <table class="table no-margin table-bordered table-striped" id="manpower_{{$pip[0]->programID}}" style="background: rgba(256, 256, 256, 0.3)" >
+                                      <thead><tr>
+                                        <th style="width:20px"></th>
+                                        <th>Lastname</th>
+                                        <th>Firstname</th>
+                                        <th>Title</th>
+                                        <th>Program / Dept.</th>
+                                        <th class="text-center">Actions</th>
+                                      </tr></thead>
+
+                                      <tbody>
+
+                                      
+                                      
+                                      @foreach($pip as $p)
+                                      <tr>
+                                        <td><a href="{{action('UserController@show',$p->id)}}"> 
+                                          @if ( file_exists('public/img/employees/'.$p->id.'.jpg') )
+                                          <img src="{{asset('public/img/employees/'.$p->id.'.jpg')}}" width="40" class="user-img" />
+                                          @else
+                                          <img src="{{asset('public/img/useravatar.png')}}" width="40" class="user-img" />
+                                          @endif
+
+                                        </a></td>
+                                        <td><a href="{{action('UserController@show',$p->id)}}"> {{$p->lastname }}</a></td>
+                                        <td><a href="{{action('UserController@show',$p->id)}}"> {{$p->firstname}} @if(!is_null($p->nickname)) <br/><strong style="font-size: x-small;"><em>({{$p->nickname}} )</em></strong> @endif </a></td>
+                                        <td><small>{{$p->position}}</small> </td>
+                                        <td>{{$p->program}} </td>
+                                        <td class="text-center">
+
+                                         
+                                           <a target="_blank" href="{{action('MovementController@changePersonnel',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-exchange"></i> Movement </a>
+                                          
+
+                                           @if ( $canUpdateLeaves )
+
+                                            @if(Auth::user()->id == $p->id)
+                                            <a href="{{action('UserController@myRequests',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
+
+                                            @else
+                                            <a  target="_blank" href="{{action('UserController@userRequests',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
+
+                                            @endif
+                                          
+                                          <a  target="_blank" href="{{action('DTRController@show',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-o"></i>  DTR</a>
+                                          @endif
+
+                                          @if ($canUpdateLeaves)
+                                          <a  target="_blank" href="{{action('UserVLController@showCredits',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a>
+                                          @endif
+
+
+                                         @if ($p->isBackoffice)
+                                          <a  target="_blank" href="{{action('UserController@show',$p->id)}}#ws" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-plus-o"></i>  Plot Sched</a>
+                                          @endif
+                                         
+
+                                          @if ( !$canUpdateLeaves)
+                                          <a  target="_blank" href="{{action('UserController@show',$p->id)}}" class="btn btn-xs btn-default"><i class="fa fa-address-card-o"></i> View Profile </a>
+
+
+                                          @endif
+                                          
+
+                                        </td>
+                                      </tr>
+                                      @endforeach
+
+                                      
+                                      </tbody>
+
+                                    </table>
+                                  
+
+                                </div>
+                                
+                              </div>
+                              <!-- /.row -->
                               
-                              <a  target="_blank" href="{{action('DTRController@show',$pip['id'])}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-o"></i>  DTR</a>
-                              @endif
 
-                              @if ($canUpdateLeaves)
-                              <a  target="_blank" href="{{action('UserVLController@showCredits',$pip['id'])}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a>
-                              @endif
+                            </div><!--end pane1 -->
+                            <!-- /.tab-pane -->
 
-
-                              @if($pip['anApprover'])
-                              <a  target="_blank" href="{{action('UserController@show',$pip['id'])}}#ws" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-plus-o"></i>  Plot Sched</a>
-                              @endif
-                             
-
-                              @if (!$pip['anApprover'] && !$canUpdateLeaves)
-                              <a  target="_blank" href="{{action('UserController@show',$pip['id'])}}" class="btn btn-xs btn-default"><i class="fa fa-address-card-o"></i> View Profile </a>
+                            <?php $ctr++; ?>
+                            @endforeach
 
 
-                              @endif
-                              
 
-                            </td>
-                          </tr>
+                            
+                            
+                            
+                           
 
-                          @endforeach
-                          </tbody>
+
+                          </div>
+                          <!-- /.tab-content -->
+                        </div>
+                        <!-- nav-tabs-custom -->
+                        @else
+
+
+                        <table class="table no-margin table-bordered table-striped" id="manpower_{{$allTeams[0]->programID}}" style="background: rgba(256, 256, 256, 0.3)" >
+                                      <thead><tr>
+                                        <th style="width:20px"></th>
+                                        <th>Lastname</th>
+                                        <th>Firstname</th>
+                                        <th>Title</th>
+                                        <th>Program / Dept.</th>
+                                        <th class="text-center">Actions</th>
+                                      </tr></thead>
+
+                                      <tbody>
+
+                                      
+                                      
+                                      @foreach($allTeams as $p)
+                                      <tr>
+                                        <td><a href="{{action('UserController@show',$p->id)}}"> 
+                                          @if ( file_exists('public/img/employees/'.$p->id.'.jpg') )
+                                          <img src="{{asset('public/img/employees/'.$p->id.'.jpg')}}" width="40" class="user-img" />
+                                          @else
+                                          <img src="{{asset('public/img/useravatar.png')}}" width="40" class="user-img" />
+                                          @endif
+
+                                        </a></td>
+                                        <td><a href="{{action('UserController@show',$p->id)}}"> {{$p->lastname }}</a></td>
+                                        <td><a href="{{action('UserController@show',$p->id)}}"> {{$p->firstname}} @if(!is_null($p->nickname)) <br/><strong style="font-size: x-small;"><em>({{$p->nickname}} )</em></strong> @endif </a></td>
+                                        <td><small>{{$p->position}}</small> </td>
+                                        <td>{{$p->program}} </td>
+                                        <td class="text-center">
+
+                                          <a  target="_blank" href="{{action('UserController@show',$p->id)}}" class="btn btn-xs btn-default"><i class="fa fa-address-card-o"></i> View Profile </a>
+
+
+
+                                        </td>
+                                      </tr>
+                                      @endforeach
+
+                                      
+                                      </tbody>
 
                         </table>
+
+
+                        @endif
+
+
+
+                        
                       </div>
                       
                       
               </div><!--end box-primary-->
+
 
               @if (!empty($mySubordinates))
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4)">
@@ -131,12 +251,19 @@
                                                       </span>
 
                                                         <div class="info-box-content">
-                                                            <span class="info-box-text"><strong>{{$myMen['lastname']}}, {{$myMen['firstname']}} </strong> </span>
-                                                            <span class="info-box-number" style="font-weight:normal"><small>{{$myMen['position']}}</small> </span>
-
-                                                            <div class="progress">
-                                                             
+                                                          <div class="row">
+                                                            <div class="col-lg-9">
+                                                              <strong>{{$myMen['lastname']}}, {{$myMen['firstname']}} </strong><br/>
+                                                              <small>{{$myMen['position']}}</small> 
                                                             </div>
+                                                            <div class="col-lg-3">
+                                                              @if ($myMen['logo'] != "white_logo_small.png")
+                                                              <img src="{{asset('public/img/'.$myMen['logo'])}}" width="80%" />
+                                                              @endif
+                                                            </div>
+                                                          </div>
+
+                                                          <div class="progress"></div>
                                                                 <span class="progress-description">
                                                                  
                                                                 </span>
@@ -209,6 +336,8 @@
 
               @endif
 
+             
+
           </div><!--end main row-->
       </section>
           
@@ -232,7 +361,9 @@
   $(function () {
    'use strict';
 
-   $("#manpower").DataTable({
+   @if (!is_null($leadershipcheck))
+   @foreach($allTeams as $pip)
+   $("#manpower_{{$pip[0]->programID}}").DataTable({
       "responsive":true,
       "lengthChange": true,
       "lengthMenu":[5, 10, 20,50],
@@ -248,7 +379,27 @@
          "class": "pull-left"
        }
     });
-   
+   @endforeach
+   @else
+   $("#manpower_{{$allTeams[0]->programID}}").DataTable({
+      "responsive":true,
+      "lengthChange": true,
+      "lengthMenu":[5, 10, 20,50],
+      "pageLength": 7,
+      //"scrollX":true,
+      "stateSave": false,
+      //"processing":true,
+       "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
+      "order": [[ 1, "asc" ]],
+      
+      "oLanguage": {
+         "sSearch": "<small>To refine search, simply type-in</small><br> any values you want to look for:",
+         "class": "pull-left"
+       }
+    });
+
+
+   @endif
        
         
       

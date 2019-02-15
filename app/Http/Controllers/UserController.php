@@ -1986,17 +1986,19 @@ class UserController extends Controller
         if ($leader->isEmpty()) $leadershipcheck=null;
         else $leadershipcheck= $leader->first();
 
+        $campaigns = "";
+
         if (is_null($leadershipcheck)) //get user's current team
         {
-          $campaigns1 = $this->user->campaign;
+          $campaigns = $this->user->campaign->first()->name;
         } else
         {
-              $camps = $leadershipcheck->campaigns->sortBy('name'); 
-              $campaigns1 = new Collection;
-              foreach($camps as $camp) $campaigns1->push($camp);
+              // $camps = $leadershipcheck->campaigns->sortBy('name')->pluck('name'); 
+              // $campaigns1 = new Collection;
+              // foreach($camps as $camp) $campaigns .= " | "." ". $camp;
         }
 
-        $campaigns = "";
+        //
 
         /* --------- optimize ---------- */
         
@@ -2007,80 +2009,51 @@ class UserController extends Controller
           $allTeams = DB::table('team')->where('team.campaign_id',$this->user->campaign->first()->id)->
                           join('users','team.user_id','=','users.id')->
                           join('positions','users.position_id','=','positions.id')->
+                          join('campaign','campaign.id','=','team.campaign_id')->
+                          select('campaign.name as program','campaign.id as programID','campaign.isBackoffice', 'users.id','users.firstname','users.lastname','users.nickname','positions.name as position','users.id as userID')->
+                          orderBy('users.lastname','ASC')->
                           where('users.status_id','!=',7)->
                           where('users.status_id','!=',8)->
                           where('users.status_id','!=',9)->get();
-                          //join('users','team.user_id','=','users.id')->get();
-          return $allTeams;
-        
-
-          //$allTeams = DB::table('team')->where('team.campaign_id',$this->user->campaign->id)
-
+          //$allTeams = collect($allTeams1)->groupBy('program');
+         
         } else {
-          $allTeams = DB::table('team')->where('team.campaign_id',$this->user->campaign->first()->id)->
+          $allTeams1 = //DB::table('team')->where('team.campaign_id',$this->user->campaign->first()->id)->
+                      DB::table('immediateHead_Campaigns')->where('immediateHead_id',$leadershipcheck->id)->
+                           join('team','team.campaign_id','=','immediateHead_Campaigns.campaign_id')->
+                           join('campaign','campaign.id','=','team.campaign_id')->
+                           //select('immediateHead_Campaigns.campaign_id','campaign.name as program', 'team.user_id')->get();
                           join('users','team.user_id','=','users.id')->
                           join('positions','users.position_id','=','positions.id')->
+                          
+                          select('campaign.name as program','campaign.id as programID','campaign.isBackoffice', 'users.id', 'users.firstname','users.lastname','users.nickname','positions.name as position','users.id as userID')->
+                          orderBy('users.lastname','ASC')->
                           where('users.status_id','!=',7)->
                           where('users.status_id','!=',8)->
                           where('users.status_id','!=',9)->get();
-          return $allTeams;
-
-          //$allTeams = DB::table('immediateHead_Campaigns')->where('immediateHead_id',$leadershipcheck->id)->
-          //              join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->get();
-
-        }
+          $allTeams = collect($allTeams1)->sortBy('program')->groupBy('program');
+          // $mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
+          // return $allTeams->first()[0]->lastname;
 
         
+        }
 
-                        return $allTeams;
 
         /* --------- optimize ---------- */
 
 
 
-        $allTeams = new Collection;
-        foreach ($campaigns1->sortBy('name') as $camp) {
-            $campaigns .= " | ".$camp->name;
-            $pips = Campaign::find($camp->id)->teams;
-            
-            
-            foreach ($pips as $pip) {
-
-
-
-              $tao = User::find($pip->user_id);//$coll->push(['pip'=>$pip, 'camp'=>Campaign::find($camp->id)->name, 'tao'=>$tao]);
-              if ( file_exists('public/img/employees/'.$tao['id'].'.jpg') )
-               {
-                $img = asset('public/img/employees/'.$tao['id'].'.jpg');
-               } else {
-                $img = asset('public/img/useravatar.png');
-               }
-
-               if(!is_null($leadershipcheck)){
-                $approvers =User_Leader::where('user_id',$tao['id'])->get()->pluck('immediateHead_Campaigns_id');
-                $anApprover = $this->checkIfAnApprover2($approvers,$this->user);
-               }else $anApprover=false;
-
-
-              if ($tao['status_id'] !== 7 && $tao['status_id'] !== 8 && $tao['status_id'] !== 9 && !empty($tao['lastname']))
-              //$allTeams->push(['camp'=>$camp->name, 'tao'=>$tao]);
-              $allTeams->push(['anApprover'=>$anApprover, 'program'=>$camp->name,'id'=>$tao['id'],'pic'=>$img, 'firstname'=>$tao['firstname'],'lastname'=>$tao['lastname'],'nickname'=>$tao['nickname'],'position'=>Position::find($tao['position_id'])['name']]);//,'approver'=>$canPlotSchedule
-            }
-
-            
-            $logo = $camp->logo;
-
-
-
-
-            //$allTeams->push(['emp'])
-            //$campaigns->push(['id'=>$camp->id, 'name'=>$camp->name, 'leaders'=>$leaders, 'logo'=>$logo ]); //$leaders, "members"=> $teams
-        }
+     
         $mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
 
-        //if (empty($mySubordinates)) return view("access-denied");
-        //return $coll;
-        return view('people.myTeam',compact('campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates'));
+        if($this->user->id !== 564 ) {
+          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n Viewed My Team by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        }
+
+       //return $allTeams[0]->firstname;
+        return view('people.myTeam',compact('campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck'));
 
         
       
