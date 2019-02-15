@@ -11,7 +11,7 @@
     <div id="employee_details1">
       <p id="employee_nick" class="medium">{{ $user->firstname }}</p>
       <p id="employee_name" class="light">{{ $user->firstname }} {{ user->middlename }} {{ $user->lastname }}</p>
-      <p id="employee_position" class="light">{{ $user->position->name }}</p>
+      <p id="employee_position" class="light">{{ $user->position()->name }}</p>
     </div>
   </div>
   <div id="controls">
