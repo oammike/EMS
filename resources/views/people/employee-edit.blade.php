@@ -242,7 +242,7 @@ input.cropit-image-zoom-input {
                                      <div class="clearfix" style="margin-top: 65px">&nbsp;</div>
 
 
-                                     <label class="pull-left">Date of Birth:  </label> <input tabindex="14" type="text" class="form-control datepicker pull-left" style="margin-left: 15px; width:50%" name="birthday" id="birthday" @if($personnel->birthday ==='0000-00-00' || $personnel->birthday == '1970-01-01') placeholder="MM/DD/YYYY" @else value="{{ date('m/d/Y',strtotime($personnel->birthday)) }}" @endif />
+                                     <label class="pull-left">Date of Birth:  </label> <input tabindex="14" type="text" class="form-control datepicker pull-left" style="margin-left: 15px; width:50%" name="birthday" id="birthday" @if($personnel->birthday ==='0000-00-00' || $personnel->birthday == '1970-01-01' || is_null($personnel->birthday) ) placeholder="MM/DD/YYYY" @else value="{{ date('m/d/Y',strtotime($personnel->birthday)) }}" @endif />
                                       <div id="alert-birthday" style="margin-top:10px"></div>
 
 
@@ -277,10 +277,10 @@ input.cropit-image-zoom-input {
 
                                 <tr>
                                   <td>
-                                    <label>Training Start Date: </label> <input type="text" class="form-control datepicker" style="width:50%" name="startTraining" id="startTraining" value="{{date('m/d/Y',strtotime($personnel->startTraining) ) }} " />
+                                    <label>Training Start Date: </label> <input type="text" class="form-control datepicker" style="width:50%" name="startTraining" id="startTraining" @if($personnel->startTraining ==='0000-00-00' || $personnel->startTraining === '1970-01-01' || is_null($personnel->startTraining)) placeholder="MM/DD/YYYY" @else value="{{ date('m/d/Y',strtotime($personnel->startTraining)) }}" @endif  />
                                   
 
-                                   <label>Training End Date: </label> <input type="text" class="form-control datepicker" style="width:50%" name="endTraining" id="endTraining" value="{{date('m/d/Y',strtotime($personnel->endTraining) ) }} " />
+                                   <label>Training End Date: </label> <input type="text" class="form-control datepicker" style="width:50%" name="endTraining" id="endTraining" @if($personnel->endTraining ==='0000-00-00' || $personnel->endTraining === '1970-01-01' || is_null($personnel->endTraining)) placeholder="MM/DD/YYYY" @else value="{{ date('m/d/Y',strtotime($personnel->endTraining)) }}" @endif />
                                    
 
                                   </td>

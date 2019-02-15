@@ -2592,8 +2592,19 @@ class UserController extends Controller
        
         $employee->dateHired = date("Y-m-d h:i:sa", strtotime(Input::get('dateHired')));
         $employee->dateRegularized = date("Y-m-d h:i:sa", strtotime(Input::get('dateRegularized'))); 
-        $employee->startTraining = date("Y-m-d h:i:sa", strtotime(Input::get('startTraining')));
-        $employee->endTraining = date("Y-m-d h:i:sa", strtotime(Input::get('endTraining')));
+        // $employee->startTraining = date("Y-m-d h:i:sa", strtotime(Input::get('startTraining')));
+        // $employee->endTraining = date("Y-m-d h:i:sa", strtotime(Input::get('endTraining')));
+
+        $startTraining = Input::get('startTraining');
+        if( ($startTraining !== 'MM/DD/YYYY') && !empty($startTraining) && $startTraining !== '01/01/1970' && $startTraining !== '0000-00-00')
+          $employee->startTraining = date("Y-m-d", strtotime(Input::get('startTraining')));
+        else $employee->startTraining=null;
+
+        $endTraining = Input::get('endTraining');
+        if(($endTraining !== 'MM/DD/YYYY') && !empty($endTraining) && $endTraining !== '01/01/1970' && $endTraining !== '0000-00-00')
+          $employee->endTraining = date("Y-m-d", strtotime(Input::get('endTraining')));
+        else $employee->endTraining=null;
+
         $employee->userType_id =  Input::get('userType_id');
         $employee->status_id = Input::get('status_id');
         $employee->position_id = Input::get('position_id');
