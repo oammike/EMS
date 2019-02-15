@@ -294,9 +294,9 @@
                               @if (empty($workSchedule))
                                <a href="{{action('DTRController@show',$user->id)}}" class="btn btn-sm btn-default pull-left"><i class="fa fa-calendar"></i> View Daily Time Record</a>
                                 <h3 class="text-center text-primary"><br/><br/><i class="fa fa-clock-o"></i>&nbsp;&nbsp; No Work Schedule defined</h3>
-                                <p class="text-center"><small>Kindly inform immediate head OR Workforce to plot {{$user->firstname}}'s  work schedule.</small><br/><br/><br/>
+                                <p class="text-center"><small>Kindly inform immediate head OR Workforce Team to plot {{$user->firstname}}'s  work schedule.</small><br/><br/><br/>
 
-                                @if ($anApprover || $canEditEmployees)  
+                                @if ($anApprover || $canEditEmployees || ($isWorkforce && !$isBackoffice))  
                                 <a href="{{action('UserController@createSchedule', $user->id)}}" class="btn btn-md btn-success"><i class="fa fa-calendar"></i> Plot Schedule Now</a>
                                 @endif
 
@@ -502,7 +502,7 @@
                             
                             
                             
-                            <div class="tab-pane active" id="tab_stats">
+                            <div class="tab-pane" id="tab_stats">
                             
                               <div class="row">
 

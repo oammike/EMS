@@ -662,36 +662,28 @@ class UserVLController extends Controller
 
     public function showCredits($id)
     {
+        $personnel = User::find($id);
 
-        $canEditEmployees1 = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
-        $canUpdateLeaves1 = UserType::find($this->user->userType_id)->roles->where('label','UPDATE_LEAVES');
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label');
+
         
-        ($canEditEmployees1->isEmpty()) ? $canEditEmployees=false : $canEditEmployees=true;
-        ($canUpdateLeaves1->isEmpty()) ? $canUpdateLeaves=false : $canUpdateLeaves=true;
+        $canEditEmployees = ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
+        $canUpdateLeaves = ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
+
+         /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
             
-            $personnel = User::find($id);
-            
-            // $personnelTL = ImmediateHead::find(ImmediateHead_Campaign::find($personnel->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
-            // $personnelTL_ihCampID = ImmediateHead_Campaign::find($personnel->supervisor->immediateHead_Campaigns_id)->id;
+        
+        $myCampaign = $this->user->campaign->first(); 
+        //---- Check now if already has approver, if none set immediate head as approver
+        $approvers = $personnel->approvers;
+        $fromYr = Carbon::parse($personnel->dateHired)->addMonths(6)->format('Y');
 
-            //$TLs = ImmediateHead::where('lastname','!=','')->orderBy('lastname','ASC')->get();
-
-            // $TLs = $allTL->filter( function($t){
-            //     return $t->firstname != '';
-
-            // });  //where('campaign_id',$personnel->campaign_id)->
-            $myCampaign = $this->user->campaign->first(); 
-            
-            
-
-            //--end team mates
-
-            //---- Check now if already has approver, if none set immediate head as approver
-            $approvers = $personnel->approvers;
-            $fromYr = Carbon::parse($personnel->dateHired)->addMonths(6)->format('Y');
-
+        if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
             return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'page', 'approvers', 'myCampaign', 'personnel'));
+        else return view('access-denied');
 
 
     }

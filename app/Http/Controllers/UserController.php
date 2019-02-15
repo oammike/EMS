@@ -64,25 +64,13 @@ class UserController extends Controller
 
       $myCampaign = $this->user->campaign; 
       $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
-      if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
-      //if (!empty($canDoThis)) return $canDoThis; else return "cant";
+      $wf = UserType::find($this->user->userType_id)->roles->where('label','STAFFING_MANAGEMENT');
 
-     
-
-      //$TLs = ImmediateHead_Campaign::where('campaign_id', $myCampaign->id)->orderBy('lastname','ASC')->get();
-
-      /*if (count($myCampaign) > 1){
-          $leaders = new Collection;
-          foreach ($myCampaign as $c) {
-              $leaders->push($c->leaders);
-             
-          }
-      } else $leaders = $myCampaign->first()->leaders;
-      $TLs = $leaders->sortBy('lastname')->unique();*/
-           
-
-        
-        
+      ($this->user->userType_id == 11) ? $wfAgent=true : $wfAgent=false;
+      
+      (count($canDoThis)> 0 ) ? $hasUserAccess=1 : $hasUserAccess=0;
+      (count($wf) > 0) ? $isWorkforce=1 : $isWorkforce=0;
+      
         /*$campaigns = Campaign::orderBy('name', 'ASC')->get();*/
          $allUsers = User::orderBy('lastname', 'ASC')->get();//->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->get();
 
@@ -116,7 +104,7 @@ class UserController extends Controller
        
        //  return Datatables::collection($inactiveUsers)->make(true);
        //return $inactiveUsers;
-        return view('people.employee-index', compact('myCampaign', 'hasUserAccess'));
+        return view('people.employee-index', compact('myCampaign', 'hasUserAccess','isWorkforce','wfAgent'));
     }
 
      public function index_inactive()
@@ -248,13 +236,22 @@ class UserController extends Controller
 
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
         $canCWS =  ($roles->contains('CAN_CWS')) ? '1':'0';
+
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
         $approvers = $user->approvers;
 
         //Timekeeping Trait
         $canPlot = $this->checkIfAnApprover($approvers, $this->user);
 
         //if (!$canCWS || !$canPlot) 
-        if ($canCWS || $canPlot || $this->user->userType_id==1 || $this->user->userType_id==2 || $this->user->userType_id==5)
+        if ($canCWS || $canPlot 
+          || ($isWorkforce && !$isBackoffice)
+          || $this->user->userType_id==1 
+          || $this->user->userType_id==2 
+          || $this->user->userType_id==5)
         {
           $fellowTeam = Team::where('immediateHead_Campaigns_id',$user->team->immediateHead_Campaigns_id)->get();
           $teams = new Collection;
@@ -618,60 +615,6 @@ class UserController extends Controller
                 where('users.status_id','!=',9)->
                 get();
 
-                //return $leaders;
-
-            /*foreach ($TLs as $tl) {
-                $hisPosition = Position::find($tl->userData['position_id']); //User::where('employeeNumber', $tl->employeeNumber)->first();
-
-                //check for multiple campaign handle
-
-
-                if (count($tl->campaigns) > 1) 
-                {
-                   
-                    foreach ($tl->campaigns as $t) {
-
-                      
-                       $tlCamp = ImmediateHead_Campaign::where('immediateHead_id', $tl->id)->where('campaign_id', $t->id)->first();
-                       $currstat = User::where('employeeNumber', $tl->employeeNumber)->first();
-                        if ($currstat->status_id !== 7 && $currstat->status_id !== 8 && $currstat->status_id !== 9 && $currstat->status_id !== 10 && $personnel->employeeNumber !== $tl->employeeNumber) 
-                        {
-                           $leaders->push([
-                          'id'=>$tlCamp->id,
-                          'position'=>$hisPosition['name'],
-                          'lastname'=> $tl->lastname,
-                          'firstname'=>$tl->firstname." - ". $t->name,
-                          'campaign'=>$t->name ]);
-
-                        }
-                      
-                       
-                    }
-
-
-                } else
-                {
-                   
-
-                    $tlCamp = ImmediateHead_Campaign::where('immediateHead_id', $tl->id)->where('campaign_id',$tl->campaigns->first()->id)->first(); //->where('campaign_id', $tl->campaign->first()->id)->get();
-                    $currstat = User::where('employeeNumber', $tl->employeeNumber)->first();
-
-                     if ($currstat['status_id'] !== 7 && $currstat['status_id'] !== 8 && $currstat['status_id'] !== 9 && $currstat['status_id'] !== 10 && $personnel->employeeNumber !== $tl->employeeNumber) 
-                        {
-                          $leaders->push([
-                          'id'=>$tlCamp->id,
-                          
-                          'position'=> $hisPosition['name'] , //$hisPOsition->position->name,
-                          'lastname'=> $tl->lastname,
-                          'firstname'=>$tl->firstname,
-                          'campaign'=>$tl->campaigns->first()->name ]);
-
-                         
-                        }
-
-                }
-                
-            }*/
 
             //--- GENERATE TEAM MATES : UserTrait
             
@@ -1952,9 +1895,19 @@ class UserController extends Controller
       if ($id==$this->user->id) $user=$this->user;
       else $user = User::find($id);
 
+       $approvers = $user->approvers;
+       $canView = $this->checkIfAnApprover($approvers, $this->user);
+
+       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
       if (is_null($user)) return view('empty');
       else
-       return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>false]);
+        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
+          return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>false]);
+        else return view('access-denied');
 
     }
 
@@ -1974,7 +1927,13 @@ class UserController extends Controller
         //Timekeeping Trait
         $canView = $this->checkIfAnApprover($approvers, $this->user);
 
-        if ($canView || $this->user->id == $id)
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+
+        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
           return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView]);
         else
           return view('access-denied');
@@ -2169,18 +2128,24 @@ class UserController extends Controller
     {
 
         //return bcrypt('mbarrientos'); //$2y$10$sMSV71.0T0OPy/7EhlqjROaO4j6APUUSB6w2hawG/.z08JLiB5Pee
-        
+        $user = User::find($id); 
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
         $canEditEmployees =  ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
         $canChangeSched =  ($roles->contains('CHANGE_EMPLOYEE_SCHEDULE')) ? '1':'0';
+
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+        
+
         $canViewAllEvals = false;
 
         $canCWS =  ($roles->contains('CAN_CWS')) ? '1':'0';
 
         $hrDept = Campaign::where('name',"HR")->first();
 
-        $user = User::find($id); 
+        
 
         if (is_null($user)) return view('empty');
 
@@ -2475,13 +2440,19 @@ class UserController extends Controller
             fclose($file);
         }
         
-        
+
+
         
             
         
-        if ($anApprover || $canEditEmployees || $this->user->campaign_id == $hrDept->id || $theOwner
-        || $immediateHead->employeeNumber == $this->user->employeeNumber || $this->user->employeeNumber==$leader_L1->employeeNumber
-        || $this->user->employeeNumber==$leader_L0->employeeNumber || $this->user->employeeNumber==$leader_PM->employeeNumber || ($this->user->id == 83)  )  //($this->user->userType_id == 1 || $this->user->userType_id == 2)
+        if ($anApprover || $canEditEmployees 
+          || $this->user->campaign_id == $hrDept->id 
+          || $theOwner || ($isWorkforce && !$isBackoffice)
+          || $immediateHead->employeeNumber == $this->user->employeeNumber 
+          || $this->user->employeeNumber==$leader_L1->employeeNumber
+          || $this->user->employeeNumber==$leader_L0->employeeNumber 
+          || $this->user->employeeNumber==$leader_PM->employeeNumber 
+          || ($this->user->id == 83)  )  
         {
 
           //****** for capability to see all eval grades:
@@ -2491,11 +2462,11 @@ class UserController extends Controller
               || $this->user->userType_id == 1 )
               $canViewAllEvals = true; 
 
-            //return $userEvals;
+           
 
             $shifts = $this->generateShifts('12H');
-            //return $workSchedule;
-            return view('people.show', compact('theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts'));
+            
+            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts'));
 
             
             

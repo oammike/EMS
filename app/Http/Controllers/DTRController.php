@@ -352,6 +352,11 @@ class DTRController extends Controller
         $canViewOtherDTR =  ($roles->contains('VIEW_OTHER_DTR')) ? '1':'0';
         $canViewTeamDTR =  ($roles->contains('VIEW_SUBORDINATE_DTR')) ? '1':'0';
         $canChangeSched =  ($roles->contains('CHANGE_EMPLOYEE_SCHEDULE')) ? '1':'0';
+
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
         $hrDept = Campaign::where('name',"HR")->first();
         $financeDept = Campaign::where('name',"Finance")->first();
         $paycutoffs = Paycutoff::all();
@@ -407,7 +412,7 @@ class DTRController extends Controller
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $fromYr = Carbon::parse($user->dateHired)->addMonths(6)->format('Y');
         
-        if ($canViewOtherDTR || $anApprover || $this->user->id == $id 
+        if ( ($isWorkforce && !$isBackoffice) || $canViewOtherDTR || $anApprover || $this->user->id == $id 
         || ($theImmediateHead 
         || $this->user->employeeNumber==$leader_L1->employeeNumber
         || $this->user->employeeNumber==$leader_L0->employeeNumber 
@@ -518,28 +523,23 @@ class DTRController extends Controller
              // *************************** VERIFIED DTR SHEET
              
              $alreadyVerified = User_DTR::where('user_id',$user->id)->where('productionDate',$payrollPeriod[0])->get();
-             if (count($alreadyVerified)>0){
+             if (count($alreadyVerified)>0)
+             {
 
-              $myDTRSheet = new Collection;
+                $myDTRSheet = new Collection;
 
-              foreach ($payrollPeriod as $key) {
-                $mDsh = User_DTR::where('user_id',$user->id)->where('productionDate',$key)->orderBy('created_at','DESC')->get();
+                foreach ($payrollPeriod as $key) {
+                  $mDsh = User_DTR::where('user_id',$user->id)->where('productionDate',$key)->orderBy('created_at','DESC')->get();
 
-                if (count($mDsh)>0){
-                  $myDTRSheet->push($mDsh->first());
+                  if (count($mDsh)>0){
+                    $myDTRSheet->push($mDsh->first());
 
+                  }
                 }
-              }
-
-              
-
-
-              return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom'));
+                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom'));
 
              }
-             
-
-           // *************************** VERIFIED DTR SHEET
+             // *************************** VERIFIED DTR SHEET
 
 
 
@@ -1892,12 +1892,6 @@ class DTRController extends Controller
                   //$noWorkSched = null; //*** we need to reset things
              }//END foreach payrollPeriod
 
-            
-             
-            // $coll->push(['anApprover'=>$anApprover, 'TLapprover'=>$TLapprover]);
-           //return $coll;
-
-           //return response()->json(['coll'=> $coll]);
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 

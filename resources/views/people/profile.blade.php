@@ -199,7 +199,7 @@
 
                                                     @if (empty($workSchedule))
                                                     <h3 class="text-center text-primary"><br/><br/><i class="fa fa-clock-o"></i>&nbsp;&nbsp; No Work Schedule defined</h3>
-                                                    <p class="text-center"><small>Kindly inform HR or immediate head to plot {{$user->firstname}}'s  work schedule.</small><br/><br/><br/>
+                                                    <p class="text-center"><small>Kindly inform Workforce Team or immediate head to plot {{$user->firstname}}'s  work schedule.</small><br/><br/><br/>
                                                     
 
                                                     @if ($anApprover || $canEditEmployees) <a href="{{action('UserController@createSchedule', $user->id)}}" class="btn btn-md btn-success"><i class="fa fa-calendar"></i> Plot Schedule Now</a>
