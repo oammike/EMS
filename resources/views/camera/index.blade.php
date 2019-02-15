@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta content="id, chroma, oam, dev kit" name="keywords">
-<meta content="Simple ID tool for OAM." name="description">
-<meta content="OAM Instant ID" name="title">
-<link href="@{{ asset( 'public/css/mainstyle.css' ) }}" rel="stylesheet">
-<link href="@{{ asset( 'public/css/pace.css' ) }}" rel="stylesheet">
-<title>Display Webcam Stream</title>
-
-</head>
-  
-<body>
+@extends('layouts.id')
+@section('content')
   <div id="id_wrapper">
     <div id="id_container">
       <img src="@{{ asset( 'public/img/blank_canvas.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
@@ -379,5 +367,4 @@
     
   
   </script>
-</body>
-</html>
+@endsection

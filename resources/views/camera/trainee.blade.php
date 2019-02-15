@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta content="stuff, to, help, search, engines, not" name="keywords">
-<meta content="What this page is about." name="description">
-<meta content="Display Webcam Stream" name="title">
-<link href="{{ asset( 'public/css/mainstyle.css' ) }}" rel="stylesheet">
-<title>Batch Print Trainee ID</title>
-</head>
-  
-<body>
+@extends('layouts.id')
+@section('content')
   <div id="id_wrapper">
     <div id="id_container">
       
@@ -131,6 +121,5 @@
     }
   
   </script>
-</body>
-</html>
-@stop
+
+@endsection
