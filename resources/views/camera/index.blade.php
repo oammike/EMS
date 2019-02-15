@@ -2,16 +2,16 @@
 @section('content')
   <div id="id_wrapper">
     <div id="id_container">
-      <img src="@{{ asset( 'public/img/blank_canvas.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
+      <img src="{{ asset( 'public/img/blank_canvas.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
       <canvas id="seriousCanvas" width="720" height="720"></canvas>
       <div id="id_signature_wrapper">
-        <img id="id_signature" src="@{{ asset( 'public/img/blank_signature.png' ) }}" />
+        <img id="id_signature" src="{{ asset( 'public/img/blank_signature.png' ) }}" />
       </div>
     </div>
     <div id="employee_details1">
-      <p id="employee_nick" class="medium">Cap</p>
-      <p id="employee_name" class="light">Steve Rogers</p>
-      <p id="employee_position" class="light">Avengers - Captain America</p>
+      <p id="employee_nick" class="medium">{{ $user->firstname }}</p>
+      <p id="employee_name" class="light">{{ $user->firstname }} {{ user->middlename }} {{ $user->lastname }}</p>
+      <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
   </div>
   <div id="controls">
@@ -19,19 +19,19 @@
         <table>
           <tr>
             <td>Nickname:</td>
-            <td><input type="text" value="@{{ $user->firstname }}" name="emp_name" id="emp_nick"></td>
+            <td><input type="text" value="{{ $user->firstname }}" name="emp_name" id="emp_nick"></td>
           </tr>
           <tr>
             <td>Full Name:</td>
-            <td><input type="text" value="@{{ $user->firstname }} @{{ user->middlename }} @{{ $user->lastname }}" name="emp_name" id="emp_name"></td>
+            <td><input type="text" value="{{ $user->firstname }} {{ user->middlename }} {{ $user->lastname }}" name="emp_name" id="emp_name"></td>
           </tr>
           <tr>
             <td>Position:</td>
-            <td><input type="text" value="@{{ $user->position->name }}" name="emp_pos" id="emp_pos"></td>
+            <td><input type="text" value="{{ $user->position->name }}" name="emp_pos" id="emp_pos"></td>
           </tr>
           <tr>
             <td>ID Number:</td>
-            <td><input type="text" name="emp_num" id="emp_num" value="@{{ $user->employeeNumber }}" ></td>
+            <td><input type="text" name="emp_num" id="emp_num" value="{{ $user->employeeNumber }}" ></td>
           </tr>
         </table>
     </div>
@@ -77,12 +77,12 @@
   </div>
   </div>
   
-  <script type="text/javascript" src="@{{ asset( 'public/js/jquery.js' ) }}"></script>
-  <script type="text/javascript" src="@{{ asset( 'public/js/html2canvas.min.js' ) }}"></script>
-  <script type="text/javascript" src="@{{ asset( 'public/js/seriously.js' ) }}"></script>
-  <script type="text/javascript" src="@{{ asset( 'public/js/seriously.chroma.js' ) }}"></script>
-  <script type="text/javascript" src="@{{ asset( 'public/js/signature_pad.min.js' ) }}"></script>
-  <script type="text/javascript" src="@{{ asset( 'public/js/pace.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/jquery.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/html2canvas.min.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/seriously.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/seriously.chroma.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/signature_pad.min.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/pace.js' ) }}"></script>
   
   
   <script>
@@ -90,9 +90,9 @@
   window.mode = null;
   window.image_index = 0;
   window.images = [
-    "@{{ asset( 'public/img/2.jpg' ) }}",
-    "@{{ asset( 'public/img/3.jpg' ) }}",
-    "@{{ asset( 'public/img/4.jpg' ) }}"
+    "{{ asset( 'public/img/2.jpg' ) }}",
+    "{{ asset( 'public/img/3.jpg' ) }}",
+    "{{ asset( 'public/img/4.jpg' ) }}"
   ];
   
   $('#employee_details2').hide();
@@ -165,7 +165,7 @@
         var imgData = canvas.toDataURL('image/png');
         console.log(imgData);
         $.ajax({
-          url: "@{{ url('/export_id') }}",
+          url: "{{ url('/export_id') }}",
           type: "POST",
           dataType: "text",
           data: {
@@ -193,7 +193,7 @@
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
       //var onload = window.print();
       popupWin.document.open();
-      popupWin.document.write('<html><head><link rel="stylesheet" href="@{{ $url }}/public/css/printstyle.css" type=></head><body onload="">' + '<img src="@{{ $url }}' + window.filepath + '">' + '</html>');
+      popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="">' + '<img src="{{ $url }}' + window.filepath + '">' + '</html>');
       popupWin.document.close();
   }
   
@@ -339,7 +339,7 @@
   function saveSignature() {
     var imgData = window.signaturePad.toDataURL();
     $.ajax({
-      url: "@{{ url('/save_signature') }}",
+      url: "{{ url('/save_signature') }}",
       type: "POST",
       dataType: "text",
       data: {
