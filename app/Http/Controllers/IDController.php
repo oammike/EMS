@@ -5,6 +5,7 @@ namespace OAMPI_Eval\Http\Controllers;
 
 use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
+use Illuminate\Support\Facades\Auth;
 
 class IDController extends Controller
 {
