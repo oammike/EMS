@@ -1,0 +1,140 @@
+@font-face {
+  font-family: "light";
+  src:url("../fonts/futura-light.ttf");
+}
+
+.light{
+  font-family:"light";
+}
+
+@font-face {
+  font-family: "medium";
+  src:url("../fonts/futura-medium.ttf");
+}
+
+.medium{
+  font-family:"medium";
+}
+  
+#id_wrapper{
+  width: 644px;
+  height: 1008px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+}
+#id_container {
+    width: 644px;
+    height: 1008px;
+    overflow: hidden;
+}
+#videoElement {
+
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    width: 640px;
+    height: 344px;
+  
+}
+#seriousCanvas{
+  background: transparent;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 317px;
+  height: 423px;
+}
+
+#imageElementWrapper{
+  width: 320px;
+}
+#imageElement{
+  display: hidden;
+  width: 50%;
+  margin: 0 auto;
+}
+
+#canvasElement {
+    position: absolute;
+    top: 310px;
+    left: 2px;
+    background-color: transparent;
+}
+#employee_details1, #employee_details2{
+  position: absolute;
+  top: 505px;
+  left: 22px;
+  width: 600px;
+}
+#id_details{
+  position: absolute;
+  bottom: 20px;
+  width: 600px;
+  left: 20px;
+}
+#id_details p, #id_details p span{
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 2px;
+}
+#employee_details1 p{
+  text-align: center;
+  color: #5e5e5e;
+  font-size: 20px;
+  line-height: 36px;
+  padding:0;
+  margin:0;
+  letter-spacing: 2px;
+}
+
+p#employee_name{
+  font-size: 30px;
+  line-height: 40px;
+}
+
+p#employee_nick{
+  color: #219fec;
+  font-size: 80px;
+  line-height: 80px; 
+}
+
+p#employee_position{
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 1px;
+}
+#foreground{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 644px;
+  height: 1008px;
+}
+
+#controls{
+  width: 640px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+hr{
+  width: 25%;
+  background: #fff;
+  color: #fff;
+  border: 0;
+  height: 2px;
+  align: center;
+  margin: 20px auto;
+}
+.buttons{
+  width: 150px;
+  height: 75px;
+  display: block;
+  margin: 10px 0;
+}
+input[type=text]{
+  width: 200px;
+}

@@ -1,0 +1,38 @@
+@page {
+  size: 2.21in 3.44in;
+  margin: 0;
+}
+body{
+  width: 2.21in;
+  height: 3.44in;
+  margin: 0;
+  padding: 0;
+}
+img{
+  margin: 0;
+  padding: 0;
+}
+@media print {
+  html, body {
+    width: 2.21in;
+    height: 3.44in;
+    margin: 0;
+    padding: 0;
+  }
+  img{
+    margin: 0;
+    padding: 0;
+    width: 2.21in;
+    height: 3.45in;
+    
+    
+  }
+  div {
+    page-break-after: always; 
+    margin: 0;
+    padding: 0;
+    width: 2.21in;
+    height: 3.34in;
+    
+  }
+}

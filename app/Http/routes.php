@@ -743,7 +743,15 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     Route::post('/getIndividualStat', 'CampaignController@getIndividualStat');
     Route::post('/exportAgentActivity', 'CampaignController@exportAgentActivity');
-
+    
+    
+    /* ---------- ID PRINTING ---------------*/
+    Route::get('/camera/', 'IDController@index');
+    Route::get('/trainee/', 'IDController@trainee');
+    Route::post('/camera/single/{id}', 'IDController@load_single');
+    Route::post('/camera/by_campaign/{id}', 'IDController@load_campaign');
+    Route::post('/export_id', 'IDController@export');
+    Route::post('/save_signature', 'IDController@save_signature');
 
   });
 
