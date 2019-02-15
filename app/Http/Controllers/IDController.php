@@ -19,22 +19,22 @@ class IDController extends Controller
     
     public function index()
     {
-        return View::make('camera.index', ['user' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
+        return view('camera.index', ['user' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function trainee()
     {
-        return View::make('camera.trainee', ['user' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
+        return view('camera.trainee', ['user' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function load_single($id)
     {
-        return View::make('camera.index', ['user' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
+        return view('camera.index', ['user' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function load_campaign($id)
     {
-        return View::make('camera.index', ['campaign' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
+        return view('camera.index', ['campaign' => User::findOrFail($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function export_id()
