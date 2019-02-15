@@ -6,7 +6,7 @@ namespace OAMPI_Eval\Http\Controllers;
 use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
 
-class UserController extends Controller
+class IDController extends Controller
 {
     public function __construct()
     {
