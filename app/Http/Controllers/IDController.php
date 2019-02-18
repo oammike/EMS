@@ -20,22 +20,22 @@ class IDController extends Controller
     public function index()
     {
            
-        return view('camera.index2',['user' => $this->user, 'url'=> $this->url->to('/') ]);
+        return view('camera.index',['user' => $this->user, 'url'=> $this->url->to('/') ]);
     }
     
     public function trainee()
     {
-        return view('camera.trainee', ['user' => $this->user, 'url'=> $this->url->to('/') ]);
+        return view('camera.trainee', ['url'=> $this->url->to('/') ]);
     }
     
     public function load_single($id)
     {
-        return view('camera.index2', ['user' => User::find($id), 'url'=> $this->url->to('/') ]);
+        return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function load_campaign($id)
     {
-        return view('camera.index2', ['campaign' => User::find($id), 'url'=> $this->url->to('/') ]);
+        return view('camera.index', ['campaign' => User::find($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function export_id()

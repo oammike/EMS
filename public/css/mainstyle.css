@@ -164,3 +164,16 @@ table{
   bottom: 120px;
   left: 0;
 }
+
+#id_number{
+  position: absolute;
+  bottom: 20px;
+  width: 600px;
+  left: 20px;
+}
+#id_number p, #id_number p span{
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 2px;
+}

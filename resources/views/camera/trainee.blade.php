@@ -1,4 +1,4 @@
-@extends('layouts.id')
+@extends('layouts.id-trainee')
 @section('content')
   <div id="id_wrapper">
     <div id="id_container">
@@ -43,6 +43,12 @@
   window.copy_counter = 0;
   window.copies = 1;
   window.filepath = [];
+  
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
     
     function pad(num, size){ return ('0000' + num).substr(-size); } 
     

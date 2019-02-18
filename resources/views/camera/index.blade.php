@@ -12,9 +12,12 @@
       </div>
     </div>
     <div id="employee_details1">
-      <p id="employee_nick" class="medium">{{$user->firstname}}</p>
-      <p id="employee_name" class="light">{{$user->firstname}} {{$user->middlename }} {{$user->lastname}}</p>
+      <p id="employee_nick" class="medium">{{$user->nickname}}</p>
+      <p id="employee_name" class="light">{{$user->firstname}} {{$user->lastname}}</p>
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
+    </div>
+    <div id="id_number">
+      <p id="employee_number" class="light">ID No.: <span id="id_number">{{$user->employeeNumber}}</span></p>
     </div>
   </div>
   <div id="controls">
@@ -22,11 +25,11 @@
         <table>
           <tr>
             <td>Nickname:</td>
-            <td><input type="text" value="{{ $user->firstname }}" name="emp_name" id="emp_nick"></td>
+            <td><input type="text" value="{{ $user->nickname }}" name="emp_name" id="emp_nick"></td>
           </tr>
           <tr>
             <td>Full Name:</td>
-            <td><input type="text" value="{{ $user->firstname }} {{ $user->middlename }} {{ $user->lastname }}" name="emp_name" id="emp_name"></td>
+            <td><input type="text" value="{{ $user->firstname }} {{ $user->lastname }}" name="emp_name" id="emp_name"></td>
           </tr>
           <tr>
             <td>Position:</td>
@@ -113,6 +116,12 @@
   window.signaturePad = null;
   //initializeCamera();
   //loadimage();
+  
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
   
   
   function initializeCamera(){
@@ -350,7 +359,7 @@
         id: window.employee_id
       },
       success: function(data,status,xhr){
-        window.sign_filepath = "https://172.18.31.11/camerav2/" + data;
+        window.sign_filepath = "{{ $url }}" + data;
         $("#id_signature").attr("src", window.sign_filepath);
         close_signature_capture();
       },
