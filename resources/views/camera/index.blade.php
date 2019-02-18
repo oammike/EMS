@@ -13,7 +13,7 @@
     </div>
     <div id="employee_details1">
       <p id="employee_nick" class="medium">{{$user->nickname}}</p>
-      <p id="employee_name" class="light">{{$user->firstname}} {{$user->lastname}}</p>
+      <p id="employee_name" class="light">{{ camel_case($user->firstname) }} {{ substr(camel_case($user->middlename),0) }}. {{ camel_case($user->lastname) }}</p>
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
@@ -29,7 +29,7 @@
           </tr>
           <tr>
             <td>Full Name:</td>
-            <td><input type="text" value="{{ $user->firstname }} {{ $user->lastname }}" name="emp_name" id="emp_name"></td>
+            <td><input type="text" value="{{ camel_case($user->firstname) }} {{ substr(camel_case($user->middlename),0) }}. {{ camel_case($user->lastname) " name="emp_name" id="emp_name"></td>
           </tr>
           <tr>
             <td>Position:</td>
