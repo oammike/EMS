@@ -86,7 +86,7 @@
         var imgData = canvas.toDataURL('image/png');
         console.log(imgData);
         $.ajax({
-          url: './export.php',
+          url: "{{ url('/export_id') }}",
           type: "POST",
           dataType: "text",
           data: {

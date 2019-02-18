@@ -16,8 +16,8 @@
       <p id="employee_name" class="light">{{$user->firstname}} {{$user->lastname}}</p>
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
-    <div id="id_number">
-      <p id="employee_number" class="light">ID No.: <span id="id_number">{{$user->employeeNumber}}</span></p>
+    <div id="id_number_wrapper">
+      <p id="employee_number" class="light">{{$user->employeeNumber}}</p>
     </div>
   </div>
   <div id="controls">

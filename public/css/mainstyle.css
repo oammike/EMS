@@ -165,13 +165,13 @@ table{
   left: 0;
 }
 
-#id_number{
+#id_number_wrapper{
   position: absolute;
   bottom: 20px;
   width: 600px;
   left: 20px;
 }
-#id_number p, #id_number p span{
+#id_number_wrapper p{
   font-size: 25px;
   color: #fff;
   text-align: center;
