@@ -1,10 +1,10 @@
 @page {
-  size: 54mm 85.6mm;
-  margin: 0;
+  size: 2.21in 3.43in;
+  margin: 0mm;
 }
 body{
-  width: 54mm;
-  height: 85.6mm;
+  width: 2.21in;
+  height: 3.43in;
   margin: 0;
   padding: 0;
 }
@@ -14,15 +14,15 @@ img{
 }
 @media print {
   html, body {
-    width: 54mm;
-    height: 85.6mm;
+    width: 2.21in;
+    height: 3.43in;
     margin: 0;
     padding: 0;
   }
   img{
     margin: 0;
     padding: 0;
-    width: 54mm;
+    width: 2.21in;
     height: 3.45in;
     
     
@@ -31,7 +31,7 @@ img{
     page-break-after: always; 
     margin: 0;
     padding: 0;
-    width: 54mm;
+    width: 2.21in;
     height: 3.34in;
     
   }

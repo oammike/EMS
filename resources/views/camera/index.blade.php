@@ -205,9 +205,9 @@
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
       //var onload = window.print();
       popupWin.document.open();
-      popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="">' + '<img src="{{ $url }}/' + window.filepath + '">' + '</html>');
+      popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="">' + '<div><img src="{{ $url }}/' + window.filepath + '"></div>' + '</html>');
       popupWin.document.close();
-  }
+  } 
   
   
   function camerapause() {
