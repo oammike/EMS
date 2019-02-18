@@ -13,7 +13,7 @@
     </div>
     <div id="employee_details1">
       <p id="employee_nick" class="medium">{{$user->nickname}}</p>
-      <p id="employee_name" class="light">{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0) }}. {{ ucwords(strtolower($user->lastname)) }}</p>
+      <p id="employee_name" class="light">{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}</p>
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
@@ -29,7 +29,7 @@
           </tr>
           <tr>
             <td>Full Name:</td>
-            <td><input type="text" value="{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0) }}. {{ ucwords(strtolower($user->lastname)) }}" name="emp_name" id="emp_name"></td>
+            <td><input type="text" value="{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}" name="emp_name" id="emp_name"></td>
           </tr>
           <tr>
             <td>Position:</td>
