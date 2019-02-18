@@ -120,7 +120,7 @@
         var popupWin = window.open('', '_blank', 'width=638,height=1013');
         //var onload = window.print();
         popupWin.document.open();
-        popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="">' + body + '</html>');
+        popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="window.print();">' + body + '</html>');
         popupWin.document.close();
       }
       
