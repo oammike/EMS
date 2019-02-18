@@ -30,12 +30,12 @@ class IDController extends Controller
     
     public function load_single($id)
     {
-        return view('camera.index', ['user' => User::findOrFail($id)->with('position')->get(), 'url'=> $this->url->to('/') ]);
+        return view('camera.index2', ['user' => User::find($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function load_campaign($id)
     {
-        return view('camera.index', ['campaign' => User::findOrFail($id)->with('position')->get(), 'url'=> $this->url->to('/') ]);
+        return view('camera.index2', ['campaign' => User::find($id), 'url'=> $this->url->to('/') ]);
     }
     
     public function export_id()
