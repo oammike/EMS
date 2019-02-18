@@ -112,7 +112,7 @@
       if (window.filepath.length>0) {
         var body = "";
         for(var i = 0; i<window.filepath.length; i++){
-          var div = '<img src="{{ $url }}' + window.filepath[i] + '">';
+          var div = '<img src="{{ $url }}/' + window.filepath[i] + '">';
           body = body + div;
         }
         

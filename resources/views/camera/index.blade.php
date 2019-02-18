@@ -205,7 +205,7 @@
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
       //var onload = window.print();
       popupWin.document.open();
-      popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="">' + '<img src="{{ $url }}' + window.filepath + '">' + '</html>');
+      popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="">' + '<img src="{{ $url }}/' + window.filepath + '">' + '</html>');
       popupWin.document.close();
   }
   
@@ -359,7 +359,7 @@
         id: window.employee_id
       },
       success: function(data,status,xhr){
-        window.sign_filepath = "{{ $url }}" + data;
+        window.sign_filepath = "{{ $url }}/" + data;
         $("#id_signature").attr("src", window.sign_filepath);
         close_signature_capture();
       },
