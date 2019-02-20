@@ -15,19 +15,26 @@
     </div>
   </div>
   <div id="controls">
-    <div id="options">
-      <table>
-        <tr>
-          <td><label for="input-chroma-balance">How Many Copies:</label></td>
-          <td><input type="text" value="10" id="copies"></td>
-        </tr>
-        <tr>
-          <td><label for="input-chroma-balance">Start at:</label></td>
-          <td><input type="text" value="1" id="start"></td>
-        </tr>
-      </table>
+    <div class="section">
+      <h6>Options</h6>
+      <div class="row">
+        <form class="col s12">  
+          <div class="input-field col s6">
+            <input placeholder="10" id="copies" name="copies" type="number" class="validate" value="10">
+            <label for="copies">How Many Copies?</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="1" id="start" name="start" type="number" class="validate" value="1">
+            <label for="start">Starting Index:</label>
+          </div>
+          <div class="input-field col s3 right">
+            <div class="row">
+              <a class="waves-effect waves-light btn-large" href="javascript:verify();"><i class="material-icons left">print</i>Print</a>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <input type="button" value="Print" onClick="verify()" class="buttons" >
   </div>
   
   

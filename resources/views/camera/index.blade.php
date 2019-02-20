@@ -21,31 +21,84 @@
     </div>
   </div>
   <div id="controls">
-    <div id="inputs">
-        <table>
-          <tr>
-            <td>Nickname:</td>
-            <td><input type="text" value="{{ $user->nickname }}" name="emp_name" id="emp_nick"></td>
-          </tr>
-          <tr>
-            <td>Full Name:</td>
-            <td><input type="text" value="{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}" name="emp_name" id="emp_name"></td>
-          </tr>
-          <tr>
-            <td>Position:</td>
-            <td><input type="text" value="{{ $user->position->name }}" name="emp_pos" id="emp_pos"></td>
-          </tr>
-          <tr>
-            <td>ID Number:</td>
-            <td><input type="text" name="emp_num" id="emp_num" value="{{ $user->employeeNumber }}" ></td>
-          </tr>
-        </table>
+  
+    <div class="section">
+      <h6>Employee Details</h6>
+      <div class="row">
+        <form class="col s12">  
+          <div class="input-field col s6">
+            <input placeholder="Ben" id="emp_nick" name="emp_nick" type="text" class="validate" value="{{ $user->nickname }}">
+            <label for="emp_nick">Nickname</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="Benjamin Davidowitz" id="emp_name" name="emp_name" type="text" class="validate" value="{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}">
+            <label for="emp_name">Full Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="Chief Executive Officer" id="emp_pos" name="emp_pos" type="text" class="validate" value="{{ $user->position->name }}">
+            <label for="emp_pos">Position</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="0000000001" id="emp_num" name="emp_num" type="number" class="validate" value="{{ $user->employeeNumber }}">
+            <label for="emp_num">ID Number</label>
+          </div>
+        </form>
+      </div>
     </div>
-    <input type="button" value="Start Camera" onClick="camerapause()" id="bt_controller" class="buttons" />
-    <input type="button" value="Save" onClick="save()" class="buttons" />
-    <input type="button" value="Signature" onClick="signature()" class="buttons" >
-    <input type="button" value="Print" onClick="printme()" class="buttons" >
-    <!-- <input type="button" value="Load Image" onClick="loadimage()" class="buttons" > -->
+    
+    <div class="section">
+      <h6>Camera Controls</h6>
+      <div class="row">
+        <form class="col s12">
+          <div class="input-field col s12">
+          <div class="row">
+            <a class="waves-effect waves-light btn-large col s5" href="javascript:camerapause();"><i class="material-icons left">camera_enhance</i>Start Camera</a>
+          
+            <a class="waves-effect waves-light btn-large col s5 offset-s1" href="javascript:save();"><i class="material-icons left">save</i>Save</a>
+          </div>
+          <div class="row">
+            <a class="waves-effect waves-light btn-large col s5" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
+          
+            <a class="waves-effect waves-light btn-large col s5 offset-s1" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>
+          </div>
+          </div>
+        </form>  
+      </div>
+    </div>
+    
+    <div class="section">
+      <h6>Chroma Key Options</h6>
+      <div class="row">
+        <form class="col s12">
+          <div class="input-field col s3">
+            <div class="row">
+            <label for="input-chroma-balance">Balance</label>
+            <p class="range-field">
+            <input type="range" min="0" max="1" step="0.01" value="1" id="input-chroma-balance" >
+            </p>
+            </div>
+          </div>
+          <div class="input-field col s3 offset-s1">
+            <div class="row">
+            <label for="input-chroma-clipBlack">Clip Black</label>
+            <p class="range-field">
+            <input type="range" min="0" max="1" step="0.01" value="0.9" id="input-chroma-clipBlack">
+            </p>
+            </div>
+          </div>
+          <div class="input-field col s3 offset-s1">
+            <div class="row">
+            <label for="input-chroma-clipWhite">Clip White</label>
+            <p class="range-field">
+            <input type="range" min="0" max="1" step="0.01" value="0.9" id="input-chroma-clipWhite">
+            </p>
+            </div>
+          </div>
+          <!-- <input type="button" value="Load Image" onClick="loadimage()" class="buttons" > -->
+        </form>
+      </div>
+    </div>
+    
     
     <div id="options">
       <table>
@@ -75,10 +128,12 @@
   <div id="dimmer">
   <div id="signature_wrapper">
     <canvas id="signature_canvas" width="768" height="432"></canvas>
-    <div id="signature_controls">
-      <input type="button" value="Clear" onClick="clearSignature()" id="bt_clear_sig"  />
-      <input type="button" value="Save" onClick="saveSignature()" id="bt_save_sig"  />
-    </div>
+    <div class="row">
+      <div class="col s12">
+        <a class="waves-effect waves-light btn" href="javascript:clearSignature();"><i class="material-icons left">clear</i>Clear</a>&nbsp;
+        <a class="waves-effect waves-light btn" href="javascript:close_signature_capture();"><i class="material-icons left">cancel</i>Cancel</a>
+        <a class="waves-effect waves-light btn right" href="javascript:saveSignature();"><i class="material-icons left">check</i>Save</a>
+      </div>
       
   </div>
   </div>
@@ -88,6 +143,7 @@
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.chroma.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/signature_pad.min.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/materialize.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/pace.js' ) }}"></script>
   
   
