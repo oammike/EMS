@@ -97,6 +97,46 @@
   <?php */ ?> 
 
                       <div class="item active text-center" >
+                        <img src="./storage/uploads/zumba2_1.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together!<br/><br/>
+
+Haven't done Zumba with your office friends yet? Sign up together for next week's session! You may also drop by later at our G2 office for the Yogalates class— let's make fitness a habit!<br/><br/>
+
+#WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/zumba2_2.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together!<br/><br/>
+
+Haven't done Zumba with your office friends yet? Sign up together for next week's session! You may also drop by later at our G2 office for the Yogalates class— let's make fitness a habit!<br/><br/>
+
+#WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/zumba2_3.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together!<br/><br/>
+
+Haven't done Zumba with your office friends yet? Sign up together for next week's session! You may also drop by later at our G2 office for the Yogalates class— let's make fitness a habit!<br/><br/>
+
+#WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+
+                      <div class="item text-center" >
                         <img src="./storage/uploads/lovemonth-1.jpg" style="z-index: 2" />
                         <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
 
@@ -547,37 +587,7 @@ Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @floren
                            
 
 
-                          <div class="item text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-exclamation-triangle"></i> Attention: <i class="fa fa-exclamation-triangle"></i> <br/>NO CEDULA, NO TAX REFUND </strong> <br/>
-                                <img src="storage/uploads/cedula.png" width="80%" />
-                              </h3><BR/><BR/>
-                              
-                              <h5>Please be informed that you need to submit a <br/><strong>2018 or 2019 CEDULA (Community Tax Certificate)</strong><br/> to Finance Department at the 7th floor HRC Center Bldg. <br/>on or before <strong>JANUARY 21, 2019</strong>, for the following purposes.</h5>
-
-                              <ol class="text-left" style="margin-left: 50px">
-                                <li>BIR 2316 for the year 2018</li>
-                                <li>Tax Refund (if entitled)</li>
-                              </ol>
-
-                              <h5><br/>For 2018 Hires, you need to submit the following:</h5>
-                              
-                              <ol class="text-left" style="margin-left: 50px">
-                                <li>BIR 2316 from previous employer</li>
-                                <li>2018/2019 Cedula</li>
-                              </ol>
-
-                              <p><br/><br/>For further inquiries, send an e-mail to 
-                                <br/>Ronel Ambrocio (rambrocio@openaccessbpo.net; 
-                                <br/>rambrocio@openaccessmarketing.com) & 
-                                <br/>Salary Inquiry (salaryinquiry@openaccessbpo.net; salaryinquiry@openaccessmarketing.com)</p>
-
-                              <p>Thank you.</p>
-                              
-
-
-
-                            </div>             
+                          
 
 
 
@@ -760,6 +770,41 @@ Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @floren
                           
 
                             <?php /* 
+
+
+                            //-------cedula------
+                            <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-exclamation-triangle"></i> Attention: <i class="fa fa-exclamation-triangle"></i> <br/>NO CEDULA, NO TAX REFUND </strong> <br/>
+                                <img src="storage/uploads/cedula.png" width="80%" />
+                              </h3><BR/><BR/>
+                              
+                              <h5>Please be informed that you need to submit a <br/><strong>2018 or 2019 CEDULA (Community Tax Certificate)</strong><br/> to Finance Department at the 7th floor HRC Center Bldg. <br/>on or before <strong>JANUARY 21, 2019</strong>, for the following purposes.</h5>
+
+                              <ol class="text-left" style="margin-left: 50px">
+                                <li>BIR 2316 for the year 2018</li>
+                                <li>Tax Refund (if entitled)</li>
+                              </ol>
+
+                              <h5><br/>For 2018 Hires, you need to submit the following:</h5>
+                              
+                              <ol class="text-left" style="margin-left: 50px">
+                                <li>BIR 2316 from previous employer</li>
+                                <li>2018/2019 Cedula</li>
+                              </ol>
+
+                              <p><br/><br/>For further inquiries, send an e-mail to 
+                                <br/>Ronel Ambrocio (rambrocio@openaccessbpo.net; 
+                                <br/>rambrocio@openaccessmarketing.com) & 
+                                <br/>Salary Inquiry (salaryinquiry@openaccessbpo.net; salaryinquiry@openaccessmarketing.com)</p>
+
+                              <p>Thank you.</p>
+                              
+
+
+
+                            </div>             
+                            
 
                             <div class="item  text-center">
                              
