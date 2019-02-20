@@ -101,26 +101,6 @@
     
     
     <div id="options">
-      <table>
-        <!--
-        <tr>
-          <td><label for="input-chroma-screen">Screen</label></td>
-          <td><input name="input-chroma-screen" type="text" class="param_effects" value="[66 / 255, 195 / 255, 31 / 255, 1]" /></td>
-        </tr>
-        -->
-        <tr>
-          <td><label for="input-chroma-balance">Balance</label></td>
-          <td><input type="range" min="0" max="1" step="0.01" value="1" id="input-chroma-balance"></td>
-        </tr>
-        <tr>
-          <td><label for="input-chroma-clipBlack">Clip Black</label></td>
-          <td><input type="range" min="0" max="1" step="0.01" value="0.9" id="input-chroma-clipBlack"></td>
-        </tr>
-        <tr>
-          <td><label for="input-chroma-clipWhite">Clip White</label></td>
-          <td><input type="range" min="0" max="1" step="0.01" value="0.9" id="input-chroma-clipWhite"></td>
-        </tr>
-      </table>
       <video autoplay="true" id="videoElement"></video>
       <img id="imageElement" />
     </div>    
