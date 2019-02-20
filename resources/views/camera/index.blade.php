@@ -52,7 +52,7 @@
         <form class="col s12">
           <div class="input-field col s12">
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s5" href="javascript:camerapause();"><i class="material-icons left">camera_enhance</i>Start Camera</a>
+            <a class="waves-effect waves-light btn-large col s5" href="javascript:camerapause();"><i class="material-icons left">camera_enhance</i><span id="bt_controller">Start Camera</span></a>
           
             <a class="waves-effect waves-light btn-large col s5 offset-s1" href="javascript:save();"><i class="material-icons left">save</i>Save</a>
           </div>
@@ -166,7 +166,7 @@
     window.paused = false;
     window.hasCapturedPhoto - false;
     if (navigator.mediaDevices.getUserMedia) {
-      $('#bt_controller').val("Capture");
+      $('#bt_controller').text("Capture");
       var constraints = {
         audio: false,
         video: {
@@ -228,7 +228,7 @@
         })
         .done(function(e){
           alert("saved");
-          $('#bt_controller').val("Start Camera");
+          $('#bt_controller').text("Start Camera");
         });
       });
     }else{
@@ -248,10 +248,10 @@
   
   function camerapause() {
     
-    if($('#bt_controller').val()==="Retry" || $('#bt_controller').val()==="Start Camera" || window.mode=="image"){
+    if($('#bt_controller').text()==="Retry" || $('#bt_controller').text()==="Start Camera" || window.mode=="image"){
       console.log("initializing camera");
       initializeCamera();
-      $('#bt_controller').val("Capture");
+      $('#bt_controller').text("Capture");
       return;
     }
 
@@ -259,8 +259,8 @@
     window.video.pause();
     window.paused = true;
     window.video.srcObject.getTracks()[0].stop();
-    if($('#bt_controller').val()!=="Retry"){
-      $('#bt_controller').val("Retry");
+    if($('#bt_controller').text()!=="Retry"){
+      $('#bt_controller').text("Retry");
     }
     window.hasCapturedPhoto = true;
   }

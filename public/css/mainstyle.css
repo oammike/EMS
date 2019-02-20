@@ -168,12 +168,12 @@ table{
 #id_number_wrapper{
   position: absolute;
   bottom: 20px;
-  width: 600px;
-  left: 20px;
+  width: 100%;
+  left: 45px;
 }
 #id_number_wrapper p{
   font-size: 25px;
   color: #fff;
-  text-align: center;
+  text-align: left;
   letter-spacing: 2px;
 }

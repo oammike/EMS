@@ -44,6 +44,8 @@
   <script type="text/javascript" src="{{ asset( 'public/js/html2canvas.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.chroma.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/materialize.min.js' ) }}"></script>
+
   
   <script>
   window.startAt = 1;
