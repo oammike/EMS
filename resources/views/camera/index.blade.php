@@ -449,6 +449,8 @@
       $('.tap-target').tapTarget('open');
     }
   });
+  
+  window.employees = JSON.parse( {{ $users }} );
   @endif
   
   </script>
