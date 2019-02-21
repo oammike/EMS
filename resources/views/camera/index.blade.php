@@ -468,6 +468,7 @@
   
   @if ($campaign_mode === true)
   $(document).ready(function(){
+    $('select').formSelect();
     $('.tap-target').tapTarget({
       onClose: function () {
           localStorage.setItem("discovered", "yes");
