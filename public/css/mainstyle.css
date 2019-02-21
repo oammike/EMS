@@ -37,7 +37,7 @@
 #seriousCanvas{
   background: transparent;
   position: relative;
-  left: 317px;
+  left: 212px;
   top: 288px;  
   width: 720px;
   height: 720px;
@@ -158,11 +158,11 @@ table{
     height: auto;
 }
 #id_signature_wrapper{
-  width: 430px;
-  height: 243px;
+  width: 287px;
+  height: 162px;
   position: absolute;
   bottom: 120px;
-  left: 0;
+  left: 7px;
 }
 
 #id_number_wrapper{
@@ -176,4 +176,14 @@ table{
   color: #fff;
   text-align: left;
   letter-spacing: 2px;
+}
+#toast-container {
+    min-width: 10%;
+    top: 50%;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+}
+.tap-target-content h5, .tap-target-content p{
+  color: #fff;
+  margin-left: 55px;
 }
