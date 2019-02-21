@@ -225,7 +225,9 @@
     var constraints = {
       audio: false,
       video: {
-        deviceId: videoSource ? {exact: videoSource} : undefined
+        deviceId: videoSource ? {exact: videoSource} : undefined,
+        width: { min: 640, ideal: 720, max: 2048 },
+        height: { min: 360, ideal: 720, max: 2048 },
       }
     };
     navigator.mediaDevices.getUserMedia(constraints)
@@ -466,24 +468,28 @@
   $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
   $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
   
-  @if ($campaign_mode === true)
+  
   $(document).ready(function(){
     $('select').formSelect();
-    $('.tap-target').tapTarget({
-      onClose: function () {
-          localStorage.setItem("discovered", "yes");
-          console.log('setting discovered');
+    
+    @if ($campaign_mode === true)
+      window.employees = JSON.parse( {{ $users }} );
+      $('.tap-target').tapTarget({
+        onClose: function () {
+            localStorage.setItem("discovered", "yes");
+            console.log('setting discovered');
+        }
+      });
+  
+      console.log("discovered: " + localStorage.discovered);
+      if(localStorage.discovered !== "yes"){
+        $('.tap-target').tapTarget('open');
       }
-    });
-
-    console.log("discovered: " + localStorage.discovered);
-    if(localStorage.discovered !== "yes"){
-      $('.tap-target').tapTarget('open');
-    }
+    @endif
   });
   
-  window.employees = JSON.parse( {{ $users }} );
-  @endif
+  
+  
   
   </script>
 @endsection
