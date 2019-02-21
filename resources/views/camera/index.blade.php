@@ -193,7 +193,7 @@
   }
   
   function gotDevices(deviceInfos) {
-    // Handles being called several times to update labels. Preserve values.
+    const selectors = [window.videoSelect];
     const values = selectors.map(select => select.value);
     selectors.forEach(select => {
       while (select.firstChild) {
@@ -205,6 +205,7 @@
       const option = document.createElement('option');
       option.value = deviceInfo.deviceId;
       if (deviceInfo.kind === 'videoinput') {
+        console.log(deviceInfo);
         option.text = deviceInfo.label || `camera ${window.videoSelect.length + 1}`;
         window.videoSelect.appendChild(option);
       }
@@ -217,35 +218,34 @@
   }
   
   function initializeCamera(){
-    //$('#videoElement').show();
-    //$('#imageElement').hide();
     window.paused = false;
     window.hasCapturedPhoto - false;
-      const videoSource = videoSelect.value;
-      $('#bt_controller').text("Capture");
-      var constraints = {
-        audio: false,
-        video: {
-          deviceId: videoSource ? {exact: videoSource} : undefined
-        }
-      };
-      navigator.mediaDevices.getUserMedia(constraints)
-      .then(function(stream) {
-        //var v=document.getElementById("videoElement");
-        document.getElementById('videoElement').onloadedmetadata = function() {
-          window.height = this.videoHeight;
-          window.width = this.videoWidth;
-          console.log('video loaded');
-          goserious();  
-        }
-        window.video.srcObject = stream;
-        window.mode = "camera";
-      })
-      .catch(function(error) {
-        //console.log("Something went wrong!");
-        console.log(error);
-        M.toast({html: 'Could not load the camera. Please contact the Marketing Dept.'})
-      });
+    const videoSource = videoSelect.value;
+    $('#bt_controller').text("Capture");
+    var constraints = {
+      audio: false,
+      video: {
+        deviceId: videoSource ? {exact: videoSource} : undefined
+      }
+    };
+    navigator.mediaDevices.getUserMedia(constraints)
+    .then(function(stream) {
+      //var v=document.getElementById("videoElement");
+      document.getElementById('videoElement').onloadedmetadata = function() {
+        window.height = this.videoHeight;
+        window.width = this.videoWidth;
+        console.log('video loaded');
+        goserious();  
+      }
+      window.video.srcObject = stream;
+      window.mode = "camera";
+      window.cameraMode = "started";
+    })
+    .catch(function(error) {
+      //console.log("Something went wrong!");
+      console.log(error);
+      M.toast({html: 'Could not load the camera. Please contact the Marketing Dept.'})
+    });
     
   }
   
@@ -468,6 +468,7 @@
   
   @if ($campaign_mode === true)
   $(document).ready(function(){
+    $('select').formSelect();
     $('.tap-target').tapTarget({
       onClose: function () {
           localStorage.setItem("discovered", "yes");
