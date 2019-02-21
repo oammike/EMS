@@ -113,11 +113,38 @@ Join the Speak Your Language contest and share your favorite word/phrase in your
 
                       <div class="item text-center" >
                         <img src="./storage/uploads/zumba2_1.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together!<br/><br/>
+                         <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
 
-Haven't done Zumba with your office friends yet? Sign up together for next week's session! You may also drop by later at our G2 office for the Yogalates class— let's make fitness a habit!<br/><br/>
 
-#WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba
+
+Venue:<br/>
+
+OPEN ACCESS BPO G2 OFFICE<br/>
+
+11F Glorietta 2 Corporate Center,<br/>
+
+West. St., Ayala Center, Makati City<br/><br/>
+
+
+
+<strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> <span class="text-danger"> February 27, 2019 (Wednesday) – 7:00 PM</span><br/>
+
+
+
+<span class="text-primary">YOGALATES:</span> <span class="text-danger">March 1, 2019 (Friday) – 7:00 PM</span></strong><br/><br/>
+
+
+
+Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on February 26, 2019 (Tuesday) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
+
+
+
+You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
 
                            
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
@@ -126,11 +153,39 @@ Haven't done Zumba with your office friends yet? Sign up together for next week'
 
                       <div class="item text-center" >
                         <img src="./storage/uploads/zumba2_2.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together!<br/><br/>
+                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
 
-Haven't done Zumba with your office friends yet? Sign up together for next week's session! You may also drop by later at our G2 office for the Yogalates class— let's make fitness a habit!<br/><br/>
 
-#WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba
+
+Venue:<br/>
+
+OPEN ACCESS BPO G2 OFFICE<br/>
+
+11F Glorietta 2 Corporate Center,<br/>
+
+West. St., Ayala Center, Makati City<br/><br/>
+
+
+
+<strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> <span class="text-danger"> February 27, 2019 (Wednesday) – 7:00 PM</span><br/>
+
+
+
+<span class="text-primary">YOGALATES:</span> <span class="text-danger">March 1, 2019 (Friday) – 7:00 PM</span></strong><br/><br/>
+
+
+
+Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on February 26, 2019 (Tuesday) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
+
+
+
+You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
 
                            
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
@@ -139,13 +194,39 @@ Haven't done Zumba with your office friends yet? Sign up together for next week'
 
                       <div class="item text-center" >
                         <img src="./storage/uploads/zumba2_3.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together!<br/><br/>
+                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
 
-Haven't done Zumba with your office friends yet? Sign up together for next week's session! You may also drop by later at our G2 office for the Yogalates class— let's make fitness a habit!<br/><br/>
 
-#WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba
 
-                           
+Venue:<br/>
+
+OPEN ACCESS BPO G2 OFFICE<br/>
+
+11F Glorietta 2 Corporate Center,<br/>
+
+West. St., Ayala Center, Makati City<br/><br/>
+
+
+
+<strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> <span class="text-danger"> February 27, 2019 (Wednesday) – 7:00 PM</span><br/>
+
+
+
+<span class="text-primary">YOGALATES:</span> <span class="text-danger">March 1, 2019 (Friday) – 7:00 PM</span></strong><br/><br/>
+
+
+
+Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on February 26, 2019 (Tuesday) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
+
+
+
+You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                       </div>
@@ -211,9 +292,35 @@ Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @floren
                         <h4 class="text-primary">Let's Get Physical</h4>
                         <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" />
                             
-                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle! Here are the schedules:<br/><br/>
-                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
-                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+                            <p style="padding: 30px; margin-bottom: 0px">Here's the schedule for next week:<br/><br/>
+
+
+
+Venue:<br/>
+
+OPEN ACCESS BPO G2 OFFICE<br/>
+
+11F Glorietta 2 Corporate Center,<br/>
+
+West. St., Ayala Center, Makati City<br/><br/>
+
+
+
+<strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> <span class="text-danger"> February 27, 2019 (Wednesday) – 7:00 PM</span><br/>
+
+
+
+<span class="text-primary">YOGALATES:</span> <span class="text-danger">March 1, 2019 (Friday) – 7:00 PM</span></strong><br/><br/>
+
+
+
+Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on February 26, 2019 (Tuesday) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
+
+
+
+You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+
+
 
                               Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
@@ -227,13 +334,37 @@ Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @floren
                         <h4 class="text-primary">Let's Get Physical</h4>
                         <img src="./storage/uploads/letsgetphysical-11.jpg" style="z-index: 2" />
                             
-                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!
-                              Here are the schedules:<br/><br/>
-                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
-                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+                             <p style="padding: 30px; margin-bottom: 0px">Here's the schedule for next week:<br/><br/>
+
+
+
+Venue:<br/>
+
+OPEN ACCESS BPO G2 OFFICE<br/>
+
+11F Glorietta 2 Corporate Center,<br/>
+
+West. St., Ayala Center, Makati City<br/><br/>
+
+
+
+<strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> <span class="text-danger"> February 27, 2019 (Wednesday) – 7:00 PM</span><br/>
+
+
+
+<span class="text-primary">YOGALATES:</span> <span class="text-danger">March 1, 2019 (Friday) – 7:00 PM</span></strong><br/><br/>
+
+
+
+Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on February 26, 2019 (Tuesday) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
+
+
+
+You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+
+
 
                               Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
 
                            
@@ -245,13 +376,37 @@ Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @floren
                         <h4 class="text-primary">Let's Get Physical</h4>
                         <img src="./storage/uploads/letsgetphysical-29.jpg" style="z-index: 2" />
                             
-                            <p style="padding: 30px; margin-bottom: 0px">Thanks to everyone who joined us, we couldn't be more excited about our next sessions! For those who missed out, join us and let's all strive for a healthier lifestyle!
-                              Here are the schedules:<br/><br/>
-                              <strong style="font-size: larger">ZUMBA : </strong> Feb 13 <strong class="text-danger">(Wed) 7PM </strong><br/>
-                              <strong  style="font-size: larger">YOGALATES : </strong> Feb 15 <strong class="text-danger">(Fri) 7PM</strong> <br/><br/>
+                             <p style="padding: 30px; margin-bottom: 0px">Here's the schedule for next week:<br/><br/>
+
+
+
+Venue:<br/>
+
+OPEN ACCESS BPO G2 OFFICE<br/>
+
+11F Glorietta 2 Corporate Center,<br/>
+
+West. St., Ayala Center, Makati City<br/><br/>
+
+
+
+<strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> <span class="text-danger"> February 27, 2019 (Wednesday) – 7:00 PM</span><br/>
+
+
+
+<span class="text-primary">YOGALATES:</span> <span class="text-danger">March 1, 2019 (Friday) – 7:00 PM</span></strong><br/><br/>
+
+
+
+Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on February 26, 2019 (Tuesday) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
+
+
+
+You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+
+
 
                               Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
 
                            
