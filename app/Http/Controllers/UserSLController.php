@@ -753,9 +753,10 @@ class UserSLController extends Controller
                     $newCredit = new User_SLcredits;
                     $newCredit->user_id = $user->id;
                     $newCredit->beginBalance = $result[1];
-                    $newCredit->used =0.0;
+                    $newCredit->used =$result[2];
                     $newCredit->paid =0.0;
                     $newCredit->creditYear = date('Y');
+                    $newCredit->lastUpdated = $result[3];
                     $newCredit->save();
                     $coll->push($newCredit);
 
