@@ -181,11 +181,11 @@
         <div class="col-lg-4 col-sm-12 text-center">
           
           <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"><i class="fa fa-plane"></i></span><span class="label label-primary">
-             <!-- $currentVLbalance --> -- </span></a></div>
+             {{$currentVLbalance}} </span></a></div>
 
             
         <div class="col-lg-4 col-sm-12 text-center">
-          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"> <i class="fa fa-stethoscope"></i></span><span class="label label-danger"><!-- $currentSLbalance --> -- </span></a></div>
+          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"> <i class="fa fa-stethoscope"></i></span><span class="label label-danger">{{$currentSLbalance}}</span></a></div>
           <div class="col-lg-2 col-sm-12"></div>
       </div>
       <div class="row">

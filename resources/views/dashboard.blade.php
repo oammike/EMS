@@ -67,6 +67,69 @@ select:-webkit-autofill:focus {
                 @endif
                
 
+              <!-- For approvals -->
+                  <div class="box box-info"style="background: rgba(256, 256, 256, 0.5)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title pull-left">For Approvals <small>(<span class="text-danger" id="approvalcount"></span>)</small></h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" id="refresh" title="Refresh Approvals" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <div class="table-responsive">
+                        <table id="requests" class="table no-margin" style="background: rgba(256, 256, 256, 0.4)" >
+                          <!-- <thead>
+                          <tr>
+                            <th>Request &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <th>Production Date</th>
+                            <th>Actions &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                          </tr>
+                          </thead>
+                          <tbody id="notifdata">
+                            
+                          
+                          
+                          </tbody> -->
+                        </table>
+
+
+                        @foreach($forApprovals as $notifs)
+
+
+                         
+
+                                @include('layouts.modals2', [
+                                    'modelRoute'=>'user_notification.deleteRequest',
+                                    'modelID' => $notifs['id'], 
+                                    'modelName'=> $notifs['type'],
+                                    'notifType' => $notifs['typeID'], 
+                                    'modalTitle'=>'Delete', 
+                                    'modalTitle2'=>'POST', 
+                                    'modalMessage'=>'Are you sure you want to delete this?', 
+                                    'formID'=>'deleteReq',
+                                    'icon'=>'glyphicon-trash' ])
+                               
+
+                               
+
+                            @endforeach
+                      </div>
+                      <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer" style="background: rgba(35, 165, 220, 0.5)">
+                       <!--  <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-flat pull-right">View All Requests</a>
+                    --> </div>
+                    <!-- /.box-footer -->
+                  </div>
+                <!-- /.box-info -->
+
               <!-- ************* TIMEKEEPING BACKUP ************ -->
               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                 <div class="box-header with-border">
@@ -132,68 +195,7 @@ select:-webkit-autofill:focus {
                      {{Form::close()}}
               </div><!-- /.box -->
 
-                 <!-- For approvals -->
-                  <div class="box box-info"style="background: rgba(256, 256, 256, 0.5)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title pull-left">For Approvals <small>(<span class="text-danger" id="approvalcount"></span>)</small></h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" id="refresh" title="Refresh Approvals" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <div class="table-responsive">
-                        <table id="requests" class="table no-margin" style="background: rgba(256, 256, 256, 0.4)" >
-                          <!-- <thead>
-                          <tr>
-                            <th>Request &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                            <th>Production Date</th>
-                            <th>Actions &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                          </tr>
-                          </thead>
-                          <tbody id="notifdata">
-                            
-                          
-                          
-                          </tbody> -->
-                        </table>
-
-
-                        @foreach($forApprovals as $notifs)
-
-
-                         
-
-                                @include('layouts.modals2', [
-                                    'modelRoute'=>'user_notification.deleteRequest',
-                                    'modelID' => $notifs['id'], 
-                                    'modelName'=> $notifs['type'],
-                                    'notifType' => $notifs['typeID'], 
-                                    'modalTitle'=>'Delete', 
-                                    'modalTitle2'=>'POST', 
-                                    'modalMessage'=>'Are you sure you want to delete this?', 
-                                    'formID'=>'deleteReq',
-                                    'icon'=>'glyphicon-trash' ])
-                               
-
-                               
-
-                            @endforeach
-                      </div>
-                      <!-- /.table-responsive -->
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer" style="background: rgba(35, 165, 220, 0.5)">
-                       <!--  <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-flat pull-right">View All Requests</a>
-                    --> </div>
-                    <!-- /.box-footer -->
-                  </div>
-                <!-- /.box-info -->
+                 
 
 
 

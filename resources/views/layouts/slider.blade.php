@@ -97,6 +97,21 @@
   <?php */ ?> 
 
                       <div class="item active text-center" >
+                        <img src="./storage/uploads/motherlang_1.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">Today, we're celebrating the beauty and importance of mother languages and we want to hear from you! <br/><br/>
+Join the Speak Your Language contest and share your favorite word/phrase in your native tongue. Top 3 winners will win cash prizes! How to join:
+<br/><br/>
+1. Take a video of yourself stating your favorite word/phrase in your mother language <br/>
+2. Translate the word/phrase in English and explain why it's your favorite in under 30 seconds <br/><br/>
+3. Follow @openaccessbpo and use the following hashtags: <strong class="text-primary">#OAonIMLD #WeSpeakYourLanguage #OpenAccessBPO</strong>
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> 
+#WeSpeakYourLanguage #OAonIMLD #Multilingualism #Diversity</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
                         <img src="./storage/uploads/zumba2_1.jpg" style="z-index: 2" />
                         <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together!<br/><br/>
 
