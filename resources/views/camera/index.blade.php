@@ -46,11 +46,12 @@
             <label for="emp_nick">Nickname</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="Benjamin Davidowitz" id="emp_name" name="emp_name" type="text" class="validate" value="{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}">
+            <input placeholder="Benjamin Davidowitz" id="emp_name" name="emp_name" type="text" class="validate" value="{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}" >
+            
             <label for="emp_name">Full Name</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="Chief Executive Officer" id="emp_pos" name="emp_pos" type="text" class="validate" value="{{ $user->position->name }}>
+            <input placeholder="Chief Executive Officer" id="emp_pos" name="emp_pos" type="text" class="validate" value="{{ $user->position->name }}">
             <label for="emp_pos">Position</label>
           </div>
           <div class="input-field col s6">
@@ -74,6 +75,10 @@
       <h6>Camera Controls</h6>
       <div class="row">
         <form class="col s12">
+          <div class="input-field col s12">
+            <select id="cameraSelector"></select>
+            <label>Choose Camera</label>
+          </div>
           <div class="input-field col s6">
               <a class="waves-effect waves-light btn-large col s12" href="javascript:camerapause();"><i class="material-icons left">camera_enhance</i><span id="bt_controller">Start Camera</span></a>
           </div>
@@ -168,14 +173,14 @@
   window.paused = false;
   window.mustFlip = true;
   window.video = document.querySelector("#videoElement");
+  window.videoSelect = document.querySelector('#cameraSelector');
   window.vStream;
   window.height = 0;
   window.width = 0;
   window.filepath = "";
   window.sign_filepath = "";
   window.signaturePad = null;
-  //initializeCamera();
-  //loadimage();
+  navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
   
   $.ajaxSetup({
     headers: {
@@ -183,19 +188,45 @@
     }
   });
   
+  function handleError() {
+    M.toast({html: 'Could not load the camera information. Please contact the Marketing Dept.'})
+  }
+  
+  function gotDevices(deviceInfos) {
+    // Handles being called several times to update labels. Preserve values.
+    const values = selectors.map(select => select.value);
+    selectors.forEach(select => {
+      while (select.firstChild) {
+        select.removeChild(select.firstChild);
+      }
+    });
+    for (let i = 0; i !== deviceInfos.length; ++i) {
+      const deviceInfo = deviceInfos[i];
+      const option = document.createElement('option');
+      option.value = deviceInfo.deviceId;
+      if (deviceInfo.kind === 'videoinput') {
+        option.text = deviceInfo.label || `camera ${window.videoSelect.length + 1}`;
+        window.videoSelect.appendChild(option);
+      }
+    }
+    selectors.forEach((select, selectorIndex) => {
+      if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
+        select.value = values[selectorIndex];
+      }
+    });
+  }
   
   function initializeCamera(){
     //$('#videoElement').show();
     //$('#imageElement').hide();
     window.paused = false;
     window.hasCapturedPhoto - false;
-    if (navigator.mediaDevices.getUserMedia) {
+      const videoSource = videoSelect.value;
       $('#bt_controller').text("Capture");
       var constraints = {
         audio: false,
         video: {
-          width: { min: 640, ideal: 720, max: 2048 },
-          height: { min: 360, ideal: 720, max: 2048 },
+          deviceId: videoSource ? {exact: videoSource} : undefined
         }
       };
       navigator.mediaDevices.getUserMedia(constraints)
@@ -215,7 +246,7 @@
         console.log(error);
         M.toast({html: 'Could not load the camera. Please contact the Marketing Dept.'})
       });
-    }
+    
   }
   
   function arrayToHex(color) {
