@@ -22,6 +22,21 @@
   </div>
   <div id="controls">
   
+    @if ($campaign_mode === true)
+    
+    <div id="featdiscov" class="tap-target teal" data-target="employee_loader_next">
+      <div class="tap-target-content">
+        <h5>Campaign Mode</h5>
+        <p>
+          Employees under the Campaign / Department: <b>Marketing</b> has been preloaded.<br/>
+          Click on these buttons to cycle between the employee's data.<br/>
+          <a href="javascript:dismissFeatureDiscov()" class="waves-effect waves-blue-grey btn right blue-grey darken-2">OK</a>
+        </p>
+      </div>
+    </div>
+      
+    @endif
+      
     <div class="section">
       <h6>Employee Details</h6>
       <div class="row">
@@ -35,32 +50,41 @@
             <label for="emp_name">Full Name</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="Chief Executive Officer" id="emp_pos" name="emp_pos" type="text" class="validate" value="{{ $user->position->name }}">
+            <input placeholder="Chief Executive Officer" id="emp_pos" name="emp_pos" type="text" class="validate" value="{{ $user->position->name }}>
             <label for="emp_pos">Position</label>
           </div>
           <div class="input-field col s6">
             <input placeholder="0000000001" id="emp_num" name="emp_num" type="number" class="validate" value="{{ $user->employeeNumber }}">
             <label for="emp_num">ID Number</label>
           </div>
+            
+          @if ($campaign_mode === true)  
+          <div class="input-field col s6">
+            <a class="waves-effect waves-light btn" href="javascript:loadNextEmployee();"><i class="material-icons">chevron_left</i></a>
+          </div>
+          <div class="input-field col s6">
+            <a class="waves-effect waves-light btn right" href="javascript:loadNextEmployee();" id="employee_loader_next"><i class="material-icons">chevron_right</i></a>
+          </div>
+          @endif
         </form>
       </div>
-    </div>
+    </div>  
     
     <div class="section">
       <h6>Camera Controls</h6>
       <div class="row">
         <form class="col s12">
-          <div class="input-field col s12">
-          <div class="row">
-            <a class="waves-effect waves-light btn-large col s5" href="javascript:camerapause();"><i class="material-icons left">camera_enhance</i><span id="bt_controller">Start Camera</span></a>
-          
-            <a class="waves-effect waves-light btn-large col s5 offset-s1" href="javascript:save();"><i class="material-icons left">save</i>Save</a>
+          <div class="input-field col s6">
+              <a class="waves-effect waves-light btn-large col s12" href="javascript:camerapause();"><i class="material-icons left">camera_enhance</i><span id="bt_controller">Start Camera</span></a>
           </div>
-          <div class="row">
-            <a class="waves-effect waves-light btn-large col s5" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
-          
-            <a class="waves-effect waves-light btn-large col s5 offset-s1" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>
+          <div class="input-field col s6">            
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save</a>
           </div>
+          <div class="input-field col s6">            
+              <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
+          </div>
+          <div class="input-field col s6">
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>            
           </div>
         </form>  
       </div>
@@ -187,8 +211,9 @@
         window.mode = "camera";
       })
       .catch(function(error) {
-        console.log("Something went wrong!");
+        //console.log("Something went wrong!");
         console.log(error);
+        M.toast({html: 'Could not load the camera. Please contact the Marketing Dept.'})
       });
     }
   }
@@ -223,16 +248,16 @@
             window.filepath = data;
           },
           error: function(xhr,status,msg){
-            alert(msg);
+            M.toast({html: msg})
           }
         })
         .done(function(e){
-          alert("saved");
+          M.toast({html: 'ID layout saved succesfully!'})
           $('#bt_controller').text("Start Camera");
         });
       });
     }else{
-      alert("Please capture a photo first");
+      M.toast({html: 'Please capture a photo first'})
     }
   }
   
@@ -400,7 +425,7 @@
         close_signature_capture();
       },
       error: function(xhr,status,msg){
-        alert(msg);
+        M.toast({html: msg});
       }
     });
   }
@@ -410,9 +435,21 @@
   $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
   $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
   
-  
-  
-    
+  @if ($campaign_mode === true)
+  $(document).ready(function(){
+    $('.tap-target').tapTarget({
+      onClose: function () {
+          localStorage.setItem("discovered", "yes");
+          console.log('setting discovered');
+      }
+    });
+
+    console.log("discovered: " + localStorage.discovered);
+    if(localStorage.discovered !== "yes"){
+      $('.tap-target').tapTarget('open');
+    }
+  });
+  @endif
   
   </script>
 @endsection

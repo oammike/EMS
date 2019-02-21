@@ -15,12 +15,13 @@ class IDController extends Controller
         $this->middleware('auth');
         $this->user =  User::find(Auth::user()->id);
         $this->url = $url;
+        $this->campaign_mode = false;
     }
     
     public function index()
     {
            
-        return view('camera.index',['user' => $this->user, 'url'=> $this->url->to('/') ]);
+        return view('camera.index',['user' => $this->user, 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode ]);
     }
     
     public function trainee()
@@ -30,12 +31,14 @@ class IDController extends Controller
     
     public function load_single($id)
     {
-        return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/') ]);
+        return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode ]);
     }
     
     public function load_campaign($id)
     {
-        return view('camera.index', ['campaign' => User::find($id), 'url'=> $this->url->to('/') ]);
+        $users = $users = User::with('position')->get()->toJson();
+        $this->campaign_mode = true;
+        return view('camera.index', ['campaign' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode, 'users' => $users ]);
     }
     
     public function export_id()

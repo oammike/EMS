@@ -15,19 +15,19 @@
     </div>
   </div>
   <div id="controls">
-    <div class="section">
+    <div class="section right">
       <h6>Options</h6>
       <div class="row">
-        <form class="col s12">  
-          <div class="input-field col s6">
+        <form class="col s8">  
+          <div class="input-field col s12">
             <input placeholder="10" id="copies" name="copies" type="number" class="validate" value="10">
             <label for="copies">How Many Copies?</label>
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col s12">
             <input placeholder="1" id="start" name="start" type="number" class="validate" value="1">
             <label for="start">Starting Index:</label>
           </div>
-          <div class="input-field col s3 right">
+          <div class="input-field col s5 right">
             <div class="row">
               <a class="waves-effect waves-light btn-large" href="javascript:verify();"><i class="material-icons left">print</i>Print</a>
             </div>

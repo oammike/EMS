@@ -177,3 +177,13 @@ table{
   text-align: left;
   letter-spacing: 2px;
 }
+#toast-container {
+    min-width: 10%;
+    top: 50%;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+}
+.tap-target-content h5, .tap-target-content p{
+  color: #fff;
+  margin-left: 55px;
+}
