@@ -473,7 +473,7 @@
     $('select').formSelect();
     
     @if ($campaign_mode === true)
-      window.employees = JSON.parse( {{ $users }} );
+      
       window.currentEmployeeIndex = 0;
       console.log(window.employees);
       $('.tap-target').tapTarget({
@@ -492,6 +492,8 @@
   
   
   @if ($campaign_mode === true)
+  window.employees = JSON.parse( {!! $users !!} );
+  
   function loadNextEmployee(){
     window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
     loadData();
