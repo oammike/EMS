@@ -140,7 +140,7 @@ class FormSubmissionsController extends Controller
                     $submissions = collect($form)->groupBy('submissionID');
 
                     //return response()->json($submissions);
-                    $headers = array('Agent','Merchant Name', 'Merchant Phone Number','Confirmation/level 1','Confirmation/level 2', 'Confirmation/level 3','Confirmation/level 4', 'Notes','Date Submitted','PST hour');
+                    $headers = array('Agent','Merchant Name', 'Merchant Phone Number','Merchant Location','Confirmation/level 1','Confirmation/level 2', 'Confirmation/level 3','Confirmation/level 4', 'Notes','Date Submitted','PST hour');
 
                     $description = "agent submission for Postmates' ". $sheetTitle;
                     
@@ -204,7 +204,9 @@ class FormSubmissionsController extends Controller
                                             $item[1]->value,
                                             $item[2]->value,
                                             $item[3]->value,
-                                             '-', '-',
+                                            
+                                        
+                                            '-','-','-',
                                             $item[4]->value,
                                             Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
                                             Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
@@ -215,14 +217,29 @@ class FormSubmissionsController extends Controller
                                 {
                                     
                                     //Agent','Customer Name ', 'Merchant Name', 'Merchant Phone Number','Confirmation/level 1','Confirmation/level 2', 'Confirmation/level 3','Confirmation/level 4', 'Notes','Date Submitted','PST hour'
+                                    if(!empty($item[5]))
                                      $arr = array($item->first()->firstname." ". $item->first()->lastname,
                                             $item[0]->value,
                                             $item[1]->value,
                                             $item[2]->value,
                                             $item[3]->value,
                                             $item[4]->value,
-                                            '-', 
+                                            '-','-',
                                             $item[5]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+                                    else
+                                        $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            
+                                            '-', 
+                                            '-',
+                                            '-',
                                             Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
                                             Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
                                         );
@@ -230,8 +247,39 @@ class FormSubmissionsController extends Controller
                                 
                                 elseif ($ctI == 7)
                                 {
-                                    
-                                     $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                    if(!empty($item[6]))
+                                        $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            $item[5]->value,
+                                            '-',
+                                            $item[6]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+                                    else
+                                        $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            
+                                            '-','-',
+                                            $item[5]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+
+                                }
+                                
+                                 elseif ($ctI == 8)
+                                 {
+                                    if(!empty($item[7]))
+                                        $arr = array($item->first()->firstname." ". $item->first()->lastname,
                                             $item[0]->value,
                                             $item[1]->value,
                                             $item[2]->value,
@@ -239,14 +287,44 @@ class FormSubmissionsController extends Controller
                                             $item[4]->value,
                                             $item[5]->value,
                                             $item[6]->value,
+                                            
+                                            $item[7]->value,
                                             Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
                                             Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
                                         );
-                                }
-                                
-                                 elseif ($ctI == 8)
+                                    else
+                                        $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            $item[5]->value,
+                                            
+                                            '-','-',
+                                            $item[6]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+
+                                 }
+                                 elseif ($ctI == 9)
                                  {
-                                    
+                                    if(!empty($item[8]))
+                                        $arr = array($item->first()->firstname." ". $item->first()->lastname,
+                                            $item[0]->value,
+                                            $item[1]->value,
+                                            $item[2]->value,
+                                            $item[3]->value,
+                                            $item[4]->value,
+                                            $item[5]->value,
+                                            $item[6]->value,
+                                            $item[7]->value,
+                                            $item[8]->value,
+                                            Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
+                                            Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
+                                        );
+                                    else
                                     $arr = array($item->first()->firstname." ". $item->first()->lastname,
                                             $item[0]->value,
                                             $item[1]->value,
@@ -256,16 +334,19 @@ class FormSubmissionsController extends Controller
                                             $item[5]->value,
                                             $item[6]->value,
                                             $item[7]->value,
+                                            '-',
                                             Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
                                             Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
                                         );
-                                 }else{
+                                 }
+                                 else{
 
                                      $arr = array($item->first()->firstname." ". $item->first()->lastname,
                                             $item[0]->value,
                                             $item[1]->value,
                                             $item[2]->value,
-                                            $item[3]->value,'-', '-','-',
+                                            $item[3]->value,
+                                            $item[4]->value,'-', '-','-',
                                             Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
                                             Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
                                         );
@@ -1335,13 +1416,13 @@ class FormSubmissionsController extends Controller
                                 //$rawData->push($d);
 
                                
-                                 if (count($d)>=7)
+                                 if (count($d)>=8)
                                 
-                                $rawData->push(['id'=>$f->first()->submissionID,'customer'=>$d[0]->value, 'merchant'=>$d[1]->value,'phone'=>$d[2]->value, 'orderStatus'=>$d[5]->value,'protocol'=>$d[3]->value,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>Carbon::parse($d[0]->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($d[0]->created_at)->setTimeZone('PST')->format('H:i'),'notes'=>$d[6]->value,'escalation'=>$d[4]->value ]);
+                                $rawData->push(['id'=>$f->first()->submissionID,'customer'=>$d[0]->value, 'merchant'=>$d[1]->value,'phone'=>$d[2]->value,'location'=>$d[3]->value, 'orderStatus'=>$d[6]->value,'protocol'=>$d[4]->value,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>Carbon::parse($d[0]->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($d[0]->created_at)->setTimeZone('PST')->format('H:i'),'notes'=>$d[7]->value,'escalation'=>$d[5]->value ]);
                                 else if (empty($d))
-                                    $rawData->push(['id'=>$f->first()->submissionID,'custome'=>null, 'merchant'=>null,'phone'=>null, 'orderStatus'=>null,'protocol'=>null,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>null, 'hour'=> null,'notes'=>null ,'escalation'=>null]);
+                                    $rawData->push(['id'=>$f->first()->submissionID,'customer'=>null, 'merchant'=>null,'phone'=>null,'location'=>null, 'orderStatus'=>null,'protocol'=>null,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>null, 'hour'=> null,'notes'=>null ,'escalation'=>null]);
                                 else
-                                    $rawData->push(['id'=>$f->first()->submissionID,'customer'=>$d[0]->value, 'merchant'=>$d[1]->value,'phone'=>$d[2]->value, 'orderStatus'=>$d[4]->value,'protocol'=>$d[3]->value,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>Carbon::parse($d[0]->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($d[0]->created_at)->setTimeZone('PST')->format('H:i'),'notes'=>$d[5]->value,'escalation'=>$d[4]->value]);
+                                    $rawData->push(['id'=>$f->first()->submissionID,'customer'=>$d[0]->value, 'merchant'=>$d[1]->value,'phone'=>$d[2]->value,'location'=>$d[3]->value, 'orderStatus'=>$d[5]->value,'protocol'=>$d[4]->value,'agent'=>$agent->lastname.", ".$agent->firstname,'submitted'=>Carbon::parse($d[0]->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 'hour'=> Carbon::parse($d[0]->created_at)->setTimeZone('PST')->format('H:i'),'notes'=>$d[6]->value,'escalation'=>$d[5]->value]);
 
                                
 
@@ -1355,7 +1436,7 @@ class FormSubmissionsController extends Controller
                             $submissions = $rawData;
                             $chenes = new Collection;
                             //return $submissions;
-                            $headers = array('Agent','Customer Name ', 'Merchant Name', 'Merchant Phone Number','Escalation/level 1','Escalation/level 2', 'Order Status','Notes','Date Submitted','PST hour');
+                            $headers = array('Agent','Customer Name ', 'Merchant Name','Merchant Phone Number','Merchant Location',  'Escalation/level 1','Escalation/level 2', 'Order Status','Notes','Date Submitted','PST hour');
                             $description = "agent submission for Postmates' ". $sheetTitle;
 
                             if($this->user->id !== 564 ) {
@@ -1385,7 +1466,9 @@ class FormSubmissionsController extends Controller
                                             $arr = array($item['agent'],
                                                          $item['customer'],
                                                          $item['merchant'],
+                                                         $item['location'],
                                                          $item['phone'],
+                                                         
                                                          $item['protocol'],
                                                          $item['escalation'],
                                                          $item['orderStatus'],
@@ -1505,6 +1588,20 @@ class FormSubmissionsController extends Controller
                                         $item[5]->label=>$item[5]->value,
                                         $item[6]->label=>$item[6]->value,
                                         $item[7]->label=>$item[7]->value,
+                                        'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
+                                        'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]); 
+
+                            elseif ($ctI == 9)
+                            $coll->push(['agent'=>$item->first()->lastname.", ".$item->first()->firstname,
+                                        $item[0]->label=>$item[0]->value,
+                                        $item[1]->label=>$item[1]->value,
+                                        $item[2]->label=>$item[2]->value, 
+                                        $item[3]->label=>$item[3]->value,
+                                        $item[4]->label=>$item[4]->value,
+                                        $item[5]->label=>$item[5]->value,
+                                        $item[6]->label=>$item[6]->value,
+                                        $item[7]->label=>$item[7]->value,
+                                        $item[8]->label=>$item[8]->value,
                                         'submitted'=>Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'), 
                                         'hour'=> Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')]); 
                                         

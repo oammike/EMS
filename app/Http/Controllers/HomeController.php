@@ -69,6 +69,12 @@ class HomeController extends Controller
          if($this->user->id !== 564 ) {
 
           switch ($album) {
+
+            case '6':{
+               fwrite($file, "-------------------\n Viewed Catriona by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '5':{
                fwrite($file, "-------------------\n Viewed Physical by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -180,6 +186,21 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/letsgetphysical-".$i.".jpg",
                                 'description'=>"Let's Get Physical",
                                 'category'=>"Let's Get Physical"]);
+
+                  }
+
+        } break;
+
+
+        case '6': {
+ 
+                    //CATRIONA
+      
+                  for($i=1; $i<=46; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-cat-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/cat-".$i.".jpg",
+                                'description'=>"Catriona Gray Homecoming",
+                                'category'=>"Catriona Gray Homecoming"]);
 
                   }
 
