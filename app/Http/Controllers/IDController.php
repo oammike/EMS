@@ -45,7 +45,7 @@ class IDController extends Controller
                             ['status_id','!=',9],
                         ])->
                         leftJoin('positions','users.position_id','=','positions.id')->
-                        select('users.firstname','users.nickname','users.middlename','users.lastname','users.id','positions.name as jobTitle')->get();
+                        select('users.employeeNumber','users.firstname','users.nickname','users.middlename','users.lastname','users.id','positions.name as jobTitle')->get();
         $users = json_encode($users);
         
         

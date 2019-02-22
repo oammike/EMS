@@ -473,17 +473,13 @@
     $('select').formSelect();
     
     @if ($campaign_mode === true)
-      
       window.currentEmployeeIndex = 0;
-      console.log(window.employees);
       $('.tap-target').tapTarget({
         onClose: function () {
             localStorage.setItem("discovered", "yes");
             console.log('setting discovered');
         }
       });
-  
-      console.log("discovered: " + localStorage.discovered);
       if(localStorage.discovered !== "yes"){
         $('.tap-target').tapTarget('open');
       }
@@ -492,7 +488,11 @@
   
   
   @if ($campaign_mode === true)
-  window.employees = JSON.parse( {!! $users !!} );
+  window.employees = JSON.parse(' {!! $users !!} ');
+  
+  function dismissFeatureDiscov(){
+    $('.tap-target').tapTarget('close');
+  }
   
   function loadNextEmployee(){
     window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
@@ -506,15 +506,15 @@
   
   function loadData(){
     var employee = window.employees[window.currentEmployeeIndex];
-    console.log(employee);
+    //console.log(employee);
     $('#employee_nick').text(employee.nickname);
     $('#employee_name').text(employee.firstname + " " + employee.middlename + ". " + employee.lastname);
-    $('#employee_position').text(employee.position.name);
+    $('#employee_position').text(employee.jobTitle);
     $('#employee_number').text(employee.employeeNumber);
     
     $('#emp_nick').val(employee.nickname);
     $('#emp_name').val(employee.firstname + " " + employee.middlename + ". " + employee.lastname);
-    $('#emp_pos').val(employee.position.name);
+    $('#emp_pos').val(employee.jobTitle);
     $('#emp_num').val(employee.employeeNumber);
   }
   
