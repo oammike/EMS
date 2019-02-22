@@ -515,6 +515,8 @@
     $('#emp_pos').val(employee.position.name);
     $('#emp_num').val(employee.employeeNumber);
   }
+  
+  loadData();
   @endif
   
   

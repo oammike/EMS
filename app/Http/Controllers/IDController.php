@@ -7,6 +7,7 @@ use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\UrlGenerator;
+use \DB;
 
 class IDController extends Controller
 {
@@ -35,10 +36,20 @@ class IDController extends Controller
     }
     
     public function load_campaign($id)
-    {
-        $users = $users = User::with('position')->get()->toJson();
+    {    
+        $users = DB::table('team')->where('team.campaign_id',$id)->
+                        leftJoin('users','users.id','=','team.user_id')->
+                         where([
+                            ['status_id','!=',7],
+                            ['status_id','!=',8],
+                            ['status_id','!=',9],
+                        ])->
+                        leftJoin('positions','users.position_id','=','positions.id')->
+                        select('users.firstname','users.nickname','users.middlename','users.lastname','users.id','positions.name as jobTitle')->get()->toJson();
+        
+        
         $this->campaign_mode = true;
-        return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode, 'users' => $users ]);
+        return view('camera.index', ['user' => $this->user, 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode, 'users' => $users ]);
     }
     
     public function export_id()
