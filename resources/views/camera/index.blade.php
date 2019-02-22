@@ -489,7 +489,7 @@
   
   @if ($campaign_mode === true)
   window.employees = JSON.parse(' {!! $users !!} ');
-  
+  window.currentEmployeeIndex =  0;
   function dismissFeatureDiscov(){
     $('.tap-target').tapTarget('close');
   }

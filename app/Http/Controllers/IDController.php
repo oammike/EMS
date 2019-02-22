@@ -30,6 +30,11 @@ class IDController extends Controller
         return view('camera.trainee', ['url'=> $this->url->to('/') ]);
     }
     
+    public function camera_back()
+    {
+        return view('camera.back', ['url'=> $this->url->to('/') ]);
+    }
+    
     public function load_single($id)
     {
         return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode ]);

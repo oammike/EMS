@@ -748,10 +748,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     /* ---------- ID PRINTING ---------------*/
     Route::get('/camera/', 'IDController@index');
     Route::get('/trainee/', 'IDController@trainee');
+    Route::get('/camera_back/', 'IDController@camera_back');
     Route::get('/camera/single/{id}', 'IDController@load_single');
     Route::get('/camera/by_campaign/{id}', 'IDController@load_campaign');
     Route::post('/export_id', 'IDController@export_id');
     Route::post('/save_signature', 'IDController@save_signature');
+    
 
   });
 
