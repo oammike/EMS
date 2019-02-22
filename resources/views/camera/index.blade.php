@@ -506,14 +506,23 @@
   
   function loadData(){
     var employee = window.employees[window.currentEmployeeIndex];
+    if(employee===undefined){
+       M.toast({html: 'You have reached the end of the list'})
+       return;
+    }
     //console.log(employee);
+    var fullname =
+      employee.firstname.toLowerCase().charAt(0).toUpperCase() + employee.firstname.toLowerCase().slice(1) + " " +
+      employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
+      employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
+      ;
     $('#employee_nick').text(employee.nickname);
-    $('#employee_name').text(employee.firstname + " " + employee.middlename + ". " + employee.lastname);
+    $('#employee_name').text(fullname);
     $('#employee_position').text(employee.jobTitle);
     $('#employee_number').text(employee.employeeNumber);
     
     $('#emp_nick').val(employee.nickname);
-    $('#emp_name').val(employee.firstname + " " + employee.middlename + ". " + employee.lastname);
+    $('#emp_name').val(fullname);
     $('#emp_pos').val(employee.jobTitle);
     $('#emp_num').val(employee.employeeNumber);
   }
