@@ -38,7 +38,7 @@ class IDController extends Controller
     {
         $users = $users = User::with('position')->get()->toJson();
         $this->campaign_mode = true;
-        return view('camera.index', ['campaign' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode, 'users' => $users ]);
+        return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode, 'users' => $users ]);
     }
     
     public function export_id()

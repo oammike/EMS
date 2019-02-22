@@ -61,7 +61,7 @@
             
           @if ($campaign_mode === true)  
           <div class="input-field col s6">
-            <a class="waves-effect waves-light btn" href="javascript:loadNextEmployee();"><i class="material-icons">chevron_left</i></a>
+            <a class="waves-effect waves-light btn" href="javascript:loadPreviousEmployee();"><i class="material-icons">chevron_left</i></a>
           </div>
           <div class="input-field col s6">
             <a class="waves-effect waves-light btn right" href="javascript:loadNextEmployee();" id="employee_loader_next"><i class="material-icons">chevron_right</i></a>
@@ -474,6 +474,8 @@
     
     @if ($campaign_mode === true)
       window.employees = JSON.parse( {{ $users }} );
+      window.currentEmployeeIndex = 0;
+      console.log(window.employees);
       $('.tap-target').tapTarget({
         onClose: function () {
             localStorage.setItem("discovered", "yes");
@@ -487,6 +489,33 @@
       }
     @endif
   });
+  
+  
+  @if ($campaign_mode === true)
+  function loadNextEmployee(){
+    window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
+    loadData();
+  }
+  
+  function loadPreviousEmployee(){
+    window.currentEmployeeIndex =  window.currentEmployeeIndex - 1;
+    loadData();
+  }
+  
+  function loadData(){
+    var employee = window.employees[window.currentEmployeeIndex];
+    console.log(employee);
+    $('#employee_nick').text(employee.nickname);
+    $('#employee_name').text(employee.firstname + " " + employee.middlename + ". " + employee.lastname);
+    $('#employee_position').text(employee.position.name);
+    $('#employee_number').text(employee.employeeNumber);
+    
+    $('#emp_nick').val(employee.nickname);
+    $('#emp_name').val(employee.firstname + " " + employee.middlename + ". " + employee.lastname);
+    $('#emp_pos').val(employee.position.name);
+    $('#emp_num').val(employee.employeeNumber);
+  }
+  @endif
   
   
   
