@@ -61,7 +61,7 @@
             
           @if ($campaign_mode === true)  
           <div class="input-field col s6">
-            <a class="waves-effect waves-light btn" href="javascript:loadNextEmployee();"><i class="material-icons">chevron_left</i></a>
+            <a class="waves-effect waves-light btn" href="javascript:loadPreviousEmployee();"><i class="material-icons">chevron_left</i></a>
           </div>
           <div class="input-field col s6">
             <a class="waves-effect waves-light btn right" href="javascript:loadNextEmployee();" id="employee_loader_next"><i class="material-icons">chevron_right</i></a>
@@ -226,8 +226,8 @@
       audio: false,
       video: {
         deviceId: videoSource ? {exact: videoSource} : undefined,
-        width: { min: 640, ideal: 720, max: 2048 },
-        height: { min: 360, ideal: 720, max: 2048 },
+        width: { min: 1920, ideal: 1920, max: 1920 },
+        height: { min: 1080, ideal: 1080, max: 1080 },
       }
     };
     navigator.mediaDevices.getUserMedia(constraints)
@@ -473,20 +473,62 @@
     $('select').formSelect();
     
     @if ($campaign_mode === true)
-      window.employees = JSON.parse( {{ $users }} );
+      window.currentEmployeeIndex = 0;
       $('.tap-target').tapTarget({
         onClose: function () {
             localStorage.setItem("discovered", "yes");
             console.log('setting discovered');
         }
       });
-  
-      console.log("discovered: " + localStorage.discovered);
       if(localStorage.discovered !== "yes"){
         $('.tap-target').tapTarget('open');
       }
     @endif
   });
+  
+  
+  @if ($campaign_mode === true)
+  window.employees = JSON.parse(' {!! $users !!} ');
+  window.currentEmployeeIndex =  0;
+  function dismissFeatureDiscov(){
+    $('.tap-target').tapTarget('close');
+  }
+  
+  function loadNextEmployee(){
+    window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
+    loadData();
+  }
+  
+  function loadPreviousEmployee(){
+    window.currentEmployeeIndex =  window.currentEmployeeIndex - 1;
+    loadData();
+  }
+  
+  function loadData(){
+    var employee = window.employees[window.currentEmployeeIndex];
+    if(employee===undefined){
+       M.toast({html: 'You have reached the end of the list'})
+       return;
+    }
+    //console.log(employee);
+    var fullname =
+      employee.firstname.toLowerCase().charAt(0).toUpperCase() + employee.firstname.toLowerCase().slice(1) + " " +
+      employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
+      employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
+      ;
+    $('#employee_nick').text(employee.nickname);
+    $('#employee_name').text(fullname);
+    $('#employee_position').text(employee.jobTitle);
+    $('#employee_number').text(employee.employeeNumber);
+    
+    $('#emp_nick').val(employee.nickname);
+    $('#emp_name').val(fullname);
+    $('#emp_pos').val(employee.jobTitle);
+    $('#emp_num').val(employee.employeeNumber);
+  }
+  
+  loadData();
+  @endif
   
   
   
