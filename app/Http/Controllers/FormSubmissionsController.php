@@ -346,7 +346,7 @@ class FormSubmissionsController extends Controller
                                             $item[1]->value,
                                             $item[2]->value,
                                             $item[3]->value,
-                                            $item[4]->value,'-', '-','-',
+                                            '-','-', '-','-',
                                             Carbon::parse($item->first()->created_at,"Asia/Manila")->format('M d,Y H:i:s'),
                                             Carbon::parse($item->first()->created_at)->setTimeZone('PST')->format('H:i')
                                         );
