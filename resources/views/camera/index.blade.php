@@ -226,8 +226,8 @@
       audio: false,
       video: {
         deviceId: videoSource ? {exact: videoSource} : undefined,
-        width: { min: 640, ideal: 720, max: 2048 },
-        height: { min: 360, ideal: 720, max: 2048 },
+        width: { min: 640, ideal: 1080, max: 2048 },
+        height: { min: 360, ideal: 1080, max: 2048 },
       }
     };
     navigator.mediaDevices.getUserMedia(constraints)
