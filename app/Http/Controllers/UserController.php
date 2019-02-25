@@ -1421,12 +1421,12 @@ class UserController extends Controller
 
               $wd_fixed = FixedSchedules::where('user_id',$user->id)->where('workday',$dayToday)->orderBy('created_at','DESC')->first();
 
-              //$coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
+              $coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
 
-              // $coll3->push(['monthly'=>$workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(), 
-              //   'wd_fixed'=>$wd_fixed,
-              //   'monthlyRD'=>$RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(),
-              //   'RD_fixed'=>$RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at')->first() ]);
+              $coll3->push(['monthly'=>$workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(), 
+                'wd_fixed'=>$wd_fixed,
+                'monthlyRD'=>$RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(),
+                'RD_fixed'=>$RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at')->first() ]);
 
 
 
@@ -1812,7 +1812,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
-      //return $coll3;
+      return $coll3;
       return response()->json($coll);
 
       
