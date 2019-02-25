@@ -576,6 +576,8 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
           $('select_'+(itemOrder+1), 'select_'+itemOrder).hide();
           var s = ".confirmed_"+itemName;
           
+          console.log('value of .confirmed_itemName : ');
+          console.log(itemName);
           var x = $(s);
           //var y = x[0]['children'][2];
 
