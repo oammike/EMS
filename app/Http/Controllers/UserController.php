@@ -1364,6 +1364,7 @@ class UserController extends Controller
       
       $coll = new Collection;
       $coll2 = new Collection;
+      $coll3 = new Collection;
       $counter = 0;
       $totalMschedules = count($user->monthlySchedules);
       $totalFschedules = count($user->fixedSchedule);
@@ -1420,7 +1421,9 @@ class UserController extends Controller
 
               $wd_fixed = FixedSchedules::where('user_id',$user->id)->where('workday',$dayToday)->orderBy('created_at','DESC')->first();
 
-              $coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
+              //$coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
+
+              $coll3->push(['startPoint'=>$startingPoint->startOfDay(), 'wd_fixed'=>$wd_fixed]);
 
               if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null || $wd_fixed->schedEffectivity == '1970-01-01')
               {
@@ -1804,7 +1807,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
-      //return $coll2;
+      return $coll3;
       return response()->json($coll);
 
       
