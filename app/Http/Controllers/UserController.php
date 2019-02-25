@@ -1359,7 +1359,7 @@ class UserController extends Controller
       
       
       //$startingPoint =Carbon::create(date('Y'), 1, 1,0,0,0, 'Asia/Manila');//->subMonths(6);
-      $startingPoint =Carbon::create(date('Y'),date('m'), date('d'),0,0,0, 'Asia/Manila')->subMonths(6);
+      $startingPoint =Carbon::create(date('Y'),date('m'), date('d'),0,0,0, 'Asia/Manila')->subMonths(1);
       $endDate = Carbon::create(date('Y'), date('m'), date('d'),0,0,0, 'Asia/Manila')->addMonths(2); 
       
       $coll = new Collection;
@@ -1369,6 +1369,8 @@ class UserController extends Controller
       $totalFschedules = count($user->fixedSchedule);
 
       $coll2->push(['totalMschedules'=>$totalMschedules, 'totalFschedules'=>$totalFschedules ]);
+
+      //return $coll2;
       
 
      // return $startingPoint;
