@@ -1423,7 +1423,7 @@ class UserController extends Controller
 
               //$coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
 
-              $coll3->push(['startPoint'=>$startingPoint->startOfDay(), 'wd_fixed'=>$wd_fixed]);
+              $coll3->push(['monthly'=>$workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(), 'wd_fixed'=>$wd_fixed]);
 
               if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null || $wd_fixed->schedEffectivity == '1970-01-01')
               {
