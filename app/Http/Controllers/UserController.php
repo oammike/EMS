@@ -1800,7 +1800,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
-      //return $coll2;
+      return $coll2;
        return response()->json($coll);
 
       
