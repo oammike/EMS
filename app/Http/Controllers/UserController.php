@@ -1408,17 +1408,19 @@ class UserController extends Controller
           $kawnt = 0;
           while ($startingPoint < $endDate) 
           {
-            $coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s')]);
+            
 
-              $dt  = $startingPoint->dayOfWeek;
-              switch($dt){
-                case 0: $dayToday = 6; break;
-                case 1: $dayToday = 0; break;
-                default: $dayToday = $dt-1;
-              } 
+            $dt  = $startingPoint->dayOfWeek;
+            switch($dt){
+              case 0: $dayToday = 6; break;
+              case 1: $dayToday = 0; break;
+              default: $dayToday = $dt-1;
+            } 
               /* ---------------------------------------- OLD WAY -----------------------------------------------------------*/          
 
               $wd_fixed = FixedSchedules::where('user_id',$user->id)->where('workday',$dayToday)->orderBy('created_at','DESC')->first();
+
+              $coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
 
               if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null)
               {
@@ -1596,7 +1598,8 @@ class UserController extends Controller
 
 
 
-       } else
+       } 
+       else
        {
 
             if ($totalMschedules > 0)
@@ -1801,7 +1804,7 @@ class UserController extends Controller
        } //end else both have monthly and fixed
 
       return $coll2;
-       return response()->json($coll);
+      return response()->json($coll);
 
       
     }
