@@ -140,7 +140,7 @@ class FormSubmissionsController extends Controller
                     $submissions = collect($form)->groupBy('submissionID');
 
                     //return response()->json($submissions);
-                    $headers = array('Agent','Merchant Name', 'Merchant Phone Number','Merchant Location','Confirmation/level 1','Confirmation/level 2', 'Confirmation/level 3','Confirmation/level 4', 'Notes','Date Submitted','PST hour');
+                    $headers = array('Agent','Merchant Name','Merchant Location', 'Merchant Phone Number','Confirmation/level 1','Confirmation/level 2', 'Confirmation/level 3','Confirmation/level 4', 'Notes','Date Submitted','PST hour');
 
                     $description = "agent submission for Postmates' ". $sheetTitle;
                     
