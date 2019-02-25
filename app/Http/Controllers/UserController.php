@@ -1423,7 +1423,12 @@ class UserController extends Controller
 
               //$coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
 
-              $coll3->push(['monthly'=>$workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(), 'wd_fixed'=>$wd_fixed]);
+              // $coll3->push(['monthly'=>$workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(), 
+              //   'wd_fixed'=>$wd_fixed,
+              //   'monthlyRD'=>$RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(),
+              //   'RD_fixed'=>$RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at')->first() ]);
+
+
 
               if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null || $wd_fixed->schedEffectivity == '1970-01-01')
               {
@@ -1581,7 +1586,7 @@ class UserController extends Controller
                 //do nothing
               } else{
                 
-                /*$coll->push(['title'=>"NO SCHEDULE",
+                $coll->push(['title'=>"NO SCHEDULE",
                                 'start'=>$startingPoint->format('Y-m-d H:i:s'),
                                 'textColor'=> '#fd940a',// '#409c45',
                                 'icon'=>" ",
@@ -1590,7 +1595,7 @@ class UserController extends Controller
                                 'start'=>$startingPoint->format('Y-m-d H:i:s'),
                                 'textColor'=> '#fd940a',// '#409c45',
                                 'icon3'=>"calendar-o",
-                                'backgroundColor'=> '#fff']);*/
+                                'backgroundColor'=> '#fff']);
 
               }
 
@@ -1807,7 +1812,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
-      return $coll3;
+      //return $coll3;
       return response()->json($coll);
 
       
