@@ -1422,12 +1422,13 @@ class UserController extends Controller
 
               $coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
 
-              if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null)
+              if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null || $wd_fixed->schedEffectivity == '1970-01-01')
               {
 
 
                     $latest_fixed = $workSched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-                    if ( $workSched_monthly->contains('productionDate',$startingPoint->format('Y-m-d')) || count($latest_fixed)>0 )
+
+                    if ( $workSched_monthly->contains('productionDate',$startingPoint->format('Y-m-d')) )
                     {
                       
 
@@ -1803,7 +1804,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
-      return $coll2;
+      //return $coll2;
       return response()->json($coll);
 
       
