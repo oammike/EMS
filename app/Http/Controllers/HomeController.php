@@ -382,6 +382,8 @@ class HomeController extends Controller
             $groupedForm = $widget->groupBy('widgetTitle');
             $groupedSelects = $widget->groupBy('selectGroup');
 
+            //return $groupedForm;
+
            
 
           }else

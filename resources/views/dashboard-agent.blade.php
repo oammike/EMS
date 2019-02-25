@@ -525,217 +525,222 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
    /*---------- POSTMATES WIDGET ----------- */
    @if(count($groupedForm)>0)
 
-   $('.escalation_online_order, .escalation_phone, .escalation_tablet').hide();
-   //.merchant_closed_confirmation, .Open_confirmation, .confirmed_options 
-   //
-   $('select[name="escalation"]').on('change', function(){ 
+       $('.escalation_online_order, .escalation_phone, .escalation_tablet').hide();
+       //.merchant_closed_confirmation, .Open_confirmation, .confirmed_options 
+       //
+       $('select[name="escalation"]').on('change', function(){ 
 
-      var escalation = $('select[name="escalation"] :selected').val();
+          var escalation = $('select[name="escalation"] :selected').val();
 
-      switch (escalation)
-      {
-        case "online_order": { $('.escalation_online_order').fadeIn();$('.escalation_phone, .escalation_tablet, .req').hide();} break;
-        case "phone":  { $('.escalation_phone').fadeIn();$('.escalation_online_order, .escalation_tablet').hide();} break;
-        case "tablet": { $('.escalation_tablet').fadeIn();$('.escalation_online_order, .escalation_phone').hide();} break;
-        default:  $('.escalation_online_order, .escalation_phone, .escalation_tablet').hide();
-      }
+          switch (escalation)
+          {
+            case "online_order": { $('.escalation_online_order').fadeIn();$('.escalation_phone, .escalation_tablet, .req').hide();} break;
+            case "phone":  { $('.escalation_phone').fadeIn();$('.escalation_online_order, .escalation_tablet').hide();} break;
+            case "tablet": { $('.escalation_tablet').fadeIn();$('.escalation_online_order, .escalation_phone').hide();} break;
+            default:  $('.escalation_online_order, .escalation_phone, .escalation_tablet').hide();
+          }
 
-   
+       
 
-   });
-
-  
-
-
-   /********** signal verification *************/
-
-   $('.select_6, .select_7, .select_8, .label_6_2, .label_7_2, .label_8_2').hide();
-
-  $('select.formItem').on('change',function(){
-
-
-    var itemName = $(this)[0]['name'];
-    var formID = $(this).attr('data-formID');
-    var selectedItem = $('select[name='+itemName+'] :selected').val();
-    var itemOrder = $(this)[0]['tabIndex'];
-    var s = "."+selectedItem.toLowerCase()+"_"+itemName;
-    //var elemID = $(this)[0]['id'];
-
-    if (itemOrder=='5' && formID=='2'){
-      $('.label_6_2, .label_7_2, .label_8_2').fadeOut();
-    } else if (itemOrder=='6' && formID=='2'){
-      $('.label_7_2, .label_8_2, .label_9_2').fadeOut();
-    } else if (itemOrder=='7' && formID=='2'){
-      $('.label_8_2, .label_9_2, .label_10_2').fadeOut();
-    }
-
-
-
-
-    if (selectedItem.toLowerCase() == "yes" || selectedItem.toLowerCase() == "no"){
-      $('select_'+(itemOrder+1), 'select_'+itemOrder).hide();
-      var s = ".confirmed_"+itemName;
-      
-      var x = $(s);
-      //var y = x[0]['children'][2];
-
-      //y.
-
-      // console.log("className:");
-      // console.log(x[1]['className']);
-      if (x.length == 0 || x[1]['className'] == "select_7_2 formItem form-control confirmed_merchant_refused_confirmation")
-      {
-        var newItem = $(this).parent();
-        console.log("parent: ");
-        $('.added').fadeOut();
-        console.log(newItem);
-        var htmlcode ='<label class="added pull-left" style="font-weight: bolder; padding-top: 20px; display: inline-block;"><strong>Confirmed</strong>';
-        htmlcode += '     <select id="x" data-from="'+itemName+'" class="form-control formItem">';
-        htmlcode += '         <option value="Confirmed_By_Phone" >Confirmed By Phone</option>';
-        htmlcode += '         <option value="Confirmed_By_Voicemail">Confirmed By Voicemail</option>';
-        htmlcode += '         <option value="Confirmed_Online">Confirmed Online</option>';
-        htmlcode == '     </select></label>';
-
-        newItem.append(htmlcode);
-      } else $(s).fadeIn();
-
-      //$(y).html('<option value="Confirmed_By_Phone">Confirmed By Phone</option><option value="Confirmed_By_Voicemail">Confirmed By Voicemail</option><option value="Confirmed_Online">Confirmed Online</option>');
-      
-
-    }
-    else {
-
-      $('.added').fadeOut();
-
-      if(formID == '2'){
-        //$('label[name="'+itemName+'"]').fadeOut();//'select.select_'+(itemOrder+1), 'select.select_'+itemOrder, 
-        $('.label_'+itemOrder+'_'+formID,'.label_'+(itemOrder+1)+'_'+formID).fadeOut();
-        $(s).fadeIn();
-      }
-      
-
-      console.log("OPEN : "+ s );
-    console.log(s);
-    console.log("order: "+itemOrder+" | selectedItem: "+selectedItem+" | index: "+itemOrder)
-    }
-   
-
-    console.log("FormID: "+formID);
+       });
 
     
 
-   });
+
+       /********** signal verification *************/
+
+      $('.select_6, .select_7, .select_8, .label_6_2, .label_7_2, .label_8_2').hide();
+
+      $('select.formItem').on('change',function(){
+
+
+        var itemName = $(this)[0]['name'];
+        var formID = $(this).attr('data-formID');
+        var selectedItem = $('select[name='+itemName+'] :selected').val();
+        var itemOrder = $(this)[0]['tabIndex'];
+        var s = "."+selectedItem.toLowerCase()+"_"+itemName;
+        //var elemID = $(this)[0]['id'];
+
+        if (itemOrder=='5' && formID=='2'){
+          $('.label_6_2, .label_7_2, .label_8_2').fadeOut();
+        } else if (itemOrder=='6' && formID=='2'){
+          $('.label_7_2, .label_8_2, .label_9_2').fadeOut();
+        } else if (itemOrder=='7' && formID=='2'){
+          $('.label_8_2, .label_9_2, .label_10_2').fadeOut();
+        }
 
 
 
 
-
-   $('.submit').on('click',function(e){
-      e.preventDefault();
-
-      $('input,textarea,select').filter('[required]:visible').each(
-            function(){
-              var checkCt=0;
-              var v = $(this).val();
-              if (v == ""){
-                $(this).css('border',"solid 3px #e24527");
-                return false;
-              } 
-              
-                $(this).css('border',"none");
-                if (v == "- select one -") 
-                  return false;
-                     
-              
-            }
-        ).promise().done(function(){
-          var _token = "{{ csrf_token() }}";
-          var formItems_select = $('select.formItem').filter(':visible');
-          var formItems_input = $('input.formItem').filter(':visible');
-          var formItems_textarea = $('textarea.formItem').filter(':visible');
+        if (selectedItem.toLowerCase() == "yes" || selectedItem.toLowerCase() == "no"){
+          $('select_'+(itemOrder+1), 'select_'+itemOrder).hide();
+          var s = ".confirmed_"+itemName;
           
-          var formItems ={}; //, inputs: formItems_input, textareas: formItems_textarea }
-          var ctr=0;
+          var x = $(s);
+          //var y = x[0]['children'][2];
 
-          formItems_input.each(function(){
-             var n = $(this);
-             if (n[0]['name'] !== "agent") {
-              formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
-             }
-             
-             ctr++;
-          });
+          //y.
 
-          formItems_select.each(function(){
-             var n = $(this);
-             formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
-             if (n[0]['id']=='x'){
-              formItems[ n[0]['id']+'_from' ] = $(this).attr('data-from');
-             }
-             ctr++;
-          });
+          // console.log("className:");
+          // console.log(x[1]['className']);
+          if (x.length == 0 || x[1]['className'] == "select_7_2 formItem form-control confirmed_merchant_refused_confirmation")
+          {
+            var newItem = $(this).parent();
+            console.log("parent: ");
+            $('.added').fadeOut();
+            console.log(newItem);
+            var htmlcode ='<label class="added pull-left" style="font-weight: bolder; padding-top: 20px; display: inline-block;"><strong>Confirmed</strong>';
+            htmlcode += '     <select id="x" data-from="'+itemName+'" class="form-control formItem">';
+            htmlcode += '         <option value="Confirmed_By_Phone" >Confirmed By Phone</option>';
+            htmlcode += '         <option value="Confirmed_By_Voicemail">Confirmed By Voicemail</option>';
+            htmlcode += '         <option value="Confirmed_Online">Confirmed Online</option>';
+            htmlcode == '     </select></label>';
 
-          formItems_textarea.each(function(){
-             var n = $(this);
-             formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
-             ctr++;
-          });
-          console.log(formItems);
-            $.ajax({
-                        url: "{{action('FormSubmissionsController@process')}}",
-                        type:'POST',
-                        data:{ 
-                          'formItems': formItems,
-                          'user_id':"{{Auth::user()->id}}",
-                          '_token':_token
-                        },
+            newItem.append(htmlcode);
+          } else $(s).fadeIn();
 
-                       
-                        success: function(res)
-                        {
-  
-                          console.log(res);
-                          $.ajax({
-                                      url: "{{action('HomeController@logAction','3')}}",
-                                      type: "GET",
-                                      data: {'action': '3', 'formid': res.formid, 'usersubmit':res.usersubmit},
-                                      success: function(response){
-                                                console.log(response);
+          console.log('val of x :');
+          console.log(x);
+          console.log('val of s :');
+          console.log(s);
 
-                                    }
+          //$(y).html('<option value="Confirmed_By_Phone">Confirmed By Phone</option><option value="Confirmed_By_Voicemail">Confirmed By Voicemail</option><option value="Confirmed_Online">Confirmed Online</option>');
+          
 
-                          });
+        }
+        else {
 
-                          if (res.status == '0')
-                            $.notify(res.error,{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                          else {
-                            $('button[name="submit"]').fadeOut();
-                            $.notify("Form successfully submitted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                            window.setTimeout(function(){
-                                          window.location.href = "{{action('HomeController@index')}}";
-                                        }, 2000);
-                          }
+          $('.added').fadeOut();
+
+          if(formID == '2'){
+            //$('label[name="'+itemName+'"]').fadeOut();//'select.select_'+(itemOrder+1), 'select.select_'+itemOrder, 
+            $('.label_'+itemOrder+'_'+formID,'.label_'+(itemOrder+1)+'_'+formID).fadeOut();
+            $(s).fadeIn();
+          }
+          
+
+          console.log("OPEN : "+ s );
+          console.log(s);
+          console.log("order: "+itemOrder+" | selectedItem: "+selectedItem+" | index: "+itemOrder)
+        }
+       
+
+        console.log("FormID: "+formID);
+
+        
+
+       });
+
+
+
+
+
+       $('.submit').on('click',function(e){
+          e.preventDefault();
+
+          $('input,textarea,select').filter('[required]:visible').each(
+                function(){
+                  var checkCt=0;
+                  var v = $(this).val();
+                  if (v == ""){
+                    $(this).css('border',"solid 3px #e24527");
+                    return false;
+                  } 
+                  
+                    $(this).css('border',"none");
+                    if (v == "- select one -") 
+                      return false;
+                         
+                  
+                }
+            ).promise().done(function(){
+              var _token = "{{ csrf_token() }}";
+              var formItems_select = $('select.formItem').filter(':visible');
+              var formItems_input = $('input.formItem').filter(':visible');
+              var formItems_textarea = $('textarea.formItem').filter(':visible');
+              
+              var formItems ={}; //, inputs: formItems_input, textareas: formItems_textarea }
+              var ctr=0;
+
+              formItems_input.each(function(){
+                 var n = $(this);
+                 if (n[0]['name'] !== "agent") {
+                  formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
+                 }
+                 
+                 ctr++;
+              });
+
+              formItems_select.each(function(){
+                 var n = $(this);
+                 formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
+                 if (n[0]['id']=='x'){
+                  formItems[ n[0]['id']+'_from' ] = $(this).attr('data-from');
+                 }
+                 ctr++;
+              });
+
+              formItems_textarea.each(function(){
+                 var n = $(this);
+                 formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
+                 ctr++;
+              });
+              console.log(formItems);
+                $.ajax({
+                            url: "{{action('FormSubmissionsController@process')}}",
+                            type:'POST',
+                            data:{ 
+                              'formItems': formItems,
+                              'user_id':"{{Auth::user()->id}}",
+                              '_token':_token
+                            },
 
                            
-                        }, error: function(res){
-                          console.log("ERROR");
-                          $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                            
-                        }
+                            success: function(res)
+                            {
+      
+                              console.log(res);
+                              $.ajax({
+                                          url: "{{action('HomeController@logAction','3')}}",
+                                          type: "GET",
+                                          data: {'action': '3', 'formid': res.formid, 'usersubmit':res.usersubmit},
+                                          success: function(response){
+                                                    console.log(response);
+
+                                        }
+
+                              });
+
+                              if (res.status == '0')
+                                $.notify(res.error,{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                              else {
+                                $('button[name="submit"]').fadeOut();
+                                $.notify("Form successfully submitted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                                window.setTimeout(function(){
+                                              window.location.href = "{{action('HomeController@index')}}";
+                                            }, 2000);
+                              }
+
+                               
+                            }, error: function(res){
+                              console.log("ERROR");
+                              $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                                
+                            }
 
 
-              });
-        });
-   
-  
-    
-   });
+                  });
+            });
+       
+      
+        
+       });
 
 
-   
+     
 
-   @endif
-  /*---------- END POSTMATES WIDGET ----------- */
+    @endif
+    /*---------- END POSTMATES WIDGET ----------- */
 
 
 
