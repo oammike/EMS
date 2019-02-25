@@ -1574,7 +1574,7 @@ class UserController extends Controller
               {
                 //do nothing
               } else{
-                $coll2->push($col);
+                $coll2->push($coll);
                 /*$coll->push(['title'=>"NO SCHEDULE",
                                 'start'=>$startingPoint->format('Y-m-d H:i:s'),
                                 'textColor'=> '#fd940a',// '#409c45',
