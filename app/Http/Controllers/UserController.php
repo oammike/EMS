@@ -1402,6 +1402,7 @@ class UserController extends Controller
 
           $isFixedSched =false;
           $noWorkSched = false;
+          $flag = null;
 
 
          
@@ -1417,16 +1418,165 @@ class UserController extends Controller
               case 1: $dayToday = 0; break;
               default: $dayToday = $dt-1;
             } 
-              /* ---------------------------------------- OLD WAY -----------------------------------------------------------*/          
+
+
+            /* ---- new way --- */
+
+            $monthly_wd = $workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first();
+            $monthly_rd = $RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first();
+            $fixed_wd = FixedSchedules::where('user_id',$user->id)->where('workday',$dayToday)->orderBy('created_at','DESC')->first();
+            $fixed_rd = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at')->first();
+
+            //----- first get WD
+            if (is_null($monthly_wd)){
+              if (!is_null($fixed_wd)) {
+                //check mo muna effectivity date
+                if (Carbon::parse($fixed_wd->schedEffectivity,'Asia/Manila')->startOfDay() <= $startingPoint->startOfDay() ){
+                  $wd = $fixed_wd;
+                  $flag = 'f';
+
+                }
+                  
+                else $wd = null;
+
+              }
+              else{
+                $wd = null;
+              }
+
+            }else {
+              if (is_null($fixed_wd)){
+                $wd = $monthly_wd;
+                $flag = 'm';
+              }
+              else //parehas may value
+              {
+                //check mo muna effectivity date
+                if (Carbon::parse($fixed_wd->schedEffectivity,'Asia/Manila')->startOfDay() <= $startingPoint->startOfDay() )
+                {
+                  //compare now which of them is latest
+                  if (Carbon::parse($fixed_wd->created_at,'Asia/Manila') > Carbon::parse($monthly_wd->created_at,'Asia/Manila') )
+                  {
+                    $wd = $fixed_wd;
+                    $flag = 'f';
+                  } else {
+                    $wd = $monthly_wd;
+                    $flag = 'm';
+                  }
+
+                }else
+                {
+                  //automatic, monthly sched na kasi di pa pasok sa effectivity si fixed
+                  $wd = $monthly_wd;
+                  $flag = 'm';
+
+                }
+
+              }
+            }
+
+
+            // now we get RD
+            if (is_null($monthly_rd)){
+              if (!is_null($fixed_rd)){
+                //check mo muna effectivity date
+                if (Carbon::parse($fixed_rd->schedEffectivity,'Asia/Manila')->startOfDay() <= $startingPoint->startOfDay() ){
+                  $rd = $fixed_rd;
+                  $flag = 'f';
+
+                }
+                  
+                else $rd = null;
+
+
+              }else $rd = null;
+
+            }else 
+            {
+              if (is_null($fixed_wd)){
+                $rd = $monthly_rd;
+                $flag = 'm';
+              }
+              else //parehas may value
+              {
+                //check mo muna effectivity date
+                if (Carbon::parse($fixed_rd->schedEffectivity,'Asia/Manila')->startOfDay() <= $startingPoint->startOfDay() )
+                {
+                  //compare now which of them is latest
+                  if (Carbon::parse($fixed_rd->created_at,'Asia/Manila') > Carbon::parse($monthly_rd->created_at,'Asia/Manila') )
+                  {
+                    $rd = $fixed_rd;
+                    $flag = 'f';
+                  } else {
+                      $rd = $monthly_rd; $flag = 'm';
+                    }
+
+                }else
+                {
+                  //automatic, monthly sched na kasi di pa pasok sa effectivity si fixed
+                  $rd = $monthly_rd;
+                  $flag = 'm';
+
+                }
+
+              }
+
+            }
+
+
+            // we now compare which is latest, RD sched or WD?
+            if (is_null($wd)){
+              if (!is_null($rd)){
+                ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
+              }
+              else{
+                
+                $coll->push(['title'=>"NO SCHEDULE",
+                                'start'=>$startingPoint->format('Y-m-d H:i:s'),
+                                'textColor'=> '#fd940a',// '#409c45',
+                                'icon'=>" ",
+                                'backgroundColor'=> '#fff']);
+                $coll->push(['title'=>" ",
+                                'start'=>$startingPoint->format('Y-m-d H:i:s'),
+                                'textColor'=> '#fd940a',// '#409c45',
+                                'icon3'=>"calendar-o",
+                                'backgroundColor'=> '#fff']);
+
+              }
+
+
+            }else {
+              if (is_null($rd)){
+                ($flag == 'f') ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
+              }
+
+                
+              else{
+                //parehas may value
+                // we now compare which is latest, RD sched or WD?
+                if (Carbon::parse($rd->created_at,'Asia/Manila') > Carbon::parse($wd->created_at,'Asia/Manila') ){
+                  ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
+
+                }else{
+                  ($flag == 'f') ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
+                }
+
+              }
+            }
+
+            /* ---- end new way --- */
+
+
+              /* ---------------------------------------- OLD WAY -----------------------------------------------------------*         
 
               $wd_fixed = FixedSchedules::where('user_id',$user->id)->where('workday',$dayToday)->orderBy('created_at','DESC')->first();
 
               $coll2->push(['startingPoint'=>$startingPoint->format('Y-m-d H:i:s'), 'wd_fixed'=>$wd_fixed]);
 
-              $coll3->push(['monthly'=>$workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(), 
+              $coll3->push(['monthly'=>, 
                 'wd_fixed'=>$wd_fixed,
-                'monthlyRD'=>$RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('id')->first(),
-                'RD_fixed'=>$RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at')->first() ]);
+                'monthlyRD'=>,
+                'RD_fixed'=> ]);
 
 
 
@@ -1597,7 +1747,7 @@ class UserController extends Controller
                                 'icon3'=>"calendar-o",
                                 'backgroundColor'=> '#fff']);
 
-              }
+              }*/
 
               $startingPoint->addDay();
               $counter++; $kawnt++;
@@ -1812,7 +1962,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
-      return $coll3;
+      //return $coll3;
       return response()->json($coll);
 
       
