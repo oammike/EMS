@@ -1416,20 +1416,13 @@ class UserController extends Controller
                 case 1: $dayToday = 0; break;
                 default: $dayToday = $dt-1;
               } 
-
-
-    /* ---------------------------------------- OLD WAY -----------------------------------------------------------*/          
+              /* ---------------------------------------- OLD WAY -----------------------------------------------------------*/          
 
               $wd_fixed = FixedSchedules::where('user_id',$user->id)->where('workday',$dayToday)->orderBy('created_at','DESC')->first();
-                          // $user->fixedSchedule->where('workday',$dayToday)->sortByDesc('id')->first();
 
-              //$coll2->push(['wd_f_se'=>Carbon::parse($wd_fixed->schedEffectivity)->startOfDay(),
-              //              'startingPoint'=>$startingPoint->startOfDay(),
-              //              'effectivity'=>$wd_fixed->schedEffectivity]);
               if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null)
               {
-               
-              //$coll2->push(['cnt'=>$kawnt, 'startingPoint'=>$startingPoint->format('Y-m-d H:i:s')]);
+
 
                     $latest_fixed = $workSched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
                     if ( $workSched_monthly->contains('productionDate',$startingPoint->format('Y-m-d')) || count($latest_fixed)>0 )
@@ -1581,7 +1574,8 @@ class UserController extends Controller
               {
                 //do nothing
               } else{
-                $coll->push(['title'=>"NO SCHEDULE",
+                $coll2->push($col);
+                /*$coll->push(['title'=>"NO SCHEDULE",
                                 'start'=>$startingPoint->format('Y-m-d H:i:s'),
                                 'textColor'=> '#fd940a',// '#409c45',
                                 'icon'=>" ",
@@ -1590,7 +1584,7 @@ class UserController extends Controller
                                 'start'=>$startingPoint->format('Y-m-d H:i:s'),
                                 'textColor'=> '#fd940a',// '#409c45',
                                 'icon3'=>"calendar-o",
-                                'backgroundColor'=> '#fff']);
+                                'backgroundColor'=> '#fff']);*/
 
               }
 
@@ -1806,6 +1800,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
+      return $coll2;
        return response()->json($coll);
 
       
