@@ -599,7 +599,13 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
             htmlcode == '     </select></label>';
 
             newItem.append(htmlcode);
-          } else $(s).fadeIn();
+          } else {
+            $(s).fadeIn();
+            var newItem = $(this).parent();
+            console.log("parent else: ");
+            
+            console.log(newItem);
+          }
 
           console.log('val of x :');
           console.log(x);
