@@ -1568,13 +1568,13 @@ class UserController extends Controller
 
               } //gawin mo lang to kung pasok sa effectivity date or hindi naka set ung effectivity ng FIXED SCHED
                     
-                    
+                 
 
               if ( $coll->contains('chenes', $startingPoint->format('Y-m-d')) )
               {
                 //do nothing
               } else{
-                $coll2->push($coll);
+                
                 /*$coll->push(['title'=>"NO SCHEDULE",
                                 'start'=>$startingPoint->format('Y-m-d H:i:s'),
                                 'textColor'=> '#fd940a',// '#409c45',
@@ -1800,7 +1800,7 @@ class UserController extends Controller
 
        } //end else both have monthly and fixed
 
-      return $coll2;
+      //return $coll2;
        return response()->json($coll);
 
       
