@@ -290,7 +290,9 @@ select:-webkit-autofill:focus {
 
       // console.log("className:");
       // console.log(x[1]['className']);
-      if (x.length == 0 || x[1]['className'] == "select_7_2 formItem form-control confirmed_merchant_refused_confirmation")
+      if (x.length == 0 
+            || x[1]['className'] == "select_7_2 formItem form-control confirmed_merchant_refused_confirmation"
+            || (x.length == 2 && x.selector ==".confirmed_merchant_cash_only_confirmation") )
       {
         var newItem = $(this).parent();
         console.log("parent: ");
