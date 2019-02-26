@@ -180,7 +180,7 @@
   window.filepath = "";
   window.sign_filepath = "";
   window.signaturePad = null;
-  navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+  
   
   $.ajaxSetup({
     headers: {
@@ -471,6 +471,7 @@
   
   
   $(document).ready(function(){
+    navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
     
     
     @if ($campaign_mode === true)
