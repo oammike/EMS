@@ -208,6 +208,7 @@
         console.log(deviceInfo);
         option.text = deviceInfo.label || `camera ${window.videoSelect.length + 1}`;
         window.videoSelect.appendChild(option);
+        $('select').formSelect();
       }
     }
     selectors.forEach((select, selectorIndex) => {
@@ -470,7 +471,7 @@
   
   
   $(document).ready(function(){
-    $('select').formSelect();
+    
     
     @if ($campaign_mode === true)
       window.currentEmployeeIndex = 0;
