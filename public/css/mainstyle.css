@@ -172,11 +172,11 @@ table{
   left: 45px;
 }
 #id_number_wrapper p, #id_number_wrapper p span{
-  font-size: 20px;
+  font-size: 15px;
   color: #fff;
   text-align: left;
   letter-spacing: 2px;
-  line-height: 30px;
+  line-height: 25px;
   margin: 0;
   padding: 0;
 }

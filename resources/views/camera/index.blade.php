@@ -18,8 +18,8 @@
     </div>
     <div id="id_number_wrapper">
       <p id="employee_number" class="light">{{$user->employeeNumber}}</p>
-      <p class="light">TIN: <span id="employee_sss"></span></p>
-      <p class="light">SSS: <span id="employee_tin"></span></p>
+      <p class="light">TIN: <span id="employee_tin"></span></p>
+      <p class="light">SSS: <span id="employee_sss"></span></p>
     </div>
   </div>
   <div id="controls">
@@ -63,11 +63,11 @@
             
             
           <div class="input-field col s6">
-            <input id="emp_sss" name="emp_sss" type="text" class="validate" value="">
+            <input id="emp_sss" name="emp_sss" type="text" class="validate" value="" placeholder="04-2047199-9">
             <label for="emp_sss">SSS</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="0000000001" id="emp_tin" name="emp_tin" type="text" class="validate" value="">
+            <input placeholder="255-173-099" id="emp_tin" name="emp_tin" type="text" class="validate" value="">
             <label for="emp_tin">TIN</label>
           </div>
             
