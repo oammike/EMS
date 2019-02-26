@@ -167,15 +167,16 @@ table{
 
 #id_number_wrapper{
   position: absolute;
-  bottom: 20px;
+  bottom: 60px;
   width: 100%;
   left: 45px;
 }
-#id_number_wrapper p{
-  font-size: 25px;
+#id_number_wrapper p, #id_number_wrapper p span{
+  font-size: 20px;
   color: #fff;
   text-align: left;
   letter-spacing: 2px;
+  line-height: 30px
 }
 #toast-container {
     min-width: 10%;
