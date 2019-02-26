@@ -1598,7 +1598,7 @@ class UserController extends Controller
               $workSched_fixed = collect($totalFschedules)->where('isRD',0)->where('workday',$dayToday)->sortByDesc('created_at');
               $RDsched_fixed = collect($totalFschedules)->where('isRD',1)->where('workday',$dayToday)->sortByDesc('created_at');
 
-              (!is_null($workSched_fixedvar)) ? $wd = $workSched_fixed->first() : $wd=null;
+              (!is_null($workSched_fixed)) ? $wd = $workSched_fixed->first() : $wd=null;
               (!is_null($RDsched_fixed)) ? $rd = $RDsched_fixed->first() : $rd=null;
               $isFixedSched = true;$noWorkSched = false;
 
