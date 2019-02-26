@@ -167,7 +167,7 @@ table{
 
 #id_number_wrapper{
   position: absolute;
-  bottom: 60px;
+  bottom: 20px;
   width: 100%;
   left: 45px;
 }
@@ -176,7 +176,9 @@ table{
   color: #fff;
   text-align: left;
   letter-spacing: 2px;
-  line-height: 30px
+  line-height: 30px;
+  margin: 0;
+  padding: 0;
 }
 #toast-container {
     min-width: 10%;
