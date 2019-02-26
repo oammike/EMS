@@ -1361,7 +1361,7 @@ class UserController extends Controller
       //$startingPoint =Carbon::create(date('Y'), 1, 1,0,0,0, 'Asia/Manila');//->subMonths(6);
       $sp = Carbon::create(date('Y'),date('m'), date('d'),0,0,0, 'Asia/Manila')->subMonths(1);
       $startingPoint =Carbon::create(date('Y'),date('m'), 1,0,0,0, 'Asia/Manila')->subMonths(3);
-      $endDate = Carbon::create(date('Y'), date('m'), date('d'),0,0,0, 'Asia/Manila')->addMonths(2); 
+      $endDate = Carbon::create(date('Y'), date('m'), date('d'),0,0,0, 'Asia/Manila')->addMonths(3); 
       
       $coll = new Collection;
       $coll2 = new Collection;
@@ -1423,6 +1423,7 @@ class UserController extends Controller
 
             (!is_null($RDsched_fixed)) ? $fixed_rd = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at')->first() : $fixed_rd=null;
 
+            $coll3->push(['monthly_wd'=>$monthly_wd, 'monthly_rd'=>$monthly_rd,'fixed_wd'=>$fixed_wd,'fixed_rd'=>$fixed_wd]);
 
             //----- first get WD
             if (is_null($monthly_wd)){
@@ -1452,7 +1453,7 @@ class UserController extends Controller
                 if (Carbon::parse($fixed_wd->schedEffectivity,'Asia/Manila')->startOfDay() <= $startingPoint->startOfDay() )
                 {
                   //compare now which of them is latest
-                  if (Carbon::parse($fixed_wd->created_at,'Asia/Manila') > Carbon::parse($monthly_wd->created_at,'Asia/Manila') )
+                  if (Carbon::parse($fixed_wd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($monthly_wd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') )
                   {
                     $wd = $fixed_wd;
                     $flag = 'f';
@@ -1499,7 +1500,7 @@ class UserController extends Controller
                 if(!is_null($fixed_rd) && !is_null($monthly_rd)){
                   //kunin mo sino mas bago
                   //compare now which of them is latest
-                    if (Carbon::parse($fixed_rd->created_at,'Asia/Manila') > Carbon::parse($monthly_rd->created_at,'Asia/Manila') )
+                    if (Carbon::parse($fixed_rd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($monthly_rd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') )
                     {
                       $rd = $fixed_rd;
                       $flag = 'f';
@@ -1548,9 +1549,8 @@ class UserController extends Controller
               else{
                 //parehas may value
                 // we now compare which is latest, RD sched or WD?
-                $r = Carbon::parse($rd->created_at,'Asia/Manila');
-                $w = Carbon::parse($wd->created_at,'Asia/Manila');
-                if (Carbon::parse($rd->created_at,'Asia/Manila')->format('Y-m-d') > Carbon::parse($wd->created_at,'Asia/Manila')->format('Y-m-d') ){
+                
+                if (Carbon::parse($rd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($wd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ){
                   ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
 
                 }else{
@@ -1568,7 +1568,7 @@ class UserController extends Controller
             
           }//end while
 
-
+          //return $coll3;
        } 
        else
        {
@@ -1638,7 +1638,7 @@ class UserController extends Controller
               else{
                 //parehas may value
                 // we now compare which is latest, RD sched or WD?
-                if (Carbon::parse($rd->created_at,'Asia/Manila') > Carbon::parse($wd->created_at,'Asia/Manila') ){
+                if (Carbon::parse($rd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($wd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ){
                   ($isFixedSched) ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
 
                 }else{
