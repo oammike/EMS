@@ -18,6 +18,8 @@
     </div>
     <div id="id_number_wrapper">
       <p id="employee_number" class="light">{{$user->employeeNumber}}</p>
+      <p class="light">TIN: <span id="employee_tin"></span></p>
+      <p class="light">SSS: <span id="employee_sss"></span></p>
     </div>
   </div>
   <div id="controls">
@@ -57,6 +59,16 @@
           <div class="input-field col s6">
             <input placeholder="0000000001" id="emp_num" name="emp_num" type="number" class="validate" value="{{ $user->employeeNumber }}">
             <label for="emp_num">ID Number</label>
+          </div>
+            
+            
+          <div class="input-field col s6">
+            <input id="emp_sss" name="emp_sss" type="text" class="validate" value="" placeholder="04-2047199-9">
+            <label for="emp_sss">SSS</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="255-173-099" id="emp_tin" name="emp_tin" type="text" class="validate" value="">
+            <label for="emp_tin">TIN</label>
           </div>
             
           @if ($campaign_mode === true)  
@@ -180,7 +192,9 @@
   window.filepath = "";
   window.sign_filepath = "";
   window.signaturePad = null;
+  
   navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+  
   
   $.ajaxSetup({
     headers: {
@@ -208,6 +222,7 @@
         console.log(deviceInfo);
         option.text = deviceInfo.label || `camera ${window.videoSelect.length + 1}`;
         window.videoSelect.appendChild(option);
+        $('select').formSelect();
       }
     }
     selectors.forEach((select, selectorIndex) => {
@@ -265,6 +280,15 @@
   }
   
   function save() {
+    if ($('#emp_sss').val()=="") {
+      M.toast({html: 'Please fill out the SSS number field!'})
+      return;
+    }
+    if ($('#emp_tin').val()=="") {
+      M.toast({html: 'Please fill out the TIN number field!'})
+      return;
+    }
+  
     window.filepath = "";
     if (window.hasCapturedPhoto) {
       html2canvas(document.querySelector('#id_wrapper')).then(function(canvas) {
@@ -443,6 +467,7 @@
   }
   
   function saveSignature() {
+    
     var imgData = window.signaturePad.toDataURL();
     $.ajax({
       url: "{{ url('/save_signature') }}",
@@ -468,9 +493,13 @@
   $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
   $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
   
+  $('#emp_sss').keyup( function() { $('#employee_sss').text($('#emp_sss').val()); });
+  $('#emp_tin').keyup( function() { $('#employee_tin').text($('#emp_tin').val()); });
+  
   
   $(document).ready(function(){
-    $('select').formSelect();
+    
+    
     
     @if ($campaign_mode === true)
       window.currentEmployeeIndex = 0;
