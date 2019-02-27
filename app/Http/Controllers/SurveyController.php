@@ -113,6 +113,159 @@ class SurveyController extends Controller
             return response()->json(['status'=>"no record"]);
     }
 
+    public function downloadRaw($id)
+    {
+      $survey = Survey::find(1);
+
+      $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',1)->
+                   
+                    join('users','users.id','=','survey_user.user_id')->
+                    
+                    join('team','team.user_id','=','survey_user.user_id')->
+                    join('campaign','team.campaign_id','=','campaign.id')->
+                    join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
+                    leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
+                   
+                    select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_essays.answer as essay')->
+                    where('survey_user.isDone',1)->
+                    where('team.floor_id','!=',10)->
+                    where('team.floor_id','!=',11)->
+                    where('campaign.id','=',$id)->
+                    orderBy('users.lastname')->get(); //)->take(30); return response()->json($allEmployees);
+                    //return $allEmployees;
+
+      $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',1)->
+                    join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+
+                    join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                    //join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
+                    join('users','users.id','=','survey_user.user_id')->
+                    //------leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
+                    //join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
+                    join('team','team.user_id','=','survey_user.user_id')->
+                    //join('campaign','team.campaign_id','=','campaign.id')->
+                   
+
+                    //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
+                    //'survey_essays.answer as essay', 'survey_extradata.course','survey_extradata.currentlocation', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice',
+
+                    select('survey_responses.user_id as userID', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','team.floor_id')->
+                    where('survey_user.isDone',1)->
+                    where('team.floor_id','!=',10)->
+                    where('team.floor_id','!=',11)->get();
+
+
+      $allNotes = DB::table('survey_user')->where('survey_id',1)->
+                      join('users','survey_user.user_id','=','users.id')->
+                      join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
+                      select('survey_user.user_id as userID','users.lastname','users.firstname', 'survey_notes.question_id','survey_notes.comments')->
+                      where('survey_notes.comments','!=',null)->
+                      orderBy('users.lastname')->get();
+      $allQuestions = DB::table('survey_questions')->where('survey_id',1)->select('survey_questions.value as question','survey_questions.id')->get();
+
+      
+      //return $allQuestions;
+      //return collect($allResp)->where('userID',564); //->where('question',49)->first()->rating;
+      //return collect($allNotes)->where('userID',564)->where('question_id',26);
+      //return $allEmployees;
+
+      //$submissions = collect($allResp)->sortBy('question')->groupBy('userID')->take(2);
+      
+
+      $description = $survey->description;
+      $headers = ['Program','Employee Tenure'];
+      $c =2;
+      $q = 1;
+      foreach ($allQuestions as $key) {
+        $headers[$c] = "Q".$q.": ".$key->question; $c++;$q++;
+        $headers[$c] = "Notes/Comments";$c++;
+      }
+      //return $submissions->first()[0]->lastname;
+      
+
+      Excel::create($survey->name,function($excel) use($id,$allEmployees,$allQuestions,$allNotes,$allResp, $survey, $headers,$description) 
+           {
+                  $excel->setTitle($survey->name.' Raw Data');
+
+                  // Chain the setters
+                  $excel->setCreator('Programming Team')
+                        ->setCompany('OpenAccess');
+
+                  // Call them separately
+                  $excel->setDescription($description);
+                  $excel->sheet("Sheet 1", function($sheet) use ($id,$allEmployees,$allQuestions,$allNotes,$allResp, $headers)
+                  {
+                    $sheet->appendRow($headers);
+
+                    
+                    $arr = [];
+
+                    foreach($allEmployees as $employee)//collect($allEmployees)->where('programID',16)
+                    {
+                      $i = 0;
+
+                      $arr[$i] = $employee->program; $i++;
+
+                      //TENURE
+                      $tenure = Carbon::parse($employee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('Asia/Manila'));
+                      if ($tenure == 0) {$arr[$i] = "< a yr";}
+                      else if($tenure == 1) {$arr[$i] = "1 year";}
+                      else $arr[$i] = $tenure . " year(s)";  
+
+                      $i++;
+
+                      $qCounter=1;
+                      foreach ($allQuestions as $q) {
+
+                        if($qCounter == count($allQuestions)){
+                          $arr[$i]= $employee->essay;
+                          //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
+                        } else
+                        {
+
+                          //---- RATING
+                          $r = collect($allResp)->where('userID',$employee->id)->where('question',$q->id);
+                          if (count($r) > 0)
+                            $rating = $r->first()->rating;
+                          else
+                            $rating = null;
+
+                          $arr[$i]= $rating; $i++;
+                          
+                          //---- NOTE
+                          $n = collect($allNotes)->where('userID',$employee->id)->where('question_id',$q->id);
+                          if (count($n)>0) $note = $n->first()->comments;
+                          else $note=null;
+
+                          $arr[$i]= $note; $i++;
+
+                        }
+
+                        $qCounter++;
+
+                      }//end foreach questions
+
+
+
+                        $sheet->appendRow($arr);
+
+                    }//end foreach employee
+
+
+                    
+                 });//end sheet1
+
+
+
+          })->export('xls');
+
+          return "Download";
+      
+      //return collect($allNotes)->groupBy('user_id');
+      //return $groupedResp->take(100);
+
+    }
+
     
 
      public function deleteThisSurvey($id)
@@ -248,24 +401,28 @@ class SurveyController extends Controller
 
       $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
                     join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+
                     join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
                     join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
                     join('users','users.id','=','survey_user.user_id')->
+                    leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
                     join('team','team.user_id','=','survey_user.user_id')->
                     join('campaign','team.campaign_id','=','campaign.id')->
                     join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
                     join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
+
                     //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
+                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_essays.answer as essay', 'survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
                     where('team.floor_id','!=',11)->get();
       $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
      
-      $groupedResp = collect($allResp)->groupBy('userID');
+      $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
       $groupedNPS = collect($nspResponses)->groupBy('userID'); 
       $groupedCat = collect($allResp)->groupBy('categoryID');
 
+      return $groupedResp->take(100);
 
       //****** ALL SURVEY DATA
       foreach ($groupedResp as $key) 
@@ -280,7 +437,7 @@ class SurveyController extends Controller
       
       $groupedRatings = collect($surveyData)->groupBy('rounded');
 
-      $programs = collect($surveyData)->groupBy('program')->sort(); 
+      $programs = collect($surveyData)->sortBy('program')->groupBy('program'); 
 
 
       //****** ALL NSP DATA
@@ -303,7 +460,6 @@ class SurveyController extends Controller
 
       $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
      
-    
 
       //****** ALL CAMPAIGN RELATED DATA
       foreach ($programs->sort() as $p) {
