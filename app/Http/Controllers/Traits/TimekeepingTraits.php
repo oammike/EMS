@@ -1309,7 +1309,7 @@ trait TimekeepingTraits
   }
  
 
-  public function getLogDetails($type, $id, $biometrics_id, $logType_id, $schedForToday, $undertime, $problemArea)
+  public function getLogDetails($type, $id, $biometrics_id, $logType_id, $schedForToday, $undertime, $problemArea, $isAproblemShift)
   {
 
 
@@ -1328,6 +1328,7 @@ trait TimekeepingTraits
     $pendingDTRP = null; 
     $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
     $logPalugit=null;
+    $palugitDate=null;$maxOut=null;
 
     
     $theDay = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
@@ -1477,11 +1478,11 @@ trait TimekeepingTraits
 
           if ($logType_id == 1){
 
-                $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+                $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
                 
-                $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6);
-                $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila");
-                $probTime2 = Carbon::parse($thisPayrollDate." 05:00:00","Asia/Manila");
+                $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6)->format('Y-m-d H:i:s');
+                $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s');
+                $probTime2 = Carbon::parse($thisPayrollDate." 05:00:00","Asia/Manila")->format('Y-m-d H:i:s');
 
 
                 if ($beginShift >= $probTime1 && $beginShift <= $probTime2)
@@ -1500,7 +1501,7 @@ trait TimekeepingTraits
                       { 
                         //we need to check first if it is within the palugit period: meaning LATE
                         //if more than palugit: meaning for tomorrow's bio yun
-                        $palugitDate = Carbon::parse($bioForTom->first()->productionDate." ".$logPalugit->first()->logTime,"Asia/Manila");
+                        $palugitDate = Carbon::parse($bioForTom->first()->productionDate." ".$logPalugit->first()->logTime,"Asia/Manila")->format('Y-m-d H:i:s');
                         $pal = $palugitDate;
                        
 
@@ -1542,23 +1543,40 @@ trait TimekeepingTraits
                     $finishShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);// 
 
 
-                      $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                      if ($isAproblemShift)
+                        $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                      
+                      else
+                        //$logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                        $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
 
                       if (count($logPalugit) > 0) 
                       { 
                         //we need to check first if it is within the palugit period: meaning LATE
                         //if more than palugit: meaning for tomorrow's bio yun
-                        $palugitDate = Carbon::parse($bioForTom->first()->productionDate." ".$logPalugit->first()->logTime,"Asia/Manila");
+                        $palugitDate = Carbon::parse($thisPayrollDate." ".$logPalugit->first()->logTime,"Asia/Manila");
+                        //$thisPayrollDate
+                        //$bioForTom->first()->productionDate
                         $maxOut = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(16);
                         $pal = $palugitDate;
-                       
 
-                        if ( (  $palugitDate >= $beginShift && $palugitDate <= $maxOut  ) || is_null($schedForToday) )
-                        {
+                        if ($isAproblemShift){
+                          if ( (  $palugitDate >= $beginShift && $palugitDate <= $maxOut  ) || is_null($schedForToday) )
+                          {
+                            $userLog = $logPalugit;
+                            goto proceedWithLogs;
+
+                          } else goto proceedWithBlank;
+
+                        }else{
+
                           $userLog = $logPalugit;
                           goto proceedWithLogs;
+                        }
+                       
 
-                        } else goto proceedWithBlank;
+                        
                         
                       } else goto proceedWithBlank; 
 
@@ -1711,6 +1729,9 @@ trait TimekeepingTraits
 
 
        $data->push([ 'logPalugit'=>$logPalugit,
+                      'palugitDate' =>$palugitDate,
+                       'beginShift'=> $beginShift,
+                       'maxOut'=> $maxOut,
                     'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
                     'sl'=>$slDeet,
                     'UT'=>$UT, 'logTxt'=>$log,
