@@ -160,6 +160,7 @@
   </div>
   
   <script type="text/javascript" src="{{ asset( 'public/js/jquery.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/adapter-latest.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/html2canvas.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.chroma.js' ) }}"></script>
@@ -192,8 +193,9 @@
   window.filepath = "";
   window.sign_filepath = "";
   window.signaturePad = null;
+  window.readytoprint = false;
   
-  navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+  
   
   
   $.ajaxSetup({
@@ -202,8 +204,10 @@
     }
   });
   
-  function handleError() {
-    M.toast({html: 'Could not load the camera information. Please contact the Marketing Dept.'})
+  function handleError(error) {
+    M.toast({html: 'Could not load the camera information. Please contact the Marketing Dept.'});
+    console.log('navigator.getUserMedia error: ', error);
+    
   }
   
   function gotDevices(deviceInfos) {
@@ -223,6 +227,8 @@
         option.text = deviceInfo.label || `camera ${window.videoSelect.length + 1}`;
         window.videoSelect.appendChild(option);
         $('select').formSelect();
+        
+        window.vStream.getTracks()[0].stop();
       }
     }
     selectors.forEach((select, selectorIndex) => {
@@ -241,8 +247,10 @@
       audio: false,
       video: {
         deviceId: videoSource ? {exact: videoSource} : undefined,
-        width: { min: 1920, ideal: 1920, max: 1920 },
-        height: { min: 1080, ideal: 1080, max: 1080 },
+        //width: { min: 1920, ideal: 1920, max: 1920 },
+        //height: { min: 1080, ideal: 1080, max: 1080 },
+        width: {exact: window.camerawidth},    //new syntax
+        height: {exact: window.cameraheight}   //new syntax
       }
     };
     navigator.mediaDevices.getUserMedia(constraints)
@@ -280,6 +288,7 @@
   }
   
   function save() {
+    window.readytoprint = false;
     if ($('#emp_sss').val()=="") {
       M.toast({html: 'Please fill out the SSS number field!'})
       return;
@@ -303,12 +312,14 @@
           },
           success: function(data,status,xhr){
             window.filepath = data;
+            window.readytoprint = true;
           },
           error: function(xhr,status,msg){
             M.toast({html: msg})
           }
         })
         .done(function(e){
+          
           M.toast({html: 'ID layout saved succesfully!'})
           $('#bt_controller').text("Start Camera");
         });
@@ -319,6 +330,10 @@
   }
   
   function printme(){
+    if (window.readytoprint!=true) { 
+      M.toast({html: 'Please fix your ID first by taking a photo, sign then click save!'})
+      return;
+    }
       var filepath = window.location + window.filepath;
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
       //var onload = window.print();
@@ -437,6 +452,7 @@
   }
   
   function signature() {
+    window.readytoprint = false;
     $('#dimmer').on('click',function(e){
         if (e.target !== this) return;
         confirm_cancel_signature();
@@ -481,6 +497,7 @@
         window.sign_filepath = "{{ $url }}/" + data;
         $("#id_signature").attr("src", window.sign_filepath);
         close_signature_capture();
+        window.readytoprint = true;
       },
       error: function(xhr,status,msg){
         M.toast({html: msg});
@@ -499,6 +516,35 @@
   
   $(document).ready(function(){
     
+    if (!navigator.getUserMedia) {
+        M.toast({html: 'Browser does not support web camera.'})
+        return;
+    }
+
+    //Call gUM early to force user gesture and allow device enumeration
+    navigator.mediaDevices.getUserMedia({audio: false, video: true})
+        .then((mediaStream) => {
+
+            window.vStream = mediaStream; // make globally available
+            window.video = mediaStream;
+
+            //Now enumerate devices
+            navigator.mediaDevices.enumerateDevices()
+                .then(gotDevices)
+                .catch(handleError);
+        })
+        .catch((error) => {
+            console.error('getUserMedia error!', error);
+        });
+
+    //Localhost unsecure http connections are allowed
+    if (document.location.hostname !== "localhost") {
+        //check if the user is using http vs. https & redirect to https if needed
+        if (document.location.protocol !== "https:") {
+            $(document).html("redirecting to https...");
+            document.location.href = "https:" + document.location.href.substring(document.location.protocol.length);
+        }
+    }
     
     
     @if ($campaign_mode === true)
