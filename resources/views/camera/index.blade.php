@@ -239,39 +239,47 @@
   }
   
   function initializeCamera(){
+    window.video = document.querySelector("#videoElement");
     window.paused = false;
-    window.hasCapturedPhoto - false;
+    window.hasCapturedPhoto = false;
     const videoSource = videoSelect.value;
     $('#bt_controller').text("Capture");
     var constraints = {
       audio: false,
       video: {
         deviceId: videoSource ? {exact: videoSource} : undefined,
-        //width: { min: 1920, ideal: 1920, max: 1920 },
-        //height: { min: 1080, ideal: 1080, max: 1080 },
-        width: {exact: window.camerawidth},    //new syntax
-        height: {exact: window.cameraheight}   //new syntax
+        width: { exact: window.resolutions[window.resolutionIndex].width },
+        height: { exact: window.resolutions[window.resolutionIndex].height }
       }
     };
     navigator.mediaDevices.getUserMedia(constraints)
     .then(function(stream) {
+      console.log('constraint satisfied');
       //var v=document.getElementById("videoElement");
       document.getElementById('videoElement').onloadedmetadata = function() {
         window.height = this.videoHeight;
         window.width = this.videoWidth;
         console.log('video loaded');
-        goserious();  
+        goserious();
       }
       window.video.srcObject = stream;
       window.mode = "camera";
       window.cameraMode = "started";
     })
     .catch(function(error) {
-      //console.log("Something went wrong!");
-      console.log(error);
-      M.toast({html: 'Could not load the camera. Please contact the Marketing Dept.'})
+      if (error.name=="OverconstrainedError") {
+        console.log('tried: '+window.resolutions[window.resolutionIndex].width+'x'+window.resolutions[window.resolutionIndex].height+" - FAILED");
+        window.resolutionIndex = window.resolutionIndex + 1;
+        if (window.resolutionIndex > window.resolutions.length) {
+          M.toast({html: 'Camera resolution is too low. Please consider getting a better web cam.'});
+          return;
+        }else{
+          initializeCamera();
+        }
+      } else {
+        handleError(error) ;
+      }
     });
-    
   }
   
   function arrayToHex(color) {
@@ -512,7 +520,45 @@
   
   $('#emp_sss').keyup( function() { $('#employee_sss').text($('#emp_sss').val()); });
   $('#emp_tin').keyup( function() { $('#employee_tin').text($('#emp_tin').val()); });
-  
+  window.resolutionIndex = 0;
+  window.resolutions = [
+    {
+        width: 3840,
+        height: 2160
+    },
+    {
+        width: 1920,
+        height: 1080
+    },
+    {
+        width: 1600,
+        height: 1200
+    },
+    {
+        width: 1280,
+        height: 720
+    },
+    {
+        width: 800,
+        height: 600
+    },
+    {
+        width: 640,
+        height: 480
+    },
+    {
+        width: 640,
+        height: 360
+    },
+    {
+        width: 352,
+        height: 288
+    },
+    {
+        width: 320,
+        height: 240
+    }
+  ];
   
   $(document).ready(function(){
     
