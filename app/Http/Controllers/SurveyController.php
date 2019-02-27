@@ -422,7 +422,7 @@ class SurveyController extends Controller
       $groupedNPS = collect($nspResponses)->groupBy('userID'); 
       $groupedCat = collect($allResp)->groupBy('categoryID');
 
-      return $groupedResp->take(100);
+      //return $groupedResp->take(100);
 
       //****** ALL SURVEY DATA
       foreach ($groupedResp as $key) 
