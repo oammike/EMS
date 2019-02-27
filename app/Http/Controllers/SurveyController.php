@@ -126,7 +126,7 @@ class SurveyController extends Controller
                     join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
                     leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
                    
-                    select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_essays.answer as essay')->
+                    select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay')->
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
                     where('team.floor_id','!=',11)->
@@ -173,8 +173,8 @@ class SurveyController extends Controller
       
 
       $description = $survey->description;
-      $headers = ['Program','Employee Tenure'];
-      $c =2;
+      $headers = ['Program','Employee Tenure','Gender','Education','Course','Current Location','Hobbies/Interests','Commute Time (mins)'];
+      $c =8;
       $q = 1;
       foreach ($allQuestions as $key) {
         $headers[$c] = "Q".$q.": ".$key->question; $c++;$q++;
@@ -213,6 +213,14 @@ class SurveyController extends Controller
                       else $arr[$i] = $tenure . " year(s)";  
 
                       $i++;
+
+                      $arr[$i] = $employee->gender; $i++;
+                      $arr[$i] = $employee->education; $i++;
+                      $arr[$i] = $employee->course; $i++;
+                      $arr[$i] = $employee->currentlocation; $i++;
+                      $arr[$i] = $employee->hobbiesinterest; $i++;
+                      $arr[$i] = $employee->commuteTime; $i++;
+
 
                       $qCounter=1;
                       foreach ($allQuestions as $q) {
