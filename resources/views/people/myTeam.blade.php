@@ -97,7 +97,7 @@
                                            @if ( $canUpdateLeaves )
 
                                             @if(Auth::user()->id == $p->id)
-                                            <a href="{{action('UserController@myRequests',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
+                                            <a  target="_blank" href="{{action('UserController@myRequests',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
 
                                             @else
                                             <a  target="_blank" href="{{action('UserController@userRequests',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
@@ -113,7 +113,7 @@
 
 
                                          @if ($p->isBackoffice)
-                                          <a  target="_blank" href="{{action('UserController@show',$p->id)}}#ws" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-plus-o"></i>  Plot Sched</a>
+                                          <a  target="_blank" href="{{action('UserController@createSchedule',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-plus-o"></i>  Plot Sched</a>
                                           @endif
                                          
 
@@ -278,12 +278,12 @@
                                                       <a href="{{action('UserController@userRequests',$myMen['id'])}}" class="btn btn-xs btn-warning pull-right" style="margin-left:5px"><i class="fa fa-clipboard"></i>  Requests</a>
                                                       <a href="{{action('DTRController@show',$myMen['id'])}}" class="btn btn-xs btn-primary pull-right" style="margin-left:5px"><i class="fa fa-clock-o"></i> View DTR</a>
                                                       <a href="{{action('MovementController@changePersonnel',$myMen['id'])}}" class="btn btn-xs btn-danger pull-right"><i class="fa fa-exchange"></i> Movement </a>-->
-                                                      <a href="{{action('UserController@show',$myMen['id'])}}" class="btn btn-xs bg-purple"><i class="fa fa-address-card-o"></i> View Profile </a>
-                                                      <a href="{{action('MovementController@changePersonnel',$myMen['id'])}}" class="btn btn-xs btn-warning pull-right" style="margin:2px"><i class="fa fa-exchange"></i> Movement </a>
+                                                      <a target="_blank" href="{{action('UserController@show',$myMen['id'])}}" class="btn btn-xs bg-purple"><i class="fa fa-address-card-o"></i> View Profile </a>
+                                                      <a target="_blank"  href="{{action('MovementController@changePersonnel',$myMen['id'])}}" class="btn btn-xs btn-warning pull-right" style="margin:2px"><i class="fa fa-exchange"></i> Movement </a>
 
-                                                      <a href="{{action('UserController@userRequests',$myMen['id'])}}" class="btn btn-xs btn-success pull-right" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
-                                                      <a href="{{action('DTRController@show',$myMen['id'])}}" class="btn btn-xs btn-primary pull-right" style="margin:2px"><i class="fa fa-calendar-o"></i>  DTR</a>
-                                                      <a href="{{action('UserController@show',$myMen['id'])}}#ws" class="btn btn-xs btn-danger pull-right" style="margin:2px"><i class="fa fa-calendar-plus-o"></i>  Plot Sched</a>
+                                                      <a target="_blank"  href="{{action('UserController@userRequests',$myMen['id'])}}" class="btn btn-xs btn-success pull-right" style="margin:2px"><i class="fa fa-clipboard"></i>  Requests</a>
+                                                      <a target="_blank"  href="{{action('DTRController@show',$myMen['id'])}}" class="btn btn-xs btn-primary pull-right" style="margin:2px"><i class="fa fa-calendar-o"></i>  DTR</a>
+                                                      <a  target="_blank" href="{{action('UserController@createSchedule',$myMen['id'])}}" class="btn btn-xs btn-danger pull-right" style="margin:2px"><i class="fa fa-calendar-plus-o"></i>  Plot Sched</a>
                                                       
 
 
