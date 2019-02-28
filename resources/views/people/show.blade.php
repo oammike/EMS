@@ -1380,7 +1380,7 @@
                 } 
 
                 else{
-                  $.notify("Sorry, you are no longer allowed to plot schedule for this date.\nInstead, check if your DAILY TIME RECORD hasn't been locked yet and then submit a DTRP for approval.\n\nFor leave requests, go to 'My Requests' section and submit the approriate type of leave for approval.",{globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );
+                  $.notify("Sorry, you are no longer allowed to plot schedule for this date.\nInstead, check if your DAILY TIME RECORD hasn't been locked yet and then submit a DTRP for approval. \nOR click on the 'Actions' button > Edit Work Schedule if you are an approver.\n\nFor leave requests, go to 'My Requests' section and submit the approriate type of leave for approval.",{globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );
                   
                 }
 
