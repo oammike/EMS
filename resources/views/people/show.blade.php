@@ -884,7 +884,7 @@
                   if (timeIN.indexOf(nosched) != -1) //no schedule set
                     {
                       
-                      $.notify("No saved work schedule.\n\n Check if your DAILY TIME RECORD hasn't been locked yet \nand then submit a DTRP for approval, or simply inform your immediate head to plot the work schedule for you.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                      $.notify("No saved work schedule.\n\n Check if your DAILY TIME RECORD hasn't been locked yet \nand then submit a DTRP for approval, or simply inform your immediate head to plot the work schedule for you.\n\nFor approvers, click on the 'Actions' button >> Edit Work Schedule.\n\nFor leave requests, go to 'My Requests' section and submit the approriate type of leave for approval.\nIf you're an approver, go to My Team >> Requests to file leaves for your agent.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                       return false;
 
                     }else 
@@ -1380,7 +1380,7 @@
                 } 
 
                 else{
-                  $.notify("Sorry, you are no longer allowed to plot schedule for this date.\nInstead, check if your DAILY TIME RECORD hasn't been locked yet and then submit a DTRP for approval. \nOR click on the 'Actions' button > Edit Work Schedule if you are an approver.\n\nFor leave requests, go to 'My Requests' section and submit the approriate type of leave for approval.",{globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );
+                  $.notify("Sorry, you are no longer allowed to plot schedule for this date.\nInstead, check if your DAILY TIME RECORD hasn't been locked yet and then submit a DTRP for approval. \nOR click on the 'Actions' button >> Edit Work Schedule if you are an approver.\n\nFor leave requests, go to 'My Requests' section and submit the approriate type of leave for approval.\nIf you're an approver, go to My Team >> Requests to file leaves for your agent.",{globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );
                   
                 }
 
