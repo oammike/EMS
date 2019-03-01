@@ -394,6 +394,12 @@
     }
     
     try{
+      window.video.srcObject.getTracks()[0].stop();
+    }catch(error){
+      //ignore
+    }
+    
+    try{
       document.getElementById('seriousCanvas').parentNode.removeChild(document.getElementById('seriousCanvas'));
       $('<canvas id="seriousCanvas" width="720" height="720"></canvas>').insertAfter($('#foreground'));
     }catch(error){
