@@ -335,13 +335,11 @@
         var imgData = canvas.toDataURL('image/png');
         console.log(imgData);
         $.ajax({
-          url: "{{ url('/export_id') }}",
+          url: window.archive ? "{{ url('/archive') }}" : "{{ url('/export_id') }}",
           type: "POST",
           dataType: "text",
           data: {
-            archive: window.archive,
             base64data : imgData
-            
           },
           success: function(data,status,xhr){
             if(window.archive == true){

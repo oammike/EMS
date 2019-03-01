@@ -758,6 +758,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/camera/single/{id}', 'IDController@load_single');
     Route::get('/camera/by_campaign/{id}', 'IDController@load_campaign');
     Route::post('/export_id', 'IDController@export_id');
+    Route::post('/archive', 'IDController@archive');
     Route::post('/save_signature', 'IDController@save_signature');
     
 

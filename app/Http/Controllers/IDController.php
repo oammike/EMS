@@ -76,19 +76,41 @@ class IDController extends Controller
             throw new \Exception('did not match data URI with image data');
         }
         
-        if(is_bool($_POST['archive']) && $_POST['archive']==TRUE){
-            $dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
-            if (!file_exists($dir)) mkdir($dir, 0755, true);
-            $filename = microtime(true);
-            file_put_contents($dir.$filename.".png", $image_base64);
-            echo "storage/uploads/id/backlogs/".$filename.".png";
-        } else {
+        
             $dir = "/var/www/html/evaluation/storage/uploads/id/";
             if (!file_exists($dir)) mkdir($dir, 0755, true);
             $filename = microtime(true);
             file_put_contents($dir.$filename.".png", $image_base64);
             echo "storage/uploads/id/".$filename.".png";
+        
+        exit;
+    }
+    
+    public function archive()
+    {
+        $image_parts = explode(";base64,", $_POST['base64data']);
+        $image_base64 = base64_decode($image_parts[1]);
+        
+        if (preg_match('/^data:image\/(\w+);base64,/', $_POST['base64data'], $image_parts[0])) {
+            
+            if (!in_array($image_parts[0][1], [ 'png' ])) {
+                throw new \Exception('invalid image type: '.$image_parts[0][1]);
+            }
+            
+            if ($image_base64 === false) {
+                throw new \Exception('base64_decode failed');
+            }
+        } else {
+            throw new \Exception('did not match data URI with image data');
         }
+        
+        
+            $dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
+            if (!file_exists($dir)) mkdir($dir, 0755, true);
+            $filename = microtime(true);
+            file_put_contents($dir.$filename.".png", $image_base64);
+            echo "storage/uploads/id/backlogs/".$filename.".png";
+        
         exit;
     }
     
