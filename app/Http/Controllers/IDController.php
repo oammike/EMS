@@ -75,12 +75,20 @@ class IDController extends Controller
         } else {
             throw new \Exception('did not match data URI with image data');
         }
-        $dir = "/var/www/html/evaluation/storage/uploads/id/";
-        if (!file_exists($dir)) mkdir($dir, 0755, true);
-            
-        $filename = microtime(true);
-        file_put_contents($dir.$filename.".png", $image_base64);
-        echo "storage/uploads/id/".$filename.".png";
+        
+        if(is_bool($_POST['archive']) && $_POST['archive']==TRUE){
+            $dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
+            if (!file_exists($dir)) mkdir($dir, 0755, true);
+            $filename = microtime(true);
+            file_put_contents($dir.$filename.".png", $image_base64);
+            echo "storage/uploads/id/backlogs/".$filename.".png";
+        } else {
+            $dir = "/var/www/html/evaluation/storage/uploads/id/";
+            if (!file_exists($dir)) mkdir($dir, 0755, true);
+            $filename = microtime(true);
+            file_put_contents($dir.$filename.".png", $image_base64);
+            echo "storage/uploads/id/".$filename.".png";
+        }
         exit;
     }
     

@@ -95,13 +95,19 @@
               <a class="waves-effect waves-light btn-large col s12" href="javascript:camerapause();"><i class="material-icons left">camera_enhance</i><span id="bt_controller">Start Camera</span></a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save</a>
+              <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
+          </div>
+          <div class="input-field col s6">            
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:archive();"><i class="material-icons left">archive</i>Archive</a>
           </div>
           <div class="input-field col s6">
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>            
+          </div>
+          <div class="input-field col s6">
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:reset();"><i class="material-icons left">settings_backup_restore</i>Reset</a>            
           </div>
         </form>  
       </div>
@@ -183,6 +189,7 @@
   window.context = null;
   window.seriously = null;
   window.hasCapturedPhoto = false;
+  window.hasSignature = false;
   window.paused = false;
   window.mustFlip = true;
   window.video = document.querySelector("#videoElement");
@@ -194,9 +201,7 @@
   window.sign_filepath = "";
   window.signaturePad = null;
   window.readytoprint = false;
-  
-  
-  
+  window.archive;
   
   $.ajaxSetup({
     headers: {
@@ -299,10 +304,27 @@
     window.readytoprint = false;
     if ($('#emp_sss').val()=="") {
       M.toast({html: 'Please fill out the SSS number field!'})
+      window.archive = false;
       return;
     }
     if ($('#emp_tin').val()=="") {
       M.toast({html: 'Please fill out the TIN number field!'})
+      window.archive = false;
+      return;
+    }
+    if(window.hasCapturedPhoto == false && window.hasSignature == false){
+      M.toast({html: 'Please take a photo first then sign the ID'})
+      window.archive = false;
+      return;
+    }
+    if(window.hasCapturedPhoto == true && window.hasSignature == false){
+      M.toast({html: 'Please sign the ID first'})
+      window.archive = false;
+      return;
+    }
+    if(window.hasCapturedPhoto == false && window.hasSignature == true){
+      M.toast({html: 'Please take a photo first'})
+      window.archive = false;
       return;
     }
   
@@ -316,39 +338,61 @@
           type: "POST",
           dataType: "text",
           data: {
-            base64data : imgData
+            base64data : imgData,
+            archive: window.archive
           },
           success: function(data,status,xhr){
-            window.filepath = data;
-            window.readytoprint = true;
+            if(window.archive == true){
+              M.toast({html: 'ID successfully added to archive'})
+            } else {
+              window.filepath = data;
+              window.readytoprint = true;
+              M.toast({html: 'ID layout saved successfully!'})
+            }
           },
           error: function(xhr,status,msg){
             M.toast({html: msg})
           }
         })
-        .done(function(e){
-          
-          M.toast({html: 'ID layout saved succesfully!'})
-          $('#bt_controller').text("Start Camera");
-        });
       });
     }else{
       M.toast({html: 'Please capture a photo first'})
     }
   }
   
+  function archive(){
+    window.archive = true;
+    save();
+  }
+  
   function printme(){
-    if (window.readytoprint!=true) { 
-      M.toast({html: 'Please fix your ID first by taking a photo, sign then click save!'})
-      return;
-    }
+    if(window.readyToPrint == true){
       var filepath = window.location + window.filepath;
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
-      //var onload = window.print();
+
       popupWin.document.open();
       popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="window.print();">' + '<div><img src="{{ $url }}/' + window.filepath + '"></div>' + '</html>');
       popupWin.document.close();
-  } 
+      
+      
+      reset();
+    }else{
+      M.toast({html: 'Please take a photo first then sign the ID'})
+    }
+  }
+  
+  function reset(){
+    
+    if (window.seriously!==null) {
+      window.seriously.stop();
+      window.seriously.destroy();
+    }
+    window.hasCapturedPhoto = false;
+    window.hasSignature = false;
+    window.archive = false;
+    $('#bt_controller').text()==="Start Camera";
+    $("#id_signature").attr("src", '{{ asset( 'public/img/blank_signature.png' ) }}');
+  }
   
   
   function camerapause() {
