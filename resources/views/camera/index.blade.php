@@ -409,7 +409,7 @@
     window.hasCapturedPhoto = false;
     window.hasSignature = false;
     window.archive = false;
-    $('#bt_controller').text()==="Start Camera";
+    $('#bt_controller').text("Start Camera");
     $("#id_signature").attr("src", '{{ asset( 'public/img/blank_signature.png' ) }}');
   }
   
