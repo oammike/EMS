@@ -366,7 +366,7 @@
   }
   
   function printme(){
-    if(window.readyToPrint == true){
+    if(window.readytoprint == true){
       var filepath = window.location + window.filepath;
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
 
@@ -377,6 +377,7 @@
       
       reset();
     }else{
+      console.log(window.readytoprint);
       M.toast({html: 'Please take a photo first then sign the ID'})
     }
   }
