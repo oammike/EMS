@@ -101,7 +101,7 @@
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:archive();"><i class="material-icons left">archive</i>Archive</a>
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:saveToArchive();"><i class="material-icons left">archive</i>Archive</a>
           </div>
           <div class="input-field col s6">
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>            
@@ -360,7 +360,7 @@
     }
   }
   
-  function archive(){
+  function saveToArchive(){
     window.archive = true;
     save();
   }
