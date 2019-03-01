@@ -568,7 +568,7 @@
         window.sign_filepath = "{{ $url }}/" + data;
         $("#id_signature").attr("src", window.sign_filepath);
         close_signature_capture();
-        window.readytoprint = true;
+        window.hasSignature = true;
       },
       error: function(xhr,status,msg){
         M.toast({html: msg});
