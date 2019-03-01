@@ -343,7 +343,7 @@
           },
           success: function(data,status,xhr){
             if(window.archive == true){
-              M.toast({html: 'ID successfully added to archive'})
+              M.toast({html: 'ID successfully added to archive!'})
             } else {
               window.filepath = data;
               window.readytoprint = true;
@@ -387,6 +387,19 @@
       window.seriously.stop();
       window.seriously.destroy();
     }
+    
+    if(window.video!=null && window.video!=undefined){
+      window.video.pause();
+      window.paused = true;
+    }
+    
+    try{
+      document.getElementById('seriousCanvas').parentNode.removeChild(document.getElementById('seriousCanvas'));
+      $('<canvas id="seriousCanvas" width="720" height="720"></canvas>').insertAfter($('#foreground'));
+    }catch(error){
+      //ignore
+    }
+    
     window.hasCapturedPhoto = false;
     window.hasSignature = false;
     window.archive = false;
@@ -677,7 +690,7 @@
     }
     //console.log(employee);
     var fullname =
-      employee.firstname.toLowerCase().replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}) + " " +
+      employee.firstname.toLowerCase().charAt(0).toUpperCase() + employee.firstname.toLowerCase().slice(1) + " " +
       employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
       employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
       ;
