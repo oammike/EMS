@@ -17,9 +17,9 @@
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
-      <p id="employee_number" class="light">{{$user->employeeNumber}}</p>
-      <p class="light">TIN: <span id="employee_tin"></span></p>
-      <p class="light">SSS: <span id="employee_sss"></span></p>
+      <p id="employee_number" class="light">ID No. {{$user->employeeNumber}}</p>
+      <p class="light">If found please call: <span id="employee_tin"></span></p>
+      <p class="light">+63 403 4082<span id="employee_sss"></span></p>
     </div>
   </div>
   <div id="controls">
@@ -61,7 +61,7 @@
             <label for="emp_num">ID Number</label>
           </div>
             
-            
+          <!--  
           <div class="input-field col s6">
             <input id="emp_sss" name="emp_sss" type="text" class="validate" value="" placeholder="04-2047199-9">
             <label for="emp_sss">SSS</label>
@@ -70,6 +70,7 @@
             <input placeholder="255-173-099" id="emp_tin" name="emp_tin" type="text" class="validate" value="">
             <label for="emp_tin">TIN</label>
           </div>
+          -->
             
           @if ($campaign_mode === true)  
           <div class="input-field col s6">
@@ -302,7 +303,7 @@
   
   function save() {
     window.readytoprint = false;
-    
+    /*
     if ($('#emp_sss').val()=="") {
       M.toast({html: 'Please fill out the SSS number field!'})
       window.archive = false;
@@ -313,6 +314,7 @@
       window.archive = false;
       return;
     }
+    */
     if(window.hasCapturedPhoto == false && window.hasSignature == false){
       M.toast({html: 'Please take a photo first then sign the ID'})
       window.archive = false;
