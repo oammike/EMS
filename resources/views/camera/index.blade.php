@@ -13,7 +13,7 @@
     </div>
     <div id="employee_details1">
       <p id="employee_nick" class="medium">{{$user->nickname}}</p>
-      <p id="employee_name" class="light">{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}</p>
+      <p id="employee_name" class="light">{{ ucwords(strtolower($user->firstname)) }} {{ ucwords(strtolower($user->lastname)) }}</p>
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
@@ -48,7 +48,7 @@
             <label for="emp_nick">Nickname</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="Benjamin Davidowitz" id="emp_name" name="emp_name" type="text" class="validate" value="{{ ucwords(strtolower($user->firstname)) }} {{ substr(ucwords(strtolower($user->middlename)),0,1) }}. {{ ucwords(strtolower($user->lastname)) }}" >
+            <input placeholder="Benjamin Davidowitz" id="emp_name" name="emp_name" type="text" class="validate" value="{{ ucwords(strtolower($user->firstname)) }} {{ ucwords(strtolower($user->lastname)) }}" >
             
             <label for="emp_name">Full Name</label>
           </div>
@@ -700,7 +700,7 @@
     //console.log(employee);
     var fullname =
       employee.firstname.toLowerCase().charAt(0).toUpperCase() + employee.firstname.toLowerCase().slice(1) + " " +
-      employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
+      //employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
       employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
       ;
     $('#employee_nick').text(employee.nickname);
