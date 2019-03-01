@@ -677,7 +677,7 @@
     }
     //console.log(employee);
     var fullname =
-      employee.firstname.toLowerCase().charAt(0).toUpperCase() + employee.firstname.toLowerCase().slice(1) + " " +
+      employee.firstname.toLowerCase().replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}) + " " +
       employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
       employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
       ;
