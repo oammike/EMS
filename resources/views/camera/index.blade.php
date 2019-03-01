@@ -302,6 +302,7 @@
   
   function save() {
     window.readytoprint = false;
+    
     if ($('#emp_sss').val()=="") {
       M.toast({html: 'Please fill out the SSS number field!'})
       window.archive = false;
@@ -338,8 +339,9 @@
           type: "POST",
           dataType: "text",
           data: {
-            base64data : imgData,
-            archive: window.archive
+            archive: window.archive,
+            base64data : imgData
+            
           },
           success: function(data,status,xhr){
             if(window.archive == true){
