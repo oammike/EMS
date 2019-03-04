@@ -3,7 +3,7 @@
   <div id="id_wrapper">
     <div id="id_container">
       
-      <img src="{{ asset( 'public/img/background_back.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
+      <img src="{{ asset( 'public/img/background_back2.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
       
     </div>
   </div>
