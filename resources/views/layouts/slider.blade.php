@@ -209,10 +209,6 @@
                         <img src="./storage/uploads/zumba2_2.jpg" style="z-index: 2" />
                         <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
 
-
-
-                              Here's the schedule for this week:<br/><br/>
-
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
                             <br/><span class="text-danger">March 7, 2019 (Thursday) – 7:00 PM</span><br/></strong><br/>
 
@@ -265,10 +261,6 @@
                         <img src="./storage/uploads/zumba2_3.jpg" style="z-index: 2" />
                         <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
 
-
-
-                             Here's the schedule for this week:<br/><br/>
-
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
                             <br/><span class="text-danger">March 7, 2019 (Thursday) – 7:00 PM</span><br/></strong><br/>
 
@@ -277,12 +269,6 @@
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
                             <br/><span class="text-danger">March 8, 2019 (Friday) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
 
 
                           <br/><br/>
@@ -324,8 +310,6 @@
                             
                             <p style="padding: 30px; margin-bottom: 0px">Here's the schedule for next week:<br/><br/>
 
- Here's the schedule for this week:<br/><br/>
-
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
                             <br/><span class="text-danger">March 7, 2019 (Thursday) – 7:00 PM</span><br/></strong><br/>
 
@@ -335,10 +319,6 @@
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
                             <br/><span class="text-danger">March 8, 2019 (Friday) – 7:00 PM</span><br/></strong>
 
-
-
-
-                          
 
 
 
