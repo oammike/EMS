@@ -92,6 +92,8 @@
 
                                          
                                            <a target="_blank" href="{{action('MovementController@changePersonnel',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-exchange"></i> Movement </a>
+
+                                           <a  target="_blank" href="{{action('DTRController@show',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-o"></i>  DTR</a>
                                           
 
                                            @if ( $canUpdateLeaves )
@@ -104,7 +106,7 @@
 
                                             @endif
                                           
-                                          <a  target="_blank" href="{{action('DTRController@show',$p->id)}}" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-calendar-o"></i>  DTR</a>
+                                          
                                           @endif
 
                                           @if ($canUpdateLeaves)

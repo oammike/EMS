@@ -45,6 +45,7 @@ class LogsController extends Controller
     protected $user;
    	protected $logs;
    	protected $paycutoff;
+    use Traits\TimekeepingTraits;
 
      public function __construct(Logs $logs)
     {
@@ -59,6 +60,8 @@ class LogsController extends Controller
     	
     	//return $this->cutoff->first()->startingPeriod(). " - " . $paycutoff->endingPeriod();
     }
+
+    
 
     public function myDTR()
     {

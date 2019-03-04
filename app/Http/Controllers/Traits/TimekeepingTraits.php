@@ -2498,6 +2498,14 @@ trait TimekeepingTraits
 
   }
 
+  public function getWorkedOThours($log,$sched,$prodDate1, $prodDate2)
+  {
+    $lg = Carbon::parse($prodDate1." ".$log,'Asia/Manila');
+    $schd = Carbon::parse($prodDate2." ".$sched,'Asia/Manila');
+
+    return $lg->diffInMinutes($schd);
+  }
+
 
 
 

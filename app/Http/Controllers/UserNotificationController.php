@@ -107,6 +107,7 @@ class UserNotificationController extends Controller
     		case '9': { $relatedModel = User_DTRP::find($notif->detail->relatedModelID); }
             case '10': { $relatedModel = User_VL::find($notif->detail->relatedModelID); }
             case '11': { $relatedModel = User_SL::find($notif->detail->relatedModelID); }
+            case '15': { $relatedModel = User_OT::find($notif->detail->relatedModelID); }
     			
     			break;
 

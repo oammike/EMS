@@ -4,7 +4,7 @@
 @if ($user->id == Auth::user()->id) 
          <title>My Requests | Employee Management System</title>
        @else 
-          @if(is_null($user->nickname))<title>{{$user->firstname}}'s Requests | Employee Management System</title>  
+          @if(empty($user->nickname))<title>{{$user->firstname}}'s Requests | Employee Management System</title>  
           @else <title>{{$user->nickname}}'s Requests | Employee Management System</title> 
           @endif
       @endif
@@ -22,7 +22,7 @@
        @if ($user->id == Auth::user()->id) 
           My Requests 
        @else 
-          @if(is_null($user->nickname)) {{$user->firstname}}'s Requests 
+          @if(empty($user->nickname)) {{$user->firstname}}'s Requests 
           @else {{$user->nickname}}'s Requests 
           @endif
       @endif
@@ -42,14 +42,19 @@
 
           <span style="text-align: left; font-size:12px"><em>Click on the buttons below to file new requests:</em></span><br/><br/>
           <p class="text-center">
-            <strong><a href="{{action('UserSLController@create')}}" class="btn btn-sm btn-danger"><i class="fa fa-2x fa-stethoscope"></i> New Sick Leave <strong>(SL)</strong></a>
-           <a class="btn btn-sm bg-blue" href="{{action('UserVLController@create')}}"><i class="fa fa-2x fa-plane"></i> New Vacation Leave <strong>(VL)</strong></a>
-           <a href="{{action('UserLWOPController@create')}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay  <strong>(LWOP)</strong></a>
+            <strong>
+              <a href="{{action('UserSLController@create')}}" class="btn btn-sm btn-danger"><i class="fa fa-2x fa-stethoscope"></i> New Sick Leave <br/><strong>(SL)</strong></a>
 
-           <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <strong>(CWS)</strong></a>
-            
-             
-             <a  href="{{action('UserOBTController@create')}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <strong>(OBT)</strong></a></strong>
+              <a class="btn btn-sm bg-blue" href="{{action('UserVLController@create')}}"><i class="fa fa-2x fa-plane"></i> New Vacation Leave <br/>
+                <strong>(VL)</strong></a>
+
+              <a href="{{action('UserLWOPController@create')}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay <br/> <strong>(LWOP)</strong></a>
+
+              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Pre-Shift OT <br/> <strong>(PS-OT)</strong></a> 
+
+              <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
+
+              <a  href="{{action('UserOBTController@create')}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip <br/> <strong>(OBT)</strong></a></strong>
 
              <br/><br/><br/>
            </p>
@@ -57,14 +62,20 @@
            @elseif ($forOthers)
            <span style="text-align: left; font-size:12px"><em>Click on the buttons below to file new requests for <a href="{{action('UserController@show',$user->id)}}"> <strong>{{$user->firstname}} {{$user->lastname}}</strong></a> :</em></span><br/><br/>
           <p class="text-center">
-            <strong><a href="{{action('UserSLController@create',['for'=>$user->id])}}" class="btn btn-sm btn-danger"><i class="fa fa-2x fa-stethoscope"></i> New Sick Leave <strong>(SL)</strong></a>
-           <a class="btn btn-sm bg-blue" href="{{action('UserVLController@create',['for'=>$user->id])}}"><i class="fa fa-2x fa-plane"></i> New Vacation Leave <strong>(VL)</strong></a>
-           <a href="{{action('UserLWOPController@create',['for'=>$user->id])}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay  <strong>(LWOP)</strong></a>
+            <strong>
 
-           <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <strong>(CWS)</strong></a>
-            
-             
-             <a  href="{{action('UserOBTController@create',['for'=>$user->id])}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <strong>(OBT)</strong></a></strong>
+              <a href="{{action('UserSLController@create',['for'=>$user->id])}}" class="btn btn-sm btn-danger"><i class="fa fa-2x fa-stethoscope"></i> New Sick Leave <br/> <strong>(SL)</strong></a>
+
+              <a class="btn btn-sm bg-blue" href="{{action('UserVLController@create',['for'=>$user->id])}}"><i class="fa fa-2x fa-plane"></i> New Vacation Leave <br/><strong>(VL)</strong></a>
+
+              <a href="{{action('UserLWOPController@create',['for'=>$user->id])}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay  <br/><strong>(LWOP)</strong></a>
+
+              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Pre-Shift OT <br/> <strong>(PS-OT)</strong></a> 
+
+              <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
+
+              <a  href="{{action('UserOBTController@create',['for'=>$user->id])}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <br/><strong>(OBT)</strong></a>
+            </strong>
            </p><br/>
            <p class="text-center" ><a class="btn btn-xs btn-default btn-flat" href="{{action('DTRController@show',$user->id)}}"><i class="fa fa-calendar"></i>  {{$user->firstname}}'s DTR Sheet</a> </p>
          
@@ -480,6 +491,33 @@
 
                                         } break;
 
+                            case '15': {  /*------ PRE-SHIFT OVERTIME --------*/
+
+                                          var billedType=" ";
+
+                                            if(full.billedType == '1') billedType="Billed";
+                                            else if (full.billedType == '2') billedType="Non-Billed";
+                                            else if (full.billedType == '3') billedType="Patch";
+                                            else billedType="Billed";
+
+                                          var deleteLink = "../user_ot/deleteOT/"+data_id;
+                                          var shiftStart_new = new Date(full.productionDate+ " "+full.details.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                          var shiftEnd_new = new Date(full.productionDate+ " "+full.details.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+
+                                          modalcode += '<p class="text-left">';
+                                          modalcode += 'I would like to file a <strong>PRE-SHIFT OT </strong> for <strong>'+full.productionDate+'</strong></p>';
+                                          modalcode += '<div class="row">';
+
+                                          modalcode +='<div class="col-sm-6" style="font-size: 12px"><h5 class="text-primary">OT Details:</h5>';
+                                          modalcode +=' <p class="text-left"><strong>Start: </strong>'+full.details.timeStart;
+                                          modalcode +='<br/><strong>End : </strong>'+full.details.timeEnd;
+                                          modalcode += '<br/><strong>Billable Hours: </strong>'+full.details.billable_hours;
+                                          modalcode += '<br/><strong>Filed Hours worked: </strong>'+full.details.filed_hours;
+                                          modalcode += '<br/><strong>Type: </strong><span class="text-danger" style="font-size:larger">'+billedType;
+                                          modalcode += '</p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
+                                          modalcode += '<p class="text-left"><em>'+full.details.reason+'</em></p> </div>';
+                                      };break;
+
                                       
                          }
 
@@ -547,7 +585,7 @@
                         {
                           modalcode +='<h4 class="bg-yellow" style="padding:5px">Pending Approval </h4>';
 
-                          @if($anApprover)
+                          @if (($anApprover && $isBackoffice) || ($isWorkforce && !$isBackoffice))
                           modalcode +='<br/><br/><a class="processThis btn btn-lg btn-success" data-approve="1" data-formtype="'+typeid+'"  data-dataid="'+data_id+'"><i class="fa fa-thumbs-up"></i> Approve</a> &nbsp;&nbsp&nbsp;<a class="processThis btn btn-lg btn-danger" data-approve="0" data-formtype="'+typeid+'" data-dataid="'+data_id+'"><i class="fa fa-thumbs-down"></i> Deny</a> <br/><br/><br/>';
 
                           @endif
@@ -708,6 +746,7 @@
                 case '11': {var requesttype="Sick Leave"; var processlink = "{{action('UserSLController@process')}}"; }break;
                 case '12': {var requesttype="Leave Without Pay"; var processlink = "{{action('UserLWOPController@process')}}"; }break;
                 case '13': {var requesttype="Official Business Leave"; var processlink = "{{action('UserOBTController@process')}}"; }break;
+                case '15': {var requesttype="Overtime (Pre-Shift)"; var processlink = "{{action('UserOTController@process')}}"; }break;
               }
 
               $.ajax({

@@ -108,10 +108,16 @@
                         case 12: { $actionlink = action('UserLWOPController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //lwop LEAVE
 
                         case 13: { $actionlink = action('UserOBTController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //OBT LEAVE
+
                         case 14: { $actionlink = action('DTRController@seenzoned',['id'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //VACATION LEAVE
+                        
+
+                        case 15: { $actionlink = action('UserOTController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //PS-OT 
+
+                        default:{ $actionlink = action('UserController@changePassword'); break; }
                      
                       }?>
-                      <a href="{{$actionlink}} ">
+                      <a href="{{$actionlink}}">
                         <i class="<?php echo $detail->info->icon?>"></i>
                         <?php echo $detail->info->title?> <br/><small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $detail->info->detail; ?> <em><?php echo Carbon\Carbon::now()->diffForHumans($detail->created_at,true) ?> ago</em> </small>
                       </a>

@@ -158,6 +158,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'logs.saveDailyUserLogs',
       'uses'=>'LogsController@saveDailyUserLogs') );
 
+    
+
     Route::get('/view-raw-biometrics-data/{id}', array(
       'as'=> 'logs.saveDailyUserLogs',
       'uses'=>'LogsController@viewRawBiometricsData') );
@@ -346,6 +348,21 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_lwop.process',
       'uses'=>'UserLWOPController@process') );
 
+
+
+
+      /*********** OT **********/
+      Route::post('/user_ot/requestPSOT', array(
+      'as'=> 'user_ot.requestPSOT',
+      'uses'=>'UserOTController@requestPSOT') );
+
+      Route::get('/getPSOTworkedhours/{id}', array(
+      'as'=> 'user_ot.getPSOTworkedhours',
+      'uses'=>'UserOTController@getPSOTworkedhours') );
+
+    Route::get('/getPSOTLogsForThisDate/{id}', array(
+      'as'=> 'user_ot.getPSOTLogsForThisDate',
+      'uses'=>'UserOTController@getPSOTLogsForThisDate') );
 
 
       /*********** OBT **********/
