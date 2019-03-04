@@ -129,7 +129,7 @@ select:-webkit-autofill:focus {
                    <!-- SHOUT OUT -->
                   <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Shoutout</h3>
+                      <h3 class="box-title">Shout Out</h3>
 
                       <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -178,6 +178,11 @@ select:-webkit-autofill:focus {
                 <!-- /.box -->
 
                   <!--VIDEOS -->
+                
+
+                
+                <?php /*
+
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos</h3>
@@ -222,9 +227,6 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                     </div>
                   </div>
 
-
-                
-                <?php /*
 
                 <!--VIDEOS -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
@@ -343,7 +345,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
    'use strict';
 
     /* ---- VIDEO PLAYER -------- */
-   var vid = document.getElementById("teaser");
+   /*var vid = document.getElementById("teaser");
    vid.onplay = function() {
         //alert("The video has started to play");
         $.ajax({
@@ -356,7 +358,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
               }
 
         });
-    };
+    };*/
      /* ---- VIDEO PLAYER -------- */
 
    /*----------------- MEMO ----------------*/

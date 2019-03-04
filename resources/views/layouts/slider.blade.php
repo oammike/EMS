@@ -96,22 +96,9 @@
 
   <?php */ ?> 
 
+                      
+
                       <div class="item active text-center" >
-                        <img src="./storage/uploads/motherlang_1.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">Today, we're celebrating the beauty and importance of mother languages and we want to hear from you! <br/><br/>
-                          Join the Speak Your Language contest and share your favorite word/phrase in your native tongue. Top 3 winners will win cash prizes! How to join:
-                          <br/><br/>
-                          1. Take a video of yourself stating your favorite word/phrase in your mother language <br/>
-                          2. Translate the word/phrase in English and explain why it's your favorite in under 30 seconds <br/><br/>
-                          3. Follow @openaccessbpo and use the following hashtags: <strong class="text-primary">#OAonIMLD #WeSpeakYourLanguage #OpenAccessBPO</strong>
-
-                                                     
-                                                      <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                                            <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> 
-                          #WeSpeakYourLanguage #OAonIMLD #Multilingualism #Diversity</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-                      <div class="item text-center" >
                         <img src="./storage/uploads/cat-31.jpg" style="z-index: 2" />
                         <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade yesterday.<br/><br/>
 
@@ -283,61 +270,7 @@
                       </div>
 
 
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/lovemonth-1.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
-
-We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
-Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a style="font-size: larger" href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
-
-#WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
-                      </div>
                       
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/lovemonth-2.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
-
-                        We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
-                        Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a style="font-size: larger" href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
-
-                        #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/lovemonth-3.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
-
-                          We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
-                          Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a  style="font-size: larger" href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
-
-                          #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/lovemonth-4.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
-
-We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
-Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a  style="font-size: larger"href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
-
-#WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
-                      </div>
 
                       <div class="item text-center" >
                         <h4 class="text-primary">Let's Get Physical</h4>
@@ -919,6 +852,7 @@ Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @floren
 
 
                              <!-- ************* ANNOUNCEMENTS ************-->
+
                             
                            <!--  <div class="item text-center">
                               <img src="storage/uploads/yearend1.jpg" />
@@ -948,6 +882,77 @@ Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @floren
                           
 
                             <?php /* 
+
+                            <div class="item text-center" >
+                        <img src="./storage/uploads/lovemonth-1.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
+
+We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
+Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a style="font-size: larger" href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
+
+#WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+                      
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/lovemonth-2.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
+
+                        We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
+                        Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a style="font-size: larger" href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
+
+                        #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/lovemonth-3.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
+
+                          We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
+                          Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a  style="font-size: larger" href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
+
+                          #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/lovemonth-4.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">This <strong>#LoveMonth</strong>, we are celebrating #SelfLove through music. The <em>"Love, Me" </em> playlist is a letter to the people out there who have struggled—or continue to struggle—loving their true selves.<br/><br/>
+
+We understand your doubts and this is our message: Embrace who you are, with all your strengths and weaknesses. Everyone is unique and beautiful and there's no reason for you to change just to fit in. <br/>
+Be empowered by <strong> @colbiecaillat, @natashabedingfield, @ladygaga, @florenceandthemachine, @pink,</strong> and many more in our "Love, Me" playlist on Spotify: <a  style="font-size: larger"href="http://tinyurl.com/y33ctdx5" target="_blank">tinyurl.com/y33ctdx5</a> 💞<br/><br/>
+
+#WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonSpotify #LoveMonth2019 #ValentinesDay #LoveYourself #LifeLesson #SelfWorth</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                            <div class="item active text-center" >
+                        <img src="./storage/uploads/motherlang_1.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">Today, we're celebrating the beauty and importance of mother languages and we want to hear from you! <br/><br/>
+                          Join the Speak Your Language contest and share your favorite word/phrase in your native tongue. Top 3 winners will win cash prizes! How to join:
+                          <br/><br/>
+                          1. Take a video of yourself stating your favorite word/phrase in your mother language <br/>
+                          2. Translate the word/phrase in English and explain why it's your favorite in under 30 seconds <br/><br/>
+                          3. Follow @openaccessbpo and use the following hashtags: <strong class="text-primary">#OAonIMLD #WeSpeakYourLanguage #OpenAccessBPO</strong>
+
+                                                     
+                                                      <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                                            <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> 
+                          #WeSpeakYourLanguage #OAonIMLD #Multilingualism #Diversity</small></a></div> <br/><br/><br/><br/>
+                      </div>
 
                             <div class="item text-center" >
                               

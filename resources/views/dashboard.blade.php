@@ -268,6 +268,61 @@ select:-webkit-autofill:focus {
                               <video id="teaser" src="storage/uploads/sde-back_to_the_90s.webm" width="100%" loop controls></video>
                     </div>
                   </div>
+
+
+                  <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Videos</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <p class="text-center"><strong class="text-orange" style="font-size: 1.8em">Speak Your Language <span class="text-primary"> Video Contest!</span></strong></p>
+                      <video id="teaser" src="storage/uploads/alessio.webm" width="100%" loop controls></video>
+
+                     
+
+                                <p style="font-size: 1em;" align="center"><strong>HOW TO JOIN: </strong><br/>
+                                  1. Take a video of yourself and state your favorite word/phrase in your mother language. Translate it in English (no need for translation if your mother language is English) and state a brief explanation as to why it is your favorite. <br/>
+                                  Video Template: Hi! I’m <state your name> and my mother language is <your mother language>. My favorite word /phrase is <state the word/phrase>. In English, it translates to <state English translation>. This is my favorite because <state your reason>. <br/>
+                                  2.  Make sure your entry is free from profanity, obscenity, or any objectionable or inappropriate content. <br/>
+                                  3.  Entry must not be more than 30 seconds long. <br/>
+                                  4.  You may edit the videos by including the words/phrases, but don't overdo it.  You may also use actual props to add spice to your entry.  <br/>
+                                  5.  To qualify, complete the following steps before uploading your entry on Instagram: <br/>
+                                  Follow @OpenAccessBPO on Instagram<br/>
+                                  Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #OpenAccessBPO <br/>
+                                   Set your account to Public so we can view your post <br/>
+                                  6.  Deadline of submission is until 12:00 AM, February 27, 2019. (Pro tip: The earlier you have it up, the better your chances are in gaining more likes!)<br/>
+                                  7.  Winners will be announced on February 28, 2019 via Zimbra and Open Access BPO's official Instagram and Facebook page.<br/>
+                                  8.  This contest is open to all Open Access BPO Makati and Davao site employees. <br/><br/>
+                                   CRITERIA: <br/>
+                                   30% - Creativity/Originality: Uniqueness of the chosen word/phrase<br/>
+                                  30% -  Message content: Relevance of chosen word/phrase and context of explanation<br/>
+                                  30% - Video quality:  Audio and visual quality, editing (if applicable), adherence to time limit <br/>
+                                  10% - People’s Choice/ Most Likes:  Videos will be ranked based on the number of likes and the corresponding points will be added to the final judges’ score <br/><br/>
+                                   CASH PRIZES:  <br/>
+                                   3rd place – Php 1,000.00 <br/> 
+                                   2nd place – Php 1,500.00 <br/> 
+                                   1st place – Php 2,500.00 <br/> 
+
+
+
+
+
+
+
+
+
+                                  </p> 
+                              
+                              
+                    </div>
+                  </div>
                   */ ?>
                
 
@@ -279,7 +334,7 @@ select:-webkit-autofill:focus {
                 <!-- SHOUT OUT -->
                   <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Shoutout</h3>
+                      <h3 class="box-title">Shout Out</h3>
 
                       <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -331,59 +386,7 @@ select:-webkit-autofill:focus {
 
                 
                 <!--VIDEOS -->
-                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Videos</h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <p class="text-center"><strong class="text-orange" style="font-size: 1.8em">Speak Your Language <span class="text-primary"> Video Contest!</span></strong></p>
-                      <video id="teaser" src="storage/uploads/alessio.webm" width="100%" loop controls></video>
-
-                     
-
-                                <p style="font-size: 1em;" align="center"><strong>HOW TO JOIN: </strong><br/>
-1. Take a video of yourself and state your favorite word/phrase in your mother language. Translate it in English (no need for translation if your mother language is English) and state a brief explanation as to why it is your favorite. <br/>
-Video Template: Hi! I’m <state your name> and my mother language is <your mother language>. My favorite word /phrase is <state the word/phrase>. In English, it translates to <state English translation>. This is my favorite because <state your reason>. <br/>
-2.  Make sure your entry is free from profanity, obscenity, or any objectionable or inappropriate content. <br/>
-3.  Entry must not be more than 30 seconds long. <br/>
-4.  You may edit the videos by including the words/phrases, but don't overdo it.  You may also use actual props to add spice to your entry.  <br/>
-5.  To qualify, complete the following steps before uploading your entry on Instagram: <br/>
-Follow @OpenAccessBPO on Instagram<br/>
-Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #OpenAccessBPO <br/>
- Set your account to Public so we can view your post <br/>
-6.  Deadline of submission is until 12:00 AM, February 27, 2019. (Pro tip: The earlier you have it up, the better your chances are in gaining more likes!)<br/>
-7.  Winners will be announced on February 28, 2019 via Zimbra and Open Access BPO's official Instagram and Facebook page.<br/>
-8.  This contest is open to all Open Access BPO Makati and Davao site employees. <br/><br/>
- CRITERIA: <br/>
- 30% - Creativity/Originality: Uniqueness of the chosen word/phrase<br/>
-30% -  Message content: Relevance of chosen word/phrase and context of explanation<br/>
-30% - Video quality:  Audio and visual quality, editing (if applicable), adherence to time limit <br/>
-10% - People’s Choice/ Most Likes:  Videos will be ranked based on the number of likes and the corresponding points will be added to the final judges’ score <br/><br/>
- CASH PRIZES:  <br/>
- 3rd place – Php 1,000.00 <br/> 
- 2nd place – Php 1,500.00 <br/> 
- 1st place – Php 2,500.00 <br/> 
-
-
-
-
-
-
-
-
-
-</p> 
-                              
-                              
-                    </div>
-                  </div>
+                
 
 
               </div><!--end RIGHT -->
@@ -455,7 +458,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
    'use strict';
 
    /* ---- VIDEO PLAYER -------- */
-   var vid = document.getElementById("teaser");
+   /*var vid = document.getElementById("teaser");
    vid.onplay = function() {
         //alert("The video has started to play");
         $.ajax({
@@ -468,7 +471,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
               }
 
         });
-    };
+    };*/
      /* ---- VIDEO PLAYER -------- */
 
    $(window).bind("load", function() {
