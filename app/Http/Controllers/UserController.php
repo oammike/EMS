@@ -1765,6 +1765,16 @@ class UserController extends Controller
         $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
         $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
+        $correct = Carbon::now('GMT+8');
+        //log access
+        if($this->user->id !== 564 ) {
+                      
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+
       if (is_null($user)) return view('empty');
       else
         if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
@@ -1793,6 +1803,16 @@ class UserController extends Controller
         /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
         $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
         $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+
+         $correct = Carbon::now('GMT+8');
+        //log access
+        if($this->user->id !== 564 ) {
+                      
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
 
 
         if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
