@@ -218,7 +218,11 @@ trait UserTraits
        $notifs = User_Notification::where('user_id',$this->user->id)->orderBy('created_at','DESC')->get(); 
        $coll = new Collection;
        $forApprovals = new Collection;
-       $approvalTypes = [6,7,8,9,10,11,12,13,14];
+
+       /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
+       $approvalTypes = [6,7,8,9,10,11,12,13,14,15];
+       /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
+
 
        foreach( $notifs as $notif){ 
                       $detail = $notif->detail;
@@ -522,6 +526,34 @@ trait UserTraits
                                    
 
                                   }break;
+
+
+                           case 15: //Pre-shift OT
+                                {
+                                  $vl = User_OT::find($detail->relatedModelID);
+                                  if (count($vl) > 0)
+                                  {
+                                    if (is_null($vl->isApproved) ){
+                                      $bio = Biometrics::find($vl->biometrics_id);
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
+                                                  'requestor'=>$emp->id,
+                                                  'nickname'=>$nick,
+                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
+                                                  'type'=>NotifType::find($detail->type)->title, 
+                                                  'typeID'=>$detail->type,
+                                                  'created_at'=> $detail->created_at->format('M d, Y'),
+                                                  'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
+                                                  'productionDay'=>date('D', strtotime($bio->productionDate)),
+                                                  'deets'=> $vl]);
+
+                                    }
+                                    
+
+                                  }
+                                  
+                                 
+
+                                }break;
                           
                         }
                         

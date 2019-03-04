@@ -163,10 +163,13 @@
                                               
                                               <a id="lockDTR" class="btn btn-success btn-md pull-left"><i class="fa fa-check-square"></i> Validate and Submit to Finance </a>
                                               <a id="unlock" class="btn btn-sm btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a>
-                                              <a target="_blank" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-search"></i> View Uploaded Biometrics</a>
-                                             
-                                               <a href="{{action('UserController@createSchedule', $user->id)}}" style="margin-right: 5px" class="btn btn-xs btn-default pull-right"><i class="fa fa-calendar-plus-o"></i>  Plot Work Sched</a>
-                                                <a href="{{action('UserController@show', $user->id)}}" style="margin-right: 5px" class="btn btn-xs btn-default pull-right"><i class="fa fa-address-card-o"></i>  My Profile</a>
+                                              <a target="_blank" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-search"></i> View Uploaded Biometrics</a>
+
+                                              <a href="{{action('UserController@createSchedule', $user->id)}}" style="margin-right: 5px" class="btn btn-xs btn-primary pull-right"><i class="fa fa-calendar-plus-o"></i>  Plot Work Sched</a>
+
+                                              <a href="{{action('UserController@userRequests', $user->id)}}" style="margin-right: 5px" class="btn btn-xs btn-primary pull-right"><i class="fa fa-file-o"></i>  DTR Requests</a>
+
+                                              <a href="{{action('UserController@show', $user->id)}}" style="margin-right: 5px" class="btn btn-xs btn-primary pull-right"><i class="fa fa-address-card-o"></i>  My Profile</a>
                                               <br/><br/>
 
                                               <!-- ********** DTR BUTTONS ************** -->

@@ -865,7 +865,11 @@ class UserController extends Controller
         if (is_null($key->approver)) {$approver=null; $tlPic = asset('public/img/useravatar.png');}
          else
         {
-          $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          if ($key->preshift)
+            $approver = User::where('id',$key->approver)->select('id','firstname','nickname', 'lastname')->first();
+          else
+            $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+
           if ( file_exists('public/img/employees/'.$approver->id.'.jpg') ) $tlPic = asset('public/img/employees/'.$approver->id.'.jpg');
           else $tlPic = asset('public/img/useravatar.png');
         }
@@ -876,7 +880,10 @@ class UserController extends Controller
 
         ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
 
-        $requests->push(['type'=>"Overtime",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'7','icon'=>"fa-hourglass",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,   'details'=>$key]);
+        if($key->preshift)
+          $requests->push(['type'=>"Overtime (Pre-shift)",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay, "typeid"=>'15','icon'=>"fa-clock-o",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,   'details'=>$key,'billedType'=>$key->billedType,'preshift'=>$key->preshift]);
+        else
+          $requests->push(['type'=>"Overtime",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'7','icon'=>"fa-hourglass",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,   'details'=>$key]);
       }
 
 
@@ -1761,7 +1768,7 @@ class UserController extends Controller
       if (is_null($user)) return view('empty');
       else
         if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
-          return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>false]);
+          return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>false,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
         else return view('access-denied');
 
     }
@@ -1789,7 +1796,7 @@ class UserController extends Controller
 
 
         if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
-          return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView]);
+          return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
         else
           return view('access-denied');
 

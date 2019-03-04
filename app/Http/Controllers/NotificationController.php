@@ -73,7 +73,7 @@ class NotificationController extends Controller
         $yourNotifs = new Collection;
         
         //return $yourNotif;
-        foreach($yourNotif as $notif){
+        foreach($yourNotif->take(50) as $notif){
 
         	if($notif->detail->from !== null)
         	{ // ****** if notif has an actual requestor
@@ -123,6 +123,7 @@ class NotificationController extends Controller
                         case '12': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_LWOP::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
                         case '13': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_OBT::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
                         case '14': $fromData = null; break;
+                        case '15': $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->approver)->id;break;
 
                       }
                       
@@ -181,32 +182,62 @@ class NotificationController extends Controller
              // }else if($notif->detail->type == 10 ){
 
               }else{
-                    $fromData = ImmediateHead::find($notif->detail->from);
-                    $fromDataID = $fromData->userData->id;
-                    $from =  $fromData->firstname." ".$fromData->lastname;
-                    $position = Position::find($fromData->userData->position_id)->name;
 
-                    $camp = $fromData->campaigns;
+                    if ($notif->detail->type == 15) //problema gawa ni WFM
+                    {
+                      $fromData= User::find($notif->detail->from);
+                      $fromDataID = $fromData->id;
+                      $position = Position::find($fromData->position_id)->name;
+                      $camp = Campaign::where('id',Team::where('user_id',$fromData->id)->first()->campaign_id)->get();
+
+                    }else{
+                      $fromData = ImmediateHead::find($notif->detail->from);
+                      $fromDataID = $fromData->userData->id;
+                      $position = Position::find($fromData->userData->position_id)->name;
+                      $camp = $fromData->campaigns;
                 
+                      
+
+                    }
+                    
+                    $from =  $fromData->firstname." ".$fromData->lastname;
                     $campaign =" ";
 
-                    if(count($camp) > 1){
-                            foreach ($camp as $c) {
-                                $campaign .= $c->name.", ";
-                            }
-                            
-                    } else $campaign = $camp->first()->name;
+                      if(count($camp) > 1){
+                              foreach ($camp as $c) {
+                                  $campaign .= $c->name.", ";
+                              }
+                              
+                      } else $campaign = $camp->first()->name;
+                    
+
 
                      // TL requestor
-                         if ( file_exists('public/img/employees/'.$fromData->userData->id.'.jpg') )
-                         {
-                            $img = asset('public/img/employees/'.$fromData->userData->id.'.jpg');
-                            $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
-                         }
-                         else{
-                            $img = asset('public/img/useravatar.png');
-                            $fromImage ='<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30" /> ';
-                         }
+
+                      if ($notif->detail->type == 15) //problema gawa ni WFM
+                      {
+                        $img = asset('public/img/employees/'.$fromData->id.'.jpg');
+                        $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
+
+                      }else{
+
+                          if ( file_exists('public/img/employees/'.$fromData->userData->id.'.jpg') )
+                           {
+                              $img = asset('public/img/employees/'.$fromData->userData->id.'.jpg');
+                              $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
+                           }
+                           else{
+                              $img = asset('public/img/useravatar.png');
+                              $fromImage ='<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30" /> ';
+                           }
+
+                      }
+
+                         
+
+                    
+
+                    
                 } 
 
           } else { $from=null; $position=null; $campaign=null; $tlimage=null; $fromDataID = null; } // **** notif is system generated, no requestor
@@ -675,6 +706,37 @@ class NotificationController extends Controller
 
                             break; 
                           }
+
+                // PSOT
+                case 15: {
+                            $actionlink = action('UserOTController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $thereq =User_OT::find($notif->detail->relatedModelID);
+                            if (is_null($thereq)){
+                              $theBio = null;
+                              $message=" filed a <strong>Pre-Shift OT</strong>";
+                              //$coll->push(['approved'=>"Data Not Found", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+                            }
+                            else{
+
+                              if ($ownNotif){
+                                if ($thereq->isApproved){
+                                  $message = " <strong>approved</strong> your Pre-shift OT request";
+                                }else $message = " <strong>denied</strong> your Pre-shift OT request. I'm sorry. <strong><i class='fa fa-meh-o'></i></strong> ";
+                                
+                              }
+                              else{
+                                $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
+                                $message = " filed a <strong>Pre-Shift OT</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->leaveStart))."</span>";
+
+
+                              }
+
+
+                              
+                            }
+
+
+                          }break; 
 
             }
 

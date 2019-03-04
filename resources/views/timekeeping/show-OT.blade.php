@@ -141,7 +141,7 @@
                                                    <!--  <a class="process btn btn-xs btn-warning" data-action="edit"><i class="fa fa-pencil"></i> Edit </a> -->
                                                   <a href="{{action('DTRController@show', $user->id)}}" class="btn btn-xs btn-default"><i class="fa fa-calendar"></i> View DTR</a>
 
-                                                  <a style="margin-left: 5px" href="{{action('UserController@userRequests', $user->id)}}" class="btn btn-flat btn-sm btn-default pull-right"><i class="fa fa-clipboard"></i> View All Requests</a>
+                                                  <a style="margin-left: 5px" href="{{action('UserController@userRequests', $user->id)}}" class="btn btn-xs btn-flat btn-sm btn-default pull-right"><i class="fa fa-clipboard"></i> View All Requests</a>
 
                                                 </td>
                                                 </tr>

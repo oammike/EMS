@@ -927,6 +927,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                                 case 12: icon='fa-meh-o';break;
                                 case 13: icon='fa-suitcase';break;
                                 case 14: icon="fa-unlock";break;
+                                case 15: icon="fa-clock-o";break;
                               }
             
 
@@ -1022,13 +1023,14 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                                          var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
                                          var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
 
-                                        modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
-                                        modalcode += 'I would like to file a <strong>DTRP OUT</strong>. See details below:</p>';
-                                        modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
+                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
+                                          modalcode += 'I would like to file a <strong>DTRP OUT</strong>. See details below:</p>';
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
 
-                                        modalcode += '<div class="col-sm-4 style="font-size: 12px""><h5 class="text-primary">Log OUT Time</h5>';
-                                                modalcode += '<p><br/><strong>'+full.deets.logTime +'</strong></p></div><div class="col-sm-4"><h5 class="text-primary">Notes</h5>';
-                                                modalcode += '<p><br/><em>'+full.deets.notes+'</em></p></div>';};break;
+                                          modalcode += '<div class="col-sm-4 style="font-size: 12px""><h5 class="text-primary">Log OUT Time</h5>';
+                                                  modalcode += '<p><br/><strong>'+full.deets.logTime +'</strong></p></div><div class="col-sm-4"><h5 class="text-primary">Notes</h5>';
+                                                  modalcode += '<p><br/><em>'+full.deets.notes+'</em></p></div>';
+                                      };break;
 
                                 //VACATION LEAVE
                                 case 10: { 
@@ -1227,6 +1229,41 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
                                                   //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                             } break;
+
+                                //PRE SHIFT OT 
+                                case 15: { 
+                                            var billedType=" ";
+
+                                            if(full.deets.billedType == '1') billedType="Billed";
+                                            else if (full.deets.billedType == '2') billedType="Non-Billed";
+                                            else if (full.deets.billedType == '3') billedType="Patch";
+                                            else billedType="Billed";
+
+
+                                            var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                            var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+
+                                            modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
+                                            modalcode += 'I would like to file a <strong>Pre-Shift OT </strong> for <strong>'+full.productionDate+' ['+full.productionDay+']</strong></p>';
+                                            modalcode += '<div class="row">';
+
+                                            modalcode +='<div class="col-sm-6" style="font-size: 12px"><h5 class="text-primary">Pre-shift OT Details:</h5>';
+                                            modalcode +=' <p class="text-left"><strong>Start: </strong>'+full.deets.timeStart;
+                                            modalcode +='<br/><strong>End : </strong>'+full.deets.timeEnd;
+                                            modalcode += '<br/><strong>Billable Hours: </strong>'+full.deets.billable_hours;
+                                            modalcode += '<br/><strong>Filed Hours worked: </strong>'+full.deets.filed_hours;
+                                            modalcode += '<br/><strong>Type: </strong><span class="text-danger" style="font-size:larger">'+billedType;
+                                            modalcode += '<span></p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
+                                            modalcode += '<p class="text-left"><em>'+full.deets.reason+'</em></p> </div>';
+
+
+
+                              
+
+                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                            } break;
+
+
                               }
 
                               //modalcode += '</div><div class="row"><div class="col-sm-4"> '+full.productionDate+'<br/> ['+full.productionDay+'] </div>';
@@ -1580,6 +1617,39 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                                   });
 
                               }break;  
+
+                      case '15': { //PS OT
+                                  $.ajax({
+                                            url: "{{action('UserOTController@process')}}",
+                                            type:'POST',
+                                            data:{ 
+
+                                              'id': id,
+                                              'isApproved': processAction,
+                                              '_token':_token
+                                            },
+
+                                           
+                                            success: function(res)
+                                            {
+                                              console.log(res);
+                                              $('#myModal_DTRP'+notif).modal('hide');
+
+                                              if (processAction == '1')
+                                               $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                             else
+                                               $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                              //window.location = "{{action('HomeController@index')}}";
+                                               
+                                            }, error: function(res){
+                                              console.log("ERROR");
+                                              console.log(res);
+                                            }
+
+
+                                  });
+
+                              }break;
                   }
             
             getNewNotifications();
