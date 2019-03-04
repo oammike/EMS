@@ -18,8 +18,10 @@
     </div>
     <div id="id_number_wrapper">
       <p id="employee_number" class="light">ID No. {{$user->employeeNumber}}</p>
+      <!--
       <p class="light">If found please call: <span id="employee_tin"></span></p>
       <p class="light">+63 403 4082<span id="employee_sss"></span></p>
+      -->
     </div>
   </div>
   <div id="controls">
