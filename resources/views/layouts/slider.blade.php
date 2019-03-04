@@ -100,7 +100,7 @@
 
                       <div class="item active text-center" >
                         <img src="./storage/uploads/cat-31.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade yesterday.<br/><br/>
+                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
 
                           More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
 
@@ -117,7 +117,7 @@
 
                       <div class="item text-center" >
                         <img src="./storage/uploads/cat-5.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade yesterday.<br/><br/>
+                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
 
                           More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
 
@@ -133,7 +133,7 @@
                       </div>
                       <div class="item text-center" >
                         <img src="./storage/uploads/cat-44.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade yesterday.<br/><br/>
+                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
 
                           More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
 
