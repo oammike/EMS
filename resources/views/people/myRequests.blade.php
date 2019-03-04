@@ -74,10 +74,16 @@
 
               <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
 
-              <a  href="{{action('UserOBTController@create',['for'=>$user->id])}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <br/><strong>(OBT)</strong></a>
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id])}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <br/><strong>(OBT)</strong></a><br/><br/>
+
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'ML'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-female"></i> Maternity Leave  <br/><strong>(ML)</strong></a>
+
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'PL'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-male"></i> Paternity Leave  <br/><strong>(PL)</strong></a>
+
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'SPL'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-street-view"></i> Single-Parent Leave  <br/><strong>(SPL)</strong></a>
             </strong>
            </p><br/>
-           <p class="text-center" ><a class="btn btn-xs btn-default btn-flat" href="{{action('DTRController@show',$user->id)}}"><i class="fa fa-calendar"></i>  {{$user->firstname}}'s DTR Sheet</a> </p>
+           
          
            @endif
 
@@ -96,6 +102,7 @@
              <div class="col-lg-1 col-sm-4  col-xs-9">
               </div>
               <div class="col-lg-10 col-sm-4 col-xs-12" ><!--style="background-color:#fff"-->
+                <a class="btn btn-xs btn-default btn-flat pull-left" href="{{action('DTRController@show',$user->id)}}"><i class="fa fa-calendar"></i>  {{$user->firstname}}'s DTR Sheet</a> <br/><br/>
                 <table class="table no-margin table-bordered table-striped" id="requests" style="background: rgba(256, 256, 256, 0.3)" ></table>
 
                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

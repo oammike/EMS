@@ -47,6 +47,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('user_obt','UserOBTController');
     Route::resource('user_lwop','UserLWOPController');
     Route::resource('user_memo','UserMemoController');
+    Route::resource('user_fl','UserFamilyleaveController');
     Route::resource('user_notification','UserNotificationController');
     Route::resource('user_ot','UserOTController');
     Route::resource('fixedSchedule','FixedScheduleController');
