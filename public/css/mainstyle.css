@@ -76,6 +76,11 @@
 p#employee_name{
   font-size: 30px;
   line-height: 40px;
+  font-weight: bold;
+   text-shadow: rgba(0,0,0,.01) 0 0 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 p#employee_nick{
   color: #219fec;
@@ -86,6 +91,11 @@ p#employee_position{
   font-size: 23px;
   line-height: 33px;
   letter-spacing: 1px;
+  font-weight: bold;
+   text-shadow: rgba(0,0,0,.01) 0 0 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 #foreground{
   position: absolute;
@@ -167,16 +177,16 @@ table{
 
 #id_number_wrapper{
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
   width: 100%;
   left: 35px;
 }
 #id_number_wrapper p, #id_number_wrapper p span{
-  font-size: 15px;
+  font-size: 20px;
   color: #fff;
   text-align: left;
   letter-spacing: 2px;
-  line-height: 25px;
+  line-height: 30px;
   margin: 0;
   padding: 0;
 }
