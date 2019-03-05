@@ -77,17 +77,26 @@ class IDController extends Controller
         }
         
         $image = imagecreatefromstring($image_base64);
-        $image_p = imagecreatetruecolor(528, 822);
         
-        $w = ImageSX($image);
-        $h = ImageSY($image);
-        $crop_y = ceil(($h - $w) / 2);
         
-        imagecopyresampled($image_p, $image, 0, 0, 0, $crop_y, 528, 822, $w, $h);
+        $width = ImageSX($image);
+        $height = ImageSY($image);
+    
+        $coefficient =  528 / 822;
+        if ($newHeight / $width > $coefficient) {
+            $coefficient = $newHeight / $width;
+        }
+    
+        // create image
+        $output = ImageCreateTrueColor($newWidth, $newHeight);
+    
+        ImageCopyResampled($output, $image, 0, 0, 0, 0, $width * $coefficient, $height * $coefficient, $width, $height);
+
         ob_start();
-        imagepng($image_p);
+        imagepng($output);
         $data = ob_get_contents();
         ob_end_clean();
+    
         
         $dir = "/var/www/html/evaluation/storage/uploads/id/";
         if (!file_exists($dir)) mkdir($dir, 0755, true);
