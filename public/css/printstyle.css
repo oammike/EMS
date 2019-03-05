@@ -1,10 +1,10 @@
 @page {
-  size: 2.21in 3.43in;
+  size: 2.204in 3.452in;
   margin: 0mm;
 }
 body{
-  width: 2.21in;
-  height: 3.43in;
+  width: 2.204in;
+  height: 3.452in;
   margin: 0;
   padding: 0;
 }
@@ -15,16 +15,16 @@ img{
 }
 @media print {
   html, body {
-    width: 2.21in;
-    height: 3.43in;
+    width: 2.204in;
+    height: 3.452in;
     margin: 0;
     padding: 0;
   }
   img{
     margin: 0;
     padding: 0;
-    width: 2.21in;
-    height: 3.43in;
+    width: 2.204in;
+    height: 3.452in;
     
     
   }
@@ -32,8 +32,8 @@ img{
     page-break-after: always; 
     margin: 0;
     padding: 0;
-    width: 2.21in;
-    height: 3.42in;
+    width: 2.204in;
+    height: 3.452in;
     
   }
 }
