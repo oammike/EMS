@@ -273,14 +273,9 @@ trait TimekeepingTraits
               
                //---- MARKETING TEAM CHECK: 15mins grace period
               
-              if( $campName == "Marketing" || $campName == "Lebua")
-              {
-                 if ($checkLate > 15) $isLateIN = true; else $isLateIN= false;
-
-              } else
-              {
+              
                  if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
-              }
+              
 
             } else {$isLateIN=false;$checkLate = $gbID->productionDate."| ". $actualIN->format('Y-m-d H:i:s')." > ". $todayStart->format('Y-m-d H:i:s')." && ". $todayEnd->format('Y-m-d H:i:s');}
 
@@ -290,14 +285,9 @@ trait TimekeepingTraits
               $checkEarlyOut = $actualOUT->diffInMinutes($todayEnd);
 
                //---- MARKETING TEAM CHECK: 15mins grace period
-              if( $campName == "Marketing" || $campName == "Lebua")
-              {
-                 if ($checkEarlyOut > 15) $isEarlyOUT = true; else $isEarlyOUT= false;
-
-              } else
-              {
+              
                  if ($checkEarlyOut > 1) $isEarlyOUT = true; else $isEarlyOUT= false;
-              }
+              
 
               
             } else $isEarlyOUT=false;
@@ -409,14 +399,9 @@ trait TimekeepingTraits
 
               //---- MARKETING TEAM CHECK: 15mins grace period
               
-              if( $campName == "Marketing" || $campName == "Lebua")
-              {
-                 if ($checkLate > 15) $isLateIN = true; else $isLateIN= false;
-
-              } else
-              {
+              
                  if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
-              }
+              
              
 
             }else {$isLateIN= false;}
@@ -2121,14 +2106,9 @@ trait TimekeepingTraits
             $checkLate = $userLogIN[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeStart'], "Asia/Manila"));
             //---- MARKETING TEAM CHECK: 15mins grace period
               
-              if( $campName == "Marketing" || $campName == "Lebua")
-              {
-                 if ($checkLate > 15) $isLateIN = true; else $isLateIN= false;
-
-              } else
-              {
+              
                  if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
-              }
+              
 
             
           } else $isLateIN= false;
@@ -2138,14 +2118,9 @@ trait TimekeepingTraits
           {
             $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeEnd'],"Asia/Manila"));
             //---- MARKETING TEAM CHECK: 15mins grace period
-              if( $campName == "Marketing" || $campName == "Lebua")
-              {
-                 if ($checkEarlyOut > 15) $isEarlyOUT = true; else $isEarlyOUT= false;
-
-              } else
-              {
+              
                  if ($checkEarlyOut > 1) $isEarlyOUT = true; else $isEarlyOUT= false;
-              }
+              
 
             
           } else $isEarlyOUT= false;
