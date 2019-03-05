@@ -81,13 +81,13 @@ class IDController extends Controller
         $filename = microtime(true);
         
         $image = imagecreatefromstring($image_base64);
-        $output = imagecreatetruecolor(528,822);
+        $output = imagecreatetruecolor(525,822);
         $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
-        imagefilledrectangle($output, 0, 0, 528, 822, $transparency);
+        imagefilledrectangle($output, 0, 0, 525, 822, $transparency);
         
         $width = ImageSX($image);
         $height = ImageSY($image);
-        imagecopyresampled($output, $image, 0, 0, 0, 0, 528, 822, $width, $height);
+        imagecopyresampled($output, $image, 0, 0, 0, 0, 525, 822, $width, $height);
         imagepng($output, $dir.$filename.".png", 9);
 
         echo "storage/uploads/id/".$filename.".png";
