@@ -55,6 +55,13 @@
               <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
 
               <a  href="{{action('UserOBTController@create')}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip <br/> <strong>(OBT)</strong></a></strong>
+              <br/><br/>
+
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'ML'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-female"></i> Maternity Leave  <br/><strong>(ML)</strong></a>
+
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'PL'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-male"></i> Paternity Leave  <br/><strong>(PL)</strong></a>
+
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'SPL'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-street-view"></i> Single-Parent Leave  <br/><strong>(SPL)</strong></a>
 
              <br/><br/><br/>
            </p>
