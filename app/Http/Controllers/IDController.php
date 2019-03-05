@@ -81,14 +81,17 @@ class IDController extends Controller
         
         $width = ImageSX($image);
         $height = ImageSY($image);
+        $newWidth = 528;
+        $newHeight = 822;
     
         $coefficient =  528 / 822;
+        $coefficient =  $newHeight / $height;
         if ($newHeight / $width > $coefficient) {
             $coefficient = $newHeight / $width;
         }
     
         // create image
-        $output = ImageCreateTrueColor(528, 822);
+        $output = ImageCreateTrueColor($newWidth, $newHeight);
     
         ImageCopyResampled($output, $image, 0, 0, 0, 0, $width * $coefficient, $height * $coefficient, $width, $height);
 
