@@ -12,7 +12,7 @@
       </div>
     </div>
     <div id="employee_details1">
-      <p id="employee_nick" class="medium">{{$user->nickname}}</p>
+      <p id="employee_nick" class="medium">{{ ucwords(strtolower($user->nickname)) }}</p>
       <p id="employee_name" class="light">{{ ucwords(strtolower($user->firstname)) }} {{ ucwords(strtolower($user->lastname)) }}</p>
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
@@ -46,7 +46,7 @@
       <div class="row">
         <form class="col s12">  
           <div class="input-field col s6">
-            <input placeholder="Ben" id="emp_nick" name="emp_nick" type="text" class="validate" value="{{ $user->nickname }}">
+            <input placeholder="Ben" id="emp_nick" name="emp_nick" type="text" class="validate" value="{{ ucwords(strtolower($user->nickname)) }}">
             <label for="emp_nick">Nickname</label>
           </div>
           <div class="input-field col s6">
@@ -375,7 +375,7 @@
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
 
       popupWin.document.open();
-      popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="window.print();">' + '<div><img src="{{ $url }}/' + window.filepath + '"></div>' + '</html>');
+      popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="window.print();">' + '<div><img src="{{ $url }}/' + window.filepath + '"></div>' + '</body></html>');
       popupWin.document.close();
       
       

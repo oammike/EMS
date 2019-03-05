@@ -61,8 +61,8 @@
 #employee_details1, #employee_details2{
   position: absolute;
   top: 375px;
-  left: 35px;
-  width: 345px;
+  left: 40px;
+  width: 340px;
 }
 #employee_details1 p{
   text-align: left;
@@ -177,7 +177,7 @@ table{
 
 #id_number_wrapper{
   position: absolute;
-  bottom: 25px;
+  bottom: 30px;
   width: 100%;
   left: 35px;
 }
