@@ -81,6 +81,9 @@ class IDController extends Controller
         $filename = microtime(true);
         
         $image = imagecreatefromstring($image_base64);
+        $output = imagecreatetruecolor(528,822);
+        $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
+        imagefilledrectangle($output, 0, 0, 528, 822, $transparency);
         
         $width = ImageSX($image);
         $height = ImageSY($image);
