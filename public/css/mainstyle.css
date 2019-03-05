@@ -13,16 +13,16 @@
   font-family:"medium";
 } 
 #id_wrapper{
-  width: 644px;
-  height: 1008px;
+  width: 661px;
+  height: 1036px;
   position: absolute;
   top: 0;
   left: 0;
   
 }
 #id_container {
-  width: 644px;
-  height: 1008px;
+  width: 661px;
+  height: 1036px;
   overflow: hidden;
 }         
 #videoElement {
@@ -38,7 +38,7 @@
   background: transparent;
   position: relative;
   left: 212px;
-  top: 288px;  
+  top: 316px;  
   width: 720px;
   height: 720px;
 }
@@ -101,8 +101,8 @@ p#employee_position{
   position: absolute;
   top: 0;
   left: 0;
-  width: 644px;
-  height: 1008px;
+  width: 661px;
+  height: 1036px;
 }
 #controls{
   width: 640px;
