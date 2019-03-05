@@ -75,7 +75,7 @@
 }
 p#employee_name{
   font-size: 35px;
-  line-height: 40px;
+  line-height: 50px;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -84,11 +84,11 @@ p#employee_name{
 p#employee_nick{
   color: #219fec;
   font-size: 60px;
-  line-height: 80px;
+  line-height: 70px;
 }
 p#employee_position{
   font-size: 25px;
-  line-height: 33px;
+  line-height: 27px;
   letter-spacing: 1px;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
