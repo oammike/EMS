@@ -79,8 +79,9 @@ class IDController extends Controller
         $image = imagecreatefromstring($image_base64);
         $image_p = imagecreatetruecolor(528, 822);
         
-        list($w, $h) = getimagesize($image);
-        $crop_y     =   ceil(($h - $w) / 2);
+        $w = ImageSX($image);
+        $h = ImageSY($image);
+        $crop_y = ceil(($h - $w) / 2);
         
         $imagecopyresampled($image_p, $image, 0, 0, 0, $crop_y, 528, 822, $w, $h);
         ob_start();
