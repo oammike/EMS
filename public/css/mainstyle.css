@@ -13,16 +13,16 @@
   font-family:"medium";
 } 
 #id_wrapper{
-  width: 644px;
-  height: 1008px;
+  width: 661px;
+  height: 1036px;
   position: absolute;
   top: 0;
   left: 0;
   
 }
 #id_container {
-  width: 644px;
-  height: 1008px;
+  width: 661px;
+  height: 1036px;
   overflow: hidden;
 }         
 #videoElement {
