@@ -76,35 +76,17 @@ class IDController extends Controller
             throw new \Exception('did not match data URI with image data');
         }
         
-        $image = imagecreatefromstring($image_base64);
-        
-        
-        $width = ImageSX($image);
-        $height = ImageSY($image);
-        $newWidth = 528;
-        $newHeight = 822;
-    
-        $coefficient =  528 / 822;
-        $coefficient =  $newHeight / $height;
-        if ($newHeight / $width > $coefficient) {
-            $coefficient = $newHeight / $width;
-        }
-    
-        // create image
-        $output = ImageCreateTrueColor($newWidth, $newHeight);
-    
-        ImageCopyResampled($output, $image, 0, 0, 0, 0, $width * $coefficient, $height * $coefficient, $width, $height);
-
-        ob_start();
-        imagepng($output);
-        $data = ob_get_contents();
-        ob_end_clean();
-    
-        
         $dir = "/var/www/html/evaluation/storage/uploads/id/";
         if (!file_exists($dir)) mkdir($dir, 0755, true);
         $filename = microtime(true);
-        file_put_contents($dir.$filename.".png", $data);
+        
+        $image = imagecreatefromstring($image_base64);
+        
+        $width = ImageSX($image);
+        $height = ImageSY($image);
+        imagecopyresampled($output, $image, 0, 0, 0, 0, 528, 822, $width, $height);
+        imagepng($output, $dir.$filename.".png", 9);
+
         echo "storage/uploads/id/".$filename.".png";
         
         exit;
