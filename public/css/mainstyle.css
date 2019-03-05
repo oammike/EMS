@@ -74,9 +74,8 @@
   letter-spacing: 1px;
 }
 p#employee_name{
-  font-size: 30px;
+  font-size: 35px;
   line-height: 40px;
-  font-weight: bold;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -88,10 +87,9 @@ p#employee_nick{
   line-height: 80px;
 }
 p#employee_position{
-  font-size: 23px;
+  font-size: 25px;
   line-height: 33px;
   letter-spacing: 1px;
-  font-weight: bold;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -177,7 +175,7 @@ table{
 
 #id_number_wrapper{
   position: absolute;
-  bottom: 30px;
+  bottom: 35px;
   width: 100%;
   left: 35px;
 }
