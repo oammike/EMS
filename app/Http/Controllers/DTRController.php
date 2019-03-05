@@ -788,6 +788,7 @@ class DTRController extends Controller
                             //**************************************************************
                             //      CWS & OT & DTRPs
                             //**************************************************************
+
                           $usercws = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
                           $approvedCWS  = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
                           
@@ -831,7 +832,7 @@ class DTRController extends Controller
 
                               if (count($check_monthly_WS) > 0)// if may monthly, compare it vs fixed
                               {
-                                if( $check_monthly_WS->first()->created_at > $check_fixed_WS->first()->created_at  ) //mas bago si Monthly
+                                if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
                                 {
 
                                   $workSched = $hybridSched_WS_monthly;
@@ -888,7 +889,7 @@ class DTRController extends Controller
 
                                 } else
                                 {
-                                  if ($check_monthly_RD->first()->created_at > $check_fixed_WS->first()->created_at) //mas updated yung RD so di sya WS
+                                  if ( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')) //mas updated yung RD so di sya WS
                                   {
                                     $workSched = $hybridSched_WS_monthly;
                                     $RDsched =  $hybridSched_RD_monthly;
@@ -931,7 +932,7 @@ class DTRController extends Controller
 
                                 if (count($check_monthly_RD) > 0) // if may monthly, compare it vs fixed
                                 {
-                                  if( $check_monthly_RD->first()->created_at > $check_fixed_RD->first()->created_at ) //mas bago si Monthly
+                                  if( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ) //mas bago si Monthly
                                   {
                                     $workSched = $hybridSched_WS_monthly;
                                     $RDsched = $hybridSched_RD_monthly;
@@ -965,7 +966,7 @@ class DTRController extends Controller
 
                                   if (count($check_monthly_WS) > 0)
                                   {
-                                    if($check_monthly_WS->first()->created_at > $check_fixed_RD->first()->created_at  )
+                                    if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )
                                     {
                                       $workSched = $hybridSched_WS_monthly;
                                       $RDsched = $hybridSched_RD_monthly;
@@ -1325,7 +1326,10 @@ class DTRController extends Controller
                                 
                                 else 
                                 { /*------- FOR REGULAR, NON-HYBRID SCHEDULES -------*/
-                                  if($isFixedSched) {$isRDToday = $RDsched->contains('workday',$numDay); 
+                                  if($isFixedSched) {
+
+                                    $isRDToday = $this->getLatestFixedSched($user,$numDay,$payday)->isRD;
+                                    //$isRDToday = $RDsched->contains('workday',$numDay); 
                                   //$coll2->push(['from: '=>"reg isFixed", 'RDsched'=>$RDsched, 'numDay'=>$numDay]); 
                                 }
                                   else
@@ -1352,100 +1356,100 @@ class DTRController extends Controller
                               if ($isRDToday)
                               {
                                 if($sameDayLog)
-                                      {
-                                        
+                                {
+                                  
 
-                                         $data = $this->getRDinfo($id, $bioForTheDay,true,$payday);
-                                         //$coll->push(['data'=>$data, 'isRDToday'=>$isRDToday]);
-                                         $coll->push(['data from:'=>"sameDayLog > RDToday > Restday"]);
-                                            $myDTR->push(['payday'=>$payday,
-                                               'biometrics_id'=>$bioForTheDay->id,
-                                               'hasCWS'=>$hasCWS,
-                                               //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
-                                               'usercws'=>$usercws,
-                                               'userOT'=>$userOT,
-                                               'hasPendingIN' => $data[0]['hasPendingIN'],
-                                               'pendingDTRPin'=> $data[0]['pendingDTRPin'],
-                                               'hasPendingOUT' => $data[0]['hasPendingOUT'],
-                                               'pendingDTRPout' => $data[0]['pendingDTRPout'],
-                                               'hasApprovedCWS'=> $hasApprovedCWS,
-                                               'hasOT'=>$hasOT,
-                                               'hasApprovedOT'=>$hasApprovedOT,
-                                               'isRD'=>$isRDToday,
-                                               'isFlexitime'=> $isFlexitime,
-                                               'productionDate'=> date('M d, Y', strtotime($payday)),
-                                               'day'=> date('D',strtotime($payday)),
-                                               'shiftStart'=> $data[0]['shiftStart'],
-                                               'shiftEnd'=>$data[0]['shiftEnd'],
+                                   $data = $this->getRDinfo($id, $bioForTheDay,true,$payday);
+                                   //$coll->push(['data'=>$data, 'isRDToday'=>$isRDToday]);
+                                   $coll->push(['data from:'=>"sameDayLog > RDToday > Restday"]);
+                                      $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
+                                         'biometrics_id'=>$bioForTheDay->id,
+                                         'hasCWS'=>$hasCWS,
+                                         //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
+                                         'usercws'=>$usercws,
+                                         'userOT'=>$userOT,
+                                         'hasPendingIN' => $data[0]['hasPendingIN'],
+                                         'pendingDTRPin'=> $data[0]['pendingDTRPin'],
+                                         'hasPendingOUT' => $data[0]['hasPendingOUT'],
+                                         'pendingDTRPout' => $data[0]['pendingDTRPout'],
+                                         'hasApprovedCWS'=> $hasApprovedCWS,
+                                         'hasOT'=>$hasOT,
+                                         'hasApprovedOT'=>$hasApprovedOT,
+                                         'isRD'=>$isRDToday,
+                                         'isFlexitime'=> $isFlexitime,
+                                         'productionDate'=> date('M d, Y', strtotime($payday)),
+                                         'day'=> date('D',strtotime($payday)),
+                                         'shiftStart'=> $data[0]['shiftStart'],
+                                         'shiftEnd'=>$data[0]['shiftEnd'],
 
-                                                'hasLeave' => null,
-                                                'leaveDetails'=>null,
-                                                'hasLWOP' => null,
-                                                'lwopDetails'=>null,
+                                          'hasLeave' => null,
+                                          'leaveDetails'=>null,
+                                          'hasLWOP' => null,
+                                          'lwopDetails'=>null,
 
 
+                                   'shiftStart2'=>  $data[0]['shiftStart'],
+                                   'shiftEnd2'=>$data[0]['shiftEnd'],
+                                         'logIN' => $data[0]['logIN'],
+                                         'logOUT'=>$data[0]['logOUT'],
+                                         'dtrpIN'=>$data[0]['dtrpIN'],
+                                         'dtrpOUT'=>$data[0]['dtrpOUT'],
+                                         'dtrpIN_id'=>$data[0]['dtrpIN_id'],
+                                         'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
+                                         'workedHours'=> $data[0]['workedHours'],
+                                         'billableForOT' => $data[0]['billableForOT'],
+                                         'OTattribute' => $data[0]['OTattribute'],
+                                         'UT'=>$data[0]['UT'],
+                                         'approvedOT' => $data[0]['approvedOT']]);
+
+                                }
+                                else //****** not sameDayLog
+                                {
+                                    $data = $this->getRDinfo($id, $bioForTheDay,false,$payday);
+                                    $coll->push(['data from:'=>"notsameDayLog > RDToday > Restday"]);
+
+                                     $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
+                                         'biometrics_id'=>$bioForTheDay->id,
+                                         'hasCWS'=>$hasCWS,
+                                         //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
+                                         'usercws'=>$usercws,
+                                         'userOT'=>$userOT,
+                                         'hasApprovedCWS'=> $hasApprovedCWS,
+                                         'hasOT'=>$hasOT,
+                                         'hasApprovedOT'=>$hasApprovedOT,
+                                         'hasPendingIN' => $data[0]['hasPendingIN'],
+                                         'pendingDTRPin'=> $data[0]['pendingDTRPin'],
+                                         'hasPendingOUT' => $data[0]['hasPendingOUT'],
+                                         'pendingDTRPout' => $data[0]['pendingDTRPout'],
+                                         'isRD'=>$isRDToday,
+                                         'isFlexitime'=> $isFlexitime,
+                                         'productionDate'=> date('M d, Y', strtotime($payday)),
+                                         'day'=> date('D',strtotime($payday)),
+                                         'shiftStart'=> $data[0]['shiftStart'],
+                                         'shiftEnd'=>$data[0]['shiftEnd'],
                                          'shiftStart2'=>  $data[0]['shiftStart'],
-                                         'shiftEnd2'=>$data[0]['shiftEnd'],
-                                               'logIN' => $data[0]['logIN'],
-                                               'logOUT'=>$data[0]['logOUT'],
-                                               'dtrpIN'=>$data[0]['dtrpIN'],
-                                               'dtrpOUT'=>$data[0]['dtrpOUT'],
-                                               'dtrpIN_id'=>$data[0]['dtrpIN_id'],
-                                               'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
-                                               'workedHours'=> $data[0]['workedHours'],
-                                               'billableForOT' => $data[0]['billableForOT'],
-                                               'OTattribute' => $data[0]['OTattribute'],
-                                               'UT'=>$data[0]['UT'],
-                                               'approvedOT' => $data[0]['approvedOT']]);
 
-                                      }
-                                      else //****** not sameDayLog
-                                      {
-                                          $data = $this->getRDinfo($id, $bioForTheDay,false,$payday);
-                                          $coll->push(['data from:'=>"notsameDayLog > RDToday > Restday"]);
+                                          'hasLeave' => null,
+                                          'leaveDetails'=>null,
+                                          'hasLWOP' => null,
+                                          'lwopDetails'=>null,
 
-                                           $myDTR->push(['payday'=>$payday,
-                                               'biometrics_id'=>$bioForTheDay->id,
-                                               'hasCWS'=>$hasCWS,
-                                               //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
-                                               'usercws'=>$usercws,
-                                               'userOT'=>$userOT,
-                                               'hasApprovedCWS'=> $hasApprovedCWS,
-                                               'hasOT'=>$hasOT,
-                                               'hasApprovedOT'=>$hasApprovedOT,
-                                               'hasPendingIN' => $data[0]['hasPendingIN'],
-                                               'pendingDTRPin'=> $data[0]['pendingDTRPin'],
-                                               'hasPendingOUT' => $data[0]['hasPendingOUT'],
-                                               'pendingDTRPout' => $data[0]['pendingDTRPout'],
-                                               'isRD'=>$isRDToday,
-                                               'isFlexitime'=> $isFlexitime,
-                                               'productionDate'=> date('M d, Y', strtotime($payday)),
-                                               'day'=> date('D',strtotime($payday)),
-                                               'shiftStart'=> $data[0]['shiftStart'],
-                                               'shiftEnd'=>$data[0]['shiftEnd'],
-                                               'shiftStart2'=>  $data[0]['shiftStart'],
+                                   'shiftEnd2'=>$data[0]['shiftEnd'],
+                                         'logIN' => $data[0]['logIN'],
+                                         'logOUT'=>$data[0]['logOUT']."<br/><small>".$bioForTomorrow->productionDate."</small>",
+                                         'dtrpIN'=>$data[0]['dtrpIN'],
+                                         'dtrpOUT'=>$data[0]['dtrpOUT'],
+                                         'dtrpIN_id'=>$data[0]['dtrpIN_id'],
+                                         'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
+                                         'workedHours'=> $data[0]['workedHours'],
+                                         'billableForOT' => $data[0]['billableForOT'],
+                                         'OTattribute' => $data[0]['OTattribute'],
+                                         'UT'=>$data[0]['UT'],
+                                         'approvedOT' => $data[0]['approvedOT']]);
 
-                                                'hasLeave' => null,
-                                                'leaveDetails'=>null,
-                                                'hasLWOP' => null,
-                                                'lwopDetails'=>null,
+                                
 
-                                         'shiftEnd2'=>$data[0]['shiftEnd'],
-                                               'logIN' => $data[0]['logIN'],
-                                               'logOUT'=>$data[0]['logOUT']."<br/><small>".$bioForTomorrow->productionDate."</small>",
-                                               'dtrpIN'=>$data[0]['dtrpIN'],
-                                               'dtrpOUT'=>$data[0]['dtrpOUT'],
-                                               'dtrpIN_id'=>$data[0]['dtrpIN_id'],
-                                               'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
-                                               'workedHours'=> $data[0]['workedHours'],
-                                               'billableForOT' => $data[0]['billableForOT'],
-                                               'OTattribute' => $data[0]['OTattribute'],
-                                               'UT'=>$data[0]['UT'],
-                                               'approvedOT' => $data[0]['approvedOT']]);
-
-                                      
-
-                                      }//end RD not SAME DAY LOG
+                                }//end RD not SAME DAY LOG
 
                                   
 
@@ -1756,7 +1760,7 @@ class DTRController extends Controller
 
                                     } 
                                     else{
-                                      $myDTR->push(['isAproblemShift'=>$isAproblemShift, 'payday'=> $payday,
+                                      $myDTR->push(['isRDToday'=>$isRDToday, 'isAproblemShift'=>$isAproblemShift, 'payday'=> $payday,
                                           'biometrics_id'=>$bioForTheDay->id,
                                           'hasCWS'=>$hasCWS,
                                           //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
@@ -1819,7 +1823,7 @@ class DTRController extends Controller
                   //$noWorkSched = null; //*** we need to reset things
              }//END foreach payrollPeriod
 
-             //return $coll;
+          //return $coll;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
@@ -1847,6 +1851,7 @@ class DTRController extends Controller
                 $notedMemo=true; $memo=null; //override for tour
 
 
+           //return response()->json(['isFixedSched'=>$isFixedSched]);
 
            return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo'));
 
