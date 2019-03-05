@@ -88,7 +88,7 @@ class IDController extends Controller
         }
     
         // create image
-        $output = ImageCreateTrueColor($newWidth, $newHeight);
+        $output = ImageCreateTrueColor(528, 822);
     
         ImageCopyResampled($output, $image, 0, 0, 0, 0, $width * $coefficient, $height * $coefficient, $width, $height);
 
