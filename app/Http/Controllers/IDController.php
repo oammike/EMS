@@ -83,7 +83,7 @@ class IDController extends Controller
         $h = ImageSY($image);
         $crop_y = ceil(($h - $w) / 2);
         
-        $imagecopyresampled($image_p, $image, 0, 0, 0, $crop_y, 528, 822, $w, $h);
+        imagecopyresampled($image_p, $image, 0, 0, 0, $crop_y, 528, 822, $w, $h);
         ob_start();
         imagepng($image_p);
         $data = ob_get_contents();
