@@ -749,9 +749,15 @@
             
             customButtons: {
               myCustomButton: {
-                text: 'View Daily Time Record',
+                text: 'DTR Sheet',
                 click: function() {
                   window.location = "{{action('DTRController@show',$user->id)}}";
+                }
+              },
+              viewRequests: {
+                text: 'DTR Requests',
+                click: function() {
+                  window.location = "{{action('UserController@userRequests',$user->id)}}";
                 }
               }
             },
@@ -761,14 +767,14 @@
               right: 'title, prev,next today',
               center: '',
               
-             left: 'myCustomButton' //month,agendaWeek,agendaDay'
+             left: 'myCustomButton, viewRequests' //month,agendaWeek,agendaDay'
             },
             @else
             header: {
               right: 'title, prev,next today',
               center: '',
               //left: ''
-              left: 'myCustomButton' //month,agendaWeek,agendaDay'
+              left: 'myCustomButton, viewRequests' //month,agendaWeek,agendaDay'
             },
             @endif
 
