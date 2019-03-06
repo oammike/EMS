@@ -173,8 +173,8 @@ class SurveyController extends Controller
       
 
       $description = $survey->description;
-      $headers = ['Program','Employee Tenure','Gender','Education','Course','Current Location','Hobbies/Interests','Commute Time (mins)'];
-      $c =8;
+      $headers = ['Lastname','Firstname', 'Program','Tenure','Gender','Education','Course','Current Location','Hobbies/Interests','Commute Time (mins)'];
+      $c =10;
       $q = 1;
       foreach ($allQuestions as $key) {
         $headers[$c] = "Q".$q.": ".$key->question; $c++;$q++;
@@ -204,6 +204,8 @@ class SurveyController extends Controller
                     {
                       $i = 0;
 
+                      $arr[$i] = $employee->lastname; $i++;
+                      $arr[$i] = $employee->firstname; $i++;
                       $arr[$i] = $employee->program; $i++;
 
                       //TENURE
