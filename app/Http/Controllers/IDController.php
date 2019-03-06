@@ -86,7 +86,7 @@ class IDController extends Controller
         $dir = "/var/www/html/evaluation/storage/uploads/id/";
         if (!file_exists($dir)) mkdir($dir, 0755, true);
         $filename = microtime(true);
-        $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
+        
         
         $image = imagecreatefromstring($image_base64);
         $width = ImageSX($image);
@@ -101,6 +101,7 @@ class IDController extends Controller
         }
         
         $output = imagecreatetruecolor($outputW,$outputH);
+        $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
         imagefilledrectangle($output, 0, 0, $outputW, $outputH, $transparency);
         imagecopyresampled($output, $image, 0, 0, 0, 0, $outputW, $outputH, $width, $height);
         imagepng($output, $dir.$filename.".png", 9);
