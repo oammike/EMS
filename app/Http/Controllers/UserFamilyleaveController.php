@@ -95,14 +95,15 @@ class UserFamilyleaveController extends Controller
        $leaveFrom = $request->leaveFrom;
        $leaveTo = $request->leaveTo;
 
-       $sl = User_SL::where('user_id',$request->userid)->where('leaveStart','>=',$leaveFrom)->where('leaveEnd','<=',$leaveTo)->get();
+       $sl = User_Familyleave::where('user_id',$request->userid)->where('leaveStart','>=',$leaveFrom)->where('leaveEnd','<=',$leaveTo)->get();
        if (count($sl)>0) return response()->json(['existing'=>'1', 'sl'=>$sl ]);
        return response()->json(['existing'=>'0', 'sl'=>$sl]);
     }
 
     public function create(Request $request)
     {
-        return view('access-denied');
+        //return view('access-denied');
+
         //check first kung may plotted sched and if approver submitted
         if(is_null($request->for))
             {
@@ -115,6 +116,16 @@ class UserFamilyleaveController extends Controller
                 $forSomeone = $user;
 
             }
+
+            $type = Input::get('type');
+
+            $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+                       if($this->user->id !== 564 ) {
+                          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                            fwrite($file, "-------------------\n Tried [".$type. "]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                            fclose($file);
+                        } 
                  
 
         if (count($user) <1) return view('empty');
@@ -122,10 +133,18 @@ class UserFamilyleaveController extends Controller
         {
             //check mo kung leave for himself or if for others and approver sya
             $approvers = $user->approvers;
+            $creditsLeft = 0;
             //Timekeeping Trait
             $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+            $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
 
-            if(!is_null($request->for) && !$anApprover ) return view('access-denied');
+
+
+            /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+            $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+            $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+            if ($isBackoffice && $isWorkforce && ($this->user->id != $user->id && !$anApprover) )  return view('access-denied');
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {
@@ -154,80 +173,44 @@ class UserFamilyleaveController extends Controller
                     //if ($lengthOfService >= 6)
                     //{
 
-                    $type = Input::get('type');
-                    switch ($type) {
-                        case 'ML': if( !is_null($user->gender) && $user->gender !== 'F' ) return view('access-denied');
+                    if (empty($request->from))
+                        $vl_from = Carbon::today();
+                    else $vl_from = Carbon::parse($request->from,"Asia/Manila");
+                    $startOfYear = $vl_from->copy()->startOfYear();
+                    $endOfYear   = $vl_from->copy()->endOfYear();
+
+                    
+                    $hasFiledAlready = DB::table('user_familyleaves')->where('user_id',$user->id)->
+                                                            where('leaveType',$type)->
+                                                            where('leaveStart','>=',$startOfYear->format('Y-m-d H:i:s'))->
+                                                            where('leaveEnd','<=',$endOfYear->format('Y-m-d H:i:s'))->
+                                                            where('isApproved',true)->get();
+
+                    if (count($hasFiledAlready) > 0 && $type !== 'SPL') return view('access-denied');
+
+                    switch ($type) 
+                    {
+                        case 'ML': { $leaveType = "Maternity Leave"; $icon="fa fa-female"; if( !is_null($user->gender) && $user->gender !== 'F' ) return view('access-denied'); $creditsLeft=105.0-1.0;} 
                         break;
 
-                        case 'PL':if( !is_null($user->gender) && $user->gender !== 'M' ) return view('access-denied');
+                        case 'PL':{ $leaveType = "Paternity Leave"; $icon="fa fa-male"; if( !is_null($user->gender) && $user->gender !== 'M' ) return view('access-denied'); $creditsLeft=7.0-1.0; }
                         break;
 
-                        case 'SPL':
-                            //check for tax status
-                            break;
+                        case 'SPL':{ $leaveType = "Single-Parent Leave"; $icon="fa fa-street-view"; $creditsLeft=7.0-1.0; }  break;
                         
-                       
                     }
-                        if (empty($request->from))
-                            $vl_from = Carbon::today();
-                        else $vl_from = Carbon::parse($request->from,"Asia/Manila");
 
-                        
-                        $hasSavedCredits=false;
+                    $hasSavedCredits = true;
 
-                        $savedCredits = User_SLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
+                    /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
+                    $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
 
-                        
-                        
-                            /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
-                            $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
-                            if (count($holiday) > 0 ){
-                                $used = '0.00'; //less 1 day assume wholeday initially
-                                if (count($savedCredits)>0){
-                                     $hasSavedCredits = true;
-                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
-                                 }else {
+                    (count($holiday) > 0 ) ? $used = '0.00' : $used='1.00';
 
-                                    //check muna kung may existing approved VLs
-                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                    if (count($approvedVLs) > 0 )
-                                    {
-                                        $usedC = 0;
-                                        foreach ($approvedVLs as $key) {
-                                            $usedC += $key->totalCredits;
-                                        }
-                                        $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
-                                    }
-                                    else
-                                    $creditsLeft = (0.84 * $today->format('m')) ;
-                                 }
-                                 
-                            }
-                            else{
-                                $used='1.00';
-                                if (count($savedCredits)>0){
-                                    $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used-1);
-                                 }else {
 
-                                    //check muna kung may existing approved VLs
-                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                    if (count($approvedVLs) > 0 )
-                                    {
-                                        $usedC = 0;
-                                        foreach ($approvedVLs as $key) {
-                                            $usedC += $key->totalCredits;
-                                        }
-                                        $creditsLeft =((0.84 * $today->format('m')) - $usedC) - 1 ;
-                                    }
-                                    else
-                                        $creditsLeft = (0.84 * $today->format('m'))-1 ;
-                                }
-                            } 
+                    
 
-                        
-                        
-                        return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits'));
+                    return view('timekeeping.user-fl_create',compact('user','leaveType','type','icon', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits'));
 
                     //}else return view('access-denied');
 
@@ -254,7 +237,7 @@ class UserFamilyleaveController extends Controller
 
     public function deleteThisSL($id, Request $request)
     {
-        $theVL = User_SL::find($id);
+        $theVL = User_Familyleave::find($id);
 
         //find all notifications related to that OT
         $theNotif = Notification::where('relatedModelID', $theVL->id)->where('type',$request->notifType)->get();
@@ -269,13 +252,13 @@ class UserFamilyleaveController extends Controller
         
 
      /***** once saved, update your leave credits ***/
-        $userVLs = User_SLcredits::where('user_id',$theVL->user_id)->orderBy('creditYear','DESC')->get();
-        if (count($userVLs) > 0 )
-        {
-            $vlcredit = $userVLs->first();
-            $vlcredit->used -= $theVL->totalCredits;
-            $vlcredit->push();
-        }
+        // $userVLs = User_SLcredits::where('user_id',$theVL->user_id)->orderBy('creditYear','DESC')->get();
+        // if (count($userVLs) > 0 )
+        // {
+        //     $vlcredit = $userVLs->first();
+        //     $vlcredit->used -= $theVL->totalCredits;
+        //     $vlcredit->push();
+        // }
 
 
         $theVL->delete();
@@ -323,7 +306,7 @@ class UserFamilyleaveController extends Controller
 
         //$mayExisting = User_VL::where('user_id',$user->id)->where('leaveStart','>=',$vf->startOfDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))get();
 
-        $mayExisting = User_SL::where('user_id',$user->id)->where('leaveEnd','>=',$vf->endOfDay()->format('Y-m-d H:i:s'))->get();
+        $mayExisting = User_Familyleave::where('user_id',$user->id)->where('leaveEnd','>=',$vf->endOfDay()->format('Y-m-d H:i:s'))->get();
         $interval = new \DateInterval("P1D");
 
         /*if (count($mayExisting) > 0)
@@ -473,7 +456,7 @@ class UserFamilyleaveController extends Controller
 
     public function item($id)
     {
-        $item = User_SL::find($id);
+        $item = User_Familyleave::find($id);
         if (count($item)>0)
         return response()->file(storage_path('uploads/'.$item->attachments));
         else 
@@ -485,11 +468,11 @@ class UserFamilyleaveController extends Controller
     public function process(Request $request)
     {
         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-        fwrite($file, "-------------------\n [". $request->id."] VL REQUEST \n");
+        fwrite($file, "-------------------\n [". $request->id."] FL REQUEST \n");
         fclose($file);
 
 
-        $vl = User_SL::find($request->id);
+        $vl = User_Familyleave::find($request->id);
         $vl->approver = $this->getTLapprover($vl->user_id, $this->user->id);
         
         if ($request->isApproved == 1){
@@ -502,16 +485,23 @@ class UserFamilyleaveController extends Controller
         $vl->save();
 
         /***** once saved, update your leave credits ***/
-        $userVLs = User_SLcredits::where('user_id',$vl->user_id)->orderBy('creditYear','DESC')->get();
-        if (count($userVLs) > 0 && $vl->isApproved)
-        {
-            $vlcredit = $userVLs->first();
-            $vlcredit->used += $vl->totalCredits;
-            $vlcredit->push();
-        }
+        // $userVLs = User_SLcredits::where('user_id',$vl->user_id)->orderBy('creditYear','DESC')->get();
+        // if (count($userVLs) > 0 && $vl->isApproved)
+        // {
+        //     $vlcredit = $userVLs->first();
+        //     $vlcredit->used += $vl->totalCredits;
+        //     $vlcredit->push();
+        // }
 
          //**** send notification to the sender
-        $theNotif = Notification::where('relatedModelID', $vl->id)->where('type',11)->get();
+
+        switch ($vl->leaveType) {
+            case 'ML':$t = 16;break;
+            case 'PL':$t = 17;break;
+            case 'SPL':$t = 18;break;   
+        }
+
+        $theNotif = Notification::where('relatedModelID', $vl->id)->where('type',$t)->get();
 
         //then remove those sent notifs to the approvers since it has already been approved/denied
         if (count($theNotif) > 0)
@@ -526,7 +516,7 @@ class UserFamilyleaveController extends Controller
         
           /* -------------- log updates made --------------------- */
          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n [". $vl->id."] VL update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+            fwrite($file, "-------------------\n [". $vl->id."] ".$vl->leaveType." update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
             fclose($file);
 
         $user = User::find($vl->user_id);
@@ -538,12 +528,13 @@ class UserFamilyleaveController extends Controller
     }
 
 
-    public function requestSL(Request $request)
+    public function requestFL(Request $request)
     {
 
         
-       $vl = new User_SL;
+       $vl = new User_Familyleave;
        $vl->user_id = $request->userid;
+       $vl->leaveType = $request->type;
         $vl->leaveStart =  $request->leaveFrom;
         $vl->leaveEnd = $request->leaveTo;
         $vl->notes = $request->reason_vl;
@@ -559,6 +550,8 @@ class UserFamilyleaveController extends Controller
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $TLapprover = $this->getTLapprover($employee->id, $this->user->id);
 
+        $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null;
+        /*
         
         if ($anApprover)
         {
@@ -566,7 +559,7 @@ class UserFamilyleaveController extends Controller
 
            
 
-        } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
+        } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }*/
 
 
 
@@ -586,7 +579,7 @@ class UserFamilyleaveController extends Controller
             
                 /* -------------- log updates made --------------------- */
             $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "\n-------------------\n New MedCert uploaded : ". $fileName ." ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+            fwrite($file, "\n-------------------\n New ".$vl->leaveType." req uploaded : ". $fileName ." ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
             
               
@@ -595,8 +588,11 @@ class UserFamilyleaveController extends Controller
 
         $vl->save();
 
+
+        /***** once saved, update your leave credits ***/
+        /*
         if ($anApprover){
-             /***** once saved, update your leave credits ***/
+             
             $userVLs = User_SLcredits::where('user_id',$employee->id)->orderBy('creditYear','DESC')->get();
             if (count($userVLs) > 0 && $vl->isApproved)
             {
@@ -604,7 +600,7 @@ class UserFamilyleaveController extends Controller
                 $vlcredit->used += $vl->totalCredits;
                 $vlcredit->push();
             }
-        }
+        }*/
         
 
 
@@ -613,7 +609,13 @@ class UserFamilyleaveController extends Controller
 
             $notification = new Notification;
             $notification->relatedModelID = $vl->id;
-            $notification->type = 11;
+
+            switch ($vl->leaveType) {
+                case 'ML':{$notification->type = 16; $heading = "Maternity Leave"; }break;
+                case 'PL':{$notification->type = 17; $heading = "Paternity Leave"; }break;
+                case 'SPL':{$notification->type = 18; $heading = "Single-Parent Leave"; }break;
+            }
+            
             $notification->from = $vl->user_id;
             $notification->save();
 
@@ -627,10 +629,10 @@ class UserFamilyleaveController extends Controller
 
                 // NOW, EMAIL THE TL CONCERNED
             
-                $email_heading = "New Sick Leave Request from: ";
+                $email_heading = "New ".$heading. " Request from: ";
                 $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
                                Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
-                $actionLink = action('UserSLController@show',$vl->id);
+                $actionLink = action('UserFamilyleaveController@show',$vl->id);
                
                  /*Mail::send('emails.generalNotif', ['user' => $TL, 'employee'=>$employee, 'email_heading'=>$email_heading, 'email_body'=>$email_body, 'actionLink'=>$actionLink], function ($m) use ($TL) 
                  {
@@ -651,10 +653,13 @@ class UserFamilyleaveController extends Controller
             
 
         }
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+         
 
          /* -------------- log updates made --------------------- */
          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." SL submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." " .$vl->leaveType." submission ". $correct->format('M d h:i A'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
          
 

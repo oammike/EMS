@@ -402,6 +402,56 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserOBTController@process') );
 
 
+      /*********** FAMILY LEAVES **********/
+
+       Route::post('/user_fl/editCredits/{id}', array(
+      'as'=> 'user_fl.editCredits',
+      'uses'=>'UserFamilyleaveController@editCredits') );
+
+
+      Route::post('/user_fl/addCredits', array(
+      'as'=> 'user_fl.addCredits',
+      'uses'=>'UserFamilyleaveController@addCredits') );
+
+      Route::post('/user_fl/checkExisting', array(
+      'as'=> 'user_fl.checkExisting',
+      'uses'=>'UserFamilyleaveController@checkExisting') );
+
+      Route::post('/user_fl/deleteCredit/{id}', array(
+      'as'=> 'user_fl.deleteCredit',
+      'uses'=>'UserFamilyleaveController@deleteCredit') );
+
+       Route::post('/user_fl/requestFL', array(
+      'as'=> 'user_fl.requestFL',
+      'uses'=>'UserFamilyleaveController@requestFL') );
+
+       Route::post('/user_fl/getCredits', array(
+      'as'=> 'user_fl.getCredits',
+      'uses'=>'UserFamilyleaveController@getCredits') );
+
+       Route::get('/user_fl/showCredits/{id}', array(
+      'as'=> 'user_fl.showCredits',
+      'uses'=>'UserFamilyleaveController@showCredits') );
+
+        Route::post('/user_fl/deleteThisSL/{id}', array(
+      'as'=> 'user_fl.deleteThisVL',
+      'uses'=>'UserFamilyleaveController@deleteThisSL') );
+
+      Route::post('/user_fl/process', array(
+      'as'=> 'user_fl.process',
+      'uses'=>'UserFamilyleaveController@process') );
+
+      
+
+      Route::post('/user_fl/uploadCredits', array(
+      'as'=> 'user_fl.uploadCredits',
+      'uses'=>'UserFamilyleaveController@uploadCredits') );
+
+       Route::get('/user_fl/requirements/{id}', array(
+      'as'=> 'user_fl.item',
+      'uses'=>'UserFamilyleaveController@item') );
+
+
     
     /*********** DTR ROUTES ************/
 

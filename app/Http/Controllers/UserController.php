@@ -27,6 +27,7 @@ use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_OBT;
+use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\Campaign;
 use OAMPI_Eval\Status;
 use OAMPI_Eval\Team;
@@ -803,6 +804,9 @@ class UserController extends Controller
         $sl = User_SL::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $lwop = User_LWOP::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $obt = User_OBT::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
+        $ml = User_Familyleave::where('user_id',$this->user->id)->where('leaveType','ML')->orderBy('updated_at','DESC')->get();
+        $pl = User_Familyleave::where('user_id',$this->user->id)->where('leaveType','PL')->orderBy('updated_at','DESC')->get();
+        $spl = User_Familyleave::where('user_id',$this->user->id)->where('leaveType','SPL')->orderBy('updated_at','DESC')->get();
 
         ($this->user->nickname !== null) ? $nickname = $this->user->nickname." ".$this->user->lastname : $nickname = $this->user->firstname." ".$this->user->lastname;
 
@@ -818,6 +822,9 @@ class UserController extends Controller
         $sl = User_SL::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $lwop = User_LWOP::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $obt = User_OBT::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
+        $ml = User_Familyleave::where('user_id',$user->id)->where('leaveType','ML')->orderBy('updated_at','DESC')->get();
+        $pl = User_Familyleave::where('user_id',$user->id)->where('leaveType','PL')->orderBy('updated_at','DESC')->get();
+        $spl = User_Familyleave::where('user_id',$user->id)->where('leaveType','SPL')->orderBy('updated_at','DESC')->get();
 
 
         ($user->nickname !== null) ? $nickname = $user->nickname." ".$user->lastname : $nickname = $user->firstname." ".$user->lastname;
@@ -1017,7 +1024,62 @@ class UserController extends Controller
         $requests->push(['type'=>"Official Business Trip",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'13','icon'=>"fa-suitcase",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
 
-      //$requests->push(['cws'=>$cws,'dtrp'=>$dtrp,'ot'=>$ot,'vl'=>$vl]);
+      /*------ ML  --------*/
+      foreach ($ml as $key) {
+        if (is_null($key->approver)) {$approver=null; $tlPic = asset('public/img/useravatar.png');}
+         else
+        {
+          $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          if ( file_exists('public/img/employees/'.$approver->id.'.jpg') ) $tlPic = asset('public/img/employees/'.$approver->id.'.jpg');
+          else $tlPic = asset('public/img/useravatar.png');
+        }
+
+        $prod = $key->leaveStart; //Biometrics::find($key->biometrics_id)->productionDate;
+        $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
+        $prodDate = Carbon::parse($prod,"Asia/Manila");
+
+        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+
+        $requests->push(['type'=>"Maternity Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'16','icon'=>"fa-female",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
+      }
+
+      /*------ PL  --------*/
+      foreach ($pl as $key) {
+        if (is_null($key->approver)) {$approver=null; $tlPic = asset('public/img/useravatar.png');}
+         else
+        {
+          $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          if ( file_exists('public/img/employees/'.$approver->id.'.jpg') ) $tlPic = asset('public/img/employees/'.$approver->id.'.jpg');
+          else $tlPic = asset('public/img/useravatar.png');
+        }
+
+        $prod = $key->leaveStart; //Biometrics::find($key->biometrics_id)->productionDate;
+        $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
+        $prodDate = Carbon::parse($prod,"Asia/Manila");
+
+        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+
+        $requests->push(['type'=>"Paternity Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'17','icon'=>"fa-male",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
+      }
+
+       /*------ PL  --------*/
+      foreach ($spl as $key) {
+        if (is_null($key->approver)) {$approver=null; $tlPic = asset('public/img/useravatar.png');}
+         else
+        {
+          $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          if ( file_exists('public/img/employees/'.$approver->id.'.jpg') ) $tlPic = asset('public/img/employees/'.$approver->id.'.jpg');
+          else $tlPic = asset('public/img/useravatar.png');
+        }
+
+        $prod = $key->leaveStart; //Biometrics::find($key->biometrics_id)->productionDate;
+        $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
+        $prodDate = Carbon::parse($prod,"Asia/Manila");
+
+        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+
+        $requests->push(['type'=>"Single-parent Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'18','icon'=>"fa-street-view",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
+      }
 
 
 

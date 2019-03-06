@@ -931,6 +931,9 @@ select:-webkit-autofill:focus {
                                 case 13: icon='fa-suitcase';break;
                                 case 14: icon="fa-unlock";break;
                                 case 15: icon="fa-clock-o";break;
+                                case 16: icon="fa-female";break;
+                                case 17: icon="fa-male";break;
+                                case 18: icon="fa-street-view";break;
                               }
             
 
@@ -1262,6 +1265,129 @@ select:-webkit-autofill:focus {
 
 
                               
+
+                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                            } break;
+
+                                 //ML
+                                case 16: { 
+
+                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          
+
+                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                          else{
+
+                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                              else var totalcreds = full.deets.totalCredits;
+                                            }
+
+                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>';
+                                         
+
+                                          if (full.deets.attachments != null)
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/medCert/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                               
+
+
+                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                  
+                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                            } break;
+
+                                  //PL
+                                case 17: { 
+
+                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          
+
+                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                          else{
+
+                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                              else var totalcreds = full.deets.totalCredits;
+                                            }
+
+                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>PATERNITY LEAVE &nbsp;&nbsp;</strong>';
+                                         
+
+                                          if (full.deets.attachments != null)
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/medCert/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                               
+
+
+                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                  
+                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                            } break;
+
+                                 //SPL
+                                case 18: { 
+
+                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          
+
+                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                          else{
+
+                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                              else var totalcreds = full.deets.totalCredits;
+                                            }
+
+                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>';
+                                         
+
+                                          if (full.deets.attachments != null)
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/medCert/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                               
+
+
+                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                  
+                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
 
                                                   //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                             } break;
@@ -1621,7 +1747,7 @@ select:-webkit-autofill:focus {
 
                               }break;  
 
-                      case '15': { //PS OT
+                    case '15': { //PS OT
                                   $.ajax({
                                             url: "{{action('UserOTController@process')}}",
                                             type:'POST',
@@ -1642,6 +1768,105 @@ select:-webkit-autofill:focus {
                                                $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
                                              else
                                                $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                              //window.location = "{{action('HomeController@index')}}";
+                                               
+                                            }, error: function(res){
+                                              console.log("ERROR");
+                                              console.log(res);
+                                            }
+
+
+                                  });
+
+                              }break;
+
+                    case '16': { //ML
+                                  $.ajax({
+                                            url: "{{action('UserFamilyleaveController@process')}}",
+                                            type:'POST',
+                                            data:{ 
+
+                                              'id': id,
+                                              'isApproved': processAction,
+                                              '_token':_token
+                                            },
+
+                                           
+                                            success: function(res)
+                                            {
+                                              console.log(res);
+                                              $('#myModal_DTRP'+notif).modal('hide');
+
+                                              if (processAction == '1')
+                                               $.notify("Submitted ML request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                             else
+                                               $.notify("Submitted ML request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                              //window.location = "{{action('HomeController@index')}}";
+                                               
+                                            }, error: function(res){
+                                              console.log("ERROR");
+                                              console.log(res);
+                                            }
+
+
+                                  });
+
+                              }break;
+
+                    case '17': { //PL
+                                  $.ajax({
+                                            url: "{{action('UserFamilyleaveController@process')}}",
+                                            type:'POST',
+                                            data:{ 
+
+                                              'id': id,
+                                              'isApproved': processAction,
+                                              '_token':_token
+                                            },
+
+                                           
+                                            success: function(res)
+                                            {
+                                              console.log(res);
+                                              $('#myModal_DTRP'+notif).modal('hide');
+
+                                              if (processAction == '1')
+                                               $.notify("Submitted PL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                             else
+                                               $.notify("Submitted PL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                              //window.location = "{{action('HomeController@index')}}";
+                                               
+                                            }, error: function(res){
+                                              console.log("ERROR");
+                                              console.log(res);
+                                            }
+
+
+                                  });
+
+                              }break;
+
+                    case '18': { //SSPL
+                                  $.ajax({
+                                            url: "{{action('UserFamilyleaveController@process')}}",
+                                            type:'POST',
+                                            data:{ 
+
+                                              'id': id,
+                                              'isApproved': processAction,
+                                              '_token':_token
+                                            },
+
+                                           
+                                            success: function(res)
+                                            {
+                                              console.log(res);
+                                              $('#myModal_DTRP'+notif).modal('hide');
+
+                                              if (processAction == '1')
+                                               $.notify("Submitted SPL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                             else
+                                               $.notify("Submitted SPL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){

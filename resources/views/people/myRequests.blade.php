@@ -532,6 +532,147 @@
                                           modalcode += '<p class="text-left"><em>'+full.details.reason+'</em></p> </div>';
                                       };break;
 
+
+                            case '16': { /*------- Maternity LEAVE --------*/
+
+                                          var deleteLink = "../user_fl/deleteThisSL/"+data_id;
+                                          var leaveStart = moment(full.details.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.details.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          var halfFrom = full.details.halfdayFrom;
+                                          var halfTo = full.details.halfdayTo;
+
+                                           if (full.details.totalCredits % 1 === 0) var totalcreds = Math.floor(full.details.totalCredits);
+                                          else{
+                                                if(full.details.totalCredits == '0.50') var totalcreds = "half";
+                                                  else var totalcreds = full.details.totalCredits;
+
+                                          } 
+
+                                          modalcode += '<p class="text-left"><br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>' ;  
+                                          if (full.details.attachments != null)
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="../user_fl/requirements/'+full.details.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp; &nbsp; &nbsp;attached</a></span>';
+                                         
+                                          modalcode += ' <br/><br/><strong>Reason: </strong><em>'+full.details.notes+'</em></p>';
+                                          
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                          mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                          if (halfFrom == '1' && halfTo == '1')
+                                          {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd")+' (Whole day) </strong></p>';
+
+                                          } else {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+                                          }
+                                          
+                                          mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+
+                                          // if (halfTo == '1')
+                                          //   mc1 += '<p><strong>'+leaveEnd.format("MMM DD, YYYY")+' (Whole day) </strong></p></div>';
+                                          // else
+                                            mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+                                           
+
+                                        } break;
+                            case '17': { /*------- Maternity LEAVE --------*/
+
+                                          var deleteLink = "../user_fl/deleteThisSL/"+data_id;
+                                          var leaveStart = moment(full.details.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.details.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          var halfFrom = full.details.halfdayFrom;
+                                          var halfTo = full.details.halfdayTo;
+
+                                           if (full.details.totalCredits % 1 === 0) var totalcreds = Math.floor(full.details.totalCredits);
+                                          else{
+                                                if(full.details.totalCredits == '0.50') var totalcreds = "half";
+                                                  else var totalcreds = full.details.totalCredits;
+
+                                          } 
+
+                                          modalcode += '<p class="text-left"><br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>PATERNITY LEAVE &nbsp;&nbsp;</strong>' ;  
+                                          if (full.details.attachments != null)
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="../user_fl/requirements/'+full.details.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp; &nbsp; &nbsp;attached</a></span>';
+                                         
+                                          modalcode += ' <br/><br/><strong>Reason: </strong><em>'+full.details.notes+'</em></p>';
+                                          
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                          mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                          if (halfFrom == '1' && halfTo == '1')
+                                          {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd")+' (Whole day) </strong></p>';
+
+                                          } else {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+                                          }
+                                          
+                                          mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+
+                                          // if (halfTo == '1')
+                                          //   mc1 += '<p><strong>'+leaveEnd.format("MMM DD, YYYY")+' (Whole day) </strong></p></div>';
+                                          // else
+                                            mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+                                           
+
+                                        } break;
+
+                            case '18': { /*------- Maternity LEAVE --------*/
+
+                                          var deleteLink = "../user_fl/deleteThisSL/"+data_id;
+                                          var leaveStart = moment(full.details.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.details.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          var halfFrom = full.details.halfdayFrom;
+                                          var halfTo = full.details.halfdayTo;
+
+                                           if (full.details.totalCredits % 1 === 0) var totalcreds = Math.floor(full.details.totalCredits);
+                                          else{
+                                                if(full.details.totalCredits == '0.50') var totalcreds = "half";
+                                                  else var totalcreds = full.details.totalCredits;
+
+                                          } 
+
+                                          modalcode += '<p class="text-left"><br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SINGLE-PARENT LEAVE &nbsp;&nbsp;</strong>' ;  
+                                          if (full.details.attachments != null)
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="../user_fl/requirements/'+full.details.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp; &nbsp; &nbsp;attached</a></span>';
+                                         
+                                          modalcode += ' <br/><br/><strong>Reason: </strong><em>'+full.details.notes+'</em></p>';
+                                          
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                          mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                          if (halfFrom == '1' && halfTo == '1')
+                                          {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd")+' (Whole day) </strong></p>';
+
+                                          } else {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+                                          }
+                                          
+                                          mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+
+                                          // if (halfTo == '1')
+                                          //   mc1 += '<p><strong>'+leaveEnd.format("MMM DD, YYYY")+' (Whole day) </strong></p></div>';
+                                          // else
+                                            mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+                                           
+
+                                        } break;
+
                                       
                          }
 
@@ -761,6 +902,9 @@
                 case '12': {var requesttype="Leave Without Pay"; var processlink = "{{action('UserLWOPController@process')}}"; }break;
                 case '13': {var requesttype="Official Business Leave"; var processlink = "{{action('UserOBTController@process')}}"; }break;
                 case '15': {var requesttype="Overtime (Pre-Shift)"; var processlink = "{{action('UserOTController@process')}}"; }break;
+                case '16': {var requesttype="Maternity Leave (ML)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
+                case '17': {var requesttype="Paternity Leave (PL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
+                case '18': {var requesttype="Single-Parent Leave (SPL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
               }
 
               $.ajax({

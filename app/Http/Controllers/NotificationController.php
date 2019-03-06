@@ -46,6 +46,7 @@ use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_LWOP;
+use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\Biometrics;
 
 class NotificationController extends Controller
@@ -124,6 +125,9 @@ class NotificationController extends Controller
                         case '13': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_OBT::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
                         case '14': $fromData = null; break;
                         case '15': $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '16': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '17': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '18': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
 
                       }
                       
@@ -214,7 +218,7 @@ class NotificationController extends Controller
 
                      // TL requestor
 
-                      if ($notif->detail->type == 15) //problema gawa ni WFM
+                      if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
                       {
                         $img = asset('public/img/employees/'.$fromData->id.'.jpg');
                         $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
@@ -727,6 +731,99 @@ class NotificationController extends Controller
                               else{
                                 $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
                                 $message = " filed a <strong>Pre-Shift OT</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->leaveStart))."</span>";
+
+
+                              }
+
+
+                              
+                            }
+
+
+                          }break; 
+
+                // ML
+                case 16: {
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            if (is_null($thereq)){
+                              $theBio = null;
+                              $message=" filed a <strong>Maternity Leave</strong>";
+                              //$coll->push(['approved'=>"Data Not Found", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+                            }
+                            else{
+
+                              if ($ownNotif){
+                                if ($thereq->isApproved){
+                                  $message = " <strong>approved</strong> your Maternity Leave request";
+                                }else $message = " <strong>denied</strong> your Maternity Leave request. I'm sorry. <strong><i class='fa fa-meh-o'></i></strong> ";
+                                
+                              }
+                              else{
+                                $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
+                                $message = " filed a <strong>Maternity Leave</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->leaveStart))."</span>";
+
+
+                              }
+
+
+                              
+                            }
+
+
+                          }break;
+
+                // PL
+                case 17: {
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            if (is_null($thereq)){
+                              $theBio = null;
+                              $message=" filed a <strong>Paternity Leave</strong>";
+                              //$coll->push(['approved'=>"Data Not Found", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+                            }
+                            else{
+
+                              if ($ownNotif){
+                                if ($thereq->isApproved){
+                                  $message = " <strong>approved</strong> your Paternity Leave request";
+                                }else $message = " <strong>denied</strong> your Paternity Leave request. I'm sorry. <strong><i class='fa fa-meh-o'></i></strong> ";
+                                
+                              }
+                              else{
+                                $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
+                                $message = " filed a <strong>Paternity Leave</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->leaveStart))."</span>";
+
+
+                              }
+
+
+                              
+                            }
+
+
+                          }break;
+
+                // SPL
+                case 18: {
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            if (is_null($thereq)){
+                              $theBio = null;
+                              $message=" filed a <strong>Single-Parent Leave</strong>";
+                              //$coll->push(['approved'=>"Data Not Found", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+                            }
+                            else{
+
+                              if ($ownNotif){
+                                if ($thereq->isApproved){
+                                  $message = " <strong>approved</strong> your Single-Parent Leave request";
+                                }else $message = " <strong>denied</strong> your Single-Parent Leave request. I'm sorry. <strong><i class='fa fa-meh-o'></i></strong> ";
+                                
+                              }
+                              else{
+                                $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
+                                $message = " filed a <strong>Single-Parent Leave</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->leaveStart))."</span>";
 
 
                               }

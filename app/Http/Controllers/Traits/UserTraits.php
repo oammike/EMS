@@ -46,6 +46,7 @@ use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_LWOP;
+use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\User_Notification;
 use OAMPI_Eval\MonthlySchedules;
 use OAMPI_Eval\FixedSchedules;
@@ -54,164 +55,6 @@ use OAMPI_Eval\NotifType;
 trait UserTraits
 {
 
-	/*public function getApprovalNotifs()
-	{
-	   $unseenNotifs = User_Notification::where('user_id',$this->user->id)->where('seen',false)->orderBy('created_at','DESC')->get(); 
-       $coll = new Collection;
-       $forApprovals = new Collection;
-       $approvalTypes = [6,7,8,9,10,11];
-
-       foreach( $unseenNotifs as $notif){ 
-                      $detail = $notif->detail;
-
-                      if ( in_array($detail->type, $approvalTypes) )
-                      {
-                        $emp = User::find($detail->from);
-                        switch ($detail->type) {
-                          case 6: //CWS
-                                  {
-                                    $cws = User_CWS::find($detail->relatedModelID);
-                                    if (count($cws)>0)
-                                    $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname, 
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title, 
-                                                  'typeID'=>$detail->type,
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>date('M d, Y', strtotime(Biometrics::find($cws->biometrics_id)->productionDate)),
-                                                  'productionDay'=>date('D', strtotime(Biometrics::find($cws->biometrics_id)->productionDate)),
-                                                  'deets'=> $cws]);
-                                   else
-                                       $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname,  
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title,
-                                                  'typeID'=>$detail->type, 
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>null,
-                                                   'productionDay'=>null,
-                                                  'deets'=> null]);
-
-                                   
-
-                                  }break;
-                          case 7: //OT
-                                  {
-                                    $ots = User_OT::find($detail->relatedModelID);
-                                    if (count($ots)>0)
-                                    $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname, 
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title,
-                                                  'typeID'=>$detail->type, 
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>date('M d,Y', strtotime(Biometrics::find($ots->biometrics_id)->productionDate)),
-                                                   'productionDay'=>date('D', strtotime(Biometrics::find($ots->biometrics_id)->productionDate)),
-                                                  'deets'=> $ots]);
-                                  else
-
-                                       $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname,  
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title,
-                                                  'typeID'=>$detail->type, 
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>null,
-                                                   'productionDay'=>null,
-                                                  'deets'=> null]);
-
-                                  }break;
-                          case 8: //LOGIN
-                                  {
-                                    $in = User_DTRP::find($detail->relatedModelID);
-                                    if (count($in)>0)
-                                    $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname, 
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title, 
-                                                  'typeID'=>$detail->type,
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>date('M d,Y', strtotime(Biometrics::find($in->biometrics_id)->productionDate)),
-                                                   'productionDay'=>date('D', strtotime(Biometrics::find($in->biometrics_id)->productionDate)),
-                                                  'deets'=> $in]);
-                                  else
-                                       $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname,  
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title,
-                                                  'typeID'=>$detail->type, 
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>null,
-                                                   'productionDay'=>null,
-                                                  'deets'=> null]);
-
-
-                                  }break;
-                          case 9: //LOGOUT
-                                  {
-                                    $out = User_DTRP::find($detail->relatedModelID);
-                                    if (count($out)>0)
-                                    $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname,  
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title,
-                                                  'typeID'=>$detail->type, 
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>date('M d,Y', strtotime(Biometrics::find($out->biometrics_id)->productionDate)),
-                                                   'productionDay'=>date('D', strtotime(Biometrics::find($out->biometrics_id)->productionDate)),
-                                                  'deets'=> $out]);
-                                     else
-                                       $forApprovals->push(['user'=>$emp->firstname . " ". $emp->lastname,  
-                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                  'type'=>NotifType::find($detail->type)->title,
-                                                  'typeID'=>$detail->type, 
-                                                  'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>null,
-                                                   'productionDay'=>null,
-                                                  'deets'=> null]);
-
-                                  }break;
-
-                          case 10: //VL
-                                  {
-
-                                    
-                                    if( is_null($emp->nickname) )
-                                      {
-                                        $greeting = $emp->firstname;$nick = $emp->firstname . " ". $emp->lastname;
-                                      } else {
-                                        $greeting = $emp->nickname;$nick = $emp->nickname." ".$emp->lastname;
-                                      }
-
-
-                                    $vl = User_VL::find($detail->relatedModelID);
-                                    if (count($vl) > 0)
-                                    {
-                                      if (is_null($vl->isApproved) )
-                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 
-                                                    'requestor'=>$emp->id,
-                                                    'nickname'=>$nick,
-                                                    'user_id'=>$notif->user_id, 'id'=>$notif->id, 
-                                                    'type'=>NotifType::find($detail->type)->title, 
-                                                    'typeID'=>$detail->type,
-                                                    'created_at'=> $detail->created_at->format('M d, Y'),
-                                                    'productionDate'=>date('M d, Y', strtotime($vl->leaveStart)),
-                                                    'productionDay'=>date('D', strtotime($vl->leaveStart)),
-                                                    'deets'=> $vl]);
-
-                                    }
-                                    
-                                   
-
-                                  }break;
-                          
-                          
-                        }
-                        
-                      }
-                      //$coll->push(['relatedID'=> $notif->detail]);
-                      //$forApprovals->push(['item'=>])
-        }
-
-       
-
-       //----- END NOTIF
-
-        return $forApprovals;
-	}*/
 
   public function getDashboardNotifs()
   {
@@ -220,7 +63,7 @@ trait UserTraits
        $forApprovals = new Collection;
 
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
-       $approvalTypes = [6,7,8,9,10,11,12,13,14,15];
+       $approvalTypes = [6,7,8,9,10,11,12,13,14,15,16,17,18];
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
 
 
@@ -528,7 +371,7 @@ trait UserTraits
                                   }break;
 
 
-                           case 15: //Pre-shift OT
+                          case 15: //Pre-shift OT
                                 {
                                   $vl = User_OT::find($detail->relatedModelID);
                                   if (count($vl) > 0)
@@ -555,18 +398,87 @@ trait UserTraits
 
                                 }break;
                           
-                        }
+                          case 16: //ML
+                                {
+                                  $vl = User_Familyleave::find($detail->relatedModelID);
+                                  if (count($vl) > 0)
+                                  {
+                                    if (is_null($vl->isApproved) ){
+                                      $bio = Biometrics::find($vl->biometrics_id);
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
+                                                  'requestor'=>$emp->id,
+                                                  'nickname'=>$nick,
+                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
+                                                  'type'=>NotifType::find($detail->type)->title, 
+                                                  'typeID'=>$detail->type,
+                                                  'created_at'=> $detail->created_at->format('M d, Y'),
+                                                  'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
+                                                  'productionDay'=>date('D', strtotime($bio->productionDate)),
+                                                  'deets'=> $vl]);
+
+                                    }
+                                    
+
+                                  }
+                                }break;
+                          
+                          case 17: //PL
+                                {
+                                  $vl = User_Familyleave::find($detail->relatedModelID);
+                                  if (count($vl) > 0)
+                                  {
+                                    if (is_null($vl->isApproved) ){
+                                      $bio = Biometrics::find($vl->biometrics_id);
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
+                                                  'requestor'=>$emp->id,
+                                                  'nickname'=>$nick,
+                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
+                                                  'type'=>NotifType::find($detail->type)->title, 
+                                                  'typeID'=>$detail->type,
+                                                  'created_at'=> $detail->created_at->format('M d, Y'),
+                                                  'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
+                                                  'productionDay'=>date('D', strtotime($bio->productionDate)),
+                                                  'deets'=> $vl]);
+
+                                    }
+                                    
+
+                                  }
+                                }break;
                         
-                      }
-                      //$coll->push(['relatedID'=> $notif->detail]);
-                      //$forApprovals->push(['item'=>])
+                          case 18: //SPL
+                                {
+                                  $vl = User_Familyleave::find($detail->relatedModelID);
+                                  if (count($vl) > 0)
+                                  {
+                                    if (is_null($vl->isApproved) ){
+                                      $bio = Biometrics::find($vl->biometrics_id);
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
+                                                  'requestor'=>$emp->id,
+                                                  'nickname'=>$nick,
+                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
+                                                  'type'=>NotifType::find($detail->type)->title, 
+                                                  'typeID'=>$detail->type,
+                                                  'created_at'=> $detail->created_at->format('M d, Y'),
+                                                  'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
+                                                  'productionDay'=>date('D', strtotime($bio->productionDate)),
+                                                  'deets'=> $vl]);
+
+                                    }
+                                    
+
+                                  }
+                                }break;
+                        
+                      }//end switch
+                    }
+                      
         }
 
        
 
        //----- END NOTIF
-
-        return $forApprovals;
+      return $forApprovals;
   }
 
   public function getMySubordinates($myEmployeeNumber)

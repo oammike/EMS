@@ -112,7 +112,13 @@
                         case 14: { $actionlink = action('DTRController@seenzoned',['id'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //VACATION LEAVE
                         
 
-                        case 15: { $actionlink = action('UserOTController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //PS-OT 
+                        case 15: { $actionlink = action('UserOTController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //PS-OT
+
+                        case 16: { $actionlink = action('UserFamilyleaveController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //ML
+
+                        case 17: { $actionlink = action('UserFamilyleaveController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //PL
+
+                        case 18: { $actionlink = action('UserFamilyleaveController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //SPL 
 
                         default:{ $actionlink = action('UserController@changePassword'); break; }
                      
