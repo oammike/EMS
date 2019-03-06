@@ -24,7 +24,7 @@
       -->
     </div>
   </div>
-  <div id="controls">
+  <div id="controls" class="flow-text">
   
     @if ($campaign_mode === true)
     
