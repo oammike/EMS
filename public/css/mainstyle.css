@@ -37,10 +37,10 @@
 #seriousCanvas{
   background: transparent;
   position: relative;
-  left: 212px;
-  top: 316px;  
-  width: 720px;
-  height: 720px;
+  left: 245px;
+  top: 991px;  
+  width: 1080px;
+  height: 1080px;
 }
 #imageElementWrapper{
   width: 320px;
@@ -60,9 +60,9 @@
 }
 #employee_details1, #employee_details2{
   position: absolute;
-  top: 375px;
-  left: 40px;
-  width: 340px;
+  top: 735px;
+  left: 50px;
+  width: 480px;
 }
 #employee_details1 p{
   text-align: left;
@@ -166,25 +166,25 @@ table{
     height: auto;
 }
 #id_signature_wrapper{
-  width: 287px;
-  height: 162px;
+  width: 480px;
+  height: 270px;
   position: absolute;
   bottom: 100px;
-  left: 7px;
+  left: 5px;
 }
 
 #id_number_wrapper{
   position: absolute;
-  bottom: 35px;
+  bottom: 70px;
   width: 100%;
-  left: 35px;
+  left: 50px;
 }
 #id_number_wrapper p, #id_number_wrapper p span{
-  font-size: 25px;
+  font-size: 45px;
   color: #fff;
   text-align: left;
   letter-spacing: 2px;
-  line-height: 30px;
+  line-height: 50px;
   margin: 0;
   padding: 0;
   text-shadow: rgba(255,255,255,0.01) 0 0 1px;
