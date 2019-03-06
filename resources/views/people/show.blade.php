@@ -749,9 +749,15 @@
             
             customButtons: {
               myCustomButton: {
-                text: 'View Daily Time Record',
+                text: 'DTR Sheet',
                 click: function() {
                   window.location = "{{action('DTRController@show',$user->id)}}";
+                }
+              },
+              viewRequests: {
+                text: 'DTR Requests',
+                click: function() {
+                  window.location = "{{action('UserController@userRequests',$user->id)}}";
                 }
               }
             },
@@ -761,14 +767,14 @@
               right: 'title, prev,next today',
               center: '',
               
-             left: 'myCustomButton' //month,agendaWeek,agendaDay'
+             left: 'myCustomButton, viewRequests' //month,agendaWeek,agendaDay'
             },
             @else
             header: {
               right: 'title, prev,next today',
               center: '',
               //left: ''
-              left: 'myCustomButton' //month,agendaWeek,agendaDay'
+              left: 'myCustomButton, viewRequests' //month,agendaWeek,agendaDay'
             },
             @endif
 
@@ -990,7 +996,7 @@
                   htmlcode +=                '<div class="modal-header">';
                                     
                   htmlcode +=                    '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-                  htmlcode +=                    '<h4 class="modal-title text-default" id="myModalLabel">Submit Work Schedule Requests: </h4></div><form class="col-lg-12" id="plotSched" name="plotSched">';
+                  htmlcode +=                    '<h4 class="modal-title text-default" id="myModalLabel">Submit DTR Requests: </h4></div><form class="col-lg-12" id="plotSched" name="plotSched">';
                   htmlcode +=                '<input type="hidden" name="biometrics_id" value=  />';
                   htmlcode +=                '<input type="hidden" name="productionDate" value="'+ productionDate+' " />';
                   htmlcode +=                '<input type="hidden" name="user_id" value="{{$user->id}}" />';
