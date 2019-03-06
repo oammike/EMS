@@ -109,7 +109,7 @@
              <div class="col-lg-1 col-sm-4  col-xs-9">
               </div>
               <div class="col-lg-10 col-sm-4 col-xs-12" ><!--style="background-color:#fff"-->
-                <a class="btn btn-xs btn-default btn-flat pull-left" href="{{action('DTRController@show',$user->id)}}"><i class="fa fa-calendar"></i>  {{$user->firstname}}'s DTR Sheet</a> <br/><br/>
+                <a class="btn btn-xs btn-default btn-flat pull-left" href="{{action('DTRController@show',$user->id)}}"><i class="fa fa-calendar"></i>@if(empty($user->firstname)) {{$user->firstname}}'s @else {{$user->nickname}}'s  @endif DTR Sheet</a> <br/><br/>
                 <table class="table no-margin table-bordered table-striped" id="requests" style="background: rgba(256, 256, 256, 0.3)" ></table>
 
                         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

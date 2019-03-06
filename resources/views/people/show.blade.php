@@ -999,10 +999,11 @@
                   
                   htmlcode +=                '<div id="mainMenus" class="modal-body-upload myPanes" style="padding:20px; border:2px dotted #dedede"><br/><br/>';
 
-                  htmlcode +=                   '<p class="text-left"><a id="cws" class="btn btn-lg btn-flat"><i class="fa fa-2x fa-clock-o"></i>&nbsp;&nbsp; Change Work Schedule <strong style="font-size:11px;font-weight:bolder">[CWS]</strong></a></p>';
-                  htmlcode +=                   '<p class="text-left"><a id="vl" class="btn btn-lg btn-flat"><i class="fa fa-2x fa-plane"></i>&nbsp;&nbsp; Vacation Leave <strong style="font-size:11px;font-weight:bolder">[VL]</strong></a><br/><a id="sl" class="btn btn-lg btn-flat"><i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp; Sick Leave <strong style="font-size:11px;font-weight:bolder">[SL]</strong></a></p>';
+                  htmlcode +=                   '<div class="row"><div class="col-lg-6"><p class="text-left"><a id="cws" class="btn btn-md btn-flat"><i class="fa fa-2x fa-clock-o"></i>&nbsp;&nbsp; Change Work Schedule <strong style="font-size:11px;font-weight:bolder">[CWS]</strong></a><br/></p>';
+                  htmlcode +=                   '<p class="text-left"><a id="vl" class="btn btn-md btn-flat"><i class="fa fa-2x fa-plane"></i>&nbsp;&nbsp; Vacation Leave <strong style="font-size:11px;font-weight:bolder">[VL]</strong></a><br/></p><p class="text-left"><a id="sl" class="btn btn-sm btn-flat"><i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp; Sick Leave <strong style="font-size:11px;font-weight:bolder">[SL]</strong></a><br/></p>';
                   // htmlcode +=                   '<a id="el" class="btn btn-lg btn-flat"><i class="fa fa-2x fa-ambulance"></i>&nbsp;&nbsp; Emergency Leave <strong style="font-size:11px;font-weight:bolder">[EL]</strong></a><br/>'
-                  htmlcode += '<p class="text-left"><a id="lwop" class="btn btn-lg btn-flat" ><i class="fa fa-2x fa-meh-o"></i>&nbsp;&nbsp; Leave Without Pay <strong style="font-size:11px;font-weight:bolder">[LWOP]</strong> </a><br/><a id="obt" class="btn btn-lg btn-flat"><i class="fa  fa-2x fa-suitcase"></i>&nbsp;&nbsp; Official Business Trip <strong style="font-size:11px;font-weight:bolder">[OBT] </strong> </a><br/></p>';
+                  htmlcode += '<p class="text-left"><a id="lwop" class="btn btn-md btn-flat" ><i class="fa fa-2x fa-meh-o"></i>&nbsp;&nbsp; Leave Without Pay <strong style="font-size:11px;font-weight:bolder">[LWOP]</strong> </a><br/></p></div><div class="col-lg-6"><p class="text-left"><a id="obt" class="btn btn-sm btn-flat"><i class="fa  fa-2x fa-suitcase"></i>&nbsp;&nbsp; Official Business Trip <strong style="font-size:11px;font-weight:bolder">[OBT] </strong> </a><br/><p class="text-left"><a id="ml" data-type="ML" class="btn btn-md btn-flat"><i class="fa  fa-2x fa-female"></i>&nbsp;&nbsp; Maternity Leave <strong style="font-size:11px;font-weight:bolder">[ML] </strong> </a><br/></p><p class="text-left"><a id="pl" data-type="PL" class="btn btn-md btn-flat"><i class="fa  fa-2x fa-male"></i>&nbsp;&nbsp; Paternity Leave <strong style="font-size:11px;font-weight:bolder">[PL] </strong> </a><br/></p><p class="text-left"><a id="spl" data-type="SPL" class="btn btn-md btn-flat"><i class="fa  fa-2x fa-street-view"></i>&nbsp;&nbsp; Single-Parent Leave <strong style="font-size:11px;font-weight:bolder">[SPL] </strong> </a><br/>';
+                  htmlcode += '</p></div></div>';
                   
                  
 
@@ -1212,23 +1213,23 @@
                   $('.options').fadeOut(); $('#pane_CWS, #pane_SL, #pane_VL,#pane_EL,#pane_LWOP,#pane_OBT,.moredays').hide();
                   $('#save').fadeOut();
 
-                  $('#cws').on('click', function()
+                  $('#cws').on('click', function(){
 
                     @if (count($user->approvers) > 0)
 
-                     { 
+                     
                       $('#mainMenus').fadeOut(function(){$('#pane_CWS').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();}); 
-                    } 
+                     
 
                     @else
 
-                    {
+                    
                        $.notify("Sorry, you can't submit work schedule requests yet.\n\nPlease inform HR to have your profile updated\n and indicate the necessary approver(s) for all of your requests. Thank you.",{globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );
-                    }
+                    
 
                   @endif
                    
-                  );
+                  });
 
                   $('#vl').on('click', function()
                   { 
@@ -1326,7 +1327,7 @@
 
                   });//END ON CLICK VL option
 
-                   $('input[name="coveredshift"]').on('change', function(){
+                  $('input[name="coveredshift"]').on('change', function(){
                     var vl_from = $('input[name="vl_from"]').val(); 
                     var vl_to = $('input[name="vl_to"]').val(); 
                     var shift2 = $('input[name="coveredshift2"]:checked').val();
@@ -1352,6 +1353,7 @@
                       //$('#mainMenus').fadeOut(function(){$('#pane_SL').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();}); 
                   } );
 
+                  
                   $('#el').on('click', function()
                     { $('#mainMenus').fadeOut(function(){$('#pane_EL').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();}); 
                   } );
@@ -1369,6 +1371,15 @@
                       window.location = toPage;
                       //$('#mainMenus').fadeOut(function(){$('#pane_OBT').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();}); 
                   } );
+
+
+                  $('#ml,#pl,#spl').on('click', function(){
+                      var ltype = $(this).attr('data-type');
+                      var toPage = "../user_fl/create?for={{$user->id}}&type="+ltype+"&from="+productionDate;// 
+                      window.location = toPage; 
+                      //$('#mainMenus').fadeOut(function(){$('#pane_SL').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();}); 
+                  });
+
 
                   $('.back').on('click', function(){$('#pane_CWS,#pane_VL, #pane_SL,#pane_EL,#pane_LWOP,#pane_OBT').hide(); $('#mainMenus').fadeIn()});
 
@@ -1663,12 +1674,12 @@
      });
      
       $(".coverphoto").CoverPhoto({
-         @if ($user->hascoverphoto !== null)
-         <?php $cover = URL::to('/') . "/storage/uploads/cover-".$user->id."_".$user->hascoverphoto.".png";// URL::asset("public/img/cover/".$user->id.".jpg"); ?>
-        currentImage:null, //"{{$cover}}",
+        @if ($user->hascoverphoto !== null)
+             <?php $cover = URL::to('/') . "/storage/uploads/cover-".$user->id."_".$user->hascoverphoto.".png";// URL::asset("public/img/cover/".$user->id.".jpg"); ?>
+            currentImage:null, //"{{$cover}}",
         
         @else
-        currentImage: "{{URL::asset('public/img/makati.jpg')}}",
+            currentImage: "{{URL::asset('public/img/makati.jpg')}}",
         @endif
 
         @if ($user->id == Auth::user()->id) 

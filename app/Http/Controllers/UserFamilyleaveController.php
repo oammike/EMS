@@ -130,7 +130,7 @@ class UserFamilyleaveController extends Controller
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {
                 $title = 'No Work Schedule found ';
-                $message =  '<br/><br/><br/><br/> No work schedule defined<br /><br/> <i class="fa fa-calendar"></i> <small>Please inform immediate head or HR <br/>to have your work schedule plotted before you can file any work-related requests. <br/><br/>Thank you.</smaller></small>
+                $message =  '<br/><br/><br/><br/> No work schedule defined<br /><br/> <i class="fa fa-calendar"></i> <small>Please inform immediate head or Workforce <br/>to have your work schedule plotted before you can file any work-related requests. <br/><br/>Thank you.</smaller></small>
                   <br /><br/>';
                   return view('empty-page', compact('message','title'));
 
