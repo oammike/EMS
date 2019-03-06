@@ -996,7 +996,7 @@
                   htmlcode +=                '<div class="modal-header">';
                                     
                   htmlcode +=                    '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-                  htmlcode +=                    '<h4 class="modal-title text-default" id="myModalLabel">Submit Work Schedule Requests: </h4></div><form class="col-lg-12" id="plotSched" name="plotSched">';
+                  htmlcode +=                    '<h4 class="modal-title text-default" id="myModalLabel">Submit DTR Requests: </h4></div><form class="col-lg-12" id="plotSched" name="plotSched">';
                   htmlcode +=                '<input type="hidden" name="biometrics_id" value=  />';
                   htmlcode +=                '<input type="hidden" name="productionDate" value="'+ productionDate+' " />';
                   htmlcode +=                '<input type="hidden" name="user_id" value="{{$user->id}}" />';
