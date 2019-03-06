@@ -6,7 +6,7 @@
   <div id="id_wrapper">
     <div id="id_container">
       <img src="{{ asset( 'public/img/blank_canvas.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
-      <canvas id="seriousCanvas" width="1800" height="1800"></canvas>
+      <canvas id="seriousCanvas" width="1560" height="1560"></canvas>
       <div id="id_signature_wrapper">
         <img id="id_signature" src="{{ asset( 'public/img/blank_signature.png' ) }}" />
       </div>
@@ -489,8 +489,8 @@
     reformat = seriously.transform('reformat');
     reformat.source = chroma;
     reformat.mode = "cover";
-    reformat.width = 1800;
-    reformat.height = 1800;
+    reformat.width = 1560;
+    reformat.height = 1560;
     target.source = reformat;
     window.seriously.go();
   }
