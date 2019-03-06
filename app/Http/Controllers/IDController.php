@@ -76,18 +76,33 @@ class IDController extends Controller
             throw new \Exception('did not match data URI with image data');
         }
         
+        $idealW = 1322;
+        $idealH = 2071;
+        $optimalW = 525;
+        $optimalH = 822;
+        $outputW = 0;
+        $outputH = 0;
+        
         $dir = "/var/www/html/evaluation/storage/uploads/id/";
         if (!file_exists($dir)) mkdir($dir, 0755, true);
         $filename = microtime(true);
+        $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
         
         $image = imagecreatefromstring($image_base64);
-        $output = imagecreatetruecolor(525,822);
-        $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
-        imagefilledrectangle($output, 0, 0, 525, 822, $transparency);
-        
         $width = ImageSX($image);
         $height = ImageSY($image);
-        imagecopyresampled($output, $image, 0, 0, 0, 0, 525, 822, $width, $height);
+        
+        if($width >= $idealW){
+            $outputW = $idealW;
+            $outputH = $idealH;
+        }else{
+            $outputW = $optimalW;
+            $outputH = $optimalH;    
+        }
+        
+        $output = imagecreatetruecolor($outputW,$outputH);
+        imagefilledrectangle($output, 0, 0, $outputW, $outputH, $transparency);
+        imagecopyresampled($output, $image, 0, 0, 0, 0, $outputW, $outputH, $width, $height);
         imagepng($output, $dir.$filename.".png", 9);
 
         echo "storage/uploads/id/".$filename.".png";
