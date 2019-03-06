@@ -61,7 +61,7 @@
 #employee_details1, #employee_details2{
   position: absolute;
   top: 735px;
-  left: 50px;
+  left: 100px;
   width: 580px;
 }
 #employee_details1 p{
@@ -177,7 +177,7 @@ table{
   position: absolute;
   bottom: 70px;
   width: 100%;
-  left: 50px;
+  left: 100px;
 }
 #id_number_wrapper p, #id_number_wrapper p span{
   font-size: 45px;
