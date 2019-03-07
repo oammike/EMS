@@ -405,7 +405,7 @@ trait UserTraits
                                   {
                                     if (is_null($vl->isApproved) ){
                                       //$bio = Biometrics::find($vl->biometrics_id);
-                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-female",
                                                   'requestor'=>$emp->id,
                                                   'nickname'=>$nick,
                                                   'user_id'=>$notif->user_id, 'id'=>$notif->id, 
@@ -429,7 +429,7 @@ trait UserTraits
                                   {
                                     if (is_null($vl->isApproved) ){
                                       //$bio = Biometrics::find($vl->biometrics_id);
-                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-male",
                                                   'requestor'=>$emp->id,
                                                   'nickname'=>$nick,
                                                   'user_id'=>$notif->user_id, 'id'=>$notif->id, 
@@ -453,7 +453,7 @@ trait UserTraits
                                   {
                                     if (is_null($vl->isApproved) ){
                                       //$bio = Biometrics::find($vl->biometrics_id);
-                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-street-view",
                                                   'requestor'=>$emp->id,
                                                   'nickname'=>$nick,
                                                   'user_id'=>$notif->user_id, 'id'=>$notif->id, 
