@@ -404,7 +404,7 @@ trait UserTraits
                                   if (count($vl) > 0)
                                   {
                                     if (is_null($vl->isApproved) ){
-                                      $bio = Biometrics::find($vl->biometrics_id);
+                                      //$bio = Biometrics::find($vl->biometrics_id);
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
                                                   'requestor'=>$emp->id,
                                                   'nickname'=>$nick,
@@ -412,8 +412,8 @@ trait UserTraits
                                                   'type'=>NotifType::find($detail->type)->title, 
                                                   'typeID'=>$detail->type,
                                                   'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
-                                                  'productionDay'=>date('D', strtotime($bio->productionDate)),
+                                                  'productionDate'=>date('M d, Y', strtotime($vl->leaveStart)),
+                                                  'productionDay'=>date('D', strtotime($vl->leaveStart)),
                                                   'deets'=> $vl]);
 
                                     }
@@ -428,7 +428,7 @@ trait UserTraits
                                   if (count($vl) > 0)
                                   {
                                     if (is_null($vl->isApproved) ){
-                                      $bio = Biometrics::find($vl->biometrics_id);
+                                      //$bio = Biometrics::find($vl->biometrics_id);
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
                                                   'requestor'=>$emp->id,
                                                   'nickname'=>$nick,
@@ -436,8 +436,8 @@ trait UserTraits
                                                   'type'=>NotifType::find($detail->type)->title, 
                                                   'typeID'=>$detail->type,
                                                   'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
-                                                  'productionDay'=>date('D', strtotime($bio->productionDate)),
+                                                  'productionDate'=>date('M d, Y', strtotime($vl->leaveStart)),
+                                                  'productionDay'=>date('D', strtotime($vl->leaveStart)),
                                                   'deets'=> $vl]);
 
                                     }
@@ -452,7 +452,7 @@ trait UserTraits
                                   if (count($vl) > 0)
                                   {
                                     if (is_null($vl->isApproved) ){
-                                      $bio = Biometrics::find($vl->biometrics_id);
+                                      //$bio = Biometrics::find($vl->biometrics_id);
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-clock-o",
                                                   'requestor'=>$emp->id,
                                                   'nickname'=>$nick,
@@ -460,8 +460,8 @@ trait UserTraits
                                                   'type'=>NotifType::find($detail->type)->title, 
                                                   'typeID'=>$detail->type,
                                                   'created_at'=> $detail->created_at->format('M d, Y'),
-                                                  'productionDate'=>date('M d, Y', strtotime($bio->productionDate)),
-                                                  'productionDay'=>date('D', strtotime($bio->productionDate)),
+                                                  'productionDate'=>date('M d, Y', strtotime($vl->leaveStart)),
+                                                  'productionDay'=>date('D', strtotime($vl->leaveStart)),
                                                   'deets'=> $vl]);
 
                                     }
