@@ -188,12 +188,13 @@ class UserFamilyleaveController extends Controller
 
                     if (count($hasFiledAlready) > 0 && $type !== 'SPL') return view('access-denied');
 
+
                     switch ($type) 
                     {
                         case 'ML': { $leaveType = "Maternity Leave"; $icon="fa fa-female"; if( !is_null($user->gender) && $user->gender !== 'F' ) return view('access-denied'); $creditsLeft=105.0-1.0;} 
                         break;
 
-                        case 'PL':{ $leaveType = "Paternity Leave"; $icon="fa fa-male"; if( !is_null($user->gender) && $user->gender !== 'M' ) return view('access-denied'); $creditsLeft=7.0-1.0; }
+                        case 'PL':{ $leaveType = "Paternity Leave"; $icon="fa fa-male"; if( !empty($user->gender) && $user->gender !== 'M' ) return view('access-denied'); $creditsLeft=7.0-1.0; }
                         break;
 
                         case 'SPL':{ $leaveType = "Single-Parent Leave"; $icon="fa fa-street-view"; $creditsLeft=7.0-1.0; }  break;
@@ -687,7 +688,7 @@ class UserFamilyleaveController extends Controller
         }
 
 
-        $vl = User_SL::find($id);
+        $vl = User_Familyleave::find($id);
 
         if (is_null($vl)) return view('empty');
 
@@ -708,8 +709,13 @@ class UserFamilyleaveController extends Controller
         
 
         
-        //return $details;
-        return view('timekeeping.show-SL', compact('user', 'profilePic','camps', 'vl','details'));
+        switch ($vl->leaveType) {
+            case 'ML': $icon = "fa fa-female"; $leave = "Maternity Leave"; break;
+            case 'PL': $icon = "fa fa-male"; $leave = "Paternity Leave"; break;
+            case 'SPL': $icon = "fa fa-street-view"; $leave = "Single-Parent Leave"; break;
+            
+        }
+        return view('timekeeping.show-FL', compact('user', 'profilePic','camps','icon','leave', 'vl','details'));
 
 
     }

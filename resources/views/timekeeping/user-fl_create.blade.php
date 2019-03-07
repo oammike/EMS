@@ -11,7 +11,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       <i class="fa fa-stethoscope"></i> New  {{$leaveType}} <small>
+       <i class="{{$icon}}"></i> New  {{$leaveType}} <small>
         : {{$user->firstname}} {{$user->lastname}} </small>
       </h1>
      
