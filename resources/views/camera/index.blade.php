@@ -179,7 +179,7 @@
   
   
   <script>
-  window.employee_id = 9972;
+  window.employee_id = {{ $user->id }};
   window.mode = null;
   window.image_index = 0;
   window.images = [
@@ -205,7 +205,6 @@
   window.signaturePad = null;
   window.readytoprint = false;
   window.archive;
-  window.employeeId = {{ $user->id }};
   
   $.ajaxSetup({
     headers: {
@@ -373,7 +372,7 @@
   
   function printme(){
     if(window.readytoprint == true){
-      var filepath = window.location + window.filepath;
+      var filepath = window.location + window.filepath + "?timestamp=" + Date.now();
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
 
       popupWin.document.open();
@@ -716,7 +715,7 @@
     $('#emp_name').val(fullname);
     $('#emp_pos').val(employee.jobTitle);
     $('#emp_num').val(employee.employeeNumber);
-    window.employeeId = employee.id;
+    window.employee_id = employee.id;
   }
   
   loadData();
