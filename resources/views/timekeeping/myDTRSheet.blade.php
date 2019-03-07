@@ -159,7 +159,7 @@
 
                                               <!-- ********** DTR BUTTONS ************** -->
 
-                                              @if ($anApprover)
+                                              @if ($anApprover || (!$employeeisBackoffice && $isWorkforce) )
 
                                               <h4 class="pull-left text-danger">&nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> DTR Sheet is Locked 
                                                 <a id="unlockByTL" class="btn btn-sm btn-danger pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Unlock DTR </a></h4> 
@@ -392,16 +392,28 @@ $(function ()
 
 
   //$(document).on('change','select.othrs.form-control',function(){
+
+  /* ----- OT -------- */
+
+
+
   $('select.othrs.form-control').on('change',function(){
 
      var timeStart = $(this).find('option:selected').attr('data-timestart');
      var timeEnd = $(this).find('option:selected').attr('data-timeend');
+     var fh = $(this).find(':selected').val();
 
-     console.log('start: ' + timeStart);
-     console.log('end: ' + timeEnd);
+     //console.log('start: ' + timeStart);
+     //console.log('end: ' + timeEnd);
 
      $('input[name="OTstart"]').val(timeStart);
      $('input[name="OTend"]').val(timeEnd);
+
+     if (fh !== 0) $('#uploadOT').fadeIn();
+    else $('#uploadOT').fadeOut();
+
+    console.log('selected:');
+    console.log(fh);
 
 
   }); //end timeEnd check if on change
@@ -448,6 +460,7 @@ $(function ()
 
     });
   /* ---- for stylish notification ------ */
+
 
 
 

@@ -493,6 +493,18 @@ class UserLWOPController extends Controller
 
         $vl->save();
 
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+
         if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
         {//--- notify the  APPROVERS
 
@@ -532,6 +544,34 @@ class UserLWOPController extends Controller
 
 
             
+            }
+
+            //-- we now notify all WFM
+            if(!$employeeisBackoffice)
+            {
+                foreach ($wfm as $approver) {
+                    //$TL = ImmediateHead::find($approver->immediateHead_id);
+                    //-- make sure not to send nofication kung WFM agent ang sender
+                    if ($this->user->id !== $approver)
+                    {
+
+                        $nu = new User_Notification;
+                        $nu->user_id = $approver;
+                        $nu->notification_id = $notification->id;
+                        $nu->seen = false;
+                        $nu->save();
+
+                        // NOW, EMAIL THE TL CONCERNED
+                    
+                        $email_heading = "New Leave Without Pay Request from: ";
+                        $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
+                                       Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
+                        $actionLink = action('UserLWOPController@show',$vl->id);
+
+                    }
+
+                
+                }
             }
             
 

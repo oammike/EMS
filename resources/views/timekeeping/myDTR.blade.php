@@ -937,18 +937,24 @@ $(function ()
 
   }); //end main checkboxes
 
-
-  //$(document).on('change','select.othrs.form-control',function(){
-  $('select.othrs.form-control').on('change',function(){
+$('button#uploadOT').fadeOut();
+ $('select.othrs.form-control').on('change',function(){
 
      var timeStart = $(this).find('option:selected').attr('data-timestart');
      var timeEnd = $(this).find('option:selected').attr('data-timeend');
+     var fh = $(this).find(':selected').val();
 
-     console.log('start: ' + timeStart);
-     console.log('end: ' + timeEnd);
+     //console.log('start: ' + timeStart);
+     //console.log('end: ' + timeEnd);
 
      $('input[name="OTstart"]').val(timeStart);
      $('input[name="OTend"]').val(timeEnd);
+
+     if (fh === '0')$('button#uploadOT').fadeOut(); 
+     else $('button#uploadOT').fadeIn();
+
+    console.log('selected:');
+    console.log(fh);
 
 
   }); //end timeEnd check if on change

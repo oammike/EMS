@@ -544,31 +544,51 @@ class UserVLController extends Controller
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $TLapprover = $this->getTLapprover($employee->id, $this->user->id);
 
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+
+       
+
         
-        if ($anApprover)
+        // if ($anApprover)
+        // {
+        //     $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
+        // } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
+        if ( ($isWorkforce && ($this->user->id !== $employee->id) )
+            || ($anApprover && $employeeisBackoffice) 
+            || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
         {
-            $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
+            $vl->isApproved = true; $TLsubmitted=true; 
+            if ($isWorkforce) 
+                $vl->approver = $this->user->id;
+            else
+                $vl->approver = $TLapprover;
+
         } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
+
 
 
         $vl->save();
 
-        if ($anApprover)
+        if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
         {
             /***** once saved, update your leave credits ***/
-            $userVLs = User_VLcredits::where('user_id',$vl->user_id)->orderBy('creditYear','DESC')->get();
+            $userVLs = User_VLcredits::where('user_id',$employee->id)->orderBy('creditYear','DESC')->get();
             if (count($userVLs) > 0 && $vl->isApproved)
             {
                 $vlcredit = $userVLs->first();
                 $vlcredit->used += $vl->totalCredits;
                 $vlcredit->push();
             }
-        }
-       
-
-
-        if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
-        {//--- notify the  APPROVERS
 
             $notification = new Notification;
             $notification->relatedModelID = $vl->id;
@@ -576,44 +596,78 @@ class UserVLController extends Controller
             $notification->from = $vl->user_id;
             $notification->save();
 
-            foreach ($employee->approvers as $approver) {
-                $TL = ImmediateHead::find($approver->immediateHead_id);
-                $nu = new User_Notification;
-                $nu->user_id = $TL->userData->id;
-                $nu->notification_id = $notification->id;
-                $nu->seen = false;
-                $nu->save();
+            if ($employeeisBackoffice){
 
-                // NOW, EMAIL THE TL CONCERNED
-            
-                $email_heading = "New Vacation Leave Request from: ";
-                $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
-                               Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
-                $actionLink = action('UserVLController@show',$vl->id);
-               
-                 /*Mail::send('emails.generalNotif', ['user' => $TL, 'employee'=>$employee, 'email_heading'=>$email_heading, 'email_body'=>$email_body, 'actionLink'=>$actionLink], function ($m) use ($TL) 
-                 {
-                    $m->from('OES@openaccessbpo.net', 'OES-OAMPI Evaluation System');
-                    $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New CWS request');     
+                foreach ($employee->approvers as $approver) {
+                    $TL = ImmediateHead::find($approver->immediateHead_id);
+                    $nu = new User_Notification;
+                    $nu->user_id = $TL->userData->id;
+                    $nu->notification_id = $notification->id;
+                    $nu->seen = false;
+                    $nu->save();
 
-                    
-                         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                            fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
-                            fclose($file);                      
+                    // NOW, EMAIL THE TL CONCERNED
                 
+                    $email_heading = "New Vacation Leave Request from: ";
+                    $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
+                                   Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
+                    $actionLink = action('UserVLController@show',$vl->id);
+                   
+                     /*Mail::send('emails.generalNotif', ['user' => $TL, 'employee'=>$employee, 'email_heading'=>$email_heading, 'email_body'=>$email_body, 'actionLink'=>$actionLink], function ($m) use ($TL) 
+                     {
+                        $m->from('OES@openaccessbpo.net', 'OES-OAMPI Evaluation System');
+                        $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New CWS request');     
 
-                }); //end mail */
+                        
+                             $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
+                                fclose($file);                      
+                    
+
+                    }); //end mail */
 
 
             
+                }
+
             }
-            
+
+            //-- we now notify all WFM
+            if(!$employeeisBackoffice)
+            {
+                foreach ($wfm as $approver) {
+                    //$TL = ImmediateHead::find($approver->immediateHead_id);
+                    //-- make sure not to send nofication kung WFM agent ang sender
+                    if ($this->user->id !== $approver)
+                    {
+
+                        $nu = new User_Notification;
+                        $nu->user_id = $approver;
+                        $nu->notification_id = $notification->id;
+                        $nu->seen = false;
+                        $nu->save();
+
+                        // NOW, EMAIL THE TL CONCERNED
+                    
+                        $email_heading = "New VL Request from: ";
+                        $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
+                                       Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
+                        $actionLink = action('UserVLController@show',$vl->id);
+
+                    }
+
+                
+                }
+            }
+
 
         }
 
+
+
          /* -------------- log updates made --------------------- */
          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." CWS submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." VL submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
          
 

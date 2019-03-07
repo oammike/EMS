@@ -132,10 +132,65 @@ class NotificationController extends Controller
                                   break;
                         case '8': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy)->immediateHead_id);break;
                         case '9': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy)->immediateHead_id);break;
-                        case '10': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_VL::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
-                        case '11': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_SL::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
-                        case '12': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_LWOP::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
-                        case '13': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_OBT::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
+                        case '10': {
+
+                                    $ih = ImmediateHead_Campaign::find(User_VL::find($notif->detail->relatedModelID)->approver);
+                                    if ( count($ih) > 0 ){
+
+                                      $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                    }else{
+                                      $fromData = User::find(User_VL::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
+
+                                    }
+
+                                  } break;
+
+                        case '11': {
+
+                                    $ih = ImmediateHead_Campaign::find(User_SL::find($notif->detail->relatedModelID)->approver);
+                                    if ( count($ih) > 0 ){
+
+                                      $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                    }else{
+                                      $fromData = User::find(User_SL::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
+
+                                    }
+
+
+                                  } break;
+
+                                   
+                        case '12': {
+
+                                    $ih = ImmediateHead_Campaign::find(User_LWOP::find($notif->detail->relatedModelID)->approver);
+                                    if ( count($ih) > 0 ){
+
+                                      $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                    }else{
+                                      $fromData = User::find(User_LWOP::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
+
+                                    }
+
+
+                                  } break;
+                                  
+                        case '13': {
+
+                                    $ih = ImmediateHead_Campaign::find(User_OBT::find($notif->detail->relatedModelID)->approver);
+                                    if ( count($ih) > 0 ){
+
+                                      $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                    }else{
+                                      $fromData = User::find(User_OBT::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
+
+                                    }
+
+
+                                  } break;
                         case '14': $fromData = null; break;
                         case '15': $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '16': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;

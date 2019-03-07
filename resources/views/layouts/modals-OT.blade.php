@@ -33,8 +33,9 @@
               <div class="col-sm-6">
                       
 
-                        <select name="filedHours" class="othrs form-control">
-                          <option value="{{$data['billableForOT']}}" data-timeend="{{$data['logOUT']}}" data-timestart="@if($data['shiftEnd'] == '* RD *'){{$data['logIN']}}@else{{$data['shiftEnd']}}@endif" selected="selected">{{$data['billableForOT']}}</option>
+                        <select name="filedHours" id="filedHours" class="othrs form-control">
+                          <option value="0" selected="selected">Indicate total hours you worked</option>
+                          <option value="{{$data['billableForOT']}}" data-timeend="{{$data['logOUT']}}" data-timestart="@if($data['shiftEnd'] == '* RD *'){{$data['logIN']}}@else{{$data['shiftEnd']}}@endif" >{{$data['billableForOT']}} hr. OT</option>
                           <?php 
                           
 
@@ -46,12 +47,22 @@
                            
                               ?>
 
-                          @if ($num < $data['billableForOT'])    
-                          <option data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$data['logOUT']}}"" value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT</option><!--  data-timeend="{{$t1->addMinutes($num*60)->format('h:i A')}}" --><!-- [{{$start->format('h:i A')}} - {{$t1->format('h:i A')}}] -->
+                          @if ( $num < $data['billableForOT'] && $num != '0')    
+                          <option data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$data['logOUT']}}"" value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT</option><!--  data-timeend="{{$t1->addMinutes($num*60)->format('h:i A')}}" --><!-- [{{$start->format('h:i A')}} - {{$t1->format('h:i A')}}]  -->
                           @endif
 
                           <?php } ?> 
                         </select>
+
+                        <br/><br/>
+                         <label ><input type="radio" name="billedtype" id="shift_whole" value="1" checked="checked" />&nbsp; &nbsp;<i class="fa fa-hourglass"></i> Billed</label>
+                        <br/>
+                        <label id="shift_first" ><input type="radio" name="billedtype" id="shift_first" value="2" />&nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> Non-Billed <span id="shiftFrom_1"></span> </label>
+                         <br/>
+                        <label ><input type="radio" name="billedtype" id="shift_second" value="3" />&nbsp; &nbsp;<i class="fa fa-hourglass-end"></i> Patch <span id="shiftFrom_2"></span> </label><br/>
+
+
+
                         <p style="line-height:0.9em"><br/><br/><i class="fa fa-question-circle"></i> Reason for OT: <br/></p>
                         <textarea class="form-control" name="reason"></textarea>
                         <p style="line-height:0.9em"><br/><small ><i class="fa fa-info"></i> <em> Please give a brief description of the task that you worked on for this OT.</em> </small></p>
@@ -68,7 +79,7 @@
         
         
         <button type="button" class="btn btn-default btn-md pull-right " data-dismiss="modal"> <i class="fa fa-times"></i> Cancel</button>
-        <button type="submit" id="upload" class="btn btn-success btn-md pull-right" style="margin-right:5px" > <i class="fa fa-paper-plane" ></i> Submit for Approval </button>
+        <button type="submit" id="uploadOT" class="btn btn-success btn-md pull-right" style="margin-right:5px" > <i class="fa fa-paper-plane" ></i> Submit for Approval </button>
 
      
       </div> {{ Form::close() }}

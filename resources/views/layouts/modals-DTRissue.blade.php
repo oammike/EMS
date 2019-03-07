@@ -175,10 +175,42 @@
                         <a href="{{action('UserOBTController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-briefcase"></i>&nbsp;&nbsp; Official Business Trip  <strong>(OBT)</strong></a></strong>
 
                         @else
-                         <a href="{{action('UserOBTController@create',['from'=>$DproductionDate])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-briefcase"></i>&nbsp;&nbsp; Official Business Trip  <strong>(OBT)</strong></a></strong>
+                         <a href="{{action('UserOBTController@create',['from'=>$DproductionDate])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-briefcase"></i>&nbsp;&nbsp; Official Business Trip  <strong>(OBT)</strong></a></strong><br/><br/>
 
 
                         @endif
+
+
+                        @if($anApprover && Auth::user()->id != $user->id)
+                        <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'ML'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-female"></i>&nbsp;&nbsp; Maternity Leave  <strong>(ML)</strong></a></strong><br/><br/>
+
+                        @else
+                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'type'=>'ML'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-female"></i>&nbsp;&nbsp; Maternity Leave  <strong>(ML)</strong></a></strong><br/><br/>
+
+
+                        @endif
+
+
+                        @if($anApprover && Auth::user()->id != $user->id)
+                        <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'PL'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-male"></i>&nbsp;&nbsp; Paternity Leave  <strong>(PL)</strong></a></strong><br/><br/>
+
+                        @else
+                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate,'type'=>'PL'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-male"></i>&nbsp;&nbsp; Paternity Leave  <strong>(PL)</strong></a></strong><br/><br/>
+
+
+                        @endif
+
+
+                        @if($anApprover && Auth::user()->id != $user->id)
+                        <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'SPL'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-street-view"></i>&nbsp;&nbsp; Single-Parent Leave  <strong>(SPL)</strong></a></strong><br/><br/>
+
+                        @else
+                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate,'type'=>'SPL'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-street-view"></i>&nbsp;&nbsp; Single-Parent Leave  <strong>(SPL)</strong></a></strong><br/><br/>
+
+
+                        @endif
+
+
                     </p>
                   <!-- <label> <input type="radio" name="leave" data-productionDate="{{ $DproductionDate }}" value="vl" id="vl"/>&nbsp;&nbsp; <i class="fa fa-plane"></i> Vacation Leave </label><BR/>
                      <label> <input type="radio" name="leave"  data-productionDate="{{ $DproductionDate }}" value="sl" id="sl"/>&nbsp;&nbsp; <i class="fa fa-stethoscope"></i> Sick Leave </label><br/>

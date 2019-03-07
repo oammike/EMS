@@ -104,6 +104,7 @@
                                                     <strong>Billable hours:  &nbsp;</strong> {{$details[0]['billableHours']}}<br/>
                                                     <strong class="text-danger">Filed OT hours: {{$details[0]['filedHours']}}</strong><br/>
                                                     Time: <strong>{{$details[0]['timeStart']}} - {{$details[0]['timeEnd']}} </strong> <br/>
+                                                    OT Type: <strong> <em> <small>{{$details[0]['billedType']}}</small></em></strong><br/>
                                                     <strong>Reason: </strong> <em> <small>{{$details[0]['reason']}}</small></em></td>
 
                                                   @if (is_null($OT->isApproved))

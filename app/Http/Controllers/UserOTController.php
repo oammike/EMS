@@ -400,9 +400,18 @@ class UserOTController extends Controller
             if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
 
             $details = new Collection;
+
+            switch ($OT->billedType) {
+                case '1': $bt = "Billed"; break;
+                case '2': $bt = "Non-billed"; break;
+                case '3': $bt = "Patch"; break;
+                default: $bt = "Billed"; break;
+            }
+
             $details->push(['productionDate'=>date('M d, Y - l',strtotime(Biometrics::find($OT->biometrics_id)->productionDate)), 
                 'dateRequested'=>date('M d, Y - l ', strtotime($OT->created_at)),
                 'billableHours'=>$OT->billable_hours,
+                'billedType'=>$bt,
                 'filedHours'=> $OT->filed_hours,
                 'timeStart' => date('h:i A', strtotime($OT->timeStart)),
                 'timeEnd'=>date('h:i A', strtotime($OT->timeEnd)),
@@ -432,6 +441,7 @@ class UserOTController extends Controller
         $OT->timeEnd = Carbon::parse($request->OTend,"Asia/Manila");
     	$OT->isRD = $request->isRD;
         $OT->reason = $request->reason;
+        $OT->billedType = $request->billedtype;
     	$OT->isApproved = null;
 
     	if ($request->TLsubmitted == 1)
@@ -445,6 +455,18 @@ class UserOTController extends Controller
 
     	//--- notify the TL concerned
     	$employee = User::find($OT->user_id);
+
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
 
     	if (!$TLsubmitted)
     	{
@@ -466,6 +488,34 @@ class UserOTController extends Controller
 
                # code...
              }
+
+             //-- we now notify all WFM
+            if(!$employeeisBackoffice)
+            {
+                foreach ($wfm as $approver) {
+                    //$TL = ImmediateHead::find($approver->immediateHead_id);
+                    //-- make sure not to send nofication kung WFM agent ang sender
+                    if ($this->user->id !== $approver)
+                    {
+
+                        $nu = new User_Notification;
+                        $nu->user_id = $approver;
+                        $nu->notification_id = $notification->id;
+                        $nu->seen = false;
+                        $nu->save();
+
+                        // NOW, EMAIL THE TL CONCERNED
+                    
+                        $email_heading = "New OT Request from: ";
+                        $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>Total Over time: <strong> [". $OT->filed_hours." hours] </strong>". date('h:i A', strtotime($OT->timeStart)). " - ". date('h:i A', strtotime($OT->timeEnd)). " <br/>";
+                        $actionLink = action('UserOTController@show',$OT->id);
+
+                    }
+
+                
+                }
+            }
+            
 
 	        
 

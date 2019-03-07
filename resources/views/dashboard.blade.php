@@ -1006,6 +1006,15 @@ select:-webkit-autofill:focus {
                                             modalcode +='<br/><strong>End : </strong>'+full.deets.timeEnd;
                                             modalcode += '<br/><strong>Billable Hours: </strong>'+full.deets.billable_hours;
                                             modalcode += '<br/><strong>Filed Hours worked: </strong>'+full.deets.filed_hours;
+
+                                            if (full.deets.billedType == '1')
+                                            modalcode += '<br/><strong>OT Type: </strong> Billed';
+                                            else if (full.deets.billedType == '2')
+                                              modalcode += '<br/><strong>OT Type: </strong> Non-Billed';
+                                            else if (full.deets.billedType == '3')
+                                              modalcode += '<br/><strong>OT Type: </strong> Patch';
+                                            else modalcode += '<br/><strong>OT Type: </strong> Billed';
+
                                             modalcode += '</p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
                                             modalcode += '<p class="text-left"><em>'+full.deets.reason+'</em></p> </div>';
                                         };break;
