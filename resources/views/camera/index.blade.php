@@ -304,6 +304,7 @@
   }
   
   function save() {
+    Pace.start;
     window.readytoprint = false;
     /*
     if ($('#emp_sss').val()=="") {
@@ -354,9 +355,11 @@
               window.readytoprint = true;
               M.toast({html: 'ID layout saved successfully!'})
             }
+            Pace.stop;
           },
           error: function(xhr,status,msg){
             M.toast({html: msg})
+            Pace.stop;
           }
         })
       });
