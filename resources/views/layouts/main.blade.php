@@ -73,7 +73,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini @yield('bodyClasses') ">
+<body class="hold-transition skin-purple sidebar-mini @yield('bodyClasses') ">
 <div class="wrapper">
 
 
