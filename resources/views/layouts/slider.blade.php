@@ -97,6 +97,10 @@
   <?php */ ?> 
 
                     <div class="item active text-center" >
+                      <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                    </div>
+
+                    <div class="item text-center" >
                         
                          <p style="padding: 30px; margin-bottom: 0px">Thank you to all those who have been participating in our last sessions! Let’s stay fit together, Open Access family, Let’s Get Physical!<br/><br/>
                           <img src="./storage/uploads/zumba_02-27.jpg" style="z-index: 2" width="100%" /><br/><br/>
