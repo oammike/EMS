@@ -118,7 +118,7 @@ class IDController extends Controller
         $dir = "/var/www/html/evaluation/storage/uploads/id/";
         if (!file_exists($dir)) mkdir($dir, 0755, true);
         $filename = microtime(true);
-        if(is_numeric($_POST['id'])){
+        if( isset($_POST['id']) && is_numeric($_POST['id'])){
             $filename = $_POST['id'];
         }else{
             throw new \Exception('Invalid employee ID');
