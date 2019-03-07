@@ -17,6 +17,13 @@ class IDController extends Controller
         $this->user =  User::find(Auth::user()->id);
         $this->url = $url;
         $this->campaign_mode = false;
+        
+        /*
+        $this->beforeFilter(function() {
+            if(Auth::user()->role->name != 'client') return redirect::to('/'); // home
+        });
+        */
+        
     }
     
     public function index()
@@ -86,6 +93,12 @@ class IDController extends Controller
         $dir = "/var/www/html/evaluation/storage/uploads/id/";
         if (!file_exists($dir)) mkdir($dir, 0755, true);
         $filename = microtime(true);
+        if(is_numeric($_POST['id'])){
+            $filename = $_POST['id'];
+        }else{
+            throw new \Exception('Invalid employee ID');
+        }
+        
         
         
         $image = imagecreatefromstring($image_base64);
@@ -111,6 +124,51 @@ class IDController extends Controller
         exit;
     }
     
+    function rename_id(){
+        /*
+        $id_number = Input::get('id_number');
+        $filename = Input::get('filename');
+        $is_portrait = Input::get('is_portrait');
+        if (file_exists($filename)) {
+            if($is_portrait){
+                rename($filename, "/storage/uploads/id/".$id_number."_portrait.png");
+            } else {
+                rename($filename, "/storage/uploads/id/".$id_number.".png");
+            }
+            echo "success";
+        } else {
+            echo "file does not exist";
+        }
+        */
+    }
+    
+    function save_portrait(){
+        $image_parts = explode(";base64,", $_POST['base64data']);
+        $image_base64 = base64_decode($image_parts[1]);
+        
+        if (preg_match('/^data:image\/(\w+);base64,/', $_POST['base64data'], $image_parts[0])) {
+            
+            if (!in_array($image_parts[0][1], [ 'png' ])) {
+                throw new \Exception('invalid image type: '.$image_parts[0][1]);
+            }
+            
+            if ($image_base64 === false) {
+                throw new \Exception('base64_decode failed');
+            }
+        } else {
+            throw new \Exception('did not match data URI with image data');
+        }
+        
+        
+            $dir = "/var/www/html/evaluation/storage/uploads/id";
+            if (!file_exists($dir)) mkdir($dir, 0755, true);
+            $filename = microtime(true);
+            file_put_contents($dir.$filename.".png", $image_base64);
+            echo "storage/uploads/id/backlogs/".$filename.".png";
+        
+        exit;
+    }
+
     public function archive()
     {
         $image_parts = explode(";base64,", $_POST['base64data']);
@@ -130,13 +188,51 @@ class IDController extends Controller
         }
         
         
-            $dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
-            if (!file_exists($dir)) mkdir($dir, 0755, true);
-            $filename = microtime(true);
-            file_put_contents($dir.$filename.".png", $image_base64);
-            echo "storage/uploads/id/backlogs/".$filename.".png";
+        /*
+        $dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
+        if (!file_exists($dir)) mkdir($dir, 0755, true);
+        $filename = microtime(true);
+        file_put_contents($dir.$filename.".png", $image_base64);
+        echo "storage/uploads/id/backlogs/".$filename.".png";
         
         exit;
+        */
+        
+        $idealW = 1322;
+        $idealH = 2071;
+        $optimalW = 525;
+        $optimalH = 822;
+        $outputW = 0;
+        $outputH = 0;
+        
+        $dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
+        if (!file_exists($dir)) mkdir($dir, 0755, true);
+        $filename = microtime(true);
+        
+        
+        $image = imagecreatefromstring($image_base64);
+        $width = ImageSX($image);
+        $height = ImageSY($image);
+        
+        if($width >= $idealW){
+            $outputW = $idealW;
+            $outputH = $idealH;
+        }else{
+            $outputW = $optimalW;
+            $outputH = $optimalH;    
+        }
+        
+        $output = imagecreatetruecolor($outputW,$outputH);
+        $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
+        imagefilledrectangle($output, 0, 0, $outputW, $outputH, $transparency);
+        imagecopyresampled($output, $image, 0, 0, 0, 0, $outputW, $outputH, $width, $height);
+        imagepng($output, $dir.$filename.".png", 9);
+
+        echo "storage/uploads/id/backlogs/".$filename.".png";
+        
+        exit;
+        
+        
     }
     
     public function save_signature()

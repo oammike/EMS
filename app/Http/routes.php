@@ -828,6 +828,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/export_id', 'IDController@export_id');
     Route::post('/archive', 'IDController@archive');
     Route::post('/save_signature', 'IDController@save_signature');
+    Route::post('/rename_id','IDController@rename_id');
+    Route::post('/save_portrait','IDController@save_portrait');
     
 
   });

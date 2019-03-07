@@ -205,6 +205,7 @@
   window.signaturePad = null;
   window.readytoprint = false;
   window.archive;
+  window.employeeId = {{ $user->id }};
   
   $.ajaxSetup({
     headers: {
@@ -343,7 +344,8 @@
           type: "POST",
           dataType: "text",
           data: {
-            base64data : imgData
+            base64data : imgData,
+            id: window.employee_id
           },
           success: function(data,status,xhr){
             if(window.archive == true){
@@ -714,6 +716,7 @@
     $('#emp_name').val(fullname);
     $('#emp_pos').val(employee.jobTitle);
     $('#emp_num').val(employee.employeeNumber);
+    window.employeeId = employee.id;
   }
   
   loadData();
