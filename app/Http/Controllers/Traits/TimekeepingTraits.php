@@ -2775,8 +2775,8 @@ trait TimekeepingTraits
             
            {
               //$monthlySched = MonthlySchedules::where('user_id',$id)->get();
-              $workSched = MonthlySchedules::where('user_id',$id)->where('isRD',0)->where('productionDate',$productionDate->format('Y-m-d'))->orderBy('productionDate','ASC')->get(); 
-              $RDsched = MonthlySchedules::where('user_id',$id)->where('isRD',1)->where('productionDate',$productionDate->format('Y-m-d'))->get(); 
+              $workSched = MonthlySchedules::where('user_id',$user->id)->where('isRD',0)->where('productionDate',$productionDate->format('Y-m-d'))->orderBy('productionDate','ASC')->get(); 
+              $RDsched = MonthlySchedules::where('user_id',$user->id)->where('isRD',1)->where('productionDate',$productionDate->format('Y-m-d'))->get(); 
               $isFixedSched = false;
               $noWorkSched = false;
 
