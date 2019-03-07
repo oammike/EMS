@@ -868,10 +868,6 @@ class NotificationController extends Controller
              // }
               
 
-            
-            
-
-
         }
 
         $allNotifs = $yourNotifs->groupBy('created_at');
@@ -884,6 +880,15 @@ class NotificationController extends Controller
 
        // return $coll;
         //return $allNotifs;
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+       if($this->user->id !== 564 ) {
+          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n View All Notifs -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        } 
+
         return view('people.notification-index', compact('allNotifs'));
     }
 }
