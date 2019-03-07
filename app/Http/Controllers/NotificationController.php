@@ -152,7 +152,7 @@ class NotificationController extends Controller
                       } else { $position=null; $campaign=null; $fromDataID=$notif->detail->from; }
 
 
-                      if ($notif->detail->type !== 14) //because UNLOCK DTR has no immediate head data
+                      if ($notif->detail->type !== 14 && !$hasIssue) //because UNLOCK DTR has no immediate head data
                       {
                         ( is_null($fromData->userData->nickname) ) ? $from = $fromData->userData->firstname." ".$fromData->userData->lastname : $from = $fromData->userData->nickname." ".$fromData->userData->lastname;
 
