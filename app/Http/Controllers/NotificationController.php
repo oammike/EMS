@@ -187,7 +187,7 @@ class NotificationController extends Controller
 
               }else{
 
-                    if ($notif->detail->type == 15) //problema gawa ni WFM
+                    if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
                     {
                       $fromData= User::find($notif->detail->from);
                       $fromDataID = $fromData->id;
