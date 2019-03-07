@@ -83,26 +83,28 @@ class IDController extends Controller
             throw new \Exception('did not match data URI with image data');
         }
         
-        $portrait_parts = explode(";base64,", $_POST['portraitData']);
-        $portrait_base64 = base64_decode($portrait_parts[1]);
-        
-        if (preg_match('/^data:image\/(\w+);base64,/', $_POST['portraitData'], $portrait_parts[0])) {
-            if (!in_array($image_parts[0][1], [ 'png' ])) {
-                throw new \Exception('invalid image type: '.$portrait_parts[0][1]);
+        if(isset($_POST['portraitData'])){
+            $portrait_parts = explode(";base64,", $_POST['portraitData']);
+            $portrait_base64 = base64_decode($portrait_parts[1]);
+            
+            if (preg_match('/^data:image\/(\w+);base64,/', $_POST['portraitData'], $portrait_parts[0])) {
+                if (!in_array($image_parts[0][1], [ 'png' ])) {
+                    throw new \Exception('invalid image type: '.$portrait_parts[0][1]);
+                }
+                
+                if ($portrait_base64 === false) {
+                    throw new \Exception('base64_decode failed');
+                }
+                
+                $dir = "/var/www/html/evaluation/storage/uploads/id/";
+                if (!file_exists($dir)) mkdir($dir, 0755, true);
+                
+                $filename = microtime(true); 
+                file_put_contents($dir.$_POST['id']."_portrait.png", $portrait_base64);
+                
+            } else {
+                throw new \Exception('did not match data URI with image data');
             }
-            
-            if ($portrait_base64 === false) {
-                throw new \Exception('base64_decode failed');
-            }
-            
-            $dir = "/var/www/html/evaluation/storage/uploads/id/";
-            if (!file_exists($dir)) mkdir($dir, 0755, true);
-            
-            $filename = microtime(true); 
-            file_put_contents($dir.$_POST['id']."_portrait.png", $portrait_base64);
-            
-        } else {
-            throw new \Exception('did not match data URI with image data');
         }
         
         
