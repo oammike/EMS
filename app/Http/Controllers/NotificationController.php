@@ -124,7 +124,9 @@ class NotificationController extends Controller
                                     }else{
                                       $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->approver)->id;
 
-                                    }break;
+                                    }
+                                  }
+                                  break;
                         case '8': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy)->immediateHead_id);break;
                         case '9': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy)->immediateHead_id);break;
                         case '10': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_VL::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
