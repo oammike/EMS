@@ -111,6 +111,8 @@ class NotificationController extends Controller
                 
                 ($fromData->id == $this->user->id) ? $ownNotif=true : $ownNotif=false;
 
+                $hasIssue =false;
+
 
                     if ($ownNotif) //show the TL who approved instead
                     {
@@ -123,6 +125,7 @@ class NotificationController extends Controller
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
                                       $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
 
                                     }
                                   }
@@ -141,7 +144,7 @@ class NotificationController extends Controller
 
                       }
                       
-                      if (!is_null($fromData)){
+                      if (!is_null($fromData) && !$hasIssue) {
                         $position = $fromData->userData->position->name;
                         $campaign = Campaign::find(Team::where('user_id', $fromData->userData->id)->first()->campaign_id)->name;
                         $fromDataID = $fromData->userData->id;
