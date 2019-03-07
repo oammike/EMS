@@ -1290,7 +1290,7 @@ select:-webkit-autofill:focus {
                                          
 
                                           if (full.deets.attachments != null)
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/medCert/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
                                           modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
@@ -1331,7 +1331,7 @@ select:-webkit-autofill:focus {
                                          
 
                                           if (full.deets.attachments != null)
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/medCert/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
                                           modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
@@ -1372,7 +1372,7 @@ select:-webkit-autofill:focus {
                                          
 
                                           if (full.deets.attachments != null)
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/medCert/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
                                           modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
