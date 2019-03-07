@@ -337,6 +337,7 @@
     window.filepath = "";
     if (window.hasCapturedPhoto) {
       html2canvas(document.querySelector('#id_wrapper')).then(function(canvas) {
+        var portrait = document.getElementById('seriousCanvas').toDataURL('image/png');
         var imgData = canvas.toDataURL('image/png');
         console.log(imgData);
         $.ajax({
@@ -345,6 +346,7 @@
           dataType: "text",
           data: {
             base64data : imgData,
+            portraitData : portrait,
             id: window.employee_id
           },
           success: function(data,status,xhr){
@@ -410,7 +412,7 @@
     
     try{
       document.getElementById('seriousCanvas').parentNode.removeChild(document.getElementById('seriousCanvas'));
-      $('<canvas id="seriousCanvas" width="720" height="720"></canvas>').insertAfter($('#foreground'));
+      $('<canvas id="seriousCanvas" width="1560" height="1560"></canvas>').insertAfter($('#foreground'));
     }catch(error){
       //ignore
     }
@@ -541,6 +543,7 @@
     $('body').addClass('stop-scrolling');
     
     var canvas = document.querySelector("#signature_canvas");
+    
     window.signaturePad = new SignaturePad(canvas);
     $('#dimmer').show();
   }
