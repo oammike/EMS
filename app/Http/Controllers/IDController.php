@@ -99,7 +99,7 @@ class IDController extends Controller
             if (!file_exists($dir)) mkdir($dir, 0755, true);
             
             $filename = microtime(true); 
-            file_put_contents($dir.$_POST['id']."_portrait.png", $image_base64);
+            file_put_contents($dir.$_POST['id']."_portrait.png", $portrait_base64);
             
         } else {
             throw new \Exception('did not match data URI with image data');

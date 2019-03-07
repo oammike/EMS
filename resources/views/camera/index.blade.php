@@ -321,16 +321,19 @@
     if(window.hasCapturedPhoto == false && window.hasSignature == false){
       M.toast({html: 'Please take a photo first then sign the ID'})
       window.archive = false;
+      Pace.stop;
       return;
     }
     if(window.hasCapturedPhoto == true && window.hasSignature == false){
       M.toast({html: 'Please sign the ID first'})
       window.archive = false;
+      Pace.stop;
       return;
     }
     if(window.hasCapturedPhoto == false && window.hasSignature == true){
       M.toast({html: 'Please take a photo first'})
       window.archive = false;
+      Pace.stop;
       return;
     }
   
@@ -339,7 +342,7 @@
       html2canvas(document.querySelector('#id_wrapper')).then(function(canvas) {
         var portrait = document.getElementById('seriousCanvas').toDataURL('image/png');
         var imgData = canvas.toDataURL('image/png');
-        console.log(imgData);
+        //console.log(imgData);
         $.ajax({
           url: window.archive ? "{{ url('/archive') }}" : "{{ url('/export_id') }}",
           type: "POST",
