@@ -118,7 +118,7 @@ class NotificationController extends Controller
                         case '6': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_CWS::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
                         case '7': { 
                                     $ih = ImmediateHead_Campaign::find(User_OT::find($notif->detail->relatedModelID)->approver);
-                                    if ( count() > 0 ){
+                                    if ( count($ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
