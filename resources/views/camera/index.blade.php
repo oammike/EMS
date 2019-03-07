@@ -179,7 +179,7 @@
   
   
   <script>
-  window.employee_id = 9972;
+  window.employee_id = {{ $user->id }};
   window.mode = null;
   window.image_index = 0;
   window.images = [
@@ -304,6 +304,7 @@
   }
   
   function save() {
+    Pace.start;
     window.readytoprint = false;
     /*
     if ($('#emp_sss').val()=="") {
@@ -320,30 +321,36 @@
     if(window.hasCapturedPhoto == false && window.hasSignature == false){
       M.toast({html: 'Please take a photo first then sign the ID'})
       window.archive = false;
+      Pace.stop;
       return;
     }
     if(window.hasCapturedPhoto == true && window.hasSignature == false){
       M.toast({html: 'Please sign the ID first'})
       window.archive = false;
+      Pace.stop;
       return;
     }
     if(window.hasCapturedPhoto == false && window.hasSignature == true){
       M.toast({html: 'Please take a photo first'})
       window.archive = false;
+      Pace.stop;
       return;
     }
   
     window.filepath = "";
     if (window.hasCapturedPhoto) {
       html2canvas(document.querySelector('#id_wrapper')).then(function(canvas) {
+        var portrait = document.getElementById('seriousCanvas').toDataURL('image/png');
         var imgData = canvas.toDataURL('image/png');
-        console.log(imgData);
+        //console.log(imgData);
         $.ajax({
           url: window.archive ? "{{ url('/archive') }}" : "{{ url('/export_id') }}",
           type: "POST",
           dataType: "text",
           data: {
-            base64data : imgData
+            base64data : imgData,
+            portraitData : portrait,
+            id: window.employee_id
           },
           success: function(data,status,xhr){
             if(window.archive == true){
@@ -353,9 +360,11 @@
               window.readytoprint = true;
               M.toast({html: 'ID layout saved successfully!'})
             }
+            Pace.stop;
           },
           error: function(xhr,status,msg){
             M.toast({html: msg})
+            Pace.stop;
           }
         })
       });
@@ -371,7 +380,7 @@
   
   function printme(){
     if(window.readytoprint == true){
-      var filepath = window.location + window.filepath;
+      var filepath = window.location + window.filepath + "?timestamp=" + Date.now();
       var popupWin = window.open('', '_blank', 'width=638,height=1013');
 
       popupWin.document.open();
@@ -406,7 +415,7 @@
     
     try{
       document.getElementById('seriousCanvas').parentNode.removeChild(document.getElementById('seriousCanvas'));
-      $('<canvas id="seriousCanvas" width="720" height="720"></canvas>').insertAfter($('#foreground'));
+      $('<canvas id="seriousCanvas" width="1560" height="1560"></canvas>').insertAfter($('#foreground'));
     }catch(error){
       //ignore
     }
@@ -537,6 +546,7 @@
     $('body').addClass('stop-scrolling');
     
     var canvas = document.querySelector("#signature_canvas");
+    
     window.signaturePad = new SignaturePad(canvas);
     $('#dimmer').show();
   }
@@ -714,6 +724,7 @@
     $('#emp_name').val(fullname);
     $('#emp_pos').val(employee.jobTitle);
     $('#emp_num').val(employee.employeeNumber);
+    window.employee_id = employee.id;
   }
   
   loadData();
