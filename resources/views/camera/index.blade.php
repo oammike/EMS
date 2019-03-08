@@ -24,6 +24,9 @@
       -->
     </div>
   </div>
+  <div id="crosshair_wrapper">
+    <img src="{{ asset( 'public/img/crosshair.png' ) }}" />
+  </div>
   <div id="controls" class="flow-text">
   
     @if ($campaign_mode === true)
@@ -101,11 +104,12 @@
               <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:adjustSignature();"><i class="material-icons left">open_with</i>Adjust Signature</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:saveToArchive();"><i class="material-icons left">archive</i>Archive</a>
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
           </div>
+          
           <div class="input-field col s6">
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>            
           </div>
@@ -179,6 +183,7 @@
   
   
   <script>
+  
   window.employee_id = {{ $user->id }};
   window.mode = null;
   window.image_index = 0;
@@ -205,6 +210,9 @@
   window.signaturePad = null;
   window.readytoprint = false;
   window.archive;
+  window.adjust_mode = false;
+  window.signature_left = 5;
+  window.signature_bottom = 100;
   
   $.ajaxSetup({
     headers: {
@@ -304,6 +312,7 @@
   }
   
   function save() {
+    window.adjust_mode = false;
     Pace.start;
     window.readytoprint = false;
     /*
@@ -423,21 +432,27 @@
     window.hasCapturedPhoto = false;
     window.hasSignature = false;
     window.archive = false;
+    window.adjust_mode = false;
     $('#bt_controller').text("Start Camera");
     $("#id_signature").attr("src", '{{ asset( 'public/img/blank_signature.png' ) }}');
+    $('#crosshair_wrapper').hide();
+    $('#employee_name').css('font-size',"55px");
   }
   
   
   function camerapause() {
+    window.adjust_camera = false;
     
     if($('#bt_controller').text()==="Retry" || $('#bt_controller').text()==="Start Camera" || window.mode=="image"){
       console.log("initializing camera");
       initializeCamera();
       $('#bt_controller').text("Capture");
+      $('#crosshair_wrapper').show();
       return;
     }
 
     console.log("stopping camera");
+    $('#crosshair_wrapper').hide();
     window.video.pause();
     window.paused = true;
     window.video.srcObject.getTracks()[0].stop();
@@ -537,6 +552,7 @@
   }
   
   function signature() {
+    window.adjust_mode = false;
     window.readytoprint = false;
     $('#dimmer').on('click',function(e){
         if (e.target !== this) return;
@@ -591,11 +607,76 @@
     });
   }
   
+  function adjustSignature() {
+    window.signature_bottom = 100;
+    window.signature_left = 5;
+    var reset = {
+      bottom : "100px",
+      left: "5px"
+    };
+    $("#id_signature_wrapper").css(reset);
+    window.adjust_mode = true;
+  }
+  
+  function camelize(str) {
+  
+    return str.replace(/\b\w/g, function(l){ return l.toUpperCase() });
+  }
+  
+  function resizeEmployeeName() {
+    var length = $('#emp_name').val().length;
+    var font_size = 55;
+    if (length<=21) {
+        font_size = 55;
+    } else {
+      while (length > 21) {
+        font_size = font_size - 2;
+        length = length - 1;
+      }
+    }
+    $('#employee_name').css('font-size',font_size + "px");
+  }
+  
+  function _addEventListener(evt, element, fn) {
+    if (window.addEventListener) {
+      element.addEventListener(evt, fn, false);
+    }
+    else {
+      element.attachEvent('on'+evt, fn);
+    }
+  }
+
+  function handleKeyboardEvent(e) {
+    if (window.adjust_mode == true) {
+      e = e || window.event;
+      e.preventDefault();
+  
+      if (e.keyCode == '38') {
+        window.signature_bottom = window.signature_bottom + 3;
+        $('#id_signature_wrapper').css('bottom',window.signature_bottom + "px");
+      }
+      else if (e.keyCode == '40') {
+        window.signature_bottom = window.signature_bottom - 3;
+        $('#id_signature_wrapper').css('bottom',window.signature_bottom + "px");
+      }
+      else if (e.keyCode == '37') {
+        window.signature_left = window.signature_left - 3;
+        $('#id_signature_wrapper').css('left',window.signature_left + "px");
+      }
+      else if (e.keyCode == '39') {
+        window.signature_left = window.signature_left + 3;
+        $('#id_signature_wrapper').css('left',window.signature_left + "px");
+      }
+    }
+  }
+  
   $('#emp_nick').keyup( function() { $('#employee_nick').text($('#emp_nick').val()); });
-  $('#emp_name').keyup( function() { $('#employee_name').text($('#emp_name').val()); });
   $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
   $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
-  
+  $('#emp_name').keyup( function() {
+    $('#employee_name').text($('#emp_name').val());
+    resizeEmployeeName();
+  });
   $('#emp_sss').keyup( function() { $('#employee_sss').text($('#emp_sss').val()); });
   $('#emp_tin').keyup( function() { $('#employee_tin').text($('#emp_tin').val()); });
   window.resolutionIndex = 0;
@@ -638,7 +719,12 @@
     }
   ];
   
+  _addEventListener('keydown', document, handleKeyboardEvent);
+  
+  
   $(document).ready(function(){
+    $('#crosshair_wrapper').hide();
+    
     
     if (!navigator.getUserMedia) {
         M.toast({html: 'Browser does not support web camera.'})
@@ -695,18 +781,29 @@
   
   function loadNextEmployee(){
     window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
+    var employee = window.employees[window.currentEmployeeIndex];
+    if(employee===undefined){
+      window.currentEmployeeIndex =  window.currentEmployeeIndex - 1;
+       M.toast({html: 'You have reached the end of the list'})
+       return;
+    }
     loadData();
   }
   
   function loadPreviousEmployee(){
     window.currentEmployeeIndex =  window.currentEmployeeIndex - 1;
+    var employee = window.employees[window.currentEmployeeIndex];
+    if(employee===undefined){
+      window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
+       M.toast({html: 'You have reached the end of the list'})
+       return;
+    }
     loadData();
   }
   
   function loadData(){
     var employee = window.employees[window.currentEmployeeIndex];
     if(employee===undefined){
-       M.toast({html: 'You have reached the end of the list'})
        return;
     }
     //console.log(employee);
@@ -715,7 +812,10 @@
       //employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
       employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
       ;
-    $('#employee_nick').text(employee.nickname);
+      
+    fullname = camelize(fullname);
+    
+    $('#employee_nick').text(employee.nickname.toLowerCase().charAt(0).toUpperCase() + employee.nickname.toLowerCase().slice(1));
     $('#employee_name').text(fullname);
     $('#employee_position').text(employee.jobTitle);
     $('#employee_number').text(employee.employeeNumber);
@@ -724,6 +824,7 @@
     $('#emp_name').val(fullname);
     $('#emp_pos').val(employee.jobTitle);
     $('#emp_num').val(employee.employeeNumber);
+    resizeEmployeeName();
     window.employee_id = employee.id;
   }
   
