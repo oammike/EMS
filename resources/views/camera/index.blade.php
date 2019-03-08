@@ -183,7 +183,7 @@
   
   
   <script>
-  document.onkeydown = checkKey;
+  
   window.employee_id = {{ $user->id }};
   window.mode = null;
   window.image_index = 0;
@@ -635,10 +635,20 @@
     }
     $('#employee_name').css('font-size',font_size + "px");
   }
+  
+  function _addEventListener(evt, element, fn) {
+    if (window.addEventListener) {
+      element.addEventListener(evt, fn, false);
+    }
+    else {
+      element.attachEvent('on'+evt, fn);
+    }
+  }
 
-  function checkKey(e) {
+  function handleKeyboardEvent(e) {
     if (window.adjust_mode == true) {
       e = e || window.event;
+      e.preventDefault();
   
       if (e.keyCode == '38') {
         window.signature_bottom = window.signature_bottom + 3;
@@ -708,8 +718,12 @@
     }
   ];
   
+  _addEventListener('keydown', document, handleKeyboardEvent);
+  
+  
   $(document).ready(function(){
     $('#crosshair_wrapper').hide();
+    
     
     if (!navigator.getUserMedia) {
         M.toast({html: 'Browser does not support web camera.'})
