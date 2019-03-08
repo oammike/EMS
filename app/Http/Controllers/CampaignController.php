@@ -88,7 +88,7 @@ class CampaignController extends Controller
             }
 
            
-
+            
             return view('people.campaigns-index',compact('allCamps','sort'));
      }
 

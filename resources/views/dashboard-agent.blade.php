@@ -178,6 +178,26 @@ select:-webkit-autofill:focus {
                 <!-- /.box -->
 
                   <!--VIDEOS -->
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Videos</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <p class="text-center"> <strong class="text-primary">Let's Get Physical: </strong> <strong>Zumba</strong> Sessions <br/>  </strong> 
+                               </p>
+
+                                
+                              
+                              <video id="teaser" src="storage/uploads/zumba2.webm" width="100%" loop controls></video>
+                    </div>
+                  </div>
                 
 
                 
