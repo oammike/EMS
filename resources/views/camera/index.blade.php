@@ -45,17 +45,6 @@
       
     @endif
     
-    
-    <div id="adjustdiscov" class="teal" data-target="adjust_button">
-      <div class="tap-target-content">
-        <h5>Adjust Signature</h5>
-        <p>
-          Use the arrow keys to set the signature's position<br/>
-          <a href="javascript:dismissAdjustDiscov()" class="waves-effect waves-blue-grey btn right blue-grey darken-2">OK</a>
-        </p>
-      </div>
-    </div>
-      
     <div class="section">
       <h6>Employee Details</h6>
       <div class="row">
@@ -164,6 +153,20 @@
         </form>
       </div>
     </div>
+      
+    <div id="signatureFeaturette" class="row scale-transition scale-out col s12">
+      <div class="col s12">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Signature Re-alignment</span>
+            <p>Use the arrow keys on your keyboard to set the signature's position.</p>
+          </div>
+          <div class="card-action">
+            <a href="javascript:hideSignatureModal()">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>  
     
     
     <div id="options">
@@ -621,13 +624,9 @@
   
   function adjustSignature() {
   
-    $('#adjustdiscov').tapTarget({
-      onClose: function () {
-          //localStorage.setItem("discoveredSignature", "yes");
-      }
-    });
     if(localStorage.discoveredSignature !== "yes"){
-      $('#adjustdiscov').tapTarget('open');
+      localStorage.setItem("discoveredSignature", "yes");
+      $('#signatureFeaturette').removeClass('scale-out').addClass('scale-in');
     }
   
     window.signature_bottom = 100;
@@ -638,6 +637,10 @@
     };
     $("#id_signature_wrapper").css(reset);
     window.adjust_mode = true;
+  }
+  
+  function hideSignatureModal() {
+    $('#signatureFeaturette').removeClass('scale-in').addClass('scale-out');
   }
   
   function camelize(str) {
