@@ -429,6 +429,7 @@
     $('#bt_controller').text("Start Camera");
     $("#id_signature").attr("src", '{{ asset( 'public/img/blank_signature.png' ) }}');
     $('#crosshair_wrapper').hide();
+    $('#employee_name').css('font-size',"55px");
   }
   
   
@@ -604,7 +605,7 @@
     $('#employee_name').text($('#emp_name').val());
     var length = $('#emp_name').val().length;
     var font_size = 55;
-    if (length>=21) {
+    if (length<=21) {
         font_size = 55;
     } else {
       while (length > 21) {
@@ -614,7 +615,6 @@
     }
     $('#employee_name').css('font-size',font_size + "px");
   });
-  
   $('#emp_sss').keyup( function() { $('#employee_sss').text($('#emp_sss').val()); });
   $('#emp_tin').keyup( function() { $('#employee_tin').text($('#emp_tin').val()); });
   window.resolutionIndex = 0;

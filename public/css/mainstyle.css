@@ -83,8 +83,8 @@ p#employee_name{
 }
 p#employee_nick{
   color: #219fec;
-  font-size: 105px;
-  line-height: 110px;
+  font-size: 115px;
+  line-height: 150px;
 }
 p#employee_position{
   font-size: 40px;
