@@ -598,11 +598,13 @@
     });
   }
   
-  $('#emp_nick').keyup( function() { $('#employee_nick').text($('#emp_nick').val()); });
-  $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
-  $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
-  $('#emp_name').keyup( function() {
-    $('#employee_name').text($('#emp_name').val());
+  function camelize(str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+      return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+    }).replace(/\s+/g, '');
+  }
+  
+  function resizeEmployeeName() {
     var length = $('#emp_name').val().length;
     var font_size = 55;
     if (length<=21) {
@@ -614,6 +616,14 @@
       }
     }
     $('#employee_name').css('font-size',font_size + "px");
+  }
+  
+  $('#emp_nick').keyup( function() { $('#employee_nick').text($('#emp_nick').val()); });
+  $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
+  $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
+  $('#emp_name').keyup( function() {
+    $('#employee_name').text($('#emp_name').val());
+    resizeEmployeeName();
   });
   $('#emp_sss').keyup( function() { $('#employee_sss').text($('#emp_sss').val()); });
   $('#emp_tin').keyup( function() { $('#employee_tin').text($('#emp_tin').val()); });
@@ -735,6 +745,9 @@
       //employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
       employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
       ;
+      
+    fullname = camelize(fullname);
+    
     $('#employee_nick').text(employee.nickname.toLowerCase().charAt(0).toUpperCase() + employee.nickname.toLowerCase().slice(1));
     $('#employee_name').text(fullname);
     $('#employee_position').text(employee.jobTitle);
@@ -744,6 +757,7 @@
     $('#emp_name').val(fullname);
     $('#emp_pos').val(employee.jobTitle);
     $('#emp_num').val(employee.employeeNumber);
+    resizeEmployeeName();
     window.employee_id = employee.id;
   }
   
