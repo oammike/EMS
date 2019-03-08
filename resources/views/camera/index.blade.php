@@ -432,6 +432,7 @@
     window.hasCapturedPhoto = false;
     window.hasSignature = false;
     window.archive = false;
+    window.adjust_mode = false;
     $('#bt_controller').text("Start Camera");
     $("#id_signature").attr("src", '{{ asset( 'public/img/blank_signature.png' ) }}');
     $('#crosshair_wrapper').hide();
@@ -610,7 +611,7 @@
     window.signature_bottom = 100;
     window.signature_left = 5;
     var reset = {
-      top : "100px",
+      bottom : "100px",
       left: "5px"
     };
     $("#id_signature_wrapper").css(reset);
