@@ -724,18 +724,29 @@
   
   function loadNextEmployee(){
     window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
+    var employee = window.employees[window.currentEmployeeIndex];
+    if(employee===undefined){
+      window.currentEmployeeIndex =  window.currentEmployeeIndex - 1;
+       M.toast({html: 'You have reached the end of the list'})
+       return;
+    }
     loadData();
   }
   
   function loadPreviousEmployee(){
     window.currentEmployeeIndex =  window.currentEmployeeIndex - 1;
+    var employee = window.employees[window.currentEmployeeIndex];
+    if(employee===undefined){
+      window.currentEmployeeIndex =  window.currentEmployeeIndex + 1;
+       M.toast({html: 'You have reached the end of the list'})
+       return;
+    }
     loadData();
   }
   
   function loadData(){
     var employee = window.employees[window.currentEmployeeIndex];
     if(employee===undefined){
-       M.toast({html: 'You have reached the end of the list'})
        return;
     }
     //console.log(employee);

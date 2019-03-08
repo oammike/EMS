@@ -88,7 +88,8 @@ p#employee_nick{
 }
 p#employee_position{
   font-size: 40px;
-  line-height: 65px;
+  line-height: 50px;
+  padding-top: 30px;
   letter-spacing: 1px;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
