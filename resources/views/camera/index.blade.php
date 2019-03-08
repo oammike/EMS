@@ -612,7 +612,7 @@
         length = length - 1;
       }
     }
-    $('#emp_name').css('font-size',font_size + "px");
+    $('#employee_name').css('font-size',font_size + "px");
   });
   
   $('#emp_sss').keyup( function() { $('#employee_sss').text($('#emp_sss').val()); });
