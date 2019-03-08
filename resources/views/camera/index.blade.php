@@ -104,11 +104,12 @@
               <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:adjustSignature();"><i class="material-icons left">open_with</i>Adjust Signature</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:saveToArchive();"><i class="material-icons left">archive</i>Archive</a>
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
           </div>
+          
           <div class="input-field col s6">
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>            
           </div>
@@ -182,6 +183,7 @@
   
   
   <script>
+  document.onkeydown = checkKey;
   window.employee_id = {{ $user->id }};
   window.mode = null;
   window.image_index = 0;
@@ -208,6 +210,9 @@
   window.signaturePad = null;
   window.readytoprint = false;
   window.archive;
+  window.adjust_mode = false;
+  window.signature_left = 5;
+  window.signature_bottom = 100;
   
   $.ajaxSetup({
     headers: {
@@ -307,6 +312,7 @@
   }
   
   function save() {
+    window.adjust_mode = false;
     Pace.start;
     window.readytoprint = false;
     /*
@@ -434,6 +440,7 @@
   
   
   function camerapause() {
+    window.adjust_camera = false;
     
     if($('#bt_controller').text()==="Retry" || $('#bt_controller').text()==="Start Camera" || window.mode=="image"){
       console.log("initializing camera");
@@ -544,6 +551,7 @@
   }
   
   function signature() {
+    window.adjust_mode = false;
     window.readytoprint = false;
     $('#dimmer').on('click',function(e){
         if (e.target !== this) return;
@@ -598,6 +606,17 @@
     });
   }
   
+  function adjustSignature() {
+    window.signature_bottom = 100;
+    window.signature_left = 5;
+    var reset = {
+      top : "100px",
+      left: "5px"
+    };
+    $("#id_signature_wrapper").css(reset);
+    window.adjust_mode = true;
+  }
+  
   function camelize(str) {
   
     return str.replace(/\b\w/g, function(l){ return l.toUpperCase() });
@@ -615,6 +634,29 @@
       }
     }
     $('#employee_name').css('font-size',font_size + "px");
+  }
+
+  function checkKey(e) {
+    if (window.adjust_mode == true) {
+      e = e || window.event;
+  
+      if (e.keyCode == '38') {
+        window.signature_bottom = window.signature_bottom + 3;
+        $('#id_signature_wrapper').css('bottom',window.signature_bottom + "px");
+      }
+      else if (e.keyCode == '40') {
+        window.signature_bottom = window.signature_bottom - 3;
+        $('#id_signature_wrapper').css('bottom',window.signature_bottom + "px");
+      }
+      else if (e.keyCode == '37') {
+        window.signature_left = window.signature_left - 3;
+        $('#id_signature_wrapper').css('left',window.signature_left + "px");
+      }
+      else if (e.keyCode == '39') {
+        window.signature_left = window.signature_left + 3;
+        $('#id_signature_wrapper').css('left',window.signature_left + "px");
+      }
+    }
   }
   
   $('#emp_nick').keyup( function() { $('#employee_nick').text($('#emp_nick').val()); });
