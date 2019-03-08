@@ -599,9 +599,8 @@
   }
   
   function camelize(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-      return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-    }).replace(/\s+/g, '');
+  
+    return str.replace(/\b\w/g, function(l){ return l.toUpperCase() });
   }
   
   function resizeEmployeeName() {
