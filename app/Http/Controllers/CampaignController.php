@@ -88,7 +88,7 @@ class CampaignController extends Controller
             }
 
            
-
+            
             return view('people.campaigns-index',compact('allCamps','sort'));
      }
 
@@ -171,40 +171,45 @@ class CampaignController extends Controller
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canEdit =  ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
 
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find($id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
-        $campaign1 = DB::table('campaign')->where('campaign.id',$id)-> //Campaign::find($id);
-                        leftJoin('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                        leftJoin('immediateHead_Campaigns','campaign.id','=','immediateHead_Campaigns.campaign_id')->
-                      
-                        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                        leftJoin('users','users.employeeNumber','=','immediateHead.employeeNumber')->
+        $campaign = Campaign::find($id);
+        $l = DB::table('campaign_logos')->where('campaign_id',$campaign->id)->get();
+        (count($l) > 0) ? $logo = $l : $logo=null;
+
+       
+
+        $TLs = DB::table('campaign')->where('campaign.id',$id)->
+                  join('immediateHead_Campaigns','immediateHead_Campaigns.campaign_id','=','campaign.id')->
+                  join('immediateHead','immediateHead.id','=','immediateHead_Campaigns.immediateHead_id')->
+                  join('users','immediateHead.employeeNumber','=','users.employeeNumber')->
+                  join('positions','users.position_id','=','positions.id')->
+                  select('users.id as userID','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as TLfname','immediateHead.lastname as TLlname','users.nickname as TLnick','positions.name as jobTitle','users.status_id','immediateHead_Campaigns.disabled')->
+                  where([
+                            ['users.status_id','!=',7],
+                            ['users.status_id','!=',8],
+                            ['users.status_id','!=',9],
+                        ])->
+                  where('immediateHead_Campaigns.disabled','=',null)->
+                  orderBy('immediateHead.lastname','ASC')->get();
+                  
+
+        $members = DB::table('campaign')->where('campaign.id',$id)->
+                        join('team','team.campaign_id','=','campaign.id')->
+                        leftJoin('users','team.user_id','=','users.id')->
+                        //rightJoin('users','team.user_id','=','users.id')->
+                        leftJoin('positions','users.position_id','=','positions.id')->
+                        select('users.id as userID','users.nickname', 'users.firstname','users.lastname','positions.name as jobTitle','team.immediateHead_Campaigns_id as tlID')->
                         where([
-                            ['status_id','!=',7],
-                            ['status_id','!=',8],
-                            ['status_id','!=',9],
+                            ['users.status_id','!=',7],
+                            ['users.status_id','!=',8],
+                            ['users.status_id','!=',9],
                         ])->
-                        leftJoin('positions','users.position_id','=','positions.id')->
-                        leftJoin('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                        select('campaign.id as campaign_id','campaign.name','campaign_logos.filename', 'immediateHead.firstname as TLfname','immediateHead.lastname as TLlname','positions.name as jobTitle', 'immediateHead_Campaigns.id as ihCamp_id','users.id as user_TL_id','users.nickname', 'team.user_id as memberID','immediateHead_Campaigns.disabled as disabled','campaign.has_vicidial')->
-                        orderBy('users.lastname','ASC')->get();
+                        orderBy('users.lastname','ASC')->
+                        get();
 
-        $uData = DB::table('team')->where('team.campaign_id',$id)->
-                        leftJoin('users','users.id','=','team.user_id')->
-                         where([
-                            ['status_id','!=',7],
-                            ['status_id','!=',8],
-                            ['status_id','!=',9],
-                        ])->
-                        leftJoin('positions','users.position_id','=','positions.id')->
-                        select('users.firstname','users.nickname','users.lastname','users.id','positions.name as jobTitle')->get();
-                        
-
-        $campaigns = collect($campaign1);
-        $campaign = $campaigns->sortBy('TLlname');
-
-        $u = collect($uData);
-        $userData = $u->groupBy('id');
-        //return $campaign->groupBy('ihCamp_id');
 
          $correct = Carbon::now('GMT+8');
 
@@ -214,8 +219,9 @@ class CampaignController extends Controller
             fclose($file);
         }
 
+
        
-        return view('people.campaigns-show',compact('campaign','userData','canEdit'));
+        return view('people.campaigns-show',compact('campaign','logo', 'TLs','members','canEdit','isBackoffice','isWorkforce'));
 
     }
 

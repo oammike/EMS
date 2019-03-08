@@ -327,7 +327,27 @@ select:-webkit-autofill:focus {
                
 
                 
+              <!--VIDEOS -->
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Videos</h3>
 
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <p class="text-center"> <strong class="text-primary">Let's Get Physical: </strong> <strong>Zumba</strong> Sessions [03.07.2019] <br/>  </strong> 
+                               </p>
+
+                                
+                              
+                              <video id="teaser" src="storage/uploads/zumba2.webm" width="100%" loop controls></video>
+                    </div>
+                  </div>
                  
 
 
@@ -385,7 +405,7 @@ select:-webkit-autofill:focus {
 
 
                 
-                <!--VIDEOS -->
+                
                 
 
 
@@ -458,7 +478,7 @@ select:-webkit-autofill:focus {
    'use strict';
 
    /* ---- VIDEO PLAYER -------- */
-   /*var vid = document.getElementById("teaser");
+   var vid = document.getElementById("teaser");
    vid.onplay = function() {
         //alert("The video has started to play");
         $.ajax({
@@ -471,7 +491,7 @@ select:-webkit-autofill:focus {
               }
 
         });
-    };*/
+    };
      /* ---- VIDEO PLAYER -------- */
 
    $(window).bind("load", function() {
