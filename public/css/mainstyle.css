@@ -202,3 +202,16 @@ table{
   color: #fff;
   margin-left: 55px;
 }
+
+
+#crosshair_wrapper{
+  width: 430px;
+  height: 430px;
+  position: absolute;
+  left: 600px;
+  top: 778px;
+}
+#crosshair_wrapper img{
+  width: 100%;
+  height: 100%;
+}

@@ -24,6 +24,9 @@
       -->
     </div>
   </div>
+  <div id="crosshair_wrapper">
+    <img src="./img/crosshair.png" />
+  </div>
   <div id="controls" class="flow-text">
   
     @if ($campaign_mode === true)
@@ -434,10 +437,12 @@
       console.log("initializing camera");
       initializeCamera();
       $('#bt_controller').text("Capture");
+      $('#crosshair_wrapper').show();
       return;
     }
 
     console.log("stopping camera");
+    $('#crosshair_wrapper').hide();
     window.video.pause();
     window.paused = true;
     window.video.srcObject.getTracks()[0].stop();
@@ -639,6 +644,7 @@
   ];
   
   $(document).ready(function(){
+    $('#crosshair_wrapper').hide();
     
     if (!navigator.getUserMedia) {
         M.toast({html: 'Browser does not support web camera.'})
@@ -715,7 +721,7 @@
       //employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
       employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
       ;
-    $('#employee_nick').text(employee.nickname);
+    $('#employee_nick').text(employee.nickname.toLowerCase().charAt(0).toUpperCase() + employee.nickname.toLowerCase().slice(1));
     $('#employee_name').text(fullname);
     $('#employee_position').text(employee.jobTitle);
     $('#employee_number').text(employee.employeeNumber);
