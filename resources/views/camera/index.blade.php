@@ -428,6 +428,7 @@
     window.archive = false;
     $('#bt_controller').text("Start Camera");
     $("#id_signature").attr("src", '{{ asset( 'public/img/blank_signature.png' ) }}');
+    $('#crosshair_wrapper').hide();
   }
   
   
@@ -597,9 +598,22 @@
   }
   
   $('#emp_nick').keyup( function() { $('#employee_nick').text($('#emp_nick').val()); });
-  $('#emp_name').keyup( function() { $('#employee_name').text($('#emp_name').val()); });
   $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
   $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
+  $('#emp_name').keyup( function() {
+    $('#employee_name').text($('#emp_name').val());
+    var length = $('#emp_name').val().length;
+    var font_size = 55;
+    if (length>=21) {
+        font_size = 55;
+    } else {
+      while (length > 21) {
+        font_size = font_size - 2;
+        length = length - 1;
+      }
+    }
+    $('#emp_name').css('font-size',font_size + "px");
+  });
   
   $('#emp_sss').keyup( function() { $('#employee_sss').text($('#emp_sss').val()); });
   $('#emp_tin').keyup( function() { $('#employee_tin').text($('#emp_tin').val()); });

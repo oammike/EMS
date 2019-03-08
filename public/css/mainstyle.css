@@ -62,7 +62,7 @@
   position: absolute;
   top: 735px;
   left: 100px;
-  width: 580px;
+  width: 600px;
 }
 #employee_details1 p{
   text-align: left;
@@ -75,7 +75,7 @@
 }
 p#employee_name{
   font-size: 55px;
-  line-height: 90px;
+  line-height: 60px;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -88,7 +88,7 @@ p#employee_nick{
 }
 p#employee_position{
   font-size: 40px;
-  line-height: 45px;
+  line-height: 65px;
   letter-spacing: 1px;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
@@ -208,7 +208,7 @@ table{
   width: 430px;
   height: 430px;
   position: absolute;
-  left: 600px;
+  left: 720px;
   top: 778px;
 }
 #crosshair_wrapper img{
