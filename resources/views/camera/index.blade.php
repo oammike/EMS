@@ -25,7 +25,7 @@
     </div>
   </div>
   <div id="crosshair_wrapper">
-    <img src="./img/crosshair.png" />
+    <img src="{{ asset( 'public/img/crosshair.png' ) }}" />
   </div>
   <div id="controls" class="flow-text">
   
