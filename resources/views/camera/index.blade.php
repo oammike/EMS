@@ -27,6 +27,7 @@
   <div id="crosshair_wrapper">
     <img src="{{ asset( 'public/img/crosshair.png' ) }}" />
   </div>
+  
   <div id="controls" class="flow-text">
   
     @if ($campaign_mode === true)
@@ -43,6 +44,17 @@
     </div>
       
     @endif
+    
+    
+    <div id="adjustdiscov" class="teal" data-target="adjust_button">
+      <div class="tap-target-content">
+        <h5>Adjust Signature</h5>
+        <p>
+          Use the arrow keys to set the signature's position<br/>
+          <a href="javascript:dismissAdjustDiscov()" class="waves-effect waves-blue-grey btn right blue-grey darken-2">OK</a>
+        </p>
+      </div>
+    </div>
       
     <div class="section">
       <h6>Employee Details</h6>
@@ -104,7 +116,7 @@
               <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:adjustSignature();"><i class="material-icons left">open_with</i>Adjust Signature</a>
+              <a id="adjust_button" class="waves-effect waves-light btn-large col s12 right" href="javascript:adjustSignature();"><i class="material-icons left">open_with</i>Adjust Signature</a>
           </div>
           <div class="input-field col s6">            
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
@@ -608,6 +620,16 @@
   }
   
   function adjustSignature() {
+  
+    $('#adjustdiscov').tapTarget({
+      onClose: function () {
+          //localStorage.setItem("discoveredSignature", "yes");
+      }
+    });
+    if(localStorage.discoveredSignature !== "yes"){
+      $('#adjustdiscov').tapTarget('open');
+    }
+  
     window.signature_bottom = 100;
     window.signature_left = 5;
     var reset = {
