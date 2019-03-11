@@ -652,9 +652,9 @@
     var length = $('#emp_name').val().length;
     //Mark Lester Bambico
     //Michael Anthony Pamero
-    var font_size = 64;
+    var font_size = 63;
     if (length<=18) {
-        font_size = 64;
+        font_size = 63;
     } else {
       while (length > 18) {
         font_size = font_size - 2;
