@@ -88,20 +88,24 @@ class IDController extends Controller
         if(!$this->has_id_permissions){
            return view("access-denied");
         }
-        $image_parts = explode(";base64,", $_POST['idData']);
-        $image_base64 = base64_decode($image_parts[1]);
         
-        if (preg_match('/^data:image\/(\w+);base64,/', $_POST['idData'], $image_parts[0])) {
+        
+        if(isset($_POST['idData'])){
+            $image_parts = explode(";base64,", $_POST['idData']);
+            $image_base64 = base64_decode($image_parts[1]);
             
-            if (!in_array($image_parts[0][1], [ 'png' ])) {
-                throw new \Exception('invalid image type: '.$image_parts[0][1]);
+            if (preg_match('/^data:image\/(\w+);base64,/', $_POST['idData'], $image_parts[0])) {
+                
+                if (!in_array($image_parts[0][1], [ 'png' ])) {
+                    throw new \Exception('invalid image type: '.$image_parts[0][1]);
+                }
+                
+                if ($image_base64 === false) {
+                    throw new \Exception('base64_decode failed');
+                }
+            } else {
+                throw new \Exception('did not match data URI with image data');
             }
-            
-            if ($image_base64 === false) {
-                throw new \Exception('base64_decode failed');
-            }
-        } else {
-            throw new \Exception('did not match data URI with image data');
         }
         
         if(isset($_POST['portraitData'])){
