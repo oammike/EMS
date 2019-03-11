@@ -653,10 +653,10 @@
     //Mark Lester Bambico
     //Michael Anthony Pamero
     var font_size = 65;
-    if (length<=20) {
+    if (length<=18) {
         font_size = 65;
     } else {
-      while (length > 20) {
+      while (length > 18) {
         font_size = font_size - 2;
         length = length - 1;
       }
