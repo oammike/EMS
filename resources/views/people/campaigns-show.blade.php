@@ -48,6 +48,11 @@
       
       @endif
       
+      
+      @if(!is_null($has_id_permissions) && $has_id_permissions == TRUE)
+        <a style="margin-top:30px; margin-left: 10px" class="btn btn-xs btn-default" href="{{ url('camera/by_campaign/'.$campaign->id) }}">Print IDs</a>
+      @endif
+      
       <div class="clearfix"></div>
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
