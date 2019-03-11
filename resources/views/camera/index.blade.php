@@ -650,8 +650,7 @@
   
   function resizeEmployeeName() {
     var length = $('#emp_name').val().length;
-    //Mark Lester Bambico
-    //Michael Anthony Pamero
+    
     var font_size = 63;
     if (length<=18) {
         font_size = 63;

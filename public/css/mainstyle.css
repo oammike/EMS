@@ -62,7 +62,7 @@
   position: absolute;
   top: 735px;
   left: 100px;
-  width: 600px;
+  width: 610px;
 }
 #employee_details1 p{
   text-align: left;
@@ -89,7 +89,7 @@ p#employee_nick{
 p#employee_position{
   font-size: 40px;
   line-height: 50px;
-  padding-top: 30px;
+  padding-top: 20px;
   letter-spacing: 1px;
   text-shadow: rgba(0,0,0,.01) 0 0 1px;
   -webkit-font-smoothing: antialiased;
