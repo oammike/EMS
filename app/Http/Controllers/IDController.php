@@ -328,4 +328,27 @@ class IDController extends Controller
         }
         exit;
     }
+    
+    public function upload_signature()
+    {
+        if(!$this->has_id_permissions){
+           return view("access-denied");
+        }
+        
+        if(is_numeric($_POST['employeeId'])){
+            $dir = "/var/www/html/evaluation/storage/uploads/id/";
+            if (!file_exists($dir)) mkdir($dir, 0755, true);
+            
+            //$filename = microtime(true); 
+            //file_put_contents($dir."sign_".$_POST['employeeId'].".png", $image_base64);
+            if(move_uploaded_file($_FILES['file']['tmp_name'],$dir."sign_".$_POST['employeeId'].".png")){
+                echo "storage/uploads/id/sign_".$_POST['employeeId'].".png";
+            }else{
+                throw new \Exception('Uploaded file could not be read');
+            }
+        }else{
+            throw new \Exception('Invalid employee ID');
+        }
+        exit;
+    }
 }

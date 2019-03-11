@@ -105,6 +105,9 @@
               <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
           </div>
           <div class="input-field col s6">            
+              <a class="waves-effect waves-light btn-large col s12" href="javascript:importSignature();"><i class="material-icons left">file_upload</i>Import Signature</a>
+          </div>
+          <div class="input-field col s6">            
               <a id="adjust_button" class="waves-effect waves-light btn-large col s12 right" href="javascript:adjustSignature();"><i class="material-icons left">open_with</i>Adjust Signature</a>
           </div>
           <div class="input-field col s6">            
@@ -167,7 +170,9 @@
         </div>
       </div>
     </div>  
-    
+    <form id="upload_signature">
+      <input name="signature_file" type="file" id="signature_file" />
+    </form>
     
     <div id="options">
       <video autoplay="true" id="videoElement"></video>
@@ -188,6 +193,7 @@
   </div>
   
   <script type="text/javascript" src="{{ asset( 'public/js/jquery.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/jquery.form.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/adapter-latest.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/html2canvas.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.js' ) }}"></script>
@@ -453,6 +459,15 @@
     $('#crosshair_wrapper').hide();
     $('#employee_name').css('font-size',"55px");
   }
+  
+  function importSignature() {
+    Pace.restart();
+    $('#signature_file').click();
+    
+    
+  }
+  
+  
   
   
   function camerapause() {
@@ -750,7 +765,28 @@
   
   $(document).ready(function(){
     $('#crosshair_wrapper').hide();
-    
+    $("#signature_file").change(function (){
+      var fd = new FormData();
+      var files = $('#signature_file')[0].files[0];
+      fd.append('file',files);
+      fd.append('employeeId',window.employee_id);
+
+      $.ajax({
+          url: '{{ url('/upload_signature') }}',
+          type: 'post',
+          data: fd,
+          contentType: false,
+          processData: false,
+          success: function(response){
+            window.sign_filepath = "{{ $url }}/" + data + "?timestamp=" + Date.now();
+            $("#id_signature").attr("src", window.sign_filepath);
+            window.hasSignature = true;
+          },
+          error: function(xhr,status,msg){
+            M.toast({html: msg});
+          }
+      });
+     });
     
     if (!navigator.getUserMedia) {
         M.toast({html: 'Browser does not support web camera.'})
