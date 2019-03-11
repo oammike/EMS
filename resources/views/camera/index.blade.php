@@ -328,7 +328,7 @@
   
   function save() {
     window.adjust_mode = false;
-    Pace.start;
+    Pace.restart();
     window.readytoprint = false;
     /*
     if ($('#emp_sss').val()=="") {
@@ -345,7 +345,7 @@
     if(window.hasCapturedPhoto == false && window.hasSignature == false){
       M.toast({html: 'Please take a photo first then sign the ID'})
       window.archive = false;
-      Pace.stop;
+      Pace.stop();
       return;
     }
     if(window.hasCapturedPhoto == true && window.hasSignature == false){
