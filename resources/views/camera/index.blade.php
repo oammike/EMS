@@ -17,7 +17,7 @@
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
-      <p id="employee_number" class="medium">{{$user->employeeNumber}}</p>
+      <p id="employee_number" class="medium">Employee Number:<br/>{{$user->employeeNumber}}</p>
       <!--
       <p class="light">If found please call: <span id="employee_tin"></span></p>
       <p class="light">+63 403 4082<span id="employee_sss"></span></p>
@@ -650,11 +650,13 @@
   
   function resizeEmployeeName() {
     var length = $('#emp_name').val().length;
-    var font_size = 55;
-    if (length<=21) {
-        font_size = 55;
+    //Mark Lester Bambico
+    //Michael Anthony Pamero
+    var font_size = 65;
+    if (length<=20) {
+        font_size = 65;
     } else {
-      while (length > 21) {
+      while (length > 20) {
         font_size = font_size - 2;
         length = length - 1;
       }
