@@ -360,7 +360,7 @@
             <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-calendar-times-o"></i> File DTRP</a></li> -->
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><i class="fa fa-bar-chart"></i> Leave Credits</a></li>
 
-            <li style="padding-left:20px" @if ( Request::is('allDTR*') ) class="active" @endif ><a href="{{action('DTRController@allDTR')}}"><i class="fa fa-calendar"></i> All DTR Sheet</a></li>
+            <!--<li style="padding-left:20px" @if ( Request::is('allDTR*') ) class="active" @endif ><a href="{{action('DTRController@allDTR')}}"><i class="fa fa-calendar"></i> All DTR Sheet</a></li> -->
 
             <hr /><!--  --> 
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') ){ ?> 
