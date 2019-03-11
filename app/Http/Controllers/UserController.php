@@ -2383,9 +2383,10 @@ class UserController extends Controller
             fwrite($file, "-------------------\n Viewed Profile of user: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         }
-        
 
-
+        //********* check for new ID picture *********
+        ( file_exists('storage/uploads/id/'.$user->id.'_portrait.png') ) ? $hasnewID = true : $hasnewID = false;
+         
         
             
         
@@ -2410,7 +2411,7 @@ class UserController extends Controller
 
             $shifts = $this->generateShifts('12H');
             
-            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts'));
+            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','hasnewID'));
 
             
             
@@ -2581,6 +2582,14 @@ class UserController extends Controller
         return response()->json($employee);
         //return "hello";
 
+
+    }
+
+    public function updateProfilepic($id)
+    {
+      $user = User::find($id);
+      $img = '../storage/uploads/id/'.$user->id.'_portrait.png';
+      return view('people.profilepic',compact('img'));
 
     }
 

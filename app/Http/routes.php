@@ -718,6 +718,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'myTeam',
       'uses'=>'UserController@myTeam') );
 
+     Route::get('/updateProfilepic/{id}', array(
+      'as'=> 'updateProfilepic',
+      'uses'=>'UserController@updateProfilepic') );
+
 
 
       Route::get('/myRequests/{id}', array(
