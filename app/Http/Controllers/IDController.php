@@ -20,7 +20,7 @@ class IDController extends Controller
         $this->url = $url;
         $this->campaign_mode = false;
         $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
-        if (count($canDoThis)> 0 ) $this->has_id_permissions=1; else $this->has_id_permissions=0;
+        (count($canDoThis)> 0 ) ? $this->has_id_permissions=1 : $this->has_id_permissions=0;
         
         /*
         $this->beforeFilter(function() {
