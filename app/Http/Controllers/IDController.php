@@ -32,7 +32,7 @@ class IDController extends Controller
     
     public function index()
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         return view('camera.index',['user' => $this->user, 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode ]);
@@ -40,7 +40,7 @@ class IDController extends Controller
     
     public function trainee()
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         return view('camera.trainee', ['url'=> $this->url->to('/') ]);
@@ -48,7 +48,7 @@ class IDController extends Controller
     
     public function camera_back()
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         return view('camera.back', ['url'=> $this->url->to('/') ]);
@@ -56,7 +56,7 @@ class IDController extends Controller
     
     public function load_single($id)
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode ]);
@@ -64,7 +64,7 @@ class IDController extends Controller
     
     public function load_campaign($id)
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         $users = DB::table('team')->where('team.campaign_id',$id)->
@@ -85,7 +85,7 @@ class IDController extends Controller
     
     public function export_id()
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         $image_parts = explode(";base64,", $_POST['base64data']);
@@ -189,7 +189,7 @@ class IDController extends Controller
     }
     
     function save_portrait(){
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         $image_parts = explode(";base64,", $_POST['base64data']);
@@ -220,7 +220,7 @@ class IDController extends Controller
 
     public function archive()
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         $image_parts = explode(";base64,", $_POST['base64data']);
@@ -289,7 +289,7 @@ class IDController extends Controller
     
     public function save_signature()
     {
-        if($has_id_permissions){
+        if($this->has_id_permissions){
            return view("access-denied");
         }
         $image_parts = explode(";base64,", $_POST['base64data']);
