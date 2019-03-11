@@ -96,7 +96,99 @@
 
   <?php */ ?> 
 
-                    <div class="item active text-center" >
+                    
+
+                      <div class="item active text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/letsgetphysical-49.jpg" style="z-index: 2" width="100%" /><br/><br/>
+
+                          Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+
+
+
+                          
+
+
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/zumba2_2.jpg" style="z-index: 2" /><br/><br/>
+
+                          Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+
+
+
+                          
+
+
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
                       <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
                       <p style="padding:10px 50px">Women can and women will. On #WomensDay, we celebrate girls and women who challenge gender stereotypes and inspire change to make a gender-equal world. <br/><br/><strong>Happy International Women’s Day!</strong>
                         <br/><br/>#WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</p>
@@ -106,21 +198,21 @@
 
                     </div>
 
-                    <div class="item text-center" >
+                     <div class="item text-center" >
                         
-                         <p style="padding: 30px; margin-bottom: 0px">Thank you to all those who have been participating in our last sessions! Let’s stay fit together, Open Access family, Let’s Get Physical!<br/><br/>
-                          <img src="./storage/uploads/zumba_02-27.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/letsgetphysical-11.jpg" style="z-index: 2" /><br/><br/>
 
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 7, 2019 (Thursday) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
-                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/>
+                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 8, 2019 (Friday) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
 
 
@@ -139,16 +231,7 @@
                             West. St., Ayala Center, Makati City<br/><br/>
 
                             <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-
-
-
-
-
-                            Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on March 6 (Wed) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
-
-
-
-                            You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+                            <br/><br/>
 
 
 
@@ -160,117 +243,8 @@
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                       </div>
 
-                       <div class="item text-center" >
-                        <img src="./storage/uploads/zumba2_2.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 7, 2019 (Thursday) – 7:00 PM</span><br/></strong><br/>
-
-                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/>
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 8, 2019 (Friday) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-
-
-
-
-
-                            Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on March 6 (Wed) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
-
-
-
-                            You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-
-                      <div class="item text-center" >
-                        <h4 class="text-primary">Let's Get Physical</h4>
-                        <img src="./storage/uploads/letsgetphysical-11.jpg" style="z-index: 2" />
-                            
-                             <p style="padding: 30px; margin-bottom: 0px">Here's the schedule for next week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 7, 2019 (Thursday) – 7:00 PM</span><br/></strong><br/>
-
-                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/>
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 8, 2019 (Friday) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-
-
-
-
-
-                            Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on March 6 (Wed) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
-
-
-
-                            You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
                       
-
-
-                      
-
+                      <!-- CATRIONA -->
                       <div class="item text-center" >
                         <img src="./storage/uploads/cat-31.jpg" style="z-index: 2" />
                         <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
@@ -320,29 +294,30 @@
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming</small></a></div> <br/><br/><br/><br/>
 
                       </div>
+                      <!-- CATRIONA -->
 
 
-                      
 
-                     
+                      <div class="item  text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" /><br/><br/>
 
-                      
-
-                      <div class="item text-center" >
-                        <h4 class="text-primary">Let's Get Physical</h4>
-                        <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" />
-                            
-                            <p style="padding: 30px; margin-bottom: 0px">Here's the schedule for next week:<br/><br/>
+                          Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 7, 2019 (Thursday) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
-                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/>
+                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 8, 2019 (Friday) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
+
+
+
+                          
 
 
 
@@ -356,27 +331,17 @@
                             West. St., Ayala Center, Makati City<br/><br/>
 
                             <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-
-
-
-
-
-                            Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on March 6 (Wed) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
-
-
-
-                            You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+                            <br/><br/>
 
 
 
                               Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
                            
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness</small></a></div> <br/><br/><br/><br/>
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                       </div>
-
-                      
 
                      
 
