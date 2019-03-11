@@ -20,7 +20,7 @@ class IDController extends Controller
         $this->url = $url;
         $this->campaign_mode = false;
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label');
-        $has_id_permissions =  ($roles->contains('PRINT_ID')) ? 1:0;
+        $this->has_id_permissions =  ($roles->contains('PRINT_ID')) ? 1:0;
         
         /*
         $this->beforeFilter(function() {
