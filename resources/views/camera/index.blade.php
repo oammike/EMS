@@ -27,6 +27,7 @@
   <div id="crosshair_wrapper">
     <img src="{{ asset( 'public/img/crosshair.png' ) }}" />
   </div>
+  
   <div id="controls" class="flow-text">
   
     @if ($campaign_mode === true)
@@ -43,7 +44,7 @@
     </div>
       
     @endif
-      
+    
     <div class="section">
       <h6>Employee Details</h6>
       <div class="row">
@@ -104,7 +105,7 @@
               <a class="waves-effect waves-light btn-large col s12" href="javascript:signature();"><i class="material-icons left">edit</i>Sign</a>
           </div>
           <div class="input-field col s6">            
-              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:adjustSignature();"><i class="material-icons left">open_with</i>Adjust Signature</a>
+              <a id="adjust_button" class="waves-effect waves-light btn-large col s12 right" href="javascript:adjustSignature();"><i class="material-icons left">open_with</i>Adjust Signature</a>
           </div>
           <div class="input-field col s6">            
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save();"><i class="material-icons left">save</i>Save for Print</a>
@@ -152,6 +153,20 @@
         </form>
       </div>
     </div>
+      
+    <div id="signatureFeaturette" class="row scale-transition scale-out col s12">
+      <div class="col s12">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Signature Re-alignment</span>
+            <p>Use the arrow keys on your keyboard to set the signature's position.</p>
+          </div>
+          <div class="card-action">
+            <a href="javascript:hideSignatureModal()">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>  
     
     
     <div id="options">
@@ -608,6 +623,12 @@
   }
   
   function adjustSignature() {
+  
+    if(localStorage.discoveredSignature !== "yes"){
+      localStorage.setItem("discoveredSignature", "yes");
+      $('#signatureFeaturette').removeClass('scale-out').addClass('scale-in');
+    }
+  
     window.signature_bottom = 100;
     window.signature_left = 5;
     var reset = {
@@ -616,6 +637,10 @@
     };
     $("#id_signature_wrapper").css(reset);
     window.adjust_mode = true;
+  }
+  
+  function hideSignatureModal() {
+    $('#signatureFeaturette').removeClass('scale-in').addClass('scale-out');
   }
   
   function camelize(str) {
