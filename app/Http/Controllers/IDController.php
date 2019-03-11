@@ -88,10 +88,10 @@ class IDController extends Controller
         if(!$this->has_id_permissions){
            return view("access-denied");
         }
-        $image_parts = explode(";base64,", $_POST['base64data']);
+        $image_parts = explode(";base64,", $_POST['idData']);
         $image_base64 = base64_decode($image_parts[1]);
         
-        if (preg_match('/^data:image\/(\w+);base64,/', $_POST['base64data'], $image_parts[0])) {
+        if (preg_match('/^data:image\/(\w+);base64,/', $_POST['idData'], $image_parts[0])) {
             
             if (!in_array($image_parts[0][1], [ 'png' ])) {
                 throw new \Exception('invalid image type: '.$image_parts[0][1]);

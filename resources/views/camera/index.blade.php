@@ -372,7 +372,7 @@
           type: "POST",
           dataType: "text",
           data: {
-            base64data : imgData,
+            idData : imgData,
             portraitData : portrait,
             id: window.employee_id
           },
