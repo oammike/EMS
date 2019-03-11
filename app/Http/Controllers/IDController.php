@@ -141,7 +141,7 @@ class IDController extends Controller
         $filename = microtime(true);
         if( isset($_POST['id']) && is_numeric($_POST['id'])){
             $filename = $_POST['id'];
-            unlink("var/www/html/evaluation/storage/uploads/id/sign_"+$_POST['id']+".png");
+            unlink("/var/www/html/evaluation/storage/uploads/id/sign_"+$_POST['id']+".png");
         }else{
             throw new \Exception('Invalid employee ID');
         }
