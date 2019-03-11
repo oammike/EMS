@@ -19,8 +19,8 @@ class IDController extends Controller
         $this->user =  User::find(Auth::user()->id);
         $this->url = $url;
         $this->campaign_mode = false;
-        $roles = UserType::find($this->user->userType_id)->roles->pluck('label');
-        $this->has_id_permissions =  ($roles->contains('PRINT_ID')) ? 1:0;
+        $print_id = UserType::find($this->user->userType_id)->roles->where('label','PRINT_ID');
+        $this->has_id_permissions =  !$print_id->isEmpty();
         
         /*
         $this->beforeFilter(function() {
