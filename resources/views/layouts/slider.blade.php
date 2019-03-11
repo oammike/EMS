@@ -96,9 +96,85 @@
 
   <?php */ ?> 
 
+                      <div class="item active text-center" >
+                        <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
+                        <img src="./storage/uploads/sample.png" style="z-index: 2" width="100%" />
+                        <h4>Venue: HR Office, 9th Floor<br/>
+                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4>
+                        <table class="table">
+                          <tr>
+                            <th>Program/Department</th>
+                            <th>Date</th>
+                            <th>Morning</th>
+                            <th>Night</th>
+                          </tr>
+                          <tr>
+                            <td>Finance</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Business Development/ Marketing/Lebua</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Engineering/ Facilities</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Workforce Team</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>QA & Performance</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>IT</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Training Department</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Ops Support</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Exec</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          
+
+
+
+
+                        </table>
+
+                      </div>
+
+
                     
 
-                      <div class="item active text-center" >
+                      <div class="item text-center" >
                         
                          <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
                           <img src="./storage/uploads/letsgetphysical-49.jpg" style="z-index: 2" width="100%" /><br/><br/>
