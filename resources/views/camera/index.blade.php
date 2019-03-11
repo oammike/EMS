@@ -611,7 +611,7 @@
         id: window.employee_id
       },
       success: function(data,status,xhr){
-        window.sign_filepath = "{{ $url }}/" + data;
+        window.sign_filepath = "{{ $url }}/" + data + "?timestamp=" + Date.now();
         $("#id_signature").attr("src", window.sign_filepath);
         close_signature_capture();
         window.hasSignature = true;

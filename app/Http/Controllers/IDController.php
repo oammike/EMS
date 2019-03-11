@@ -141,9 +141,12 @@ class IDController extends Controller
         $filename = microtime(true);
         if( isset($_POST['id']) && is_numeric($_POST['id'])){
             $filename = $_POST['id'];
+            unlink("var/www/html/evaluation/storage/uploads/id/sign_"+$_POST['id']+".png");
         }else{
             throw new \Exception('Invalid employee ID');
         }
+        
+        
         
         
         
@@ -312,9 +315,9 @@ class IDController extends Controller
             $dir = "/var/www/html/evaluation/storage/uploads/id/";
             if (!file_exists($dir)) mkdir($dir, 0755, true);
             
-            $filename = microtime(true); 
-            file_put_contents($dir."sign_".$_POST['id']."_".$filename.".png", $image_base64);
-            echo "storage/uploads/id/sign_".$_POST['id']."_".$filename.".png";
+            //$filename = microtime(true); 
+            file_put_contents($dir."sign_".$_POST['id'].".png", $image_base64);
+            echo "storage/uploads/id/sign_".$_POST['id'].".png";
         }else{
             throw new \Exception('Invalid employee ID');
         }
