@@ -17,7 +17,7 @@
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
-      <p id="employee_number" class="medium">ID Number:<br/>{{$user->employeeNumber}}</p>
+      <p id="employee_number" class="medium">ID Number:<br/><span id="employee_number_container">{{$user->employeeNumber}}</p></p>
       <!--
       <p class="light">If found please call: <span id="employee_tin"></span></p>
       <p class="light">+63 403 4082<span id="employee_sss"></span></p>
@@ -699,7 +699,7 @@
   
   $('#emp_nick').keyup( function() { $('#employee_nick').text($('#emp_nick').val()); });
   $('#emp_pos').keyup( function() { $('#employee_position').text($('#emp_pos').val()); });
-  $('#emp_num').keyup( function() { $('#employee_number').text($('#emp_num').val()); });
+  $('#emp_num').keyup( function() { $('#employee_number_container').text($('#emp_num').val()); });
   $('#emp_name').keyup( function() {
     $('#employee_name').text($('#emp_name').val());
     resizeEmployeeName();
@@ -845,7 +845,7 @@
     $('#employee_nick').text(employee.nickname.toLowerCase().charAt(0).toUpperCase() + employee.nickname.toLowerCase().slice(1));
     $('#employee_name').text(fullname);
     $('#employee_position').text(employee.jobTitle);
-    $('#employee_number').text(employee.employeeNumber);
+    $('#employee_number_container').text(employee.employeeNumber);
     
     $('#emp_nick').val(employee.nickname);
     $('#emp_name').val(fullname);
