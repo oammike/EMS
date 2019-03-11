@@ -121,7 +121,8 @@ class IDController extends Controller
                     throw new \Exception('base64_decode failed');
                 }
                 
-                $dir = "/var/www/html/evaluation/storage/uploads/id/";
+                //$dir = "/var/www/html/evaluation/storage/uploads/id/";
+                $dir = storage_path() . '/uploads/id/';
                 if (!file_exists($dir)) mkdir($dir, 0755, true);
                 
                 $filename = microtime(true); 
@@ -140,12 +141,14 @@ class IDController extends Controller
         $outputW = 0;
         $outputH = 0;
         
-        $dir = "/var/www/html/evaluation/storage/uploads/id/";
+        //$dir = "/var/www/html/evaluation/storage/uploads/id/";
+        $dir = storage_path() . '/uploads/id/';
         if (!file_exists($dir)) mkdir($dir, 0755, true);
         $filename = microtime(true);
         if( isset($_POST['id']) && is_numeric($_POST['id'])){
             $filename = $_POST['id'];
-            $deleteme = "/var/www/html/evaluation/storage/uploads/id/sign_".$_POST['id'].".png";
+            $deleteme = storage_path() . '/uploads/id/sign_'.$_POST['id'].'.png';
+            //$deleteme = "/var/www/html/evaluation/storage/uploads/id/sign_".$_POST['id'].".png";
             unlink($deleteme);
         }else{
             throw new \Exception('Invalid employee ID');
@@ -217,7 +220,8 @@ class IDController extends Controller
         }
         
         
-            $dir = "/var/www/html/evaluation/storage/uploads/id";
+            //$dir = "/var/www/html/evaluation/storage/uploads/id";
+            $dir = storage_path() . '/uploads/id/';
             if (!file_exists($dir)) mkdir($dir, 0755, true);
             $filename = microtime(true);
             file_put_contents($dir.$filename.".png", $image_base64);
@@ -265,7 +269,8 @@ class IDController extends Controller
         $outputW = 0;
         $outputH = 0;
         
-        $dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
+        //$dir = "/var/www/html/evaluation/storage/uploads/id/backlogs";
+        $dir = storage_path() . '/uploads/id/backlogs';
         if (!file_exists($dir)) mkdir($dir, 0755, true);
         $filename = microtime(true);
         
@@ -317,7 +322,8 @@ class IDController extends Controller
         }
         
         if(is_numeric($_POST['id'])){
-            $dir = "/var/www/html/evaluation/storage/uploads/id/";
+            $dir = storage_path() . '/uploads/id/';
+            //$dir = "/var/www/html/evaluation/storage/uploads/id/";
             if (!file_exists($dir)) mkdir($dir, 0755, true);
             
             //$filename = microtime(true); 
@@ -336,7 +342,8 @@ class IDController extends Controller
         }
         
         if(is_numeric($_POST['employeeId'])){
-            $dir = "/var/www/html/evaluation/storage/uploads/id/";
+            $dir = storage_path() . '/uploads/id/';
+            //$dir = "/var/www/html/evaluation/storage/uploads/id/";
             if (!file_exists($dir)) mkdir($dir, 0755, true);
             
             //$filename = microtime(true); 
