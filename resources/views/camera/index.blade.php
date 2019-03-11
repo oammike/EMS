@@ -193,7 +193,6 @@
   </div>
   
   <script type="text/javascript" src="{{ asset( 'public/js/jquery.js' ) }}"></script>
-  <script type="text/javascript" src="{{ asset( 'public/js/jquery.form.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/adapter-latest.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/html2canvas.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/seriously.js' ) }}"></script>
@@ -778,7 +777,7 @@
           contentType: false,
           processData: false,
           success: function(response){
-            window.sign_filepath = "{{ $url }}/" + data + "?timestamp=" + Date.now();
+            window.sign_filepath = "{{ $url }}/" + response + "?timestamp=" + Date.now();
             $("#id_signature").attr("src", window.sign_filepath);
             window.hasSignature = true;
           },
