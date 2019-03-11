@@ -5,6 +5,8 @@ namespace OAMPI_Eval\Http\Controllers;
 
 use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
+use OAMPI_Eval\UserType_Roles;
+use OAMPI_Eval\UserType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\UrlGenerator;
 use \DB;
@@ -17,6 +19,8 @@ class IDController extends Controller
         $this->user =  User::find(Auth::user()->id);
         $this->url = $url;
         $this->campaign_mode = false;
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label');
+        $has_id_permissions =  ($roles->contains('PRINT_ID')) ? 1:0;
         
         /*
         $this->beforeFilter(function() {
@@ -28,27 +32,41 @@ class IDController extends Controller
     
     public function index()
     {
-           
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         return view('camera.index',['user' => $this->user, 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode ]);
     }
     
     public function trainee()
     {
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         return view('camera.trainee', ['url'=> $this->url->to('/') ]);
     }
     
     public function camera_back()
     {
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         return view('camera.back', ['url'=> $this->url->to('/') ]);
     }
     
     public function load_single($id)
     {
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         return view('camera.index', ['user' => User::find($id), 'url'=> $this->url->to('/'), 'campaign_mode' => $this->campaign_mode ]);
     }
     
     public function load_campaign($id)
-    {    
+    {
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         $users = DB::table('team')->where('team.campaign_id',$id)->
                         leftJoin('users','users.id','=','team.user_id')->
                          where([
@@ -67,6 +85,9 @@ class IDController extends Controller
     
     public function export_id()
     {
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         $image_parts = explode(";base64,", $_POST['base64data']);
         $image_base64 = base64_decode($image_parts[1]);
         
@@ -168,6 +189,9 @@ class IDController extends Controller
     }
     
     function save_portrait(){
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         $image_parts = explode(";base64,", $_POST['base64data']);
         $image_base64 = base64_decode($image_parts[1]);
         
@@ -196,6 +220,9 @@ class IDController extends Controller
 
     public function archive()
     {
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         $image_parts = explode(";base64,", $_POST['base64data']);
         $image_base64 = base64_decode($image_parts[1]);
         
@@ -262,6 +289,9 @@ class IDController extends Controller
     
     public function save_signature()
     {
+        if($has_id_permissions){
+           return view("access-denied");
+        }
         $image_parts = explode(";base64,", $_POST['base64data']);
         $image_base64 = base64_decode($image_parts[1]);
         

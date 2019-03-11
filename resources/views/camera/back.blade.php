@@ -64,41 +64,14 @@
       
       $('#copies').disabled = true;
       $('#start').disabled = true;
-      renderme();
+      printme();
     }
   
-    function renderme() {
-      html2canvas(document.querySelector('#id_wrapper')).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/png');
-        console.log(imgData);
-        $.ajax({
-          url: "{{ url('/export_id') }}",
-          type: "POST",
-          dataType: "text",
-          data: {
-            base64data : imgData
-          },
-          success: function(data,status,xhr){
-            window.filepath.push(data);
-            window.copy_counter = window.copy_counter + 1;
-            window.startAt = window.startAt + 1;
-            if (window.copy_counter==copies) {
-              printme();
-            } else {
-              renderme();
-            }
-          },
-          error: function(xhr,status,msg){
-            alert(msg);
-          }
-        });
-      });
-    }
     function printme(){
-      if (window.filepath.length>0) {
+      
         var body = "";
-        for(var i = 0; i<window.filepath.length; i++){
-          var div = '<div><img src="{{ $url }}/' + window.filepath[i] + '"></div>';
+        for(var i = 0; i<window.copies; i++){
+          var div = '<div><img src="{{ asset( 'public/img/background_back2.png' ) }}"></div>';
           body = body + div;
         }
         
@@ -108,7 +81,7 @@
         popupWin.document.open();
         popupWin.document.write('<html><head><link rel="stylesheet" href="{{ $url }}/public/css/printstyle.css" type=></head><body onload="window.print();">' + body + '</html>');
         popupWin.document.close();
-      }
+      
       
     }
   

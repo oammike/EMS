@@ -169,7 +169,7 @@ class CampaignController extends Controller
         if (is_null(Campaign::find($id))) return view('empty');
 
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
-        $has_id_permissions =  ($roles->contains('PRINT_ID')) ? TRUE:FALSE;
+        $has_id_permissions =  ($roles->contains('PRINT_ID')) ? '1':'0';
         $canEdit =  ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
 
         /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
@@ -222,7 +222,7 @@ class CampaignController extends Controller
 
 
        
-        return view('people.campaigns-show',compact('campaign','logo', 'TLs','members','canEdit','isBackoffice','isWorkforce'));
+        return view('people.campaigns-show',compact('campaign','logo', 'TLs','members','canEdit','isBackoffice','isWorkforce','has_id_permissions'));
 
     }
 
