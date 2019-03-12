@@ -78,23 +78,24 @@
               <div class="box box-widget widget-user">
 
                 <div class="widget-user-image-profilepage" style="z-index:100">
-                  <!-- <div style="border: dotted 1px #fff; width: 180px; height: 180px;">
-                 -->  
-                   @if ( file_exists('public/img/employees/'.$user->id.'.jpg') )
+
+                    @if ( file_exists('public/img/employees/'.$user->id.'.jpg') )
                     <img src="{{asset('public/img/employees/'.$user->id.'.jpg')}}" style="width:190px;top:149px;left:8%;" class="user-image" alt="User Image">
                     @else
                     <img src="{{asset('public/img/useravatar.png')}}" class="user-image" alt="User Image">
-
-                      @endif
-
+                    @endif
+                    
                 </div> <!--end profilepage img -->
-                
+
+                @if ($hasNewPhoto && $canEditEmployees)
+                <a href="{{action('UserController@updateProfilepic',$user->id)}}" class="btn btn-xs btn-default" style="position: absolute;top:340px;left:48px;  z-index: 999"><i class="fa fa-pencil"></i> Edit Pic</a>
+                @endif
                  
 
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 @if ($user->hascoverphoto !== null)
                 <?php $cover = URL::to('/') . "/storage/uploads/cover-".$user->id."_".$user->hascoverphoto.".png";// URL::asset("public/img/cover/".$user->id.".jpg"); ?>
-                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{$cover}}') left no-repeat; background-size:1024px auto">
+               <div class="coverphoto output widget-user-header-profilepage bg-black" style=" background-size:1024px auto"> <!-- background: url('{{$cover}}') left no-repeat; -->
                 @else
                 <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{URL:: asset("public/img/makati.jpg")}}') left no-repeat; background-size:1024px auto">
                 @endif
