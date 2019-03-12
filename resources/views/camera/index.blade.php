@@ -170,7 +170,7 @@
         </div>
       </div>
     </div>  
-    <form id="upload_signature">
+    <form id="upload_signature" style="display:none">
       <input name="signature_file" type="file" id="signature_file" />
     </form>
     
