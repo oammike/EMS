@@ -610,7 +610,12 @@
     
     var canvas = document.querySelector("#signature_canvas");
     
-    window.signaturePad = new SignaturePad(canvas);
+    window.signaturePad = new SignaturePad(canvas, {
+      dotSize: 4.0,
+      minWidth: 4.0,
+      maxWidth: 8.0,
+      throttle: 8
+    });
     $('#dimmer').show();
   }
   
