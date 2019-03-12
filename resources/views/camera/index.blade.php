@@ -240,7 +240,7 @@
   window.adjust_mode = false;
   window.signature_left = 5;
   window.signature_bottom = 100;
-  
+  window.loadershown = false;
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -251,6 +251,16 @@
     M.toast({html: 'Could not load the camera information. Please contact the Marketing Dept.'});
     console.log('navigator.getUserMedia error: ', error);
     
+  }
+  
+  function toggleLoader() {
+    if (window.loadershown) {
+        $('#preloader_wrapper').hide();
+        window.loadershown = false;
+    }else{
+        $('#preloader_wrapper').show();
+        window.loadershown = true;
+    }
   }
   
   function gotDevices(deviceInfos) {

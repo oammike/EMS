@@ -225,6 +225,7 @@ table{
   margin: auto;
 }
 #preloader_wrapper{
+  display: none;
   margin: 0 auto;
   width: 40%;
   height: 100%;
