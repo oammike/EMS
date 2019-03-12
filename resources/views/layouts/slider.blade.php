@@ -322,7 +322,7 @@
                       </div>
 
 
-                      <div class="item active text-center" >
+                      <div class="item text-center" >
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
                         <img src="./storage/uploads/sample2.png" style="z-index: 2" width="100%" />
                         <h4>Venue: HR Office, 9th Floor<br/>
