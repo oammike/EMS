@@ -198,12 +198,7 @@
                             <td>6:00am-6:00pm</td>
                             <td>6:00pm-6:00am</td>
                           </tr>
-                          <tr>
-                            <td>DMOPC</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
+                         
                           <tr>
                             <td>EDTraining</td>
                             <td>March 14-15</td>
@@ -247,6 +242,32 @@
 
                         </table>
 
+                      </div>
+
+                       <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 1st Blood Donation Drive 2019</h3><br/><br/>
+                          <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                          <p style="padding: 5px 30px; margin-bottom: 0px">
+                          <h4>
+                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
+                          Time: <span class="text-danger"> 8AM-5PM</span><br/>
+                          <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
+                          Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
+                          You can donate blood if you…<br/>
+                          - Are in good health<br/>
+                          - Are between 16 to 65 years old<br/>
+                          - Weigh at least 110 pounds (approximately 50kg)<br/>
+                          - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
+                          - Pass the physical and health history assessments.</p>
+
+                          <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5>
+
+                         
+<br/><br/><br/><br/>
                       </div>
 
 
