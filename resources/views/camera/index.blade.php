@@ -17,7 +17,7 @@
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
-      <p id="employee_number" class="medium">ID Number:<br/><span id="employee_number_container">{{$user->employeeNumber}}</p></p>
+      <p id="employee_number" class="medium">ID No. <span id="employee_number_container">{{$user->employeeNumber}}</p></p>
       <!--
       <p class="light">If found please call: <span id="employee_tin"></span></p>
       <p class="light">+63 403 4082<span id="employee_sss"></span></p>
@@ -63,7 +63,7 @@
             <label for="emp_pos">Position</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="0000000001" id="emp_num" name="emp_num" type="number" class="validate" value="{{ $user->employeeNumber }}">
+            <input placeholder="0000000001" id="emp_num" name="emp_num" type="text" class="validate" value="{{ $user->employeeNumber }}">
             <label for="emp_num">ID Number</label>
           </div>
             
@@ -602,15 +602,20 @@
     window.adjust_mode = false;
     window.readytoprint = false;
     $('#dimmer').on('click',function(e){
-        if (e.target !== this) return;
-        confirm_cancel_signature();
+        //if (e.target !== this) return;
+        //confirm_cancel_signature();
     });
     $('body').css({height: $(window).height()});
     $('body').addClass('stop-scrolling');
     
     var canvas = document.querySelector("#signature_canvas");
     
-    window.signaturePad = new SignaturePad(canvas);
+    window.signaturePad = new SignaturePad(canvas, {
+      dotSize: 4.0,
+      minWidth: 4.0,
+      maxWidth: 8.0,
+      throttle: 8
+    });
     $('#dimmer').show();
   }
   
@@ -888,7 +893,7 @@
     //console.log(employee);
     var fullname =
       employee.firstname.toLowerCase().charAt(0).toUpperCase() + employee.firstname.toLowerCase().slice(1) + " " +
-      //employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
+      employee.middlename.toLowerCase().charAt(0).toUpperCase() + ". " + 
       employee.lastname.toLowerCase().charAt(0).toUpperCase() + employee.lastname.toLowerCase().slice(1)
       ;
       
