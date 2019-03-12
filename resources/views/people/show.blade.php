@@ -87,7 +87,7 @@
                     
                 </div> <!--end profilepage img -->
 
-                @if ($hasNewPhoto)
+                @if ($hasNewPhoto && $canEditEmployees)
                 <a href="{{action('UserController@updateProfilepic',$user->id)}}" class="btn btn-xs btn-default" style="position: absolute;top:340px;left:48px;  z-index: 999"><i class="fa fa-pencil"></i> Edit Pic</a>
                 @endif
                  

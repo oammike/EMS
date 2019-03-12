@@ -26,7 +26,7 @@ $(function () {
     }
   };
   var originalImageURL = $image.attr('src');
-  var uploadedImageName = 'cropped.jpg';
+  var uploadedImageName = $('#idpic').val();
   var uploadedImageType = 'image/jpeg';
   var uploadedImageURL;
 

@@ -2591,11 +2591,26 @@ class UserController extends Controller
     public function updateProfilepic($id)
     {
       $user = User::find($id);
-      $img = storage_path().'/uploads/id/'.$user->id.'_portrait.png';
-      $imgfile = '../storage/uploads/id/'.$user->id.'_portrait.png';
-      (file_exists($img)) ? $hasNewPhoto = true : $hasNewPhoto =false;
+
+      if (count($user)>1){
+        $img = storage_path().'/uploads/id/'.$user->id.'_portrait.png';
+        $imgfile = '../storage/uploads/id/'.$user->id.'_portrait.png';
+        (file_exists($img)) ? $hasNewPhoto = true : $hasNewPhoto =false;
+        
+        return view('people.profilepic',compact('id', 'imgfile','hasNewPhoto'));
+
+      } else {
+        $user = collect(['id'=>$id]);
+        //$user->push
+        $img = storage_path().'/uploads/id/'.$id.'_portrait.png';
+        $imgfile = '../storage/uploads/id/'.$id.'_portrait.png';
+        (file_exists($img)) ? $hasNewPhoto = true : $hasNewPhoto =false;
+       
+        return view('people.profilepic',compact('id', 'imgfile','hasNewPhoto'));
+
+      }
+
       
-      return view('people.profilepic',compact('user', 'imgfile','hasNewPhoto'));
 
     }
 
