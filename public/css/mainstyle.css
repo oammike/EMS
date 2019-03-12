@@ -222,11 +222,12 @@ table{
   left: 0;
   right: 0;
   bottom: 0;
+  width: 40%;
   margin: auto;
 }
 #preloader_wrapper{
   display: none;
   margin: 0 auto;
-  width: 40%;
+  width: 100%;
   height: 100%;
 }
