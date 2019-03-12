@@ -1,4 +1,4 @@
-                              
+
 <?php /*
 
 
@@ -100,7 +100,10 @@
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
                         <img src="./storage/uploads/sample.png" style="z-index: 2" width="100%" />
                         <h4>Venue: HR Office, 9th Floor<br/>
-                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4>
+                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
+                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
+                          <img src="./storage/uploads/shirts.jpg" style="z-index: 2" width="100%" />
+
                         <table class="table">
                           <tr>
                             <th>Program/Department</th>
@@ -316,6 +319,158 @@
                            
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+
+                      <div class="item active text-center" >
+                        <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
+                        <img src="./storage/uploads/sample2.png" style="z-index: 2" width="100%" />
+                        <h4>Venue: HR Office, 9th Floor<br/>
+                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
+                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
+                          <img src="./storage/uploads/shirts.jpg" style="z-index: 2" width="100%" />
+
+                        <table class="table">
+                          <tr>
+                            <th>Program/Department</th>
+                            <th>Date</th>
+                            <th>Morning</th>
+                            <th>Night</th>
+                          </tr>
+                          <tr>
+                            <td>Finance</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Business Development/ Marketing/Lebua</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Engineering/ Facilities</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Workforce Team</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>QA & Performance</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>IT</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Training Department</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Ops Support</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Exec</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Adore Me</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Advance Wellness</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>An Other</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Boostability</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Circles.Life</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>DMOPC</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                         
+                          <tr>
+                            <td>EDTraining</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Mous</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>SheerID</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>SKUVantage</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>TurnTo</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Zenefits and Digicast</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+
+      
+
+
+
+                        </table>
+
                       </div>
 
                       <div class="item text-center" >
