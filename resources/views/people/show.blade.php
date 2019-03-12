@@ -86,7 +86,10 @@
                     @endif
                     
                 </div> <!--end profilepage img -->
+
+                @if ($hasNewPhoto)
                 <a href="{{action('UserController@updateProfilepic',$user->id)}}" class="btn btn-xs btn-default" style="position: absolute;top:340px;left:48px;  z-index: 999"><i class="fa fa-pencil"></i> Edit Pic</a>
+                @endif
                  
 
                 <!-- Add the bg color to the header using any of the bg-* classes -->

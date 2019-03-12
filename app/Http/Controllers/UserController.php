@@ -2385,7 +2385,10 @@ class UserController extends Controller
         }
 
         //********* check for new ID picture *********
-        ( file_exists('storage/uploads/id/'.$user->id.'_portrait.png') ) ? $hasnewID = true : $hasnewID = false;
+        
+         $img = storage_path().'/uploads/id/'.$user->id.'_portrait.png';
+         (file_exists($img)) ? $hasNewPhoto = true : $hasNewPhoto =false;
+         
          
         
             
@@ -2411,7 +2414,7 @@ class UserController extends Controller
 
             $shifts = $this->generateShifts('12H');
             
-            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','hasnewID'));
+            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','hasNewPhoto'));
 
             
             
@@ -2588,8 +2591,11 @@ class UserController extends Controller
     public function updateProfilepic($id)
     {
       $user = User::find($id);
-      $img = '../storage/uploads/id/'.$user->id.'_portrait.png';
-      return view('people.profilepic',compact('img'));
+      $img = storage_path().'/uploads/id/'.$user->id.'_portrait.png';
+      $imgfile = '../storage/uploads/id/'.$user->id.'_portrait.png';
+      (file_exists($img)) ? $hasNewPhoto = true : $hasNewPhoto =false;
+      
+      return view('people.profilepic',compact('imgfile','hasNewPhoto'));
 
     }
 
