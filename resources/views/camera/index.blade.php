@@ -180,23 +180,24 @@
     </div>    
   </div>
   <div id="dimmer">
-  <div id="signature_wrapper">
-    <canvas id="signature_canvas" width="768" height="432"></canvas>
-    <div class="row">
-      <div class="col s12">
-        <a class="waves-effect waves-light btn" href="javascript:clearSignature();"><i class="material-icons left">clear</i>Clear</a>&nbsp;
-        <a class="waves-effect waves-light btn" href="javascript:close_signature_capture();"><i class="material-icons left">cancel</i>Cancel</a>
-        <a class="waves-effect waves-light btn right" href="javascript:saveSignature();"><i class="material-icons left">check</i>Save</a>
+    <div id="signature_wrapper">
+      <canvas id="signature_canvas" width="768" height="432"></canvas>
+      <div class="row">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn" href="javascript:clearSignature();"><i class="material-icons left">clear</i>Clear</a>&nbsp;
+          <a class="waves-effect waves-light btn" href="javascript:close_signature_capture();"><i class="material-icons left">cancel</i>Cancel</a>
+          <a class="waves-effect waves-light btn right" href="javascript:saveSignature();"><i class="material-icons left">check</i>Save</a>
+        </div>
+        
       </div>
-      
+    </div>
   </div>
-  </div>
-    
   <div id="preloader_wrapper">
-  <div id="preloader" class="progress">
-      <div class="indeterminate"></div>
+    <div id="preloader" class="progress loader">
+        <div class="indeterminate"></div>
+    </div>
   </div>
-  </div>
+  
   
   <script type="text/javascript" src="{{ asset( 'public/js/jquery.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/adapter-latest.js' ) }}"></script>
