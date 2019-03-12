@@ -142,7 +142,7 @@ $(function () {
               data.option = {};
             }
 
-            data.option.fillColor = '#fff';
+            data.option.fillColor = '#fff'; //'#1a8fcb';
           }
 
           break;
@@ -166,7 +166,7 @@ $(function () {
         case 'getCroppedCanvas':
           if (result) {
             // Bootstrap's Modal
-            //$('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
+            $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
             console.log(result);
 
             if (!$download.hasClass('disabled')) {

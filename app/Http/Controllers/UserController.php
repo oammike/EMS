@@ -2595,7 +2595,7 @@ class UserController extends Controller
       $imgfile = '../storage/uploads/id/'.$user->id.'_portrait.png';
       (file_exists($img)) ? $hasNewPhoto = true : $hasNewPhoto =false;
       
-      return view('people.profilepic',compact('imgfile','hasNewPhoto'));
+      return view('people.profilepic',compact('user', 'imgfile','hasNewPhoto'));
 
     }
 
