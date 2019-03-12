@@ -602,8 +602,8 @@
     window.adjust_mode = false;
     window.readytoprint = false;
     $('#dimmer').on('click',function(e){
-        if (e.target !== this) return;
-        confirm_cancel_signature();
+        //if (e.target !== this) return;
+        //confirm_cancel_signature();
     });
     $('body').css({height: $(window).height()});
     $('body').addClass('stop-scrolling');
