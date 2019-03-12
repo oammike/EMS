@@ -128,8 +128,8 @@ table{
 #signature_wrapper{
   border: 1px #ccc solid;
   background: #fff;
-  width: 848px;
-  height: 480px;
+  width: 1696px;
+  height: 960px;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -137,9 +137,9 @@ table{
   transform: translate(-50%, -50%);
 }
 #signature_canvas{
-  width: 768px;
-  height: 432px;
-  margin: 0 auto;
+  width: 1656px;
+  height: 900px;
+  margin: 0 20px;
 }
 #signature_controls{
   width: 100%;
@@ -167,11 +167,11 @@ table{
     height: auto;
 }
 #id_signature_wrapper{
-  width: 480px;
-  height: 270px;
+  width: 520px;
+  height: 276px;
   position: absolute;
   bottom: 100px;
-  left: 5px;
+  left: 15px;
 }
 
 #id_number_wrapper{

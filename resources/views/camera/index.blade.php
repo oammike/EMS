@@ -181,7 +181,7 @@
   </div>
   <div id="dimmer">
     <div id="signature_wrapper">
-      <canvas id="signature_canvas" width="768" height="432"></canvas>
+      <canvas id="signature_canvas" width="1656" height="900"></canvas>
       <div class="row">
         <div class="col s12">
           <a class="waves-effect waves-light btn" href="javascript:clearSignature();"><i class="material-icons left">clear</i>Clear</a>&nbsp;
