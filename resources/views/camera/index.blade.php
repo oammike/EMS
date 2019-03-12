@@ -17,7 +17,7 @@
       <p id="employee_position" class="light">{{ $user->position->name }}</p>
     </div>
     <div id="id_number_wrapper">
-      <p id="employee_number" class="medium">ID Number:<br/><span id="employee_number_container">{{$user->employeeNumber}}</p></p>
+      <p id="employee_number" class="medium">ID No. <span id="employee_number_container">{{$user->employeeNumber}}</p></p>
       <!--
       <p class="light">If found please call: <span id="employee_tin"></span></p>
       <p class="light">+63 403 4082<span id="employee_sss"></span></p>
