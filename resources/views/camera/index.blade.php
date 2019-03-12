@@ -170,7 +170,7 @@
         </div>
       </div>
     </div>  
-    <form id="upload_signature">
+    <form id="upload_signature" style="display:none">
       <input name="signature_file" type="file" id="signature_file" />
     </form>
     
@@ -180,17 +180,24 @@
     </div>    
   </div>
   <div id="dimmer">
-  <div id="signature_wrapper">
-    <canvas id="signature_canvas" width="768" height="432"></canvas>
-    <div class="row">
-      <div class="col s12">
-        <a class="waves-effect waves-light btn" href="javascript:clearSignature();"><i class="material-icons left">clear</i>Clear</a>&nbsp;
-        <a class="waves-effect waves-light btn" href="javascript:close_signature_capture();"><i class="material-icons left">cancel</i>Cancel</a>
-        <a class="waves-effect waves-light btn right" href="javascript:saveSignature();"><i class="material-icons left">check</i>Save</a>
+    <div id="signature_wrapper">
+      <canvas id="signature_canvas" width="1656" height="900"></canvas>
+      <div class="row">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn" href="javascript:clearSignature();"><i class="material-icons left">clear</i>Clear</a>&nbsp;
+          <a class="waves-effect waves-light btn" href="javascript:close_signature_capture();"><i class="material-icons left">cancel</i>Cancel</a>
+          <a class="waves-effect waves-light btn right" href="javascript:saveSignature();"><i class="material-icons left">check</i>Save</a>
+        </div>
+        
       </div>
-      
+    </div>
   </div>
+  <div id="preloader_wrapper">
+    <div id="preloader" class="progress loader">
+        <div class="indeterminate"></div>
+    </div>
   </div>
+  
   
   <script type="text/javascript" src="{{ asset( 'public/js/jquery.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/adapter-latest.js' ) }}"></script>
@@ -233,7 +240,7 @@
   window.adjust_mode = false;
   window.signature_left = 5;
   window.signature_bottom = 100;
-  
+  window.loadershown = false;
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -244,6 +251,16 @@
     M.toast({html: 'Could not load the camera information. Please contact the Marketing Dept.'});
     console.log('navigator.getUserMedia error: ', error);
     
+  }
+  
+  function toggleLoader() {
+    if (window.loadershown) {
+        $('#preloader_wrapper').hide();
+        window.loadershown = false;
+    }else{
+        $('#preloader_wrapper').show();
+        window.loadershown = true;
+    }
   }
   
   function gotDevices(deviceInfos) {
@@ -333,7 +350,7 @@
   
   function save() {
     window.adjust_mode = false;
-    Pace.restart();
+    $('#preloader_wrapper').show();
     window.readytoprint = false;
     /*
     if ($('#emp_sss').val()=="") {
@@ -389,11 +406,12 @@
               window.readytoprint = true;
               M.toast({html: 'ID layout saved successfully!'})
             }
-            Pace.stop;
+            
+            $('#preloader_wrapper').hide();
           },
           error: function(xhr,status,msg){
             M.toast({html: msg})
-            Pace.stop;
+            $('#preloader_wrapper').hide();
           }
         })
       });
