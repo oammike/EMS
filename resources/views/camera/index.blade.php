@@ -63,7 +63,7 @@
             <label for="emp_pos">Position</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="0000000001" id="emp_num" name="emp_num" type="number" class="validate" value="{{ $user->employeeNumber }}">
+            <input placeholder="0000000001" id="emp_num" name="emp_num" type="text" class="validate" value="{{ $user->employeeNumber }}">
             <label for="emp_num">ID Number</label>
           </div>
             
