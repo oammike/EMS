@@ -229,8 +229,10 @@
                        Save Profile Pic
                       </span>
                     </button>
+                    <a href="{{action('UserController@show',$id)}}" class="btn btn-default btn-lg pull-right" style="margin-left: 5px">View Profile</a>
                     
                   </div>
+
 
                   <!-- Show the cropped image in modal -->
                   <div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
