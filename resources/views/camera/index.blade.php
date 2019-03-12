@@ -191,6 +191,12 @@
       
   </div>
   </div>
+    
+  <div id="preloader_wrapper">
+  <div id="preloader" class="progress">
+      <div class="indeterminate"></div>
+  </div>
+  </div>
   
   <script type="text/javascript" src="{{ asset( 'public/js/jquery.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/adapter-latest.js' ) }}"></script>
@@ -333,7 +339,7 @@
   
   function save() {
     window.adjust_mode = false;
-    Pace.restart();
+    $('#preloader_wrapper').show();
     window.readytoprint = false;
     /*
     if ($('#emp_sss').val()=="") {
@@ -389,11 +395,12 @@
               window.readytoprint = true;
               M.toast({html: 'ID layout saved successfully!'})
             }
-            Pace.stop;
+            
+            $('#preloader_wrapper').hide();
           },
           error: function(xhr,status,msg){
             M.toast({html: msg})
-            Pace.stop;
+            $('#preloader_wrapper').hide();
           }
         })
       });
