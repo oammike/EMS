@@ -98,11 +98,11 @@
 
                       <div class="item active text-center" >
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
-                        <img src="./storage/uploads/sample.png" style="z-index: 2" width="100%" />
+                        <img src="./storage/uploads/bts-1.jpg" style="z-index: 2" width="100%" />
                         <h4>Venue: HR Office, 9th Floor<br/>
                           Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
                           <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
-                          <img src="./storage/uploads/shirts.jpg" style="z-index: 2" width="100%" />
+                          <img src="./storage/uploads/bts-2.jpg" style="z-index: 2" width="100%" />
 
                         <table class="table">
                           <tr>
@@ -324,7 +324,7 @@
 
                       <div class="item text-center" >
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
-                        <img src="./storage/uploads/sample2.png" style="z-index: 2" width="100%" />
+                        <img src="./storage/uploads/sample.png" style="z-index: 2" width="100%" />
                         <h4>Venue: HR Office, 9th Floor<br/>
                           Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
                           <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
