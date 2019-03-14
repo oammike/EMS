@@ -104,6 +104,8 @@
                           <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
                           <img src="./storage/uploads/bts-2.jpg" style="z-index: 2" width="100%" />
 
+                          <h5>* For Open Access G2 Employees, details to follow for schedule of the ID picture taking.</h5>
+
                         <table class="table">
                           <tr>
                             <th>Program/Department</th>
@@ -235,6 +237,18 @@
                           <tr>
                             <td>Zenefits and Digicast</td>
                             <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Bird</td>
+                            <td>March 18-22</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Postmates</td>
+                            <td>March 18-22</td>
                             <td>6:00am-6:00pm</td>
                             <td>6:00pm-6:00am</td>
                           </tr>
@@ -329,7 +343,7 @@
                           Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
                           <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
                           <img src="./storage/uploads/shirts.jpg" style="z-index: 2" width="100%" />
-
+                          <h5>* For Open Access G2 Employees, details to follow for schedule of the ID picture taking.</h5>
                         <table class="table">
                           <tr>
                             <th>Program/Department</th>
@@ -461,6 +475,18 @@
                           <tr>
                             <td>Zenefits and Digicast</td>
                             <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Bird</td>
+                            <td>March 18-22</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Postmates</td>
+                            <td>March 18-22</td>
                             <td>6:00am-6:00pm</td>
                             <td>6:00pm-6:00am</td>
                           </tr>
