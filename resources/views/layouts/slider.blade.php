@@ -97,6 +97,51 @@
   <?php */ ?> 
 
                       <div class="item active text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/kick4.jpg" style="z-index: 2" /><br/><br/>
+
+                          Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+
+
+
+                          
+
+
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
                         <img src="./storage/uploads/bts-1.jpg" style="z-index: 2" width="100%" />
                         <h4>Venue: HR Office, 9th Floor<br/>
@@ -287,24 +332,21 @@
 <br/><br/><br/><br/>
                       </div>
 
-
-                    
-
                       <div class="item text-center" >
                         
                          <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/letsgetphysical-49.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                          <img src="./storage/uploads/kick1.jpg" style="z-index: 2" /><br/><br/>
 
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
-                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
 
 
@@ -336,6 +378,9 @@
                       </div>
 
 
+                    
+
+                      <!--
                       <div class="item text-center" >
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
                         <img src="./storage/uploads/sample.png" style="z-index: 2" width="100%" />
@@ -497,52 +542,9 @@
 
                         </table>
 
-                      </div>
+                      </div>-->
 
-                      <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/zumba2_2.jpg" style="z-index: 2" /><br/><br/>
-
-                          Here's the schedule for this week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
+                      
 
                       <div class="item text-center" >
                       <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
@@ -562,13 +564,13 @@
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
-                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
 
 
@@ -659,16 +661,16 @@
                          <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
                           <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" /><br/><br/>
 
-                          Here's the schedule for this week:<br/><br/>
+                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
-                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
 
 

@@ -61,6 +61,10 @@ class HomeController extends Controller
     {
       $correct = Carbon::now('GMT+8'); //->timezoneName();
       $album = Input::get('a');
+
+      
+
+
       if (empty($album))
         return view('gallery',['album'=>null]);
       else
@@ -205,6 +209,29 @@ class HomeController extends Controller
                   }
 
         } break;
+
+        // case '7': {
+ 
+        //             //OAM FAMILY
+        //           $allUsers = User::orderBy('lastname', 'ASC')->get();
+        //           $users = $allUsers->filter(function($emp){
+        //               return $emp->lastname != '' && $emp->lastname != ' ';
+
+        //           });
+        //           $activeUsers = $allUsers->filter(function($emp){
+        //             return $emp->lastname != '' && $emp->lastname != ' ' && $emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9 ;
+        //           });
+
+        //           foreach ($activeUsers as $key) {
+        //              $col->push(['lowsrc'=>"public/img/employees/".$key->id.".jpg",
+        //                         'fullsrc'=>"public/img/employees/".$key->id.".jpg",
+        //                         'description'=>$key->lastname.", ".$key->firstname,
+        //                         'category'=>"Open Access Family"]);
+        //            } 
+      
+                  
+
+        // } break;
 
 
         
