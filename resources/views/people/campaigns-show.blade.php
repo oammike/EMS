@@ -118,14 +118,15 @@ div.scroll i {
   color: #f6f6f6;
   position: absolute;
   margin: 5px 0;
-  padding: 10px 0;
+  padding: 5px 0;
   width: 100%;
   left: 50%;
-  top: 0;
+  top: 0px;
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
   background: rgba(0, 0, 0, 0.5);
   text-align: center;
+  font-size: 0.7em; font-weight: bold;
 }
 .item .item-description {
   color: #f6f6f6;
@@ -241,8 +242,8 @@ div.scroll i {
          ?>
 
           <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
+            
+            <div class="col-lg-12">
               
              
 
@@ -370,7 +371,7 @@ div.scroll i {
 
            
           </div><!--end row-->
-          <div class="col-lg-1"></div>
+          
           <?php $ctr++;?>
         </div>
         @endforeach
