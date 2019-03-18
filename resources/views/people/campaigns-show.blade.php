@@ -2,6 +2,176 @@
 
 @section('metatags')
 <title> {{$campaign->name}} | Open Access EMS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+<!-- 
+ -->
+<style type="text/css">
+
+
+div.items {
+  white-space: nowrap;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  overflow: hidden;
+  display: flex;
+  align-self: center;
+}
+div.items:hover .item {
+  opacity: 0.3;
+}
+div.items:hover .item:hover {
+  opacity: 1;
+}
+div.control-container {
+  height: 300px;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+div.container {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  min-height: 200px;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+div.left-scroll {
+  left: 0;
+}
+div.left-scroll i {
+  -webkit-transform: translate(-60%, -50%);
+          transform: translate(-60%, -50%);
+}
+div.right-scroll {
+  right: 0;
+}
+div.right-scroll i {
+  -webkit-transform: translate(-40%, -50%);
+          transform: translate(-40%, -50%);
+}
+div.scroll {
+  position: absolute;
+  display: inline-block;
+  color: #f6f6f6;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  width: 60px;
+  height: 60px;
+  border: 1px solid #f6f6f6;
+  border-radius: 60px;
+  margin: 0 5px;
+  z-index: 951;
+}
+div.scroll i {
+  font-size: 30px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+}
+
+.item {
+  position: relative;
+  align-self: center;
+  width: 200px;
+  height: 200px;
+  margin: 0 3px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 899;
+}
+.item:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  margin: 30px;
+  opacity: 1;
+  z-index: 950;
+}
+.item:hover .opacity-none {
+  opacity: 1;
+}
+.item .item-load-icon {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.item .opacity-none {
+  opacity: 0;
+}
+.item img.item-image {
+  width: 200px;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.item .item-title {
+  color: #f6f6f6;
+  position: absolute;
+  margin: 5px 0;
+  padding: 10px 0;
+  width: 100%;
+  left: 50%;
+  top: 0;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.item .item-description {
+  color: #f6f6f6;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  white-space: pre-wrap;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 5px 0;
+  padding: 10px 0;
+}
+
+.button {
+  position: absolute;
+  color: #f6f6f6;
+  font-size: 30px;
+  border: 1px solid #f6f6f6;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  z-index: 950;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all 0.3s ease-in-out;
+}
+.button i {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-35%, -55%);
+          transform: translate(-35%, -55%);
+  z-index: 950;
+}
+.button:hover {
+  box-shadow: 0px 0px 50px #FFFFFF;
+}
+
+  
+
+</style>
+
+
+
 @endsection
 
 @section('bodyClasses')
@@ -61,188 +231,150 @@
     </section>
 
      <section class="content">
-      <!-- ******** THE DATATABLE ********** -->
+
+        <?php $ctr = 1; ?>
+        @foreach($TLs as $leader)
+        <?php $hasMembers = collect($members)->where('tlID',$leader->tlID);
+        $hisOwn = collect($members)->where('userID',$leader->userID);
+        $actualMembers = count($hasMembers) - count($hisOwn); //we need to less himself from the count
+        $tlcount = count($TLs); 
+         ?>
+
           <div class="row">
-             <div class="col-lg-12">
-              <div class="box box-primary" style="background: none"><br/><br/><br/>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+              
+             
 
-                @foreach($TLs as $leader)
-                <?php $hasMembers = collect($members)->where('tlID',$leader->tlID); 
-                      $hisOwn = collect($members)->where('userID',$leader->userID);
-                      $actualMembers = count($hasMembers) - count($hisOwn); //we need to less himself from the count  ?>
+              <div class="box box-default direct-chat direct-chat-default @if(count($hasMembers) <= 0) collapsed-box @endif " style="background: rgba(256, 256, 256, 0.4)">
+                  <div class="box-header with-border">
+                    
+                    <!-- THE TL -->
+                    <h3 class="box-title" style="width:80%"><a target="_blank" href="{{action('UserController@show',$leader->userID)}}">
+                      @if ( file_exists('public/img/employees/'.$leader->userID.'.jpg') )
+                      <img src="{{asset('public/img/employees/'.$leader->userID.'.jpg')}}"  class="img-circle pull-left" alt="User Image"  width="90" style="padding-right:5px">
+                      @else
+                        <img src="{{asset('public/img/useravatar.png')}}" class="img-circle pull-left" width="90" alt="Employee Image"style="padding-right:5px">
 
-                 
+                        @endif
 
-                      <div class="col-lg-6 col-md-12 col-sm-12 pull-left">
+                        @if (is_null($leader->TLnick) || empty($leader->TLnick)) 
+                         <span style="color:#333"> Team </span><span style="text-transform:uppercase">  {{$leader->TLfname}} {{$leader->TLlname}}</span>
+                        @else
+                       <span style="color:#333"> Team </span> <span style="text-transform:uppercase">  {{$leader->TLnick}} {{$leader->TLlname}}</span>
 
-                          <ul style="list-style:none">
-                            <!-- if( !in_array($leader->first()->memberID, $userData->keys()->all() ) ) collapsed-box  endif -->
-                            <div class="box box-default direct-chat direct-chat-default @if(count($hasMembers) <= 0) collapsed-box @endif " style="background: rgba(256, 256, 256, 0.4)">
-                                <div class="box-header with-border">
-                                  
-                                  <!-- THE TL -->
-                                  <h3 class="box-title" style="width:80%"><a target="_blank" href="{{action('UserController@show',$leader->userID)}}">
-                                    @if ( file_exists('public/img/employees/'.$leader->userID.'.jpg') )
-                                    <img src="{{asset('public/img/employees/'.$leader->userID.'.jpg')}}"  class="img-circle pull-left" alt="User Image"  width="90" style="padding-right:5px">
-                                    @else
-                                      <img src="{{asset('public/img/useravatar.png')}}" class="img-circle pull-left" width="90" alt="Employee Image"style="padding-right:5px">
-
-                                      @endif
-
-                                      @if (is_null($leader->TLnick) || empty($leader->TLnick)) 
-                                       <span style="text-transform:uppercase"> {{$leader->TLlname}}, {{$leader->TLfname}}</span>
-                                      @else
-                                      <span style="text-transform:uppercase"> {{$leader->TLlname}}, {{$leader->TLnick}}</span>
-
-                                      @endif
-                                  </a><br/>
-                                    <small >{{$leader->jobTitle}}</small>
+                        @endif
+                        @if (count($hasMembers) > 0)<span class="badge bg-orange">{{count($hasMembers)}} </span> <em style="font-size: xx-small;"> member(s) </em>@endif
+                    </a><br/>
+                      <small >{{$leader->jobTitle}}</small>
 
 
 
 
-                                  </h3>
 
-                                  <div class="box-tools pull-right">
+                    </h3>
 
-                                    
-                                    
-                                    @if($canEdit)
-                                    <a href="" title="Remove leader from program/campaign" data-toggle="modal" data-target="#myModal_leader{{$leader->tlID}}"><i class="fa fa-trash"></i></a>
+                    <div class="box-tools pull-right">    
+                      
+                      @if($canEdit)
+                      <a href="" title="Remove leader from program/campaign" data-toggle="modal" data-target="#myModal_leader{{$leader->tlID}}"><i class="fa fa-trash"></i></a>
 
-                                    @include('layouts.modals-leader', [
-                                      'modelRoute'=>'immediateHeadCampaign.disable',
-                                      'modelID' => $leader->tlID, 
-                                      'modelName'=>" ". $leader->TLfname . " from ". $campaign->name, 
-                                      'modalTitle'=>'Remove leader: ', 
-                                      'modalMessage'=>'Are you sure you want to remove him/her from this program/campaign?', 
-                                      'formID'=>'disableIH',
-                                      'icon'=>'glyphicon-trash' ])
+                      @include('layouts.modals-leader', [
+                        'modelRoute'=>'immediateHeadCampaign.disable',
+                        'modelID' => $leader->tlID, 
+                        'modelName'=>" ". $leader->TLfname . " from ". $campaign->name, 
+                        'modalTitle'=>'Remove leader: ', 
+                        'modalMessage'=>'Are you sure you want to remove him/her from this program/campaign?', 
+                        'formID'=>'disableIH',
+                        'icon'=>'glyphicon-trash' ])
 
-                                    @endif
+                      @endif
 
-                                    @if (count($hasMembers) > 0 )
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse" title="Hide"><i class="fa fa-minus"></i></button>
-                                    @endif
+                      @if (count($hasMembers) > 0 )
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse" title="Hide"><i class="fa fa-minus"></i></button>
+                      @endif 
+                      
+                    </div>
 
+                  </div>
+                  <!-- /.box-header -->
 
-
-                                    
-                                   
-                                    
-                                  </div>
-
-                                </div>
-                                <!-- /.box-header -->
-
-                               
-                                <div class="box-body" style="background: rgba(256, 256, 256, 0.4)">
-                                  <!-- Conversations are loaded here -->
-                                  <div class="direct-chat-messages" @if(count($hasMembers) > 7) style="min-height:380px" @endif>
-                                    <!-- Message. Default to the left -->
-                                    <div class="direct-chat-msg">
-                                      <!--  if( in_array($leader->first()->memberID, $userData->keys()->all() ) )  -->
-                                      
-                                      @if (count($hasMembers) > 0)
-                                      <div class="direct-chat-info clearfix">
-                                        <span class="direct-chat-name pull-left"> <span class="badge bg-orange">{{count($hasMembers)}} </span> &nbsp;&nbsp;Member(s) :</span>
-                                        <!-- <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span> -->
-                                      </div>
-                                      @endif
-                                      <!-- /.direct-chat-info -->
-                                      
-                                      <!-- /.direct-chat-img -->
-                                       @foreach($hasMembers as $member)
-
-                                        @if ($member->userID !== $leader->userID) <!--make sure TL doesnt appear on his own bucket-->
-
-                                            @if($canEdit || ($isWorkforce && !$isBackoffice))
-                                            <div class="btn-group pull-left" style="margin-top:10px">
-                                                <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                                                  <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu ">
-                                                  <li><a target="_blank" href="{{action('UserController@editUser',$member->userID)}}"><i class="fa fa-pencil"></i> Edit Profile</a></li>
-                                                  <li><a target="_blank" href="{{action('MovementController@changePersonnel', $member->userID)}} "><i class="fa fa-exchange"></i> Movement</a></li>
-                                                  <li><a target="_blank" href="{{action('DTRController@show', $member->userID)}} "><i class="fa fa-calendar"></i> View DTR</a></li>
-                                                  
-                                                </ul>
-                                            </div>
-                                            @endif
-
-                                            <a target="_blank" href="{{action('UserController@show',$member->userID)}}" style="text-transform:uppercase;">
-                                                @if ( file_exists('public/img/employees/'.$member->userID.'.jpg') )
-                                                <img src={{asset('public/img/employees/'.$member->userID.'.jpg')}} class="user-image pull-left" alt="User Image" width="60" style="margin:5px; border:solid 1px #d2d6de"><!-- direct-chat-img -->
-                                                @else
-                                                  <img src="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-32x32.png')}}" class="img-circle pull-left" width="60"  alt="Employee Image"style="padding-right:5px; margin:5px">
-                                                  @endif
-                                            </a>
-
-                                            <div class="direct-chat-text pull-left" style="width:80%; margin-left:5px; background: rgba(179, 179, 179, 0.1)">
-                                               <a class="text-black" target="_blank" href="{{action('UserController@show',$member->userID)}}" style="text-transform:uppercase; font-weight:bold">
-                                                {{$member->lastname}}, {{$member->firstname}} 
-
-                                                @if(!is_null($member->nickname)) <em style="font-size: smaller;">({{$member->nickname}})</em> @endif
-                                                 </a> <br/>
-                                               
-                                               <small><em>{{$member->jobTitle }}</em></small>
-                                            </div>
-
-                                            <div class="clearfix">&nbsp;</div>
-                                        @endif
-                                         
-
-                                      @endforeach
-
-
-                                      <!-- /.direct-chat-text -->
-                                    </div>
-                                    <!-- /.direct-chat-msg -->
-
-                                    
-                                    <!-- /.direct-chat-msg -->
-                                  </div>
-                                  <!--/.direct-chat-messages-->
-
-                                  
-                                  <!-- /.direct-chat-pane -->
-                                </div>
-                                <!-- /.box-body -->
-                               
-
-
-                                <div class="box-footer" style="background: rgba(256, 256, 256, 0.8)">
-                                  
-                                </div>
-                                <!-- /.box-footer-->
+                  <div class="box-body" style="background: rgba(256, 256, 256, 0.4)">
+                      <!-- Conversations are loaded here -->
+                      <div class="direct-chat-messages" style="min-height:300px">
+                        <div id="carousel_{{$ctr}}" class="container">
+                            <div class="control-container">
+                            <div id="left-scroll-button_{{$ctr}}" class="left-scroll button scroll">
+                              <i class="fa fa-chevron-left" aria-hidden="true"></i>
                             </div>
-                              <!--/.direct-chat -->
+                            <div id="right-scroll-button_{{$ctr}}" class="right-scroll button scroll">
+                              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </div>
+                            </div>
 
-                           
+                             
 
-                          
+                            <div class="items" id="carousel-items_{{$ctr}}">
 
-                          </ul>
-                                                          
-                                                          
+                              
 
+
+                                     @foreach($hasMembers as $member)
+                                     <div class="item">
+                                      @if ( file_exists('public/img/employees/'.$member->userID.'.jpg') )
+                                        <img class="item-image" src={{asset('public/img/employees/'.$member->userID.'.jpg')}} />
+                                      @else
+                                        <img class="item-image" src="{{asset('public/img/useravatar.png')}}" />
+
+                                      @endif
+
+                                      @if(!is_null($member->nickname)) 
+                                      <span class="item-title"> {{$member->lastname}}, {{$member->nickname}} </span>
+                                     
+                                      @else
+                                      <span class="item-title"> {{$member->lastname}}, {{$member->firstname}} </span>
+
+                                      @endif
+
+
+                                      
+                                      <a href="{{action('UserController@show',$member->userID)}}" target="_blank"><span class="item-load-icon button opacity-none" style="font-size: x-small;"><i class="fa fa-play"></i><br/> 
+                                      View Profile</span></a>
+                                      <div class="item-description opacity-none text-center" style="font-size: xx-small;" >{{$member->jobTitle }}</div>
+                                    </div>
+
+                                     
+                                                             
+
+                                     @endforeach
+
+                   
+
+
+                              
+                            </div>
+
+                            
+                        </div>
                       </div>
-                
+                  </div>
+                  <div class="box-footer" style="background: rgba(256, 256, 256, 0.8)">
+                  </div>
+                  <!-- /.box-footer-->
+              </div>
+                <!--/.direct-chat -->
+              
+              
+            
+            
 
-                @endforeach
-
-               
-
-
-
-
-
-
-                <div class="clearfix"></div>
-                     
-              </div><!--end box-primary-->
-
-          </div><!--end main row-->
+           
+          </div><!--end row-->
+          <div class="col-lg-1"></div>
+          <?php $ctr++;?>
+        </div>
+        @endforeach
+      
       </section>
           
 
@@ -254,7 +386,118 @@
 @section('footer-scripts')
 
 <script>
-  $.widget.bridge('uibutton', $.ui.button);
+  function MouseWheelHandler(e, element) {
+  var delta = 0;
+  if (typeof e === 'number') {
+    delta = e;
+  } else {
+    if (e.deltaX !== 0) {
+      delta = e.deltaX;
+    } else {
+      delta = e.deltaY;
+    }
+    e.preventDefault();
+  }
+
+  element.scrollLeft -= (delta);
+
+}
+
+window.onload = function() {
+ 
+  <?php $ctr=1;?>
+  @foreach($TLs as $tl)
+
+
+  
+  var carousel_{{$ctr}} = {};
+  carousel_{{$ctr}}.e = document.getElementById('carousel_{{$ctr}}');
+  carousel_{{$ctr}}.items = document.getElementById('carousel-items_{{$ctr}}');
+  carousel_{{$ctr}}.leftScroll = document.getElementById('left-scroll-button_{{$ctr}}');
+  carousel_{{$ctr}}.rightScroll = document.getElementById('right-scroll-button_{{$ctr}}');
+
+  carousel_{{$ctr}}.items.addEventListener("mousewheel", handleMouse{{$ctr}}, false);
+  carousel_{{$ctr}}.items.addEventListener("scroll", scrollEvent{{$ctr}});
+  carousel_{{$ctr}}.leftScroll.addEventListener("click", leftScrollClick{{$ctr}});
+  carousel_{{$ctr}}.rightScroll.addEventListener("click", rightScrollClick{{$ctr}});
+ /* carousel.leftScroll.addEventListener("mousedown", leftScrollClick);
+  carousel.rightScroll.addEventListener("mousedown", rightScrollClick);*/
+
+  
+
+  setLeftScrollOpacity_{{$ctr}}();
+ 
+  setRightScrollOpacity_{{$ctr}}();
+  
+
+  
+  function handleMouse{{$ctr}}(e) {
+    MouseWheelHandler(e, carousel_{{$ctr}}.items);
+  }
+
+  function leftScrollClick{{$ctr}}() {
+    MouseWheelHandler(100, carousel_{{$ctr}}.items);
+  }
+
+  function rightScrollClick{{$ctr}}() {
+    MouseWheelHandler(-100, carousel_{{$ctr}}.items);
+  }
+
+  function scrollEvent{{$ctr}}(e) {
+    setLeftScrollOpacity_{{$ctr}}();
+    setRightScrollOpacity_{{$ctr}}();
+  }
+  
+  function setLeftScrollOpacity_{{$ctr}}() {
+    if ( isScrolledAllLeft(carousel_{{$ctr}}) ) {
+      carousel_{{$ctr}}.leftScroll.style.opacity = 0;
+    } else {
+      carousel_{{$ctr}}.leftScroll.style.opacity = 1;
+    }
+    
+  }
+  
+  
+  
+  function setRightScrollOpacity_{{$ctr}}() {
+    if ( isScrolledAllRight(carousel_{{$ctr}}) ){
+        carousel_{{$ctr}}.rightScroll.style.opacity = 0;
+      } else {
+        carousel_{{$ctr}}.rightScroll.style.opacity = 1;
+      }
+    
+  }
+
+  
+
+  <?php $ctr++;?>
+  @endforeach
+
+  function isScrolledAllLeft(x) {
+    if (x.items.scrollLeft === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  function isScrolledAllRight(x) {
+    if (x.items.scrollWidth > x.items.offsetWidth) {
+      if (x.items.scrollLeft + x.items.offsetWidth === x.items.scrollWidth) {
+        return true;
+      } 
+    }else {
+      return true;
+    }
+    
+    return false;
+  }
+
+
+  
+
+
+}
 </script>
 
 
@@ -264,6 +507,9 @@
 
   $(function () {
    'use strict';
+
+
+
    
 
    
