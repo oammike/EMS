@@ -189,7 +189,7 @@
                             { title: " ", data:'id', width:'90', class:'text-center', sorting:false, search:true, render: function ( data, type, full, meta ) {
                                var l = data+".jpg";
                               var profilepic =  "{{ url('/') }}/public/img/employees/"+l;
-                              return '<a target="_blank" href="user/'+data+'"><img src="'+profilepic+'" class="img-circle" alt="No image" width="60" /></a><br/><small> '+full.employeeNumber+'</small>';} },
+                              return '<a target="_blank" href="user/'+data+'"><img src="'+profilepic+'" class="img-circle" alt="No image" width="90" /></a><br/><small> '+full.employeeNumber+'</small>';} },
 
                               //return '<a href="user/'+full.id+'"><img src="'+data+'" class="img-circle" alt="User Image" width="60" height="60" />
 
@@ -312,7 +312,7 @@
                            { title: " ", data:'id', width:'90', class:'text-center', sorting:false, search:true, render: function ( data, type, full, meta ) {
                                var l = data+".jpg";
                               var profilepic =  "{{ url('/') }}/public/img/employees/"+l;
-                              return '<a target="_blank" href="user/'+data+'"><img src="'+profilepic+'" class="img-circle" alt="No image" width="60" /></a><br/><small> '+full.employeeNumber+'</small>';} },
+                              return '<a target="_blank" href="user/'+data+'"><img src="'+profilepic+'" class="img-circle" alt="No image" width="90" /></a><br/><small> '+full.employeeNumber+'</small>';} },
 
                               //return '<a href="user/'+full.id+'"><img src="'+data+'" class="img-circle" alt="User Image" width="60" height="60" />
 
