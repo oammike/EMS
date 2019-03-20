@@ -95,25 +95,7 @@
 
 
   <?php */ ?> 
-
                       <div class="item active text-center" >
-                        
-                         <img src="./storage/uploads/teams1.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                         
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
-                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
-                          </p>
-
-                          
-                      </div>
-
-
-
-                      <div class="item text-center" >
                         
                          <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
                           <img src="./storage/uploads/kick4.jpg" style="z-index: 2" /><br/><br/>
@@ -157,6 +139,36 @@
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                       </div>
+
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Women can and women will. On #WomensDay, we celebrate girls and women who challenge gender stereotypes and inspire change to make a gender-equal world. <br/><br/><strong>Happy International Women’s Day!</strong>
+                          <br/><br/>#WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
+                      <div class="item text-center" >
+                        
+                         <img src="./storage/uploads/teams1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                         
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
+                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
+                          </p>
+
+                          
+                      </div>
+
+
+
+                      
 
                       <div class="item text-center" >
                         
@@ -593,15 +605,7 @@
 
                       
 
-                      <div class="item text-center" >
-                      <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                      <p style="padding:10px 50px">Women can and women will. On #WomensDay, we celebrate girls and women who challenge gender stereotypes and inspire change to make a gender-equal world. <br/><br/><strong>Happy International Women’s Day!</strong>
-                        <br/><br/>#WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</p>
-
-                        <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</small></a></div> <br/><br/><br/><br/>
-
-                    </div>
+                      
 
                      <div class="item text-center" >
                         
