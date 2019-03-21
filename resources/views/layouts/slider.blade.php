@@ -94,8 +94,32 @@
                              @endif
 
 
-  <?php */ ?> 
+  <?php */ ?>
+
                       <div class="item active text-center" >
+                        <img src="./storage/uploads/happiness1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">To live mindfully helps you understand yourself better and what makes you happy. Choose to stress less and create and influence happiness in your workplace, community, and at home. <br/>
+                          <strong class="text-orange"> Happy #InternationalDayOfHappiness! </strong>😊<br/><br/>
+                        #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/happiness2.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">To live mindfully helps you understand yourself better and what makes you happy. Choose to stress less and create and influence happiness in your workplace, community, and at home. <br/>
+                          <strong class="text-orange"> Happy #InternationalDayOfHappiness! </strong>😊<br/><br/>
+                        #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
+
+                      <div class="item text-center" >
                         
                          <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
                           <img src="./storage/uploads/kick4.jpg" style="z-index: 2" /><br/><br/>
