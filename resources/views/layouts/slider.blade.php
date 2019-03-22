@@ -140,6 +140,39 @@
 
                       </div>
 
+                      <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 1st Blood Donation Drive 2019</h3><br/><br/>
+                          <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                          <p style="padding: 5px 30px; margin-bottom: 0px">
+                          <h4>
+                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
+                          Time: <span class="text-danger"> 8AM-5PM</span><br/>
+                          <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
+                          Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
+                          You can donate blood if you…<br/>
+                          - Are in good health<br/>
+                          - Are between 16 to 65 years old<br/>
+                          - Weigh at least 110 pounds (approximately 50kg)<br/>
+                          - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
+                          - Pass the physical and health history assessments.</p>
+
+                          <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Women can and women will. On #WomensDay, we celebrate girls and women who challenge gender stereotypes and inspire change to make a gender-equal world. <br/><br/><strong>Happy International Women’s Day!</strong>
+                          <br/><br/>#WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
 
                       <div class="item text-center" >
                         
@@ -156,13 +189,6 @@
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
                             <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
@@ -187,15 +213,7 @@
                       </div>
 
 
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">Women can and women will. On #WomensDay, we celebrate girls and women who challenge gender stereotypes and inspire change to make a gender-equal world. <br/><br/><strong>Happy International Women’s Day!</strong>
-                          <br/><br/>#WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</small></a></div> <br/><br/><br/><br/>
-
-                      </div>
+                      
 
                       <div class="item text-center" >
                         
@@ -396,31 +414,9 @@
 
                       </div>
 
-                       <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 1st Blood Donation Drive 2019</h3><br/><br/>
-                          <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                          <p style="padding: 5px 30px; margin-bottom: 0px">
-                          <h4>
-                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
-                          Time: <span class="text-danger"> 8AM-5PM</span><br/>
-                          <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
+                      
 
-                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                          <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
-                          Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
-                          You can donate blood if you…<br/>
-                          - Are in good health<br/>
-                          - Are between 16 to 65 years old<br/>
-                          - Weigh at least 110 pounds (approximately 50kg)<br/>
-                          - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
-                          - Pass the physical and health history assessments.</p>
 
-                          <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5>
-
-                         
-<br/><br/><br/><br/>
-                      </div>
 
                       <div class="item  text-center" >
                         
@@ -483,173 +479,7 @@
                       </div>
 
 
-                    
-
-                      <!--
-                      <div class="item text-center" >
-                        <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
-                        <img src="./storage/uploads/sample.png" style="z-index: 2" width="100%" />
-                        <h4>Venue: HR Office, 9th Floor<br/>
-                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
-                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
-                          <img src="./storage/uploads/shirts.jpg" style="z-index: 2" width="100%" />
-                          <h5>* For Open Access G2 Employees, details to follow for schedule of the ID picture taking.</h5>
-                        <table class="table">
-                          <tr>
-                            <th>Program/Department</th>
-                            <th>Date</th>
-                            <th>Morning</th>
-                            <th>Night</th>
-                          </tr>
-                          <tr>
-                            <td>Finance</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Business Development/ Marketing/Lebua</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Engineering/ Facilities</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Workforce Team</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>QA & Performance</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>IT</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                           <tr>
-                            <td>Training Department</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                           <tr>
-                            <td>Ops Support</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Exec</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Adore Me</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Advance Wellness</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>An Other</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                           <tr>
-                            <td>Boostability</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Circles.Life</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>DMOPC</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                         
-                          <tr>
-                            <td>EDTraining</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Mous</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>SheerID</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>SKUVantage</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>TurnTo</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Zenefits and Digicast</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                           <tr>
-                            <td>Bird</td>
-                            <td>March 18-22</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Postmates</td>
-                            <td>March 18-22</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-
-      
-
-
-
-                        </table>
-
-                      </div>-->
-
-                      
+                
 
                       
 
@@ -768,13 +598,6 @@
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
                             <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
@@ -895,7 +718,192 @@
                        
 
 
-                       <div class="item text-center">
+
+
+
+                             @if(count($firstYears) >= 1)
+                            <!-- ******** FIRST YEAR ANNIV ******* -->
+                            <div class="item  text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <br/><br/>
+                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
+                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
+                                
+                                <div class="widget-user-image">
+                                   
+
+                                 
+
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                              </div>
+                            </div>
+                            @foreach($firstYears as $n)
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span></h4>
+                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                                @if (is_null($n->hascoverphoto) )  
+                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                                
+                                @else
+                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                               @endif
+                                  
+                                  
+                                </div>
+                                <div class="widget-user-image">
+                                   
+
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                  @else
+                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                  @endif
+
+                                </div>
+                                
+                                <div class="box-footer">
+                                  @if (empty($n->nickname) || $n->nickname==" ")
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @else
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @endif
+
+                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                                  @if ($n->filename == null) 
+                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                                  @else
+                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                                  
+                                  @endif
+                                  <br/>
+                                </div>
+                              </div>
+                            </div>
+
+                            @endforeach
+
+                            @endif
+
+
+
+                           
+                            
+
+
+                            @if (count($newHires) >= 1)
+                            <!-- **** NEW HIRES ******************** -->
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <br/><br/>
+                                <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
+                                  <br/><span style="font-size:smaller">of our growing family...</span></h4>
+                                
+                                <div class="widget-user-image">
+                                   
+
+                                 
+
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                              </div>
+                            </div>
+
+                            @foreach($newHires as $n)
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
+                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                                @if (is_null($n->hascoverphoto) )  
+                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                                
+                                @else
+                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                               @endif
+                                  
+                                  
+                                </div>
+                                <div class="widget-user-image">
+                                   
+
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                  @else
+                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                  @endif
+
+                                </div>
+                                
+                                <div class="box-footer">
+                                  @if (empty($n->nickname))
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
+                                 @else
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
+                                 @endif
+
+                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                                  @if ($n->filename == null) 
+                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                                  @else
+                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                                  
+                                  @endif
+                                  <br/>
+                                </div>
+                              </div>
+                            </div>
+
+                            @endforeach
+
+                            @endif
+
+
+                             <!-- ************* ANNOUNCEMENTS ************-->
+
+                            
+                           <!--  <div class="item text-center">
+                              <img src="storage/uploads/yearend1.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend2.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend3.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend4.jpg" />
+                            </div>
+
+                            <div class="item text-center">
+                              <img src="storage/uploads/yearend5.jpg" />
+                            </div> -->
+
+
+                           
+
+                            
+
+                          
+
+                            <?php /* 
+
+
+
+                            <div class="item text-center">
 
                         
 
@@ -1131,202 +1139,6 @@
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHobbyMonth #HobbyMonth</small></a></div> <br/><br/><br/><br/>
                       </div>
-
-                      
-
-
-
-
-                                      
-                          
-
-                           
-
-
-                          
-
-
-
-
-                             @if(count($firstYears) >= 1)
-                            <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item  text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
-                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-                            @foreach($firstYears as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                <div class="widget-user-image">
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
-                                  @else
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if (empty($n->nickname) || $n->nickname==" ")
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                            @endif
-
-
-
-                           
-                            
-
-
-                            @if (count($newHires) >= 1)
-                            <!-- **** NEW HIRES ******************** -->
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
-                                  <br/><span style="font-size:smaller">of our growing family...</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-
-                            @foreach($newHires as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                <div class="widget-user-image">
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
-                                  @else
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if (empty($n->nickname))
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                            @endif
-
-
-                             <!-- ************* ANNOUNCEMENTS ************-->
-
-                            
-                           <!--  <div class="item text-center">
-                              <img src="storage/uploads/yearend1.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend2.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend3.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend4.jpg" />
-                            </div>
-
-                            <div class="item text-center">
-                              <img src="storage/uploads/yearend5.jpg" />
-                            </div> -->
-
-
-                           
-
-                            
-
-                          
-
-                            <?php /* 
 
                             <div class="item text-center" >
                         <img src="./storage/uploads/lovemonth-1.jpg" style="z-index: 2" />
