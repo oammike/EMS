@@ -269,13 +269,13 @@
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
@@ -528,13 +528,13 @@
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
 
 
@@ -578,13 +578,13 @@
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
 
 
@@ -678,13 +678,13 @@
                            Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 20, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 21, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 22, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
