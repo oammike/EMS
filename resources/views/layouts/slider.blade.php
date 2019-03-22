@@ -96,7 +96,78 @@
 
   <?php */ ?>
 
-                    <div class="item active text-center" >
+
+                    @if (count($newHires) >= 1)
+                    <!-- **** NEW HIRES ******************** -->
+                    <div class="item active text-center">
+                      <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <br/><br/>
+                        <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
+                          <br/><span style="font-size:smaller">of our growing family...</span></h4>
+                        
+                        <div class="widget-user-image">
+                           
+
+                         
+
+                        </div>
+                        <div class="box-footer">
+                        </div>
+                      </div>
+                    </div>
+
+                    @foreach($newHires as $n)
+                    <div class="item text-center">
+                      <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
+                        <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                        @if (is_null($n->hascoverphoto) )  
+                         <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                        
+                        @else
+                        <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                       @endif
+                          
+                          
+                        </div>
+                        <div class="widget-user-image">
+                           
+
+                          @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                          <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                          @else
+                          <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                          @endif
+
+                        </div>
+                        
+                        <div class="box-footer">
+                          @if (empty($n->nickname))
+                             <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
+                         @else
+                             <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
+                         @endif
+
+                         <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                          @if ($n->filename == null) 
+                           <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                          @else
+                         <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                          
+                          @endif
+                          <br/>
+                        </div>
+                      </div>
+                    </div>
+
+                    @endforeach
+
+                    @else
+                     <div class="item active text-center" >
                         <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
                           <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</strong> </p>
@@ -105,6 +176,11 @@
                                     <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
 
                     </div>
+
+
+                    @endif
+
+                   
 
                     <div class="item  text-center" >
                         <img src="./storage/uploads/women2.jpg" style="z-index: 2" width="100%" /><br/><br/>
@@ -656,51 +732,6 @@
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
                       </div> 
 
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/zumba2_3.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-
-
-
-
-
-                            Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on March 6 (Wed) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
-
-
-
-                            You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-
 
 
                       
@@ -797,76 +828,6 @@
                             
 
 
-                            @if (count($newHires) >= 1)
-                            <!-- **** NEW HIRES ******************** -->
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
-                                  <br/><span style="font-size:smaller">of our growing family...</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-
-                            @foreach($newHires as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                <div class="widget-user-image">
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
-                                  @else
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if (empty($n->nickname))
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                            @endif
 
 
                              <!-- ************* ANNOUNCEMENTS ************-->
@@ -900,6 +861,54 @@
                           
 
                             <?php /* 
+
+
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/zumba2_3.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px">The ultimate fitness squad goal: doing #Zumba together! Here's the schedule for next week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">March 13, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <!--  <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">March 8, 2019 (Friday) – 5:30 PM</span><br/></strong><br/> -->
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">March 15, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+
+
+
+
+
+                            Nobody has to be a pro for this, we’re all in this together! Kindly choose the class that you prefer. The registration is now open and will end on March 6 (Wed) at exactly 1:00 PM. Final list of participants will be notified via email and SMS the same day.<br/><br/>
+
+
+
+                            You may come before/after your shift, during your break times, or on your rest day for the free classes. However, should this coincide with your work schedule, kindly approach any of the Workforce team ASAP to check if any work schedule changes may be accommodated. Shower rooms are also available in our G2 site so you can freshen up after the class!For those who will sign up for the Yogalates, yoga mats will be provided.<br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+
 
 
 
