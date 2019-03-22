@@ -164,7 +164,18 @@
                       </div>
                     </div>
 
+
                     @endforeach
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
+
+                    </div>
 
                     @else
                      <div class="item active text-center" >
