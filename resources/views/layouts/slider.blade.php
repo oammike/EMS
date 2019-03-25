@@ -96,10 +96,81 @@
 
   <?php */ ?>
 
+                    <div class="item active text-center" >
+                        <img src="./storage/uploads/groundbreak_1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_2.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_3.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_4.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_5.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_6.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+
+
+
+                    
+
 
                     @if (count($newHires) >= 1)
                     <!-- **** NEW HIRES ******************** -->
-                    <div class="item active text-center">
+                    <div class="item text-center">
                       <div class="box box-widget widget-user">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
                         <br/><br/>
@@ -178,7 +249,7 @@
                     </div>
 
                     @else
-                     <div class="item active text-center" >
+                     <div class="item text-center" >
                         <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
                           <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</strong> </p>
