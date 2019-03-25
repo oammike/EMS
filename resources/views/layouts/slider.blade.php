@@ -96,7 +96,47 @@
 
   <?php */ ?>
 
-                    <div class="item active text-center" >
+                     <div class="item active text-center" >
+                        <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
+
+                    </div>
+
+                     <div class="item  text-center" >
+                        <img src="./storage/uploads/women-lisa.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Maintaining a balanced life between one's career, family, and yourself can be challenging. But with the right mindset, it can be possible.<br/><br/>
+                        
+
+                        Today, we're putting the <strong>#WomenOfOA</strong> spotlight to our <a href="{{action('UserController@show',344)}}" target="_blank" >  Chief Financial Officer (CFO), <strong>Lisa Jackson-Machalski</strong></a>. 
+                        Juggling her day to day responsibilities as a mother and as a career woman can make things challenging for her. But being the super woman that she is, she makes it a point to always give her best shot in all of the important aspects of her life— family, career, and herself. "My biggest struggle has been maintaining the balance between my personal and professional life. In order to compete and stay on top of the game, you need to be direct and assertive. It is often difficult to switch out of this mode when dealing with your partner and children. My daughter often told me growing up "You treat me like an employee." Fortunately now, she thanks me for that as she has become a very hardworking young woman with a great work ethic."<br/><br/> As she takes on another chapter in life, she shares, "Men are from Mars and women are from Venus does still ring very true when it comes to relationships. As progressive as you might think males can be, there is often that power struggle and competitiveness that you don't necessarily expect as it is often inherently wired in many males. My belief system, morals and ethics are more conservative in my personal life as I believe in a certain level of chivalry and males and females having pre-determined defined responsibilities. It can be very challenging to change out of your business woman persona into a wife/mother persona. [As to] How did I overcome it? Try, try, try again is the only way. After 3 failed marriages I finally feel that with my current husband I have gotten it right and couldn't be happier!" <br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter </strong></p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
+
+                    </div>
+
+                     <div class="item  text-center" >
+                        <img src="./storage/uploads/women2.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Discrimination is a major problem across the globe. For anyone who's been through it or is going through it, you should know that you're more than what they tell you and that this shouldn't limit you from what you can do and who you can be. <br/><br/>
+                        Our first feature for this year's <strong>#WomenOfOA</strong> is our French CSR, <strong><a href="{{action('UserController@show',2625)}}" target="_blank" > Anais Andriatsivalaka</a></strong> . Anais is a native of Madagascar who has left home to pursue her career. She has moved to different countries in Africa, Europe, and now, Asia. In doing so, she has experienced the difficulties of being out of her comfort zone and being subjected to discrimination, sexism, and violence. With this experience, she shares a life lesson that may help people who's going through the same. "It is not easy just to leave home and be on your own especially when you are a woman moreover black: it may happen that you encounter discrimination, sexism and even violence. It is important not to take it personally and to remember that though it may be pure hatred, most of the time it is just linked to cultural gaps, and also a lack of knowledge and education." Along with her bubbly personality, Anais possesses the quality of a strong woman, and her wisdom attests to that. "Today, I feel grateful that I am still standing, able to discover other cultures, and bring all this experience to support my relatives and hopefully, as an asset to the company I join. [So,] should you decide to risk it (YES YOU SHOULD), do not to forget that wherever you go, no matter what people tell you or how much they try to put you down, you are here as a person and you have to fight— not against people but to try to be the best version of yourself because this is how you will stand out.” #WeSpeakYourLanguage #OAonWomensHistoryMonth<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter </strong></p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
+
+                    </div>
+
+
+                    
+
+
+
+                    <div class="item text-center" >
                         <img src="./storage/uploads/groundbreak_1.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
                           <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
@@ -248,32 +288,15 @@
 
                     </div>
 
-                    @else
-                     <div class="item text-center" >
-                        <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</strong> </p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
-
-                    </div>
+                    
+                    
 
 
                     @endif
 
                    
 
-                    <div class="item  text-center" >
-                        <img src="./storage/uploads/women2.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">Discrimination is a major problem across the globe. For anyone who's been through it or is going through it, you should know that you're more than what they tell you and that this shouldn't limit you from what you can do and who you can be. <br/><br/>
-                        Our first feature for this year's <strong>#WomenOfOA</strong> is our French CSR, <strong><a href="{{action('UserController@show',2625)}}" target="_blank" > Anais Andriatsivalaka</a></strong> . Anais is a native of Madagascar who has left home to pursue her career. She has moved to different countries in Africa, Europe, and now, Asia. In doing so, she has experienced the difficulties of being out of her comfort zone and being subjected to discrimination, sexism, and violence. With this experience, she shares a life lesson that may help people who's going through the same. "It is not easy just to leave home and be on your own especially when you are a woman moreover black: it may happen that you encounter discrimination, sexism and even violence. It is important not to take it personally and to remember that though it may be pure hatred, most of the time it is just linked to cultural gaps, and also a lack of knowledge and education." Along with her bubbly personality, Anais possesses the quality of a strong woman, and her wisdom attests to that. "Today, I feel grateful that I am still standing, able to discover other cultures, and bring all this experience to support my relatives and hopefully, as an asset to the company I join. [So,] should you decide to risk it (YES YOU SHOULD), do not to forget that wherever you go, no matter what people tell you or how much they try to put you down, you are here as a person and you have to fight— not against people but to try to be the best version of yourself because this is how you will stand out.” #WeSpeakYourLanguage #OAonWomensHistoryMonth<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter </strong></p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
-
-                    </div>
+                   
 
 
                       <div class="item text-center" >
