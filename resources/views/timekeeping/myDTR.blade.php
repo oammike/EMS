@@ -293,7 +293,7 @@
                                                           @if ($anApprover)
                                                          <a title="Plot Work Schedule" class="pull-right" href="{{action('UserController@show',$user->id)}}/createSchedule"> <i class="fa fa-calendar"></i></a> 
                                                          @else
-                                                         <a title="Inform TL or HR to plot your sched" class="text-orange pull-right" href="#"> <i class="fa fa-info"></i>
+                                                         <a title="Inform TL or Workforce to plot your sched" class="text-orange pull-right" href="#"> <i class="fa fa-info"></i>
 
                                                          @endif
                                                        </td>
