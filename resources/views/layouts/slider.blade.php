@@ -114,7 +114,20 @@
 
                     </div>
 
-                     <div class="item  text-center" >
+                    <div class="item  text-center" >
+                        <img src="./storage/uploads/women-lizelle.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Do what makes you happy and be unstoppable! 
+In our third feature, <strong>#WomenOfOA project</strong> presents <a href="{{action('UserController@show',90)}}" target="_blank" >  Lizelle Barboza:</a> an inspiring thrill-seeker who has the strength and determination to conquer trails. Her love for trekking through rough and treacherous terrains contributes a lot to who she is today.<br/><br/>
+
+But we all know how daunting the road to success can be, and Lizelle has her fair share of similar experiences. "There is an event race that I joined with only few women participants [and] like them, I came prepared. However, I am aware that in an event race where you have to trek 6 mountains in 15 hours, the possibility of men winning is so much higher. So, I was just happy to finish the race." "Halfway the course, I almost felt like quitting because of the heat, jelly legs and exhaustion. I felt very weak, I pushed it a little at a time thinking not to waste my month-long training program for nothing. I took a stand and challenged myself to run pass every single runner as I can. This, eventually, helped me reach a pack of male runners [ahead]. That's when I realized I still have the energy to keep pace with them; that I can still push myself further to the finish line like them." She then recalled what kept her going to advance toward the finish line and complete the race, "Strength, focus, faith in myself and their encouragement— that's what I had at that moment that helped me believe I can make it too like the male runners, despite how tired and exhausted we were. We reached the finish line together and surprisingly, I completed the race as the 4th female runner!" What lesson did she learn from this experience? She happily shared, "Learning not to quit and having faith in my own strength are just some of the lessons I've learned from [trail running]. We all know women can do wonders like men and that nobody can stop us but ourselves. There's no superior nor inferior and no gender [bias] when it comes to keeping fit and leading an active lifestyle. Now, I am more confident of myself."<br/><br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019  </strong></p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 </small></a></div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item  text-center" >
                         <img src="./storage/uploads/women-lisa.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Maintaining a balanced life between one's career, family, and yourself can be challenging. But with the right mindset, it can be possible.<br/><br/>
                         
