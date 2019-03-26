@@ -273,9 +273,9 @@ class MovementController extends Controller
                             get();
 
                     //********* we get the PM or Director for approval
-                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
                     $theApprover = null;
-                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
 
 
                         $l1 = $personnel->supervisor;
@@ -587,9 +587,10 @@ class MovementController extends Controller
 
 
                  //********* we get the PM or Director for approval
-                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                    
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
                     $theApprover = null;
-                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
 
 
                         $l1 = $personnel->supervisor;
@@ -1435,9 +1436,10 @@ class MovementController extends Controller
 
 
                     //********* we get the PM or Director for approval
-                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                    
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
                     $theApprover = null;
-                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
 
 
                         $l1 = $personnel->supervisor;
@@ -1779,9 +1781,11 @@ class MovementController extends Controller
 
         getPM:
                 //********* we get the PM or Director for approval
-                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                
+
+                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
                 $theApprover = null;
-                $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+                $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
 
                 $l1 = User::find($movement->user_id)->supervisor;
                 
@@ -2133,10 +2137,12 @@ class MovementController extends Controller
                 }
 
 
-        //********* we get the PM or Director for approval
-                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico
+                //********* we get the PM or Director for approval
+                
+
+                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
                 $theApprover = null;
-                $allowedPMs = [1,184,344,1784,1611,464,163,225,431];
+                $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
 
                 $l1 = User::find($movement->user_id)->supervisor;
                 
