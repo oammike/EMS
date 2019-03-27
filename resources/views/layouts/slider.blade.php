@@ -96,15 +96,9 @@
 
   <?php */ ?>
 
-                  <div class="item active text-center" >
-                        <img src="./storage/uploads/food1.jpg" style="z-index: 2" width="100%" /><br/>
-                        <p style="padding:10px 50px">Delicious, affordable meals now available in our <br/><strong class="text-primary" style="font-size: larger;">5F canteen (right wing)</strong><br/>
-                         </p><img src="./storage/uploads/food2.jpg" style="z-index: 2" width="100%" /><br/><br/><br/><br/>
+                  
 
-                    </div>
-
-
-                     <div class="item text-center" >
+                     <div class="item active text-center" >
                         <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
                           <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</strong> </p>
@@ -115,11 +109,10 @@
                     </div>
 
                     <div class="item  text-center" >
-                        <img src="./storage/uploads/women-lizelle.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">Do what makes you happy and be unstoppable! 
-In our third feature, <strong>#WomenOfOA project</strong> presents <a href="{{action('UserController@show',90)}}" target="_blank" >  Lizelle Barboza:</a> an inspiring thrill-seeker who has the strength and determination to conquer trails. Her love for trekking through rough and treacherous terrains contributes a lot to who she is today.<br/><br/>
+                        <img src="./storage/uploads/women-jimella.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Jimella is a hands-on mom, a full-time Content Writer, a loving wife, and a great friend. In spite of how overwhelming life can be and everything that comes with it, she manages to give her relationships with undivided attention and still leaves time for herself.<br/><br/>
 
-But we all know how daunting the road to success can be, and Lizelle has her fair share of similar experiences. "There is an event race that I joined with only few women participants [and] like them, I came prepared. However, I am aware that in an event race where you have to trek 6 mountains in 15 hours, the possibility of men winning is so much higher. So, I was just happy to finish the race." "Halfway the course, I almost felt like quitting because of the heat, jelly legs and exhaustion. I felt very weak, I pushed it a little at a time thinking not to waste my month-long training program for nothing. I took a stand and challenged myself to run pass every single runner as I can. This, eventually, helped me reach a pack of male runners [ahead]. That's when I realized I still have the energy to keep pace with them; that I can still push myself further to the finish line like them." She then recalled what kept her going to advance toward the finish line and complete the race, "Strength, focus, faith in myself and their encouragement— that's what I had at that moment that helped me believe I can make it too like the male runners, despite how tired and exhausted we were. We reached the finish line together and surprisingly, I completed the race as the 4th female runner!" What lesson did she learn from this experience? She happily shared, "Learning not to quit and having faith in my own strength are just some of the lessons I've learned from [trail running]. We all know women can do wonders like men and that nobody can stop us but ourselves. There's no superior nor inferior and no gender [bias] when it comes to keeping fit and leading an active lifestyle. Now, I am more confident of myself."<br/><br/>
+                        For our fourth <strong>#WomenOfOA</strong> feature <a href="{{action('UserController@show',443)}}" target="_blank" > Jimella,</a> every woman can and here's the secret. "Personally, I just make sure to manage my time well so that I can tend to my family's needs. We don't have a helper so I'm pretty much a hands-on mom to my kids— I am their personal cook, teacher, nurse, hairdresser, and stylist. Every so often, we go on an out-of-town trip to let them explore and get in touch with nature. I think it's always a good idea to spend as much time with them because they grow up so fast! However, as much as I love my children, I also believe that every once in a while, my hubby and I deserve to have a date night [which we religiously follow]. Just a few hours of peace and quiet is enough to keep us sane." Along with being devoted to her family, she reminds women like her to have time for themselves as well. "Another important thing: it's essential to reward yourself a 'Me time.' Pamper yourself, go out with friends, or do things that you always want to try. Have a break from everything so that you can recharge and revitalize. That way, you can always offer a better version of yourself!" These can still be overwhelming for many, especially to those who are new to motherhood, but she believes every woman can bring something to the table to make it all work. "[For me,] every woman is a great multi-tasker. We have an extraordinary skill to juggle a lot of things but still can manage to accomplish greatly. We are loaded with responsibilities yet we always handle it with grace. No matter how challenging life gets, expect a woman to come out stronger!" #WeSpeakYourLanguage #OAonWomensHistoryMonth<br/><br/>
                           <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019  </strong></p>
 
                           <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
@@ -127,6 +120,21 @@ But we all know how daunting the road to success can be, and Lizelle has her fai
 
                     </div>
 
+                    <!--lizelle -->
+                    <div class="item  text-center" >
+                        <img src="./storage/uploads/women-lizelle.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Do what makes you happy and be unstoppable! 
+                          In our third feature, <strong>#WomenOfOA project</strong> presents <a href="{{action('UserController@show',90)}}" target="_blank" >  Lizelle Barboza:</a> an inspiring thrill-seeker who has the strength and determination to conquer trails. Her love for trekking through rough and treacherous terrains contributes a lot to who she is today.<br/><br/>
+
+                          But we all know how daunting the road to success can be, and Lizelle has her fair share of similar experiences. "There is an event race that I joined with only few women participants [and] like them, I came prepared. However, I am aware that in an event race where you have to trek 6 mountains in 15 hours, the possibility of men winning is so much higher. So, I was just happy to finish the race." "Halfway the course, I almost felt like quitting because of the heat, jelly legs and exhaustion. I felt very weak, I pushed it a little at a time thinking not to waste my month-long training program for nothing. I took a stand and challenged myself to run pass every single runner as I can. This, eventually, helped me reach a pack of male runners [ahead]. That's when I realized I still have the energy to keep pace with them; that I can still push myself further to the finish line like them." She then recalled what kept her going to advance toward the finish line and complete the race, "Strength, focus, faith in myself and their encouragement— that's what I had at that moment that helped me believe I can make it too like the male runners, despite how tired and exhausted we were. We reached the finish line together and surprisingly, I completed the race as the 4th female runner!" What lesson did she learn from this experience? She happily shared, "Learning not to quit and having faith in my own strength are just some of the lessons I've learned from [trail running]. We all know women can do wonders like men and that nobody can stop us but ourselves. There's no superior nor inferior and no gender [bias] when it comes to keeping fit and leading an active lifestyle. Now, I am more confident of myself."<br/><br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019  </strong></p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 </small></a></div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <!-- LISA -->
                     <div class="item  text-center" >
                         <img src="./storage/uploads/women-lisa.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Maintaining a balanced life between one's career, family, and yourself can be challenging. But with the right mindset, it can be possible.<br/><br/>
@@ -141,6 +149,7 @@ But we all know how daunting the road to success can be, and Lizelle has her fai
 
                     </div>
 
+                    <!-- ANAIS -->
                      <div class="item  text-center" >
                         <img src="./storage/uploads/women2.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Discrimination is a major problem across the globe. For anyone who's been through it or is going through it, you should know that you're more than what they tell you and that this shouldn't limit you from what you can do and who you can be. <br/><br/>
@@ -151,6 +160,38 @@ But we all know how daunting the road to success can be, and Lizelle has her fai
                                     <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
 
                     </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/food1.jpg" style="z-index: 2" width="100%" /><br/>
+                        <p style="padding:10px 50px">Delicious, affordable meals now available in our <br/><strong class="text-primary" style="font-size: larger;">5F canteen (right wing)</strong><br/>
+                         </p><img src="./storage/uploads/food2.jpg" style="z-index: 2" width="100%" /><br/><br/><br/><br/>
+
+                    </div>
+
+                    <!-- BLOOD DONATION-->
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 1st Blood Donation Drive 2019</h3><br/><br/>
+                          <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                          <p style="padding: 5px 30px; margin-bottom: 0px">
+                          <h4>
+                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
+                          Time: <span class="text-danger"> 8AM-5PM</span><br/>
+                          <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
+                          Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
+                          You can donate blood if you…<br/>
+                          - Are in good health<br/>
+                          - Are between 16 to 65 years old<br/>
+                          - Weigh at least 110 pounds (approximately 50kg)<br/>
+                          - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
+                          - Pass the physical and health history assessments.</p>
+
+                          <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
+                      </div>
+
 
 
                     
@@ -334,28 +375,7 @@ But we all know how daunting the road to success can be, and Lizelle has her fai
 
                       </div>
 
-                      <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 1st Blood Donation Drive 2019</h3><br/><br/>
-                          <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                          <p style="padding: 5px 30px; margin-bottom: 0px">
-                          <h4>
-                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
-                          Time: <span class="text-danger"> 8AM-5PM</span><br/>
-                          <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                          <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
-                          Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
-                          You can donate blood if you…<br/>
-                          - Are in good health<br/>
-                          - Are between 16 to 65 years old<br/>
-                          - Weigh at least 110 pounds (approximately 50kg)<br/>
-                          - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
-                          - Pass the physical and health history assessments.</p>
-
-                          <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
-                      </div>
+                      
 
                       <div class="item text-center" >
                         <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
@@ -443,171 +463,7 @@ But we all know how daunting the road to success can be, and Lizelle has her fai
                           
                       </div>
 
-                      <div class="item text-center" >
-                        <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
-                        <img src="./storage/uploads/bts-1.jpg" style="z-index: 2" width="100%" />
-                        <h4>Venue: HR Office, 9th Floor<br/>
-                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
-                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
-                          <img src="./storage/uploads/bts-2.jpg" style="z-index: 2" width="100%" />
-
-                          <h5>* For Open Access G2 Employees, details to follow for schedule of the ID picture taking.</h5>
-
-                        <table class="table">
-                          <tr>
-                            <th>Program/Department</th>
-                            <th>Date</th>
-                            <th>Morning</th>
-                            <th>Night</th>
-                          </tr>
-                          <tr>
-                            <td>Finance</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Business Development/ Marketing/Lebua</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Engineering/ Facilities</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Workforce Team</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>QA & Performance</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>IT</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                           <tr>
-                            <td>Training Department</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                           <tr>
-                            <td>Ops Support</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Exec</td>
-                            <td>March 12-13</td>
-                            <td>10:00am-7:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Adore Me</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Advance Wellness</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>An Other</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                           <tr>
-                            <td>Boostability</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Circles.Life</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>DMOPC</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                         
-                          <tr>
-                            <td>EDTraining</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Mous</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>SheerID</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>SKUVantage</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>TurnTo</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Zenefits and Digicast</td>
-                            <td>March 14-15</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Bird</td>
-                            <td>March 18-22</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            <td>Postmates</td>
-                            <td>March 18-22</td>
-                            <td>6:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-
-      
-
-
-
-                        </table>
-
-                      </div>
-
+                     
                       
 
 
@@ -979,6 +835,172 @@ But we all know how daunting the road to success can be, and Lizelle has her fai
                           
 
                             <?php /* 
+
+                             <div class="item text-center" >
+                        <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
+                        <img src="./storage/uploads/bts-1.jpg" style="z-index: 2" width="100%" />
+                        <h4>Venue: HR Office, 9th Floor<br/>
+                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
+                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
+                          <img src="./storage/uploads/bts-2.jpg" style="z-index: 2" width="100%" />
+
+                          <h5>* For Open Access G2 Employees, details to follow for schedule of the ID picture taking.</h5>
+
+                        <table class="table">
+                          <tr>
+                            <th>Program/Department</th>
+                            <th>Date</th>
+                            <th>Morning</th>
+                            <th>Night</th>
+                          </tr>
+                          <tr>
+                            <td>Finance</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Business Development/ Marketing/Lebua</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Engineering/ Facilities</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Workforce Team</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>QA & Performance</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>IT</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Training Department</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Ops Support</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Exec</td>
+                            <td>March 12-13</td>
+                            <td>10:00am-7:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Adore Me</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Advance Wellness</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>An Other</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                           <tr>
+                            <td>Boostability</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Circles.Life</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>DMOPC</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                         
+                          <tr>
+                            <td>EDTraining</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Mous</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>SheerID</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>SKUVantage</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>TurnTo</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Zenefits and Digicast</td>
+                            <td>March 14-15</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Bird</td>
+                            <td>March 18-22</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            <td>Postmates</td>
+                            <td>March 18-22</td>
+                            <td>6:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+
+      
+
+
+
+                        </table>
+
+                      </div>
+
 
 
 
