@@ -109,6 +109,34 @@
                     </div>
 
                     <div class="item  text-center" >
+                        <img src="./storage/uploads/women-emelda.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Be grateful to what you have today and every little thing that will come your way— it’s one way to accomplish what you seek.<br/><br/>
+
+                        Our fifth <strong>#WomenOfOA</strong> feature goes to one of Open Access BPO’s inspiring female leaders, <a href="{{action('UserController@show',1611)}}" target="_blank" > <strong>Emelda Perez</strong>, </a>(or Ms. E as everyone fondly calls her). In this feature, she talks about her belief system that she finds helpful in her role as an HR Director.<br/><br/>
+
+                        "[I believe] what we learned from home can be applied wherever we are, especially at work. First, hard work in everything we do. With my role here at Open Access, I try to always give my best because I believe that’s how my staff learns from me. As they always say, to be a good leader you have to be a good follower also. Second is sincerity in how you treat people. It’s difficult to earn someone’s trust if you’re not sincere."<br/><br/>
+
+                        "Third is flexibility, in terms of how I manage my time at work and at home. Whenever I’m needed at work, I focus and give my 100% attention. [Because] I know that like me, they too, have their own priorities and that their time is important. There are plenty of unexpected meetings, and so you need to learn how to manage your time; distinguish what’s important from urgent and vice versa. Focus and attention, so you can always give your best. The same thing goes for my family, I give them my undivided attention because that’s what they deserve. Time is important, no matter who you give it to."<br/><br/>
+
+                        "Passion. I believe in passion for purpose. Because if you’re passionate in what you do, you can do great things. More so, having defined purpose allows us to understand what we’re capable of giving and whether we're capable of doing more."<br/><br/>
+
+                        "Another thing is gratitude. You see, plenty of things do happen unexpectedly at work that may disappoint us. What do I do? I try to see the good in the bad. Oprah writes the things she’s thankful every day, and that helps her overcome the obstacles in her life. I do that also, and it helps me look ahead with positivity. Bad things happen, but they also end. We need to be positive in order to overcome the struggles we encounter in life. Of course, that includes our faith. Every day, before I go to work, I pray. Because I know I can do all things with Him. At the end of the day, I’m only human and I get tired and exhausted. What helps me keep up with life’s challenges? I surrender everything to God."
+                        <br/><br/>
+                        "Next, empathy. How we treat people describes who we [really] are. I believe that if you care for people, they’ll care for you as well. But if they don’t, then that’s okay. At least you sow, and you’ll never have to regret your actions. You can’t please everyone.<br/><br/>
+
+                        Also, I admire people who stay grounded no matter what position or status they hold. That’s humility. Because whatever you do, you need to treat people with respect. Open Access is a multinational company. We have different people coming in the HR Department every day, these people have different beliefs, personalities, and preferences, and so we, [our team], make sure we exercise this value most."<br/><br/>
+
+                        As she ends her answer, she adds, "The same goes here in the company, we have our own set of core values that we impart to the employees. That makes us work in harmony and at our best selves."<br/><br/>
+
+                        "Values are things that we can apply anywhere, anytime. We apply them to influence good on others, so we don’t regret on whatever mark we may leave as we go forward. At the end of the day, what matters is that you don’t look back and say, 'Sayang!'"<br/><br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019  </strong></p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 </small></a></div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item  text-center" >
                         <img src="./storage/uploads/women-jimella.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Jimella is a hands-on mom, a full-time Content Writer, a loving wife, and a great friend. In spite of how overwhelming life can be and everything that comes with it, she manages to give her relationships with undivided attention and still leaves time for herself.<br/><br/>
 
@@ -168,29 +196,7 @@
 
                     </div>
 
-                    <!-- BLOOD DONATION-->
-                    <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 1st Blood Donation Drive 2019</h3><br/><br/>
-                          <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                          <p style="padding: 5px 30px; margin-bottom: 0px">
-                          <h4>
-                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
-                          Time: <span class="text-danger"> 8AM-5PM</span><br/>
-                          <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                          <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
-                          Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
-                          You can donate blood if you…<br/>
-                          - Are in good health<br/>
-                          - Are between 16 to 65 years old<br/>
-                          - Weigh at least 110 pounds (approximately 50kg)<br/>
-                          - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
-                          - Pass the physical and health history assessments.</p>
-
-                          <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
-                      </div>
+                    
 
 
 
@@ -704,21 +710,15 @@
                            
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
-                      </div> 
+                      </div>
 
-
-
-                      
-
-
-                      <div class="item text-center" >
-                              
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
                               <img src="./storage/uploads/hello_grubs1.jpg" style="z-index: 2" />
-                              <h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                              
                               <p style="padding:20px">Our 2019 kicked off with a splendid breakfast filled with fun conversations shared by the Open Access BPO executives and employees -- what a great way to start the year! 
                                 Thanks to everyone who joined us earlier on our first <strong class="text-orange">Hellos &amp; Grubs</strong> session!<br/><br/>We can't wait to meet the next batch in a few days!</p>
                                 <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
-                       </div>  
+                      </div>  
 
                        
 
@@ -835,6 +835,30 @@
                           
 
                             <?php /* 
+
+                            <!-- BLOOD DONATION-->
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 1st Blood Donation Drive 2019</h3><br/><br/>
+                          <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                          <p style="padding: 5px 30px; margin-bottom: 0px">
+                          <h4>
+                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
+                          Time: <span class="text-danger"> 8AM-5PM</span><br/>
+                          <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
+                          Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
+                          You can donate blood if you…<br/>
+                          - Are in good health<br/>
+                          - Are between 16 to 65 years old<br/>
+                          - Weigh at least 110 pounds (approximately 50kg)<br/>
+                          - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
+                          - Pass the physical and health history assessments.</p>
+
+                          <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
+                      </div>
 
                              <div class="item text-center" >
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
