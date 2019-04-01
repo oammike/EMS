@@ -105,12 +105,51 @@
 
                     </div>
 
+                    <!--physical schel-->
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/kick4.jpg" style="z-index: 2" /><br/><br/>
+
+                          Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                    </div>
+
 
  
 
                   
 
-                     <div class="item  text-center" >
+                    <div class="item  text-center" >
                         <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
                           <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</strong> </p>
@@ -158,6 +197,54 @@
                           <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                     <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 </small></a></div> <br/><br/><br/><br/>
 
+                    </div>
+
+                    
+                    <!--physcal sched -->
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/kick1.jpg" style="z-index: 2" /><br/><br/>
+
+                          Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+
+
+
+                          
+
+
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      
                     </div>
 
                     <!--lizelle -->
@@ -211,76 +298,6 @@
                     
 
 
-
-                    
-
-
-
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/groundbreak_1.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
-                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
-                          </div> <br/><br/><br/><br/>
-
-                    </div>
-
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/groundbreak_2.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
-                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
-                          </div> <br/><br/><br/><br/>
-
-                    </div>
-
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/groundbreak_3.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
-                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
-                          </div> <br/><br/><br/><br/>
-
-                    </div>
-
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/groundbreak_4.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
-                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
-                          </div> <br/><br/><br/><br/>
-
-                    </div>
-
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/groundbreak_5.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
-                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
-                          </div> <br/><br/><br/><br/>
-
-                    </div>
-
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/groundbreak_6.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
-                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
-                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
-                          </div> <br/><br/><br/><br/>
-
-                    </div>
 
 
 
@@ -395,54 +412,10 @@
 
                       
 
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">Women can and women will. On #WomensDay, we celebrate girls and women who challenge gender stereotypes and inspire change to make a gender-equal world. <br/><br/><strong>Happy International Women’s Day!</strong>
-                          <br/><br/>#WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</small></a></div> <br/><br/><br/><br/>
-
-                      </div>
+                    
 
 
-                      <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/kick4.jpg" style="z-index: 2" /><br/><br/>
-
-                          Here's the schedule for this week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
+                      
 
 
                       
@@ -501,50 +474,7 @@
                           
                       </div>
 
-                      <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/kick1.jpg" style="z-index: 2" /><br/><br/>
-
-                          Here's the schedule for this week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
+                     
 
 
                 
@@ -559,13 +489,13 @@
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
 
 
@@ -659,13 +589,13 @@
                            Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">March 27, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">March 28, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">March 29, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
@@ -848,6 +778,89 @@
 
                             <?php /* 
 
+                            <!--decade of woman -->
+
+                              <div class="item text-center" >
+                        <img src="./storage/uploads/WOMENSDAY.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Women can and women will. On #WomensDay, we celebrate girls and women who challenge gender stereotypes and inspire change to make a gender-equal world. <br/><br/><strong>Happy International Women’s Day!</strong>
+                          <br/><br/>#WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensDay #WomensDay #IWD2019 #IWD</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
+
+                    
+
+
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_2.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_3.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_4.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_5.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/groundbreak_6.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">For decades, women have been paving the way for equality and innovation. Get to know these groundbreaking women who’ve changed the course of history. May they become inspirations to continue the fight this #WomensHistoryMonth and beyond.<br/>
+                          <strong class="text-primary">#WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</strong> </p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> 
+                            <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!"><small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WHM2019</small></a>
+                          </div> <br/><br/><br/><br/>
+
+                    </div>
+
                             <!-- BLOOD DONATION-->
                     <div class="item text-center" >
                         
@@ -855,7 +868,7 @@
                           <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
                           <p style="padding: 5px 30px; margin-bottom: 0px">
                           <h4>
-                          <strong>When:</strong> <span class="text-danger"> March 27, 2019 ( G2); <br/>March 28, 2019 ( Jaka )</span><br/>
+                          <strong>When:</strong> <span class="text-danger"> April 03, 2019 ( G2); <br/>April 04, 2019 ( Jaka )</span><br/>
                           Time: <span class="text-danger"> 8AM-5PM</span><br/>
                           <strong>Where:</strong> 11th Flr ( G2 ), 5th Flr. ( Jaka )</h4><br/><br/></p>
 
