@@ -29,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
  .skin-blue .main-header .navbar, .skin-blue .main-header .logo{background-color: #1a8fcb;}
  .content-wrapper{
 
-   background:url("{{ asset('public/img/bg_swish_purple.png')}}") bottom right fixed no-repeat;
+   background:url("{{ asset('public/img/bg_swish.png')}}") bottom right fixed no-repeat;
    background-color: #fdfdfd; /*#f5f9fc;*/
 
    }
@@ -73,7 +73,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-purple sidebar-mini @yield('bodyClasses') ">
+<body class="hold-transition skin-blue sidebar-mini @yield('bodyClasses') ">
 <div class="wrapper">
 
 
