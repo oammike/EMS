@@ -1,4 +1,4 @@
-<footer class="main-footer" style="background-color: #454288">
+<footer class="main-footer" ><!-- style="background-color: #454288" -->
     <!-- To the right -->
     <div class="pull-right hidden-xs">
       
