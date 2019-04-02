@@ -290,7 +290,7 @@
 
                     <div class="item text-center" >
                         <img src="./storage/uploads/food1.jpg" style="z-index: 2" width="100%" /><br/>
-                        <p style="padding:10px 50px">Delicious, affordable meals now available in our <br/><strong class="text-primary" style="font-size: larger;">5F canteen (right wing)</strong><br/>
+                        <p style="padding:10px 50px">Delicious, affordable meals now available in our <br/><strong class="text-primary" style="font-size: larger;">5F pantry (right wing)</strong><br/>
                          </p><img src="./storage/uploads/food2.jpg" style="z-index: 2" width="100%" /><br/><br/><br/><br/>
 
                     </div>
