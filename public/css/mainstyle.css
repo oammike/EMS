@@ -104,11 +104,13 @@ p#employee_position{
   height: 2071px;
 }
 #controls{
-  width: 640px;
+  width: 1200px; /*640px;*/
   position: fixed;
   right: 0;
   top: 0; 
 }
+
+#controls input[type='text']{font-size: 2em;}
 #inputs{
   float: right;
 }
