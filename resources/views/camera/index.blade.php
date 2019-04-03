@@ -355,6 +355,7 @@
   function save_template() {
     window.adjust_mode = false;
     $('#preloader_wrapper').show();
+    $('#employee_number_container').hide();
     window.readytoprint = false;
   
     window.filepath = "";
@@ -365,6 +366,7 @@
         //Canvas2Image.saveAsPNG(canvas);
         
         Canvas2Image.saveAsPNG(canvas, 1322, 2071, window.employee_id + ".png");
+        $('#employee_number_container').show();
     });
     
       
