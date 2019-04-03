@@ -358,12 +358,12 @@
   
     window.filepath = "";
     
-    html2canvas(document.querySelector('#id_wrapper'), {
-      onrendered: function(canvas) {
+    html2canvas(document.querySelector('#id_wrapper')).then(function(canvas) {
+
         $('#preloader_wrapper').hide();
         Canvas2Image.saveAsPNG(canvas);
-      }
     });
+    
       
   }
   
