@@ -120,6 +120,9 @@
           <div class="input-field col s6">
               <a class="waves-effect waves-light btn-large col s12 right" href="javascript:reset();"><i class="material-icons left">settings_backup_restore</i>Reset</a>            
           </div>
+            <div class="input-field col s6">
+              <a class="waves-effect waves-light btn-large col s12 right" href="javascript:save_template();"><i class="material-icons left">camera_front</i>Save Template</a>            
+          </div>
         </form>  
       </div>
     </div>
@@ -346,6 +349,22 @@
       s += val;
     }
     return s;
+  }
+  
+  function save_template() {
+    window.adjust_mode = false;
+    $('#preloader_wrapper').show();
+    window.readytoprint = false;
+  
+    window.filepath = "";
+    
+    html2canvas($("#widget"), {
+      onrendered: function(canvas) {
+        $('#preloader_wrapper').hide();
+        Canvas2Image.saveAsPNG(canvas);
+      }
+    });
+      
   }
   
   function save() {
