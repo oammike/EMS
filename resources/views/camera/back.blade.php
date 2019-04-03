@@ -3,7 +3,7 @@
   <div id="id_wrapper">
     <div id="id_container">
       
-      <img src="{{ asset( 'public/img/background_back2.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
+      <img src="{{ asset( 'storage/uploads/id/2191.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
       
     </div>
   </div>
@@ -71,7 +71,7 @@
       
         var body = "";
         for(var i = 0; i<window.copies; i++){
-          var div = '<div><img src="{{ asset( 'public/img/background_back2.png' ) }}"></div>';
+          var div = '<div><img src="{{ asset( 'storage/uploads/id/2191.png' ) }}"></div>';
           body = body + div;
         }
         
