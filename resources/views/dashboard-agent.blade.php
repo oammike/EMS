@@ -113,8 +113,8 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Let's Get Physical <br/><span class="text-orange">Yoga | Aero Kickboxing | Zumba</span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/getphysical.webm" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-primary">Zumba sesh <br/><span class="text-orange">April 03,2019 (Wed)</span>  </strong></p>
+                      <video id="teaser" src="storage/uploads/zumba_04-03.webm" width="100%" loop controls></video>
                     </div>
                 </div>
 
