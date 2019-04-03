@@ -210,6 +210,7 @@
   <script type="text/javascript" src="{{ asset( 'public/js/signature_pad.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/materialize.min.js' ) }}"></script>
   <script type="text/javascript" src="{{ asset( 'public/js/pace.js' ) }}"></script>
+  <script type="text/javascript" src="{{ asset( 'public/js/canvas2image.js' ) }}"></script>
   
   
   <script>
@@ -361,7 +362,9 @@
     html2canvas(document.querySelector('#id_wrapper')).then(function(canvas) {
 
         $('#preloader_wrapper').hide();
-        Canvas2Image.saveAsPNG(canvas);
+        //Canvas2Image.saveAsPNG(canvas);
+        
+        Canvas2Image.saveAsPNG(canvas, 1322, 2071, window.employee_id + ".png");
     });
     
       
