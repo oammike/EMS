@@ -1468,6 +1468,7 @@ class EvalFormController extends Controller
                             
 
                              $coll= new Collection;
+                             //return $mySubordinates1;
                              
                              foreach ($mySubordinates1 as $emp) {
                                /* ------------
@@ -1555,10 +1556,11 @@ class EvalFormController extends Controller
 
 
                             $data = $this->getPastMemberEvals($mc, $evalSetting,null,null,$request->evalType_id);
+                            //return $data;
 
                             //return ['doneEval'=>count($data->first()['doneMovedEvals']), 'changedImmediateHeads'=>count($data->first()['changedImmediateHeads']),'changedHeads'=>count($data->first()['changedHeads'])];
 
-                            //return $data;
+                            
 
                              $changedImmediateHeads = $data->first()['changedImmediateHeads'];
                             //return $changedImmediateHeads1;
@@ -1575,7 +1577,7 @@ class EvalFormController extends Controller
 
                             //return (['doneMovedEvals'=>$doneMovedEvals, 'changedImmediateHeads'=>$changedImmediateHeads]);
 
-                           
+                           //return $data;
                             return view('showThoseUpFor', compact('mySubordinates', 'myCampaign', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
 
 

@@ -204,20 +204,25 @@ trait EvaluationTraits
 
                          /*-- fix for Gary's issue 11-19-2018 */
                         $checkTransfer = Movement::where('user_id',$emp->user_id)->where('personnelChange_id','1')->where('isDone',1)->
-                                            where('effectivity','>=',$currentPeriod->toDateString())->where('effectivity','<=',$cPeriod->format('Y-m-d'))->get();
+                                            where('effectivity','>=',$currentPeriod->toDateString())->get();
+                                            //where('effectivity','<=',$cPeriod->format('Y-m-d'))->get();
 
-                        $coll2->push(['checkTransfer'=>$checkTransfer, 'of'=>$employ->id]);
+                        // $coll2->push(['checkTransfer'=>$checkTransfer,
+                        //     'effectivity>='=>$currentPeriod->toDateString(),
+                        //     'effectivity<='=>$cPeriod->format('Y-m-d'), 
+                        //     'of'=>$employ->id]);
 
                         if (count($checkTransfer)>0)
                         {
                             //
                             $myCampaigns =ImmediateHead_Campaign::where('immediateHead_id',ImmediateHead::where('employeeNumber',User::find($this->user->id)->employeeNumber)->first()->id)->get()->pluck('id')->toArray();
-                            $coll2->push(['transfer'=>$checkTransfer,'campaigns'=>$myCampaigns, 'user'=>$emp->user_id]);
+                            //$coll2->push(['transfer'=>$checkTransfer,'campaigns'=>$myCampaigns, 'user'=>$emp->user_id]);
                             
                             foreach ($checkTransfer as $key) 
                             {
                                 $moved = Movement_ImmediateHead::where('movement_id',$key->id)->first();
-                                
+                                //$coll2->push(['imHeadCampID_old'=>$moved->imHeadCampID_old,'myCampaigns'=>$myCampaigns]);
+
                                 if(in_array($moved->imHeadCampID_old, $myCampaigns)){
 
                                     $changedImmediateHeads->push([
