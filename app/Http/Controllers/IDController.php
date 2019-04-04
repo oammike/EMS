@@ -54,6 +54,14 @@ class IDController extends Controller
         return view('camera.back', ['url'=> $this->url->to('/') ]);
     }
     
+    public function print_single($id)
+    {
+        if(!$this->has_id_permissions){
+           return view("access-denied");
+        }
+        return view('camera.print_single', ['user' => User::find($id), 'url'=> $this->url->to('/')]);
+    }
+    
     public function load_single($id)
     {
         if(!$this->has_id_permissions){

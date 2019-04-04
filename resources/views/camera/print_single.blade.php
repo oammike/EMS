@@ -3,7 +3,7 @@
   <div id="id_wrapper">
     <div id="id_container">
       
-      <img src="{{ asset( 'public/img/background_back2.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
+      <img src="{{ asset( 'storage/uploads/id/'.$user->id.'.png' ) }}" id="foreground" style="display: block; opacity: 1"/>
       
     </div>
   </div>
@@ -12,13 +12,10 @@
       <h6>Options</h6>
       <div class="row">
         <form class="col s8">  
-          <div class="input-field col s12">
-            <input placeholder="10" id="copies" name="copies" type="number" class="validate" value="10">
-            <label for="copies">How Many Copies?</label>
-          </div>
+          
           <div class="input-field col s5 right">
             <div class="row">
-              <a class="waves-effect waves-light btn-large" href="javascript:verify();"><i class="material-icons left">print</i>Print</a>
+              <a class="waves-effect waves-light btn-large" href="javascript:printme();"><i class="material-icons left">print</i>Print</a>
             </div>
           </div>
         </form>
@@ -37,9 +34,6 @@
 
   
   <script>
-  window.startAt = 1;
-  window.copy_counter = 0;
-  window.copies = 1;
   window.filepath = [];
   
   $.ajaxSetup({
@@ -50,30 +44,14 @@
     
     function pad(num, size){ return ('0000' + num).substr(-size); } 
     
-    function verify() {
-      window.startAt = 1;
-      window.copy_counter = 0;
-      window.copies = 1;
-      window.filepath = [];
-      if (isNaN($('#copies').val())) {
-        alert("Please specify how many ID's to print")
-        return;
-      }else{
-        window.copies = $('#copies').val();
-      }
-      
-      $('#copies').disabled = true;
-      $('#start').disabled = true;
-      printme();
-    }
   
     function printme(){
       
         var body = "";
-        for(var i = 0; i<window.copies; i++){
-          var div = '<div><img src="{{ asset( 'public/img/background_back2.png' ) }}"></div>';
+        
+          var div = '<div><img src="{{ asset( 'storage/uploads/id/'.$user->id.'.png' ) }}"></div>';
           body = body + div;
-        }
+        
         
         var filepath = window.location + window.filepath;
         var popupWin = window.open('', '_blank', 'width=638,height=1013');
