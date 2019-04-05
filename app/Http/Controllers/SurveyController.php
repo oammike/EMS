@@ -673,7 +673,7 @@ class SurveyController extends Controller
 
                     if($this->user->id !== 564 ) {
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed Survey Report by [". $this->user->id."] ".$this->user->lastname."\n");
+                        fwrite($file, "-------------------\n Viewed Yearend Survey by [". $this->user->id."] ".$this->user->lastname."\n");
                         fclose($file);
                     }
 
@@ -929,7 +929,16 @@ class SurveyController extends Controller
         switch ($id) {
           case 2: return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
             break;
-          case 3: return view('forms.survey1page-show', compact('canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+          case 3: { 
+                    if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n YrEnd Survey by [". $this->user->id."] ".$this->user->lastname."\n");
+                        fclose($file);
+                    }
+
+                    return view('forms.survey1page-show', compact('canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa')); 
+
+                  }
             break;
           
           default: return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
