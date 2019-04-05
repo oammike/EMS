@@ -408,8 +408,11 @@ class SurveyController extends Controller
       $programData = new Collection;
       $categoryData = new Collection;
 
+      switch ($id) {
+        case 1: //EES 2019
+                {
 
-      $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
+                  $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
                     join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
 
                     join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
@@ -426,141 +429,284 @@ class SurveyController extends Controller
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
                     where('team.floor_id','!=',11)->get();
-      $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
-     
-      $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
-      $groupedNPS = collect($nspResponses)->groupBy('userID'); 
-      $groupedCat = collect($allResp)->groupBy('categoryID');
+                  $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
+                 
+                  $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
+                  $groupedNPS = collect($nspResponses)->groupBy('userID'); 
+                  $groupedCat = collect($allResp)->groupBy('categoryID');
 
-      //return $groupedResp->take(100);
+                  //return $groupedResp->take(100);
 
-      //****** ALL SURVEY DATA
-      foreach ($groupedResp as $key) 
-      {
-        $avg = number_format(collect($key)->pluck('rating')->avg(),2);
-        $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
+                  //****** ALL SURVEY DATA
+                  foreach ($groupedResp as $key) 
+                  {
+                    $avg = number_format(collect($key)->pluck('rating')->avg(),2);
+                    $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
+                    
+                  }
+
+                  $totalBackoffice = count(collect($surveyData)->where('backOffice',1));
+                  $totalOps = count(collect($surveyData)->where('backOffice',0));
+                  
+                  $groupedRatings = collect($surveyData)->groupBy('rounded');
+
+                  $programs = collect($surveyData)->sortBy('program')->groupBy('program'); 
+
+
+                  //****** ALL NSP DATA
+
+                  $eeCommittee = 0;
+                  $forGD = 0;
+                     foreach ($groupedNPS as $n) {
+                          $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
+
+                          if ($n[0]->beEEC) $eeCommittee++;
+                          if ($n[0]->forGD) $forGD++;
+                          $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps),'eeCommittee'=>$n[0]->beEEC, 'forGD'=>$n[0]->forGD, 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
+
+                      }
+
+                  $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
+                  $passives = collect($npsData)->whereIn('roundedNPS',['3']);
+                  $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
+                  $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>number_format($eeCommittee/count($promoters)*100,2), 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=> number_format($forGD/count($detractors)*100,2)];
+
+                  $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
+                 
+
+                  //****** ALL CAMPAIGN RELATED DATA
+                  foreach ($programs->sort() as $p) {
+                      $totalData = DB::table('team')->where('campaign_id',$p[0]['programID'])->
+                                    join('users','users.id','=','team.user_id')->
+                                    select('users.status_id','users.firstname','users.lastname','users.id')->
+                                    where('users.status_id',"!=",7)->
+                                    where('users.status_id',"!=",8)->
+                                    where('users.status_id',"!=",9)->
+                                    where('users.status_id',"!=",13)->
+                                    where('team.floor_id','!=',10)->
+                                    where('team.floor_id','!=',11)->get();
+                      $total = count($totalData); //count(Team::where('campaign_id',$p[0]['programID'])->get());
+                      $l = Campaign::find($p[0]['programID'])->logo['filename'];
+
+                      if (empty($l)) $logo = "white_logo_small.png";
+                      else $logo = $l;
+
+                      $progAve = round(number_format($surveyData->where('programID',$p[0]['programID'])->pluck('rating')->avg(),1));
+
+                      $programData->push(['id'=>$p[0]['programID'], 'name'=>$p[0]['program'],'respondents'=>count($p),'totalData'=>$totalData,  'total'=>$total, 'aveRating'=>$progAve, 'logo'=>$logo]);
+                  }
+
+                  //return collect($programData)->sortBy('name');
+
+
+
+                  //****** ALL SUBMITTED ESSAYS
+                  // the last question
+                  $allEssays = DB::table('survey_questions')->where('survey_questions.id',52)->
+                                    join('survey_essays','survey_essays.question_id','=','survey_questions.id')->
+                                    join('users','survey_essays.user_id','=','users.id')->
+                                    join('team','team.user_id','=','users.id')->
+                                    join('campaign','team.campaign_id','=','campaign.id')->
+                                    select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at')->orderBy('survey_essays.created_at','DESC')->get();
+
+                  $groupedEssays = collect($allEssays)->sortBy('program')->groupBy('program');
+
+                  $eq = DB::table('survey_questions')->where('responseType',2)->get();
+                  (count($eq)>0) ? $essayQ = $eq[0] : $essayQ = null;
+
+                  
+
+
+                  //****** ALL CATEGORY RELATED DATA
+                  foreach ($groupedCat as $key) {
+
+                        //$r = collect($key)->pluck('rating')->
+                        $r = number_format(collect($key)->pluck('rating')->avg(),2);
+                        $categoryData->push(['categoryID'=>$key[0]->categoryID, 'aveRating'=>$r,'categoryName'=>$key[0]->categoryLabel]);
+                      # code...
+                  }
+
+                 
+                    //exclude Taipei and Xiamen
+                    $actives = count(DB::table('users')->where('status_id','!=',7)->
+                                    where('status_id','!=',8)->
+                                    where('status_id','!=',9)->
+                                    where('status_id','!=',13)->
+                                    leftJoin('team','team.user_id','=','users.id')->
+                                    select('users.id','users.lastname','team.floor_id','team.campaign_id')->
+                                    where('team.floor_id','!=',10)->
+                                    where('team.floor_id','!=',11)->get());//;return $actives;
+                    $percentage = number_format( (  count($surveyData)/ $actives) * 100,2);
+                    
+                    
+
+                    $asOf = Carbon::now('GMT+8')->format('M d, Y h:i A');
+
+
+                    if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed Survey Report by [". $this->user->id."] ".$this->user->lastname."\n");
+                        fclose($file);
+                    }
+
+                    //return $programData;
+
+                    //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
+                    $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+                    $keyGroup = [564,1611,1784,1,184,344,491];
+                    (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+                    (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
+
+                    if ($canAccess){
+                    
+
+                        return view('forms.survey-reports',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+
+                    }else
+                        return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+
+                }break;
+
+        case 3:  // Yearend party
+                {
+
+                  $allResp = DB::table('survey_user')->where('survey_user.survey_id',$id)->
+                                  join('survey_responses','survey_responses.survey_userid','=','survey_user.id')->
+                                  leftJoin('survey_notes','survey_notes.survey_userid','=','survey_user.id')->
+                                  leftJoin('users','users.id','=','survey_responses.user_id')->
+                                  leftJoin('team','team.user_id','=','survey_responses.user_id')->
+                                  leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                                  //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
+                                  select('survey_responses.user_id as userID','users.firstname','users.lastname', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_notes.comments', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
+                                  where('survey_user.isDone',1)->
+                                  where('team.floor_id','!=',10)->
+                                  where('team.floor_id','!=',11)->get();
+                                  // 
+                                  // 
+
+                  
+
+                  $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
+                  
+                  //return $groupedResp->take(100);
+
+                  //****** ALL SURVEY DATA
+                  foreach ($groupedResp as $key) 
+                  {
+                    //$avg = number_format(collect($key)->pluck('rating')->avg(),2);
+                    $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$key[0]->rating, 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
+                    
+                  }
+
+                  $totalBackoffice = count(collect($surveyData)->where('backOffice',1));
+                  $totalOps = count(collect($surveyData)->where('backOffice',0));
+                  
+                  $groupedRatings = collect($surveyData)->groupBy('rating');
+
+                  $programs = collect($surveyData)->sortBy('program')->groupBy('program'); 
+
+
+                 
+                  
+                 
+
+                  //****** ALL CAMPAIGN RELATED DATA
+                  foreach ($programs->sort() as $p) {
+                      $totalData = DB::table('team')->where('campaign_id',$p[0]['programID'])->
+                                    join('users','users.id','=','team.user_id')->
+                                    select('users.status_id','users.firstname','users.lastname','users.id')->
+                                    where('users.status_id',"!=",7)->
+                                    where('users.status_id',"!=",8)->
+                                    where('users.status_id',"!=",9)->
+                                    where('users.status_id',"!=",13)->
+                                    where('team.floor_id','!=',10)->
+                                    where('team.floor_id','!=',11)->get();
+                      $total = count($totalData); //count(Team::where('campaign_id',$p[0]['programID'])->get());
+                      $l = Campaign::find($p[0]['programID'])->logo['filename'];
+
+                      if (empty($l)) $logo = "white_logo_small.png";
+                      else $logo = $l;
+
+                      $progAve = round(number_format($surveyData->where('programID',$p[0]['programID'])->pluck('rating')->avg(),1));
+
+                      $programData->push(['id'=>$p[0]['programID'], 'name'=>$p[0]['program'],'respondents'=>count($p),'totalData'=>$totalData,  'total'=>$total, 'aveRating'=>$progAve, 'logo'=>$logo]);
+                  }
+
+                  //return collect($programData)->sortBy('name');
+
+
+
+                  //****** ALL SUBMITTED ESSAYS
+                  // the last question
+                  $allEssays = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
+                                    join('survey_notes','survey_notes.question_id','=','survey_questions.id')->
+                                    join('users','survey_notes.user_id','=','users.id')->
+                                    join('team','team.user_id','=','users.id')->
+                                    join('campaign','team.campaign_id','=','campaign.id')->
+                                    select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_notes.comments as answer','survey_notes.created_at')->orderBy('survey_notes.created_at','DESC')->get();
+
+                  $groupedEssays = collect($allEssays)->sortBy('program')->groupBy('program');
+                  //return $groupedEssays;
+
+                  $essayQ = null;
+                  $options = DB::table('survey_options')->where('survey_options.survey_id',$id)->
+                         leftJoin('options','options.id','=','survey_options.options_id')->
+                         select('survey_options.id', 'options.label','options.value','options.ordering')->
+                         orderBy('options.ordering','ASC')->get();  
+                         //return collect($options)->where('id',12)->pluck('label');
+                 
+                    //exclude Taipei and Xiamen
+                    $actives = count(DB::table('users')->where('status_id','!=',7)->
+                                    where('status_id','!=',8)->
+                                    where('status_id','!=',9)->
+                                    where('status_id','!=',13)->
+                                    leftJoin('team','team.user_id','=','users.id')->
+                                    select('users.id','users.lastname','team.floor_id','team.campaign_id')->
+                                    where('team.floor_id','!=',10)->
+                                    where('team.floor_id','!=',11)->get());//;return $actives;
+                    $percentage = number_format( (  count($surveyData)/ $actives) * 100,2);
+                    $participants=null;
+                    
+
+                    $asOf = Carbon::now('GMT+8')->format('M d, Y h:i A');
+
+
+                    if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed Survey Report by [". $this->user->id."] ".$this->user->lastname."\n");
+                        fclose($file);
+                    }
+
+                    //return $programData;
+
+                    //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
+                    $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+                    $keyGroup = [564,1611,1784,1,184,344,491];
+                    (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+                    (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
+
+                    //return response()->json(['survey'=>$survey,'participants'=>$participants,'groupedEssays'=>$groupedEssays,'surveyData'=>$surveyData, 'groupedRatings'=>$groupedRatings,'totalOps'=>$totalOps,'totalBackoffice'=>$totalBackoffice,'programData'=>$programData,'percentage'=>$percentage]);
+
+                    //return $groupedRatings;
+                    //return response()->json($options[0]->ordering); //->rating;
+
+                    if ($canAccess){
+                    
+
+                        return view('forms.survey-reports3',compact('survey','options', 'participants','canAccess','canViewAll', 'groupedEssays', 'surveyData','groupedRatings','totalOps','totalBackoffice','programData','actives','percentage','asOf'));
+
+                    }else
+                        return view('forms.survey-reports3',compact('survey','options', 'participants','canAccess','canViewAll', 'groupedEssays', 'surveyData','groupedRatings','totalOps','totalBackoffice','programData','actives','percentage','asOf'));
+
+                }break;
         
-      }
-
-      $totalBackoffice = count(collect($surveyData)->where('backOffice',1));
-      $totalOps = count(collect($surveyData)->where('backOffice',0));
-      
-      $groupedRatings = collect($surveyData)->groupBy('rounded');
-
-      $programs = collect($surveyData)->sortBy('program')->groupBy('program'); 
-
-
-      //****** ALL NSP DATA
-
-      $eeCommittee = 0;
-      $forGD = 0;
-         foreach ($groupedNPS as $n) {
-              $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
-
-              if ($n[0]->beEEC) $eeCommittee++;
-              if ($n[0]->forGD) $forGD++;
-              $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps),'eeCommittee'=>$n[0]->beEEC, 'forGD'=>$n[0]->forGD, 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
-
-          }
-
-      $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
-      $passives = collect($npsData)->whereIn('roundedNPS',['3']);
-      $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
-      $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>number_format($eeCommittee/count($promoters)*100,2), 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=> number_format($forGD/count($detractors)*100,2)];
-
-      $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
-     
-
-      //****** ALL CAMPAIGN RELATED DATA
-      foreach ($programs->sort() as $p) {
-          $totalData = DB::table('team')->where('campaign_id',$p[0]['programID'])->
-                        join('users','users.id','=','team.user_id')->
-                        select('users.status_id','users.firstname','users.lastname','users.id')->
-                        where('users.status_id',"!=",7)->
-                        where('users.status_id',"!=",8)->
-                        where('users.status_id',"!=",9)->
-                        where('users.status_id',"!=",13)->
-                        where('team.floor_id','!=',10)->
-                        where('team.floor_id','!=',11)->get();
-          $total = count($totalData); //count(Team::where('campaign_id',$p[0]['programID'])->get());
-          $l = Campaign::find($p[0]['programID'])->logo['filename'];
-
-          if (empty($l)) $logo = "white_logo_small.png";
-          else $logo = $l;
-
-          $progAve = round(number_format($surveyData->where('programID',$p[0]['programID'])->pluck('rating')->avg(),1));
-
-          $programData->push(['id'=>$p[0]['programID'], 'name'=>$p[0]['program'],'respondents'=>count($p),'totalData'=>$totalData,  'total'=>$total, 'aveRating'=>$progAve, 'logo'=>$logo]);
-      }
-
-      //return collect($programData)->sortBy('name');
-
-
-
-      //****** ALL SUBMITTED ESSAYS
-      // the last question
-      $allEssays = DB::table('survey_questions')->where('survey_questions.id',52)->
-                        join('survey_essays','survey_essays.question_id','=','survey_questions.id')->
-                        join('users','survey_essays.user_id','=','users.id')->
-                        join('team','team.user_id','=','users.id')->
-                        join('campaign','team.campaign_id','=','campaign.id')->
-                        select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at')->orderBy('survey_essays.created_at','DESC')->get();
-
-      $groupedEssays = collect($allEssays)->sortBy('program')->groupBy('program');
-
-      $eq = DB::table('survey_questions')->where('responseType',2)->get();
-      (count($eq)>0) ? $essayQ = $eq[0] : $essayQ = null;
-
-      
-
-
-      //****** ALL CATEGORY RELATED DATA
-      foreach ($groupedCat as $key) {
-
-            //$r = collect($key)->pluck('rating')->
-            $r = number_format(collect($key)->pluck('rating')->avg(),2);
-            $categoryData->push(['categoryID'=>$key[0]->categoryID, 'aveRating'=>$r,'categoryName'=>$key[0]->categoryLabel]);
+        default:
           # code...
+          break;
       }
 
-     
-        //exclude Taipei and Xiamen
-        $actives = count(DB::table('users')->where('status_id','!=',7)->
-                        where('status_id','!=',8)->
-                        where('status_id','!=',9)->
-                        where('status_id','!=',13)->
-                        leftJoin('team','team.user_id','=','users.id')->
-                        select('users.id','users.lastname','team.floor_id','team.campaign_id')->
-                        where('team.floor_id','!=',10)->
-                        where('team.floor_id','!=',11)->get());//;return $actives;
-        $percentage = number_format( (  count($surveyData)/ $actives) * 100,2);
-        
-        
 
-        $asOf = Carbon::now('GMT+8')->format('M d, Y h:i A');
-
-
-        if($this->user->id !== 564 ) {
-          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n Viewed Survey Report by [". $this->user->id."] ".$this->user->lastname."\n");
-            fclose($file);
-        }
-
-        //return $programData;
-
-        //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
-        $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
-        $keyGroup = [564,1611,1784,1,184,344,491];
-        (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
-        (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
-
-        if ($canAccess){
-        
-
-            return view('forms.survey-reports',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
-
-        }else
-            return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+      
       
 
     }
@@ -621,6 +767,15 @@ class SurveyController extends Controller
             $item->user_id = $this->user->id;
             $item->question_id = $request->questionid;
             $item->survey_optionsID = $request->survey_optionsid;
+            
+            if (is_null($request->survey_id)){
+              $item->survey_id = '1';
+            }
+            else {
+              $item->survey_id = $request->survey_id;
+              $item->survey_userid = $request->survey_userid;
+            }
+
             $item->save();
 
             if ($request->comment !== ''){
@@ -629,8 +784,19 @@ class SurveyController extends Controller
                 $cmt->user_id = $this->user->id;
                 $cmt->question_id = $request->questionid;
                 $cmt->comments = $request->comment;
+                if (is_null($request->survey_id)) {
+                  $cmt->survey_id = '1';
+                }
+                else {
+                  $cmt->survey_id = $request->survey_id;
+                  $cmt->survey_userid = $request->survey_userid;
+                }
+
+
                 $cmt->save();
             }
+
+
 
         }
         
@@ -641,6 +807,13 @@ class SurveyController extends Controller
 
     public function saveSurvey(Request $request)
     {
+      //update user survey
+            $survey = Survey_User::where('user_id',$this->user->id)->where('survey_id',$request->survey_id)->first();
+            $survey->isDraft = 0;
+            $survey->isDone = true;
+            $survey->save();
+            return response()->json($survey);
+
 
     }
 
@@ -661,7 +834,7 @@ class SurveyController extends Controller
         if (count($us) >= 1){
             $userSurvey = $us->first();
 
-            if ($userSurvey->isDone) return redirect('/surveyResults/'.$id);
+            if ($userSurvey->isDone & $id=='1') return redirect('/surveyResults/'.$id);
 
             $extraDataNa=false;
 
@@ -744,9 +917,27 @@ class SurveyController extends Controller
         $totalItems = count($questions);
         // $survey = new Collection;
         // $survey->push(['answers'=>$options, 'questions'=>$questions]);
+        //return $userSurvey;
+
+        //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
+                    $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+                    $keyGroup = [564,1611,1784,1,184,344,491];
+                    (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+                    (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
 
-        return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+        switch ($id) {
+          case 2: return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+            break;
+          case 3: return view('forms.survey1page-show', compact('canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+            break;
+          
+          default: return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+            break;
+        }
+
+
+       
 
 
                    
@@ -903,58 +1094,93 @@ class SurveyController extends Controller
         DB::connection()->disableQueryLog(); 
 
         $survey = Survey::find($id);
-        $e = Survey_Extradata::where('user_id',$this->user->id)->where('survey_id',$survey->id)->get();
-        if (count($e) > 0) $extraData = $e->first()->beEEC;
-        else $extraData=null;
 
-        //$actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
-        //                select('users.status_id')->get());
+        switch ($id) {
+          case 1: // EES 2019
+                  {
 
-        //exclude Taipei and Xiamen
-        $actives = count(DB::table('users')->where('status_id','!=',7)->
-                        where('status_id','!=',8)->
-                        where('status_id','!=',9)->
-                        where('status_id','!=',13)->
-                        leftJoin('team','team.user_id','=','users.id')->
-                        select('users.id','users.lastname','team.floor_id','team.campaign_id')->
-                        where('team.floor_id','!=',10)->
-                        where('team.floor_id','!=',11)->get());//;return $actives;
+                    $e = Survey_Extradata::where('user_id',$this->user->id)->where('survey_id',$survey->id)->get();
+                    if (count($e) > 0) $extraData = $e->first()->beEEC;
+                    else $extraData=null;
+
+                    //$actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+                    //                select('users.status_id')->get());
+
+                    //exclude Taipei and Xiamen
+                    $actives = count(DB::table('users')->where('status_id','!=',7)->
+                                    where('status_id','!=',8)->
+                                    where('status_id','!=',9)->
+                                    where('status_id','!=',13)->
+                                    leftJoin('team','team.user_id','=','users.id')->
+                                    select('users.id','users.lastname','team.floor_id','team.campaign_id')->
+                                    where('team.floor_id','!=',10)->
+                                    where('team.floor_id','!=',11)->get());//;return $actives;
+                    
+                    // $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+                    //                 leftJoin('team','team.user_id','=','users.id')->
+                    //                 select('users.id','team.floor_id')->
+                    //                 where('team.floor_id','!=',10)->
+                    //                 where('team.floor_id','!=',11)->get());
+
+                    //return count($actives);
+                                //);
+                    $completed = count(Survey_User::where('isDone',true)->get());
+                    $percentage = number_format(($completed / $actives)*100,2);
+
+
+                    // NPS questions: 13,15,44, 45, 49
+                    $npsQuestions = DB::table('surveys')->where('surveys.id',$id)->
+                                        join('survey_questions','survey_questions.survey_id','=','surveys.id')->
+                                        join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+                                        select('survey_questions.id as question','survey_responses.survey_optionsID as answer','survey_responses.user_id')->
+                                        get();
+                    $my = collect($npsQuestions);
+                    $m = $my->where('user_id',$this->user->id);
+                    $m2 = collect($m);
+                    $n = $m2->whereIn('question',[13,15,44,45,49]);
+                    $nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
+                    $promoter=false;
+                    $detractor=false;
+
+                    if ($nps >= 4.0) {$color = "#3c8dbc"; $promoter=true; } //blue;
+                    //else if ($nps > 3.6 && $nps <= 4.5 ) $color="#8ccb2c"; //green
+                    else if ($nps >= 2.1 && $nps <= 3.9 ) $color="#ffe417"; //yellow
+                    //else if ($nps >= 1.6 && $nps <= 2.1 ) $color="#f36b19"; //orange
+                    else { $color="#fd1e1e"; $detractor=true; } //red
+
+                   
+
+                    return view('forms.survey-results',compact('survey','extraData','actives','completed','percentage','nps','color','promoter','detractor'));
+
+                  }
+            break;
+
+          case 3: // year end survey
+                  {
+
+                    $extraData=null;
+
+                    //exclude Taipei and Xiamen
+                    $actives = count(DB::table('users')->where('status_id','!=',7)->
+                                    where('status_id','!=',8)->
+                                    where('status_id','!=',9)->
+                                    where('status_id','!=',13)->
+                                    leftJoin('team','team.user_id','=','users.id')->
+                                    select('users.id','users.lastname','team.floor_id','team.campaign_id')->
+                                    where('team.floor_id','!=',10)->
+                                    where('team.floor_id','!=',11)->get());
+                    $completed = count(Survey_User::where('isDone',true)->get());
+                    $percentage = number_format(($completed / $actives)*100,2);
+
+                    return view('forms.survey-results3',compact('survey','extraData','actives','completed','percentage'));
+
+                  }break;
+          
+          default:
+            # code...
+            break;
+        }
         
-        // $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
-        //                 leftJoin('team','team.user_id','=','users.id')->
-        //                 select('users.id','team.floor_id')->
-        //                 where('team.floor_id','!=',10)->
-        //                 where('team.floor_id','!=',11)->get());
-
-        //return count($actives);
-                    //);
-        $completed = count(Survey_User::where('isDone',true)->get());
-        $percentage = number_format(($completed / $actives)*100,2);
-
-
-        // NPS questions: 13,15,44, 45, 49
-        $npsQuestions = DB::table('surveys')->where('surveys.id',$id)->
-                            join('survey_questions','survey_questions.survey_id','=','surveys.id')->
-                            join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
-                            select('survey_questions.id as question','survey_responses.survey_optionsID as answer','survey_responses.user_id')->
-                            get();
-        $my = collect($npsQuestions);
-        $m = $my->where('user_id',$this->user->id);
-        $m2 = collect($m);
-        $n = $m2->whereIn('question',[13,15,44,45,49]);
-        $nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
-        $promoter=false;
-        $detractor=false;
-
-        if ($nps >= 4.0) {$color = "#3c8dbc"; $promoter=true; } //blue;
-        //else if ($nps > 3.6 && $nps <= 4.5 ) $color="#8ccb2c"; //green
-        else if ($nps >= 2.1 && $nps <= 3.9 ) $color="#ffe417"; //yellow
-        //else if ($nps >= 1.6 && $nps <= 2.1 ) $color="#f36b19"; //orange
-        else { $color="#fd1e1e"; $detractor=true; } //red
-
-       
-
-        return view('forms.survey-results',compact('survey','extraData','actives','completed','percentage','nps','color','promoter','detractor'));
 
     }
 
