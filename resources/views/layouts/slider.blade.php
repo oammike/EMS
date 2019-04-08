@@ -131,7 +131,7 @@
                           <tr>
                             
                             <td>April 15, 2019</td>
-                            <td>06:00am-06:00pm</td>
+                            <td>08:00am-06:00pm</td>
                             <td>6:00pm-6:00am</td>
                           </tr>
                           <tr>
