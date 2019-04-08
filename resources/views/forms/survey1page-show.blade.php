@@ -112,6 +112,11 @@
                         @endif
                            <div class="clearfix"><br/></div>
 
+                           @if($id == 3)
+
+                           <p style="font-size: smaller;color:#fff">Some of our past year end party themes were:<br/> "Luau party, gods and goddesses Party, Oscars Party, Masquerade Ball, Wild Wild West Party, ICONIC Party, and Back to the 90s Party."</p>
+                           @endif
+
                            @if ($userSurvey->isDone)
                               <h4 class="text-danger">Thank you for participating in this survey.</h4>
                               <p style="color:#fff">We'll send out further details about the party once everything is finalized.</p>
