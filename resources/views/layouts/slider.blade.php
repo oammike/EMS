@@ -95,8 +95,69 @@
 
 
   <?php */ ?>
+   <div class="item active text-center" >
+                        <h4 class="text-danger">ALL OPEN ACCESS G2 Employees: </h4><h5>
+                        Please be guided of the following schedule for picture taking for our new company ID</h5>
+                        <img src="./storage/uploads/bts-1.jpg" style="z-index: 2" width="100%" />
+                        <h4>Venue: HR Office, 9th Floor<br/>
+                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
+                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
 
-                    <div class="item active text-center" >
+                        <table class="table">
+                          <tr>
+                            <th>Program/Department</th>
+                            <th>Date</th>
+                            <th>Morning</th>
+                            <th>Night</th>
+                          </tr>
+                          <tr>
+                            <td rowspan="6">AvaWomen, <br/>HR-Recruitment, <br/>Quora, <br/>UiPath, <br/>WorldVentures</td>
+                            <td>April 10, 2019</td>
+                            <td>08:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 11, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 12, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 15, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 16, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                           
+                            <td>April 17, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          
+      
+
+
+
+                        </table>
+
+                      </div>
+
+
+
+                    <div class="item text-center" >
                         <img src="./storage/uploads/motivation.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px"> Don't stop until you get there. You're going to trip sometimes, but the important part is you're going to get up and come back stronger. Every lesson you pick up in those times is a key to a door of opportunities in life, so keep going. ✨<br/><br/>#WeSpeakYourLanguage #MondayMotivation</p>
 
@@ -595,7 +656,7 @@
                             <?php /* 
 
 
-                            
+
                       
 
                      <div class="item text-center" >
@@ -894,7 +955,7 @@
                           <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
                       </div>
 
-                             <div class="item text-center" >
+                      <div class="item text-center" >
                         <h5>Please be guided of the following schedule for picture taking for our new company ID</h5>
                         <img src="./storage/uploads/bts-1.jpg" style="z-index: 2" width="100%" />
                         <h4>Venue: HR Office, 9th Floor<br/>
