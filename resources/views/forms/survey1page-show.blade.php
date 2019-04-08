@@ -114,7 +114,7 @@
 
                            @if($id == 3)
 
-                           <p style="font-size: smaller;color:#fff">Some of our past year end party themes were:<br/> "Luau party, gods and goddesses Party, Oscars Party, Masquerade Ball, Wild Wild West Party, ICONIC Party, and Back to the 90s Party."</p>
+                           <p style="font-size: smaller;color:#fff">Some of our past year end party themes were:<br/> "Luau party, gods and goddesses Party, Oscars Party, Masquerade Ball, Wild Wild West Party, Mean Streets (Gangsters) Party, ICONIC Party, and Back to the 90s Party."</p>
                            @endif
 
                            @if ($userSurvey->isDone)
