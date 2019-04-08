@@ -109,18 +109,18 @@
                     <div class="item text-center" >
                         
                          <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/kick4.jpg" style="z-index: 2" /><br/><br/>
+                          <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/><br/>
 
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">April 10, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">April 11, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">April 12, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
@@ -200,52 +200,7 @@
                     </div>
 
                     
-                    <!--physcal sched -->
-                    <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/kick1.jpg" style="z-index: 2" /><br/><br/>
-
-                          Here's the schedule for this week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      
-                    </div>
+                   
 
                     <!--lizelle -->
                     <div class="item  text-center" >
@@ -479,146 +434,7 @@
 
                 
 
-                      
-
-                     <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/letsgetphysical-11.jpg" style="z-index: 2" /><br/><br/>
-
-                          Here's the schedule for this week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-
-
-
-                          
-
-
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-                      
-                      <!-- CATRIONA -->
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/cat-31.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
-
-                          More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
-
-
-
-                   
-
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming</small></a></div> <br/><br/><br/><br/>
-
-                      </div>
-
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/cat-5.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
-
-                          More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
-
-
-
-                   
-
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming</small></a></div> <br/><br/><br/><br/>
-
-                      </div>
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/cat-44.jpg" style="z-index: 2" />
-                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
-
-                          More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
-
-
-
-                   
-
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming</small></a></div> <br/><br/><br/><br/>
-
-                      </div>
-                      <!-- CATRIONA -->
-
-
-
-                      <div class="item  text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" /><br/><br/>
-
-                           Here's the schedule for this week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
+                  
                      
 
                       <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
@@ -777,6 +593,199 @@
                           
 
                             <?php /* 
+
+
+                            
+                      
+
+                     <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/letsgetphysical-11.jpg" style="z-index: 2" /><br/><br/>
+
+                          Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+
+
+
+                          
+
+
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      
+                     
+
+
+
+
+                             <!-- CATRIONA -->
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/cat-31.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
+
+                          More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
+
+
+
+                   
+
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/cat-5.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
+
+                          More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
+
+
+
+                   
+
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/cat-44.jpg" style="z-index: 2" />
+                        <p style="padding: 30px; margin-bottom: 0px"><strong> Welcome home, <span class="text-primary"> MissUniverse 2018 Catriona Gray!</span></strong><br/>Open Access BPO employees cheered along with other supporters as the beauty queen's float passed through Ayala Avenue during her grand homecoming motorcade last Feb 21.<br/><br/>
+
+                          More in our <a class="text-danger" href="./gallery?a=6"><i class="fa fa-picture-o"></i> Gallery page</a> <br/><br/>#WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming<br/><br/>
+
+
+
+                   
+
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #WeSpeakYourLanguage #OAonMUHomecoming #CatrionaHomecoming</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+                      <!-- CATRIONA -->
+
+                                <div class="item  text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/letsgetphysical-31.jpg" style="z-index: 2" /><br/><br/>
+
+                           Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+
+                             <!--physcal sched -->
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
+                          <img src="./storage/uploads/kick1.jpg" style="z-index: 2" /><br/><br/>
+
+                          Here's the schedule for this week:<br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
+                            <br/><span class="text-danger">April 03, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
+                            <BR/><span class="text-danger">April 04, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+
+                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
+                            <br/><span class="text-danger">April 05, 2019 (Fri) – 7:00 PM</span><br/></strong>
+
+
+
+
+                          
+
+
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      
+                    </div>
 
                             <!--decade of woman -->
 
