@@ -91,7 +91,7 @@
                             <label @if($id != 4) style="color: #e6e469" @else style="color:#fff" @endif>
                               @if($id != 4) <img src="../storage/uploads/{{$imgs[$ctimg]}}" height="110" />@endif <br/>
 
-                              <input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                              <input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {!! $o->label !!}  </label>&nbsp;&nbsp;&nbsp;
 
 
                           </div>
