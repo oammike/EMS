@@ -71,24 +71,39 @@
                         @if($q->responseType==1)
 
                         <div class="row">
-                          <?php $imgs = ['bnw.png','disney.jpg','carnival.jpg','scifi.png']; $ctimg=0; ?>
+                          <?php switch ($id) {
+                            case '3':{
+                                        $imgs = ['bnw.png','disney.jpg','carnival.jpg','scifi.png']; $ctimg=0;
+                            }break;
+
+                            case '4':{
+                                        $imgs = ['bnw.png','disney.jpg','carnival.jpg','scifi.png']; $ctimg=0;
+                            }break;
+                            
+                            default: {
+                                        $imgs = ['','','','']; $ctimg=0;
+                            }break;
+                          }  ?>
 
                           @foreach($options as $o)
-                          <div class="col-lg-3">
-                            <label style="color: #e6e469">
-                              <img src="../storage/uploads/{{$imgs[$ctimg]}}" height="110" /><br/>
+                          
+                          @if($id==4)<div class="col-lg-4">@else <div class="col-lg-3"> @endif
+                            <label @if($id != 4) style="color: #e6e469" @else style="color:#fff" @endif>
+                              @if($id != 4) <img src="../storage/uploads/{{$imgs[$ctimg]}}" height="110" />@endif <br/>
 
                               <input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+
+
                           </div>
                           <?php $ctimg++;?>
                           @endforeach
 
 
-                           
+                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->id}}" placeholder="Comments/Suggestions"></textarea>
 
                          </div>
 
-                         <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->id}}" placeholder="Comments/Suggestions"></textarea>
+                        
 
                         @else
 
@@ -180,6 +195,11 @@
         $('#submit').hide();
       @endif
 
+
+  @if($id==4) //Performers survey
+  $('textarea').fadeOut();
+  @endif
+
  
    $('input:radio').on('click',function(){
 
@@ -195,10 +215,11 @@
         $('#next'+bval).fadeIn(); //css('display','block')
         console.log(val);
 
-        
-        var r = $(this).val();
-        if (r != 3) $('#notes_q'+val).fadeIn();
-        else $('#notes_q'+val).fadeOut();
+        @if ($id == 4) //Performers survey
+          var r = $(this).val();
+          if (r == 17) $('textarea').fadeIn();
+          else $('textarea').fadeOut();
+        @endif
 
       } else if(rtype == 'e')
       { //rbutton for educ
@@ -290,7 +311,7 @@
       
     } else{
 
-      $.notify("Please select a theme party you like. \nFilling out the form will help us gather needed data to make our year end party fun and more awesome!",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+      $.notify("Please choose an option. \nFilling out the form will help us gather needed data to make our year end party fun and more awesome!",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
       return false;
 
     }

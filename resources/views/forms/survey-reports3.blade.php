@@ -61,7 +61,7 @@
                     
                     <div class="row">
                           
-
+                      @if($survey->id != 4)
                           @foreach($groupedRatings as $o)
                           <?php switch ($o[0]['rating']) {
                             case '11': $pic = 'bnw.png';break;
@@ -79,6 +79,19 @@
                           </div>
                          
                           @endforeach
+                      @else
+                          @foreach($groupedRatings as $o)
+                           <div class="col-lg-3">
+                                
+                                  <h4>votes: <strong>{{count($o)}} </strong></h4>
+                                  <?php $im = collect($options)->where('id',$o[0]['rating'])->pluck('label'); ?>{{$im}}
+                                  <br/>
+                                    &nbsp;&nbsp;&nbsp;
+                              </div>
+                              @endforeach
+
+
+                      @endif
 
 
                            
