@@ -99,7 +99,7 @@
                         <h4 class="text-danger">ALL OPEN ACCESS G2 Employees: </h4><h5>
                         Please be guided of the following schedule for picture taking for our new company ID</h5>
                         <img src="./storage/uploads/bts-1.jpg" style="z-index: 2" width="100%" />
-                        <h4>Venue: HR Office, 9th Floor<br/>
+                        <h4>Venue: 11th Floor (Beside Recruitment Area), Glorietta 2, Corporate Center, Ayala Center, Makati City<br/>
                           Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
                           <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
 
