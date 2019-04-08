@@ -765,6 +765,26 @@ class HomeController extends Controller
                     } 
 
         }
+
+         case '12':{
+                    if($this->user->id !== 564 ) {
+                      $user = User::find(Input::get('id'));
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Played Queen by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+        }break;
+
+         case '13':{
+                    if($this->user->id !== 564 ) {
+                      $user = User::find(Input::get('id'));
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Played Parokya by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+        }break;
         
       }
       return response()->json(['success'=>"1"]);

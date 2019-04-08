@@ -35,26 +35,10 @@
                   <td class="text-center" style="overflow: hidden; background-color: #000; position: absolute; height: 670px; width: 100%">
                     <div id="instructions" style="background: rgba(0, 0, 0, 0.4); position: absolute;bottom:45px; font-size: 0.95em;color:#fff; z-index: 100;padding: 5px; text-align: left;" ></div>
                      
-                     <!-- /.info-box -->
-                     <div style="position: absolute;top: 50px;left:25px; width: 95%">
-
-                      <div class="info-box" style="min-height: 20px;background-color: #666">
-                        
-
-                        <div class="info-box-content">
-                          
-
-                          <div class="progress">
-                            
-                          </div>
-                         
-                        </div>
-                        <!-- /.info-box-content -->
-                      </div>
-                     </div>
+                    
                     
                     <!-- /.info-box -->
-                    <h5 id="currItem" data-val="{{$startFrom}}" style="position: absolute;top:0px">{{$startFrom}}</h5>
+                    
                     <?php $ctr=1; ?>
                     @foreach($questions as $q)
 
@@ -63,12 +47,24 @@
                    
                       
                       
-                       <div class="question{{$ctr}}" style="background: rgba(0, 0, 0, 0.5); padding:30px; min-height: 287px; position: absolute; top:15%;left:25px; width: 95%">
+                       <div class="question{{$ctr}}" style="background: rgba(0, 0, 0, 0.5); padding:30px; min-height: 287px; position: absolute; top:5%;left:25px; width: 95%">
                         <h4 class="question{{$ctr}} text-center" style="width: 100%; text-align: center;color:#e6e469" >{!! $q->question !!}</h4>
 
-                        <br/><br/>
 
                         @if($q->responseType==1)
+
+                        @if($id==4)
+                        <div class="row">
+                          <div class="col-lg-6"><h4 class="text-primary">Queen Nation</h4>
+                            <video id="teaser1" src="../storage/uploads/queen.webm" width="100%" loop controls></video>
+                          </div>
+                          <div class="col-lg-6"><h4 class="text-primary">Parokya ni Edgar</h4>
+                            <video id="teaser2" src="../storage/uploads/parokya.webm" width="100%" loop controls></video>
+                            
+                          </div>
+                          
+                        </div>
+                        @endif
 
                         <div class="row">
                           <?php switch ($id) {
@@ -84,6 +80,7 @@
                                         $imgs = ['','','','']; $ctimg=0;
                             }break;
                           }  ?>
+
 
                           @foreach($options as $o)
                           
@@ -110,7 +107,7 @@
                           <textarea name="essay" id="essay"></textarea>
 
                         @endif
-                           <div class="clearfix"><br/></div>
+                           <div class="clearfix"></div>
 
                            @if($id == 3)
 
@@ -177,9 +174,9 @@
 </script>
 
 
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.1/jquery.rateyo.min.js"></script>
- -->
+<script type="text/javascript" src="{{asset('public/js/morris.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/js/raphael.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/js/intro.js')}}"></script>
 
 
 <!-- Page script -->
@@ -202,6 +199,38 @@
 
 
   @if($id==4) //Performers survey
+   /* ---- VIDEO PLAYER -------- */
+   var vid = document.getElementById("teaser1");
+   vid.onplay = function() {
+        //alert("The video has started to play");
+        $.ajax({
+                url: "{{action('HomeController@logAction','12')}}",
+                type: "GET",
+                data: {'action': '5'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+    };
+
+    var vid2 = document.getElementById("teaser2");
+   vid2.onplay = function() {
+        //alert("The video has started to play");
+        $.ajax({
+                url: "{{action('HomeController@logAction','13')}}",
+                type: "GET",
+                data: {'action': '5'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+    };
+     /* ---- VIDEO PLAYER -------- */
+
   $('textarea').fadeOut();
   @endif
 
