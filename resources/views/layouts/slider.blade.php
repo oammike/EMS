@@ -158,11 +158,11 @@
 
 
                     <div class="item text-center" >
-                        <img src="./storage/uploads/motivation.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px"> Don't stop until you get there. You're going to trip sometimes, but the important part is you're going to get up and come back stronger. Every lesson you pick up in those times is a key to a door of opportunities in life, so keep going. ✨<br/><br/>#WeSpeakYourLanguage #MondayMotivation</p>
+                        <img src="./storage/uploads/motivation-04-10.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Start the week fresh and get over your Monday blues! It's going to be a great week— let's claim it! 💪<br/><br/>#WeSpeakYourLanguage #MondayMotivation #QuoteOfTheDay</p>
 
                           <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation #QuoteOfTheDay</small></a></div> <br/><br/><br/><br/>
 
                     </div>
 
@@ -203,6 +203,16 @@
                            
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                    </div>
+
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/motivation.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px"> Don't stop until you get there. You're going to trip sometimes, but the important part is you're going to get up and come back stronger. Every lesson you pick up in those times is a key to a door of opportunities in life, so keep going. ✨<br/><br/>#WeSpeakYourLanguage #MondayMotivation</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>
+
                     </div>
 
 
