@@ -115,7 +115,7 @@
                            @endif
 
                            @if ($userSurvey->isDone)
-                              <h4 class="text-danger">Thank you for participating in this survey.</h4>
+                              <h4 class="text-danger">Survey is now closed. Thank you for participating.</h4>
                               <p style="color:#fff">We'll send out further details about the party once everything is finalized.</p>
                               
                               @if($canViewAll)<a href="{{action('SurveyController@report',$id)}}" class="btn btn-xs btn-danger">See survey results</a>@endif
