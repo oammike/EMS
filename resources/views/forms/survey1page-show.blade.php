@@ -120,7 +120,12 @@
                               
                               @if($canViewAll)<a href="{{action('SurveyController@report',$id)}}" class="btn btn-xs btn-danger">See survey results</a>@endif
                            @else
-                              <a id="submit" data-questionid="{{$q->id}}" class="next btn btn-lg btn-success" data-item="{{$ctr+1}}">Submit <i class="fa fa-upload"></i></a>
+                             <!--  <a id="submit" data-questionid="{{$q->id}}" class="next btn btn-lg btn-success" data-item="{{$ctr+1}}">Submit <i class="fa fa-upload"></i></a> -->
+
+                             <h4 class="text-danger">Survey is now closed.</h4>
+                              <p style="color:#fff">We'll send out further details about the party once everything is finalized.</p>
+                              
+                              @if($canViewAll)<a href="{{action('SurveyController@report',$id)}}" class="btn btn-xs btn-danger">See survey results</a>@endif
 
 
                            @endif
