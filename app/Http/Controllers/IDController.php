@@ -170,13 +170,13 @@ class IDController extends Controller
         $width = ImageSX($image);
         $height = ImageSY($image);
         
-        if($width >= $idealW){
+        //if($width >= $idealW){
             $outputW = $idealW;
             $outputH = $idealH;
-        }else{
-            $outputW = $optimalW;
-            $outputH = $optimalH;    
-        }
+        //}else{
+        //    $outputW = $optimalW;
+        //    $outputH = $optimalH;    
+        //}
         
         $output = imagecreatetruecolor($outputW,$outputH);
         $transparency = imagecolorallocatealpha($output, 255, 255, 255, 255);
