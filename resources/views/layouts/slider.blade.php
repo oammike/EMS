@@ -177,6 +177,43 @@
 
                       </div>
 
+                      <div class="item  text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h2 style="margin-top: -30px" class="text-danger"><strong>Training Apprentice </strong><br/>
+                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','23')}} "> <img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="30"><span style="font-size: smaller;">Training Dept.</span></a></h2>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> April 26,2019 </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
+                              <ul class="text-left">
+                                <li>Excellent written and verbal English skills</li>
+                                <li>Open to all who have worked at least 6 months in Open Access</li>
+                                <li>No attendance issues</li>
+                                <li>No written warning</li>
+                                <li>Exemplary Performance</li>
+                              </ul>
+                              <br/><br/>
+                              <ul class="text-left"><strong>For the demo:</strong><br/>
+                                <li>the candidate needs to prepare a 10-minute presentation in Google Slide</li>
+                                <li>the candidate can choose a topic from the list below:<br/>
+                                  - A Day in the Life of a Call Center Agent<br/>
+                                  - An Effective Customer Service Representative<br/>
+                                  - Effective Communication Skills for the Workplace<br/></li><br/>
+                                <li>the candidate should send the demo material to <strong>marcriol@openaccessbpo.com</strong> before the presentation schedule</li>
+                                <li>The interview will happen after the demo</li>
+                              </ul>
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessbpo.com</a></small></p>
+
+
+                      </div>
+
                       <div class="item text-center" >
                         <h4 class="text-danger">ALL OPEN ACCESS G2 Employees: </h4><h5>
                         Please be guided of the following schedule for picture taking for our new company ID</h5>
