@@ -97,6 +97,25 @@
   <?php */ ?>
 
                       <div class="item active text-center" >
+                        <h4 class="text-primary">Wear your Pajama To Work Day!!! </h4>
+                        <img src="./storage/uploads/pajama.jpg" style="z-index: 2" />
+                        <p style="padding: 5px 30px; margin-bottom: 0px">Join the fun and wear your favorite sleepwear to work on <strong class="text-danger">Wednesday April 16,2019 </strong>.<br/><br/>
+                        You may also bring your favorite pillows, stuffed toy, slippers, or blanket. Take selfies and photos with your team and office friends and share them on social media. <br/><br/>
+
+                        E-mail us your photos: <strong>marketing@openaccessmarketing.com</strong> and we'll post them on our official Facebook and Instagram pages.<br/><br/>
+
+
+
+                        Don't forget to tag <strong>@OpenAccessBPO</strong> and use the hashtags <strong>#WeSpeakYourLanguage #JPDayAtOA #WearYourPajamaToWorkDay</strong> 
+
+                         <h5 class="text-primary">Reminder: Revealing sleepwear are not allowed, so make sure that what you're wearing is still within our company's dress code guidelines.</h5>
+
+
+                      </p>
+
+                      </div>
+
+                      <div class="item  text-center" >
 
                               <img src="./public/img/ana.jpg" style="z-index: 2" />
 
