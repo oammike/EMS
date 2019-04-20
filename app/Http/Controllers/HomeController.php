@@ -74,6 +74,11 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '7':{
+               fwrite($file, "-------------------\n Viewed HappyHr [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '6':{
                fwrite($file, "-------------------\n Viewed Catriona by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -205,6 +210,20 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/cat-".$i.".jpg",
                                 'description'=>"Catriona Gray Homecoming",
                                 'category'=>"Catriona Gray Homecoming"]);
+
+                  }
+
+        } break;
+
+        case '7': {
+ 
+                    //happy hr
+      
+                  for($i=1; $i<=53; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-happyhr-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/happyhr-".$i.".jpg",
+                                'description'=>"Happy Hour [Sat Apr.20 2019]",
+                                'category'=>"Happy Hour"]);
 
                   }
 
