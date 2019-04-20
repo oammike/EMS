@@ -96,56 +96,12 @@
 
   <?php */ ?>
 
-                      <div class="item active text-center" >
-                        <h4 class="text-primary">Wear your Pajama To Work Day!!! </h4>
-                        <img src="./storage/uploads/pajama.jpg" style="z-index: 2" />
-                        <p style="padding: 5px 30px; margin-bottom: 0px">Join the fun and wear your favorite sleepwear to work on <strong class="text-danger">Wednesday April 16,2019 </strong>.<br/><br/>
-                        You may also bring your favorite pillows, stuffed toy, slippers, or blanket. Take selfies and photos with your team and office friends and share them on social media. <br/><br/>
-
-                        E-mail us your photos: <strong>marketing@openaccessmarketing.com</strong> and we'll post them on our official Facebook and Instagram pages.<br/><br/>
-
-
-
-                        Don't forget to tag <strong>@OpenAccessBPO</strong> and use the hashtags <strong>#WeSpeakYourLanguage #JPDayAtOA #WearYourPajamaToWorkDay</strong> 
-
-                         <h5 class="text-primary">Reminder: Revealing sleepwear are not allowed, so make sure that what you're wearing is still within our company's dress code guidelines.</h5>
-
-
-                      </p>
-
-                      </div>
-
+                      
                       
 
-                      <div class="item  text-center" >
+                     
 
-                              <img src="./public/img/ana.jpg" style="z-index: 2" />
-
-                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
-                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
-
-                              </div>
-
-                               <h2 style="margin-top: -30px" class="text-danger"><strong>Real-Time Analyst </strong><br/>
-                               </h2>
-
-                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> April 17,2019 </strong></h5>
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
-                              <ul class="text-left">
-                                
-                                <li>Excellent written and verbal English skills</li>
-                                <li>Worked at least 3months in Open Access</li>
-                                <li>No written warning</li>
-                                <li>Exemplary Performance</li>
-                              </ul>
-                              <br/><br/>
-
-                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessbpo.com</a></small></p>
-
-
-                      </div>
-
-                      <div class="item  text-center" >
+                      <div class="item active  text-center" >
 
                               <img src="./public/img/ana.jpg" style="z-index: 2" />
 
@@ -182,66 +138,7 @@
 
                       </div>
 
-                      <div class="item text-center" >
-                        <h4 class="text-danger">ALL OPEN ACCESS G2 Employees: </h4><h5>
-                        Please be guided of the following schedule for picture taking for our new company ID</h5>
-                        <img src="./storage/uploads/g2.jpg" style="z-index: 2" width="100%" />
-                        <h4><strong>Venue: </strong>11th Floor (Beside Recruitment Area), <br/>Glorietta 2, Corporate Center,<br/> Ayala Center, Makati City<br/><br/>
-                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
-                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
-
-                        <table class="table">
-                          <tr>
-                            <th>Program/Department</th>
-                            <th>Date</th>
-                            <th>Morning</th>
-                            <th>Night</th>
-                          </tr>
-                          <tr>
-                            <td rowspan="6">AvaWomen, <br/>HR-Recruitment, <br/>Quora, <br/>UiPath, <br/>WorldVentures</td>
-                            <td>April 10, 2019</td>
-                            <td>08:00am-6:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            
-                            <td>April 11, 2019</td>
-                            <td>06:00am-06:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            
-                            <td>April 12, 2019</td>
-                            <td>06:00am-06:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            
-                            <td>April 15, 2019</td>
-                            <td>08:00am-06:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                            
-                            <td>April 16, 2019</td>
-                            <td>06:00am-06:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          <tr>
-                           
-                            <td>April 17, 2019</td>
-                            <td>06:00am-06:00pm</td>
-                            <td>6:00pm-6:00am</td>
-                          </tr>
-                          
-      
-
-
-
-                        </table>
-
-                      </div>
-
+                      
 
 
                     <div class="item text-center" >
@@ -262,13 +159,13 @@
                           Here's the schedule for this week:<br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">April 10, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">April 24, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">April 11, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">April 25, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
 
                            <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">April 12, 2019 (Fri) – 7:00 PM</span><br/></strong>
+                            <br/><span class="text-danger">April 26, 2019 (Fri) – 7:00 PM</span><br/></strong>
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
@@ -751,6 +648,116 @@
                           
 
                             <?php /* 
+
+                            <div class="item text-center" >
+                        <h4 class="text-danger">ALL OPEN ACCESS G2 Employees: </h4><h5>
+                        Please be guided of the following schedule for picture taking for our new company ID</h5>
+                        <img src="./storage/uploads/g2.jpg" style="z-index: 2" width="100%" />
+                        <h4><strong>Venue: </strong>11th Floor (Beside Recruitment Area), <br/>Glorietta 2, Corporate Center,<br/> Ayala Center, Makati City<br/><br/>
+                          Attire: <strong>STRICTLY PLAIN BLACK TOP</strong> <br/>(No prints, No design, No sleeveless)</h4><br/>
+                          <h5>For those who don't have plain black shirts, there are polo shirts provided by HR that you may use.</h5>
+
+                        <table class="table">
+                          <tr>
+                            <th>Program/Department</th>
+                            <th>Date</th>
+                            <th>Morning</th>
+                            <th>Night</th>
+                          </tr>
+                          <tr>
+                            <td rowspan="6">AvaWomen, <br/>HR-Recruitment, <br/>Quora, <br/>UiPath, <br/>WorldVentures</td>
+                            <td>April 10, 2019</td>
+                            <td>08:00am-6:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 11, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 12, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 15, 2019</td>
+                            <td>08:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                            
+                            <td>April 16, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          <tr>
+                           
+                            <td>April 17, 2019</td>
+                            <td>06:00am-06:00pm</td>
+                            <td>6:00pm-6:00am</td>
+                          </tr>
+                          
+      
+
+
+
+                        </table>
+
+                      </div>
+
+
+                             <div class="item  text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h2 style="margin-top: -30px" class="text-danger"><strong>Real-Time Analyst </strong><br/>
+                               </h2>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> April 17,2019 </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
+                              <ul class="text-left">
+                                
+                                <li>Excellent written and verbal English skills</li>
+                                <li>Worked at least 3months in Open Access</li>
+                                <li>No written warning</li>
+                                <li>Exemplary Performance</li>
+                              </ul>
+                              <br/><br/>
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessbpo.com</a></small></p>
+
+
+                      </div>
+
+
+                            <div class="item active text-center" >
+                        <h4 class="text-primary">Wear your Pajama To Work Day!!! </h4>
+                        <img src="./storage/uploads/pajama.jpg" style="z-index: 2" />
+                        <p style="padding: 5px 30px; margin-bottom: 0px">Join the fun and wear your favorite sleepwear to work on <strong class="text-danger">Wednesday April 16,2019 </strong>.<br/><br/>
+                        You may also bring your favorite pillows, stuffed toy, slippers, or blanket. Take selfies and photos with your team and office friends and share them on social media. <br/><br/>
+
+                        E-mail us your photos: <strong>marketing@openaccessmarketing.com</strong> and we'll post them on our official Facebook and Instagram pages.<br/><br/>
+
+
+
+                        Don't forget to tag <strong>@OpenAccessBPO</strong> and use the hashtags <strong>#WeSpeakYourLanguage #JPDayAtOA #WearYourPajamaToWorkDay</strong> 
+
+                         <h5 class="text-primary">Reminder: Revealing sleepwear are not allowed, so make sure that what you're wearing is still within our company's dress code guidelines.</h5>
+
+
+                      </p>
+
+                      </div>
+
 
 
                     <div class="item  text-center" >
