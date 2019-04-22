@@ -113,8 +113,8 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Zumba sesh <br/><span class="text-orange">April 10,2019 (Wed)</span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/zumba_04-10_upload.webm" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-primary">Open Access Happy Hour <br/><span class="text-orange">April 20,2019 (Sat)</span><br/><span style="font-size: x-small;">@ Pura Vida Bar in Poblacion, Makati City</span>  </strong></p>
+                      <video id="teaser" src="storage/uploads/OA-happyhour.webm" width="100%" loop controls></video>
                     </div>
                 </div>
 
