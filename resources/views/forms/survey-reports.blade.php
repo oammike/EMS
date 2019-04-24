@@ -373,9 +373,22 @@
                   <div class="info-box-content" style="margin-left: 0px;">
                    
                   @if ($p['respondents'] ==  $p['total'])
-                    <span class="info-box-number" style="color:#fff">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+                    <span class="info-box-number" style="color:#fff">
+                      @if (number_format($p['respondents']/$p['total']*100 ,1) >= 100)
+                       100% <span style="font-size: x-small;"> complete</span></span>
+
+                      @else
+
+                      @endif 
+                            {{number_format($p['respondents']/$p['total']*100 ,1)}} % <span style="font-size: x-small;"> complete</span></span>
                   @else
-                  <span class="info-box-number" style="color:#ffda46">{{ number_format($p['respondents']/$p['total']*100 ,1)}}% <span style="font-size: x-small;"> complete</span></span>
+                  <span class="info-box-number" style="color:#ffda46">
+                    @if ( number_format($p['respondents']/$p['total']*100 ,1) >= 100)
+                          100% <span style="font-size: x-small;"> complete</span></span>
+                    @else
+                     {{ number_format($p['respondents']/$p['total']*100 ,1)}} % <span style="font-size: x-small;"> complete</span></span>
+                     @endif
+                     
 
                   @endif
                     <span class="progress-description">{{$p['respondents']}} / {{$p['total']}} <em style="font-size: smaller;">employee respondents</em> </span>

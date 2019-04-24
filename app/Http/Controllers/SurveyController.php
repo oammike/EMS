@@ -551,8 +551,8 @@ class SurveyController extends Controller
 
                     //return $programData;
 
-                    //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
-                    $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+                    //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan,reese
+                    $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344,307];
                     $keyGroup = [564,1611,1784,1,184,344,491];
                     (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
                     (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
