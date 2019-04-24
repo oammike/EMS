@@ -96,12 +96,24 @@
 
   <?php */ ?>
 
+                     <div class="item active text-center" >
+
+                              <img src="./storage/uploads/cookies.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>Sending out these @sugarhouseph sweet treats to our <strong class="text-danger">#PJDayAtOA participants!</strong> 🍪🍶 Stay tuned for more special surprises on our next themed-day activities! <br/><br/><strong>#WeSpeakYourLanguage #WearYourPajamasToWorkDay</strong></p>
+
+
+                      </div>
+
+                      
+
                       
                       
 
                      
 
-                      <div class="item active  text-center" >
+                      <div class="item text-center" >
 
                               <img src="./public/img/ana.jpg" style="z-index: 2" />
 
