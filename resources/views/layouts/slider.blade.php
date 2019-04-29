@@ -111,10 +111,10 @@
 
                       <div class="item text-center" >
 
-                              <img src="./storage/uploads/cookies.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/dance.jpg" style="z-index: 2" />
 
                               
-                              <p class="text-left" style="padding-left: 30px;"><br/><br/>Sending out these @sugarhouseph sweet treats to our <strong class="text-danger">#PJDayAtOA participants!</strong> 🍪🍶 Stay tuned for more special surprises on our next themed-day activities! <br/><br/><strong>#WeSpeakYourLanguage #WearYourPajamasToWorkDay</strong></p>
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>Growth: It starts within us, to challenge our better and beat our best.<br/><br/><strong>#WeSpeakYourLanguage #MondayMotivation #InternationalDanceDay #DayDay</strong></p>
 
 
                       </div>
@@ -356,12 +356,7 @@
 
                     </div>
 
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/food1.jpg" style="z-index: 2" width="100%" /><br/>
-                        <p style="padding:10px 50px">Delicious, affordable meals now available in our <br/><strong class="text-primary" style="font-size: larger;">5F pantry (right wing)</strong><br/>
-                         </p><img src="./storage/uploads/food2.jpg" style="z-index: 2" width="100%" /><br/><br/><br/><br/>
-
-                    </div>
+                   
 
                     
 
@@ -638,6 +633,13 @@
                           
 
                             <?php /* 
+
+                             <div class="item text-center" >
+                        <img src="./storage/uploads/food1.jpg" style="z-index: 2" width="100%" /><br/>
+                        <p style="padding:10px 50px">Delicious, affordable meals now available in our <br/><strong class="text-primary" style="font-size: larger;">5F pantry (right wing)</strong><br/>
+                         </p><img src="./storage/uploads/food2.jpg" style="z-index: 2" width="100%" /><br/><br/><br/><br/>
+
+                    </div>
 
                              <div class="item text-center" >
 
