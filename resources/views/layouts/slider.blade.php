@@ -98,7 +98,7 @@
 
                      
 
-                      <div class="item text-center" >
+                      <div class="item active text-center" >
 
                               <img src="./storage/uploads/dance.jpg" style="z-index: 2" />
 
