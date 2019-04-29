@@ -96,18 +96,7 @@
 
   <?php */ ?>
 
-                     <div class="item active text-center" >
-
-                              <img src="./storage/uploads/cinco-de-mayo.jpg" style="z-index: 2" />
-
-                              
-                              <p class="text-center" style="padding-left: 30px;"><br/><br/>To kick things off for May, we're celebrating <br/><strong class="text-orange" style="font-size: larger;">Cinco de Mayo</strong> as a family!<br/>
-                                <br/>Join us as we welcome Cinco de Mayo on <br/><strong class="text-primary" style="font-size: larger"> Saturday, May 4, 2019 at <br/>The Ruins in Poblacion, Makati</strong>. <br/>There will be live music, snacks and drinks for all to enjoy!<br/><br/>
-
-                                Deadline of registration is on Monday, April 29, 2019 at exactly 1:00 PM. <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkqfhur-XX9uJ4p-a76cqTTexf6KFfLUeCpMFELdziXnRYng/viewform?usp=sf_link" class="text-danger" style="font-weight: bold">Register here </a>now as there are limited slots! See you there!</p>
-
-
-                      </div>
+                     
 
                       <div class="item text-center" >
 
@@ -636,6 +625,19 @@
                           
 
                             <?php /* 
+
+                            <div class="item active text-center" >
+
+                              <img src="./storage/uploads/cinco-de-mayo.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-center" style="padding-left: 30px;"><br/><br/>To kick things off for May, we're celebrating <br/><strong class="text-orange" style="font-size: larger;">Cinco de Mayo</strong> as a family!<br/>
+                                <br/>Join us as we welcome Cinco de Mayo on <br/><strong class="text-primary" style="font-size: larger"> Saturday, May 4, 2019 at <br/>The Ruins in Poblacion, Makati</strong>. <br/>There will be live music, snacks and drinks for all to enjoy!<br/><br/>
+
+                                Deadline of registration is on Monday, April 29, 2019 at exactly 1:00 PM. <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkqfhur-XX9uJ4p-a76cqTTexf6KFfLUeCpMFELdziXnRYng/viewform?usp=sf_link" class="text-danger" style="font-weight: bold">Register here </a>now as there are limited slots! See you there!</p>
+
+
+                      </div>
 
                              <div class="item text-center" >
                         <img src="./storage/uploads/food1.jpg" style="z-index: 2" width="100%" /><br/>
