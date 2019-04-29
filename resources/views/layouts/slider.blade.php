@@ -153,6 +153,9 @@
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                     </div>
 
+                    <div class="item text-center" > <img src="./storage/uploads/summer-care-1.jpg" style="z-index: 2" /></div>
+                    <div class="item text-center" > <img src="./storage/uploads/summer-care-2.jpg" style="z-index: 2" /></div>
+
 
                       
 
