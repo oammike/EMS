@@ -1076,6 +1076,7 @@ class SurveyController extends Controller
             break;
 
           case 4: { 
+                    //******* 1 page type Survey
                     if($this->user->id !== 564 ) {
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Performers Survey by [". $this->user->id."] ".$this->user->lastname."\n");
@@ -1088,16 +1089,16 @@ class SurveyController extends Controller
             break;
 
           case 5: { 
+                    //******* 360 Survey
+
+                    // check users eligibility on viewing the survey
+                    $leadercheck = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->get();
+
 
                     $qs = DB::table('surveys')->where('surveys.id',$id)->
-                        //where('form_submissions_users.created_at','>=',$from)->
-                        //where('form_submissions_users.created_at','<=',$to)->
                         join('survey_questions','survey_questions.survey_id','=','surveys.id')->
                         join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_questions.id')->
                         join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
-                        //join('survey_options','surveys.id','=','survey_options.survey_id')->
-                        //join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
-                        //leftJoin('users','form_submissions_users.user_id','=','users.id')->
                         select('surveys.name','survey_questions.ordering','survey_questions.img','survey_questions.id', 'survey_questions.value as question', 'survey_questions.responseType','categoryTags.label')->
                         orderBy('survey_questions.ordering','ASC')->get();
 
