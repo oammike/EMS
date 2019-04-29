@@ -583,6 +583,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'immediateHeadCampaign.disable',
       'uses'=>'ImmediateHeadCampaignController@disable') );
 
+    Route::post('/immediateHeadCampaign/editTier/{id}', array(
+      'as'=> 'immediateHeadCampaign.editTier',
+      'uses'=>'ImmediateHeadCampaignController@editTier') );
+
     
 
      Route::get('/getOtherTeams', array(
