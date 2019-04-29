@@ -98,6 +98,19 @@
 
                      <div class="item active text-center" >
 
+                              <img src="./storage/uploads/cinco-de-mayo.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-center" style="padding-left: 30px;"><br/><br/>To kick things off for May, we're celebrating <br/><strong class="text-orange" style="font-size: larger;">Cinco de Mayo</strong> as a family!<br/>
+                                <br/>Join us as we welcome Cinco de Mayo on <br/><strong class="text-primary" style="font-size: larger"> Saturday, May 4, 2019 at <br/>The Ruins in Poblacion, Makati</strong>. <br/>There will be live music, snacks and drinks for all to enjoy!<br/><br/>
+
+                                Deadline of registration is on Monday, April 29, 2019 at exactly 1:00 PM. <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkqfhur-XX9uJ4p-a76cqTTexf6KFfLUeCpMFELdziXnRYng/viewform?usp=sf_link" class="text-danger" style="font-weight: bold">Register here </a>now as there are limited slots! See you there!</p>
+
+
+                      </div>
+
+                      <div class="item text-center" >
+
                               <img src="./storage/uploads/cookies.jpg" style="z-index: 2" />
 
                               
@@ -106,6 +119,41 @@
 
                       </div>
 
+                      <!--physical schel-->
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Zumba Free Class</span> New Schedule</h3>(morning and evening session)
+                          <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/><br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> MORNING:</span> 
+                            <br/><span class="text-danger">April 30, 2019 (Tue) – 9:00 AM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> EVENING:</span> 
+                            <BR/><span class="text-danger">May 2, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+
+
+                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                    </div>
+
+
                       
 
                       
@@ -113,42 +161,7 @@
 
                      
 
-                      <div class="item text-center" >
-
-                              <img src="./public/img/ana.jpg" style="z-index: 2" />
-
-                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
-                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
-
-                              </div>
-
-                               <h2 style="margin-top: -30px" class="text-danger"><strong>Training Apprentice </strong><br/>
-                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','23')}} "> <img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="30"><span style="font-size: smaller;">Training Dept.</span></a></h2>
-
-                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> April 26,2019 </strong></h5>
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
-                              <ul class="text-left">
-                                <li>Excellent written and verbal English skills</li>
-                                <li>Open to all who have worked at least 6 months in Open Access</li>
-                                <li>No attendance issues</li>
-                                <li>No written warning</li>
-                                <li>Exemplary Performance</li>
-                              </ul>
-                              <br/><br/>
-                              <ul class="text-left"><strong>For the demo:</strong><br/>
-                                <li>the candidate needs to prepare a 10-minute presentation in Google Slide</li>
-                                <li>the candidate can choose a topic from the list below:<br/>
-                                  - A Day in the Life of a Call Center Agent<br/>
-                                  - An Effective Customer Service Representative<br/>
-                                  - Effective Communication Skills for the Workplace<br/></li><br/>
-                                <li>the candidate should send the demo material to <strong>marcriol@openaccessbpo.com</strong> before the presentation schedule</li>
-                                <li>The interview will happen after the demo</li>
-                              </ul>
-
-                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessbpo.com</a></small></p>
-
-
-                      </div>
+                     
 
 
                       @if(count($firstYears) >= 1)
@@ -233,45 +246,7 @@
 
                     </div>
 
-                    <!--physical schel-->
-                    <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Let's all get our bods</span> Summer-ready!</h3>And the best part is:<br/>it's <span style="font-size: x-large;"> FUN and FREE!!!</span><br/><br/>
-                          <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/><br/>
-
-                          Here's the schedule for this week:<br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> ZUMBA:</span> 
-                            <br/><span class="text-danger">April 24, 2019 (Wed) – 7:00 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> AERO KICKBOXING:</span> 
-                            <BR/><span class="text-danger">April 25, 2019 (Thu) – 6:00 PM</span><br/></strong><br/> 
-
-                           <strong style="font-size:larger"><span class="text-primary"> YOGA:</span> 
-                            <br/><span class="text-danger">April 26, 2019 (Fri) – 7:00 PM</span><br/></strong>
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                    </div>
-
+                  
 
                     <div class="item text-center" >
                         <img src="./storage/uploads/motivation.jpg" style="z-index: 2" width="100%" /><br/><br/>
@@ -663,6 +638,43 @@
                           
 
                             <?php /* 
+
+                             <div class="item text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h2 style="margin-top: -30px" class="text-danger"><strong>Training Apprentice </strong><br/>
+                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','23')}} "> <img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="30"><span style="font-size: smaller;">Training Dept.</span></a></h2>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> April 26,2019 </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
+                              <ul class="text-left">
+                                <li>Excellent written and verbal English skills</li>
+                                <li>Open to all who have worked at least 6 months in Open Access</li>
+                                <li>No attendance issues</li>
+                                <li>No written warning</li>
+                                <li>Exemplary Performance</li>
+                              </ul>
+                              <br/><br/>
+                              <ul class="text-left"><strong>For the demo:</strong><br/>
+                                <li>the candidate needs to prepare a 10-minute presentation in Google Slide</li>
+                                <li>the candidate can choose a topic from the list below:<br/>
+                                  - A Day in the Life of a Call Center Agent<br/>
+                                  - An Effective Customer Service Representative<br/>
+                                  - Effective Communication Skills for the Workplace<br/></li><br/>
+                                <li>the candidate should send the demo material to <strong>marcriol@openaccessbpo.com</strong> before the presentation schedule</li>
+                                <li>The interview will happen after the demo</li>
+                              </ul>
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessbpo.com</a></small></p>
+
+
+                      </div>
 
                             <div class="item text-center" >
                         <h4 class="text-danger">ALL OPEN ACCESS G2 Employees: </h4><h5>
