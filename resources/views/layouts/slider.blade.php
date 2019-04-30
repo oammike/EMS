@@ -98,7 +98,35 @@
 
                      
 
+                      
+
                       <div class="item active text-center" >
+                        <h4 class="text-primary">Get Fit and Win a trip <br/><span class="text-orange">to Boracay!</span></h4>
+
+                              <img src="./storage/uploads/letsgetphysical-74.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>Starting today, all attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                              
+                              <div class="text-left"  style="padding-left: 30px;">
+                                <h5>Minor Prizes:</h5>
+                                <ul>
+                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
+                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Bluetooth speaker</li>
+                                  <li>1 winner: Cheero 10050 Powerbank</li>
+                                  <li>1 winner: Beats&trade; head set</li>
+                                </ul></div>
+
+                              <p class="text-left" style="padding-left: 30px;">Our next Zumba schedule will be on <strong> Thursday, 7:00 PM.</strong>Here's the <a href="http://172.17.0.2/coffeebreak/event/5494/">link</a> to sign up for the Thursday class. </p>
+
+
+
+                      </div>
+
+                      <div class="item text-center" >
 
                               <img src="./storage/uploads/dance.jpg" style="z-index: 2" />
 
@@ -107,6 +135,8 @@
 
 
                       </div>
+
+                     
 
                       <!--physical schel-->
                     <div class="item text-center" >
