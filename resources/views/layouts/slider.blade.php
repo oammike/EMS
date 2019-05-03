@@ -159,13 +159,14 @@
                     <div class="item text-center" >
                         
                          <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Zumba Free Class</span> New Schedule</h3>(morning and evening session)
-                          <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/><br/><br/>
+                         <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> MORNING:</span> 
                             <br/><span class="text-danger">May 07, 2019 (Tue) – 9:00 AM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> EVENING:</span> 
                             <BR/><span class="text-danger">May 09, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                             <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
 
                           <br/><br/>
                            <strong>Venue:</strong><br/>
