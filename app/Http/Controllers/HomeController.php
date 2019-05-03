@@ -195,7 +195,7 @@ class HomeController extends Controller
  
                     //LETS GET PHYSICAL
       
-                  for($i=81; $i>=1; $i--){
+                  for($i=87; $i>=1; $i--){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-letsgetphysical-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/letsgetphysical-".$i.".jpg",
                                 'description'=>"Let's Get Physical",
