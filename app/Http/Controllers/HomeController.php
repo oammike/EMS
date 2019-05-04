@@ -74,6 +74,10 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '9':{
+               fwrite($file, "-------------------\n Viewed 5Mayo [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
             case '8':{
                fwrite($file, "-------------------\n Viewed Pajama [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -243,6 +247,20 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/pajama-".$i.".jpg",
                                 'description'=>"Wear Your Pajama To Work Day [Tue Apr.16 2019]",
                                 'category'=>"Wear Your Pajama To Work Day"]);
+
+                  }
+
+        } break;
+
+        case '9': {
+ 
+                    //CINCO
+      
+                  for($i=1; $i<=101; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-cinco-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/cinco-".$i.".jpg",
+                                'description'=>"Cinco De Mayo [Sat May 04 2019]",
+                                'category'=>"Cinco De Mayo [Sat May 04 2019]"]);
 
                   }
 

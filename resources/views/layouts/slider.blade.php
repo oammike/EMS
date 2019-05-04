@@ -97,18 +97,13 @@
   <?php */ ?>
 
                     <div class="item active text-center" >
-
-                              <img src="./storage/uploads/cinco-de-mayo.jpg" style="z-index: 2" />
+                              <h4 class="text-primary">Happy <span class="text-orange">Cinco de Mayo!</span></h4>
+                              <img src="./storage/uploads/cinco-3.jpg" style="z-index: 2" />
 
                               
-                              <p class="text-center" style="padding-left: 30px;"><br/><br/>Thanks to all who registered and confirmed for our Cinco de Mayo Party happening this May 4th. Due to the overwhelming response, we had to change venues and book 2 places for Saturday in order to accommodate all who confirmed. Don't worry, it's still in Poblacion and the bars are near each other.<br/><br/>
-                                You may switch between the two bars from 8:30 PM to 1:00 AM but <strong class="text-orange">PLEASE PROCEED FIRST TO THE BAR ASSIGNED TO YOU FOR REGISTRATION PURPOSES. </strong><br/><br/>
+                              <p class="text-center" style="padding-left: 30px;"><br/><br/>More party pics in our <a href="{{ action('HomeController@gallery',['a'=>9]) }}">Cinco de Mayo Gallery</a></strong><br/><br/>
 
-                                Pura Vida - surnames starting with<strong> A-L</strong><br/>
-                                McGee - surnames starting with <strong>M-Z</strong><br/><br/>
-                                Kindly bring your company ID as well.<br/><br/>
-
-                                How to get there: <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/Pura+Vida+Manila,+Don+Pedro,+Makati,+Metro+Manila/@14.5600704,121.0224205,15.75z/data=!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c9aae56ef48f:0x3308361b40ce8f6f!2m2!1d121.0314115!2d14.5639081!3e0" class="text-danger" style="font-weight: bold">see map link </a></p>
+                                </p>
 
 
                       </div>
