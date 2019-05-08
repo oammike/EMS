@@ -233,6 +233,8 @@ select:-webkit-autofill:focus {
                     </div>
                 </div>
 
+                
+                <?php /*
                 @if ($doneSurvey == 0)
                 <!--EES -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
@@ -257,6 +259,7 @@ select:-webkit-autofill:focus {
                   </div>
 
                   @endif
+                  */ ?>
 
 
                 
@@ -496,9 +499,13 @@ select:-webkit-autofill:focus {
       getNewNotifications();
       startTime();
 
-     @if (!is_null($memo) && $notedMemo != true)
-     $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
-     @endif
+     // ********* temporarily disable memo EES ************** 
+     // @if (!is_null($memo) && $notedMemo != true)
+     // $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
+     // @endif
+     // ********* temporarily disable memo EES **************
+
+     
 
      // * if(!is_null($siteTour) && $notedTour != true)
      

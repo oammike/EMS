@@ -388,9 +388,11 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
        startTime();
 
-       @if (!is_null($memo) && $notedMemo != true)
-       $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
-       @endif
+       // ********* temporarily disable memo EES ************** 
+       // @if (!is_null($memo) && $notedMemo != true)
+       // $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
+       // @endif
+       // ********* temporarily disable memo EES ************** 
 
       // * if(!is_null($siteTour) && $notedTour != true)
      
