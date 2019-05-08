@@ -1096,26 +1096,13 @@ class SurveyController extends Controller
                     if (count($leadercheck) > 0){
 
                       $my = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$leadercheck->first()->id)->
-                                      
                                       join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
                                       select('immediateHead_Campaigns.tier','campaign.levels')->
                                       get();
-                                      return $my;
-
-                      // $allcamp = DB::table('team')->where('team.immediateHead_Campaigns_id',$leadercheck->first()->id)->
-                      //                 join('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                      //                 join('users','team.user_id','=','users.id')->
-                      //                 join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
-                      //                 join('positions','users.position_id','=','positions.id')->
-                      //                 select('users.nickname','users.firstname','users.lastname','campaign.name as program','immediateHead_Campaigns.tier','campaign.levels','positions.name as jobTitle')->
-                      //                 where('users.status_id','!=',7)->
-                      //                 where('users.status_id','!=',8)->
-                      //                 where('users.status_id','!=',9)->
-                      //                 where('users.status_id','!=',13)->get();
-
-                                      
-
-                      $allcamp = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$leadercheck->first()->id)->
+                      if ( $my[0]->tier < $my[0]->levels )
+                      {
+                        // get all reporting under me
+                        $allCamp = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$leadercheck->first()->id)->
                                       
                                       join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
                                       join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
@@ -1128,31 +1115,35 @@ class SurveyController extends Controller
                                       where('users.status_id','!=',7)->
                                       where('users.status_id','!=',8)->
                                       where('users.status_id','!=',9)->
-                                      where('users.status_id','!=',13)->get();
+                                      where('users.status_id','!=',13)->
+                                      orderBy('users.lastname')->get();
 
-                      return $allcamp;
+                                      //return $allcamp;
 
-                        $qs = DB::table('surveys')->where('surveys.id',$id)->
+                          $qs = DB::table('surveys')->where('surveys.id',$id)->
                           join('survey_questions','survey_questions.survey_id','=','surveys.id')->
                           join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_questions.id')->
                           join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
-                          select('surveys.name','survey_questions.ordering','survey_questions.img','survey_questions.id', 'survey_questions.value as question', 'survey_questions.responseType','categoryTags.label','users.status_id')->
+                          select('surveys.name','survey_questions.ordering','survey_questions.img','survey_questions.id', 'survey_questions.value as question', 'survey_questions.responseType','categoryTags.label')->
 
                           orderBy('survey_questions.ordering','ASC')->get();
 
 
-                      if($this->user->id !== 564 ) {
-                        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                          fwrite($file, "-------------------\n 360 Survey by [". $this->user->id."] ".$this->user->lastname."\n");
-                          fclose($file);
-                      }
+                        if($this->user->id !== 564 ) {
+                          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                            fwrite($file, "-------------------\n 360 Survey by [". $this->user->id."] ".$this->user->lastname."\n");
+                            fclose($file);
+                        }
 
-                      $importance = collect($options)->whereIn('id',[18,19,20,21,22,23]);
-                      $competence = collect($options)->whereIn('id',[24,25,26,27,28,29]);
+                        $importance = collect($options)->whereIn('id',[18,19,20,21,22,23]);
+                        $competence = collect($options)->whereIn('id',[24,25,26,27,28,29]);
 
-                      $questions = collect($qs)->groupBy('label')->take(1);
+                        $questions = collect($qs)->groupBy('label')->take(1);
 
-                      return view('forms.survey360-show', compact('canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','importance','competence')); 
+                        return view('forms.survey360-show', compact('allCamp', 'canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','importance','competence')); 
+
+
+                      }else{ return view('empty');}    
 
                     }else return view('empty');
                     
