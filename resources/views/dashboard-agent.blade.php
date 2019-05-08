@@ -118,6 +118,7 @@ select:-webkit-autofill:focus {
                     </div>
                 </div>
 
+                <?php /*
                 @if ($doneSurvey == 0)
                 <!--EES -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
@@ -141,6 +142,7 @@ select:-webkit-autofill:focus {
                     </div>
                   </div>
                   @endif
+                  */ ?>
 
                   
 
