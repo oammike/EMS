@@ -157,9 +157,9 @@
                         
                         <div class="box-footer">
                           @if (empty($n->nickname))
-                             <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
+                             <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}" target="_blank"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
                          @else
-                             <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
+                             <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}" target="_blank"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
                          @endif
 
                          <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>

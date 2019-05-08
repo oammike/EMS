@@ -199,7 +199,7 @@ class HomeController extends Controller
  
                     //LETS GET PHYSICAL
       
-                  for($i=87; $i>=1; $i--){
+                  for($i=113; $i>=1; $i--){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-letsgetphysical-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/letsgetphysical-".$i.".jpg",
                                 'description'=>"Let's Get Physical",
@@ -240,7 +240,7 @@ class HomeController extends Controller
 
         case '8': {
  
-                    //happy hr
+                    //pajama hr
       
                   for($i=1; $i<=16; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/pajama-".$i.".jpg",
@@ -256,7 +256,7 @@ class HomeController extends Controller
  
                     //CINCO
       
-                  for($i=1; $i<=101; $i++){
+                  for($i=1; $i<=153; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-cinco-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/cinco-".$i.".jpg",
                                 'description'=>"Cinco De Mayo [Sat May 04 2019]",
