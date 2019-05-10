@@ -127,7 +127,7 @@
                                   <li>1 winner: Beats&trade; head set</li>
                                 </ul></div>
 
-                              <p class="text-left" style="padding-left: 30px;">Our next Zumba schedule will be on <strong> Thursday, 7:00 PM.</strong>Here's the <a href="http://172.17.0.2/coffeebreak/event/5494/">link</a> to sign up for the Thursday class. </p>
+                              <p class="text-center" style="padding-left: 30px;"><a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">Sign Up Now</a></p>
 
 
 
@@ -235,6 +235,10 @@
 
                           <strong style="font-size:larger"><span class="text-primary"> EVENING:</span> 
                             <BR/><span class="text-danger">May 16, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">
+                              Sign Up Now</a><br/><br/>
+
                              <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
 
                           <br/><br/>
@@ -249,9 +253,6 @@
                             <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
                             <br/><br/>
 
-
-
-                              Sign up here: <a href="http://172.17.0.2/coffeebreak/event/5494/" target="_blank">http://172.17.0.2/coffeebreak/event/5494/</a><br/><br/>
                               View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
 
                            
