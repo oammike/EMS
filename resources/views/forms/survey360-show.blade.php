@@ -14,7 +14,7 @@
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Surveys</li>
-        <li class="active"> {{$survey->name}} </li>
+        <li class="active"> {{$survey->name}}</li>
       </ol>
     </section>
 
@@ -24,7 +24,7 @@
           <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-10" style="background: rgba(255, 255, 255, 0.4);">
-              <p>Hello Managers! <br/><br/>
+              <p>Hello {{$user}}, <br/><br/>
                 In line with our company’s renewed thrust towards establishing standards for effective leadership - we will soon launch the <strong>LEAD (Learn, Engage, Adapt, and Disrupt) Training Series</strong>. This is Open Access' pilot learning and development program that seeks to develop our employees.</p>
               <p>Our initial focus will be on the development of our Team Leaders and other front line support staff. We need you to answer this leadership assessment survey. Your evaluation of your direct reports’ current skill level on different leadership aspects is critical in identifying our training needs and priorities. This will be the basis for designing and developing course materials for training and workshop sessions.  </p>
 
@@ -39,18 +39,18 @@
 
               @foreach($allCamp as $c)
                <!-- ******** collapsible box ********** -->
-                <div class="box box-default collapsed-box">
+                <div class="box box-default collapsed-box" id="emp_{{$c->userID}}">
                   <div class="box-header with-border">
-                    <img src="">
+                    <img src="{{asset('public/img/employees/'.$c->userID.'.jpg')}}" class="user-image" alt="User Image" width="50">
                     <h3 class="box-title text-primary">
                       @if(is_null($c->nickname)) 
                       {{$c->lastname}}, {{$c->firstname}}<br/>
-                      <span style="font-size: x-small;">{{$c->jobTitle}} | {{$c->program}}</span>
-                      <small id="evaluated-{{$c->userID}}"><i class="fa fa-exclamation-circle text-yellow"></i></small> 
+                      <span style="font-size: small;">{{$c->jobTitle}} | {{$c->program}}</span>
+                      <small id="evaluated-{{$c->userID}}"><i class="fa fa-exclamation-circle text-orange"></i></small> 
                       @else
                       {{$c->lastname}}, {{$c->nickname}}<br/>
-                       <span style="font-size: x-small;">{{$c->jobTitle}} | {{$c->program}}</span>
-                      <small id="evaluated-{{$c->userID}}"><i class="fa fa-exclamation-circle text-yellow"></i></small> 
+                       <span style="font-size: small;">{{$c->jobTitle}} | {{$c->program}}</span>
+                      <small id="evaluated-{{$c->userID}}"><i class="fa fa-exclamation-circle text-orange"></i></small> 
                       @endif
                     </h3>
 
@@ -80,25 +80,25 @@
                           <tr>
                             <td style="padding-left: 20px">{!! $qs->question !!}</td>
                             <td>
-                              <select name="importance_{{$qs->id}}" id="importance_{{$qs->id}}" class="form-control imp pull-left" data-entryID="{{$qs->id}}" style="width: 80%">
+                              <select name="importance_{{$qs->id}}" id="importance_{{$qs->id}}" class="form-control imp pull-left" data-entryID="{{$qs->id}}" data-for="{{$c->userID}}" style="width: 80%">
                                 <option value="0">select importance</option>
                                 @foreach($importance as $imp)
                                 <option value="{{$imp->value}}">{{$imp->label}} </option>
                                 @endforeach
                                 
                               </select>
-                              <div id="rated_{{$qs->id}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
+                              <div id="rated_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
                               
                             </td>
                             <td>
-                              <select name="competence{{$qs->id}}" id="competence{{$qs->id}}" class="form-control comp pull-left" data-entryID="{{$qs->id}}" style="width: 80%">
+                              <select name="competence{{$qs->id}}" id="competence{{$qs->id}}" class="form-control comp pull-left" data-entryID="{{$qs->id}}" data-for="{{$c->userID}}" style="width: 80%">
                                 <option value="0">select competence</option>
                                 @foreach($competence as $imp)
                                 <option value="{{$imp->value}}">{{$imp->label}} </option>
                                 @endforeach
                                 
                               </select>
-                              <div id="ratedcomp_{{$qs->id}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
+                              <div id="ratedcomp_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
                               
 
                             </td>
@@ -107,11 +107,11 @@
 
 
                         @endforeach
+                        <tr><td colspan="3"><label>Notes / Comments</label></td></tr>
                         <tr>
-                          <td colspan="3" class="text-center"><br/><br/>
-                            <label>Notes / Comments</label>
+                          <td colspan="3" class="text-right">
                             <textarea name="comments" class="form-control" style="margin:10px"></textarea>
-                            <a class="btn btn-success btn-lg" id="submit">Submit</a> </td>
+                            <a class="submit btn btn-success btn-lg" data-for="{{$c->userID}}" data-employee="{{$c->firstname}} {{$c->lastname}} ">Submit</a> </td>
                         </tr>
 
 
@@ -188,24 +188,40 @@
 
 
 
-  $('#submit').on('click',function(){
+  $('.submit.btn.btn-success.btn-lg').on('click',function(){
 
     var item = $(this).attr('data-item');
+    var datafor = $(this).attr('data-for');
+    var empname = $(this).attr('data-employee');
+    var missedItems = $('#emp_'+datafor+' table .fa.fa-exclamation-circle.text-yellow').length;
+    console.log(missedItems);
+    console.log('for: '+datafor);
 
     var notYetRated = $('.fa.fa-exclamation-circle.text-yellow').length;
 
 
-    if (notYetRated > 0) {
-     $.notify("You missed "+notYetRated+ " item(s). \nFilling out the form will help us gather needed data to improve our training course.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+    if (missedItems > 0) {
+     $.notify("You missed "+missedItems+ " item(s) for "+empname+". \nFilling out the form will help us gather needed data to improve our training course.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
     }
     else{
 
+      $('#evaluated-'+datafor).html('<i class="fa fa-check text-success"></i>');
+      //$('div#emp_'+datafor).addClass("box box-default collapsed-box");
+      $('div#emp_'+datafor+' button.btn.btn-box-tool').trigger("click");
+      $('div#emp_'+datafor+' h3').removeClass('text-primary').addClass('text-gray');
+      $('div#emp_'+datafor+' a.submit.btn.btn-success.btn-lg').fadeOut();
+      $('div#emp_'+datafor+' select').prop('disabled','disabled');
+
+      $.notify("Data for "+empname + " saved successfully! \nThank you for participating in this survey.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+        return false;
+
+/*
       // we now save his answer
       var _token = "{{ csrf_token() }}";
       var questionid = $(this).attr('data-questionid');
       var survey_optionsid = $('input[name="answer'+questionid+'"]:checked').val();
       console.log("questionid: " + questionid);
-      //console.log(survey_optionsid);
+      
 
 
 
@@ -221,7 +237,7 @@
         $.notify("Please choose an option. \nFilling out the form will help us gather needed data to improve our training course.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
         return false;
 
-      }
+      }*/
 
 
     }
@@ -238,16 +254,17 @@
 
     var selval = $(this).find(':selected').val(); // $(this).val();
     var id = $(this).attr('data-entryID');
+    var datafor = $(this).attr('data-for');
 
     if (selval == 0)
     {
-      $("#rated_"+id).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
+      $("#rated_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
       console.log('rated '+ id);
       $.notify("Please choose an option. \nFilling out the form will help us gather needed data to improve our training materials",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
       return false;
       
     }else{
-      $("#rated_"+id).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
+      $("#rated_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
 
     }
   });
@@ -256,16 +273,17 @@
 
     var selval = $(this).find(':selected').val(); // $(this).val();
     var id = $(this).attr('data-entryID');
+    var datafor = $(this).attr('data-for');
 
     if (selval == 0)
     {
-      $("#ratedcomp_"+id).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
+      $("#ratedcomp_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
       console.log('rated '+ id);
       $.notify("Please choose an option. \nFilling out the form will help us gather needed data to improve our training materials",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
       return false;
       
     }else{
-      $("#ratedcomp_"+id).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
+      $("#ratedcomp_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
 
     }
   });

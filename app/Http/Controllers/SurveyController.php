@@ -848,7 +848,7 @@ class SurveyController extends Controller
     public function saveItem(Request $request)
     {
         if ($request->survey_optionsid == 'e'){
-
+            // essay
             $item = new Survey_Essay;
             $item->user_id = $this->user->id;
             $item->question_id = $request->questionid;
@@ -866,6 +866,7 @@ class SurveyController extends Controller
 
         }else if ($request->survey_optionsid == 'x'){
 
+            //extra daata
             $extra = new Survey_Extradata;
             $extra->user_id = $this->user->id;
             $extra->survey_id = $request->survey_id;
@@ -1140,7 +1141,10 @@ class SurveyController extends Controller
 
                         $questions = collect($qs)->groupBy('label')->take(1);
 
-                        return view('forms.survey360-show', compact('allCamp', 'canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','importance','competence')); 
+                        (is_null($this->user->nickname)) ? $user = $this->user->firstname : $user = $this->user->nickname;
+
+                        //return $questions;
+                        return view('forms.survey360-show', compact('user', 'allCamp', 'canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','importance','competence')); 
 
 
                       }else{ return view('empty');}    
