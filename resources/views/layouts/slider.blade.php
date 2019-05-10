@@ -231,7 +231,7 @@
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> MORNING:</span> 
-                            <br/><span class="text-danger">May 14, 2019 (Tue) – 9:00 AM</span><br/></strong><br/>
+                            <br/><span class="text-danger">May 15, 2019 (Wed) – 9:00 AM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> EVENING:</span> 
                             <BR/><span class="text-danger">May 16, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
