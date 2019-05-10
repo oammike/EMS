@@ -260,6 +260,7 @@
 
                     <div class="item text-center" > <img src="./storage/uploads/summer-care-1.jpg" style="z-index: 2" /></div>
                     <div class="item text-center" > <img src="./storage/uploads/summer-care-2.jpg" style="z-index: 2" /></div>
+                    <div class="item text-center" > <img src="./storage/uploads/summer-care-3.jpg" style="z-index: 2" /></div>
 
 
                       
