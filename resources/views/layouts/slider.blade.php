@@ -230,10 +230,10 @@
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> MORNING:</span> 
-                            <br/><span class="text-danger">May 07, 2019 (Tue) – 9:00 AM</span><br/></strong><br/>
+                            <br/><span class="text-danger">May 14, 2019 (Tue) – 9:00 AM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> EVENING:</span> 
-                            <BR/><span class="text-danger">May 09, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">May 17, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
                              <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
 
                           <br/><br/>
