@@ -186,9 +186,9 @@
                       
 
                       <div class="item text-center" >
-                        <h4 class="text-primary">Get Fit and Win a trip <br/><span class="text-orange">to Boracay!</span></h4>
+                        <h4 class="text-primary">Dance your way <br/><span class="text-orange">to Boracay!</span></h4>
 
-                              <img src="./storage/uploads/letsgetphysical-74.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/letsgetphysical-118.jpg" style="z-index: 2" />
 
                               
                               <p class="text-left" style="padding-left: 30px;"><br/><br/>Starting today, all attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
@@ -233,7 +233,7 @@
                             <br/><span class="text-danger">May 14, 2019 (Tue) – 9:00 AM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> EVENING:</span> 
-                            <BR/><span class="text-danger">May 17, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">May 16, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
                              <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
 
                           <br/><br/>
