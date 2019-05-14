@@ -97,6 +97,17 @@
   <?php */ ?>
 
                     <div class="item active text-center" >
+                              
+                              <img src="./storage/uploads/mothersday.jpg" style="z-index: 2" />
+                              <br/><h4 class="text-primary">Happy <span class="text-orange">Mother's Day</span></h4>
+
+                              
+                            
+
+
+                      </div>
+
+                    <div class="item text-center" >
                               <h4 class="text-primary">Happy <span class="text-orange">Cinco de Mayo!</span></h4>
                               <img src="./storage/uploads/cinco-3.jpg" style="z-index: 2" />
 
