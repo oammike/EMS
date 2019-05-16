@@ -115,161 +115,164 @@ class SurveyController extends Controller
 
     public function downloadRaw($id)
     {
-      $survey = Survey::find(1);
 
-      $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',1)->
-                   
-                    join('users','users.id','=','survey_user.user_id')->
-                    
-                    join('team','team.user_id','=','survey_user.user_id')->
-                    join('campaign','team.campaign_id','=','campaign.id')->
-                    join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
-                    leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
-                   
-                    select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay')->
-                    where('survey_user.isDone',1)->
-                    where('team.floor_id','!=',10)->
-                    where('team.floor_id','!=',11)->
-                    where('campaign.id','=',$id)->
-                    orderBy('users.lastname')->get(); //)->take(30); return response()->json($allEmployees);
-                    //return $allEmployees;
+      switch ($id) {
+        case 1:
+        {
 
-      $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',1)->
-                    join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+          $survey = Survey::find($id);
 
-                    join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
-                    //join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
-                    join('users','users.id','=','survey_user.user_id')->
-                    //------leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
-                    //join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
-                    join('team','team.user_id','=','survey_user.user_id')->
-                    //join('campaign','team.campaign_id','=','campaign.id')->
-                   
+          $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',1)->
+                       
+                        join('users','users.id','=','survey_user.user_id')->
+                        
+                        join('team','team.user_id','=','survey_user.user_id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
+                        leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
+                       
+                        select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay')->
+                        where('survey_user.isDone',1)->
+                        where('team.floor_id','!=',10)->
+                        where('team.floor_id','!=',11)->
+                        where('campaign.id','=',$id)->
+                        orderBy('users.lastname')->get(); //)->take(30); return response()->json($allEmployees);
+                        //return $allEmployees;
 
-                    //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                    //'survey_essays.answer as essay', 'survey_extradata.course','survey_extradata.currentlocation', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice',
+          $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',1)->
+                        join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
 
-                    select('survey_responses.user_id as userID', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','team.floor_id')->
-                    where('survey_user.isDone',1)->
-                    where('team.floor_id','!=',10)->
-                    where('team.floor_id','!=',11)->get();
+                        join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                        //join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
+                        join('users','users.id','=','survey_user.user_id')->
+                        //------leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
+                        //join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
+                        join('team','team.user_id','=','survey_user.user_id')->
+                        //join('campaign','team.campaign_id','=','campaign.id')->
+                       
 
+                        //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
+                        //'survey_essays.answer as essay', 'survey_extradata.course','survey_extradata.currentlocation', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice',
 
-      $allNotes = DB::table('survey_user')->where('survey_id',1)->
-                      join('users','survey_user.user_id','=','users.id')->
-                      join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
-                      select('survey_user.user_id as userID','users.lastname','users.firstname', 'survey_notes.question_id','survey_notes.comments')->
-                      where('survey_notes.comments','!=',null)->
-                      orderBy('users.lastname')->get();
-      $allQuestions = DB::table('survey_questions')->where('survey_id',1)->select('survey_questions.value as question','survey_questions.id')->get();
-
-      
-      //return $allQuestions;
-      //return collect($allResp)->where('userID',564); //->where('question',49)->first()->rating;
-      //return collect($allNotes)->where('userID',564)->where('question_id',26);
-      //return $allEmployees;
-
-      //$submissions = collect($allResp)->sortBy('question')->groupBy('userID')->take(2);
-      
-
-      $description = $survey->description;
-      $headers = ['Lastname','Firstname', 'Program','Tenure','Gender','Education','Course','Current Location','Hobbies/Interests','Commute Time (mins)'];
-      $c =10;
-      $q = 1;
-      foreach ($allQuestions as $key) {
-        $headers[$c] = "Q".$q.": ".$key->question; $c++;$q++;
-        $headers[$c] = "Notes/Comments";$c++;
-      }
-      //return $submissions->first()[0]->lastname;
-      
-
-      Excel::create($survey->name,function($excel) use($id,$allEmployees,$allQuestions,$allNotes,$allResp, $survey, $headers,$description) 
-           {
-                  $excel->setTitle($survey->name.' Raw Data');
-
-                  // Chain the setters
-                  $excel->setCreator('Programming Team')
-                        ->setCompany('OpenAccess');
-
-                  // Call them separately
-                  $excel->setDescription($description);
-                  $excel->sheet("Sheet 1", function($sheet) use ($id,$allEmployees,$allQuestions,$allNotes,$allResp, $headers)
-                  {
-                    $sheet->appendRow($headers);
-
-                    
-                    $arr = [];
-
-                    foreach($allEmployees as $employee)//collect($allEmployees)->where('programID',16)
-                    {
-                      $i = 0;
-
-                      $arr[$i] = $employee->lastname; $i++;
-                      $arr[$i] = $employee->firstname; $i++;
-                      $arr[$i] = $employee->program; $i++;
-
-                      //TENURE
-                      $tenure = Carbon::parse($employee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('Asia/Manila'));
-                      if ($tenure == 0) {$arr[$i] = "< a yr";}
-                      else if($tenure == 1) {$arr[$i] = "1 year";}
-                      else $arr[$i] = $tenure . " year(s)";  
-
-                      $i++;
-
-                      $arr[$i] = $employee->gender; $i++;
-                      $arr[$i] = $employee->education; $i++;
-                      $arr[$i] = $employee->course; $i++;
-                      $arr[$i] = $employee->currentlocation; $i++;
-                      $arr[$i] = $employee->hobbiesinterest; $i++;
-                      $arr[$i] = $employee->commuteTime; $i++;
+                        select('survey_responses.user_id as userID', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','team.floor_id')->
+                        where('survey_user.isDone',1)->
+                        where('team.floor_id','!=',10)->
+                        where('team.floor_id','!=',11)->get();
 
 
-                      $qCounter=1;
-                      foreach ($allQuestions as $q) {
+          $allNotes = DB::table('survey_user')->where('survey_user.survey_id',1)->
+                          join('users','survey_user.user_id','=','users.id')->
+                          join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
+                          select('survey_user.user_id as userID','users.lastname','users.firstname', 'survey_notes.question_id','survey_notes.comments')->
+                          where('survey_notes.comments','!=',null)->
+                          orderBy('users.lastname')->get();
+          $allQuestions = DB::table('survey_questions')->where('survey_id',1)->select('survey_questions.value as question','survey_questions.id')->get();
 
-                        if($qCounter == count($allQuestions)){
-                          $arr[$i]= $employee->essay;
-                          //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
-                        } else
+          $description = $survey->description;
+          $headers = ['Lastname','Firstname', 'Program','Tenure','Gender','Education','Course','Current Location','Hobbies/Interests','Commute Time (mins)'];
+          $c =10;
+          $q = 1;
+          foreach ($allQuestions as $key) {
+            $headers[$c] = "Q".$q.": ".$key->question; $c++;$q++;
+            $headers[$c] = "Notes/Comments";$c++;
+          }
+          
+
+          Excel::create($survey->name,function($excel) use($id,$allEmployees,$allQuestions,$allNotes,$allResp, $survey, $headers,$description) 
+               {
+                      $excel->setTitle($survey->name.' Raw Data');
+
+                      // Chain the setters
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccess');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+                      $excel->sheet("Sheet 1", function($sheet) use ($id,$allEmployees,$allQuestions,$allNotes,$allResp, $headers)
+                      {
+                        $sheet->appendRow($headers);
+
+                        
+                        $arr = [];
+
+                        foreach($allEmployees as $employee)//collect($allEmployees)->where('programID',16)
                         {
+                          $i = 0;
 
-                          //---- RATING
-                          $r = collect($allResp)->where('userID',$employee->id)->where('question',$q->id);
-                          if (count($r) > 0)
-                            $rating = $r->first()->rating;
-                          else
-                            $rating = null;
+                          $arr[$i] = $employee->lastname; $i++;
+                          $arr[$i] = $employee->firstname; $i++;
+                          $arr[$i] = $employee->program; $i++;
 
-                          $arr[$i]= $rating; $i++;
-                          
-                          //---- NOTE
-                          $n = collect($allNotes)->where('userID',$employee->id)->where('question_id',$q->id);
-                          if (count($n)>0) $note = $n->first()->comments;
-                          else $note=null;
+                          //TENURE
+                          $tenure = Carbon::parse($employee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('Asia/Manila'));
+                          if ($tenure == 0) {$arr[$i] = "< a yr";}
+                          else if($tenure == 1) {$arr[$i] = "1 year";}
+                          else $arr[$i] = $tenure . " year(s)";  
 
-                          $arr[$i]= $note; $i++;
+                          $i++;
 
-                        }
-
-                        $qCounter++;
-
-                      }//end foreach questions
+                          $arr[$i] = $employee->gender; $i++;
+                          $arr[$i] = $employee->education; $i++;
+                          $arr[$i] = $employee->course; $i++;
+                          $arr[$i] = $employee->currentlocation; $i++;
+                          $arr[$i] = $employee->hobbiesinterest; $i++;
+                          $arr[$i] = $employee->commuteTime; $i++;
 
 
+                          $qCounter=1;
+                          foreach ($allQuestions as $q) {
 
-                        $sheet->appendRow($arr);
+                            if($qCounter == count($allQuestions)){
+                              $arr[$i]= $employee->essay;
+                              //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
+                            } else
+                            {
 
-                    }//end foreach employee
+                              //---- RATING
+                              $r = collect($allResp)->where('userID',$employee->id)->where('question',$q->id);
+                              if (count($r) > 0)
+                                $rating = $r->first()->rating;
+                              else
+                                $rating = null;
+
+                              $arr[$i]= $rating; $i++;
+                              
+                              //---- NOTE
+                              $n = collect($allNotes)->where('userID',$employee->id)->where('question_id',$q->id);
+                              if (count($n)>0) $note = $n->first()->comments;
+                              else $note=null;
+
+                              $arr[$i]= $note; $i++;
+
+                            }
+
+                            $qCounter++;
+
+                          }//end foreach questions
 
 
-                    
-                 });//end sheet1
+
+                            $sheet->appendRow($arr);
+
+                        }//end foreach employee
+
+
+                        
+                     });//end sheet1
 
 
 
-          })->export('xls');
+              })->export('xls');
 
-          return "Download";
+              return "Download";
+
+        }break;
+        
+        default: return view('access-denied');
+          # code...
+          break;
+      }
+      
       
       //return collect($allNotes)->groupBy('user_id');
       //return $groupedResp->take(100);
@@ -896,24 +899,147 @@ class SurveyController extends Controller
 
         }
 
-        else{
+        else
+        {
 
-            $item = new Survey_Response;
-            $item->user_id = $this->user->id;
-            $item->question_id = $request->questionid;
-            $item->survey_optionsID = $request->survey_optionsid;
+            //CHECK first kung for 360
+            if ($request->surveytype == "360"){
+
+              if($request->optiontype == 'submit'){
+
+                  goto SkipPart;
+                
+
+              }else
+              {
+                $hasexisting = Survey_Response::where('survey_userid',$request->survey_userid)->
+                                              where('optionType',$request->optiontype)->
+                                              where('question_id',$request->questionid)->get();
+                                              //return response()->json(['survey_userid'=>$request->survey_userid,
+                                              //  'optiontype'=>$request->optiontype, 'existing'=>$hasexisting]);
+                if (count($hasexisting) > 0){
+                  Survey_Response::where('survey_userid',$request->survey_userid)->
+                                                where('optionType',$request->optiontype)->
+                                                where('question_id',$request->questionid)->delete();
+
+                  $item = new Survey_Response;
+                  $item->user_id = $this->user->id;
+                  $item->question_id = $request->questionid;
+                  $item->survey_optionsID = $request->survey_optionsid;
+                  $item->optionType = $request->optiontype;
+
+                } 
+                else{
+
+                  $item = new Survey_Response;
+                  $item->user_id = $this->user->id;
+                  $item->question_id = $request->questionid;
+                  $item->survey_optionsID = $request->survey_optionsid;
+                  $item->optionType = $request->optiontype;
+
+                }
+
+              }//end submit option
+
+              
+                                              
+
+            }else 
+            {
+              $item = new Survey_Response;
+              $item->user_id = $this->user->id;
+              $item->question_id = $request->questionid;
+              $item->survey_optionsID = $request->survey_optionsid;
+
+            }
+
+            
             
             if (is_null($request->survey_id)){
               $item->survey_id = '1';
             }
             else {
               $item->survey_id = $request->survey_id;
-              $item->survey_userid = $request->survey_userid;
+
+              if ($request->survey_userid == '0')
+              {
+                //create muna new survey_userID
+                $existing = Survey_User::where('user_id',$this->user->id)->
+                                         where('survey_id',$request->survey_id)->
+                                         where('surveyFor',$request->surveyfor)->get();
+                if (count($existing) > 0){
+
+                  $item->survey_userid =  $existing->first()->id;
+
+                }else{
+                  $userSurvey = new Survey_User;
+                  $userSurvey->user_id = $this->user->id;
+                  $userSurvey->survey_id = $request->survey_id;
+                  $userSurvey->surveyFor = $request->surveyfor;
+                  $userSurvey->startDate = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                  $userSurvey->lastItem = 1;
+                  $userSurvey->isDraft = true;
+                  $userSurvey->save();
+
+                  $item->survey_userid =  $userSurvey->id;
+
+                } 
+                
+              } else $item->survey_userid = $request->survey_userid;
             }
 
             $item->save();
 
-            if ($request->comment !== ''){
+            SkipPart:
+            if ($request->comment !== '' || $request->optiontype == 'submit'){
+
+              if($request->optiontype == 'submit')
+              {
+
+                $cmt = new Survey_Notes;
+                $cmt->user_id = $this->user->id;
+                $cmt->question_id = $request->questionid;
+                $cmt->comments = $request->comment;
+                $cmt->survey_id = $request->survey_id;
+
+
+
+                if ($request->survey_userid == '0')
+                {
+                  //create muna new survey_userID
+                  $existing = Survey_User::where('user_id',$this->user->id)->
+                                           where('survey_id',$request->survey_id)->
+                                           where('surveyFor',$request->surveyfor)->get();
+                  if (count($existing) > 0){
+
+                    $cmt->survey_userid =  $existing->first()->id;
+
+                  }else{
+                    $userSurvey = new Survey_User;
+                    $userSurvey->user_id = $this->user->id;
+                    $userSurvey->survey_id = $request->survey_id;
+                    $userSurvey->surveyFor = $request->surveyfor;
+                    $userSurvey->startDate = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                    $userSurvey->lastItem = 1;
+                    $userSurvey->isDraft = true;
+                    $userSurvey->save();
+
+                    $cmt->survey_userid =  $userSurvey->id;
+
+                  } 
+                  
+                } else $cmt->survey_userid = $request->survey_userid;
+
+                //update status to DONE
+                $currstat = Survey_User::find($cmt->survey_userid);
+                $currstat->isDone = true;
+                $currstat->isDraft = false;
+                $currstat->push();
+
+                
+                
+              }else
+              {
 
                 $cmt = new Survey_Notes;
                 $cmt->user_id = $this->user->id;
@@ -927,16 +1053,18 @@ class SurveyController extends Controller
                   $cmt->survey_userid = $request->survey_userid;
                 }
 
+              }
 
-                $cmt->save();
-            }
+              $cmt->save();
+              return response()->json($cmt);
+            }//end if comment not empty
 
 
 
         }
         
 
-        return response()->json($item);
+        return response()->json(['item'=>$item,'existing'=>$hasexisting]);
 
     }
 
@@ -966,7 +1094,7 @@ class SurveyController extends Controller
 
         $us = Survey_User::where('user_id',$this->user->id)->where('survey_id',$id)->get();
 
-        if (count($us) >= 1){
+        if (count($us) >= 1 && ($id !== '5') ){
             $userSurvey = $us->first();
 
             if ($userSurvey->isDone & $id=='1') return redirect('/surveyResults/'.$id);
@@ -1015,16 +1143,22 @@ class SurveyController extends Controller
 
         }else {
 
-            $userSurvey = new Survey_User;
-            $userSurvey->user_id = $this->user->id;
-            $userSurvey->survey_id = $id;
-            $userSurvey->startDate = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-            $userSurvey->lastItem = 1;
-            $userSurvey->save();
-            $latest=null;
-            $startFrom = 1;
-            $extraDataNa=false;
+            // do this only for non 360survey
+            if ($id !== '5'){
 
+              $userSurvey = new Survey_User;
+              $userSurvey->user_id = $this->user->id;
+              $userSurvey->survey_id = $id;
+              $userSurvey->startDate = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+              $userSurvey->lastItem = 1;
+              $userSurvey->save();
+              $latest=null;
+              $startFrom = 1;
+              $extraDataNa=false;
+
+
+            }
+            
         }
 
         //$survey = Survey::find($id);
@@ -1141,10 +1275,32 @@ class SurveyController extends Controller
 
                         $questions = collect($qs)->groupBy('label')->take(1);
 
+                        // get all pre existing survey-user submission
+                        $surveyUser = DB::table('survey_user')->where('user_id',$this->user->id)->where('survey_id',$id)->
+                                        select('id', 'surveyFor','isDone')->get();
+
+                                       
+                        $allAnswers = DB::table('survey_user')->where('survey_user.user_id',$this->user->id)->
+                                                where('survey_user.survey_id',$id)->
+                                                join('survey_responses','survey_user.id','=','survey_responses.survey_userid')->
+                                                join('survey_options','survey_responses.survey_optionsID','=','survey_options.id')->
+                                                join('options','options.id','=','survey_options.options_id')->
+                                                select('survey_responses.question_id','survey_responses.survey_optionsID as answerID','options.value','survey_responses.optionType', 'survey_user.surveyFor','survey_user.user_id as surveyBy','survey_responses.created_at')->
+                                                orderBy('survey_responses.created_at','DESC')->
+                                                get();
+
+                        $allComments = DB::table('survey_user')->where('survey_user.user_id',$this->user->id)->
+                                                where('survey_user.survey_id',$id)->
+                                                join('survey_notes','survey_user.id','=','survey_notes.survey_userid')->
+                                                
+                                                select( 'survey_user.surveyFor','survey_user.user_id as surveyBy','survey_notes.comments')->
+                                                get();
+                                                
+
                         (is_null($this->user->nickname)) ? $user = $this->user->firstname : $user = $this->user->nickname;
 
-                        //return $questions;
-                        return view('forms.survey360-show', compact('user', 'allCamp', 'canViewAll', 'id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','importance','competence')); 
+                        //return $competence;
+                        return view('forms.survey360-show', compact('surveyUser', 'user', 'allCamp', 'canViewAll', 'id','survey', 'totalItems','questions','allAnswers','allComments', 'startFrom','options','userSurvey','latest','extradata','extraDataNa','importance','competence')); 
 
 
                       }else{ return view('empty');}    

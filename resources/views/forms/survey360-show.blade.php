@@ -23,7 +23,7 @@
 
           <div class="row">
             <div class="col-lg-1"></div>
-            <div class="col-lg-10" style="background: rgba(255, 255, 255, 0.4);">
+            <div class="col-lg-10" style="background: rgba(255, 255, 255, 0.4);"><BR/><BR/>
               <p>Hello {{$user}}, <br/><br/>
                 In line with our company’s renewed thrust towards establishing standards for effective leadership - we will soon launch the <strong>LEAD (Learn, Engage, Adapt, and Disrupt) Training Series</strong>. This is Open Access' pilot learning and development program that seeks to develop our employees.</p>
               <p>Our initial focus will be on the development of our Team Leaders and other front line support staff. We need you to answer this leadership assessment survey. Your evaluation of your direct reports’ current skill level on different leadership aspects is critical in identifying our training needs and priorities. This will be the basis for designing and developing course materials for training and workshop sessions.  </p>
@@ -39,17 +39,32 @@
 
               @foreach($allCamp as $c)
                <!-- ******** collapsible box ********** -->
+               <?php $doneUser = collect($surveyUser)->where('surveyFor',$c->userID)->where('isDone',1);
+                    $hasComment = collect($allComments)->where('surveyFor',$c->userID); ?>
                 <div class="box box-default collapsed-box" id="emp_{{$c->userID}}">
                   <div class="box-header with-border">
                     <img src="{{asset('public/img/employees/'.$c->userID.'.jpg')}}" class="user-image" alt="User Image" width="50">
+                    
+                    @if (count($doneUser) > 0) 
+                    <h3 class="box-title text-gray">
+                    @else
                     <h3 class="box-title text-primary">
+                    @endif
+
                       @if(is_null($c->nickname)) 
                       {{$c->lastname}}, {{$c->firstname}}<br/>
                       <span style="font-size: small;">{{$c->jobTitle}} | {{$c->program}}</span>
-                      <small id="evaluated-{{$c->userID}}"><i class="fa fa-exclamation-circle text-orange"></i></small> 
+                      
                       @else
                       {{$c->lastname}}, {{$c->nickname}}<br/>
                        <span style="font-size: small;">{{$c->jobTitle}} | {{$c->program}}</span>
+                     
+                      @endif
+
+
+                      @if (count($doneUser) > 0) 
+                      <small id="evaluated-{{$c->userID}}"><i class="fa fa-check text-primary"></i></small> 
+                      @else
                       <small id="evaluated-{{$c->userID}}"><i class="fa fa-exclamation-circle text-orange"></i></small> 
                       @endif
                     </h3>
@@ -76,29 +91,64 @@
                         <tr>
                           <td colspan="3" style="font-size: larger; font-weight: bold; text-transform: uppercase;">{{$q[0]->label}} </td>
                         </tr>
+
+                           <?php $su = collect($surveyUser)->where('surveyFor',$c->userID);
+                                  (count($su) >= 1) ? $surveyUserID = $su->first()->id : $surveyUserID=0; 
+                                  //$surveyUserID = count($su);
+                                  ?>
+
                           @foreach($q as $qs)
                           <tr>
                             <td style="padding-left: 20px">{!! $qs->question !!}</td>
                             <td>
-                              <select name="importance_{{$qs->id}}" id="importance_{{$qs->id}}" class="form-control imp pull-left" data-entryID="{{$qs->id}}" data-for="{{$c->userID}}" style="width: 80%">
+                              <select @if(count($doneUser) > 0) disabled="disabled" @endif name="importance_{{$qs->id}}" id="importance_{{$qs->id}}" class="form-control imp pull-left" data-entryID="{{$qs->id}}" data-for="{{$c->userID}}" data-surveyUserID="{{$surveyUserID}}" data-optiontype="1" style="width: 80%">
                                 <option value="0">select importance</option>
                                 @foreach($importance as $imp)
-                                <option value="{{$imp->value}}">{{$imp->label}} </option>
+
+                                  <?php $existingval = collect($allAnswers)->where('surveyFor',$c->userID)->where('question_id',$qs->id)->where('optionType',1);
+
+                                  if (count($existingval) > 0) {?>
+                                    <option value="{{$imp->value}}" @if( $existingval->first()->value == $imp->value  ) selected="selected" @endif data-optionsid="{{$imp->id}}">{{$imp->label}} </option>
+
+                                    <?php } else { ?>
+                                    <option value="{{$imp->value}}" data-optionsid="{{$imp->id}}">{{$imp->label}} </option>  
+                                    <?php } ?>
                                 @endforeach
                                 
                               </select>
-                              <div id="rated_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
+
+                               <?php $existingval = collect($allAnswers)->where('surveyFor',$c->userID)->where('question_id',$qs->id)->where('optionType',1); ?>
+                               @if(count($existingval) > 0)
+                                <div id="rated_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-check text-success"></i></div>
+                                @else
+                                <div id="rated_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
+                                @endif
                               
                             </td>
                             <td>
-                              <select name="competence{{$qs->id}}" id="competence{{$qs->id}}" class="form-control comp pull-left" data-entryID="{{$qs->id}}" data-for="{{$c->userID}}" style="width: 80%">
+                              <select  @if(count($doneUser) > 0) disabled="disabled" @endif name="competence{{$qs->id}}" id="competence{{$qs->id}}" class="form-control comp pull-left" data-entryID="{{$qs->id}}" data-for="{{$c->userID}}"  data-surveyUserID="{{$surveyUserID}}" data-optiontype="2"   style="width: 80%">
                                 <option value="0">select competence</option>
                                 @foreach($competence as $imp)
-                                <option value="{{$imp->value}}">{{$imp->label}} </option>
+
+                                <?php $existingval = collect($allAnswers)->where('surveyFor',$c->userID)->where('question_id',$qs->id)->where('optionType',2);
+
+                                  if (count($existingval) > 0) {?>
+                                    <option value="{{$imp->value}}" @if( $existingval->first()->value == $imp->value  ) selected="selected" @endif data-optionsid="{{$imp->id}}">{{$imp->label}} </option>
+
+                                    <?php } else { ?>
+                                    <option value="{{$imp->value}}" data-optionsid="{{$imp->id}}">{{$imp->label}} </option>  
+                                    <?php } ?>
+
                                 @endforeach
                                 
                               </select>
-                              <div id="ratedcomp_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
+
+                              <?php $existingval = collect($allAnswers)->where('surveyFor',$c->userID)->where('question_id',$qs->id)->where('optionType',2); ?>
+                               @if(count($existingval) > 0)
+                                <div id="ratedcomp_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-check text-success"></i></div>
+                                @else
+                                <div id="ratedcomp_{{$qs->id}}_{{$c->userID}}">&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i></div>
+                                @endif
                               
 
                             </td>
@@ -110,8 +160,18 @@
                         <tr><td colspan="3"><label>Notes / Comments</label></td></tr>
                         <tr>
                           <td colspan="3" class="text-right">
-                            <textarea name="comments" class="form-control" style="margin:10px"></textarea>
-                            <a class="submit btn btn-success btn-lg" data-for="{{$c->userID}}" data-employee="{{$c->firstname}} {{$c->lastname}} ">Submit</a> </td>
+                            <?php $su = collect($surveyUser)->where('surveyFor',$c->userID);
+                                  (count($su) >= 1) ? $surveyUserID = $su->first()->id : $surveyUserID=0; 
+                                  //$surveyUserID = count($su);
+                                  ?>
+                            <textarea name="notes" id="notes_{{$c->userID}}" class="form-control" style="margin:10px">@if(count($hasComment) > 0){!! $hasComment->first()->comments !!}@endif</textarea>
+
+                            @if (count($doneUser) > 0) 
+                            <a aria-disabled="true" class="submit btn disabled btn-lg" data-surveyUserID="{{$surveyUserID}}" data-for="{{$c->userID}}" data-employee="{{$c->firstname}} {{$c->lastname}} ">Submit</a> 
+                            @else
+                            <a class="submit btn btn-success btn-lg" data-surveyUserID="{{$surveyUserID}}" data-for="{{$c->userID}}" data-employee="{{$c->firstname}} {{$c->lastname}} ">Submit</a> 
+                            @endif
+                          </td>
                         </tr>
 
 
@@ -176,26 +236,16 @@
 
  
 
-      // hide submit button if done with survey
-      @if($userSurvey->isDone)
-        $('#submit').hide();
-      @endif
-
-
-
-
-
-
-
-
   $('.submit.btn.btn-success.btn-lg').on('click',function(){
 
     var item = $(this).attr('data-item');
-    var datafor = $(this).attr('data-for');
+    var surveyfor = $(this).attr('data-for');
     var empname = $(this).attr('data-employee');
-    var missedItems = $('#emp_'+datafor+' table .fa.fa-exclamation-circle.text-yellow').length;
-    console.log(missedItems);
-    console.log('for: '+datafor);
+    var survey_userid = $(this).attr('data-surveyUserID');
+    var missedItems = $('#emp_'+surveyfor+' table .fa.fa-exclamation-circle.text-yellow').length;
+    var _token = "{{ csrf_token() }}";
+    //console.log(missedItems);
+    //console.log('for: '+datafor);
 
     var notYetRated = $('.fa.fa-exclamation-circle.text-yellow').length;
 
@@ -205,39 +255,46 @@
     }
     else{
 
-      $('#evaluated-'+datafor).html('<i class="fa fa-check text-success"></i>');
+      $('#evaluated-'+surveyfor).html('<i class="fa fa-check text-success"></i>');
       //$('div#emp_'+datafor).addClass("box box-default collapsed-box");
-      $('div#emp_'+datafor+' button.btn.btn-box-tool').trigger("click");
-      $('div#emp_'+datafor+' h3').removeClass('text-primary').addClass('text-gray');
-      $('div#emp_'+datafor+' a.submit.btn.btn-success.btn-lg').fadeOut();
-      $('div#emp_'+datafor+' select').prop('disabled','disabled');
+      $('div#emp_'+surveyfor+' button.btn.btn-box-tool').trigger("click");
+      $('div#emp_'+surveyfor+' h3').removeClass('text-primary').addClass('text-gray');
+      $('div#emp_'+surveyfor+' a.submit.btn.btn-success.btn-lg').fadeOut();
+      $('div#emp_'+surveyfor+' select').prop('disabled','disabled');
 
-      $.notify("Data for "+empname + " saved successfully! \nThank you for participating in this survey.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-        return false;
+       //get if may existing comment
+      var comment = $('#notes_'+surveyfor).val();
 
-/*
-      // we now save his answer
-      var _token = "{{ csrf_token() }}";
-      var questionid = $(this).attr('data-questionid');
-      var survey_optionsid = $('input[name="answer'+questionid+'"]:checked').val();
-      console.log("questionid: " + questionid);
+
+      // SAVE ITEM
+      $.ajax({
+                url: "{{action('SurveyController@saveItem')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': 1,
+                  'survey_optionsid': 0,
+                  'optiontype': 'submit',
+                  'surveytype':"360",
+                  'survey_id':"{{$id}}",
+                  "survey_userid" : survey_userid,
+                  "surveyfor": surveyfor,
+                  'comment': comment,
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+                  $.notify("Data for "+empname + " saved successfully! \nThank you for participating in this survey.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                  return false;
+
+                  
+                }
+              });
+
+
+
       
 
 
-
-      //check first required values
-      if ( ($('input[name="answer'+questionid+'"]:checked').length > 0) )
-      {
-        
-        //get if may existing comment
-        var comment = $('#notes_q'+questionid).val();
-      
-      } else{
-
-        $.notify("Please choose an option. \nFilling out the form will help us gather needed data to improve our training course.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-        return false;
-
-      }*/
 
 
     }
@@ -250,42 +307,108 @@
 
   });
 
+  // ****** IMPORTANCE *********
   $('select[class="form-control imp pull-left"]').change(function(){   
 
     var selval = $(this).find(':selected').val(); // $(this).val();
     var id = $(this).attr('data-entryID');
-    var datafor = $(this).attr('data-for');
+    var survey_optionsid = $(this).find(':selected').attr('data-optionsid');
+    var surveyfor = $(this).attr('data-for');
+    var survey_userid = $(this).attr('data-surveyUserID');
+    var optiontype = $(this).attr('data-optiontype');
+    var _token = "{{ csrf_token() }}";
+
+
 
     if (selval == 0)
     {
-      $("#rated_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
+      $("#rated_"+id+"_"+surveyfor).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
       console.log('rated '+ id);
       $.notify("Please choose an option. \nFilling out the form will help us gather needed data to improve our training materials",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
       return false;
       
     }else{
-      $("#rated_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
+      $("#rated_"+id+"_"+surveyfor).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
+
+      // SAVE ITEM
+      $.ajax({
+                url: "{{action('SurveyController@saveItem')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': id,
+                  'survey_optionsid': survey_optionsid,
+                  'optiontype': optiontype,
+                  'surveytype':"360",
+                  'survey_id':"{{$id}}",
+                  "survey_userid" : survey_userid,
+                  "surveyfor": surveyfor,
+                  'comment': '',
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+
+                  
+                }
+              });
+
+
 
     }
   });
 
-  $('select[class="form-control comp pull-left"]').change(function(){   
+ // ****** COMPETENCE *********
+  $('select[class="form-control comp pull-left"]').change(function(){ 
+
 
     var selval = $(this).find(':selected').val(); // $(this).val();
     var id = $(this).attr('data-entryID');
-    var datafor = $(this).attr('data-for');
+    var survey_optionsid = $(this).find(':selected').attr('data-optionsid');
+    var optiontype = $(this).attr('data-optiontype');
+    var surveyfor = $(this).attr('data-for');
+    var survey_userid = $(this).attr('data-surveyUserID');
+
+    var _token = "{{ csrf_token() }}";
+
+
 
     if (selval == 0)
     {
-      $("#ratedcomp_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
+      $("#ratedcomp_"+id+"_"+surveyfor).html('&nbsp;&nbsp; <i class="fa fa-exclamation-circle text-yellow"></i>');
       console.log('rated '+ id);
       $.notify("Please choose an option. \nFilling out the form will help us gather needed data to improve our training materials",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
       return false;
       
     }else{
-      $("#ratedcomp_"+id+"_"+datafor).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
+      $("#ratedcomp_"+id+"_"+surveyfor).html('&nbsp;&nbsp; <i class="fa fa-check text-success"></i>');
 
-    }
+      // SAVE ITEM
+      $.ajax({
+                url: "{{action('SurveyController@saveItem')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': id,
+                  'survey_optionsid': survey_optionsid,
+                  'optiontype': optiontype,
+                  'surveytype':"360",
+                  'survey_id':"{{$id}}",
+                  "survey_userid" : survey_userid,
+                  "surveyfor": surveyfor,
+                  'comment': '',
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+
+                  
+                }
+              });
+
+
+
+    }  
+
+    
   });
 
  

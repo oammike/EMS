@@ -33,12 +33,15 @@
 
                 @foreach($surveys as $s)
                 <tr>
-                  <td>{{$s->name}} </td>
-                  <td>{{$s->description}} </td>
-                  <td>{{$s->startDate}} <br/>to<br/> {{$s->endDate}}  </td>
-                  <td><a href="{{action('SurveyController@report',$s->id)}}" class="btn btn-xs btn-primary" style="margin:1px"><i class="fa fa-search"></i> View Reports </a> <br/> 
-                      <a class="btn btn-xs btn-success" style="margin:1px"><i class="fa fa-download"></i> Download </a><br/> 
-                      <a class="btn btn-xs btn-default" style="margin:1px"><i class="fa fa-trash"></i> Delete</a> 
+                  <td width="30%">{{$s->name}} </td>
+                  <td width="40%">{{$s->description}} </td>
+                  <td width="20%">{{$s->startDate}} <br/>to<br/> {{$s->endDate}}  </td>
+                  <td width="10%"><a href="{{action('SurveyController@report',$s->id)}}" class="btn btn-xs btn-primary" style="margin:1px"><i class="fa fa-search"></i> View Reports </a> <br/> 
+
+                    @if($s->id == 5)
+                      <a href="{{action('SurveyController@downloadRaw',$s->id)}}" class="btn btn-xs btn-success" style="margin:1px"><i class="fa fa-download"></i> Download </a><br/> 
+                    @endif
+                      <a class="btn btn-xs btn-default disabled" style="margin:1px"><i class="fa fa-trash"></i> Delete</a> 
                   </td>
                 </tr>
 
@@ -104,18 +107,6 @@
 
     
    'use strict';
-
-  
-   
-
-
-
-
-   
-
-
-      
-    
 
 
    });
