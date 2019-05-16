@@ -271,6 +271,15 @@ class SurveyController extends Controller
 
         case 5:
         {
+
+          $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Downloaded 360 Survey -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+                          
           $alldata = DB::table('survey_responses')->where('survey_responses.survey_id',$id)->
                           join('survey_user','survey_responses.survey_userid','=','survey_user.id')->
                           join('survey_questions','survey_responses.question_id','=','survey_questions.id')->
@@ -374,13 +383,7 @@ class SurveyController extends Controller
 
               })->export('xls');
 
-           $correct = Carbon::now('GMT+8'); //->timezoneName();
-
-                         if($this->user->id !== 564 ) {
-                            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                              fwrite($file, "-------------------\n Downloaded 360 Survey -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-                              fclose($file);
-                          } 
+           
 
               return "Download";
 
