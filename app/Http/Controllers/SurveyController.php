@@ -115,12 +115,13 @@ class SurveyController extends Controller
 
     public function downloadRaw($id)
     {
+      $survey = Survey::find($id);
 
       switch ($id) {
         case 1:
         {
 
-          $survey = Survey::find($id);
+          
 
           $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',1)->
                        
@@ -275,11 +276,105 @@ class SurveyController extends Controller
                           join('survey_questions','survey_responses.question_id','=','survey_questions.id')->
                           join('survey_options','survey_responses.survey_optionsID','=','survey_options.id')->
                           join('options','survey_options.options_id','=','options.id')->
+                          join('survey_notes','survey_notes.survey_userid','=','survey_user.id')->
                           join('users','survey_user.surveyFor','=','users.id')->
                           join('positions','users.position_id','=','positions.id')->
                           join('team','team.user_id','=','users.id')->
                           join('campaign','team.campaign_id','=','campaign.id')->
-                          select('survey_user.surveyFor','survey_user.user_id as surveyBy','survey_questions.value as question','options.value as rating','survey_responses.optiontype','users.firstname','users.lastname','positions.name as jobTitle','campaign.name as program')->get(); return collect($alldata)->groupBy('surveyFor');
+                          select('survey_user.surveyFor','survey_user.user_id as surveyBy','survey_responses.question_id','survey_questions.value as question','options.value as rating','survey_responses.optiontype','survey_notes.comments', 'users.firstname','users.lastname','positions.name as jobTitle','campaign.name as program')->get(); 
+           $allUserID = collect($alldata)->pluck('surveyFor')->unique()->flatten();//groupBy('surveyFor');
+           $allEmployees = collect($alldata)->groupBy('surveyFor');
+
+           
+           $allQuestions = collect($alldata)->sortBy('question_id')->pluck('question_id')->unique()->flatten();
+           //return $allQuestions;
+
+           $allCamp = collect($alldata)->pluck('program')->unique()->flatten();//groupBy('program');
+
+
+           $description = $survey->description;
+           $headers = ['Lastname','Firstname','Job Title', 'Program'];
+           
+            $q = 1;
+            $c = 4;
+            foreach ($allQuestions as $key) {
+              $headers[$c] = "Skills/Behaviour_".$q." IMPORTANCE"; $c++;
+              $headers[$c] = "Skills/Behaviour_".$q." COMPETENCE"; $c++;$q++;
+              
+            }
+            $headers[$c] = "Notes/Comments";
+
+
+
+           Excel::create($survey->name,function($excel) use($id,$allEmployees,$allQuestions,$alldata, $survey, $headers,$description) 
+               {
+                      $excel->setTitle($survey->name.' Raw Data');
+
+                      // Chain the setters
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccess');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+                      $excel->sheet("All Data", function($sheet) use ($id,$allEmployees,$allQuestions,$alldata, $headers)
+                      {
+                        $sheet->appendRow($headers);
+
+                        
+                        $arr = [];
+
+                        foreach($allEmployees as $employee)//collect($allEmployees)->where('programID',16)
+                        {
+                          $i = 0;
+
+                          $arr[$i] = $employee->first()->lastname; $i++;
+                          $arr[$i] = $employee->first()->firstname; $i++;
+                          $arr[$i] = $employee->first()->jobTitle; $i++;
+                          $arr[$i] = $employee->first()->program; $i++;
+
+
+                          $qCounter=1;
+                          foreach ($allQuestions as $q) {
+
+
+                            $itm = collect($alldata)->where('surveyFor',$employee->first()->surveyFor)
+                                                      ->where('question_id',$q)
+                                                      ->where('optiontype',1)->pluck('rating');
+                            (count($itm)>0) ? $arr[$i] = $itm[0] : $arr[$i] = null; 
+                            $i++;
+
+                            $itm2 = collect($alldata)->where('surveyFor',$employee->first()->surveyFor)
+                                                      ->where('question_id',$q)
+                                                      ->where('optiontype',2)->pluck('rating');
+                            (count($itm2)>0) ? $arr[$i] = $itm2[0] : $arr[$i] = null; 
+                            $i++;
+
+
+
+
+
+                            $qCounter++;
+
+                          }//end foreach questions
+
+                          $cmt = collect($alldata)->where('surveyFor',$employee->first()->surveyFor)->pluck('comments');
+                          $arr[$i] = $cmt[0];
+
+
+
+                            $sheet->appendRow($arr);
+
+                        }//end foreach employee
+
+
+                        
+                     });//end sheet1
+
+
+
+              })->export('xls');
+
+              return "Download";
 
         }break;
         
@@ -287,10 +382,7 @@ class SurveyController extends Controller
           # code...
           break;
       }
-      
-      
-      //return collect($allNotes)->groupBy('user_id');
-      //return $groupedResp->take(100);
+
 
     }
 
@@ -1199,9 +1291,7 @@ class SurveyController extends Controller
         $extradata = ['travel time to and from office','hobbies and interest'];
 
         $totalItems = count($questions);
-        // $survey = new Collection;
-        // $survey->push(['answers'=>$options, 'questions'=>$questions]);
-        //return $userSurvey;
+
 
         //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
                     $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
@@ -1288,7 +1378,7 @@ class SurveyController extends Controller
                         $importance = collect($options)->whereIn('id',[18,19,20,21,22,23]);
                         $competence = collect($options)->whereIn('id',[24,25,26,27,28,29]);
 
-                        $questions = collect($qs)->groupBy('label')->take(1);
+                        $questions = collect($qs)->groupBy('label');
 
                         // get all pre existing survey-user submission
                         $surveyUser = DB::table('survey_user')->where('user_id',$this->user->id)->where('survey_id',$id)->
