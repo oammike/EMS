@@ -667,7 +667,7 @@ class HomeController extends Controller
                 }else { $notedTour=false; $siteTour=null; } 
                 
 
-                //return $pass = bcrypt('rmariano'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+                //return $pass = bcrypt('mramido'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
                 // ------------------------------------------------------------------------------ if user has no subordinates -----------
                

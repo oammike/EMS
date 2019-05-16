@@ -53,4 +53,14 @@ class ImmediateHeadCampaignController extends Controller
        return back();
 
     }
+
+    public function editTier($id, Request $request)
+    {
+        $ih = ImmediateHead_Campaign::find($id);
+        $ih->tier = $request->tier;
+        $ih->push();
+        
+       return back();
+
+    }
 }

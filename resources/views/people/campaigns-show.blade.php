@@ -278,7 +278,18 @@ div.scroll i {
                     <div class="box-tools pull-right">    
                       
                       @if($canEdit)
+                      <a href="" title="Edit tier" data-toggle="modal" data-target="#myModal_edit{{$leader->tlID}}" @if (!is_null($leader->tier)) class="text-warning" @endif><i class="fa fa-pencil"></i></a>
+
                       <a href="" title="Remove leader from program/campaign" data-toggle="modal" data-target="#myModal_leader{{$leader->tlID}}"><i class="fa fa-trash"></i></a>
+
+                      @include('layouts.modals-leaderTier', [
+                        'modelRoute'=>'immediateHeadCampaign.editTier',
+                        'modelID' => $leader->tlID, 
+                        'modelName'=>" ". $leader->TLfname . " from ". $campaign->name, 
+                        'modalTitle'=>'Edit leader: ', 
+                        'modalMessage'=>'Set leader tier-level to:', 
+                        'formID'=>'tierIH',
+                        'icon'=>'fa fa-save' ])
 
                       @include('layouts.modals-leader', [
                         'modelRoute'=>'immediateHeadCampaign.disable',
