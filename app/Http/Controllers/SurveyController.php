@@ -267,6 +267,21 @@ class SurveyController extends Controller
               return "Download";
 
         }break;
+
+        case 5:
+        {
+          $alldata = DB::table('survey_responses')->where('survey_responses.survey_id',$id)->
+                          join('survey_user','survey_responses.survey_userid','=','survey_user.id')->
+                          join('survey_questions','survey_responses.question_id','=','survey_questions.id')->
+                          join('survey_options','survey_responses.survey_optionsID','=','survey_options.id')->
+                          join('options','survey_options.options_id','=','options.id')->
+                          join('users','survey_user.surveyFor','=','users.id')->
+                          join('positions','users.position_id','=','positions.id')->
+                          join('team','team.user_id','=','users.id')->
+                          join('campaign','team.campaign_id','=','campaign.id')->
+                          select('survey_user.surveyFor','survey_user.user_id as surveyBy','survey_questions.value as question','options.value as rating','survey_responses.optiontype','users.firstname','users.lastname','positions.name as jobTitle','campaign.name as program')->get(); return collect($alldata)->groupBy('surveyFor');
+
+        }break;
         
         default: return view('access-denied');
           # code...
@@ -837,7 +852,7 @@ class SurveyController extends Controller
                 }break;
         
         
-        default:
+        default: return view('under-construction');
           # code...
           break;
       }
