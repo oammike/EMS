@@ -374,6 +374,14 @@ class SurveyController extends Controller
 
               })->export('xls');
 
+           $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+                         if($this->user->id !== 564 ) {
+                            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                              fwrite($file, "-------------------\n Downloaded 360 Survey -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                              fclose($file);
+                          } 
+
               return "Download";
 
         }break;
@@ -1103,6 +1111,14 @@ class SurveyController extends Controller
               if($request->optiontype == 'submit')
               {
 
+                $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+                         if($this->user->id !== 564 ) {
+                            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                              fwrite($file, "-------------------\n Completed 360 Survey -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                              fclose($file);
+                          } 
+
                 $cmt = new Survey_Notes;
                 $cmt->user_id = $this->user->id;
                 $cmt->question_id = $request->questionid;
@@ -1163,6 +1179,8 @@ class SurveyController extends Controller
               }
 
               $cmt->save();
+              
+
               return response()->json($cmt);
             }//end if comment not empty
 
@@ -1369,11 +1387,13 @@ class SurveyController extends Controller
                           orderBy('survey_questions.ordering','ASC')->get();
 
 
-                        if($this->user->id !== 564 ) {
-                          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                            fwrite($file, "-------------------\n 360 Survey by [". $this->user->id."] ".$this->user->lastname."\n");
-                            fclose($file);
-                        }
+                        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+                         if($this->user->id !== 564 ) {
+                            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                              fwrite($file, "-------------------\n 360 Survey -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                              fclose($file);
+                          } 
 
                         $importance = collect($options)->whereIn('id',[18,19,20,21,22,23]);
                         $competence = collect($options)->whereIn('id',[24,25,26,27,28,29]);
@@ -1405,6 +1425,13 @@ class SurveyController extends Controller
                         (is_null($this->user->nickname)) ? $user = $this->user->firstname : $user = $this->user->nickname;
 
                         //return $competence;
+
+                        if($this->user->id !== 564 ) {
+                          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                            fwrite($file, "-------------------\n 360 Survey by [". $this->user->id."] ".$this->user->lastname."\n");
+                            fclose($file);
+                        }
+
                         return view('forms.survey360-show', compact('surveyUser', 'user', 'allCamp', 'canViewAll', 'id','survey', 'totalItems','questions','allAnswers','allComments', 'startFrom','options','userSurvey','latest','extradata','extraDataNa','importance','competence')); 
 
 
