@@ -97,18 +97,32 @@
   <?php */ ?>
 
                     <div class="item active text-center" >
+                              <h4 class="text-primary">BTS: <span class="text-orange">We Speak Your Language</span></h4>
+                              <img src="./storage/uploads/wespeak.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-center" style="padding-left: 30px;"><br/><br/>More behind the scene pics in our <a href="{{ action('HomeController@gallery',['a'=>10]) }}">Gallery</a></strong><br/><br/>
+
+                                </p>
+
+
+                      </div>
+                      
+                    <div class="item text-center" >
                               
                               <h4 class="text-primary">Happy <span class="text-orange">Pride Month!</span></h4>
                               <img src="./storage/uploads/pride.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
                                 <strong>June is Pride month!</strong> Last year, Open Access BPO donated to the Metro Manila Pride organization and released a <a href="http://172.17.0.2/coffeebreak/wp-content/uploads/2019/05/pridemonth.mp4" target="_blank">Pride Month video</a> featuring some of our LGBTQI+ co-workers.<br/><br/>
                                 As a company that <strong>believes in inclusivity</strong>, we wish to continue our advocacy for the community. We are looking into the possibility of gathering those of you who’d love to be part at this year’s Pride March!<br/><br/>
-                                If you are part of the LGBTQI+ community, and would like to join the Pride March with Open Access BPO, click on the sign up button below.This year's Pride march will be held on<br/> <strong class="text-danger">June 29, 2019 at the Marikina Sports Center.</strong><br/><br/>
+                                If you are part of the LGBTQI+ community, and would like to join the Pride March with Open Access BPO, click on the sign up button below.This year's Pride march will be held on<br/> <strong class="text-danger">June 29, 2019 at the Marikina Sports Center.</strong><br/><br/>Transportation will be provided. If this will also be in conflict with your work schedule, we will try our best to adjust it accordingly<br/><br/>
                                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSf7XraczpwOkB-EdzJhavLbRZynAwiDTD-JwyWbTj1iyLtQNg/viewform" class="btn btn-danger btn-md text-center" target="_blank">Sign Up Here</a><br/><br/>
                                 Deadline to sign up is until <strong>Monday, May 20, 2019.</strong>Thank you for spreading the love! We are one with the LGBTQI+ community as we "Resist Together".<br/>
 
                               <br/>
                     </div>
+
+                    
 
                     <div class="item  text-center" >
                               

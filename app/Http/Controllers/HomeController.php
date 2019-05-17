@@ -74,6 +74,12 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            
+            case '10':{
+               fwrite($file, "-------------------\n Viewed BTS [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '9':{
                fwrite($file, "-------------------\n Viewed 5Mayo [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -265,6 +271,22 @@ class HomeController extends Controller
                   }
 
         } break;
+
+
+        case '10': {
+ 
+                    //BTS
+      
+                  for($i=1; $i<=44; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-bts-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/bts-".$i.".jpg",
+                                'description'=>"BTS: We Speak Your Language [Fri May 17 2019]",
+                                'category'=>"BTS: We Speak Your Language [Fri May 17 2019]"]);
+
+                  }
+
+        } break;
+
 
         // case '7': {
  
