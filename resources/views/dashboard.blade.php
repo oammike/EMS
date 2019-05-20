@@ -228,8 +228,8 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Open Access Happy Hour <br/><span class="text-orange">April 20,2019 (Sat)</span><br/><span style="font-size: x-small;">@ Pura Vida Bar in Poblacion, Makati City</span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/OA-happyhour.webm" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-primary">Open Access Cinco De Mayo <br/><span class="text-orange">May 04,2019 (Sat)</span><br/><span style="font-size: x-small;">Poblacion, Makati City</span>  </strong></p>
+                      <video id="teaser" src="storage/uploads/cinco.webm" width="100%" loop controls></video>
                     </div>
                 </div>
 

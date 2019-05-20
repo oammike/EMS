@@ -90,18 +90,7 @@ select:-webkit-autofill:focus {
               </div>
 
 
-             
-             <!-- ************* PERFORMANCE CHART ************ -->
-             @include('layouts.charts')
-            </div>
-             
-            
-
-              
-
-              <div class="col-lg-5 col-sm-6 col-xs-12">
-
-                <!--VIDEOS -->
+              <!--VIDEOS -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos</h3>
@@ -113,10 +102,24 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Open Access Happy Hour <br/><span class="text-orange">April 20,2019 (Sat)</span><br/><span style="font-size: x-small;">@ Pura Vida Bar in Poblacion, Makati City</span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/OA-happyhour.webm" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-primary">Open Access Cinco De Mayo <br/><span class="text-orange">May 04,2019 (Sat)</span><br/><span style="font-size: x-small;">Poblacion, Makati City</span>  </strong></p>
+                      <video id="teaser" src="storage/uploads/cinco.webm" width="100%" loop controls></video>
                     </div>
                 </div>
+
+
+             
+             <!-- ************* PERFORMANCE CHART ************ -->
+             @include('layouts.charts')
+            </div>
+             
+            
+
+              
+
+              <div class="col-lg-5 col-sm-6 col-xs-12">
+
+               
 
                 <?php /*
                 @if ($doneSurvey == 0)
