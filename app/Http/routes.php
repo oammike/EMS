@@ -480,6 +480,14 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'monthlySchedule.plot',
       'uses'=>'MonthlyScheduleController@plot') );
 
+    Route::post('/downloadDTRsheet', array(
+      'as'=> 'user_dtr.downloadDTRsheet',
+      'uses'=>'DTRController@downloadDTRsheet') );
+
+    Route::get('/sheets', array(
+      'as'=> 'user_dtr.dtrSheets',
+      'uses'=>'DTRController@dtrSheets') );
+
 
     
      /*********** BIOMETRICS ROUTES ************/
