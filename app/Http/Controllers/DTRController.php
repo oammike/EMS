@@ -71,6 +71,19 @@ class DTRController extends Controller
         $this->user =  User::find(Auth::user()->id);
     }
 
+    public function dtrSheets()
+    {
+
+      return response()->json($this->user);
+
+    }
+
+    public function downloadDTRsheet(Request $request)
+    {
+      return view ('under-construction');
+
+    }
+
     public function manage(Request $request)
     {
       if (count($request->issue) >= 1) {
@@ -288,6 +301,7 @@ class DTRController extends Controller
 
     public function show($id, Request $request )
     {
+      //return $pass = bcrypt('rcruz'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
         DB::connection()->disableQueryLog();
         $user = User::find($id);
 

@@ -391,6 +391,8 @@
            
 
             <hr /><!--  --> 
+            <li style="padding-left:20px" @if ( Request::is('user_dtr*') ) class="active" @endif ><a href="{{action('DTRController@dtrSheets')}}"><i class="fa fa-download"></i> DTR Sheets</a></li>
+
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') ){ ?> 
             <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload"><i class="fa fa-upload"></i>Upload Biometrics</a></li>
 
