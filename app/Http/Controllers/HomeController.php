@@ -784,7 +784,7 @@ class HomeController extends Controller
                     if($this->user->id !== 564 ) {
                       $user = User::find(Input::get('id'));
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Played HappyHr Video by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fwrite($file, "-------------------\n Played CincoDeMayo Video by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                     } 
 
