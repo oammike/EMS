@@ -277,7 +277,7 @@ class HomeController extends Controller
  
                     //BTS
       
-                  for($i=1; $i<=44; $i++){
+                  for($i=1; $i<=82; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-bts-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/bts-".$i.".jpg",
                                 'description'=>"BTS: We Speak Your Language [Fri May 17 2019]",
