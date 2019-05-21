@@ -97,6 +97,13 @@
   <?php */ ?>
 
                     <div class="item active text-center" >
+                              <img src="./storage/uploads/dreams2.jpg" style="z-index: 2" />
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
+
+                      </div>
+
+                    <div class="item text-center" >
                               <h4 class="text-primary">BTS: <span class="text-orange">We Speak Your Language</span></h4>
                               <img src="./storage/uploads/wespeak.jpg" style="z-index: 2" />
 
