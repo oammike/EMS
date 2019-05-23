@@ -236,8 +236,8 @@ class DTRController extends Controller
                               $arr[$i] = $payday->format('M d l'); $i++;
                               $arr[$i] = strip_tags($dData->first()->workshift); $i++; // ** get the sched here
                               $arr[$i] = "CWS here"; $i++;
-                              $arr[$i] = $dData->first()->timeIN; $i++;
-                              $arr[$i] = $dData->first()->timeOUT; $i++;
+                              $arr[$i] = strip_tags($dData->first()->timeIN); $i++;
+                              $arr[$i] = strip_tags($dData->first()->timeOUT); $i++;
 
 
                             }else{
