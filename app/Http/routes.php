@@ -493,6 +493,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'DTRController@getValidatedDTRs') );
 
 
+    Route::post('/zendesk', array(
+      'as'=> 'user_dtr.zendesk',
+      'uses'=>'DTRController@zendesk') );
+
+
     
      /*********** BIOMETRICS ROUTES ************/
 

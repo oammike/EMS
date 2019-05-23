@@ -70,6 +70,8 @@
                
 
               </form>
+
+              <a class="btn btn-success btn-lg" id="zendesk">Zendesk</a>
             </div>
            <div class="col-lg-1"></div>
 
@@ -117,6 +119,26 @@
 
 
   $('.notes').fadeOut();
+
+  $('#zendesk').on('click',function(){
+    var _token = "{{ csrf_token() }}";
+
+    $.ajax({
+                    url: "{{action('DTRController@zendesk')}}",
+                    type:'POST',
+                    data:{ 
+                      'url': "https://circlesasiasupport.zendesk.com/api/v2/groups.json",
+                      'method': "GET",
+                      '_token':_token
+                    },
+                    success: function(response){
+                      console.log(response);
+                      
+                      
+                    }
+                  });
+
+  });
 
   $('.submit.btn.btn-success.btn-lg').on('click',function(){
 
