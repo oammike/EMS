@@ -71,6 +71,267 @@ class DTRController extends Controller
         $this->user =  User::find(Auth::user()->id);
     }
 
+    public function dtrSheets()
+    {
+      //Timekeeping trait getCutoffStartEnd()
+      $cutoffData = $this->getCutoffStartEnd();
+      $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
+      $cutoffEnd = $cutoffData['cutoffEnd'];
+
+       //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+      $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
+
+      DB::connection()->disableQueryLog();
+      $allUsers = DB::table('users')->where([
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                ])->
+        leftJoin('team','team.user_id','=','users.id')->
+        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+        leftJoin('positions','users.position_id','=','positions.id')->
+        leftJoin('floor','team.floor_id','=','floor.id')->
+        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+
+        $allProgram = DB::table('campaign')->select('id','name')->orderBy('name')->get();//
+        $byTL = collect($allUsers)->groupBy('tlID');
+        $allTL = $byTL->keys();
+        //return collect($allUsers)->where('campID',7);
+        
+      
+
+      return view('timekeeping.dtrSheet-index',compact('payrollPeriod','paycutoffs','allProgram'));
+
+    }
+
+    public function downloadDTRsheet(Request $request)
+    {
+      $dtr = $request->dtr;
+      $cutoff = explode('_', $request->cutoff);
+      $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
+      $cutoffEnd = Carbon::parse($request->cutoffend,'Asia/Manila');
+
+      $program = Campaign::find($request->program);
+
+      DB::connection()->disableQueryLog();
+      $allDTRs = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      join('user_dtr', function ($join) use ($cutoff) {
+                          $join->on('users.id', '=', 'user_dtr.user_id')
+                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
+                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+                      })->
+
+                      //join('user_dtr','user_dtr.user_id','=','users.id')->
+                      select('users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.timeIN','user_dtr.timeOUT', 'user_dtr.user_id')->
+                      where([
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                      ])->orderBy('users.lastname')->get();
+      $allDTR = collect($allDTRs)->groupBy('id');
+      $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      
+                      select('users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      where([
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                      ])->orderBy('users.lastname')->get();
+
+      //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
+      
+      $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','Change Work Schedule', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','Reason','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason'];
+      $description = "DTR sheet for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
+
+      Excel::create($program->name,function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+               {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
+
+                      // Chain the setters
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccess');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+                      $payday = $cutoffStart;
+
+                      do
+                      {
+
+                        $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                        {
+
+                          $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','','','',''];
+                          $header2 = [$cutoffStart->format('l, M d Y'),'Program/Department: '.$program->name,'','','','','','','','','','','','','',''];
+
+                          
+                          // Set width for a single column
+                          //$sheet->setWidth('A', 35);
+
+                          $sheet->appendRow($header1);
+                          $sheet->appendRow($header2);
+                          $sheet->cells('A1:Z2', function($cells) {
+
+                              // call cell manipulation methods
+                              $cells->setBackground('##1a8fcb');
+                              $cells->setFontColor('#ffffff');
+                              $cells->setFontSize(18);
+                              $cells->setFontWeight('bold');
+
+                          });
+                          $sheet->row(2, function($cells) {
+
+                              // call cell manipulation methods
+                              
+                              $cells->setFontColor('#dedede');
+                              $cells->setFontSize(15);
+                              $cells->setFontWeight('bold');
+
+                          });
+
+                         
+                          
+                          $sheet->appendRow($headers);
+
+                          $sheet->row(3, function($row) {
+                              // Set font size
+                              $row->setFontSize(15);
+                              $row->setFontWeight('bold');
+
+                            });
+                          // Set height for a single row
+                          $sheet->setHeight(3, 50);
+
+                          // Freeze the first column
+                          $sheet->freezeFirstColumn();
+
+                          
+
+                          $arr = [];
+
+                          foreach($allDTR as $employeeDTR)
+                          {
+                            $i = 0;
+                            $dData = collect($employeeDTR)->where('productionDate',$payday->format('Y-m-d'));
+
+                            if (count($dData) > 0)
+                            {
+                              $arr[$i] = $dData->first()->lastname.", ".$dData->first()->firstname." ".$dData->first()->middlename; $i++;
+                              $arr[$i] = $dData->first()->leaderFname." ".$dData->first()->leaderLname; $i++;
+                              $arr[$i] = $payday->format('M d l'); $i++;
+                              $arr[$i] = strip_tags($dData->first()->workshift); $i++; // ** get the sched here
+                              $arr[$i] = "CWS here"; $i++;
+                              $arr[$i] = $dData->first()->timeIN; $i++;
+                              $arr[$i] = $dData->first()->timeOUT; $i++;
+
+
+                            }else{
+                              $arr[$i] = " "; $i++;
+                              $arr[$i] = " "; $i++;
+                              $arr[$i] = " "; $i++;
+                              $arr[$i] = $payday->format('M d l'); $i++;
+                              $arr[$i] = "work sched"; $i++; // ** get the sched here
+                              $arr[$i] = "CWS here"; $i++;
+                              $arr[$i] = " "; $i++;
+                              $arr[$i] = " "; $i++;
+
+                            }
+
+                            
+
+                            $sheet->appendRow($arr);
+                            
+
+                            
+
+                          }//end foreach employee
+
+
+                          
+                        });//end sheet1
+
+                        $payday->addDay();
+
+                      } while ( $payday->format('Y-m-d') !== $cutoffEnd->format('Y-m-d') );      
+
+
+
+              })->export('xls');
+
+              return "Download";
+
+      // return response()->json(['ok'=>true, 'dtr'=>$allDTR]);
+      // return view ('under-construction');
+
+    }
+
+    public function getValidatedDTRs(Request $request)
+    {
+      $cutoff = explode('_', $request->cutoff);
+
+      $program = Campaign::find($request->program);
+
+      DB::connection()->disableQueryLog();
+      $allDTRs = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      join('user_dtr', function ($join) use ($cutoff) {
+                          $join->on('users.id', '=', 'user_dtr.user_id')
+                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
+                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+                      })->
+
+                      //join('user_dtr','user_dtr.user_id','=','users.id')->
+                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.timeIN', 'user_dtr.user_id')->
+                      where([
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                      ])->orderBy('users.lastname')->get();
+      $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      
+                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      where([
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                      ])->orderBy('users.lastname')->get();
+                      //return $allDTRs;
+
+      $userArray = collect($allUsers)->pluck('id')->toArray();
+      $dtrArray = collect($allDTRs)->pluck('id')->unique()->toArray();
+      $pendings = array_diff($userArray, $dtrArray);
+      //return $dtrArray;
+
+      return response()->json(['pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+
+    }
+
     public function manage(Request $request)
     {
       if (count($request->issue) >= 1) {
@@ -288,6 +549,7 @@ class DTRController extends Controller
 
     public function show($id, Request $request )
     {
+      //return $pass = bcrypt('rcruz'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
         DB::connection()->disableQueryLog();
         $user = User::find($id);
 
@@ -431,34 +693,15 @@ class DTRController extends Controller
         {     
           if(empty($request->from) && empty($request->to) )
           {
+            $currentPeriod = array();
 
-            $currPeriod =  Cutoff::first()->getCurrentPeriod();
-
-            $currentPeriod = explode('_', $currPeriod);
-            
-
-            $cutoffStart = new Carbon($currentPeriod[0],'Asia/Manila'); //(Cutoff::first()->startingPeriod());
-            $cutoffEnd = new Carbon($currentPeriod[1],'Asia/Manila'); //(Cutoff::first()->endingPeriod());
-            //$cutoffID = Paycutoff::where('fromDate',$currentPeriod[0])->first()->id;
-
-            $cID = Paycutoff::where('fromDate',$currentPeriod[0])->get();
-            if ($cID->isEmpty())
-            {
-              //return $cID;
-              $newPC = new Paycutoff;
-              $newPC->fromDate = $cutoffStart;
-              $newPC->toDate = $cutoffEnd;
-              $newPC->save();
-
-              $cutoffID = $newPC->id;
-
-              
-
-            } else
-            {
-              $cutoffID = $cID->first()->id;
-
-            }
+            //Timekeeping trait getCutoffStartEnd()
+            $cData = $this->getCutoffStartEnd();
+            $cutoffStart = $cData['cutoffStart'];//->cutoffStart;
+            $cutoffEnd = $cData['cutoffEnd'];
+            $cutoffID = $cData['cutoffID'];
+            $currentPeriod[0]= $cData['currentPeriod'][0];
+            $currentPeriod[1]= $cData['currentPeriod'][1];
 
                 
           }else 
