@@ -488,6 +488,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.dtrSheets',
       'uses'=>'DTRController@dtrSheets') );
 
+    Route::post('/sheets/getValidated', array(
+      'as'=> 'user_dtr.getValidatedDTRs',
+      'uses'=>'DTRController@getValidatedDTRs') );
+
 
     
      /*********** BIOMETRICS ROUTES ************/

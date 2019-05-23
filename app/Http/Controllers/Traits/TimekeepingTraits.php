@@ -52,6 +52,7 @@ use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
+use OAMPI_Eval\Paycutoff;
 
 trait TimekeepingTraits
 {
@@ -811,6 +812,41 @@ trait TimekeepingTraits
         return $data;
 
 
+  }
+
+
+
+  public function getCutoffStartEnd()
+  {
+    $currPeriod =  Cutoff::first()->getCurrentPeriod();
+
+    $currentPeriod = explode('_', $currPeriod);
+    
+
+    $cutoffStart = new Carbon($currentPeriod[0],'Asia/Manila'); //(Cutoff::first()->startingPeriod());
+    $cutoffEnd = new Carbon($currentPeriod[1],'Asia/Manila'); //(Cutoff::first()->endingPeriod());
+    //$cutoffID = Paycutoff::where('fromDate',$currentPeriod[0])->first()->id;
+
+    $cID = Paycutoff::where('fromDate',$currentPeriod[0])->get();
+    if ($cID->isEmpty())
+    {
+      //return $cID;
+      $newPC = new Paycutoff;
+      $newPC->fromDate = $cutoffStart;
+      $newPC->toDate = $cutoffEnd;
+      $newPC->save();
+
+      $cutoffID = $newPC->id;
+
+      
+
+    } else
+    {
+      $cutoffID = $cID->first()->id;
+
+    }
+
+    return collect(['currentPeriod'=>$currentPeriod, 'cutoffStart'=>$cutoffStart,'cutoffEnd'=>$cutoffEnd,'cutoffID'=>$cutoffID]);
   }
 
   public function getFixedSchedules($startingPoint,$RDsched,$workSched,$coll,$counter) //USED FORR DTR
