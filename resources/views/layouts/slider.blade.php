@@ -129,26 +129,7 @@
                               <br/>
                     </div>
 
-                    
-
-                    <div class="item  text-center" >
-                              
-                              <img src="./storage/uploads/mothersday.jpg" style="z-index: 2" />
-                              <br/><h4 class="text-primary">Happy <span class="text-orange">Mother's Day</span></h4>
-                    </div>
-
                     <div class="item text-center" >
-                              <h4 class="text-primary">Happy <span class="text-orange">Cinco de Mayo!</span></h4>
-                              <img src="./storage/uploads/cinco-3.jpg" style="z-index: 2" />
-
-                              
-                              <p class="text-center" style="padding-left: 30px;"><br/><br/>More party pics in our <a href="{{ action('HomeController@gallery',['a'=>9]) }}">Cinco de Mayo Gallery</a></strong><br/><br/>
-
-                                </p>
-
-
-                      </div>
-                       <div class="item text-center" >
                         <h4 class="text-primary">Dance your way <br/><span class="text-orange">to Boracay!</span></h4>
 
                               <img src="./storage/uploads/letsgetphysical-118.jpg" style="z-index: 2" />
@@ -177,14 +158,14 @@
                         <!--physical schel-->
                     <div class="item text-center" >
                         
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Zumba Free Class</span> New Schedule</h3>(morning and evening session)
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Zumba Free Class</span> New Schedule</h3>
                          <br/><br/>
 
-                          <strong style="font-size:larger"><span class="text-primary"> MORNING:</span> 
-                            <br/><span class="text-danger">May 21, 2019 (Tue) – 9:00 AM</span><br/></strong><br/>
+                          <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                            <br/><span class="text-danger">May 28, 2019 (Tue) – 7:30 PM</span><br/></strong><br/>
 
-                          <strong style="font-size:larger"><span class="text-primary"> EVENING:</span> 
-                            <BR/><span class="text-danger">May 23, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                            <BR/><span class="text-danger">May 30, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
 
                             <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">
                               Sign Up Now</a><br/><br/>
@@ -209,6 +190,27 @@
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                     </div>
+
+                    
+
+                    <div class="item  text-center" >
+                              
+                              <img src="./storage/uploads/mothersday.jpg" style="z-index: 2" />
+                              <br/><h4 class="text-primary">Happy <span class="text-orange">Mother's Day</span></h4>
+                    </div>
+
+                    <div class="item text-center" >
+                              <h4 class="text-primary">Happy <span class="text-orange">Cinco de Mayo!</span></h4>
+                              <img src="./storage/uploads/cinco-3.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-center" style="padding-left: 30px;"><br/><br/>More party pics in our <a href="{{ action('HomeController@gallery',['a'=>9]) }}">Cinco de Mayo Gallery</a></strong><br/><br/>
+
+                                </p>
+
+
+                      </div>
+                       
 
                       @if (count($newHires) >= 1)
                     <!-- **** NEW HIRES ******************** -->
