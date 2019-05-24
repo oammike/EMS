@@ -75,6 +75,10 @@ class HomeController extends Controller
           switch ($album) {
 
             
+            case '11':{
+               fwrite($file, "-------------------\n Viewed HealthWellness [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
             case '10':{
                fwrite($file, "-------------------\n Viewed BTS [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -280,8 +284,22 @@ class HomeController extends Controller
                   for($i=1; $i<=82; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-bts-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/bts-".$i.".jpg",
-                                'description'=>"BTS: We Speak Your Language [Fri May 17 2019]",
+                                'description'=>"BTS: We Speak Your Language [Fri May 17 2019] Photos by: Wendy Pilar",
                                 'category'=>"BTS: We Speak Your Language [Fri May 17 2019]"]);
+
+                  }
+
+        } break;
+
+        case '11': {
+ 
+                    //Health and Wellness
+      
+                  for($i=1; $i<=32; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-health-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/health-".$i.".jpg",
+                                'description'=>"Health &amp; Wellness Program [Fri May 24 2019] Photos by: Wendy Pilar",
+                                'category'=>"Health &amp; Wellness Program [Fri May 24 2019] Photos by: Wendy Pillar"]);
 
                   }
 
@@ -784,7 +802,7 @@ class HomeController extends Controller
                     if($this->user->id !== 564 ) {
                       $user = User::find(Input::get('id'));
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Played CincoDeMayo Video by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fwrite($file, "-------------------\n Played WeSpeak Video by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                     } 
 

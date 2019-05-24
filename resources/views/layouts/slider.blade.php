@@ -96,7 +96,19 @@
 
   <?php */ ?>
 
+ 
+
                     <div class="item active text-center" >
+                              <img src="./storage/uploads/health-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Every month is a new Health and Wellness Program experience! Happy to see our employees enjoying their time in each of our partners' booths earlier.<br/><br/>We're also thankful to our partners: Leny's wellness massage services., Slimmers World International, Paterno EyeCare Center, Yakult Phils Inc., and BDO Unibank for supporting us in our aim for a healthier and happier workforce.<br/><br/> <a href="{{ action('HomeController@gallery',['a'=>11]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a><br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                      </div>
+
+                    <div class="item text-center" >
                               <img src="./storage/uploads/dreams2.jpg" style="z-index: 2" />
                                <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                     <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
