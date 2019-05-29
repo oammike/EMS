@@ -99,6 +99,118 @@
  
 
                     <div class="item active text-center" >
+                      <h4 class="text-primary">Flu Vaccines</h4>
+                              <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>We are glad that many are interested in getting their flu shots. In line with the program, we are now open for registration for those who would like to <strong class="text-orange">avail the flu vaccines via Salary Deduction.</strong> This is open as well to dependents. <br/><br/>
+                                To register, kindly drop by the clinic (8th floor Jaka BLDG & 11th floor ADP G2 BLDG) <strong>not later than June 7, 2019 (Friday) </strong>during your break hours, terms will be discussed and there are forms that need to be filled out and signed.</p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                      </div>
+
+
+                      <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/262">
+                                  <img src="./public/img/employees/262.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Jomar Domingo <br/><small>(domingo@openaccessbpo.com / jdomingo@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Admin (Facilities,Finance,HR,Recruitment)</li>
+                                    <li>Operation (Jomar's team and Ms. Joy's team)</li>
+                                    <li>EDTrainingCenter</li>
+                                    <li>IT</li>
+                                    <li>Lebua</li>
+                                    <li>Marketing</li>
+                                    <li>QA & Performance (Reports team)</li>
+                                    <li>SKUVantage</li>
+                                    <li>Training Department</li>
+                                    <li>TurnTo Networks</li>
+                                    <li>Leave credits by campaigns</li>
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
+
+                      <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/716">
+                                  <img src="./public/img/employees/716.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Lealyn Tiraña  <br/><small>(ltirana@openaccessbpo.com / ltirana@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Circles.Life</li>
+                                    <li>Datascan</li>
+                                    <li>Digicast</li>
+                                    <li>NDY</li>
+                                    <li>SheerID</li>
+                                    <li>Workforce</li>
+                                    <li>WorldVentures</li>
+                                    <li>Zenefits <br/><br/></li>
+                                    <li><strong class="text-danger">SSS</strong></li>
+                                    <li><strong class="text-danger">Pag-ibig</strong></li>
+                                    <li><strong class="text-danger">PhilHealth</strong></li>
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
+
+                      <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/1540">
+                                  <img src="./public/img/employees/1540.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Ronalyn Ambrocio <br/><small>(roambrocio@openaccessbpo.com / roambrocio@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Adoreme</li>
+                                    <li>Advance Wellness</li>
+                                    <li>Avawomen</li>
+                                    <li>Bird</li>
+                                    <li>Mayo Clinic</li>
+                                    <li>Mous</li>
+                                    <li>Postmates</li>
+                                    <li>Quora</li>
+                                    <li>UiPath</li>
+                                    
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
+
+                      <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/3044">
+                                  <img src="./public/img/employees/3044.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Marjorie Arias<br/><small>(marias@openaccessbpo.com / marias@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Glassdoor</li>
+                                    <li>IMO</li>
+                                    <li>Patch</li>
+                                    <li>TaskRabbit</li>
+                                    <li>HR (Davao)</li>
+                                    <li>IT (Davao)</li>
+                                    <li>Facilities (Davao)</li>
+                                    
+                                    
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
+
+
+
+                    <div class="item text-center" >
                               <img src="./storage/uploads/health-1.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>Every month is a new Health and Wellness Program experience! Happy to see our employees enjoying their time in each of our partners' booths earlier.<br/><br/>We're also thankful to our partners: Leny's wellness massage services., Slimmers World International, Paterno EyeCare Center, Yakult Phils Inc., and BDO Unibank for supporting us in our aim for a healthier and happier workforce.<br/><br/> <a href="{{ action('HomeController@gallery',['a'=>11]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a><br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
 
@@ -592,50 +704,6 @@
 
 
 
-                      
-
-                      <div class="item text-center" >
-                        
-                         <img src="./storage/uploads/teams2.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                         
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
-
-                           <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
-                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
-                          </p>
-
-                          
-                      </div>
-
-                     
-                      
-
-
-
-                      <div class="item  text-center" >
-                        
-                         <img src="./storage/uploads/teams3.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                         
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
-
-                           <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
-                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
-                          </p>
-
-                          
-                      </div>
-
-                     
-
-
-                
-
-                  
-                     
 
                       <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
                         <img src="./storage/uploads/grubs2_1.jpg" style="z-index: 2" />
@@ -725,6 +793,43 @@
                           
 
                             <?php /* 
+
+
+
+                      <div class="item text-center" >
+                        
+                         <img src="./storage/uploads/teams2.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                         
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
+
+                           <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
+                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
+                          </p>
+
+                          
+                      </div>
+
+                     
+                      
+
+
+
+                      <div class="item  text-center" >
+                        
+                         <img src="./storage/uploads/teams3.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                         
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
+
+                           <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
+                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
+                          </p>
+
+                          
+                      </div>
 
                             <div class="item active text-center" >
 
