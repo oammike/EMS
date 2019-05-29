@@ -976,8 +976,12 @@ class DTRController extends Controller
 
 
              // *************************** VERIFIED DTR SHEET
+             $verifiedDTR = DB::table('user_dtr')->where('user_id',$user->id)->where('productionDate','>=',$currentPeriod[0])->get();
+             //where('productionDate','>=',$cutoffStart->format('Y-m-d'))->get();
+             return $currentPeriod[0];
+              return $verifiedDTR;
              
-             $alreadyVerified = User_DTR::where('user_id',$user->id)->where('productionDate',$payrollPeriod[0])->get();
+             /* $alreadyVerified = User_DTR::where('user_id',$user->id)->where('productionDate',$payrollPeriod[0])->get();
              if (count($alreadyVerified)>0)
              {
 
@@ -994,7 +998,7 @@ class DTRController extends Controller
                 return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom'));
 
              }
-             // *************************** VERIFIED DTR SHEET
+             // *************************** VERIFIED DTR SHEET*/
 
 
              // ---------------------------

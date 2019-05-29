@@ -226,7 +226,7 @@
                                                         
                                                             @if(count($user->approvers) > 0)
                                                              <strong>
-                                                                <a style="font-size: larger;" title="Lock DTR " class="lockDTR2 pull-right btn btn-xs btn-default" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-lock"></i> </a>
+                                                                <a style="font-size: larger;" title="Lock DTR " class="lockDTR2 pull-right btn btn-xs btn-default" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
 
                                                                 <a style="font-size: larger;margin-right: 2px" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-right btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
 
