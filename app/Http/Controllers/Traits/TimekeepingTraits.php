@@ -49,6 +49,7 @@ use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_SL;
+use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
@@ -162,6 +163,7 @@ trait TimekeepingTraits
     $hasVL = null; $vlDetails = new Collection; $hasPendingVL=false;
     $hasSL = null; $slDetails = new Collection; $hasPendingSL=false;
     $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
+    $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
 
     $theDay = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
     /*$fix= Carbon::parse($payday." 23:59:00","Asia/Manila");*/
@@ -182,6 +184,8 @@ trait TimekeepingTraits
     $lwop = User_LWOP::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $obt = User_OBT::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $fl = User_Familyleave::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
 
 
@@ -240,6 +244,21 @@ trait TimekeepingTraits
 
       $hasSL = false;
       $slDeet = null;
+
+    }
+
+
+     /*-------- Family LEAVE  -----------*/
+    if (count($fl) > 0) 
+    {
+      $hasFL=true;
+      $flDeet= $fl->first();
+      (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
+
+    }else{
+
+      $hasFL = false;
+      $flDeet = null;
 
     }
 
@@ -531,9 +550,16 @@ trait TimekeepingTraits
           $link = action('UserController@myRequests',$user_id);
           $icons ="";
           $workedHours=null;$log="";
+          $wh = null;
+          //$wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($schedForToday['timeStart'],"Asia/Manila")->addHour());
 
           if ($hasVL)
           {
+            $workedHours1 = $this->processLeaves('VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours .= $workedHours1[0]['workedHours'];
+            $UT = $workedHours1[0]['UT'];
+          }
+          /*{
 
               $link = action('UserVLController@show',$vlDeet->id);
               $icons .= "<a title=\"VL request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
@@ -592,11 +618,16 @@ trait TimekeepingTraits
                         
             }// end if 0.5 credits
 
-          }//end if has VL
+          }//end if has VL*/
 
 
           if ($hasOBT)
           {
+            $workedHours1 = $this->processLeaves('OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours .= $workedHours1[0]['workedHours'];
+            $UT = $workedHours1[0]['UT'];
+          }
+          /*{
 
               $link = action('UserOBTController@show',$obtDeet->id);
               $icons .= "<a title=\"OBT request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
@@ -655,12 +686,17 @@ trait TimekeepingTraits
                         
             }// end if 0.5 credits
 
-          }//end if has OBT
+          }//end if has OBT*/
 
 
 
           if ($hasSL)
           {
+            $workedHours1 = $this->processLeaves('SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours .= $workedHours1[0]['workedHours'];
+            $UT = $workedHours1[0]['UT'];
+          }
+          /*{
 
               $link = action('UserSLController@show',$slDeet->id);
               $icons .= "<a title=\"SL request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
@@ -719,14 +755,85 @@ trait TimekeepingTraits
                         
             }// end if 0.5 credits
 
-          }//end if has SL
+          }//end if has SL*/
 
 
+          if ($hasFL)
+          {
+            $workedHours1 = $this->processLeaves('FL',false,0,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours .= $workedHours1[0]['workedHours'];
+              $UT = $workedHours1[0]['UT'];
+          }
+         /* {
 
+              $link = action('UserFamilyleaveController@show',$flDeet->id);
+              $icons .= "<a title=\"Leave request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
+
+              
+              if ($flDeet->totalCredits >= '1.0'){
+
+                if($hasPendingFL){
+                  $workedHours = "<strong class='text-danger'>AWOL</strong>";
+                  $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> ".$flDeet->leaveType." for approval </em></small></strong>".$icons;
+                }else{
+                  $workedHours = "N/A";
+                  $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> ".$flDeet->leaveType." </em></small></strong>".$icons;
+                }
+                
+                
+                $workedHours .= "<br/>".$log;
+
+              } 
+              else if ($flDeet->totalCredits == '0.50'){
+
+                  if($hasPendingFL){
+                    if ($flDeet->halfdayFrom == 2)
+                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 1st Shift ".$flDeet->leaveType." (for approval) </em></small></strong>".$icons;
+                    else if ($flDeet->halfdayFrom == 3)
+                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 2nd Shift ".$flDeet->leaveType." (for approval) </em></small></strong>".$icons;
+                    else
+                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> Half-day ".$flDeet->leaveType." (for approval) </em></small></strong>".$icons;
+                    
+                    
+                          //no logs, meaning halfday AWOL sya
+                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
+                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+
+                    $workedHours = "<strong class='text-danger'>AWOL</strong>";
+                    $workedHours .= "<br/>".$log;
+
+                  }else{
+
+                    if ($flDeet->halfdayFrom == 2)
+                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 1st Shift ".$flDeet->leaveType." </em></small></strong>".$icons;
+                    else if ($flDeet->halfdayFrom == 3)
+                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 2nd Shift ".$flDeet->leaveType." </em></small></strong>".$icons;
+                    else
+                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> Half-day ".$flDeet->leaveType."  </em></small></strong>".$icons;
+
+                    
+                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
+                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+                    $workedHours .= 4.0;
+                    $WHcounter = 4.0;
+                    $workedHours .= "<br/>".$log;
+                  }
+                        
+                          
+                        
+            }// end if 0.5 credits
+
+          }//end if has Family Leave*/
 
 
           if ($hasLWOP)
           {
+            $workedHours1 = $this->processLeaves('LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours .= $workedHours1[0]['workedHours'];
+            $UT = $workedHours1[0]['UT'];
+
+          }
+          /*{
 
              $link = action('UserLWOPController@show',$lwopDeet->id);
               $icons = "<a title=\"LWOP request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
@@ -785,7 +892,7 @@ trait TimekeepingTraits
                       
               }//end 0.5
 
-          }//end if has LWOP
+          }//end if has LWOP*/
 
           
 
@@ -795,8 +902,9 @@ trait TimekeepingTraits
             $workedHours .= "(8.0)<br/> <strong>* " . $holidayToday->first()->name . " *</strong>";
           }
 
-         if (!$hasVL && !$hasSL && !$hasLWOP && !$hasHolidayToday && !$hasOBT)
+         if (!$hasVL && !$hasSL && !$hasLWOP && !$hasFL && !$hasHolidayToday && !$hasOBT){
             $workedHours = "<a title=\"Check your Biometrics data. \n It's possible that you pressed a wrong button, the machine malfunctioned, or you really didn't log in / out.\"><strong class=\"text-danger\">AWOL </strong></a>";
+         }
         }
 
         $data->push(['checkLate'=>$checkLate,'isLateIN'=>$isLateIN,  'payday'=>$payday, 
@@ -1348,6 +1456,7 @@ trait TimekeepingTraits
     $hasLeave = null; $leaveDetails = new Collection; $hasPendingLeave=null;
     $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
     $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
+    $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
     $pendingDTRP = null; 
     $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
     $logPalugit=null;
@@ -1370,6 +1479,8 @@ trait TimekeepingTraits
 
     $obt = User_OBT::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
+    $fl = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
 
 
     /*-------- LEAVE WITHOUT PAY -----------*/
@@ -1389,7 +1500,7 @@ trait TimekeepingTraits
     /*-------- VACATION LEAVE  -----------*/
     if (count($vl) > 0) 
     {
-      $hasVL=true;
+      $hasVL=true; $hasLeave = true;
       $vlDeet= $vl->first();
       (!is_null($vlDeet->isApproved)) ? $hasPendingVL=false : $hasPendingVL=true;
 
@@ -1404,7 +1515,7 @@ trait TimekeepingTraits
     /*-------- OBT LEAVE  -----------*/
     if (count($obt) > 0) 
     {
-      $hasOBT=true;
+      $hasOBT=true; $hasLeave = true; $hasLeave = true;
       $obtDeet= $obt->first();
       (!is_null($obtDeet->isApproved)) ? $hasPendingOBT=false : $hasPendingOBT=true;
 
@@ -1419,7 +1530,7 @@ trait TimekeepingTraits
     /*-------- SICK LEAVE  -----------*/
     if (count($sl) > 0) 
     {
-      $hasSL=true;
+      $hasSL=true; $hasLeave = true;
       $slDeet= $sl->first();
       (!is_null($slDeet->isApproved)) ? $hasPendingSL=false : $hasPendingSL=true;
 
@@ -1427,6 +1538,20 @@ trait TimekeepingTraits
 
       $hasSL = false;
       $slDeet = null;
+
+    }
+
+    /*-------- FAMILY LEAVE  -----------*/
+    if (count($fl) > 0) 
+    {
+      $hasFL=true; $hasLeave = true;
+      $flDeet= $fl->first();
+      (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
+
+    }else{
+
+      $hasFL = false;
+      $flDeet = null;
 
     }
 
@@ -1723,9 +1848,9 @@ trait TimekeepingTraits
       {
         $leaveDetails->push(['type'=>"VL for approval",'icon'=>'fa-info-circle', 'details'=>$vlDeet]);
         
-      } else if($hasLeave)
+      } else if($hasLeave && $hasVL)
       {
-        $leaveDetails->push(['type'=>"Vacation Leave",'icon'=>'fa-plane', 'details'=>$vlDeet]);
+        $leaveDetails->push(['type'=>"VL",'icon'=>'fa-plane', 'details'=>$vlDeet]);
       }
 
 
@@ -1734,19 +1859,55 @@ trait TimekeepingTraits
       {
         $leaveDetails->push(['type'=>"SL for approval",'icon'=>'fa-info-circle', 'details'=>$slDeet]);
         
-      } else if($hasLeave)
+      } else if($hasLeave && $hasSL)
       {
-        $leaveDetails->push(['type'=>"Sick Leave",'icon'=>'fa-stethoscope', 'details'=>$slDeet]);
+        $leaveDetails->push(['type'=>"SL",'icon'=>'fa-stethoscope', 'details'=>$slDeet]);
       }
 
       /*-------- LEAVE WITHOUT PAY -----------*/
       if ($hasLWOP && $hasPendingLWOP)
       {
+        //$hasLeave = true;
         $lwopDetails->push(['type'=>"LWOP for approval",'icon'=>'fa-info-circle', 'details'=>$lwopDeet]);
         
       } else if($hasLWOP)
       {
-        $lwopDetails->push(['type'=>"Leave Without Pay",'icon'=>'fa-meh-o', 'details'=>$lwopDeet]);
+        //$hasLeave = true;
+        $lwopDetails->push(['type'=>"LWOP",'icon'=>'fa-meh-o', 'details'=>$lwopDeet]);
+      }
+
+      /*-------- OBT -----------*/
+      if ($hasOBT && $hasPendingOBT)
+      {
+        $hasLeave = true;
+        $leaveDetails->push(['type'=>"OBT for approval",'icon'=>'fa-info-circle', 'details'=>$obtDeet]);
+        
+      } else if($hasOBT)
+      {
+        $hasLeave = true;
+        $leaveDetails->push(['type'=>"OBT",'icon'=>'fa-briefcase', 'details'=>$obtDeet]);
+      }
+
+      /*-------- family LEAVE -----------*/
+      if ($hasFL && $hasPendingFL)
+      {
+        switch ($flDeet->leaveType) {
+          case 'ML':{$leaveDetails->push(['type'=>"ML for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
+          case 'PL':{$leaveDetails->push(['type'=>"PL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
+          case 'SPL':{$leaveDetails->push(['type'=>"SPL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
+             
+        }
+        
+        
+      } else if($hasLeave && $hasFL)
+      {
+        switch ($flDeet->leaveType) {
+          case 'ML':{$leaveDetails->push(['type'=>"ML",'icon'=>'fa-female', 'details'=>$flDeet]);}break;
+          case 'PL':{$leaveDetails->push(['type'=>"PL",'icon'=>'fa-male', 'details'=>$flDeet]);}break;
+          case 'SPL':{$leaveDetails->push(['type'=>"SPL",'icon'=>'fa-street-view', 'details'=>$flDeet]);}break;       
+        
+        }
+        
       }
 
 
@@ -2025,6 +2186,7 @@ trait TimekeepingTraits
     $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
     $hasVL = null; $vlDetails = new Collection; $hasPendingVL=false;
     $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
+    $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
 
     //$thisPayrollDate = Biometrics::where(find($biometrics->id)->productionDate;
     $holidayToday = Holiday::where('holidate', $payday)->get();
@@ -2043,6 +2205,8 @@ trait TimekeepingTraits
     $lwop = User_LWOP::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $obt = User_OBT::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $fl = User_Familyleave::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
 
 
@@ -2107,6 +2271,23 @@ trait TimekeepingTraits
 
       $hasSL = false;
       $slDeet = null;
+
+    }
+
+     /*-------- FAMILY LEAVE  -----------*/
+    
+    
+
+    if (count($fl) > 0) 
+    {
+      $hasFL=true;
+      $flDeet= $fl->first();
+      (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
+
+    }else{
+
+      $hasFL = false;
+      $flDeet = null;
 
     }
 
@@ -2239,9 +2420,18 @@ trait TimekeepingTraits
                     $UT = $workedHours1[0]['UT'];
 
                   }//end if has LWOP
+
+
+                  if ($hasFL)
+                  {
+                    $workedHours1 = $this->processLeaves('FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                    $workedHours .= $workedHours1[0]['workedHours'];
+                    $UT = $workedHours1[0]['UT'];
+
+                  }//end if has LWOP
                 
 
-                if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT)
+                if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL)
                 {
                   $workedHours .= number_format($wh/60,2)."<br/><small>(early OUT)</small>";$UT = round((480.0 - $wh)/60,2); $billableForOT=0;
                   }
@@ -2302,6 +2492,15 @@ trait TimekeepingTraits
                 else if ($hasLWOP)
                   {
                       $workedHours1 = $this->processLeaves('LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                      $workedHours .= $workedHours1[0]['workedHours'];
+                      $UT = $workedHours1[0]['UT'];
+
+                  }//end if has LWOP
+
+
+                else if ($hasFL)
+                  {
+                      $workedHours1 = $this->processLeaves('FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
                       $workedHours .= $workedHours1[0]['workedHours'];
                       $UT = $workedHours1[0]['UT'];
 
@@ -2373,7 +2572,17 @@ trait TimekeepingTraits
 
                   }//end if has LWOP
 
-                  if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT)
+
+                  if ($hasFL)
+                  {
+                    $workedHours1 = $this->processLeaves('FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                    $workedHours .= $workedHours1[0]['workedHours'];
+                    $UT = $workedHours1[0]['UT'];
+                  }//end if has FL
+
+
+
+                  if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL)
                     {
                       $workedHours .= number_format($wh/60,2)."<br/><small>(Late IN)</small>";$UT = round((480.0 - $wh)/60,2); $billableForOT=0;
                     }
@@ -2475,8 +2684,6 @@ trait TimekeepingTraits
 
 
 
-
-
           if ($hasLWOP)
           {
               $workedHours1 = $this->processLeaves('LWOP',false,0,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
@@ -2487,6 +2694,17 @@ trait TimekeepingTraits
 
           }//end if has LWOP
 
+
+          if ($hasFL)
+          {
+              $workedHours1 = $this->processLeaves('FL',false,0,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours .= $workedHours1[0]['workedHours'];
+              $UT = $workedHours1[0]['UT'];
+
+             
+
+          }//end if has FL
+
           
 
 
@@ -2495,8 +2713,10 @@ trait TimekeepingTraits
             $workedHours .= "(8.0)<br/> <strong>* " . $holidayToday->first()->name . " *</strong>";
           }
 
-         if (!$hasVL && !$hasSL && !$hasLWOP &&  !$hasOBT && !$hasHolidayToday)
-            $workedHours = "<a title=\"Check your Biometrics data. \n It's possible that you pressed a wrong button, the machine malfunctioned, or you really didn't log in / out.\"><strong class=\"text-danger\">AWOL </strong></a>";
+         if (!$hasVL && !$hasSL && !$hasLWOP &&  !$hasOBT && !$hasFL && !$hasHolidayToday){
+
+            //$workedHours = "<a title=\"Check your Biometrics data. \n It's possible that you pressed a wrong button, the machine malfunctioned, or you really didn't log in / out.\"><strong class=\"text-danger\">AWOL </strong></a>";
+         }
         }
 
         
@@ -3012,6 +3232,39 @@ trait TimekeepingTraits
                     $l = "VL";
                     $label = " Vacation Leave";
                     $workedHours = 8.0;
+              # code...
+              }break;
+
+      case 'FL':{
+                    $link = action('UserFamilyleaveController@show',$deet->id);
+
+                    $theleave = User_Familyleave::find($deet->id);
+                    switch ($theleave->leaveType) {
+                      case 'ML':{
+                                    $i = "fa-female";
+                                    $lTitle = "ML request";
+                                    $l = "ML";
+                                    $label = "Maternity Leave";
+                      }break;
+
+                      case 'PL':{
+                                    $i = "fa-male";
+                                    $lTitle = "PL request";
+                                    $l = "PL";
+                                    $label = "Paternity Leave";
+                      }break;
+
+                      case 'SPL':{
+                                    $i = "fa-street-view";
+                                    $lTitle = "SPL request";
+                                    $l = "SPL";
+                                    $label = "Single-Parent Leave";
+                      }break;
+                      
+                      
+                    }
+                    
+                    $workedHours = "N/A";
               # code...
               }break;
       

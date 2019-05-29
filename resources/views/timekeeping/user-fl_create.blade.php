@@ -337,6 +337,7 @@
                      
                       data.append('attachments',attachments);
                       data.append('userid',userid);
+                      data.append('type',"{{$type}}");
                       data.append('leaveFrom',leaveFrom);
                       data.append('leaveTo',leaveTo);
                       data.append('reason_vl',reason_vl);
@@ -348,7 +349,7 @@
                         console.log(data);
 
                         $.ajax({
-                              url: "{{action('UserSLController@requestSL')}}",
+                              url: "{{action('UserFamilyleaveController@requestFL')}}",
                               type:'POST',
                               //contentType: 'multipart/form-data', 
                               contentType: false,       // The content type used when sending data to the server.
@@ -360,12 +361,12 @@
                               success: function(response){
                                 $('#save').fadeOut();
                                 if (response.success == '1'){
-                                  $.notify("Sick Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                  $.notify(" Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
                                   $('a#save').fadeOut();
                                 }
                                   
                                   else {
-                                    $.notify("Sick Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
+                                    $.notify(" Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                     $('a#save').fadeOut();
                                   }
                                 

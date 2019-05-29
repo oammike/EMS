@@ -1132,7 +1132,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_sl/medCert/'+full.deets.id+'" target="_blank">Medical Certificate <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
@@ -1322,7 +1322,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
@@ -1363,7 +1363,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>PATERNITY LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
@@ -1404,7 +1404,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SINGLE-PARENT LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';

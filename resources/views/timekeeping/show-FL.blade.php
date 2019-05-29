@@ -83,7 +83,7 @@
                                             <div class="col-lg-1 col-sm-12"></div>
                                             <div class="col-lg-10 col-sm-12">
 
-                                              @if($vl->attachments !== null)
+                                              @if(!empty($vl->attachments))
                                              <a class="pull-right text-primary" href="../user_fl/requirements/{{$vl->id}}" target="_blank"><i class="fa fa-paperclip"></i> Requirement attached</a>
                                              @endif
                                               <h4><i class="{{$icon}}"></i> {{$leave}}<br/><br/><br/></h4>

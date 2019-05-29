@@ -161,13 +161,13 @@
 
                                               @if ($anApprover || (!$employeeisBackoffice && $isWorkforce) )
 
-                                              <h4 class="pull-left text-danger">&nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> DTR Sheet is Locked 
-                                                <a id="unlockByTL" class="btn btn-sm btn-danger pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Unlock DTR </a></h4> 
+                                              <h5 class="pull-left text-danger">&nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> DTR Sheet is Locked 
+                                                <a id="unlockByTL" class="btn btn-md btn-primary pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Unlock DTR Now </a></h5> 
 
                                               @else
 
-                                              <h4 class="pull-left text-danger">&nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> DTR Sheet is Locked 
-                                                <a id="unlock" class="btn btn-xs btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a></h4> 
+                                              <h5 class="pull-left text-danger">&nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> DTR Sheet is Locked 
+                                                <a id="unlock" class="btn btn-xs btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a></h5> 
 
 
                                               @endif

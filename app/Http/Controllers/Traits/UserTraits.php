@@ -350,7 +350,8 @@ trait UserTraits
                                         $toDate = Carbon::parse($td->format('Y-m')."-05","Asia/Manila");
 
                                       }
-                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-unlock",
+                                      if ($emp->id !== $this->user->id){
+                                        $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-unlock",
                                                     'requestor'=>$emp->id,
                                                     'nickname'=>$nick,
                                                     'user_id'=>$notif->user_id, 'id'=>$notif->id, 
@@ -363,6 +364,9 @@ trait UserTraits
                                                     'productionDay'=>date('D', strtotime($dtr->productionDate)),
                                                     'notification_id'=>$notif->notification_id,
                                                     'deets'=> $dtr]);
+
+                                      }
+                                      
 
                                     }
                                     
