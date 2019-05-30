@@ -161,7 +161,9 @@
 
                                               <!-- ********** DTR BUTTONS ************** -->
                                               
-                                              <a id="lockDTR" class="btn btn-success btn-md pull-left"><i class="fa fa-check-square"></i> Validate and Submit to Finance </a>
+                                              @if(count($payrollPeriod) > 1 && ( count($myDTR) >= count($payrollPeriod) ) )
+                                              <a id="lockDTR" class="btn btn-primary btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a>
+                                              @endif
                                               <a id="unlock" class="btn btn-sm btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a>
                                               <a target="_blank" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-search"></i> View Uploaded Biometrics</a>
 
@@ -215,69 +217,96 @@
 
                                                      <tr>
                                                         
-                                                        <td class="text-center"><small style="font-size:x-small;">[{{$data['biometrics_id']}}]</small>&nbsp;&nbsp; {{ $data['productionDate'] }} 
+                                                        <td class="text-right">
+                                                          <!-- ******** PRODUCTION DATE ******* -->
 
-                                                          
+                                                          <!-- <small style="font-size:x-small;">[{{$data['biometrics_id']}}]</small> -->
+                                                          &nbsp;&nbsp; {{ $data['productionDate'] }} 
 
                                                           <input type="hidden" name="productionDate_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['productionDate'] }}">
 
-                                                         @if(!$data['hasLeave'] && ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd'] == null))) 
-                                                         <!-- ****** we wont need the pushpins for DTRP kasi LEAVE today **** -->
-                                                        
-                                                            @if(count($user->approvers) > 0)
-                                                             <strong>
+                                                             @if(!$data['hasLeave'] && ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd'] == null))) 
+                                                             <!-- ****** we wont need the pushpins for DTRP kasi LEAVE today **** -->
+                                                            
+                                                                @if(count($user->approvers) > 0)
+                                                                 <strong>
 
-                                                                
-                                                                <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-right btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+                                                                  @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0 )
+                                                                  <a id="unlockPD_{{$data['biometrics_id']}}" style="font-size: larger;" title="Request to Unlock " class="unlockPD pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-lock"></i> </a>
 
-                                                              </strong>
-                                                                @include('layouts.modals-DTRissue', [
-                                                                      'modelRoute'=>'user_cws.store',
-                                                                      'modelID' => '_'.$data["payday"], 
-                                                                      'modelName'=>"DTR issue ", 
-                                                                      'modalTitle'=>'Report', 
-                                                                      'Dday' =>$data["day"],
-                                                                      'DproductionDate' =>$data["productionDate"],
-                                                                      'biometrics_id'=> $data["biometrics_id"],
-                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                      'isRD'=> $data["isRD"],
-                                                                      'timeStart_old'=>$data['shiftStart'],
-                                                                      'timeEnd_old'=>$data['shiftEnd'],
-                                                                      'formID'=>'reportIssue',
-                                                                      'icon'=>'glyphicon-up' ])
-                                                            @else
+                                                                  @else
 
-                                                             <a style="font-size: larger;" data-toggle="modal" data-target="#noApprover" title="Report DTRP " class="reportDTRP text-red pull-right btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+                                                                  <a style="font-size: larger;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+                                                                  <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
 
-                                                            <!-- MODAL FOR NO APPROVER SET -->
-                                                            <div class="modal fade" id="noApprover" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                              <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                  <div class="modal-header">
+                                                                  @endif
                                                                     
-                                                                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                                      <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> No Approver defined.</h4>
+
                                                                     
-                                                                  </div>
-                                                                  <div class="modal-body">
-                                                                  
-                                                                   Please inform HR to update your profile <br/>and set the necessary approver(s) for all of your request submissions. <br/><br/>Thank you.
-                                                                  </div>
-                                                                  <div class="modal-footer no-border">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+
+                                                                  </strong>
+                                                                    @include('layouts.modals-DTRissue', [
+                                                                          'modelRoute'=>'user_cws.store',
+                                                                          'modelID' => '_'.$data["payday"], 
+                                                                          'modelName'=>"DTR issue ", 
+                                                                          'modalTitle'=>'Report', 
+                                                                          'Dday' =>$data["day"],
+                                                                          'DproductionDate' =>$data["productionDate"],
+                                                                          'biometrics_id'=> $data["biometrics_id"],
+                                                                          'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                          'isRD'=> $data["isRD"],
+                                                                          'timeStart_old'=>$data['shiftStart'],
+                                                                          'timeEnd_old'=>$data['shiftEnd'],
+                                                                          'formID'=>'reportIssue',
+                                                                          'icon'=>'glyphicon-up' ])
+                                                                @else
+
+                                                                 <a style="font-size: larger;" data-toggle="modal" data-target="#noApprover" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+
+                                                               
+
+                                                                <!-- MODAL FOR NO APPROVER SET -->
+                                                                <div class="modal fade text-left" id="noApprover" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                  <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        
+                                                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                          <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> No Approver defined.</h4>
+                                                                        
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                      
+                                                                       Please inform HR to update your profile <br/>and set the necessary approver(s) for all of your request submissions. <br/><br/>Thank you.
+                                                                      </div>
+                                                                      <div class="modal-footer no-border">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+                                                                      </div>
+                                                                    </div>
                                                                   </div>
                                                                 </div>
-                                                              </div>
-                                                            </div>
-                                                            <!-- MODAL FOR NO APPROVER SET -->
+                                                                <!-- MODAL FOR NO APPROVER SET -->
 
 
 
 
-                                                            @endif
-                                                           
+                                                                @endif <!--end if user->approvers -->
 
-                                                        @endif
+                                                            @else
+
+                                                                  @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0  && (count($user->approvers) > 0) )
+
+                                                                  <a id="unlockPD_{{$data['biometrics_id']}}" style="font-size: larger;" title="Request to Unlock " class="unlockPD pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-lock"></i> </a>
+
+                                                                  @else
+
+                                                                  <a style="font-size: larger;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+                                                                  <!-- <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a> -->
+
+                                                                  @endif
+                                                               
+
+                                                            @endif <!--end if not hasleave && shiftStart-->
                                                            
                                                           </td>
 
@@ -300,13 +329,16 @@
 
                                                         @else
 
-                                                          @if($data['hasCWS']=='1') 
-                                                        <td class="text-center">
+                                                          @if($data['hasCWS']=='1')
+
+                                                          <td class="text-center">
                                                            @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Time</strong><br/> @endif 
                                                            {!! $data['shiftStart2'] !!} - {!! $data['shiftEnd2'] !!}<strong><a data-toggle="modal" data-target="#myModal_CWS{{$data['payday']}}" title="View Details" class="@if ($data['usercws'][0]['isApproved'])text-green @elseif ( is_null($data['usercws'][0]['isApproved']) ) text-orange @else text-gray @endif pull-right" href="#" > <i class="fa fa-info-circle"></i></a></strong> </td>
 
                                                             
                                                              <input type="hidden" name="workshift_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['shiftStart2']}} - {{$data['shiftEnd2']}}" />
+
+                                                             <input type="hidden" name="cws_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['usercws'][0]['id']}}" />
 
 
                                                           @else
@@ -326,7 +358,12 @@
                                                              
                                                               <input type="hidden" name="workshift_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['shiftStart2']}} - {{$data['shiftEnd2']}}" />
 
+                                                              <input type="hidden" name="cws_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
+
                                                          @endif
+
+                                                         
+                                                         
                                                         
                                                         @endif
                                                         <!---- ***** end WORK SCHED --------->
@@ -336,15 +373,30 @@
 
                                                         @if($data['hasLeave'])
 
-                                                            <td class="text-center"><a href="{{action('UserController@myRequests',$user->id)}}"><strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong></a>
+                                                            <td class="text-center">
 
+                                                              @if (!empty($data['logIN']))
+
+                                                                  {!! $data['logIN'] !!}
+
+                                                              @else
+
+                                                             <!--  <a href="{{action('UserController@myRequests',$user->id)}}"> -->
+                                                                <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
+                                                             <!--  </a> -->
+
+
+                                                              @endif
+                                                              
                                                                
                                                                 <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
-                                                            
+
+                                                               
                                                             <!--  <strong><a data-toggle="modal" title="View Details" @if($data['hasPendingIN']) data-target="#myModal_dtrpDetail{{$data['pendingDTRPin']['0']['id']}}"  class="text-purple pull-right" @else data-target="#myModal_dtrpDetail{{$data['dtrpIN_id']}}"  class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
  -->
                                                             
                                                           </td>
+                                                          <input type="hidden" name="isDTRPin_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
 
                                                         
 
@@ -356,7 +408,12 @@
                                                                <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logIN']}}">
 
                                                             @if ($data['dtrpIN'] == true || $data['hasPendingIN']== true)
+                                                            <input type="hidden" name="isDTRPin_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpIN_id']}}">
+
                                                              <strong><a data-toggle="modal" title="View Details" @if($data['hasPendingIN']) data-target="#myModal_dtrpDetail{{$data['pendingDTRPin']['0']['id']}}"  class="text-purple pull-right" @else data-target="#myModal_dtrpDetail{{$data['dtrpIN_id']}}"  class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                            @else
+                                                             <input type="hidden" name="isDTRPin_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
 
                                                             @endif
                                                           </td>
@@ -400,7 +457,19 @@
 
                                                           @if($data['hasLeave'])
 
-                                                             <td class="text-center"><a href="{{action('UserController@myRequests',$user->id)}}"><strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong></a>
+                                                             <td class="text-center">
+
+                                                              @if (!empty($data['logOUT']) )
+
+                                                                  {!! $data['logOUT'] !!} 
+
+                                                              @else
+                                                              <!-- <a href="{{action('UserController@myRequests',$user->id)}}"> -->
+                                                                <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
+                                                              <!-- </a> -->
+
+                                                              @endif
+                                                              
 
                                                               
                                                               <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
@@ -410,6 +479,8 @@
  -->
                                                             
                                                           </td>
+
+                                                          <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
 
                                                           
 
@@ -422,9 +493,14 @@
                                                                 <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logOUT']}}" />
 
                                                               @if ($data['dtrpOUT'] == true  ||  $data['hasPendingOUT']== true)
+                                                              <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpOUT_id']}}">
+
                                                                  <strong><a data-toggle="modal" title="View Details" @if($data['hasPendingOUT']) class="text-purple pull-right" data-target="#myModal_dtrpDetail{{$data['pendingDTRPout'][0]['id']}}" @else data-target="#myModal_dtrpDetail{{$data['dtrpOUT_id']}}" class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
 
-                                                                @endif
+                                                              @else
+                                                               <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
+
+                                                              @endif
                                                               </td>
 
 
@@ -472,15 +548,45 @@
 
                                                             <td class="text-center"> 
                                                               @if($data['isFlexitime'])<strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
+
                                                               @if($data['isFlexitime']) <span style="text-decoration:line-through"><em> @endif
                                                               
-                                                              {!! $data['workedHours'] !!}
+                                                              
 
                                                               
                                                               @if ($data['hasLeave'])
-                                                               <input type="hidden" name="workedHours_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+
+                                                              <!--$data['leaveDetails'][0]['type'] !!}-->
+                                                              {!! $data['workedHours'] !!}
+                                                              <!-- <i class="fa {{$data['leaveDetails'][0]['icon'] }}"></i> -->
+                                                               <input type="hidden" name="workedHours_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['workedHours']}}" />
+
+                                                               <input type="hidden" name="leaveID_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['details']['id']}}" />
+
+                                                               <input type="hidden" name="leaveType_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+
+
                                                                @else
                                                                <input type="hidden" name="workedHours_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['workedHours']}}" />
+
+                                                               
+
+                                                                  @if($data['hasLWOP'])
+
+                                                                  <input type="hidden" name="leaveType_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['lwopDetails'][0]['type']}}" />
+                                                                  <input type="hidden" name="leaveID_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['lwopDetails'][0]['details']['id']}}" />
+
+                                                                  @else
+
+                                                                  <input type="hidden" name="leaveID_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
+
+                                                                  <input type="hidden" name="leaveType_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
+
+                                                                  @endif
+
+                                                                  {!! $data['workedHours'] !!}
+                                                               
+
                                                                @endif
 
                                                                 
@@ -593,11 +699,16 @@
                                                        <!-- **************** APPROVED OT **************** -->
 
                                                         <td class="text-center">
-                                                          @if( empty($data['approvedOT']) ) 0 <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" /> @else <strong>{{$data['approvedOT']->first()['filed_hours']}}</strong> 
+                                                          @if( empty($data['approvedOT']) ) 0 
+                                                          <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" /> 
+                                                          <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
+                                                          <input type="hidden" name="OT_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
 
-                                                           
-                                                           <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['approvedOT']->first()['filed_hours']}}" />
-
+                                                          @else 
+                                                          <strong>{{$data['approvedOT']->first()['filed_hours']}}</strong> 
+                                                          
+                                                          <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['approvedOT']->first()['filed_hours']}}" />
+                                                           <input type="hidden" name="OT_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['userOT']->first()['id']}}" />
                                                         @endif</td>
 
 
@@ -606,11 +717,13 @@
 
                                                         @if($data['hasLeave'] || $data['hasLWOP'])
                                                         <td class="text-center">N/A</td>
+                                                        <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="n/a" />
                                                         @else  
                                                         <td class="text-center">{{$data['UT']}}</td>
+                                                        <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['UT']}}" />
                                                         @endif
                                                         
-                                                         <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['UT']}}" />
+                                                         
                                                        
                                                         
                                                         
@@ -1022,13 +1135,22 @@ $('button#uploadOT').fadeOut();
       var valu = dtrshit[c].value;
       productionDate = $('input[name="productionDate_'+valu+'"]').val();
       ws = $('input[name="workshift_'+valu+'"]').val();
+      cws_id = $('input[name="cws_id_'+valu+'"]').val();
       timeIN = $('input[name="logIN_'+valu+'"]').val();
       timeOUT = $('input[name="logOUT_'+valu+'"]').val();
+      dtrpIN = $('input[name="isDTRPin_'+valu+'"]').val();
+      dtrpOUT = $('input[name="isDTRPout_'+valu+'"]').val();
+
       hoursWorked = $('input[name="workedHours_'+valu+'"]').val();
+      leaveID = $('input[name="leaveID_'+valu+'"]').val();
+      leaveType = $('input[name="leaveType_'+valu+'"]').val();
       OT_billable = $('input[name="OT_billable_'+valu+'"]').val();
       OT_approved = $('input[name="OT_approved_'+valu+'"]').val();
+      OT_id = $('input[name="OT_id_'+valu+'"]').val();
+     
+
       UT = $('input[name="UT_'+valu+'"]').val();
-      dtrsheet[c] = {"id":valu, "productionDate": productionDate, "workshift": ws, "timeIN":timeIN, "timeOUT":timeOUT, "hoursWorked": hoursWorked,"OT_billable":OT_billable, "OT_approved": OT_approved, "UT":UT};
+      dtrsheet[c] = {"id":valu, "productionDate": productionDate, "workshift": ws, "cws_id":cws_id,  "timeIN":timeIN, "timeOUT":timeOUT, "dtrpIN":dtrpIN, "dtrpOUT":dtrpOUT, "hoursWorked": hoursWorked,"leaveID":leaveID, "leaveType":leaveType, "OT_billable":OT_billable, "OT_approved": OT_approved,"OT_id":OT_id, "UT":UT};
       console.log(dtrsheet[c].value);
      }
 
@@ -1062,6 +1184,140 @@ $('button#uploadOT').fadeOut();
 
 
         });
+
+
+
+     //console.log(dtrsheet);
+
+    }
+    else{
+      $.notify("Make sure to validate your DTR sheet on or before cutoff period!",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+    }
+
+  });
+
+
+  $('.lockDTR2').on('click', function(){
+    var productionDate = $(this).attr('data-production_date');
+    var biometrics_id = $(this).attr('data-biometrics_id');
+
+    var reply = confirm("\n\nLock DTR for "+productionDate+".\n\n Clicking 'OK' means that you agree all entries in this production date have been verified and are all correct.");
+
+    if (reply == true){
+      
+     var dtrshit = $('input[name="dtr"].biometrics');
+     var dtrsheet = [];
+
+      productionDate = productionDate;
+      ws = $('input[name="workshift_'+biometrics_id+'"]').val();
+      cws_id = $('input[name="cws_id_'+biometrics_id+'"]').val();
+      timeIN = $('input[name="logIN_'+biometrics_id+'"]').val();
+      timeOUT = $('input[name="logOUT_'+biometrics_id+'"]').val();
+      dtrpIN = $('input[name="isDTRPin_'+biometrics_id+'"]').val();
+      dtrpOUT = $('input[name="isDTRPout_'+biometrics_id+'"]').val();
+
+      hoursWorked = $('input[name="workedHours_'+biometrics_id+'"]').val();
+      leaveID = $('input[name="leaveID_'+biometrics_id+'"]').val();
+      leaveType = $('input[name="leaveType_'+biometrics_id+'"]').val();
+      OT_billable = $('input[name="OT_billable_'+biometrics_id+'"]').val();
+      OT_approved = $('input[name="OT_approved_'+biometrics_id+'"]').val();
+      OT_id = $('input[name="OT_id_'+biometrics_id+'"]').val();
+     
+
+      UT = $('input[name="UT_'+biometrics_id+'"]').val();
+      dtrsheet[0] = {"id":biometrics_id, "productionDate": productionDate, "workshift": ws, "cws_id":cws_id,  "timeIN":timeIN, "timeOUT":timeOUT, "dtrpIN":dtrpIN, "dtrpOUT":dtrpOUT, "hoursWorked": hoursWorked,"leaveID":leaveID, "leaveType":leaveType, "OT_billable":OT_billable, "OT_approved": OT_approved,"OT_id":OT_id, "UT":UT};
+      console.log(dtrsheet[0].value);
+    
+
+     var _token = "{{ csrf_token() }}";
+     $.ajax({
+                  url: "{{action('DTRController@processSheet', $user->id)}}",
+                  type:'POST',
+                  data:{ 
+
+                    'dtrsheet': dtrsheet,'_token':_token
+                  },
+
+                 
+                  success: function(res)
+                  {
+                    console.log(res);
+
+                    $.notify("DTR sheet marked verified for payroll processing.",{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                    $('#lockDTR').removeClass('btn btn-success btn-md').addClass("text-success").html("<i class='fa fa-check fa-2x'></i> DTR Verified and Locked ");
+                    $('#unlock').fadeIn().css({"visibility":"visible"});
+
+                   $('a[data-original-title="File this OT"], a[data-original-title="Report DTRP "]').hide();
+                   $('#lockDTR').delay(1000).animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+                    location.reload(true);
+                    //window.location = "{{action('HomeController@index')}}";
+                     
+                  }, error: function(res){
+                    console.log("ERROR");
+                    $.notify("Something went wrong. Please try again.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                  }
+
+
+        });
+
+
+
+     //console.log(dtrsheet);
+
+    }
+    else{
+      $.notify("Make sure to validate your DTR sheet on or before cutoff period!",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+    }
+
+  });
+
+
+  $('.unlockPD.pull-left.btn.btn-xs.btn-default').on('click', function(){
+    var productionDate = $(this).attr('data-production_date');
+    var biometrics_id = $(this).attr('data-biometrics_id');
+
+    var reply = confirm("\n\nSend request to UNLOCK DTR for production date: "+productionDate+".\n\n ");
+
+    if (reply == true){
+      
+     
+    
+
+     var _token = "{{ csrf_token() }}";
+     var payrollPeriod = [];
+     
+        payrollPeriod.push(productionDate);
+    
+     $.ajax({
+                  url: "{{action('DTRController@requestUnlock', $user->id)}}",
+                  type:'POST',
+                  data:{ 
+
+                    'payrollPeriod': payrollPeriod,
+                    '_token':_token
+
+                  },
+
+                 
+                  success: function(res)
+                  {
+                    console.log(res);
+
+                    $.notify(res.message,{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                    $('#unlock_'+biometrics_id).fadeOut();
+                    
+                    //location.reload(true);
+                    //window.location = "{{action('HomeController@index')}}";
+                     
+                  }, error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+                    $.notify(res.message,{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                  }
+
+
+        });
+    
 
 
 

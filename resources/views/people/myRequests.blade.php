@@ -811,7 +811,7 @@
 
                       
                       if(full.details.isApproved)
-
+                      {
                         //for specific leave types, LEAVES can be revoked and deleted. CWS cant be just deleted
                         switch (typeid)
                         {
@@ -838,12 +838,15 @@
 
                                         /*---- but if an approver, deletable dapat ---*/
                                         var apprv = "{{$anApprover}}";
-                                        if ( apprv == true ) {
+                                        if ( apprv ) {
                                           return '<a data-toggle="modal" data-target="#myModal_DTRP'+full.details.id+'" target="_blank" style="margin-top:5px" class="viewbtn btn btn-xs btn-flat text-primary"><i class="fa fa-info"></i>&nbsp; View Details</a><a data-toggle="modal" data-target="#myModal'+full.details.id+'"  href="#" class="btn btn-flat btn-xs text-default" title="Delete" style="margin-top:5px"><i class="fa fa-trash"></i> Delete </a><div class="clearfix"></div>'+modalcode+delModal;
 
                                           
-                                        }else
-                                        return '<a data-toggle="modal" data-target="#myModal_DTRP'+full.details.id+'" target="_blank" style="margin-top:5px" class="viewbtn btn btn-xs btn-flat text-primary"><i class="fa fa-info"></i>&nbsp; View Details</a><div class="clearfix"></div>'+modalcode;
+                                        }else{
+                                          return '<a data-toggle="modal" data-target="#myModal_DTRP'+full.details.id+'" target="_blank" style="margin-top:5px" class="viewbtn btn btn-xs btn-flat text-primary"><i class="fa fa-info"></i>&nbsp; View Details</a><div class="clearfix"></div>'+modalcode;
+
+                                        }
+                                        
 
 
                                       }else{
@@ -858,7 +861,9 @@
 
                           
                         }
-                        else if(full.details.isApproved == '0')
+                        
+
+                      }else if(full.details.isApproved == '0')
                           return '<a data-toggle="modal" data-target="#myModal_DTRP'+full.details.id+'" target="_blank" style="margin-top:5px" class="viewbtn btn btn-xs btn-flat text-primary"><i class="fa fa-info"></i>&nbsp; View Details</a> <a data-toggle="modal" data-target="#myModal'+full.details.id+'"  href="#" class="btn btn-flat btn-xs text-default" title="Delete" style="margin-top:5px"><i class="fa fa-trash"></i> Delete</a><div class="clearfix"></div>'+modalcode+delModal;
                         else
                           return '<a data-toggle="modal" data-target="#myModal_DTRP'+full.details.id+'" target="_blank" style="margin-top:5px" class="viewbtn btn btn-xs btn-flat text-primary"><i class="fa fa-info"></i>&nbsp; View Details</a> <a data-toggle="modal" data-target="#myModal'+full.details.id+'"  href="#" class="btn btn-flat btn-xs text-default" title="Delete" style="margin-top:5px"><i class="fa fa-times"></i> Cancel </a><div class="clearfix"></div>'+modalcode+delModal;

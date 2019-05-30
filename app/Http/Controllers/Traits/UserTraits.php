@@ -63,7 +63,7 @@ trait UserTraits
        $forApprovals = new Collection;
 
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
-       $approvalTypes = [6,7,8,9,10,11,12,13,14,15,16,17,18];
+       $approvalTypes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19];
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
 
 
@@ -350,7 +350,8 @@ trait UserTraits
                                         $toDate = Carbon::parse($td->format('Y-m')."-05","Asia/Manila");
 
                                       }
-                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-unlock",
+                                      if ($emp->id !== $this->user->id){
+                                        $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-unlock",
                                                     'requestor'=>$emp->id,
                                                     'nickname'=>$nick,
                                                     'user_id'=>$notif->user_id, 'id'=>$notif->id, 
@@ -363,6 +364,9 @@ trait UserTraits
                                                     'productionDay'=>date('D', strtotime($dtr->productionDate)),
                                                     'notification_id'=>$notif->notification_id,
                                                     'deets'=> $dtr]);
+
+                                      }
+                                      
 
                                     }
                                     
@@ -469,6 +473,42 @@ trait UserTraits
 
                                   }
                                 }break;
+
+                          case 19: //Unlock Specific ProductionDate DTR
+                                  {
+                                    $dtr = User_DTR::find($detail->relatedModelID);
+                                    if (count($dtr) > 0)
+                                    {
+                                      //if (is_null($dtr->isApproved) )
+                                      $fromDate = Carbon::parse($dtr->productionDate,"Asia/Manila");
+                                      $toDate = Carbon::parse($dtr->productionDate,"Asia/Manila");
+
+                                      if ($emp->id !== $this->user->id){
+                                        $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-unlock",
+                                                    'requestor'=>$emp->id,
+                                                    'nickname'=>$nick,
+                                                    'user_id'=>$notif->user_id, 'id'=>$notif->id, 
+                                                    'type'=>NotifType::find($detail->type)->title, 
+                                                    'typeID'=>$detail->type,
+                                                    'created_at'=> $detail->created_at->format('M d, Y'),
+                                                    'productionDate'=>$fromDate->format('M d, Y'),
+                                                    'productionFrom'=>$fromDate->format('Y-m-d'),
+                                                    'productionTo'=>$toDate->format('Y-m-d'),
+                                                    'productionDay'=>date('D', strtotime($dtr->productionDate)),
+                                                    'notification_id'=>$notif->notification_id,
+                                                    'deets'=> $dtr]);
+
+                                      }
+                                      
+
+                                    }
+                                    
+                                   
+
+                                  }break;
+
+
+                          
                         
                       }//end switch
                     }

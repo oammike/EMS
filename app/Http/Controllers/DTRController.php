@@ -47,6 +47,11 @@ use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\Notification;
 use OAMPI_Eval\User_Notification;
 use OAMPI_Eval\User_OT;
+use OAMPI_Eval\User_SL;
+use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_LWOP;
+use OAMPI_Eval\User_OBT;
+use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
 use OAMPI_Eval\Memo;
@@ -169,7 +174,7 @@ class DTRController extends Controller
                       })->
 
                       //join('user_dtr','user_dtr.user_id','=','users.id')->
-                      select('users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.timeIN','user_dtr.timeOUT', 'user_dtr.user_id')->
+                      select('users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
@@ -193,8 +198,10 @@ class DTRController extends Controller
 
       //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
       
-      $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','Change Work Schedule', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','Reason','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason'];
+      $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
       $description = "DTR sheet for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
+
+      //return $allDTR;
 
       Excel::create($program->name,function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
@@ -215,7 +222,7 @@ class DTRController extends Controller
                         {
 
                           $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','','','',''];
-                          $header2 = [$cutoffStart->format('l, M d Y'),'Program/Department: '.$program->name,'','','','','','','','','','','','','',''];
+                          $header2 = [$cutoffStart->format('l, M d Y'),'Program/Department: ',strtoupper($program->name),'','','','','','','','','','','','',''];
 
                           
                           // Set width for a single column
@@ -262,6 +269,7 @@ class DTRController extends Controller
 
                           $arr = [];
 
+
                           foreach($allDTR as $employeeDTR)
                           {
                             $i = 0;
@@ -271,22 +279,193 @@ class DTRController extends Controller
                             {
                               $arr[$i] = $dData->first()->lastname.", ".$dData->first()->firstname." ".$dData->first()->middlename; $i++;
                               $arr[$i] = $dData->first()->leaderFname." ".$dData->first()->leaderLname; $i++;
-                              $arr[$i] = $payday->format('M d l'); $i++;
+
+                              // ** Production Date
+                              // check if there's holiday
+                              $holiday = Holiday::where('holidate',$payday->format('Y-m-d'))->get();
+
+                              (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
+
+                              $arr[$i] = $payday->format('M d l')." ". $hday; $i++;
                               $arr[$i] = strip_tags($dData->first()->workshift); $i++; // ** get the sched here
-                              $arr[$i] = "CWS here"; $i++;
+                              
+                              //*** CWS
+                              if (!empty($dData->first()->isCWS_id)){
+                                $deets = User_CWS::find($dData->first()->isCWS_id);
+
+                                $arr[$i] = ' (old sched: '.$deets->timeStart_old. ' - '.$deets->timeEnd_old.' ) | '.$deets->notes; $i++;
+
+                              }else{
+                                $arr[$i] = "-"; $i++;
+                              }
+
+
                               $arr[$i] = strip_tags($dData->first()->timeIN); $i++;
                               $arr[$i] = strip_tags($dData->first()->timeOUT); $i++;
 
+                              //*** DTRP IN
+                              if (!empty($dData->first()->isDTRP_in)){
+                                $deets = User_DTRP::find($dData->first()->isDTRP_in);
+
+                                $arr[$i] = $deets->notes; $i++;
+
+                              }else{
+                                $arr[$i] = "-"; $i++;
+                              }
+
+                              //*** DTRP OUT
+                              if (!empty($dData->first()->isDTRP_out)){
+                                $deets = User_DTRP::find($dData->first()->isDTRP_out);
+
+                                $arr[$i] = $deets->notes; $i++;
+
+                              }else{
+                                $arr[$i] = "-"; $i++;
+                              }
+
+
+                              //*** OT
+                              if (!empty($dData->first()->OT_id)){
+                                $deets = User_OT::find($dData->first()->OT_id);
+
+                                $arr[$i] = $deets->timeStart; $i++;
+                                $arr[$i] = $deets->timeEnd; $i++;
+                                switch ($deets->billedType) {
+                                  case '1': $otType = "billed"; break;
+                                  case '2': $otType = "non-billed"; break;
+                                  case '3': $otType = "patch"; break;
+                                  default: $otType = "billed"; break;
+                                }
+                                $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
+                                $arr[$i] = $deets->reason; $i++;
+
+                              }else{
+                                $arr[$i] = "-"; $i++;
+                                $arr[$i] = "-"; $i++;
+                                $arr[$i] = "-"; $i++;
+                                $arr[$i] = "-"; $i++;
+                              }
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+
+                              //if marami contents ang hours worked, may leave details yun
+                              if (strlen($dData->first()->hoursWorked) > 5)
+                              {
+
+                                //$arr[$i] = strip_tags($dData->first()->hoursWorked); $i++;
+                                if (empty($dData->first()->leaveType)){
+                                  $arr[$i] =" - "; $i++;
+                                } else
+                                {
+                                  $arr[$i] =$dData->first()->leaveType; $i++;
+                                }
+
+                                //then we look for its detail
+                                if ($dData->first()->leaveType == "SL") 
+                                //( strpos(strtoupper($dData->first()->leaveType), "SICK") !== false )
+                                {
+                                  if (empty($dData->first()->leave_id))
+                                  {
+                                    $deets = User_SL::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+
+                                  } else {
+                                    $deets = User_SL::find($dData->first()->leave_id);
+                                  }
+                                  
+                                  // 
+
+                                  $arr[$i] = $deets->notes; $i++; 
+                                  $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+
+                                } 
+                                elseif ($dData->first()->leaveType == "VL")
+                                {
+                                   if (empty($dData->first()->leave_id))
+                                    {
+                                      $deets = User_VL::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+
+                                    } else {
+                                      $deets = User_VL::find($dData->first()->leave_id);
+                                    }
+                                    
+                                    // 
+
+                                    $arr[$i] = $deets->notes; $i++; 
+                                    $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+
+                                } elseif ($dData->first()->leaveType == "LWOP")
+                                {
+                                  if (empty($dData->first()->leave_id))
+                                  {
+                                    $deets = User_LWOP::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+
+                                  } else {
+                                    $deets = User_LWOP::find($dData->first()->leave_id);
+                                  }
+                                  $arr[$i] = $deets->notes; $i++; 
+                                  $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+
+                                } elseif ($dData->first()->leaveType == "OBT")
+                                { 
+                                  if (empty($dData->first()->leave_id))
+                                  {
+                                    $deets = User_OBT::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+
+                                  } else {
+                                    $deets = User_OBT::find($dData->first()->leave_id);
+                                  }
+
+                                  $arr[$i] = $deets->notes; $i++; 
+                                  $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+                                
+                                } elseif ($dData->first()->leaveType == "PL" || $dData->first()->leaveType == "ML" || $dData->first()->leaveType == "SPL")
+                                { 
+                                  if (empty($dData->first()->leave_id))
+                                  {
+                                    $deets = User_Familyleave::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+
+                                  } else {
+                                    $deets = User_Familyleave::find($dData->first()->leave_id);
+                                  }
+                                  
+                                  // 
+
+                                  $arr[$i] = $deets->notes; $i++; 
+                                  $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+                                
+                                }
+                                else {  $arr[$i] = "-"; $i++; $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s') ;} // $i++; $arr[$i] = "-"; $i++;
+                                 
+
+                              }else {
+                                $arr[$i] = "-"; $i++; $arr[$i] = "-"; $i++;
+                                $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+
+                              }
+
 
                             }else{
-                              $arr[$i] = " "; $i++;
-                              $arr[$i] = " "; $i++;
-                              $arr[$i] = " "; $i++;
+                              $arr[$i] = $employeeDTR->first()->lastname.", ".$employeeDTR->first()->firstname." ".$employeeDTR->first()->middlename ; $i++;
+                              $arr[$i] = $employeeDTR->first()->leaderFname." ".$employeeDTR->first()->leaderLname; $i++;
                               $arr[$i] = $payday->format('M d l'); $i++;
-                              $arr[$i] = "work sched"; $i++; // ** get the sched here
-                              $arr[$i] = "CWS here"; $i++;
-                              $arr[$i] = " "; $i++;
-                              $arr[$i] = " "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++; // ** get the sched here
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
+                              $arr[$i] = " <unverified> "; $i++;
 
                             }
 
@@ -305,7 +484,7 @@ class DTRController extends Controller
 
                         $payday->addDay();
 
-                      } while ( $payday->format('Y-m-d') !== $cutoffEnd->format('Y-m-d') );      
+                      } while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );      
 
 
 
@@ -399,6 +578,7 @@ class DTRController extends Controller
 
 
     //******* used to create DTR sheet entries for locking
+    //******* a.k.a function lock()
     public function processSheet($id, Request $request)
     {
       //$user = User::find($id);
@@ -406,19 +586,57 @@ class DTRController extends Controller
       $coll = new Collection;
 
       foreach ($dtrSheet as $d) {
-        $dtr = new User_DTR;
-        $dtr->user_id = $id;
-        $dtr->biometrics_id = $d['id'];
-        $dtr->productionDate = Carbon::parse($d['productionDate'],"Asia/Manila")->format('Y-m-d');
-        $dtr->workshift = $d['workshift'];
-        $dtr->timeIN = $d['timeIN'];
-        $dtr->timeOUT = $d['timeOUT'];
-        $dtr->hoursWorked = $d['hoursWorked'];
-        $dtr->OT_billable = $d['OT_billable'];
-        $dtr->OT_approved = $d['OT_approved'];
-        $dtr->UT = $d['UT'];
-        $dtr->save();
-        $coll->push($dtr);
+
+        // we need to double check first kung existing na for that prodDate
+        $pdate = Carbon::parse($d['productionDate'],"Asia/Manila")->format('Y-m-d');
+        $existing = User_DTR::where('user_id',$id)->where('productionDate',$pdate)->get();
+
+        if (count($existing) > 0)
+        {
+          $dtr = $existing->first();
+          $dtr->workshift = $d['workshift'];
+          $dtr->isCWS_id = $d['cws_id'];
+          $dtr->timeIN = $d['timeIN'];
+          $dtr->timeOUT = $d['timeOUT'];
+          $dtr->isDTRP_in = $d['dtrpIN'];
+          $dtr->isDTRP_out = $d['dtrpOUT'];
+          $dtr->hoursWorked = $d['hoursWorked'];
+          $dtr->leave_id = $d['leaveID'];
+          $dtr->leaveType = $d['leaveType'];
+
+          $dtr->OT_billable = $d['OT_billable'];
+          $dtr->OT_approved = $d['OT_approved'];
+          $dtr->OT_id = $d['OT_id'];
+          $dtr->UT = $d['UT'];
+          $dtr->push();
+          $coll->push($dtr);
+
+
+        }else
+        {
+          $dtr = new User_DTR;
+          $dtr->user_id = $id;
+          $dtr->biometrics_id = $d['id'];
+          $dtr->productionDate = Carbon::parse($d['productionDate'],"Asia/Manila")->format('Y-m-d');
+          $dtr->workshift = $d['workshift'];
+          $dtr->isCWS_id = $d['cws_id'];
+          $dtr->timeIN = $d['timeIN'];
+          $dtr->timeOUT = $d['timeOUT'];
+          $dtr->isDTRP_in = $d['dtrpIN'];
+          $dtr->isDTRP_out = $d['dtrpOUT'];
+          $dtr->hoursWorked = $d['hoursWorked'];
+          $dtr->leave_id = $d['leaveID'];
+          $dtr->leaveType = $d['leaveType'];
+
+          $dtr->OT_billable = $d['OT_billable'];
+          $dtr->OT_approved = $d['OT_approved'];
+          $dtr->OT_id = $d['OT_id'];
+          $dtr->UT = $d['UT'];
+          $dtr->save();
+          $coll->push($dtr);
+
+        }
+        
       }
 
       
@@ -458,7 +676,10 @@ class DTRController extends Controller
 
         $notification = new Notification;
         $notification->relatedModelID = $dtr->first()->id;
-        $notification->type = 14; //UNLOCK DTR
+
+        (count($payrollPeriod) > 1) ? $nType = 14 : $nType =19;
+
+        $notification->type = $nType; //UNLOCK DTR
         $notification->from = $user->id;
         $notification->save();
 
@@ -474,7 +695,7 @@ class DTRController extends Controller
         }
 
 
-        return response()->json(['success'=>'1', 'message'=>"DTR Unlock request sent for approval."]);
+        return response()->json(['success'=>'1', 'message'=>"DTR Unlock request sent for approval.", 'count'=>count($payrollPeriod)]);
 
 
       }
@@ -581,6 +802,59 @@ class DTRController extends Controller
       
     }
 
+    //*** This is Production Date specific
+    public function seenzonedPD($id)
+    {
+      //$theNotif = Notification::find($id);
+      $seen = User_Notification::where('notification_id',$id)->where('user_id',$this->user->id)->get();
+      $theNotif = Notification::find($id);
+
+      ($theNotif->from == $this->user->id) ? $theSender=true : $theSender=false;
+
+
+      if (count($seen)>0)
+      {
+        $seen->first()->seen = true;
+        $seen->first()->save();
+        //$coll = new Collection;
+
+        
+        if ($theSender)
+        {
+          $fromDate = Carbon::parse(Biometrics::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+          $toDate = Carbon::parse(Biometrics::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+
+        }
+        
+        else{
+          //now redirect it to the DTR sheet
+          $theDTR = User_DTR::find(Notification::find($seen->first()->notification_id)->relatedModelID);
+          if (count($theDTR)>0){
+            $fromDate = Carbon::parse($theDTR->productionDate,"Asia/Manila");
+            $toDate = Carbon::parse($theDTR->productionDate,"Asia/Manila");
+          } 
+          else return view('empty');
+
+        }
+        
+
+      
+
+        if ($theSender)
+          return redirect()->action('DTRController@show',['id'=>$theNotif->from, 'from'=>$fromDate->format('Y-m-d'), 'to'=>$toDate->format('Y-m-d')]);
+          
+        else
+          return redirect()->action('DTRController@show',['id'=>$theDTR->user_id, 'from'=>$fromDate->format('Y-m-d'), 'to'=>$toDate->format('Y-m-d')]);
+
+        
+      } else
+      {
+        return view('empty');
+      }
+
+      
+    }
+
   
 
 
@@ -659,7 +933,7 @@ class DTRController extends Controller
 
         $hrDept = Campaign::where('name',"HR")->first();
         $financeDept = Campaign::where('name',"Finance")->first();
-        $paycutoffs = Paycutoff::all();
+        $paycutoffs = Paycutoff::orderBy('id','DESC')->get();// return $paycutoffs;
 
         
 
@@ -792,8 +1066,7 @@ class DTRController extends Controller
 
              //Timekeeping Trait
              $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
-             
-
+            
 
              // ---------------------------  INITIALIZATIONS
              $myDTR = new Collection;
@@ -810,12 +1083,16 @@ class DTRController extends Controller
 
 
              // *************************** VERIFIED DTR SHEET
-             
-             $alreadyVerified = User_DTR::where('user_id',$user->id)->where('productionDate',$payrollPeriod[0])->get();
-             if (count($alreadyVerified)>0)
+             $verifiedDTR = User_DTR::where('user_id',$user->id)->where('productionDate','>=',$currentPeriod[0])->
+                                                  where('productionDate','<=',$currentPeriod[1])->orderBy('productionDate','ASC')->get();
+            
+            
+           // return response()->json(['verified'=>count($verifiedDTR), 'payroll'=> count($payrollPeriod)]); 
+                                                                                     
+             if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
              {
 
-                $myDTRSheet = new Collection;
+                /*$myDTRSheet = new Collection;
 
                 foreach ($payrollPeriod as $key) {
                   $mDsh = User_DTR::where('user_id',$user->id)->where('productionDate',$key)->orderBy('created_at','DESC')->get();
@@ -824,10 +1101,22 @@ class DTRController extends Controller
                     $myDTRSheet->push($mDsh->first());
 
                   }
-                }
-                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom'));
+                }*/
+                $myDTRSheet = $verifiedDTR;
+
+                  $paystart = $currentPeriod[0];
+                  $payend = $currentPeriod[1];
+
+                  return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend'));
+
+                
+                
+                
 
              }
+
+
+
              // *************************** VERIFIED DTR SHEET
 
 
@@ -2120,6 +2409,8 @@ class DTRController extends Controller
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 
+            //return $myDTR;
+
            if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Viewed DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
@@ -2145,7 +2436,9 @@ class DTRController extends Controller
 
            //return response()->json(['isFixedSched'=>$isFixedSched]);
 
-           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo'));
+
+
+           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
 
 
         } else return view('access-denied');
@@ -2163,7 +2456,9 @@ class DTRController extends Controller
       if (count($theDTR)>0)
       {
         //**** send notification to the sender
-        $theNotif = Notification::where('relatedModelID', $theDTR->first()->id)->where('type',14)->get();
+        (count($payrollPeriod) > 1) ? $unlockType = 14 : $unlockType = 19;
+
+        $theNotif = Notification::where('relatedModelID', $theDTR->first()->id)->where('type',$unlockType)->get();
 
         //return $theNotif;
 
@@ -2172,8 +2467,10 @@ class DTRController extends Controller
         {
 
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
-            $unotif = $this->notifySender($theDTR->first(),$theNotif->first(),14);
-          /*------ now that we're about to delete the User_DTR, no more way of referencing to it for the NOTIFICATIOn,
+
+            
+              $unotif = $this->notifySender($theDTR->first(),$theNotif->first(),$unlockType);
+              /*------ now that we're about to delete the User_DTR, no more way of referencing to it for the NOTIFICATIOn,
                only by modifying the relatedModelID into biometrics ID na --------*/
 
                $updateNotif = $theNotif->first();
@@ -2184,6 +2481,10 @@ class DTRController extends Controller
                 $updateNotif->relatedModelID = $biometrics->first()->id;
                 $updateNotif->push();
                }
+
+            
+
+            
         }
         else{
 
@@ -2198,9 +2499,9 @@ class DTRController extends Controller
 
       foreach ($payrollPeriod as $key) {
 
-         $dtr = User_DTR::where('user_id',$user->id)->where('productionDate',$key)->get();
+         $dtr = User_DTR::where('user_id',$user->id)->where('productionDate',$key)->delete();
          
-         if (count($dtr)>0){ $dtr->first()->delete();} 
+         //if (count($dtr)>0){ $dtr->delete();} 
       }
 
       

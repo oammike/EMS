@@ -71,7 +71,7 @@
 
               </form>
 
-              <a class="btn btn-success btn-lg" id="zendesk">Zendesk</a>
+             
             </div>
            <div class="col-lg-1"></div>
 
@@ -140,76 +140,7 @@
 
   });
 
-  $('.submit.btn.btn-success.btn-lg').on('click',function(){
-
-    var item = $(this).attr('data-item');
-    var surveyfor = $(this).attr('data-for');
-    var empname = $(this).attr('data-employee');
-    var survey_userid = $(this).attr('data-surveyUserID');
-    var missedItems = $('#emp_'+surveyfor+' table .fa.fa-exclamation-circle.text-yellow').length;
-    var _token = "{{ csrf_token() }}";
-    //console.log(missedItems);
-    //console.log('for: '+datafor);
-
-    var notYetRated = $('.fa.fa-exclamation-circle.text-yellow').length;
-
-
-    if (missedItems > 0) {
-     $.notify("You missed "+missedItems+ " item(s) for "+empname+". \nFilling out the form will help us gather needed data to improve our training course.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-    }
-    else{
-
-      $('#evaluated-'+surveyfor).html('<i class="fa fa-check text-success"></i>');
-      //$('div#emp_'+datafor).addClass("box box-default collapsed-box");
-      $('div#emp_'+surveyfor+' button.btn.btn-box-tool').trigger("click");
-      $('div#emp_'+surveyfor+' h3').removeClass('text-primary').addClass('text-gray');
-      $('div#emp_'+surveyfor+' a.submit.btn.btn-success.btn-lg').fadeOut();
-      $('div#emp_'+surveyfor+' select').prop('disabled','disabled');
-
-       //get if may existing comment
-      var comment = $('#notes_'+surveyfor).val();
-
-
-      // SAVE ITEM
-      $.ajax({
-                url: "{{action('SurveyController@saveItem')}}",
-                type:'POST',
-                data:{ 
-                  'questionid': 1,
-                  'survey_optionsid': 0,
-                  'optiontype': 'submit',
-                  'surveytype':"360",
-                 
-                  "survey_userid" : survey_userid,
-                  "surveyfor": surveyfor,
-                  'comment': comment,
-                  '_token':_token
-                },
-                success: function(response){
-                  console.log(response);
-                  $.notify("Data for "+empname + " saved successfully! \nThank you for participating in this survey.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-                  return false;
-
-                  
-                }
-              });
-
-
-
-      
-
-
-
-
-    }
-
-
-    
-
-    
-      
-
-  });
+  
 
   $('select[name="cutoff"]').change(function(){
     var selval = $(this).find(':selected').val();

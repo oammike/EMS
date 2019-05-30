@@ -83,7 +83,7 @@
                                             <div class="col-lg-1 col-sm-12"></div>
                                             <div class="col-lg-10 col-sm-12">
 
-                                              @if($vl->attachments !== null)
+                                              @if(!empty($vl->attachments))
                                              <a class="pull-right text-primary" href="../user_sl/medCert/{{$vl->id}}" target="_blank"><i class="fa fa-paperclip"></i> Medical Certificate attached</a>
                                              @endif
                                               <h4><i class="fa fa-stethoscope"></i> Sick Leave<br/><br/><br/></h4>

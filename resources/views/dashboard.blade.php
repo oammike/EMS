@@ -958,6 +958,7 @@ select:-webkit-autofill:focus {
                                 case 16: icon="fa-female";break;
                                 case 17: icon="fa-male";break;
                                 case 18: icon="fa-street-view";break;
+                                case 19: icon="fa-unlock";break;
                               }
             
 
@@ -1132,7 +1133,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_sl/medCert/'+full.deets.id+'" target="_blank">Medical Certificate <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
@@ -1322,7 +1323,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
@@ -1363,7 +1364,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>PATERNITY LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
@@ -1404,7 +1405,7 @@ select:-webkit-autofill:focus {
                                           modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SINGLE-PARENT LEAVE &nbsp;&nbsp;</strong>';
                                          
 
-                                          if (full.deets.attachments != null)
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
 
                                           modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
@@ -1425,6 +1426,37 @@ select:-webkit-autofill:focus {
                                                   //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                             } break;
 
+                                  //DTR Specific UNLOCK
+                                case 19: { 
+
+                                          var prodFrom = moment(full.productionFrom);
+                                          var prodTo = moment(full.productionTo);
+
+
+                                          modalcode += '<p class="text-left">Hi {{$greeting}} !</p> <br/>';
+                                          modalcode += '<p class="text-center">I would like to file to have my  <strong>DTR Sheet</strong> from <br/>Production Date: <span class="text-danger">'+prodFrom.format("MMM. DD YYYY - ddd")+'</span> <strong><br/>UNLOCKED</strong><br/><br/><a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-xs btn-primary"><i class="fa fa-unlock"></i> Unlock Now<a><br/></p>';
+                                         
+
+                                        
+                                          modalcode += '<div class="row"><div class="col-sm-12">';
+                                          modalcode += '<div class="col-sm-6"></div><div class="col-sm-6"></div>';
+
+                                               
+
+
+                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                  
+                                                  mc1 += '<p><strong> </strong></p>';
+
+                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                  mc1 += '<p><strong></strong></p></div>';
+
+                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                            } break;
+
+                                
+
 
                               }
 
@@ -1437,7 +1469,7 @@ select:-webkit-autofill:focus {
           modalcode += '      </div>';
           modalcode += '      <!-- /.direct-chat-msg -->';
 
-          if(full.typeID != 14) //do this only if NON UNLOCK DTR request
+          if(full.typeID != 14 && full.typeID != 19) //do this only if NON UNLOCK DTR request
           {
               modalcode += '      <!-- Message to the right -->';
               modalcode += '      <div class="direct-chat-msg right" style="margin-top:50px">';
@@ -1475,6 +1507,11 @@ select:-webkit-autofill:focus {
                               if(full.typeID == 14)
                                 
                                 return '<a href="./seen-unlockRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-calendar"></i> Open DTR Sheet</a>'+modalcode;
+
+                              else if(full.typeID == 19)
+                                
+                                return '<a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-unlock"></i> Unlock Production Date Now</a>'+modalcode;                         
+
                               else
                               return '<a data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-success"><i class="fa fa-thumbs-up"></i> Approve</a><a data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-danger"><i class="fa fa-thumbs-down"></i> Deny</a><a data-toggle="modal" data-target="#myModal'+full.id+'"  href="#" class="btn btn-flat btn-xs text-default"><i class="fa fa-trash"></i> Delete</a>'+modalcode;}}
                             

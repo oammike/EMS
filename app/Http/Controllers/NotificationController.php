@@ -100,12 +100,13 @@ class NotificationController extends Controller
 
                     
 
-                    /************** 6:CWS, 7:OT, 8:DTRPin, 9:DTRPout, 10:VL, 11:SL, 14:Unlock *************/
+                    /************** 6:CWS, 7:OT, 8:DTRPin, 9:DTRPout, 10:VL, 11:SL, 14:Unlock, 19:PRodDate Unlock *************/
               }
               else if ($notif->detail->type == 6 || $notif->detail->type == 7 || 
                        $notif->detail->type == 8 || $notif->detail->type == 9 || 
                        $notif->detail->type == 10 || $notif->detail->type == 11 ||
-                       $notif->detail->type == 12 || $notif->detail->type == 13 || $notif->detail->type == 14 ){ //if  request
+                       $notif->detail->type == 12 || $notif->detail->type == 13 || 
+                       $notif->detail->type == 14 || $notif->detail->type == 19 ){ //if  request
 
                 $fromData = User::find($notif->detail->from);
                 
@@ -196,6 +197,7 @@ class NotificationController extends Controller
                         case '16': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '17': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '18': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '19': $fromData = null; break;
 
                       }
                       
@@ -207,7 +209,7 @@ class NotificationController extends Controller
                       } else { $position=null; $campaign=null; $fromDataID=$notif->detail->from; }
 
 
-                      if ($notif->detail->type !== 14 && !$hasIssue) //because UNLOCK DTR has no immediate head data
+                      if ( ($notif->detail->type !== 14 && $notif->detail->type !== 19) && !$hasIssue) //because UNLOCK DTR has no immediate head data
                       {
                         ( is_null($fromData->userData->nickname) ) ? $from = $fromData->userData->firstname." ".$fromData->userData->lastname : $from = $fromData->userData->nickname." ".$fromData->userData->lastname;
 
@@ -902,6 +904,38 @@ class NotificationController extends Controller
 
 
                           }break; 
+
+                // UNLOCK Productiondate
+                case 19: {   
+                            $actionlink = action('DTRController@seenzonedPD',['id'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $thereq = Biometrics::find($notif->detail->relatedModelID); //User_DTR::find($notif->detail->relatedModelID);
+
+                            if (count($thereq) > 0)
+                            {
+                              $theBio=null;
+                              ($ownNotif) ? $message = " Your DTR for ".$thereq->productionDate." is now unlocked. " : $message = " sent a <strong>DTR Production Date Unlock request</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
+
+                            }else{
+                              //$theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->productionDate)));
+
+                              ($ownNotif) ? $message = " Your DTR sheet is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong>";
+                            }
+                            
+                            // $img = asset('public/img/employees/'.$fromData->id.'.jpg');
+                            // $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
+
+
+                            
+
+                            // if (is_null($thereq))
+                            // $coll->push(["approved"=>"yes", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+
+                            // else
+                            //   $coll->push(['approved'=>"not yet", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+
+                            break; 
+                          }
+
 
             }
 
