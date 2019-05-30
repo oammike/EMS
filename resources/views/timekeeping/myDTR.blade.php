@@ -161,7 +161,9 @@
 
                                               <!-- ********** DTR BUTTONS ************** -->
                                               
-                                              <a id="lockDTR" class="btn btn-success btn-md pull-left"><i class="fa fa-check-square"></i> Validate and Submit to Finance </a>
+                                              @if(count($payrollPeriod) > 1 && ( count($myDTR) >= count($payrollPeriod) ) )
+                                              <a id="lockDTR" class="btn btn-primary btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a>
+                                              @endif
                                               <a id="unlock" class="btn btn-sm btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a>
                                               <a target="_blank" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-search"></i> View Uploaded Biometrics</a>
 
@@ -215,69 +217,96 @@
 
                                                      <tr>
                                                         
-                                                        <td class="text-center">
+                                                        <td class="text-right">
+                                                          <!-- ******** PRODUCTION DATE ******* -->
+
                                                           <!-- <small style="font-size:x-small;">[{{$data['biometrics_id']}}]</small> -->
                                                           &nbsp;&nbsp; {{ $data['productionDate'] }} 
 
                                                           <input type="hidden" name="productionDate_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['productionDate'] }}">
 
-                                                         @if(!$data['hasLeave'] && ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd'] == null))) 
-                                                         <!-- ****** we wont need the pushpins for DTRP kasi LEAVE today **** -->
-                                                        
-                                                            @if(count($user->approvers) > 0)
-                                                             <strong>
-                                                                <a style="font-size: larger;" title="Lock DTR " class="lockDTR2 pull-right btn btn-xs btn-default" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+                                                             @if(!$data['hasLeave'] && ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd'] == null))) 
+                                                             <!-- ****** we wont need the pushpins for DTRP kasi LEAVE today **** -->
+                                                            
+                                                                @if(count($user->approvers) > 0)
+                                                                 <strong>
 
-                                                                <a style="font-size: larger;margin-right: 2px" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-right btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+                                                                  @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0 )
+                                                                  <a id="unlockPD_{{$data['biometrics_id']}}" style="font-size: larger;" title="Request to Unlock " class="unlockPD pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-lock"></i> </a>
 
-                                                              </strong>
-                                                                @include('layouts.modals-DTRissue', [
-                                                                      'modelRoute'=>'user_cws.store',
-                                                                      'modelID' => '_'.$data["payday"], 
-                                                                      'modelName'=>"DTR issue ", 
-                                                                      'modalTitle'=>'Report', 
-                                                                      'Dday' =>$data["day"],
-                                                                      'DproductionDate' =>$data["productionDate"],
-                                                                      'biometrics_id'=> $data["biometrics_id"],
-                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                      'isRD'=> $data["isRD"],
-                                                                      'timeStart_old'=>$data['shiftStart'],
-                                                                      'timeEnd_old'=>$data['shiftEnd'],
-                                                                      'formID'=>'reportIssue',
-                                                                      'icon'=>'glyphicon-up' ])
-                                                            @else
+                                                                  @else
 
-                                                             <a style="font-size: larger;" data-toggle="modal" data-target="#noApprover" title="Report DTRP " class="reportDTRP text-red pull-right btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+                                                                  <a style="font-size: larger;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+                                                                  <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
 
-                                                            <!-- MODAL FOR NO APPROVER SET -->
-                                                            <div class="modal fade" id="noApprover" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                              <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                  <div class="modal-header">
+                                                                  @endif
                                                                     
-                                                                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                                      <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> No Approver defined.</h4>
+
                                                                     
-                                                                  </div>
-                                                                  <div class="modal-body">
-                                                                  
-                                                                   Please inform HR to update your profile <br/>and set the necessary approver(s) for all of your request submissions. <br/><br/>Thank you.
-                                                                  </div>
-                                                                  <div class="modal-footer no-border">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+
+                                                                  </strong>
+                                                                    @include('layouts.modals-DTRissue', [
+                                                                          'modelRoute'=>'user_cws.store',
+                                                                          'modelID' => '_'.$data["payday"], 
+                                                                          'modelName'=>"DTR issue ", 
+                                                                          'modalTitle'=>'Report', 
+                                                                          'Dday' =>$data["day"],
+                                                                          'DproductionDate' =>$data["productionDate"],
+                                                                          'biometrics_id'=> $data["biometrics_id"],
+                                                                          'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                          'isRD'=> $data["isRD"],
+                                                                          'timeStart_old'=>$data['shiftStart'],
+                                                                          'timeEnd_old'=>$data['shiftEnd'],
+                                                                          'formID'=>'reportIssue',
+                                                                          'icon'=>'glyphicon-up' ])
+                                                                @else
+
+                                                                 <a style="font-size: larger;" data-toggle="modal" data-target="#noApprover" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+
+                                                               
+
+                                                                <!-- MODAL FOR NO APPROVER SET -->
+                                                                <div class="modal fade text-left" id="noApprover" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                  <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        
+                                                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                          <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> No Approver defined.</h4>
+                                                                        
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                      
+                                                                       Please inform HR to update your profile <br/>and set the necessary approver(s) for all of your request submissions. <br/><br/>Thank you.
+                                                                      </div>
+                                                                      <div class="modal-footer no-border">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+                                                                      </div>
+                                                                    </div>
                                                                   </div>
                                                                 </div>
-                                                              </div>
-                                                            </div>
-                                                            <!-- MODAL FOR NO APPROVER SET -->
+                                                                <!-- MODAL FOR NO APPROVER SET -->
 
 
 
 
-                                                            @endif
-                                                           
+                                                                @endif <!--end if user->approvers -->
 
-                                                        @endif
+                                                            @else
+
+                                                                  @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0  && (count($user->approvers) > 0) )
+
+                                                                  <a id="unlockPD_{{$data['biometrics_id']}}" style="font-size: larger;" title="Request to Unlock " class="unlockPD pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-lock"></i> </a>
+
+                                                                  @else
+
+                                                                  <a style="font-size: larger;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+                                                                  <!-- <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a> -->
+
+                                                                  @endif
+                                                               
+
+                                                            @endif <!--end if not hasleave && shiftStart-->
                                                            
                                                           </td>
 
@@ -1230,6 +1259,65 @@ $('button#uploadOT').fadeOut();
 
 
         });
+
+
+
+     //console.log(dtrsheet);
+
+    }
+    else{
+      $.notify("Make sure to validate your DTR sheet on or before cutoff period!",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+    }
+
+  });
+
+
+  $('.unlockPD.pull-left.btn.btn-xs.btn-default').on('click', function(){
+    var productionDate = $(this).attr('data-production_date');
+    var biometrics_id = $(this).attr('data-biometrics_id');
+
+    var reply = confirm("\n\nSend request to UNLOCK DTR for production date: "+productionDate+".\n\n ");
+
+    if (reply == true){
+      
+     
+    
+
+     var _token = "{{ csrf_token() }}";
+     var payrollPeriod = [];
+     
+        payrollPeriod.push(productionDate);
+    
+     $.ajax({
+                  url: "{{action('DTRController@requestUnlock', $user->id)}}",
+                  type:'POST',
+                  data:{ 
+
+                    'payrollPeriod': payrollPeriod,
+                    '_token':_token
+
+                  },
+
+                 
+                  success: function(res)
+                  {
+                    console.log(res);
+
+                    $.notify(res.message,{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                    $('#unlock_'+biometrics_id).fadeOut();
+                    
+                    //location.reload(true);
+                    //window.location = "{{action('HomeController@index')}}";
+                     
+                  }, error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+                    $.notify(res.message,{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                  }
+
+
+        });
+    
 
 
 

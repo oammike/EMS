@@ -471,6 +471,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.seenzoned',
       'uses'=>'DTRController@seenzoned') );
 
+    Route::get('/seen-unlockPDRequest/{id}', array(
+      'as'=> 'user_dtr.seenzonedPD',
+      'uses'=>'DTRController@seenzonedPD') );
+
     Route::post('/doUnlock/{id}', array(
       'as'=> 'user_dtr.unlock',
       'uses'=>'DTRController@unlock') );

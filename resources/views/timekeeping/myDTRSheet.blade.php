@@ -161,7 +161,17 @@
 
                                               @if ($anApprover || (!$employeeisBackoffice && $isWorkforce) )
 
-                                              <h5 class="pull-left text-danger">&nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> DTR Sheet is Locked 
+                                              <h5 class="pull-left text-danger">&nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> 
+
+                                                @if (count($payrollPeriod) == 1)
+
+                                                DTR for this production date is locked.
+
+                                                @else
+
+                                                DTR Sheet is Locked 
+
+                                                @endif
                                                 <a id="unlockByTL" class="btn btn-md btn-primary pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Unlock DTR Now </a></h5> 
 
                                               @else
@@ -607,7 +617,12 @@ $(function ()
 
                     $.notify(res.message,{className:"success", globalPosition:'top right',autoHideDelay:3000, clickToHide:true} );
 
-                    setTimeout(function(){location.reload(true);},3000);
+                    setTimeout(function(){
+                      //location.reload(true);
+                      var fromDate = "{{$paystart}}"; //$(this).find('option:selected').val();
+                      var toDate = "{{$payend}}";
+                      window.location.href= "{{url('/')}}/user_dtr/{{$user->id}}?from="+fromDate+"&to="+toDate;
+                    },3000);
                     
                     //;
                     //window.location = "{{action('HomeController@index')}}";

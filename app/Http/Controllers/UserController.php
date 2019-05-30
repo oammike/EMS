@@ -1821,6 +1821,7 @@ class UserController extends Controller
 
        $approvers = $user->approvers;
        $canView = $this->checkIfAnApprover($approvers, $this->user);
+       //return response()->json(['canView'=>$canView]);
 
        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
         /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
@@ -1838,9 +1839,11 @@ class UserController extends Controller
 
 
       if (is_null($user)) return view('empty');
+
+
       else
         if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
-          return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>false,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
+          return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
         else return view('access-denied');
 
     }

@@ -109,7 +109,7 @@
 
                         case 13: { $actionlink = action('UserOBTController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //OBT LEAVE
 
-                        case 14: { $actionlink = action('DTRController@seenzoned',['id'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //VACATION LEAVE
+                        case 14: { $actionlink = action('DTRController@seenzoned',['id'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //Unlock DTR
                         
 
                         case 15: { $actionlink = action('UserOTController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //PS-OT
@@ -119,6 +119,8 @@
                         case 17: { $actionlink = action('UserFamilyleaveController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //PL
 
                         case 18: { $actionlink = action('UserFamilyleaveController@show',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']);  break; } //SPL 
+
+                        case 19: { $actionlink = action('DTRController@seenzonedPD',['id'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //Unlock DTR Production date
 
                         default:{ $actionlink = action('UserController@changePassword'); break; }
                      
