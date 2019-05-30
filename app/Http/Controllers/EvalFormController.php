@@ -1451,7 +1451,7 @@ class EvalFormController extends Controller
                          {
                             $mySubordinates1 = $myActiveTeam->filter(
                               function ($employee) {
-                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11); 
+                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 || $employee->status_id == 12); 
                             }); //filter out regular employees
 
                             //return $mySubordinates1;
@@ -1621,7 +1621,7 @@ class EvalFormController extends Controller
                          {
                             $mySubordinates1 = $myActiveTeam->filter(
                               function ($employee) {
-                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 11 ); 
+                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 11 || $employee->status_id == 12 ); 
                             }); //filter out regular employees
 
                             foreach ($mySubordinates1 as $emp)
