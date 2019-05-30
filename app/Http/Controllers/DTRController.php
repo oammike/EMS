@@ -143,6 +143,14 @@ class DTRController extends Controller
         $byTL = collect($allUsers)->groupBy('tlID');
         $allTL = $byTL->keys();
         //return collect($allUsers)->where('campID',7);
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed DTRsheets on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
         
       
 
@@ -200,6 +208,15 @@ class DTRController extends Controller
       
       $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
       $description = "DTR sheet for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
+
+
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Downloaded DTRsheet cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
 
       //return $allDTR;
 
