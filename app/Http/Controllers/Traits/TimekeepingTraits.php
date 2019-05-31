@@ -1609,7 +1609,7 @@ trait TimekeepingTraits
 
                         if ($logType_id== 2)
                         {
-                          if ( empty($userLog->first()) ) goto proceedWithBlank;
+                          if ( empty($userLog->first()->logTime) ) goto proceedWithBlank;
                           else
                           {
                             if( date("H:i:s", strtotime($userLog->first()->logTime)) > $beginShift->format('H:i:s') )
