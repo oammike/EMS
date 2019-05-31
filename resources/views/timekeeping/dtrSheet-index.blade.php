@@ -58,6 +58,11 @@
 
                 <span style="font-size: smaller;"> Proceed with the DTR download?</span></h4>
 
+                <table class="table table-striped" id="team">
+                  
+                  
+                </table>
+
                
                   
                 
@@ -191,12 +196,51 @@
                       var cutoffstart = response.cutoffstart;
                       var cutoffend = response.cutoffend;
                       var program = response.program;
+                      var members = response.users;
                       //console.log("array data:");
                       console.log(rdata);
 
                       //$('input[name="dtr"]').val(jQuery.param(rdata));
                       $('input[name="cutoffstart"]').val(cutoffstart);
                       $('input[name="cutoffend"]').val(cutoffend);
+
+                      $('#team').html('');
+
+                      var htmltags="<tr><th>Employee</th><th>Immediate Head</th><th class='text-right'>Locked DTR entries</th><th></th></tr>";// "<tr>";
+
+                      if (members.length > 1)
+                      {
+                        var totalDTR = response.payrollPeriod.length;
+
+                        for(var i = 0; i < members.length; i++)
+                        {
+
+                          var userid = members[i]['id'];
+                          var count = rdata.filter((obj) => obj.id === userid).length;
+
+
+                          if (count == totalDTR )
+                          htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+                          else
+                            htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+
+                          htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
+                          htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
+                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+
+                        }
+                        htmltags += "</table>";
+
+                      }else{
+                        htmltags += "<td>"+ members[i]['lastname']+", "+members[i]['firstname']+"</td></tr>";
+
+                      }
+                      console.log(members.length);
+
+                      
+                      
+
+                      $('#team').html(htmltags)
                       
                     }
                   });
@@ -254,12 +298,53 @@
                       var cutoffstart = response.cutoffstart;
                       var cutoffend = response.cutoffend;
                       var program = response.program;
+                      var members = response.users;
                       //console.log("array data:");
                       console.log(rdata);
 
                       //$('input[name="dtr"]').val(jQuery.param(rdata));
                       $('input[name="cutoffstart"]').val(cutoffstart);
                       $('input[name="cutoffend"]').val(cutoffend);
+
+                      $('#team').html('');
+
+                      var htmltags="<tr><th>Employee</th><th>Immediate Head</th><th class='text-right'>Locked DTR entries</th><th></th></tr>";// "<tr>";
+
+                      if (members.length > 1)
+                      {
+                        var totalDTR = response.payrollPeriod.length;
+
+                        for(var i = 0; i < members.length; i++)
+                        {
+
+                          var userid = members[i]['id'];
+                          var count = rdata.filter((obj) => obj.id === userid).length;
+
+
+                          if (count == totalDTR )
+                          htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+                          else
+                            htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+
+                          htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
+                          htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
+                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+
+                        }
+                        htmltags += "</table>";
+
+                      }else{
+                        htmltags += "<td>"+ members[i]['lastname']+", "+members[i]['firstname']+"</td></tr>";
+
+                      }
+                      console.log(members.length);
+
+                      
+                      
+
+                      $('#team').html(htmltags)
+                      
+                    
                       //$('input[name="program"]').val(program);
                     
 

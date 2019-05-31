@@ -558,11 +558,14 @@ class DTRController extends Controller
                       //return $allDTRs;
 
       $userArray = collect($allUsers)->pluck('id')->toArray();
-      $dtrArray = collect($allDTRs)->pluck('id')->unique()->toArray();
+      $dtrArray = collect($allDTRs)->pluck('id')->toArray();
       $pendings = array_diff($userArray, $dtrArray);
+
+      //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
       //return $dtrArray;
 
-      return response()->json(['pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+      return response()->json(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
 
     }
 
