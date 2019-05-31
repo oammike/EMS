@@ -1317,6 +1317,8 @@ trait TimekeepingTraits
 
     ( count($pendingDTRP) > 0  ) ? $hasPendingDTRP=true : $hasPendingDTRP=false;
 
+    //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
+
     if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
     else 
     {
@@ -1609,9 +1611,14 @@ trait TimekeepingTraits
 
                         if ($logType_id== 2)
                         {
-                          if ( empty($userLog->first()->logTime) ) goto proceedWithBlank;
+                          if ( empty($userLog->first()->logTime) || is_null($beginShift) || is_null($userLog) ) goto proceedWithBlank;
                           else
-                          {
+                          {  
+
+                            if ($hasApprovedDTRP){
+                              $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+                            }
+
                             if( date("H:i:s", strtotime($userLog->first()->logTime)) > $beginShift->format('H:i:s') )
                             {
                               //*** ideal situation, go on...
