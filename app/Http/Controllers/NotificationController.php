@@ -264,6 +264,9 @@ class NotificationController extends Controller
                       $position = Position::find($fromData->position_id)->name;
                       $camp = Campaign::where('id',Team::where('user_id',$fromData->id)->first()->campaign_id)->get();
 
+                      $img = asset('public/img/employees/'.$fromData->id.'.jpg');
+                      $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
+
                     }else{
 
                       if (empty(ImmediateHead::find($notif->detail->from)) ){
@@ -272,11 +275,34 @@ class NotificationController extends Controller
                         $position = Position::find($fromData->position_id)->name;
                         $camp = Campaign::where('id',Team::where('user_id',$fromData->id)->first()->campaign_id)->get();
 
-                      }else{
+                        if ( file_exists('public/img/employees/'.$fromData->id.'.jpg') )
+                           {
+                              $img = asset('public/img/employees/'.$fromData->id.'.jpg');
+                              $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
+                           }
+                           else{
+                              $img = asset('public/img/useravatar.png');
+                              $fromImage ='<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30" /> ';
+                           }
+
+
+
+                      }
+                      else{
                         $fromData = ImmediateHead::find($notif->detail->from);
                         $fromDataID = $fromData->userData->id;
                         $position = Position::find($fromData->userData->position_id)->name;
                         $camp = $fromData->campaigns;
+
+                        if ( file_exists('public/img/employees/'.$fromData->userData->id.'.jpg') )
+                           {
+                              $img = asset('public/img/employees/'.$fromData->userData->id.'.jpg');
+                              $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
+                           }
+                           else{
+                              $img = asset('public/img/useravatar.png');
+                              $fromImage ='<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30" /> ';
+                           }
                       }
                       
                       
@@ -303,20 +329,11 @@ class NotificationController extends Controller
 
                       if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
                       {
-                        $img = asset('public/img/employees/'.$fromData->id.'.jpg');
-                        $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
+                        
 
                       }else{
 
-                          if ( file_exists('public/img/employees/'.$fromData->userData->id.'.jpg') )
-                           {
-                              $img = asset('public/img/employees/'.$fromData->userData->id.'.jpg');
-                              $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
-                           }
-                           else{
-                              $img = asset('public/img/useravatar.png');
-                              $fromImage ='<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30" /> ';
-                           }
+                          
 
                       }
 
