@@ -968,7 +968,7 @@ class NotificationController extends Controller
         // }
 
        // return $coll;
-        //return $allNotifs;
+        
 
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
@@ -977,6 +977,8 @@ class NotificationController extends Controller
             fwrite($file, "-------------------\n View All Notifs -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         } 
+
+        return $allNotifs;
 
         return view('people.notification-index', compact('allNotifs'));
     }
