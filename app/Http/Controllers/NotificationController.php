@@ -1008,7 +1008,7 @@ class NotificationController extends Controller
             fclose($file);
         } 
 
-        return $allNotifs;
+        //return $allNotifs;
 
         return view('people.notification-index', compact('allNotifs'));
     }
