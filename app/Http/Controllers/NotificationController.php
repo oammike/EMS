@@ -265,10 +265,23 @@ class NotificationController extends Controller
                       $camp = Campaign::where('id',Team::where('user_id',$fromData->id)->first()->campaign_id)->get();
 
                     }else{
-                      $fromData = User::find(564); //ImmediateHead::find($notif->detail->from);
-                      $fromDataID = null; //$fromData->userData->id;
-                      $position = null; //Position::find($fromData->userData->position_id)->name;
-                      $camp = $fromData->campaigns;
+
+                      if (empty(ImmediateHead::find($notif->detail->from)) ){
+                        $fromData= User::find($notif->detail->from);
+                        $fromDataID = $fromData->id;
+                        $position = Position::find($fromData->position_id)->name;
+                        $camp = Campaign::where('id',Team::where('user_id',$fromData->id)->first()->campaign_id)->get();
+
+                      }else{
+                        $fromData = ImmediateHead::find($notif->detail->from);
+                        $fromDataID = $fromData->userData->id;
+                        $position = Position::find($fromData->userData->position_id)->name;
+                        $camp = $fromData->campaigns;
+                      }
+                      
+                      
+                      
+                      
                 
                       
 
@@ -282,7 +295,7 @@ class NotificationController extends Controller
                                   $campaign .= $c->name.", ";
                               }
                               
-                      } else $campaign = "";//$camp->first()->name;
+                      } else $campaign = $camp->first()->name;
                     
 
 
