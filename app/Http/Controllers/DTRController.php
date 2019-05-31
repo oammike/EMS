@@ -1137,16 +1137,13 @@ class DTRController extends Controller
                   $payend = $currentPeriod[1];
 
                   return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend'));
-
-                
-                
-                
+ 
 
              }
 
 
 
-             // *************************** VERIFIED DTR SHEET
+             // *************************** end VERIFIED DTR SHEET
 
 
              // ---------------------------
@@ -2217,15 +2214,27 @@ class DTRController extends Controller
                                       $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift);
                                       $coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); 
 
-                                      $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
-                                      //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
-                                      $coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
+                                      if (empty($userLogOUT[0]['timing']))
+                                      {
+                                        //meaning wala syang OUT talaga
+                                        $workedHours= "N/A";
+                                        $billableForOT = "-";
+                                        $OTattribute = "-";
+                                        $UT = "-";
 
-                                     
+                                      }else{
+                                        $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
                                         $workedHours= $data[0]['workedHours'];
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
+                                        $coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
+
+                                      } 
+                                      // //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
+                                      
+                                     
+                                        
 
                                         // $VLs = $data[0]['VL'];
                                         // $LWOPs = $data[0]['LWOP'];
@@ -2438,7 +2447,7 @@ class DTRController extends Controller
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-            //return $myDTR;
+          //return $myDTR;
 
            if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");

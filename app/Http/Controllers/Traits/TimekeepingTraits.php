@@ -1190,6 +1190,896 @@ trait TimekeepingTraits
   }
 
 
+  public function getLogDetails($type, $id, $biometrics_id, $logType_id, $schedForToday, $undertime, $problemArea, $isAproblemShift)
+  {
+
+
+    $data = new Collection;
+    $dtrpIN = null;
+    $dtrpIN_id = null;
+    $dtrpOUT_id = null;
+    $dtrpOUT = null;
+    $hasHolidayToday = false;
+    $thisPayrollDate = Biometrics::find($biometrics_id)->productionDate;
+    $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
+    $hasPendingDTRP = null; 
+    $hasLeave = null; $leaveDetails = new Collection; $hasPendingLeave=null;
+    $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
+    $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
+    $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
+    $pendingDTRP = null; 
+    $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
+    $logPalugit=null;
+    $palugitDate=null;$maxOut=null;
+
+    
+    $theDay = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+    $fix= Carbon::parse($thisPayrollDate." 23:59:00","Asia/Manila");
+
+
+
+  
+
+     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
+    $vl = User_VL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $sl = User_SL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $lwop = User_LWOP::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $obt = User_OBT::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $fl = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+
+
+    /*-------- LEAVE WITHOUT PAY -----------*/
+    if (count($lwop) > 0) 
+    {
+      $hasLWOP=true;
+      $lwopDeet= $lwop->first();
+      (!is_null($lwopDeet->isApproved)) ? $hasPendingLWOP=false : $hasPendingLWOP=true;
+
+    }else{
+
+      $hasLWOP = false;
+      $lwopDeet = null;
+
+    }
+
+    /*-------- VACATION LEAVE  -----------*/
+    if (count($vl) > 0) 
+    {
+      $hasVL=true; $hasLeave = true;
+      $vlDeet= $vl->first();
+      (!is_null($vlDeet->isApproved)) ? $hasPendingVL=false : $hasPendingVL=true;
+
+    }else{
+
+      $hasVL = false;
+      $vlDeet = null;
+
+    }
+
+
+    /*-------- OBT LEAVE  -----------*/
+    if (count($obt) > 0) 
+    {
+      $hasOBT=true; $hasLeave = true; $hasLeave = true;
+      $obtDeet= $obt->first();
+      (!is_null($obtDeet->isApproved)) ? $hasPendingOBT=false : $hasPendingOBT=true;
+
+    }else{
+
+      $hasOBT = false;
+      $obtDeet = null;
+
+    }
+
+
+    /*-------- SICK LEAVE  -----------*/
+    if (count($sl) > 0) 
+    {
+      $hasSL=true; $hasLeave = true;
+      $slDeet= $sl->first();
+      (!is_null($slDeet->isApproved)) ? $hasPendingSL=false : $hasPendingSL=true;
+
+    }else{
+
+      $hasSL = false;
+      $slDeet = null;
+
+    }
+
+    /*-------- FAMILY LEAVE  -----------*/
+    if (count($fl) > 0) 
+    {
+      $hasFL=true; $hasLeave = true;
+      $flDeet= $fl->first();
+      (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
+
+    }else{
+
+      $hasFL = false;
+      $flDeet = null;
+
+    }
+
+
+
+
+
+    if (count($holidayToday) > 0) $hasHolidayToday = true;
+
+    $hasApprovedDTRP = User_DTRP::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('updated_at','DESC')->get();
+
+    $pendingDTRP = User_DTRP::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->where('isApproved',null)->orderBy('id','DESC')->get();
+
+    ( count($pendingDTRP) > 0  ) ? $hasPendingDTRP=true : $hasPendingDTRP=false;
+
+    if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
+    else 
+    {
+
+              //fix for robert's case sa logout
+              if ($logType_id== 2)
+              {
+
+                $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+                $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila");
+                
+                //$maxEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila")->addHour(6);
+                $probTime1 = Carbon::parse($thisPayrollDate." 04:00:00","Asia/Manila");
+                $probTime2 = Carbon::parse($thisPayrollDate." 14:30:00","Asia/Manila");
+
+                if (!($beginShift >= $probTime1 && $beginShift <= $probTime2) || is_null($schedForToday)) // if shift is NOT within the day
+                {
+                  $userLog = null;
+                  //$userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+                  goto proceedToLogTomorrow;
+
+                }
+                 else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+              } else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+      }
+             
+          
+
+      //} 
+
+
+      /*--- after getting the logs, IF (logIN_type) go to another filter pass
+            else, just proceed -- */
+            
+     
+
+      if (is_null($userLog) || count($userLog)<1)
+      {  
+
+        /* ------------ THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS ---------
+                                  perform this only for LOG INS                         */
+
+          if ($logType_id == 1){
+
+                $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
+                
+                $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6)->format('Y-m-d H:i:s');
+                $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s');
+                $probTime2 = Carbon::parse($thisPayrollDate." 05:00:00","Asia/Manila")->format('Y-m-d H:i:s');
+
+
+                if ($beginShift >= $probTime1 && $beginShift <= $probTime2)
+                {
+                  /*-- check for logs within 6hr grace period for problem shifts --*/
+                  
+                  $tommorow = Carbon::parse($thisPayrollDate)->addDay();
+                  $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
+
+                  if (count($bioForTom) > 0){
+                    $finishShift = Carbon::parse($bioForTom->first()->productionDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
+                      $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+                      if (count($logPalugit) > 0) 
+                      { 
+                        //we need to check first if it is within the palugit period: meaning LATE
+                        //if more than palugit: meaning for tomorrow's bio yun
+                        $palugitDate = Carbon::parse($bioForTom->first()->productionDate." ".$logPalugit->first()->logTime,"Asia/Manila")->format('Y-m-d H:i:s');
+                        $pal = $palugitDate;
+                       
+
+                        if ( $palugitDate >= $maxIn && $palugitDate <= $beginShift  )
+                        {
+                          $userLog = $logPalugit;
+                          goto proceedWithLogs;
+
+                        } else if ($palugitDate >= $beginShift &&  $palugitDate <= $finishShift) //meaning late lang sya
+                        {
+
+                            $userLog = $logPalugit;
+                            goto proceedWithLogs;
+
+                        } else goto proceedWithBlank;
+                        
+                      } else goto proceedWithBlank; 
+
+                  } else goto proceedWithBlank;
+                  
+
+                }  
+          /* ------------ END THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS : LOG IN ---------*/       
+          } else if($logType_id == 2)
+          {
+            if (!($beginShift >= $probTime1 && $beginShift <= $probTime2)) // if shift is NOT within the day
+            {
+                  /*-- check for logs within 6hr grace period for problem shifts --*/
+
+                  proceedToLogTomorrow:
+                  
+                  $tommorow = Carbon::parse($thisPayrollDate)->addDay();
+                  $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
+
+                  if (count($bioForTom) > 0){
+                    $finishShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);// 
+
+
+                      if ($isAproblemShift)
+                        $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                      
+                      else
+                        //$logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                        $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+
+                      if (count($logPalugit) > 0) 
+                      { 
+                        //we need to check first if it is within the palugit period: meaning LATE
+                        //if more than palugit: meaning for tomorrow's bio yun
+                        $palugitDate = Carbon::parse($thisPayrollDate." ".$logPalugit->first()->logTime,"Asia/Manila");
+                        //$thisPayrollDate
+                        //$bioForTom->first()->productionDate
+                        $maxOut = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(16);
+                        $pal = $palugitDate;
+
+                        if ($isAproblemShift){
+                          if ( (  $palugitDate >= $beginShift && $palugitDate <= $maxOut  ) || is_null($schedForToday) )
+                          {
+                            $userLog = $logPalugit;
+                            goto proceedWithLogs;
+
+                          } else goto proceedWithBlank;
+
+                        }else{
+
+                          $userLog = $logPalugit;
+                          goto proceedWithLogs;
+                        }
+                       
+
+                        
+                        
+                      } else goto proceedWithBlank; 
+
+                  } else goto proceedWithBlank;
+                  
+
+            } 
+            else 
+            {
+              //within the day shift pero walang logs, so baka nag OT sya kinabukasan an yung LogOUT
+              //so we need to get logs from tomorrow within the 8hr period
+              $tommorow = Carbon::parse($thisPayrollDate)->addDay();
+              $allowedOT = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(17);
+              $bioForTom = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
+              if (count($bioForTom) > 0)
+              {
+                
+                $uLog = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
+
+                if (count($uLog) > 0)
+                {
+                  // check if yung log eh pasok pa sa allowed OT timeframe
+                  $l = Carbon::parse($tommorow->format('Y-m-d')." ".$uLog->first()->logTime,"Asia/Manila");
+                  if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
+                  {
+                        $userLog = $uLog;
+                        //goto proceedWithLogs;
+
+                        $log = date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime));
+
+                         //$timing =  Carbon::parse($userLog->first()->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
+                         $timing =  Carbon::parse(date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime)),'Asia/Manila');
+                         
+                         if (count($hasApprovedDTRP) > 0){
+                            //$log = date('h:i:s A',strtotime($userLog->logTime));
+                            switch ($logType_id) {
+                              case 1:{ $dtrpIN = true; $dtrpIN_id = $userLog->first()->id; }break;
+                              
+                              case 2:{ $dtrpOUT = true; $dtrpOUT_id = $userLog->first()->id; }break;
+                            }
+
+                         }else {
+
+                            switch ($logType_id) {
+                              case 1:{ $dtrpIN = false; $dtrpIN_id = null; }break;
+                              
+                              case 2:{ $dtrpOUT = false; $dtrpOUT_id = null;  }break;
+                            }
+                         } 
+                          
+                          
+
+                          //*********** APPLICABLE ONLY TO WORK DAY ********************//
+
+                          if ($logType_id == 1) 
+                          {
+                            $parseThis = $schedForToday['timeStart'];
+                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  && !$problemArea[0]['problemShift']) //--- meaning late sya
+                              {
+                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+
+                              } else $UT = 0;
+                          }
+                            
+                          else if ($logType_id == 2)
+                            $parseThis = $schedForToday['timeEnd'];
+                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
+                              {
+                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+
+                              } else $UT=$undertime;
+
+                          
+
+
+                  }//end if pasok sa alloted OT
+                  else goto proceedWithBlank;
+
+                } else goto proceedWithBlank;
+
+              }else goto proceedWithBlank;
+              //goto proceedToLogTomorrow;
+              
+
+              
+
+            } 
+          /* ------------ END THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS ---------*/       
+          } else // ---proceed with the usual null logs
+          {
+
+                proceedWithBlank:
+
+                               $link = action('LogsController@viewRawBiometricsData',$id);
+                               
+                               $icons = "<a title=\"Verify Biometrics data\" class=\"pull-right text-gray\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link#$biometrics_id\"><i class=\"fa fa-clock-o\"></i></a>";
+                                
+                                
+                               if ($hasHolidayToday)
+                               {
+                                $log = "<strong class=\"text-danger\">N/A</strong>". $icons;
+                                $workedHours = $holidayToday->first()->name;
+
+                               } else if ($hasLWOP){
+
+                                  $link = action('UserController@myRequests',$id);
+                                  $icons = "<a title=\"LWOP request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a>";
+
+                                  
+                                  if ($lwopDeet->totalCredits >= '1.0'){
+                                    $log="<small><em>Leave Without Pay </em></small>".$icons;
+                                    $workedHours = 8.0;
+
+                                  } 
+                                  else if ($lwopDeet->totalCredits == '0.50'){
+                                          
+                                            $log="<small><em>Half-day LWOP </em></small>".$icons;
+                                            if (count($userLog) <1) $workedHours = 4.0;
+                                            else $workedHours = 8.0;
+                                          
+                                  }
+
+                                }//end if has LWOP
+                                else
+                                {
+                                    if($logType_id == 1) $log =  "<strong class=\"text-danger\">No IN</strong>". $icons;
+                                    else if ($logType_id == 2)$log = "<strong class=\"text-danger\">No OUT</strong>". $icons;
+                                    $workedHours = "N/A";
+
+                                }
+                                
+                                $timing=null; //Carbon::parse('22:22:22');
+                                $UT = $undertime;
+
+          }
+        
+          
+      } 
+      else
+      {
+
+         proceedWithLogs:
+
+                        //**** we need to introduce new checking for Lei's case
+                        //**** Check first if OUT > IN
+                        //**** if yes, then good
+                        //**** if not, then get the out from tomorrow
+
+                        if ($logType_id== 2)
+                        {
+
+                          if( date("H:i:s", strtotime($userLog->first()->logTime)) > $beginShift->format('H:i:s') )
+                          {
+                            //*** ideal situation, go on...
+                            goto idealSituation;
+
+                          }
+                          else
+                          {
+                            //within the day shift pero walang logs, so baka nag OT sya kinabukasan an yung LogOUT
+                            //so we need to get logs from tomorrow within the 8hr period
+                            $tommorow = Carbon::parse($thisPayrollDate)->addDay();
+                            $allowedOT = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(17);
+                            $bioForTom = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
+                            if (count($bioForTom) > 0)
+                            {
+                              
+                              $uLog = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
+
+                              if (count($uLog) > 0)
+                              {
+                                // check if yung log eh pasok pa sa allowed OT timeframe
+                                $l = Carbon::parse($tommorow->format('Y-m-d')." ".$uLog->first()->logTime,"Asia/Manila");
+                                if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
+                                {
+                                      $userLog = $uLog;
+                                      //goto proceedWithLogs;
+
+                                      $log = date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime));
+
+                                       //$timing =  Carbon::parse($userLog->first()->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
+                                       $timing = Carbon::parse(date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime)),'Asia/Manila');
+
+                                       if (count($hasApprovedDTRP) > 0){
+                                          //$log = date('h:i:s A',strtotime($userLog->logTime));
+                                          switch ($logType_id) {
+                                            case 1:{ $dtrpIN = true; $dtrpIN_id = $userLog->first()->id; }break;
+                                            
+                                            case 2:{ $dtrpOUT = true; $dtrpOUT_id = $userLog->first()->id; }break;
+                                          }
+
+                                       }else {
+
+                                          switch ($logType_id) {
+                                            case 1:{ $dtrpIN = false; $dtrpIN_id = null; }break;
+                                            
+                                            case 2:{ $dtrpOUT = false; $dtrpOUT_id = null;  }break;
+                                          }
+                                       } 
+                                        
+                                        
+
+                                        //*********** APPLICABLE ONLY TO WORK DAY ********************//
+
+                                        if ($logType_id == 1) 
+                                        {
+                                          $parseThis = $schedForToday['timeStart'];
+                                          if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  && !$problemArea[0]['problemShift']) //--- meaning late sya
+                                            {
+                                              $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+
+                                            } else $UT = 0;
+                                        }
+                                          
+                                        else if ($logType_id == 2)
+                                          $parseThis = $schedForToday['timeEnd'];
+                                          if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
+                                            {
+                                              $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+
+                                            } else $UT=$undertime;
+
+                                        
+
+                                        goto proceedToLeaves;
+
+                                }//end if pasok sa alloted OT
+                                else goto proceedWithBlank;
+
+                              } else goto proceedWithBlank;
+
+                            }else goto proceedWithBlank;
+                          }//end else ideal situation
+
+                        }//end if logtype 2 OUT
+                        
+
+                         idealSituation:
+
+                         $log = date('h:i:s A',strtotime($userLog->first()->logTime));
+
+                         $timing =  Carbon::parse($userLog->first()->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
+                         //$timing = Carbon::parse(date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime)),'Asia/Manila');
+                         if (count($hasApprovedDTRP) > 0){
+                            //$log = date('h:i:s A',strtotime($userLog->logTime));
+                            switch ($logType_id) {
+                              case 1:{ $dtrpIN = true; $dtrpIN_id = $userLog->first()->id; }break;
+                              
+                              case 2:{ $dtrpOUT = true; $dtrpOUT_id = $userLog->first()->id; }break;
+                            }
+
+                         }else {
+
+                            switch ($logType_id) {
+                              case 1:{ $dtrpIN = false; $dtrpIN_id = null; }break;
+                              
+                              case 2:{ $dtrpOUT = false; $dtrpOUT_id = null;  }break;
+                            }
+                         } 
+                          
+                          
+                          //if ($problemArea[0]['problemShift'])
+                          //  $timing = Carbon::parse(Biometrics::find($userLog->first()->biometrics_id)->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
+                          //else
+                          //  $timing = Carbon::parse($userLog->first()->logTime, "Asia/Manila");
+
+                          //$timing2 = $userLog->first()->logTime;
+
+                          //*********** APPLICABLE ONLY TO WORK DAY ********************//
+
+                          if ($logType_id == 1) 
+                          {
+                            $parseThis = $schedForToday['timeStart'];
+                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  && !$problemArea[0]['problemShift']) //--- meaning late sya
+                              {
+                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+
+                              } else $UT = 0;
+                          }
+                            
+                          else if ($logType_id == 2)
+                            $parseThis = $schedForToday['timeEnd'];
+                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
+                              {
+                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+
+                              } else $UT=$undertime;
+
+                          
+                          //*********** end APPLICABLE ONLY TO WORK DAY ********************//
+
+      }//end if may login 
+
+
+      proceedToLeaves:
+
+      /*-------- VACATION LEAVE -----------*/
+      if ($hasVL && $hasPendingVL)
+      {
+        $leaveDetails->push(['type'=>"VL for approval",'icon'=>'fa-info-circle', 'details'=>$vlDeet]);
+        
+      } else if($hasLeave && $hasVL)
+      {
+        ($vlDeet->isApproved) ? $leaveDetails->push(['type'=>"VL",'icon'=>'fa-plane', 'details'=>$vlDeet]) : $leaveDetails->push(['type'=>"VL denied",'icon'=>'fa-times', 'details'=>$vlDeet]);
+      }
+
+
+      /*-------- SICK LEAVE -----------*/
+      if ($hasSL && $hasPendingSL)
+      {
+        $leaveDetails->push(['type'=>"SL for approval",'icon'=>'fa-info-circle', 'details'=>$slDeet]);
+        
+      } else if($hasLeave && $hasSL)
+      {
+        ($slDeet->isApproved) ? $leaveDetails->push(['type'=>"SL",'icon'=>'fa-stethoscope', 'details'=>$slDeet]) : $leaveDetails->push(['type'=>"SL denied",'icon'=>'fa-times', 'details'=>$slDeet]); 
+      }
+
+      /*-------- LEAVE WITHOUT PAY -----------*/
+      if ($hasLWOP && $hasPendingLWOP)
+      {
+        //$hasLeave = true;
+        $lwopDetails->push(['type'=>"LWOP for approval",'icon'=>'fa-info-circle', 'details'=>$lwopDeet]);
+        
+      } else if($hasLWOP)
+      {
+        //$hasLeave = true;
+        ($lwopDeet->isApproved) ? $lwopDetails->push(['type'=>"LWOP",'icon'=>'fa-meh-o', 'details'=>$lwopDeet]) : $lwopDetails->push(['type'=>"LWOP denied",'icon'=>'fa-times', 'details'=>$lwopDeet]);
+      }
+
+      /*-------- OBT -----------*/
+      if ($hasOBT && $hasPendingOBT)
+      {
+        $hasLeave = true;
+        $leaveDetails->push(['type'=>"OBT for approval",'icon'=>'fa-info-circle', 'details'=>$obtDeet]);
+        
+      } else if($hasOBT)
+      {
+        $hasLeave = true;
+        ($obtDeet->isApproved) ?  $leaveDetails->push(['type'=>"OBT",'icon'=>'fa-briefcase', 'details'=>$obtDeet]) : $leaveDetails->push(['type'=>"OBT denied",'icon'=>'fa-times', 'details'=>$obtDeet]);
+      }
+
+      /*-------- family LEAVE -----------*/
+      if ($hasFL && $hasPendingFL)
+      {
+        switch ($flDeet->leaveType) {
+          case 'ML':{$leaveDetails->push(['type'=>"ML for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
+          case 'PL':{$leaveDetails->push(['type'=>"PL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
+          case 'SPL':{$leaveDetails->push(['type'=>"SPL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
+             
+        }
+        
+        
+      } else if($hasLeave && $hasFL)
+      {
+        if ($flDeet->isApproved)
+        {
+          switch ($flDeet->leaveType) {
+            case 'ML':{$leaveDetails->push(['type'=>"ML",'icon'=>'fa-female', 'details'=>$flDeet]);}break;
+            case 'PL':{$leaveDetails->push(['type'=>"PL",'icon'=>'fa-male', 'details'=>$flDeet]);}break;
+            case 'SPL':{$leaveDetails->push(['type'=>"SPL",'icon'=>'fa-street-view', 'details'=>$flDeet]);}break;       
+          
+          }
+
+        }else
+        {
+          switch ($flDeet->leaveType) {
+            case 'ML':{$leaveDetails->push(['type'=>"ML denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
+            case 'PL':{$leaveDetails->push(['type'=>"PL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
+            case 'SPL':{$leaveDetails->push(['type'=>"SPL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;       
+          
+          }
+
+        }
+        
+        
+      }
+
+
+
+       $data->push([ 'logPalugit'=>$logPalugit,
+                      'palugitDate' =>$palugitDate,
+                       'beginShift'=> $beginShift,
+                       'maxOut'=> $maxOut,
+                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
+                    'sl'=>$slDeet,
+                    'UT'=>$UT, 'logTxt'=>$log,
+                    'hasPendingDTRP' => $hasPendingDTRP,
+                    'pendingDTRP' => $pendingDTRP, 
+                    'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
+                    'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
+                    'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
+                    'dtrp'=>$hasApprovedDTRP->first()]);
+
+              
+
+      return $data;
+  }
+
+
+  
+ 
+
+  
+
+  public function getPayrollPeriod($cutoffStart,$cutoffEnd)
+  {
+    $payrollPeriod = [];
+    for($date = $cutoffStart; $date->lte($cutoffEnd); $date->addDay()) 
+         {
+            $payrollPeriod[] = $date->format('Y-m-d');
+         }
+
+    return $payrollPeriod;
+
+
+  }
+
+
+  public function getRDinfo($user_id, $biometrics,$isSameDayLog,$payday)
+  {
+
+    /* init $approvedOT */
+      $approvedOT=0; $OTattribute="";
+      $hasHolidayToday = false;
+      $hasPendingIN = null;
+      $pendingDTRPin = null;
+      $hasPendingOUT = null;
+      $pendingDTRPout = null;
+
+    $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
+    $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
+
+     if (count($holidayToday) > 0) $hasHolidayToday = true;
+
+
+      /* -- you still have to create module for checking and filing OTs */
+
+      /* --------- check mo muna kung may approved DTRP on this day --------*/
+      $hasApprovedDTRPin = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('updated_at','DESC')->get();
+
+      if (count($hasApprovedDTRPin) > 0){ $userLogIN = $hasApprovedDTRPin;} 
+      else { $userLogIN = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get(); }
+
+
+
+      if (count($userLogIN) == 0)
+      {
+            $pendingDTRPin = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('updated_at','DESC')->get();
+            //--- ** baka naman may DTRP syang di pa approved? 
+
+            if (count($pendingDTRPin) > 0)
+            {
+              $logIN = "(pending)";
+              $hasPendingIN = true;
+            } else {
+
+              $logIN = "* RD *";  //--- di nga sya pumasok
+              $logOUT = "* RD *";
+
+            }
+            $shiftStart = "* RD *";
+            $shiftEnd = "* RD *";
+
+            if ($hasHolidayToday)
+              {
+                $workedHours = "(8.0) <br/><strong> * "; 
+                $workedHours .= $holidayToday->first()->name." *</strong>";
+
+              } else $workedHours="N/A"; 
+
+              $UT = 0;
+              $billableForOT=0;
+
+      } 
+      else
+      {
+          $logIN = date('h:i A',strtotime($userLogIN->first()->logTime));
+          $timeStart = Carbon::parse($userLogIN->first()->logTime);
+
+          if ($isSameDayLog) 
+          {
+            //Check mo muna kung may approved DTRPout
+             $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
+
+             if (count($hasApprovedDTRPout) > 0) { $userLogOUT = $hasApprovedDTRPout;} 
+             else 
+             {
+                $pendingDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();//--- ** baka naman may DTRP syang di pa approved? 
+
+                if (count($pendingDTRPout) > 0)
+                {
+                  $logOUT = "(pending)";
+                  $hasPendingOUT = true;
+                  $userLogOUT = $pendingDTRPout;
+
+                } else {
+                  $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+                }
+
+             }
+
+             
+          } //end if sameday log
+
+          else
+          {
+            //--- NEXT DAY LOG OUT
+            $nextDay = Carbon::parse($payday)->addDay();
+            $bioForTomorrow = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->first();
+
+            //Check mo muna kung may approved DTRPout
+             $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
+
+             if (count($hasApprovedDTRPout) > 0)
+             {
+
+              $userLogOUT = $hasApprovedDTRPout;
+
+             } else 
+             {
+
+               //--- ** baka naman may DTRP syang di pa approved? 
+                $pendingDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
+
+                if (count($pendingDTRPout) > 0)
+                {
+                  $logOUT = "(pending)";
+                  $hasPendingOUT = true;
+                  $userLogOUT = $pendingDTRPout;
+
+                } else {
+
+                  //--- di nga sya pumasok
+                  $logOUT = "* RD *";
+                  $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+
+                }
+
+              
+             }
+
+          }
+            
+
+
+          //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
+          $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->where('isApproved',1)->get();
+          if (count($rdOT) > 0) $approvedOT = $rdOT; 
+
+          if( is_null($userLogOUT) || count($userLogOUT)<1 )
+          {
+             $logOUT = "No OT-Out <br/><small>Verify with Immediate Head</small>";
+
+              $workedHours="N/A"; 
+
+              if ($hasHolidayToday)
+              {
+                
+                $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>";
+
+              }  
+
+             
+              $shiftStart = "* RD *";
+              $shiftEnd = "* RD *";
+              $UT = 0;
+              $billableForOT=0;
+              
+
+          } else 
+          { 
+                //--- legit OT, compute billable hours
+                $logOUT = date('h:i A',strtotime($userLogOUT->first()->logTime));
+                $timeEnd = Carbon::parse($userLogOUT->first()->logTime);
+                $wh = $timeEnd->diffInMinutes($timeStart->addHour()); //--- pag RD OT, no need to add breaktime 1HR
+                $workedHours = number_format($wh/60,2);
+                $billableForOT = $workedHours;
+
+                if ($hasHolidayToday)
+                {
+                  
+                  $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+
+                } else $workedHours .= "<br /><small>* RD-OT * </small>";
+
+
+                 if ($hasHolidayToday)
+                 $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+               else
+                $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+               
+
+                
+                $OTattribute = $icons;
+                $shiftStart = "* RD *";
+                $shiftEnd = "* RD *";
+                $UT = 0;
+          }
+
+
+
+       }//end if may login kahit RD
+
+       $data = new Collection;
+       $data->push(['shiftStart'=>$shiftStart, 
+        'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
+        'logOUT'=>$logOUT,'workedHours'=>$workedHours, 
+        'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute, 'UT'=>$UT, 
+        'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null,
+        'hasPendingIN' => $hasPendingIN,
+        'pendingDTRPin'=> $pendingDTRPin,
+        'hasPendingOUT' => $hasPendingOUT,
+        'pendingDTRPout' => $pendingDTRPout,
+        'approvedOT'=>$approvedOT]);
+       return $data;
+
+
+   
+  }
+
+
   public function getShiftingSchedules2($sched, $coll,$counter)
   {
 
@@ -1438,728 +2328,6 @@ trait TimekeepingTraits
 
     return $coll;
   }
- 
-
-  public function getLogDetails($type, $id, $biometrics_id, $logType_id, $schedForToday, $undertime, $problemArea, $isAproblemShift)
-  {
-
-
-    $data = new Collection;
-    $dtrpIN = null;
-    $dtrpIN_id = null;
-    $dtrpOUT_id = null;
-    $dtrpOUT = null;
-    $hasHolidayToday = false;
-    $thisPayrollDate = Biometrics::find($biometrics_id)->productionDate;
-    $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
-    $hasPendingDTRP = null; 
-    $hasLeave = null; $leaveDetails = new Collection; $hasPendingLeave=null;
-    $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
-    $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
-    $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
-    $pendingDTRP = null; 
-    $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
-    $logPalugit=null;
-    $palugitDate=null;$maxOut=null;
-
-    
-    $theDay = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
-    $fix= Carbon::parse($thisPayrollDate." 23:59:00","Asia/Manila");
-
-
-
-  
-
-     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
-    $vl = User_VL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-
-    $sl = User_SL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-
-    $lwop = User_LWOP::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-
-    $obt = User_OBT::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-
-    $fl = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-
-
-
-    /*-------- LEAVE WITHOUT PAY -----------*/
-    if (count($lwop) > 0) 
-    {
-      $hasLWOP=true;
-      $lwopDeet= $lwop->first();
-      (!is_null($lwopDeet->isApproved)) ? $hasPendingLWOP=false : $hasPendingLWOP=true;
-
-    }else{
-
-      $hasLWOP = false;
-      $lwopDeet = null;
-
-    }
-
-    /*-------- VACATION LEAVE  -----------*/
-    if (count($vl) > 0) 
-    {
-      $hasVL=true; $hasLeave = true;
-      $vlDeet= $vl->first();
-      (!is_null($vlDeet->isApproved)) ? $hasPendingVL=false : $hasPendingVL=true;
-
-    }else{
-
-      $hasVL = false;
-      $vlDeet = null;
-
-    }
-
-
-    /*-------- OBT LEAVE  -----------*/
-    if (count($obt) > 0) 
-    {
-      $hasOBT=true; $hasLeave = true; $hasLeave = true;
-      $obtDeet= $obt->first();
-      (!is_null($obtDeet->isApproved)) ? $hasPendingOBT=false : $hasPendingOBT=true;
-
-    }else{
-
-      $hasOBT = false;
-      $obtDeet = null;
-
-    }
-
-
-    /*-------- SICK LEAVE  -----------*/
-    if (count($sl) > 0) 
-    {
-      $hasSL=true; $hasLeave = true;
-      $slDeet= $sl->first();
-      (!is_null($slDeet->isApproved)) ? $hasPendingSL=false : $hasPendingSL=true;
-
-    }else{
-
-      $hasSL = false;
-      $slDeet = null;
-
-    }
-
-    /*-------- FAMILY LEAVE  -----------*/
-    if (count($fl) > 0) 
-    {
-      $hasFL=true; $hasLeave = true;
-      $flDeet= $fl->first();
-      (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
-
-    }else{
-
-      $hasFL = false;
-      $flDeet = null;
-
-    }
-
-
-
-
-
-
-
-
-    
-
-
-    if (count($holidayToday) > 0) $hasHolidayToday = true;
-
-     $hasApprovedDTRP = User_DTRP::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('updated_at','DESC')->get();
-
-      $pendingDTRP = User_DTRP::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->where('isApproved',null)->orderBy('id','DESC')->get();
-
-
-
-      ( count($pendingDTRP) > 0  ) ? $hasPendingDTRP=true : $hasPendingDTRP=false;
-                    
-      
-
-      if(count($hasApprovedDTRP) > 0){ 
-
-          $userLog = $hasApprovedDTRP;
-
-      } else {
-
-              //fix for robert's case sa logout
-              if ($logType_id== 2){
-
-                $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
-                $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila");
-                
-                //$maxEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila")->addHour(6);
-                $probTime1 = Carbon::parse($thisPayrollDate." 04:00:00","Asia/Manila");
-                $probTime2 = Carbon::parse($thisPayrollDate." 14:30:00","Asia/Manila");
-
-                if (!($beginShift >= $probTime1 && $beginShift <= $probTime2) || is_null($schedForToday)) // if shift is NOT within the day
-                {
-                  $userLog = null;
-                  //$userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-
-                  goto proceedToLogTomorrow;
-
-                }
-                 else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-
-              } else
-
-              $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-      }
-             
-          
-
-      //} 
-
-
-      /*--- after getting the logs, IF (logIN_type) go to another filter pass
-            else, just proceed -- */
-            
-     
-
-      if (is_null($userLog) || count($userLog)<1)
-      {  
-
-        /* ------------ THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS ---------
-                                  perform this only for LOG INS                         */
-
-          if ($logType_id == 1){
-
-                $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
-                
-                $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6)->format('Y-m-d H:i:s');
-                $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s');
-                $probTime2 = Carbon::parse($thisPayrollDate." 05:00:00","Asia/Manila")->format('Y-m-d H:i:s');
-
-
-                if ($beginShift >= $probTime1 && $beginShift <= $probTime2)
-                {
-                  /*-- check for logs within 6hr grace period for problem shifts --*/
-                  
-                  $tommorow = Carbon::parse($thisPayrollDate)->addDay();
-                  $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
-
-                  if (count($bioForTom) > 0){
-                    $finishShift = Carbon::parse($bioForTom->first()->productionDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
-
-                      $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-
-                      if (count($logPalugit) > 0) 
-                      { 
-                        //we need to check first if it is within the palugit period: meaning LATE
-                        //if more than palugit: meaning for tomorrow's bio yun
-                        $palugitDate = Carbon::parse($bioForTom->first()->productionDate." ".$logPalugit->first()->logTime,"Asia/Manila")->format('Y-m-d H:i:s');
-                        $pal = $palugitDate;
-                       
-
-                        if ( $palugitDate >= $maxIn && $palugitDate <= $beginShift  )
-                        {
-                          $userLog = $logPalugit;
-                          goto proceedWithLogs;
-
-                        } else if ($palugitDate >= $beginShift &&  $palugitDate <= $finishShift) //meaning late lang sya
-                        {
-
-                            $userLog = $logPalugit;
-                            goto proceedWithLogs;
-
-                        } else goto proceedWithBlank;
-                        
-                      } else goto proceedWithBlank; 
-
-                  } else goto proceedWithBlank;
-                  
-
-                }  
-          /* ------------ END THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS : LOG IN ---------*/       
-          } else if($logType_id == 2){
-
-                
-
-
-                if (!($beginShift >= $probTime1 && $beginShift <= $probTime2)) // if shift is NOT within the day
-                {
-                  /*-- check for logs within 6hr grace period for problem shifts --*/
-
-                  proceedToLogTomorrow:
-                  
-                  $tommorow = Carbon::parse($thisPayrollDate)->addDay();
-                  $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
-
-                  if (count($bioForTom) > 0){
-                    $finishShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);// 
-
-
-                      if ($isAproblemShift)
-                        $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-                      
-                      else
-                        //$logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-                        $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-
-
-                      if (count($logPalugit) > 0) 
-                      { 
-                        //we need to check first if it is within the palugit period: meaning LATE
-                        //if more than palugit: meaning for tomorrow's bio yun
-                        $palugitDate = Carbon::parse($thisPayrollDate." ".$logPalugit->first()->logTime,"Asia/Manila");
-                        //$thisPayrollDate
-                        //$bioForTom->first()->productionDate
-                        $maxOut = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(16);
-                        $pal = $palugitDate;
-
-                        if ($isAproblemShift){
-                          if ( (  $palugitDate >= $beginShift && $palugitDate <= $maxOut  ) || is_null($schedForToday) )
-                          {
-                            $userLog = $logPalugit;
-                            goto proceedWithLogs;
-
-                          } else goto proceedWithBlank;
-
-                        }else{
-
-                          $userLog = $logPalugit;
-                          goto proceedWithLogs;
-                        }
-                       
-
-                        
-                        
-                      } else goto proceedWithBlank; 
-
-                  } else goto proceedWithBlank;
-                  
-
-                }  
-          /* ------------ END THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS ---------*/       
-          } else // ---proceed with the usual null logs
-          {
-
-                proceedWithBlank:
-
-                               $link = action('LogsController@viewRawBiometricsData',$id);
-                               
-                               $icons = "<a title=\"Verify Biometrics data\" class=\"pull-right text-gray\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link#$biometrics_id\"><i class=\"fa fa-clock-o\"></i></a>";
-                                
-                                
-                               if ($hasHolidayToday)
-                               {
-                                $log = "<strong class=\"text-danger\">N/A</strong>". $icons;
-                                $workedHours = $holidayToday->first()->name;
-
-                               } else if ($hasLWOP){
-
-                                  $link = action('UserController@myRequests',$id);
-                                  $icons = "<a title=\"LWOP request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a>";
-
-                                  
-                                  if ($lwopDeet->totalCredits >= '1.0'){
-                                    $log="<small><em>Leave Without Pay </em></small>".$icons;
-                                    $workedHours = 8.0;
-
-                                  } 
-                                  else if ($lwopDeet->totalCredits == '0.50'){
-                                          
-                                            $log="<small><em>Half-day LWOP </em></small>".$icons;
-                                            if (count($userLog) <1) $workedHours = 4.0;
-                                            else $workedHours = 8.0;
-                                          
-                                  }
-
-                                }//end if has LWOP
-                                else
-                                {
-                                    if($logType_id == 1) $log =  "<strong class=\"text-danger\">No IN</strong>". $icons;
-                                    else if ($logType_id == 2)$log = "<strong class=\"text-danger\">No OUT</strong>". $icons;
-                                    $workedHours = "N/A";
-
-                                }
-                                
-                                $timing=null; //Carbon::parse('22:22:22');
-                                $UT = $undertime;
-
-          }
-        
-          
-      } 
-      else
-      {
-
-         proceedWithLogs:
-
-                         $log = date('h:i:s A',strtotime($userLog->first()->logTime));
-
-                         $timing =  Carbon::parse($userLog->first()->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
-                         if (count($hasApprovedDTRP) > 0){
-                            //$log = date('h:i:s A',strtotime($userLog->logTime));
-                            switch ($logType_id) {
-                              case 1:{ $dtrpIN = true; $dtrpIN_id = $userLog->first()->id; }break;
-                              
-                              case 2:{ $dtrpOUT = true; $dtrpOUT_id = $userLog->first()->id; }break;
-                            }
-
-                         }else {
-
-                            switch ($logType_id) {
-                              case 1:{ $dtrpIN = false; $dtrpIN_id = null; }break;
-                              
-                              case 2:{ $dtrpOUT = false; $dtrpOUT_id = null;  }break;
-                            }
-                         } 
-                          
-                          
-                          //if ($problemArea[0]['problemShift'])
-                          //  $timing = Carbon::parse(Biometrics::find($userLog->first()->biometrics_id)->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
-                          //else
-                          //  $timing = Carbon::parse($userLog->first()->logTime, "Asia/Manila");
-
-                          //$timing2 = $userLog->first()->logTime;
-
-                          //*********** APPLICABLE ONLY TO WORK DAY ********************//
-
-                          if ($logType_id == 1) 
-                          {
-                            $parseThis = $schedForToday['timeStart'];
-                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  && !$problemArea[0]['problemShift']) //--- meaning late sya
-                              {
-                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
-
-                              } else $UT = 0;
-                          }
-                            
-                          else if ($logType_id == 2)
-                            $parseThis = $schedForToday['timeEnd'];
-                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
-                              {
-                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
-
-                              } else $UT=$undertime;
-
-                          
-                          //*********** end APPLICABLE ONLY TO WORK DAY ********************//
-
-      }//end if may login 
-
-
-
-      /*-------- VACATION LEAVE -----------*/
-      if ($hasVL && $hasPendingVL)
-      {
-        $leaveDetails->push(['type'=>"VL for approval",'icon'=>'fa-info-circle', 'details'=>$vlDeet]);
-        
-      } else if($hasLeave && $hasVL)
-      {
-        ($vlDeet->isApproved) ? $leaveDetails->push(['type'=>"VL",'icon'=>'fa-plane', 'details'=>$vlDeet]) : $leaveDetails->push(['type'=>"VL denied",'icon'=>'fa-times', 'details'=>$vlDeet]);
-      }
-
-
-      /*-------- SICK LEAVE -----------*/
-      if ($hasSL && $hasPendingSL)
-      {
-        $leaveDetails->push(['type'=>"SL for approval",'icon'=>'fa-info-circle', 'details'=>$slDeet]);
-        
-      } else if($hasLeave && $hasSL)
-      {
-        ($slDeet->isApproved) ? $leaveDetails->push(['type'=>"SL",'icon'=>'fa-stethoscope', 'details'=>$slDeet]) : $leaveDetails->push(['type'=>"SL denied",'icon'=>'fa-times', 'details'=>$slDeet]); 
-      }
-
-      /*-------- LEAVE WITHOUT PAY -----------*/
-      if ($hasLWOP && $hasPendingLWOP)
-      {
-        //$hasLeave = true;
-        $lwopDetails->push(['type'=>"LWOP for approval",'icon'=>'fa-info-circle', 'details'=>$lwopDeet]);
-        
-      } else if($hasLWOP)
-      {
-        //$hasLeave = true;
-        ($lwopDeet->isApproved) ? $lwopDetails->push(['type'=>"LWOP",'icon'=>'fa-meh-o', 'details'=>$lwopDeet]) : $lwopDetails->push(['type'=>"LWOP denied",'icon'=>'fa-times', 'details'=>$lwopDeet]);
-      }
-
-      /*-------- OBT -----------*/
-      if ($hasOBT && $hasPendingOBT)
-      {
-        $hasLeave = true;
-        $leaveDetails->push(['type'=>"OBT for approval",'icon'=>'fa-info-circle', 'details'=>$obtDeet]);
-        
-      } else if($hasOBT)
-      {
-        $hasLeave = true;
-        ($obtDeet->isApproved) ?  $leaveDetails->push(['type'=>"OBT",'icon'=>'fa-briefcase', 'details'=>$obtDeet]) : $leaveDetails->push(['type'=>"OBT denied",'icon'=>'fa-times', 'details'=>$obtDeet]);
-      }
-
-      /*-------- family LEAVE -----------*/
-      if ($hasFL && $hasPendingFL)
-      {
-        switch ($flDeet->leaveType) {
-          case 'ML':{$leaveDetails->push(['type'=>"ML for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
-          case 'PL':{$leaveDetails->push(['type'=>"PL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
-          case 'SPL':{$leaveDetails->push(['type'=>"SPL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
-             
-        }
-        
-        
-      } else if($hasLeave && $hasFL)
-      {
-        if ($flDeet->isApproved)
-        {
-          switch ($flDeet->leaveType) {
-            case 'ML':{$leaveDetails->push(['type'=>"ML",'icon'=>'fa-female', 'details'=>$flDeet]);}break;
-            case 'PL':{$leaveDetails->push(['type'=>"PL",'icon'=>'fa-male', 'details'=>$flDeet]);}break;
-            case 'SPL':{$leaveDetails->push(['type'=>"SPL",'icon'=>'fa-street-view', 'details'=>$flDeet]);}break;       
-          
-          }
-
-        }else
-        {
-          switch ($flDeet->leaveType) {
-            case 'ML':{$leaveDetails->push(['type'=>"ML denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
-            case 'PL':{$leaveDetails->push(['type'=>"PL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
-            case 'SPL':{$leaveDetails->push(['type'=>"SPL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;       
-          
-          }
-
-        }
-        
-        
-      }
-
-
-
-       $data->push([ 'logPalugit'=>$logPalugit,
-                      'palugitDate' =>$palugitDate,
-                       'beginShift'=> $beginShift,
-                       'maxOut'=> $maxOut,
-                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
-                    'sl'=>$slDeet,
-                    'UT'=>$UT, 'logTxt'=>$log,
-                    'hasPendingDTRP' => $hasPendingDTRP,
-                    'pendingDTRP' => $pendingDTRP, 
-                    'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
-                    'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
-                    'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
-                    'dtrp'=>$hasApprovedDTRP->first()]);
-
-              
-
-      return $data;
-  }
-
-  public function getPayrollPeriod($cutoffStart,$cutoffEnd)
-  {
-    $payrollPeriod = [];
-    for($date = $cutoffStart; $date->lte($cutoffEnd); $date->addDay()) 
-         {
-            $payrollPeriod[] = $date->format('Y-m-d');
-         }
-
-    return $payrollPeriod;
-
-
-  }
-
-
-  public function getRDinfo($user_id, $biometrics,$isSameDayLog,$payday)
-  {
-
-    /* init $approvedOT */
-      $approvedOT=0; $OTattribute="";
-      $hasHolidayToday = false;
-      $hasPendingIN = null;
-      $pendingDTRPin = null;
-      $hasPendingOUT = null;
-      $pendingDTRPout = null;
-
-    $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
-    $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
-
-     if (count($holidayToday) > 0) $hasHolidayToday = true;
-
-
-      /* -- you still have to create module for checking and filing OTs */
-
-      /* --------- check mo muna kung may approved DTRP on this day --------*/
-      $hasApprovedDTRPin = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('updated_at','DESC')->get();
-
-      if (count($hasApprovedDTRPin) > 0){ $userLogIN = $hasApprovedDTRPin;} 
-      else { $userLogIN = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get(); }
-
-
-
-      if (count($userLogIN) == 0)
-      {
-            $pendingDTRPin = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('updated_at','DESC')->get();
-            //--- ** baka naman may DTRP syang di pa approved? 
-
-            if (count($pendingDTRPin) > 0)
-            {
-              $logIN = "(pending)";
-              $hasPendingIN = true;
-            } else {
-
-              $logIN = "* RD *";  //--- di nga sya pumasok
-              $logOUT = "* RD *";
-
-            }
-            $shiftStart = "* RD *";
-            $shiftEnd = "* RD *";
-
-            if ($hasHolidayToday)
-              {
-                $workedHours = "(8.0) <br/><strong> * "; 
-                $workedHours .= $holidayToday->first()->name." *</strong>";
-
-              } else $workedHours="N/A"; 
-
-              $UT = 0;
-              $billableForOT=0;
-
-      } 
-      else
-      {
-          $logIN = date('h:i A',strtotime($userLogIN->first()->logTime));
-          $timeStart = Carbon::parse($userLogIN->first()->logTime);
-
-          if ($isSameDayLog) 
-          {
-            //Check mo muna kung may approved DTRPout
-             $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
-
-             if (count($hasApprovedDTRPout) > 0) { $userLogOUT = $hasApprovedDTRPout;} 
-             else 
-             {
-                $pendingDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();//--- ** baka naman may DTRP syang di pa approved? 
-
-                if (count($pendingDTRPout) > 0)
-                {
-                  $logOUT = "(pending)";
-                  $hasPendingOUT = true;
-                  $userLogOUT = $pendingDTRPout;
-
-                } else {
-                  $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
-                }
-
-             }
-
-             
-          } //end if sameday log
-
-          else
-          {
-            //--- NEXT DAY LOG OUT
-            $nextDay = Carbon::parse($payday)->addDay();
-            $bioForTomorrow = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->first();
-
-            //Check mo muna kung may approved DTRPout
-             $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
-
-             if (count($hasApprovedDTRPout) > 0)
-             {
-
-              $userLogOUT = $hasApprovedDTRPout;
-
-             } else 
-             {
-
-               //--- ** baka naman may DTRP syang di pa approved? 
-                $pendingDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
-
-                if (count($pendingDTRPout) > 0)
-                {
-                  $logOUT = "(pending)";
-                  $hasPendingOUT = true;
-                  $userLogOUT = $pendingDTRPout;
-
-                } else {
-
-                  //--- di nga sya pumasok
-                  $logOUT = "* RD *";
-                  $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
-
-                }
-
-              
-             }
-
-          }
-            
-
-
-          //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
-          $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->where('isApproved',1)->get();
-          if (count($rdOT) > 0) $approvedOT = $rdOT; 
-
-          if( is_null($userLogOUT) || count($userLogOUT)<1 )
-          {
-             $logOUT = "No OT-Out <br/><small>Verify with Immediate Head</small>";
-
-              $workedHours="N/A"; 
-
-              if ($hasHolidayToday)
-              {
-                
-                $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>";
-
-              }  
-
-             
-              $shiftStart = "* RD *";
-              $shiftEnd = "* RD *";
-              $UT = 0;
-              $billableForOT=0;
-              
-
-          } else 
-          { 
-                //--- legit OT, compute billable hours
-                $logOUT = date('h:i A',strtotime($userLogOUT->first()->logTime));
-                $timeEnd = Carbon::parse($userLogOUT->first()->logTime);
-                $wh = $timeEnd->diffInMinutes($timeStart->addHour()); //--- pag RD OT, no need to add breaktime 1HR
-                $workedHours = number_format($wh/60,2);
-                $billableForOT = $workedHours;
-
-                if ($hasHolidayToday)
-                {
-                  
-                  $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
-
-                } else $workedHours .= "<br /><small>* RD-OT * </small>";
-
-
-                 if ($hasHolidayToday)
-                 $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
-               else
-                $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
-               
-
-                
-                $OTattribute = $icons;
-                $shiftStart = "* RD *";
-                $shiftEnd = "* RD *";
-                $UT = 0;
-          }
-
-
-
-       }//end if may login kahit RD
-
-       $data = new Collection;
-       $data->push(['shiftStart'=>$shiftStart, 
-        'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
-        'logOUT'=>$logOUT,'workedHours'=>$workedHours, 
-        'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute, 'UT'=>$UT, 
-        'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null,
-        'hasPendingIN' => $hasPendingIN,
-        'pendingDTRPin'=> $pendingDTRPin,
-        'hasPendingOUT' => $hasPendingOUT,
-        'pendingDTRPout' => $pendingDTRPout,
-        'approvedOT'=>$approvedOT]);
-       return $data;
-
-
-   
-  }
 
 
   public function getTLapprover($user_id, $leader_id)
@@ -2330,11 +2498,22 @@ trait TimekeepingTraits
           $icons ="";
           $workedHours=null;$log="";
 
+          $t =$userLogIN[0]['timing']->format('H:i:s');
+          $t2 =$userLogOUT[0]['timing']->format('H:i:s');
+
+          $scheduleStart = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
+          //$scheduleEnd = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
+
+          $inTime = Carbon::parse($payday." ".$t,'Asia/Manila');
+          $outTime = Carbon::parse($payday." ".$t2,'Asia/Manila');
 
 
-          if ($userLogIN[0]['timing']->format('H:i:s') > $schedForToday['timeStart'])
+
+
+          if ($inTime->format('Y-m-d H:i:s') > $scheduleStart->format('Y-m-d H:i:s'))
           {
-            $checkLate = $userLogIN[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeStart'], "Asia/Manila"));
+            //$checkLate = $userLogIN[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeStart'], "Asia/Manila"));
+            $checkLate = $inTime->diffInMinutes($scheduleStart);
             //---- MARKETING TEAM CHECK: 15mins grace period
               
               
@@ -2345,7 +2524,7 @@ trait TimekeepingTraits
           } else $isLateIN= false;
 
 
-          if ($userLogOUT[0]['timing']->format('H:i:s') < $schedForToday['timeEnd'])
+          if ($userLogOUT[0]['timing']->format('Y-m-d H:i:s') < Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s'))
           {
             $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeEnd'],"Asia/Manila"));
             //---- MARKETING TEAM CHECK: 15mins grace period
@@ -2618,11 +2797,27 @@ trait TimekeepingTraits
              
                 proceedWithNormal:
 
+                    /* --- NOTE: shiftEnd is date('h:i A') --- */
+
                     if ($wh > 480)
                     {
                       $workedHours =8.00; 
                        $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
-                      $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
+
+                       if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
+                       {
+                        $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila')->format('Y-m-d H:i:s');
+                        $totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($t,"Asia/Manila") ))/60,2);
+
+                       }
+                        
+                      else{
+                        $t = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->format('H:i:s');
+                        $totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$t,"Asia/Manila") ))/60,2);
+                      }
+
+
+                      
 
                       if ($totalbill > 0.5)
                       {
@@ -2733,10 +2928,16 @@ trait TimekeepingTraits
          }
         }
 
-        
+         
+
         $data->push(['checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
                       'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
                       'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'LWOP'=>$hasLWOP ]);
+        /*              $t=$userLogIN[0]['timing']->format('H:i:s');
+                      $o = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s')
+        $data->push(['checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
+                      'billableForOT'=>Carbon::parse($payday." ".$t,'Asia/Manila')->format('Y-m-d H:i:s'), 'OTattribute'=>$OTattribute,
+                      'UT'=>, 'VL'=>$hasVL, 'SL'=>$hasSL, 'LWOP'=>$hasLWOP ]);*/
 
 
 
@@ -2758,7 +2959,7 @@ trait TimekeepingTraits
 
 
   public function getWorkSchedForTheDay($user, $leaveDay, $hasPending)
-    {
+  {
       DB::connection()->disableQueryLog();
       //$user = User::find($id);
       $vl_to = $leaveDay;
@@ -3202,7 +3403,7 @@ trait TimekeepingTraits
     
       //return response()->json($productionDate);
 
-    }
+  }
 
 
 
