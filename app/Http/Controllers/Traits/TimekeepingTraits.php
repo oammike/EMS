@@ -1850,7 +1850,7 @@ trait TimekeepingTraits
         
       } else if($hasLeave && $hasVL)
       {
-        $leaveDetails->push(['type'=>"VL",'icon'=>'fa-plane', 'details'=>$vlDeet]);
+        ($vlDeet->isApproved) ? $leaveDetails->push(['type'=>"VL",'icon'=>'fa-plane', 'details'=>$vlDeet]) : $leaveDetails->push(['type'=>"VL denied",'icon'=>'fa-times', 'details'=>$vlDeet]);
       }
 
 
@@ -1861,7 +1861,7 @@ trait TimekeepingTraits
         
       } else if($hasLeave && $hasSL)
       {
-        $leaveDetails->push(['type'=>"SL",'icon'=>'fa-stethoscope', 'details'=>$slDeet]);
+        ($slDeet->isApproved) ? $leaveDetails->push(['type'=>"SL",'icon'=>'fa-stethoscope', 'details'=>$slDeet]) : $leaveDetails->push(['type'=>"SL denied",'icon'=>'fa-times', 'details'=>$slDeet]); 
       }
 
       /*-------- LEAVE WITHOUT PAY -----------*/
@@ -1873,7 +1873,7 @@ trait TimekeepingTraits
       } else if($hasLWOP)
       {
         //$hasLeave = true;
-        $lwopDetails->push(['type'=>"LWOP",'icon'=>'fa-meh-o', 'details'=>$lwopDeet]);
+        ($lwopDeet->isApproved) ? $lwopDetails->push(['type'=>"LWOP",'icon'=>'fa-meh-o', 'details'=>$lwopDeet]) : $lwopDetails->push(['type'=>"LWOP denied",'icon'=>'fa-times', 'details'=>$lwopDeet]);
       }
 
       /*-------- OBT -----------*/
@@ -1885,7 +1885,7 @@ trait TimekeepingTraits
       } else if($hasOBT)
       {
         $hasLeave = true;
-        $leaveDetails->push(['type'=>"OBT",'icon'=>'fa-briefcase', 'details'=>$obtDeet]);
+        ($obtDeet->isApproved) ?  $leaveDetails->push(['type'=>"OBT",'icon'=>'fa-briefcase', 'details'=>$obtDeet]) : $leaveDetails->push(['type'=>"OBT denied",'icon'=>'fa-times', 'details'=>$obtDeet]);
       }
 
       /*-------- family LEAVE -----------*/
@@ -1901,12 +1901,26 @@ trait TimekeepingTraits
         
       } else if($hasLeave && $hasFL)
       {
-        switch ($flDeet->leaveType) {
-          case 'ML':{$leaveDetails->push(['type'=>"ML",'icon'=>'fa-female', 'details'=>$flDeet]);}break;
-          case 'PL':{$leaveDetails->push(['type'=>"PL",'icon'=>'fa-male', 'details'=>$flDeet]);}break;
-          case 'SPL':{$leaveDetails->push(['type'=>"SPL",'icon'=>'fa-street-view', 'details'=>$flDeet]);}break;       
-        
+        if ($flDeet->isApproved)
+        {
+          switch ($flDeet->leaveType) {
+            case 'ML':{$leaveDetails->push(['type'=>"ML",'icon'=>'fa-female', 'details'=>$flDeet]);}break;
+            case 'PL':{$leaveDetails->push(['type'=>"PL",'icon'=>'fa-male', 'details'=>$flDeet]);}break;
+            case 'SPL':{$leaveDetails->push(['type'=>"SPL",'icon'=>'fa-street-view', 'details'=>$flDeet]);}break;       
+          
+          }
+
+        }else
+        {
+          switch ($flDeet->leaveType) {
+            case 'ML':{$leaveDetails->push(['type'=>"ML denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
+            case 'PL':{$leaveDetails->push(['type'=>"PL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
+            case 'SPL':{$leaveDetails->push(['type'=>"SPL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;       
+          
+          }
+
         }
+        
         
       }
 
@@ -3195,43 +3209,82 @@ trait TimekeepingTraits
   public function processLeaves($leaveType,$withIssue,$wh, $deet,$hasPending,$icons,$ins,$outs,$shiftEnd)//$userLogIN[0]['logs'] || $userLogOUT[0]['logs']
   {
     switch ($leaveType) {
-      case 'OBT':{
-                    $link = action('UserOBTController@show',$deet->id);
-                    $i = "fa-suitcase";
-                    $lTitle = "OBT request";
-                    $l = "OBT";
-                    $label = "Official Business Trip";
-                    $workedHours = 8.0;
+      case 'OBT':{$link = action('UserOBTController@show',$deet->id);$lTitle = "OBT request";
+                    if($deet->isApproved)
+                    {
+
+                      $i = "fa-suitcase";
+                      $l = "OBT";
+                      $label = "Official Business Trip";
+                      $workedHours = 8.0;
+                    } else
+                    {
+                       $i = "fa-times";
+                        $l = "X";
+                        $label = "OBT denied";
+                        $workedHours = 0.0;
+                    }
+                    
               # code...
               }break;
 
-      case 'LWOP':{
-                    $link = action('UserLWOPController@show',$deet->id);
-                    $i = "fa-meh-o";
-                    $lTitle = "LWOP request";
-                    $l = "LWOP";
-                    $label = "Leave Without Pay";
-                    $workedHours = " ";
+      case 'LWOP':{$link = action('UserLWOPController@show',$deet->id);$lTitle = "LWOP request";
+                    if($deet->isApproved)
+                    {
+                      
+                      $i = "fa-meh-o";
+                      $l = "LWOP";
+                      $label = "Leave Without Pay";
+                      $workedHours = " ";
+
+                    }else{
+                      $i = "fa-times";
+                      $l = "X";
+                      $label = "LWOP DENIED";
+                      $workedHours = 0.0;
+
+                    }
+                    
               # code...
               }break;
 
-     case 'SL':{
-                    $link = action('UserSLController@show',$deet->id);
-                    $i = "fa-stethoscope";
-                    $lTitle = "SL request";
-                    $l = "SL";
-                    $label = "Sick Leave";
-                    $workedHours = "N/A";
+     case 'SL':{$link = action('UserSLController@show',$deet->id);$lTitle = "SL request";
+                    if($deet->isApproved)
+                    {
+
+                      $i = "fa-stethoscope";
+                      $l = "SL";
+                      $label = "Sick Leave";
+                      $workedHours = "N/A";
+                    }else
+                    {
+                      $i = "fa-times";
+                      $l = "X";
+                      $label = "SL DENIED";
+                      $workedHours = 0.0;
+                    }
+                    
               # code...
               }break;
 
-      case 'VL':{
-                    $link = action('UserVLController@show',$deet->id);
-                    $i = "fa-plane";
-                    $lTitle = "VL request";
-                    $l = "VL";
-                    $label = " Vacation Leave";
-                    $workedHours = 8.0;
+      case 'VL':{$link = action('UserVLController@show',$deet->id);$lTitle = "VL request";
+                    if($deet->isApproved)
+                    {
+                      
+                      
+                      $i = "fa-plane";
+                      $l = "VL";
+                      $label = " Vacation Leave";
+                      $workedHours = 8.0;
+
+                    }else
+                    {
+                      $i = "fa-times";
+                      $l = "x";
+                      $label = "VL DENIED";
+                      $workedHours = 0.0;
+                    }
+                    
               # code...
               }break;
 
@@ -3239,30 +3292,61 @@ trait TimekeepingTraits
                     $link = action('UserFamilyleaveController@show',$deet->id);
 
                     $theleave = User_Familyleave::find($deet->id);
-                    switch ($theleave->leaveType) {
-                      case 'ML':{
-                                    $i = "fa-female";
-                                    $lTitle = "ML request";
-                                    $l = "ML";
-                                    $label = "Maternity Leave";
-                      }break;
 
-                      case 'PL':{
-                                    $i = "fa-male";
-                                    $lTitle = "PL request";
-                                    $l = "PL";
-                                    $label = "Paternity Leave";
-                      }break;
+                    if($theleave->isApproved)
+                    {
+                      switch ($theleave->leaveType) {
+                        case 'ML':{
+                                      $i = "fa-female";
+                                      $lTitle = "ML request";
+                                      $l = "ML";
+                                      $label = "Maternity Leave";
+                        }break;
 
-                      case 'SPL':{
-                                    $i = "fa-street-view";
-                                    $lTitle = "SPL request";
-                                    $l = "SPL";
-                                    $label = "Single-Parent Leave";
-                      }break;
-                      
-                      
+                        case 'PL':{
+                                      $i = "fa-male";
+                                      $lTitle = "PL request";
+                                      $l = "PL";
+                                      $label = "Paternity Leave";
+                        }break;
+
+                        case 'SPL':{
+                                      $i = "fa-street-view";
+                                      $lTitle = "SPL request";
+                                      $l = "SPL";
+                                      $label = "Single-Parent Leave";
+                        }break;
+                        
+                        
+                      }
+
+                    }else{
+                      switch ($theleave->leaveType) {
+                        case 'ML':{
+                                      $i = "fa-times";
+                                      $lTitle = "ML request";
+                                      $l = "X";
+                                      $label = "ML denied";
+                        }break;
+
+                        case 'PL':{
+                                      $i = "fa-times";
+                                      $lTitle = "PL request";
+                                      $l = "X";
+                                      $label = "PL denied";
+                        }break;
+
+                        case 'SPL':{
+                                      $i = "fa-times";
+                                      $lTitle = "SPL request";
+                                      $l = "X";
+                                      $label = "SPL denied";
+                        }break;
+                        
+                        
+                      }
                     }
+                    
                     
                     $workedHours = "N/A";
               # code...

@@ -353,8 +353,17 @@ class DTRController extends Controller
                                   case '3': $otType = "patch"; break;
                                   default: $otType = "billed"; break;
                                 }
-                                $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
-                                $arr[$i] = $deets->reason; $i++;
+                                if ($deets->isApproved)
+                                {
+                                  $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
+                                  $arr[$i] = $deets->reason; $i++;
+
+                                }else{
+                                  $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
+                                  $arr[$i] = $deets->reason; $i++;
+
+                                }
+                                
 
                               }else{
                                 $arr[$i] = "-"; $i++;
