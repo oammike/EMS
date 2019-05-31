@@ -282,7 +282,7 @@ class NotificationController extends Controller
                                   $campaign .= $c->name.", ";
                               }
                               
-                      } else $campaign = $camp->first()->name;
+                      } else $campaign = "";//$camp->first()->name;
                     
 
 
