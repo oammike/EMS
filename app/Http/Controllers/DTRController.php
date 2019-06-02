@@ -2286,7 +2286,7 @@ class DTRController extends Controller
                                         ---------------------------------------------*/
                                        
                                           $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift);
-                                          //$coll->push(['datafrom'=>"else NOT Problem shift",'data IN'=>$userLogIN ]);
+                                          $coll->push(['datafrom'=>"else NOT Problem shift",'data IN'=>$userLogIN ]);
                                         //}
 
                                         
@@ -2433,6 +2433,7 @@ class DTRController extends Controller
                                          'approvedOT' => $approvedOT,
                                          'wholeIN' => $userLogIN,
                                          'wholeOUT' =>$userLogOUT,
+                                         'schedForToday'=>$schedForToday
 
                                          // 'VL'=>$VLs, 'LWOP'=>$LWOPs
 
