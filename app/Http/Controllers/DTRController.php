@@ -2216,11 +2216,24 @@ class DTRController extends Controller
 
                                       if (empty($userLogOUT[0]['timing']))
                                       {
-                                        //meaning wala syang OUT talaga
-                                        $workedHours= "N/A";
-                                        $billableForOT = "-";
-                                        $OTattribute = "-";
-                                        $UT = "-";
+                                        //** but check mo muna kung may filed leave ba
+                                        if($userLogOUT[0]['hasLeave'] || $userLogOUT[0]['hasLWOP'] || $userLogOUT[0]['hasSL'])
+                                        {
+                                          $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
+                                          $workedHours= $data[0]['workedHours'];
+                                          $billableForOT = $data[0]['billableForOT'];
+                                          $OTattribute = $data[0]['OTattribute'];
+                                          $UT = $data[0]['UT'];
+                                          $coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
+
+                                        }else{
+                                              //meaning wala syang OUT talaga
+                                            $workedHours= "N/A";
+                                            $billableForOT = "-";
+                                            $OTattribute = "-";
+                                            $UT = "-";
+                                        }
+                                        
 
                                       }else{
                                         $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
