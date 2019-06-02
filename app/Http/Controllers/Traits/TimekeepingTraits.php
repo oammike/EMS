@@ -1953,7 +1953,7 @@ trait TimekeepingTraits
       } 
       else
       {
-          $logIN = date('h:i A',strtotime($userLogIN->first()->logTime));
+          $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
           $timeStart = Carbon::parse($userLogIN->first()->logTime);
 
           if ($isSameDayLog) 
@@ -2049,9 +2049,27 @@ trait TimekeepingTraits
           } else 
           { 
                 //--- legit OT, compute billable hours
-                $logOUT = date('h:i A',strtotime($userLogOUT->first()->logTime));
-                $timeEnd = Carbon::parse($userLogOUT->first()->logTime);
-                $wh = $timeEnd->diffInMinutes($timeStart->addHour()); //--- pag RD OT, no need to add breaktime 1HR
+                //--- check mo muna kung normal or night diff logtype sya
+                if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
+                  $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                else
+                {
+                  $nextDay = Carbon::parse($payday)->addDay();
+                  $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
+                  if (count($b) > 0)
+                    $bio = $b->first()->productionDate;
+                  else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                }
+
+                
+                $logO = Carbon::parse($bio." ".$userLogOUT->first()->logTime, 'Asia/Manila'); 
+                $logOUT = $logO->format('M d h:i:s A'); 
+
+                $timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
+                //date('h:i:s A',strtotime($userLogOUT->first()->logTime));
+                $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
+
+                $wh = $logO->diffInMinutes($timeStart->addHour(1)); //--- pag RD OT, no need to add breaktime 1HR
                 $workedHours = number_format($wh/60,2);
                 $billableForOT = $workedHours;
 
