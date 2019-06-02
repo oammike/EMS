@@ -1098,9 +1098,9 @@ $('button#uploadOT').fadeOut();
   $('#upload').on('click', function(){
 
       if ($('input#workshift').is(':checked'))
-              var txtl = $('textarea[name="cwsnote"]').val().trim().length;
+              //var txtl = $('textarea[name="cwsnote"]').val().trim().length;
               console.log("length: "+ txtl);
-              if ($('select[name="timeEnd"] :selected').val() !== "0" && ( txtl > 3) )
+              if ($('select[name="timeEnd"] :selected').val() !== "0" )
                 $.notify("CWS saved for approval.",{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
               else
                 $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
