@@ -225,7 +225,7 @@
 
                                                           <input type="hidden" name="productionDate_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['productionDate'] }}">
 
-                                                             @if(!$data['hasLeave'] && ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd'] == null))) 
+                                                             @if(!$data['hasLeave'] || ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd']) ) ) 
                                                              <!-- ****** we wont need the pushpins for DTRP kasi LEAVE today **** -->
                                                             
                                                                 @if(count($user->approvers) > 0)

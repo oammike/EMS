@@ -3592,7 +3592,7 @@ trait TimekeepingTraits
           }else{
 
             if($leaveType=='LWOP') $workedHours = 0;
-            else $workedHours = 8.0;
+            //else $workedHours = 8.0;
             $log="<strong><small><i class=\"fa ".$i."\"></i> <em> ".$label." </em></small></strong>".$icons;
             
           }
