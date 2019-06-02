@@ -225,7 +225,7 @@
 
                                                           <input type="hidden" name="productionDate_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['productionDate'] }}">
 
-                                                             @if(!$data['hasLeave'] || ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd']) ) ) 
+                                                             @if(!$data['hasLeave'] && ( !is_null($data['shiftStart']) && !is_null($data['shiftEnd']) ) ) 
                                                              <!-- ****** we wont need the pushpins for DTRP kasi LEAVE today **** -->
                                                             
                                                                 @if(count($user->approvers) > 0)
@@ -659,7 +659,7 @@
                                                                               
                                                                               {!! $data['billableForOT'] !!} 
 
-                                                                              <a title="View Details" class="pull-right text-orange" style="font-size:1.2em;" href="{{action('UserOTController@show',$data['userOT']->first()['id'])}} "><i class="fa fa-credit-card"></i></a></td>
+                                                                              <a title="View Details" target="_blank" class="pull-right text-orange" style="font-size:1.2em;" href="{{action('UserOTController@show',$data['userOT']->first()['id'])}} "><i class="fa fa-credit-card"></i></a></td>
                                                                             
                                                                             @endif
 
