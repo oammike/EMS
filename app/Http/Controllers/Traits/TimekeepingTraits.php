@@ -1318,6 +1318,9 @@ trait TimekeepingTraits
     ( count($pendingDTRP) > 0  ) ? $hasPendingDTRP=true : $hasPendingDTRP=false;
 
     //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
+    $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+    $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila");
+    
 
     if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
     else 
@@ -1327,8 +1330,7 @@ trait TimekeepingTraits
               if ($logType_id== 2)
               {
 
-                $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
-                $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila");
+                
                 
                 //$maxEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila")->addHour(6);
                 $probTime1 = Carbon::parse($thisPayrollDate." 04:00:00","Asia/Manila");
@@ -1616,7 +1618,7 @@ trait TimekeepingTraits
                           {  
 
                             if ($hasApprovedDTRP){
-                              $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+                              //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
                             }
 
                             if( date("H:i:s", strtotime($userLog->first()->logTime)) > $beginShift->format('H:i:s') )
@@ -1634,8 +1636,11 @@ trait TimekeepingTraits
                               $bioForTom = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
                               if (count($bioForTom) > 0)
                               {
-                                
-                                $uLog = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
+
+                                if (count($hasApprovedDTRP) > 0)
+                                  $uLog = $hasApprovedDTRP;
+                                else
+                                  $uLog = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
 
                                 if (count($uLog) > 0)
                                 {

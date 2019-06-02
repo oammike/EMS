@@ -495,7 +495,8 @@
                                                               @if ($data['dtrpOUT'] == true  ||  $data['hasPendingOUT']== true)
                                                               <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpOUT_id']}}">
 
-                                                                 <strong><a data-toggle="modal" title="View Details" @if($data['hasPendingOUT']) class="text-purple pull-right" data-target="#myModal_dtrpDetail{{$data['pendingDTRPout'][0]['id']}}" @else data-target="#myModal_dtrpDetail{{$data['dtrpOUT_id']}}" class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+                                                                 <strong>
+                                                                  <a data-toggle="modal" title="View Details" @if($data['hasPendingOUT']) class="text-purple pull-right" data-target="#myModal_dtrpDetail{{$data['pendingDTRPout'][0]['id']}}" @else data-target="#myModal_dtrpDetail{{$data['dtrpOUT_id']}}" class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
 
                                                               @else
                                                                <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
@@ -514,19 +515,19 @@
                                                                 $data_id = $data['dtrpOUT_id'];  ?>
 
 
-                                                             @include('layouts.modals-detailsDTRP', [
+                                                            @include('layouts.modals-detailsDTRP', [
                                                                        'data-notifType'=> $data_notifType,
                                                                       'data-notifID'=> $data_notifID,
                                                                       'dataid'=>$data_id, 
                                                                       'modelID' => $data["dtrpOUT_id"], 
                                                                       'modalTitle'=>'View DTRP Details', 
-                                                                      'icon'=>'glyphicon-up' ])
-
+                                                                      'icon'=>'glyphicon-up' ]); 
+                                                            
 
                                                         @elseif ($data['hasPendingOUT'] == true )
                                                         <?php  $data_notifType = '9'; 
                                                                 $data_notifID = $data["payday"]; 
-                                                                $data_id = $data['pendingDTRPout']['0']['id']; ?>
+                                                               $data_id = $data['pendingDTRPout']['0']['id']; ?>
 
                                                               @include('layouts.modals-detailsDTRP', [
                                                                        'data-notifType'=> $data_notifType,
@@ -534,7 +535,7 @@
                                                                       'dataid'=>$data_id, 
                                                                       'modelID' => $data["pendingDTRPout"][0]['id'], 
                                                                       'modalTitle'=>'View DTRP Details', 
-                                                                      'icon'=>'glyphicon-up' ])
+                                                                      'icon'=>'glyphicon-up' ]);
 
                                                          @endif
 
