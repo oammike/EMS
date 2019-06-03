@@ -2175,7 +2175,7 @@ trait TimekeepingTraits
                   
                   $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
 
-                } else $workedHours .= "<br /><small>* RD-OT * </small>";
+                } else $workedHours .= "<br /><small> [* RD-OT *] </small>";
 
 
                  if ($hasHolidayToday){
@@ -3028,7 +3028,7 @@ trait TimekeepingTraits
 
                       if ($hasHolidayToday)
                           {
-                            $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                            $workedHours .= "<br/> <strong>[* ". $holidayToday->first()->name. " *]</strong>";
                           }
 
 
@@ -3038,7 +3038,7 @@ trait TimekeepingTraits
                         $workedHours = number_format($wh/60,2); $billableForOT=0; 
                           if ($hasHolidayToday)
                           {
-                            $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";
+                            $workedHours .= "<br/> <strong>[* ". $holidayToday->first()->name. " *]</strong>";
                           }
                       }//end else di overworked, sakto lang
 
@@ -3118,7 +3118,7 @@ trait TimekeepingTraits
 
           if ($hasHolidayToday) /***--- we will need to check if Non-Ops personnel, may pasok kasi pag OPS **/
           {
-            $workedHours .= "(8.0)<br/> <strong>* " . $holidayToday->first()->name . " *</strong>";
+            $workedHours .= "(8.0)<br/> <strong>[* " . $holidayToday->first()->name . " *]</strong>";
           }
 
          if (!$hasVL && !$hasSL && !$hasLWOP &&  !$hasOBT && !$hasFL && !$hasHolidayToday){
@@ -3774,7 +3774,7 @@ trait TimekeepingTraits
 
             if($leaveType=='LWOP') $workedHours = 0;
             //else $workedHours = 8.0;
-            $log="<strong><small><i class=\"fa ".$i."\"></i> <em> ".$label." </em></small></strong>".$icons;
+            $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[  ".$label." ] </em></small></strong>".$icons;
             
           }
           
@@ -3787,14 +3787,14 @@ trait TimekeepingTraits
             if($hasPending){
               if ($deet->halfdayFrom == 2){
                 $log="<strong><small><i class=\"fa ".$i." \"></i> <em> 1st Shift ".$l." (for approval) </em></small></strong>".$icons;
-                $workedHours = number_format(($wh/60),2)."<br/><small>(Late IN)</small>";$billableForOT=0;
+                $workedHours = number_format(($wh/60),2)."<br/><small>[Late IN]</small>";$billableForOT=0;
                 $UT = round(((420.0 - $wh)/60),2); //4h instead of 8H
               }
               
                 
               else if ($deet->halfdayFrom == 3){
                 $log="<strong><small><i class=\"fa ".$i." \"></i> <em> 2nd Shift ".$l." (for approval) </em></small></strong>".$icons;
-                $workedHours = number_format(($wh/60)+5,2)."<br/><small>(Late IN)</small>";$billableForOT=0;
+                $workedHours = number_format(($wh/60)+5,2)."<br/><small>[Late IN]</small>";$billableForOT=0;
                 $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
               }
               else
@@ -3803,7 +3803,7 @@ trait TimekeepingTraits
               
                     //no logs, meaning halfday AWOL sya
                     if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+                      $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
 
               $workedHours = "<strong class='text-danger'>AWOL</strong>";
               $workedHours .= "<br/>".$log;
@@ -3814,11 +3814,11 @@ trait TimekeepingTraits
 
                 $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 1st Shift ".$l." </em></small></strong>".$icons;
                 if (!empty($ins) && !empty($outs) && ($leaveType !== 'OBT' && $leaveType !== 'VL') ) {
-                  $workedHours = number_format(($wh/60),2)."<br/><small>(Late IN)</small>";
+                  $workedHours = number_format(($wh/60),2)."<br/><small>[ Late IN ]</small>";
                   $UT = round(((480.0 - $wh)/60),2); //full 8h work dapat
                 }
                 else {
-                  $workedHours = number_format(($wh/60)+5,2)."<br/><small>(Late IN)</small>";
+                  $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
                   $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
                 }
 
@@ -3827,24 +3827,24 @@ trait TimekeepingTraits
                 
               }
               else if ($deet->halfdayFrom == 3){
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 2nd Shift ".$l." </em></small></strong>".$icons;
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[  2nd Shift ".$l." ] </em></small></strong>".$icons;
                 if (!empty($ins) && !empty($outs) && ($leaveType !== 'OBT' && $leaveType !== 'VL') )
-                  $workedHours = number_format(($wh/60),2)."<br/><small>(Late IN)</small>";
+                  $workedHours = number_format(($wh/60),2)."<br/><small>[ Late IN ]</small>";
                 else
-                  $workedHours = number_format(($wh/60)+5,2)."<br/><small>(Late IN)</small>";
+                  $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
 
                 $billableForOT=0;
                 $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
               }
               else{
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> Half-day ".$l."  </em></small></strong>".$icons;
-                 $workedHours = number_format(($wh/60)+5,2)."<br/><small>(Late IN)</small>";$billableForOT=0;
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[  Half-day ".$l."  ]</em></small></strong>".$icons;
+                 $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";$billableForOT=0;
                  $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
                }
 
               
                     if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+                      $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
               
 
               $WHcounter = 8.0;
@@ -3878,7 +3878,7 @@ trait TimekeepingTraits
             $log="<strong><small><i class=\"fa ".$i."\"></i> <em> ".$l." for approval </em></small></strong>".$icons;
           }else{
             
-            $log="<strong><small><i class=\"fa ".$i."\"></i> <em> ".$label." </em></small></strong>".$icons;
+            $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$label." ]</em></small></strong>".$icons;
           }
           
           if($leaveType=='LWOP') $workedHours  .= "0.0<br/>".$log;
@@ -3890,11 +3890,11 @@ trait TimekeepingTraits
 
             if($hasPending){
               if ($deet->halfdayFrom == 2)
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> 1st Shift ".$l." (for approval) </em></small></strong>".$icons;
+                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [1st Shift ".$l."] (for approval) </em></small></strong>".$icons;
               else if ($deet->halfdayFrom == 3)
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> 2nd Shift ".$l." (for approval) </em></small></strong>".$icons;
+                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [2nd Shift ".$l."] (for approval) </em></small></strong>".$icons;
               else
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> Half-day ".$l." (for approval) </em></small></strong>".$icons;
+                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [ Half-day ".$l."] (for approval) </em></small></strong>".$icons;
               
               
                     //no logs, meaning halfday AWOL sya
@@ -3907,15 +3907,15 @@ trait TimekeepingTraits
             }else{
 
               if ($deet->halfdayFrom == 2)
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 1st Shift ".$l." </em></small></strong>".$icons;
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 1st Shift ".$l." ]</em></small></strong>".$icons;
               else if ($deet->halfdayFrom == 3)
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 2nd Shift ".$l." </em></small></strong>".$icons;
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 2nd Shift ".$l." ]</em></small></strong>".$icons;
               else
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> Half-day ".$l."  </em></small></strong>".$icons;
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ Half-day ".$l."  ]</em></small></strong>".$icons;
 
               
                     if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+                      $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
 
               if($leaveType=='LWOP') $workedHours  = 0.0;     
               else $workedHours = '4.0';
