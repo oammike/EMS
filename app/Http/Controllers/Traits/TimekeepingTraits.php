@@ -2684,7 +2684,7 @@ trait TimekeepingTraits
 
           if ($userLogOUT[0]['timing']->format('Y-m-d H:i:s') < Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s'))
           {
-            $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeEnd'],"Asia/Manila"));
+            $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"));
             //---- MARKETING TEAM CHECK: 15mins grace period
               
                  if ($checkEarlyOut > 1) $isEarlyOUT = true; else $isEarlyOUT= false;
@@ -2709,7 +2709,7 @@ trait TimekeepingTraits
           else if ($isEarlyOUT)
           {
              //--- but u need to make sure if nag late out sya
-              if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($schedForToday['timeEnd'],"Asia/Manila"))
+              if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"))
               {
                 $workedHours = 8.00;
 
