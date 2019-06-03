@@ -630,16 +630,16 @@ class DTRController extends Controller
                                     $x = explode('[', $e);
                                     $totalHours += (float)$x[0];
                                     $overAllTotal += $totalHours;
-                                    $arr[$i] = $e; //."_x-".$totalHours; //number_format((float)$x[0], 2, '.', '');
+                                    $arr[$i] = $e."_x-".$totalHours; //number_format((float)$x[0], 2, '.', '');
                                   }else
                                   {
                                     if (is_numeric($e)){
-                                      $arr[$i] = number_format((float)$e, 2, '.', ''); //."_num-".$totalHours;
+                                      $arr[$i] = number_format((float)$e, 2, '.', '')."_num-".$totalHours;
                                       $totalHours += (float)$e;
                                       $overAllTotal += $totalHours;
                                     }
                                     else
-                                      $arr[$i] = $e; //."_".$totalHours;
+                                      $arr[$i] = $e."_".$totalHours;
 
                                    
                                   }
