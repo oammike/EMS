@@ -357,7 +357,14 @@ trait TimekeepingTraits
               if ($wh > 480)
               {
                 $workedHours =8.00; 
-                $icons = "<a data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\" title=\"File this OT\"  class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                //check first if Locked na DTR for that production date
+                $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                if (count($verifiedDTR) > 0)
+                  $icons = "<a title=\"Unlock DTR to file this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                else
+                 $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                
                 $totalbill = number_format(($endshift->diffInMinutes($out2))/60,2);
 
                 if ($totalbill > 0.5)
@@ -483,7 +490,15 @@ trait TimekeepingTraits
                 if ($wh > 480)
                 { 
                   $workedHours =8.00; 
-                  $icons = "<a data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                  //check first if Locked na DTR for that production date
+                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                  if (count($verifiedDTR) > 0)
+                    $icons = "<a title=\"Unlock DTR to file this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                  else
+                   $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                  
                   $totalbill = number_format(($endshift->diffInMinutes($out2))/60,2);
 
                   if ($totalbill > 0.5)
@@ -2163,10 +2178,31 @@ trait TimekeepingTraits
                 } else $workedHours .= "<br /><small>* RD-OT * </small>";
 
 
-                 if ($hasHolidayToday)
-                 $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                 if ($hasHolidayToday){
+
+                  //check first if Locked na DTR for that production date
+                    $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                    if (count($verifiedDTR) > 0)
+                      $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                    else
+                     $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                 
+                 }
+                 
                else
-                $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+               {
+                  //check first if Locked na DTR for that production date
+                    $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                    if (count($verifiedDTR) > 0)
+                      $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                    else
+                     $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                  
+
+               }
+                
                
 
                 
@@ -2673,7 +2709,14 @@ trait TimekeepingTraits
               {
                 $workedHours = 8.00;
 
-                $icons = "<a title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                //check first if Locked na DTR for that production date
+                $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                if (count($verifiedDTR) > 0)
+                  $icons = "<a title=\"Unlock DTR to File this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\" ><i class=\"fa fa-credit-card\"></i></a>";
+                else
+                  $icons = "<a  id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                
                  $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
                 $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
 
@@ -2822,8 +2865,18 @@ trait TimekeepingTraits
                   
                    $workedHours = number_format($wh/60,2)."<br/><small>(Late IN)</small>";$billableForOT=0;
                    if ($hasHolidayToday){ $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";}
+
+
+                    //check first if Locked na DTR for that production date
+                      $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                      if (count($verifiedDTR) > 0)
+                        $icons = "<a title=\"Unlock DTR to File this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\" ><i class=\"fa fa-credit-card\"></i></a>";
+                      else
+                        $icons = "<a  id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                     
+
                   
-                    $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                    
                      $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
                     $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
 
@@ -2904,7 +2957,17 @@ trait TimekeepingTraits
 
                       if ($outNya->format('Y-m-d H:i:s') > $schedEnd->format('Y-m-d H:i:s') ){
                         $billableForOT= number_format($outNya->diffInMinutes($schedEnd)/60,2);
-                        $OTattribute = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                        //check first if Locked na DTR for that production date
+                      $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                      if (count($verifiedDTR) > 0)
+                        $OTattribute = "<a title=\"Unlock DTR to file this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                      else
+                       $OTattribute = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                     
+
+
+                        
                       }
                       else
                         $billableForOT=0;
@@ -2932,7 +2995,13 @@ trait TimekeepingTraits
                     if ($wh > 480)
                     {
                       $workedHours =8.00; 
-                       $icons = "<a  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                      //check first if Locked na DTR for that production date
+                      $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                      if (count($verifiedDTR) > 0)
+                        $icons = "<a title=\"Unlock DTR to file an OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                      else
+                       $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
 
                        if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                        {
