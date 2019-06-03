@@ -1,17 +1,5 @@
 
-                    <div class="item active text-center" >
-                      <h4 class="text-primary">Flu Vaccines</h4>
-                              <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>We are glad that many are interested in getting their flu shots. In line with the program, we are now open for registration for those who would like to <strong class="text-orange">avail the flu vaccines via Salary Deduction.</strong> This is open as well to dependents. <br/><br/>
-                                To register, kindly drop by the clinic (8th floor Jaka BLDG & 11th floor ADP G2 BLDG) <strong>not later than June 7, 2019 (Friday) </strong>during your break hours, terms will be discussed and there are forms that need to be filled out and signed.</p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
-
-                      </div>
-
-                       <div class="item text-center" >
+                    <div class="item  active  text-center" >
                               
                               <h4 class="text-primary">Happy <span class="text-orange">Pride Month!</span></h4>
                               <img src="./storage/uploads/pride.jpg" style="z-index: 2" />
@@ -23,6 +11,55 @@
                                 Deadline to sign up is until <strong>Monday, May 20, 2019.</strong>Thank you for spreading the love! We are one with the LGBTQI+ community as we "Resist Together".<br/>
 
                               <br/>
+                    </div>
+
+                    <div class="item text-center" >
+                      <h4 class="text-primary">Flu Vaccines</h4>
+                              <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>We are glad that many are interested in getting their flu shots. In line with the program, we are now open for registration for those who would like to <strong class="text-orange">avail the flu vaccines via Salary Deduction.</strong> This is open as well to dependents. <br/><br/>
+                                To register, kindly drop by the clinic (8th floor Jaka BLDG & 11th floor ADP G2 BLDG) <strong>not later than June 7, 2019 (Friday) </strong>during your break hours, terms will be discussed and there are forms that need to be filled out and signed.</p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                      </div>
+
+                       
+
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Zumba Free Class</span> New Schedule</h3>
+                         <br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                            <br/><span class="text-danger">June 04, 2019 (Tue) – 7:00 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                            <BR/><span class="text-danger">June 06, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">
+                              Sign Up Now</a><br/><br/>
+
+                             <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                     </div>
 
                     @if(count($firstYears) >= 1)
