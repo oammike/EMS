@@ -401,15 +401,19 @@ trait TimekeepingTraits
             /* -------- We need to check for the schedule first for complicated shifts -----*/
              if ($schedForToday['timeStart'] == "00:00:00"){
 
-                $actualIN = Carbon::parse($payday." ".$userLogIN[0]['timing']->format('H:i:s'),"Asia/Manila"); 
+                //$actualIN = Carbon::parse($payday." ".$userLogIN[0]['timing']->format('H:i:s'),"Asia/Manila"); 
+                $actualIN = Carbon::parse($userLogIN[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila"); 
                 $todayStart = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addDay();
                 $todayEnd = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->addDay(); 
-                $actualOUT = Carbon::parse($payday." ".$userLogOUT[0]['timing']->format('H:i:s'),"Asia/Manila")->addDay(); 
+                //$actualOUT = Carbon::parse($payday." ".$userLogOUT[0]['timing']->format('H:i:s'),"Asia/Manila")->addDay(); 
+                $actualOUT = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila"); 
              } else{
-                $actualIN = Carbon::parse($payday." ".$userLogIN[0]['timing']->format('H:i:s'),"Asia/Manila"); 
+                //$actualIN = Carbon::parse($payday." ".$userLogIN[0]['timing']->format('H:i:s'),"Asia/Manila"); 
+                $actualIN = Carbon::parse($userLogIN[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila"); 
                 $todayStart = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
                 $todayEnd = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"); 
-                $actualOUT = Carbon::parse($payday." ".$userLogOUT[0]['timing']->format('H:i:s'),"Asia/Manila"); 
+                $actualOUT = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila"); 
+                //$actualOUT = Carbon::parse($payday." ".$userLogOUT[0]['timing']->format('H:i:s'),"Asia/Manila"); 
 
              }
 
@@ -2737,7 +2741,7 @@ trait TimekeepingTraits
 
                 /*--- WE NEED TO CHECK FIRST KUNG MAY LEGIt LEAVES SYA ***/
 
-                $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($schedForToday['timeStart'],"Asia/Manila")->addHour());
+                $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
 
 
                 if ($hasSL)
