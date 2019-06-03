@@ -676,7 +676,172 @@ class DTRController extends Controller
                           $sheet->freezeFirstColumn();
 
 
-                        }); //end Biologs sheet
+                        }); //end DTR Summary sheet
+
+
+                      $excel->sheet("OT Summary", function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                        {
+                          $header1 = ['Open Access BPO | DTR Summary','','','','','','','','','','','','','','',''];
+                          $header2 = [$cutoffStart->format('M d Y')." to ". $cutoffEnd->format('M d Y') ,'Program/Department: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+
+                          $sheet->appendRow($header1);
+                          $sheet->appendRow($header2);
+                          $sheet->cells('A1:CG2', function($cells) {
+
+                              // call cell manipulation methods
+                              $cells->setBackground('##1a8fcb');
+                              $cells->setFontColor('#ffffff');
+                              $cells->setFontSize(18);
+                              $cells->setFontWeight('bold');
+
+                          });
+                          $sheet->row(2, function($cells) {
+
+                              // call cell manipulation methods
+                              
+                              $cells->setFontColor('#dedede');
+                              $cells->setFontSize(15);
+                              $cells->setFontWeight('bold');
+
+                          });
+
+                          $header3 = ['','','',''];
+
+                          $headers = ['Employee Name', 'Position','Immediate Head','Program'];
+
+                          $productionDates = [];
+                          $ct = 0;
+                          
+                          $d = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
+
+                          foreach($allDTR as $employeeDTR)
+                          {
+                            //---- setup headers first
+                            $overAllTotal = 0;
+                            if ($ct==0)
+                            {
+                              do
+                              {
+                                array_push($productionDates, $d->format('Y-m-d'));
+                                array_push($headers, $d->format('m/d'));
+                                
+                                array_push($header3, $d->format('l') );
+                                array_push($header3, ' ' );array_push($header3, ' ' );array_push($header3, ' ' );array_push($header3, ' ' );
+                                array_push($headers, 'Start time');
+                                array_push($headers, 'End time');
+                                array_push($headers, 'Type');
+                                array_push($headers, 'Remarks');
+                                $d->addDay();
+                              }while($d->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')); //all production dates
+
+                              array_push($headers,"TOTAL");
+
+                              $sheet->appendRow($header3);
+                              $sheet->appendRow($headers);
+                              $sheet->row(3, function($cells) {
+                                $cells->setFontSize(12);
+                                $cells->setFontWeight('bold');
+                                $cells->setAlignment('center');
+                              });
+                              $sheet->row(4, function($cells) {
+                                $cells->setFontSize(14);
+                                $cells->setFontWeight('bold');
+                                $cells->setAlignment('center');
+                              });
+                              $ct++;
+
+                              goto addFirstEmployee;
+
+
+                            }else
+                            {
+
+                              addFirstEmployee:
+
+                              $i = 0;
+                              $totalHours = 0;
+                              $arr = [];
+
+                              $arr[$i] = $employeeDTR->first()->lastname.", ".$employeeDTR->first()->firstname." ".$employeeDTR->first()->middlename; $i++;
+                              $arr[$i] = $employeeDTR->first()->jobTitle; $i++;
+                              $arr[$i] = $employeeDTR->first()->leaderFname." ".$employeeDTR->first()->leaderLname; $i++;
+                              $arr[$i] = $employeeDTR->first()->program; $i++;
+
+                              foreach ($productionDates as $prodDate) 
+                              {
+                                 $entry = collect($employeeDTR)->where('productionDate',$prodDate);
+
+                                 if (count($entry) > 0)
+                                 {
+                                  $e = strip_tags($entry->first()->OT_approved);
+                                  $o = $entry->first()->OT_id;
+                                  if ( !empty($o) )
+                                  {
+                                    $ot = User_OT::find($entry->first()->OT_id);
+
+                                    switch ($ot->billedType) {
+                                      case '1':{ $otType = "Billed"; }break;
+                                      case '2':{ $otType = "Non-Billed"; }break;
+                                      case '3':{ $otType = "Patch"; }break;
+                                      default:{ $otType = "Billed"; }break;
+                                    }
+                                    
+                                    $totalHours += (float)$e;
+                                    $overAllTotal += $totalHours;
+
+                                    $arr[$i] = (float)$e; $i++; 
+                                    $arr[$i] = $ot->timeStart; $i++;
+                                    $arr[$i] = $ot->timeEnd; $i++;
+                                    $arr[$i] = $otType; $i++;
+                                    $arr[$i] = $ot->reason; $i++;
+
+                                  }else
+                                  {
+                                    $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                   
+                                  }
+                                  
+                                 
+                                  
+                                  
+
+                                 }else
+                                 {
+                                  $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                    $arr[$i] = 0.0; $i++; 
+                                 }
+                              }
+
+                              $arr[$i]= number_format($totalHours,2);
+                              $sheet->appendRow($arr); $ct++;
+
+                             
+
+
+                            }//end if else not initial header setup
+                            
+
+                          }//end foreach employee
+                            // Freeze the first column
+
+                          // $sheet->setColumnFormat(array(
+                          //   'E' => '0.00','F' => '0.00','G' => '0.00','H' => '0.00','I' => '0.00','J' => '0.00','K' => '0.00','L' => '0.00','M' => '0.00','N' => '0.00','O' => '0.00','P' => '0.00','Q' => '0.00','R' => '0.00','S' => '0.00','T' => '0.00','U' => '0.00'));
+
+                          $sheet->cells("E3:CG".($ct+4), function($cells) {
+                            $cells->setAlignment('center');
+                          });
+
+                          $sheet->freezeFirstColumn();
+
+
+                        }); //end DTR Summary sheet
 
               })->export('xls');return "Download";
 
