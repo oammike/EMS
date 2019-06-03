@@ -212,15 +212,18 @@ class DTRController extends Controller
 
       $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-           if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Downloaded DTRsheet cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
-                fclose($file);
-            } 
+           
 
       //return $allDTR;
       if ($request->dltype == '1') // DTR sheets
       {
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL DTR cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
         $dtr = $request->dtr;
         $cutoff = explode('_', $request->cutoff);
         $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
@@ -523,6 +526,13 @@ class DTRController extends Controller
 
       }else
       {
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL Billables cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
         Excel::create("Billable Tracker_".$program->name,function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
