@@ -219,8 +219,13 @@ class DTRController extends Controller
             } 
 
       //return $allDTR;
+      if ($request->dltype == '1') // DTR sheets
+      {
+        $dtr = $request->dtr;
+        $cutoff = explode('_', $request->cutoff);
+        $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
 
-      Excel::create($program->name,function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
 
@@ -514,9 +519,174 @@ class DTRController extends Controller
 
 
 
-              })->export('xls');
+              })->export('xls');return "Download";
 
-              return "Download";
+      }else
+      {
+        Excel::create("Billable Tracker_".$program->name,function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+               {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
+
+                      // Chain the setters
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccess');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+                      $payday = $cutoffStart;
+
+
+                      $excel->sheet("DTR Summary", function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                        {
+                          $header1 = ['Open Access BPO | DTR Summary','','','','','','','','','','','','','','',''];
+                          $header2 = [$cutoffStart->format('M d Y')." to ". $cutoffEnd->format('M d Y') ,'Program/Department: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+
+                          $sheet->appendRow($header1);
+                          $sheet->appendRow($header2);
+                          $sheet->cells('A1:Z2', function($cells) {
+
+                              // call cell manipulation methods
+                              $cells->setBackground('##1a8fcb');
+                              $cells->setFontColor('#ffffff');
+                              $cells->setFontSize(18);
+                              $cells->setFontWeight('bold');
+
+                          });
+                          $sheet->row(2, function($cells) {
+
+                              // call cell manipulation methods
+                              
+                              $cells->setFontColor('#dedede');
+                              $cells->setFontSize(15);
+                              $cells->setFontWeight('bold');
+
+                          });
+
+                          $header3 = ['','','',''];
+
+                          $headers = ['Employee Name', 'Position','Immediate Head','Program'];
+
+                          $productionDates = [];
+                          $ct = 0;
+                          
+                          $d = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
+
+                          foreach($allDTR as $employeeDTR)
+                          {
+                            //---- setup headers first
+                            $overAllTotal = 0;
+                            if ($ct==0)
+                            {
+                              do
+                              {
+                                array_push($productionDates, $d->format('Y-m-d'));
+                                array_push($headers, $d->format('m/d'));
+                                array_push($header3, substr($d->format('l'), 0,3) );
+                                $d->addDay();
+                              }while($d->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')); //all production dates
+
+                              array_push($headers,"TOTAL");
+
+                              $sheet->appendRow($header3);
+                              $sheet->appendRow($headers);
+                              $sheet->row(3, function($cells) {
+                                $cells->setFontSize(12);
+                                $cells->setFontWeight('bold');
+                                $cells->setAlignment('center');
+                              });
+                              $sheet->row(4, function($cells) {
+                                $cells->setFontSize(14);
+                                $cells->setFontWeight('bold');
+                                $cells->setAlignment('center');
+                              });
+                              $ct++;
+
+                              goto addFirstEmployee;
+
+
+                            }else
+                            {
+
+                              addFirstEmployee:
+
+                              $i = 0;
+                              $totalHours = 0;
+                              $arr = [];
+
+                              $arr[$i] = $employeeDTR->first()->lastname.", ".$employeeDTR->first()->firstname." ".$employeeDTR->first()->middlename; $i++;
+                              $arr[$i] = $employeeDTR->first()->jobTitle; $i++;
+                              $arr[$i] = $employeeDTR->first()->leaderFname." ".$employeeDTR->first()->leaderLname; $i++;
+                              $arr[$i] = $employeeDTR->first()->program; $i++;
+
+                              foreach ($productionDates as $prodDate) 
+                              {
+                                 $entry = collect($employeeDTR)->where('productionDate',$prodDate);
+
+                                 if (count($entry) > 0)
+                                 {
+                                  $e = strip_tags($entry->first()->hoursWorked);
+                                  if ( strpos($e, '[') !== false )
+                                  {
+                                    $x = explode('[', $e);
+                                    $totalHours += $x[0];
+                                    $overAllTotal += $totalHours;
+                                    $arr[$i] = $e; //."_x-".$totalHours; //number_format((float)$x[0], 2, '.', '');
+                                  }else
+                                  {
+                                    if (is_numeric($e)){
+                                      $arr[$i] = number_format((float)$e, 2, '.', ''); //."_num-".$totalHours;
+                                      $totalHours += (float)$e;
+                                      $overAllTotal += $totalHours;
+                                    }
+                                    else
+                                      $arr[$i] = $e; //."_".$totalHours;
+
+                                   
+                                  }
+                                  
+                                 
+                                  
+                                  $i++;
+
+                                 }else
+                                 {
+                                  $arr[$i] = '<unverified>'; $i++;
+                                 }
+                              }
+
+                              $arr[$i]= number_format($totalHours,2);
+                              $sheet->appendRow($arr); $ct++;
+
+                             
+
+
+                            }//end if else not initial header setup
+                            
+
+                          }//end foreach employee
+                            // Freeze the first column
+
+                          $sheet->setColumnFormat(array(
+                            'E' => '0.00','F' => '0.00','G' => '0.00','H' => '0.00','I' => '0.00','J' => '0.00','K' => '0.00','L' => '0.00','M' => '0.00','N' => '0.00','O' => '0.00','P' => '0.00','Q' => '0.00','R' => '0.00','S' => '0.00','T' => '0.00','U' => '0.00'));
+
+                          $sheet->cells("E3:U".($ct+4), function($cells) {
+                            $cells->setAlignment('center');
+                          });
+
+                          $sheet->freezeFirstColumn();
+
+
+                        }); //end Biologs sheet
+
+              })->export('xls');return "Download";
+
+      } //end else return Billables  
+
+      
+
+
+
+             
 
       // return response()->json(['ok'=>true, 'dtr'=>$allDTR]);
       // return view ('under-construction');

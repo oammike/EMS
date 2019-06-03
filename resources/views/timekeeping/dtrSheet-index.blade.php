@@ -67,7 +67,12 @@
                   
                 
 
-                <p class="text-center"> <button type="submit" class="btn btn-md btn-success" id="dl"><i class="fa fa-save"></i> Download DTR sheets</button> </p>
+                <p class="text-center"> 
+                  <button type="submit" class="btn btn-md btn-success" id="dl"><i class="fa fa-save"></i> Download DTR sheets</button> 
+                  <input type="hidden" name="dltype" id="dltype" />
+                  <button type="submit" class="btn btn-md btn-primary" id="dl2"><i class="fa fa-save"></i> Download Billables</button>
+
+                </p>
               </div>
               
              
@@ -254,6 +259,13 @@
 
   }); 
 
+  $('#dl').on('click',function(){
+      $('input[name="dltype"]').val(1);
+  });
+
+  $('#dl2').on('click',function(){
+      $('input[name="dltype"]').val(2);
+  });
 
   $('select[name="program"]').change(function(){
     var selval = $(this).find(':selected').val();
