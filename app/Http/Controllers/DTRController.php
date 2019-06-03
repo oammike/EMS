@@ -628,7 +628,7 @@ class DTRController extends Controller
                                   if ( strpos($e, '[') !== false )
                                   {
                                     $x = explode('[', $e);
-                                    $totalHours += $x[0];
+                                    $totalHours += (float)$x[0];
                                     $overAllTotal += $totalHours;
                                     $arr[$i] = $e; //."_x-".$totalHours; //number_format((float)$x[0], 2, '.', '');
                                   }else
