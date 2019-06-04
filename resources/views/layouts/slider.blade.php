@@ -14,6 +14,13 @@
                     </div>
 
                     <div class="item text-center" >
+                              <img src="./storage/uploads/motivation-mia.jpg" style="z-index: 2" />
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                    <div class="item text-center" >
                       <h4 class="text-primary">Flu Vaccines</h4>
                               <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>We are glad that many are interested in getting their flu shots. In line with the program, we are now open for registration for those who would like to <strong class="text-orange">avail the flu vaccines via Salary Deduction.</strong> This is open as well to dependents. <br/><br/>
