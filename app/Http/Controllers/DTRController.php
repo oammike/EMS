@@ -2258,36 +2258,33 @@ class DTRController extends Controller
                                               'usercws'=>$usercws->sortByDesc('updated_at'),
                                               'userOT'=>$userOT,
                                               'hasOT'=>$hasOT,
-
                                               'hasLeave' => null,
-                                                'leaveDetails'=>null,
-                                                'hasLWOP' => null,
-                                                'lwopDetails'=>null,
-
-
-                                             'isRD'=>0,
-                                             'isFlexitime'=>$isFlexitime,
-                                             'productionDate'=> date('M d, Y', strtotime($payday)),
-                                             'day'=> date('D',strtotime($payday)),
-                                             'shiftStart'=> null,
-                                             'shiftEnd'=>$shiftEnd,
-                                             'shiftStart2'=> $shiftStart2,
-                                             'shiftEnd2'=>$shiftEnd2,
-                                             'logIN' => $logIN,
-                                             'logOUT'=>$logOUT,
-                                             'dtrpIN'=>null,
-                                             'dtrpIN_id'=>null,
-                                             'dtrpOUT'=> null,
-                                             'dtrpOUT_id'=> null,
-                                             'hasPendingIN' => null,
-                                             'pendingDTRPin'=> null,
-                                             'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
-                                             'pendingDTRPout' =>null,
-                                             'workedHours'=> $workedHours,
-                                             'billableForOT' => $billableForOT,
-                                             'OTattribute'=>$OTattribute,
-                                             'UT'=>$UT,
-                                             'approvedOT' => $approvedOT]);
+                                              'leaveDetails'=>null,
+                                              'hasLWOP' => null,
+                                              'lwopDetails'=>null,
+                                              'isRD'=>0,
+                                               'isFlexitime'=>$isFlexitime,
+                                               'productionDate'=> date('M d, Y', strtotime($payday)),
+                                               'day'=> date('D',strtotime($payday)),
+                                               'shiftStart'=> null,
+                                               'shiftEnd'=>$shiftEnd,
+                                               'shiftStart2'=> $shiftStart2,
+                                               'shiftEnd2'=>$shiftEnd2,
+                                               'logIN' => $logIN,
+                                               'logOUT'=>$logOUT,
+                                               'dtrpIN'=>null,
+                                               'dtrpIN_id'=>null,
+                                               'dtrpOUT'=> null,
+                                               'dtrpOUT_id'=> null,
+                                               'hasPendingIN' => null,
+                                               'pendingDTRPin'=> null,
+                                               'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
+                                               'pendingDTRPout' =>null,
+                                               'workedHours'=> $workedHours,
+                                               'billableForOT' => $billableForOT,
+                                               'OTattribute'=>$OTattribute,
+                                               'UT'=>$UT,
+                                               'approvedOT' => $approvedOT]);
 
 
                                 goto endNoWorkSched;
@@ -2464,15 +2461,12 @@ class DTRController extends Controller
                                          'day'=> date('D',strtotime($payday)),
                                          'shiftStart'=> $data[0]['shiftStart'],
                                          'shiftEnd'=>$data[0]['shiftEnd'],
-
-                                          'hasLeave' => null,
+                                         'hasLeave' => null,
                                           'leaveDetails'=>null,
                                           'hasLWOP' => null,
                                           'lwopDetails'=>null,
-
-
-                                   'shiftStart2'=>  $data[0]['shiftStart'],
-                                   'shiftEnd2'=>$data[0]['shiftEnd'],
+                                          'shiftStart2'=>  $data[0]['shiftStart'],
+                                          'shiftEnd2'=>$data[0]['shiftEnd'],
                                          'logIN' => $data[0]['logIN'],
                                          'logOUT'=>$data[0]['logOUT'],
                                          'dtrpIN'=>$data[0]['dtrpIN'],
@@ -2511,13 +2505,11 @@ class DTRController extends Controller
                                          'shiftStart'=> $data[0]['shiftStart'],
                                          'shiftEnd'=>$data[0]['shiftEnd'],
                                          'shiftStart2'=>  $data[0]['shiftStart'],
-
-                                          'hasLeave' => null,
+                                         'hasLeave' => null,
                                           'leaveDetails'=>null,
                                           'hasLWOP' => null,
                                           'lwopDetails'=>null,
-
-                                   'shiftEnd2'=>$data[0]['shiftEnd'],
+                                          'shiftEnd2'=>$data[0]['shiftEnd'],
                                          'logIN' => $data[0]['logIN'],
                                          'logOUT'=>$data[0]['logOUT']."<br/><small>".$bioForTomorrow->productionDate."</small>",
                                          'dtrpIN'=>$data[0]['dtrpIN'],
@@ -2634,10 +2626,27 @@ class DTRController extends Controller
                                     $s = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
                                     $s2 = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila");
 
+                                    // *********************************************************
+
+                                    //**-- here we check if user is PART TIMER (5hr work ) only
+                                    // 12: Part Time 14:Regular Part time
+
+                                    // *********************************************************
 
                                     $shiftStart = date('h:i A',strtotime($schedForToday['timeStart']));
-                                    $shiftEnd = date('h:i A',strtotime($schedForToday['timeEnd']));
 
+                                    if ($user->status_id == 12 || $user->status_id == 14  )
+                                    {
+                                      $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
+                                      $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
+                                      $f = $schedForToday['isFlexitime'];
+                                      $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f]);
+                                     
+                                    }else
+                                    {
+                                      $shiftEnd = date('h:i A',strtotime($schedForToday['timeEnd']));
+                                    }
+                                    
                                     //Morning: #c7b305 bcaa0f
                                     //Eve:#6754c1
                                     $mn = Carbon::parse($payday." 00:00:00", "Asia/Manila");
@@ -2841,9 +2850,8 @@ class DTRController extends Controller
                                        'day'=> date('D',strtotime($payday)),
                                        'shiftStart'=> null,
                                        'shiftEnd'=>null,
-
-                                         'shiftStart2'=> $shiftStart2,
-                                         'shiftEnd2'=>$shiftEnd2,
+                                       'shiftStart2'=> $shiftStart2,
+                                       'shiftEnd2'=>$shiftEnd2,
                                        'hasPendingIN' => null,
                                        'pendingDTRPin'=> null,
                                        'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
