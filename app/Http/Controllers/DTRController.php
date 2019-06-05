@@ -1583,6 +1583,7 @@ class DTRController extends Controller
              $hybridSched = null;
              $shifts = $this->generateShifts('12H');
              $noWorkSched = true;
+             $holiday = " ";
 
 
 
@@ -2701,8 +2702,8 @@ class DTRController extends Controller
 
                                       if (empty($userLogOUT[0]['timing']))
                                       {
-                                        //** but check mo muna kung may filed leave ba
-                                        if($userLogOUT[0]['hasLeave'] || $userLogOUT[0]['hasLWOP'] || $userLogOUT[0]['hasSL'])
+                                        //** but check mo muna kung may filed leave ba OR HOLIDAY
+                                        if($userLogOUT[0]['hasLeave'] || $userLogOUT[0]['hasLWOP'] || $userLogOUT[0]['hasSL'] || $hasHolidayToday)
                                         {
                                           $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
                                           $workedHours= $data[0]['workedHours'];
@@ -2723,6 +2724,7 @@ class DTRController extends Controller
                                       }else{
                                         $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
                                         $workedHours= $data[0]['workedHours'];
+                                        
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
@@ -2828,7 +2830,7 @@ class DTRController extends Controller
                                                 $UT = $data[0]['UT'];
                                                 $VLs = $data[0]['VL'];
                                                 $LWOPs = $data[0]['LWOP'];
-
+                                                
                                         
 
                                     } //--- else not sameDayLog
@@ -2869,6 +2871,7 @@ class DTRController extends Controller
                                          'dtrpOUT'=>$userLogOUT[0]['dtrpOUT'],
                                          'dtrpOUT_id'=>$userLogOUT[0]['dtrpOUT_id'],
                                        'workedHours'=> $workedHours,
+                                       
                                        'billableForOT' => $billableForOT,
                                        'OTattribute'=>$OTattribute,
                                        'UT'=>$UT,
@@ -2917,7 +2920,8 @@ class DTRController extends Controller
                                          'approvedOT' => $approvedOT,
                                          'wholeIN' => $userLogIN,
                                          'wholeOUT' =>$userLogOUT,
-                                         'schedForToday'=>$schedForToday
+                                         'schedForToday'=>$schedForToday,
+                                         
 
                                          // 'VL'=>$VLs, 'LWOP'=>$LWOPs
 

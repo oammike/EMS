@@ -578,66 +578,6 @@ trait TimekeepingTraits
             $workedHours .= $workedHours1[0]['workedHours'];
             $UT = $workedHours1[0]['UT'];
           }
-          /*{
-
-              $link = action('UserVLController@show',$vlDeet->id);
-              $icons .= "<a title=\"VL request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
-
-              
-              if ($vlDeet->totalCredits >= '1.0'){
-
-                if($hasPendingVL){
-                  $workedHours = "<strong class='text-danger'>AWOL <br/></strong>";
-                  $log="<strong><small><i class=\"fa fa-plane\"></i> <em> VL for approval </em></small></strong>".$icons;
-                }else{
-                  $workedHours = 8.0;
-                  $log="<strong><small><i class=\"fa fa-plane\"></i> <em> Vacation Leave </em></small></strong>".$icons;
-                }
-                
-                
-                $workedHours .= "<br/>".$log;
-
-              } 
-              else if ($vlDeet->totalCredits == '0.50'){
-
-                  if($hasPendingVL){
-                    if ($vlDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-plane\"></i> <em> 1st Shift VL (for approval) </em></small></strong>".$icons;
-                    else if ($vlDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-plane\"></i> <em> 2nd Shift VL (for approval) </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-plane\"></i> <em> Half-day VL (for approval) </em></small></strong>".$icons;
-                    
-                    
-                          //no logs, meaning halfday AWOL sya
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-
-                    $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                    $workedHours .= "<br/>".$log;
-
-                  }else{
-
-                    if ($vlDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-plane\"></i> <em> 1st Shift VL </em></small></strong>".$icons;
-                    else if ($vlDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-plane\"></i> <em> 2nd Shift VL </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-plane\"></i> <em> Half-day VL  </em></small></strong>".$icons;
-
-                    
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-                    $workedHours .= 4.0;
-                    $WHcounter = 4.0;
-                    $workedHours .= "<br/>".$log;
-                  }
-                        
-                          
-                        
-            }// end if 0.5 credits
-
-          }//end if has VL*/
 
 
           if ($hasOBT)
@@ -646,66 +586,6 @@ trait TimekeepingTraits
             $workedHours .= $workedHours1[0]['workedHours'];
             $UT = $workedHours1[0]['UT'];
           }
-          /*{
-
-              $link = action('UserOBTController@show',$obtDeet->id);
-              $icons .= "<a title=\"OBT request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
-
-              
-              if ($obtDeet->totalCredits >= '1.0'){
-
-                if($hasPendingOBT){
-                  $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                  $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> OBT for approval </em></small></strong>".$icons;
-                }else{
-                  $workedHours = 8.0;
-                  $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> Offical Business Trip </em></small></strong>".$icons;
-                }
-                
-                
-                $workedHours .= "<br/>".$log;
-
-              } 
-              else if ($obtDeet->totalCredits == '0.50'){
-
-                  if($hasPendingOBT){
-                    if ($obtDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> 1st Shift OBT (for approval) </em></small></strong>".$icons;
-                    else if ($obtDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> 2nd Shift OBT (for approval) </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> Half-day OBT (for approval) </em></small></strong>".$icons;
-                    
-                    
-                          //no logs, meaning halfday AWOL sya
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-
-                    $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                    $workedHours .= "<br/>".$log;
-
-                  }else{
-
-                    if ($obtDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> 1st Shift OBT </em></small></strong>".$icons;
-                    else if ($obtDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> 2nd Shift OBT </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-suitcase\"></i> <em> Half-day OBT  </em></small></strong>".$icons;
-
-                    
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-                    $workedHours .= 4.0;
-                    $WHcounter = 4.0;
-                    $workedHours .= "<br/>".$log;
-                  }
-                        
-                          
-                        
-            }// end if 0.5 credits
-
-          }//end if has OBT*/
 
 
 
@@ -715,66 +595,6 @@ trait TimekeepingTraits
             $workedHours .= $workedHours1[0]['workedHours'];
             $UT = $workedHours1[0]['UT'];
           }
-          /*{
-
-              $link = action('UserSLController@show',$slDeet->id);
-              $icons .= "<a title=\"SL request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
-
-              
-              if ($slDeet->totalCredits >= '1.0'){
-
-                if($hasPendingSL){
-                  $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                  $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> SL for approval </em></small></strong>".$icons;
-                }else{
-                  $workedHours = "N/A";
-                  $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> Sick Leave </em></small></strong>".$icons;
-                }
-                
-                
-                $workedHours .= "<br/>".$log;
-
-              } 
-              else if ($slDeet->totalCredits == '0.50'){
-
-                  if($hasPendingSL){
-                    if ($slDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> 1st Shift SL (for approval) </em></small></strong>".$icons;
-                    else if ($slDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> 2nd Shift SL (for approval) </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> Half-day SL (for approval) </em></small></strong>".$icons;
-                    
-                    
-                          //no logs, meaning halfday AWOL sya
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-
-                    $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                    $workedHours .= "<br/>".$log;
-
-                  }else{
-
-                    if ($slDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> 1st Shift SL </em></small></strong>".$icons;
-                    else if ($slDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> 2nd Shift SL </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-stethoscope\"></i> <em> Half-day SL  </em></small></strong>".$icons;
-
-                    
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-                    $workedHours .= 4.0;
-                    $WHcounter = 4.0;
-                    $workedHours .= "<br/>".$log;
-                  }
-                        
-                          
-                        
-            }// end if 0.5 credits
-
-          }//end if has SL*/
 
 
           if ($hasFL)
@@ -783,66 +603,6 @@ trait TimekeepingTraits
               $workedHours .= $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
           }
-         /* {
-
-              $link = action('UserFamilyleaveController@show',$flDeet->id);
-              $icons .= "<a title=\"Leave request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
-
-              
-              if ($flDeet->totalCredits >= '1.0'){
-
-                if($hasPendingFL){
-                  $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                  $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> ".$flDeet->leaveType." for approval </em></small></strong>".$icons;
-                }else{
-                  $workedHours = "N/A";
-                  $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> ".$flDeet->leaveType." </em></small></strong>".$icons;
-                }
-                
-                
-                $workedHours .= "<br/>".$log;
-
-              } 
-              else if ($flDeet->totalCredits == '0.50'){
-
-                  if($hasPendingFL){
-                    if ($flDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 1st Shift ".$flDeet->leaveType." (for approval) </em></small></strong>".$icons;
-                    else if ($flDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 2nd Shift ".$flDeet->leaveType." (for approval) </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> Half-day ".$flDeet->leaveType." (for approval) </em></small></strong>".$icons;
-                    
-                    
-                          //no logs, meaning halfday AWOL sya
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-
-                    $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                    $workedHours .= "<br/>".$log;
-
-                  }else{
-
-                    if ($flDeet->halfdayFrom == 2)
-                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 1st Shift ".$flDeet->leaveType." </em></small></strong>".$icons;
-                    else if ($flDeet->halfdayFrom == 3)
-                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> 2nd Shift ".$flDeet->leaveType." </em></small></strong>".$icons;
-                    else
-                      $log="<strong><small><i class=\"fa fa-street-view\"></i> <em> Half-day ".$flDeet->leaveType."  </em></small></strong>".$icons;
-
-                    
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-                    $workedHours .= 4.0;
-                    $WHcounter = 4.0;
-                    $workedHours .= "<br/>".$log;
-                  }
-                        
-                          
-                        
-            }// end if 0.5 credits
-
-          }//end if has Family Leave*/
 
 
           if ($hasLWOP)
@@ -852,66 +612,6 @@ trait TimekeepingTraits
             $UT = $workedHours1[0]['UT'];
 
           }
-          /*{
-
-             $link = action('UserLWOPController@show',$lwopDeet->id);
-              $icons = "<a title=\"LWOP request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
-
-              
-              if ($lwopDeet->totalCredits >= '1.0'){
-
-                if($hasPendingLWOP)
-                  $log.="<strong>*<small><em>LWOP for approval </em></small></strong>".$icons;
-                else
-                  $log.="<strong>*<small><em>Leave Without Pay </em></small></strong>".$icons;
-
-                $workedHours = 0.0;
-                $WHcounter = 0.0;
-                $workedHours .= "<br/>".$log;
-
-              } 
-              else if ($lwopDeet->totalCredits == '0.50')
-              {
-
-                  if($hasPendingLWOP){
-                    if ($lwopDeet->halfdayFrom == 2)
-                      $log.="<strong><small><i class=\"fa fa-meh-o\"></i> <em> 1st Shift LWOP (for approval) </em></small></strong>".$icons;
-                    else if ($lwopDeet->halfdayFrom == 3)
-                      $log.="<strong><small><i class=\"fa fa-meh-o\"></i> <em> 2nd Shift LWOP (for approval) </em></small></strong>".$icons;
-                    else
-                      $log.="<strong><small><i class=\"fa fa-meh-o\"></i> <em> Half-day LWOP (for approval) </em></small></strong>".$icons;
-                    
-                    
-                          //no logs, meaning halfday AWOL sya
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-
-                    $workedHours = "<strong class='text-danger'>AWOL</strong>";
-                    $workedHours .= "<br/>".$log;
-
-                  }else{
-
-                    if ($lwopDeet->halfdayFrom == 2)
-                      $log.="<br/><strong><small><i class=\"fa fa-meh-o\"></i> <em> 1st Shift LWOP </em></small></strong>".$icons;
-                    else if ($lwopDeet->halfdayFrom == 3)
-                      $log.="<strong><small><i class=\"fa fa-meh-o\"></i> <em> 2nd Shift LWOP </em></small></strong>".$icons;
-                    else
-                      $log.="<br/><strong><small><i class=\"fa fa-meh-o\"></i> <em> Half-day LWOP  </em></small></strong>".$icons;
-
-                    
-                          if (count($userLogIN[0]['logs']) < 1 && count($userLogOUT[0]['logs']) < 1) 
-                            $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-                    //$workedHours = 0.0;
-                    ($hasVL) ? $WHcounter -= 4.0 : $WHcounter=0;
-                    $workedHours .= $WHcounter. "<br/>".$log;
-                  }
-
-
-
-                      
-              }//end 0.5
-
-          }//end if has LWOP*/
 
           
 
@@ -2702,7 +2402,14 @@ trait TimekeepingTraits
             $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
             $workedHours = number_format($wh/60,2);
             $billableForOT=0; //$userLogIN[0]['timing']/60;
-            $UT = number_format((480.0 - $wh)/60,2);
+
+            $stat = User::find($user_id)->status_id;
+            //****** part time user
+
+            if ($stat == 12 || $stat ==14)
+              $UT = number_format((240.0 - $wh)/60,2);
+            else
+              $UT = number_format((480.0 - $wh)/60,2);
             
 
           }
@@ -2791,7 +2498,17 @@ trait TimekeepingTraits
 
                 if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL)
                 {
-                  $workedHours .= number_format($wh/60,2)."<br/><small>(early OUT)</small>";$UT = round((480.0 - $wh)/60,2); $billableForOT=0;
+                  $workedHours .= number_format($wh/60,2)."<br/><small>(early OUT)</small>";
+
+                  $stat = User::find($user_id)->status_id;
+                  //****** part time user
+
+                  if ($stat == 12 || $stat ==14)
+                    $UT = round((240.0 - $wh)/60,2); 
+                  else
+                    $UT = round((480.0 - $wh)/60,2); 
+
+                  $billableForOT=0;
                   }
 
                 if ($hasHolidayToday)
@@ -2892,7 +2609,14 @@ trait TimekeepingTraits
                       
                     else { $billableForOT = 0; /*$totalbill*/; $OTattribute = "&nbsp;&nbsp;&nbsp;";} 
 
-                    $UT = round((480.0 - $wh)/60,2);
+                    $stat = User::find($user_id)->status_id;
+                    //****** part time user
+
+                    if ($stat == 12 || $stat ==14)
+                    $UT = round((240.0 - $wh)/60,2); 
+                    else
+                      $UT = round((480.0 - $wh)/60,2); 
+
 
 
                 } //normal LateIN process
@@ -2953,7 +2677,17 @@ trait TimekeepingTraits
                   if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL)
                     {
                       $workedHours .= number_format($wh/60,2)."<br/><small>(Late IN)</small>";
-                      $UT = round((480.0 - $wh)/60,2); 
+
+                      $stat = User::find($user_id)->status_id;
+                      //****** part time user
+
+                      if ($stat == 12 || $stat ==14)
+                      $UT = round((240.0 - $wh)/60,2); 
+                      else
+                        $UT = round((480.0 - $wh)/60,2); 
+
+
+                     
 
                       //check mo muna kung nag OUT sya ng sobra sa ShiftEnd nya
                       $schedEnd = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila");
@@ -3133,7 +2867,7 @@ trait TimekeepingTraits
 
          
 
-        $data->push(['schedForToday'=>$schedForToday, 'checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
+        $data->push(['holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 'checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
                       'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
                       'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'LWOP'=>$hasLWOP ]);
         /*              $t=$userLogIN[0]['timing']->format('H:i:s');
@@ -3819,7 +3553,14 @@ trait TimekeepingTraits
                 $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 1st Shift ".$l." </em></small></strong>".$icons;
                 if (!empty($ins) && !empty($outs) && ($leaveType !== 'OBT' && $leaveType !== 'VL') ) {
                   $workedHours = number_format(($wh/60),2)."<br/><small>[ Late IN ]</small>";
-                  $UT = round(((480.0 - $wh)/60),2); //full 8h work dapat
+
+                   $stat = User::find($user_id)->status_id;
+                    //****** part time user
+
+                    if ($stat == 12 || $stat ==14)
+                    $UT = round((240.0 - $wh)/60,2); 
+                    else
+                      $UT = round((480.0 - $wh)/60,2);  //full 8h work dapat
                 }
                 else {
                   $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
