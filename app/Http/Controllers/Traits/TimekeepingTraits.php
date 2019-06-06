@@ -1523,18 +1523,19 @@ trait TimekeepingTraits
                           if ($logType_id == 1) 
                           {
                             $parseThis = $schedForToday['timeStart'];
-                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  && !$problemArea[0]['problemShift']) //--- meaning late sya
+                            if ( (Carbon::parse($thisPayrollDate." ".$parseThis,"Asia/Manila") < $timing)  && !$isAproblemShift) //--- meaning late sya
                               {
-                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+                                $UT  = $undertime + number_format((Carbon::parse($thisPayrollDate." ".$parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
 
                               } else $UT = 0;
                           }
                             
                           else if ($logType_id == 2)
                             $parseThis = $schedForToday['timeEnd'];
-                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
+                            if (Carbon::parse($thisPayrollDate." ".$parseThis,"Asia/Manila") > $timing && !$isAproblemShift)//!$problemArea[0]['problemShift']
+                             //--- meaning early out sya
                               {
-                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+                                $UT  = $undertime + number_format((Carbon::parse($thisPayrollDate." ".$parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
 
                               } else $UT=$undertime;
 
