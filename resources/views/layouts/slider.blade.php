@@ -1,6 +1,37 @@
 
                     <div class="item  active  text-center" >
                               
+                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
+                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
+                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
+                                <strong class="text-danger">JUNE</strong><br/>
+                                * Pride March <br/>
+                                * Flu Vaccination <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                                <strong class="text-danger">JULY</strong><br/>
+                                * Glorietta 2 (G2) Office Launch <br/>
+                                * Happy Hour <br/>
+                                * Health &amp; Wellness Event <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                               <strong class="text-danger">AUGUST</strong> <br/>
+                                * Mobile Legends Tournament <br/>
+                                * Outreach Activity (Local Community) <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                              Actual dates and more details will be announced soon.</p>
+                               
+
+                              <br/>
+                    </div>
+
+                    <div class="item  text-center" >
+                              
                               <h4 class="text-primary">Happy <span class="text-orange">Pride Month!</span></h4>
                               <img src="./storage/uploads/pride.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
@@ -20,17 +51,7 @@
 
                     </div>
 
-                    <div class="item text-center" >
-                      <h4 class="text-primary">Flu Vaccines</h4>
-                              <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>We are glad that many are interested in getting their flu shots. In line with the program, we are now open for registration for those who would like to <strong class="text-orange">avail the flu vaccines via Salary Deduction.</strong> This is open as well to dependents. <br/><br/>
-                                To register, kindly drop by the clinic (8th floor Jaka BLDG & 11th floor ADP G2 BLDG) <strong>not later than June 7, 2019 (Friday) </strong>during your break hours, terms will be discussed and there are forms that need to be filled out and signed.</p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
-
-                      </div>
+                   
 
                        
 
@@ -40,10 +61,10 @@
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                            <br/><span class="text-danger">June 04, 2019 (Tue) – 7:00 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">June 11, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                            <BR/><span class="text-danger">June 06, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">June 13, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
 
                             <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">
                               Sign Up Now</a><br/><br/>
@@ -631,6 +652,18 @@
 
 
 <?php /*
+
+ <div class="item text-center" >
+                      <h4 class="text-primary">Flu Vaccines</h4>
+                              <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>We are glad that many are interested in getting their flu shots. In line with the program, we are now open for registration for those who would like to <strong class="text-orange">avail the flu vaccines via Salary Deduction.</strong> This is open as well to dependents. <br/><br/>
+                                To register, kindly drop by the clinic (8th floor Jaka BLDG & 11th floor ADP G2 BLDG) <strong>not later than June 7, 2019 (Friday) </strong>during your break hours, terms will be discussed and there are forms that need to be filled out and signed.</p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                      </div>
 
 <!-- MOTHERS DAY CINCO DE MAYO -->
                     <div class="item  text-center" >
