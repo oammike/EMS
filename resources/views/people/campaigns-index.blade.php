@@ -40,7 +40,8 @@
                         <a href="{{action('CampaignController@show',$campaign->id)}}" class="pull-left text-center" style="width: 25%; height:150px">
 
                           @if(is_null($campaign->filename))
-                          <img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="50px" />
+                          <!-- oam_favicon1-55027f4ev1_site_icon-256x256.png -->
+                          <img src="./public/img/pridelogo.png" width="50px" />
                           <h4> {{$campaign->name}}</h4>
 
                           @elseif ($campaign->name=='IMO')

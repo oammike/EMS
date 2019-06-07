@@ -3,9 +3,12 @@
     <!-- Logo -->
     <a href="{{ action('HomeController@index') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="{{ asset('public/img/new-oam-logo-small.png')}}" width="48" style="margin: 0 auto;" /></span>
+      <span class="logo-mini"><img src="{{ asset('public/img/pridelogo.png')}}" width="48" style="margin: 0 auto;" /></span>
+      <!-- public/img/new-oam-logo-small.png -->
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg pull-left"><img src="{{ asset('public/img/white_logo_small.png')}}" width="40" /><small> <strong style="font-size: 20px;padding-top:2px" class="pull-right"> E.M.S </strong><span class="pull-right text-left" style="line-height:0.8em;padding:15px 10px 0 5px;font-size: 14px"> Open <br/>Access</span> </small></span>
+
+      <!-- public/img/white_logo_small.png -->
+      <span class="logo-lg pull-left"><img src="{{ asset('public/img/pridelogo.png')}}" width="40" /><small> <strong style="font-size: 20px;padding-top:2px" class="pull-right"> E.M.S </strong><span class="pull-right text-left" style="line-height:0.8em;padding:15px 10px 0 5px;font-size: 14px"> Open <br/>Access</span> </small></span>
     </a>
 
     <!-- Header Navbar -->
