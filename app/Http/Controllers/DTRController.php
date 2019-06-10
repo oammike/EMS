@@ -2698,14 +2698,27 @@ class DTRController extends Controller
 
                                       $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift);
                                       $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift);
-                                      $coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); 
+                                      //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); 
+
+                                      if($isFixedSched)
+                                            $isRDYest = $RDsched->contains($prevNumDay); 
+                                          else
+                                          {
+                                            if ($hybridSched)
+                                            {
+                                              $rd = $RDsched->where('productionDate',$prevDay->format('Y-m-d'))->first();
+
+                                            }else $rd = $monthlySched->where('isRD',1)->where('productionDate',$prevDay->format('Y-m-d'))->first();  
+                                            if (empty($rd)) 
+                                              $isRDYest=false; else $isRDYest=true;
+                                          }
 
                                       if (empty($userLogOUT[0]['timing']))
                                       {
                                         //** but check mo muna kung may filed leave ba OR HOLIDAY
                                         if($userLogOUT[0]['hasLeave'] || $userLogOUT[0]['hasLWOP'] || $userLogOUT[0]['hasSL'] || $hasHolidayToday)
                                         {
-                                          $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
+                                          $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday,$isRDYest);
                                           $workedHours= $data[0]['workedHours'];
                                           $billableForOT = $data[0]['billableForOT'];
                                           $OTattribute = $data[0]['OTattribute'];
@@ -2722,7 +2735,7 @@ class DTRController extends Controller
                                         
 
                                       }else{
-                                        $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday);
+                                        $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday,$isRDYest);
                                         $workedHours= $data[0]['workedHours'];
                                         
                                         $billableForOT = $data[0]['billableForOT'];
@@ -2812,16 +2825,16 @@ class DTRController extends Controller
 
                                               }
 
-                                                if($isRDYest || $isAproblemShift || !$sameDayLog)
-                                                {
-                                                  $data = $this->getComplicatedWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$isRDYest,$payday);
-                                                  //$coll->push(['workedHours'=>"(isRDYest || isAproblemShift || !sameDayLog)", 'checkLate'=>$data[0]['checkLate'],'biometricsID'=>$bioForTheDay->id]);
-                                                }
-                                                else
-                                                  {
-                                                    $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday);
+                                                // if($isRDYest || $isAproblemShift || !$sameDayLog)
+                                                // {
+                                                //   $data = $this->getComplicatedWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$isRDYest,$payday);
+                                                  
+                                                // }
+                                                // else
+                                                //   {
+                                                    $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest);
                                                    //$coll->push(['datafrom'=>"(ELSE isRDYest || isAproblemShift || !sameDayLog) [WH]"]);
-                                                  }
+                                                  //}
                                                 
 
                                                 $workedHours=$data[0]['workedHours'];
