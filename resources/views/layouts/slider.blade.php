@@ -1,6 +1,25 @@
 
                     <div class="item  active  text-center" >
                               
+                              <h4 class="text-orange" >Open Access BPO <span class="text-primary">Basketball Team's 1st Game</span></h4>
+                              <img src="./storage/uploads/basket.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hi all!
+                                <br/><br/>Our Open Access BPO Basketball Team has joined the Information Technology Basketball League and they are in need of supporters like you!
+                                <br/><br/>Everyone is invited to come and watch their first game for the league:<br/><br/>
+
+                                Date: <strong>June 11, 2019 (Tuesday)</strong><br/>
+                                Time: 8:45 PM<br/>
+                                Venue: The Zone, Malugay, Makati<br/>
+                                Directions from 6780: 6780 to The Zone<br/><br/>
+
+                                To our Open Access BPO Basketball Team, GOOD LUCK AND MAY YOU BRING HOME THE TROPHY!</p>
+                               
+
+                              <br/>
+                    </div>
+
+                    <div class="item  text-center" >
+                              
                               <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
                               <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
