@@ -1730,6 +1730,7 @@ class DTRController extends Controller
                   
                   if($noWorkSched)
                   {
+                    $coll->push(['status'=>"no workSched", 'payday'=>$payday]);
 
                     if( is_null($bioForTheDay) ) 
                     {
@@ -1906,6 +1907,8 @@ class DTRController extends Controller
                               default: $dayToday = $dt-1;
                             } 
 
+                            $coll->push(['status'=>"enter hybridSched", 'payday'=>$payday]);
+
                             $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at');
 
 
@@ -1914,8 +1917,12 @@ class DTRController extends Controller
                               $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
                               //$coll->push(['check_monthly_WS'=>$check_monthly_WS]);
 
+
+
                               if (count($check_monthly_WS) > 0)// if may monthly, compare it vs fixed
                               {
+                                $stat =  "may monthly WS, compare it with fixed";
+
                                 if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
                                 {
 
@@ -1938,8 +1945,15 @@ class DTRController extends Controller
 
                                     
                                   }
-                                  else{
+                                  /*else{
                                     $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                                   }*/
+                                   else{
+                                    $workSched = $hybridSched_WS_monthly;
+                                  $RDsched = $hybridSched_RD_monthly;
+                                  $isFixedSched = false;
+                                  $noWorkSched =false; $hasCWS=false;
+
                                    }
 
 
@@ -1948,6 +1962,8 @@ class DTRController extends Controller
                               }
                               else //fixed sched na talaga sya
                               {
+                                $stat =  "fixed na talaga";
+
                                 
                                 //$check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
                                 // * not so fast. Check mo muna kung may monthly RD to be sure. Otherwise, fixed WS nga sya
@@ -1967,7 +1983,28 @@ class DTRController extends Controller
                                   }
                                    else
                                    {
-                                    $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = true; $hasCWS=false;
+                                    $stat =  "fixed na talaga | ELSE ng empty check_monthly_RD";
+
+                                    //** new check: get mo yung next available fixed sched grouped by effectivity date
+                                    $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at')->groupBy('schedEffectivity');
+                                    $wsCount = 0;
+                                    foreach ($check_fixed_WS as $key) 
+                                    {
+                                      if ($wsCount == 1)
+                                      {
+                                        $workSched = $key;
+                                        $RDsched =  $hybridSched_RD_fixed;
+                                        $isFixedSched = true;
+                                        $noWorkSched = false;
+                                        break;
+
+                                      } 
+                                      else $wsCount++;
+                                      
+                                    } 
+
+                                    //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = true; $hasCWS=false;
+                                    //$stat = $check_fixed_WS;
                                   }
 
 
@@ -1979,6 +2016,8 @@ class DTRController extends Controller
                                     $RDsched =  $hybridSched_RD_monthly;
                                     $isFixedSched = false;
                                     $noWorkSched = false;
+
+                                    $stat =  "fixed na talaga | mas updated RD";
 
 
                                   } else
@@ -1992,10 +2031,14 @@ class DTRController extends Controller
                                       $RDsched = $hybridSched_RD_fixed;
                                       $isFixedSched = true;
                                       $noWorkSched = false;
+
+                                       $stat =  "fixed na talaga | check mo muna validity nung WS na fixed. If not effective, then NO SCHED";
+
                                      }
                                      else
                                      {
                                       $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                                      $stat =  "fixed na talaga | NO SCHED NA SYA";
                                      }
 
                                   }
@@ -2005,6 +2048,8 @@ class DTRController extends Controller
                                  
                               }
 
+                              $coll->push(['status'=>"has fixed WS", 'stat'=>$stat]);
+
 
                             } else //baka RD
                             {
@@ -2012,6 +2057,8 @@ class DTRController extends Controller
 
                               if (count($check_fixed_RD) > 0) //if may fixed RD, check mo kung ano mas updated vs monthly sched
                               {
+                                $stat =  "if may fixed RD, check mo kung ano mas updated vs monthly sched";
+
                                 $check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
 
                                 if (count($check_monthly_RD) > 0) // if may monthly, compare it vs fixed
@@ -2038,7 +2085,12 @@ class DTRController extends Controller
                                      }
                                      else
                                      {
-                                      $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                                      //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                                      $workSched = $hybridSched_WS_fixed;
+                                      $RDsched = $hybridSched_RD_fixed;
+                                      $isFixedSched = true;
+                                      $noWorkSched= false; $hasCWS=false;
+
                                      }
 
                                   }
@@ -2089,7 +2141,11 @@ class DTRController extends Controller
                                      }
                                      else
                                      {
-                                      $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                                      //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                                       $workSched = $hybridSched_WS_fixed;
+                                        $RDsched = $hybridSched_RD_fixed;
+                                        $isFixedSched = true;
+                                        $noWorkSched = false; $hasCWS=false;
                                      }
 
 
@@ -2101,29 +2157,34 @@ class DTRController extends Controller
 
                               else //---- no both fixed WS & RD, baka monthly sched. Check kung meron
                               {
+                                $stat =  "no both fixed WS & RD, baka monthly sched";
+
                                 if (count($hybridSched_WS_monthly)>0 && count($hybridSched_RD_monthly)>0)
                                 {
                                   if (count($hybridSched_WS_monthly) > 0)
                                   {
                                     $workSched = $hybridSched_WS_monthly;
 
-                                  } else $workSched = null;
+                                  }// else $workSched = null;
 
                                   if (count($hybridSched_RD_monthly) > 0)
                                   {
                                     $RDsched = $hybridSched_RD_monthly;
                                   }
-                                  else $RDsched = null;
+                                  //else $RDsched = null;
 
                                 }else //waley na talaga
                                 {
-                                  $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
+                                 // $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
+
 
                                 }
                                 
-
+                                
 
                               }//end else no both fixed RD & WS
+
+                              $coll->push(['status'=>"NO fixed WS, baka RD", 'stat'=>$stat]);
                               
                               
 
@@ -2287,6 +2348,7 @@ class DTRController extends Controller
                                                'UT'=>$UT,
                                                'approvedOT' => $approvedOT]);
 
+                                $coll->push(['status'=>"goto noWorkSched", 'payday'=>$payday]);
 
                                 goto endNoWorkSched;
 
@@ -2307,7 +2369,7 @@ class DTRController extends Controller
 
                                 if (count($fromRDtoWD)>0 ) //but we need to check first alin mas updated: cws or the plotted sched
                                 {
-                                  $coll->push(["count ni RDtoWD"=>count($fromRDtoWD), "first"=>$fromRDtoWD->first()]);
+                                  //$coll->push(["count ni RDtoWD"=>count($fromRDtoWD), "first"=>$fromRDtoWD->first()]);
                                   
                                   //but we need to verify first which is more latest
                                   if ($isFixedSched)
@@ -2418,7 +2480,7 @@ class DTRController extends Controller
                                     $rd = $RDsched->where('isRD',1)->where('productionDate',$payday)->all(); 
                                     if (count($rd)<= 0 ) $isRDToday=false; else $isRDToday=true;
 
-                                    $coll->push(['from: '=>"regular else"]);
+                                    //$coll->push(['from: '=>"regular else"]);
                                   }
                                 }
                               
@@ -2442,7 +2504,7 @@ class DTRController extends Controller
 
                                    $data = $this->getRDinfo($id, $bioForTheDay,true,$payday);
                                    //$coll->push(['data'=>$data, 'isRDToday'=>$isRDToday]);
-                                   $coll->push(['data from:'=>"sameDayLog > RDToday > Restday"]);
+                                   //$coll->push(['data from:'=>"sameDayLog > RDToday > Restday"]);
                                       $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
                                          'biometrics_id'=>$bioForTheDay->id,
                                          'hasCWS'=>$hasCWS,
@@ -2484,7 +2546,7 @@ class DTRController extends Controller
                                 else //****** not sameDayLog
                                 {
                                     $data = $this->getRDinfo($id, $bioForTheDay,false,$payday);
-                                    $coll->push(['data from:'=>"notsameDayLog > RDToday > Restday"]);
+                                    //$coll->push(['data from:'=>"notsameDayLog > RDToday > Restday"]);
 
                                      $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
                                          'biometrics_id'=>$bioForTheDay->id,
@@ -2723,7 +2785,7 @@ class DTRController extends Controller
                                           $billableForOT = $data[0]['billableForOT'];
                                           $OTattribute = $data[0]['OTattribute'];
                                           $UT = $data[0]['UT'];
-                                          $coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
+                                          //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                         }else{
                                               //meaning wala syang OUT talaga
@@ -2741,7 +2803,7 @@ class DTRController extends Controller
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
-                                        $coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
+                                        //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                       } 
                                       // //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
@@ -2786,7 +2848,7 @@ class DTRController extends Controller
                                         ---------------------------------------------*/
                                        
                                           $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift);
-                                          $coll->push(['datafrom'=>"else NOT Problem shift",'data IN'=>$userLogIN ]);
+                                          //$coll->push(['datafrom'=>"else NOT Problem shift",'data IN'=>$userLogIN ]);
                                         //}
 
                                         
@@ -2803,14 +2865,14 @@ class DTRController extends Controller
                                                   $userLogOUT[0]= array('logTxt'=> "No Data", 
                                                                         'UT'=>0,'logs'=>null,'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null, 'hasPendingDTRP'=>null,'pendingDTRP'=>null);
                                                 
-                                                $coll->push(['sameDayLog'=>$sameDayLog, 'datafrom'=>"else  Problem shift",'data OUT'=>$userLogOUT ]);
+                                                //$coll->push(['sameDayLog'=>$sameDayLog, 'datafrom'=>"else  Problem shift",'data OUT'=>$userLogOUT ]);
                                               }
                                              
                                               else
                                               { 
                                                 if(count($bioForTom) > 0){
                                                   $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift);
-                                                      $coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
+                                                      //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
 
                                                   
                                                 }
@@ -2821,7 +2883,7 @@ class DTRController extends Controller
 
                                                 }
 
-                                                $coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]);
+                                                //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]);
 
                                               }
 
@@ -2957,12 +3019,15 @@ class DTRController extends Controller
                   //$noWorkSched = null; //*** we need to reset things
              }//END foreach payrollPeriod
 
-          //return $coll;
+          return $myDTR;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-          //return $myDTR;
+          /*return response()->json(['workSched'=>$workSched,'RDsched'=>$RDsched, 'hybridSched_WS_fixed'=> $hybridSched_WS_fixed,
+            'hybridSched_WS_monthly'=>$hybridSched_WS_monthly,
+            'hybridSched_RD_fixed' => $hybridSched_RD_fixed,
+            'hybridSched_RD_monthly' => $hybridSched_RD_monthly]);*/
 
            if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
@@ -2989,7 +3054,7 @@ class DTRController extends Controller
 
            //return response()->json(['isFixedSched'=>$isFixedSched]);
 
-
+             // return  count($user->monthlySchedules->sortByDesc('productionDate'));
 
            return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
 
