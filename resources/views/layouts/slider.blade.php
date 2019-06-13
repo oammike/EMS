@@ -51,6 +51,19 @@
 
                       <div class="item  text-center" >
                               
+                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
+                              <img src="./storage/uploads/basket-congrats.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>for winning their first game, with Final score: 85-83<br/><br/>Details of the next game will be sent soon. Hope to see you there!</p>
+                               
+
+                              <br/>
+                    </div>
+
+
+
+
+                      <div class="item  text-center" >
+                              
                               <h4 class="text-orange" >June 12 <span class="text-primary">Araw ng Kalayaan</span></h4>
                               <img src="./storage/uploads/philindependence.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Today, we join the Filipino community in celebrating the 121st anniversary of the Philippine Independence Day.<br/><br/>#WeSpeakYourLanguage #OAonIndependenceDay </p>
@@ -506,6 +519,125 @@
 
                   
 
+
+                   
+
+                    
+
+
+
+
+
+
+                    
+
+
+                    
+
+                   
+
+                   
+
+
+
+                    
+
+
+                      
+
+
+                      
+
+                      <div class="item text-center" >
+                        
+                         <img src="./storage/uploads/teams1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                         
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
+
+                          <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
+                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
+                          </p>
+
+                          
+                      </div>
+
+
+
+
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                        <img src="./storage/uploads/grubs2_1.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
+                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
+                      </div> 
+
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2><br/>
+                        <img src="./storage/uploads/grubs2_2.jpg" style="z-index: 2" /> 
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
+                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
+                      </div> 
+
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                        <img src="./storage/uploads/grubs2_3.jpg" style="z-index: 2" />
+                            
+                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
+                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
+                              <img src="./storage/uploads/hello_grubs1.jpg" style="z-index: 2" />
+                              
+                              <p style="padding:20px">Our 2019 kicked off with a splendid breakfast filled with fun conversations shared by the Open Access BPO executives and employees -- what a great way to start the year! 
+                                Thanks to everyone who joined us earlier on our first <strong class="text-orange">Hellos &amp; Grubs</strong> session!<br/><br/>We can't wait to meet the next batch in a few days!</p>
+                                <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
+                      </div>  
+
+
+
+<?php /*
+
+<!-- happiness -->
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/happiness1.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">To live mindfully helps you understand yourself better and what makes you happy. Choose to stress less and create and influence happiness in your workplace, community, and at home. <br/>
+                          <strong class="text-orange"> Happy #InternationalDayOfHappiness! </strong>😊<br/><br/>
+                        #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
+                      <div class="item text-center" >
+                        <img src="./storage/uploads/happiness2.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">To live mindfully helps you understand yourself better and what makes you happy. Choose to stress less and create and influence happiness in your workplace, community, and at home. <br/>
+                          <strong class="text-orange"> Happy #InternationalDayOfHappiness! </strong>😊<br/><br/>
+                        #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</small></a></div> <br/><br/><br/><br/>
+
+                      </div>
+
+                      
+
+ <!--WOMEN-->
                     <div class="item  text-center" >
                         <img src="./storage/uploads/women1.jpg" style="z-index: 2" width="100%" /><br/><br/>
                         <p style="padding:10px 50px">Get to know @openaccessbpo's amazing female leaders and teammates and learn from their stories in this year's #WomenOfOA project! ✨<br/>
@@ -599,120 +731,6 @@
                                     <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWomensHistoryMonth #WomenOfOA #IWD2019 #BalanceForBetter</small></a></div> <br/><br/><br/><br/>
 
                     </div>
-
-                   
-
-                    
-
-
-
-
-
-
-                    
-
-
-                    
-
-                   
-
-                   
-
-
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/happiness1.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">To live mindfully helps you understand yourself better and what makes you happy. Choose to stress less and create and influence happiness in your workplace, community, and at home. <br/>
-                          <strong class="text-orange"> Happy #InternationalDayOfHappiness! </strong>😊<br/><br/>
-                        #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</small></a></div> <br/><br/><br/><br/>
-
-                      </div>
-
-                      <div class="item text-center" >
-                        <img src="./storage/uploads/happiness2.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">To live mindfully helps you understand yourself better and what makes you happy. Choose to stress less and create and influence happiness in your workplace, community, and at home. <br/>
-                          <strong class="text-orange"> Happy #InternationalDayOfHappiness! </strong>😊<br/><br/>
-                        #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonHappinessDay #WorldHappinessDay #Happiness</small></a></div> <br/><br/><br/><br/>
-
-                      </div>
-
-                      
-
-                    
-
-
-                      
-
-
-                      
-
-                      <div class="item text-center" >
-                        
-                         <img src="./storage/uploads/teams1.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                         
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                          Get to know more about your <a href="{{action('CampaignController@index')}}"><strong>Open Access family!</strong></a><br/><br/> Check out our <a class="text-orange" href="{{action('CampaignController@index')}}">programs</a> and learn more about the driving force behind our campaigns.</p>
-
-                          <p style="padding: 5px 30px; margin-bottom: 0px; font-size: x-small;" class="text-left"><br/><br/>
-                            <i class="fa fa-info-circle text-primary"></i> Tip: Make sure the page you're viewing is updated. Press <strong>CTRL + Shift + R </strong> to do a hard refresh and clear your browser's cache.
-                          </p>
-
-                          
-                      </div>
-
-
-
-
-                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
-                        <img src="./storage/uploads/grubs2_1.jpg" style="z-index: 2" />
-                            
-                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
-                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
-                      </div> 
-
-                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2><br/>
-                        <img src="./storage/uploads/grubs2_2.jpg" style="z-index: 2" /> 
-                            
-                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
-                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
-                      </div> 
-
-                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
-                        <img src="./storage/uploads/grubs2_3.jpg" style="z-index: 2" />
-                            
-                            <p style="padding: 30px; margin-bottom: 0px">Dinner with our lovely group of Open Access BPO employees and executives was well spent! Indeed, sharing meals draws people together. We couldn't wait to meet our next batch on our next Hellos & Grubs!<br/><br/>
-                              Wishing our HR Director, Ms. Emelda Perez, a happy birthday too! It's a pleasure having you at Open Access BPO. 🎂 <br/><br/>#WeSpeakYourLanguage #HellosAndGrubs
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #HellosAndGrubs</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-                      <div class="item text-center" ><h2 class="text-orange">Hellos &amp; Grubs</h2> <br/>
-                              <img src="./storage/uploads/hello_grubs1.jpg" style="z-index: 2" />
-                              
-                              <p style="padding:20px">Our 2019 kicked off with a splendid breakfast filled with fun conversations shared by the Open Access BPO executives and employees -- what a great way to start the year! 
-                                Thanks to everyone who joined us earlier on our first <strong class="text-orange">Hellos &amp; Grubs</strong> session!<br/><br/>We can't wait to meet the next batch in a few days!</p>
-                                <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
-                      </div>  
-
-
-
-<?php /*
 
 <div class="item  active  text-center" >
                               
