@@ -933,11 +933,15 @@ trait TimekeepingTraits
     $pendingDTRP = null; 
     $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
     $logPalugit=null;
-    $palugitDate=null;$maxOut=null;
+    $palugitDate=null;$maxOut=null; $checker=null;
 
     
     $theDay = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
     $fix= Carbon::parse($thisPayrollDate." 23:59:00","Asia/Manila");
+
+    $employee = User::find($id);
+
+    ($employee->status_id == 12 || $employee->status_id == 14 ) ? $isPartTimer = true : $isPartTimer=false;
 
 
 
@@ -1042,7 +1046,8 @@ trait TimekeepingTraits
 
     //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
     $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
-    $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila");
+
+    ($isPartTimer) ? $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) : $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
     
 
     if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
@@ -1063,7 +1068,7 @@ trait TimekeepingTraits
                 {
                   $userLog = null;
                   //$userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-
+                  $checker = "from 1st level";
                   goto proceedToLogTomorrow;
 
                 }
@@ -1198,7 +1203,7 @@ trait TimekeepingTraits
                   $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
 
                   if (count($bioForTom) > 0){
-                    $finishShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);// 
+                    //$finishShift = $endShift; // Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);// 
 
 
                       if ($isAproblemShift)
@@ -1223,22 +1228,24 @@ trait TimekeepingTraits
                           if ( (  $palugitDate >= $beginShift && $palugitDate <= $maxOut  ) || is_null($schedForToday) )
                           {
                             $userLog = $logPalugit;
+                            $checker="problem shift";
                             goto proceedWithLogs;
 
-                          } else goto proceedWithBlank;
+                          } else {$checker="from level 4"; goto proceedWithBlank;}
 
                         }else{
 
                           $userLog = $logPalugit;
+                          $checker="non problem shif";
                           goto proceedWithLogs;
                         }
                        
 
                         
                         
-                      } else goto proceedWithBlank; 
+                      } else { $checker="from level3"; goto proceedWithBlank; }
 
-                  } else goto proceedWithBlank;
+                  } else {$checker="level2"; goto proceedWithBlank;}
                   
 
             } 
@@ -1385,7 +1392,7 @@ trait TimekeepingTraits
 
                         if ($logType_id== 2)
                         {
-                          if ( empty($userLog->first()->logTime) || is_null($beginShift) || is_null($userLog) ) goto proceedWithBlank;
+                          if ( empty($userLog->first()->logTime) || is_null($beginShift) || is_null($userLog) ) { $checker = "from proceedWithLogs"; goto proceedWithBlank;}
                           else
                           {  
 
@@ -1396,15 +1403,17 @@ trait TimekeepingTraits
                             if( date("H:i:s", strtotime($userLog->first()->logTime)) > $beginShift->format('H:i:s') )
                             {
                               //*** ideal situation, go on...
+                              $checker="goto ideal";
                               goto idealSituation;
 
                             }
                             else
                             {
+                              $checker="goto non ideal";
                               //within the day shift pero walang logs, so baka nag OT sya kinabukasan an yung LogOUT
                               //so we need to get logs from tomorrow within the 8hr period
                               $tommorow = Carbon::parse($thisPayrollDate)->addDay();
-                              $allowedOT = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(17);
+                              $allowedOT = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(22);
                               $bioForTom = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
                               if (count($bioForTom) > 0)
                               {
@@ -1468,15 +1477,15 @@ trait TimekeepingTraits
                                               } else $UT=$undertime;
 
                                           
-
+                                          $checker="non ideal, with $uLog, then proceedToLeaves";
                                           goto proceedToLeaves;
 
                                   }//end if pasok sa alloted OT
-                                  else goto proceedWithBlank;
+                                  else { $checker=['l'=>$l->format('Y-m-d H:i:s'),'bs'=>$beginShift->format('Y-m-d H:i:s'),'aOT'=>$allowedOT->format('Y-m-d H:i:s')]; goto proceedWithBlank;}
 
-                                } else goto proceedWithBlank;
+                                } else {$checker="non ideal, empty $uLog"; goto proceedWithBlank;}
 
-                              }else goto proceedWithBlank;
+                              }else {$checker="from non ideal, proceed Blank"; goto proceedWithBlank;}
                             }//end else ideal situation
 
                           }//end if not empty userlog
@@ -1646,6 +1655,8 @@ trait TimekeepingTraits
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
                     'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
                     'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
+                    'arg1'=>$checker,
+                    
                     'dtrp'=>$hasApprovedDTRP->first()]);
 
               
