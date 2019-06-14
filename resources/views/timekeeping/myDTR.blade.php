@@ -402,7 +402,27 @@
 
                                                         @else
 
-                                                            <td class="text-center">{!! $data['logIN'] !!}
+                                                            <td class="text-center">
+
+                                                              @if ($data['isRDToday'])
+
+                                                                    @if ( (strpos($data['logIN'], "RD") !== false)  )
+                                                                        {!! $data['logIN'] !!}
+                                                                    @else
+                                                                        ** Rest Day ** <br/>
+                                                                        <small>({!! $data['logIN'] !!})</small>
+                                                                    @endif
+
+                                                              @else
+
+                                                                  {!! $data['logIN'] !!}
+
+                                                              @endif
+
+
+
+                                                              
+                                                             
 
                                                               
                                                                <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logIN']}}">
@@ -706,7 +726,13 @@
                                                           <input type="hidden" name="OT_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
 
                                                           @else 
-                                                          <strong>{{$data['approvedOT']->first()['filed_hours']}}</strong> 
+
+                                                            @if( $data['approvedOT']->first()['isApproved'] )
+                                                            <strong>{{$data['approvedOT']->first()['filed_hours']}}</strong> 
+                                                            @else
+                                                             0
+
+                                                            @endif
                                                           
                                                           <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['approvedOT']->first()['filed_hours']}}" />
                                                            <input type="hidden" name="OT_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['userOT']->first()['id']}}" />

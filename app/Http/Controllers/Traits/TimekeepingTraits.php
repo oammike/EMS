@@ -1058,8 +1058,20 @@ trait TimekeepingTraits
               if ($logType_id== 2)
               {
 
+                //kunin mo yung bio id ng log 9HRs from shiftstart or 5hrs if parttime
+                (!$isPartTimer) ? $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9) : $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5);
+                  
+
+                $bioEnd = Biometrics::where('productionDate',$bEnd->format('Y-m-d'))->get();
+
+                if (count($bioEnd) > 0)
+                {
+                  $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+                }else goto proceedWithBlank;
+
                 
-                
+                /*
                 //$maxEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila")->addHour(6);
                 $probTime1 = Carbon::parse($thisPayrollDate." 04:00:00","Asia/Manila");
                 $probTime2 = Carbon::parse($thisPayrollDate." 14:30:00","Asia/Manila");
@@ -1073,9 +1085,27 @@ trait TimekeepingTraits
 
                 }
                  else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                 */
 
-              } else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-      }
+              }else if($logType_id == 1 && $isAproblemShift)
+              {
+                $checker="else if in sya";
+                $kahapon = Carbon::parse(Biometrics::find($biometrics_id)->productionDate,'Asia/Manila')->addDay(-1);
+                $bioKahapon = Biometrics::where('productionDate',$kahapon->format('Y-m-d'))->get();
+                
+                if (count($bioKahapon) > 0){
+
+                  $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioKahapon->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+                }else goto proceedWithBlank;
+
+              }
+              else {
+                $checker="in sya";
+                $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+              } 
+    }
              
           
 
@@ -1085,7 +1115,8 @@ trait TimekeepingTraits
       /*--- after getting the logs, IF (logIN_type) go to another filter pass
             else, just proceed -- */
             
-     
+     $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s');
+     $probTime2 = Carbon::parse($thisPayrollDate." 03:00:00","Asia/Manila")->format('Y-m-d H:i:s');
 
       if (is_null($userLog) || count($userLog)<1)
       {  
@@ -1098,8 +1129,7 @@ trait TimekeepingTraits
                 $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
                 
                 $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6)->format('Y-m-d H:i:s');
-                $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s');
-                $probTime2 = Carbon::parse($thisPayrollDate." 05:00:00","Asia/Manila")->format('Y-m-d H:i:s');
+                
 
 
                 if ($beginShift >= $probTime1 && $beginShift <= $probTime2)
@@ -1299,7 +1329,7 @@ trait TimekeepingTraits
                           if ($logType_id == 1) 
                           {
                             $parseThis = $schedForToday['timeStart'];
-                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  && !$problemArea[0]['problemShift']) //--- meaning late sya
+                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  ) //&& !$problemArea[0]['problemShift']--- meaning late sya
                               {
                                 $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
 
@@ -1308,7 +1338,7 @@ trait TimekeepingTraits
                             
                           else if ($logType_id == 2)
                             $parseThis = $schedForToday['timeEnd'];
-                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
+                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing ) //&& !$problemArea[0]['problemShift']--- meaning early out sya
                               {
                                 $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
 
@@ -1461,7 +1491,7 @@ trait TimekeepingTraits
                                           if ($logType_id == 1) 
                                           {
                                             $parseThis = $schedForToday['timeStart'];
-                                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing)  && !$problemArea[0]['problemShift']) //--- meaning late sya
+                                            if ( (Carbon::parse($parseThis,"Asia/Manila") < $timing) ) // && !$problemArea[0]['problemShift']--- meaning late sya
                                               {
                                                 $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
 
@@ -1471,7 +1501,7 @@ trait TimekeepingTraits
                                           else if ($logType_id == 2)
                                           {
                                             $parseThis = $schedForToday['timeEnd'];
-                                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
+                                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing ) //&& !$problemArea[0]['problemShift']--- meaning early out sya
                                               {
                                                 $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
 
@@ -1645,11 +1675,12 @@ trait TimekeepingTraits
 
 
 
-       $data->push([ 'logPalugit'=>$logPalugit,
+       $data->push(['biometrics_id'=>$biometrics_id, 'logPalugit'=>$logPalugit,
                       'palugitDate' =>$palugitDate,
                        'beginShift'=> $beginShift,
                        'maxOut'=> $maxOut,
-                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
+                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 
+                    'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
                     'sl'=>$slDeet,
                     'UT'=>$UT, 'logTxt'=>$log,
                     'hasPendingDTRP' => $hasPendingDTRP,
@@ -1745,7 +1776,7 @@ trait TimekeepingTraits
       else
       {
           $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
-          $timeStart = Carbon::parse($userLogIN->first()->logTime);
+          $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
 
           if ($isSameDayLog) 
           {
@@ -1775,7 +1806,9 @@ trait TimekeepingTraits
           else
           {
             //--- NEXT DAY LOG OUT
-            $nextDay = Carbon::parse($payday)->addDay();
+            //--- pero i-allow mo lang na maximum of 18H from login time
+            //$nextDay = Carbon::parse($payday)->addDay();
+            $nextDay = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila')->addHour(18);
             $bioForTomorrow = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->first();
 
             //Check mo muna kung may approved DTRPout
@@ -1802,137 +1835,167 @@ trait TimekeepingTraits
 
                   //--- di nga sya pumasok
                   $logOUT = "* RD *";
-                  $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+                  $uLogout = Logs::where('user_id',$user_id)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+
+                  //** check mo muna kung pasok yung log sa allowed RD OT
+                  if (count($uLogout) > 0){
+
+                    if (Carbon::parse($bioForTomorrow->productionDate." ".$uLogout->first()->logTime,"Asia/Manila")->format('Y-m-d H:i:s') <= $nextDay->format('Y-m-d H:i:s'))
+                      $userLogOUT = $uLogout;
+                    else $userLogOUT = null;
+
+                  }else $userLogOUT = $uLogout;
+
 
                 }
 
               
              }
 
-          }
+          } //end else not sameday log
             
 
 
           //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
-          $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->where('isApproved',1)->get();
-          if (count($rdOT) > 0) $approvedOT = $rdOT; 
-
-          if( is_null($userLogOUT) || count($userLogOUT)<1 )
+          $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
+          
+          if (count($rdOT) > 0)
           {
-
-            //** check mo muna baka the next day na sya nag OUT
-            $allowedOT = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila')->addHours(8);
-            $bionext = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
-            if (count($bionext) > 0)
+            if ($rdOT->first()->isApproved)
             {
-              $userLogOUT =  Logs::where('biometrics_id',$bionext->first()->id)->where('user_id',$user_id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
+              $approvedOT = $rdOT; 
+              //** fill in necessary details from the approved RD OT
+              $shiftStart = "* RD *";
+              $shiftEnd = "* RD *";
+              $logIN = $rdOT->first()->timeStart;
+              $logOUT = $rdOT->first()->timeEnd;
+              $workedHours = $rdOT->first()->filed_hours."<br/><small>[ * RD-OT * ]</small>";
+              $billableForOT = $rdOT->first()->billable_hours;
+              $OTattribute = null;
+              $UT = 0;
+              $hasPendingIN = null;
+              $pendingDTRPin = null;
+              $hasPendingOUT = null;
+              $pendingDTRPout = null;
 
-              if (count($userLogOUT) > 0)
-              {
-                goto legitOT;
-
-              }else
-              {
-                goto blankOTout;
-
-              }
-
-            } 
-            else{
-
-              blankOTout:
-
-                  $logOUT = "No OT-Out <br/><small>Verify with Immediate Head</small>";
-
-                  $workedHours="N/A"; 
-
-                  if ($hasHolidayToday)
-                  {
-                    
-                    $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>";
-
-                  }  
-
-                 
-                  $shiftStart = "* RD *";
-                  $shiftEnd = "* RD *";
-                  $UT = 0;
-                  $billableForOT=0;
-
+            }else
+            {
+              $approvedOT = $rdOT; 
+              //** fill in necessary details from the approved RD OT
+              $shiftStart = "* RD *";
+              $shiftEnd = "* RD *";
+              $logIN = $rdOT->first()->timeStart;
+              $logOUT = $rdOT->first()->timeEnd;
+              $workedHours = "0<br/><small>[ * RD-OT * ]</small>";
+              $billableForOT = $rdOT->first()->billable_hours;
+              $OTattribute = null;
+              $UT = 0;
+              $hasPendingIN = null;
+              $pendingDTRPin = null;
+              $hasPendingOUT = null;
+              $pendingDTRPout = null;
             }
-             
-              
+            
 
-          } else 
-          { 
-
-            legitOT:
-                //--- legit OT, compute billable hours
-                //--- check mo muna kung normal or night diff logtype sya
-                if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
-                  $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                else
-                {
-                  $nextDay = Carbon::parse($payday)->addDay();
-                  $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
-                  if (count($b) > 0)
-                    $bio = $b->first()->productionDate;
-                  else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                }
-
-                
-                $logO = Carbon::parse($bio." ".$userLogOUT->first()->logTime, 'Asia/Manila'); 
-                $logOUT = $logO->format('M d h:i:s A'); 
-
-                $timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
-                //date('h:i:s A',strtotime($userLogOUT->first()->logTime));
-                $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
-
-                $wh = $logO->diffInMinutes($timeStart->addHour(1)); //--- pag RD OT, no need to add breaktime 1HR
-                $workedHours = number_format($wh/60,2);
-                $billableForOT = $workedHours;
-
-                if ($hasHolidayToday)
-                {
-                  
-                  $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
-
-                } else $workedHours .= "<br /><small> [* RD-OT *] </small>";
-
-
-                 if ($hasHolidayToday){
-
-                  //check first if Locked na DTR for that production date
-                    $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
-                    if (count($verifiedDTR) > 0)
-                      $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
-                    else
-                     $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
-
-                 
-                 }
-                 
-               else
-               {
-                  //check first if Locked na DTR for that production date
-                    $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
-                    if (count($verifiedDTR) > 0)
-                      $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
-                    else
-                     $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
-
-                  
-
-               }
-                
-               
-
-                
-                $OTattribute = $icons;
-                $shiftStart = "* RD *";
-                $shiftEnd = "* RD *";
-                $UT = 0;
           }
+          else
+          {
+              if( is_null($userLogOUT) || count($userLogOUT)<1 )
+              {
+
+                  blankOTout:
+
+                      $logOUT = "No RD-OT Out <br/><small>Verify with Immediate Head</small>";
+
+                      $workedHours="N/A"; 
+
+                      if ($hasHolidayToday)
+                      {
+                        
+                        $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>";
+
+                      }  
+
+                     
+                      $shiftStart = "* RD *";
+                      $shiftEnd = "* RD *";
+                      $UT = 0;
+                      $billableForOT=0;
+
+          
+                 
+                  
+
+              } else 
+              { 
+
+                legitOT:
+                        //--- legit OT, compute billable hours
+                        //--- check mo muna kung normal or night diff logtype sya
+                        if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
+                          $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                        else
+                        {
+                          $nextDay = Carbon::parse($payday)->addDay();
+                          $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
+                          if (count($b) > 0)
+                            $bio = $b->first()->productionDate;
+                          else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                        }
+
+                        
+                        $logO = Carbon::parse($bio." ".$userLogOUT->first()->logTime, 'Asia/Manila'); 
+                        $logOUT = $logO->format('M d h:i:s A'); 
+
+                        $timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
+                        //date('h:i:s A',strtotime($userLogOUT->first()->logTime));
+                        $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
+
+                        $wh = $logO->diffInMinutes($timeStart->addHour(1)); //--- pag RD OT, no need to add breaktime 1HR
+                        $workedHours = number_format($wh/60,2);
+                        $billableForOT = $workedHours;
+
+                        if ($hasHolidayToday)
+                        {
+                          
+                          $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+
+                        } else $workedHours .= "<br /><small> [* RD-OT *] </small>";
+
+
+                         if ($hasHolidayToday)
+                         {
+                            //check first if Locked na DTR for that production date
+                            $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                            if (count($verifiedDTR) > 0)
+                              $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                            else
+                             $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                         
+                         }
+                         
+                         else
+                         {
+                            //check first if Locked na DTR for that production date
+                              $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                              if (count($verifiedDTR) > 0)
+                                $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                              else
+                               $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                            
+                         }
+                        
+                        $OTattribute = $icons;
+                        $shiftStart = "* RD *";
+                        $shiftEnd = "* RD *";
+                        $UT = 0;
+              }//end if-else null logout
+
+          }//wala pang approved RD OT 
+
+          
 
 
 
@@ -2259,8 +2322,8 @@ trait TimekeepingTraits
 
     ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
 
-    $inTime = $userLogIN[0]['timing'];// Carbon::parse($payday." ".$t,'Asia/Manila');
-    $outTime = $userLogOUT[0]['timing']; //Carbon::parse($payday." ".$t2,'Asia/Manila');
+    $inTime = null;
+    $outTime = null;
 
 
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
@@ -2377,6 +2440,9 @@ trait TimekeepingTraits
 
       // $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeEnd'],"Asia/Manila"));
       // if ($checkEarlyOut > 1)  $isEarlyOUT = true; else $isEarlyOUT= false;
+
+      $inTime = $userLogIN[0]['timing'];// Carbon::parse($payday." ".$t,'Asia/Manila');
+      $outTime = $userLogOUT[0]['timing']; //Carbon::parse($payday." ".$t2,'Asia/Manila');
 
 
       $link = action('UserController@myRequests',$user_id);
@@ -3031,7 +3097,7 @@ trait TimekeepingTraits
 
      
 
-    $data->push(['compare'=>$inTime->format('Y-m-d H:i:s')." | ". $scheduleStart->format('Y-m-d H:i:s'),
+    $data->push([
                   'holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 
                   'checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
                   'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,

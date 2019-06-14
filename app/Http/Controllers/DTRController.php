@@ -1814,7 +1814,7 @@ class DTRController extends Controller
                                  
                             }
 
-                             $myDTR->push(['payday'=>$payday,
+                             $myDTR->push(['isRDToday'=>null,'payday'=>$payday,
                                  'biometrics_id'=>$bioForTheDay->id,
                                  'hasCWS'=>$hasCWS,
                                   //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
@@ -2312,7 +2312,7 @@ class DTRController extends Controller
 
                                 }// end if isnull bioForToday
 
-                                $myDTR->push(['payday'=>$payday,
+                                $myDTR->push(['isRDToday'=>$isRDToday,'payday'=>$payday,
                                              'biometrics_id'=>$bioForTheDay->id,
                                              'hasCWS'=>$hasCWS,
                                              'hasLeave'=>$hasLeave,
@@ -2498,7 +2498,7 @@ class DTRController extends Controller
 
                               if ($isRDToday)
                               {
-                                if($sameDayLog)
+                                if($sameDayLog) 
                                 {
                                   
 
@@ -2601,7 +2601,7 @@ class DTRController extends Controller
                               else  
                               {
                                     $problemArea = new Collection;
-                                    $problemArea->push(['problemShift'=>false, 'allotedTimeframe'=>null, 'biometrics_id'=>null]);
+                                    //$problemArea->push(['problemShift'=>false, 'allotedTimeframe'=>null, 'biometrics_id'=>null]);
                                     //$isAproblemShift = false;
 
 
@@ -2724,7 +2724,7 @@ class DTRController extends Controller
 
                                     
 
-                                    if ( $s->format('Y-m-d H:i:s') >= Carbon::parse($payday." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s') &&  $s->format('Y-m-d H:i:s') <=  Carbon::parse($payday." 05:00:00","Asia/Manila")->format('Y-m-d H:i:s') )
+                                    if ( $s->format('Y-m-d H:i:s') >= $mn->format('Y-m-d H:i:s') &&  $s->format('Y-m-d H:i:s') <=  Carbon::parse($payday." 03:00:00","Asia/Manila")->format('Y-m-d H:i:s') )
                                     {
                                       $isAproblemShift = true;
                                     } else
@@ -2855,7 +2855,7 @@ class DTRController extends Controller
 
                                        //********** LOG OUT ***************
 
-                                              if ($isAproblemShift)
+                                              /*if ($isAproblemShift)
                                               {
 
                                                 if(count($bioForTom) > 0)
@@ -2869,7 +2869,7 @@ class DTRController extends Controller
                                               }
                                              
                                               else
-                                              { 
+                                              { */
                                                 if(count($bioForTom) > 0){
                                                   $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift);
                                                       //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
@@ -2885,7 +2885,7 @@ class DTRController extends Controller
 
                                                 //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]);
 
-                                              }
+                                              /*}*/
 
                                                     $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest);
 
@@ -2906,7 +2906,8 @@ class DTRController extends Controller
 
                                     if(is_null($schedForToday)) {
                                         
-                                        $myDTR->push(['payday'=>$payday,
+                                        $myDTR->push(['isRDToday'=>null,
+                                          'payday'=>$payday,
                                        'biometrics_id'=>$bioForTheDay->id,
                                        'hasCWS'=>$hasCWS,
                                         //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
@@ -2988,6 +2989,7 @@ class DTRController extends Controller
                                          'wholeIN' => $userLogIN,
                                          'wholeOUT' =>$userLogOUT,
                                          'schedForToday'=>$schedForToday,
+                                         'sameDayLog'=>$sameDayLog
                                          
 
                                          // 'VL'=>$VLs, 'LWOP'=>$LWOPs
