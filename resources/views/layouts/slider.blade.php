@@ -1,50 +1,13 @@
 
                     
-                    <div class="item active text-center" >
+                      <div class="item active text-center" >
 
-                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/pride2019.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO’s support for the LGBTQIA+ community goes beyond #PrideMonth and our offices. We stand with the struggles of the community and celebrate your individuality.<br/><br/>
 
-                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
-                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+                                To the LGBTQIA+ community, you matter. We salute your truth as we #ResistTogether. Happy Pride!<br/><br/>
 
-                              </div>
-
-                               <h2 style="margin-top: -30px" class="text-danger"><strong>Quality Analyst </strong><br/>
-                               </h2>
-
-                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> June 15,2019 </strong></h5>
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Qualifications: </p>
-                              <ul class="text-left">
-
-                                <li>No attendance issues / DAs in the last 3 months</li>
-                                <li>Passing QA scores (average) in the last 3 months</li>
-                                <li>Passing CSAT scores (average) in the last 3 months</li>
-                                <li>Knowledge in statistics preferred but not required</li>
-                                <li>Basic knowledge in Microsoft Office</li>
-
-                              </ul>
-                              <br/><br/>
-
-                               <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Responsibilities: </p>
-                              <ul class="text-left">
-
-                                <li>Randomly audit tickets per agent per week</li>
-                                <li>Analyze markdowns and identify gaps in our communication and process compliance</li>
-                                <li>Provide recommendations to improve the overall QA and CSAT scores</li>
-                                <li>Coach agents on their QA performance</li>
-                                <li>Track each agent's QA score progress</li>
-                                <li>Update the QA Socre Dashboards</li>
-                                <li>Facilitate the QA Talk whenever needed (for new waves, and whenever anything changes in the QA form)</li>
-                                <li>Functions as an SME for incoming waves</li>
-                                <li>Facilitate weekly QA Calibration</li>
-                                <li>Provide Training Needs Analysis data to the Training Department (by request)</li>
-                                <li>Perform any other QA ad hoc tasks whenever needed</li>
-
-                              </ul>
-                              <br/><br/>
-                              
-
-                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessbpo.com</a></small></p>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong></p>
 
 
                       </div>
@@ -598,6 +561,55 @@
 
 
 <?php /*
+
+<div class="item active text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h2 style="margin-top: -30px" class="text-danger"><strong>Quality Analyst </strong><br/>
+                               </h2>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> June 15,2019 </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Qualifications: </p>
+                              <ul class="text-left">
+
+                                <li>No attendance issues / DAs in the last 3 months</li>
+                                <li>Passing QA scores (average) in the last 3 months</li>
+                                <li>Passing CSAT scores (average) in the last 3 months</li>
+                                <li>Knowledge in statistics preferred but not required</li>
+                                <li>Basic knowledge in Microsoft Office</li>
+
+                              </ul>
+                              <br/><br/>
+
+                               <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Responsibilities: </p>
+                              <ul class="text-left">
+
+                                <li>Randomly audit tickets per agent per week</li>
+                                <li>Analyze markdowns and identify gaps in our communication and process compliance</li>
+                                <li>Provide recommendations to improve the overall QA and CSAT scores</li>
+                                <li>Coach agents on their QA performance</li>
+                                <li>Track each agent's QA score progress</li>
+                                <li>Update the QA Socre Dashboards</li>
+                                <li>Facilitate the QA Talk whenever needed (for new waves, and whenever anything changes in the QA form)</li>
+                                <li>Functions as an SME for incoming waves</li>
+                                <li>Facilitate weekly QA Calibration</li>
+                                <li>Provide Training Needs Analysis data to the Training Department (by request)</li>
+                                <li>Perform any other QA ad hoc tasks whenever needed</li>
+
+                              </ul>
+                              <br/><br/>
+                              
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessbpo.com</a></small></p>
+
+
+                      </div>
 
 <!-- PRIDE MONTH -->
 <div class="item  text-center" >
