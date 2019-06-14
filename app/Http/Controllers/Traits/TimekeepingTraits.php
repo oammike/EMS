@@ -2259,6 +2259,10 @@ trait TimekeepingTraits
 
     ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
 
+    $inTime = $userLogIN[0]['timing'];// Carbon::parse($payday." ".$t,'Asia/Manila');
+    $outTime = $userLogOUT[0]['timing']; //Carbon::parse($payday." ".$t2,'Asia/Manila');
+
+
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
 
@@ -2385,8 +2389,7 @@ trait TimekeepingTraits
       $scheduleStart = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
       //$scheduleEnd = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
 
-      $inTime = Carbon::parse($payday." ".$t,'Asia/Manila');
-      $outTime = Carbon::parse($payday." ".$t2,'Asia/Manila');
+     
 
 
 
@@ -2611,7 +2614,7 @@ trait TimekeepingTraits
             else
             {
               
-               $workedHours = number_format($wh/60,2)."<br/><small>(Late IN)</small>";$billableForOT=0;
+               $workedHours = number_format($wh/60,2)."<br/><small>(Late INs)</small>";$billableForOT=0;
                if ($hasHolidayToday){ $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";}
 
 
@@ -3028,7 +3031,8 @@ trait TimekeepingTraits
 
      
 
-    $data->push(['holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 
+    $data->push(['compare'=>$inTime->format('Y-m-d H:i:s')." | ". $scheduleStart->format('Y-m-d H:i:s'),
+                  'holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 
                   'checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
                   'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'LWOP'=>$hasLWOP ]);

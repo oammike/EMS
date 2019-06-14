@@ -2474,7 +2474,7 @@ class DTRController extends Controller
                                     $isRDToday = $this->getLatestFixedSched($user,$numDay,$payday)->isRD;
                                     //$isRDToday = $RDsched->contains('workday',$numDay); 
                                   //$coll2->push(['from: '=>"reg isFixed", 'RDsched'=>$RDsched, 'numDay'=>$numDay]); 
-                                }
+                                  }
                                   else
                                   {
                                     $rd = $RDsched->where('isRD',1)->where('productionDate',$payday)->all(); 
@@ -2891,7 +2891,7 @@ class DTRController extends Controller
 
                                                 
 
-                                                $workedHours=$data[0]['workedHours'];
+                                                $workedHours= $data[0]['workedHours']; //$data[0]['compare']; //
                                                 $billableForOT = $data[0]['billableForOT'];
                                                 $OTattribute = $data[0]['OTattribute'];
                                                 $UT = $data[0]['UT'];
