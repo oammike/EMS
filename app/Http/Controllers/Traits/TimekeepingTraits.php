@@ -1469,6 +1469,7 @@ trait TimekeepingTraits
                                           }
                                             
                                           else if ($logType_id == 2)
+                                          {
                                             $parseThis = $schedForToday['timeEnd'];
                                             if (Carbon::parse($parseThis,"Asia/Manila") > $timing && !$problemArea[0]['problemShift']) //--- meaning early out sya
                                               {
@@ -1476,6 +1477,7 @@ trait TimekeepingTraits
 
                                               } else $UT=$undertime;
 
+                                          }
                                           
                                           $checker="non ideal, with $uLog, then proceedToLeaves";
                                           goto proceedToLeaves;
@@ -2255,6 +2257,8 @@ trait TimekeepingTraits
     $theDay = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
     $fix= Carbon::parse($payday." 23:59:00","Asia/Manila");
 
+    ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
 
@@ -2470,6 +2474,7 @@ trait TimekeepingTraits
             $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
 
 
+
             if ($hasSL)
             {
               $workedHours1 = $this->processLeaves('SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
@@ -2547,9 +2552,11 @@ trait TimekeepingTraits
         //--- but u need to make sure if nag late out sya
         //    otherwise, super undertime talaga sya
 
-        if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
+        if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) // Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
         {
-          $wh = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+          //$wh = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+
+          $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
          
           /* ---- but we need to check Jeff's case of multiple requessts
                   bakit sya lateIN? baka may valid SL | VL |OBT */
@@ -2557,7 +2564,8 @@ trait TimekeepingTraits
 
             if ($hasSL)
             {
-              $wh = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
+              //$wh = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
+              $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
 
               $workedHours1 = $this->processLeaves('SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
               $workedHours .= $workedHours1[0]['workedHours'];
@@ -2617,8 +2625,8 @@ trait TimekeepingTraits
 
               
                 
-                 $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
-                $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
+                $totalbill = number_format($endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") )/60,2);
+                
 
                 if ($totalbill > 0.5)
                 {
@@ -2646,7 +2654,8 @@ trait TimekeepingTraits
         }
         else //super undertime sya
         {
-            $wh = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+            //$wh = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+            $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
             
              
               if ($hasSL)
@@ -2743,6 +2752,7 @@ trait TimekeepingTraits
       else {
 
          $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
+
 
          
             proceedWithNormal:

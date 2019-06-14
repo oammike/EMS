@@ -2887,16 +2887,8 @@ class DTRController extends Controller
 
                                               }
 
-                                                // if($isRDYest || $isAproblemShift || !$sameDayLog)
-                                                // {
-                                                //   $data = $this->getComplicatedWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$isRDYest,$payday);
-                                                  
-                                                // }
-                                                // else
-                                                //   {
                                                     $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest);
-                                                   //$coll->push(['datafrom'=>"(ELSE isRDYest || isAproblemShift || !sameDayLog) [WH]"]);
-                                                  //}
+
                                                 
 
                                                 $workedHours=$data[0]['workedHours'];
