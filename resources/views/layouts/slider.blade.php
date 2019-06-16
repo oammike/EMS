@@ -2,6 +2,17 @@
                     
                       <div class="item active text-center" >
 
+                              <h4 class="text-orange" >Happy <span class="text-primary"> Father's Day!!!</span></h4>
+                              <img src="./storage/uploads/fathersday2019.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To the most amazing man in the world, Happy Father's Day! 👨 May this day be like no other as you are to your family. <br/><br/>
+
+                                <strong>#WeSpeakYourLanguage #OAonDadsDay</strong></p>
+
+
+                      </div>
+
+                      <div class="item  text-center" >
+
                               <img src="./storage/uploads/pride2019.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO’s support for the LGBTQIA+ community goes beyond #PrideMonth and our offices. We stand with the struggles of the community and celebrate your individuality.<br/><br/>
 
