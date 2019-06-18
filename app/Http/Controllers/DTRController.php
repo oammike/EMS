@@ -1705,7 +1705,8 @@ class DTRController extends Controller
              // Start Payroll generation
              // ---------------------------
             
-
+             $schedRecord = [];
+             $schedCtr = 0;
             
               
              foreach ($payrollPeriod as $payday) 
@@ -1728,6 +1729,8 @@ class DTRController extends Controller
 
                 $holidayToday = Holiday::where('holidate', $payday)->get();
                 (count($holidayToday) > 0) ? $hasHolidayToday = true : $hasHolidayToday = false;
+
+                if ($schedCtr==0) array_push($schedRecord, 'null');
                                
                   
                   if($noWorkSched)
@@ -2983,6 +2986,7 @@ class DTRController extends Controller
 
                                     } 
                                     else{
+
                                       $myDTR->push(['isRDToday'=>$isRDToday, 'isAproblemShift'=>$isAproblemShift, 'payday'=> $payday,
                                           'biometrics_id'=>$bioForTheDay->id,
                                           'hasCWS'=>$hasCWS,
