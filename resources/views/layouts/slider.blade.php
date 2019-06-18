@@ -1,12 +1,21 @@
 
-                    
+
                       <div class="item active text-center" >
 
-                              <h4 class="text-orange" >Happy <span class="text-primary"> Father's Day!!!</span></h4>
-                              <img src="./storage/uploads/fathersday2019.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To the most amazing man in the world, Happy Father's Day! 👨 May this day be like no other as you are to your family. <br/><br/>
+                              <h4 class="text-orange" >Game 2 | <span class="text-primary"> Open Access BPO Basketball Team</span></h4>
+                              <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Everyone is invited to come and watch their second win for the league:<br/><br/>
 
-                                <strong>#WeSpeakYourLanguage #OAonDadsDay</strong></p>
+                                Date: <strong class='text-danger'>June 20, 2019 (Thursday)</strong><br/>
+                                Time: 7:45 PM<br/>
+                                Venue: The Zone, Malugay, Makati<br/>
+                                Directions from 6780: <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/The+Zone,+Malugay,+Manila,+Metro+Manila/@14.5586884,121.0173373,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c90833a19f17:0x2cb9a9370a09053e!2m2!1d121.0192647!2d14.5627878!3e0"> 6780 to The Zone</a><br/>
+
+                                To our Open Access BPO Basketball Team, GOOD LUCK AND WIN GAME 2!<br/><br/>
+
+                                Hope to see you there! <br/><br/>
+
+                               </p>
 
 
                       </div>
@@ -45,6 +54,17 @@
                             <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                     </div>
+
+                    <div class="item text-center" >
+
+                              <h4 class="text-orange" >Happy <span class="text-primary"> Father's Day!!!</span></h4>
+                              <img src="./storage/uploads/fathersday2019.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To the most amazing man in the world, Happy Father's Day! 👨 May this day be like no other as you are to your family. <br/><br/>
+
+                                <strong>#WeSpeakYourLanguage #OAonDadsDay</strong></p>
+
+
+                      </div>
 
                       <div class="item  text-center" >
 
