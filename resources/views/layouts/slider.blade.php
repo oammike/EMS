@@ -22,7 +22,7 @@
 
                       <div class="item text-center" >
                         
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Zumba Free Class</span> New Schedule</h3>
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Free Zumba Class</span> New Schedule</h3>
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
