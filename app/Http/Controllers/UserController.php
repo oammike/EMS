@@ -272,7 +272,8 @@ class UserController extends Controller
           }
 
           $teammates = $teams->sortBy('lastname');
-          $shifts = $this->generateShifts('12H');
+          $shifts = $this->generateShifts('12H','full');
+          $partTimes = $this->generateShifts('12H','part');
 
           //return $teammates;
 
@@ -490,7 +491,9 @@ class UserController extends Controller
         }
 
         $teammates = $teams->sortBy('lastname');
-        $shifts = $this->generateShifts('12H');
+        $shifts = $this->generateShifts('12H','full');
+        $partTimes = $this->generateShifts('12H','part');
+
 
         // ------ now check if you have saved worked schedules -------
 
@@ -2415,7 +2418,8 @@ class UserController extends Controller
 
            
 
-            $shifts = $this->generateShifts('12H');
+            $shifts = $this->generateShifts('12H','full');
+            $partTimes = $this->generateShifts('12H','part');
             
             return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','hasNewPhoto'));
 

@@ -1581,7 +1581,9 @@ class DTRController extends Controller
              $hasLeave=null;
              $shiftStart2=null;$shiftEnd2=null;
              $hybridSched = null;
-             $shifts = $this->generateShifts('12H');
+             $shifts = $this->generateShifts('12H','full');
+             $partTimes = $this->generateShifts('12H','part');
+
              $noWorkSched = true;
              $holiday = " ";
 
@@ -1703,7 +1705,8 @@ class DTRController extends Controller
              // Start Payroll generation
              // ---------------------------
             
-
+             $schedRecord = [];
+             $schedCtr = 0;
             
               
              foreach ($payrollPeriod as $payday) 
@@ -1726,6 +1729,8 @@ class DTRController extends Controller
 
                 $holidayToday = Holiday::where('holidate', $payday)->get();
                 (count($holidayToday) > 0) ? $hasHolidayToday = true : $hasHolidayToday = false;
+
+                if ($schedCtr==0) array_push($schedRecord, 'null');
                                
                   
                   if($noWorkSched)
@@ -1851,6 +1856,8 @@ class DTRController extends Controller
                                  'billableForOT' => $billableForOT,
                                  'OTattribute'=>$OTattribute,
                                  'UT'=>$UT,
+                                 'isFixedSched'=>$isFixedSched,
+                                  'hasApprovedCWS'=>$hasApprovedCWS,
                                  'approvedOT' => $approvedOT]);
 
                         }// end if isnull bioForToday
@@ -2346,6 +2353,8 @@ class DTRController extends Controller
                                                'billableForOT' => $billableForOT,
                                                'OTattribute'=>$OTattribute,
                                                'UT'=>$UT,
+                                               'isFixedSched'=>$isFixedSched,
+                                               'hasApprovedCWS'=>$hasApprovedCWS,
                                                'approvedOT' => $approvedOT]);
 
                                 $coll->push(['status'=>"goto noWorkSched", 'payday'=>$payday]);
@@ -2540,6 +2549,8 @@ class DTRController extends Controller
                                          'billableForOT' => $data[0]['billableForOT'],
                                          'OTattribute' => $data[0]['OTattribute'],
                                          'UT'=>$data[0]['UT'],
+                                         'isFixedSched'=>$isFixedSched,
+                                         'hasApprovedCWS'=>$hasApprovedCWS,
                                          'approvedOT' => $data[0]['approvedOT']]);
 
                                 }
@@ -2583,6 +2594,8 @@ class DTRController extends Controller
                                          'billableForOT' => $data[0]['billableForOT'],
                                          'OTattribute' => $data[0]['OTattribute'],
                                          'UT'=>$data[0]['UT'],
+                                         'isFixedSched'=>$isFixedSched,
+                                         'hasApprovedCWS'=>$hasApprovedCWS,
                                          'approvedOT' => $data[0]['approvedOT']]);
 
                                 
@@ -2700,10 +2713,23 @@ class DTRController extends Controller
 
                                     if ($user->status_id == 12 || $user->status_id == 14  )
                                     {
-                                      $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
-                                      $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
-                                      $f = $schedForToday['isFlexitime'];
-                                      $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f]);
+                                      if (is_null($schedForToday['timeStart']))
+                                      {
+                                        $shiftStart2 = '<span class="text-danger" style="font-weight:bold">No Work Sched</span>';
+                                        $schedForToday = collect([
+                                          'timeStart'=>null, 
+                                          'timeEnd'=>null,'isFlexitime'=>false]);
+                                        $shiftEnd = null;
+
+                                      }else
+                                      {
+                                          $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
+                                          $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
+                                          $f = $schedForToday['isFlexitime'];
+                                          $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f]);
+
+                                      }
+                                     
                                      
                                     }else
                                     {
@@ -2715,12 +2741,21 @@ class DTRController extends Controller
                                     $mn = Carbon::parse($payday." 00:00:00", "Asia/Manila");
                                     $noon = Carbon::parse($payday." 11:59:00", "Asia/Manila");
 
-                                    if ( $s >= $mn && $s <= $noon ) {
-                                      $shiftStart2 = '<span style="color:#bcaa0f; font-weight:bold">'. $shiftStart. '</span>';
-                                    } else $shiftStart2 = '<span style="color:#6754c1; font-weight:bold">'. $shiftStart. '</span>';
-                                    if  ( $s2 >=$mn && $s2 <= $noon ) {
-                                     $shiftEnd2 = '<span style="color:#bcaa0f; font-weight:bold">'. $shiftEnd. '</span>';
-                                    } else  $shiftEnd2 = '<span style="color:#6754c1; font-weight:bold">'. $shiftEnd. '</span>';
+                                    if (is_null($shiftStart)){
+                                      $shiftStart2 = '<span class="text-danger" style="font-weight:bold">No Work Sched</span>';
+
+                                    }else
+                                    {
+                                      if ( $s >= $mn && $s <= $noon ) {
+                                        $shiftStart2 = '<span style="color:#bcaa0f; font-weight:bold">'. $shiftStart. '</span>';
+                                      } else $shiftStart2 = '<span style="color:#6754c1; font-weight:bold">'. $shiftStart. '</span>';
+                                      if  ( $s2 >=$mn && $s2 <= $noon ) {
+                                       $shiftEnd2 = '<span style="color:#bcaa0f; font-weight:bold">'. $shiftEnd. '</span>';
+                                      } else  $shiftEnd2 = '<span style="color:#6754c1; font-weight:bold">'. $shiftEnd. '</span>';
+
+                                    }
+
+                                    
 
                                     
 
@@ -2758,22 +2793,26 @@ class DTRController extends Controller
                                     {
                                       
 
-                                      $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift);
-                                      $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift);
-                                      //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); 
-
                                       if($isFixedSched)
                                             $isRDYest = $RDsched->contains($prevNumDay); 
-                                          else
-                                          {
-                                            if ($hybridSched)
-                                            {
-                                              $rd = $RDsched->where('productionDate',$prevDay->format('Y-m-d'))->first();
+                                      else
+                                      {
+                                        if ($hybridSched)
+                                        {
+                                          $rd = $RDsched->where('productionDate',$prevDay->format('Y-m-d'))->first();
 
-                                            }else $rd = $monthlySched->where('isRD',1)->where('productionDate',$prevDay->format('Y-m-d'))->first();  
-                                            if (empty($rd)) 
-                                              $isRDYest=false; else $isRDYest=true;
-                                          }
+                                        }else $rd = $monthlySched->where('isRD',1)->where('productionDate',$prevDay->format('Y-m-d'))->first();  
+                                        if (empty($rd)) 
+                                          $isRDYest=false; else $isRDYest=true;
+                                      }
+
+                                      $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift,$isRDYest);
+                                      $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift,$isRDYest);
+                                      //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); 
+
+
+
+
 
                                       if (empty($userLogOUT[0]['timing']))
                                       {
@@ -2847,7 +2886,7 @@ class DTRController extends Controller
                                             Problem shifts: 12MN-5am
                                         ---------------------------------------------*/
                                        
-                                          $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift);
+                                          $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift,$isRDYest);
                                           //$coll->push(['datafrom'=>"else NOT Problem shift",'data IN'=>$userLogIN ]);
                                         //}
 
@@ -2871,7 +2910,7 @@ class DTRController extends Controller
                                               else
                                               { */
                                                 if(count($bioForTom) > 0){
-                                                  $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift);
+                                                  $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest);
                                                       //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
 
                                                   
@@ -2947,6 +2986,7 @@ class DTRController extends Controller
 
                                     } 
                                     else{
+
                                       $myDTR->push(['isRDToday'=>$isRDToday, 'isAproblemShift'=>$isAproblemShift, 'payday'=> $payday,
                                           'biometrics_id'=>$bioForTheDay->id,
                                           'hasCWS'=>$hasCWS,
@@ -2989,7 +3029,9 @@ class DTRController extends Controller
                                          'wholeIN' => $userLogIN,
                                          'wholeOUT' =>$userLogOUT,
                                          'schedForToday'=>$schedForToday,
-                                         'sameDayLog'=>$sameDayLog
+                                         'sameDayLog'=>$sameDayLog,
+                                         'isFixedSched'=>$isFixedSched,
+                                         
                                          
 
                                          // 'VL'=>$VLs, 'LWOP'=>$LWOPs
@@ -3050,7 +3092,7 @@ class DTRController extends Controller
 
              // return  count($user->monthlySchedules->sortByDesc('productionDate'));
 
-           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
+           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
 
 
         } else return view('access-denied');

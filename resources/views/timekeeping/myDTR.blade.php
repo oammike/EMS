@@ -1017,11 +1017,34 @@ $(function ()
                     $('.container#leave').fadeOut();
                     $('#leaveDetails').fadeIn(); $('.addDays').fadeIn();$('button#upload').fadeIn();
                     $('textarea[name="cwsnote"]').prop('required',true);
-                    $('select[name="timeEnd"]').prop('required',true);
-                    if ($('select[name="timeEnd"] :selected').val() == "0" )
-                      $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                    else
-                      $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                    $('select#fulltimes').prop('required',true);
+                    $('select#fulltimes').prop('disabled',true);
+                    $('select#parttimes').prop('required',true);
+                    $('select#parttimes').prop('disabled',true);
+
+                    $('input[name="shifttype"]').on('click',function(){
+                      {
+                      var shifttype = $(this).val();
+                      if(shifttype == 'full'){
+                        $('select#fulltimes').prop('disabled',false); $('select#parttimes').prop('disabled',true);
+                         if ($('input[name="timeEnd"]').val() == "0" )
+                          $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                        else
+                          $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                      }else{
+                        $('select#parttimes').prop('disabled',false); $('select#fulltimes').prop('disabled',true);
+                         if ($('input[name="timeEnd"]').val() == "0" )
+                          $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                        else
+                          $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                          }
+
+                    }
+
+                    });
+                    
+                   
 
                   }break;
         case '2': { 
@@ -1063,7 +1086,7 @@ $(function ()
       if (allboxes>0) $('button.submit').prop('disabled',false); else $('button.submit').prop('disabled',true);
       switch(choice){
         case '1': { $('.container#workshiftOptions').fadeOut();$('textarea[name="cwsnote"]').prop('required',false);
-                    $('select[name="timeEnd"]').prop('required',false); }break;
+                    $('select#fulltimes').prop('required',false); $('select#parttimes').prop('required',false); }break;
         case '2': { $('.container#login').fadeOut(); $('textarea[name="loginReason"]').prop('required',false);
                     $('input[name="login"]').prop('required',false);}break;
         case '3': { $('.container#logout').fadeOut(); $('textarea[name="logoutReason"]').prop('required',false);
@@ -1076,6 +1099,13 @@ $(function ()
        
 
   }); //end main checkboxes
+
+$('select.end.form-control').on('change',function(){
+  var selval = $(this).children("option:selected").val();
+  $('input[name="timeEnd"]').val(selval);
+  console.log(selval);
+
+});
 
 $('button#uploadOT').fadeOut();
  $('select.othrs.form-control').on('change',function(){
@@ -1124,21 +1154,24 @@ $('button#uploadOT').fadeOut();
   $('#upload').on('click', function(){
 
       if ($('input#workshift').is(':checked'))
+      {
               //var txtl = $('textarea[name="cwsnote"]').val().trim().length;
-              console.log("length: "+ txtl);
-              if ($('select[name="timeEnd"] :selected').val() !== "0" )
+              //console.log("length: "+ txtl);
+              //if ($('select[name="timeEnd"] :selected').val() !== "0" )
+              if ($('input[name="timeEnd"]').val() !== "0" )
                 $.notify("CWS saved for approval.",{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
               else
                 $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+      }
 
 
       if ($('input#login').is(':checked'))
-              if ($('input[name="login"]').val() !== "" )
+              if ($('input[name="login"]').val() !== "" &&  $('textarea [name="loginReason"]').val() !== "")
                 $.notify("DTRP - IN saved for approval.",{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
 
 
       if ($('input#logout').is(':checked'))
-              if ($('input[name="logout"]').val() !== "" )
+              if ($('input[name="logout"]').val() !== ""  &&  $('textarea [name="logoutReason"]').val() !== "")
                 $.notify("DTRP - OUT saved for approval.",{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
 
 
