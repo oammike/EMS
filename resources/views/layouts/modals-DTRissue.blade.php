@@ -26,14 +26,23 @@
        <label class="form-control"> <input type="checkbox" name="issue[]" id="workshift"  value="1" /> The indicated <span class="text-danger">work shift</span> is incorrect. </label>
 
        <div class="container" id="workshiftOptions" style="width: 90%; padding-bottom: 30px">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <i class="fa fa-2x fa-clock-o"></i><h5 class='text-center'><strong class="text-primary">{{ $Dday }} {{ $DproductionDate }} {{ $data['shiftStart']}} - {!! $data['shiftEnd'] !!} </strong><br/>work schedule should be: </h5>
+              </div>
+            </div>
           
 
              <div class="row">
 
-                  <div class="col-sm-6">  <i class="fa fa-2x fa-clock-o"></i><h5 class='text-center'><strong class="text-primary">{{ $Dday }} {{ $DproductionDate }} {{ $data['shiftStart']}} - {!! $data['shiftEnd'] !!} </strong><br/>work schedule should be: </h5></div>
                   <div class="col-sm-6">
-                  
-                      <select name="timeEnd" class="end form-control" style="margin-top:50px"><option value="">* Select shift *</option>';
+                    <div style="margin-top:30px">
+                      <label><input type="radio" name="shifttype" value="full" required="required" /> Full Time </label> &nbsp;&nbsp;&nbsp;
+                      
+                    </div>  
+
+                    <select id="fulltimes" name="timeEnd1" class="end form-control" style="margin-top:20px"><option value="">* Select shift *</option>';
                         @if ($data['shiftStart']  !== "* RD *")
                         <option value="RD"> REST DAY </option>';
                         @endif
@@ -44,14 +53,38 @@
                        @endforeach
                       </select><p></p>
 
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div style="margin-top:30px">
+                      <label><input type="radio" name="shifttype" value="part" required="required" /> Part Time </label> &nbsp;&nbsp;&nbsp;
+                      
+                    </div>
+
+                      <select id="parttimes" name="timeEnd2" class="end form-control" style="margin-top:20px"><option value="">* Select shift *</option>';
+                        @if ($data['shiftStart']  !== "* RD *")
+                        <option value="RD"> REST DAY </option>';
+                        @endif
+
+                        @foreach ($partTimes as $shift)
+                           <option value="{{$shift}}">{{$shift}} </option>
+
+                       @endforeach
+                      </select><p></p>
+
+                      <input type="hidden" name="timeEnd" value="0" />
+
+                      
+
                      
                   </div>
                  
                    
              </div>
               <div class="row">
-                        <div class="col-sm-6 text-right"><label>Reason: </label></div>
-                        <div class="col-sm-6"><textarea name="cwsnote" class="form-control"></textarea></div>
+                        <div class="col-sm-12 text-left"><label>Reason: </label>
+                          <textarea name="cwsnote" class="form-control"></textarea></div>
+                        
                       </div>
        </div>
        @endif
