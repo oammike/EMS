@@ -31,8 +31,22 @@
                           <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
                             <BR/><span class="text-danger">June 20, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
 
-                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">
+                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
                               Sign Up Now</a><br/><br/>
+
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                              
+                              <div class="text-left"  style="padding-left: 30px;">
+                                <h5>Minor Prizes:</h5>
+                                <ul>
+                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
+                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Bluetooth speaker</li>
+                                  <li>1 winner: Cheero 10050 Powerbank</li>
+                                  <li>1 winner: Beats&trade; head set</li>
+                                </ul></div>
 
                              <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
 
