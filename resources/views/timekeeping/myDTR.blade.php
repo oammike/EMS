@@ -375,9 +375,10 @@
 
                                                             <td class="text-center">
 
-                                                              @if (!empty($data['logIN']))
+                                                              @if (!empty($data['logIN']) && !$data['hasLeave'])
 
                                                                   {!! $data['logIN'] !!}
+                                                                  
 
                                                               @else
 
@@ -390,10 +391,33 @@
                                                               
                                                                
                                                                 <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+ 
+                                                            
+                                                          </td>
+                                                          <input type="hidden" name="isDTRPin_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
 
+
+                                                       @elseif($data['hasLWOP'])
+
+                                                            <td class="text-center">
+
+                                                              @if (!empty($data['logIN']) && !$data['hasLWOP'])
+
+                                                                  {!! $data['logIN'] !!}
+                                                                  
+
+                                                              @else
+
+                                                             <!--  <a href="{{action('UserController@myRequests',$user->id)}}"> -->
+                                                                <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
+                                                             <!--  </a> -->
+
+
+                                                              @endif
+                                                              
                                                                
-                                                            <!--  <strong><a data-toggle="modal" title="View Details" @if($data['hasPendingIN']) data-target="#myModal_dtrpDetail{{$data['pendingDTRPin']['0']['id']}}"  class="text-purple pull-right" @else data-target="#myModal_dtrpDetail{{$data['dtrpIN_id']}}"  class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
- -->
+                                                                <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['lwopDetails'][0]['type']}}" />
+ 
                                                             
                                                           </td>
                                                           <input type="hidden" name="isDTRPin_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
@@ -493,10 +517,30 @@
 
                                                               
                                                               <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
-
                                                             
-                                                            <!--  <strong><a data-toggle="modal" title="View Details" @if($data['hasPendingIN']) data-target="#myModal_dtrpDetail{{$data['pendingDTRPin']['0']['id']}}"  class="text-purple pull-right" @else data-target="#myModal_dtrpDetail{{$data['dtrpIN_id']}}"  class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
- -->
+                                                          </td>
+
+                                                          <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
+
+
+                                                        @elseif($data['hasLWOP'])
+
+                                                             <td class="text-center">
+
+                                                              @if (!empty($data['logOUT']) && !$data['hasLWOP'])
+
+                                                                  {!! $data['logOUT'] !!} 
+
+                                                              @else
+                                                              <!-- <a href="{{action('UserController@myRequests',$user->id)}}"> -->
+                                                                <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
+                                                              <!-- </a> -->
+
+                                                              @endif
+                                                              
+
+                                                              
+                                                              <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['lwopDetails'][0]['type']}}" />
                                                             
                                                           </td>
 
