@@ -1078,23 +1078,6 @@ trait TimekeepingTraits
 
                 }else goto proceedWithBlank;
 
-                
-                /*
-                //$maxEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeEnd'],"Asia/Manila")->addHour(6);
-                $probTime1 = Carbon::parse($thisPayrollDate." 04:00:00","Asia/Manila");
-                $probTime2 = Carbon::parse($thisPayrollDate." 14:30:00","Asia/Manila");
-
-                if (!($beginShift >= $probTime1 && $beginShift <= $probTime2) || is_null($schedForToday)) // if shift is NOT within the day
-                {
-                  $userLog = null;
-                  //$userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-                  $checker = "from 1st level";
-                  goto proceedToLogTomorrow;
-
-                }
-                 else $userLog = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-                 */
-
               }else if($logType_id == 1)// && $isAproblemShift
               {
                 $checker="else if in sya";
@@ -1152,6 +1135,7 @@ trait TimekeepingTraits
 
                           if (count($groupedIN) > 1)
                           {
+                                $userLog = null;
                                 foreach ($groupedIN as $key) 
                                 {
                                   $ddata = $key->first();
@@ -1169,6 +1153,8 @@ trait TimekeepingTraits
                                     $userLog = $ddata; break;
                                   }
                                 }//end foreach grouped IN
+
+                                if(is_null($userLog)) goto proceedWithBlank;
 
                                 $log = date('h:i:s A',strtotime($userLog->logTime));
 
@@ -1271,52 +1257,13 @@ trait TimekeepingTraits
                   else
                     goto theUsual;
 
-
-
-
-
-
-
-
-                  
-               
-
-                /*}*/
-
-                /*else
-                {
-
-                  //** check mo muna for today
-                  $today = Biometrics::where('productionDate',$thisPayrollDate)->get();
-                   if (count($today) > 0)
-                   {
-                    $userLog = Logs::where('user_id',$id)->where('biometrics_id',$today->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-                   }
-                   else
-                   {
-                      $kahapon = Carbon::parse(Biometrics::find($biometrics_id)->productionDate,'Asia/Manila')->addDay(-1);
-                      $bioKahapon = Biometrics::where('productionDate',$kahapon->format('Y-m-d'))->get();
-                      
-                      if (count($bioKahapon) > 0){
-
-                        $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioKahapon->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-
-                      }else goto proceedWithBlank;
-
-
-                   }
-
-                  
-
-                }*/
-                
-
                 
 
               }
               //*** new fix for issues with LOGIN
               //*** we need to check its grouped LogINS and if log is within maxIN (4hrs) and maxLate (2nd shift) or shift +5hrs
-              else if($logType_id == 1)
+              
+              /*else if($logType_id == 1)
               {
                 $groupedIN = collect(Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get())->groupBy('logTime');
                 $checker = $groupedIN;
@@ -1341,7 +1288,9 @@ trait TimekeepingTraits
                       }
                     }//end foreach grouped IN
 
-                  $log = date('h:i:s A',strtotime($userLog->logTime));
+                   if(is_null($userLog)) goto proceedWithBlank;
+
+                   $log = date('h:i:s A',strtotime($userLog->logTime));
 
                    //get real Bio prodDate from the log
                    $b = Biometrics::find($userLog->biometrics_id);
@@ -1369,7 +1318,9 @@ trait TimekeepingTraits
 
                 }
 
-              }
+              }*/
+
+
               else {
 
                 theUsual:
@@ -1552,6 +1503,7 @@ trait TimekeepingTraits
                   
 
             } 
+            else if (!$isAproblemShift) goto proceedWithBlank;
             else 
             {
               //within the day shift pero walang logs, so baka nag OT sya kinabukasan an yung LogOUT
@@ -1716,7 +1668,7 @@ trait TimekeepingTraits
                               $groupedLogs = collect($userLog)->groupBy('logTime');
                               if (count($groupedLogs) > 1)
                               {
-                                $col = [];
+                                $col = [];$userLog=null;
                                 array_push($col, $groupedLogs);
                                 foreach ($groupedLogs as $key) 
                                 {
@@ -1731,7 +1683,7 @@ trait TimekeepingTraits
 
                                   if ( $l->format('Y-m-d H:i:s') >= $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $maxO->format('Y-m-d H:i:s') )
                                   {
-                                    $userLog=null;
+                                    
                                     $userLog = $ddata; break;
                                   }
                                  
@@ -1739,6 +1691,10 @@ trait TimekeepingTraits
                                  
                                     
                                 }
+
+                                if(is_null($userLog)) goto proceedWithBlank;
+
+
 
                                 $checker = $col;
                                 $log = date('h:i:s A',strtotime($userLog->logTime));
