@@ -2759,7 +2759,7 @@ class DTRController extends Controller
 
                                     
 
-                                    if ( $s->format('Y-m-d H:i:s') >= $mn->format('Y-m-d H:i:s') &&  $s->format('Y-m-d H:i:s') <=  Carbon::parse($payday." 03:00:00","Asia/Manila")->format('Y-m-d H:i:s') )
+                                    if ( ($s->format('Y-m-d H:i:s') >= $mn->format('Y-m-d H:i:s') &&  $s->format('Y-m-d H:i:s') <=  Carbon::parse($payday." 03:00:00","Asia/Manila")->format('Y-m-d H:i:s') ) || $s2->format('H:i:s')=='00:00:00')  
                                     {
                                       $isAproblemShift = true;
                                     } else
@@ -3055,7 +3055,7 @@ class DTRController extends Controller
                   //$noWorkSched = null; //*** we need to reset things
              }//END foreach payrollPeriod
 
-          //return $myDTR;
+          // return $myDTR;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

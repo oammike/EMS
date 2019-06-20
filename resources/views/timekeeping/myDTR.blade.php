@@ -1099,13 +1099,26 @@ $(function ()
                     $('button#upload').fadeIn();
                     $('textarea[name="loginReason"]').prop('required',true);
                     $('input[name="login"]').prop('required',true);
+
+                    if( $('input#workshift').is(':checked') ){
+                      console.log("checked");
+                    }else
+                      $('.container#login').append('<input type="radio" name="shifttype" value="0" checked="checked"/>');
                   }break;
 
         case '3': { $('.container#logout').fadeIn(); 
                     $('input[id="leave"]').attr('checked',false);
                     $('.container#leave').fadeOut();$('button#upload').fadeIn();
                     $('textarea[name="logoutReason"]').prop('required',true);
-                    $('input[name="logout"]').prop('required',true);}break;
+                    $('input[name="logout"]').prop('required',true);
+
+                    if($('input#workshift').is(':checked')){
+
+                    }else
+                      $('.container#logout').append('<input type="radio" name="shifttype" value="0" checked="checked"/>');
+
+
+                  }break;
         case '4': { 
                     $('.container#leave').fadeIn(); 
                     $('input[id="login"]').attr('checked',false);
@@ -1214,9 +1227,12 @@ $('button#uploadOT').fadeOut();
                 $.notify("DTRP - IN saved for approval.",{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
 
 
-      if ($('input#logout').is(':checked'))
+      if ($('input#logout').is(':checked')){
+              //$('input [name="shifttype"]').();
+
               if ($('input[name="logout"]').val() !== ""  &&  $('textarea [name="logoutReason"]').val() !== "")
                 $.notify("DTRP - OUT saved for approval.",{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+      }
 
 
     });

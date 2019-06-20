@@ -1056,6 +1056,8 @@ trait TimekeepingTraits
     $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
 
     ($isPartTimer) ? $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) : $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
+    ($beginShift->format('Y-m-d') == $endShift->format('Y-m-d')) ? $sameDayShift = true : $sameDayShift=false;
     
 
     if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
@@ -1095,13 +1097,13 @@ trait TimekeepingTraits
                   $today = Biometrics::where('productionDate',$thisPayrollDate)->get();
 
 
-                  $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
+                  //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
                   $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6)->format('Y-m-d H:i:s');
                 
                   $col = [];
 
                   //array_push($col, ['l'=>$l->format('Y-m-d H:i:s'), 'b'=> $beginShift->format('Y-m-d H:i:s'), 'm'=>$maxO->format('Y-m-d H:i:s') ]);
-                  if ($beginShift >= $probTime1 && $beginShift <= $probTime2)
+                  if ($beginShift->format('Y-m-d H:i:s') >= $probTime1 && $beginShift->format('Y-m-d H:i:s') <= $probTime2)
                   {
                     /*-- check for logs within 6hr grace period for problem shifts --*/
 
@@ -1110,7 +1112,7 @@ trait TimekeepingTraits
                                 // Get from TOmmorrow ---
                                 // except kung 12Mn start, sure na  kahapon yun
 
-                    if ($beginShift == Carbon::parse($thisPayrollDate)->startOfDay()->format('Y-m-d H:i:s')){
+                    if ($beginShift->format('Y-m-d H:i:s') == Carbon::parse($thisPayrollDate)->startOfDay()->format('Y-m-d H:i:s')){
                       $yest = Carbon::parse($thisPayrollDate)->subDay(1);
                       $bioYest = Biometrics::where('productionDate',$yest->format('Y-m-d'))->get();
                     }else{
@@ -1145,7 +1147,7 @@ trait TimekeepingTraits
                                   
                                   // check if pasok yung logtime sa beginShift and max logout time
                                   $l = Carbon::parse($b->productionDate." ".$ddata->logTime,'Asia/Manila');
-                                  $maxI = Carbon::parse($beginShift,'Asia/Manila')->addHour(-6);
+                                  $maxI = Carbon::parse($beginShift->format('Y-m-d H:i:s'),'Asia/Manila')->addHour(-6);
 
                                   array_push($col, ['l'=>$l->format('Y-m-d H:i:s'), 'maxIn'=> $maxI->format('Y-m-d H:i:s'), 'endshit'=>$endShift->format('Y-m-d H:i:s') ]);
 
@@ -1188,12 +1190,12 @@ trait TimekeepingTraits
                             $pal = $palugitDate;
                          
 
-                            if ( $palugitDate >= $maxIn && $palugitDate <= $beginShift  )
+                            if ( $palugitDate >= $maxIn && $palugitDate <= $beginShift->format('Y-m-d H:i:s')  )
                             {
                               $userLog = $logsKahapon;
                               goto proceedWithLogs;
 
-                            } else if ($palugitDate >= $beginShift &&  $palugitDate <= $finishShift) //meaning late lang sya
+                            } else if ($palugitDate >= $beginShift->format('Y-m-d H:i:s') &&  $palugitDate <= $endShift->format('Y-m-d H:i:s')) //meaning late lang sya
                             {
 
                                 $userLog = $logsKahapon;
@@ -1239,7 +1241,7 @@ trait TimekeepingTraits
                               $userLog = $logPalugit;
                               goto proceedWithLogs;
 
-                            } else if ($palugitDate >= $beginShift &&  $palugitDate <= $finishShift) //meaning late lang sya
+                            } else if ($palugitDate >= $beginShift->format('Y-m-d H:i:s') &&  $palugitDate <= $finishShift->format('Y-m-d H:i:s')) //meaning late lang sya
                             {
 
                                 $userLog = $logPalugit;
@@ -1286,9 +1288,9 @@ trait TimekeepingTraits
             
      $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s');
      $probTime2 = Carbon::parse($thisPayrollDate." 03:00:00","Asia/Manila")->format('Y-m-d H:i:s');
-     $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
+     //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
 
-     $checker = $userLog;
+     $checker = ['userLg'=>$userLog];
       if (is_null($userLog) || count($userLog)<1 )
       {  
 
@@ -1394,7 +1396,8 @@ trait TimekeepingTraits
           /* ------------ END THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS : LOG IN ---------*/       
           } else if($logType_id == 2)
           {
-            if (($beginShift >= $probTime1) && ($beginShift <= $probTime2)) // if shift is NOT within the day
+            // if  12MN < beginShift > 3AM
+            if (($beginShift->format('Y-m-d H:i:s') >= $probTime1) && ($beginShift->format('Y-m-d H:i:s') <= $probTime2)) // if shift is NOT within the day
             {
                   /*-- check for logs within 6hr grace period for problem shifts --*/
 
@@ -1451,7 +1454,13 @@ trait TimekeepingTraits
                   
 
             } 
-            else if (!$isAproblemShift) goto proceedWithBlank;
+            else if (!$isAproblemShift)
+            {
+              //check mo muna baka undertime lang
+
+              goto proceedWithBlank;
+
+            } 
             else 
             {
               //within the day shift pero walang logs, so baka nag OT sya kinabukasan an yung LogOUT
@@ -1459,6 +1468,8 @@ trait TimekeepingTraits
               $tommorow = Carbon::parse($thisPayrollDate)->addDay();
               $allowedOT = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(17);
               $bioForTom = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
+
+              $checker = ['aOT'=>$allowedOT];
               if (count($bioForTom) > 0)
               {
                 
@@ -1467,13 +1478,26 @@ trait TimekeepingTraits
                 if (count($uLog) > 0)
                 {
                   // check if yung log eh pasok pa sa allowed OT timeframe
+
                   $l = Carbon::parse($tommorow->format('Y-m-d')." ".$uLog->first()->logTime,"Asia/Manila");
-                  if ( $l->format('Y-m-d H:i:s') > $beginShift && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
+                  //$b = Biometrics::find($uLog->first()->biometrics_id);
+                  //$l = Carbon::parse(." ".$uLog->first()->logTime,"Asia/Manila");
+
+                  //$checker = ['l'=>$l->format('Y-m-d H:i:s'), 'b'=>$beginShift->format('Y-m-d H:i:s'), 'OT'=>$allowedOT->format('Y-m-d H:i:s') ];
+                  if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
                   {
                         $userLog = $uLog;
                         //goto proceedWithLogs;
 
-                        $log = date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime));
+                        $b= Biometrics::find($userLog->first()->biometrics_id);
+                          if($isAproblemShift) 
+                          {
+                            $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A')));
+                          } else $log = date('h:i:s A',strtotime($userLog->first()->logTime));
+
+
+
+                        //$log = date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime));
 
                          //$timing =  Carbon::parse($userLog->first()->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
                          $timing =  Carbon::parse(date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime)),'Asia/Manila');
@@ -1523,7 +1547,69 @@ trait TimekeepingTraits
                   }//end if pasok sa alloted OT
                   else goto proceedWithBlank;
 
-                } else goto proceedWithBlank;
+                } else
+                {
+                  //*** before u assume na blank, check mo muna kung undertime/halfday lang sya
+                  //*** look for logout < endShift
+
+                  $checker = "baka undertime lang";
+                  
+                  $logsToday = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
+
+                  if (count($logsToday) > 0)
+                  {
+
+                    $groupedToday = collect($logsToday)->groupBy('logTime');
+                    $u=null;
+
+                    foreach ($groupedToday as $key) {
+
+                      $l = Carbon::parse($thisPayrollDate.' '.$key->first()->logTime,'Asia/Manila');
+
+                      //if pasok ung log within shift, undertime out sya
+                      if( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $endShift->format('Y-m-d H:i:s'))
+                      {
+                        $userLog = $key->first(); $u=$key->first();;
+                        //$checker="may found log";
+                        break;
+
+                      }
+
+                    }//end foreach
+
+                    if (is_null($u)){$checker="b"; goto proceedWithBlank;} 
+                    else
+                    {
+                      
+                      $b= Biometrics::find($userLog->biometrics_id);
+                          if($isAproblemShift) 
+                          {
+                            $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->logTime,'Asia/Manila')->format('M d h:i:s A')));
+                          } else $log = date('h:i:s A',strtotime($userLog->logTime));
+
+
+                      $timing = Carbon::parse($b->productionDate." ".$userLog->logTime, "Asia/Manila");
+                      if (count($hasApprovedDTRP) > 0){$dtrpOUT = true; $dtrpOUT_id = $userLog->id; }
+                      else {$dtrpOUT = false; $dtrpOUT_id = null;} 
+
+                      $parseThis = $schedForToday['timeEnd'];
+                      if (Carbon::parse($thisPayrollDate." ".$parseThis,"Asia/Manila") > $timing && !$isAproblemShift)
+                      {
+                        $UT  = $undertime + number_format((Carbon::parse($thisPayrollDate." ".$parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+                      } else $UT=$undertime;
+
+                      goto proceedToLeaves;
+
+                          
+                          
+
+                    }//end may log from grouped
+
+                  }else goto proceedWithBlank;
+                  
+
+
+                } 
 
               }else goto proceedWithBlank;
               //goto proceedToLogTomorrow;
@@ -1599,14 +1685,32 @@ trait TimekeepingTraits
                           if ( empty($userLog->first()->logTime) || is_null($beginShift) || is_null($userLog) ) { $checker = "from proceedWithLogs"; goto proceedWithBlank;}
                           else
                           {  
-                            //if( date("H:i:s", strtotime($userLog->first()->logTime)) > $beginShift->format('H:i:s') )
-                            if ( Carbon::parse($thisPayrollDate." ".$userLog->first()->logTime,'Asia/Manila')->format('Y-m-d H:i:s') > $beginShift )
+                            
+                            //check mo muna kung legit itong LogOUt if pasok within allowed OT
+                            $allowedOT = Carbon::parse($beginShift->format('Y-m-d H:i:s'),"Asia/Manila")->addHour(18);
+                            $b = Biometrics::find($userLog->first()->biometrics_id);
+                            $l = Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila');
+                            
+                            $checker = ['l'=>$l->format('Y-m-d H:i:s'), 'b'=>$beginShift->format('Y-m-d H:i:s'), 'allOT'=>$allowedOT->format('Y-m-d H:i:s')];
+
+                            if( ($l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s')) && ($l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s')) )
+                            
                             {
-                              //*** ideal situation, go on...
-                              //$checker="goto ideal";
+                              $checker="goto idealSituation";
                               goto idealSituation;
 
                             }
+                            
+                            /*if ( Carbon::parse($thisPayrollDate." ".$userLog->first()->logTime,'Asia/Manila')->format('Y-m-d H:i:s') > $beginShift )
+                            
+                            {
+                              //*** ideal situation, go on...
+                              //$checker="goto ideal situation";
+                              //*** but make sure na within allowed max OT out sya
+                              // else no logs
+                              goto idealSituation;
+
+                            }*/
                             else
                             {
                               $checker="goto non ideal";
@@ -1625,11 +1729,11 @@ trait TimekeepingTraits
                                   // check if pasok yung logtime sa beginShift and max logout time
                                   $bioActual = Biometrics::find($key->first()->biometrics_id);
                                   $l = Carbon::parse($bioActual->productionDate." ".$key->first()->logTime,'Asia/Manila');
-                                  $maxO = Carbon::parse($endShift,'Asia/Manila')->addHour(8);
+                                  $maxO = Carbon::parse($endShift,'Asia/Manila')->addHour(9);
 
                                   array_push($col, ['l'=>$l->format('Y-m-d H:i:s'), 'b'=> $beginShift, 'm'=>$maxO->format('Y-m-d H:i:s') ]);
 
-                                  if ( $l->format('Y-m-d H:i:s') >= $beginShift && $l->format('Y-m-d H:i:s') <= $maxO->format('Y-m-d H:i:s') )
+                                  if ( $l->format('Y-m-d H:i:s') >= $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $maxO->format('Y-m-d H:i:s') )
                                   {
                                     
                                     $userLog = $ddata; break;
@@ -1645,7 +1749,11 @@ trait TimekeepingTraits
 
 
                                 $checker = $col;
-                                $log = date('h:i:s A',strtotime($userLog->logTime));
+                                if($isAproblemShift) {
+                                  $b= Biometrics::find($userLog->biometrics_id);
+                                  $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->logTime,'Asia/Manila')->format('M d h:i:s A')));
+                                } else $log = date('h:i:s A',strtotime($userLog->logTime));
+
                                 $b = Biometrics::find($userLog->biometrics_id);
                                 $timing = Carbon::parse($b->productionDate." ".$userLog->logTime, "Asia/Manila");
                                  if (count($hasApprovedDTRP) > 0)
@@ -1692,9 +1800,13 @@ trait TimekeepingTraits
                                             $userLog = $uLog;
                                             //goto proceedWithLogs;
 
-                                            $log = date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime));
+                                             $b= $bioForTom->first();
+                                              if($isAproblemShift) 
+                                              {
+                                                $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A')));
+                                              } else $log = date('h:i:s A',strtotime($userLog->first()->logTime));
 
-                                             //$timing =  Carbon::parse($userLog->first()->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
+                                           
                                              $timing = Carbon::parse(date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime)),'Asia/Manila');
 
                                              if (count($hasApprovedDTRP) > 0){
@@ -1745,7 +1857,7 @@ trait TimekeepingTraits
                                       }//end if pasok sa alloted OT
                                       else { $checker=['l'=>$l->format('Y-m-d H:i:s'),'bs'=>$beginShift,'aOT'=>$allowedOT->format('Y-m-d H:i:s')]; goto proceedWithBlank;}
 
-                                    } else {$checker=collect($userLog)->groupBy('logTime'); goto proceedWithBlank;} 
+                                    } else {  goto proceedWithBlank;} //$checker=collect($userLog)->groupBy('logTime');
                                     //"non ideal, empty $uLog"; '1'=>Carbon::parse($thisPayrollDate." ".$userLog->first()->logTime,'Asia/Manila')->format('Y-m-d H:i:s'),
                                     //'2'=>$beginShift->format('Y-m-d H:i:s')
                                     //['grouped'=>collect($userLog)->groupBy('logTime')]
@@ -1767,10 +1879,18 @@ trait TimekeepingTraits
 
                          idealSituation:
 
-                         $log = date('h:i:s A',strtotime($userLog->first()->logTime));
+                          $b= Biometrics::find($userLog->first()->biometrics_id);
+                          if($isAproblemShift && $logType_id==2) 
+                          {
 
-                         //get real Bio prodDate from the log
-                         $b = Biometrics::find($userLog->first()->biometrics_id);
+                            $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A')));
+                          } else{
+
+                              ($logType_id==2 && $beginShift->format('Y-m-d') !== $endShift->format('Y-m-d')) ? $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A'))) : $log = date('h:i:s A',strtotime($userLog->first()->logTime));
+                          } 
+
+
+
 
                          $timing = Carbon::parse($b->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
                          
@@ -2918,7 +3038,7 @@ trait TimekeepingTraits
             else
             {
               
-               $workedHours = number_format($wh/60,2)."<br/><small>(Late INs)</small>";$billableForOT=0;
+               $workedHours = number_format($wh/60,2)."<br/><small>[ Late IN ]</small>";$billableForOT=0;
                if ($hasHolidayToday){ $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " *</strong>";}
 
 
