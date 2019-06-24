@@ -1,6 +1,25 @@
 
 
+                      
+
                       <div class="item active text-center" >
+
+                              <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbtHIV-0.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-primary">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against. In a few days, we will also head to the streets. <br/><br/>
+
+                                In a few days, we will also head to the streets. <br/>Join us on <strong class="text-danger"> June 29 at 2019 Metro Manila Pride March and Festival | #ResistTogether</strong>  for our first Pride march. See you there!<br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+
+
+                               </p>
+
+
+                      </div>
+
+                      <div class="item text-center" >
 
                               <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
