@@ -90,7 +90,7 @@
 
 
                   </h3>
-                  <small style="font-size:12px; "><img src="{{ asset('public/img/new-oam-logo-small.png')}}" width="15" style="margin: 0 auto;" /> {{$camps}} <br/>
+                  <small style="font-size:12px; "><img src="{{ asset('public/img/new-oam-logo-small.png')}}" width="15" style="margin: 0 auto;" /> {!! $camps !!} <br/>
                   <i class="fa fa-envelope-o margin-r-5"></i><span style="text-transform: lowercase; font-size: smaller">(internal): </span> <a href="mailto:{{$user->email}}"> {{$user->email}}</a> <br/>
                   @if ($user->external !== "") <i class="fa fa-envelope-o margin-r-5"></i> <span style="text-transform: lowercase; font-size: smaller">(external): </span> <a href="mailto:{{$user->external}}"> {{$user->external}}</a>  @endif</small>
                   </div>

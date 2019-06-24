@@ -2133,19 +2133,21 @@ class UserController extends Controller
                 //return $leadershipcheck->campaigns->first()->pivot->immediateHead_id;// camps1->pivot->immediateHead_id;
               /* ------- ADDED FOR  DISABLED IH_CAMPS ----- */
                 $ihCamp = ImmediateHead_Campaign::where('campaign_id', $c->pivot->campaign_id)->where('immediateHead_id',$leadershipcheck->id)->first();
+                $cmp = Campaign::find($c->pivot->campaign_id);
+
+                   if (count($leadershipcheck->myCampaigns) <= 1){
+                    
+                    $camps .='<a href="../campaign/'.$cmp->id.'" target="_blank" >'. $cmp->name.' </a>';
+                   }
+                    
+                    else $camps .= '<a href="../campaign/'.$cmp->id.'" target="_blank" >'. $cmp->name.' </a> , ';
+
                 
-
-                //if ($ihCamp->disabled != true)
-               // {
-                   if (count($leadershipcheck->myCampaigns) <= 1) $camps .= Campaign::find($c->pivot->campaign_id)->name;
-                    else $camps .= Campaign::find($c->pivot->campaign_id)->name . ", ";
-
-                //} 
 
               }
               
 
-            } else $camps = $user->campaign->first()->name;
+            } else $camps = '<a href="../campaign/'.$user->campaign->first()->id.'" target="_blank" >'.$user->campaign->first()->name.'</a>';
 
            
            
