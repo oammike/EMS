@@ -1,12 +1,10 @@
 
 
-                      
-
-                      <div class="item active text-center" >
+                    <div class="item active text-center" >
 
                               <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbtHIV-0.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/lgbt-resist-0.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-primary">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against. In a few days, we will also head to the streets. <br/><br/>
 
                                 In a few days, we will also head to the streets. <br/>Join us on <strong class="text-danger"> June 29 at 2019 Metro Manila Pride March and Festival | #ResistTogether</strong>  for our first Pride march. See you there!<br/><br/>
@@ -19,11 +17,29 @@
 
                       </div>
 
+                      <!--JAzz-->
                       <div class="item text-center" >
 
                               <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbtHIV-1.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/lgbt-resist-2.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                This Pride month, <a class="text-primary" style="font-weight: bold;" target="_blank" href="./user/1374"> Team Leader Jazz </a>speaks his truth to #ResistTogether against bigotry and regression: "I resist against nations and leaders who continue to treat our LGBTQIA+ community as worthless citizens. Despite being progressive nations, their thinking and understanding of us persists to be backward. Instead of helping, protecting, and including their LGBTQIA+ citizens, they exercise their power to make our lives miserable. <br/><br/>
+
+                                We must have leaders who create and implement laws that will benefit everyone to bring the community to furtherance." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-1.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
 
                                 For our first feature, <a style="font-weight: bold;" href="./user/320" target="_blank">Lead Generation Analyst, James</a>, shares his stand on HIV awareness: "I advocate for HIV awareness because the LGBTQIA+ community—mostly men—are prone to getting infected with HIV. Having awareness on the virus will lessen the number of infected people and save lives." <br/><br/>
@@ -33,6 +49,8 @@
 
 
                       </div>
+
+                      
 
                       <div class="item text-center" >
 
