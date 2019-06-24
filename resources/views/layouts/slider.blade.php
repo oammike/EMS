@@ -2,6 +2,21 @@
 
                       <div class="item active text-center" >
 
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbtHIV-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                For our first feature, <a style="font-weight: bold;" href="./user/320" target="_blank">Lead Generation Analyst, James</a>, shares his stand on HIV awareness: "I advocate for HIV awareness because the LGBTQIA+ community—mostly men—are prone to getting infected with HIV. Having awareness on the virus will lessen the number of infected people and save lives." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
+                      <div class="item text-center" >
+
                               <h4 class="text-orange" >Game 3 | <span class="text-primary"> Open Access BPO Basketball Team</span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
                               <img src="./storage/uploads/basket-congrats.jpg" style="z-index: 2" />
@@ -81,7 +96,7 @@
 
 
                       </div>
-                      
+
 
                     <div class="item text-center" >
 
