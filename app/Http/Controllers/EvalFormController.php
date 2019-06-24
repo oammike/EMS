@@ -2082,7 +2082,8 @@ class EvalFormController extends Controller
         }//end foreach competencies
 
         
-        $existingNaBa = EvalForm::where('evalSetting_id',$evalSetting->id)->where('user_id',$employee->id)->where('evaluatedBy',$meLeader->id)->where('startPeriod','>=',$currentPeriod->startOfDay())->where('endPeriod','<=',$endPeriod->startOfDay())->get();
+        //$existingNaBa = EvalForm::where('evalSetting_id',$evalSetting->id)->where('user_id',$employee->id)->where('evaluatedBy',$meLeader->id)->where('startPeriod','>=',$currentPeriod->startOfDay())->where('endPeriod','<=',$endPeriod->startOfDay())->get();
+        $existingNaBa = EvalForm::where('evalSetting_id',$evalSetting->id)->where('user_id',$employee->id)->where('evaluatedBy',$meLeader->immediateHead_Campaigns_id)->where('startPeriod','>=',$currentPeriod->startOfDay())->where('endPeriod','<=',$endPeriod->startOfDay())->get();
 
         if ($existingNaBa->isEmpty())
         {
