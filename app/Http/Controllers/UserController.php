@@ -2157,6 +2157,9 @@ class UserController extends Controller
 
             } else $camps = '<a href="../campaign/'.$user->campaign->first()->id.'" target="_blank" >'.$user->campaign->first()->name.'</a>';
 
+            if (strlen($camps) < 1)
+              $camps = '<a href="../campaign/'.$user->campaign->first()->id.'" target="_blank" >'.$user->campaign->first()->name.'</a>';
+
            
            
 
