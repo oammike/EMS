@@ -22,6 +22,24 @@
 
                               <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-3.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                <a style="font-weight: bold;" href="./user/2400"> For Prince, a Call Center Associate, </a>it is important that we #ResistTogether to achieve equal rights and acceptance and win against violence and inequality: <br/><br/>
+                                "Sexual orientation and gender identity are integral aspects and should never lead to discrimination and abuse. I resist for equal rights to live freely and be accepted—not merely tolerated by the rest of society.<br/><br/>
+                                I also stand against violence and inequality. Some think LGBTQIA+ individuals need curing. We face discrimination, bullying, and abuse for being queer from those who think that same sex relationships and being our true selves are sins." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
+                      <!--JAzz-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
                               <img src="./storage/uploads/lgbt-resist-2.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
 
