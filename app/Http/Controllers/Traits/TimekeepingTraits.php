@@ -4144,7 +4144,7 @@ trait TimekeepingTraits
                 if (!empty($ins) && !empty($outs) && ($leaveType !== 'OBT' && $leaveType !== 'VL') ) {
                   $workedHours = number_format(($wh/60),2)."<br/><small>[ Late IN ]</small>";
 
-                   $stat = User::find($user_id)->status_id;
+                   $stat = User::find($deet->user_id)->status_id;
                     //****** part time user
 
                     if ($stat == 12 || $stat ==14)
