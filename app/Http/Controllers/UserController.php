@@ -2135,12 +2135,20 @@ class UserController extends Controller
                 $ihCamp = ImmediateHead_Campaign::where('campaign_id', $c->pivot->campaign_id)->where('immediateHead_id',$leadershipcheck->id)->first();
                 $cmp = Campaign::find($c->pivot->campaign_id);
 
-                   if (count($leadershipcheck->myCampaigns) <= 1){
+                if($ihCamp->disabled){ //do nothing
+
+                }else
+                {
+                  if (count($leadershipcheck->myCampaigns) <= 1){
                     
                     $camps .='<a href="../campaign/'.$cmp->id.'" target="_blank" >'. $cmp->name.' </a>';
                    }
                     
                     else $camps .= '<a href="../campaign/'.$cmp->id.'" target="_blank" >'. $cmp->name.' </a> , ';
+
+                }
+
+                   
 
                 
 

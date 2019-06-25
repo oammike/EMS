@@ -951,8 +951,8 @@ class EvalFormController extends Controller
                             if ($this->user->userType_id !== 4 && !($leadershipcheck->isEmpty())) //if not AGENT
                             {
                                   $mySubordinates1 =  $myActiveTeam->filter(function ($employee)
-                                                      {   // Contrctual || Regular or Consultant or Floating or Contractual extended
-                                                          return ($employee->status_id == 1 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 );
+                                                      {   // Contrctual [Foreign] || Regular or Consultant or Floating or Contractual extended
+                                                          return ($employee->status_id == 15 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 );
                                                       });
                                  
                                    /* ------------
@@ -987,6 +987,7 @@ class EvalFormController extends Controller
 
                                           // GET ALL his IH movements from latest to oldest
                                           $checkMovements = Movement::where('user_id',$emp->id)->where('personnelChange_id','1')->where('isDone','1')->where('effectivity','>=',$currentPeriod->toDateString())->orderBy('effectivity','DESC')->get(); 
+
 
                                          if (count($checkMovements)>0)
                                          {
@@ -1035,11 +1036,18 @@ class EvalFormController extends Controller
                                                           
                                                           ------------------ */
 
-                                                          if ($mvt->effectivity > $endPeriod->startOfDay()){ //if effectivity ng movement eh hindi sakop
 
+                                                          $checkRegularization= DB::table('movement')->leftJoin('movement_statuses','movement.id','=','movement_statuses.movement_id')->where('movement.user_id',$emp->id)->where('movement.effectivity','>=',$currentPeriod->toDateString())->where('movement.effectivity','<=',$endPeriod->toDateString())->where('movement_statuses.status_id_new','4')->select('movement.effectivity')->get();
+
+                                                          if (count($checkRegularization) > 0)
+                                                              $fr = Carbon::parse($checkRegularization[0]->effectivity,"Asia/Manila")->startOfDay();
+
+                                                          if ($mvt->effectivity > $endPeriod->startOfDay())
+                                                          { //if effectivity ng movement eh hindi sakop
                                                             $doNotInclude = true;
 
-                                                          } else { $doNotInclude=false; }
+                                                          } else $doNotInclude=false; 
+                                                          
                                                            //$coll->push(['doNotInclude'=> $doNotInclude]);
 
 
@@ -1123,8 +1131,10 @@ class EvalFormController extends Controller
 
 
 
-
+$coll->push(['emp'=>$emp->id, 'empMvt'=>$checkMovements]);
                                   }//end foreach
+
+
                                 
 
                                  
@@ -1223,8 +1233,8 @@ class EvalFormController extends Controller
                             if ($this->user->userType_id !== 4 && !($leadershipcheck->isEmpty())) //if not AGENT
                             {
                                   $mySubordinates1 =  $myActiveTeam->filter(function ($employee)
-                                                      {   // Contrctual || Regular or Consultant or Floating or Contractual extended
-                                                          return ($employee->status_id == 1 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 );
+                                                      {   // Contrctual [Foreign] || Regular or Consultant or Floating or Contractual extended
+                                                          return ($employee->status_id == 15 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 );
                                                       });
                                  
                                   
@@ -1305,12 +1315,16 @@ class EvalFormController extends Controller
                                                           
                                                           ------------------ */
 
-                                                          if ($mvt->effectivity > $endPeriod->startOfDay()){ //if effectivity ng movement eh hindi sakop
+                                                          $checkRegularization= DB::table('movement')->leftJoin('movement_statuses','movement.id','=','movement_statuses.movement_id')->where('movement.user_id',$emp->id)->where('movement.effectivity','>=',$currentPeriod->toDateString())->where('movement.effectivity','<=',$endPeriod->toDateString())->where('movement_statuses.status_id_new','4')->select('movement.effectivity')->get();
 
+                                                          if (count($checkRegularization) > 0)
+                                                              $fr = Carbon::parse($checkRegularization[0]->effectivity,"Asia/Manila")->startOfDay();
+
+                                                          if ($mvt->effectivity > $endPeriod->startOfDay())
+                                                          { //if effectivity ng movement eh hindi sakop
                                                             $doNotInclude = true;
 
-                                                          } else { $doNotInclude=false; }
-                                                           //$coll->push(['doNotInclude'=> $doNotInclude]);
+                                                          } else $doNotInclude=false; 
 
 
                                                   break;
@@ -1451,7 +1465,7 @@ class EvalFormController extends Controller
                          {
                             $mySubordinates1 = $myActiveTeam->filter(
                               function ($employee) {
-                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 || $employee->status_id == 12); 
+                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 || $employee->status_id == 12 || $employee->status_id == 15); 
                             }); //filter out regular employees
 
                             //return $mySubordinates1;
@@ -1621,7 +1635,7 @@ class EvalFormController extends Controller
                          {
                             $mySubordinates1 = $myActiveTeam->filter(
                               function ($employee) {
-                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 11 || $employee->status_id == 12 ); 
+                              return ($employee->status_id == 1 || $employee->status_id == 2 || $employee->status_id == 3 || $employee->status_id == 11 || $employee->status_id == 12 || $employee->status_id == 15); 
                             }); //filter out regular employees
 
                             foreach ($mySubordinates1 as $emp)
