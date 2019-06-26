@@ -17,6 +17,26 @@
 
                       </div>
 
+                      <!--Blue-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-5.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                Being an active member of the LGBTQIA+ community,<a style="font-weight: bold;" href="./user/2070" target="_blank"> Quality Analyst Edwick </a>stresses the value of the people's call to #ResistTogether for HIV/AIDS awareness especially among the younger generation and to continue the fight against discrimination: "As an active HIV/AIDS awareness advocate, I share my knowledge on how to prevent the virus from spreading, so people can responsibly engage in activities that may put them at risk of getting infected. HIV/AIDS is one of the leading infectious diseases in the Philippines and some parts of the world, and I want to address the lack of knowledge among the people, most especially to the youth. <br/><br/>
+                                Meanwhile, I am and will always be against the on-going discrimination against LGBTQIA+ individuals. Wherever we go, there will always be hypocrites who’ll trample us along the way. We continue to wait for the SOGIE (Sexual Orientation and Gender Identity and Expression) Equality Bill to be passed into a law, so that we can finally be at ease—hopefully." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019 🏳️‍🌈⁣</strong><br/><br/>
+
+
+                               </p>
+
+
+                      </div>
+
+
+
                       <!--Green-->
                       <div class="item text-center" >
 
