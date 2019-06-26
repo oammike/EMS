@@ -150,6 +150,7 @@ trait EvaluationTraits
 
 
                      // GET ALL his POSITION movements from latest to oldest
+                    // and then show his former job title & campaign
                     $checkMovements = Movement::where('user_id',$employ->user_id)->where('personnelChange_id','2')->where('isDone','1')->where('effectivity','>=',$currentPeriod->toDateString())->where('effectivity','<=',$endPeriod->toDateString())->orderBy('effectivity','DESC')->get(); 
 
                     
@@ -187,7 +188,7 @@ trait EvaluationTraits
                     }
 
 
-                    //disregard resigned or terminated employees
+                    //disregard resigned or terminated employees AND movements not covered by period
 
                     /************ aug 2018 update **************/
                     /*---------- check first if resignation effectivity is within eval period --------- */
@@ -223,23 +224,8 @@ trait EvaluationTraits
                                 $moved = Movement_ImmediateHead::where('movement_id',$key->id)->first();
                                 //$coll2->push(['imHeadCampID_old'=>$moved->imHeadCampID_old,'myCampaigns'=>$myCampaigns]);
 
-                                if(in_array($moved->imHeadCampID_old, $myCampaigns)){
-
-                                    $changedImmediateHeads->push([
-                                                        'movement_id'=> $emp->id,
-                                                        'id'=>$employ->id, 
-                                                        'index'=> $ctr,
-                                                        'user_id'=>$employ->id, 
-                                                        'userType_id'=>$employ->userType_id, 
-                                                        'dateHired'=>$employ->dateHired, 
-                                                        'firstname'=> $employ->firstname, 
-                                                        'lastname'=>$employ->lastname, 
-                                                        'position'=>$mustPosition, 
-                                                        'isLead'=>$isLead,
-                                                        'status'=>$employ->status->name]);
-
-                              
-                                
+                                if(in_array($moved->imHeadCampID_old, $myCampaigns))
+                                {
                                 
                                     $effective = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila');
 
@@ -262,42 +248,87 @@ trait EvaluationTraits
                                         $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila')->addDays(-1); //$endPeriod;
                                     } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila')->addDays(-1); //
 
+
+                                    //*** check mo na kung may status movement sya within the range
+                                    //*** if that movement effectivity >= from && <= to, do not include him
+
+                                    
+                                        $changedImmediateHeads->push([
+                                                        'movement_id'=> $emp->id,
+                                                        'id'=>$employ->id, 
+                                                        'index'=> $ctr,
+                                                        'user_id'=>$employ->id, 
+                                                        'userType_id'=>$employ->userType_id, 
+                                                        'dateHired'=>$employ->dateHired, 
+                                                        'firstname'=> $employ->firstname, 
+                                                        'lastname'=>$employ->lastname, 
+                                                        'position'=>$mustPosition, 
+                                                        'isLead'=>$isLead,
+                                                        'status'=>$employ->status->name]);
+
                                    
-                                    $evalBy = $me->id;  
-                                    //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
-                                    //->where('evaluatedBy', $evalBy)
+                                        $evalBy = $me->id;  
+                                        //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
+                                        //->where('evaluatedBy', $evalBy)
 
-                                    $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
-                                    //$coll2->push(['evaluated'=>$evaluated]);
-                                
-                                 
+                                        $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); 
+                                    
+                                     
 
-                                    if ( count($evaluated) == 0)
-                                    {
-                                        $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                        if ( count($evaluated) == 0)
+                                        {
+                                            $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
 
-                                        
-                                    } else {
+                                            
+                                        } else {
 
-                                        $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
-                                        $truegrade = $theeval->overAllScore;
+                                            $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
+                                            $truegrade = $theeval->overAllScore;
 
-                                        if ($theeval->isDraft) 
-                                          $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
-                                        else
-                                        //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                        $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                            if ($theeval->isDraft) 
+                                              $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
+                                            else
+                                            $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
 
 
 
-                                        
-                                    }
+                                            
+                                        }
+
+                                    
+
+
+                                    
 
 
                                 }//end if in_array
                             }//end foreach checktransfer
 
-                        }else {
+                        }else 
+                        {
+                            
+
+                            $effective = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila');
+
+                            // **** GET THE EVAL RANGES, pag fromPeriod eh wayy past currentPeriod -- get current
+                            if($emp->fromPeriod < $currentPeriod->startOfDay()->format('Y-m-d H:i:s')) {
+
+                                $fr = $currentPeriod->startOfDay(); // Carbon::createFromFormat('Y-m-d H:i:s', $tillWhen->first()->fromPeriod, 'Asia/Manila'); 
+
+                            } elseif ($emp->fromPeriod > $currentPeriod->format('Y-m-d H:i:s')) { //pag in the future pa, kunin mo currentperiod
+                                $fr = $currentPeriod->startOfDay();
+                            } else $fr = Carbon::createFromFormat('Y-m-d H:i:s', $emp->fromPeriod, 'Asia/Manila'); 
+
+                            //------- update Sep 21
+                             // **** fix for movements na di pa complete yung previous eval:
+                            if ($emp->effectivity >= $endPeriod->format('Y-m-d'))
+                            {
+                                $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //$endPeriod;
+
+                            } elseif ($emp->effectivity < $fr) { //pag super tagal na prior to start of eval period, 
+                                $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //$endPeriod;
+                            } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //
+
                             $changedImmediateHeads->push([
                                                         'movement_id'=> $emp->id,
                                                         'id'=>$employ->id, 
@@ -311,56 +342,35 @@ trait EvaluationTraits
                                                         'isLead'=>$isLead,
                                                         'status'=>$employ->status->name]);
 
-                            $effective = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila');
+                           
+                            $evalBy = $me->id;  
+                            //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
 
-                                    // **** GET THE EVAL RANGES, pag fromPeriod eh wayy past currentPeriod -- get current
-                                    if($emp->fromPeriod < $currentPeriod->startOfDay()->format('Y-m-d H:i:s')) {
+                            $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evaluatedBy', $evalBy)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
+                            //$coll2->push(['evaluated'=>$evaluated]);
+                        
+                         
 
-                                        $fr = $currentPeriod->startOfDay(); // Carbon::createFromFormat('Y-m-d H:i:s', $tillWhen->first()->fromPeriod, 'Asia/Manila'); 
+                            if ( count($evaluated) == 0)
+                            {
+                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
 
-                                    } elseif ($emp->fromPeriod > $currentPeriod->format('Y-m-d H:i:s')) { //pag in the future pa, kunin mo currentperiod
-                                        $fr = $currentPeriod->startOfDay();
-                                    } else $fr = Carbon::createFromFormat('Y-m-d H:i:s', $emp->fromPeriod, 'Asia/Manila'); 
-
-                                    //------- update Sep 21
-                                     // **** fix for movements na di pa complete yung previous eval:
-                                    if ($emp->effectivity >= $endPeriod->format('Y-m-d'))
-                                    {
-                                        $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //$endPeriod;
-
-                                    } elseif ($emp->effectivity < $fr) { //pag super tagal na prior to start of eval period, 
-                                        $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //$endPeriod;
-                                    } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //
-
-                                   
-                                    $evalBy = $me->id;  
-                                    //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
-
-                                    $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evaluatedBy', $evalBy)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
-                                    //$coll2->push(['evaluated'=>$evaluated]);
                                 
-                                 
+                            } else {
 
-                                    if ( count($evaluated) == 0)
-                                    {
-                                        $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
+                                $truegrade = $theeval->overAllScore;
 
-                                        
-                                    } else {
-
-                                        $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
-                                        $truegrade = $theeval->overAllScore;
-
-                                        if ($theeval->isDraft) 
-                                          $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
-                                        else
-                                        //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                        $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                if ($theeval->isDraft) 
+                                  $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
+                                else
+                                //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
+                                $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
 
 
 
-                                        
-                                    }
+                                
+                            }
 
 
 
@@ -403,19 +413,6 @@ trait EvaluationTraits
             $ctr = 0;
             $kol = new Collection;
 
-            //pang double check ng year
-            // if (date('m') >= 7 && date('m')<= 12)
-            //               {
-            //                 $currentPeriod = Carbon::create((date("Y")), $evalSetting->startMonth, $evalSetting->startDate,0,0,0, 'Asia/Manila');
-            //                 $endPeriod = Carbon::create((date("Y")), $evalSetting->endMonth, $evalSetting->endDate,0,0,0, 'Asia/Manila');
-
-            //               } else
-            //               {
-            //                 $currentPeriod = Carbon::create((date("Y")-1), $evalSetting->startMonth, $evalSetting->startDate,0,0,0, 'Asia/Manila');
-            //                 $endPeriod = Carbon::create((date("Y")-1), $evalSetting->endMonth, $evalSetting->endDate,0,0,0, 'Asia/Manila');
-
-            //               }
-
 
             foreach($mc as $m)
             { 
@@ -443,6 +440,22 @@ trait EvaluationTraits
                   //-- remove mo na ung restriction sa end f0r your old team
                   //.   && $effective <= $endPeriod->addDay()->format('Y-m-d H:i:s')) )
                   {
+
+                    //** check mo muna kung may status movement within the period
+                    //** kung meron, confirm first if Regularization yun
+                    //** if Reguarization movement, make sure na effectivity is less than time na under sya sa Team
+                    //** if not, then di pa sya regular during that time
+
+                    $statMovements = Movement::where('user_id',$emp->user_id)->where('personnelChange_id','3')->where('isDone',1)->
+                                    where('effectivity','>=',$fr->format('Y-m-d H:i:s'))->get();
+
+                    if (count($statMovements) > 0)
+                    {
+
+                    } else
+                    {
+
+                    }
                     
                     $chIH->push($mvt);
                     //$coll2->push($mvt);
@@ -478,7 +491,7 @@ trait EvaluationTraits
 
 
                     /*--- JUNE 2018 update: filter out non-regularized employees --- */
-                    if ($employ->status_id == 1 || $employ->status_id == 4 || $employ->status_id == 5 || $employ->status_id == 6 
+                    if ($employ->status_id == 15 || $employ->status_id == 4 || $employ->status_id == 5 || $employ->status_id == 6 
                         || $employ->status_id == 11 || $employ->status_id == 12  )
                     {
 
@@ -534,17 +547,12 @@ trait EvaluationTraits
                             }
 
                             
-                                $hisTeam = $employ->team;
-                                $hisTL = ImmediateHead::find(Team::find($hisTeam->id)->leader->immediateHead_id);
+                            $hisTeam = $employ->team;
+                            $hisTL = ImmediateHead::find(Team::find($hisTeam->id)->leader->immediateHead_id);
 
-                                //$coll2->push(['hisTL'=>$hisTL]);
-                                
 
-                                /* -------- we need to check first if YOU are the CURRENT TL. if yes,no need to be added to changedImmediateHeads  ----- */
 
-                                // if ($employ->supervisor->first()->immediateHead_id !== $me->id)
-                                // {
-                                        //$changedImmediateHeads->push($chIH);
+
                                         $changedImmediateHeads->push([
                                                                 'movement_id'=> $emp->id,
                                                                 'id'=>$employ->id, 
