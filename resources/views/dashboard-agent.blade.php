@@ -61,6 +61,29 @@ select:-webkit-autofill:focus {
             @endif
 
 
+               <!--VIDEOS -->
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Videos</h3>
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <p class="text-center"><strong class="text-primary">Open Access BPO <span class="text-orange">Speaks with Pride </span><br/><span style="font-size: x-small;"><br/><br/>Henry Chang speaks about Open Access BPO's support and acceptance <br/>for the LGBTQIA+ community.</span>  </strong></p>
+                      <video id="teaser" src="storage/uploads/henry2019.mp4" width="100%" loop controls></video>
+                      <p class="text-center" style="padding:20px">For the first time ever, Open Access BPO is participating in the <strong class="text-danger">Pride March. </strong><br/>
+                      Join us as we march for equality and acceptance. <br/>Be there at the <strong>Marikina Sports Center</strong>
+                      on <strong>June 29, 2019 from 12:00 PM onwards</strong>.</p>
+                    </div>
+                </div>
+
+
+             
+
               <!-- ************* TIMEKEEPING BACKUP ************ -->
               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                 <div class="box-header with-border">
@@ -88,24 +111,6 @@ select:-webkit-autofill:focus {
                       </p>
                     </div>
               </div>
-
-
-              <!--VIDEOS -->
-                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Videos</h3>
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">We Speak Your Language <br/><span class="text-orange"></span><br/><span style="font-size: x-small;"></span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/wespeak.mp4" width="100%" loop controls></video>
-                    </div>
-                </div>
 
 
              
