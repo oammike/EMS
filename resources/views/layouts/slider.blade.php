@@ -17,6 +17,26 @@
 
                       </div>
 
+                      <!--Green-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-4.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                              In light of the community's struggles, <a href="./user/1113" target="_blank">Customer Service Representative Anthony </a>is taking his stand with the community and allies to #ResistTogether for equality and against cruelty and exploitation: "I resist for equality. I believe that LGBTQIA+ rights are human rights, which we’ve been fighting for since the very beginning. We ask for the same freedom and respect, regardless of our gender preference and identity. We are not asking for your sympathy; what we need is understanding. For as long as we breathe the same air and inhabit the same lands, then we are all equal in this life.⁣ <br/><br/>
+
+                              On the other hand, I resist against cruelty and exploitation. Every individual, especially young LGBTQIA+ persons, should be protected from any form of abuse. We all grow up exploring who we want to be, and it gets harder when you're growing up confused. So, they should be given more patience, nurturance, and love. I grew up in a very loving family. I’ve never felt alone because they support me in everything I do. I’d want every single person to have the same support that I got."⁣<br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019 🏳️‍🌈⁣
+⁣
+⁣</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
                       <!--JAzz-->
                       <div class="item text-center" >
 
