@@ -1151,7 +1151,7 @@ $coll->push(['emp'=>$emp->id, 'empMvt'=>$checkMovements]);
                                       
                                       $data = $this->getPastMemberEvals($mc, $evalSetting, $currentPeriod,$endPeriod,null);
 
-                                      //return $data;
+                                      return $data;
 
 
                                     //return $data;

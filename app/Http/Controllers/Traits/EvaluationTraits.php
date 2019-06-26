@@ -446,18 +446,21 @@ trait EvaluationTraits
                     //** if Reguarization movement, make sure na effectivity is less than time na under sya sa Team
                     //** if not, then di pa sya regular during that time
 
-                    $statMovements = Movement::where('user_id',$emp->user_id)->where('personnelChange_id','3')->where('isDone',1)->
-                                    where('effectivity','>=',$fr->format('Y-m-d H:i:s'))->get();
+                    $statMovements = Movement::where('user_id',$mvt->user_id)->where('personnelChange_id','3')->where('isDone',1)->
+                                    where('effectivity','>=',$currentPeriod->format('Y-m-d H:i:s'))->orderBy('id','DESC')->get();
 
                     if (count($statMovements) > 0)
                     {
+                        if ($statMovements->first()->effectivity < $mvt->effectivity)
+                            $chIH->push($mvt);
 
                     } else
-                    {
+                    { 
+                        $chIH->push($mvt);
 
                     }
                     
-                    $chIH->push($mvt);
+                   
                     //$coll2->push($mvt);
                    
                     
@@ -585,12 +588,33 @@ trait EvaluationTraits
                                             // we need to make sure though baka kaka-regular lang nya, so dapat effectivity is from date regularized
                                             $newlyRegularized = Movement::where('user_id',$employ->id)->where('personnelChange_id','3')->where('effectivity','>=',$currentPeriod->toDateString())->orderBy('effectivity','DESC')->get();
 
-                                            $coll2->push(['newlyRegularized'=>$newlyRegularized]);
+                                            //$coll2->push(['newlyRegularized'=>$newlyRegularized]);
+                                            //check mo muna kung may next na nilipatan na
+                                            //if yes, then to = effective nung next nilipatan
+                                            //if none, then to = endperiod
+                                            $nextMovements = DB::table('movement')->where('movement.user_id',$employ->id)->
+                                                                    leftJoin('movement_immediateHead','movement.id','=','movement_immediateHead.movement_id')->
+                                                                    select('movement.id','movement.effectivity','movement_immediateHead.imHeadCampID_old as oldTL','movement_immediateHead.imHeadCampID_new as newTL')->
+                                                                    orderBy('movement.id','DESC')->get();
+                                            if (count($nextMovements) > 1)
+                                            {
+                                                $mvt_imHead =  Movement_ImmediateHead::where('movement_id',$emp->id)->first();
 
-                                            if ($newlyRegularized->isEmpty())
-                                                $fr = $effective;
-                                            else $fr = Carbon::createFromFormat('Y-m-d H:i:s',$newlyRegularized->first()->effectivity, "Asia/Manila");
+                                                $nilipatan = collect($nextMovements)->where('oldTL',$mvt_imHead->imHeadCampID_old)->all();
+                                                $coll2->push(['nilipatan'=>$nilipatan]); //$nextMovements); 
 
+                                            }else
+                                            {
+                                                if ( count($newlyRegularized) <= 0)
+                                                    $fr = $effective;
+                                                else $fr = Carbon::createFromFormat('Y-m-d H:i:s',$newlyRegularized->first()->effectivity, "Asia/Manila");
+
+
+                                            }
+
+                                            
+
+                                            
                                             /*-----end JULY 2018 FIX ---*/
                                         }
                                         else if($emp->fromPeriod < $currentPeriod->startOfDay()->format('Y-m-d H:i:s') && $emp->fromPeriod !== $employ->dateHired) {
@@ -610,9 +634,13 @@ trait EvaluationTraits
                                            // $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila')->subDay(); //$endPeriod;
                                             $to = $endPeriod;//->startOfDay()->format('Y-m-d H:i:s');
 
-                                        } elseif ($emp->effectivity < $fr) { //pag super tagal na prior to start of eval period, 
+                                        } elseif ($emp->effectivity < $fr) 
+                                        {
+                                            //pag super tagal na prior to start of eval period,
+                                                                   
                                             $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila')->subDay(); //$endPeriod;
-                                        } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila')->subDay(); //
+                                        } 
+                                        else $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila')->subDay(); //
 
                                         //$coll2->push(['emp'=>$employ->lastname, 'effective'=>$emp->effectivity, 'emp-fromPeriod'=>$emp->fromPeriod, 'currentPeriod'=>$currentPeriod->startOfDay()->format('Y-m-d H:i:s'), 'fr'=>$fr->startOfDay()->format('Y-m-d H:i:s'), 'endPeriod'=>$endPeriod->format('Y-m-d'), 'to'=>$to]);
 
