@@ -110,26 +110,7 @@
 
                       
 
-                      <div class="item text-center" >
-
-                              <h4 class="text-orange" >Game 3 | <span class="text-primary"> Open Access BPO Basketball Team</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/basket-congrats.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Everyone is invited to come and watch their second win for the league:<br/><br/>
-
-                                Date: <strong class='text-danger'>June 25, 2019 (Tuesday)</strong><br/>
-                                Time: 8:45 PM<br/>
-                                Venue: The Zone, Malugay, Makati<br/>
-                                Directions from 6780: <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/The+Zone,+Malugay,+Manila,+Metro+Manila/@14.5586884,121.0173373,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c90833a19f17:0x2cb9a9370a09053e!2m2!1d121.0192647!2d14.5627878!3e0"> 6780 to The Zone</a><br/>
-
-                                To our Open Access BPO Basketball Team, GOOD LUCK AND WIN GAME 2!<br/><br/>
-
-                                Hope to see you there! <br/><br/>
-
-                               </p>
-
-
-                      </div>
+                      
 
                       <div class="item text-center" >
                         
@@ -193,41 +174,7 @@
                       </div>
 
 
-                    <div class="item text-center" >
-
-                              <h4 class="text-orange" >Happy <span class="text-primary"> Father's Day!!!</span></h4>
-                              <img src="./storage/uploads/fathersday2019.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To the most amazing man in the world, Happy Father's Day! 👨 May this day be like no other as you are to your family. <br/><br/>
-
-                                <strong>#WeSpeakYourLanguage #OAonDadsDay</strong></p>
-
-
-                      </div>
-
-                     
-
-                     <!--  <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
-                              <img src="./storage/uploads/basket-congrats.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>for winning their first game, with Final score: 85-83<br/><br/>Details of the next game will be sent soon. Hope to see you there!</p>
-                               
-
-                              <br/>
-                    </div> -->
-
-
-
-
-                      <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >June 12 <span class="text-primary">Araw ng Kalayaan</span></h4>
-                              <img src="./storage/uploads/philindependence.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Today, we join the Filipino community in celebrating the 121st anniversary of the Philippine Independence Day.<br/><br/>#WeSpeakYourLanguage #OAonIndependenceDay </p>
-                               
-
-                              <br/>
-                    </div>
+                    
 
 
                     <div class="item  text-center" >
@@ -722,6 +669,63 @@
 
 
 <?php /*
+
+<div class="item text-center" >
+
+                              <h4 class="text-orange" >Happy <span class="text-primary"> Father's Day!!!</span></h4>
+                              <img src="./storage/uploads/fathersday2019.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To the most amazing man in the world, Happy Father's Day! 👨 May this day be like no other as you are to your family. <br/><br/>
+
+                                <strong>#WeSpeakYourLanguage #OAonDadsDay</strong></p>
+
+
+                      </div>
+
+                     
+
+                     <!--  <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
+                              <img src="./storage/uploads/basket-congrats.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>for winning their first game, with Final score: 85-83<br/><br/>Details of the next game will be sent soon. Hope to see you there!</p>
+                               
+
+                              <br/>
+                    </div> -->
+
+
+
+
+                      <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >June 12 <span class="text-primary">Araw ng Kalayaan</span></h4>
+                              <img src="./storage/uploads/philindependence.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Today, we join the Filipino community in celebrating the 121st anniversary of the Philippine Independence Day.<br/><br/>#WeSpeakYourLanguage #OAonIndependenceDay </p>
+                               
+
+                              <br/>
+                    </div>
+
+<div class="item text-center" >
+
+                              <h4 class="text-orange" >Game 3 | <span class="text-primary"> Open Access BPO Basketball Team</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/basket-congrats.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Everyone is invited to come and watch their second win for the league:<br/><br/>
+
+                                Date: <strong class='text-danger'>June 25, 2019 (Tuesday)</strong><br/>
+                                Time: 8:45 PM<br/>
+                                Venue: The Zone, Malugay, Makati<br/>
+                                Directions from 6780: <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/The+Zone,+Malugay,+Manila,+Metro+Manila/@14.5586884,121.0173373,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c90833a19f17:0x2cb9a9370a09053e!2m2!1d121.0192647!2d14.5627878!3e0"> 6780 to The Zone</a><br/>
+
+                                To our Open Access BPO Basketball Team, GOOD LUCK AND WIN GAME 2!<br/><br/>
+
+                                Hope to see you there! <br/><br/>
+
+                               </p>
+
+
+                      </div>
 
 <div class="item active text-center" >
 
