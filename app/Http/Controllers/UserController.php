@@ -2356,7 +2356,7 @@ class UserController extends Controller
               if ($totalDays !== 0){
 
                 //*** here we check kung may applicable movement ba
-                if(count($validMvt) > 0)
+                if(count($validMvt) > 0 && (($setting->id == 1) || ($setting->id == 2)) )
                 {
                   $mvtEffectivity = Carbon::parse($validMvt->first()->effectivity,'Asia/Manila');
                   if ($mvtEffectivity->format('Y-m-d') >= $startP->format('Y-m-d') && $mvtEffectivity->format('Y-m-d')<= $endP->format('Y-m-d')  )
