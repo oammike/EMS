@@ -2365,23 +2365,46 @@ class UserController extends Controller
 
                     $totalDays = $mvtEffectivity->diffInDays($end);
                     
-
-                    $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
-                    $userEvals->push([
-                    'evalTitle'=> $ev['evalTitle'],
-                    'by'=>$ev['evalBy'],
-                    'start'=>$start->format('Y-m-d'),
-                    'end'=>$end->format('Y-m-d'),
-                    'totalDays'=>$totalDays, 
-                    'sP'=>$startP->format('Y-m-d'), 
-                    'eP'=> $endP->format('Y-m-d'), 
-                    'daysHandled'=>$daysHandled, 
-                    'percentage'=> $daysHandled/$totalDays,
-                    'grade'=> $g,
-                    'finalGrade'=> $finalGrade+=$g,
-                    'daysCtr'=> $daysCtr+=$daysHandled,
-                    'missing'=> $totalDays-$daysCtr,
-                    'details'=>$ev['eval']]);
+                    if($totalDays !== 0) 
+                    {
+                       $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
+                       $userEvals->push([
+                      'evalTitle'=> $ev['evalTitle'],
+                      'by'=>$ev['evalBy'],
+                      'start'=>$start->format('Y-m-d'),
+                      'end'=>$end->format('Y-m-d'),
+                      'totalDays'=>$totalDays, 
+                      'sP'=>$startP->format('Y-m-d'), 
+                      'eP'=> $endP->format('Y-m-d'), 
+                      'daysHandled'=>$daysHandled, 
+                      'percentage'=> $daysHandled/$totalDays,
+                      'grade'=> $g,
+                      'finalGrade'=> $finalGrade+=$g,
+                      'daysCtr'=> $daysCtr+=$daysHandled,
+                      'missing'=> $totalDays-$daysCtr,
+                      'details'=>$ev['eval']]);
+                    }
+                     else {
+                      $g = number_format(($ev['eval']->first()->overAllScore),2);
+                      $userEvals->push([
+                      'evalTitle'=> $ev['evalTitle'],
+                      'by'=>$ev['evalBy'],
+                      'start'=>$start->format('Y-m-d'),
+                      'end'=>$end->format('Y-m-d'),
+                      'totalDays'=>$totalDays, 
+                      'sP'=>$startP->format('Y-m-d'), 
+                      'eP'=> $endP->format('Y-m-d'), 
+                      'daysHandled'=>$daysHandled, 
+                      'percentage'=> 100,
+                      'grade'=> $g,
+                      'finalGrade'=> $finalGrade+=$g,
+                      'daysCtr'=> $daysCtr+=$daysHandled,
+                      'missing'=> $totalDays-$daysCtr,
+                      'details'=>$ev['eval']]);
+                     }
+                      
+                   
+                    
 
                   }else
                   {
