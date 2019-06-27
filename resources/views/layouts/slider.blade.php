@@ -17,6 +17,22 @@
 
                       </div>
 
+                      <!--Purple-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-6.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> series comes to an end, we'd like to leave this message to enlighten people of the community's call to #ResistTogether.<br/><br/>
+                                For <a href="./user/22" target="_blank" style="font-weight: bold"> Myla, a QA Team Leader</a>, #Pride is an opportunity to use our voices and enlighten people about the community's stand to #ResistTogether. And as a member, she's taking her call for equal rights and free will and against injustices and discrimination to the streets in this year's Metro Manila Pride March: "We all want a happy ending. We resist for equal rights as heterosexual couples, such as recognizing our partner as our spouse, being able to adopt, being able to buy shared property in our names, and so on. <br/><br/>
+                                We want discrimination to stop when we hold hands or kiss, apply for jobs, or enroll for education because of our gender orientation and the way we dress. LGBTQIA+ individuals are people who want to be accepted in society. We aren’t “sick” because our gender preference and identity. We are not different from you—we just have our own colorful individuality." <br/><br/>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019
+
+
+                               </p>
+
+
+                      </div>
+
                       <!--Blue-->
                       <div class="item text-center" >
 
