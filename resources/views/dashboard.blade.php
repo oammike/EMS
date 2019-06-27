@@ -130,37 +130,8 @@ select:-webkit-autofill:focus {
                   </div>
                 <!-- /.box-info -->
 
-              <!-- ************* TIMEKEEPING BACKUP ************ -->
-              <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                <div class="box-header with-border">
-                      <h3 class="box-title">Timekeeping</h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p>
-                      <h2 class="text-center text-primary"><?php echo date('l M d, Y'); ?> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
-                      <br/><br/>
-                      <p class="text-center">
-
-                        @if (!$alreadyLoggedIN)
-                          <a id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
-                        @endif
-                          <button id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
-                          <button type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
-                          <a id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
-                      </p>
-                    </div>
-              </div>
-
-
-
-              <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                <!-- ****** EVALUATIONS ****** -->
+               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Evaluations</h3>
 
@@ -194,6 +165,40 @@ select:-webkit-autofill:focus {
                     <!-- /.box-footer -->
                      {{Form::close()}}
               </div><!-- /.box -->
+
+
+
+              <!-- ************* TIMEKEEPING BACKUP ************ -->
+              <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                <div class="box-header with-border">
+                      <h3 class="box-title">Timekeeping</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p>
+                      <h2 class="text-center text-primary"><?php echo date('l M d, Y'); ?> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
+                      <br/><br/>
+                      <p class="text-center">
+
+                        @if (!$alreadyLoggedIN)
+                          <a id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
+                        @endif
+                          <button id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
+                          <button type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
+                          <a id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
+                      </p>
+                    </div>
+              </div>
+
+
+
+             
 
                  
 
