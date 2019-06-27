@@ -1131,7 +1131,7 @@ class EvalFormController extends Controller
 
 
 
-$coll->push(['emp'=>$emp->id, 'empMvt'=>$checkMovements]);
+                                    //$coll->push(['emp'=>$emp->id, 'empMvt'=>$checkMovements]);
                                   }//end foreach
 
 
@@ -1151,7 +1151,7 @@ $coll->push(['emp'=>$emp->id, 'empMvt'=>$checkMovements]);
                                       
                                       $data = $this->getPastMemberEvals($mc, $evalSetting, $currentPeriod,$endPeriod,null);
 
-                                      return $data;
+                                      //return $data;
 
 
                                     //return $data;
@@ -1947,7 +1947,7 @@ $coll->push(['emp'=>$emp->id, 'empMvt'=>$checkMovements]);
            
             }
             
-            return $coll;
+            //return $coll;
             
             return view('showThoseUpFor', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','changedImmediateHeads','doneMovedEvals', 'currentPeriod','endPeriod'));
           
