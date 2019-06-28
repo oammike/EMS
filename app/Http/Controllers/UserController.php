@@ -1348,17 +1348,17 @@ class UserController extends Controller
                             //check mo muna which one is more current, RD or workDay ba sya?
                                if ($dupes->first()->created_at > $keys->created_at) {
                                
-                                $coll = $this->getShiftingSchedules2($keys, $coll,$counter);
+                                $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);
                                 $sched = $coll->first();
                               } else 
                               {
-                                  $coll = $this->getShiftingSchedules2($keys, $coll,$counter);$sched = $coll->first();
+                                  $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);$sched = $coll->first();
 
                               }
                               
 
                            } else {
-                             $coll = $this->getShiftingSchedules2($keys, $coll,$counter);$sched = $coll->first();
+                             $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);$sched = $coll->first();
 
                            }
 
@@ -1386,7 +1386,7 @@ class UserController extends Controller
 
                               }else {
 
-                                $coll = $this->getShiftingSchedules2($key->first(), $coll,$counter);$sched = $coll->first();
+                                $coll = $this->getShiftingSchedules2($key->first(), $coll,$counter,$productionDate);$sched = $coll->first();
                                
                               }
 
@@ -1594,7 +1594,7 @@ class UserController extends Controller
             
             if ($wd == null){
               if ($rd !== null) {
-                ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
+                ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter,$startingPoint);
               }
               else{
                 
@@ -1614,7 +1614,7 @@ class UserController extends Controller
 
             }else {
               if ($rd == null){
-                ($flag == 'f') ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
+                ($flag == 'f') ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter,$startingPoint);
               }
 
                 
@@ -1623,10 +1623,10 @@ class UserController extends Controller
                 // we now compare which is latest, RD sched or WD?
                 
                 if (Carbon::parse($rd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($wd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ){
-                  ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
+                  ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter,$startingPoint);
 
                 }else{
-                  ($flag == 'f') ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
+                  ($flag == 'f') ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter,$startingPoint);
                 }
 
               }
