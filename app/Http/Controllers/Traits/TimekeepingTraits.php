@@ -2377,12 +2377,14 @@ trait TimekeepingTraits
   }
 
 
-  public function getShiftingSchedules2($sched, $coll,$counter)
+  public function getShiftingSchedules2($sched, $coll,$counter,$productionDate)
   {
 
+    //return ['sched'=>$sched];
+
     //check first if may approved CWS
-    $bio = Biometrics::where('productionDate',$sched->productionDate)->get();
-    $prodDate = Carbon::parse($sched->productionDate,"Asia/Manila");
+    $bio = Biometrics::where('productionDate',$productionDate->format('Y-m-d'))->get();
+    $prodDate = Carbon::parse($productionDate->format('Y-m-d'),"Asia/Manila");
 
     if ($prodDate->isPast() && !$prodDate->isToday()) {
       $bgcolor = "#e6e6e6";
@@ -2406,24 +2408,24 @@ trait TimekeepingTraits
               {
                  //means 00:00:00 to 00:00:00
                  
-                $correctTime = Carbon::parse($sched->productionDate . " 00:00:00","Asia/Manila");
+                $correctTime = Carbon::parse($productionDate->format('Y-m-d') . " 00:00:00","Asia/Manila");
 
                  $coll->push(['title'=>'Rest day ',
-                                'start'=>$sched->productionDate . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                                'start'=>$productionDate->format('Y-m-d') . " 00:00:00", // dates->format('Y-m-d H:i:s'),
                                 //'end'=>$sched->productionDate . " 00:00:00",
                                 'end'=>$correctTime->addHour(9)->format('Y-m-d H:i:s'),
                                 'textColor'=> '#ccc',
                                 'backgroundColor'=> '#fff',
-                                'chenes'=>$sched->productionDate,'icon'=>" ", 'biometrics_id'=>$bio->first()->id
+                                'chenes'=>$productionDate->format('Y-m-d'),'icon'=>" ", 'biometrics_id'=>$bio->first()->id
                                  ]);
                  $coll->push(['title'=>'..',
-                                'start'=>$sched->productionDate . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                                'start'=>$productionDate->format('Y-m-d') . " 00:00:00", // dates->format('Y-m-d H:i:s'),
                                 'end'=>$correctTime->format('Y-m-d H:i:s'),
                                 //'end'=>$sched->productionDate . " 00:00:00",
                                 'textColor'=> '#fff',
                                 'borderColor'=>$border,
                                 'backgroundColor'=> '#e6e6e6',
-                                'chenes'=>$sched->productionDate,'icon2'=>"bed", 'biometrics_id'=>$bio->first()->id
+                                'chenes'=>$productionDate->format('Y-m-d'),'icon2'=>"bed", 'biometrics_id'=>$bio->first()->id
                                  ]);
 
 
@@ -2431,23 +2433,23 @@ trait TimekeepingTraits
               }
               else {
 
-                $correctTime = Carbon::parse($sched->productionDate . " ".$cws->first()->timeStart,"Asia/Manila");
+                $correctTime = Carbon::parse($productionDate->format('Y-m-d') . " ".$cws->first()->timeStart,"Asia/Manila");
 
                 $coll->push(['title'=> date('h:i A', strtotime($cws->first()->timeStart)) . " to ",// '09:00 AM ',
-                          'start'=>$sched->productionDate . " ".$cws->first()->timeStart, //. $sched->timeStart, //->format('Y-m-d H:i:s'),
+                          'start'=>$productionDate->format('Y-m-d') . " ".$cws->first()->timeStart, //. $sched->timeStart, //->format('Y-m-d H:i:s'),
                           //'end'=>$sched->productionDate . " ".$cws->first()->timeEnd,
                           'end'=>$correctTime->addHour(9)->format('Y-m-d H:i:s'),
                           'textColor'=> $startColor,// '#548807',// '#409c45',
                           'backgroundColor'=> $bgcolor,
-                        'chenes'=>$sched->productionDate,
+                        'chenes'=>$productionDate->format('Y-m-d'),
                         'counter'=>$counter,
                         'icon'=>"play-circle",
                         'biometrics_id'=> $bio->first()->id]);
                  $coll->push(['title'=>date('h:i A', strtotime($cws->first()->timeEnd)),
-                                      'start'=>$sched->productionDate . " ".$cws->first()->timeStart, //. $sched->timeEnd,
+                                      'start'=>$productionDate->format('Y-m-d') . " ".$cws->first()->timeStart, //. $sched->timeEnd,
                                       'textColor'=>  $endColor, //'#bd3310',// '#27a7f7',
                                       'backgroundColor'=> $bgcolor,
-                                    'chenes'=>$sched->productionDate,
+                                    'chenes'=>$productionDate->format('Y-m-d'),
                                     'counter'=>$counter+1,
                                   'icon'=>"stop-circle",
                                 'biometrics_id'=> $bio->first()->id]);
@@ -2470,43 +2472,43 @@ trait TimekeepingTraits
 
           if($sched->isRD){
             $coll->push(['title'=>'Rest day ',
-                                'start'=>$sched->productionDate . " 00:00:00", // dates->format('Y-m-d H:i:s'),
-                                'end'=>$sched->productionDate . " 00:00:00", 
+                                'start'=>$productionDate->format('Y-m-d') . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                                'end'=>$productionDate->format('Y-m-d') . " 00:00:00", 
                                 'textColor'=> '#ccc',
                                 'backgroundColor'=> '#fff',
-                                'chenes'=>$sched->productionDate,'icon'=>" ", 'biometrics_id'=>null
+                                'chenes'=>$productionDate->format('Y-m-d'),'icon'=>" ", 'biometrics_id'=>null
                                  ]);
             $coll->push(['title'=>'..',
-                                'start'=>$sched->productionDate . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                                'start'=>$productionDate->format('Y-m-d') . " 00:00:00", // dates->format('Y-m-d H:i:s'),
                                 'textColor'=> '#fff',
                                 'borderColor'=>$border,
                                 'backgroundColor'=> '#e6e6e6',
-                                'chenes'=>$sched->productionDate,'icon2'=>"bed", 'biometrics_id'=>null
+                                'chenes'=>$productionDate->format('Y-m-d'),'icon2'=>"bed", 'biometrics_id'=>null
                                  ]);
 
 
 
           } else{
 
-            $correctTime = Carbon::parse($sched->productionDate . " ".$sched->timeStart,"Asia/Manila");
+            $correctTime = Carbon::parse($productionDate->format('Y-m-d') . " ".$sched->timeStart,"Asia/Manila");
 
            $coll->push(['title'=> date('h:i A', strtotime($sched->timeStart)) . " to ",// '09:00 AM ',
-                                'start'=>$sched->productionDate . " ".$sched->timeStart,//. $sched->timeStart, //->format('Y-m-d H:i:s'),
+                                'start'=>$productionDate->format('Y-m-d') . " ".$sched->timeStart,//. $sched->timeStart, //->format('Y-m-d H:i:s'),
                                 //'end'=>$sched->productionDate . " ".$sched->timeEnd,
                                 'end'=>$correctTime->addHour(9)->format('Y-m-d H:i:s'),
                                 'borderColor'=>$bgcolor,
                                 'textColor'=> '#548807',// '#409c45',
                                 'backgroundColor'=> $bgcolor,
-                              'chenes'=>$sched->productionDate,
+                              'chenes'=>$productionDate->format('Y-m-d'),
                               'counter'=>$counter,'icon'=>"play-circle", 'biometrics_id'=>null]);
            $coll->push(['title'=>date('h:i A', strtotime($sched->timeEnd)),
-                                  'start'=>$sched->productionDate . " ".$sched->timeStart,//. $sched->timeEnd,
+                                  'start'=>$productionDate->format('Y-m-d') . " ".$sched->timeStart,//. $sched->timeEnd,
                                   //'end'=>$sched->productionDate . " ".$sched->timeEnd,
                                   'end'=>$correctTime->format('Y-m-d H:i:s'),
                                   'textColor'=> '#bd3310',// '#27a7f7',
                                   'backgroundColor'=> $bgcolor,
                                   'borderColor'=>$bgcolor,
-                                'chenes'=>$sched->productionDate,
+                                'chenes'=>$productionDate->format('Y-m-d'),
                                 'counter'=>$counter+1,'icon'=>"stop-circle", 'biometrics_id'=>null]);
 
                              

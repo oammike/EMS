@@ -1166,7 +1166,7 @@ class UserController extends Controller
                             if ($latest->created_at > $latest_fixed->first()->created_at)
                             {
                                
-                                $coll = $this->getShiftingSchedules2($latest, $coll,$counter);
+                                $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);
                                 $sched = $coll->first();
                                 
 
@@ -1189,7 +1189,7 @@ class UserController extends Controller
                                   // --------- check now which of those two is recently updated 
                                  if ($latest->created_at > $latest_fixed->first()->created_at)
                                   {
-                                      $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                                      $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                                       
 
                                   } else 
@@ -1222,7 +1222,7 @@ class UserController extends Controller
 
                               if ($latest->created_at > $latest_fixed->first()->created_at){
                               
-                                $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                                $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                               
                               } else
                               {
@@ -1233,7 +1233,7 @@ class UserController extends Controller
 
                         }else { 
                           
-                          $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                          $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                           
 
                         }
@@ -1445,7 +1445,7 @@ class UserController extends Controller
       
       $totalFschedules = DB::table('fixed_schedules')->where('user_id',$user->id)->orderBy('id','DESC')->get();
       
-
+      //return ['totalMschedules'=>$totalMschedules,'totalFschedules'=>$totalFschedules];
 
       // ---------------------------
        // Determine first if FIXED OR SHIFTING sched
@@ -1678,12 +1678,12 @@ class UserController extends Controller
               $wd=null; $rd=null;$isFixedSched = null;$noWorkSched = null;
             }
 
-            //$coll2->push(['wd'=>$wd,'rd'=>$rd]);
+            $coll2->push(['wd'=>$wd,'rd'=>$rd]);
 
             // we now compare which is latest, RD sched or WD?
             if ($wd == null){
               if ($rd !== null){
-                ($isFixedSched) ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
+                ($isFixedSched) ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter,$startingPoint);
               }
               else{
                 
@@ -1703,7 +1703,7 @@ class UserController extends Controller
 
             }else {
               if ($rd == null){
-                ($isFixedSched) ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
+                ($isFixedSched) ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter,$startingPoint);
               }
 
                 
@@ -1711,10 +1711,10 @@ class UserController extends Controller
                 //parehas may value
                 // we now compare which is latest, RD sched or WD?
                 if (Carbon::parse($rd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($wd->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ){
-                  ($isFixedSched) ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
+                  ($isFixedSched) ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter,$startingPoint);
 
                 }else{
-                  ($isFixedSched) ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
+                  ($isFixedSched) ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter,$startingPoint);
                 }
 
               }
@@ -1731,6 +1731,7 @@ class UserController extends Controller
 
        }//end else both have monthly and fixed
 
+       //return $coll2;
        return response()->json($coll);
 
       
