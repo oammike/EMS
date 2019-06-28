@@ -1592,8 +1592,8 @@ class UserController extends Controller
 
             // we now compare which is latest, RD sched or WD?
             
-            if (is_null($wd)){
-              if (!is_null($rd)){
+            if ($wd == null){
+              if ($rd !== null) {
                 ($flag == 'f') ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
               }
               else{
@@ -1613,7 +1613,7 @@ class UserController extends Controller
 
 
             }else {
-              if (is_null($rd)){
+              if ($rd == null){
                 ($flag == 'f') ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
               }
 
@@ -1681,8 +1681,8 @@ class UserController extends Controller
             //$coll2->push(['wd'=>$wd,'rd'=>$rd]);
 
             // we now compare which is latest, RD sched or WD?
-            if (is_null($wd)){
-              if (!is_null($rd)){
+            if ($wd == null){
+              if ($rd !== null){
                 ($isFixedSched) ? $coll = $this->getFixedSchedules2($rd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($rd, $coll,$counter);
               }
               else{
@@ -1702,7 +1702,7 @@ class UserController extends Controller
 
 
             }else {
-              if (is_null($rd)){
+              if ($rd == null){
                 ($isFixedSched) ? $coll = $this->getFixedSchedules2($wd,$startingPoint->format('Y-m-d'),$coll,$counter) : $coll = $this->getShiftingSchedules2($wd, $coll,$counter);
               }
 
