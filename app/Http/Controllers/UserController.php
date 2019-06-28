@@ -1161,7 +1161,7 @@ class UserController extends Controller
                       $latest = $workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('created_at')->first();
                       $latest_fixed = $workSched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
                      
-                      if ( !($latest_fixed->isEmpty()) ) // (count($latest_fixed)>0) 
+                      if ( !(count($latest_fixed) <=0 ) ) // (count($latest_fixed)>0) 
                       {
                             if ($latest->created_at > $latest_fixed->first()->created_at)
                             {
@@ -1184,7 +1184,7 @@ class UserController extends Controller
                               // ----------------- meaning RD sya not WS --------------
 
                               $latest_fixed = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-                              if (!($latest_fixed->isEmpty()) ){
+                              if (!( count($latest_fixed)<= 0 ) ){
 
                                   // --------- check now which of those two is recently updated 
                                  if ($latest->created_at > $latest_fixed->first()->created_at)
@@ -1218,7 +1218,7 @@ class UserController extends Controller
                         $latest = $RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('created_at')->first();
                         $latest_fixed = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at'); //->all(); //->first();
                        
-                        if ( !($latest_fixed->isEmpty()) ){
+                        if (!( count($latest_fixed)<= 0 ) ){
 
                               if ($latest->created_at > $latest_fixed->first()->created_at){
                               
