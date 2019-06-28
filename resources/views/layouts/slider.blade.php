@@ -1,7 +1,23 @@
-                    <div class="item active  text-center" >
+                    <div class="item active text-center" >
+
+                              <h4 class="text-orange" > <span class="text-primary"> </span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/stonewall.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>In June 1969, the <a href="https://www.openaccessbpo.com/blog/stonewall-50-open-access-bpos-pride-commemoration/" target="_blank" style="font-weight: bold;">Stonewall Riots</a> broke out outside the now iconic Stonewall Inn after patrons stood against police brutality and extortion aimed at the LGBTQIA+ community.<br/><br/>The first #Pride march was held the following year as a commemoration for the brutal riots that further brought light to the plights of the queer and trans community.<br/><br/>
+                                Fifty years on, Pride has become more than a celebration, it's a resistance. It's action. It's a stand.<br/><br/>
+                                <strong>#OASpeaksWithPride #WeSpeakYourLanguage #Stonewall50 #ResistTogether</strong><br/><br/>
+
+
+
+                               </p>
+
+
+                      </div>
+
+                    <div class="item  text-center" >
                               
                               <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
-                              <img src="./storage/uploads/basketball-06-28.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/game3.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/> for winning <strong> Game 3</strong> last night, with Final score: 78-43<br/><br/>
                                 <strong class="text-danger">Game 4 schedule: </strong><br/><br/>
                                 Date: July 3, 2019 (Wednesday)<br/>
