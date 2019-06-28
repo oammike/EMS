@@ -1,6 +1,19 @@
+                    <div class="item active  text-center" >
+                              
+                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
+                              <img src="./storage/uploads/basketball-06-28.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/> for winning <strong> Game 3</strong> last night, with Final score: 78-43<br/><br/>
+                                <strong class="text-danger">Game 4 schedule: </strong><br/><br/>
+                                Date: July 3, 2019 (Wednesday)<br/>
+                                Time: 8:45 PM<br/>
+                                Venue: The Zone, Malugay, Makati<br/>
+                                Directions from 6780: <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/The+Zone,+Malugay,+Manila,+Metro+Manila/@14.5586884,121.0173373,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c90833a19f17:0x2cb9a9370a09053e!2m2!1d121.0192647!2d14.5627878!3e0"> 6780 to The Zone</a> </p>
+                               
 
+                              <br/>
+                    </div> 
 
-                    <div class="item active text-center" >
+                    <div class="item text-center" >
 
                               <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
@@ -134,10 +147,10 @@
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                            <br/><span class="text-danger">June 25, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">July 2, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                            <BR/><span class="text-danger">June 27, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">July 4, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
 
                             <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
                               Sign Up Now</a><br/><br/>
