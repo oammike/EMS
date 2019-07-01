@@ -75,6 +75,11 @@ class HomeController extends Controller
           switch ($album) {
 
             
+            
+            case '12':{
+               fwrite($file, "-------------------\n Pride2019 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
             case '11':{
                fwrite($file, "-------------------\n Viewed HealthWellness [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -300,6 +305,20 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/health-".$i.".jpg",
                                 'description'=>"Health &amp; Wellness Program [Fri May 24 2019] Photos by: Wendy Pilar",
                                 'category'=>"Health &amp; Wellness Program [Fri May 24 2019] Photos by: Wendy Pillar"]);
+
+                  }
+
+        } break;
+
+        case '12': {
+ 
+                    //Pride 2019
+      
+                  for($i=1; $i<=60; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-pride2019-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/pride2019-".$i.".jpg",
+                                'description'=>"Pride March [Sat Jun 29 2019] Photos by: Wendy Pilar",
+                                'category'=>"Pride March [Sat Jun 29 2019] Photos by: Wendy Pillar"]);
 
                   }
 

@@ -1,5 +1,20 @@
                     <div class="item active text-center" >
 
+                              <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/pride2019-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>More pics in our <a href="./gallery?a=12"><strong class="text-primary">Gallery page</strong></a><br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+
+
+                               </p>
+
+
+                      </div>
+
+                    <div class="item text-center" >
+
                               <h4 class="text-orange" > <span class="text-primary"> </span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
                               <img src="./storage/uploads/stonewall.jpg" style="z-index: 2" />
