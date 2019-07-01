@@ -378,13 +378,14 @@ $(function () {
                     htmlcode += '                                                     <select name="workday[]" class="days form-control" style="margin-bottom:5px">';
                     htmlcode += "<option value=\""+value+"\">"+weekdays[value]+"</option>";
                     htmlcode += '                                      </select></div><div class="col-lg-6">';
+                    htmlcode +='<label style="font-size:x-small"><input type="radio" name="schedtype_'+weekdays[value]+'" value="full">&nbsp; Full time </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label style="font-size:x-small"><input type="radio" name="schedtype_'+weekdays[value]+'" value="part">&nbsp; Part time</label></div><div class="col-lg-4">';
     
                                                                       
-                    htmlcode +='                                                   <select name="timeEnd[]" class="end form-control" style="margin-bottom:5px"><option value="0">* Select Work Shift *</option>';
+                    htmlcode +='                                                   <select name="timeEnd[]" class="end form-control" style="margin-bottom:5px" disabled="disabled"><option value="0">* Select Work Shift *</option>';
                                                                         @foreach ($shifts as $shift)
                     htmlcode +='                                                       <option value="{{$shift}}">{{$shift}} </option>';
                                                                         @endforeach
-                    htmlcode +='                                                   </select></div><div class="col-lg-3">';
+                    htmlcode +='                                                   </select></div>';
              
                 $('#addShifts').append(htmlcode);
 

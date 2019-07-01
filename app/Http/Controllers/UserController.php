@@ -275,9 +275,10 @@ class UserController extends Controller
           $shifts = $this->generateShifts('12H','full');
           $partTimes = $this->generateShifts('12H','part');
 
+
           //return $teammates;
 
-          return view('timekeeping.create-user-schedule', compact('user','img','shifts', 'teammates'));
+          return view('timekeeping.create-user-schedule', compact('user','img','shifts','partTimes', 'teammates'));
 
         }else return view('cws-denied');
 
