@@ -94,6 +94,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'resource.track',
       'uses'=>'ResourceController@track') );
 
+    Route::get('/oampi-resources/download/{id}', array(
+      'as'=> 'resource.download',
+      'uses'=>'ResourceController@download') );
+
     /********** FORM BUILDER **************/
     Route::post('/formSubmissions/process', array(
       'as'=> 'formSubmissions.process',

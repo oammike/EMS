@@ -39,6 +39,8 @@
             <div class="box-body">
 
               <h4><i class="fa fa-file"></i> All Employees who accessed file: <span class="text-success">{{$resource->name}}</span> </h4>
+              <a href="{{action('ResourceController@download',$id)}}" id="download" class="btn btn-md btn-primary pull-right"><i class="fa fa-download"></i> Download Spreadsheet</a>
+              <br/><br/><br/>
 
                 <table id="forms" class="table table-bordered table-striped">
                       <thead>
@@ -129,6 +131,18 @@
          "class": "pull-left"
        }
     });
+
+
+   
+
+
+
+
+
+
+    
+
+
     
   });
 </script>

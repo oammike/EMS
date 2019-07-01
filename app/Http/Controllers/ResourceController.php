@@ -5,6 +5,7 @@ namespace OAMPI_Eval\Http\Controllers;
 use Hash;
 use Carbon\Carbon;
 use Excel;
+use \DB;
 use \PDF;
 use \App;
 use \Response;
@@ -44,6 +45,83 @@ class ResourceController extends Controller
         $this->middleware('auth');
         $this->user =  User::find(Auth::user()->id);
         $this->resource = $resource;
+    }
+
+    public function download($id)
+    {
+        
+        $res = Resource::find($id);
+        $resource = DB::table('user_resource')->where('resource_id',$id)->
+                        leftJoin('users','users.id','=','user_resource.user_id')->
+                        join('positions','users.position_id','=','positions.id')->
+                        join('team','team.user_id','=','user_resource.user_id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.firstname','users.lastname','positions.name as jobTitle','campaign.name as program','user_resource.agreed','user_resource.created_at as accessed')->orderBy('user_resource.created_at','DESC')->get();
+
+        $correct = Carbon::now('GMT+8'); 
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL Resource: ". $res->name." -- by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
+
+        Excel::create($res->name, function($excel) use($resource,$res) {
+
+        
+
+          // Set the title
+          $excel->setTitle($res->name);
+
+          // Chain the setters
+          $excel->setCreator('Mike Pamero')
+                ->setCompany('OAMPI');
+
+          // Call them separately
+          $excel->setDescription('Contains all employee data');
+
+          $excel->sheet('Access log', function($sheet) use($resource) {
+
+           
+            
+
+            $sheet->appendRow(array('Lastname', 'Firstname','Position','Program/Dept.','Agreed to Terms','Date Accessed'));
+            $sheet->cells('A1:Z1', function($cells) {
+
+                              // call cell manipulation methods
+                              $cells->setBackground('##1a8fcb');
+                              $cells->setFontColor('#ffffff');
+                              $cells->setFontSize(18);
+                              $cells->setFontWeight('bold');
+
+                          });
+
+            foreach($resource as $emp){
+              
+              ($emp->agreed) ? $answer="Yes" : $answer="No";
+              $accessed = date('Y d M - H:i:s',strtotime($emp->accessed));
+
+              $arr = array($emp->lastname,
+                    $emp->firstname,
+                    $emp->jobTitle,
+                    $emp->program,
+                    $answer,
+                    $accessed);
+              
+              $sheet->appendRow($arr);
+
+            }
+
+              
+
+          });
+
+
+
+      })->export('xls');
+
+      return "Download";
+       
     }
 
      public function index()
@@ -213,7 +291,7 @@ class ResourceController extends Controller
 
         } else $isAdmin = false;
 
-        return view('resources.trackVisits', compact('track','resource', 'isAdmin'));
+        return view('resources.trackVisits', compact('track','resource', 'isAdmin','id'));
         //return $track;
 
     }
