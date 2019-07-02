@@ -634,10 +634,17 @@ trait EvaluationTraits
 
                                                 }else
                                                 {
-                                                    //walang nilipatan
-                                                    if ( count($newlyRegularized) <= 0)
-                                                        $fr = $effective;
-                                                    else $fr = Carbon::createFromFormat('Y-m-d H:i:s',$newlyRegularized->first()->effectivity, "Asia/Manila");
+                                                    if ($emp->fromPeriod == $employ->dateHired)
+                                                        $fr = $currentPeriod;
+                                                    else{
+
+                                                         //walang nilipatan
+                                                        if ( count($newlyRegularized) <= 0)
+                                                            $fr = $effective;
+                                                        else $fr = Carbon::createFromFormat('Y-m-d H:i:s',$newlyRegularized->first()->effectivity, "Asia/Manila");
+
+                                                    }
+                                                   
 
 
                                                 }
