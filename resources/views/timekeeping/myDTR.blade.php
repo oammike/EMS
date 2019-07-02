@@ -1427,8 +1427,7 @@ $('button#uploadOT').fadeOut();
 
                     $.notify(res.message,{className:"success", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
                     $('#unlock_'+biometrics_id).fadeOut();
-                    
-                    //location.reload(true);
+                    location.reload(true);
                     //window.location = "{{action('HomeController@index')}}";
                      
                   }, error: function(res){

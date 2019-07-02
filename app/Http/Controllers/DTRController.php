@@ -1314,6 +1314,7 @@ class DTRController extends Controller
       $seen = User_Notification::where('notification_id',$id)->where('user_id',$this->user->id)->get();
       $theNotif = Notification::find($id);
 
+
       ($theNotif->from == $this->user->id) ? $theSender=true : $theSender=false;
 
 
@@ -1326,8 +1327,8 @@ class DTRController extends Controller
         
         if ($theSender)
         {
-          $fromDate = Carbon::parse(Biometrics::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
-          $toDate = Carbon::parse(Biometrics::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+          $fromDate = Carbon::parse(User_DTR::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+          $toDate = Carbon::parse(User_DTR::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
 
         }
         
@@ -1656,10 +1657,10 @@ class DTRController extends Controller
 
                   $hybridSched_WS_fixed = FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get();
                    //$user->fixedSchedule->where('isRD',0)->sortByDesc('updated_at');
-                  $hybridSched_WS_monthly = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->orderBy('updated_at','DESC')->get(); 
+                  $hybridSched_WS_monthly = MonthlySchedules::where('user_id',$user->id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->orderBy('updated_at','DESC')->get(); 
                   $hybridSched_RD_fixed = FixedSchedules::where('user_id',$user->id)->where('isRD',1)->orderBy('created_at','DESC')->get();
                   // $user->fixedSchedule->where('isRD',1);
-                  $hybridSched_RD_monthly = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->orderBy('updated_at','DESC')->get();
+                  $hybridSched_RD_monthly = MonthlySchedules::where('user_id',$user->id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->orderBy('updated_at','DESC')->get();
 
                   $RDsched=null;
                   $workSched=null;
@@ -1712,7 +1713,7 @@ class DTRController extends Controller
              $schedCtr = 0;
             
             //return ['RDsched'=>$RDsched,'workSched'=>$workSched,'hybrid'=>$hybridSched];
-            return ['monthly'=>$hybridSched_WS_fixed,'fixed'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
+            //return ['hybridSched_WS_fixed'=>$hybridSched_WS_fixed,'hybridSched_WS_monthly'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
 
 
              foreach ($payrollPeriod as $payday) 
@@ -1920,12 +1921,7 @@ class DTRController extends Controller
                             $coll->push(['status'=>"enter hybridSched", 'payday'=>$payday]);
 
 
-                            //*** check mo muna kung sino meron, meaning auto assign na
-
-                            if (count($hybridSched_WS_fixed) > 0 && count($hybridSched_WS_monthly) <= 0 )
-                            {
-
-                            }
+                           
 
                             //,'fixed'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
 
@@ -1948,7 +1944,8 @@ class DTRController extends Controller
                                 {
 
                                   $workSched = $hybridSched_WS_monthly;
-                                  $RDsched = $hybridSched_RD_monthly;
+
+                                  (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
                                   $isFixedSched = false;
                                   $noWorkSched =false;
 
@@ -1971,7 +1968,9 @@ class DTRController extends Controller
                                    }*/
                                    else{
                                     $workSched = $hybridSched_WS_monthly;
-                                    $RDsched = $hybridSched_RD_monthly;
+
+                                    (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
+                                    
                                     $isFixedSched = false;
                                     $noWorkSched =false; $hasCWS=false;
 
@@ -2002,8 +2001,8 @@ class DTRController extends Controller
                                     $noWorkSched = false;
                                     
                                   }
-                                   else
-                                   {
+                                  else
+                                  {
                                     $stat =  "fixed na talaga | ELSE ng empty check_monthly_RD";
 
                                     //** new check: get mo yung next available fixed sched grouped by effectivity date
@@ -2034,7 +2033,8 @@ class DTRController extends Controller
                                   if ( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')) //mas updated yung RD so di sya WS
                                   {
                                     $workSched = $hybridSched_WS_monthly;
-                                    $RDsched =  $hybridSched_RD_monthly;
+                                    (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
+                                    
                                     $isFixedSched = false;
                                     $noWorkSched = false;
 
@@ -2196,7 +2196,7 @@ class DTRController extends Controller
 
                                 }else //waley na talaga
                                 {
-                                 // $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
+                                  $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
 
 
                                 }
@@ -2500,8 +2500,15 @@ class DTRController extends Controller
                                   }
                                   else
                                   {
-                                    $rd = $RDsched->where('isRD',1)->where('productionDate',$payday)->all(); 
-                                    if (count($rd)<= 0 ) $isRDToday=false; else $isRDToday=true;
+                                    if (is_null($RDsched) ){
+                                      $isRDToday=false; 
+
+                                    }else{
+                                      $rd = $RDsched->where('isRD',1)->where('productionDate',$payday)->all(); 
+                                      if (count($rd)<= 0 ) $isRDToday=false; else $isRDToday=true;
+
+                                    }
+                                    
 
                                     //$coll->push(['from: '=>"regular else"]);
                                   }
@@ -2706,7 +2713,15 @@ class DTRController extends Controller
                                          
 
                                         } else //walang CWS
-                                          $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+                                        {
+                                          if (is_null($workSched)){
+                                            $day = date('D', strtotime($payday)); //--- get his worksched and RDsched
+                                            $theday = (string)$day;
+                                            $numDay = array_search($theday, $daysOfWeek);
+                                            $schedForToday = $this->getLatestFixedSched($user,$numDay,$payday);
+                                          }else
+                                            $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+                                        }
 
                                     }//endelse if fixedSched
 
