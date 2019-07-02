@@ -1661,6 +1661,9 @@ class DTRController extends Controller
                   // $user->fixedSchedule->where('isRD',1);
                   $hybridSched_RD_monthly = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->orderBy('updated_at','DESC')->get();
 
+                  $RDsched=null;
+                  $workSched=null;
+
                   /*--- and then compare which is the latest of those 2 scheds --*/
 
 
@@ -1708,7 +1711,10 @@ class DTRController extends Controller
              $schedRecord = [];
              $schedCtr = 0;
             
-              
+            //return ['RDsched'=>$RDsched,'workSched'=>$workSched,'hybrid'=>$hybridSched];
+            return ['monthly'=>$hybridSched_WS_fixed,'fixed'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
+
+
              foreach ($payrollPeriod as $payday) 
              {
                 $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
@@ -1895,9 +1901,6 @@ class DTRController extends Controller
                           if ( count($approvedOT) > 0 ) $hasApprovedOT=true;
 
 
-
-                          //$coll2->push($payday);
-
                            //**************************************************************
                             //       HYBRID SCHEDULES --------this is where we check the hybrids and classify accordingly
                             //**************************************************************
@@ -1915,6 +1918,17 @@ class DTRController extends Controller
                             } 
 
                             $coll->push(['status'=>"enter hybridSched", 'payday'=>$payday]);
+
+
+                            //*** check mo muna kung sino meron, meaning auto assign na
+
+                            if (count($hybridSched_WS_fixed) > 0 && count($hybridSched_WS_monthly) <= 0 )
+                            {
+
+                            }
+
+                            //,'fixed'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
+
 
                             $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at');
 
@@ -1957,9 +1971,9 @@ class DTRController extends Controller
                                    }*/
                                    else{
                                     $workSched = $hybridSched_WS_monthly;
-                                  $RDsched = $hybridSched_RD_monthly;
-                                  $isFixedSched = false;
-                                  $noWorkSched =false; $hasCWS=false;
+                                    $RDsched = $hybridSched_RD_monthly;
+                                    $isFixedSched = false;
+                                    $noWorkSched =false; $hasCWS=false;
 
                                    }
 
@@ -1978,7 +1992,7 @@ class DTRController extends Controller
                                 $check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
                                 //MonthlySchedules::where('user_id',$user->id)->where('isRD','1')->where('productionDate',$payday)->orderBy('created_at','DESC')->get();
 
-                                if ($check_monthly_RD->isEmpty())
+                                if (count($check_monthly_RD) <= 0 )
                                 { //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
                                   if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
                                   {
@@ -2168,16 +2182,16 @@ class DTRController extends Controller
 
                                 if (count($hybridSched_WS_monthly)>0 && count($hybridSched_RD_monthly)>0)
                                 {
-                                  if (count($hybridSched_WS_monthly) > 0)
-                                  {
+                                  // if (count($hybridSched_WS_monthly) > 0)
+                                  // {
                                     $workSched = $hybridSched_WS_monthly;
 
-                                  }// else $workSched = null;
+                                  // }// else $workSched = null;
 
-                                  if (count($hybridSched_RD_monthly) > 0)
-                                  {
+                                  // if (count($hybridSched_RD_monthly) > 0)
+                                  // {
                                     $RDsched = $hybridSched_RD_monthly;
-                                  }
+                                  //}
                                   //else $RDsched = null;
 
                                 }else //waley na talaga

@@ -112,6 +112,7 @@ class FixedScheduleController extends Controller
     	// }
 
     	$ctr2 = 0;
+        $others = "";
 
     	foreach ($request->restdays as $rd)
     	{
@@ -139,6 +140,7 @@ class FixedScheduleController extends Controller
                     $sched2->isRD = 1;
                     $sched2->schedEffectivity = date('Y-m-d', strtotime($request->schedEffectivity));
                     $sched2->save();
+                    $others .= $user2.",";
                    
                 }
             }
@@ -146,6 +148,14 @@ class FixedScheduleController extends Controller
             $ctr++;
             $ctr2++;
     	}
+
+         $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Plot Fixed on " . $correct->format('M d h:i A'). " for[".$request->user_id.",".$others."] by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
 
     	//return response()->json(['saved schedules'=>$ctr]);
     	return redirect(action('UserController@show', $request->user_id));
