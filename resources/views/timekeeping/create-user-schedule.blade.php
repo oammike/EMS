@@ -38,7 +38,8 @@
 
               <div class="box-body box-profile" style="padding-top:50px">
                 
-                {{ Form::open(['route' => ['fixedSchedule.store'], 'method'=>'post','class'=>'col-lg-12', 'id'=> 'updateForm' , 'name'=>'updateForm','novalidate'=>'novalidate']) }}
+                {{ Form::open(['route' => ['fixedSchedule.store'], 'method'=>'post','class'=>'col-lg-12', 'id'=> 'updateForm' , 'name'=>'updateForm']) }}
+                <!-- 'novalidate'=>'novalidate' -->
                 <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}" />
 
                 <div class="row">
@@ -59,12 +60,12 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                   <label>From</label>
-                                  <input required type="text" class="dates form-control datepicker" style="width:80%" name="effectivityFrom" id="effectivityFrom" /> 
+                                  <input  type="text" class="dates form-control datepicker" style="width:80%" name="effectivityFrom" id="effectivityFrom" /> 
                                   <div id="alert-effectivityDate" style="margin-top:10px"></div>
                                 </div>
                                 <div class="col-sm-6">
                                   <label>To</label>
-                                  <input required type="text" class="dates form-control datepicker" style="width:80%" name="effectivityTo" id="effectivityTo" /> 
+                                  <input  type="text" class="dates form-control datepicker" style="width:80%" name="effectivityTo" id="effectivityTo" /> 
                                   <div id="alert-effectivityDate" style="margin-top:10px"></div>
                                   <a id="nextButton2" class="btn btn-sm btn-default pull-left">Next <i class="fa fa-arrow-right"></i> </a>
                                 </div> 
@@ -80,7 +81,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                   <label>Effective starting</label>
-                                  <input required type="text" class="dates1 form-control datepicker" style="width:80%" name="schedEffectivity" id="schedEffectivity" /> 
+                                  <input type="text" class="dates1 form-control datepicker" style="width:80%" name="schedEffectivity" id="schedEffectivity" /> 
                                   <div id="alert-schedEffectivity" style="margin-top:10px"></div>
                                 </div>
                             </div>
@@ -111,44 +112,7 @@
 
                         <blockquote class="steps" id="step3a"><p class="text-success">Indicate Work Shifts</p><small> Specify the work day(s) and time of this shift.</small><br/>
                          
-                         <?php /*
-                          <div class="row">
-                            <div class="col-md-3">
-                              <label>Work Day</label>
-                                <select name="workday[]" class="days form-control"><option value="null">* Select Work Day *</option>
-                                       <?php for ($ctr=0; $ctr <= 6; $ctr++){?>
-                                        <option value="{{$ctr}}" >{{ jddayofweek($ctr,1) }}</option>
-                                        <?php } ?>
-                                        
-                                </select>
-
-                            </div>
-                            <div class="col-md-3"><label>Start of Shift</label><br/>
-                              <select name="timeStart[]" class="start form-control">
-                                <option value="empty">* select time * </option>
-                                                      <?php  for( $i = 1; $i <= 24; $i++){ $min=0; $time1 = date('h:i A', strtotime('1999-01-01'.$i.":".$min.":00")); $min+=30; $time2 = date('h:i A', strtotime('1999-01-01'.$i.":".$min.":00")); ?>
-                                                        <option value="{{$time1}}">{{$time1}} </option>
-                                                        <option value="{{$time2}}">{{$time2}} </option>
-                                                      <?php } ?>
-                                                    </select>
-
-                            </div>
-                            <div class="col-md-3"><label>End of Shift</label><br/>
-                              <select name="timeEnd[]" class="end form-control">
-                                <option value="empty">* select time * </option>
-                                                      <?php  for( $i = 1; $i <= 24; $i++){ $min=0; $time1 = date('h:i A', strtotime('1999-01-01'.$i.":".$min.":00")); $min+=30; $time2 = date('h:i A', strtotime('1999-01-01'.$i.":".$min.":00")); ?>
-                                                        <option value="{{$time1}}">{{$time1}} </option>
-                                                        <option value="{{$time2}}">{{$time2}} </option>
-                                                      <?php } ?>
-                                                    </select>
-
-                            </div>
-                            <div clas=="col-md-3"><br/> <a style="margin-top:3px" href="#" id="addShift" class="btn btn-sm btn-primary "><i class="fa fa-plus"></i> Add Another Shift</a></div>
-                              <div style="clear:both"></div>
-                               
-
-                          </div> */ ?>
-
+                         
                           <div class="row">
                             <div class="col-md-12">
                                  <div id="addShifts" style="margin-top:5px"></div>
@@ -378,13 +342,18 @@ $(function () {
                     htmlcode += '                                                     <select name="workday[]" class="days form-control" style="margin-bottom:5px">';
                     htmlcode += "<option value=\""+value+"\">"+weekdays[value]+"</option>";
                     htmlcode += '                                      </select></div><div class="col-lg-6">';
+                    htmlcode +='<label style="font-size:x-small"><input required="required" type="radio" class="schedtype" data-week="'+weekdays[value]+'" name="schedtype_'+weekdays[value]+'" value="full">&nbsp; Full time </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label style="font-size:x-small"><input required="required" type="radio" data-week="'+weekdays[value]+'" class="schedtype" name="schedtype_'+weekdays[value]+'" value="part">&nbsp; Part time</label></div><div class="col-lg-4">';
     
                                                                       
-                    htmlcode +='                                                   <select name="timeEnd[]" class="end form-control" style="margin-bottom:5px"><option value="0">* Select Work Shift *</option>';
+                    htmlcode +='                                                   <select required id="scheds_'+weekdays[value]+'"  name="timeEnd[]" class="end form-control" style="margin-bottom:5px" disabled="disabled"><option class="none" value="0">* Select Work Shift *</option>';
                                                                         @foreach ($shifts as $shift)
-                    htmlcode +='                                                       <option value="{{$shift}}">{{$shift}} </option>';
+                    htmlcode +='                                                       <option class="full" value="{{$shift}}">{{$shift}} </option>';
                                                                         @endforeach
-                    htmlcode +='                                                   </select></div><div class="col-lg-3">';
+
+                                                                         @foreach ($partTimes as $shift2)
+                    htmlcode +='                                                       <option class="parttime" value="{{$shift2}}">{{$shift2}} </option>';
+                                                                        @endforeach
+                    htmlcode +='                                                   </select></div>';
              
                 $('#addShifts').append(htmlcode);
 
@@ -393,7 +362,16 @@ $(function () {
 
               
 
+        $('.schedtype').on('click', function(){
+          var chosentype = $(this).val();
+          var dday = $(this).attr('data-week');
 
+          switch(chosentype){
+            case 'full':{ $('select#scheds_'+dday).prop('disabled',false); $('select#scheds_'+dday+' option.none').prop('selected','selected'); $('option.full').css('display','block'); $('option.parttime').css('display','none'); } break;
+            case 'part':{ $('select#scheds_'+dday).prop('disabled',false); $('select#scheds_'+dday+' option.none').prop('selected','selected'); $('option.parttime').css('display','block'); $('option.full').css('display','none');} break;
+
+          }
+        });
 
         //------ end setup work schedule
 

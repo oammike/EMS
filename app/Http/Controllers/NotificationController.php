@@ -783,17 +783,17 @@ class NotificationController extends Controller
                 // UNLOCK
                 case 14: {   
                             $actionlink = action('DTRController@seenzoned',['id'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =null; //User_DTR::find($notif->detail->relatedModelID);
+                            $thereq =User_DTR::find($notif->detail->relatedModelID);
 
                             if (is_null($thereq))
                             {
                               $theBio=null;
-                              ($ownNotif) ? $message = " Your DTR sheet is now unlocked. " : $message = " sent a <strong>DTR Sheet Unlock request</strong>.";
+                              ($ownNotif) ? $message = " DTR unlock request: approved. "  : $message = " sent a <strong>DTR Sheet Unlock request</strong>."; //date('M d, Y', strtotime($thereq->productionDate))
 
                             }else{
                               $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->productionDate)));
 
-                              ($ownNotif) ? $message = " Your DTR sheet is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
+                              ($ownNotif) ? $message = " Request to unlock DTR for production date: ". date('M d, Y', strtotime($thereq->productionDate)) : $message = " is requesting for <strong>DTR Sheet Unlock</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
                             }
                             
                             // $img = asset('public/img/employees/'.$fromData->id.'.jpg');
@@ -938,17 +938,18 @@ class NotificationController extends Controller
                 // UNLOCK Productiondate
                 case 19: {   
                             $actionlink = action('DTRController@seenzonedPD',['id'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq = Biometrics::find($notif->detail->relatedModelID); //User_DTR::find($notif->detail->relatedModelID);
+                            $thereq = User_DTR::find($notif->detail->relatedModelID);//Biometrics::find($notif->detail->relatedModelID); //
 
                             if (count($thereq) > 0)
                             {
                               $theBio=null;
-                              ($ownNotif) ? $message = " Your DTR for ".$thereq->productionDate." is now unlocked. " : $message = " sent a <strong>DTR Production Date Unlock request</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
+                              ($ownNotif) ? $message = " Request DTR Unlock for ".$thereq->productionDate.". " : $message = " sent a <strong>DTR Production Date Unlock request</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
 
                             }else{
                               //$theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->productionDate)));
+                              $thereq = Biometrics::find($notif->detail->relatedModelID); //
 
-                              ($ownNotif) ? $message = " Your DTR sheet is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong>";
+                              ($ownNotif) ? $message = " DTR entry for ".date('M d, Y',strtotime($thereq->productionDate))." is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong>";
                             }
                             
                             // $img = asset('public/img/employees/'.$fromData->id.'.jpg');

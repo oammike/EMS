@@ -186,6 +186,7 @@ class MonthlyScheduleController extends Controller
     {
         $coll = new Collection;
     	$ctr = 1;
+        $others = "";
         $effectivityFrom =  date("Y-m-d", strtotime($request->effectivityFrom)); 
         $effectivityTo =  date("Y-m-d", strtotime($request->effectivityTo)); 
 
@@ -255,6 +256,7 @@ class MonthlyScheduleController extends Controller
                     $sched2->timeEnd = date('H:i A', strtotime($timeshift[1]));// date('H:i A',strtotime($request->timeEnd[$selectedDay]));
                     $sched2->isFlexitime = $request->isFlexitime;
                     $sched2->save();
+                    $others .= $user2.",";
                     
 
                 }
@@ -262,6 +264,14 @@ class MonthlyScheduleController extends Controller
             } $ctr++;
     		
     	}
+
+         $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Plot Monthly on " . $correct->format('M d h:i A'). " for[".$request->user_id.",".$others."] by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
 
     	
     	
