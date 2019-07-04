@@ -221,6 +221,59 @@ select:-webkit-autofill:focus {
 
               <div class="col-lg-5 col-sm-6 col-xs-12">
 
+
+                <!-- SHOUT OUT -->
+                  <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Shout Out</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body" id="ads">
+                     
+
+
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                          <!-- Indicators -->
+                          <!-- <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                          </ol> -->
+
+                          <!-- Wrapper for slides -->
+                          <div class="carousel-inner" role="listbox">
+                            
+                            @include('layouts.slider')
+
+                          </div><!--end CAROUSEL -->
+
+                          <!-- Left and right controls -->
+                          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </div>
+                      
+
+                    </div>
+                    <!-- /.box-body -->
+                    
+                    
+                  </div>
+                <!-- /.end SHOUT OUT -->
+
+
                 <!--VIDEOS -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
@@ -373,57 +426,7 @@ select:-webkit-autofill:focus {
    
 
 
-                <!-- SHOUT OUT -->
-                  <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Shout Out</h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body" id="ads">
-                     
-
-
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                          <!-- Indicators -->
-                          <!-- <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                            <li data-target="#myCarousel" data-slide-to="3"></li>
-                          </ol> -->
-
-                          <!-- Wrapper for slides -->
-                          <div class="carousel-inner" role="listbox">
-                            
-                            @include('layouts.slider')
-
-                          </div><!--end CAROUSEL -->
-
-                          <!-- Left and right controls -->
-                          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                          </a>
-                          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                          </a>
-                        </div>
-                      
-
-                    </div>
-                    <!-- /.box-body -->
-                    
-                    
-                  </div>
-                <!-- /.end SHOUT OUT -->
-
+                
                 
 
 

@@ -1,4 +1,36 @@
-                    <div class="item active text-center" >
+                     <div class="item active  text-center" >
+                              
+                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
+                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
+                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
+                                <!-- <strong class="text-danger">JUNE</strong><br/>
+                                * Pride March <br/>
+                                * Flu Vaccination <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/> -->
+
+                                <strong class="text-danger">JULY</strong><br/>
+                                * Glorietta 2 (G2) Office Launch <br/>
+                                * Happy Hour <br/>
+                                * Health &amp; Wellness Event <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                               <strong class="text-danger">AUGUST</strong> <br/>
+                                * Mobile Legends Tournament <br/>
+                                * Outreach Activity (Local Community) <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                              Actual dates and more details will be announced soon.</p>
+                               
+
+                              <br/>
+                    </div>
+
+
+                    <div class="item  text-center" >
 
                               <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
                               <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
@@ -237,37 +269,7 @@
                     
 
 
-                    <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
-                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
-                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
-                                <strong class="text-danger">JUNE</strong><br/>
-                                * Pride March <br/>
-                                * Flu Vaccination <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                                <strong class="text-danger">JULY</strong><br/>
-                                * Glorietta 2 (G2) Office Launch <br/>
-                                * Happy Hour <br/>
-                                * Health &amp; Wellness Event <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                               <strong class="text-danger">AUGUST</strong> <br/>
-                                * Mobile Legends Tournament <br/>
-                                * Outreach Activity (Local Community) <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                              Actual dates and more details will be announced soon.</p>
-                               
-
-                              <br/>
-                    </div>
-
+                   
                     
 
                     <div class="item text-center" >
