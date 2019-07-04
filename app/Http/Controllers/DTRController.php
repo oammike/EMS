@@ -189,6 +189,7 @@ class DTRController extends Controller
                           ['users.status_id', '!=', 9],
                       ])->orderBy('users.lastname')->get();
       $allDTR = collect($allDTRs)->groupBy('id');
+      //return $allDTR;
       $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
                       join('team','team.campaign_id','=','campaign.id')->
                       join('users','team.user_id','=','users.id')->
@@ -238,7 +239,9 @@ class DTRController extends Controller
 
                       // Call them separately
                       $excel->setDescription($description);
+
                       $payday = $cutoffStart;
+
 
                       do
                       {
@@ -247,29 +250,36 @@ class DTRController extends Controller
                         {
 
                           $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','','','',''];
-                          $header2 = [$cutoffStart->format('l, M d Y'),'Program/Department: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+                          $header2 = [$cutoffStart->format('l, M d Y'),'Program/Dept.: ',strtoupper($program->name),'','','','','','','','','','','','',''];
 
                           
                           // Set width for a single column
                           //$sheet->setWidth('A', 35);
 
+                          $sheet->setFontSize(20);
+                          $sheet->setOrientation("landscape");
+
+
+
                           $sheet->appendRow($header1);
                           $sheet->appendRow($header2);
-                          $sheet->cells('A1:Z2', function($cells) {
+                          $sheet->cells('A1:P2', function($cells) {
 
                               // call cell manipulation methods
                               $cells->setBackground('##1a8fcb');
                               $cells->setFontColor('#ffffff');
-                              $cells->setFontSize(18);
+                              $cells->setFontSize(30);
                               $cells->setFontWeight('bold');
 
                           });
+
+
                           $sheet->row(2, function($cells) {
 
                               // call cell manipulation methods
                               
-                              $cells->setFontColor('#dedede');
-                              $cells->setFontSize(15);
+                              $cells->setFontColor('#000');
+                              $cells->setFontSize(25);
                               $cells->setFontWeight('bold');
 
                           });
@@ -280,7 +290,7 @@ class DTRController extends Controller
 
                           $sheet->row(3, function($row) {
                               // Set font size
-                              $row->setFontSize(15);
+                              $row->setFontSize(18);
                               $row->setFontWeight('bold');
 
                             });
@@ -288,7 +298,17 @@ class DTRController extends Controller
                           $sheet->setHeight(3, 50);
 
                           // Freeze the first column
-                          $sheet->freezeFirstColumn();
+                          //$sheet->freezeFirstColumn();
+
+                          // $sheet->setAutoSize(array(
+                          //     'A',
+                          // ));
+
+                          // Set width for a single column
+                          $sheet->setWidth('A', 40);
+                          $sheet->setWidth('D', 22);
+                          $sheet->setWidth('L', 9);
+                          $sheet->setWidth('P', 9);
 
                           
 
@@ -302,8 +322,8 @@ class DTRController extends Controller
 
                             if (count($dData) > 0)
                             {
-                              $arr[$i] = $dData->first()->lastname.", ".$dData->first()->firstname." ".$dData->first()->middlename; $i++;
-                              $arr[$i] = $dData->first()->leaderFname." ".$dData->first()->leaderLname; $i++;
+                              $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
+                              $arr[$i] = strtoupper($dData->first()->leaderFname)." ".strtoupper($dData->first()->leaderLname); $i++;
 
                               // ** Production Date
                               // check if there's holiday
@@ -311,7 +331,7 @@ class DTRController extends Controller
 
                               (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
 
-                              $arr[$i] = $payday->format('M d l')." ". $hday; $i++;
+                              $arr[$i] = $payday->format('M d D')." ". $hday; $i++;
                               $arr[$i] = strip_tags($dData->first()->workshift); $i++; // ** get the sched here
                               
                               //*** CWS
@@ -396,7 +416,16 @@ class DTRController extends Controller
                                   $arr[$i] =" - "; $i++;
                                 } else
                                 {
-                                  $arr[$i] =$dData->first()->leaveType; $i++;
+                                  
+
+                                  //add in kung half leave
+                                  if (strpos($dData->first()->hoursWorked, "1st") !== false ) 
+                                    $arr[$i] =$dData->first()->leaveType."\n"."1st half of Shift";
+                                  else if(strpos($dData->first()->hoursWorked, "2nd") !== false ) 
+                                    $arr[$i] =$dData->first()->leaveType."\n"."2nd half of Shift";
+                                  else
+                                    $arr[$i] =$dData->first()->leaveType;
+                                  $i++;
                                 }
 
                                 //then we look for its detail
@@ -484,9 +513,9 @@ class DTRController extends Controller
 
 
                             }else{
-                              $arr[$i] = $employeeDTR->first()->lastname.", ".$employeeDTR->first()->firstname." ".$employeeDTR->first()->middlename ; $i++;
-                              $arr[$i] = $employeeDTR->first()->leaderFname." ".$employeeDTR->first()->leaderLname; $i++;
-                              $arr[$i] = $payday->format('M d l'); $i++;
+                              $arr[$i] = strtoupper($employeeDTR->first()->lastname).", ".strtoupper($employeeDTR->first()->firstname)." ".strtoupper($employeeDTR->first()->middlename) ; $i++;
+                              $arr[$i] = strtoupper($employeeDTR->first()->leaderFname) ." ". strtoupper($employeeDTR->first()->leaderLname); $i++;
+                              $arr[$i] = $payday->format('M d D'); $i++;
                               $arr[$i] = " <unverified> "; $i++;
                               $arr[$i] = " <unverified> "; $i++; // ** get the sched here
                               $arr[$i] = " <unverified> "; $i++;
@@ -506,11 +535,20 @@ class DTRController extends Controller
                             
 
                             $sheet->appendRow($arr);
+                            //$sheet->getStyle('A4:A200')->getAlignment()->setWrapText(true);
+                            //$sheet->setBorder('A1:F10', 'thin');
                             
 
                             
 
                           }//end foreach employee
+
+                          $lastrow= $sheet->getHighestRow(); 
+                          $sheet->getStyle('A4:B'.$lastrow)->getAlignment()->setWrapText(true); 
+                          $sheet->getStyle('E4:E'.$lastrow)->getAlignment()->setWrapText(true); 
+                          $sheet->getStyle('M4:M'.$lastrow)->getAlignment()->setWrapText(true); 
+                          $sheet->getStyle('O4:P'.$lastrow)->getAlignment()->setWrapText(true); 
+                          $sheet->setBorder('A4:P'.$lastrow, 'thin');
 
 
                           
@@ -521,6 +559,9 @@ class DTRController extends Controller
                       } while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );      
 
 
+                      // $lastrow= $excel->getActiveSheet()->getHighestRow(); 
+                      // $excel->getActiveSheet()->getStyle('A4:A'.$lastrow)->getAlignment()->setWrapText(true); 
+                      // $excel->getActiveSheet()->setBorder('A4:P'.$lastrow, 'thin');
 
               })->export('xls');return "Download";
 
@@ -862,7 +903,7 @@ class DTRController extends Controller
 
                           $sheet->appendRow($header1);
                           $sheet->appendRow($header2);
-                          $sheet->cells('A1:Z2', function($cells) {
+                          $sheet->cells('A1:P2', function($cells) {
 
                               // call cell manipulation methods
                               $cells->setBackground('##1a8fcb');
