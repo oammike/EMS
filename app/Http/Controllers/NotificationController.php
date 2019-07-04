@@ -788,12 +788,12 @@ class NotificationController extends Controller
                             if (is_null($thereq))
                             {
                               $theBio=null;
-                              ($ownNotif) ? $message = " Your DTR sheet is now unlocked. " : $message = " sent a <strong>DTR Sheet Unlock request</strong>.";
+                              ($ownNotif) ? $message = " Request to unlock DTR for production date: ". date('M d, Y', strtotime($thereq->productionDate)) : $message = " sent a <strong>DTR Sheet Unlock request</strong>.";
 
                             }else{
                               $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->productionDate)));
 
-                              ($ownNotif) ? $message = " Your DTR sheet is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
+                              ($ownNotif) ? $message = " Request to unlock DTR for production date: ". date('M d, Y', strtotime($thereq->productionDate)) : $message = " is requesting for <strong>DTR Sheet Unlock</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
                             }
                             
                             // $img = asset('public/img/employees/'.$fromData->id.'.jpg');
@@ -948,7 +948,7 @@ class NotificationController extends Controller
                             }else{
                               //$theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->productionDate)));
 
-                              ($ownNotif) ? $message = " Your DTR sheet is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong>";
+                              ($ownNotif) ? $message = " DTR Sheet unlock request. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong>";
                             }
                             
                             // $img = asset('public/img/employees/'.$fromData->id.'.jpg');

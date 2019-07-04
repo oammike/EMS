@@ -713,7 +713,7 @@ class HomeController extends Controller
                
                 
                 //return $prg;
-                if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || ($this->user->userType->name == "agent") )
+                if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || strpos($this->user->userType->name, "agent")!==false   )
                     
 
                 { //  AGENT or ADMIN pero agent level

@@ -1190,11 +1190,16 @@ class DTRController extends Controller
 
         foreach ($user->approvers as $approver) {
           $TL = ImmediateHead::find($approver->immediateHead_id);
+
+          
           $nu = new User_Notification;
           $nu->user_id = $TL->userData->id;
           $nu->notification_id = $notification->id;
           $nu->seen = false;
           $nu->save();
+
+          
+          
 
           # code...
         }
@@ -3146,7 +3151,7 @@ class DTRController extends Controller
         //return $theNotif;
 
         //then remove those sent notifs to the approvers since it has already been approved/denied
-        if (count($theNotif) > 0 )
+        if (count($theNotif) > 0 && ($this->user->id !== $user->id))
         {
 
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
