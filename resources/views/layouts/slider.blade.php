@@ -1,5 +1,16 @@
                      <div class="item active  text-center" >
                               
+                              <h4 class="text-orange" >Happy <span class="text-primary">4th of July!</span></h4>
+                              <img src="./storage/uploads/july4th.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Wishing our friends, family, and colleagues a happy #4thOfJuly and Filipino-American Friendship Day! May this day be filled with love, laughter, and peace.<br/><br/>
+                                <strong>#WeSpeakYourLanguage #OACelebrates4thofJuly</strong></p>
+                               
+
+                              <br/>
+                    </div>
+
+                    <div class="item  text-center" >
+                              
                               <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
                               <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
@@ -45,36 +56,7 @@
 
                       </div>
 
-                    <div class="item text-center" >
-
-                              <h4 class="text-orange" > <span class="text-primary"> </span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/stonewall.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>In June 1969, the <a href="https://www.openaccessbpo.com/blog/stonewall-50-open-access-bpos-pride-commemoration/" target="_blank" style="font-weight: bold;">Stonewall Riots</a> broke out outside the now iconic Stonewall Inn after patrons stood against police brutality and extortion aimed at the LGBTQIA+ community.<br/><br/>The first #Pride march was held the following year as a commemoration for the brutal riots that further brought light to the plights of the queer and trans community.<br/><br/>
-                                Fifty years on, Pride has become more than a celebration, it's a resistance. It's action. It's a stand.<br/><br/>
-                                <strong>#OASpeaksWithPride #WeSpeakYourLanguage #Stonewall50 #ResistTogether</strong><br/><br/>
-
-
-
-                               </p>
-
-
-                      </div>
-
-                    <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
-                              <img src="./storage/uploads/game3.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/> for winning <strong> Game 3</strong> last night, with Final score: 78-43<br/><br/>
-                                <strong class="text-danger">Game 4 schedule: </strong><br/><br/>
-                                Date: July 3, 2019 (Wednesday)<br/>
-                                Time: 8:45 PM<br/>
-                                Venue: The Zone, Malugay, Makati<br/>
-                                Directions from 6780: <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/The+Zone,+Malugay,+Manila,+Metro+Manila/@14.5586884,121.0173373,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c90833a19f17:0x2cb9a9370a09053e!2m2!1d121.0192647!2d14.5627878!3e0"> 6780 to The Zone</a> </p>
-                               
-
-                              <br/>
-                    </div> 
+                   
 
                     <div class="item text-center" >
 
@@ -253,23 +235,7 @@
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                     </div>
 
-                     <div class="item  text-center" >
-
-                              <img src="./storage/uploads/pride2019.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO’s support for the LGBTQIA+ community goes beyond #PrideMonth and our offices. We stand with the struggles of the community and celebrate your individuality.<br/><br/>
-
-                                To the LGBTQIA+ community, you matter. We salute your truth as we #ResistTogether. Happy Pride!<br/><br/>
-
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong></p>
-
-
-                      </div>
-
-
-                    
-
-
-                   
+                  
                     
 
                     <div class="item text-center" >
@@ -731,6 +697,56 @@
 
 
 <?php /*
+
+   <div class="item  text-center" >
+
+                              <img src="./storage/uploads/pride2019.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO’s support for the LGBTQIA+ community goes beyond #PrideMonth and our offices. We stand with the struggles of the community and celebrate your individuality.<br/><br/>
+
+                                To the LGBTQIA+ community, you matter. We salute your truth as we #ResistTogether. Happy Pride!<br/><br/>
+
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong></p>
+
+
+                      </div>
+
+
+                    
+
+
+                   
+                   
+ <!--Stonewall-->
+                    <div class="item text-center" >
+
+                              <h4 class="text-orange" > <span class="text-primary"> </span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/stonewall.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>In June 1969, the <a href="https://www.openaccessbpo.com/blog/stonewall-50-open-access-bpos-pride-commemoration/" target="_blank" style="font-weight: bold;">Stonewall Riots</a> broke out outside the now iconic Stonewall Inn after patrons stood against police brutality and extortion aimed at the LGBTQIA+ community.<br/><br/>The first #Pride march was held the following year as a commemoration for the brutal riots that further brought light to the plights of the queer and trans community.<br/><br/>
+                                Fifty years on, Pride has become more than a celebration, it's a resistance. It's action. It's a stand.<br/><br/>
+                                <strong>#OASpeaksWithPride #WeSpeakYourLanguage #Stonewall50 #ResistTogether</strong><br/><br/>
+
+
+
+                               </p>
+
+
+                      </div>
+
+                    <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
+                              <img src="./storage/uploads/game3.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/> for winning <strong> Game 3</strong> last night, with Final score: 78-43<br/><br/>
+                                <strong class="text-danger">Game 4 schedule: </strong><br/><br/>
+                                Date: July 3, 2019 (Wednesday)<br/>
+                                Time: 8:45 PM<br/>
+                                Venue: The Zone, Malugay, Makati<br/>
+                                Directions from 6780: <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/The+Zone,+Malugay,+Manila,+Metro+Manila/@14.5586884,121.0173373,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c90833a19f17:0x2cb9a9370a09053e!2m2!1d121.0192647!2d14.5627878!3e0"> 6780 to The Zone</a> </p>
+                               
+
+                              <br/>
+                    </div> 
 
 <div class="item text-center" >
 
