@@ -1332,8 +1332,16 @@ class DTRController extends Controller
         
         if ($theSender)
         {
-          $fromDate = Carbon::parse(User_DTR::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
-          $toDate = Carbon::parse(User_DTR::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+          //**check mo muna kung existing pa USer_DTR, else Biometrics na nilipat ung relatedModel
+          if (User_DTR::find($theNotif->relatedModelID) !== null){
+            $fromDate = Carbon::parse(User_DTR::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+            $toDate = Carbon::parse(User_DTR::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+
+          }else{
+            $fromDate = Carbon::parse(Biometrics::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+            $toDate = Carbon::parse(Biometrics::find($theNotif->relatedModelID)->productionDate,"Asia/Manila");
+          }
+          
 
         }
         
@@ -3151,7 +3159,7 @@ class DTRController extends Controller
         //return $theNotif;
 
         //then remove those sent notifs to the approvers since it has already been approved/denied
-        if (count($theNotif) > 0 && ($this->user->id !== $user->id))
+        if (count($theNotif) > 0 )//&& ($this->user->id !== $user->id)
         {
 
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
