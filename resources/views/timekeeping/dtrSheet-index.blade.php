@@ -335,13 +335,27 @@
 
                           if (count == totalDTR )
                           htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                          else
-                            htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+                          else{
 
-                          htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
-                          htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+                            if (count>0){
+                              htmltags += "<tr><td style='font-weight:bold'>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+                              htmltags += "<td style='font-weight:bold'>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
+                              htmltags += "<td class='text-right' style='font-weight:bold'>"+ count +" / "+ totalDTR +"</td>";
+                              htmltags += "<td class='text-center' style='font-weight:bold'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
 
+                            }else{
+                              htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+                              htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
+                              htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
+                              htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+
+                            }
+
+                            
+
+                          }
+
+                          
                         }
                         htmltags += "</table>";
 

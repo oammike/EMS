@@ -599,6 +599,8 @@ class UserOBTController extends Controller
         $user = User::find($vl->user_id);
         $profilePic = $this->getProfilePic($user->id);
         $leadershipcheck = ImmediateHead::where('employeeNumber', $user->employeeNumber)->first();
+        $approvers = $user->approvers;
+        $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         // $date1 = Carbon::parse(Biometrics::find($cws->biometrics_id)->productionDate);
         // $payrollPeriod = Paycutoff::where('fromDate','>=', strtotime())->get(); //->where('toDate','<=',strtotime(Biometrics::find($cws->biometrics_id)->productionDate))->first();
 
@@ -614,7 +616,7 @@ class UserOBTController extends Controller
 
         
         //return $details;
-        return view('timekeeping.show-OBT', compact('user', 'profilePic','camps', 'vl','details'));
+        return view('timekeeping.show-OBT', compact('user', 'profilePic','camps', 'vl','details','anApprover'));
 
 
     }

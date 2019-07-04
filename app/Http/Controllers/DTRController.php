@@ -3093,11 +3093,11 @@ class DTRController extends Controller
 
                   }//end if else noWorkSched
 
-                  endNoWorkSched:
+                  endNoWorkSched: 
                   //$noWorkSched = null; //*** we need to reset things
              }//END foreach payrollPeriod
 
-          // return $myDTR;
+           //return $myDTR;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

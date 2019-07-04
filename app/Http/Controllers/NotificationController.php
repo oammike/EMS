@@ -751,7 +751,7 @@ class NotificationController extends Controller
 
                 // OBT LEAVE
                 case 13: {
-                            $actionlink = action('UserLWOPController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $actionlink = action('UserOBTController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
                             $thereq =User_OBT::find($notif->detail->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;

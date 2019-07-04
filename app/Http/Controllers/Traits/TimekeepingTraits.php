@@ -3950,7 +3950,7 @@ trait TimekeepingTraits
                     } else
                     {
                        $i = "fa-times";
-                        $l = "X";
+                        $l = "OBT";
                         $label = "OBT denied";
                         $workedHours = 0.0;
                     }
@@ -3969,7 +3969,7 @@ trait TimekeepingTraits
 
                     }else{
                       $i = "fa-times";
-                      $l = "X";
+                      $l = "LWOP";
                       $label = "LWOP DENIED";
                       $workedHours = 0.0;
 
@@ -3989,7 +3989,7 @@ trait TimekeepingTraits
                     }else
                     {
                       $i = "fa-times";
-                      $l = "X";
+                      $l = "SL";
                       $label = "SL DENIED";
                       $workedHours = 0.0;
                     }
@@ -4010,7 +4010,7 @@ trait TimekeepingTraits
                     }else
                     {
                       $i = "fa-times";
-                      $l = "x";
+                      $l = "VL";
                       $label = "VL DENIED";
                       $workedHours = 0.0;
                     }
@@ -4053,23 +4053,23 @@ trait TimekeepingTraits
                     }else{
                       switch ($theleave->leaveType) {
                         case 'ML':{
-                                      $i = "fa-times";
+                                      $i = "fa-info-circle";
                                       $lTitle = "ML request";
-                                      $l = "X";
+                                      $l = "ML";
                                       $label = "ML denied";
                         }break;
 
                         case 'PL':{
-                                      $i = "fa-times";
+                                      $i = "fa-info-circle";
                                       $lTitle = "PL request";
-                                      $l = "X";
+                                      $l = "PL";
                                       $label = "PL denied";
                         }break;
 
                         case 'SPL':{
-                                      $i = "fa-times";
+                                      $i = "fa-info-circle";
                                       $lTitle = "SPL request";
-                                      $l = "X";
+                                      $l = "SPL";
                                       $label = "SPL denied";
                         }break;
                         

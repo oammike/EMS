@@ -745,6 +745,9 @@ class UserSLController extends Controller
 
         if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
 
+        $approvers = $user->approvers;
+        $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+
         $details = new Collection;
 
         $details->push(['from'=>date('M d - D',strtotime($vl->leaveStart)), 'to'=>date('M d - D',strtotime($vl->leaveEnd)),
@@ -755,7 +758,7 @@ class UserSLController extends Controller
 
         
         //return $details;
-        return view('timekeeping.show-SL', compact('user', 'profilePic','camps', 'vl','details'));
+        return view('timekeeping.show-SL', compact('user', 'profilePic','camps', 'vl','details','anApprover'));
 
 
     }

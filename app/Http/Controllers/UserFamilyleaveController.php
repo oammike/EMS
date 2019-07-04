@@ -736,6 +736,9 @@ class UserFamilyleaveController extends Controller
         $user = User::find($vl->user_id);
         $profilePic = $this->getProfilePic($user->id);
         $leadershipcheck = ImmediateHead::where('employeeNumber', $user->employeeNumber)->first();
+
+        $approvers = $user->approvers;
+        $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         // $date1 = Carbon::parse(Biometrics::find($cws->biometrics_id)->productionDate);
         // $payrollPeriod = Paycutoff::where('fromDate','>=', strtotime())->get(); //->where('toDate','<=',strtotime(Biometrics::find($cws->biometrics_id)->productionDate))->first();
 
@@ -756,7 +759,7 @@ class UserFamilyleaveController extends Controller
             case 'SPL': $icon = "fa fa-street-view"; $leave = "Single-Parent Leave"; break;
             
         }
-        return view('timekeeping.show-FL', compact('user', 'profilePic','camps','icon','leave', 'vl','details'));
+        return view('timekeeping.show-FL', compact('user', 'profilePic','camps','icon','leave', 'vl','details','anApprover'));
 
 
     }

@@ -108,7 +108,7 @@
                                                   <td style="width: 20%">{{$details[0]['notes']}} </td>
 
 
-                                                  @if (is_null($vl->isApproved))
+                                                  @if (is_null($vl->isApproved) && $anApprover)
                                                   <td>
                                                     <a href="#" id="approve" data-action="1" class="updateCWS btn btn-xs btn-success pull-right"><i class="fa fa-thumbs-up"></i> Approve</a>
                                                     <a style="margin-right: 5px" href="#" id="reject" data-action="0" class="updateCWS btn btn-xs btn-danger pull-right"><i class="fa fa-thumbs-down"></i> Deny</a>
@@ -118,7 +118,8 @@
 
                                                   <td>
                                                     @if($vl->isApproved) <h4 class="text-success">Approved</h4>
-                                                    @else <h4 class="text-danger">Denied</h4>@endif
+                                                    @elseif(is_null($vl->isApproved)) <h4 class="text-orange">Pending Approval</h4>
+                                                    @else  <h4 class="text-danger">Denied</h4>@endif
 
                                                   </td>
 
