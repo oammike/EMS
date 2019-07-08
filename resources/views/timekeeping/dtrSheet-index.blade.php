@@ -224,10 +224,15 @@
                           var count = rdata.filter((obj) => obj.id === userid).length;
 
 
-                          if (count == totalDTR )
-                          htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                          else
+                          if (count == totalDTR ){
+                            htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+
+                          }
+                          
+                          else{
+                            
                             htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+                          }
 
                           htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
                           htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
