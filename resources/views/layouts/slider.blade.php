@@ -1,4 +1,21 @@
-                     <div class="item active  text-center" >
+                     <div class="item  active  text-center" >
+                              
+                              <h4 class="text-orange" >Open Access BPO <span class="text-primary">Basketball Team Game 5</span></h4>
+                              <img src="./storage/uploads/game3.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hi all!
+                                <br/><br/>You're all invited to come and watch our Open Access BPO basketball team to Game #5<br/><br/>
+
+                                Date: <strong>July 09, 2019 (Tuesday)</strong><br/>
+                                Time: 7:45 PM<br/>
+                                Venue: The Zone, Malugay, Makati<br/>
+                                Directions from  <a target="_blank" href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/The+Zone,+Malugay,+Manila,+Metro+Manila/@14.5586884,121.0173373,16z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c90833a19f17:0x2cb9a9370a09053e!2m2!1d121.0192647!2d14.5627878!3e0"> 6780 to The Zone</a> <br/><br/>
+
+                                To our Open Access BPO Basketball Team, GOOD LUCK AND MAY YOU BRING HOME THE TROPHY!</p>
+                               
+                              <br/>
+                    </div>
+
+                     <div class="item  text-center" >
                               
                               <h4 class="text-orange" >Happy <span class="text-primary">4th of July!</span></h4>
                               <img src="./storage/uploads/july4th.jpg" style="z-index: 2" />
@@ -8,6 +25,55 @@
 
                               <br/>
                     </div>
+
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Free Zumba Class</span> New Schedule</h3>
+                         <br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                            <br/><span class="text-danger">July 9, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                            <BR/><span class="text-danger">July 11, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
+                              Sign Up Now</a><br/><br/>
+
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                              
+                              <div class="text-left"  style="padding-left: 30px;">
+                                <h5>Minor Prizes:</h5>
+                                <ul>
+                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
+                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Bluetooth speaker</li>
+                                  <li>1 winner: Cheero 10050 Powerbank</li>
+                                  <li>1 winner: Beats&trade; head set</li>
+                                </ul></div>
+
+                             <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
 
                     <div class="item  text-center" >
                               
@@ -186,54 +252,7 @@
 
                       
 
-                      <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Free Zumba Class</span> New Schedule</h3>
-                         <br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                            <br/><span class="text-danger">July 2, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                            <BR/><span class="text-danger">July 4, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
-
-                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
-                              Sign Up Now</a><br/><br/>
-
-                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
-
-                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
-                              
-                              <div class="text-left"  style="padding-left: 30px;">
-                                <h5>Minor Prizes:</h5>
-                                <ul>
-                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
-                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
-                                  <li>1 winner: JBL Bluetooth speaker</li>
-                                  <li>1 winner: Cheero 10050 Powerbank</li>
-                                  <li>1 winner: Beats&trade; head set</li>
-                                </ul></div>
-
-                             <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                    </div>
+                      
 
                   
                     
