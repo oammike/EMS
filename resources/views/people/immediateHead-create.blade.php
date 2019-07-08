@@ -93,11 +93,13 @@
                       <tbody>
                         @foreach ($users as $member)
                         <tr id="row{{$member->employeeNumber}}">
-                           @if ( file_exists('public/img/employees/'.$member->id.'.jpg') )
+                          <!--  @if ( file_exists('public/img/employees/'.$member->id.'.jpg') )
                          <td class="text-center "><img src="{{asset('public/img/employees/'.$member->id.'.jpg')}}" width='60' /> </td>
                          @else
                          <td class="text-center "><img src="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-32x32.png')}}" class="img-circle" alt="User Image"> </td>
-                         @endif
+                         @endif -->
+
+                         <td> - </td>
                         
                          
                         <td>{{$member->lastname}}</td>
@@ -109,7 +111,7 @@
                         <td>{{$member->status}}</td>
 
                         <td>
-                            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADD_LEADER') ){ ?>  
+                            @if($canAddLeader)
                               @if(is_null($member->nickname))
                                <a style="margin-top:5px" class="promote btn btn-sm btn-flat btn-default" id="promote{{$member->id}}" firstname="{{$member->firstname}}" lastname="{{$member->lastname}}" campaign_id="{{$member->programID}}" employeeNumber="{{$member->employeeNumber}}" memberID="{{$member->id}}"><i class="fa fa-star"></i> Promote as Leader</a>
 
@@ -118,7 +120,7 @@
 
                               @endif
                           
-                          <?php } ?>
+                          @endif
                         </td>
                         </tr>
 

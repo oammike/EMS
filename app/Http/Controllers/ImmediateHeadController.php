@@ -36,8 +36,9 @@ class ImmediateHeadController extends Controller
     public function index()
     {
         
-        $allhead = ImmediateHead::where('lastname','!=','')->orderBy('lastname', 'ASC')->get();
         DB::connection()->disableQueryLog();
+        $allhead = ImmediateHead::where('lastname','!=','')->orderBy('lastname', 'ASC')->get();
+        
 
         $campaigns = DB::table('campaign')->where([
                                                     ['name','!=',''],
@@ -125,13 +126,14 @@ class ImmediateHeadController extends Controller
     {
         //$myCampaign = $this->user->campaign; 
         //$TLs = ImmediateHead::where('campaign_id', $myCampaign->id)->orderBy('lastname','ASC')->get();
-        $allusers = User::orderBy('lastname', 'ASC')->get();
         
-         $users = $allusers->filter(function ($employee)
+        //$allusers = User::orderBy('lastname', 'ASC')->get();
+        
+        /* $users = $allusers->filter(function ($employee)
                                                                                 { //we only need those agents and admin employees that aren't leaders and not resigned
                                                                                     return ($employee->userType_id == 4 ||  $employee->userType_id == 2) && $employee->status_id !== 7 && $employee->status_id !== 8 && $employee->status_id !== 9;
                                                                                 });
-        
+        */
         
          DB::connection()->disableQueryLog();
          $users = DB::table('users')->where([
@@ -148,7 +150,13 @@ class ImmediateHeadController extends Controller
          orderBy('users.lastname','ASC')->get();
          //return $users;
 
-        return view('people.immediateHead-create', compact('users'));
+         $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','ADD_LEADER');
+         (count($canDoThis)> 0 ) ? $canAddLeader=1 : $canAddLeader=0;
+
+         if ($canAddLeader)
+            return view('people.immediateHead-create', compact('users','canAddLeader'));
+        else
+            return view('access-denied');
 
     }
     public function show($id)
