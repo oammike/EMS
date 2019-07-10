@@ -120,6 +120,18 @@
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                       </div>
 
+                      <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
+                              <img src="./storage/uploads/game5.jpg" style="z-index: 2" />
+                              <p class="text-center" ><br/><br/> for winning <strong> Game 5</strong> last night, with<br/> <strong class="text-danger">Final score: 86-77</strong><br/><br/>
+                                
+                                </p>
+                               
+
+                              <br/>
+                    </div> 
+
                     <div class="item  text-center" >
                               
                               <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
