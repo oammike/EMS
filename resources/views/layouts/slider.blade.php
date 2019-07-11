@@ -1,6 +1,6 @@
                     <div class="item  active  text-center" >
                               
-                              <h4 class="text-orange" >A JOURNEY THAT<span class="text-primary">KEEPS GETTING BETTER. </span></h4>
+                              <h4 class="text-orange" >A JOURNEY THAT <span class="text-primary">KEEPS GETTING BETTER. </span></h4>
                               <img src="./storage/uploads/teaser.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Another chapter begins tomorrow. See it here first.<br/><br/>
                                 #WeSpeakYourLanguage #OANewDoors<br/><br/>
