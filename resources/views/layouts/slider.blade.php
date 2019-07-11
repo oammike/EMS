@@ -21,53 +21,7 @@
                     </div> 
 
 
-                    <div class="item text-center" >
-
-                              <img src="./public/img/ana.jpg" style="z-index: 2" />
-
-                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
-                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
-
-                              </div>
-
-                               <h4 style="margin-top: -30px" class="text-danger"><strong>Quality Analyst </strong><br/>
-                               <small>for</small> ADVENT
-                               <!-- <a target="_blank" href="{{action('CampaignController@show','44')}} "> <img src="./public/img/logo_postmates.png" width="120"></a> -->
-                                </h4>
-
-                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> July 19,2019 Friday </strong></h5>
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
-                              <ul class="text-left">
-                                
-                                <li>No written warning within the last 3 months</li>
-                                <li>Passing QA scores (average) in the last 3 months</li>
-                                <li>Recommendation from direct supervisor</li>
-                              </ul>
-
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Job Description: </p>
-                              <ul class="text-left">
-
-                                <li>Randomly audit the required number of tickets per agent per week</li>
-                                <li>Analyze markdowns and identify gaps in our communication and process compliance</li>
-                                <li>Provide recommendations to improve the overall QA scores</li>
-                                <li>Update the QA Score Dashboards</li>
-                                <li>Facilitate the QA talk whenever needed (for new waves, and whenever anything changes in the QA form)</li>
-                                <li>Function as an SME for incoming waves</li>
-                                <li>Facilitate weekly QA Calibration</li>
-                                <li>Provide Training Needs Analysis data to the Training Department</li>
-                                <li>Perform any other QA ad-hoc tasks whenever needed</li>
-
-                              </ul>
-                              <br/><br/>
-
-                               
-                              <br/><br/>
-                              
-
-                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessbpo.com">recruitment@openaccessbpo.com</a></small></p>
-
-
-                      </div>
+                    
 
                     
 
@@ -789,6 +743,58 @@
 
 
 <?php /*
+
+
+<div class="item text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h4 style="margin-top: -30px" class="text-danger"><strong>Quality Analyst </strong><br/>
+                               <small>for</small> ADVENT
+                               <!-- <a target="_blank" href="{{action('CampaignController@show','44')}} "> <img src="./public/img/logo_postmates.png" width="120"></a> -->
+                                </h4>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> July 19,2019 Friday </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
+                              <ul class="text-left">
+                                
+                                <li>No written warning within the last 3 months</li>
+                                <li>Passing QA scores (average) in the last 3 months</li>
+                                <li>Recommendation from direct supervisor</li>
+                              </ul>
+
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Job Description: </p>
+                              <ul class="text-left">
+
+                                <li>Randomly audit the required number of tickets per agent per week</li>
+                                <li>Analyze markdowns and identify gaps in our communication and process compliance</li>
+                                <li>Provide recommendations to improve the overall QA scores</li>
+                                <li>Update the QA Score Dashboards</li>
+                                <li>Facilitate the QA talk whenever needed (for new waves, and whenever anything changes in the QA form)</li>
+                                <li>Function as an SME for incoming waves</li>
+                                <li>Facilitate weekly QA Calibration</li>
+                                <li>Provide Training Needs Analysis data to the Training Department</li>
+                                <li>Perform any other QA ad-hoc tasks whenever needed</li>
+
+                              </ul>
+                              <br/><br/>
+
+                               
+                              <br/><br/>
+                              
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessbpo.com">recruitment@openaccessbpo.com</a></small></p>
+
+
+                      </div>
+
+
+                      
 
 <div class="item  active  text-center" >
                               
