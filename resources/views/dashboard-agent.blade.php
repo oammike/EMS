@@ -60,8 +60,7 @@ select:-webkit-autofill:focus {
              @include('layouts.widget-Postmates')
             @endif
 
-
-               <!--VIDEOS -->
+ <!--VIDEOS -->
                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos</h3>
@@ -73,11 +72,9 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Open Access BPO <span class="text-orange">Speaks with Pride </span><br/><span style="font-size: x-small;"><br/><br/>Henry Chang speaks about Open Access BPO's support and acceptance <br/>for the LGBTQIA+ community.</span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/henry2019.mp4" width="100%" loop controls></video>
-                      <p class="text-center" style="padding:20px">For the first time ever, Open Access BPO is participating in the <strong class="text-danger">Pride March. </strong><br/>
-                      Join us as we march for equality and acceptance. <br/>Be there at the <strong>Marikina Sports Center</strong>
-                      on <strong>June 29, 2019 from 12:00 PM onwards</strong>.</p>
+                      <p class="text-center"><strong class="text-primary">Open Access BPO <span class="text-orange">Zumba Classes </span><br/><span style="font-size: x-small;">July 09, 2019 - G2 Office</span>  </strong></p>
+                      <video id="teaser" src="storage/uploads/zumba-07-09.mp4" width="100%" loop controls></video>
+                      
                     </div>
                 </div>
 
