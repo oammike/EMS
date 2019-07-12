@@ -1,9 +1,9 @@
                     <div class="item  active  text-center" >
                               
-                              <h4 class="text-orange" >A JOURNEY THAT <span class="text-primary">KEEPS GETTING BETTER. </span></h4>
-                              <img src="./storage/uploads/teaser.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Another chapter begins tomorrow. See it here first.<br/><br/>
-                                #WeSpeakYourLanguage #OANewDoors<br/><br/>
+                              <h4 class="text-orange" >Ribbon Cutting <span class="text-primary">Ceremony </span></h4>
+                              <img src="./storage/uploads/ribbon-cutting-2.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's <a href="./user/1" target="_blank" style="font-weight:bold;">CEO Ben Davidowitz</a>, <a href="./user/1784" target="_blank" style="font-weight:bold;">VP for Global Operations Joy Sebastian,</a> and <a href="./user/184" target="_blank" style="font-weight:bold;">President Henry Chang</a> officiated the launch of the company's new office in Glorietta 2 Corporate Center, Makati City earlier today.<br/><br/>
+                              #WeSpeakYourLanguage #OANewDoors<br/><br/>
 
                                </p>
                                
@@ -11,28 +11,7 @@
                     </div> 
 
 
-                     <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Open Access BPO <span class="text-primary">Ribbon Cutting Ceremony</span></h4>
-                              <img src="./storage/uploads/ribbon-cutting.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Everyone!<br/><br/>
-                                We are pleased to inform you that we are going to have our <strong>RIBBON CUTTING CEREMONY </strong>in our G2 office on <strong class="text-danger">July 12, 2019 Friday at 1:30 PM.</strong><br/><br/>
-                                All employees who are available at this time are highly encouraged to grace the ceremony. It will be attended by invited bloggers and writers who will cover the event and of course our company executives. It would be great to have you there!<br/><br/></p>
-
-                                <h4 class="text-orange">Celebration/Happy Hour to follow <br/>at Pura Vida, in Poblacion Makati City <br/>from 6:00pm-9:30pm.</h4>
-
-                                <p class="text-left" style="padding-left: 50px;">REMINDERS:<br/><br/>
-                                Ribbon Cutting Ceremony<br/>
-                                - To all employees attending the ribbon cutting ceremony, please make sure to wear your newly issued blue lanyard and company ID.<br/><br/>
-
-                                Happy Hour<br/>
-                                - Kindly <a href="https://docs.google.com/forms/d/e/1FAIpQLSfF9enviYUA3lQEBXQ-4kcLPG4vK9VmVFK3aKRQQ89_EV5T0w/viewform?usp=sf_link" target="_blank" style="font-weight: bold">register here</a> for the party. Deadline for registration is on July 11, 2019 Thursday at 8:00 PM.<br/>
-                                - Here's a <a href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/Pura+Vida+Manila,+Don+Pedro,+Makati,+Metro+Manila/@14.5600704,121.0224205,15.75z/data=!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c9aae56ef48f:0x3308361b40ce8f6f!2m2!1d121.0314115!2d14.5639081!3e0" target="_blank">google maps link</a> from Jaka to Pura Vida.<br/>
-                              See you all there!</p>
-                               
-                              <br/>
-                    </div> 
-
+                    
 
                     
 
@@ -44,10 +23,10 @@
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                            <br/><span class="text-danger">July 9, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">July 16, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                            <BR/><span class="text-danger">July 11, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">July 18, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
 
                             <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
                               Sign Up Now</a><br/><br/>
@@ -756,6 +735,29 @@
 
 
 <?php /*
+
+ <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Open Access BPO <span class="text-primary">Ribbon Cutting Ceremony</span></h4>
+                              <img src="./storage/uploads/ribbon-cutting.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Everyone!<br/><br/>
+                                We are pleased to inform you that we are going to have our <strong>RIBBON CUTTING CEREMONY </strong>in our G2 office on <strong class="text-danger">July 12, 2019 Friday at 1:30 PM.</strong><br/><br/>
+                                All employees who are available at this time are highly encouraged to grace the ceremony. It will be attended by invited bloggers and writers who will cover the event and of course our company executives. It would be great to have you there!<br/><br/></p>
+
+                                <h4 class="text-orange">Celebration/Happy Hour to follow <br/>at Pura Vida, in Poblacion Makati City <br/>from 6:00pm-9:30pm.</h4>
+
+                                <p class="text-left" style="padding-left: 50px;">REMINDERS:<br/><br/>
+                                Ribbon Cutting Ceremony<br/>
+                                - To all employees attending the ribbon cutting ceremony, please make sure to wear your newly issued blue lanyard and company ID.<br/><br/>
+
+                                Happy Hour<br/>
+                                - Kindly <a href="https://docs.google.com/forms/d/e/1FAIpQLSfF9enviYUA3lQEBXQ-4kcLPG4vK9VmVFK3aKRQQ89_EV5T0w/viewform?usp=sf_link" target="_blank" style="font-weight: bold">register here</a> for the party. Deadline for registration is on July 11, 2019 Thursday at 8:00 PM.<br/>
+                                - Here's a <a href="https://www.google.com/maps/dir/6780+Ayala+Avenue,+Legazpi+Village,+Makati,+Metro+Manila/Pura+Vida+Manila,+Don+Pedro,+Makati,+Metro+Manila/@14.5600704,121.0224205,15.75z/data=!4m14!4m13!1m5!1m1!1s0x3397c90f2680bdb5:0xd7a0a45a86b37867!2m2!1d121.0193991!2d14.5573936!1m5!1m1!1s0x3397c9aae56ef48f:0x3308361b40ce8f6f!2m2!1d121.0314115!2d14.5639081!3e0" target="_blank">google maps link</a> from Jaka to Pura Vida.<br/>
+                              See you all there!</p>
+                               
+                              <br/>
+                    </div> 
+
 
 
 <div class="item text-center" >
