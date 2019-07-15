@@ -1266,6 +1266,8 @@ class FormSubmissionsController extends Controller
         $keys = $formItems->keys();
         $coll = new Collection;
 
+        $correct = Carbon::now('GMT+8');
+
         if ($formItems->contains("- select one -") || $formItems->contains("") )
             return response()->json(['status'=>0,'error'=>"Fill out all required fields before submitting."]);
         else {
@@ -1279,6 +1281,8 @@ class FormSubmissionsController extends Controller
             $userSubmission = new FormSubmissionsUser;
             $userSubmission->user_id = $user->id;
             $userSubmission->formBuilder_id = $formItem->formBuilder_id;
+            $userSubmission->created_at = $correct->format('Y-m-d H:i:s');
+            $userSubmission->updated_at = $correct->format('Y-m-d H:i:s');
             $userSubmission->save();
 
             foreach($keys as $k){
@@ -1301,6 +1305,8 @@ class FormSubmissionsController extends Controller
                         $submission->formBuilder_itemID = $formItem->id;
                         //$submission->formBuilder_id = $formItem->formBuilder_id;
                         $submission->value = $formItems[$k];
+                        $submission->created_at = $correct->format('Y-m-d H:i:s');
+                        $submission->updated_at = $correct->format('Y-m-d H:i:s');
                         $submission->save();
                         $coll->push(['submittedx'=>$submission, 's1'=>$s[1]]);
 
@@ -1319,6 +1325,8 @@ class FormSubmissionsController extends Controller
                         $submission->formBuilder_itemID = $formItem->id;
                         //$submission->formBuilder_id = $formItem->formBuilder_id;
                         $submission->value = $formItems[$k];
+                        $submission->created_at = $correct->format('Y-m-d H:i:s');
+                        $submission->updated_at = $correct->format('Y-m-d H:i:s');
                         $submission->save();
                         $coll->push(['submitted'=>$submission, 's1'=>$s[1] ]);
                     } 
