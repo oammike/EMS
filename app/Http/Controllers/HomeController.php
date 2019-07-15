@@ -341,7 +341,20 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/g2-ribbon-mike-".$i.".jpg",
                                 'description'=>"G2 Office Launching 07/12/2019 (Photo by: Mike Pamero)",
                                 'category'=>"G2 Office Launching 07/12/2019 (Photo by: Mike Pamero)"]);
+                  }
 
+                  for($i=1; $i<=61; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-g2-ribbon-artem-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/g2-ribbon-artem--".$i.".jpg",
+                                'description'=>"G2 Office Launching 07/12/2019 (Photo by: Artem Levykin)",
+                                'category'=>"G2 Office Launching 07/12/2019 (Photo by: Artem Levykin)"]);
+                  }
+
+                   for($i=1; $i<=51; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-g2-ribbon-wendy-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/g2-ribbon-wendy-".$i.".jpg",
+                                'description'=>"G2 Office Launching 07/12/2019 (Photo by: Wendy Pilar)",
+                                'category'=>"G2 Office Launching 07/12/2019 (Photo by: Wendy Pilar)"]);
                   }
 
         } break;
