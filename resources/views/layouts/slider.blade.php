@@ -3,7 +3,10 @@
                               <h4 class="text-orange" >Ribbon Cutting <span class="text-primary">Ceremony </span></h4>
                               <img src="./storage/uploads/ribbon-cutting-2.jpg" style="z-index: 2" />
                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's <a href="./user/1" target="_blank" style="font-weight:bold;">CEO Ben Davidowitz</a>, <a href="./user/1784" target="_blank" style="font-weight:bold;">VP for Global Operations Joy Sebastian,</a> and <a href="./user/184" target="_blank" style="font-weight:bold;">President Henry Chang</a> officiated the launch of the company's new office in Glorietta 2 Corporate Center, Makati City earlier today.<br/><br/>
+
                               #WeSpeakYourLanguage #OANewDoors<br/><br/>
+
+                              <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>13]) }}"><i class="fa fa-picture-o"></i> Ribbon Cutting</a> |  <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>14]) }}"><i class="fa fa-picture-o"></i> After Party</a>
 
                                </p>
                                

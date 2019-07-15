@@ -72,8 +72,9 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Open Access BPO <span class="text-orange">Zumba Classes </span><br/><span style="font-size: x-small;">July 09, 2019 - G2 Office</span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/zumba-07-09.mp4" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-primary">Open Access BPO <span class="text-orange">G2 Office Launching </span><br/><span style="font-size: x-small;">July 12, 2019 Friday</span>  </strong></p>
+                      <video id="teaser" src="storage/uploads/ribboncutting.mp4" width="100%" loop controls></video>
+                      <p align="center">Video by: Azrael Coladila</p>
                       
                     </div>
                 </div>
