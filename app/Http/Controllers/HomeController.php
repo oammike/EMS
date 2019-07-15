@@ -74,7 +74,15 @@ class HomeController extends Controller
 
           switch ($album) {
 
-            
+            case '14':{
+               fwrite($file, "-------------------\n G2 AfterParty [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
+            case '13':{
+               fwrite($file, "-------------------\n G2 Launch [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
             
             case '12':{
                fwrite($file, "-------------------\n Pride2019 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -319,6 +327,34 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/pride2019-".$i.".jpg",
                                 'description'=>"Pride March [Sat Jun 29 2019] Photos by: Wendy Pilar",
                                 'category'=>"Pride March [Sat Jun 29 2019] Photos by: Wendy Pillar"]);
+
+                  }
+
+        } break;
+
+        case '13': {
+ 
+                    //G2 LAUNCHING 2019
+      
+                  for($i=1; $i<=30; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-g2-ribbon-mike-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/g2-ribbon-mike-".$i.".jpg",
+                                'description'=>"G2 Office Launching 07/12/2019 (Photos by: Mike Pamero)",
+                                'category'=>"G2 Office Launching 07/12/2019 (Photos by: Mike Pamero)"]);
+
+                  }
+
+        } break;
+
+        case '14': {
+ 
+                    //G2 AFTER PARTY 2019
+      
+                  for($i=1; $i<=60; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-g2-after-mike-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/g2-after-mike-".$i.".jpg",
+                                'description'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photos by: Mike Pamero)",
+                                'category'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photos by: Mike Pamero)"]);
 
                   }
 
@@ -821,7 +857,7 @@ class HomeController extends Controller
                     if($this->user->id !== 564 ) {
                       $user = User::find(Input::get('id'));
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Played Zumba Video by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fwrite($file, "-------------------\n Played G2 Video by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                     } 
 
