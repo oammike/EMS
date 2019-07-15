@@ -339,8 +339,8 @@ class HomeController extends Controller
                   for($i=1; $i<=30; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-g2-ribbon-mike-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/g2-ribbon-mike-".$i.".jpg",
-                                'description'=>"G2 Office Launching 07/12/2019 (Photos by: Mike Pamero)",
-                                'category'=>"G2 Office Launching 07/12/2019 (Photos by: Mike Pamero)"]);
+                                'description'=>"G2 Office Launching 07/12/2019 (Photo by: Mike Pamero)",
+                                'category'=>"G2 Office Launching 07/12/2019 (Photo by: Mike Pamero)"]);
 
                   }
 
@@ -353,8 +353,8 @@ class HomeController extends Controller
                   for($i=1; $i<=60; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-g2-after-mike-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/g2-after-mike-".$i.".jpg",
-                                'description'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photos by: Mike Pamero)",
-                                'category'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photos by: Mike Pamero)"]);
+                                'description'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photo by: Mike Pamero)",
+                                'category'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photo by: Mike Pamero)"]);
 
                   }
 
