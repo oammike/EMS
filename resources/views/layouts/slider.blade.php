@@ -6,7 +6,8 @@
 
                               #WeSpeakYourLanguage #OANewDoors<br/><br/>
 
-                              <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>13]) }}"><i class="fa fa-picture-o"></i> Ribbon Cutting</a> |  <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>14]) }}"><i class="fa fa-picture-o"></i> After Party</a>
+                              <strong>More Pics:</strong><br/>
+                              <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>13]) }}"><i class="fa fa-picture-o"></i> Ribbon Cutting</a> |  <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>15]) }}"><i class="fa fa-picture-o"></i> Photo Booth</a> | <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>14]) }}"><i class="fa fa-picture-o"></i> After Party</a>
 
                                </p>
                                

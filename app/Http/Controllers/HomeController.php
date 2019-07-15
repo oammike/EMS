@@ -74,6 +74,11 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '15':{
+               fwrite($file, "-------------------\n G2 Photobooth [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '14':{
                fwrite($file, "-------------------\n G2 AfterParty [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -368,6 +373,20 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/g2-after-mike-".$i.".jpg",
                                 'description'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photo by: Mike Pamero)",
                                 'category'=>"G2 Office Launching - After Party @ Pura Vida 07/12/2019 (Photo by: Mike Pamero)"]);
+
+                  }
+
+        } break;
+
+        case '15': {
+ 
+                    //G2 Photobooth
+      
+                  for($i=1; $i<=50; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-g2-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/g2-".$i.".jpg",
+                                'description'=>"G2 Office Launching - Photobooth 07/12/2019 (Photo by: Pose &amp; Print)",
+                                'category'=>"G2 Office Launching - Photobooth 07/12/2019 (Photo by: Pose &amp; Print)"]);
 
                   }
 
