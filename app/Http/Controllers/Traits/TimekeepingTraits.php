@@ -940,7 +940,7 @@ trait TimekeepingTraits
     $pendingDTRP = null; 
     $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
     $logPalugit=null;
-    $palugitDate=null;$maxOut=null; $checker=null;
+    $palugitDate=null;$maxOut=null; $checker=null;$theNextday=null;
     //$userLog=null;
 
     
@@ -1285,17 +1285,21 @@ trait TimekeepingTraits
 
       /*--- after getting the logs, IF (logIN_type) go to another filter pass
             else, just proceed -- */
+
+     $tommorow = Carbon::parse($thisPayrollDate)->addDay();
             
      $probTime1 = Carbon::parse($thisPayrollDate." 00:00:00","Asia/Manila")->format('Y-m-d H:i:s');
      $probTime2 = Carbon::parse($thisPayrollDate." 03:00:00","Asia/Manila")->format('Y-m-d H:i:s');
+
      //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
 
-     $checker = ['userLg'=>$userLog];
+     $checker = null; //['userLg'=>$userLog];
       if (is_null($userLog) || count($userLog)<1 )
       {  
 
         /* ------------ THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS ---------
                                   perform this only for LOG INS                         */
+
 
           if ($logType_id == 1){
 
@@ -1397,25 +1401,28 @@ trait TimekeepingTraits
           } else if($logType_id == 2)
           {
             // if  12MN < beginShift > 3AM
-            if (($beginShift->format('Y-m-d H:i:s') >= $probTime1) && ($beginShift->format('Y-m-d H:i:s') <= $probTime2)) // if shift is NOT within the day
+             $checker = ['enter'=>"12MN < beginShift > 3AM", 'beginShift'=>$beginShift->format('Y-m-d H:i:s'),'$probTime1'=>$probTime1,'$probTime2'=>$probTime2 ];
+            /*if (($beginShift->format('Y-m-d H:i:s') >= $probTime1) && ($beginShift->format('Y-m-d H:i:s') <= $probTime2)) // if shift is NOT within the day
             {
-                  /*-- check for logs within 6hr grace period for problem shifts --*/
+                  //-- check for logs within 6hr grace period for problem shifts --
 
                   proceedToLogTomorrow:
                   
-                  $tommorow = Carbon::parse($thisPayrollDate)->addDay();
+                  
                   $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
 
                   if (count($bioForTom) > 0){
                     //$finishShift = $endShift; // Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);// 
 
 
-                      if ($isAproblemShift)
+                      if (!$isAproblemShift)
                         $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
                       
                       else
                         //$logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
                         $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+                      $checker = ['enterPalugit'=>$logPalugit];
 
 
                       if (count($logPalugit) > 0) 
@@ -1462,10 +1469,14 @@ trait TimekeepingTraits
 
             } 
             else 
-            {
+            {*/
               //within the day shift pero walang logs, so baka nag OT sya kinabukasan an yung LogOUT
               //so we need to get logs from tomorrow within the 8hr period
-              $tommorow = Carbon::parse($thisPayrollDate)->addDay();
+              //$tommorow = Carbon::parse($thisPayrollDate)->addDay();
+
+              proceedToLogTomorrow:
+
+              
               $allowedOT = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(17);
               $bioForTom = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
 
@@ -1474,6 +1485,8 @@ trait TimekeepingTraits
               {
                 
                 $uLog = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
+
+                $theNextday = true;
 
                 if (count($uLog) > 0)
                 {
@@ -1490,10 +1503,11 @@ trait TimekeepingTraits
                         //goto proceedWithLogs;
 
                         $b= Biometrics::find($userLog->first()->biometrics_id);
-                          if($isAproblemShift) 
+                        /*if($isAproblemShift) 
                           {
                             $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A')));
-                          } else $log = date('h:i:s A',strtotime($userLog->first()->logTime));
+                          } else $log = date('h:i:s A',strtotime($userLog->first()->logTime));*/
+                          $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A')));
 
 
 
@@ -1612,12 +1626,12 @@ trait TimekeepingTraits
                 } 
 
               }else goto proceedWithBlank;
-              //goto proceedToLogTomorrow;
+             
               
 
               
 
-            } 
+            /*}*/ 
           /* ------------ END THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS ---------*/       
           } else // ---proceed with the usual null logs
           {
@@ -2047,7 +2061,7 @@ trait TimekeepingTraits
                     'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
                     'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
                     'arg1'=>$checker,
-                    
+                    'isAproblemShift'=>$isAproblemShift,
                     'dtrp'=>$hasApprovedDTRP->first()]);
 
               
