@@ -716,12 +716,6 @@
 
                                                        
 
-
-
-                                                        
-
-                                                        <!-- **************** OVERTIME **************** -->
-
                                                         @if($data['hasLeave'])
 
                                                              <td class="text-center"> 0
@@ -751,51 +745,107 @@
                                                             
                                                           </td>  
 
-
+                                                       <!-- **************** OVERTIME **************** -->    
                                                         @else
 
-                                                            @if ($data['hasOT'])
-                                                             
+                                                            @if ($data['hasOT'])                                     
+                                                                           
+                                                                    <!-- ** we now process any pre and post OTs ** -->
+                                                                    <td class="text-center"> 
+                                                                        @if( count($data['userOT']) > 1)
 
-                                                                  @if ($theImmediateHead || $canChangeSched)
-                                                                            @if ($data['hasApprovedOT'])
-                                                                            <td class="text-center"> 
-                                                                              @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
-                                                                              
-                                                                              {!! $data['billableForOT'] !!} 
+                                                                            <?php $postOT = collect($data['userOT'])->where('preshift',null); ?>
+                                                                            <?php $preOT = collect($data['userOT'])->where('preshift',1); ?>
 
-                                                                              <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right text-green" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a></td>
-                                                                            
-                                                                            @else 
+                                                                            @if (count($preOT) > 0)
 
-                                                                            <td class="text-center">
-                                                                              @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
-                                                                              
-                                                                              {!! $data['billableForOT'] !!} 
+                                                                               {{$preOT->first()->billable_hours}} <a style="font-weight: bold;font-size: smaller;" class="text-success" target="_blank" href="../user_ot/{{$preOT->first()->id}}">(Pre-shift)</a><br/>
+                                                                             
 
-                                                                              <a title="View Details" target="_blank" class="pull-right text-orange" style="font-size:1.2em;" href="{{action('UserOTController@show',$data['userOT']->first()['id'])}} "><i class="fa fa-credit-card"></i></a></td>
-                                                                            
                                                                             @endif
 
-                                                                            <!--  <input type="hidden" name="OT_billable_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['billableForOT']}}" />
- -->
+                                                                            @if (count($postOT) > 0)
+
+                                                                              {!! $data['billableForOT'] !!} <span style="font-weight: bold; font-size: smaller;" >(Post)</span>
+                                                                              <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right @if ($postOT->first()->isApproved)text-green @else text-gray @endif" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a>
+
+                                                                            @endif
+                                                                            
+
+                                                                        @else
+
+                                                                            {!! $data['billableForOT'] !!} 
+
+                                                                            @if(count($data['approvedOT']) > 0)
+
+                                                                                @if(is_null($data['approvedOT']->first()->preshift))
+                                                                                     <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right @if ($data['approvedOT']->first()->isApproved)text-green @else text-gray @endif" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a>
+
+                                                                                @else
+
+                                                                                   {!! $data['OTattribute'] !!}
+                                                                                    @include('layouts.modals-OT', [
+                                                                                      'modelRoute'=>'user_ot.store',
+                                                                                      'modelID' => '_OT'.$data["payday"], 
+                                                                                      'modelName'=>"Overtime ", 
+                                                                                      'modalTitle'=>'Submit', 
+                                                                                      'Dday' =>$data["day"],
+                                                                                      'DproductionDate' =>$data["productionDate"],
+                                                                                      'biometrics_id'=> $data["biometrics_id"],
+                                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                                      'isRD'=> $data["isRD"],
+                                                                                      'formID'=>'submitOT',
+                                                                                      'icon'=>'glyphicon-up' ])
 
 
-                                                                  @else
-                                                                  <td class="text-center">
-                                                                    @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
-                                                                    
-                                                                    {!! $data['billableForOT'] !!} 
+                                                                                @endif
 
-                                                                    <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right @if ($data['hasApprovedOT'])text-green @else text-gray @endif" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a></td>
-                                                                  @endif
+                                                                            @else
+
+                                                                              @if ($data['userOT']->first()->isApproved)
+                                                                                  <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right text-green" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a>
+
+                                                                              @elseif ($data['userOT']->first()->isApproved == '0')
+                                                                                  <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right text-gray" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a>
+
+                                                                              @else
+
+                                                                                  <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="Pending Approval" class="pull-right text-orange" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a>
+
+                                                                              @endif 
+                                                                      </td>
+
+                                                                                      @include('layouts.modals-OT', [
+                                                                                      'modelRoute'=>'user_ot.store',
+                                                                                      'modelID' => '_OT'.$data["payday"], 
+                                                                                      'modelName'=>"Overtime ", 
+                                                                                      'modalTitle'=>'Submit', 
+                                                                                      'Dday' =>$data["day"],
+                                                                                      'DproductionDate' =>$data["productionDate"],
+                                                                                      'biometrics_id'=> $data["biometrics_id"],
+                                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                                      'isRD'=> $data["isRD"],
+                                                                                      'formID'=>'submitOT',
+                                                                                      'icon'=>'glyphicon-up' ])
+
+                                                                            
+
+                                                                            @endif
+                                                                         
+
+                                                                        @endif
+                                                                   
+
+
+                                                                 
+
 
                                                              
                                                                  
                                                                  <input type="hidden" name="OT_billable_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['billableForOT']}}" />
 
                                                                 
-
+                                                            <!--else if data[hasOT]-->
                                                             @else
                                                             <td class="text-center">
                                                               @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
@@ -816,17 +866,44 @@
                                                         <td class="text-center">
                                                           @if( empty($data['approvedOT']) ) 0 
                                                           <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" /> 
-                                                          <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
                                                           <input type="hidden" name="OT_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
 
                                                           @else 
 
-                                                            @if( $data['approvedOT']->first()['isApproved'] )
-                                                            <strong>{{$data['approvedOT']->first()['filed_hours']}}</strong> 
-                                                            @else
-                                                             0
+                                                            <?php $allOT=0;?>
 
-                                                            @endif
+                                                            @foreach($data['approvedOT'] as $aOT)
+
+                                                                @if($aOT['isApproved'])
+                                                                <?php $allOT += $aOT['filed_hours']; ?>
+                                                                <strong>
+                                                                    
+                                                                    @if($aOT['preshift'])
+                                                                      &nbsp;<small>(Pre-shift)</small>
+                                                                    @else
+                                                                     &nbsp;<small>(post-shift)</small>
+                                                                    @endif
+                                                                    {{$aOT['filed_hours']}} 
+
+                                                                </strong> <br/>
+                                                                @else
+
+                                                                  0  @if($aOT['preshift'])
+                                                                      &nbsp;<small>(Pre-shift)</small>
+                                                                     @else
+                                                                      &nbsp;<small>(post-shift)</small>
+                                                                    @endif
+                                                                  <br/>
+
+                                                                @endif
+
+
+
+                                                            @endforeach
+
+                                                            @if($allOT!==0)<strong class="text-success">TOTAL: {{number_format($allOT,2)}}</strong>@endif
+
+                                                           
                                                           
                                                           <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['approvedOT']->first()['filed_hours']}}" />
                                                            <input type="hidden" name="OT_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['userOT']->first()['id']}}" />
@@ -903,18 +980,7 @@
 
 
                                                         @if ($data['hasOT'])
-                                                            @include('layouts.modals-OT_details', [
-                                                                  'modelRoute'=>'user_ot.store',
-                                                                  'modelID' => '_OT_details'.$data["payday"], 
-                                                                  'modelName'=>"Overtime ", 
-                                                                  'modalTitle'=>'OT Details', 
-                                                                  'Dday' =>$data["day"],
-                                                                  'DproductionDate' =>$data["productionDate"],
-                                                                  'biometrics_id'=> $data["biometrics_id"],
-                                                                  'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                  'isRD'=> $data["isRD"],
-                                                                  'formID'=>'submitOT',
-                                                                  'icon'=>'glyphicon-up' ])
+                                                            
 
                                                         @else
 
