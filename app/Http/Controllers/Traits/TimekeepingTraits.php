@@ -1815,10 +1815,11 @@ trait TimekeepingTraits
                                             //goto proceedWithLogs;
 
                                              $b= $bioForTom->first();
-                                              if($isAproblemShift) 
+                                              /*if($isAproblemShift) 
                                               {
                                                 $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A')));
-                                              } else $log = date('h:i:s A',strtotime($userLog->first()->logTime));
+                                              } else $log = date('h:i:s A',strtotime($userLog->first()->logTime));*/
+                                              $log = date('M d h:i:s A',strtotime(Carbon::parse($b->productionDate.' '.$userLog->first()->logTime,'Asia/Manila')->format('M d h:i:s A')));
 
                                            
                                              $timing = Carbon::parse(date("M d",strtotime($bioForTom->first()->productionDate))." ". date('h:i:s A',strtotime($userLog->first()->logTime)),'Asia/Manila');
