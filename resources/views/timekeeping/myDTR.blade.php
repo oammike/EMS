@@ -72,12 +72,12 @@
                                               @if(count($camps) > 1)
 
                                                   @foreach($camps as $ucamp)
-                                                      {{$ucamp->name}} , 
+                                                      <a target="_blank" href="../campaign/{{$ucamp->id}}"> {{$ucamp->name}} </a>, 
 
                                                   @endforeach
 
                                               @else
-                                              {{$camps->first()->name}}
+                                              <a target="_blank" href="../campaign/{{$camps->first()->id}}"> {{$camps->first()->name}}</a>
 
                                               @endif
                                               </span>
@@ -90,7 +90,7 @@
                                           <div class="col-sm-3">
                                             <div class="description-block">
                                               <p class="description-header"><i class="fa fa-street-view margin-r-5"></i> Immediate Head: </p>
-                                              <span class="description-text text-primary">{{$immediateHead->firstname}} {{$immediateHead->lastname}}</span>
+                                              <a target="_blank" href="../user/{{$immediateHead->userData->id}}"><span class="description-text text-primary">{{$immediateHead->firstname}} {{$immediateHead->lastname}}</span></a>
                                             </div>
                                             <!-- /.description-block -->
                                           </div>

@@ -3230,7 +3230,7 @@ class DTRController extends Controller
            //return response()->json(['isFixedSched'=>$isFixedSched]);
 
              // return  count($user->monthlySchedules->sortByDesc('productionDate'));
-
+          //return $camps;
            return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
 
 
