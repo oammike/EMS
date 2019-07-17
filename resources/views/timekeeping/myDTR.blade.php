@@ -946,6 +946,8 @@
 
                                                             @if($allOT!==0)<strong class="text-success">TOTAL: {{number_format($allOT,2)}}</strong>
                                                             <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{number_format($allOT,2)}}" />
+                                                            @else
+                                                             <input type="hidden" name="OT_approved_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" /> 
                                                             @endif
 
                                                            
