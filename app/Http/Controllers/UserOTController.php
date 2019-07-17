@@ -416,11 +416,15 @@ class UserOTController extends Controller
                 'timeStart' => date('h:i A', strtotime($OT->timeStart)),
                 'timeEnd'=>date('h:i A', strtotime($OT->timeEnd)),
                 'reason'=> $OT->reason ]);
+
+            $approvers = $user->approvers;
+            //Timekeeping Trait
+            $isApprover = $this->checkIfAnApprover($approvers, $this->user);
             
 
             
             //return $details;
-            return view('timekeeping.show-OT', compact('user', 'profilePic','camps', 'OT','details'));
+            return view('timekeeping.show-OT', compact('user', 'profilePic','camps', 'OT','details','isApprover'));
 
             }
         
@@ -444,17 +448,25 @@ class UserOTController extends Controller
         $OT->billedType = $request->billedtype;
     	$OT->isApproved = null;
 
-    	if ($request->TLsubmitted == 1)
+       
+        $employee = User::find($OT->user_id);
+
+        $approvers = $employee->approvers;
+
+        //Timekeeping Trait
+        $isApprover = $this->checkIfAnApprover($approvers, $this->user);
+
+    	if ($request->TLsubmitted == 1 || $isApprover)
 		{
-			$OT->isApproved = true; $TLsubmitted=true;
-		} else { $OT->isApproved = null; $TLsubmitted=false; }
+			$OT->isApproved = true; $TLsubmitted=true; $OT->approver =$employee->supervisor->immediateHead_Campaigns_id;
+		} else { $OT->isApproved = null; $TLsubmitted=false;$OT->approver = null; }
 
 
-    	$OT->approver = null; //$request->approver; *------- set to null muna. Will have value depende kung sinong approver mag approve
+    	 //$request->approver; *------- set to null muna. Will have value depende kung sinong approver mag approve
     	$OT->save();
 
     	//--- notify the TL concerned
-    	$employee = User::find($OT->user_id);
+    	
 
         // get WFM
         $wfm = collect(DB::table('team')->where('campaign_id',50)->

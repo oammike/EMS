@@ -107,7 +107,7 @@
                                                     OT Type: <strong> <em> <small>{{$details[0]['billedType']}}</small></em></strong><br/>
                                                     <strong>Reason: </strong> <em> <small>{{$details[0]['reason']}}</small></em></td>
 
-                                                  @if (is_null($OT->isApproved))
+                                                  @if (is_null($OT->isApproved) && $isApprover)
                                                   <td>
                                                     <a href="#" id="approve" data-action="1" class="updateCWS btn btn-sm btn-success pull-left" style="margin-right: 5px"><i class="fa fa-thumbs-up"></i> Approve</a>
                                                     <a href="#" id="reject" data-action="0" class="updateCWS btn btn-sm btn-danger pull-left"><i class="fa fa-thumbs-down"></i> Deny</a>
@@ -117,7 +117,10 @@
 
                                                   <td>
                                                     @if($OT->isApproved) <h4 class="text-success">Approved</h4>
-                                                    @else <h4 class="text-danger">Denied</h4>@endif
+                                                    @elseif($OT->isApproved == '0')
+                                                      <h4 class="text-danger">Denied</h4>
+
+                                                    @else <h4 class="text-orange">Pending Approval</h4>@endif
 
                                                   </td>
 

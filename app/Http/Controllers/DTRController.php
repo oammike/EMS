@@ -268,7 +268,7 @@ class DTRController extends Controller
                               // call cell manipulation methods
                               $cells->setBackground('##1a8fcb');
                               $cells->setFontColor('#ffffff');
-                              $cells->setFontSize(30);
+                              $cells->setFontSize(40);
                               $cells->setFontWeight('bold');
 
                           });
@@ -295,6 +295,7 @@ class DTRController extends Controller
 
                             });
                           // Set height for a single row
+                          $sheet->setHeight(2, 80);
                           $sheet->setHeight(3, 50);
 
                           // Freeze the first column
@@ -307,6 +308,10 @@ class DTRController extends Controller
                           // Set width for a single column
                           $sheet->setWidth('A', 40);
                           $sheet->setWidth('D', 22);
+                          $sheet->setWidth('F', 12);
+                          $sheet->setWidth('G', 12);
+                          $sheet->setWidth('J', 12);
+                          $sheet->setWidth('K', 12);
                           $sheet->setWidth('L', 9);
                           $sheet->setWidth('P', 9);
 
@@ -371,26 +376,77 @@ class DTRController extends Controller
 
                               //*** OT
                               if (!empty($dData->first()->OT_id)){
-                                $deets = User_OT::find($dData->first()->OT_id);
 
-                                $arr[$i] = $deets->timeStart; $i++;
-                                $arr[$i] = $deets->timeEnd; $i++;
-                                switch ($deets->billedType) {
-                                  case '1': $otType = "billed"; break;
-                                  case '2': $otType = "non-billed"; break;
-                                  case '3': $otType = "patch"; break;
-                                  default: $otType = "billed"; break;
-                                }
-                                if ($deets->isApproved)
+                                $allOT = User_OT::where('biometrics_id',$dData->first()->biometrics_id)->get();
+
+                                if (count($allOT) > 1)
                                 {
-                                  $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
-                                  $arr[$i] = $deets->reason; $i++;
+                                  $s = ""; $e =""; $fh=""; $r=""; $c=1;
+                                  foreach ($allOT as $o) 
+                                  {
+                                    $s .= "[".$c."] ".$o->timeStart." | ";
+                                    $e .= "[".$c."] ".$o->timeEnd." | ";
 
-                                }else{
-                                  $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
-                                  $arr[$i] = $deets->reason; $i++;
+                                    switch ($o->billedType) {
+                                      case '1': $otType = "billed"; break;
+                                      case '2': $otType = "non-billed"; break;
+                                      case '3': $otType = "patch"; break;
+                                      default: $otType = "billed"; break;
+                                    }
+
+                                    if ($o->isApproved)
+                                    {
+                                      $fh .= "[".$c."] ".$o->filed_hours." (".$otType.") | ";
+                                      
+
+                                    }else{
+                                      
+                                      $fh .= "**[".$c."] ".$o->filed_hours." ( DENIED ) | ";
+                                      
+
+                                    }
+                                    $r .= $c.".) ".$o->reason."  | "; $c++;
+
+
+                                  }
+
+
+                                  $arr[$i] = $s; $i++;
+                                  $arr[$i] = $e; $i++;
+
+                                  $arr[$i] = $fh; $i++;
+                                  $arr[$i] = $r; $i++;
+                                  
+                                  
+
+
+                                }else
+                                {
+
+                                  $deets = User_OT::find($dData->first()->OT_id);
+
+                                  $arr[$i] = $deets->timeStart; $i++;
+                                  $arr[$i] = $deets->timeEnd; $i++;
+                                  switch ($deets->billedType) {
+                                    case '1': $otType = "billed"; break;
+                                    case '2': $otType = "non-billed"; break;
+                                    case '3': $otType = "patch"; break;
+                                    default: $otType = "billed"; break;
+                                  }
+                                  if ($deets->isApproved)
+                                  {
+                                    $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
+                                    $arr[$i] = $deets->reason; $i++;
+
+                                  }else{
+                                    $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
+                                    $arr[$i] = $deets->reason; $i++;
+
+                                  }
 
                                 }
+
+                                
                                 
 
                               }else{
@@ -546,7 +602,7 @@ class DTRController extends Controller
                           $lastrow= $sheet->getHighestRow(); 
                           $sheet->getStyle('A4:B'.$lastrow)->getAlignment()->setWrapText(true); 
                           $sheet->getStyle('E4:E'.$lastrow)->getAlignment()->setWrapText(true); 
-                          $sheet->getStyle('L4:M'.$lastrow)->getAlignment()->setWrapText(true); 
+                          $sheet->getStyle('J4:M'.$lastrow)->getAlignment()->setWrapText(true); 
                           $sheet->getStyle('O4:P'.$lastrow)->getAlignment()->setWrapText(true); 
                           $sheet->setBorder('A4:P'.$lastrow, 'thin');
 
