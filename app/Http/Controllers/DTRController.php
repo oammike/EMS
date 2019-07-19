@@ -377,7 +377,7 @@ class DTRController extends Controller
                               //*** OT
                               if (!empty($dData->first()->OT_id)){
 
-                                $allOT = User_OT::where('biometrics_id',$dData->first()->biometrics_id)->get();
+                                $allOT = User_OT::where('user_id',$dData->first()->id)->where('biometrics_id',$dData->first()->biometrics_id)->get();
 
                                 if (count($allOT) > 1)
                                 {
