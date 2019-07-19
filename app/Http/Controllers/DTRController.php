@@ -278,7 +278,7 @@ class DTRController extends Controller
 
                               // call cell manipulation methods
                               
-                              $cells->setFontColor('#000');
+                              $cells->setFontColor('#ffffff');
                               $cells->setFontSize(25);
                               $cells->setFontWeight('bold');
 
