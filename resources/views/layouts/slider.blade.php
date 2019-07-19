@@ -27,10 +27,10 @@
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                            <br/><span class="text-danger">July 16, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">July 23, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                            <BR/><span class="text-danger">July 18, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">July 25, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
 
                             <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
                               Sign Up Now</a><br/><br/>
