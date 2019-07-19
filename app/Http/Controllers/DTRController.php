@@ -648,6 +648,7 @@ class DTRController extends Controller
                           $header1 = ['Open Access BPO | DTR Summary','','','','','','','','','','','','','','',''];
                           $header2 = [$cutoffStart->format('M d Y')." to ". $cutoffEnd->format('M d Y') ,'Program/Department: ',strtoupper($program->name),'','','','','','','','','','','','',''];
 
+                          $sheet->setFontSize(17);
                           $sheet->appendRow($header1);
                           $sheet->appendRow($header2);
                           $sheet->cells('A1:Z2', function($cells) {
@@ -664,7 +665,7 @@ class DTRController extends Controller
                               // call cell manipulation methods
                               
                               $cells->setFontColor('#dedede');
-                              $cells->setFontSize(15);
+                              $cells->setFontSize(18);
                               $cells->setFontWeight('bold');
 
                           });
@@ -697,12 +698,12 @@ class DTRController extends Controller
                               $sheet->appendRow($header3);
                               $sheet->appendRow($headers);
                               $sheet->row(3, function($cells) {
-                                $cells->setFontSize(12);
+                                $cells->setFontSize(18);
                                 $cells->setFontWeight('bold');
                                 $cells->setAlignment('center');
                               });
                               $sheet->row(4, function($cells) {
-                                $cells->setFontSize(14);
+                                $cells->setFontSize(18);
                                 $cells->setFontWeight('bold');
                                 $cells->setAlignment('center');
                               });
@@ -791,6 +792,7 @@ class DTRController extends Controller
                           $header1 = ['Open Access BPO | DTR Summary','','','','','','','','','','','','','','',''];
                           $header2 = [$cutoffStart->format('M d Y')." to ". $cutoffEnd->format('M d Y') ,'Program/Department: ',strtoupper($program->name),'','','','','','','','','','','','',''];
 
+                          $sheet->setFontSize(17);
                           $sheet->appendRow($header1);
                           $sheet->appendRow($header2);
                           $sheet->cells('A1:CG2', function($cells) {
@@ -807,7 +809,7 @@ class DTRController extends Controller
                               // call cell manipulation methods
                               
                               $cells->setFontColor('#dedede');
-                              $cells->setFontSize(15);
+                              $cells->setFontSize(18);
                               $cells->setFontWeight('bold');
 
                           });
@@ -846,12 +848,12 @@ class DTRController extends Controller
                               $sheet->appendRow($header3);
                               $sheet->appendRow($headers);
                               $sheet->row(3, function($cells) {
-                                $cells->setFontSize(12);
+                                $cells->setFontSize(17);
                                 $cells->setFontWeight('bold');
                                 $cells->setAlignment('center');
                               });
                               $sheet->row(4, function($cells) {
-                                $cells->setFontSize(14);
+                                $cells->setFontSize(18);
                                 $cells->setFontWeight('bold');
                                 $cells->setAlignment('center');
                               });
@@ -957,8 +959,13 @@ class DTRController extends Controller
                           $header1 = ['Open Access BPO | DTR Summary','','','','','','','','','','','','','','',''];
                           $header2 = [$cutoffStart->format('M d Y')." to ". $cutoffEnd->format('M d Y') ,'Program/Department: ',strtoupper($program->name),'','','','','','','','','','','','',''];
 
+                          $sheet->setFontSize(17);
                           $sheet->appendRow($header1);
                           $sheet->appendRow($header2);
+
+
+
+
                           $sheet->cells('A1:P2', function($cells) {
 
                               // call cell manipulation methods
@@ -973,7 +980,7 @@ class DTRController extends Controller
                               // call cell manipulation methods
                               
                               $cells->setFontColor('#dedede');
-                              $cells->setFontSize(15);
+                              $cells->setFontSize(18);
                               $cells->setFontWeight('bold');
 
                           });
@@ -1006,12 +1013,12 @@ class DTRController extends Controller
                               $sheet->appendRow($header3);
                               $sheet->appendRow($headers);
                               $sheet->row(3, function($cells) {
-                                $cells->setFontSize(12);
+                                $cells->setFontSize(18);
                                 $cells->setFontWeight('bold');
                                 $cells->setAlignment('center');
                               });
                               $sheet->row(4, function($cells) {
-                                $cells->setFontSize(14);
+                                $cells->setFontSize(17);
                                 $cells->setFontWeight('bold');
                                 $cells->setAlignment('center');
                               });
