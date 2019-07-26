@@ -2867,16 +2867,18 @@ trait TimekeepingTraits
         $prod = Carbon::parse($userLogOUT[0]['timing'])->format('Y-m-d');
 
         $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
-        $workedHours = number_format($wh/60,2);
+        $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+        //we less 1hr for the break
+        $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
         $billableForOT=0; //$userLogIN[0]['timing']/60;
 
         $stat = User::find($user_id)->status_id;
         //****** part time user
 
         if ($stat == 12 || $stat ==14)
-          $UT = number_format((240.0 - $wh)/60,2);
+          $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
         else
-          $UT = number_format((480.0 - $wh)/60,2);
+          $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
         
 
       }
@@ -3154,9 +3156,9 @@ trait TimekeepingTraits
                   //****** part time user
 
                   if ($stat == 12 || $stat ==14)
-                  $UT = round((240.0 - $wh)/60,2); 
+                  $UT = round((240.0 - $wh)/60,2); //33.33; //
                   else
-                    $UT = round((480.0 - $wh)/60,2); 
+                    $UT =round((480.0 - $wh)/60,2); //33.33; //
 
 
                  
