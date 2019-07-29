@@ -1,4 +1,46 @@
                     <div class="item  active  text-center" >
+                      
+                              <h4 class="text-orange" >Health &amp; Wellness -  <span class="text-primary">Davao </span></h4>
+                              <img src="./storage/uploads/davao-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To maintain the health and wellness of our employees in Davao, Open Access BPO has launched its first Health & Wellness Program on July 25, 2019. The event is a joint effort between the Clinic team and our Davao site's HR team and Maxicare who provided us with awesome lifestyle partners.<br/><br/> <a href="{{ action('HomeController@gallery',['a'=>16]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a><br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+                    <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
+                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
+                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
+                                <!-- <strong class="text-danger">JUNE</strong><br/>
+                                * Pride March <br/>
+                                * Flu Vaccination <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/> -->
+
+                                <strong class="text-danger">JULY</strong><br/>
+                                * Glorietta 2 (G2) Office Launch <br/>
+                                * Happy Hour <br/>
+                                * Health &amp; Wellness Event <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                               <strong class="text-danger">AUGUST</strong> <br/>
+                                * Mobile Legends Tournament <br/>
+                                * Outreach Activity (Local Community) <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                              Actual dates and more details will be announced soon.</p>
+                               
+
+                              <br/>
+                    </div>
+
+                     <div class="item  text-center" >
                               
                               <h4 class="text-orange" >Ribbon Cutting <span class="text-primary">Ceremony </span></h4>
                               <img src="./storage/uploads/ribbon-cutting-2.jpg" style="z-index: 2" />
@@ -12,7 +54,7 @@
                                </p>
                                
                               <br/>
-                    </div> 
+                    </div>  
 
 
                     
@@ -27,10 +69,10 @@
                          <br/><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                            <br/><span class="text-danger">July 23, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+                            <br/><span class="text-danger">July 30, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
 
                           <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                            <BR/><span class="text-danger">July 25, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+                            <BR/><span class="text-danger">August 1, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
 
                             <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
                               Sign Up Now</a><br/><br/>
@@ -70,48 +112,8 @@
                                   <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                       </div>
 
-                      <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
-                              <img src="./storage/uploads/game5.jpg" style="z-index: 2" />
-                              <p class="text-center" ><br/><br/> for winning <strong> Game 5</strong> last night, with<br/> <strong class="text-danger">Final score: 86-77</strong><br/><br/>
-                                
-                                </p>
-                               
-
-                              <br/>
-                    </div> 
-
-                    <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
-                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
-                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
-                                <!-- <strong class="text-danger">JUNE</strong><br/>
-                                * Pride March <br/>
-                                * Flu Vaccination <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/> -->
-
-                                <strong class="text-danger">JULY</strong><br/>
-                                * Glorietta 2 (G2) Office Launch <br/>
-                                * Happy Hour <br/>
-                                * Health &amp; Wellness Event <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                               <strong class="text-danger">AUGUST</strong> <br/>
-                                * Mobile Legends Tournament <br/>
-                                * Outreach Activity (Local Community) <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                              Actual dates and more details will be announced soon.</p>
-                               
-
-                              <br/>
-                    </div>
+                    
+                    
 
                       @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
@@ -287,129 +289,7 @@
 
                    
 
-                    <div class="item text-center" >
-
-                              <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbt-resist-0.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-primary">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against. In a few days, we will also head to the streets. <br/><br/>
-
-                                In a few days, we will also head to the streets. <br/>Join us on <strong class="text-danger"> June 29 at 2019 Metro Manila Pride March and Festival | #ResistTogether</strong>  for our first Pride march. See you there!<br/><br/>
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
-
-
-
-                               </p>
-
-
-                      </div>
-
-                      <!--Purple-->
-                      <div class="item text-center" >
-
-                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbt-resist-6.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> series comes to an end, we'd like to leave this message to enlighten people of the community's call to #ResistTogether.<br/><br/>
-                                For <a href="./user/22" target="_blank" style="font-weight: bold"> Myla, a QA Team Leader</a>, #Pride is an opportunity to use our voices and enlighten people about the community's stand to #ResistTogether. And as a member, she's taking her call for equal rights and free will and against injustices and discrimination to the streets in this year's Metro Manila Pride March: "We all want a happy ending. We resist for equal rights as heterosexual couples, such as recognizing our partner as our spouse, being able to adopt, being able to buy shared property in our names, and so on. <br/><br/>
-                                We want discrimination to stop when we hold hands or kiss, apply for jobs, or enroll for education because of our gender orientation and the way we dress. LGBTQIA+ individuals are people who want to be accepted in society. We aren’t “sick” because our gender preference and identity. We are not different from you—we just have our own colorful individuality." <br/><br/>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019
-
-
-                               </p>
-
-
-                      </div>
-
-                      <!--Blue-->
-                      <div class="item text-center" >
-
-                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbt-resist-5.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
-
-                                Being an active member of the LGBTQIA+ community,<a style="font-weight: bold;" href="./user/2070" target="_blank"> Quality Analyst Edwick </a>stresses the value of the people's call to #ResistTogether for HIV/AIDS awareness especially among the younger generation and to continue the fight against discrimination: "As an active HIV/AIDS awareness advocate, I share my knowledge on how to prevent the virus from spreading, so people can responsibly engage in activities that may put them at risk of getting infected. HIV/AIDS is one of the leading infectious diseases in the Philippines and some parts of the world, and I want to address the lack of knowledge among the people, most especially to the youth. <br/><br/>
-                                Meanwhile, I am and will always be against the on-going discrimination against LGBTQIA+ individuals. Wherever we go, there will always be hypocrites who’ll trample us along the way. We continue to wait for the SOGIE (Sexual Orientation and Gender Identity and Expression) Equality Bill to be passed into a law, so that we can finally be at ease—hopefully." <br/><br/>
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019 🏳️‍🌈⁣</strong><br/><br/>
-
-
-                               </p>
-
-
-                      </div>
-
-
-
-                      <!--Green-->
-                      <div class="item text-center" >
-
-                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbt-resist-4.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
-
-                              In light of the community's struggles, <a href="./user/1113" target="_blank">Customer Service Representative Anthony </a>is taking his stand with the community and allies to #ResistTogether for equality and against cruelty and exploitation: "I resist for equality. I believe that LGBTQIA+ rights are human rights, which we’ve been fighting for since the very beginning. We ask for the same freedom and respect, regardless of our gender preference and identity. We are not asking for your sympathy; what we need is understanding. For as long as we breathe the same air and inhabit the same lands, then we are all equal in this life.⁣ <br/><br/>
-
-                              On the other hand, I resist against cruelty and exploitation. Every individual, especially young LGBTQIA+ persons, should be protected from any form of abuse. We all grow up exploring who we want to be, and it gets harder when you're growing up confused. So, they should be given more patience, nurturance, and love. I grew up in a very loving family. I’ve never felt alone because they support me in everything I do. I’d want every single person to have the same support that I got."⁣<br/><br/>
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019 🏳️‍🌈⁣
-⁣
-⁣</strong><br/><br/>
-
-                               </p>
-
-
-                      </div>
-
-                      <!--JAzz-->
-                      <div class="item text-center" >
-
-                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbt-resist-3.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
-
-                                <a style="font-weight: bold;" href="./user/2400"> For Prince, a Call Center Associate, </a>it is important that we #ResistTogether to achieve equal rights and acceptance and win against violence and inequality: <br/><br/>
-                                "Sexual orientation and gender identity are integral aspects and should never lead to discrimination and abuse. I resist for equal rights to live freely and be accepted—not merely tolerated by the rest of society.<br/><br/>
-                                I also stand against violence and inequality. Some think LGBTQIA+ individuals need curing. We face discrimination, bullying, and abuse for being queer from those who think that same sex relationships and being our true selves are sins." <br/><br/>
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
-
-                               </p>
-
-
-                      </div>
-
-                      <!--JAzz-->
-                      <div class="item text-center" >
-
-                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbt-resist-2.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
-
-                                This Pride month, <a class="text-primary" style="font-weight: bold;" target="_blank" href="./user/1374"> Team Leader Jazz </a>speaks his truth to #ResistTogether against bigotry and regression: "I resist against nations and leaders who continue to treat our LGBTQIA+ community as worthless citizens. Despite being progressive nations, their thinking and understanding of us persists to be backward. Instead of helping, protecting, and including their LGBTQIA+ citizens, they exercise their power to make our lives miserable. <br/><br/>
-
-                                We must have leaders who create and implement laws that will benefit everyone to bring the community to furtherance." <br/><br/>
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
-
-                               </p>
-
-
-                      </div>
-
-                      <div class="item text-center" >
-
-                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/lgbt-resist-1.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
-
-                                For our first feature, <a style="font-weight: bold;" href="./user/320" target="_blank">Lead Generation Analyst, James</a>, shares his stand on HIV awareness: "I advocate for HIV awareness because the LGBTQIA+ community—mostly men—are prone to getting infected with HIV. Having awareness on the virus will lessen the number of infected people and save lives." <br/><br/>
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
-
-                               </p>
-
-
-                      </div>
+                    
 
                       
 
@@ -739,6 +619,145 @@
 
 
 <?php /*
+  <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>
+                              <img src="./storage/uploads/game5.jpg" style="z-index: 2" />
+                              <p class="text-center" ><br/><br/> for winning <strong> Game 5</strong> last night, with<br/> <strong class="text-danger">Final score: 86-77</strong><br/><br/>
+                                
+                                </p>
+                               
+
+                              <br/>
+                    </div> 
+
+
+<!-- PRIDE -->
+<div class="item text-center" >
+
+                              <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-0.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-primary">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against. In a few days, we will also head to the streets. <br/><br/>
+
+                                In a few days, we will also head to the streets. <br/>Join us on <strong class="text-danger"> June 29 at 2019 Metro Manila Pride March and Festival | #ResistTogether</strong>  for our first Pride march. See you there!<br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+
+
+                               </p>
+
+
+                      </div>
+
+                      <!--Purple-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-6.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> series comes to an end, we'd like to leave this message to enlighten people of the community's call to #ResistTogether.<br/><br/>
+                                For <a href="./user/22" target="_blank" style="font-weight: bold"> Myla, a QA Team Leader</a>, #Pride is an opportunity to use our voices and enlighten people about the community's stand to #ResistTogether. And as a member, she's taking her call for equal rights and free will and against injustices and discrimination to the streets in this year's Metro Manila Pride March: "We all want a happy ending. We resist for equal rights as heterosexual couples, such as recognizing our partner as our spouse, being able to adopt, being able to buy shared property in our names, and so on. <br/><br/>
+                                We want discrimination to stop when we hold hands or kiss, apply for jobs, or enroll for education because of our gender orientation and the way we dress. LGBTQIA+ individuals are people who want to be accepted in society. We aren’t “sick” because our gender preference and identity. We are not different from you—we just have our own colorful individuality." <br/><br/>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019
+
+
+                               </p>
+
+
+                      </div>
+
+                      <!--Blue-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-5.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                Being an active member of the LGBTQIA+ community,<a style="font-weight: bold;" href="./user/2070" target="_blank"> Quality Analyst Edwick </a>stresses the value of the people's call to #ResistTogether for HIV/AIDS awareness especially among the younger generation and to continue the fight against discrimination: "As an active HIV/AIDS awareness advocate, I share my knowledge on how to prevent the virus from spreading, so people can responsibly engage in activities that may put them at risk of getting infected. HIV/AIDS is one of the leading infectious diseases in the Philippines and some parts of the world, and I want to address the lack of knowledge among the people, most especially to the youth. <br/><br/>
+                                Meanwhile, I am and will always be against the on-going discrimination against LGBTQIA+ individuals. Wherever we go, there will always be hypocrites who’ll trample us along the way. We continue to wait for the SOGIE (Sexual Orientation and Gender Identity and Expression) Equality Bill to be passed into a law, so that we can finally be at ease—hopefully." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019 🏳️‍🌈⁣</strong><br/><br/>
+
+
+                               </p>
+
+
+                      </div>
+
+
+
+                      <!--Green-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-4.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                              In light of the community's struggles, <a href="./user/1113" target="_blank">Customer Service Representative Anthony </a>is taking his stand with the community and allies to #ResistTogether for equality and against cruelty and exploitation: "I resist for equality. I believe that LGBTQIA+ rights are human rights, which we’ve been fighting for since the very beginning. We ask for the same freedom and respect, regardless of our gender preference and identity. We are not asking for your sympathy; what we need is understanding. For as long as we breathe the same air and inhabit the same lands, then we are all equal in this life.⁣ <br/><br/>
+
+                              On the other hand, I resist against cruelty and exploitation. Every individual, especially young LGBTQIA+ persons, should be protected from any form of abuse. We all grow up exploring who we want to be, and it gets harder when you're growing up confused. So, they should be given more patience, nurturance, and love. I grew up in a very loving family. I’ve never felt alone because they support me in everything I do. I’d want every single person to have the same support that I got."⁣<br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride #WorldPride #PrideMonth2019 🏳️‍🌈⁣
+⁣
+⁣</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
+                      <!--JAzz-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-3.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                <a style="font-weight: bold;" href="./user/2400"> For Prince, a Call Center Associate, </a>it is important that we #ResistTogether to achieve equal rights and acceptance and win against violence and inequality: <br/><br/>
+                                "Sexual orientation and gender identity are integral aspects and should never lead to discrimination and abuse. I resist for equal rights to live freely and be accepted—not merely tolerated by the rest of society.<br/><br/>
+                                I also stand against violence and inequality. Some think LGBTQIA+ individuals need curing. We face discrimination, bullying, and abuse for being queer from those who think that same sex relationships and being our true selves are sins." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
+                      <!--JAzz-->
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-2.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                This Pride month, <a class="text-primary" style="font-weight: bold;" target="_blank" href="./user/1374"> Team Leader Jazz </a>speaks his truth to #ResistTogether against bigotry and regression: "I resist against nations and leaders who continue to treat our LGBTQIA+ community as worthless citizens. Despite being progressive nations, their thinking and understanding of us persists to be backward. Instead of helping, protecting, and including their LGBTQIA+ citizens, they exercise their power to make our lives miserable. <br/><br/>
+
+                                We must have leaders who create and implement laws that will benefit everyone to bring the community to furtherance." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
+                      <div class="item text-center" >
+
+                              <h4 class="text-orange" >#ResistTogether <span class="text-primary"> #OASpeaksWithPride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/lgbt-resist-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/><strong class="text-danger">'We Speak With Pride' </strong> is a special social series aimed at giving our LGBTQIA+ friends and colleagues a platform to speak their truths on what we must all #ResistTogether for and against.<br/><br/>
+
+                                For our first feature, <a style="font-weight: bold;" href="./user/320" target="_blank">Lead Generation Analyst, James</a>, shares his stand on HIV awareness: "I advocate for HIV awareness because the LGBTQIA+ community—mostly men—are prone to getting infected with HIV. Having awareness on the virus will lessen the number of infected people and save lives." <br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+                               </p>
+
+
+                      </div>
+
+<!-- END PRIDE -->
 
  <div class="item  text-center" >
                               

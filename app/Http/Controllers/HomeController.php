@@ -74,6 +74,11 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '16':{
+               fwrite($file, "-------------------\n Davao Health [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '15':{
                fwrite($file, "-------------------\n G2 Photobooth [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -387,6 +392,20 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/g2-".$i.".jpg",
                                 'description'=>"G2 Office Launching - Photobooth 07/12/2019 (Photo by: Pose &amp; Print)",
                                 'category'=>"G2 Office Launching - Photobooth 07/12/2019 (Photo by: Pose &amp; Print)"]);
+
+                  }
+
+        } break;
+
+        case '16': {
+ 
+                    //Davao Health
+      
+                  for($i=1; $i<=12; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/davao-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/davao-".$i.".jpg",
+                                'description'=>"Davao Health &amp; Wellness 07/25/2019 (Photo by: Dang Maulingan)",
+                                'category'=>"Davao Health &amp; Wellness 07/25/2019 (Photo by: Dang Maulingan)"]);
 
                   }
 
