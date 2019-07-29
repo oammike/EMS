@@ -189,6 +189,7 @@ class CampaignController extends Controller
                   join('positions','users.position_id','=','positions.id')->
                   select('users.id as userID','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as TLfname','immediateHead.lastname as TLlname','users.nickname as TLnick','positions.name as jobTitle','users.status_id','immediateHead_Campaigns.disabled','immediateHead_Campaigns.tier')->
                   where([
+                            ['users.status_id','!=',6],
                             ['users.status_id','!=',7],
                             ['users.status_id','!=',8],
                             ['users.status_id','!=',9],
