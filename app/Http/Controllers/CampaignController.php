@@ -204,6 +204,7 @@ class CampaignController extends Controller
                         leftJoin('positions','users.position_id','=','positions.id')->
                         select('users.id as userID','users.nickname', 'users.firstname','users.lastname','positions.name as jobTitle','team.immediateHead_Campaigns_id as tlID')->
                         where([
+                            ['users.status_id','!=',6],
                             ['users.status_id','!=',7],
                             ['users.status_id','!=',8],
                             ['users.status_id','!=',9],
