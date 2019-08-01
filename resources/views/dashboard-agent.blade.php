@@ -556,6 +556,21 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
    /*---------- POSTMATES WIDGET ----------- */
    @if(count($groupedForm)>0)
 
+       $('#playbook').on('click',function(){
+
+        $.ajax({
+                url: "{{action('HomeController@logAction','P')}}",
+                type: "GET",
+                data: {'action': 'P'},
+                success: function(response){
+                          console.log(response);
+
+              }
+
+        });
+
+       });
+
        $('.escalation_online_order, .escalation_phone, .escalation_tablet').hide();
        //.merchant_closed_confirmation, .Open_confirmation, .confirmed_options 
        //
