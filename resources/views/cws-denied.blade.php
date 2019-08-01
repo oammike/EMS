@@ -40,7 +40,7 @@
 
             <h4 class="text-center"> <br/> Access to Work Schedule Denied<br /> <small>You don't have enough permissions to access this.<br /> </small>
               <br /><br/></h4>
-              <p class="text-center">Inform <strong> HR or Immediate Supervisor</strong> to have your work schedule plotted.</p>
+              <p class="text-center">Inform <strong> Immediate Head or Workforce Team</strong> to have your work schedule plotted.</p>
 
             
 
