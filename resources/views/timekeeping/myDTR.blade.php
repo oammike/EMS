@@ -69,17 +69,7 @@
                                             <div class="description-block">
                                               <p class="description-header"><i class="fa fa-users margin-r-5"></i> Department / Program : </p>
                                               <span class="description-text text-primary">
-                                              @if(count($camps) > 1)
-
-                                                  @foreach($camps as $ucamp)
-                                                      <a target="_blank" href="../campaign/{{$ucamp->id}}"> {{$ucamp->name}} </a>, 
-
-                                                  @endforeach
-
-                                              @else
-                                              <a target="_blank" href="../campaign/{{$camps->first()->id}}"> {{$camps->first()->name}}</a>
-
-                                              @endif
+                                              {!! $camps !!}
                                               </span>
 
                                               

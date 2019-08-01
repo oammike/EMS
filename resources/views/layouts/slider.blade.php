@@ -276,17 +276,7 @@
 
                       @endif
 
-                       <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Happy <span class="text-primary">4th of July!</span></h4>
-                              <img src="./storage/uploads/july4th.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Wishing our friends, family, and colleagues a happy #4thOfJuly and Filipino-American Friendship Day! May this day be filled with love, laughter, and peace.<br/><br/>
-                                <strong>#WeSpeakYourLanguage #OACelebrates4thofJuly</strong></p>
-                               
-
-                              <br/>
-                    </div>
-
+                       
                    
 
                     
@@ -526,29 +516,6 @@
 
  
 
-                  
-
-
-                   
-
-                    
-
-
-
-
-
-
-                    
-
-
-                    
-
-                   
-
-                   
-
-
-
                     
 
 
@@ -557,7 +524,13 @@
 
                       
 
-                      <div class="item text-center" >
+                     
+
+
+
+<?php /*
+
+  <div class="item text-center" >
                         
                          <img src="./storage/uploads/teams1.jpg" style="z-index: 2" width="100%" /><br/><br/>
                          
@@ -614,11 +587,21 @@
                               <p style="padding:20px">Our 2019 kicked off with a splendid breakfast filled with fun conversations shared by the Open Access BPO executives and employees -- what a great way to start the year! 
                                 Thanks to everyone who joined us earlier on our first <strong class="text-orange">Hellos &amp; Grubs</strong> session!<br/><br/>We can't wait to meet the next batch in a few days!</p>
                                 <span class="text-danger">If you won’t get picked for this month, no need to feel bad! We intend to meet <span style="font-size:large">everyone</span> this year as we aim for this to be a monthly activity.</span>
-                      </div>  
+                      </div> 
+
+<div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Happy <span class="text-primary">4th of July!</span></h4>
+                              <img src="./storage/uploads/july4th.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Wishing our friends, family, and colleagues a happy #4thOfJuly and Filipino-American Friendship Day! May this day be filled with love, laughter, and peace.<br/><br/>
+                                <strong>#WeSpeakYourLanguage #OACelebrates4thofJuly</strong></p>
+                               
+
+                              <br/>
+                    </div>
 
 
 
-<?php /*
   <div class="item  text-center" >
                               
                               <h4 class="text-orange" >Congratulations <span class="text-primary"> Open Access Basketball Team!!!</span></h4>

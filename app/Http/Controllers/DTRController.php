@@ -1570,7 +1570,50 @@ class DTRController extends Controller
         $immediateHead = ImmediateHead::find(ImmediateHead_Campaign::find($user->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
         if($immediateHead->employeeNumber == $this->user->employeeNumber ) $theImmediateHead = true; else $theImmediateHead=false;
 
-        if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
+        //if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
+        if (!empty($leadershipcheck))
+            { 
+              $camps = "";
+              $camps1 = $leadershipcheck->campaigns->sortBy('name'); 
+
+              
+              //sreturn $leadershipcheck->campaigns;
+              foreach($leadershipcheck->campaigns as $c)
+              {
+
+                //return $leadershipcheck->campaigns->first()->pivot->immediateHead_id;// camps1->pivot->immediateHead_id;
+              /* ------- ADDED FOR  DISABLED IH_CAMPS ----- */
+                $ihCamp = ImmediateHead_Campaign::where('campaign_id', $c->pivot->campaign_id)->where('immediateHead_id',$leadershipcheck->id)->first();
+                $cmp = Campaign::find($c->pivot->campaign_id);
+
+                if($ihCamp->disabled){ //do nothing
+
+                }else
+                {
+                  if (count($leadershipcheck->myCampaigns) <= 1){
+                    
+                    $camps .='<a href="../campaign/'.$cmp->id.'" target="_blank" >'. $cmp->name.' </a>';
+                   }
+                    
+                    else $camps .= '<a href="../campaign/'.$cmp->id.'" target="_blank" >'. $cmp->name.' </a> , ';
+
+                }
+
+                   
+
+                
+
+              }
+              
+
+            } else $camps = '<a href="../campaign/'.$user->campaign->first()->id.'" target="_blank" >'.$user->campaign->first()->name.'</a>';
+
+            if (strlen($camps) < 1)
+              $camps = '<a href="../campaign/'.$user->campaign->first()->id.'" target="_blank" >'.$user->campaign->first()->name.'</a>';
+
+
+
+
 
 
 
