@@ -16,13 +16,19 @@
                     <div class="box-body">
 
                       <div class="nav-tabs-custom" style="background: rgba(256, 256, 256, 0.1)">
-                        <ul class="nav nav-tabs pull-right">
+                        <ul class="nav nav-tabs pull-right"> 
+                          <li><a href="#tab_{{count($groupedForm->keys())+1}}" data-toggle="tab">
+                            <strong class="text-primary "><i class="fa fa-files-o"></i> Playbook<span id="actives"></span> </strong></a></li>
+
                           <?php $ctr=0;?>
                           @foreach($groupedForm->keys() as $form)
                           <li @if($ctr==1)class="active"@endif><a href="#tab_{{$ctr+1}}" data-toggle="tab">
                             <strong class="text-primary "><i class="fa fa-files-o"></i> {{$form}}<span id="actives"></span> </strong></a></li>
                           <?php $ctr++;?>  
                           @endforeach
+
+
+                         
                          
 
 
@@ -108,6 +114,48 @@
                         
                           @endforeach
                           <!-- /.tab-pane -->
+
+
+                          <div class="tab-pane" id="tab_{{count($groupedForm->keys())+1}}">
+                            
+                                  
+                                  <div style="position: relative; border: solid 1px #333; width: 100%">
+                                    <a  target="_blank" alt="Oder Placement Agent Call Flow" title="Oder Placement Agent Call Flow" href="https://docs.google.com/document/d/1ZCWAty_qOk3C94Sgt0i6WIu77zwPqAKT7-oAQufRlS8/edit" style="position: absolute; left: 21.72%; top: 22%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+                                    <a target="_blank"  alt="Fleet Signal Verification Task" title="Fleet Signal Verification Task" href="https://docs.google.com/presentation/d/1E--CNSFjODjOMN51K7Wl-Y6PsiXPXwki-__RbWUOQkg/edit#slide=id.p" style="position: absolute; left: 21.72%; top: 33.54%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a  target="_blank" alt="Online Ordering Handbook" title="Online Ordering Handbook" href="https://docs.google.com/document/d/1GhkvHjxMNGalbD6SLdTFX4lysaCgubPBQSuHIVcagfY/edit" style="position: absolute; left: 21.72%; top: 45.54%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a  target="_blank" alt="Payments Over the Phone" title="Payments Over the Phone" href="https://docs.google.com/presentation/d/1352m1XKGtOxJjPLyiE1A0egk7YOA4epNBx0fCLcRW9A/edit#slide=id.p" style="position: absolute; left: 21.72%; top: 56.92%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a  target="_blank" alt="Raise Issue Escalation" title="Raise Issue Escalation" href="https://docs.google.com/spreadsheets/d/1MEIJtRPhskS1NX-at_AvC_CQNy40O51ujUJVIhxx4OY/edit#gid=0" style="position: absolute; left: 21.72%; top: 68.46%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <!-- 2nd col -->
+
+                                    <a  target="_blank" alt="Workbench Flow" title="Workbench Flow" href="https://docs.google.com/presentation/d/1vVeCtZ_2m_cc_6HFpfYhD-PN2oQ9_ACOwPzQyfXR9vY/edit#slide=id.p" style="position: absolute; left: 59.17%; top: 22%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a  target="_blank" alt="Agent Work flow" title="Agent Work flow" href="https://docs.google.com/document/d/1O53dLIDhFLh2lwB88iwO3S7eQTw0fkXKoMvhpH0uwG8/edit" style="position: absolute; left: 59.17%; top: 33.54%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a  target="_blank" alt="Updates Common Questions" title="Updates Common Questions" href="https://docs.google.com/document/d/1U0YSilZ11R0UbXdAVzDl8nbTpxjdJvavmgZYGkeounU/edit" style="position: absolute; left: 59.17%; top: 45.54%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a  target="_blank" alt="Food and Customer Names Pronunciation" title="Food and Customer Names Pronunciation" href="https://docs.google.com/document/d/1bRperepsneaL5lLl5072BCxRTOHspQtsekgZB6gHFwY/edit" style="position: absolute; left: 59.17%; top: 56.92%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a  target="_blank" alt="QA Updates" title="QA Updates" href="https://docs.google.com/document/d/1y2X6bpMECV01hlSb3KqpyESwx-O2_QkClweh1mmzspI/edit" style="position: absolute; left: 59.17%; top: 68.46%; width: 23.71%; height: 10.15%; z-index: 2;"></a>
+
+                                    <!-- bottom row-->
+
+                                    <a  target="_blank" alt="IVR Quick Codes" title="IVR Quick Codes" href="https://docs.google.com/spreadsheets/d/1yLtZk4EBGGz755E39-j2rGqyaVzK9fpigfpaBs99LwQ/edit#gid=0" style="position: absolute; left: 12.34%; top: 84%; width: 21.63%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a target="_blank" alt="OO Items" title="OO Items" href="https://docs.google.com/spreadsheets/d/1fenUdq6ML-YNm9pVOovc0nHp7E_tkjsa6ezDxrHlUKM/edit#gid=222910634" style="position: absolute; left: 37.34%; top: 84%; width: 21.63%; height: 10.15%; z-index: 2;"></a>
+
+                                    <a target="_blank" alt="Tools Links" title="Tools Links" href="https://docs.google.com/document/d/14VOr_xruOIpC6AK0Gz3l2AN6jXDUAQXt7-NWXKvP6oQ/edit" style="position: absolute; left: 62.73%; top: 84%; width: 21.63%; height: 10.15%; z-index: 2;"></a>
+
+
+                                    <img src="./storage/uploads/playbook.png" usemap="#image-map" width="100%">
+                                  </div>
+                                  
+
+                                  
+                          </div>
 
                      
 
