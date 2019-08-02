@@ -2989,7 +2989,10 @@ class DTRController extends Controller
                                     {
                                       if ($hybridSched)
                                       {
-                                        $rd = $RDsched->where('productionDate',$prevDay->format('Y-m-d'))->first();
+                                        if (!is_null($RDsched))
+                                          $rd = $RDsched->where('productionDate',$prevDay->format('Y-m-d'))->first();
+                                        else
+                                          $rd = null;
 
                                       }else $rd = $monthlySched->where('isRD',1)->where('productionDate',$prevDay->format('Y-m-d'))->first();  
                                       if (empty($rd)) 
