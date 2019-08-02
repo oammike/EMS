@@ -1399,7 +1399,7 @@ $('button#uploadOT').fadeOut();
   $('#unlock').fadeOut();
   $('#lockDTR').on('click', function(){
 
-    var reply = confirm("\n\nThis will mark your DTR as verified and will be submitted to Finance for payroll processing. Any form of dispute found after this verification will be proccessed in the next payroll cutoff instead.\n\n Clicking 'OK' means that you agree all entries in this DTR sheet have been verified and are all correct.");
+    var reply = confirm("\n\nThis will mark your DTR as verified and will be submitted to Finance for payroll processing. Any form of dispute found after this verification will be proccessed in the next payroll cutoff instead.\n\n Clicking 'OK' means that you agree all entries in this DTR sheet are correct.");
 
     if (reply == true){
       
@@ -1477,7 +1477,7 @@ $('button#uploadOT').fadeOut();
     var productionDate = $(this).attr('data-production_date');
     var biometrics_id = $(this).attr('data-biometrics_id');
 
-    var reply = confirm("\n\nLock DTR for "+productionDate+".\n\n Clicking 'OK' means that you agree all entries in this production date have been verified and are all correct.");
+    var reply = confirm("\n\nLock DTR for "+productionDate+".\n\n Clicking 'OK' means that you agree all entries in this production date are all correct.");
 
     if (reply == true){
       
