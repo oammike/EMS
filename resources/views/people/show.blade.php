@@ -1448,7 +1448,14 @@
           /* -------------------------------------------------- APPROVER ---------------------*/
             e.preventDefault(); e.stopPropagation();
             var _token = "{{ csrf_token() }}";
-            var shift = $('select.end.form-control :selected').val();
+            //var isParttime = $('input [name="schedtype"] :selected').val();
+            
+
+            if($('#parttime').is(':checked')) 
+              var shift = $('select#shift_p :selected').val();
+            else if($('#fulltime').is(':checked')) 
+              var shift = $('select#shift_f :selected').val();
+            
             var user_id = $(this).attr('data-userID');
             var selectedDate = $(this).attr('data-date');
             
