@@ -1,4 +1,20 @@
-                    <div class="item  active  text-center" >
+                    <div class="item active text-center" >
+                      
+                              <h4 class="text-orange" >Open Access <span class="text-primary"> Cares </span></h4>
+                              <img src="./storage/uploads/ryans-run.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Ryan's Run and Allied Services have always been dear to the Open Access BPO family. We're happy to lend a hand to support these non-profit organizations as they help people with disabilities, life-changing injuries, and chronic illnesses.<br/><br/>
+                               Photo credit: Ryan's Run</strong><br/></p>
+
+                               <p class="text-left" style="padding-left: 50px; font-size: smaller;"><strong>Repost:</strong>
+                                Feeling #thankful for the support of our friends and major sponsors @openaccessbpo This Philippines based multi-lingual customer care and support center gives generously to change lives @alliedservicesihs Thank you for your incredible support. <br/><br/>#philanthropy #ryansrun #pinoyspirit #changinglives #charityteam #alliedservices #makeadifference</p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAcares</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                    <div class="item text-center" >
                       
                               <h4 class="text-orange" >Health &amp; Wellness -  <span class="text-primary">Davao </span></h4>
                               <img src="./storage/uploads/davao-1.jpg" style="z-index: 2" />
@@ -9,6 +25,8 @@
                                     <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
 
                     </div>
+
+
                     <div class="item  text-center" >
                               
                               <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
