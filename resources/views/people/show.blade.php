@@ -95,9 +95,9 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 @if ($user->hascoverphoto !== null)
                 <?php $cover = URL::to('/') . "/storage/uploads/cover-".$user->id."_".$user->hascoverphoto.".png";// URL::asset("public/img/cover/".$user->id.".jpg"); ?>
-               <div class="coverphoto output widget-user-header-profilepage bg-black" style=" background-size:1024px auto; background: url('{{$cover}}') left no-repeat;"> <!--  -->
+               <div class="coverphoto output widget-user-header-profilepage bg-black" style=" background-size:1024px auto; background: url('{{$cover}}') center no-repeat;"> <!--  -->
                 @else
-                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{URL:: asset("public/img/makati.jpg")}}') left no-repeat; background-size:1024px auto">
+                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{URL:: asset("public/img/makati.jpg")}}') center no-repeat; background-size:1024px auto">
                 @endif
 
                  <input type="hidden" name="coverimg" id="coverimg" value="" />
@@ -939,7 +939,8 @@
                   htmlcode +=                '<div class="modal-header">';
                                     
                   htmlcode +=                    '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-                  htmlcode +=                    '<h4 class="modal-title text-default" id="myModalLabel">Plot Work Schedule </h4></div><form class="col-lg-12" id="plotSched" name="plotSched">';
+                  htmlcode +=                    '<h4 class="modal-title text-default" id="myModalLabel">Plot Work Schedule </h4></div>';
+                  htmlcode += '<form class="col-lg-12" id="plotSched" name="plotSched">';
                   htmlcode +=                '<input type="hidden" name="biometrics_id" value= />';//+event.biometrics_id+
                   htmlcode +=                '<input type="hidden" name="productionDate" value="'+ productionDate+' " />';
                   htmlcode +=                '<input type="hidden" name="user_id" value="{{$user->id}}" />';
@@ -953,15 +954,26 @@
 
                    htmlcode +=                  '<h5 class="text-center"><br/><br/>New Work Schedule for : <br/><strong class="text-danger">'+selectedDate+'</strong> </h5>';
 
-                  htmlcode +=                   '<div class="row"><div class="col-sm-3"></div>';
-                  htmlcode +=                       '<div class="col-sm-6">';
+                  htmlcode +=                   '<div class="row"><div class="col-sm-2"></div>';
+                  htmlcode +=                       '<div class="col-sm-4">';
+                  htmlcode += '<label><input type="radio" class="schedtype" name="schedtype" id="fulltime" value="f" /> Full time</label>';
                                           
-                  htmlcode +=                            '<select name="shift" class="end form-control" style="margin-bottom:5px"><option value="0">* Select shift *</option><option value="-1">- REST DAY -</option>';
+                  htmlcode +=                            '<select name="shift" id="shift_f" class="end form-control" style="margin-bottom:5px"><option value="0">* Select shift *</option><option value="-1">- REST DAY -</option>';
                                                 @foreach ($shifts as $shift)
                                                    htmlcode+='<option value="{{$shift}}">{{$shift}} </option>';
 
                                                @endforeach
-                  htmlcode +=                           '</select></div><div class="col-sm-3"></div></div></div>';
+                  htmlcode +=                           '</select></div>';
+                  htmlcode +=                       '<div class="col-sm-4">';
+                  htmlcode += '<label><input type="radio" name="schedtype" class="schedtype" id="parttime" value="p" /> Part time</label>'
+                                          
+                  htmlcode +=                            '<select name="shift" id="shift_p" class="end form-control" style="margin-bottom:5px"><option value="0">* Select shift *</option><option value="-1">- REST DAY -</option>';
+                                                @foreach ($partTimes as $pshift)
+                                                   htmlcode+='<option value="{{$pshift}}">{{$pshift}} </option>';
+
+                                               @endforeach
+                  htmlcode +=                           '</select></div>';
+                  htmlcode += '<div class="col-sm-2"></div></div></div>';
 
                   htmlcode +=                  '<div id="alert-upload" style="margin-top:10px"></div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
                                     
@@ -978,9 +990,11 @@
 
                   $('#holder').html(htmlcode);
                   $('.options').fadeOut();
+                  $('#shift_f,#shift_p').fadeOut();
                   $('#save').fadeOut();
 
                   $('#single').on('click', function(){ $('.options').fadeIn(); $('#save').fadeIn();} );
+
                   $('#myModal'+date.format()).modal('toggle');
 
 
@@ -1416,6 +1430,16 @@
 
      // $('.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right').trigger('click');
      $( ".datepicker" ).on('click', '#calendar', function(){ $(this).datepicker({dateFormat:"YYYY-mm-dd"}); console.log("datepicker");})
+
+     $('#holder').on('click','.schedtype', function(){
+
+                    var s = $(this).val();
+                    console.log(s);
+
+                    if (s == 'f'){ $("#shift_f").fadeIn(); $('#shift_p').fadeOut();}
+                    else if ( s == 'p') { $("#shift_p").fadeIn(); $('#shift_f').fadeOut();}
+
+                  });
 
      $('#holder').on('click','#save',function(e){
 
