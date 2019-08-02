@@ -1864,8 +1864,7 @@ class DTRController extends Controller
                 }
              }
 
-
-
+             
              // ---------------------------
              // Start Payroll generation
              // ---------------------------
@@ -1874,13 +1873,14 @@ class DTRController extends Controller
              $schedCtr = 0;
             
             //return ['RDsched'=>$RDsched,'workSched'=>$workSched,'hybrid'=>$hybridSched];
-            //return ['hybridSched_WS_fixed'=>$hybridSched_WS_fixed,'hybridSched_WS_monthly'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
-
+            //return ['noWorkSched'=>$noWorkSched, 'hybridSched_WS_fixed'=>$hybridSched_WS_fixed,'hybridSched_WS_monthly'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
+             $wsch = new Collection;
+             
 
              foreach ($payrollPeriod as $payday) 
              {
                 $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
-                $hasLWOP=false;
+                $hasLWOP=false; $noWorkSched=null;
 
                 $bioForTheDay = Biometrics::where('productionDate',$payday)->first();
                 $carbonPayday = Carbon::parse($payday);
@@ -2231,6 +2231,7 @@ class DTRController extends Controller
                             }
 
                             $coll->push(['status'=>"has fixed WS", 'stat'=>$stat]);
+                            
 
 
                           } else //baka RD
@@ -2357,7 +2358,19 @@ class DTRController extends Controller
 
                               }else //waley na talaga
                               {
-                                $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
+                                //final check sa fixed
+                                if ( count($hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at') ) > 0 )
+                                {
+                                  $workSched = $hybridSched_WS_fixed;
+                                  $RDsched = $hybridSched_RD_fixed;
+                                  
+                                  
+
+                                }else{
+                                  $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
+                                  
+                                }
+                                
 
 
                               }
@@ -2371,6 +2384,8 @@ class DTRController extends Controller
                             
 
                           }//end else baka RD
+
+                          //$wsch->push(['hybridSched_WS_fixed'=>$hybridSched_WS_fixed, 'productionDates'=>$payday]);
 
                         } //end hybrid sched
 
@@ -2694,9 +2709,7 @@ class DTRController extends Controller
                                 
 
                                  $data = $this->getRDinfo($id, $bioForTheDay,true,$payday);
-                                 //$coll->push(['data'=>$data, 'isRDToday'=>$isRDToday]);
-                                 //$coll->push(['data from:'=>"sameDayLog > RDToday > Restday"]);
-                                    $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
+                                 $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
                                        'biometrics_id'=>$bioForTheDay->id,
                                        'hasCWS'=>$hasCWS,
                                        //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
@@ -3264,9 +3277,11 @@ class DTRController extends Controller
 
                   endNoWorkSched: 
                   //$noWorkSched = null; //*** we need to reset things
+
+                  //$wsch->push(['noWorkSched'=>$noWorkSched]);
              }//END foreach payrollPeriod
 
-           //return $myDTR;
+           //return $wsch;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
