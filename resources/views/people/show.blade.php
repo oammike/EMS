@@ -1040,16 +1040,30 @@
 
                    htmlcode +=                  '<h4 class="text-center"><br/><br/>Request <span class="text-primary">New Work Schedule</span> for : <br/><strong class="text-danger">'+selectedDate+'</strong> </h4>';
 
-                  htmlcode +=                   '<div class="row"><div class="col-sm-3"></div>';
-                  htmlcode +=                       '<div class="col-sm-6">';
+                  htmlcode +=                   '<div class="row"><div class="col-sm-2"></div>';
+                  htmlcode +=                       '<div class="col-sm-4">';
                                           
-                  htmlcode +=                            '<select name="shift" class="end form-control" style="margin-bottom:5px"><option value="0">* Select shift *</option><option value="-1">- REST DAY -</option>';
+                   htmlcode += '<label><input type="radio" class="schedtype" name="schedtype" id="fulltime" value="f" /> Full time</label>';
+                                          
+                  htmlcode +=                            '<select name="shift" id="shift_f" class="end form-control" style="margin-bottom:5px"><option value="0">* Select shift *</option><option value="-1">- REST DAY -</option>';
                                                 @foreach ($shifts as $shift)
                                                    htmlcode+='<option value="{{$shift}}">{{$shift}} </option>';
 
                                                @endforeach
-                  htmlcode +=                           '</select>';
-                  htmlcode += '                 <br/><br/><label>Reason: </label><textarea required class="form-control" name="reason_cws" id="reason_cws" /></div><div class="col-sm-3"></div></div></div>';
+                  htmlcode +=                           '</select></div>';
+                  htmlcode +=                       '<div class="col-sm-4">';
+                  htmlcode += '<label><input type="radio" name="schedtype" class="schedtype" id="parttime" value="p" /> Part time</label>'
+                                          
+                  htmlcode +=                            '<select name="shift" id="shift_p" class="end form-control" style="margin-bottom:5px"><option value="0">* Select shift *</option><option value="-1">- REST DAY -</option>';
+                                                @foreach ($partTimes as $pshift)
+                                                   htmlcode+='<option value="{{$pshift}}">{{$pshift}} </option>';
+
+                                               @endforeach
+                  htmlcode +=                           '</select></div>';
+
+                  htmlcode += '                 <div class="col-sm-2"></div></div>';
+                  htmlcode += '<div class="row"><div class="col-sm-12"><br/><label>Reason: </label><textarea required class="form-control" name="reason_cws" id="reason_cws" /></div></div>'
+                  htmlcode += '</div>';
                   htmlcode += '<h2> <br/><br/></h2>';
                   htmlcode +=                '<input type="hidden" name="timestart_old" value="'+timeIN+'" />';
                   htmlcode +=                '<input type="hidden" name="timeend_old" value="'+timeOUT+'" />';
@@ -1231,6 +1245,7 @@
                   
 
                   $('#holder').html(htmlcode);
+
                   $('.options').fadeOut(); $('#pane_CWS, #pane_SL, #pane_VL,#pane_EL,#pane_LWOP,#pane_OBT,.moredays').hide();
                   $('#save').fadeOut();
 
@@ -1239,7 +1254,8 @@
                     @if (count($user->approvers) > 0)
 
                      
-                      $('#mainMenus').fadeOut(function(){$('#pane_CWS').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();}); 
+                      $('#mainMenus').fadeOut(function(){$('#pane_CWS').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();});
+                      $('#shift_f,#shift_p').fadeOut(); 
                      
 
                     @else
@@ -1257,91 +1273,6 @@
 
                     var toPage = "../user_vl/create?from="+productionDate;// 
                     window.location = toPage;
-
-                    /*
-                    $('#mainMenus').fadeOut(
-                        function(){
-                          $('#pane_VL').fadeIn(); $('.options').fadeIn(); $('#save').fadeIn();
-                          $('#shift_whole, #shift2_whole').prop('checked',true);
-                          $('.addDays').on("click", function(e){
-                            e.preventDefault();
-                            $('#vl_more').hide();
-                            $('.moredays').fadeIn(); $(this).fadeOut();
-
-                            $('#vl_to').on('focusout', function(){
-
-                              if ($('#vl_to').val() !== "")
-                              {
-                                $('#vl_more').fadeIn();
-                                var _token = "{{ csrf_token() }}";
-                                 $.ajax({
-                                    url: "{{action('UserController@getWorkSchedForTheDay',$user->id)}}",
-                                    type:'POST',
-                                    data:{ 
-                                     'vl_day': $('#vl_to').val(), 
-                                      '_token':_token
-                                    },
-                                    success: function(response){
-                                      console.log(response);
-                                      $('#pane_VL input[name="timestart_old2"]').val(response.start);
-                                      $('#pane_VL input[name="timeend_old2"]').val(response.end);
-                                      
-                                    }
-                                  });
-
-                              } else $('#vl_more').fadeOut();
-
-
-                              var vl_from = $('#vl_from').val();
-                              var shift_from = $('input[name="coveredshift"]:checked').val();
-                              var vl_to = $('#vl_to').val();
-                              var shift_to = $('input[name="coveredshift2"]:checked').val();
-
-                              
-                               if ( moment(vl_to,"MM/D/YYYY").isBefore( moment(vl_from,"MM/D/YYYY")) )
-                                {
-                                  alert("Invalid 'Until' date. Selected date is past your 'From' date.");
-                                  return false;
-                                }else{
-                                  computeCredits(vl_from,vl_to,shift_from,shift_to);
-
-                                  var vl_to2 = $('#vl_to').val();
-
-                                  var toval = moment(vl_to2,"MM/DD/YYYY").format('MMM DD ddd');
-                                  $("#vlto").html("To: "+toval);
-
-                                }
-
-                              
-
-                               
-
-
-
-                            });//end vl to focusout
-
-
-                            $('input[name="coveredshift2"]').on('change',function(){
-                              var selCS = $(this).val();
-                              var currcredit = null;
-                              var vl_from = $('#vl_from').val();
-                              var shift_from = $('input[name="coveredshift"]:checked').val();
-                              var vl_to = $('#vl_to').val();
-                              var shift_to = $('input[name="coveredshift2"]:checked').val();
-
-                              computeCredits(vl_from,vl_to,shift_from,shift_to);
-                              
-
-                              
-                            });
-
-
-                        });
-
-
-                    }); //end mainmenu fadeout
-
-                    */
 
                    
                    
@@ -1500,7 +1431,12 @@
 
             e.preventDefault(); e.stopPropagation();
             var _token = "{{ csrf_token() }}";
-            var shift = $('select.end.form-control :selected').val();
+            
+            if($('#parttime').is(':checked')) 
+              var shift = $('select#shift_p :selected').val();
+            else if($('#fulltime').is(':checked')) 
+              var shift = $('select#shift_f :selected').val();
+            
             var user_id = $(this).attr('data-userid');
             var selectedDate = $(this).attr('data-date');
             
