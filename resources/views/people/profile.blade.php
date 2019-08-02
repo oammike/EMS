@@ -76,9 +76,9 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 @if ($user->hascoverphoto !== null)
                 <?php $cover = URL::to('/') . "/storage/uploads/cover-".$user->id."_".$user->hascoverphoto.".png";// URL::asset("public/img/cover/".$user->id.".jpg"); ?>
-                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{$cover}}') left no-repeat; background-size:1024px auto">
+                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{$cover}}') center no-repeat; background-size:1024px auto">
                 @else
-                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{URL:: asset("public/img/makati.jpg")}}') left no-repeat; background-size:1024px auto">
+                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{URL:: asset("public/img/makati.jpg")}}') center no-repeat; background-size:1024px auto">
                 @endif
 
                  <input type="hidden" name="coverimg" id="coverimg" value="" />

@@ -2521,8 +2521,9 @@ class UserController extends Controller
 
             $shifts = $this->generateShifts('12H','full');
             $partTimes = $this->generateShifts('12H','part');
+            //return $partTimes;
             
-            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','hasNewPhoto'));
+            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS','canPlotSchedule', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','partTimes', 'hasNewPhoto'));
 
             
             

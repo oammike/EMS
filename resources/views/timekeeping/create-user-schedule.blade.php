@@ -147,7 +147,7 @@
                         <div class="box-footer no-padding">
                           <ul class="nav nav-stacked">
                             <li><a href="#"><i class="fa fa-calendar"></i>&nbsp;&nbsp; Type of Schedule <span id="result_type" class="pull-right badge bg-black"></span></a></li>
-                            <li id="effectiveOn"><a href="#"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp; Effecitivity <span class="pull-right badge bg-black"></span></a></li>
+                            <li id="effectiveOn"><a href="#"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp; Effectivity <span class="pull-right badge bg-black"></span></a></li>
                             <li><a href="#"><i class="fa fa-bed"></i>&nbsp;&nbsp; Rest Days <span id="result_RD" class="pull-right badge bg-black"></span></a></li>
                             <div class="clearfix"></div>
                             <li><a href="#"><i class="fa fa-exchange"></i>&nbsp;&nbsp; Flexi Time <span id="result_flexi" class="pull-right badge bg-black"></span></a></li>
@@ -434,7 +434,7 @@ $(function () {
       { 
         $('#step2b').fadeIn(); 
         $('#nextButton').fadeIn();
-        $('#effectiveOn').html('<a href="#"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp; Effecitivity <span class="pull-right badge bg-black">'+effectFrom+' - '+effectiveTo+'</span></a>');
+        $('#effectiveOn').html('<a href="#"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp; Effectivity <span class="pull-right badge bg-black">'+effectFrom+' - '+effectiveTo+'</span></a>');
       }
 
     });
@@ -453,7 +453,7 @@ $(function () {
       { 
         $('#step2b').fadeIn(); 
         $('#nextButton').fadeIn();
-        $('#effectiveOn').html('<a href="#"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp; Effecitivity <span class="pull-right badge bg-black">'+effectFrom+' </span></a>');
+        $('#effectiveOn').html('<a href="#"><i class="fa fa-thumbs-up"></i>&nbsp;&nbsp; Effectivity <span class="pull-right badge bg-black">'+effectFrom+' </span></a>');
       }
 
     });
