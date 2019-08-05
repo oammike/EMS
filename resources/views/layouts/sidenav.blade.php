@@ -219,20 +219,7 @@
         <!-- Optionally, you can add icons to the links -->
         <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
-        <li class="treeview @if ( Request::is('survey*') ) active @endif">
-          <a href="#"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
-
-            
-             <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',5)}}"><i class="fa fa-file-o"></i>360° Survey </a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>Year End Party Artists</a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> Year End Party Theme </a></li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@show',1)}} "><i class="fa fa-question-circle"></i> <span>EES ( * 2019 Survey )</span> </a> </li>
-            
-           
-          </ul>
-        </li>
-
+        
 
       
        
@@ -294,6 +281,21 @@
         @endif
 
         <li @if (Request::is('myEvals')) class="active" @endif><a href="{{action('UserController@myEvals')}}" ><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Evals</span></a></li>
+
+        <li class="treeview @if ( Request::is('survey*') ) active @endif">
+          <a href="#"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+
+            
+             <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',5)}}"><i class="fa fa-file-o"></i>360° Survey </a> </li>
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>Year End Party Artists</a> </li>
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> Year End Party Theme </a></li>
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@show',1)}} "><i class="fa fa-question-circle"></i> <span>EES ( * 2019 Survey )</span> </a> </li>
+            
+           
+          </ul>
+        </li>
+
 
 
 
