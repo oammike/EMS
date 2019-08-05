@@ -899,7 +899,7 @@ trait TimekeepingTraits
      //$schedForToday = $workSched->where('workday',$numDay)->first();
     $allFixedWS = FixedSchedules::where('user_id',$user->id)->where('workday',$numDay)->orderby('created_at','DESC')->get();
 
-    if (count($allFixedWS) > 0) $schedForToday = $allFixedWS->first();
+    (count($allFixedWS) > 0) ?  $schedForToday = $allFixedWS->first() : $schedForToday = null;
     /*$ct = 0;
     foreach ($allFixedWS as $key) 
     {
