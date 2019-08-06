@@ -3578,7 +3578,7 @@ trait TimekeepingTraits
                               if ($latest->created_at > $latest_fixed->first()->created_at)
                               {
                                  
-                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter);
+                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);
                                   $sched = $coll->first();
                                   
 
@@ -3601,7 +3601,7 @@ trait TimekeepingTraits
                                     // --------- check now which of those two is recently updated 
                                    if ($latest->created_at > $latest_fixed->first()->created_at)
                                     {
-                                        $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                                        $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                                         
 
                                     } else 
@@ -3634,7 +3634,7 @@ trait TimekeepingTraits
 
                                 if ($latest->created_at > $latest_fixed->first()->created_at){
                                 
-                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                                 
                                 } else
                                 {
@@ -3675,7 +3675,7 @@ trait TimekeepingTraits
                         if ($latest->created_at > $latest_fixed->first()->created_at)
                         {
                            
-                            $coll = $this->getShiftingSchedules2($latest, $coll,$counter);
+                            $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);
                             $sched = $coll->first();
                             
 
@@ -3698,7 +3698,7 @@ trait TimekeepingTraits
                               // --------- check now which of those two is recently updated 
                              if ($latest->created_at > $latest_fixed->first()->created_at)
                               {
-                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                                   
 
                               } else 
@@ -3731,7 +3731,7 @@ trait TimekeepingTraits
 
                           if ($latest->created_at > $latest_fixed->first()->created_at){
                           
-                            $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                            $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                           
                           } else
                           {
@@ -3742,7 +3742,7 @@ trait TimekeepingTraits
 
                     }else { 
                       
-                      $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
+                      $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
                       
 
                     }
@@ -3877,17 +3877,17 @@ trait TimekeepingTraits
                             //check mo muna which one is more current, RD or workDay ba sya?
                                if ($dupes->first()->created_at > $keys->created_at) {
                                
-                                $coll = $this->getShiftingSchedules2($keys, $coll,$counter);
+                                $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);
                                 $sched = $coll->first();
                               } else 
                               {
-                                  $coll = $this->getShiftingSchedules2($keys, $coll,$counter);$sched = $coll->first();
+                                  $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);$sched = $coll->first();
 
                               }
                               
 
                            } else {
-                             $coll = $this->getShiftingSchedules2($keys, $coll,$counter);$sched = $coll->first();
+                             $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);$sched = $coll->first();
 
                            }
 
@@ -3915,7 +3915,7 @@ trait TimekeepingTraits
 
                               }else {
 
-                                $coll = $this->getShiftingSchedules2($key->first(), $coll,$counter);$sched = $coll->first();
+                                $coll = $this->getShiftingSchedules2($key->first(), $coll,$counter,$productionDate);$sched = $coll->first();
                                
                               }
 
