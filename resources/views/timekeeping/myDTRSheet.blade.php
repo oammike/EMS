@@ -67,17 +67,10 @@
                                             <div class="description-block">
                                               <p class="description-header"><i class="fa fa-users margin-r-5"></i> Department / Program : </p>
                                               <span class="description-text text-primary">
-                                              @if(count($camps) > 1)
+                                              
+                                              {!! $camps !!}
 
-                                                  @foreach($camps as $ucamp)
-                                                      {{$ucamp->name}} , 
-
-                                                  @endforeach
-
-                                              @else
-                                              {{$camps->first()->name}}
-
-                                              @endif
+                                              
                                               </span>
 
                                               
