@@ -55,6 +55,7 @@ use OAMPI_Eval\Summary;
 use OAMPI_Eval\PerformanceSummary;
 use OAMPI_Eval\Movement_ImmediateHead;
 use OAMPI_Eval\Movement_Positions;
+use OAMPI_Eval\Movement_Status;
 use OAMPI_Eval\Notification;
 use OAMPI_Eval\User_Notification;
 
@@ -208,10 +209,10 @@ trait EvaluationTraits
                                             where('effectivity','>=',$currentPeriod->toDateString())->get();
                                             //where('effectivity','<=',$cPeriod->format('Y-m-d'))->get();
 
-                        // $coll2->push(['checkTransfer'=>$checkTransfer,
-                        //     'effectivity>='=>$currentPeriod->toDateString(),
-                        //     'effectivity<='=>$cPeriod->format('Y-m-d'), 
-                        //     'of'=>$employ->id]);
+                        $coll2->push(['checkTransfer'=>$checkTransfer,
+                            'effectivity>='=>$currentPeriod->toDateString(),
+                            'effectivity<='=>$cPeriod->format('Y-m-d'), 
+                            'of'=>$employ->id]);
 
                         if (count($checkTransfer)>0)
                         {
@@ -428,7 +429,8 @@ trait EvaluationTraits
                     $changedHeads->push($m->info);
                     
                 }
-               
+
+
 
                 foreach ($changedHeads as $mvt) {
                   
@@ -449,10 +451,21 @@ trait EvaluationTraits
                     $statMovements = Movement::where('user_id',$mvt->user_id)->where('personnelChange_id','3')->where('isDone',1)->
                                     where('effectivity','>=',$currentPeriod->format('Y-m-d H:i:s'))->orderBy('id','DESC')->get();
 
+
+
                     if (count($statMovements) > 0)
                     {
-                        if ($statMovements->first()->effectivity < $mvt->effectivity)
-                            $chIH->push($mvt);
+                        $coll2->push(['first'=>$statMovements->first()->effectivity, 'isLessThan'=>$mvt->effectivity]);
+                        $checkIfRegularization = Movement_Status::where('movement_id',$statMovements->first()->id)->first();
+
+                        if ($checkIfRegularization->status_id_new == 4)
+                        {
+                            if ($statMovements->first()->effectivity < $mvt->effectivity)
+                                $chIH->push($mvt);
+
+                        }else $chIH->push($mvt);
+
+                        
 
                     } else
                     { 
@@ -461,7 +474,7 @@ trait EvaluationTraits
                     }
                     
                    
-                    //$coll2->push($mvt);
+                    
                    
                     
                   }  
@@ -483,8 +496,10 @@ trait EvaluationTraits
                   */
                                                         
                 }
+                
 
 
+                $coll2->push(['pasok chIH'=>$chIH]);
 
 
                 foreach ($chIH as $emp) 
@@ -744,7 +759,11 @@ trait EvaluationTraits
 
                         }//end if REGULAR || PROJ CONSULT || FLOATING || PROJ BASED || PARTTIME
 
+
+
                     }//end 6++ months tenure
+
+
 
 
 
