@@ -458,7 +458,8 @@ trait EvaluationTraits
                         $coll2->push(['first'=>$statMovements->first()->effectivity, 'isLessThan'=>$mvt->effectivity]);
                         $checkIfRegularization = Movement_Status::where('movement_id',$statMovements->first()->id)->first();
 
-                        if ($checkIfRegularization->status_id_new == 4)
+                        if ($checkIfRegularization->status_id_new == 4 && $checkIfRegularization->status_id_old != 6 )
+                        //make sure if to Regular and NOT from floating status
                         {
                             if ($statMovements->first()->effectivity < $mvt->effectivity)
                                 $chIH->push($mvt);
