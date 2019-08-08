@@ -943,7 +943,7 @@ select:-webkit-autofill:focus {
                       "columns": [
                             { sorting:false, title: "", defaultContent: "<i>none</i>" , data:'id', render:function(data,type,full,meta){return '<span style="visibility:hidden">'+data+'</span><i class="fa '+full.icon+'"></i>';}}, 
                             
-                            { title: "Requests", defaultContent: "<i>none</i>" , data:'type', render:function(data,type,full,meta){return '<a href="#" data-toggle="modal" data-target="#myModal_DTRP'+full.id+'"> <strong>'+data+'</strong></a><br/><small>from: '+full.user+' - </small>';}},  
+                            { title: "Requests", defaultContent: "<i>none</i>" , data:'type', render:function(data,type,full,meta){return '<a href="#" data-toggle="modal" data-target="#myModal_DTRP'+full.id+'"> <strong>'+data+'</strong></a><br/><small>from: '+full.user+' - <strong>'+full.program+'</strong> </small>';}},  
                             { title: "Date Filed", defaultContent: " ", data:'productionDate', render:function(data,type,full){
                               var formattedDate = new Date(full.deets.created_at);
                               var formattedDate2 = new Date(data);
