@@ -395,19 +395,14 @@ class NotificationController extends Controller
 
                              } else $message = "requested a new employee movement. Click on the link above to learn more. ";
 
-                                     //check if interdepartment movement or not;
-                                     // if not then needs approval first
+                             //check if interdepartment movement or not;
+                             // if not then needs approval first
 
-                                     $canApprove = UserType::find($this->user->userType_id)->roles->where('label','APPROVE_MOVEMENTS')->first();
-
-                                     
-                                     //if( !Movement::find($notif->detail->relatedModelID)->withinProgram && $canApprove )
-                                        //$actionlink = action('MovementController@approve',['id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true]);
-                                        // route('movement.approve', array('id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true )); 
-                                         $actionlink = route('movement.show', array('id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true )); 
-                                    // else 
-                                    //     $actionlink = route('movement.show', array('id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true )); 
-                          }
+                             $canApprove = UserType::find($this->user->userType_id)->roles->where('label','APPROVE_MOVEMENTS')->first();
+                             $actionlink = route('movement.show', array('id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true )); 
+                            // else 
+                            //     $actionlink = route('movement.show', array('id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true )); 
+                          } else $actionlink = "";
 
                           break; 
                           }
