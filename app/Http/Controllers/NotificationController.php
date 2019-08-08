@@ -68,6 +68,7 @@ class NotificationController extends Controller
         $yourNotif = $this->user->notifications->sortByDesc('id');
         $coll=new Collection;
         $ownNotif = null;
+        $message =" ";
 
        // return $yourNotif;
 
