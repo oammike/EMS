@@ -711,8 +711,10 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
                                       '_token':_token
                                     },
                                     success: function(response){
-                                      console.log(response.start);
-                                      console.log(response.end);
+                                      console.log('response from checkIfRestday:');
+                                      console.log(response);
+                                      //console.log(response.start);
+                                      //console.log(response.end);
                                       if (response.start === response.end){
                                         console.log("equal");
                                         alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
