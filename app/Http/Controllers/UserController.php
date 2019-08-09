@@ -951,7 +951,15 @@ class UserController extends Controller
         if (is_null($key->approver)) {$approver=null; $tlPic = asset('public/img/useravatar.png');}
          else
         {
-          $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          //check first kung may immediateHead approver; else direct userID yon
+          $hasIMhead = ImmediateHead_Campaign::find($key->approver);
+          if (count($hasIMhead) > 0){
+            $approver = User::where('employeeNumber', $hasIMhead->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          }else{
+            $approver = User::find($key->approver);
+
+          }
+          //$approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
           if ( file_exists('public/img/employees/'.$approver->id.'.jpg') ) $tlPic = asset('public/img/employees/'.$approver->id.'.jpg');
           else $tlPic = asset('public/img/useravatar.png');
         }
