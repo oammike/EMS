@@ -495,6 +495,7 @@
                     var theshift = $(this).val();
                     var vl_from1 = moment(vl_from,"MM/DD/YYYY");
                     var creditsleft = null;// $('#creditsleft').attr('data-left');
+                    var reason_vl = $('textarea[name="reason_vl"]').val();
 
                     console.log("vl_from:");
                     console.log(vl_from);
@@ -505,7 +506,7 @@
                     console.log("theshift");
                     console.log(theshift);
 
-                        checkIfRestday(vl_from);
+                        //checkIfRestday(vl_from,reason_vl);
 
                         if (vl_to == "") computeCredits(vl_from1,null,theshift,shift2,creditsleft);
                         else computeCredits(vl_from1,vl_to,theshift,shift2,creditsleft);
@@ -697,7 +698,7 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
   }
 
-  function checkIfRestday(vl_day, reason_vl)
+function checkIfRestday(vl_day, reason_vl)
   {      
 
 
