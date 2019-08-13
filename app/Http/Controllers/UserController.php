@@ -689,6 +689,9 @@ class UserController extends Controller
                     ['status_id', '!=', 10],
                     ['status_id', '!=', 11],
                     ['status_id', '!=', 12],
+                    ['status_id', '!=', 14],
+                    ['status_id', '!=', 15],
+                    ['status_id', '!=', 16],
                 ])->
         leftJoin('team','team.user_id','=','users.id')->
         leftJoin('campaign','team.campaign_id','=','campaign.id')->
