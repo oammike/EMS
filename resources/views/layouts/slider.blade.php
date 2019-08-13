@@ -1,5 +1,17 @@
                     <div class="item active text-center" >
                       
+                              <h4 class="text-orange" >Happy <span class="text-primary"> Eid al-Adha </span></h4>
+                              <img src="./storage/uploads/mubarak.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Sending warm wishes to our colleagues, family, and friends from the Muslim community on this blessed day of #EidalAdha. Happy Eid! </strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #OAonEidalAdha</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                    <div class="item text-center" >
+                      
                               <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4>
                               <img src="./storage/uploads/confucius.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>Build your success at your own phase and never quit until you are done. <strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
