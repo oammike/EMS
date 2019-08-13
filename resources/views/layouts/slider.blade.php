@@ -10,237 +10,7 @@
 
                     </div>
 
-                    <div class="item text-center" >
-                      
-                              <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4>
-                              <img src="./storage/uploads/confucius.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Build your success at your own phase and never quit until you are done. <strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
-                     <div class="item text-center" >
-                      
-                              <h4 class="text-orange" >Open Access <span class="text-primary"> Cares </span></h4>
-                              <img src="./storage/uploads/ryans-run.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Ryan's Run and Allied Services have always been dear to the Open Access BPO family. We're happy to lend a hand to support these non-profit organizations as they help people with disabilities, life-changing injuries, and chronic illnesses.<br/><br/>
-                               Photo credit: Ryan's Run</strong><br/></p>
-
-                               <p class="text-left" style="padding-left: 50px; font-size: smaller;"><strong>Repost:</strong>
-                                Feeling #thankful for the support of our friends and major sponsors @openaccessbpo This Philippines based multi-lingual customer care and support center gives generously to change lives @alliedservicesihs Thank you for your incredible support. <br/><br/>#philanthropy #ryansrun #pinoyspirit #changinglives #charityteam #alliedservices #makeadifference</p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAcares</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
-                    <div class="item text-center" >
-                      
-                              <h4 class="text-orange" >Health &amp; Wellness -  <span class="text-primary">Davao </span></h4>
-                              <img src="./storage/uploads/davao-1.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To maintain the health and wellness of our employees in Davao, Open Access BPO has launched its first Health & Wellness Program on July 25, 2019. The event is a joint effort between the Clinic team and our Davao site's HR team and Maxicare who provided us with awesome lifestyle partners.<br/><br/> <a href="{{ action('HomeController@gallery',['a'=>16]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a><br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
-
-                    <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
-                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
-                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
-                                <!-- <strong class="text-danger">JUNE</strong><br/>
-                                * Pride March <br/>
-                                * Flu Vaccination <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/> -->
-
-                               
-
-                               <strong class="text-danger">AUGUST</strong> <br/>
-                                * Mobile Legends Tournament <br/>
-                                * Outreach Activity (Local Community) <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                              Actual dates and more details will be announced soon.</p>
-                               
-
-                              <br/>
-                    </div>
-
-                     <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Ribbon Cutting <span class="text-primary">Ceremony </span></h4>
-                              <img src="./storage/uploads/ribbon-cutting-2.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's <a href="./user/1" target="_blank" style="font-weight:bold;">CEO Ben Davidowitz</a>, <a href="./user/1784" target="_blank" style="font-weight:bold;">VP for Global Operations Joy Sebastian,</a> and <a href="./user/184" target="_blank" style="font-weight:bold;">President Henry Chang</a> officiated the launch of the company's new office in Glorietta 2 Corporate Center, Makati City earlier today.<br/><br/>
-
-                              #WeSpeakYourLanguage #OANewDoors<br/><br/>
-
-                              <strong>More Pics:</strong><br/>
-                              <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>13]) }}"><i class="fa fa-picture-o"></i> Ribbon Cutting</a> |  <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>15]) }}"><i class="fa fa-picture-o"></i> Photo Booth</a> | <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>14]) }}"><i class="fa fa-picture-o"></i> After Party</a>
-
-                               </p>
-                               
-                              <br/>
-                    </div>  
-
-
-                    
-
-                    
-
-                    
-
-                    <div class="item text-center" >
-                        
-                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Free Zumba Class</span> New Schedule</h3>
-                         <br/><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                            <br/><span class="text-danger">August 13, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
-
-                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                            <BR/><span class="text-danger">August 15, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
-
-                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
-                              Sign Up Now</a><br/><br/>
-
-                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
-
-                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
-                              
-                              <div class="text-left"  style="padding-left: 30px;">
-                                <h5>Minor Prizes:</h5>
-                                <ul>
-                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
-                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
-                                  <li>1 winner: JBL Bluetooth speaker</li>
-                                  <li>1 winner: Cheero 10050 Powerbank</li>
-                                  <li>1 winner: Beats&trade; head set</li>
-                                </ul></div>
-
-                             <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
-
-                          <br/><br/>
-                           <strong>Venue:</strong><br/>
-
-                            OPEN ACCESS BPO G2 OFFICE<br/>
-
-                            11F Glorietta 2 Corporate Center,<br/>
-
-                            West. St., Ayala Center, Makati City<br/><br/>
-
-                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                            <br/><br/>
-
-                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                           
-                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                      </div>
-
-                    
-                    
-
-                      @if(count($firstYears) >= 1)
-                            <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item  text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
-                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-                            @foreach($firstYears as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                <div class="widget-user-image">
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
-                                  @else
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if (empty($n->nickname) || $n->nickname==" ")
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                    @endif
-
-
-
-                    <div class="item  text-center" >
-
-                              <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
-                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
-                              <img src="./storage/uploads/pride2019-1.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>More pics in our <a href="./gallery?a=12"><strong class="text-primary">Gallery page</strong></a><br/><br/>
-                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
-
-
-
-                               </p>
-
-
-                      </div>
-
-
-                       @if (count($newHires) >= 1)
+                     @if (count($newHires) >= 1)
                         <!-- **** NEW HIRES ******************** -->
                         <div class="item text-center">
                           <div class="box box-widget widget-user">
@@ -313,19 +83,210 @@
 
                       @endif
 
-                       
+                    <div class="item text-center" >
+                      
+                              <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4>
+                              <img src="./storage/uploads/confucius.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Build your success at your own phase and never quit until you are done. <strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
                    
 
+                    <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
+                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
+                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
+                                <!-- <strong class="text-danger">JUNE</strong><br/>
+                                * Pride March <br/>
+                                * Flu Vaccination <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/> -->
+
+                               
+
+                               <strong class="text-danger">AUGUST</strong> <br/>
+                                * Mobile Legends Tournament <br/>
+                                * Outreach Activity (Local Community) <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                              Actual dates and more details will be announced soon.</p>
+                               
+
+                              <br/>
+                    </div>
+
+                     <div class="item text-center" >
+                      
+                              <h4 class="text-orange" >Open Access <span class="text-primary"> Cares </span></h4>
+                              <img src="./storage/uploads/ryans-run.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Ryan's Run and Allied Services have always been dear to the Open Access BPO family. We're happy to lend a hand to support these non-profit organizations as they help people with disabilities, life-changing injuries, and chronic illnesses.<br/><br/>
+                               Photo credit: Ryan's Run</strong><br/></p>
+
+                               <p class="text-left" style="padding-left: 50px; font-size: smaller;"><strong>Repost:</strong>
+                                Feeling #thankful for the support of our friends and major sponsors @openaccessbpo This Philippines based multi-lingual customer care and support center gives generously to change lives @alliedservicesihs Thank you for your incredible support. <br/><br/>#philanthropy #ryansrun #pinoyspirit #changinglives #charityteam #alliedservices #makeadifference</p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAcares</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                    @if(count($firstYears) >= 1)
+                            <!-- ******** FIRST YEAR ANNIV ******* -->
+                            <div class="item  text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <br/><br/>
+                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
+                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
+                                
+                                <div class="widget-user-image">
+                                   
+
+                                 
+
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                              </div>
+                            </div>
+                            @foreach($firstYears as $n)
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span></h4>
+                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                                @if (is_null($n->hascoverphoto) )  
+                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                                
+                                @else
+                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                               @endif
+                                  
+                                  
+                                </div>
+                                <div class="widget-user-image">
+                                   
+
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                  @else
+                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                  @endif
+
+                                </div>
+                                
+                                <div class="box-footer">
+                                  @if (empty($n->nickname) || $n->nickname==" ")
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @else
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @endif
+
+                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                                  @if ($n->filename == null) 
+                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                                  @else
+                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                                  
+                                  @endif
+                                  <br/>
+                                </div>
+                              </div>
+                            </div>
+
+                            @endforeach
+
+                    @endif
+
+
+                     <!--zumba sched-->
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary"> Free Zumba Class</span> New Schedule</h3>
+                         <br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                            <br/><span class="text-danger">August 13, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                            <BR/><span class="text-danger">August 15, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
+                              Sign Up Now</a><br/><br/>
+
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                              
+                              <div class="text-left"  style="padding-left: 30px;">
+                                <h5>Minor Prizes:</h5>
+                                <ul>
+                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
+                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Bluetooth speaker</li>
+                                  <li>1 winner: Cheero 10050 Powerbank</li>
+                                  <li>1 winner: Beats&trade; head set</li>
+                                </ul></div>
+
+                             <img src="./storage/uploads/physical_poster.jpg" style="z-index: 2" /><br/>
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+
+
                     
 
-                      
-
-                      
-
-                      
-
-                  
                     
+
+                     <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Ribbon Cutting <span class="text-primary">Ceremony </span></h4>
+                              <img src="./storage/uploads/ribbon-cutting-2.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's <a href="./user/1" target="_blank" style="font-weight:bold;">CEO Ben Davidowitz</a>, <a href="./user/1784" target="_blank" style="font-weight:bold;">VP for Global Operations Joy Sebastian,</a> and <a href="./user/184" target="_blank" style="font-weight:bold;">President Henry Chang</a> officiated the launch of the company's new office in Glorietta 2 Corporate Center, Makati City earlier today.<br/><br/>
+
+                              #WeSpeakYourLanguage #OANewDoors<br/><br/>
+
+                              <strong>More Pics:</strong><br/>
+                              <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>13]) }}"><i class="fa fa-picture-o"></i> Ribbon Cutting</a> |  <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>15]) }}"><i class="fa fa-picture-o"></i> Photo Booth</a> | <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>14]) }}"><i class="fa fa-picture-o"></i> After Party</a>
+
+                               </p>
+                               
+                              <br/>
+                    </div>  
+
+
+                    
+
+                    
+   
 
                     <div class="item text-center" >
                               <img src="./storage/uploads/motivation-mia.jpg" style="z-index: 2" />
@@ -441,39 +402,7 @@
                       </div>
 
 
-                   
-
-
-                      <!-- HEALTH AND WELLNESS MONTH -->
-                    <div class="item text-center" >
-                              <img src="./storage/uploads/health-1.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Every month is a new Health and Wellness Program experience! Happy to see our employees enjoying their time in each of our partners' booths earlier.<br/><br/>We're also thankful to our partners: Leny's wellness massage services., Slimmers World International, Paterno EyeCare Center, Yakult Phils Inc., and BDO Unibank for supporting us in our aim for a healthier and happier workforce.<br/><br/> <a href="{{ action('HomeController@gallery',['a'=>11]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a><br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
-                    <div class="item text-center" >
-                              <img src="./storage/uploads/dreams2.jpg" style="z-index: 2" />
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
-                      <!-- BTS -->
-                    <div class="item text-center" >
-                              <h4 class="text-primary">BTS: <span class="text-orange">We Speak Your Language</span></h4>
-                              <img src="./storage/uploads/wespeak.jpg" style="z-index: 2" />
-
-                              
-                              <p class="text-center" style="padding-left: 30px;"><br/><br/>More behind the scene pics in our <a href="{{ action('HomeController@gallery',['a'=>10]) }}">Gallery</a></strong><br/><br/>
-
-                                </p>
-
-
-                    </div>
+                     
                       
                    
 
@@ -566,6 +495,72 @@
 
 
 <?php /*
+
+ <div class="item  text-center" >
+
+                              <h4 class="text-orange" >We Speak <span class="text-primary"> With Pride</span></h4>
+                              <!-- <img src="./storage/uploads/basket-sched.jpg" style="z-index: 2" /> -->
+                              <img src="./storage/uploads/pride2019-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>More pics in our <a href="./gallery?a=12"><strong class="text-primary">Gallery page</strong></a><br/><br/>
+                                <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong><br/><br/>
+
+
+
+                               </p>
+
+
+                      </div>
+
+
+ <div class="item text-center" >
+                      
+                              <h4 class="text-orange" >Health &amp; Wellness -  <span class="text-primary">Davao </span></h4>
+                              <img src="./storage/uploads/davao-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>To maintain the health and wellness of our employees in Davao, Open Access BPO has launched its first Health & Wellness Program on July 25, 2019. The event is a joint effort between the Clinic team and our Davao site's HR team and Maxicare who provided us with awesome lifestyle partners.<br/><br/> <a href="{{ action('HomeController@gallery',['a'=>16]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a><br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+
+
+                   
+
+
+
+
+   <!-- HEALTH AND WELLNESS MONTH -->
+                    <div class="item text-center" >
+                              <img src="./storage/uploads/health-1.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Every month is a new Health and Wellness Program experience! Happy to see our employees enjoying their time in each of our partners' booths earlier.<br/><br/>We're also thankful to our partners: Leny's wellness massage services., Slimmers World International, Paterno EyeCare Center, Yakult Phils Inc., and BDO Unibank for supporting us in our aim for a healthier and happier workforce.<br/><br/> <a href="{{ action('HomeController@gallery',['a'=>11]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a><br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                    <div class="item text-center" >
+                              <img src="./storage/uploads/dreams2.jpg" style="z-index: 2" />
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                      <!-- BTS -->
+                    <div class="item text-center" >
+                              <h4 class="text-primary">BTS: <span class="text-orange">We Speak Your Language</span></h4>
+                              <img src="./storage/uploads/wespeak.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-center" style="padding-left: 30px;"><br/><br/>More behind the scene pics in our <a href="{{ action('HomeController@gallery',['a'=>10]) }}">Gallery</a></strong><br/><br/>
+
+                                </p>
+
+
+                    </div>
 
   <div class="item text-center" >
                         
