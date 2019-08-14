@@ -483,6 +483,8 @@ class UserFamilyleaveController extends Controller
             $vl->isApproved=false;
         }
 
+        $correct = Carbon::now('GMT+8');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
         /***** once saved, update your leave credits ***/
@@ -598,7 +600,9 @@ class UserFamilyleaveController extends Controller
               
         }
 
-
+        $correct = Carbon::now('GMT+8');
+        $vl->created_at = $correct->format('Y-m-d H:i:s');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
 

@@ -409,6 +409,8 @@ class UserLWOPController extends Controller
         fwrite($file, "-------------------\n [". $request->id."] LWOP REQUEST \n");
         fclose($file);
 
+        
+
 
         $vl = User_LWOP::find($request->id);
         $vl->approver = $this->getTLapprover($vl->user_id, $this->user->id);
@@ -419,7 +421,8 @@ class UserLWOPController extends Controller
         }  else {
             $vl->isApproved=false;
         }
-
+        $correct = Carbon::now('GMT+8');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
         
@@ -454,7 +457,7 @@ class UserLWOPController extends Controller
         
        $vl = new User_LWOP;
        $vl->user_id = $request->id;
-        $vl->leaveStart =  $request->leaveFrom;
+       $vl->leaveStart =  $request->leaveFrom;
 
         //----- pag blank yung TO:, meaning wholeday sya. So add 9Hours sa FROM
         if($request->leaveTo == '0000-00-00 00:00:00' || is_null($request->leaveTo)){
@@ -490,7 +493,9 @@ class UserLWOPController extends Controller
             $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
         } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
 
-
+        $correct = Carbon::now('GMT+8');
+        $vl->created_at = $correct->format('Y-m-d H:i:s');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
         // get WFM

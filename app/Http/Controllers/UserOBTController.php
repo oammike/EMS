@@ -411,6 +411,8 @@ class UserOBTController extends Controller
             $vl->isApproved=false;
         }
 
+        $correct = Carbon::now('GMT+8');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
         
@@ -473,7 +475,9 @@ class UserOBTController extends Controller
             $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
         } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
 
-
+        $correct = Carbon::now('GMT+8');
+        $vl->created_at = $correct->format('Y-m-d H:i:s');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
         // get WFM
