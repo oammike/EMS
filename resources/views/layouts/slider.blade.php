@@ -1,4 +1,56 @@
                     <div class="item active text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h4 style="margin-top: -30px" class="text-danger"><strong>Admin Assistant </strong><br/>
+                               <small>for</small> 
+                               <a target="_blank" href="{{action('CampaignController@show','54')}} "> <img src="./public/img/logo_ndy.png" width="120"></a>
+                                </h4>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Aug. 19 2019 Monday </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Qualifications: </p>
+                              <ul class="text-left">
+                                
+                                <li>No attendance issues / DAs in the last 6 months</li>
+                                <li>Has stayed with Open Access for at least 6 months</li>
+                              </ul>
+
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Responsibilities: </p>
+                              <ul class="text-left">
+
+                                <li>Reporting to the Assistant Manager, you will provide administrative support. You will liaise closely with Assistant Manager, to ensure that all deadlines are met for both disciplines in an efficient manner that will also assist you in coordination and prioritizing the workload.</li>
+                                <li>You will provide support, guidance, and training to your fellow offshore colleagues, assisting in their development and upskilling.</li>
+
+                              </ul>
+                              
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Skills and Experiences: </p>
+                              <ul class="text-left">
+
+                                <li>Abilitiy to develop supervisory skills; with understanding and appreciation for regional differences</li>
+                                <li>Uncompromising commitment to lient and customer satisfaction</li>
+                                <li>Excellent analytical skills with high attention to detail</li>
+                                <li>Excellent verbal and written communication skills</li>
+                                <li>Ability to maintain confidentiality and to work independently with little supervision</li>
+                                <li>Well-developed keyboard and computer skills with an advanced working knowledge of Microsoft Office, internet, and e-mail applications</li>
+
+                              </ul>
+                              <br/><br/>
+
+                               
+                              <br/><br/>
+                              
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessbpo.com">recruitment@openaccessbpo.com</a></small></p>
+
+
+                      </div>
+
+                    <div class="item text-center" >
                       
                               <h4 class="text-orange" >Happy <span class="text-primary"> Eid al-Adha </span></h4>
                               <img src="./storage/uploads/mubarak.jpg" style="z-index: 2" />
