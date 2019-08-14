@@ -32,7 +32,7 @@
                               <ul class="text-left">
 
                                 <li>Abilitiy to develop supervisory skills; with understanding and appreciation for regional differences</li>
-                                <li>Uncompromising commitment to lient and customer satisfaction</li>
+                                <li>Uncompromising commitment to client and customer satisfaction</li>
                                 <li>Excellent analytical skills with high attention to detail</li>
                                 <li>Excellent verbal and written communication skills</li>
                                 <li>Ability to maintain confidentiality and to work independently with little supervision</li>
