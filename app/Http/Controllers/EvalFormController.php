@@ -1156,14 +1156,14 @@ class EvalFormController extends Controller
 
                                     //return $data;
 
-                                      $changedImmediateHeads = $data->first()['changedImmediateHeads'];
+                                      $changedImmediateHeads = $data->first()['changedImmediateHeads'];//$data->first()['changedHeads'];//
                                       
 
                                       $doneMovedEvals = $data->first()['doneMovedEvals'];
 
 
                                   
-                                  //return $coll;
+                                  //return $data;
                                   return view('showThoseUpFor', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
 
 

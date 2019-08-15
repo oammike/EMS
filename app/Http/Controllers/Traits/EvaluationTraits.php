@@ -461,7 +461,7 @@ trait EvaluationTraits
                         if ($checkIfRegularization->status_id_new == 4 && $checkIfRegularization->status_id_old != 6 )
                         //make sure if to Regular and NOT from floating status
                         {
-                            if ($statMovements->first()->effectivity < $mvt->effectivity)
+                            if ($statMovements->first()->effectivity <= $mvt->effectivity)
                                 $chIH->push($mvt);
 
                         }else $chIH->push($mvt);
@@ -473,6 +473,9 @@ trait EvaluationTraits
                         $chIH->push($mvt);
 
                     }
+
+                     //$chIH->push($mvt);
+
                     
                    
                     
