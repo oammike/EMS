@@ -37,21 +37,29 @@
 
                         @foreach ($allCamps as $campaign)
 
-                        <a href="{{action('CampaignController@show',$campaign->id)}}" class="pull-left text-center" style="width: 25%; height:150px">
+                            @if($campaign->hidden == 1)
 
-                          @if(is_null($campaign->filename))
-                          <!--pridelogo.png  -->
-                          <img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="50px" />
-                          <h4> {{$campaign->name}}</h4>
+                            @else
 
-                          @elseif ($campaign->name=='IMO')
-                          <img src="./public/img/{{$campaign->filename}}" height="55"  />
+                             <a href="{{action('CampaignController@show',$campaign->id)}}" class="pull-left text-center" style="width: 25%; height:150px">
 
-                          @else
-                          <img src="./public/img/{{$campaign->filename}}" width="150px" style="margin-top: 20px" />
-                          @endif
-                          
-                        </a>
+                              @if(is_null($campaign->filename))
+                              <!--pridelogo.png  -->
+                              <img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="50px" />
+                              <h4> {{$campaign->name}}</h4>
+
+                              @elseif ($campaign->name=='IMO')
+                              <img src="./public/img/{{$campaign->filename}}" height="55"  />
+
+                              @else
+                              <img src="./public/img/{{$campaign->filename}}" width="150px" style="margin-top: 20px" />
+                              @endif
+                              
+                            </a>
+
+                            @endif
+
+                       
 
                         
                        

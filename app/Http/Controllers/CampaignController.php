@@ -64,7 +64,7 @@ class CampaignController extends Controller
                             ['name','!='," "]
                         ])
                         ->leftJoin('campaign_logos','campaign_logos.campaign_id','=','campaign.id')
-                        ->orderBy('name','DESC')->select('campaign.name','campaign.id','campaign_logos.filename')->get();
+                        ->orderBy('name','DESC')->select('campaign.name','campaign.id','campaign_logos.filename','campaign.hidden')->get();
 
                 $sort=2;
             }
@@ -75,7 +75,7 @@ class CampaignController extends Controller
                             ['name','!='," "]
                         ])
                         ->leftJoin('campaign_logos','campaign_logos.campaign_id','=','campaign.id')
-                        ->orderBy('name','ASC')->select('campaign.name','campaign.id','campaign_logos.filename')->get();
+                        ->orderBy('name','ASC')->select('campaign.name','campaign.id','campaign_logos.filename','campaign.hidden')->get();
             }
 
 
