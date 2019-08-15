@@ -421,10 +421,36 @@
                                                                   
 
                                                               @else
+                                                              <!-- **** new layout pag may 1st or 2nd shift leave -->
+                                                                @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50")
 
-                                                             <!--  <a href="{{action('UserController@myRequests',$user->id)}}"> -->
-                                                                <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
-                                                             <!--  </a> -->
+                                                                  @if( $data['lwopDetails'][0]['details']['halfdayFrom'] == 2  )
+
+                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp; 1st shift {!! $data['lwopDetails'][0]['type'] !!}</em> </strong><br/>
+                                                                    {!! $data['logIN'] !!}
+
+                                                                 
+
+                                                                  @else
+
+                                                                  
+                                                                  {!! $data['logIN'] !!}
+                                                                    <!-- <br/>
+                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
+
+                                                                  @endif
+
+                                                                @else
+
+                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
+                                                             
+                                                                @endif
+
+
+
+
+
+                                                             
 
 
                                                               @endif
@@ -572,9 +598,38 @@
                                                                   {!! $data['logOUT'] !!} 
 
                                                               @else
-                                                              <!-- <a href="{{action('UserController@myRequests',$user->id)}}"> -->
+
+
+
+                                                              <!-- **** new layout pag may 1st or 2nd shift leave -->
+                                                                @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50")
+
+                                                                  @if( $data['lwopDetails'][0]['details']['halfdayFrom'] == 3  )
+
+                                                                    {!! $data['logOUT'] !!}<br/>
+                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp; 2nd shift {!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
+                                                                    
+
+                                                                  @else
+                                                                    {!! $data['logOUT'] !!}
+
+                                                                  @endif
+
+
+
+                                                                @else
+
+
+                                                                  <!-- <a href="{{action('UserController@myRequests',$user->id)}}"> -->
                                                                 <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
                                                               <!-- </a> -->
+
+                                                                @endif
+
+
+
+
+                                                             
 
                                                               @endif
                                                               
