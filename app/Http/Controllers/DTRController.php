@@ -600,11 +600,74 @@ class DTRController extends Controller
                           }//end foreach employee
 
                           $lastrow= $sheet->getHighestRow(); 
+
+
                           $sheet->getStyle('A4:B'.$lastrow)->getAlignment()->setWrapText(true); 
                           $sheet->getStyle('E4:P'.$lastrow)->getAlignment()->setWrapText(true); 
                           //$sheet->getStyle('J4:M'.$lastrow)->getAlignment()->setWrapText(true); 
                           //$sheet->getStyle('O4:P'.$lastrow)->getAlignment()->setWrapText(true); 
-                          //$sheet->setBorder('A4:P'.$lastrow, 'thin');
+                          $sheet->setBorder('A4:P'.$lastrow, 'thin');
+
+                          
+                          //****** for SIGNATURE
+                          $m = "D".($lastrow+5).":E".($lastrow+5);
+                          $sheet->mergeCells($m);
+                          $sheet->cell('D'.($lastrow+5), function($cell) {
+
+                            $cell->setValue('_______________________________');
+                            $cell->setAlignment('center');
+                            $cell->setBorder('solid');
+
+                          });
+
+                          $m = "D".($lastrow+6).":E".($lastrow+6);
+                          $sheet->mergeCells($m);
+                          $sheet->cell('D'.($lastrow+6), function($cell) {
+
+                            $cell->setValue('LISA JACKSON-MACHALSKI');
+                            $cell->setAlignment('center');
+                            $cell->setBorder('solid');
+
+                          });
+
+                          $m = "D".($lastrow+7).":E".($lastrow+7);
+                          $sheet->mergeCells($m);
+                          $sheet->cell('D'.($lastrow+7), function($cell) {
+
+                            $cell->setValue('Chief Financial Officer');
+                            $cell->setAlignment('center');
+
+                            
+                          });
+
+
+                          $m2 = "A".($lastrow+5).":B".($lastrow+5);
+                          $sheet->mergeCells($m2);
+
+                          $sheet->cell('A'.($lastrow+5), function($cell) {
+
+                            $cell->setValue('_______________________________'); 
+                            $cell->setAlignment('center');
+
+                          });
+
+                          $m2 = "A".($lastrow+6).":B".($lastrow+6);
+                          $sheet->mergeCells($m2);
+
+                          $sheet->cell('A'.($lastrow+6), function($cell) {
+
+                            $cell->setValue(' ');
+                          });
+
+                          $m2 = "A".($lastrow+7).":B".($lastrow+7);
+                          $sheet->mergeCells($m2);
+                          $sheet->cell('A'.($lastrow+7), function($cell) {
+
+                            $cell->setValue('Program Manager (signature over printed name)');
+                            $cell->setAlignment('center');
+
+                            
+                          });
 
 
                           
