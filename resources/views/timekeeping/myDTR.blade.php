@@ -435,8 +435,7 @@
 
                                                                   
                                                                   {!! $data['logIN'] !!}
-                                                                    <!-- <br/>
-                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
+                                                                  
 
                                                                   @endif
 
@@ -454,6 +453,7 @@
 
 
                                                               @endif
+                                                           
                                                               
                                                                
                                                                 <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['lwopDetails'][0]['type']}}" />
@@ -599,9 +599,8 @@
 
                                                               @else
 
-
-
                                                               <!-- **** new layout pag may 1st or 2nd shift leave -->
+                                                              
                                                                 @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50")
 
                                                                   @if( $data['lwopDetails'][0]['details']['halfdayFrom'] == 3  )
@@ -615,21 +614,14 @@
 
                                                                   @endif
 
-
-
-                                                                @else
-
-
-                                                                  <!-- <a href="{{action('UserController@myRequests',$user->id)}}"> -->
+                                                                @else  
                                                                 <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
-                                                              <!-- </a> -->
-
-                                                                @endif
-
-
-
-
                                                              
+
+                                                                @endif 
+                                                                
+
+                                                                
 
                                                               @endif
                                                               
@@ -640,10 +632,6 @@
                                                           </td>
 
                                                           <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
-
-                                                          
-
-                                                        
 
                                                         @else
                                                               <td class="text-center">{!! $data['logOUT'] !!} 
