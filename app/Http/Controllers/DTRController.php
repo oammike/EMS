@@ -601,10 +601,10 @@ class DTRController extends Controller
 
                           $lastrow= $sheet->getHighestRow(); 
                           $sheet->getStyle('A4:B'.$lastrow)->getAlignment()->setWrapText(true); 
-                          $sheet->getStyle('E4:E'.$lastrow)->getAlignment()->setWrapText(true); 
-                          $sheet->getStyle('J4:M'.$lastrow)->getAlignment()->setWrapText(true); 
-                          $sheet->getStyle('O4:P'.$lastrow)->getAlignment()->setWrapText(true); 
-                          $sheet->setBorder('A4:P'.$lastrow, 'thin');
+                          $sheet->getStyle('E4:P'.$lastrow)->getAlignment()->setWrapText(true); 
+                          //$sheet->getStyle('J4:M'.$lastrow)->getAlignment()->setWrapText(true); 
+                          //$sheet->getStyle('O4:P'.$lastrow)->getAlignment()->setWrapText(true); 
+                          //$sheet->setBorder('A4:P'.$lastrow, 'thin');
 
 
                           
