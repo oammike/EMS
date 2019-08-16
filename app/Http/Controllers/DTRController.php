@@ -614,7 +614,7 @@ class DTRController extends Controller
                           $sheet->mergeCells($m);
                           $sheet->cell('D'.($lastrow+5), function($cell) {
 
-                            $cell->setValue('_______________________________');
+                            $cell->setValue('___________________________________________');
                             $cell->setAlignment('center');
                             $cell->setBorder('solid');
 
@@ -627,6 +627,7 @@ class DTRController extends Controller
                             $cell->setValue('LISA JACKSON-MACHALSKI');
                             $cell->setAlignment('center');
                             $cell->setBorder('solid');
+                            $cell->setFontSize(30);
 
                           });
 
@@ -646,7 +647,7 @@ class DTRController extends Controller
 
                           $sheet->cell('A'.($lastrow+5), function($cell) {
 
-                            $cell->setValue('_______________________________'); 
+                            $cell->setValue('____________________________________________________________'); 
                             $cell->setAlignment('center');
 
                           });
@@ -665,6 +666,7 @@ class DTRController extends Controller
 
                             $cell->setValue('Program Manager (signature over printed name)');
                             $cell->setAlignment('center');
+                            $cell->setFontSize(26);
 
                             
                           });
