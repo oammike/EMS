@@ -250,7 +250,7 @@ class DTRController extends Controller
                         {
 
                           $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','','','',''];
-                          $header2 = [$cutoffStart->format('l, M d Y'),'Program/Dept.: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+                          $header2 = [$cutoffStart->format('D, m/d/Y'),'Program: ',strtoupper($program->name),'','','','','','','','','','','','',''];
 
                           
                           // Set width for a single column
@@ -279,7 +279,7 @@ class DTRController extends Controller
                               // call cell manipulation methods
                               
                               $cells->setFontColor('#ffffff');
-                              $cells->setFontSize(25);
+                              $cells->setFontSize(40);
                               $cells->setFontWeight('bold');
 
                           });
