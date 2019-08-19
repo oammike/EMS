@@ -537,6 +537,46 @@ trait UserTraits
       return $forApprovals;
   }
 
+
+  public function getDownline($user)
+  {
+     (count($lead=ImmediateHead::where('employeeNumber',$user->employeeNumber)->get()) > 0 ) ? $isLeader=true : $isLeader=false;
+
+     if ($isLeader)
+     {
+        $allMen = DB::table('immediateHead_Campaigns')->where('immediateHead_id',$lead->first()->id)->
+                      join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      join('users','team.user_id','=','users.id')->
+                      join('campaign','campaign.id','=','team.campaign_id')->
+                      join('positions','positions.id','=','users.position_id')->
+                      select('users.firstname','users.lastname','users.id','positions.name as jobTitle','campaign.name as program','team.immediateHead_Campaigns_id')->
+                      where('users.status_id','!=',6)->
+                      where('users.status_id','!=',7)->
+                      where('users.status_id','!=',8)->
+                      where('users.status_id','!=',9)->get();
+        $allMen = collect($allMen)->flatten();
+
+      foreach ($allMen as $key) {
+
+        $u = User::find($key->id);
+        $teams = $this->getDownline($u);
+
+        if(!is_null($teams))
+        {
+          $allMen->push($teams);
+        }
+        
+       
+     }
+
+
+     }else $allMen=null;
+
+
+
+     return $allMen;
+  }
+
   public function getMySubordinates($myEmployeeNumber)
   {
 
@@ -561,7 +601,9 @@ trait UserTraits
             foreach ($mySub as $em){
 
                 $emp = User::find($em->user_id);
-                $empCamp = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id)->name;
+                $empCamp1 = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id);
+                $empCamp = $empCamp1->name;
+                
 
                 $l = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id)->logo['filename'];
 
@@ -578,6 +620,9 @@ trait UserTraits
 
                             if (!is_null($isTL)){
                                 $hisMen = $isTL->subordinates->sortBy('lastname');
+
+                                $lead = ImmediateHead_Campaign::where('campaign_id',$empCamp1->id)->where('immediateHead_id',$isTL->id)->get();
+                                if (count($lead) > 0) $leaderID = $lead->first()->id;
 
                                 //$coll->push($hisMen);
 
@@ -602,11 +647,11 @@ trait UserTraits
                                 //$completedEvals = EvalForm::where('evaluatedBy', $isTL->id)->where('overAllScore','>','0.00')->get();
                                 
                                 
-                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname, 'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
+                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true,'leaderID'=>$leaderID, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname,'email'=>$emp->email, 'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
 
                             } 
                             else {
-                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname, 'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>null, 'completedEvals'=>null ]);
+                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false,'leaderID'=>null,  'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname, 'email'=>$emp->email,'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>null, 'completedEvals'=>null ]);
                             }
 
                         }//end if not himsself

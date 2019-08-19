@@ -1949,11 +1949,12 @@ class UserController extends Controller
                           join('users','team.user_id','=','users.id')->
                           join('positions','users.position_id','=','positions.id')->
                           join('campaign','campaign.id','=','team.campaign_id')->
-                          select('campaign.name as program','campaign.id as programID','campaign.isBackoffice', 'users.id','users.firstname','users.lastname','users.nickname','positions.name as position','users.id as userID')->
+                          select('campaign.name as program','campaign.id as programID','campaign.isBackoffice', 'users.id','users.firstname','users.lastname','users.nickname','positions.name as position','users.id as userID','users.email')->
                           orderBy('users.lastname','ASC')->
                           where('users.status_id','!=',7)->
                           where('users.status_id','!=',8)->
                           where('users.status_id','!=',9)->get();
+          $allData = $allTeams;
           //$allTeams = collect($allTeams1)->groupBy('program');
          
         } else {
@@ -1961,17 +1962,24 @@ class UserController extends Controller
                       DB::table('immediateHead_Campaigns')->where('immediateHead_id',$leadershipcheck->id)->
                            join('team','team.campaign_id','=','immediateHead_Campaigns.campaign_id')->
                            join('campaign','campaign.id','=','team.campaign_id')->
+                           
+                           join('immediateHead','immediateHead.id','=','immediateHead_Campaigns.immediateHead_id')->
                            //select('immediateHead_Campaigns.campaign_id','campaign.name as program', 'team.user_id')->get();
                           join('users','team.user_id','=','users.id')->
                           join('positions','users.position_id','=','positions.id')->
-                          
-                          select('campaign.name as program','campaign.id as programID','campaign.isBackoffice', 'users.id', 'users.firstname','users.lastname','users.nickname','positions.name as position','users.id as userID')->
+                          leftJoin('campaign_logos','team.campaign_id','=','campaign_logos.campaign_id')->
+                          select('campaign.name as program','campaign.id as programID','campaign_logos.filename', 'campaign.isBackoffice', 'users.id', 'users.firstname','users.lastname','users.nickname','users.email','positions.name as position','users.id as userID','team.immediateHead_Campaigns_id as TLid')->
                           orderBy('users.lastname','ASC')->
                           where('users.status_id','!=',7)->
                           where('users.status_id','!=',8)->
                           where('users.status_id','!=',9)->get();
           $allTeams = collect($allTeams1)->sortBy('program')->groupBy('program');
-          // $mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
+          $allData = collect($allTeams1)->sortBy('lastname');
+          //$allTLs = collect($allTeams1)->sortBy('program')->groupBy('TLid');
+
+
+           //$mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
+
           // return $allTeams->first()[0]->lastname;
 
         
@@ -1984,15 +1992,59 @@ class UserController extends Controller
 
      
         $mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
+        //$mySubs = collect($mySubordinates)->where('leaderID',110);
+        //return $mySubs;
+        $user = DB::table('users')->where('users.id',$this->user->id)->
+                    join('positions','positions.id','=','users.position_id')->
+                    select('users.nickname','users.id','users.firstname','users.lastname','positions.name as position','users.email')->get();
+                    //return $user[0]->firstname;
 
-        if($this->user->id !== 564 ) {
-          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n Viewed My Team by [". $this->user->id."] ".$this->user->lastname."\n");
-            fclose($file);
-        }
+        
 
-       //return $allTeams[0]->firstname;
-        return view('people.myTeam',compact('campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck'));
+        $correct = Carbon::now('GMT+8');
+
+        $leaders = new Collection;
+
+        if (count($allTeams) > 1 && (!is_null($leadershipcheck)))
+        {
+          foreach ($allTeams as $prog) {
+            $tlgroup = collect($prog)->groupBy('TLid');
+            foreach ($tlgroup as $key) {
+              $ih = User::where('employeeNumber',ImmediateHead::find(ImmediateHead_Campaign::find($key->first()->TLid)->immediateHead_id)->employeeNumber)->get();
+              if (count($ih) > 0)
+                $andun = collect($allData)->where('userID',$ih->first()->id);
+
+                if(count($andun) > 0)
+                  $leaders->push(['TLid'=>$key->first()->TLid, 'firstname'=>$ih->first()->firstname,'lastname'=>$ih->first()->lastname,'id'=>$ih->first()->id,'program'=>$key->first()->TLid,'email'=>$ih->first()->email]);
+              # code...
+            }
+            
+           //$programs->push(['name'=>$prog->program])
+           //$infoTL = 
+          }
+
+          if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n ProgTREE on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+          return view('people.myTree',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
+
+        }else {
+
+          if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed My Team on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+          return view('people.myTeam',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
+
+        } 
+          
+
+
 
         
       
