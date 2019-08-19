@@ -221,20 +221,38 @@
 
       var items = [
 
-      @if (count($mySubordinates) > 0) 
+       <?php $l = strtoupper($user[0]->lastname).", ".$user[0]->firstname. "(".$user[0]->nickname.")"; ?>
+
+        @if ((strlen($l) > 23) || (strlen($user[0]->position) > 20))
 
        new primitives.orgdiagram.ItemConfig({
               id: "{{$user[0]->id}}",
               parent: null,
               title: "{{$user[0]->firstname}} ({{$user[0]->nickname}}) {{$user[0]->lastname}}",
               phone: "{{$user[0]->position}}",
-              email: "{{$user[0]->email}}",
-              description: " ",
+              email: "",
+              description:"{{$user[0]->email}}",
+              image: "public/img/employees/{{$user[0]->id}}.jpg",
+                        templateName: "contactTemplate2",
+                        itemTitleColor: "#0f8aca",
+                        groupTitle: ""
+            }),
+
+       @else
+
+        new primitives.orgdiagram.ItemConfig({
+              id: "{{$user[0]->id}}",
+              parent: null,
+              title: "{{$user[0]->firstname}} ({{$user[0]->nickname}}) {{$user[0]->lastname}}",
+              phone: "{{$user[0]->position}}",
+              email: "",
+              description:"{{$user[0]->email}}",
               image: "public/img/employees/{{$user[0]->id}}.jpg",
                         templateName: "contactTemplate",
                         itemTitleColor: "#0f8aca",
                         groupTitle: ""
             }),
+
 
       @endif
 
@@ -292,6 +310,7 @@
                       parent:"{{$parentID}}",
                       title: "{{strtoupper($emp2->lastname)}}, {{$emp2->firstname}} ({{$emp2->nickname}})",
                       phone: "{{$emp2->position}}",
+                      description: "{{$emp2->email}}",
                       image: "public/img/employees/{{$emp2->id}}.jpg",
                                 templateName: "contactTemplate2",
                                 itemTitleColor: "#333",
@@ -305,6 +324,7 @@
                       parent:"{{$parentID}}",
                       title: "{{strtoupper($emp2->lastname)}}, {{$emp2->firstname}} ({{$emp2->nickname}})",
                       phone: "{{$emp2->position}}",
+                      description: "{{$emp2->email}}",
                       image: "public/img/employees/{{$emp2->id}}.jpg",
                                 templateName: "contactTemplate",
                                 itemTitleColor: "#333",
@@ -428,9 +448,9 @@
           + '<div class="bp-item bp-photo-frame" style="top: 26px; left: 2px; width: 80px; height: 80px;">'
             + '<img name="photo" style="height:80px; width:80px;" />'
           + '</div>'
-          + '<div name="phone" class="bp-item" style="top: 26px; left: 100px; width: 162px; height: 18px; font-size: 12px;"></div>'
-          + '<div name="email" class="bp-item" style="top: 44px; left: 100px; width: 162px; height: 18px; font-size: 12px;"></div>'
-          + '<div name="description" class="bp-item" style="top: 62px; left: 100px; width: 162px; height: 36px; font-size: 10px;"></div>'
+          + '<div name="phone" class="bp-item" style="top: 26px; left: 100px; width: 296px; height: 18px; font-size: 12px;"></div>'
+          + '<div name="email" class="bp-item" style="top: 44px; left: 100px; width: 296px; height: 18px; font-size: 12px;"></div>'
+          + '<div name="description" class="bp-item" style="top: 62px; left: 100px; width: 296px; height: 36px; font-size: 10px;"></div>'
         + '</div>'
         ).css({
           width: result.itemSize.width + "px",

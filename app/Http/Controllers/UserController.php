@@ -2023,15 +2023,12 @@ class UserController extends Controller
            //$infoTL = 
           }
 
-          if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n ProgTREE on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
-                fclose($file);
-            }
+          
 
-          return view('people.myTree',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
+        }
 
-        }else {
+
+        if (is_null($leadershipcheck) || count($mySubordinates) <= 1 ) {
 
           if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
@@ -2041,7 +2038,21 @@ class UserController extends Controller
 
           return view('people.myTeam',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
 
-        } 
+        } else{
+
+          if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n ProgTREE on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+          return view('people.myTree',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
+
+        }
+
+
+
+        
           
 
 
