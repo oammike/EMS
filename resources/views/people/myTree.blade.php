@@ -210,8 +210,8 @@
       options.cursorItem = 2;
       options.linesWidth = 1;
       options.linesColor = "gray";
-      options.normalLevelShift = 5;
-      options.dotLevelShift = 50;
+      options.normalLevelShift = 50;
+      options.dotLevelShift = 30;
       options.lineLevelShift = 1;
       options.normalItemsInterval = 10;
       options.dotItemsInterval = 2;
