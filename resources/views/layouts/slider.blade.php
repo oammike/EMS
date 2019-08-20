@@ -1,30 +1,6 @@
-                   <div class="item active text-center" >
-                              
-                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
-                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
-                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
-                                <!-- <strong class="text-danger">JUNE</strong><br/>
-                                * Pride March <br/>
-                                * Flu Vaccination <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/> -->
+                   
 
-                               
-
-                               <strong class="text-danger">AUGUST</strong> <br/>
-                                * Mobile Legends Tournament <br/>
-                                * Outreach Activity (Local Community) <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                              Actual dates and more details will be announced soon.</p>
-                               
-
-                              <br/>
-                    </div>
-
-                     <div class="item text-center" >
+                     <div class="item active text-center" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/happiness.jpg" style="z-index: 2" />
@@ -478,6 +454,31 @@
 
 
 <?php /*
+<div class="item active text-center" >
+                              
+                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
+                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
+                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
+                                <!-- <strong class="text-danger">JUNE</strong><br/>
+                                * Pride March <br/>
+                                * Flu Vaccination <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/> -->
+
+                               
+
+                               <strong class="text-danger">AUGUST</strong> <br/>
+                                * Mobile Legends Tournament <br/>
+                                * Outreach Activity (Local Community) <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
+
+                              Actual dates and more details will be announced soon.</p>
+                               
+
+                              <br/>
+                    </div>
 
 
 
