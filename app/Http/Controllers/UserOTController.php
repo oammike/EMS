@@ -162,7 +162,7 @@ class UserOTController extends Controller
                                  }else {
 
                                     //check muna kung may existing approved VLs
-                                    $approvedVLs = User_VL::where('user_id',$this->user->id)->where('isApproved',true)->get();
+                                    $approvedVLs = User_OT::where('user_id',$this->user->id)->where('isApproved',true)->get();
                                     if (count($approvedVLs) > 0 )
                                     {
                                         $usedC = 0;
@@ -184,7 +184,7 @@ class UserOTController extends Controller
                                  }else {
 
                                     //check muna kung may existing approved VLs
-                                    $approvedVLs = User_VL::where('user_id',$this->user->id)->where('isApproved',true)->get();
+                                    $approvedVLs = User_OT::where('user_id',$this->user->id)->where('isApproved',true)->get();
                                     if (count($approvedVLs) > 0 )
                                     {
                                         $usedC = 0;
