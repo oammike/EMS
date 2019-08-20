@@ -208,13 +208,13 @@
       //options.childrenPlacementType =  primitives.common.ChildrenPlacementType.Matrix
       options.hasSelectorCheckbox = primitives.common.Enabled.False;
       options.cursorItem = 2;
-      options.linesWidth = 2;
+      options.linesWidth = 1;
       options.linesColor = "gray";
-      options.normalLevelShift = 50;
-      options.dotLevelShift = 100;
-      options.lineLevelShift = 20;
-      options.normalItemsInterval = 50;
-      options.dotItemsInterval = 10;
+      options.normalLevelShift = 5;
+      options.dotLevelShift = 50;
+      options.lineLevelShift = 1;
+      options.normalItemsInterval = 10;
+      options.dotItemsInterval = 2;
       options.lineItemsInterval = 5;
       options.arrowsDirection = primitives.common.GroupByType.Children;
 
@@ -256,14 +256,15 @@
 
       @endif
 
-      @foreach($mySubordinates as $emp)
+      //*** direct subordinates
+       @foreach($mySubordinates as $emp)
       <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. "(".$emp['nickname'].")"; ?>
 
         @if ((strlen($l) > 23) || (strlen($emp['position']) > 20))
         new primitives.orgdiagram.ItemConfig({
             id: "{{$emp['id']}}",
             parent:"{{$user[0]->id}}",
-            title: "{{$emp['lastname']}}, {{$emp['firstname']}}",
+            title: "{{$l}}",
             phone: "{{$emp['position']}} ",
             email: "{{$emp['program']}}",
             description: "{{$emp['email']}}",
@@ -278,7 +279,7 @@
         new primitives.orgdiagram.ItemConfig({
             id: "{{$emp['id']}}",
             parent:"{{$user[0]->id}}",
-            title: "{{$emp['lastname']}}, {{$emp['firstname']}}",
+            title: "{{$l}}",
             phone: "{{$emp['position']}} ",
             email: "{{$emp['program']}}",
             description: "{{$emp['email']}}",
@@ -294,54 +295,43 @@
 
       @endforeach
 
-      @foreach($allData as $emp2)
+
+      @foreach($myTree as $emp)
+
+      <?php $mem = $emp['members']; $parentID = $emp['tl_userID']; ?>
+
+          @foreach($mem as $m)
+
+          
+          new primitives.orgdiagram.ItemConfig({
+              id: "{{$m->id}}",
+              parent:"{{$parentID}}",
+              title: "{{$m->lastname}}, {{$m->firstname}}",
+              phone: "{{$m->jobTitle}} ",
+              email: "{{$m->program}}",
+              description: "{{$m->email}}",
+              image: "public/img/employees/{{$m->id}}.jpg",
+                        templateName: "contactTemplate2",
+                        itemTitleColor: "#333",
+                        groupTitle: "{{$m->program}}"
+              }),
+
+          @endforeach
+
+
 
       
-          <?php $parent = collect($mySubordinates)->where('leaderID',$emp2->TLid); 
 
-                if (count($parent) > 0)
-                {
-                  $parentID = $parent->first()['id']; $l = $emp2->lastname." ".$emp2->firstname." ".$emp2->nickname."()"; ?>
-
-                  @if ((strlen($l) > 23) || strlen($emp2->position) > 20)
-
-                  new primitives.orgdiagram.ItemConfig({
-                      id: "{{$emp2->id}}",
-                      parent:"{{$parentID}}",
-                      title: "{{strtoupper($emp2->lastname)}}, {{$emp2->firstname}} ({{$emp2->nickname}})",
-                      phone: "{{$emp2->position}}",
-                      description: "{{$emp2->email}}",
-                      image: "public/img/employees/{{$emp2->id}}.jpg",
-                                templateName: "contactTemplate2",
-                                itemTitleColor: "#333",
-                                groupTitle: "{{$emp2->program}}"
-                      }),
-
-                  @else
-
-                  new primitives.orgdiagram.ItemConfig({
-                      id: "{{$emp2->id}}",
-                      parent:"{{$parentID}}",
-                      title: "{{strtoupper($emp2->lastname)}}, {{$emp2->firstname}} ({{$emp2->nickname}})",
-                      phone: "{{$emp2->position}}",
-                      description: "{{$emp2->email}}",
-                      image: "public/img/employees/{{$emp2->id}}.jpg",
-                                templateName: "contactTemplate",
-                                itemTitleColor: "#333",
-                                groupTitle: "{{$emp2->program}}"
-                      }),
-
-                  @endif
-                  
-
-
-          <?php } else { /*do nothing */ } ?>
       @endforeach
+
+
+
+     
       
-        
        
       ];
 
+      
 
       var buttons = [];
 
@@ -355,7 +345,7 @@
       options.cursorItem = 0;
       options.templates = [getContactTemplate(), getContactTemplate2()];
       options.onItemRender = onTemplateRender;
-      options.horizontalAlignment = 'left';
+      options.horizontalAlignment = 'center';
       //options.hasButtons = primitives.common.Enabled.True;
       options.onButtonClick = function (e, data) {
         var message =""; //"User clicked '" + data.name + "' button for item '" + data.context.title + "'.";
