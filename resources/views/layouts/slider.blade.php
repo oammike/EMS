@@ -1,66 +1,43 @@
-                    <div class="item active text-center" >
-
-                              <img src="./public/img/ana.jpg" style="z-index: 2" />
-
-                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
-                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
-
-                              </div>
-
-                               <h4 style="margin-top: -30px" class="text-danger"><strong>Admin Assistant </strong><br/>
-                               <small>for</small> 
-                               <a target="_blank" href="{{action('CampaignController@show','54')}} "> <img src="./public/img/logo_ndy.png" width="120"></a>
-                                </h4>
-
-                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Aug. 19 2019 Monday </strong></h5>
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Qualifications: </p>
-                              <ul class="text-left">
-                                
-                                <li>No attendance issues / DAs in the last 6 months</li>
-                                <li>Has stayed with Open Access for at least 6 months</li>
-                              </ul>
-
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Responsibilities: </p>
-                              <ul class="text-left">
-
-                                <li>Reporting to the Assistant Manager, you will provide administrative support. You will liaise closely with Assistant Manager, to ensure that all deadlines are met for both disciplines in an efficient manner that will also assist you in coordination and prioritizing the workload.</li>
-                                <li>You will provide support, guidance, and training to your fellow offshore colleagues, assisting in their development and upskilling.</li>
-
-                              </ul>
+                   <div class="item active text-center" >
                               
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Skills and Experiences: </p>
-                              <ul class="text-left">
-
-                                <li>Abilitiy to develop supervisory skills; with understanding and appreciation for regional differences</li>
-                                <li>Uncompromising commitment to client and customer satisfaction</li>
-                                <li>Excellent analytical skills with high attention to detail</li>
-                                <li>Excellent verbal and written communication skills</li>
-                                <li>Ability to maintain confidentiality and to work independently with little supervision</li>
-                                <li>Well-developed keyboard and computer skills with an advanced working knowledge of Microsoft Office, internet, and e-mail applications</li>
-
-                              </ul>
-                              <br/><br/>
+                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
+                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
+                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
+                                <!-- <strong class="text-danger">JUNE</strong><br/>
+                                * Pride March <br/>
+                                * Flu Vaccination <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/> -->
 
                                
-                              <br/><br/>
-                              
 
-                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessbpo.com">recruitment@openaccessbpo.com</a></small></p>
+                               <strong class="text-danger">AUGUST</strong> <br/>
+                                * Mobile Legends Tournament <br/>
+                                * Outreach Activity (Local Community) <br/>
+                                * Biggest Loser Challenge <br/>
+                                * Zumba Classes <br/><br/>
 
+                              Actual dates and more details will be announced soon.</p>
+                               
 
-                      </div>
+                              <br/>
+                    </div>
 
-                    <div class="item text-center" >
+                     <div class="item text-center" >
                       
-                              <h4 class="text-orange" >Happy <span class="text-primary"> Eid al-Adha </span></h4>
-                              <img src="./storage/uploads/mubarak.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Sending warm wishes to our colleagues, family, and friends from the Muslim community on this blessed day of #EidalAdha. Happy Eid! </strong></p>
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/happiness.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Exercising positive thinking helps us train our minds, letting us achieve better results. <strong>#WeSpeakYourLanguage #MondayMotivation</strong></p>
 
 
                                <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #OAonEidalAdha</small></a></div> <br/><br/><br/><br/>          
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
 
                     </div>
+
+
+                   
 
                      @if (count($newHires) >= 1)
                         <!-- **** NEW HIRES ******************** -->
@@ -135,47 +112,7 @@
 
                       @endif
 
-                    <div class="item text-center" >
-                      
-                              <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4>
-                              <img src="./storage/uploads/confucius.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Build your success at your own phase and never quit until you are done. <strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
-                   
-
-                    <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Open Access <span class="text-primary">Upcoming Events!</span></h4>
-                              <img src="./storage/uploads/events2019.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Hello Open Access Family!<br/><br/>
-                                <strong>Keep posted for our exciting upcoming events!</strong><br/><br/>
-                                <!-- <strong class="text-danger">JUNE</strong><br/>
-                                * Pride March <br/>
-                                * Flu Vaccination <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/> -->
-
-                               
-
-                               <strong class="text-danger">AUGUST</strong> <br/>
-                                * Mobile Legends Tournament <br/>
-                                * Outreach Activity (Local Community) <br/>
-                                * Biggest Loser Challenge <br/>
-                                * Zumba Classes <br/><br/>
-
-                              Actual dates and more details will be announced soon.</p>
-                               
-
-                              <br/>
-                    </div>
-
-                     <div class="item text-center" >
+                       <div class="item text-center" >
                       
                               <h4 class="text-orange" >Open Access <span class="text-primary"> Cares </span></h4>
                               <img src="./storage/uploads/ryans-run.jpg" style="z-index: 2" />
@@ -191,6 +128,24 @@
 
                     </div>
 
+
+                    <div class="item text-center" >
+                      
+                              <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
+                              <img src="./storage/uploads/confucius.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Build your success at your own phase and never quit until you are done. <strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                   
+
+                    
+
+                    
                     @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
                             <div class="item  text-center">
@@ -318,21 +273,7 @@
 
                     
 
-                     <div class="item  text-center" >
-                              
-                              <h4 class="text-orange" >Ribbon Cutting <span class="text-primary">Ceremony </span></h4>
-                              <img src="./storage/uploads/ribbon-cutting-2.jpg" style="z-index: 2" />
-                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's <a href="./user/1" target="_blank" style="font-weight:bold;">CEO Ben Davidowitz</a>, <a href="./user/1784" target="_blank" style="font-weight:bold;">VP for Global Operations Joy Sebastian,</a> and <a href="./user/184" target="_blank" style="font-weight:bold;">President Henry Chang</a> officiated the launch of the company's new office in Glorietta 2 Corporate Center, Makati City earlier today.<br/><br/>
-
-                              #WeSpeakYourLanguage #OANewDoors<br/><br/>
-
-                              <strong>More Pics:</strong><br/>
-                              <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>13]) }}"><i class="fa fa-picture-o"></i> Ribbon Cutting</a> |  <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>15]) }}"><i class="fa fa-picture-o"></i> Photo Booth</a> | <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>14]) }}"><i class="fa fa-picture-o"></i> After Party</a>
-
-                               </p>
-                               
-                              <br/>
-                    </div>  
+                    
 
 
                     
@@ -510,16 +451,6 @@
                       
                       
 
-
-                    <div class="item text-center" >
-                        <img src="./storage/uploads/motivation-04-10.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                        <p style="padding:10px 50px">Start the week fresh and get over your Monday blues! It's going to be a great week— let's claim it! 💪<br/><br/>#WeSpeakYourLanguage #MondayMotivation #QuoteOfTheDay</p>
-
-                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation #QuoteOfTheDay</small></a></div> <br/><br/><br/><br/>
-
-                    </div>
-
                   
 
                     <div class="item text-center" >
@@ -547,6 +478,98 @@
 
 
 <?php /*
+
+
+
+                    <div class="item text-center" >
+                        <img src="./storage/uploads/motivation-04-10.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                        <p style="padding:10px 50px">Start the week fresh and get over your Monday blues! It's going to be a great week— let's claim it! 💪<br/><br/>#WeSpeakYourLanguage #MondayMotivation #QuoteOfTheDay</p>
+
+                          <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation #QuoteOfTheDay</small></a></div> <br/><br/><br/><br/>
+
+                    </div>
+
+
+ <div class="item  text-center" >
+                              
+                              <h4 class="text-orange" >Ribbon Cutting <span class="text-primary">Ceremony </span></h4>
+                              <img src="./storage/uploads/ribbon-cutting-2.jpg" style="z-index: 2" />
+                              <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's <a href="./user/1" target="_blank" style="font-weight:bold;">CEO Ben Davidowitz</a>, <a href="./user/1784" target="_blank" style="font-weight:bold;">VP for Global Operations Joy Sebastian,</a> and <a href="./user/184" target="_blank" style="font-weight:bold;">President Henry Chang</a> officiated the launch of the company's new office in Glorietta 2 Corporate Center, Makati City earlier today.<br/><br/>
+
+                              #WeSpeakYourLanguage #OANewDoors<br/><br/>
+
+                              <strong>More Pics:</strong><br/>
+                              <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>13]) }}"><i class="fa fa-picture-o"></i> Ribbon Cutting</a> |  <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>15]) }}"><i class="fa fa-picture-o"></i> Photo Booth</a> | <a class="btn btn-xs btn-default" href="{{ action('HomeController@gallery',['a'=>14]) }}"><i class="fa fa-picture-o"></i> After Party</a>
+
+                               </p>
+                               
+                              <br/>
+                    </div>  
+
+ <div class="item text-center" >
+                      
+                              <h4 class="text-orange" >Happy <span class="text-primary"> Eid al-Adha </span></h4>
+                              <img src="./storage/uploads/mubarak.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Sending warm wishes to our colleagues, family, and friends from the Muslim community on this blessed day of #EidalAdha. Happy Eid! </strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #OAonEidalAdha</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+ <div class="item active text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h4 style="margin-top: -30px" class="text-danger"><strong>Admin Assistant </strong><br/>
+                               <small>for</small> 
+                               <a target="_blank" href="{{action('CampaignController@show','54')}} "> <img src="./public/img/logo_ndy.png" width="120"></a>
+                                </h4>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Aug. 19 2019 Monday </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Qualifications: </p>
+                              <ul class="text-left">
+                                
+                                <li>No attendance issues / DAs in the last 6 months</li>
+                                <li>Has stayed with Open Access for at least 6 months</li>
+                              </ul>
+
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Responsibilities: </p>
+                              <ul class="text-left">
+
+                                <li>Reporting to the Assistant Manager, you will provide administrative support. You will liaise closely with Assistant Manager, to ensure that all deadlines are met for both disciplines in an efficient manner that will also assist you in coordination and prioritizing the workload.</li>
+                                <li>You will provide support, guidance, and training to your fellow offshore colleagues, assisting in their development and upskilling.</li>
+
+                              </ul>
+                              
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;"><br/><br/>Skills and Experiences: </p>
+                              <ul class="text-left">
+
+                                <li>Abilitiy to develop supervisory skills; with understanding and appreciation for regional differences</li>
+                                <li>Uncompromising commitment to client and customer satisfaction</li>
+                                <li>Excellent analytical skills with high attention to detail</li>
+                                <li>Excellent verbal and written communication skills</li>
+                                <li>Ability to maintain confidentiality and to work independently with little supervision</li>
+                                <li>Well-developed keyboard and computer skills with an advanced working knowledge of Microsoft Office, internet, and e-mail applications</li>
+
+                              </ul>
+                              <br/><br/>
+
+                               
+                              <br/><br/>
+                              
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessbpo.com">recruitment@openaccessbpo.com</a></small></p>
+
+
+                      </div>
 
  <div class="item  text-center" >
 
