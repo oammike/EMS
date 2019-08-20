@@ -26,6 +26,10 @@
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4)">
                       <div class="box-header ">
                         <h4 class="text-blue pull-left"><i class="fa fa-users"></i><strong> Program Tree </strong> {{$campaigns}}</h4>
+                        <p class="pull-right" style="font-size: smaller;">
+                          <i class="fa fa-info-circle text-primary"></i> Click on an employee node to view and expand the tree. <br/>
+                          <i class="fa fa-info-circle text-primary"></i> Shortcut buttons to MOVEMENT, PROFILE, DTR, and SCHEDULE appear on the right side of employee node<br/>
+                          <i class="fa fa-info-circle text-primary"></i> Drag around the area to scroll left and right</p>
                         
 
                       </div><!--end box-header-->
@@ -221,7 +225,7 @@
 
       var items = [
 
-       <?php $l = strtoupper($user[0]->lastname).", ".$user[0]->firstname. "(".$user[0]->nickname.")"; ?>
+       <?php $l = strtoupper($user[0]->lastname).", ".$user[0]->firstname. " (".$user[0]->nickname.")"; ?>
 
         @if ((strlen($l) > 23) || (strlen($user[0]->position) > 20))
 
@@ -258,7 +262,7 @@
 
       //*** direct subordinates
        @foreach($mySubordinates as $emp)
-      <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. "(".$emp['nickname'].")"; ?>
+      <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. " (".$emp['nickname'].")"; ?>
 
         @if ((strlen($l) > 23) || (strlen($emp['position']) > 20))
         new primitives.orgdiagram.ItemConfig({
@@ -432,7 +436,7 @@
         var itemTemplate = jQuery(
           '<div class="bp-item bp-corner-all bt-item-frame">'
           + '<div name="titleBackground" class="bp-item bp-corner-all bp-title-frame" style="top: 2px; left: 2px; width: 296px; height: 20px; color:#333">'
-            + '<div name="title" class="bp-item bp-title" style="top: 3px; left: 6px; width: 290px; height: 18px;">'
+            + '<div name="title" class="bp-item bp-title" style="top: 3px; left: 6px; width: 290px; height: 18px; font-size:smaller; font-weight:bold">'
             + '</div>'
           + '</div>'
           + '<div class="bp-item bp-photo-frame" style="top: 26px; left: 2px; width: 80px; height: 80px;">'
@@ -470,7 +474,7 @@
         var itemTemplate = jQuery(
           '<div class="bp-item bp-corner-all bt-item-frame">'
           + '<div name="titleBackground" class="bp-item bp-corner-all bp-title-frame" style="top: 2px; left: 2px; width: 216px; height: 20px; color:#333">'
-            + '<div name="title" class="bp-item bp-title" style="top: 3px; left: 6px; width: 208px; height: 18px;">'
+            + '<div name="title" class="bp-item bp-title" style="top: 3px; left: 6px; width: 208px; height: 18px; font-size:smaller; font-weight:bold">'
             + '</div>'
           + '</div>'
           + '<div class="bp-item bp-photo-frame" style="top: 26px; left: 2px; width: 80px; height: 80px;">'
