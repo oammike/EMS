@@ -1915,7 +1915,7 @@ class UserController extends Controller
 
                             where('users.status_id','!=',7)->
                             where('users.status_id','!=',8)->
-                            where('users.status_id','!=',9)->get();
+                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
                             //leftJoin('campaign','campaign.id','=','team.campaign_id')->get();
                             // 
                             // 
@@ -1945,7 +1945,7 @@ class UserController extends Controller
                             select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
                             where('users.status_id','!=',7)->
                             where('users.status_id','!=',8)->
-                            where('users.status_id','!=',9)->get();
+                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
 
                 $n = collect($level3)->pluck('userType_id','employeeNumber');
                 $nextLevel = collect($n)->reject(function ($value,$key) {
@@ -1969,7 +1969,7 @@ class UserController extends Controller
                                 select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
                                 where('users.status_id','!=',7)->
                                 where('users.status_id','!=',8)->
-                                where('users.status_id','!=',9)->get();
+                                where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
 
                     $n = collect($level4)->pluck('userType_id','employeeNumber');
                     $nextLevel = collect($n)->reject(function ($value,$key) {
@@ -1993,7 +1993,7 @@ class UserController extends Controller
                                       select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
                                       where('users.status_id','!=',7)->
                                       where('users.status_id','!=',8)->
-                                      where('users.status_id','!=',9)->get();
+                                      where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
 
                           $n = collect($level5)->pluck('userType_id','employeeNumber');
                           $nextLevel = collect($n)->reject(function ($value,$key) {

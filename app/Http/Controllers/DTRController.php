@@ -139,7 +139,7 @@ class DTRController extends Controller
         leftJoin('floor','team.floor_id','=','floor.id')->
         select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
 
-        $allProgram = DB::table('campaign')->select('id','name')->orderBy('name')->get();//
+        $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->orderBy('name')->get();//
         $byTL = collect($allUsers)->groupBy('tlID');
         $allTL = $byTL->keys();
         //return collect($allUsers)->where('campID',7);
