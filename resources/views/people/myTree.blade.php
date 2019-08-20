@@ -256,7 +256,8 @@
 
       @endif
 
-      @foreach($mySubordinates as $emp)
+      //*** direct subordinates
+       @foreach($mySubordinates as $emp)
       <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. "(".$emp['nickname'].")"; ?>
 
         @if ((strlen($l) > 23) || (strlen($emp['position']) > 20))
@@ -294,51 +295,63 @@
 
       @endforeach
 
-      @foreach($allData as $emp2)
+
+
+      <?php foreach($myTree as $emp) 
+      {
+       
+          $members = $emp;
+          $parentID = $emp['tl_userID'];
+          //$l = strtoupper($emp['lastname']).", ".$emp['firstname']. "(".$emp['nickname'].")"; 
+         
+
+          foreach($members as $m) { 
+
+              $l = strtoupper($m['lastname']).", ".$m['firstname']. "(".$m['nickname'].")";  
+
+              if($m['disabled'] != 1){  ?>
+
+                    @if ((strlen($l) > 23) || (strlen($m['position']) > 20))
+                      new primitives.orgdiagram.ItemConfig({
+                          id: "{{$m['id']}}",
+                          parent:"{{$parentID}}",
+                          title: "{{$m->lastname}}, {{$m['firstname']}}",
+                          phone: "{{$m['jobTitle']}} ",
+                          email: "{{$m['program']}}",
+                          description: "{{$m['email']}}",
+                          image: "public/img/employees/{{$m['id']}}.jpg",
+                                    templateName: "contactTemplate2",
+                                    itemTitleColor: "#333",
+                                    groupTitle: "{{$m['program']}}"
+                          }),
+
+                    @else
+
+                      new primitives.orgdiagram.ItemConfig({
+                          id: "{{$m['id']}}",
+                          parent:"{{$parentID}}",
+                          title: "{{$m['lastname']}}, {{$m['firstname']}}",
+                          phone: "{{$m['position']}} ",
+                          email: "{{$m['program']}}",
+                          description: "{{$m['email']}}",
+                          image: "public/img/employees/{{$m['id']}}.jpg",
+                                    templateName: "contactTemplate",
+                                    itemTitleColor: "#333",
+                                    groupTitle: "{{$m['program']}}"
+                          }),
+
+                    @endif
+
+                
+
+              <?php } ?>
+    <?php } //end foreach members ?>
+         
+
+
+<?php } ?> //end foreach myTree
 
       
-          <?php $parent = collect($mySubordinates)->where('leaderID',$emp2->TLid); 
-
-                if (count($parent) > 0)
-                {
-                  $parentID = $parent->first()['id']; $l = $emp2->lastname." ".$emp2->firstname." ".$emp2->nickname."()"; ?>
-
-                  @if ((strlen($l) > 23) || strlen($emp2->position) > 20)
-
-                  new primitives.orgdiagram.ItemConfig({
-                      id: "{{$emp2->id}}",
-                      parent:"{{$parentID}}",
-                      title: "{{strtoupper($emp2->lastname)}}, {{$emp2->firstname}} ({{$emp2->nickname}})",
-                      phone: "{{$emp2->position}}",
-                      description: "{{$emp2->email}}",
-                      image: "public/img/employees/{{$emp2->id}}.jpg",
-                                templateName: "contactTemplate2",
-                                itemTitleColor: "#333",
-                                groupTitle: "{{$emp2->program}}"
-                      }),
-
-                  @else
-
-                  new primitives.orgdiagram.ItemConfig({
-                      id: "{{$emp2->id}}",
-                      parent:"{{$parentID}}",
-                      title: "{{strtoupper($emp2->lastname)}}, {{$emp2->firstname}} ({{$emp2->nickname}})",
-                      phone: "{{$emp2->position}}",
-                      description: "{{$emp2->email}}",
-                      image: "public/img/employees/{{$emp2->id}}.jpg",
-                                templateName: "contactTemplate",
-                                itemTitleColor: "#333",
-                                groupTitle: "{{$emp2->program}}"
-                      }),
-
-                  @endif
-                  
-
-
-          <?php } else { /*do nothing */ } ?>
-      @endforeach
-      
-        
        
       ];
 

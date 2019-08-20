@@ -1973,14 +1973,12 @@ class UserController extends Controller
                           where('users.status_id','!=',7)->
                           where('users.status_id','!=',8)->
                           where('users.status_id','!=',9)->get();
+
+          //** ALLTEAMS == lahat ng under sayo, along with their own men grouped per campaign 
           $allTeams = collect($allTeams1)->sortBy('program')->groupBy('program');
+
+          //** ALLDATA == flat array of all men
           $allData = collect($allTeams1)->sortBy('lastname');
-          //$allTLs = collect($allTeams1)->sortBy('program')->groupBy('TLid');
-
-
-           //$mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
-
-          // return $allTeams->first()[0]->lastname;
 
         
         }
@@ -1988,12 +1986,74 @@ class UserController extends Controller
 
         /* --------- optimize ---------- */
 
-
-
-     
+        $myTree = new Collection;
         $mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
-        //$mySubs = collect($mySubordinates)->where('leaderID',110);
-        //return $mySubs;
+        //return $mySubordinates;
+
+        foreach ($mySubordinates as $sub) {
+          
+          if ($sub['subordinates'] !== null)
+          {
+            $members = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$sub['ihID'])->
+                            join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                            join('users','users.id','=','team.user_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('users.id','users.employeeNumber', 'users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->get();
+                            //leftJoin('campaign','campaign.id','=','team.campaign_id')->get();
+                            // 
+                            // 
+                            // 
+             
+            
+
+            $n = collect($members)->pluck('userType_id','employeeNumber');
+            $nextLevel = collect($n)->reject(function ($value,$key) {
+                              return $value == 4;
+                          });
+
+            $myTree->push(['level'=>'TL', 'parentID'=>$this->user->id, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
+
+            //$arr = [];
+            foreach ($nextLevel as $key => $value) {
+
+              $check = ImmediateHead::where('employeeNumber',$key)->get();
+              if (count($check) > 0)
+              {
+                $tluser = User::where('employeeNumber', $key)->first();
+                $level3 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                            join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                            join('users','team.user_id','=','users.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->get();
+
+                $n = collect($level3)->pluck('userType_id','employeeNumber');
+                $nextLevel = collect($n)->reject(function ($value,$key) {
+                              return $value == 4;
+                          });
+
+                $myTree->push(['level'=>'TL','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+
+
+              }//end if an immediateHead
+              
+            }//end foreach nextlevel
+
+            
+          }
+        }
+
+        //return response()->json($myTree->first()['members']);
+        //return response()->json($myTree->first()['members'][0]);
+        //return count($myTree);
         $user = DB::table('users')->where('users.id',$this->user->id)->
                     join('positions','positions.id','=','users.position_id')->
                     select('users.nickname','users.id','users.firstname','users.lastname','positions.name as position','users.email')->get();
@@ -2046,7 +2106,7 @@ class UserController extends Controller
                 fclose($file);
             }
 
-          return view('people.myTree',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
+          return view('people.myTree',compact('myTree', 'leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
 
         }
 
