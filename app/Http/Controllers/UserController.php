@@ -1806,112 +1806,6 @@ class UserController extends Controller
     }
 
 
-    public function myProfile()
-    {
-        $user = $this->user;
-        $immediateHead = ImmediateHead::find(ImmediateHead_Campaign::find($user->team->immediateHead_Campaigns_id)->immediateHead_id);
-
-        $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
-
-        if ($leadershipcheck->isEmpty())
-        {
-            $myCampaign = $this->user->campaign; // ****** means isa lang campaign and not a leader
-
-        } else {
-
-            $myCampaign = $leadershipcheck->first()->campaigns; // ****** multiple campaign leader
-
-        }
-
-
-       
-        return view('people.profile', compact('user','immediateHead','myCampaign'));
-
-    }
-
-    /****** show YOUR OWN REQUESTS *******/
-    public function myRequests($id)
-    {
-      if ($id==$this->user->id) $user=$this->user;
-      else $user = User::find($id);
-
-       $approvers = $user->approvers;
-       $canView = $this->checkIfAnApprover($approvers, $this->user);
-       //return response()->json(['canView'=>$canView]);
-
-       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
-        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
-        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
-        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
-
-        $correct = Carbon::now('GMT+8');
-        //log access
-        if($this->user->id !== 564 ) {
-                      
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
-                        fclose($file);
-                    } 
-
-
-      if (is_null($user)) return view('empty');
-
-
-      else
-        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
-          return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
-        else return view('access-denied');
-
-    }
-
-    
-
-    /***** show your subordinates' requests *******/
-     public function userRequests($id)
-    {
-      $user = User::find($id);
-
-
-      if (is_null($user)) return view('empty');
-      else{
-
-        $approvers = $user->approvers;
-
-        //Timekeeping Trait
-        $canView = $this->checkIfAnApprover($approvers, $this->user);
-
-        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
-        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
-        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
-        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
-
-
-         $correct = Carbon::now('GMT+8');
-        //log access
-        if($this->user->id !== 564 ) {
-                      
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
-                        fclose($file);
-                    } 
-
-
-        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
-          return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
-        else
-          return view('access-denied');
-
-      }
-      
-
-    }
-
-
-
-    
-    
-
-
     public function myTeam()
     {
       $coll = new Collection;
@@ -1983,12 +1877,30 @@ class UserController extends Controller
         
         }
 
+        $correct = Carbon::now('GMT+8');
+
+        
+
 
         /* --------- optimize ---------- */
 
         $myTree = new Collection;
         $mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
         //return $mySubordinates;
+
+        if (is_null($leadershipcheck) || count($mySubordinates) <= 1 ) {
+
+          if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed My Team on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+          return view('people.myTeam',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
+
+        }
+
+        
 
         foreach ($mySubordinates as $sub) {
           
@@ -2016,9 +1928,9 @@ class UserController extends Controller
                               return $value == 4;
                           });
 
-            $myTree->push(['level'=>'TL', 'parentID'=>$this->user->id, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
+            $myTree->push(['level'=>'2', 'parentID'=>$this->user->id, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
 
-            //$arr = [];
+            
             foreach ($nextLevel as $key => $value) {
 
               $check = ImmediateHead::where('employeeNumber',$key)->get();
@@ -2040,7 +1952,69 @@ class UserController extends Controller
                               return $value == 4;
                           });
 
-                $myTree->push(['level'=>'TL','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+                $myTree->push(['level'=>'3','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+
+                //*** LEVEL 4 
+                foreach ($nextLevel as $key => $value) {
+
+                  $check = ImmediateHead::where('employeeNumber',$key)->get();
+                  if (count($check) > 0)
+                  {
+                    $tluser = User::where('employeeNumber', $key)->first();
+                    $level4 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                join('users','team.user_id','=','users.id')->
+                                join('positions','users.position_id','=','positions.id')->
+                                join('campaign','team.campaign_id','=','campaign.id')->
+                                select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                where('users.status_id','!=',7)->
+                                where('users.status_id','!=',8)->
+                                where('users.status_id','!=',9)->get();
+
+                    $n = collect($level4)->pluck('userType_id','employeeNumber');
+                    $nextLevel = collect($n)->reject(function ($value,$key) {
+                                  return $value == 4;
+                              });
+
+                    $myTree->push(['level'=>'4','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level4]);
+
+                    //*** LEVEL 5
+                    foreach ($nextLevel as $key => $value) {
+
+                        $check = ImmediateHead::where('employeeNumber',$key)->get();
+                        if (count($check) > 0)
+                        {
+                          $tluser = User::where('employeeNumber', $key)->first();
+                          $level5 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                      join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                      join('users','team.user_id','=','users.id')->
+                                      join('positions','users.position_id','=','positions.id')->
+                                      join('campaign','team.campaign_id','=','campaign.id')->
+                                      select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                      where('users.status_id','!=',7)->
+                                      where('users.status_id','!=',8)->
+                                      where('users.status_id','!=',9)->get();
+
+                          $n = collect($level5)->pluck('userType_id','employeeNumber');
+                          $nextLevel = collect($n)->reject(function ($value,$key) {
+                                        return $value == 4;
+                                    });
+
+                          $myTree->push(['level'=>'5','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level5]);
+
+                         
+
+
+                        }//end if an immediateHead
+                      }//END LEVEL 5
+
+
+
+
+                  }//end if an immediateHead
+                }//END LEVEL 4
+
+
 
 
               }//end if an immediateHead
@@ -2051,9 +2025,10 @@ class UserController extends Controller
           }
         }
 
-        //return response()->json($myTree->first()['members']);
-        //return response()->json($myTree->first()['members'][0]);
-        //return count($myTree);
+
+
+        
+
         $user = DB::table('users')->where('users.id',$this->user->id)->
                     join('positions','positions.id','=','users.position_id')->
                     select('users.nickname','users.id','users.firstname','users.lastname','positions.name as position','users.email')->get();
@@ -2061,7 +2036,7 @@ class UserController extends Controller
 
         
 
-        $correct = Carbon::now('GMT+8');
+        
 
         $leaders = new Collection;
 
@@ -2088,17 +2063,6 @@ class UserController extends Controller
         }
 
 
-        if (is_null($leadershipcheck) || count($mySubordinates) <= 1 ) {
-
-          if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Viewed My Team on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
-                fclose($file);
-            }
-
-          return view('people.myTeam',compact('leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
-
-        } else{
 
           if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
@@ -2108,7 +2072,7 @@ class UserController extends Controller
 
           return view('people.myTree',compact('myTree', 'leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
 
-        }
+        
 
 
 
@@ -2209,6 +2173,76 @@ class UserController extends Controller
          }//end else has subordinates
         
     }
+
+
+    public function myProfile()
+    {
+        $user = $this->user;
+        $immediateHead = ImmediateHead::find(ImmediateHead_Campaign::find($user->team->immediateHead_Campaigns_id)->immediateHead_id);
+
+        $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
+
+        if ($leadershipcheck->isEmpty())
+        {
+            $myCampaign = $this->user->campaign; // ****** means isa lang campaign and not a leader
+
+        } else {
+
+            $myCampaign = $leadershipcheck->first()->campaigns; // ****** multiple campaign leader
+
+        }
+
+
+       
+        return view('people.profile', compact('user','immediateHead','myCampaign'));
+
+    }
+
+    /****** show YOUR OWN REQUESTS *******/
+    public function myRequests($id)
+    {
+      if ($id==$this->user->id) $user=$this->user;
+      else $user = User::find($id);
+
+       $approvers = $user->approvers;
+       $canView = $this->checkIfAnApprover($approvers, $this->user);
+       //return response()->json(['canView'=>$canView]);
+
+       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+        $correct = Carbon::now('GMT+8');
+        //log access
+        if($this->user->id !== 564 ) {
+                      
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+
+      if (is_null($user)) return view('empty');
+
+
+      else
+        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
+          return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
+        else return view('access-denied');
+
+    }
+
+    
+
+   
+
+
+    
+    
+
+
+    
 
     public function show($id)
     {
@@ -2731,6 +2765,47 @@ class UserController extends Controller
         return response()->json(['dateHired'=>$request->dateHired, 'saveddateHired'=>$employee->dateHired, 'user_id'=>$employee->id]);
         
     }
+
+     /***** show your subordinates' requests *******/
+     public function userRequests($id)
+    {
+      $user = User::find($id);
+
+
+      if (is_null($user)) return view('empty');
+      else{
+
+        $approvers = $user->approvers;
+
+        //Timekeeping Trait
+        $canView = $this->checkIfAnApprover($approvers, $this->user);
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+
+         $correct = Carbon::now('GMT+8');
+        //log access
+        if($this->user->id !== 564 ) {
+                      
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+
+        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
+          return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
+        else
+          return view('access-denied');
+
+      }
+      
+
+    }
+
 
     public function update($id)
     {
