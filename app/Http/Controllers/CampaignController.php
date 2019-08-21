@@ -43,6 +43,7 @@ class CampaignController extends Controller
 {
     protected $user;
     protected $campaign;
+    use Traits\UserTraits;
 
     public function __construct(Campaign $campaign)
     {
@@ -54,8 +55,8 @@ class CampaignController extends Controller
 
 
 
-     public function index()
-     {
+    public function index()
+    {
             DB::connection()->disableQueryLog();
             if (Input::get('sort')=='Z'){
 
@@ -90,7 +91,7 @@ class CampaignController extends Controller
            
             
             return view('people.campaigns-index',compact('allCamps','sort'));
-     }
+    }
 
     public function getAllCampaigns()
     {
@@ -155,14 +156,614 @@ class CampaignController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function destroy($id)
     {
-        $camp = new Campaign;
-        $camp->name = $request->name;
-        $camp->save();
-        return response()->json($camp);
+         $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','DELETE_PROGRAM');
+
+         if ($canDoThis->isEmpty()) {return view("access-denied"); }
+         else {
+              $this->campaign->destroy($id);
+              return back();
+
+          }      
 
     }
+
+
+    public function orgChart()
+    {
+      $coll = new Collection;
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canDelete =  ($roles->contains('DELETE_EMPLOYEE')) ? '1':'0';
+        $canUpdateLeaves =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
+
+
+        $leader = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
+        if ($leader->isEmpty()) $leadershipcheck=null;
+        else $leadershipcheck= $leader->first();
+
+
+        /* --------- optimize ---------- */
+
+        $correct = Carbon::now('GMT+8');
+
+        /* --------- optimize ---------- */
+        $user = DB::table('users')->where('users.id',1)->
+                    join('positions','positions.id','=','users.position_id')->
+                    select('users.nickname','users.id','users.firstname','users.lastname','positions.name as position','users.email')->get();
+        $user2 = DB::table('users')->where('users.id',184)->
+                    join('positions','positions.id','=','users.position_id')->
+                    select('users.nickname','users.id','users.employeeNumber','users.firstname','users.lastname','positions.name as position','users.email')->get();
+        $user3 = DB::table('users')->where('users.id',344)->
+                    join('positions','positions.id','=','users.position_id')->
+                    select('users.nickname','users.id','users.employeeNumber', 'users.firstname','users.lastname','positions.name as position','users.email')->get();
+        $user4 = DB::table('users')->where('users.id',1784)->
+                    join('positions','positions.id','=','users.position_id')->
+                    select('users.nickname','users.id','users.employeeNumber', 'users.firstname','users.lastname','positions.name as position','users.email')->get();
+
+        $myTree = new Collection;
+        $benID = collect($user[0])->flatten()[1];
+        $mySubordinates = $this->getMySubordinates(1);
+
+        $henry = collect($user2[0])->flatten()[2]; //employeeNumber value, not id
+        $henryID = collect($user2[0])->flatten()[1];
+        $henryTree = new Collection;
+        $henrys = $this->getMySubordinates(2);
+        //$lisa = User::find(344);
+        
+        $lisaTree = new Collection;
+        $lisa = collect($user3[0])->flatten()[2];
+        $lisaID = collect($user3[0])->flatten()[1];
+        $lisas = $this->getMySubordinates($lisa);
+        //$joy = User::find(1784);
+
+        $joyTree = new Collection;
+        $joy = collect($user4[0])->flatten()[2];
+        $joyID = collect($user4[0])->flatten()[1];
+        $joys = $this->getMySubordinates($joy);
+        
+        
+
+        foreach ($mySubordinates as $sub) 
+        {
+          
+          if ($sub['subordinates'] !== null)
+          {
+            $members = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$sub['ihID'])->
+                            join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                            join('users','users.id','=','team.user_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('users.id','users.employeeNumber', 'users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                            //leftJoin('campaign','campaign.id','=','team.campaign_id')->get();
+                            // 
+                            // 
+                            // 
+             
+            
+
+            $n = collect($members)->pluck('userType_id','employeeNumber');
+            $nextLevel = collect($n)->reject(function ($value,$key) {
+                              return $value == 4;
+                          });
+            if ( $sub['id'] !== 0 )
+            {
+              //remove VP joy from Ben
+               
+                $myTree->push(['level'=>'2', 'parentID'=>$benID, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
+
+                if($sub['id'] !== $joyID && $sub['id'] !== $benID)
+                {
+                  foreach ($nextLevel as $key => $value) 
+                  {
+
+                    $check = ImmediateHead::where('employeeNumber',$key)->get();
+                    if (count($check) > 0)
+                    {
+                      $tluser = User::where('employeeNumber', $key)->first();
+
+                     
+                        $level3 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                  join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                  join('users','team.user_id','=','users.id')->
+                                  join('positions','users.position_id','=','positions.id')->
+                                  join('campaign','team.campaign_id','=','campaign.id')->
+                                  select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                  where('users.status_id','!=',7)->
+                                  where('users.status_id','!=',8)->
+                                  where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                        $n = collect($level3)->pluck('userType_id','employeeNumber');
+                        $nextLevel = collect($n)->reject(function ($value,$key) {
+                                      return $value == 4;
+                                  });
+
+                        $myTree->push(['level'=>'3','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+
+                        //*** LEVEL 4 
+                        foreach ($nextLevel as $key => $value) {
+
+                          $check = ImmediateHead::where('employeeNumber',$key)->get();
+                          if (count($check) > 0)
+                          {
+                            $tluser = User::where('employeeNumber', $key)->first();
+                            $level4 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                        join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                        join('users','team.user_id','=','users.id')->
+                                        join('positions','users.position_id','=','positions.id')->
+                                        join('campaign','team.campaign_id','=','campaign.id')->
+                                        select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                        where('users.status_id','!=',7)->
+                                        where('users.status_id','!=',8)->
+                                        where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                            $n = collect($level4)->pluck('userType_id','employeeNumber');
+                            $nextLevel = collect($n)->reject(function ($value,$key) {
+                                          return $value == 4;
+                                      });
+
+                            $myTree->push(['level'=>'4','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level4]);
+
+                            //*** LEVEL 5
+                            foreach ($nextLevel as $key => $value) {
+
+                                $check = ImmediateHead::where('employeeNumber',$key)->get();
+                                if (count($check) > 0)
+                                {
+                                  $tluser = User::where('employeeNumber', $key)->first();
+                                  $level5 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                              join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                              join('users','team.user_id','=','users.id')->
+                                              join('positions','users.position_id','=','positions.id')->
+                                              join('campaign','team.campaign_id','=','campaign.id')->
+                                              select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                              where('users.status_id','!=',7)->
+                                              where('users.status_id','!=',8)->
+                                              where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                                  $n = collect($level5)->pluck('userType_id','employeeNumber');
+                                  $nextLevel = collect($n)->reject(function ($value,$key) {
+                                                return $value == 4;
+                                            });
+
+                                  $myTree->push(['level'=>'5','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level5]);
+
+                                 
+
+
+                                }//end if an immediateHead
+                              }//END LEVEL 5
+
+
+
+
+                          }//end if an immediateHead
+                        }//END LEVEL 4
+
+
+                      
+
+                    }//end if an immediateHead
+                    
+                  }//end foreach nextlevel
+
+                }//end except JOY  
+
+            }
+
+            
+          }
+        }  
+        
+
+        foreach ($henrys as $sub) {
+          
+          if ($sub['subordinates'] !== null)
+          {
+            $members = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$sub['ihID'])->
+                            join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                            join('users','users.id','=','team.user_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('users.id','users.employeeNumber', 'users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                            //leftJoin('campaign','campaign.id','=','team.campaign_id')->get();
+                            // 
+                            // 
+                            // 
+             
+            
+
+            $n = collect($members)->pluck('userType_id','employeeNumber');
+            $nextLevel = collect($n)->reject(function ($value,$key) {
+                              return $value == 4;
+                          });
+            /*$nextlevel = collect($nextLevel1)->reject(function ($value,$henry) {
+                              return $value == $henry;
+                          });*/
+
+            if ($sub['id'] !== $henryID)
+            {
+              $henryTree->push(['level'=>'2', 'parentID'=>2, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
+
+            
+              foreach ($nextLevel as $key => $value) {
+
+                $check = ImmediateHead::where('employeeNumber',$key)->get();
+                if (count($check) > 0)
+                {
+                  $tluser = User::where('employeeNumber', $key)->first();
+                  $level3 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                              join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                              join('users','team.user_id','=','users.id')->
+                              join('positions','users.position_id','=','positions.id')->
+                              join('campaign','team.campaign_id','=','campaign.id')->
+                              select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                              where('users.status_id','!=',7)->
+                              where('users.status_id','!=',8)->
+                              where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                  $n = collect($level3)->pluck('userType_id','employeeNumber');
+                  $nextLevel = collect($n)->reject(function ($value,$key) {
+                                return $value == 4;
+                            });
+
+                  $henryTree->push(['level'=>'3','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+
+                  //*** LEVEL 4 
+                  foreach ($nextLevel as $key => $value) {
+
+                    $check = ImmediateHead::where('employeeNumber',$key)->get();
+                    if (count($check) > 0)
+                    {
+                      $tluser = User::where('employeeNumber', $key)->first();
+                      $level4 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                  join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                  join('users','team.user_id','=','users.id')->
+                                  join('positions','users.position_id','=','positions.id')->
+                                  join('campaign','team.campaign_id','=','campaign.id')->
+                                  select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                  where('users.status_id','!=',7)->
+                                  where('users.status_id','!=',8)->
+                                  where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                      $n = collect($level4)->pluck('userType_id','employeeNumber');
+                      $nextLevel = collect($n)->reject(function ($value,$key) {
+                                    return $value == 4;
+                                });
+
+                      $henryTree->push(['level'=>'4','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level4]);
+
+                      //*** LEVEL 5
+                      foreach ($nextLevel as $key => $value) {
+
+                          $check = ImmediateHead::where('employeeNumber',$key)->get();
+                          if (count($check) > 0)
+                          {
+                            $tluser = User::where('employeeNumber', $key)->first();
+                            $level5 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                        join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                        join('users','team.user_id','=','users.id')->
+                                        join('positions','users.position_id','=','positions.id')->
+                                        join('campaign','team.campaign_id','=','campaign.id')->
+                                        select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                        where('users.status_id','!=',7)->
+                                        where('users.status_id','!=',8)->
+                                        where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                            $n = collect($level5)->pluck('userType_id','employeeNumber');
+                            $nextLevel = collect($n)->reject(function ($value,$key) {
+                                          return $value == 4;
+                                      });
+
+                            $henryTree->push(['level'=>'5','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level5]);
+
+                           
+
+
+                          }//end if an immediateHead
+                        }//END LEVEL 5
+
+
+
+
+                    }//end if an immediateHead
+                  }//END LEVEL 4
+
+
+
+
+                }//end if an immediateHead
+                
+              }//end foreach nextlevel
+
+            }
+          }
+        } //end foreach Henrys subordinates
+
+        
+
+        foreach ($lisas as $sub) {
+          
+          if ($sub['subordinates'] !== null)
+          {
+            $members = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$sub['ihID'])->
+                            join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                            join('users','users.id','=','team.user_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('users.id','users.employeeNumber', 'users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                            //leftJoin('campaign','campaign.id','=','team.campaign_id')->get();
+                            // 
+                            // 
+                            // 
+             
+            
+
+            $n = collect($members)->pluck('userType_id','employeeNumber');
+            $nextLevel = collect($n)->reject(function ($value,$key) {
+                              return $value == 4;
+                          });
+            if ($sub['id'] !== $lisaID)
+            {
+              $lisaTree->push(['level'=>'2', 'parentID'=>$lisa, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
+
+            
+              foreach ($nextLevel as $key => $value) {
+
+                $check = ImmediateHead::where('employeeNumber',$key)->get();
+                if (count($check) > 0)
+                {
+                  $tluser = User::where('employeeNumber', $key)->first();
+                  $level3 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                              join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                              join('users','team.user_id','=','users.id')->
+                              join('positions','users.position_id','=','positions.id')->
+                              join('campaign','team.campaign_id','=','campaign.id')->
+                              select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                              where('users.status_id','!=',7)->
+                              where('users.status_id','!=',8)->
+                              where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                  $n = collect($level3)->pluck('userType_id','employeeNumber');
+                  $nextLevel = collect($n)->reject(function ($value,$key) {
+                                return $value == 4;
+                            });
+
+                  $lisaTree->push(['level'=>'3','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+
+                  //*** LEVEL 4 
+                  foreach ($nextLevel as $key => $value) {
+
+                    $check = ImmediateHead::where('employeeNumber',$key)->get();
+                    if (count($check) > 0)
+                    {
+                      $tluser = User::where('employeeNumber', $key)->first();
+                      $level4 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                  join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                  join('users','team.user_id','=','users.id')->
+                                  join('positions','users.position_id','=','positions.id')->
+                                  join('campaign','team.campaign_id','=','campaign.id')->
+                                  select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                  where('users.status_id','!=',7)->
+                                  where('users.status_id','!=',8)->
+                                  where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                      $n = collect($level4)->pluck('userType_id','employeeNumber');
+                      $nextLevel = collect($n)->reject(function ($value,$key) {
+                                    return $value == 4;
+                                });
+
+                      $lisaTree->push(['level'=>'4','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level4]);
+
+                      //*** LEVEL 5
+                      foreach ($nextLevel as $key => $value) {
+
+                          $check = ImmediateHead::where('employeeNumber',$key)->get();
+                          if (count($check) > 0)
+                          {
+                            $tluser = User::where('employeeNumber', $key)->first();
+                            $level5 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                        join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                        join('users','team.user_id','=','users.id')->
+                                        join('positions','users.position_id','=','positions.id')->
+                                        join('campaign','team.campaign_id','=','campaign.id')->
+                                        select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                        where('users.status_id','!=',7)->
+                                        where('users.status_id','!=',8)->
+                                        where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                            $n = collect($level5)->pluck('userType_id','employeeNumber');
+                            $nextLevel = collect($n)->reject(function ($value,$key) {
+                                          return $value == 4;
+                                      });
+
+                            $lisaTree->push(['level'=>'5','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level5]);
+
+                           
+
+
+                          }//end if an immediateHead
+                        }//END LEVEL 5
+
+
+
+
+                    }//end if an immediateHead
+                  }//END LEVEL 4
+
+
+
+
+                }//end if an immediateHead
+                
+              }//end foreach nextlevel
+
+            }//end if not self LISA 
+          }
+        }//end LISA each subordinate
+
+        
+        
+        foreach ($joys as $sub) {
+          
+          if ($sub['subordinates'] !== null)
+          {
+            $members = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$sub['ihID'])->
+                            join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                            join('users','users.id','=','team.user_id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('users.id','users.employeeNumber', 'users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                            //leftJoin('campaign','campaign.id','=','team.campaign_id')->get();
+                            // 
+                            // 
+                            // 
+             
+            
+
+            $n = collect($members)->pluck('userType_id','employeeNumber');
+            $nextLevel = collect($n)->reject(function ($value,$key) {
+                              return $value == 4;
+                          });
+
+            if ($sub['id'] !== $joyID)
+            {
+              $joyTree->push(['level'=>'2', 'parentID'=>$joy, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
+
+            
+              foreach ($nextLevel as $key => $value) {
+
+                $check = ImmediateHead::where('employeeNumber',$key)->get();
+                if (count($check) > 0)
+                {
+                  $tluser = User::where('employeeNumber', $key)->first();
+                  $level3 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                              join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                              join('users','team.user_id','=','users.id')->
+                              join('positions','users.position_id','=','positions.id')->
+                              join('campaign','team.campaign_id','=','campaign.id')->
+                              select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                              where('users.status_id','!=',7)->
+                              where('users.status_id','!=',8)->
+                              where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                  $n = collect($level3)->pluck('userType_id','employeeNumber');
+                  $nextLevel = collect($n)->reject(function ($value,$key) {
+                                return $value == 4;
+                            });
+
+                  $joyTree->push(['level'=>'3','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+
+                  //*** LEVEL 4 
+                  foreach ($nextLevel as $key => $value) {
+
+                    $check = ImmediateHead::where('employeeNumber',$key)->get();
+                    if (count($check) > 0)
+                    {
+                      $tluser = User::where('employeeNumber', $key)->first();
+                      $level4 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                  join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                  join('users','team.user_id','=','users.id')->
+                                  join('positions','users.position_id','=','positions.id')->
+                                  join('campaign','team.campaign_id','=','campaign.id')->
+                                  select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                  where('users.status_id','!=',7)->
+                                  where('users.status_id','!=',8)->
+                                  where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                      $n = collect($level4)->pluck('userType_id','employeeNumber');
+                      $nextLevel = collect($n)->reject(function ($value,$key) {
+                                    return $value == 4;
+                                });
+
+                      $joyTree->push(['level'=>'4','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level4]);
+
+                      //*** LEVEL 5
+                      foreach ($nextLevel as $key => $value) {
+
+                          $check = ImmediateHead::where('employeeNumber',$key)->get();
+                          if (count($check) > 0)
+                          {
+                            $tluser = User::where('employeeNumber', $key)->first();
+                            $level5 = DB::table('immediateHead_Campaigns')->where('immediateHead_Campaigns.immediateHead_id',$check->first()->id)->
+                                        join('team','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                                        join('users','team.user_id','=','users.id')->
+                                        join('positions','users.position_id','=','positions.id')->
+                                        join('campaign','team.campaign_id','=','campaign.id')->
+                                        select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                        where('users.status_id','!=',7)->
+                                        where('users.status_id','!=',8)->
+                                        where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+
+                            $n = collect($level5)->pluck('userType_id','employeeNumber');
+                            $nextLevel = collect($n)->reject(function ($value,$key) {
+                                          return $value == 4;
+                                      });
+
+                            $joyTree->push(['level'=>'5','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level5]);
+
+                           
+
+
+                          }//end if an immediateHead
+                        }//END LEVEL 5
+
+
+
+
+                    }//end if an immediateHead
+                  }//END LEVEL 4
+
+
+
+
+                }//end if an immediateHead
+                
+              }//end foreach nextlevel
+            }//enf if not self JOY
+            
+          }
+        }  //end joy
+
+
+                    
+
+        $teamHenry = $henryTree; //collect($myTree)->where('parentID',2);
+        $teamLisa = $lisaTree; //collect($myTree)->where('parentID',$lisa);
+        $teamJoy = $joyTree; // collect($myTree)->where('parentID',$joy);
+
+
+       
+
+          if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n OrgChart on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+
+          return view('people.campaigns-orgChart',compact('myTree','henrys','teamHenry','teamLisa','teamJoy','joys', 'lisas','user4', 'user3', 'user2','canDelete','canUpdateLeaves','mySubordinates','leadershipcheck','user'));
+        
+      
+    }
+
     public function show($id)
     {
         DB::connection()->disableQueryLog();
@@ -228,22 +829,17 @@ class CampaignController extends Controller
 
     }
 
-    public function destroy($id)
+    public function store(Request $request)
     {
-         $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','DELETE_PROGRAM');
-
-         if ($canDoThis->isEmpty())
-        {
-             return view("access-denied");
-
-        } else {
-            $this->campaign->destroy($id);
-            return back();
-
-        }
-        
+        $camp = new Campaign;
+        $camp->name = $request->name;
+        $camp->save();
+        return response()->json($camp);
 
     }
+    
+
+    
     
     public function update($id)
     {
@@ -286,6 +882,9 @@ class CampaignController extends Controller
 
         return view("people.campaign-widgets", compact('camp','groupedForm','groupedSelects','wID'));
     }
+
+
+    //******** LESTER's ******************************
     
     public function getIndividualStat(Request $request){
       $return_data = new \stdClass();

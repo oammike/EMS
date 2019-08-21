@@ -1,6 +1,14 @@
-                   
+                   <div class="item active text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/exec.jpg" style="z-index: 2" />
+                               <p class="text-center" style="padding-left: 0px;"><br/><br/>We are on a journey that keeps getting better!<br/>
+                               <strong class="text-primary">Work as one team, one family.</strong></p>
+                                <a class="btn btn-md btn-success" target="_blank" href="{{action('CampaignController@orgChart')}}"><i class="fa fa-sitemap"></i> See the entire team</a><br/><br/><br/>
 
-                     <div class="item active text-center" >
+                    </div>
+
+                    <div class="item text-center" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/happiness.jpg" style="z-index: 2" />
@@ -11,6 +19,7 @@
                                     <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
 
                     </div>
+
 
 
                    

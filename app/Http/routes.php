@@ -618,9 +618,13 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
           'as'=> 'getOtherTeams',
           'uses'=>'ImmediateHeadController@getOtherTeams') );
 
-      Route::get('/getAllCampaigns', array(
+    Route::get('/getAllCampaigns', array(
           'as'=> 'getAllCampaigns',
           'uses'=>'CampaignController@getAllCampaigns') );
+
+    Route::get('/orgChart', array(
+          'as'=> 'orgChart',
+          'uses'=>'CampaignController@orgChart') );
 
      Route::post('/updateMovement', array(
           'as'=> 'updateMovement',

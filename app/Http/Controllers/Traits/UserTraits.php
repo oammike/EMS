@@ -601,62 +601,70 @@ trait UserTraits
             foreach ($mySub as $em){
 
                 $emp = User::find($em->user_id);
-                $empCamp1 = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id);
-                $empCamp = $empCamp1->name;
+                $self = User::where('employeeNumber', $me->employeeNumber)->first();
+
+                //we need to disregard top level leaders own self
+                /*if ($emp->id !== $self->id)
+                {*/
+                  $empCamp1 = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id);
+                  $empCamp = $empCamp1->name;
+                  
+
+                  $l = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id)->logo['filename'];
+
+                  if (empty($l)) $logo = "white_logo_small.png";
+                  else $logo = $l;
+
+                  if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9){
+
+                               //to remove own manager from displaying his own self
+                          if ($myEmployeeNumber !== $emp->employeeNumber)
+                          {
+                              $isTL = ImmediateHead::where('employeeNumber',$emp->employeeNumber)->first();
+                              
+
+                              if (!is_null($isTL)){
+                                  $hisMen = $isTL->subordinates->sortBy('lastname');
+
+                                  $lead = ImmediateHead_Campaign::where('campaign_id',$empCamp1->id)->where('immediateHead_id',$isTL->id)->get();
+                                  if (count($lead) > 0) $leaderID = $lead->first()->id;
+
+                                  //$coll->push($hisMen);
+
+                                  if (count($hisMen)>0){
+
+                                      $activeMen =  $hisMen->filter(function ($employee)
+                                       {   // Regular or Consultant or Floating
+                                          //($employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6);
+                                          return ($employee->status_id !== 7 && $employee->status_id !== 8 && $employee->status_id !== 9); //not resigned
+                                      });
+
+                                      $myIHCampID = $activeMen->first()->immediateHead_Campaigns_id;
+                                      $completedEvals = EvalForm::where('evaluatedBy', $myIHCampID)->where('overAllScore','>','0.00')->get();
+
+                                  } else 
+                                  {
+                                      $completedEvals = null;
+                                      $activeMen = null;
+                                  }
+
+                                  
+                                  //$completedEvals = EvalForm::where('evaluatedBy', $isTL->id)->where('overAllScore','>','0.00')->get();
+                                  
+                                  
+                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true,'leaderID'=>$leaderID,'ihID'=>$isTL->id, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname,'email'=>$emp->email, 'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
+
+                              } 
+                              else {
+                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false,'leaderID'=>null,'ihID'=>null,  'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname, 'email'=>$emp->email,'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>null, 'completedEvals'=>null ]);
+                              }
+
+                          }//end if not himsself
+
+                  }
+
+               // }
                 
-
-                $l = Campaign::find(Team::where('user_id',$emp->id)->first()->campaign_id)->logo['filename'];
-
-                if (empty($l)) $logo = "white_logo_small.png";
-                else $logo = $l;
-
-                if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9){
-
-                             //to remove own manager from displaying his own self
-                        if ($myEmployeeNumber !== $emp->employeeNumber)
-                        {
-                            $isTL = ImmediateHead::where('employeeNumber',$emp->employeeNumber)->first();
-                            
-
-                            if (!is_null($isTL)){
-                                $hisMen = $isTL->subordinates->sortBy('lastname');
-
-                                $lead = ImmediateHead_Campaign::where('campaign_id',$empCamp1->id)->where('immediateHead_id',$isTL->id)->get();
-                                if (count($lead) > 0) $leaderID = $lead->first()->id;
-
-                                //$coll->push($hisMen);
-
-                                if (count($hisMen)>0){
-
-                                    $activeMen =  $hisMen->filter(function ($employee)
-                                     {   // Regular or Consultant or Floating
-                                        //($employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6);
-                                        return ($employee->status_id !== 7 && $employee->status_id !== 8 && $employee->status_id !== 9); //not resigned
-                                    });
-
-                                    $myIHCampID = $activeMen->first()->immediateHead_Campaigns_id;
-                                    $completedEvals = EvalForm::where('evaluatedBy', $myIHCampID)->where('overAllScore','>','0.00')->get();
-
-                                } else 
-                                {
-                                    $completedEvals = null;
-                                    $activeMen = null;
-                                }
-
-                                
-                                //$completedEvals = EvalForm::where('evaluatedBy', $isTL->id)->where('overAllScore','>','0.00')->get();
-                                
-                                
-                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true,'leaderID'=>$leaderID,'ihID'=>$isTL->id, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname,'email'=>$emp->email, 'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
-
-                            } 
-                            else {
-                                $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false,'leaderID'=>null,'ihID'=>null,  'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname, 'email'=>$emp->email,'position'=>$emp->position->name,'program'=>$empCamp,'logo'=>$logo, 'subordinates'=>null, 'completedEvals'=>null ]);
-                            }
-
-                        }//end if not himsself
-
-                }
 
             }//end foreach mySubordinates
 

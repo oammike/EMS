@@ -285,7 +285,14 @@
         <li class="header">OAMPI SYSTEM</li>
         <li><a href="http://172.17.0.2/coffeebreak/" target="_blank"><i class="fa fa-coffee" ></i> <img src="{{ asset('public/img/logo_coffeebreak.png')}}" width="100" /> <span></span></a></li>
 
-          <li @if (Request::is('campaign')) class="active" @endif><a href="{{action('CampaignController@index')}} "><i class="fa fa-sitemap"></i> <span>Departments / Programs</span></a></li>
+        <li class="treeview @if (Request::is('campaign*')) active @endif">
+          <a href="#"><i class="fa fa-sitemap"></i> <span>Departments / Programs</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li style="padding-left:20px" @if (Request::is('campaign')) class="active" @endif ><a href="{{action('CampaignController@index')}} "><i class="fa fa-users"></i> View All</a></li>
+
+            <li style="padding-left:20px" @if (Request::is('campaign')) class="active" @endif ><a href="{{action('CampaignController@orgChart')}} "><i class="fa fa-sitemap"></i> Organizational Chart</a></li>
+          </ul>
+        </li>
 
         <li @if (Request::is('user')) class="active" @endif><a href="{{action('UserController@index')}} ">
           <i class="fa fa-users"></i> Employees</a></li>

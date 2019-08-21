@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>My Team | OAMPI Evaluation System</title>
+<title>My Team | EMS</title>
 @endsection
 
 @section('content')
@@ -24,6 +24,7 @@
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4)">
                       <div class="box-header ">
                         <h4 class="text-blue pull-left"><i class="fa fa-users"></i><strong> Program / Department </strong> {{$campaigns}}</h4>
+                        <a class="btn btn-md btn-success pull-right" target="_self" href="{{action('CampaignController@orgChart')}}"><i class="fa fa-sitemap"></i> View Org Chart</a>
                         
 
                       </div><!--end box-header-->

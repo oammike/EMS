@@ -311,6 +311,8 @@
             <?php }  ?>
 
             <li style="padding-left:20px" @if (Request::is('campaign')) class="active" @endif ><a href="{{action('CampaignController@index')}} "><i class="fa fa-users"></i> View All</a></li>
+
+            <li style="padding-left:20px" @if (Request::is('campaign')) class="active" @endif ><a href="{{action('CampaignController@orgChart')}} "><i class="fa fa-sitemap"></i> Organizational Chart</a></li>
           </ul>
         </li>
 

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>My Team | OAMPI Evaluation System</title>
+<title>My Team | EMS</title>
 
 <link href="{{URL::asset('public/css/primitives.latest.css?5000')}}" media="screen" rel="stylesheet" type="text/css" />
 @endsection
@@ -25,16 +25,23 @@
              <div class="col-lg-12">
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4)">
                       <div class="box-header ">
-                        <h4 class="text-blue pull-left"><i class="fa fa-users"></i><strong> Program Tree </strong> {{$campaigns}}</h4>
+                        <h4 class="text-blue pull-left"><i class="fa fa-users"></i><strong> Department / Program Tree </strong> {{$campaigns}}</h4>
                         <p class="pull-right" style="font-size: smaller;">
                           <i class="fa fa-info-circle text-primary"></i> Click on an employee node to view and expand the tree. <br/>
                           <i class="fa fa-info-circle text-primary"></i> Shortcut buttons to MOVEMENT, PROFILE, DTR, and SCHEDULE appear on the right side of employee node<br/>
-                          <i class="fa fa-info-circle text-primary"></i> Drag around the area to scroll left and right</p>
+                          <i class="fa fa-info-circle text-primary"></i> Drag around the area to scroll left and right <br/>
+                          <a class="btn btn-md btn-success pull-right" target="_blank" href="{{action('CampaignController@orgChart')}}"><i class="fa fa-sitemap"></i> View Org Chart</a> </p>
+
+
+
+
                         
 
                       </div><!--end box-header-->
 
                       <div class="box-body">
+
+                        <h4 id="loader" class="pull-left text-center" style="margin-top: 0px; width: 100%">Please wait while we load all your team... <img src="public/css/images/loadingspin.gif" /> </h4>
 
                         <div id="basicdiagram" style="width: 100%; height: 500px; border-style: dotted; border-width: 1px; overflow-x: scroll;" />
 
@@ -208,6 +215,13 @@
 
 <script type='text/javascript'>
     jQuery(document).ready( function () {
+
+      var wait = function(){
+        $('#loader').fadeOut();
+      };
+
+      setTimeout(wait, 1000);
+
       var options = new primitives.orgdiagram.Config();
       //options.childrenPlacementType =  primitives.common.ChildrenPlacementType.Matrix
       options.hasSelectorCheckbox = primitives.common.Enabled.False;
@@ -429,7 +443,7 @@
         result.buttons = buttons;
 
         result.itemSize = new primitives.common.Size(300, 120);
-        result.minimizedItemSize = new primitives.common.Size(3, 3);
+        result.minimizedItemSize = new primitives.common.Size(8, 8);
         result.highlightPadding = new primitives.common.Thickness(2, 2, 2, 2);
 
 
@@ -467,7 +481,7 @@
         result.buttons = buttons;
 
         result.itemSize = new primitives.common.Size(250, 120);
-        result.minimizedItemSize = new primitives.common.Size(3, 3);
+        result.minimizedItemSize = new primitives.common.Size(8, 8);
         result.highlightPadding = new primitives.common.Thickness(2, 2, 2, 2);
 
 
