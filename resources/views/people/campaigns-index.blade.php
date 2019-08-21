@@ -17,6 +17,7 @@
         OAMPI Programs / Departments &nbsp;&nbsp; 
         <a href="{{action('CampaignController@index',['sort'=>'A'])}}" class="btn @if($sort=='1') bg-black @else btn-default  @endif btn-md"><i class="fa fa-sort-alpha-asc"></i> </a>
         <a href="{{action('CampaignController@index',['sort'=>'Z'])}}" class="btn @if($sort=='2') bg-black @else btn-default  @endif btn-md"><i class="fa fa-sort-alpha-desc"></i> </a>
+         <a class="btn btn-md btn-success" target="_blank" href="{{action('CampaignController@orgChart')}}"><i class="fa fa-sitemap"></i> View Org Chart</a>
         
       </h1>
       <ol class="breadcrumb">
