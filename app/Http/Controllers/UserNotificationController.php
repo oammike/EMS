@@ -79,6 +79,15 @@ class UserNotificationController extends Controller
        
         
         User_Notification::where('user_id',$this->user->id)->delete();
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+       if($this->user->id !== 564 ) {
+          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n DEL allNotif -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        } 
+
         return response()->json(['success'=>1]);
 
     }

@@ -29,7 +29,7 @@
               <div class="box box-primary" style="background: rgba(256, 256, 256, 0.1)">
                       <div class="box-header ">
 
-                        @if (count($allNotifs) > 1)
+                        @if (count($allNotifs) >= 1)
                         <a id="delAll" data-toggle="modal" data-target="#myModal_all" class="btn btn-sm btn-danger pull-right"> <i class="fa fa-trash"></i> Delete All</a>
                         @endif
                         
@@ -183,7 +183,7 @@
           
        });
 
-   @if (count($allNotifs) > 1)    
+   @if (count($allNotifs) >= 1)    
        $('#deleteAll').on('click', function(){
           var _token = "{{ csrf_token() }}";
 
