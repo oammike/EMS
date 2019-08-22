@@ -74,6 +74,15 @@ class UserNotificationController extends Controller
 
     }
 
+    public function deleteAll()
+    {
+       
+        
+        User_Notification::where('user_id',$this->user->id)->delete();
+        return response()->json(['success'=>1]);
+
+    }
+
      public function deleteNotif(Request $request)
     {
 

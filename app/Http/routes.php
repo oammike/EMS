@@ -177,6 +177,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_cws.process',
       'uses'=>'UserCWSController@process') );
 
+    Route::get('/deleteAllNotifs', array(
+      'as'=> 'user_notification.deleteAll',
+      'uses'=>'UserNotificationController@deleteAll') );
+
+
     Route::post('/user_notification/deleteRequest/{id}', array(
       'as'=> 'user_notification.deleteRequest',
       'uses'=>'UserNotificationController@deleteRequest') );

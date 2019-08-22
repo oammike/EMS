@@ -28,6 +28,10 @@
              <div class="col-lg-12">
               <div class="box box-primary" style="background: rgba(256, 256, 256, 0.1)">
                       <div class="box-header ">
+
+                        @if (count($allNotifs) > 1)
+                        <a id="delAll" data-toggle="modal" data-target="#myModal_all" class="btn btn-sm btn-danger pull-right"> <i class="fa fa-trash"></i> Delete All</a>
+                        @endif
                         
                       </div><!--end box-header-->
                       
@@ -52,7 +56,7 @@
 
                                     <!-- timeline item -->
                                     @while ($ctr < $total)
-                                    <li id="notif-{{$notif[$ctr]['id']}}">
+                                    <li id="notif-{{$notif[$ctr]['id']}}" class="notifs">
                                       <i class="{{ $notif[$ctr]['icon']}} @if(!$notif[$ctr]['seen']) bg-blue @endif" ></i>
 
                                       <div class="timeline-item" style="background: rgba(256, 256, 256, 0.4)">
@@ -110,6 +114,28 @@
               </div><!--end box-primary-->
 
           </div><!--end main row-->
+
+          <div class="modal fade" id="myModal_all" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Delete All </h4>
+                  
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete all notifications?
+                </div>
+                <div class="modal-footer no-border">
+                  <a class="btn btn-md btn-danger" id="deleteAll" data-dismiss="modal"><i class="fa fa-trash"></i> Yes </a>
+                  <a class="btn btn-md btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cancel </a>
+                  
+                 
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
           
 
@@ -156,6 +182,30 @@
 
           
        });
+
+   @if (count($allNotifs) > 1)    
+       $('#deleteAll').on('click', function(){
+          var _token = "{{ csrf_token() }}";
+
+          $.ajax({
+                    url:"{{action('UserNotificationController@deleteAll')}}",
+                    type:'GET',
+                    data:{
+                      
+                      _token:_token},
+                      success: function(response)
+                      {
+                        console.log(response);
+                        $('.notifs, .time-label').fadeOut();
+                        $.notify("Notification successfully deleted.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
+                        location.reload(true).delay(3000);
+                        return true;
+                      }
+                 });
+
+          
+       });
+   @endif
       
       
    });
