@@ -108,7 +108,7 @@ class UserController extends Controller
         return view('people.employee-index', compact('myCampaign', 'hasUserAccess','isWorkforce','wfAgent'));
     }
 
-     public function index_inactive()
+    public function index_inactive()
     {
        
 
@@ -119,32 +119,19 @@ class UserController extends Controller
         return view('people.employee-inactive', compact( 'hasUserAccess'));
     }
 
-    public static function getVLcredits()
+
+    public function index_floating()
     {
-      // $avail = $this->user->availableVL;
-      // $today=Carbon::today();
+       
 
-      // if (count($avail)>0){
+      $myCampaign = $this->user->campaign; 
+      $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
+      if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
 
-      // }else {
-      //   $approvedVLs = User_VL::where('user_id',$this->user->id)->where('isApproved',1)->get();
-
-      //   if (count($approvedVLs)>0){
-      //     $bal = 0.0;
-      //     foreach ($approvedVLs as $key) {
-      //       $bal += $key->totalCredits;
-      //     }
-
-      //     $currentBalance = (0.84 * $today->format('m')) - $bal;
-
-      //   }else{
-      //     $currentBalance = (0.84 * $today->format('m'));
-      //   }
-        
-      // }
-      return $this->user->id;
-      //return $currentBalance;
+        return view('people.employee-floating', compact( 'hasUserAccess'));
     }
+
+    
 
    
 
@@ -649,6 +636,7 @@ class UserController extends Controller
 
 
         $users = DB::table('users')->where([
+                    ['status_id', '!=', 6],
                     ['status_id', '!=', 7],
                     ['status_id', '!=', 8],
                     ['status_id', '!=', 9],
@@ -693,6 +681,31 @@ class UserController extends Controller
                     ['status_id', '!=', 15],
                     ['status_id', '!=', 16],
                 ])->
+        leftJoin('team','team.user_id','=','users.id')->
+        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+        leftJoin('positions','users.position_id','=','positions.id')->
+        leftJoin('statuses','users.status_id','=','statuses.id')->
+        leftJoin('floor','team.floor_id','=','floor.id')->
+        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','statuses.name as employeeStatus')->orderBy('users.lastname','ASC')->get();
+
+        return response()->json(['data'=>$users]);
+
+         /* ------- faster method ----------- */  
+        //return Datatables::collection($allUsers)->make(true);
+
+    }
+
+    public function getAllFloatingUsers(){
+
+        DB::connection()->disableQueryLog();
+
+        $all = User::orderBy('lastname', 'ASC')->get();
+
+       /* ------- faster method ----------- */
+
+        $users = DB::table('users')->where('status_id', 6)->
         leftJoin('team','team.user_id','=','users.id')->
         leftJoin('campaign','team.campaign_id','=','campaign.id')->
         leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
@@ -795,6 +808,9 @@ class UserController extends Controller
         //return $allUsers;
         return Datatables::collection($allUsers)->make(true);       
     }
+
+
+
 
     public function getMyRequests($id)
     {
@@ -1100,6 +1116,33 @@ class UserController extends Controller
 
 
       return Datatables::collection($requests)->make(true);
+    }
+
+    public static function getVLcredits()
+    {
+      // $avail = $this->user->availableVL;
+      // $today=Carbon::today();
+
+      // if (count($avail)>0){
+
+      // }else {
+      //   $approvedVLs = User_VL::where('user_id',$this->user->id)->where('isApproved',1)->get();
+
+      //   if (count($approvedVLs)>0){
+      //     $bal = 0.0;
+      //     foreach ($approvedVLs as $key) {
+      //       $bal += $key->totalCredits;
+      //     }
+
+      //     $currentBalance = (0.84 * $today->format('m')) - $bal;
+
+      //   }else{
+      //     $currentBalance = (0.84 * $today->format('m'));
+      //   }
+        
+      // }
+      return $this->user->id;
+      //return $currentBalance;
     }
 
 

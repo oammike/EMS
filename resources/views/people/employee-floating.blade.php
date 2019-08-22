@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>All Inactive Employees | OAMPI Evaluation System</title>
+<title>All Floating Employees | OAMPI Evaluation System</title>
 
 <style type="text/css">
 /* Sortable items */
@@ -83,10 +83,10 @@
                                                 <ul class="nav nav-tabs">
 
                                                   <li><a href="{{action('UserController@index')}}"><strong class="text-primary">ACTIVE EMPLOYEES</strong></a> </li>
-                                                  
-                                                  <li class="active"><a href="#tab_2" data-toggle="tab"><strong class="text-primary">INACTIVE EMPLOYEES </strong></a></li>
 
-                                                   <li><a href="{{action('UserController@index_floating')}}" ><strong class="text-primary">FLOATING <span id="floating"></span></strong></a></li>
+                                                  <li><a href="{{action('UserController@index_inactive')}}"><strong class="text-primary">INACTIVE EMPLOYEES</strong></a> </li>
+                                                  
+                                                  <li class="active"><a href="#tab_2" data-toggle="tab"><strong class="text-primary">FLOATING </strong></a></li>
                                                   
                                                    @if ($hasUserAccess) 
                                                     <a href="{{action('UserController@create')}} " class="btn btn-sm btn-primary  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
@@ -194,7 +194,7 @@
 
 
     $("#inactive").DataTable({
-                      "ajax": "{{ action('UserController@getAllInactiveUsers') }}",
+                      "ajax": "{{ action('UserController@getAllFloatingUsers') }}",
                       "deferRender": true,
                       "processing":true,
                       "stateSave": false,
@@ -288,7 +288,7 @@
 
 
     $("#inactive").DataTable({
-                      "ajax": "{{ action('UserController@getAllInactiveUsers') }}",
+                      "ajax": "{{ action('UserController@getAllFloatingUsers') }}",
                      "deferRender": true,
                       "processing":true,
                       "stateSave": false,

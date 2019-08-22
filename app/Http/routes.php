@@ -699,14 +699,22 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'getAllActiveUsers',
       'uses'=>'UserController@getAllActiveUsers') );
 
-      Route::get('/getAllInactiveUsers', array(
+     Route::get('/getAllInactiveUsers', array(
       'as'=> 'getAllInactiveUsers',
       'uses'=>'UserController@getAllInactiveUsers') );
 
+     Route::get('/getAllFloatingUsers', array(
+      'as'=> 'getAllFloatingUsers',
+      'uses'=>'UserController@getAllFloatingUsers') );
 
-       Route::get('/inactives', array(
+
+      Route::get('/inactives', array(
       'as'=> 'inactives',
       'uses'=>'UserController@index_inactive') );
+
+      Route::get('/floating', array(
+      'as'=> 'floating',
+      'uses'=>'UserController@index_floating') );
 
 
      Route::get('/editUser/{id}', array(

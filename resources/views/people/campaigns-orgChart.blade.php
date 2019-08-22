@@ -26,13 +26,15 @@
               <div class="box box-primary"  style="background: #fff;"><!-- ; rgba(256, 256, 256, 1) -->
                       <div class="box-header ">
                         <h4 class="text-blue pull-left"><i class="fa fa-users"></i><strong> Your Entire Team </strong> </h4>
-                        <img src="storage/uploads/exec.jpg" width="60%" class="pull-right" />
-                        <p class="pull-left" style="font-size: smaller; width: 35%;margin:30px 0 0 40px">
+                        <img src="storage/uploads/exec.jpg" width="75%" class="pull-right" />
+                        <div style="font-size: smaller; width: 35%;margin:30px 0 0 40px; position: absolute;left:10px; top:95px">
                           <i class="fa fa-info-circle text-primary"></i> Click on an employee node to view and expand the tree. <br/>
                           <i class="fa fa-info-circle text-primary"></i> Shortcut buttons to MOVEMENT, PROFILE, DTR, and SCHEDULE <br/>appear on the right side of employee node<br/>
-                          <i class="fa fa-info-circle text-primary"></i> Drag around the area to scroll left and right</p>
+                          <i class="fa fa-info-circle text-primary"></i> Drag around the area to scroll left and right
+
+                          <h4 id="loader" style="width:100%;margin-top: 150px">Loading all employees. <br/>Please wait... <img src="public/css/images/loadingspin.gif" /> </h4></div>
                        
-                        <h4 id="loader" class="pull-left text-center" style="width:35%;margin-top: 50px">Loading all employees. <br/>Please wait... <img src="public/css/images/loadingspin.gif" /> </h4>
+                        
                         
 
                       </div><!--end box-header-->
