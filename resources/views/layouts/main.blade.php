@@ -51,7 +51,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-
+@if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE )
+ <link href="{{asset('public/css/rewardsfonts.css')}}" rel="stylesheet">
+ <link href="{{asset('public/css/rewards.css')}}" rel="stylesheet">
+ 
+@endif
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -417,6 +421,20 @@ function validateRequired(param, availability, defaultval) {
    });
  });
  </script>
+ 
+@if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE ) 
+ <script src="{{ asset('/public/plugins/pace/pace.js') }}"></script>
+ <script src="{{ asset('/public/plugins/iCheck/icheck.min.js') }}"></script>
+ 
+ @if ( isset($include_datatables) && $include_datatables===TRUE )
+ <script src="{{ asset('/public/plugins/datatables/jquery.dataTables.js') }}"></script>
+ <script src="{{ asset('/public/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+ @endif
+ 
+ @if ( isset($include_jqueryform) && $include_jqueryform===TRUE )
+ <script src="{{ asset('/public/plugins/jQuery/jquery.form.js') }}"></script>
+ @endif
+@endif
  
 </body>
 </html>

@@ -177,6 +177,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_cws.process',
       'uses'=>'UserCWSController@process') );
 
+    Route::get('/deleteAllNotifs', array(
+      'as'=> 'user_notification.deleteAll',
+      'uses'=>'UserNotificationController@deleteAll') );
+
+
     Route::post('/user_notification/deleteRequest/{id}', array(
       'as'=> 'user_notification.deleteRequest',
       'uses'=>'UserNotificationController@deleteRequest') );
@@ -877,6 +882,17 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/upload_signature', 'IDController@upload_signature');
     Route::post('/rename_id','IDController@rename_id');
     Route::post('/save_portrait','IDController@save_portrait');
+    
+    
+    Route::get('/manage-rewards/list/{page?}', 'RewardController@list_rewards');
+    Route::resource('/manage-rewards', 'RewardController');    
+    Route::get('/manage-categories/list/{page?}', 'RewardsCategoryController@list_categories');
+    Route::get('/manage-categories/fetch_tiers/{id}', 'RewardsCategoryController@list_category_tiers');
+    Route::resource('/manage-categories', 'RewardsCategoryController');
+    Route::get('/rewards-catalog', 'RewardsHomeController@rewards_catalog');
+    Route::get('/rewards-catalog/list/{page?}', 'RewardsHomeController@rewards_catalog_list');  
+    Route::post('/claim-reward/{reward_id?}', 'RewardsHomeController@claim_reward');
+    Route::resource('/orders', 'OrdersController');
     
 
   });

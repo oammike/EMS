@@ -1,0 +1,60 @@
+.product {
+	border:2px solid #f0f0f0;
+	margin: 5px;
+	background-color: #fff;
+	
+}
+
+.product-title {
+	font: bold 12px/22px alright_sansmedium;
+	color:#6f6e6e;
+	display:block;
+	text-align:center;
+	margin:10px 0px;
+	border-bottom:2px solid #f0f0f0;
+}
+
+.product-excerpt {
+	font: normal 11px/15px alright_sansregular;
+	color:#6f6e6e;
+	display:block;
+	margin:10px 0px;
+}
+
+.product-image-container{
+	margin: 0 auto;
+	width: 256px;
+    height: 192px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+#qr-code-container{
+	margin: 0 auto;
+	width: 480px;
+    height: 480px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.product-claim {
+    display: block;
+    border: 1px solid #8bc53d;
+    text-align: center;
+    background: #8bc53d;
+    color: #fff;
+	font: normal 10px/22px alright_sansbold;
+	cursor:pointer;
+}
+
+.product-points {
+	font: normal 12px/22px alright_sansmedium;
+	color:#34ad92;
+}
+
+.claim {
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
