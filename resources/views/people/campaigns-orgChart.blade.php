@@ -136,9 +136,12 @@
       options.dotLevelShift = 30;
       options.lineLevelShift = 1;
       options.normalItemsInterval = 10;
-      options.dotItemsInterval = 2;
+      options.dotItemsInterval = 8;
       options.lineItemsInterval = 5;
       options.arrowsDirection = primitives.common.GroupByType.Children;
+      options.itemTitleFirstFontColor = primitives.common.Colors.White;
+      options.itemTitleSecondFontColor = primitives.common.Colors.White;
+      
 
 
        var items4 = [
@@ -183,7 +186,9 @@
 
 
           @foreach($joys as $emp)
-            <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. " (".$emp['nickname'].")"; ?>
+            <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. " (".$emp['nickname'].")"; 
+
+            ?>
 
               @if ((strlen($l) > 23) || (strlen($emp['position']) > 20))
               new primitives.orgdiagram.ItemConfig({
@@ -195,8 +200,9 @@
                   description: "{{$emp['email']}}",
                   image: "public/img/employees/{{$emp['id']}}.jpg",
                             templateName: "contactTemplate2",
-                            itemTitleColor: "#333",
-                            groupTitle: "{{$emp['program']}}"
+                            itemTitleColor: " {{$colorAssignment[$emp['programID']] }} ",
+                            groupTitle: "{{$emp['program']}}",
+                            groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
                   }),
 
               @else
@@ -210,8 +216,9 @@
                   description: "{{$emp['email']}}",
                   image: "public/img/employees/{{$emp['id']}}.jpg",
                             templateName: "contactTemplate",
-                            itemTitleColor: "#333",
-                            groupTitle: "{{$emp['program']}}"
+                            itemTitleColor:"{{$colorAssignment[$emp['programID']]}}",
+                            groupTitle: "{{$emp['program']}}",
+                            groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
                   }),
 
               @endif
@@ -223,7 +230,8 @@
 
          @foreach($teamJoy as $emp)
          
-              <?php $mem = $emp['members']; $parentID = $emp['tl_userID']; ?>
+              <?php $mem = $emp['members']; $parentID = $emp['tl_userID']; 
+                ?>
                     @foreach($mem as $m)
                       new primitives.orgdiagram.ItemConfig({
                           id: "{{$m->id}}",
@@ -234,8 +242,9 @@
                           description: "{{$m->email}}",
                           image: "public/img/employees/{{$m->id}}.jpg",
                                     templateName: "contactTemplate2",
-                                    itemTitleColor: "#333",
-                                    groupTitle: "{{$m->program}}"
+                                    itemTitleColor: "{{$colorAssignment[$m->programID]}}",
+                                    groupTitle: "{{$m->program}}",
+                                    groupTitleColor: "{{$colorAssignment[$m->programID]}}"
                           }),
 
                     @endforeach
@@ -285,7 +294,9 @@
 
 
           @foreach($lisas as $emp)
-            <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. " (".$emp['nickname'].")"; ?>
+            <?php $l = strtoupper($emp['lastname']).", ".$emp['firstname']. " (".$emp['nickname'].")"; 
+
+                  ?>
 
               @if ((strlen($l) > 23) || (strlen($emp['position']) > 20))
               new primitives.orgdiagram.ItemConfig({
@@ -296,9 +307,10 @@
                   email: "{{$emp['program']}}",
                   description: "{{$emp['email']}}",
                   image: "public/img/employees/{{$emp['id']}}.jpg",
-                            templateName: "contactTemplate2",
-                            itemTitleColor: "#333",
-                            groupTitle: "{{$emp['program']}}"
+                            templateName: "contactTemplateS",
+                            itemTitleColor: " {{$colorAssignment[$emp['programID']] }} ",
+                            groupTitle: "{{$emp['program']}}",
+                            groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
                   }),
 
               @else
@@ -311,9 +323,10 @@
                   email: "{{$emp['program']}}",
                   description: "{{$emp['email']}}",
                   image: "public/img/employees/{{$emp['id']}}.jpg",
-                            templateName: "contactTemplate",
-                            itemTitleColor: "#333",
-                            groupTitle: "{{$emp['program']}}"
+                            templateName: "contactTemplateS",
+                            itemTitleColor: " {{$colorAssignment[$emp['programID']] }} ",
+                            groupTitle: "{{$emp['program']}}",
+                            groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
                   }),
 
               @endif
@@ -339,9 +352,10 @@
                           email: "{{$m->program}}",
                           description: "{{$m->email}}",
                           image: "public/img/employees/{{$m->id}}.jpg",
-                                    templateName: "contactTemplate2",
-                                    itemTitleColor: "#333",
-                                    groupTitle: "{{$m->program}}"
+                                    templateName: "contactTemplateS",
+                                    itemTitleColor: "{{$colorAssignment[$m->programID]}}",
+                                    groupTitle: "{{$m->program}}",
+                                    groupTitleColor: "{{$colorAssignment[$m->programID]}}"
                           }),
 
                     @endforeach
@@ -408,8 +422,9 @@
                   description: "{{$emp['email']}}",
                   image: "public/img/employees/{{$emp['id']}}.jpg",
                             templateName: "contactTemplate2",
-                            itemTitleColor: "#333",
-                            groupTitle: "{{$emp['program']}}"
+                            itemTitleColor: " {{$colorAssignment[$emp['programID']] }} ",
+                            groupTitle: "{{$emp['program']}}",
+                            groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
                   }),
 
               @else
@@ -423,8 +438,9 @@
                   description: "{{$emp['email']}}",
                   image: "public/img/employees/{{$emp['id']}}.jpg",
                             templateName: "contactTemplate",
-                            itemTitleColor: "#333",
-                            groupTitle: "{{$emp['program']}}"
+                            itemTitleColor: " {{$colorAssignment[$emp['programID']] }} ",
+                            groupTitle: "{{$emp['program']}}",
+                            groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
                   }),
 
               @endif
@@ -452,8 +468,9 @@
                           description: "{{$m->email}}",
                           image: "public/img/employees/{{$m->id}}.jpg",
                                     templateName: "contactTemplate2",
-                                    itemTitleColor: "#333",
-                                    groupTitle: "{{$m->program}}"
+                                    itemTitleColor: "{{$colorAssignment[$m->programID]}}",
+                                    groupTitle: "{{$m->program}}",
+                                    groupTitleColor: "{{$colorAssignment[$m->programID]}}"
                           }),
 
                     @endforeach 
@@ -503,7 +520,7 @@
 
                 @foreach($myTree as $emp)
 
-                <?php $mem = $emp['members']; $parentID = $emp['tl_userID']; ?>
+                <?php $mem = $emp['members']; $parentID = $emp['tl_userID'];?>
                     @if ($parentID !== 1784 ) //remove JOY
 
                       @foreach($mem as $m)
@@ -518,9 +535,11 @@
                             email: "{{$m->program}}",
                             description: "{{$m->email}}",
                             image: "public/img/employees/{{$m->id}}.jpg",
-                                      templateName: "contactTemplate2",
-                                      itemTitleColor: "#333",
-                                      groupTitle: "{{$m->program}}"
+                                      templateName: "contactTemplateS",
+                                      itemTitleColor: "{{$colorAssignment[$m->programID]}}",
+                                      groupTitle: "{{$m->program}}",
+                                      groupTitleColor: "{{$colorAssignment[$m->programID]}}"
+
                             }),
 
                         // @endif
@@ -545,7 +564,7 @@
 
       options.items = items;
       options.cursorItem = 0;
-      options.templates = [getContactTemplate(), getContactTemplate2(),getContactTemplate3()];
+      options.templates = [getContactTemplate(),getContactTemplateS(), getContactTemplate2(),getContactTemplate3()];
       options.onItemRender = onTemplateRender;
       options.horizontalAlignment = 'center';
 
@@ -563,6 +582,8 @@
       options2.dotItemsInterval = 2;
       options2.lineItemsInterval = 5;
       options2.arrowsDirection = primitives.common.GroupByType.Children;
+      options2.itemTitleFirstFontColor = primitives.common.Colors.White;
+      options2.itemTitleSecondFontColor = primitives.common.Colors.White;
 
        //*************** JOY
       var options3 = new primitives.orgdiagram.Config();
@@ -575,9 +596,11 @@
       options3.dotLevelShift = 30;
       options3.lineLevelShift = 1;
       options3.normalItemsInterval = 10;
-      options3.dotItemsInterval = 2;
+      options3.dotItemsInterval = 8;
       options3.lineItemsInterval = 5;
       options3.arrowsDirection = primitives.common.GroupByType.Children;
+      options3.itemTitleFirstFontColor = primitives.common.Colors.White;
+      options3.itemTitleSecondFontColor = primitives.common.Colors.White;
 
        //*************** JOY
       var options4 = new primitives.orgdiagram.Config();
@@ -593,6 +616,8 @@
       options4.dotItemsInterval = 2;
       options4.lineItemsInterval = 5;
       options4.arrowsDirection = primitives.common.GroupByType.Children;
+      options4.itemTitleFirstFontColor = primitives.common.Colors.White;
+      options4.itemTitleSecondFontColor = primitives.common.Colors.White;
 
 
 
@@ -622,7 +647,7 @@
 
       options3.items = items3;
       options3.cursorItem = 0;
-      options3.templates = [getContactTemplate(), getContactTemplate2()];
+      options3.templates = [getContactTemplateS(),getContactTemplate(), getContactTemplate2()];
       options3.onItemRender = onTemplateRender;
       options3.horizontalAlignment = 'center';
 
@@ -779,6 +804,19 @@
               element.text(itemConfig[field]);
             }
           }
+        } else if (data.templateName == "contactTemplateS") {
+          data.element.find("[name=photo]").attr({ "src": itemConfig.image, "alt": itemConfig.title });
+          data.element.find("[name=titleBackground]").css({ "background": itemConfig.itemTitleColor });
+
+          var fields = ["title", "description", "phone", "email"];
+          for (var index = 0; index < fields.length; index++) {
+            var field = fields[index];
+
+            var element = data.element.find("[name=" + field + "]");
+            if (element.text() != itemConfig[field]) {
+              element.text(itemConfig[field]);
+            }
+          }
         }
       }
 
@@ -849,7 +887,7 @@
             + '<img name="photo" style="height:80px; width:80px;" />'
           + '</div>'
           + '<div name="phone" class="bp-item" style="top: 26px; left: 100px; width: 296px; height: 18px; font-size: 12px;"></div>'
-          + '<div name="email" class="bp-item" style="top: 44px; left: 100px; width: 296px; height: 18px; font-size: 12px;"></div>'
+          + '<div name="email" class="bp-item" style="top: 44px; left: 100px; width: 296px; height: 18px; font-size: 12px; font-weight:bolder"></div>'
           + '<div name="description" class="bp-item" style="top: 62px; left: 100px; width: 296px; height: 36px; font-size: 10px;"></div>'
         + '</div>'
         ).css({
@@ -887,8 +925,46 @@
             + '<img name="photo" style="height:80px; width:80px;" />'
           + '</div>'
           + '<div name="phone" class="bp-item" style="top: 26px; left: 100px; width: 162px; height: 18px; font-size: 12px; overflow:visible"></div>'
-          + '<div name="email" class="bp-item" style="top: 44px; left: 100px; width: 162px; height: 18px; font-size: 12px;"></div>'
+          + '<div name="email" class="bp-item" style="top: 44px; left: 100px; width: 162px; height: 18px; font-size: 12px; font-weight:bolder"></div>'
           + '<div name="description" class="bp-item" style="top: 62px; left: 100px; width: 162px; height: 36px; font-size: 10px;"></div>'
+        + '</div>'
+        ).css({
+          width: result.itemSize.width + "px",
+          height: result.itemSize.height + "px"
+        }).addClass("bp-item bp-corner-all bt-item-frame");
+        result.itemTemplate = itemTemplate.wrap('<div>').parent().html();
+
+        return result;
+      }
+
+      function getContactTemplateS() {
+        var result = new primitives.orgdiagram.TemplateConfig();
+        result.name = "contactTemplateS";
+
+        var buttons = [];
+        buttons.push(new primitives.orgdiagram.ButtonConfig("movement", "ui-icon-transferthick-e-w", "Movement"));
+        buttons.push(new primitives.orgdiagram.ButtonConfig("profile", "ui-icon-person", "View Profile"));
+        buttons.push(new primitives.orgdiagram.ButtonConfig("DTR", "ui-icon-clock", "DTR"));
+        buttons.push(new primitives.orgdiagram.ButtonConfig("schedule", "ui-icon-calendar", "Plot Work Schedule"));
+        result.buttons = buttons;
+
+        result.itemSize = new primitives.common.Size(300, 120);
+        result.minimizedItemSize = new primitives.common.Size(9, 9);
+        result.highlightPadding = new primitives.common.Thickness(2, 2, 2, 2);
+
+
+        var itemTemplate = jQuery(
+          '<div class="bp-item bp-corner-all bt-item-frame">'
+          + '<div name="titleBackground" class="bp-item bp-corner-all bp-title-frame" style="top: 2px; left: 2px; width: 296px; height: 20px; color:#333">'
+            + '<div name="title" class="bp-item bp-title" style="top: 3px; left: 6px; width: 290px; height: 18px; font-size:smaller; font-weight:bold">'
+            + '</div>'
+          + '</div>'
+          + '<div class="bp-item bp-photo-frame" style="top: 26px; left: 2px; width: 80px; height: 80px;">'
+            + '<img name="photo" style="height:80px; width:80px;" />'
+          + '</div>'
+          + '<div name="phone" class="bp-item" style="top: 26px; left: 100px; width: 296px; height: 18px; font-size: 12px;"></div>'
+          + '<div name="email" class="bp-item" style="top: 44px; left: 100px; width: 296px; height: 18px; font-size: 12px; font-weight:bolder"></div>'
+          + '<div name="description" class="bp-item" style="top: 62px; left: 100px; width: 296px; height: 36px; font-size: 10px;"></div>'
         + '</div>'
         ).css({
           width: result.itemSize.width + "px",
