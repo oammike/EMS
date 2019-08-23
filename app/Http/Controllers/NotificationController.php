@@ -1009,4 +1009,6 @@ class NotificationController extends Controller
 
         return view('people.notification-index', compact('allNotifs'));
     }
+
+    
 }
