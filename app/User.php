@@ -146,6 +146,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(User_VLcredits::class,'user_id');
     }
+    
+    public function points()
+    {
+        return $this->hasOne(Point::class,'idnumber','id');
+    }
 
 
     // public function teamMovements(){

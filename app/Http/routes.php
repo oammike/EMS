@@ -883,6 +883,17 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/rename_id','IDController@rename_id');
     Route::post('/save_portrait','IDController@save_portrait');
     
+    
+    Route::get('/manage-rewards/list/{page?}', 'RewardController@list_rewards');
+    Route::resource('/manage-rewards', 'RewardController');    
+    Route::get('/manage-categories/list/{page?}', 'RewardsCategoryController@list_categories');
+    Route::get('/manage-categories/fetch_tiers/{id}', 'RewardsCategoryController@list_category_tiers');
+    Route::resource('/manage-categories', 'RewardsCategoryController');
+    Route::get('/rewards-catalog', 'RewardsHomeController@rewards_catalog');
+    Route::get('/rewards-catalog/list/{page?}', 'RewardsHomeController@rewards_catalog_list');  
+    Route::post('/claim-reward/{reward_id?}', 'RewardsHomeController@claim_reward');
+    Route::resource('/orders', 'OrdersController');
+    
 
   });
 
