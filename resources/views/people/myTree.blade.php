@@ -43,7 +43,7 @@
 
                         <h4 id="loader" class="pull-left text-center" style="margin-top: 0px; width: 100%">Please wait while we load all your team... <img src="public/css/images/loadingspin.gif" /> </h4>
 
-                        <div id="basicdiagram" style="width: 100%; height: 500px; border-style: dotted; border-width: 1px; overflow-x: scroll;" />
+                        <div id="basicdiagram" style="background:rgba(256, 256, 256, 0.8); width: 100%; height: 500px; border-style: dotted; border-width: 1px; overflow-x: scroll;" />
 
                         <br/><br/>
 
