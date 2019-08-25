@@ -232,9 +232,11 @@
       options.dotLevelShift = 30;
       options.lineLevelShift = 1;
       options.normalItemsInterval = 10;
-      options.dotItemsInterval = 2;
+      options.dotItemsInterval = 8;
       options.lineItemsInterval = 5;
       options.arrowsDirection = primitives.common.GroupByType.Children;
+      options.itemTitleFirstFontColor = primitives.common.Colors.White;
+      options.itemTitleSecondFontColor = primitives.common.Colors.White;
 
 
       var items = [
@@ -288,8 +290,9 @@
             description: "{{$emp['email']}}",
             image: "public/img/employees/{{$emp['id']}}.jpg",
                       templateName: "contactTemplate2",
-                      itemTitleColor: "#333",
-                      groupTitle: "{{$emp['program']}}"
+                      itemTitleColor: " {{$colorAssignment[$emp['programID']] }} ",
+                      groupTitle: "{{$emp['program']}}",
+                      groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
             }),
 
         @else
@@ -303,8 +306,9 @@
             description: "{{$emp['email']}}",
             image: "public/img/employees/{{$emp['id']}}.jpg",
                       templateName: "contactTemplate",
-                      itemTitleColor: "#333",
-                      groupTitle: "{{$emp['program']}}"
+                      itemTitleColor: " {{$colorAssignment[$emp['programID']] }} ",
+                      groupTitle: "{{$emp['program']}}",
+                      groupTitleColor: "{{$colorAssignment[$emp['programID']]}}"
             }),
 
         @endif
@@ -330,8 +334,9 @@
               description: "{{$m->email}}",
               image: "public/img/employees/{{$m->id}}.jpg",
                         templateName: "contactTemplate2",
-                        itemTitleColor: "#333",
-                        groupTitle: "{{$m->program}}"
+                        itemTitleColor: "{{$colorAssignment[$m->programID]}}",
+                        groupTitle: "{{$m->program}}",
+                        groupTitleColor: "{{$colorAssignment[$m->programID]}}"
               }),
 
           @endforeach

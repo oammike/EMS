@@ -1954,8 +1954,8 @@ class UserController extends Controller
                             join('users','users.id','=','team.user_id')->
                             join('campaign','team.campaign_id','=','campaign.id')->
                             join('positions','users.position_id','=','positions.id')->
-                            select('users.id','users.employeeNumber', 'users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
-
+                            select('users.id','users.employeeNumber', 'users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','campaign.id as programID', 'immediateHead_Campaigns.disabled')->
+                            where('campaign.hidden',null)->
                             where('users.status_id','!=',7)->
                             where('users.status_id','!=',8)->
                             where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
@@ -1985,7 +1985,8 @@ class UserController extends Controller
                             join('users','team.user_id','=','users.id')->
                             join('positions','users.position_id','=','positions.id')->
                             join('campaign','team.campaign_id','=','campaign.id')->
-                            select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                            select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','campaign.id as programID','immediateHead_Campaigns.disabled')->
+                            where('campaign.hidden',null)->
                             where('users.status_id','!=',7)->
                             where('users.status_id','!=',8)->
                             where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
@@ -2009,7 +2010,8 @@ class UserController extends Controller
                                 join('users','team.user_id','=','users.id')->
                                 join('positions','users.position_id','=','positions.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
-                                select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','campaign.id as programID','immediateHead_Campaigns.disabled')->
+                                where('campaign.hidden',null)->
                                 where('users.status_id','!=',7)->
                                 where('users.status_id','!=',8)->
                                 where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
@@ -2033,7 +2035,8 @@ class UserController extends Controller
                                       join('users','team.user_id','=','users.id')->
                                       join('positions','users.position_id','=','positions.id')->
                                       join('campaign','team.campaign_id','=','campaign.id')->
-                                      select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                      select('users.id','users.employeeNumber','users.nickname', 'users.firstname','users.lastname','users.userType_id', 'positions.name as jobTitle','users.email','campaign.id as programID', 'campaign.name as program','immediateHead_Campaigns.disabled')->
+                                      where('campaign.hidden',null)->
                                       where('users.status_id','!=',7)->
                                       where('users.status_id','!=',8)->
                                       where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
@@ -2067,6 +2070,30 @@ class UserController extends Controller
             
           }
         }
+
+
+        $allCampaigns = DB::table('campaign')->where('hidden',null)->select('id','name')->get(); //return  count($allCampaigns);
+        $colors = ["#ff476c","#D35400","#DC7633","#CB4335","#EC7063","#e463b3","#F39C12","#8ba642","#CA6F1E","#d17537","#F1C40F","#F7DC6F","#d4b328","#ffbf00","#d6c831","#8ed7ac","#09ad54","#63a8a3","#2874A6","#5499C7","#85C1E9","#2c67e5","#0632E0","#09b39c","#77aaff","#5588ff","#3366ff","#7992b3","#9f80a8","#7e43b1","#70025d","#673888"];
+        $colorAssignment = [];
+
+        
+
+        $ctr=0;
+        foreach ($allCampaigns as $c) {
+          //array_push($colorAssignment, $c->id=>$colors[$ctr);
+          $colorAssignment[$c->id]=$colors[$ctr];
+          $ctr++;
+
+          if ($ctr == count($colors)-1) $ctr=0;
+        }
+
+        
+        /*R:"#ff476c","#D35400","#DC7633","#CB4335","#EC7063","#e463b3"
+        o:"#F39C12","#F8C471","#CA6F1E","#d17537",
+        Y: "#F1C40F","#F7DC6F","#d4b328","#ffbf00","#ffcf40"
+        G:"#8ed7ac","#09ad54","#63a8a3","#2874A6","#5499C7","#85C1E9"
+        B:"#2c67e5","#0632E0","#A4EFFA","#77aaff","#5588ff","#3366ff","#adcbe3"
+        V: "#9f80a8","#7e43b1","#70025d","#673888"*/
 
 
 
@@ -2113,7 +2140,7 @@ class UserController extends Controller
                 fclose($file);
             }
 
-          return view('people.myTree',compact('myTree', 'leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
+          return view('people.myTree',compact('myTree','colorAssignment', 'leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
 
         
 
