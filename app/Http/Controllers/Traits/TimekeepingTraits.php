@@ -899,8 +899,8 @@ trait TimekeepingTraits
      //$schedForToday = $workSched->where('workday',$numDay)->first();
     $allFixedWS = FixedSchedules::where('user_id',$user->id)->where('workday',$numDay)->orderby('created_at','DESC')->get();
 
-    (count($allFixedWS) > 0) ?  $schedForToday = $allFixedWS->first() : $schedForToday = null;
-    /*$ct = 0;
+    //(count($allFixedWS) > 0) ?  $schedForToday = $allFixedWS->first() : $schedForToday = null;
+    $ct = 0;
     foreach ($allFixedWS as $key) 
     {
         if( $allFixedWS[$ct]->schedEffectivity <= $payday || $allFixedWS[$ct]->schedEffectivity==null )
@@ -912,8 +912,9 @@ trait TimekeepingTraits
         } else {$ct++; $schedForToday1 = $allFixedWS->first(); } 
     }
 
-    $schedForToday = $schedForToday1;*/
+    $schedForToday = $schedForToday1;
 
+    //return $schedForToday;
     return $schedForToday;
 
 
