@@ -1,4 +1,16 @@
-                   <div class="item active text-center" style="background-color: #fff" >
+                    <div class="item active text-center" >
+                      
+                              <!-- <h4 class="text-orange" >National Heroes <span class="text-primary"> Day </span></h4> --> 
+                              <img src="./storage/uploads/heroes.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>August 26 is National Heroes Day. Let's take this moment to remember and honor the contributions of our national and unsung Filipino heroes in achieving the peace and freedom of today. May their legacy continue to live on. <strong>#WeSpeakYourLanguage #OACelebratesHeroes</strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #OACelebratesHeroes</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                   <div class="item text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/exec.jpg" style="z-index: 2" />
