@@ -2149,7 +2149,7 @@ class DTRController extends Controller
                           $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at');
                           $check_fixed_WS_group = collect($check_fixed_WS)->groupBy('schedEffectivity');
 
-                          $coll->push(['status'=>"enter hybridSched", 'payday'=>$payday,'fixedWS'=>$check_fixed_WS]);
+                          //$coll->push(['status'=>"enter hybridSched", 'payday'=>$payday,'fixedWS'=>$check_fixed_WS]);
                           
 
 
@@ -2397,7 +2397,7 @@ class DTRController extends Controller
                                
                             }
 
-                            $coll->push(['status'=>"has fixed WS", 'stat'=>$stat, 'compared with hybrid'=>$hybridSched_WS_monthly] );
+                            //$coll->push(['status'=>"has fixed WS", 'stat'=>$stat, 'compared with hybrid'=>$hybridSched_WS_monthly] );
                             
 
 
@@ -2546,7 +2546,7 @@ class DTRController extends Controller
 
                             }//end else no both fixed RD & WS
 
-                            $coll->push(['status'=>"NO fixed WS, baka RD", 'stat'=>$stat]);
+                            //$coll->push(['status'=>"NO fixed WS, baka RD", 'stat'=>$stat]);
                             
                             
 
