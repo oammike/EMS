@@ -901,7 +901,7 @@ trait TimekeepingTraits
 
     //(count($allFixedWS) > 0) ?  $schedForToday = $allFixedWS->first() : $schedForToday = null;
     $ct = 0;
-    $schedForToday1 = $allFixedWS[$ct];
+    $schedForToday1 = $allFixedWS;
     foreach ($allFixedWS as $key) 
     {
         if( $allFixedWS[$ct]->schedEffectivity <= $payday || $allFixedWS[$ct]->schedEffectivity==null )
