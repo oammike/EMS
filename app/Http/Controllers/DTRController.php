@@ -1857,6 +1857,7 @@ class DTRController extends Controller
              // and then get WORKSCHED and RD sched
              // ---------------------------
               
+             
              if (count($user->monthlySchedules) > 0)
              {
 
@@ -1899,7 +1900,8 @@ class DTRController extends Controller
 
 
 
-             } else
+             } 
+             else
              {
                 if (count($user->fixedSchedule) > 0)
                 {
@@ -1910,13 +1912,6 @@ class DTRController extends Controller
                     //$user->fixedSchedule->where('isRD',1)->pluck('workday');
                     $isFixedSched =true;
                     $noWorkSched = false;
-
-
-                    //--- taken from user show()
-                    //$workSched = new Collection;
-                    
-                    //$fsched = $user->fixedSchedule->where('isRD',0)->sortBy('workday')->groupBy('workday');
-                    //$rdays = $user->fixedSchedule->where('isRD',1)->sortBy('workday')->groupBy('workday');;
                     $workdays = new Collection;
                     
 
@@ -1926,26 +1921,25 @@ class DTRController extends Controller
                     $workSched = null;
                     $RDsched = null;
                     $isFixedSched = false;
+                    
                 }
              }
 
-             
+             //return (['noWorkSched'=>$noWorkSched]);
              // ---------------------------
              // Start Payroll generation
              // ---------------------------
             
              $schedRecord = [];
              $schedCtr = 0;
-            
-            //return ['RDsched'=>$RDsched,'workSched'=>$workSched,'hybrid'=>$hybridSched];
-            //return ['noWorkSched'=>$noWorkSched, 'hybridSched_WS_fixed'=>$hybridSched_WS_fixed,'hybridSched_WS_monthly'=>$hybridSched_WS_monthly,'rdM'=>$hybridSched_RD_monthly, 'rdF'=>$hybridSched_RD_fixed];
              $wsch = new Collection;
              
+             //$coll->push(['$noWorkSched'=>$noWorkSched,'workSched'=>$workSched, 'isFixedSched'=>$isFixedSched]);
 
              foreach ($payrollPeriod as $payday) 
              {
                 $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
-                $hasLWOP=false; $noWorkSched=null;
+                $hasLWOP=false; 
 
                 $bioForTheDay = Biometrics::where('productionDate',$payday)->first();
                 $carbonPayday = Carbon::parse($payday);
@@ -1964,139 +1958,136 @@ class DTRController extends Controller
                 (count($holidayToday) > 0) ? $hasHolidayToday = true : $hasHolidayToday = false;
 
                 if ($schedCtr==0) array_push($schedRecord, 'null');
+
+                $coll->push(['status'=>"no workSched",'val'=>$noWorkSched, 'payday'=>$payday,'fixed'=>count($user->fixedSchedule), 'monthly'=>count($user->monthlySchedules)]);
                                
                   
                 if($noWorkSched)
                 {
-                  $coll->push(['status'=>"no workSched", 'payday'=>$payday]);
 
                   if( is_null($bioForTheDay) ) 
                   {
                           $logIN = "<strong class=\"text-success\">No <br/>Biometrics</strong>";
                           $logOUT = "<strong class=\"text-success\">No <br/>Biometrics</strong>";
                           $workedHours = 'N/A';
+
+                  }
+                  else
+                  {
+                    $usercws = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
+                    if ( count($usercws) > 0 ) $hasCWS=true;
+
+                     $link = action('LogsController@viewRawBiometricsData',$id);
+                     $icons = "<a title=\"Verify Biometrics data\" class=\"pull-right text-danger\" style=\"font-size:1.2em;\" target=\"_blank\" href=\"".$link."\"><i class=\"fa fa-clock-o\"></i></a>";
+
+                      $userLogIN = Logs::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get();
+                       if (count($userLogIN)==0)
+                       {  
+                          
+                          $logIN = "<strong class=\"text-danger\">No IN</strong>".$icons;
+                          $shiftStart = null;
+                          $shiftEnd = "<em>No Saved Sched</em>";
+                          $workedHours = "N/A";
+                          
+                       } else
+                       {
+                          $logIN = date('h:i A',strtotime($userLogIN->first()->logTime));
+                          $timeStart = Carbon::parse($userLogIN->first()->logTime);
+                       }
+
+
+                      //--- RD OT, but check first if VALID. It should have a LogOUT AND approved OT
+                      $userLogOUT = Logs::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+
+                      //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
+                      if( count($userLogOUT)==0 )
+                      {
+                        $logOUT = "<strong class=\"text-danger\">No OUT</strong>".$icons;
+                        $shiftStart = "<em>No Saved Sched</em>";
+                        $shiftEnd = "<em>No Saved Sched</em>";
+
+                        if ($hasHolidayToday)
+                        {
+
+                          $workedHours = "(8.0) <br/><strong>* ". $holidayToday->first()->name. " *</strong>";
                           
 
-                  } else
-                      {
+                        } else
+                        {
+                          
+                          $workedHours = "N/A";
+                          
 
-                       
-                         
-                        $usercws = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
-                        if ( count($usercws) > 0 ) $hasCWS=true;
+                        }
+                          
+                      } else //--- legit OT, compute billable hours
+                      {  
+                        $logOUT = date('h:i A',strtotime($userLogOUT->first()->logTime));
+                        $timeEnd = Carbon::parse($userLogOUT->first()->logTime);
+                        $shiftStart = null;
+                        $shiftEnd = "<em>No Saved Sched</em>";
 
-                         $link = action('LogsController@viewRawBiometricsData',$id);
-                         $icons = "<a title=\"Verify Biometrics data\" class=\"pull-right text-danger\" style=\"font-size:1.2em;\" target=\"_blank\" href=\"".$link."\"><i class=\"fa fa-clock-o\"></i></a>";
+                        if ($hasHolidayToday)
+                        {
+                           
+                           
+                            
+                            $workedHours = "(8.0)<br/><strong>* ". $holidayToday->first()->name. " *</strong>";
+                            
 
-                          $userLogIN = Logs::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get();
-                           if (count($userLogIN)==0)
-                           {  
-                              
-                              $logIN = "<strong class=\"text-danger\">No IN</strong>".$icons;
-                              $shiftStart = null;
-                              $shiftEnd = "<em>No Saved Sched</em>";
-                              $workedHours = "N/A";
-                              
-                           } else
-                           {
-                              $logIN = date('h:i A',strtotime($userLogIN->first()->logTime));
-                              $timeStart = Carbon::parse($userLogIN->first()->logTime);
-                           }
+                        } else
+                        {
+                           
+                            $workedHours = "N/A";
 
+                        }
+                           
+                      }
 
-                          //--- RD OT, but check first if VALID. It should have a LogOUT AND approved OT
-                          $userLogOUT = Logs::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+                       $myDTR->push(['isRDToday'=>null,'payday'=>$payday,
+                           'biometrics_id'=>$bioForTheDay->id,
+                           'hasCWS'=>$hasCWS,
+                            //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
+                           'usercws'=>$usercws->sortByDesc('updated_at'),
+                           'userOT'=>$userOT,
+                           'hasOT'=>$hasOT,
+                           'hasLeave'=> null,
+                           'isRD'=>0,
+                           'isFlexitime'=>$isFlexitime,
+                           'productionDate'=> date('M d, Y', strtotime($payday)),
+                           'day'=> date('D',strtotime($payday)),
+                           'shiftStart'=> null,
+                           'shiftEnd'=>$shiftEnd,
 
-                          //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
-                          if( count($userLogOUT)==0 )
-                          {
-                            $logOUT = "<strong class=\"text-danger\">No OUT</strong>".$icons;
-                            $shiftStart = "<em>No Saved Sched</em>";
-                            $shiftEnd = "<em>No Saved Sched</em>";
+                           'shiftStart2'=> $shiftStart2,
+                           'shiftEnd2'=>$shiftEnd2,
+                           'logIN' => $logIN,
+                           'logOUT'=>$logOUT,
+                           'dtrpIN'=>null,
+                           'dtrpIN_id'=>null,
+                           'dtrpOUT'=> null,
+                           'dtrpOUT_id'=> null,
+                           'hasPendingIN' => null,
 
-                            if ($hasHolidayToday)
-                            {
+                           'hasLeave' => null,
+                           'leaveDetails'=>null,
+                           'hasLWOP' => null,
+                           'lwopDetails'=>null,
 
-                              $workedHours = "(8.0) <br/><strong>* ". $holidayToday->first()->name. " *</strong>";
-                              
+                           'pendingDTRPin'=> null,
+                           'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
+                           'pendingDTRPout' =>null,
+                           'workedHours'=> $workedHours,
+                           'billableForOT' => $billableForOT,
+                           'OTattribute'=>$OTattribute,
+                           'UT'=>$UT,
+                           'isFixedSched'=>$isFixedSched,
+                            'hasApprovedCWS'=>$hasApprovedCWS,
+                           'approvedOT' => $approvedOT]);
 
-                            } else
-                            {
-                              
-                              $workedHours = "N/A";
-                              
-
-                            }
-                              
-                          } else //--- legit OT, compute billable hours
-                          {  
-                            $logOUT = date('h:i A',strtotime($userLogOUT->first()->logTime));
-                            $timeEnd = Carbon::parse($userLogOUT->first()->logTime);
-                            $shiftStart = null;
-                            $shiftEnd = "<em>No Saved Sched</em>";
-
-                            if ($hasHolidayToday)
-                            {
-                               
-                               
-                                
-                                $workedHours = "(8.0)<br/><strong>* ". $holidayToday->first()->name. " *</strong>";
-                                
-
-                            } else
-                            {
-                               
-                                $workedHours = "N/A";
-
-                            }
-                               
-                          }
-
-                           $myDTR->push(['isRDToday'=>null,'payday'=>$payday,
-                               'biometrics_id'=>$bioForTheDay->id,
-                               'hasCWS'=>$hasCWS,
-                                //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
-                                'usercws'=>$usercws->sortByDesc('updated_at'),
-                                'userOT'=>$userOT,
-                                'hasOT'=>$hasOT,
-                                'hasLeave'=> null,
-                               'isRD'=>0,
-                               'isFlexitime'=>$isFlexitime,
-                               'productionDate'=> date('M d, Y', strtotime($payday)),
-                               'day'=> date('D',strtotime($payday)),
-                               'shiftStart'=> null,
-                               'shiftEnd'=>$shiftEnd,
-
-                               'shiftStart2'=> $shiftStart2,
-                               'shiftEnd2'=>$shiftEnd2,
-                               'logIN' => $logIN,
-                               'logOUT'=>$logOUT,
-                               'dtrpIN'=>null,
-                               'dtrpIN_id'=>null,
-                               'dtrpOUT'=> null,
-                               'dtrpOUT_id'=> null,
-                               'hasPendingIN' => null,
-
-                               'hasLeave' => null,
-                                'leaveDetails'=>null,
-                                'hasLWOP' => null,
-                                'lwopDetails'=>null,
-
-                                     'pendingDTRPin'=> null,
-                                     'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
-                                     'pendingDTRPout' =>null,
-                               'workedHours'=> $workedHours,
-                               'billableForOT' => $billableForOT,
-                               'OTattribute'=>$OTattribute,
-                               'UT'=>$UT,
-                               'isFixedSched'=>$isFixedSched,
-                                'hasApprovedCWS'=>$hasApprovedCWS,
-                               'approvedOT' => $approvedOT]);
-
-                      }// end if isnull bioForToday
-
-
+                  }// end if isnull bioForToday
                 }
+
                 else //Has Work Sched
                 {
 
@@ -2110,9 +2101,9 @@ class DTRController extends Controller
                       } else
                       {
                         //--- We now check if employee has a CWS submitted for this day
-                          //**************************************************************
-                          //      CWS & OT & DTRPs
-                          //**************************************************************
+                        //**************************************************************
+                        //      CWS & OT & DTRPs
+                        //**************************************************************
 
                         $usercws = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
                         $approvedCWS  = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
@@ -2530,8 +2521,6 @@ class DTRController extends Controller
                                 {
                                   $workSched = $hybridSched_WS_fixed;
                                   $RDsched = $hybridSched_RD_fixed;
-                                  
-                                  
 
                                 }else{
                                   $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
@@ -2597,7 +2586,7 @@ class DTRController extends Controller
                             //$coll->push(['payday'=>$payday, 'fromWDtoRD'=>$fromWDtoRD]);
 
                             //return $coll2->push(['noWorkSched'=>$noWorkSched]);
-
+                            $coll->push(['noWorkSchedval'=>$noWorkSched]);
                             if ($noWorkSched) 
                             {
                               if( is_null($bioForTheDay) ) 
@@ -2730,10 +2719,6 @@ class DTRController extends Controller
 
                               // ---------- else if fromRD > 0 ->rdToday = false
                               //----------- else if fromWD > 0 ->rdToday = true
-
-                             
-                              //$coll->push(["RDtoWD"=>$fromRDtoWD]);
-
                               if (count($fromRDtoWD)>0 ) //but we need to check first alin mas updated: cws or the plotted sched
                               {
                                 //$coll->push(["count ni RDtoWD"=>count($fromRDtoWD), "first"=>$fromRDtoWD->first()]);
@@ -2794,13 +2779,7 @@ class DTRController extends Controller
 
                                     }//end if else fromRDtoWD > dschedule
 
-                                }//end isnull dschedule
-                                
-                                
-                                
-
-                                
-                                
+                                }//end isnull dschedule 
 
                               } 
                               else if ( count($fromWDtoRD) > 0 )
@@ -3064,9 +3043,13 @@ class DTRController extends Controller
 
                                   /* --------------- END handle proper schedule for today for FIXED OR MONTHLY ---------*/
 
-              
-                                  $s = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
-                                  $s2 = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila");
+                                  if ($noWorkSched == false && count($schedForToday) !== 0)
+                                  {
+                                    $s = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
+                                    $s2 = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila");
+
+                                  }
+                                  
 
                                   // *********************************************************
 
@@ -3281,48 +3264,30 @@ class DTRController extends Controller
 
                                      //********** LOG OUT ***************
 
-                                            /*if ($isAproblemShift)
-                                            {
+                                            
+                                        if(count($bioForTom) > 0){
+                                          $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest);
+                                              //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
 
-                                              if(count($bioForTom) > 0)
-                                                $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTom->id, 2, $schedForToday,0, $problemArea,$isAproblemShift);
-                                                
-                                              else
-                                                $userLogOUT[0]= array('logTxt'=> "No Data", 
-                                                                      'UT'=>0,'logs'=>null,'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null, 'hasPendingDTRP'=>null,'pendingDTRP'=>null);
-                                              
-                                              //$coll->push(['sameDayLog'=>$sameDayLog, 'datafrom'=>"else  Problem shift",'data OUT'=>$userLogOUT ]);
-                                            }
-                                           
-                                            else
-                                            { */
-                                              if(count($bioForTom) > 0){
-                                                $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest);
-                                                    //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
+                                          
+                                        }
+                                        else
+                                        {
+                                          $userLogOUT[0]= array('logTxt'=> "No Data", 
+                                                                'UT'=>0,'logs'=>null,'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null, 'hasPendingDTRP'=>null,'pendingDTRP'=>null);
 
-                                                
-                                              }
-                                              else
-                                              {
-                                                $userLogOUT[0]= array('logTxt'=> "No Data", 
-                                                                      'UT'=>0,'logs'=>null,'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null, 'hasPendingDTRP'=>null,'pendingDTRP'=>null);
+                                        }
 
-                                              }
+                                            $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest);
 
-                                              //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]);
+                                        
 
-                                            /*}*/
-
-                                                  $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest);
-
-                                              
-
-                                              $workedHours= $data[0]['workedHours']; //$data[0]['compare']; //
-                                              $billableForOT = $data[0]['billableForOT'];
-                                              $OTattribute = $data[0]['OTattribute'];
-                                              $UT = $data[0]['UT'];
-                                              $VLs = $data[0]['VL'];
-                                              $LWOPs = $data[0]['LWOP'];
+                                        $workedHours= $data[0]['workedHours']; //$data[0]['compare']; //
+                                        $billableForOT = $data[0]['billableForOT'];
+                                        $OTattribute = $data[0]['OTattribute'];
+                                        $UT = $data[0]['UT'];
+                                        $VLs = $data[0]['VL'];
+                                        $LWOPs = $data[0]['LWOP'];
                                               
                                       
 
@@ -3438,10 +3403,12 @@ class DTRController extends Controller
 
                 }//end if else noWorkSched
 
-                  endNoWorkSched: 
-                  //$noWorkSched = null; //*** we need to reset things
+                endNoWorkSched: 
+                //$noWorkSched = null; //*** we need to reset things
 
-                  //$wsch->push(['noWorkSched'=>$noWorkSched]);
+                //$wsch->push(['noWorkSched'=>$noWorkSched]);
+
+
              }//END foreach payrollPeriod
 
            //return $wsch;
