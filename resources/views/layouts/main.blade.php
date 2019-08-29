@@ -197,6 +197,12 @@ desired effect
 
     });
 
+     function alertAsk(){
+      console.log('ask');
+      $.notify("Ask Finance for your leave credits to-date.",{className:"error", globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
+
+     }
+
 
 <?php /*
 
@@ -351,6 +357,8 @@ function validateRequired(param, availability, defaultval) {
 
   $(function () {
    'use strict';
+
+  
 
    $('#pose360').on('click', function(){
     $.ajax({
