@@ -78,7 +78,7 @@
                 <?php $cover = URL::to('/') . "/storage/uploads/cover-".$user->id."_".$user->hascoverphoto.".png";// URL::asset("public/img/cover/".$user->id.".jpg"); ?>
                 <div class="coverphoto output widget-user-header-profilepage bg-black" style="background-size:1024px auto; background: url('{{$cover}}') center no-repeat; ">
                 @else
-                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{URL:: asset("public/img/makati.jpg")}}') center no-repeat; background-size:1024px auto">
+                <div class="coverphoto output widget-user-header-profilepage bg-black" style="background: url('{{URL:: asset("public/img/newcover.jpg")}}') top center no-repeat; background-size:1024px auto">
                 @endif
 
                  <input type="hidden" name="coverimg" id="coverimg" value="" />
