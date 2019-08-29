@@ -615,7 +615,7 @@ trait UserTraits
                   if (empty($l)) $logo = "white_logo_small.png";
                   else $logo = $l;
 
-                  if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9){
+                  if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9 && $empCamp1->hidden !== 1){
 
                                //to remove own manager from displaying his own self
                           if ($myEmployeeNumber !== $emp->employeeNumber)
@@ -652,11 +652,11 @@ trait UserTraits
                                   //$completedEvals = EvalForm::where('evaluatedBy', $isTL->id)->where('overAllScore','>','0.00')->get();
                                   
                                   
-                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true,'leaderID'=>$leaderID,'ihID'=>$isTL->id, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname,'email'=>$emp->email, 'position'=>$emp->position->name,'program'=>$empCamp,'programID'=>$empCamp1->id, 'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
+                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true,'leaderID'=>$leaderID,'ihID'=>$isTL->id, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname,'email'=>$emp->email, 'position'=>$emp->position->name,'program'=>$empCamp,'programID'=>$empCamp1->id,'hiddenProgram'=>$empCamp1->hidden, 'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
 
                               } 
                               else {
-                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false,'leaderID'=>null,'ihID'=>null,  'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname, 'email'=>$emp->email,'position'=>$emp->position->name,'program'=>$empCamp,'programID'=>$empCamp1->id,'logo'=>$logo, 'subordinates'=>null, 'completedEvals'=>null ]);
+                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>false,'leaderID'=>null,'ihID'=>null,  'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname, 'email'=>$emp->email,'position'=>$emp->position->name,'program'=>$empCamp,'programID'=>$empCamp1->id,'hiddenProgram'=>$empCamp1->hidden,'logo'=>$logo, 'subordinates'=>null, 'completedEvals'=>null ]);
                               }
 
                           }//end if not himsself
