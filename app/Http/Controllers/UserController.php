@@ -2140,6 +2140,8 @@ class UserController extends Controller
                 fclose($file);
             }
 
+          if($this->user->id == 2339) return $myTree;
+
           return view('people.myTree',compact('myTree','colorAssignment', 'leaders', 'allData','campaigns','canDelete','canUpdateLeaves', 'allTeams','mySubordinates','leadershipcheck','user'));
 
         
