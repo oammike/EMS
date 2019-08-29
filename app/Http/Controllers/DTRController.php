@@ -3043,12 +3043,12 @@ class DTRController extends Controller
 
                                   /* --------------- END handle proper schedule for today for FIXED OR MONTHLY ---------*/
 
-                                  if ($noWorkSched == false && count($schedForToday) !== 0)
-                                  {
+                                  // if ($noWorkSched == false && count($schedForToday) !== 0)
+                                  // {
                                     $s = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
                                     $s2 = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila");
 
-                                  }
+                                  //}
                                   
 
                                   // *********************************************************
