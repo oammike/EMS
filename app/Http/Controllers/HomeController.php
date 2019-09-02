@@ -74,6 +74,11 @@ class HomeController extends Controller
 
           switch ($album) {
 
+             case '17':{
+               fwrite($file, "-------------------\n Davao Anniv [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '16':{
                fwrite($file, "-------------------\n Davao Health [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -406,6 +411,20 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/davao-".$i.".jpg",
                                 'description'=>"Davao Health &amp; Wellness 07/25/2019 (Photo by: Dang Maulingan)",
                                 'category'=>"Davao Health &amp; Wellness 07/25/2019 (Photo by: Dang Maulingan)"]);
+
+                  }
+
+        } break;
+
+        case '17': {
+ 
+                    //Davao anniv
+      
+                  for($i=1; $i<=10; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/davao-anniv-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/davao-anniv-".$i.".jpg",
+                                'description'=>"Open Access BPO - Davao 4th Year Anniversary",
+                                'category'=>"Open Access BPO - Davao 4th Year Anniversary"]);
 
                   }
 
