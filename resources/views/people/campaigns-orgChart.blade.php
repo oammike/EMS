@@ -667,10 +667,32 @@
 
       //*************** END HENRY
       //options.hasButtons = primitives.common.Enabled.True;
+      options.onCursorChanged = function (e, data) {
+        console.log(data);
+        var _token = "{{ csrf_token() }}";
+        $.ajax({
+                  url:'logAction/C?viewed='+data.context.title+' ['+data.context.id+']', 
+                  type:'GET',
+                  data:{
+                    
+                    _token:_token},
+
+                  error: function(response)
+                  { console.log(response); return false;
+                  },
+                  success: function(response4)
+                  {
+                    console.log(response4);
+                   
+                  }//end success
+              });
+        console.log( "User clicked on item '" + data.context.title + "'.");
+      };
+
       options.onButtonClick = function (e, data) {
         var message =""; //"User clicked '" + data.name + "' button for item '" + data.context.title + "'.";
         //alert(message);
-
+        console.log('clicked');
         console.log(data);
 
         var url = "";
@@ -687,8 +709,29 @@
         win.focus();
       };
 
+      options2.onCursorChanged = function (e, data) {
+        console.log(data);
+        var _token = "{{ csrf_token() }}";
+        $.ajax({
+                  url:'logAction/C?viewed='+data.context.title+' ['+data.context.id+']', 
+                  type:'GET',
+                  data:{
+                    
+                    _token:_token},
+
+                  error: function(response)
+                  { console.log(response); return false;
+                  },
+                  success: function(response4)
+                  {
+                    console.log(response4);
+                   
+                  }//end success
+              });
+        console.log( "User clicked on item '" + data.context.title + "'.");
+      };
       options2.onButtonClick = function (e, data) {
-        var message =""; //"User clicked '" + data.name + "' button for item '" + data.context.title + "'.";
+        var message ="User clicked '" + data.name + "' button for item '" + data.context.title + "'.";
         //alert(message);
 
         console.log(data);
@@ -707,6 +750,27 @@
         win2.focus();
       };
 
+      options3.onCursorChanged = function (e, data) {
+        console.log(data);
+        var _token = "{{ csrf_token() }}";
+        $.ajax({
+                  url:'logAction/C?viewed='+data.context.title+' ['+data.context.id+']', 
+                  type:'GET',
+                  data:{
+                    
+                    _token:_token},
+
+                  error: function(response)
+                  { console.log(response); return false;
+                  },
+                  success: function(response4)
+                  {
+                    console.log(response4);
+                   
+                  }//end success
+              });
+        console.log( "User clicked on item '" + data.context.title + "'.");
+      };
       options3.onButtonClick = function (e, data) {
         var message =""; //"User clicked '" + data.name + "' button for item '" + data.context.title + "'.";
         //alert(message);
@@ -727,6 +791,27 @@
         win3.focus();
       };
 
+      options4.onCursorChanged = function (e, data) {
+        console.log(data);
+        var _token = "{{ csrf_token() }}";
+        $.ajax({
+                  url:'logAction/C?viewed='+data.context.title+' ['+data.context.id+']', 
+                  type:'GET',
+                  data:{
+                    
+                    _token:_token},
+
+                  error: function(response)
+                  { console.log(response); return false;
+                  },
+                  success: function(response4)
+                  {
+                    console.log(response4);
+                   
+                  }//end success
+              });
+        console.log( "User clicked on item '" + data.context.title + "'.");
+      };
       options4.onButtonClick = function (e, data) {
         var message =""; //"User clicked '" + data.name + "' button for item '" + data.context.title + "'.";
         //alert(message);

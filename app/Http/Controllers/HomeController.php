@@ -1017,6 +1017,31 @@ class HomeController extends Controller
 
         }break;
 
+
+        case 'C':{
+                    if($this->user->id !== 564 ) {
+                      //$user = User::find(Input::get('id'));
+                      $viewed = Input::get('viewed');
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n ChartClick by [". $this->user->id."] ".$this->user->lastname." for ".$viewed. " on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                        return response()->json(['done'=>true,'viewed'=>$viewed]);
+                    } 
+
+        }break;
+
+        case 'T':{
+                    if($this->user->id !== 564 ) {
+                      //$user = User::find(Input::get('id'));
+                      $viewed = Input::get('viewed');
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n TreeClick by [". $this->user->id."] ".$this->user->lastname." for ".$viewed. " on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                        return response()->json(['done'=>true,'viewed'=>$viewed]);
+                    } 
+
+        }break;
+
         
         
       }

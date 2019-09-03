@@ -370,6 +370,29 @@
       options.onItemRender = onTemplateRender;
       options.horizontalAlignment = 'center';
       //options.hasButtons = primitives.common.Enabled.True;
+
+      options.onCursorChanged = function (e, data) {
+        console.log(data);
+        var _token = "{{ csrf_token() }}";
+        $.ajax({
+                  url:'logAction/T?viewed='+data.context.title+' ['+data.context.id+']', 
+                  type:'GET',
+                  data:{
+                    
+                    _token:_token},
+
+                  error: function(response)
+                  { console.log(response); return false;
+                  },
+                  success: function(response4)
+                  {
+                    console.log(response4);
+                   
+                  }//end success
+              });
+        console.log( "User clicked on item '" + data.context.title + "'.");
+      };
+
       options.onButtonClick = function (e, data) {
         var message =""; //"User clicked '" + data.name + "' button for item '" + data.context.title + "'.";
         //alert(message);
