@@ -89,6 +89,7 @@
 							</div>
 					</div>
 					<div class="modal-footer">
+          
 						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
 						<button type="submit" class="btn btn-primary">Save</button>
 					</div>
@@ -120,11 +121,7 @@
 	}
 
 	$(function () {
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
+		
 		function clear_group_form()
 		{
 			$('#categoryManagerForm')[0].reset();
