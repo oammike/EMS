@@ -420,7 +420,7 @@ class HomeController extends Controller
  
                     //Davao anniv
       
-                  for($i=1; $i<=10; $i++){
+                  for($i=1; $i<=36; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/davao-anniv-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/davao-anniv-".$i.".jpg",
                                 'description'=>"Open Access BPO - Davao 4th Year Anniversary",
