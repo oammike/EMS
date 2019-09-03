@@ -120,11 +120,7 @@
 	}
 
 	$(function () {
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
+		
 		function clear_group_form()
 		{
 			$('#categoryManagerForm')[0].reset();
