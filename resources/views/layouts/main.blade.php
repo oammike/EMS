@@ -213,7 +213,7 @@ desired effect
       var biofile = $('#biometricsData').get(0).files.length;
       //var biometricsData = $('#biometricsData').val();
       var alertDiv = $('#alert-upload');
-      var _token = "{{ csrf_token() }}";
+      var _token = $('meta[name="csrf-token"]').attr('content');
 
       console.log(biofile);
       if(biofile !== 0)
