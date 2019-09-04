@@ -9,6 +9,56 @@
 
                     </div>
 
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Zumba Classes</span> will be back next week!</h3>
+                         <br/><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                            <br/><span class="text-danger">September 10, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                            <BR/><span class="text-danger">September 12, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
+                              Sign Up Now</a><br/><br/>
+
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                              
+                              <div class="text-left"  style="padding-left: 30px;">
+                                <h5>Minor Prizes:</h5>
+                                <ul>
+                                  <li>3 winners: SM Gift certificates worth Php 2,000</li>
+                                  <li>1 winners: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Bluetooth speaker</li>
+                                  <li>1 winner: Cheero 10050 Powerbank</li>
+                                  <li>1 winner: Beats&trade; head set</li>
+                                </ul></div>
+
+                             <img src="./storage/uploads/letsgetphysical-118.jpg" style="z-index: 2" /><br/>
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                      </div>
+
+
                      <div class="item text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
@@ -325,37 +375,7 @@
                    
 
                     
-                    <!-- dance your way to BORACAY -->
-                    <div class="item text-center" >
-                        <h4 class="text-primary">Dance your way <br/><span class="text-orange">to Boracay!</span></h4>
-
-                              <img src="./storage/uploads/letsgetphysical-118.jpg" style="z-index: 2" />
-
-                              
-                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
-
-                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
-                              
-                              <div class="text-left"  style="padding-left: 30px;">
-                                <h5>Minor Prizes:</h5>
-                                <ul>
-                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
-                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
-                                  <li>1 winner: JBL Bluetooth speaker</li>
-                                  <li>1 winner: Cheero 10050 Powerbank</li>
-                                  <li>1 winner: Beats&trade; head set</li>
-                                </ul></div>
-
-                              <p class="text-center" style="padding-left: 30px;"><a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">Sign Up Now</a></p>
-
-
-
-                    </div>
-
-                    
-
-
-
+                  
                      
 
                       <div class="item text-center" >
@@ -403,6 +423,37 @@
 
 
 <?php /*
+  <!-- dance your way to BORACAY -->
+                    <div class="item text-center" >
+                        <h4 class="text-primary">Dance your way <br/><span class="text-orange">to Boracay!</span></h4>
+
+                              <img src="./storage/uploads/letsgetphysical-118.jpg" style="z-index: 2" />
+
+                              
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                              
+                              <div class="text-left"  style="padding-left: 30px;">
+                                <h5>Minor Prizes:</h5>
+                                <ul>
+                                  <li>4 winners: SM Gift certificates worth Php 2,000</li>
+                                  <li>2 winners: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Bluetooth speaker</li>
+                                  <li>1 winner: Cheero 10050 Powerbank</li>
+                                  <li>1 winner: Beats&trade; head set</li>
+                                </ul></div>
+
+                              <p class="text-center" style="padding-left: 30px;"><a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform?usp=sf_link" target="_blank">Sign Up Now</a></p>
+
+
+
+                    </div>
+
+                    
+
+
+
 
 <div class="item active text-center" >
                       

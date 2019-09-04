@@ -16,7 +16,7 @@
     .coverphoto, .output {
       max-width: 1024px;
       height: auto;
-      border: 1px solid black;
+      /*border: 1px solid black;*/
       /*margin: 10px auto;*/
     }
     .widget-user .widget-user-image-profilepage{}
