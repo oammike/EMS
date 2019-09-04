@@ -223,12 +223,8 @@
         <!-- Optionally, you can add icons to the links -->
         <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
-        
-
-      
-       
-
-         <li class="treeview @if ( Request::is('gallery') ) active @endif">
+        <!-- **** GALLERY ******** -->
+        <li class="treeview @if ( Request::is('gallery') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
 
@@ -277,7 +273,18 @@
         <li @if (Request::is("user/".Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" ><i class="fa fa-2x fa-address-card"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Profile</span></a></li>
         <li  data-step="3" data-intro="Or head over to your <br/><span style='font-weight:bold' class='text-danger'>'DTR Sheet'</span> and click on the push-pin icons to file a DTRP for that specific production date.<br/> <img src='public/img/dtr.jpg' /><br/> <em> (assuming TL or WFM has already plotted your work schedule) </em><br/><br/><strong class='text-orange'><i class='fa fa-exclamation-triangle'></i> Reminder:</strong> If you're from Operations, coordinate with your immediate head and/or Workforce Management for leave application process." data-position='right'  @if ( Request::is('user_dtr*') ) class="active" @endif ><a  @if ( Request::is('user_dtr*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-2x fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My DTR</a></li>
 
-         <li  data-step="2" data-intro="..you may go to <br/><span style='font-weight:bold' class='text-danger'>'My Requests</span>' page and then select the type of request you want to submit. <br/><br/><strong>Note:</strong> Always include a brief reason when submitting requests." data-position='right'  @if ( Request::is('myRequests*') ) class="active" @endif ><a  @if ( Request::is('myRequests*') ) class="active" @endif href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My Requests</a></li>
+       <!--  <li  data-step="2" data-intro="..you may go to <br/><span style='font-weight:bold' class='text-danger'>'My Requests</span>' page and then select the type of request you want to submit. <br/><br/><strong>Note:</strong> Always include a brief reason when submitting requests." data-position='right'  @if ( Request::is('myRequests*') ) class="active" @endif ><a  @if ( Request::is('myRequests*') ) class="active" @endif href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My Requests</a>
+
+       </li> -->
+
+        <li class="treeview @if (Request::is('user/'.Auth::user()->id)) active @endif">
+          <a href="#"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My Requests</span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-calendar"></i> DTR Requests </a> </li>
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-users"></i> Manpower Requests </a> </li>
+
+          </ul>
+        </li>
 
         @if( Auth::user()->isAleader )
         <li @if (Request::is('myTeam')) class="active" @endif><a href="{{action('UserController@myTeam')}}" ><i class="fa fa-2x fa-users"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Team</span></a></li>

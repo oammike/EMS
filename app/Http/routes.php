@@ -29,6 +29,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('user','UserController');
     Route::resource('userType','UserTypeController');
     //Route::resource('userType_role','UserTypeRController');
+    Route::resource('manpower','ManpowerController');
     Route::resource('movement','MovementController');
     Route::resource('position','PositionController');
     Route::resource('role','RoleController');
