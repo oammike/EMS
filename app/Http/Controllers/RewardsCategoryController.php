@@ -18,7 +18,7 @@ class RewardsCategoryController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      $this->middleware('web');
+      
       $this->pagination_items = 50;
     }
 
