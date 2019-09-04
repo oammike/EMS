@@ -31,10 +31,10 @@
                                 <h5>Minor Prizes:</h5>
                                 <ul>
                                   <li>3 winners: SM Gift certificates worth Php 2,000</li>
-                                  <li>1 winners: SM Gift certificates worth Php 1,000</li>
-                                  <li>1 winner: JBL Bluetooth speaker</li>
-                                  <li>1 winner: Cheero 10050 Powerbank</li>
-                                  <li>1 winner: Beats&trade; head set</li>
+                                  <li>1 winner: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Flip3 Bluetooth speaker</li>
+                                  <li>1 winner: Promate 10,000mAh Powerbank</li>
+                                  <li>1 winner: urBeats3 earphones</li>
                                 </ul></div>
 
                              <img src="./storage/uploads/letsgetphysical-118.jpg" style="z-index: 2" /><br/>
