@@ -100,7 +100,7 @@ class MovementController extends Controller
             $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
             $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
             $canDistributeTeam =  ($roles->contains('MANAGE_TEAM_DISTRIBUTION')) ? '1':'0';
-            $sixMonths = Carbon::today()->subMonths(6);
+            $sixMonths = Carbon::today()->subMonths(3);
 
             $movements = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->where('personnelChange_id',1)->orderBy('id','DESC')->get();
 
@@ -691,7 +691,7 @@ class MovementController extends Controller
     public function getAllMovements(){
         //$allmovements = Movement::orderBy('id','DESC')->get();
         $typeID = Input::get('typeID');
-        $sixMonths = Carbon::today()->subMonths(6);
+        $sixMonths = Carbon::today()->subMonths(3);
         switch ($typeID) {
             case '1': $mvt = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->where('personnelChange_id',1)->orderBy('id','DESC')->get();
                         break;
