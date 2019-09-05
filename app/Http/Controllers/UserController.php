@@ -267,12 +267,7 @@ class UserController extends Controller
 
           return view('timekeeping.create-user-schedule', compact('user','img','shifts','partTimes', 'teammates'));
 
-        }else return view('cws-denied');
-
-
-
-
-        
+        }else return view('cws-denied');   
 
 
     }
@@ -313,7 +308,7 @@ class UserController extends Controller
         return back();
     }
 
-     public function downloadAllUsers()
+    public function downloadAllUsers()
     {
 
       Excel::create('All Employee Data', function($excel) {
@@ -1792,7 +1787,10 @@ class UserController extends Controller
       
     }
 
-     public function moveToTeam(Request $request)
+
+    
+
+    public function moveToTeam(Request $request)
     {
       $memberID = $request->memberID;
       $newTeam = $request->newTeam;
