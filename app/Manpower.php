@@ -9,23 +9,28 @@ class Manpower extends Model
     protected $table= 'manpower';
 
     protected $fillable = [
-        'user_id', 'reason', 'type', 'howMany', 'source','campaign_id','position_id','status', 'foreignStatus', 'trainingStart', 'approved'
+        'user_id', 'campaign_id','manpower_reasonID', 'manpower_typeID', 'howMany', 'manpower_sourceID','position_id','status_id', 'manpower_foreignStatus_id', 'trainingStart', 'approved','notes'
     ]; //'oldHead_id','newHead_id',
 
 /*
 
-REASONS:
+MANPOWER_REASON:
 * Additional
 * Replacement
 
-TYPES:
+MANPOWER_TYPE:
 - Billable
 - Non Billable
 
-SOURCE:
+MANPOWER_SOURCE:
 - Internal
 - External
 - Both
+
+MANPOWER_STATUSES
+- status id
+
+MANPOWER_FOREIGNSTATUS
 
 */
 

@@ -770,6 +770,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserController@updateProfilepic') );
 
 
+     Route::post('/manpower/saveRequest', array(
+      'as'=> 'manpower.saveRequest',
+      'uses'=>'ManpowerController@saveRequest') );
+
+
 
       Route::get('/myRequests/{id}', array(
       'as'=> 'myRequests',
