@@ -770,9 +770,27 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserController@updateProfilepic') );
 
 
+//********  MANPOWER *****************************
+
+     Route::post('/manpower/deleteRequest', array(
+      'as'=> 'manpower.deleteRequest',
+      'uses'=>'ManpowerController@deleteRequest') );
+
      Route::post('/manpower/saveRequest', array(
       'as'=> 'manpower.saveRequest',
       'uses'=>'ManpowerController@saveRequest') );
+
+     Route::post('/manpower/updateCount', array(
+      'as'=> 'manpower.updateCountt',
+      'uses'=>'ManpowerController@updateCount') );
+
+     Route::post('/manpower/updateNotes', array(
+      'as'=> 'manpower.updateNotes',
+      'uses'=>'ManpowerController@updateNotes') );
+
+     Route::post('/manpower/updateRequest', array(
+      'as'=> 'manpower.updateRequest',
+      'uses'=>'ManpowerController@updateRequest') );
 
 
 

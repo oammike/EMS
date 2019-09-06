@@ -68,8 +68,12 @@
 
                         @endforeach
 
+                        <br/><br/>
+                        <label style="font-weight: normal; font-size: 1.1em;"><input type="checkbox" name="mktgBoost" id="mktgBoost" value="1" /> &nbsp;Request Facebook ad boost from MARKETING</label>
 
-                        <br/><br/><br/><h4 class="text-primary">Employment Status:</h4>
+
+
+                        <br/><h4 class="text-primary">Employment Status:</h4>
                         @foreach($statuses as $r)
 
                         &nbsp;<label><input type="radio" name="manpower_status_id" value="{{$r->id}}" /> &nbsp;{{$r->name}} </label><br/>
@@ -98,9 +102,9 @@
                         <div id="newpos"><br/><label>New position: <input class="form-control" type="text" id="newposition" /></label> </div>
 
                         <hr/>
-                        &nbsp;<label><input required="required" type="radio" name="lob" value="voice" /> &nbsp;Voice </label>
-                        &nbsp;<label><input required="required" type="radio" name="lob" value="nonvoice" /> &nbsp;Non-Voice </label>
-                        &nbsp;<label><input required="required" type="radio" name="lob" value="both" /> &nbsp;Both </label>
+                        &nbsp;<label><input required="required" type="radio" name="lob" value="Voice" /> &nbsp;Voice </label>
+                        &nbsp;<label><input required="required" type="radio" name="lob" value="Non-voice" /> &nbsp;Non-Voice </label>
+                        &nbsp;<label><input required="required" type="radio" name="lob" value="Voice & Non-Voice" /> &nbsp;Both </label>
 
                          <br/><br/><h4 class="text-primary">Employment Status [Foreigners]:</h4>
                         @foreach($foreign as $r)
@@ -129,7 +133,7 @@
                         
 
                       <br/><br/>
-                      <h4 class="text-primary">Start of Training:</h4>
+                      <h4 class="text-primary">Start Date:</h4>
                       <input tabindex="14" type="text" required="required" class="form-control datepicker" style="width:50%" name="trainingStart" id="trainingStart" placeholder="MM/DD/YYYY" /><br/><br/>
 
 
@@ -137,6 +141,8 @@
                        <textarea name="notes" id="notes" class="form-control"></textarea>
 
                        <br/><br/><button type="submit" id="submit" class="btn btn-lg btn-success pull-right"><i class="fa fa-file-o"></i> Submit Request</button>
+
+                       <a style="margin-left: 10px" id="allreq" href="{{action('ManpowerController@index')}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-file-o"></i> View All Request</a>
                        <a id="newReq" href="{{action('ManpowerController@create')}}" class="btn btn-lg btn-danger pull-right"><i class="fa fa-plus"></i> New Request</a> </div>
                      </div>
                     </div>
@@ -171,7 +177,7 @@
 <script>
   $(function () {
     $( ".datepicker" ).datepicker();
-    $('#newpos,#newcamp,#newReq').fadeOut();
+    $('#newpos,#newcamp,#newReq,#allreq').fadeOut();
 
     $('#position_id').on('change',function(){
       var v = $(this).find(':selected').val();
@@ -208,6 +214,9 @@
         var manpower_foreignStatus_id = $('input[name="manpower_foreignStatus_id"]:checked').val();
         var trainingStart = $('#trainingStart').val();
         var notes = $('#notes').val();
+        var mktgBoost = null;
+
+        if ($('input#mktgBoost').is(':checked')) mktgBoost=1;
 
         if ((manpower_status_id === "" || manpower_status_id == null)&&(manpower_foreignStatus_id === "" || manpower_foreignStatus_id == null))
         {
@@ -240,7 +249,7 @@
                         },
                         success: function(response)
                         {
-                          position_id = response.name;
+                          position_id = response.id;
                         }//end success
 
               }); //end ajax
@@ -262,7 +271,7 @@
                         },
                         success: function(response)
                         {
-                          campaign_id = response.name;
+                          campaign_id = response.id;
                         }//end success
 
               }); //end ajax
@@ -273,27 +282,48 @@
           console.log(campaign_id);
 
           $('#submit').fadeOut();
-          $.notify("Manpower request sent to \nRecruitment team for processing.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-          $('#newReq').fadeIn();
+
+          $.ajax({
+
+                url:"{{action('ManpowerController@saveRequest')}}",
+                type:'POST',
+                data:{
+                  'campaign_id': campaign_id,
+                  'manpower_reason_id': manpower_reason_id,
+                  'manpower_type_id': manpower_type_id,
+                  'howMany': howMany,
+                  'manpower_source_id': manpower_source_id,
+                  'position_id': position_id,
+                  'lob': lob,
+                  'manpower_status_id': manpower_status_id,
+                  'manpower_foreignStatus_id': manpower_foreignStatus_id,
+                  'trainingStart': trainingStart,
+                  'notes': notes,
+                  'mktgBoost': mktgBoost,
+                  _token: _token
+
+                },
+                error: function(response)
+                { console.log("Error saving request: ");
+                  console.log(response);
+                  $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                  return false;
+                },
+                success: function(response)
+                {
+                  console.log(response);
+                  $.notify("Manpower request sent to \nRecruitment team for processing.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                  $('#newReq').fadeIn();
+                  $('#allreq').fadeIn();
+
+                }
+
+          });
+
+          
 
 
-          // $.ajax({
-
-          //       url:"{{action('UserController@store')}}",
-          //       type:'POST',
-          //       data:{
-          //         campaign_id: campaign_id,
-          //       },
-          //       error: function(response)
-          //       { console.log("Error saving request: ");
-          //       console.log(response); return false;
-          //       },
-          //       success: function(response)
-          //       {
-
-          //       }
-
-          // });
+          
 
         }
 
