@@ -172,7 +172,7 @@ class ManpowerController extends Controller
                         select('manpower.id', 'users.firstname','users.nickname','users.lastname','users.id as userID','campaign.name as program','campaign.id as programID','manpower_reason.name as reason','manpower_type.name as type','manpower_source.name as source','manpower.manpower_status_id as status','positions.name as jobTitle','manpower.manpower_foreignStatus_id as foreignStatus','manpower.trainingStart','manpower.howMany','manpower.currentCount', 'manpower.notes', 'manpower_progress.name as progress','manpower.lob','manpower_progress.id as progressID','manpower.created_at','manpower.mktgBoost')->get();
 
         $employee = $this->user;
-        $HRs = [385,563]; //jaynee, ms.a 385
+        $HRs = [385,563,564]; //jaynee, ms.a 385
 
         foreach($HRs as $h)
         {
