@@ -323,10 +323,10 @@
 
                                                           <td class="text-center">
                                                            @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Time</strong><br/> @endif 
-                                                           {!! $data['shiftStart2'] !!} - {!! $data['shiftEnd2'] !!}<strong><a data-toggle="modal" data-target="#myModal_CWS{{$data['payday']}}" title="View Details" class="@if ($data['usercws'][0]['isApproved'])text-green @elseif ( is_null($data['usercws'][0]['isApproved']) ) text-orange @else text-gray @endif pull-right" href="#" > <i class="fa fa-info-circle"></i></a></strong> </td>
+                                                           {!! $data['shiftStart'] !!} - {!! $data['shiftEnd'] !!}<strong><a data-toggle="modal" data-target="#myModal_CWS{{$data['payday']}}" title="View Details" class="@if ($data['usercws'][0]['isApproved'])text-green @elseif ( is_null($data['usercws'][0]['isApproved']) ) text-orange @else text-gray @endif pull-right" href="#" > <i class="fa fa-info-circle"></i></a></strong> </td>
 
                                                             
-                                                             <input type="hidden" name="workshift_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['shiftStart2']}} - {{$data['shiftEnd2']}}" />
+                                                             <input type="hidden" name="workshift_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['shiftStart']}} - {{$data['shiftEnd2']}}" />
 
                                                              <input type="hidden" name="cws_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['usercws'][0]['id']}}" />
 
@@ -336,17 +336,17 @@
                                                             @if($theImmediateHead || $anApprover)<!-- || $canChangeSched -->
                                                             <td class="text-center">
                                                                @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
-                                                               {!! $data['shiftStart2'] !!} - {!! $data['shiftEnd2'] !!} <!-- <strong><a data-toggle="modal" data-target="#editCWS_{{$data['payday']}}" title="Change Work Sched " class="text-primary pull-right" href="#" > <i class="fa fa-pencil"></i></a></strong> --> </td>
+                                                               {!! $data['shiftStart'] !!} - {!! $data['shiftEnd2'] !!} <!-- <strong><a data-toggle="modal" data-target="#editCWS_{{$data['payday']}}" title="Change Work Sched " class="text-primary pull-right" href="#" > <i class="fa fa-pencil"></i></a></strong> --> </td>
                                                             
 
                                                             @else
                                                             <td class="text-center">
                                                                @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
-                                                               {!! $data['shiftStart2'] !!} - {!! $data['shiftEnd2'] !!} <!-- <strong><a data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="text-primary pull-right" href="#" > <i class="fa fa-flag-checkered"></i></a></strong> --> </td>
+                                                               {!! $data['shiftStart'] !!} - {!! $data['shiftEnd'] !!} <!-- <strong><a data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="text-primary pull-right" href="#" > <i class="fa fa-flag-checkered"></i></a></strong> --> </td>
                                                             @endif
 
                                                              
-                                                              <input type="hidden" name="workshift_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['shiftStart2']}} - {{$data['shiftEnd2']}}" />
+                                                              <input type="hidden" name="workshift_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['shiftStart']}} - {{$data['shiftEnd']}}" />
 
                                                               <input type="hidden" name="cws_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
 
