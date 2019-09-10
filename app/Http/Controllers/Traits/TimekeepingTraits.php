@@ -363,49 +363,7 @@ trait TimekeepingTraits
             //$check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
             // * not so fast. Check mo muna kung may monthly RD to be sure. Otherwise, fixed WS nga sya
 
-            /*$check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
-
-            if (count($check_monthly_RD) <= 0 )
-            { 
-
-
-            } else
-            {
-              if ( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')) //mas updated yung RD so di sya WS
-              {
-                $workSched = $hybridSched_WS_monthly;
-                (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
-                
-                $isFixedSched = false;
-                $noWorkSched = false;
-
-                $stat =  "fixed na talaga | mas updated RD";
-
-
-              } else
-              {
-                //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
-
-                 if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
-                 {
-
-                  $workSched = $hybridSched_WS_fixed;
-                  $RDsched = $hybridSched_RD_fixed;
-                  $isFixedSched = true;
-                  $noWorkSched = false;
-
-                   $stat =  "fixed na talaga | check mo muna validity nung WS na fixed. If not effective, then NO SCHED";
-
-                 }
-                 else
-                 {
-                  $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                  $stat =  "fixed na talaga | NO SCHED NA SYA";
-                 }
-
-              }
-
-            }*/
+          
 
              
           }
@@ -565,7 +523,10 @@ trait TimekeepingTraits
 
 
     }
-    else if($isFixedSched)
+    
+
+
+    if($isFixedSched)
     {
       $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'); // for Gregorian cal. Iba kasi jddayofweek sa PHP day
       $day = date('D', strtotime($payday)); //--- get his worksched and RDsched
@@ -584,14 +545,28 @@ trait TimekeepingTraits
           if ($ws->created_at > $approvedCWS->first()->updated_at )
           {
             $schedForToday = $ws; //$workSched->where('workday',$numDay)->first();
+            $isRDToday = $ws->isRD;
+            $RDsched1 = $RDsched;
 
-          } else $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+          } else
+          {
+            $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
                                   'timeEnd'=> $approvedCWS->first()->timeEnd,
                                   'isFlexitime' => false,
-                                  'isRD'=> null);
+                                  'isRD'=> $approvedCWS->first()->isRD);
+            $isRDToday = $approvedCWS->first()->isRD;
+            $RDsched1 = $RDsched;
+
+          } 
     
 
-      } else $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
+      } else
+      {
+        $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay)->toArray();
+        $isRDToday = $schedForToday['isRD'];
+        $RDsched1 = $RDsched;
+
+      } 
           
 
       
@@ -599,141 +574,64 @@ trait TimekeepingTraits
     }else
     {
       // MONTHLY SCHED ANG NAKA PLOT
-
-    }
-
-
-
-    /* -- CHECK FIRST IF MAY APPROVED CWS from RD into working sched --*/
-    $fromRDtoWD = User_CWS::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$bioForTheDay->id)->where('timeStart_old',"00:00:00")->where('timeEnd_old',"00:00:00")->orderBy('updated_at','DESC')->get();
-    $fromWDtoRD = User_CWS::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$bioForTheDay->id)->where('timeStart',"00:00:00")->where('timeEnd',"00:00:00")->orderBy('updated_at','DESC')->get();
-
-    /* ---------- july 2018 re-work algorithm ---------- */
-
-    // ---------- if both may to-from CWS, compare which is more updated
-    //. a) fromRD vs fromWD
-    //  b) a-winner vs RDsched
-
-    // ---------- else if fromRD > 0 ->rdToday = false
-    //----------- else if fromWD > 0 ->rdToday = true
-    if (count($fromRDtoWD)>0 ) //but we need to check first alin mas updated: cws or the plotted sched
-    {
-      //$coll->push(["count ni RDtoWD"=>count($fromRDtoWD), "first"=>$fromRDtoWD->first()]);
-      
-      //but we need to verify first which is more latest
-      if ($isFixedSched)
+      if ($hasApprovedCWS)
       {
-        
-        //$dschedule = $user->fixedSchedule->where('isRD',1)->where('workday', $numDay)->sortByDesc('updated_at'); 
-        $ds = $RDsched->where('workday',$numDay);
+        // check mo muna kung mas updated ung plotted sched sa CWS
 
-        (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-        //$dschedule = $RDsched->where('workday',$numDay)->first();
-        
+        if ( count($workSched->where('productionDate',$payday)->all()) > 0 )
+        {
 
-      } else {
+           if ($workSched->where('productionDate',$payday)->sortByDesc('id')->first()->created_at > $approvedCWS->first()->updated_at )
+            {
+              $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+              $isRDToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first()->isRD;
+              $RDsched1 = $RDsched;
 
-        $ds = $RDsched->where('productionDate',$payday);
-        (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-        //$dschedule = $RDsched->where('productionDate',$payday)->first();
-        
+            }else {
+              $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                'timeEnd'=> $approvedCWS->first()->timeEnd, 
+                                'isFlexitime'=>false,
+                                'isRD'=>$approvedCWS->first()->isRD);
+              $isRDToday = $approvedCWS->first()->isRD;
+              $RDsched1 = $RDsched;
 
-      }
-      //$coll->push(["dschedule"=>$dschedule, "RDsched"=>$RDsched, 'isFixedSched'=>$isFixedSched, 'numDay'=>$numDay]);
+            }
+            
 
-      /******** aug 2018 fix: do only this if not null dsched, else it's an RDtoWD sched na ********/
-      if (is_null($dschedule)) //meaning WORK DAY NA SYA due to CWS
-      {
-        $isRDToday=false; 
-
-      } else
-      {
-
-        if ($fromRDtoWD->first()->updated_at > $dschedule->created_at )
-        $isRDToday=false; 
-        else
-          {
-            if($isFixedSched)
-              $isRDToday = $RDsched->contains($numDay); 
-              else
-              {
-                if ($hybridSched)
-                {
-
-                  $rd = $RDsched;
-
-                }else
-                {
-                  $rd = $monthlySched->where('isRD',1)->where('productionDate',$payday)->all(); 
-                }
-                
-
-                if (count($rd)<= 0 ) 
-                  $isRDToday=false; else $isRDToday=true;
-
-                //$coll->push(['rd'=>$rd, 'isRDToday'=>$isRDToday]); 
-              }
-
-          }//end if else fromRDtoWD > dschedule
-
-      }//end isnull dschedule 
-
-    } 
-    else if ( count($fromWDtoRD) > 0 )
-    { 
-
-      //but we need to verify first which is more latest
-      if ($isFixedSched)
-      {
-        $ds = $workSched->where('workday',$numDay);
-
-        (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-        //$dschedule = $workSched->where('workday',$numDay)->first();
-
-      }
-        
-      else {
-        $ds = $workSched->where('productionDate',$payday);
-
-        (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-        
-      }
-
-      if (is_null($dschedule)) $isRDToday=true;
-      else{
-        ($fromWDtoRD->first()->updated_at > $dschedule->created_at ) ? $isRDToday=true :$isRDToday=false;
-      }
-
-      
-
-      
-    }//end fromWDtoRD
-
-    
-    else 
-    { /*------- FOR REGULAR, NON-HYBRID SCHEDULES -------*/
-      $gotit=null;
-      if($isFixedSched) {
-
-        $isRDToday = $this->getLatestFixedSched($user,$numDay,$payday)->isRD;
-      }
-      else
-      {
-        if (is_null($RDsched) ){
-          $isRDToday=false; 
-
-        }else{
-          $rd = $RDsched->where('isRD',1)->where('productionDate',$payday)->all(); 
-          if (count($rd)<= 0 ) $isRDToday=false; else $isRDToday=true;
+        } else 
+        {
+          $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                'timeEnd'=> $approvedCWS->first()->timeEnd, 
+                                'isFlexitime'=>false,
+                                'isRD'=>$workSched->where('productionDate',$payday)->first()->isRD);
+          $isRDToday = $workSched->where('productionDate',$payday)->first()->isRD;
+          $RDsched1 = $RDsched;
 
         }
-        
 
-        //$coll->push(['from: '=>"regular else"]);
-        $coll->push(['isRDToday'=>$isRDToday, 'payday'=>$payday, 'RDsched'=>$RDsched]);
+      } else //walang CWS
+      {
+        if (is_null($workSched)){
+          $day = date('D', strtotime($payday)); //--- get his worksched and RDsched
+          $theday = (string)$day;
+          $numDay = array_search($theday, $daysOfWeek);
+          $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
+          $isRDToday = $schedForToday['isRD'];
+          $RDsched1 = $RDsched;
+        }else
+          $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+          $isRDToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+          $RDsched1 = $RDsched;
       }
-    }
 
+    }//end if else
+
+    $c = new Collection;
+    $c->schedForToday = collect($schedForToday)->toArray();
+    $c->isRDToday = $isRDToday;
+    $c->RDsched = $RDsched1;
+
+    return $c;
 
 
   }
@@ -1526,7 +1424,7 @@ trait TimekeepingTraits
       }
     }
 
-    if is_null($thesched)
+    if (is_null($thesched))
     {
       $sched = ['timeStart'=>null, 'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>null, 'workday'=>null ];
     } else $sched = $thesched;
