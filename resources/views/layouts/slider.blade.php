@@ -1,6 +1,30 @@
                     
 
-                   <div class="item active text-center" >
+                   <div class="item active text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/OALife.jpg" style="z-index: 2" />
+                               <p class="text-center" style="padding: 30px;"><br/><br/><strong class="text-primary">Open Access BPO Life</strong> is now up on Facebook!  <br/>
+                                 <a class="btn btn-md btn-primary" target="_blank" href="https://www.facebook.com/openaccessbpolife/"><i class="fa fa-facebook-square"></i> facebook.com/openaccessbpolife</a><br/><br/>
+
+                                Like and follow this page to stay updated with the latest company news, featured stories, parties, and career opportunities - all in one place. While you're at it, engage in the comment section of posts you're interested in to find like-minded people who you can share your interests/hobbies with! <br/><br/>
+
+                                Your ideas matter. So, if you have any content suggestions/recommendations, drop a private message via our Events email <strong>events@openaccessbpo.net</strong> on Zimbra or Messenger.<br/><br/>
+
+                              Oh, and you can follow us on other social media sites too!</p>
+
+                              <a class="btn btn-md btn-primary" target="_blank" href="https://twitter.com/OpenAccessBPO"><i class="fa fa-2x fa-twitter-square"></i>  </a>
+
+                              <a class="btn btn-md btn-primary" target="_blank" href="https://www.instagram.com/openaccessbpo/"><i class="fa fa-2x fa-camera-retro"></i>  </a>
+
+                              <a class="btn btn-md btn-primary" target="_blank" href="https://www.linkedin.com/company/open-access-bpo/"><i class="fa fa-2x fa-linkedin-square"></i>  </a>
+
+                              <a class="btn btn-md btn-primary" target="_blank" href="https://www.youtube.com/OpenAccessBPO/"><i class="fa fa-2x fa-youtube-square"></i>  </a>
+                               <br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" >
                               <img src="./storage/uploads/wellness-0911.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the Wellness Event
                                 <strong>TODAY and on THURSDAY, September 11 & 12, 2019 </strong>during your breaktime: <br/><br/>

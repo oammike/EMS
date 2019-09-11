@@ -21,6 +21,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
+          <li style="color:#fff; font-size: x-small; margin-top:5px;padding-right: 20px">Employee Hotline: <br/><strong style="font-size: 1.5em"> <i class="fa fa-phone-square"></i> 0917-896-0634</strong></li>
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
