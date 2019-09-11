@@ -152,9 +152,7 @@ trait TimekeepingTraits
   {
     $carbonPayday = Carbon::parse($payday);
     ( count($approvedCWS) > 0 ) ? $hasApprovedCWS=true : $hasApprovedCWS=false;
-
-    
-$stat='init';
+    $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
 
     if ($hybridSched)
     {
@@ -622,31 +620,47 @@ $stat='init';
       } else //walang CWS
       {
         if (is_null($workSched)){
-          $day = date('D', strtotime($payday)); //--- get his worksched and RDsched
+          /*$day = date('D', strtotime($payday)); //--- get his worksched and RDsched
           $theday = (string)$day;
           $numDay = array_search($theday, $daysOfWeek);
-          $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
-          $isRDToday = $schedForToday['isRD'];
+          $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);*/
+          $schedForToday = null;
+          $isRDToday = null; //$schedForToday['isRD'];
           $RDsched1 = $RDsched;
         }else
-          $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
-          $isRDToday = $RDsched->where('productionDate',$payday)->sortByDesc('id')->first();
+        {
+          // know first kung anong meron, RD or workday
+          $rd = $RDsched->where('productionDate',$payday)->sortByDesc('id');
+          $wd = $workSched->where('productionDate',$payday)->sortByDesc('id');
+          if (count($rd) > 0 )
+          {
+            $schedForToday = $rd->first();
+            $isRDToday = true;
+            $RDsched1 = $RDsched;
+
+          }else
+          {
+            $schedForToday = $wd->first();
+            $isRDToday = false;
+            $RDsched1 = $RDsched;
+          }
           
-          $RDsched1 = $RDsched;
+          
+          
           $stat ="final";
+
+        }
+          
       }
 
     }//end if else
 
     $c = new Collection;
-    $c->schedForToday = collect($schedForToday)->toArray();
+    $c->schedForToday =  collect($schedForToday)->toArray();
     $c->isRDToday = $isRDToday;
     $c->RDsched = $RDsched1;
     $c->isFixedSched = $isFixedSched;
-    $c->fixed_ws = $check_fixed_WS;
-    $c->fixed_rd = $check_fixed_RD;
-    $c->stat = $stat;
-    $c->payday = $payday;
+    
     return $c;
 
 

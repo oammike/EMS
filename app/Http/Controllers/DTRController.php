@@ -1953,6 +1953,9 @@ class DTRController extends Controller
              {
                 $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
                 $hasLWOP=false; 
+                $yest = date('D', strtotime(Carbon::parse($payday)->subDay()->format('Y-m-d')));
+                $prevNumDay = array_search($yest, $daysOfWeek);
+
 
                 $bioForTheDay = Biometrics::where('productionDate',$payday)->first();
                 $carbonPayday = Carbon::parse($payday);
@@ -2004,16 +2007,16 @@ class DTRController extends Controller
 
                         $isRDToday = $actualSchedToday->isRDToday;
                         $schedForToday =  $actualSchedToday->schedForToday;
+                        (count($schedForToday) > 0) ? $noWorkSched=false : $noWorkSched=true;
                         $RDsched = $actualSchedToday->RDsched;
                         $isFixedSched =  $actualSchedToday->isFixedSched;
-                        $fixed_ws = $actualSchedToday->fixed_ws;
-                        $fixed_rd = $actualSchedToday->fixed_rd;
+                        
 
 
 
                 /* +++++++++++++++++ END NEW PROCEDURE ++++++++++++++++++++++++++++++*/
 
-                $coll->push(['stat'=>$actualSchedToday->stat,'payday'=>$actualSchedToday->payday, 'isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday,'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly]); //,'RDsched'=>$RDsched
+               // $coll->push(['stat'=>$actualSchedToday->stat,'payday'=>$actualSchedToday->payday, 'isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday,'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly]); //,'RDsched'=>$RDsched
 
 
                   
@@ -2221,7 +2224,7 @@ class DTRController extends Controller
                                    'lwopDetails'=>null,
                                    //'shiftEnd2'=>$data[0]['shiftEnd'],
                                    'logIN' => $data[0]['logIN'],
-                                   'logOUT'=>$data[0]['logOUT']."<br/><small>".$bioForTomorrow->productionDate."</small>",
+                                   'logOUT'=>$data[0]['logOUT'], //."<br/><small>".$bioForTomorrow->productionDate."</small>",
                                    'dtrpIN'=>$data[0]['dtrpIN'],
                                    'dtrpOUT'=>$data[0]['dtrpOUT'],
                                    'dtrpIN_id'=>$data[0]['dtrpIN_id'],
