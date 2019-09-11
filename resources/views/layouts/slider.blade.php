@@ -1,7 +1,7 @@
                     
 
                    <div class="item active text-center" >
-                              <img src="./storage/uploads/wellness3.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/wellness-0911.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the Wellness Event
                                 <strong>TODAY and on THURSDAY, September 11 & 12, 2019 </strong>during your breaktime: <br/><br/>
 
