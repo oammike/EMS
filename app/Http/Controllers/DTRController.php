@@ -1822,11 +1822,8 @@ class DTRController extends Controller
              // *************************** VERIFIED DTR SHEET
              $verifiedDTR = User_DTR::where('user_id',$user->id)->where('productionDate','>=',$currentPeriod[0])->
                                                   where('productionDate','<=',$currentPeriod[1])->orderBy('productionDate','ASC')->get();
-            
-            
-           // return response()->json(['verified'=>count($verifiedDTR), 'payroll'=> count($payrollPeriod)]); 
-                                                                                     
-             if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
+
+            if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
              {
 
                 $myDTRSheet = $verifiedDTR;
@@ -2010,13 +2007,14 @@ class DTRController extends Controller
                         (count($schedForToday) > 0) ? $noWorkSched=false : $noWorkSched=true;
                         $RDsched = $actualSchedToday->RDsched;
                         $isFixedSched =  $actualSchedToday->isFixedSched;
+                        $allRD = $actualSchedToday->allRD;
                         
 
 
 
                 /* +++++++++++++++++ END NEW PROCEDURE ++++++++++++++++++++++++++++++*/
 
-               // $coll->push(['stat'=>$actualSchedToday->stat,'payday'=>$actualSchedToday->payday, 'isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday,'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly]); //,'RDsched'=>$RDsched
+               $coll->push(['isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday,'allRD'=>$allRD->first()->where('workday',5)]); //,'RDsched'=>$RDsched'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly'stat'=>$actualSchedToday->stat,
 
 
                   
@@ -2343,7 +2341,13 @@ class DTRController extends Controller
                                     
 
                                     if($isFixedSched)
-                                          $isRDYest = $RDsched->contains($prevNumDay); 
+                                    {
+                                      if (count($allRD->first()->where('workday',$prevNumDay)) > 0)
+                                        $isRDYest = true; //$RDsched->contains($prevNumDay); 
+                                      else 
+                                        $isRDYest = false;
+                                    }
+                                          
                                     else
                                     {
                                       if ($hybridSched)
@@ -2426,7 +2430,7 @@ class DTRController extends Controller
                                       // if shift is 12MN - 5AM -> PROBLEM AREA
                                       //----------------------------------------
                                       if($isFixedSched)
-                                          $isRDYest = $RDsched->contains($prevNumDay); 
+                                          $isRDYest = true; //$RDsched->contains($prevNumDay); 
                                         else
                                         {
                                           if ($hybridSched)

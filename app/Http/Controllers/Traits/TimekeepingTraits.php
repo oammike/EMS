@@ -554,7 +554,7 @@ trait TimekeepingTraits
           {
             $schedForToday = $ws; //$workSched->where('workday',$numDay)->first();
             $isRDToday = $ws->isRD;
-            $RDsched1 = $RDsched;
+            
 
           } else
           {
@@ -563,16 +563,16 @@ trait TimekeepingTraits
                                   'isFlexitime' => false,
                                   'isRD'=> $approvedCWS->first()->isRD);
             $isRDToday = $approvedCWS->first()->isRD;
-            $RDsched1 = $RDsched;
+            
 
-          } 
+          } $RDsched1 = $this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
     
 
       } else
       {
-        $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay)->toArray();
+        $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);//->toArray();
         $isRDToday = $schedForToday['isRD'];
-        $RDsched1 = $RDsched;
+        $RDsched1 = $RDsched;//$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay); //
 
       } 
           
@@ -660,6 +660,7 @@ trait TimekeepingTraits
     $c->isRDToday = $isRDToday;
     $c->RDsched = $RDsched1;
     $c->isFixedSched = $isFixedSched;
+    $c->allRD = $RDsched;
     
     return $c;
 
@@ -1444,19 +1445,19 @@ trait TimekeepingTraits
   {
     $thesched = null;
 
-    foreach ($workSched as $w) {
-
+    if (count($workSched) > 0)
+      foreach ($workSched as $w) {
       
-      if( $w->first()->schedEffectivity <= $payday || is_null($w->first()->schedEffectivity))
-      {
-        $thesched = collect($w)->where('workday',$numDay)->first();
-        break;
+        if( $w->first()->schedEffectivity <= $payday || is_null($w->first()->schedEffectivity))
+        {
+          $thesched = collect($w)->where('workday',$numDay)->first();
+          break;
+        }
       }
-    }
 
     if (is_null($thesched))
     {
-      $sched = ['timeStart'=>null, 'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>null, 'workday'=>null ];
+      $sched = ['timeStart'=>null, 'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>true, 'workday'=>null ];
     } else $sched = $thesched;
 
     return $sched;
