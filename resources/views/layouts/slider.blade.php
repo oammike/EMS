@@ -14,7 +14,7 @@
 
                                 * * *<br/><br/>
 
-                                <strong class="text-danger">WHERE:</strong> <strong class="text-primary" style="font-size:1.1em">11TH FLR ADP BLDG</strong> <br/>
+                                <strong class="text-danger">WHERE:</strong> <strong class="text-primary" style="font-size:1.1em">11TH FLR Glorietta2 Corporate Tower</strong> <br/>
 
                                 <strong class="text-danger">WHEN:</strong> <strong class="text-primary" style="font-size:1.1em">THURSDAY Sept 12, 2019, 10AM-7PM</strong>
                                 <br/><br/> <!-- <a href="{{ action('HomeController@gallery',['a'=>11]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a> -->
