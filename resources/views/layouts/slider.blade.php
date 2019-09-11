@@ -27,16 +27,11 @@
                     <div class="item text-center" >
                               <img src="./storage/uploads/wellness-0911.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the Wellness Event
-                                <strong>TODAY and on THURSDAY, September 11 & 12, 2019 </strong>during your breaktime: <br/><br/>
+                                <strong>TODAY, September 12, 2019 </strong>during your breaktime: <br/><br/>
 
 
                                 <strong class="text-danger">WHAT: </strong>   Open Access Clinic Wellness Program <br/>
 
-                                <strong class="text-danger">WHERE:</strong> <strong class="text-primary" style="font-size:1.1em">5TH FLR JAKA BLDG</strong><br/>
-
-                               <strong class="text-danger"> WHEN:</strong> <strong class="text-primary" style="font-size:1.1em">WEDNESDAY Sept 11, 2019, 10AM - 7PM</strong><br/><br/>
-
-                                * * *<br/><br/>
 
                                 <strong class="text-danger">WHERE:</strong> <strong class="text-primary" style="font-size:1.1em">11TH FLR Glorietta2 Corporate Tower</strong> <br/>
 
