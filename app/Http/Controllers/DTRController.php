@@ -1934,7 +1934,8 @@ class DTRController extends Controller
                 }
              }
 
-             //return (['noWorkSched'=>$noWorkSched]);
+             //return (['hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly]);
+
              // ---------------------------
              // Start Payroll generation
              // ---------------------------
@@ -2003,12 +2004,13 @@ class DTRController extends Controller
                         $isRDToday = $actualSchedToday->isRDToday;
                         $schedForToday =  $actualSchedToday->schedForToday;
                         $RDsched = $actualSchedToday->RDsched;
+                        $isFixedSched =  $actualSchedToday->isFixedSched;
 
 
 
                 /* +++++++++++++++++ END NEW PROCEDURE ++++++++++++++++++++++++++++++*/
 
-                $coll->push(['productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday,'RDsched'=>$RDsched]); 
+                $coll->push(['isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday,'RDsched'=>$RDsched,'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly]); 
 
                         
                

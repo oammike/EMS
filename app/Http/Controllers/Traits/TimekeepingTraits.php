@@ -153,6 +153,9 @@ trait TimekeepingTraits
     $carbonPayday = Carbon::parse($payday);
     ( count($approvedCWS) > 0 ) ? $hasApprovedCWS=true : $hasApprovedCWS=false;
 
+    
+
+
     if ($hybridSched)
     {
 
@@ -163,10 +166,12 @@ trait TimekeepingTraits
           default: $dayToday = $dt-1;
         } 
 
-        $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-        $check_fixed_WS_group = collect($check_fixed_WS)->groupBy('schedEffectivity');
+        //$check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at');
+        $check_fixed_WS = $this->getLatestFixedSchedGrouped($hybridSched_WS_fixed,$payday,$dayToday);
+        $check_fixed_WS_group = $hybridSched_WS_fixed; //collect($check_fixed_WS)->groupBy('schedEffectivity');
 
-        if (count($check_fixed_WS) > 0) //if may fixed WS, check mo kung ano mas updated vs monthly sched
+        //if (count($check_fixed_WS) > 0) //if may fixed WS, check mo kung ano mas updated vs monthly sched
+        if($check_fixed_WS['workday'] !== null)
         {
           $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
           //$coll->push(['check_monthly_WS'=>$check_monthly_WS]);
@@ -374,9 +379,11 @@ trait TimekeepingTraits
 
         } else //baka RD
         {
-          $check_fixed_RD = $hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at');
+          //$check_fixed_RD = $hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at');
+          $check_fixed_RD = $this->getLatestFixedSchedGrouped($hybridSched_RD_fixed,$payday,$dayToday);
 
-          if (count($check_fixed_RD) > 0) //if may fixed RD, check mo kung ano mas updated vs monthly sched
+          //if (count($check_fixed_RD) > 0) //if may fixed RD, check mo kung ano mas updated vs monthly sched
+          if ($check_fixed_RD['workday'] !== null)
           {
             $stat =  "if may fixed RD, check mo kung ano mas updated vs monthly sched";
 
@@ -630,6 +637,8 @@ trait TimekeepingTraits
     $c->schedForToday = collect($schedForToday)->toArray();
     $c->isRDToday = $isRDToday;
     $c->RDsched = $RDsched1;
+    $c->isFixedSched = $isFixedSched;
+    
 
     return $c;
 
