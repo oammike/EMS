@@ -154,7 +154,7 @@ trait TimekeepingTraits
     ( count($approvedCWS) > 0 ) ? $hasApprovedCWS=true : $hasApprovedCWS=false;
 
     
-
+$stat='init';
 
     if ($hybridSched)
     {
@@ -492,6 +492,7 @@ trait TimekeepingTraits
               // if (count($hybridSched_WS_monthly) > 0)
               // {
                 $workSched = $hybridSched_WS_monthly;
+                $isFixedSched=false;
 
               // }// else $workSched = null;
 
@@ -500,6 +501,7 @@ trait TimekeepingTraits
                 $RDsched = $hybridSched_RD_monthly;
               //}
               //else $RDsched = null;
+                $stat =  "both hybrid has count";
 
             }else //waley na talaga
             {
@@ -508,9 +510,10 @@ trait TimekeepingTraits
               {
                 $workSched = $hybridSched_WS_fixed;
                 $RDsched = $hybridSched_RD_fixed;
+                $stat =  "waley";
 
               }else{
-                $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
+                $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;$stat = "superduper waley";
                 
               }
               
@@ -627,8 +630,10 @@ trait TimekeepingTraits
           $RDsched1 = $RDsched;
         }else
           $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
-          $isRDToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+          $isRDToday = $RDsched->where('productionDate',$payday)->sortByDesc('id')->first();
+          
           $RDsched1 = $RDsched;
+          $stat ="final";
       }
 
     }//end if else
@@ -638,8 +643,10 @@ trait TimekeepingTraits
     $c->isRDToday = $isRDToday;
     $c->RDsched = $RDsched1;
     $c->isFixedSched = $isFixedSched;
-    
-
+    $c->fixed_ws = $check_fixed_WS;
+    $c->fixed_rd = $check_fixed_RD;
+    $c->stat = $stat;
+    $c->payday = $payday;
     return $c;
 
 
