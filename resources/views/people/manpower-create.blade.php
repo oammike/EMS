@@ -76,7 +76,11 @@
                         <br/><h4 class="text-primary">Employment Status:</h4>
                         @foreach($statuses as $r)
 
-                        &nbsp;<label><input type="radio" name="manpower_status_id" value="{{$r->id}}" /> &nbsp;{{$r->name}} </label><br/>
+                          @if($r->id == 1)
+                          &nbsp;<label><input type="radio" name="manpower_status_id" value="{{$r->id}}" /> &nbsp;{{$r->name}} (1-3 months) </label><br/>
+                          @else
+                          &nbsp;<label><input type="radio" name="manpower_status_id" value="{{$r->id}}" /> &nbsp;{{$r->name}} </label><br/>
+                          @endif
 
                         @endforeach
                       </div>
