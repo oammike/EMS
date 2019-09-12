@@ -277,7 +277,7 @@ trait TimekeepingTraits
               //ngayon, check mo kung sino mas updated, si monthlyRD or si fixed
               foreach ($check_fixed_WS_group as $g) 
               {
-                $coll->push(['pasok foreach'=>$g->first()]);
+                //$coll->push(['pasok foreach'=>$g->first()]);
 
                 if( Carbon::parse($checkKungMayRD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($g->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
                 {
@@ -552,7 +552,9 @@ trait TimekeepingTraits
                                     'timeEnd'=> $approvedCWS->first()->timeEnd,
                                     'isFlexitime' => false,
                                     'isRD'=> $approvedCWS->first()->isRD);
-              $isRDToday = $approvedCWS->first()->isRD;
+
+         ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00') ? $isRDToday=true : $isRDToday=false;
+              //$isRDToday = $approvedCWS->first()->isRD;
               $RDsched1 = $RDsched;
         /*
           $ws =$this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
@@ -616,10 +618,12 @@ trait TimekeepingTraits
               $RDsched1 = $RDsched;
 
             }else {
+
               $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
                                 'timeEnd'=> $approvedCWS->first()->timeEnd, 
                                 'isFlexitime'=>false,
                                 'isRD'=>$approvedCWS->first()->isRD);
+
               $isRDToday = $approvedCWS->first()->isRD;
               $RDsched1 = $RDsched;
 

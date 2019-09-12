@@ -2621,7 +2621,7 @@ class DTRController extends Controller
 
              }//END foreach payrollPeriod
 
-           //return $coll;
+           return $coll;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
@@ -2654,7 +2654,7 @@ class DTRController extends Controller
            //return response()->json(['isFixedSched'=>$isFixedSched]);
 
              // return  count($user->monthlySchedules->sortByDesc('productionDate'));
-           //return $coll;
+           //return $myDTR;
            return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
 
 
