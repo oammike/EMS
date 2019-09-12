@@ -72,51 +72,7 @@
 
                     </div>
 
-                    <div class="item text-center" >
-                              <img src="./storage/uploads/wellness-0911.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the Wellness Event
-                                <strong>TODAY, September 12, 2019 </strong>during your breaktime: <br/><br/>
 
-
-                                <strong class="text-danger">WHAT: </strong>   Open Access Clinic Wellness Program <br/>
-
-
-                                <strong class="text-danger">WHERE:</strong> <strong class="text-primary" style="font-size:1.1em">11TH FLR Glorietta2 Corporate Tower</strong> <br/>
-
-                                <strong class="text-danger">WHEN:</strong> <strong class="text-primary" style="font-size:1.1em">THURSDAY Sept 12, 2019, 10AM-7PM</strong>
-                                <br/><br/> <!-- <a href="{{ action('HomeController@gallery',['a'=>11]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a> -->
-                                <strong>Activities:</strong><br/><br/>
-
-                                <strong class="text-primary">♦Leny’s Massage</strong><br/>
-
-                                  - Free Massage Therapy<br/>
-
-                                  - Product Sampling of White Flower Oil<br/>
-
-                                  - Product Sampling of Hot/Warm Compress Bag<br/>
-
-                                  - Ear Candling and Soft Selling<br/>
-
-
-                                <strong class="text-primary">♦ AGO</strong><br/>
-
-                                           -  Eye check up<br/>
-
-                                           - Sample frames /eyeglasses<br/>
-                                <strong class="text-primary">♦BDO Unibank Inc ( Sept 11 ONLY)</strong><br/>
-
-                                        -credit card booth<br/>
-
-
-
-                                 <strong class="text-primary">Sante Int'l Inc.</strong><br/>
-                                        - Various Sante Barley Products<br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
 
                    <div class="item text-center" style="background-color: #fff" >
                       
@@ -494,6 +450,52 @@
 
 
 <?php /*
+ <!--wellness-->
+                    <div class="item text-center" >
+                              <img src="./storage/uploads/wellness-0911.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the Wellness Event
+                                <strong>TODAY, September 12, 2019 </strong>during your breaktime: <br/><br/>
+
+
+                                <strong class="text-danger">WHAT: </strong>   Open Access Clinic Wellness Program <br/>
+
+
+                                <strong class="text-danger">WHERE:</strong> <strong class="text-primary" style="font-size:1.1em">11TH FLR Glorietta2 Corporate Tower</strong> <br/>
+
+                                <strong class="text-danger">WHEN:</strong> <strong class="text-primary" style="font-size:1.1em">THURSDAY Sept 12, 2019, 10AM-7PM</strong>
+                                <br/><br/> <!-- <a href="{{ action('HomeController@gallery',['a'=>11]) }}" class="text-center btn btn-xs btn-default"><i class="fa fa-image"></i> View More in our Gallery</a> -->
+                                <strong>Activities:</strong><br/><br/>
+
+                                <strong class="text-primary">♦Leny’s Massage</strong><br/>
+
+                                  - Free Massage Therapy<br/>
+
+                                  - Product Sampling of White Flower Oil<br/>
+
+                                  - Product Sampling of Hot/Warm Compress Bag<br/>
+
+                                  - Ear Candling and Soft Selling<br/>
+
+
+                                <strong class="text-primary">♦ AGO</strong><br/>
+
+                                           -  Eye check up<br/>
+
+                                           - Sample frames /eyeglasses<br/>
+                                <strong class="text-primary">♦BDO Unibank Inc ( Sept 11 ONLY)</strong><br/>
+
+                                        -credit card booth<br/>
+
+
+
+                                 <strong class="text-primary">Sante Int'l Inc.</strong><br/>
+                                        - Various Sante Barley Products<br/><br/> <strong>#WeSpeakYourLanguage #OAonWellness</strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAonWellness</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
  <!--ZUMBA -->
                     <div class="item text-center" >
                         
