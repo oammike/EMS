@@ -132,18 +132,22 @@
                                   
                                   
                                 </div>
-                                <div class="widget-user-image">
+                                
                                    
 
                                   @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                                  <div class="widget-user-image" style="left: 40%">
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="100" style="width: 170px" alt="User Avatar">
                                   @else
+                                  <div class="widget-user-image">
                                   <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
                                   @endif
 
                                 </div>
                                 
                                 <div class="box-footer">
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )<br/><br/><br/>
+                                  @endif
                                   @if (empty($n->nickname) || $n->nickname==" ")
                                      <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
                                  @else
