@@ -1,6 +1,54 @@
                     
 
                    <div class="item active text-center" style="background-color: #fff" >
+                    <img src="./storage/uploads/suicide-0.png" style="z-index: 2" />
+                    <br/><br/><br/>
+
+                    </div>
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-0a.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-0b.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-2.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-3.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-4.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-5.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-6.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-7.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/suicide-8.png" style="z-index: 2" />
+                      <br/><br/><br/>
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/OALife.jpg" style="z-index: 2" />
