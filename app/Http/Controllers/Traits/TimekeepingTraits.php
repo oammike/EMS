@@ -548,24 +548,44 @@ trait TimekeepingTraits
 
       if ($hasApprovedCWS)
       {
+         $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                    'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                    'isFlexitime' => false,
+                                    'isRD'=> $approvedCWS->first()->isRD);
+              $isRDToday = $approvedCWS->first()->isRD;
+              $RDsched1 = $RDsched;
+        /*
           $ws =$this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
+          if ( is_null($ws->workday))
+          {
+            //di sya worksched, but CWS from RD
+            $ws =$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
+
+          }else
+          {
+            if ($ws->created_at > $approvedCWS->first()->updated_at )
+            {
+              $schedForToday = $ws; //$workSched->where('workday',$numDay)->first();
+              $isRDToday = $ws->isRD;
+              $RDsched1 = $RDsched;
+              
+
+            } else
+            {
+              $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                    'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                    'isFlexitime' => false,
+                                    'isRD'=> $approvedCWS->first()->isRD);
+              $isRDToday = $approvedCWS->first()->isRD;
+              $RDsched1 = $RDsched; //$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
+              
+
+            } 
+
+          }*/
+
           
-          if ($ws->created_at > $approvedCWS->first()->updated_at )
-          {
-            $schedForToday = $ws; //$workSched->where('workday',$numDay)->first();
-            $isRDToday = $ws->isRD;
-            
-
-          } else
-          {
-            $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                  'timeEnd'=> $approvedCWS->first()->timeEnd,
-                                  'isFlexitime' => false,
-                                  'isRD'=> $approvedCWS->first()->isRD);
-            $isRDToday = $approvedCWS->first()->isRD;
-            
-
-          } $RDsched1 = $this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
+          
     
 
       } else

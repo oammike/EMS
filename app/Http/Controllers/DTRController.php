@@ -1945,16 +1945,15 @@ class DTRController extends Controller
 
              //return collect($hybridSched_WS_fixed->first())->where('workday',4)->first();
              //$coll->push(['$noWorkSched'=>$noWorkSched,'workSched'=>$workSched, 'isFixedSched'=>$isFixedSched]);
-
+             //$coll->push(['init rd'=>$RDsched]);
              foreach ($payrollPeriod as $payday) 
              {
-                $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
-                $hasLWOP=false; 
-                $yest = date('D', strtotime(Carbon::parse($payday)->subDay()->format('Y-m-d')));
-                $prevNumDay = array_search($yest, $daysOfWeek);
+                
+                $bioForTheDay1 = Biometrics::where('productionDate',$payday)->get();//first();
 
+                if(count($bioForTheDay1) <= 0) break;
+                else $bioForTheDay =  $bioForTheDay1->first();
 
-                $bioForTheDay = Biometrics::where('productionDate',$payday)->first();
                 $carbonPayday = Carbon::parse($payday);
                 $nextDay = Carbon::parse($payday)->addDay();
                 $prevDay = Carbon::parse($payday)->subDay();
@@ -1966,6 +1965,14 @@ class DTRController extends Controller
                 }
                 else
                   $bioForTomorrow = $bioForTom;
+
+                $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
+                $hasLWOP=false; 
+                $yest = date('D', strtotime(Carbon::parse($payday)->subDay()->format('Y-m-d')));
+                $prevNumDay = array_search($yest, $daysOfWeek);
+
+
+                
 
                 $holidayToday = Holiday::where('holidate', $payday)->get();
                 (count($holidayToday) > 0) ? $hasHolidayToday = true : $hasHolidayToday = false;
@@ -1979,7 +1986,7 @@ class DTRController extends Controller
                   //      CWS & OT & DTRPs
                   //**************************************************************
 
-                  $usercws = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
+                  $usercws =  User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
                   $approvedCWS  = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
                   
 
@@ -2000,6 +2007,7 @@ class DTRController extends Controller
                         comparing hybrids and approved CWS
                         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
+
                         $actualSchedToday = $this->getActualSchedForToday($user,$id,$payday,$bioForTheDay, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
 
                         $isRDToday = $actualSchedToday->isRDToday;
@@ -2014,7 +2022,7 @@ class DTRController extends Controller
 
                 /* +++++++++++++++++ END NEW PROCEDURE ++++++++++++++++++++++++++++++*/
 
-               $coll->push(['isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday,'allRD'=>$allRD->first()->where('workday',5)]); //,'RDsched'=>$RDsched'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly'stat'=>$actualSchedToday->stat,
+               $coll->push(['cws'=>$approvedCWS, 'allRD'=>$allRD,'RDsched'=>$RDsched, 'isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday]); //,'RDsched'=>$RDsched'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly'stat'=>$actualSchedToday->stat,
 
 
                   
@@ -2215,12 +2223,12 @@ class DTRController extends Controller
                                    'day'=> date('D',strtotime($payday)),
                                    'shiftStart'=> $data[0]['shiftStart'],
                                    'shiftEnd'=>$data[0]['shiftEnd'],
-                                   //'shiftStart2'=>  $data[0]['shiftStart'],
+                                   'shiftStart2'=>  $data[0]['shiftStart'],
                                    'hasLeave' => null,
                                    'leaveDetails'=>null,
                                    'hasLWOP' => null,
                                    'lwopDetails'=>null,
-                                   //'shiftEnd2'=>$data[0]['shiftEnd'],
+                                   'shiftEnd2'=>$data[0]['shiftEnd'],
                                    'logIN' => $data[0]['logIN'],
                                    'logOUT'=>$data[0]['logOUT'], //."<br/><small>".$bioForTomorrow->productionDate."</small>",
                                    'dtrpIN'=>$data[0]['dtrpIN'],
@@ -2342,8 +2350,9 @@ class DTRController extends Controller
 
                                     if($isFixedSched)
                                     {
+                                      //if(is_array($allRD)) { $coll->push(['an array'=>true]);
                                       if (count($allRD->first()->where('workday',$prevNumDay)) > 0)
-                                        $isRDYest = true; //$RDsched->contains($prevNumDay); 
+                                        {$isRDYest = true;} //$RDsched->contains($prevNumDay); }
                                       else 
                                         $isRDYest = false;
                                     }
@@ -2501,44 +2510,38 @@ class DTRController extends Controller
 
                                   if(is_null($schedForToday)) {
                                       
-                                      $myDTR->push(['isRDToday'=>null,
-                                        'payday'=>$payday,
-                                     'biometrics_id'=>$bioForTheDay->id,
-                                     'hasCWS'=>$hasCWS,
-                                      //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
-                                      'usercws'=>$usercws,
-                                      'userOT'=>$userOT,
-                                      'hasOT'=>$hasOT,
-                                     'isRD'=>0,
-                                     'isFlexitime'=>$isFlexitime,
-                                     'productionDate'=> date('M d, Y', strtotime($payday)),
-                                     'day'=> date('D',strtotime($payday)),
-                                     'shiftStart'=> null,
-                                     'shiftEnd'=>null,
-                                     'shiftStart2'=> $shiftStart2,
-                                     'shiftEnd2'=>$shiftEnd2,
-                                     'hasPendingIN' => null,
-                                     'pendingDTRPin'=> null,
-                                     'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
-                                     'pendingDTRPout' =>null, //$userLogOUT[0]['pendingDTRP'],
-
-                                     'hasLeave' => $userLogIN[0]['hasLeave'],
-                                     'leaveDetails'=>$userLogIN[0]['leave'],
-                                     'hasLWOP' => $userLogIN[0]['hasLWOP'],
-                                     'lwopDetails'=>$userLogIN[0]['lwop'],
-
-                                     'logIN' => $userLogIN[0]['logTxt'],
-                                       'logOUT'=>$userLogOUT[0]['logTxt'],
-                                       'dtrpIN'=>$userLogIN[0]['dtrpIN'],
-                                       'dtrpIN_id'=>$userLogIN[0]['dtrpIN_id'],
-                                       'dtrpOUT'=>$userLogOUT[0]['dtrpOUT'],
-                                       'dtrpOUT_id'=>$userLogOUT[0]['dtrpOUT_id'],
-                                     'workedHours'=> $workedHours,
-                                     
-                                     'billableForOT' => $billableForOT,
-                                     'OTattribute'=>$OTattribute,
-                                     'UT'=>$UT,
-                                     'approvedOT' => $approvedOT]);
+                                      $myDTR->push(['isRDToday'=>null,'payday'=>$payday,'biometrics_id'=>$bioForTheDay->id,
+                                                    'hasCWS'=>$hasCWS,
+                                                    'usercws'=>$usercws,
+                                                    'userOT'=>$userOT,
+                                                    'hasOT'=>$hasOT,
+                                                    'isRD'=>0,
+                                                    'isFlexitime'=>$isFlexitime,
+                                                    'productionDate'=> date('M d, Y', strtotime($payday)),
+                                                    'day'=> date('D',strtotime($payday)),
+                                                    'shiftStart'=> null,
+                                                    'shiftEnd'=>null,
+                                                    'shiftStart2'=> $shiftStart2,
+                                                    'shiftEnd2'=>$shiftEnd2,
+                                                    'hasPendingIN' => null,
+                                                    'pendingDTRPin'=> null,
+                                                    'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
+                                                    'pendingDTRPout' =>null, //$userLogOUT[0]['pendingDTRP'],
+                                                    'hasLeave' => $userLogIN[0]['hasLeave'],
+                                                    'leaveDetails'=>$userLogIN[0]['leave'],
+                                                    'hasLWOP' => $userLogIN[0]['hasLWOP'],
+                                                    'lwopDetails'=>$userLogIN[0]['lwop'],
+                                                    'logIN' => $userLogIN[0]['logTxt'],
+                                                    'logOUT'=>$userLogOUT[0]['logTxt'],
+                                                    'dtrpIN'=>$userLogIN[0]['dtrpIN'],
+                                                    'dtrpIN_id'=>$userLogIN[0]['dtrpIN_id'],
+                                                    'dtrpOUT'=>$userLogOUT[0]['dtrpOUT'],
+                                                    'dtrpOUT_id'=>$userLogOUT[0]['dtrpOUT_id'],
+                                                    'workedHours'=> $workedHours,
+                                                    'billableForOT' => $billableForOT,
+                                                    'OTattribute'=>$OTattribute,
+                                                    'UT'=>$UT,
+                                                    'approvedOT' => $approvedOT]);
 
                                   } 
                                   else{
