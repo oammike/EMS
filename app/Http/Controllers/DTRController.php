@@ -1606,6 +1606,7 @@ class DTRController extends Controller
         //             return view('empty-page',['message'=>$message, 'title'=>"DTR Under Construction"]);
         //     }
         
+        //return $pass = bcrypt('rtalusan'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
         $collect = new Collection; 
         $coll = new Collection;
@@ -1784,7 +1785,7 @@ class DTRController extends Controller
               $nextTo = Carbon::createFromDate(date('Y',strtotime($currentPeriod[1])),date('m',strtotime($currentPeriod[1])),Cutoff::first()->second)->format('Y-m-d');
             }
 
-              $cutoff = date('M d, Y', strtotime($currentPeriod[0])). " - ". date('M d,Y', strtotime($currentPeriod[1])); 
+             $cutoff = date('M d, Y', strtotime($currentPeriod[0])). " - ". date('M d,Y', strtotime($currentPeriod[1])); 
 
 
              // ---------------------------
@@ -1804,6 +1805,8 @@ class DTRController extends Controller
              $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'); // for Gregorian cal. Iba kasi jddayofweek sa PHP day
              $coll = new Collection; $nightShift=""; $panggabi=""; $approvedOT=0; $billableForOT=0; $UT=0; $workSched=null; 
              $hasApprovedCWS=false; $usercws=null;$userOT=null; $OTattribute=""; $hasOT=false; $hasApprovedOT=false; $isFlexitime=null;$workedHours=null; $isRDToday=null;
+             $hybridSched_WS_fixed = null;$hybridSched_WS_monthly = null;$hybridSched_RD_fixed = null;$hybridSched_RD_monthly=null;
+
              $hasLeave=null;
              $shiftStart2=null;$shiftEnd2=null;
              $hybridSched = null;
@@ -1819,30 +1822,14 @@ class DTRController extends Controller
              // *************************** VERIFIED DTR SHEET
              $verifiedDTR = User_DTR::where('user_id',$user->id)->where('productionDate','>=',$currentPeriod[0])->
                                                   where('productionDate','<=',$currentPeriod[1])->orderBy('productionDate','ASC')->get();
-            
-            
-           // return response()->json(['verified'=>count($verifiedDTR), 'payroll'=> count($payrollPeriod)]); 
-                                                                                     
-             if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
+
+            if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
              {
 
-                /*$myDTRSheet = new Collection;
-
-                foreach ($payrollPeriod as $key) {
-                  $mDsh = User_DTR::where('user_id',$user->id)->where('productionDate',$key)->orderBy('created_at','DESC')->get();
-
-                  if (count($mDsh)>0){
-                    $myDTRSheet->push($mDsh->first());
-
-                  }
-                }*/
                 $myDTRSheet = $verifiedDTR;
-                //return $myDTRSheet;
-
-                  $paystart = $currentPeriod[0];
-                  $payend = $currentPeriod[1];
-
-                  return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend'));
+                $paystart = $currentPeriod[0];
+                $payend = $currentPeriod[1];
+                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend'));
  
 
              }
@@ -1856,20 +1843,29 @@ class DTRController extends Controller
              // Determine first if FIXED OR SHIFTING sched
              // and then get WORKSCHED and RD sched
              // ---------------------------
-              
              
-             if (count($user->monthlySchedules) > 0)
+             $endp = count($payrollPeriod)-1; 
+             $groupedFixedSched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->groupBy('schedEffectivity');
+             $monthlyScheds = DB::table('monthly_schedules')->where('user_id',$user->id)->where('productionDate','>=',$payrollPeriod[0])->where('productionDate','<=',$payrollPeriod[$endp])->orderBy('created_at','DESC')->get();
+
+             //return collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',1)->groupBy('schedEffectivity');
+
+            
+             //if (count($user->monthlySchedules) > 0)
+             if (count($monthlyScheds) > 0)
              {
 
 
                 /* ------ check mo muna kung hybrid sched ----*/
                 if ( $user->fixedSchedule->isEmpty() )
                 {
-                  $monthlySched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->get();
+
                
-               
-                  $workSched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->get(); //Collection::make($monthlySched->where('isRD',0)->all());
-                  $RDsched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->get();  //$monthlySched->where('isRD',1)->all();
+                  /*$workSched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->get(); //Collection::make($monthlySched->where('isRD',0)->all());
+                  $RDsched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->get();  //$monthlySched->where('isRD',1)->all();*/
+
+                  $workSched = collect($monthlyScheds)->where('isRD',0);
+                  $RDsched = collect($monthlyScheds)->where('isRD',1);
                   $isFixedSched = false;
                   $noWorkSched = false;
                   $hybridSched = false;
@@ -1879,15 +1875,22 @@ class DTRController extends Controller
 
                   $hybridSched = true;
                   $noWorkSched = false;
-                  //$workdays = new Collection;
                   $isFixedSched = false;
 
-                  $hybridSched_WS_fixed = FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get();
+                  /*$hybridSched_WS_fixed = FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get();
                    //$user->fixedSchedule->where('isRD',0)->sortByDesc('updated_at');
                   $hybridSched_WS_monthly = MonthlySchedules::where('user_id',$user->id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->orderBy('updated_at','DESC')->get(); 
                   $hybridSched_RD_fixed = FixedSchedules::where('user_id',$user->id)->where('isRD',1)->orderBy('created_at','DESC')->get();
                   // $user->fixedSchedule->where('isRD',1);
-                  $hybridSched_RD_monthly = MonthlySchedules::where('user_id',$user->id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->orderBy('updated_at','DESC')->get();
+                  $hybridSched_RD_monthly = MonthlySchedules::where('user_id',$user->id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->orderBy('updated_at','DESC')->get();*/
+
+
+                  $hybridSched_WS_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
+                                          where('isRD',0)->groupBy('schedEffectivity');
+                  $hybridSched_WS_monthly = collect($monthlyScheds)->where('isRD',0);
+                  $hybridSched_RD_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
+                                          where('isRD',1)->groupBy('schedEffectivity');
+                  $hybridSched_RD_monthly = collect($monthlyScheds)->where('isRD',1);
 
                   $RDsched=null;
                   $workSched=null;
@@ -1906,10 +1909,14 @@ class DTRController extends Controller
                 if (count($user->fixedSchedule) > 0)
                 {
                     //merong fixed sched
-                    $workSched = FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get();
+                    /*$workSched = FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get();
                     // $user->fixedSchedule->where('isRD',0);
                     $RDsched = FixedSchedules::where('user_id',$user->id)->where('isRD',1)->orderBy('created_at','DESC')->get(); 
-                    //$user->fixedSchedule->where('isRD',1)->pluck('workday');
+                    //$user->fixedSchedule->where('isRD',1)->pluck('workday');*/
+                    
+
+                    $workSched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',0)->groupBy('schedEffectivity');
+                    $RDsched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',1)->groupBy('schedEffectivity');
                     $isFixedSched =true;
                     $noWorkSched = false;
                     $workdays = new Collection;
@@ -1925,7 +1932,8 @@ class DTRController extends Controller
                 }
              }
 
-             //return (['noWorkSched'=>$noWorkSched]);
+             //return (['hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly]);
+
              // ---------------------------
              // Start Payroll generation
              // ---------------------------
@@ -1933,15 +1941,19 @@ class DTRController extends Controller
              $schedRecord = [];
              $schedCtr = 0;
              $wsch = new Collection;
-             
-             //$coll->push(['$noWorkSched'=>$noWorkSched,'workSched'=>$workSched, 'isFixedSched'=>$isFixedSched]);
 
+
+             //return collect($hybridSched_WS_fixed->first())->where('workday',4)->first();
+             //$coll->push(['$noWorkSched'=>$noWorkSched,'workSched'=>$workSched, 'isFixedSched'=>$isFixedSched]);
+             //$coll->push(['init rd'=>$RDsched]);
              foreach ($payrollPeriod as $payday) 
              {
-                $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
-                $hasLWOP=false; 
+                
+                $bioForTheDay1 = Biometrics::where('productionDate',$payday)->get();//first();
 
-                $bioForTheDay = Biometrics::where('productionDate',$payday)->first();
+                if(count($bioForTheDay1) <= 0) break;
+                else $bioForTheDay =  $bioForTheDay1->first();
+
                 $carbonPayday = Carbon::parse($payday);
                 $nextDay = Carbon::parse($payday)->addDay();
                 $prevDay = Carbon::parse($payday)->subDay();
@@ -1954,13 +1966,65 @@ class DTRController extends Controller
                 else
                   $bioForTomorrow = $bioForTom;
 
+                $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
+                $hasLWOP=false; 
+                $yest = date('D', strtotime(Carbon::parse($payday)->subDay()->format('Y-m-d')));
+                $prevNumDay = array_search($yest, $daysOfWeek);
+
+
+                
+
                 $holidayToday = Holiday::where('holidate', $payday)->get();
                 (count($holidayToday) > 0) ? $hasHolidayToday = true : $hasHolidayToday = false;
 
                 if ($schedCtr==0) array_push($schedRecord, 'null');
 
-                $coll->push(['status'=>"no workSched",'val'=>$noWorkSched, 'payday'=>$payday,'fixed'=>count($user->fixedSchedule), 'monthly'=>count($user->monthlySchedules)]);
-                               
+                //$coll->push(['status'=>"no workSched",'val'=>$noWorkSched, 'payday'=>$payday,'fixed'=>count($user->fixedSchedule), 'monthly'=>count($user->monthlySchedules)]);
+
+                 //--- We now check if employee has a CWS submitted for this day
+                  //**************************************************************
+                  //      CWS & OT & DTRPs
+                  //**************************************************************
+
+                  $usercws =  User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
+                  $approvedCWS  = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
+                  
+
+                  if ( count($usercws) > 0 ) $hasCWS=true;
+                  if ( count($approvedCWS) > 0 ) $hasApprovedCWS=true;
+
+
+                  $userOT = User_OT::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->get();
+                  $approvedOT  = User_OT::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
+                  if ( count($userOT) > 0 ) $hasOT=true;
+                  if ( count($approvedOT) > 0 ) $hasApprovedOT=true;
+
+
+
+                 /* +++++++++++++++++ NEW PROCEDURE ++++++++++++++++++++++++++++++
+  
+                        We now get the actual sched for today to minimize queries and processes
+                        comparing hybrids and approved CWS
+                        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+                        $actualSchedToday = $this->getActualSchedForToday($user,$id,$payday,$bioForTheDay, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
+
+                        $isRDToday = $actualSchedToday->isRDToday;
+                        $schedForToday =  $actualSchedToday->schedForToday;
+                        (count($schedForToday) > 0) ? $noWorkSched=false : $noWorkSched=true;
+                        $RDsched = $actualSchedToday->RDsched;
+                        $isFixedSched =  $actualSchedToday->isFixedSched;
+                        $allRD = $actualSchedToday->allRD;
+                        
+
+
+
+                /* +++++++++++++++++ END NEW PROCEDURE ++++++++++++++++++++++++++++++*/
+
+               //$coll->push(['cws'=>$approvedCWS, 'allRD'=>$allRD,'RDsched'=>$RDsched, 'isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday]); //,'RDsched'=>$RDsched'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly'stat'=>$actualSchedToday->stat,
+
+
                   
                 if($noWorkSched)
                 {
@@ -2100,467 +2164,18 @@ class DTRController extends Controller
 
                       } else
                       {
-                        //--- We now check if employee has a CWS submitted for this day
-                        //**************************************************************
-                        //      CWS & OT & DTRPs
-                        //**************************************************************
-
-                        $usercws = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
-                        $approvedCWS  = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
-                        
-
-                        if ( count($usercws) > 0 ) $hasCWS=true;
-                        if ( count($approvedCWS) > 0 ) $hasApprovedCWS=true;
-
-
-                        $userOT = User_OT::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->get();
-                        $approvedOT  = User_OT::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
-                        if ( count($userOT) > 0 ) $hasOT=true;
-                        if ( count($approvedOT) > 0 ) $hasApprovedOT=true;
-
+                       
 
                          //**************************************************************
                           //       HYBRID SCHEDULES --------this is where we check the hybrids and classify accordingly
                           //**************************************************************
 
                         $check_fixed_RD=null; $check_monthly_RD=null; //initializes
-                        
-                        if ($hybridSched)
-                        {
-                          $collec = new Collection;
-                          $dt  = $carbonPayday->dayOfWeek;
-                          switch($dt){
-                            case 0: $dayToday = 6; break;
-                            case 1: $dayToday = 0; break;
-                            default: $dayToday = $dt-1;
-                          } 
-
-                          
-
-                          $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-                          $check_fixed_WS_group = collect($check_fixed_WS)->groupBy('schedEffectivity');
-
-                          //$coll->push(['status'=>"enter hybridSched", 'payday'=>$payday,'fixedWS'=>$check_fixed_WS]);
-                          
-
-
-                          if (count($check_fixed_WS) > 0) //if may fixed WS, check mo kung ano mas updated vs monthly sched
-                          {
-                            $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
-                            //$coll->push(['check_monthly_WS'=>$check_monthly_WS]);
-                            if (count($check_monthly_WS) > 0)// if may monthly, compare it vs fixed
-                            {
-                              $stat =  "may monthly WS, compare it with fixed";
-
-                              //** but check first grouped Fixed WS; meaning more than 1 fixed scheds
-                              if (count($check_fixed_WS_group) > 1)
-                              {
-                                foreach ($check_fixed_WS_group as $g) 
-                                {
-                                  //$coll->push(['pasok foreach'=>$g->first()]);
-
-                                  if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($g->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
-                                  {
-
-                                    $workSched = $hybridSched_WS_monthly;
-
-                                    (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
-                                    $isFixedSched = false;
-                                    $noWorkSched =false;
-                                    break; //leave the loop kasi you already found the real sched
-
-
-
-                                  }
-                                  else //check mo muna validity nung WS na fixed. If no effectivity, then NO SCHED
-                                  {
-                                    if ((Carbon::parse($g->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $g->first()->schedEffectivity == null)
-                                    {
-                                      $workSched = $hybridSched_WS_fixed;
-                                      $RDsched = $hybridSched_RD_fixed;
-                                      $isFixedSched = true;
-                                      $noWorkSched = false;
-                                      break;
-
-                                      
-                                    }
-                                    /*else{
-                                      $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                                     }*/
-                                     else
-                                     {
-                                        /* DO NOTHING TILL YOU TRAVERSE THE WHOLE GROUP*/
-
-                                     }
-
-
-                                  }
-                                }//end foreach grouped fixed sched
-
-                              }else
-                              {
-
-                                if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
-                                {
-
-                                  $workSched = $hybridSched_WS_monthly;
-
-                                  (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
-                                  $isFixedSched = false;
-                                  $noWorkSched =false;
-
-
-
-                                }
-                                else //check mo muna validity nung WS na fixed. If no effectivity, then NO SCHED
-                                {
-                                  if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
-                                  {
-                                    $workSched = $hybridSched_WS_fixed;
-                                    $RDsched = $hybridSched_RD_fixed;
-                                    $isFixedSched = true;
-                                    $noWorkSched = false;
-
-                                    
-                                  }
-                                  /*else{
-                                    $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                                   }*/
-                                   else{
-                                    $workSched = $hybridSched_WS_monthly;
-
-                                    (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
-                                    
-                                    $isFixedSched = false;
-                                    $noWorkSched =false; $hasCWS=false;
-
-                                   }
-
-
-                                }
-
-                              }
-
-                              
-
-                            }//end if meron monthly sched
-                            else /* fixed sched na talaga sya, but not yet coz there's a possibility na RD yung that date sa monthly sched */
-                            {
-                              $checkKungMayRD = $hybridSched_RD_monthly->where('productionDate', $payday)->sortByDesc('created_at');
-                              if (count ($checkKungMayRD) > 0)
-                              {
-                                //ngayon, check mo kung sino mas updated, si monthlyRD or si fixed
-                                foreach ($check_fixed_WS_group as $g) 
-                                {
-                                  $coll->push(['pasok foreach'=>$g->first()]);
-
-                                  if( Carbon::parse($checkKungMayRD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($g->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
-                                  {
-
-                                    $workSched = $hybridSched_WS_monthly;
-
-                                    (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
-                                    $isFixedSched = false;
-                                    $noWorkSched =false;
-                                    break; //leave the loop kasi you already found the real sched
-
-
-
-                                  }
-                                  else //check mo muna validity nung WS na fixed. If no effectivity, then NO SCHED
-                                  {
-                                    if ((Carbon::parse($g->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $g->first()->schedEffectivity == null)
-                                    {
-                                      $workSched = $hybridSched_WS_fixed;
-                                      $RDsched = $hybridSched_RD_fixed;
-                                      $isFixedSched = true;
-                                      $noWorkSched = false;
-                                      break;
-
-                                      
-                                    }
-                                    /*else{
-                                      $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                                     }*/
-                                     else
-                                     {
-                                        /* DO NOTHING TILL YOU TRAVERSE THE WHOLE GROUP*/
-
-                                     }
-
-
-                                  }
-                                }//end foreach grouped fixed sched
-
-
-                                
-
-                              }
-                              else
-                              {
-                                $stat =  "fixed na talaga";
-                                //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
-
-                                if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
-                                {
-                                  $workSched = $hybridSched_WS_fixed;
-                                  $RDsched = $hybridSched_RD_fixed;
-                                  $isFixedSched = true;
-                                  $noWorkSched = false;
-                                  
-                                }
-                                else
-                                {
-                                  $stat =  "fixed na talaga | ELSE ng empty check_monthly_RD";
-
-                                  //** new check: get mo yung next available fixed sched grouped by effectivity date
-                                  $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at')->groupBy('schedEffectivity');
-                                  $wsCount = 0;
-                                  foreach ($check_fixed_WS as $key) 
-                                  {
-                                    if ($wsCount == 1)
-                                    {
-                                      $workSched = $key;
-                                      $RDsched =  $hybridSched_RD_fixed;
-                                      $isFixedSched = true;
-                                      $noWorkSched = false;
-                                      break;
-
-                                    } 
-                                    else $wsCount++;
-                                    
-                                  } 
-
-                                  //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = true; $hasCWS=false;
-                                  //$stat = $check_fixed_WS;
-                                }
-                              }//end if else checkKungMayRD
-                              
-
-                              
-                              //$check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
-                              // * not so fast. Check mo muna kung may monthly RD to be sure. Otherwise, fixed WS nga sya
-
-                              /*$check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
-
-                              if (count($check_monthly_RD) <= 0 )
-                              { 
-
-
-                              } else
-                              {
-                                if ( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')) //mas updated yung RD so di sya WS
-                                {
-                                  $workSched = $hybridSched_WS_monthly;
-                                  (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
-                                  
-                                  $isFixedSched = false;
-                                  $noWorkSched = false;
-
-                                  $stat =  "fixed na talaga | mas updated RD";
-
-
-                                } else
-                                {
-                                  //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
-
-                                   if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
-                                   {
-
-                                    $workSched = $hybridSched_WS_fixed;
-                                    $RDsched = $hybridSched_RD_fixed;
-                                    $isFixedSched = true;
-                                    $noWorkSched = false;
-
-                                     $stat =  "fixed na talaga | check mo muna validity nung WS na fixed. If not effective, then NO SCHED";
-
-                                   }
-                                   else
-                                   {
-                                    $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                                    $stat =  "fixed na talaga | NO SCHED NA SYA";
-                                   }
-
-                                }
-
-                              }*/
-
-                               
-                            }
-
-                            //$coll->push(['status'=>"has fixed WS", 'stat'=>$stat, 'compared with hybrid'=>$hybridSched_WS_monthly] );
-                            
-
-
-                          } else //baka RD
-                          {
-                            $check_fixed_RD = $hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-
-                            if (count($check_fixed_RD) > 0) //if may fixed RD, check mo kung ano mas updated vs monthly sched
-                            {
-                              $stat =  "if may fixed RD, check mo kung ano mas updated vs monthly sched";
-
-                              $check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
-
-                              if (count($check_monthly_RD) > 0) // if may monthly, compare it vs fixed
-                              {
-                                if( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ) //mas bago si Monthly
-                                {
-                                  $workSched = $hybridSched_WS_monthly;
-                                  $RDsched = $hybridSched_RD_monthly;
-                                  $isFixedSched = false;
-                                  $noWorkSched = false;
-
-                                }
-                                else //FIXED RD SYA
-                                {
-                                  //check mo muna validity nung RD na fixed. If not effective, then NO SCHED
-
-                                   if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
-                                   {
-                                    $workSched = $hybridSched_WS_fixed;
-                                    $RDsched = $hybridSched_RD_fixed;
-                                    $isFixedSched = true;
-                                    $noWorkSched= false;
-
-                                   }
-                                   else
-                                   {
-                                    //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                                    $workSched = $hybridSched_WS_fixed;
-                                    $RDsched = $hybridSched_RD_fixed;
-                                    $isFixedSched = true;
-                                    $noWorkSched= false; $hasCWS=false;
-
-                                   }
-
-                                }
-
-                              }
-                              else // no monthly RD -- meaning RD fixed na sya, BUT NOT YET! CHECK MO KUNG MAS UPDATED UNG WS IF EVER MERON
-                              {
-                                $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
-
-                                if (count($check_monthly_WS) > 0)
-                                {
-                                  if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )
-                                  {
-                                    $workSched = $hybridSched_WS_monthly;
-                                    $RDsched = $hybridSched_RD_monthly;
-                                    $isFixedSched = false;
-                                    $noWorkSched =false;
-                                  }
-                                  else
-                                    {
-                                      //check mo muna validity nung RD na fixed. If not effective, then NO SCHED
-
-                                       if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
-                                       {
-
-                                        $workSched = $hybridSched_WS_fixed;
-                                        $RDsched = $hybridSched_RD_fixed;
-                                        $isFixedSched = true;
-                                        $noWorkSched = false;
-                                       }
-                                       else
-                                       {
-                                        $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                                       }
-
-                                    }
-
-                                } else //walang monthly WS, Fixed sched na sya
-                                {
-                                   //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
-
-                                   if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
-                                   {
-                                      $workSched = $hybridSched_WS_fixed;
-                                      $RDsched = $hybridSched_RD_fixed;
-                                      $isFixedSched = true;
-                                      $noWorkSched = false;
-                                   }
-                                   else
-                                   {
-                                    //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
-                                     $workSched = $hybridSched_WS_fixed;
-                                      $RDsched = $hybridSched_RD_fixed;
-                                      $isFixedSched = true;
-                                      $noWorkSched = false; $hasCWS=false;
-                                   }
-
-
-                                }
-                               
-                              }
-
-                            }//end if no fixed RD
-
-                            else //---- no both fixed WS & RD, baka monthly sched. Check kung meron
-                            {
-                              $stat =  "no both fixed WS & RD, baka monthly sched";
-
-                              if (count($hybridSched_WS_monthly)>0 && count($hybridSched_RD_monthly)>0)
-                              {
-                                // if (count($hybridSched_WS_monthly) > 0)
-                                // {
-                                  $workSched = $hybridSched_WS_monthly;
-
-                                // }// else $workSched = null;
-
-                                // if (count($hybridSched_RD_monthly) > 0)
-                                // {
-                                  $RDsched = $hybridSched_RD_monthly;
-                                //}
-                                //else $RDsched = null;
-
-                              }else //waley na talaga
-                              {
-                                //final check sa fixed
-                                if ( count($hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at') ) > 0 )
-                                {
-                                  $workSched = $hybridSched_WS_fixed;
-                                  $RDsched = $hybridSched_RD_fixed;
-
-                                }else{
-                                  $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;
-                                  
-                                }
-                                
-
-
-                              }
-                              
-                              
-
-                            }//end else no both fixed RD & WS
-
-                            //$coll->push(['status'=>"NO fixed WS, baka RD", 'stat'=>$stat]);
-                            
-                            
-
-                          }//end else baka RD
-
-                          //$wsch->push(['hybridSched_WS_fixed'=>$hybridSched_WS_fixed, 'productionDates'=>$payday]);
-
-                        } //end hybrid sched
-
-
                        
                           //**************************************************************
                           //       FIXED SCHED
                           //**************************************************************
 
-                          if($isFixedSched)
-                          {
-                              $day = date('D', strtotime($payday)); //--- get his worksched and RDsched
-                              $theday = (string)$day;
-                              $numDay = array_search($theday, $daysOfWeek);
-
-                              $yest = date('D', strtotime(Carbon::parse($payday)->subDay()->format('Y-m-d')));
-                              $prevNumDay = array_search($yest, $daysOfWeek);
-                              //$coll->push(['day'=>$day,'theday-1'=>$yest, 'prevNumDay'=>$prevNumDay]);
-                          }
 
 
                            //---------------------------
@@ -2579,265 +2194,6 @@ class DTRController extends Controller
                             
                             //---------------------------------- Check if RD nya today
 
-                             /* -- CHECK FIRST IF MAY APPROVED CWS from RD into working sched --*/
-                            $fromRDtoWD = User_CWS::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$bioForTheDay->id)->where('timeStart_old',"00:00:00")->where('timeEnd_old',"00:00:00")->orderBy('updated_at','DESC')->get();
-                            $fromWDtoRD = User_CWS::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$bioForTheDay->id)->where('timeStart',"00:00:00")->where('timeEnd',"00:00:00")->orderBy('updated_at','DESC')->get();
-
-                            //$coll->push(['payday'=>$payday, 'fromWDtoRD'=>$fromWDtoRD]);
-
-                            //return $coll2->push(['noWorkSched'=>$noWorkSched]);
-                            $coll->push(['noWorkSchedval'=>$noWorkSched]);
-                            if ($noWorkSched) 
-                            {
-                              if( is_null($bioForTheDay) ) 
-                              {
-                                      $logIN = "<strong class=\"text-success\">No <br/>Biometrics</strong>";
-                                      $logOUT = "<strong class=\"text-success\">No <br/>Biometrics</strong>";
-                                      $workedHours = 'N/A';
-                                      
-
-                              } 
-                              else
-                              {
-                                  $usercws = User_CWS::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->orderBy('updated_at','DESC')->get();
-
-
-                                  if ( count($usercws) > 0 ) $hasCWS=true;
-
-                                   $link = action('LogsController@viewRawBiometricsData',$id);
-                                   $icons = "<a title=\"Verify Biometrics data\" class=\"pull-right text-danger\" style=\"font-size:1.2em;\" target=\"_blank\" href=\"".$link."\"><i class=\"fa fa-clock-o\"></i></a>";
-
-                                    $userLogIN = Logs::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get();
-                                     if (count($userLogIN)==0)
-                                     {  
-                                        
-                                        $logIN = "<strong class=\"text-danger\">No IN</strong>".$icons;
-                                        $shiftStart = null;
-                                        $shiftEnd = "<em>No Saved Sched</em>";
-                                        $workedHours = "N/A";
-                                        
-                                     } else
-                                     {
-                                        $logIN = date('h:i A',strtotime($userLogIN->first()->logTime));
-                                        $timeStart = Carbon::parse($userLogIN->first()->logTime);
-                                     }
-
-
-                                    //--- RD OT, but check first if VALID. It should have a LogOUT AND approved OT
-                                    $userLogOUT = Logs::where('user_id',$id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
-
-                                    //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
-                                    if( count($userLogOUT)==0 )
-                                    {
-                                      $logOUT = "<strong class=\"text-danger\">No OUT</strong>".$icons;
-                                      $shiftStart = "<em>No Saved Sched</em>";
-                                      $shiftEnd = "<em>No Saved Sched</em>";
-
-                                      if ($hasHolidayToday)
-                                      {
-
-                                        $workedHours = "(8.0) <br/><strong>* ". $holidayToday->first()->name. " *</strong>";
-                                        
-
-                                      } else
-                                      {
-                                        
-                                        $workedHours = "N/A";
-                                        
-
-                                      }
-                                        
-                                    } else //--- legit OT, compute billable hours
-                                    {  
-                                      $logOUT = date('h:i A',strtotime($userLogOUT->first()->logTime));
-                                      $timeEnd = Carbon::parse($userLogOUT->first()->logTime);
-                                      $shiftStart = null;
-                                      $shiftEnd = "<em>No Saved Sched</em>";
-
-                                      if ($hasHolidayToday)
-                                      { $workedHours = "(8.0)<br/><strong>* ". $holidayToday->first()->name. " *</strong>";
-                                      } else { $workedHours = "N/A";}
-                                         
-                                    }
-
-                                     
-                                     //return $myDTR;
-
-                              }// end if isnull bioForToday
-
-                              $myDTR->push([
-                                            'isRDToday'=>$isRDToday,'payday'=>$payday,
-                                            'biometrics_id'=>$bioForTheDay->id,
-                                            'hasCWS'=>$hasCWS,
-                                            'hasLeave'=>$hasLeave,
-                                            'usercws'=>$usercws->sortByDesc('updated_at'),
-                                            'userOT'=>$userOT,
-                                            'hasOT'=>$hasOT,
-                                            'hasLeave' => null,
-                                            'leaveDetails'=>null,
-                                            'hasLWOP' => null,
-                                            'lwopDetails'=>null,
-                                            'isRD'=>0,
-                                            'isFlexitime'=>$isFlexitime,
-                                            'productionDate'=> date('M d, Y', strtotime($payday)),
-                                            'day'=> date('D',strtotime($payday)),
-                                            'shiftStart'=> null,
-                                            'noscheddaw'=>$noWorkSched,
-                                            'shiftEnd'=>$shiftEnd,
-                                            'shiftStart2'=> $shiftStart2,
-                                            'shiftEnd2'=>$shiftEnd2,
-                                            'logIN' => $logIN,
-                                            'logOUT'=>$logOUT,
-                                            'dtrpIN'=>null,
-                                            'dtrpIN_id'=>null,
-                                            'dtrpOUT'=> null,
-                                            'dtrpOUT_id'=> null,
-                                            'hasPendingIN' => null,
-                                            'pendingDTRPin'=> null,
-                                            'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
-                                            'pendingDTRPout' =>null,
-                                            'workedHours'=> $workedHours,
-                                            'billableForOT' => $billableForOT,
-                                            'OTattribute'=>$OTattribute,
-                                            'UT'=>$UT,
-                                            'isFixedSched'=>$isFixedSched,
-                                            'hasApprovedCWS'=>$hasApprovedCWS,
-                                            'approvedOT' => $approvedOT]);
-
-                              $coll->push(['status'=>"goto noWorkSched", 'payday'=>$payday]);
-
-                              goto endNoWorkSched;
-
-                            } //END NOWORKSCHED
-                            else
-                            {
-                              /* ---------- july 2018 re-work algorithm ---------- */
-
-                              // ---------- if both may to-from CWS, compare which is more updated
-                              //. a) fromRD vs fromWD
-                              //  b) a-winner vs RDsched
-
-                              // ---------- else if fromRD > 0 ->rdToday = false
-                              //----------- else if fromWD > 0 ->rdToday = true
-                              if (count($fromRDtoWD)>0 ) //but we need to check first alin mas updated: cws or the plotted sched
-                              {
-                                //$coll->push(["count ni RDtoWD"=>count($fromRDtoWD), "first"=>$fromRDtoWD->first()]);
-                                
-                                //but we need to verify first which is more latest
-                                if ($isFixedSched)
-                                {
-                                  
-                                  //$dschedule = $user->fixedSchedule->where('isRD',1)->where('workday', $numDay)->sortByDesc('updated_at'); 
-                                  $ds = $RDsched->where('workday',$numDay);
-
-                                  (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-                                  //$dschedule = $RDsched->where('workday',$numDay)->first();
-                                  
-
-                                } else {
-
-                                  $ds = $RDsched->where('productionDate',$payday);
-                                  (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-                                  //$dschedule = $RDsched->where('productionDate',$payday)->first();
-                                  
-
-                                }
-                                //$coll->push(["dschedule"=>$dschedule, "RDsched"=>$RDsched, 'isFixedSched'=>$isFixedSched, 'numDay'=>$numDay]);
-
-                                /******** aug 2018 fix: do only this if not null dsched, else it's an RDtoWD sched na ********/
-                                if (is_null($dschedule)) //meaning WORK DAY NA SYA due to CWS
-                                {
-                                  $isRDToday=false; 
-
-                                } else
-                                {
-
-                                  if ($fromRDtoWD->first()->updated_at > $dschedule->created_at )
-                                  $isRDToday=false; 
-                                  else
-                                    {
-                                      if($isFixedSched)
-                                        $isRDToday = $RDsched->contains($numDay); 
-                                        else
-                                        {
-                                          if ($hybridSched)
-                                          {
-
-                                            $rd = $RDsched;
-
-                                          }else
-                                          {
-                                            $rd = $monthlySched->where('isRD',1)->where('productionDate',$payday)->all(); 
-                                          }
-                                          
-
-                                          if (count($rd)<= 0 ) 
-                                            $isRDToday=false; else $isRDToday=true;
-
-                                          //$coll->push(['rd'=>$rd, 'isRDToday'=>$isRDToday]); 
-                                        }
-
-                                    }//end if else fromRDtoWD > dschedule
-
-                                }//end isnull dschedule 
-
-                              } 
-                              else if ( count($fromWDtoRD) > 0 )
-                              { 
-
-                                //but we need to verify first which is more latest
-                                if ($isFixedSched)
-                                {
-                                  $ds = $workSched->where('workday',$numDay);
-
-                                  (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-                                  //$dschedule = $workSched->where('workday',$numDay)->first();
-
-                                }
-                                  
-                                else {
-                                  $ds = $workSched->where('productionDate',$payday);
-
-                                  (count($ds)>0) ? $dschedule = $ds->first() : $dschedule=null;
-                                  
-                                }
-
-                                if (is_null($dschedule)) $isRDToday=true;
-                                else{
-                                  ($fromWDtoRD->first()->updated_at > $dschedule->created_at ) ? $isRDToday=true :$isRDToday=false;
-                                }
-
-                                
-
-                                
-                              }//end fromWDtoRD
-
-                              
-                              else 
-                              { /*------- FOR REGULAR, NON-HYBRID SCHEDULES -------*/
-                                $gotit=null;
-                                if($isFixedSched) {
-
-                                  $isRDToday = $this->getLatestFixedSched($user,$numDay,$payday)->isRD;
-                                }
-                                else
-                                {
-                                  if (is_null($RDsched) ){
-                                    $isRDToday=false; 
-
-                                  }else{
-                                    $rd = $RDsched->where('isRD',1)->where('productionDate',$payday)->all(); 
-                                    if (count($rd)<= 0 ) $isRDToday=false; else $isRDToday=true;
-
-                                  }
-                                  
-
-                                  //$coll->push(['from: '=>"regular else"]);
-                                  $coll->push(['isRDToday'=>$isRDToday, 'payday'=>$payday, 'RDsched'=>$RDsched]);
-                                }
-                              }
-
-                            }
   
                               
                             //**************************************************************
@@ -2846,102 +2202,47 @@ class DTRController extends Controller
 
                             if ($isRDToday)
                             {
-                              if($sameDayLog) 
-                              {
-                                
 
-                                 $data = $this->getRDinfo($id, $bioForTheDay,true,$payday);
-                                 $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
-                                       'biometrics_id'=>$bioForTheDay->id,
-                                       'hasCWS'=>$hasCWS,
-                                       //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
-                                       'usercws'=>$usercws,
-                                       'userOT'=>$userOT,
-                                       'hasPendingIN' => $data[0]['hasPendingIN'],
-                                       'pendingDTRPin'=> $data[0]['pendingDTRPin'],
-                                       'hasPendingOUT' => $data[0]['hasPendingOUT'],
-                                       'pendingDTRPout' => $data[0]['pendingDTRPout'],
-                                       'hasApprovedCWS'=> $hasApprovedCWS,
-                                       'hasOT'=>$hasOT,
-                                       'hasApprovedOT'=>$hasApprovedOT,
-                                       'isRD'=>$isRDToday,
-                                       'isFlexitime'=> $isFlexitime,
-                                       'productionDate'=> date('M d, Y', strtotime($payday)),
-                                       'day'=> date('D',strtotime($payday)),
-                                       'shiftStart'=> $data[0]['shiftStart'],
-                                       'shiftEnd'=>$data[0]['shiftEnd'],
-                                       'hasLeave' => null,
-                                        'leaveDetails'=>null,
-                                        'hasLWOP' => null,
-                                        'lwopDetails'=>null,
-                                        'shiftStart2'=>  $data[0]['shiftStart'],
-                                        'shiftEnd2'=>$data[0]['shiftEnd'],
-                                       'logIN' => $data[0]['logIN'],
-                                       'logOUT'=>$data[0]['logOUT'],
-                                       'dtrpIN'=>$data[0]['dtrpIN'],
-                                       'dtrpOUT'=>$data[0]['dtrpOUT'],
-                                       'dtrpIN_id'=>$data[0]['dtrpIN_id'],
-                                       'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
-                                       'workedHours'=> $data[0]['workedHours'],
-                                       'billableForOT' => $data[0]['billableForOT'],
-                                       'OTattribute' => $data[0]['OTattribute'],
-                                       'UT'=>$data[0]['UT'],
-                                       'isFixedSched'=>$isFixedSched,
-                                       'hasApprovedCWS'=>$hasApprovedCWS,
-                                       'approvedOT' => $data[0]['approvedOT']]);
+                              $data = $this->getRDinfo($id, $bioForTheDay,false,$payday);
+                              $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
+                                   'biometrics_id'=>$bioForTheDay->id,
+                                   'hasCWS'=>$hasCWS,
+                                   //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
+                                   'usercws'=>$usercws,
+                                   'userOT'=>$userOT,
+                                   'hasApprovedCWS'=> $hasApprovedCWS,
+                                   'hasOT'=>$hasOT,
+                                   'hasApprovedOT'=>$hasApprovedOT,
+                                   'hasPendingIN' => $data[0]['hasPendingIN'],
+                                   'pendingDTRPin'=> $data[0]['pendingDTRPin'],
+                                   'hasPendingOUT' => $data[0]['hasPendingOUT'],
+                                   'pendingDTRPout' => $data[0]['pendingDTRPout'],
+                                   'isRD'=>$isRDToday,
+                                   'isFlexitime'=> $isFlexitime,
+                                   'productionDate'=> date('M d, Y', strtotime($payday)),
+                                   'day'=> date('D',strtotime($payday)),
+                                   'shiftStart'=> $data[0]['shiftStart'],
+                                   'shiftEnd'=>$data[0]['shiftEnd'],
+                                   'shiftStart2'=>  $data[0]['shiftStart'],
+                                   'hasLeave' => null,
+                                   'leaveDetails'=>null,
+                                   'hasLWOP' => null,
+                                   'lwopDetails'=>null,
+                                   'shiftEnd2'=>$data[0]['shiftEnd'],
+                                   'logIN' => $data[0]['logIN'],
+                                   'logOUT'=>$data[0]['logOUT'], //."<br/><small>".$bioForTomorrow->productionDate."</small>",
+                                   'dtrpIN'=>$data[0]['dtrpIN'],
+                                   'dtrpOUT'=>$data[0]['dtrpOUT'],
+                                   'dtrpIN_id'=>$data[0]['dtrpIN_id'],
+                                   'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
+                                   'workedHours'=> $data[0]['workedHours'],
+                                   'billableForOT' => $data[0]['billableForOT'],
+                                   'OTattribute' => $data[0]['OTattribute'],
+                                   'UT'=>$data[0]['UT'],
+                                   'isFixedSched'=>$isFixedSched,
+                                   'hasApprovedCWS'=>$hasApprovedCWS,
+                                   'approvedOT' => $data[0]['approvedOT']]);
 
-                              }
-                              else //****** not sameDayLog
-                              {
-                                  $data = $this->getRDinfo($id, $bioForTheDay,false,$payday);
-                                  //$coll->push(['data from:'=>"notsameDayLog > RDToday > Restday"]);
-
-                                   $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
-                                       'biometrics_id'=>$bioForTheDay->id,
-                                       'hasCWS'=>$hasCWS,
-                                       //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
-                                       'usercws'=>$usercws,
-                                       'userOT'=>$userOT,
-                                       'hasApprovedCWS'=> $hasApprovedCWS,
-                                       'hasOT'=>$hasOT,
-                                       'hasApprovedOT'=>$hasApprovedOT,
-                                       'hasPendingIN' => $data[0]['hasPendingIN'],
-                                       'pendingDTRPin'=> $data[0]['pendingDTRPin'],
-                                       'hasPendingOUT' => $data[0]['hasPendingOUT'],
-                                       'pendingDTRPout' => $data[0]['pendingDTRPout'],
-                                       'isRD'=>$isRDToday,
-                                       'isFlexitime'=> $isFlexitime,
-                                       'productionDate'=> date('M d, Y', strtotime($payday)),
-                                       'day'=> date('D',strtotime($payday)),
-                                       'shiftStart'=> $data[0]['shiftStart'],
-                                       'shiftEnd'=>$data[0]['shiftEnd'],
-                                       'shiftStart2'=>  $data[0]['shiftStart'],
-                                       'hasLeave' => null,
-                                        'leaveDetails'=>null,
-                                        'hasLWOP' => null,
-                                        'lwopDetails'=>null,
-                                        'shiftEnd2'=>$data[0]['shiftEnd'],
-                                       'logIN' => $data[0]['logIN'],
-                                       'logOUT'=>$data[0]['logOUT']."<br/><small>".$bioForTomorrow->productionDate."</small>",
-                                       'dtrpIN'=>$data[0]['dtrpIN'],
-                                       'dtrpOUT'=>$data[0]['dtrpOUT'],
-                                       'dtrpIN_id'=>$data[0]['dtrpIN_id'],
-                                       'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
-                                       'workedHours'=> $data[0]['workedHours'],
-                                       'billableForOT' => $data[0]['billableForOT'],
-                                       'OTattribute' => $data[0]['OTattribute'],
-                                       'UT'=>$data[0]['UT'],
-                                       'isFixedSched'=>$isFixedSched,
-                                       'hasApprovedCWS'=>$hasApprovedCWS,
-                                       'approvedOT' => $data[0]['approvedOT']]);
-
-                              
-
-                              }//end RD not SAME DAY LOG
-
-                                
-
-                                    //$coll->push(['isRDToday'=>$isRDToday]);
                             }//end if isRDToday
 
 
@@ -2951,102 +2252,9 @@ class DTRController extends Controller
                             else  
                             {
                                   $problemArea = new Collection;
-                                  //$problemArea->push(['problemShift'=>false, 'allotedTimeframe'=>null, 'biometrics_id'=>null]);
-                                  //$isAproblemShift = false;
 
-
-                                  /* --------------- handle proper schedule for today for FIXED OR MONTHLY ---------*/
-                                  if ($isFixedSched)
-                                  {
-                                    if ($hasApprovedCWS)
-                                    {
-                                      if ( count($workSched->where('workday',$numDay)->all()) > 0 )
-                                      {
-                                        
-
-                                        $ws = $this->getLatestFixedSched($user,$numDay,$payday);
-                                          
-                                        if ($ws->created_at > $approvedCWS->first()->updated_at )
-                                        {
-                                          $schedForToday = $ws; //$workSched->where('workday',$numDay)->first();
-
-                                        } else $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                                              'timeEnd'=> $approvedCWS->first()->timeEnd,
-                                                              'isFlexitime' =>  $workSched->where('workday',$numDay)->first()->isFlexitime,
-                                                              'isRD'=> $workSched->where('workday',$numDay)->first()->isRD);
-
-                                      } else
-                                      {
-                                        $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                                              'timeEnd'=> $approvedCWS->first()->timeEnd,
-                                                              'isFlexitime' => false,
-                                                              'isRD'=> null);
-                                      }
-                                      
-                                     
-
-                                    } else
-                                    {
-                                      $schedForToday = $this->getLatestFixedSched($user,$numDay,$payday);
-                                        
-
-                                    } 
-                                      
-                                  }
-                                  else //-- find schedForToday for MONTHLY SCHEDULES
-                                  {
-                                      if ($hasApprovedCWS)
-                                      {
-                                        //--- hack for flexitime
-                                        
-                                        /*--- july 2018 fix ----*/
-                                        // check mo muna kung mas updated ung plotted sched sa CWS
-
-                                        if ( count($workSched->where('productionDate',$payday)->all()) > 0 )
-                                        {
-
-                                           if ($workSched->where('productionDate',$payday)->sortByDesc('id')->first()->created_at > $approvedCWS->first()->updated_at )
-                                            {
-                                              $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
-
-                                            }else $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                                                'timeEnd'=> $approvedCWS->first()->timeEnd, 
-                                                                'isFlexitime'=>$workSched->where('productionDate',$payday)->first()->isFlexitime,
-                                                                'isRD'=>$workSched->where('productionDate',$payday)->first()->isRD);
-
-                                        } else 
-                                        {
-                                          $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                                                'timeEnd'=> $approvedCWS->first()->timeEnd, 
-                                                                'isFlexitime'=>false,
-                                                                'isRD'=>null);
-
-                                        }
-
-                                       
-                                        
-                                        
-                                       
-
-                                      } else //walang CWS
-                                      {
-                                        if (is_null($workSched)){
-                                          $day = date('D', strtotime($payday)); //--- get his worksched and RDsched
-                                          $theday = (string)$day;
-                                          $numDay = array_search($theday, $daysOfWeek);
-                                          $schedForToday = $this->getLatestFixedSched($user,$numDay,$payday);
-                                        }else
-                                          $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
-                                      }
-
-                                  }//endelse if fixedSched
-
-                                  /* --------------- END handle proper schedule for today for FIXED OR MONTHLY ---------*/
-
-                                  // if ($noWorkSched == false && count($schedForToday) !== 0)
-                                  // {
-                                    $s = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
-                                    $s2 = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila");
+                                  $s = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
+                                  $s2 = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila");
 
                                   //}
                                   
@@ -3136,14 +2344,19 @@ class DTRController extends Controller
 
                                   }
 
-                                  //$coll->push(['isAproblemShift'=>$isAproblemShift,'s'=>$s, 'schedForToday'=>$schedForToday, 'sameDayLog'=>$sameDayLog, 'shiftStart'=>$shiftStart,'range'=>Carbon::parse($payday." 00:00:00","Asia/Manila") . " to ". date('h:i A', strtotime('05:00:00')),]);
-
                                   if ($sameDayLog)
                                   {
                                     
 
                                     if($isFixedSched)
-                                          $isRDYest = $RDsched->contains($prevNumDay); 
+                                    {
+                                      //if(is_array($allRD)) { $coll->push(['an array'=>true]);
+                                      if (count($allRD->first()->where('workday',$prevNumDay)) > 0)
+                                        {$isRDYest = true;} //$RDsched->contains($prevNumDay); }
+                                      else 
+                                        $isRDYest = false;
+                                    }
+                                          
                                     else
                                     {
                                       if ($hybridSched)
@@ -3226,7 +2439,7 @@ class DTRController extends Controller
                                       // if shift is 12MN - 5AM -> PROBLEM AREA
                                       //----------------------------------------
                                       if($isFixedSched)
-                                          $isRDYest = $RDsched->contains($prevNumDay); 
+                                          $isRDYest = true; //$RDsched->contains($prevNumDay); 
                                         else
                                         {
                                           if ($hybridSched)
@@ -3297,44 +2510,38 @@ class DTRController extends Controller
 
                                   if(is_null($schedForToday)) {
                                       
-                                      $myDTR->push(['isRDToday'=>null,
-                                        'payday'=>$payday,
-                                     'biometrics_id'=>$bioForTheDay->id,
-                                     'hasCWS'=>$hasCWS,
-                                      //'usercws'=>$usercws->sortByDesc('updated_at')->first(),
-                                      'usercws'=>$usercws,
-                                      'userOT'=>$userOT,
-                                      'hasOT'=>$hasOT,
-                                     'isRD'=>0,
-                                     'isFlexitime'=>$isFlexitime,
-                                     'productionDate'=> date('M d, Y', strtotime($payday)),
-                                     'day'=> date('D',strtotime($payday)),
-                                     'shiftStart'=> null,
-                                     'shiftEnd'=>null,
-                                     'shiftStart2'=> $shiftStart2,
-                                     'shiftEnd2'=>$shiftEnd2,
-                                     'hasPendingIN' => null,
-                                     'pendingDTRPin'=> null,
-                                     'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
-                                     'pendingDTRPout' =>null, //$userLogOUT[0]['pendingDTRP'],
-
-                                     'hasLeave' => $userLogIN[0]['hasLeave'],
-                                     'leaveDetails'=>$userLogIN[0]['leave'],
-                                     'hasLWOP' => $userLogIN[0]['hasLWOP'],
-                                     'lwopDetails'=>$userLogIN[0]['lwop'],
-
-                                     'logIN' => $userLogIN[0]['logTxt'],
-                                       'logOUT'=>$userLogOUT[0]['logTxt'],
-                                       'dtrpIN'=>$userLogIN[0]['dtrpIN'],
-                                       'dtrpIN_id'=>$userLogIN[0]['dtrpIN_id'],
-                                       'dtrpOUT'=>$userLogOUT[0]['dtrpOUT'],
-                                       'dtrpOUT_id'=>$userLogOUT[0]['dtrpOUT_id'],
-                                     'workedHours'=> $workedHours,
-                                     
-                                     'billableForOT' => $billableForOT,
-                                     'OTattribute'=>$OTattribute,
-                                     'UT'=>$UT,
-                                     'approvedOT' => $approvedOT]);
+                                      $myDTR->push(['isRDToday'=>null,'payday'=>$payday,'biometrics_id'=>$bioForTheDay->id,
+                                                    'hasCWS'=>$hasCWS,
+                                                    'usercws'=>$usercws,
+                                                    'userOT'=>$userOT,
+                                                    'hasOT'=>$hasOT,
+                                                    'isRD'=>0,
+                                                    'isFlexitime'=>$isFlexitime,
+                                                    'productionDate'=> date('M d, Y', strtotime($payday)),
+                                                    'day'=> date('D',strtotime($payday)),
+                                                    'shiftStart'=> null,
+                                                    'shiftEnd'=>null,
+                                                    'shiftStart2'=> $shiftStart2,
+                                                    'shiftEnd2'=>$shiftEnd2,
+                                                    'hasPendingIN' => null,
+                                                    'pendingDTRPin'=> null,
+                                                    'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
+                                                    'pendingDTRPout' =>null, //$userLogOUT[0]['pendingDTRP'],
+                                                    'hasLeave' => $userLogIN[0]['hasLeave'],
+                                                    'leaveDetails'=>$userLogIN[0]['leave'],
+                                                    'hasLWOP' => $userLogIN[0]['hasLWOP'],
+                                                    'lwopDetails'=>$userLogIN[0]['lwop'],
+                                                    'logIN' => $userLogIN[0]['logTxt'],
+                                                    'logOUT'=>$userLogOUT[0]['logTxt'],
+                                                    'dtrpIN'=>$userLogIN[0]['dtrpIN'],
+                                                    'dtrpIN_id'=>$userLogIN[0]['dtrpIN_id'],
+                                                    'dtrpOUT'=>$userLogOUT[0]['dtrpOUT'],
+                                                    'dtrpOUT_id'=>$userLogOUT[0]['dtrpOUT_id'],
+                                                    'workedHours'=> $workedHours,
+                                                    'billableForOT' => $billableForOT,
+                                                    'OTattribute'=>$OTattribute,
+                                                    'UT'=>$UT,
+                                                    'approvedOT' => $approvedOT]);
 
                                   } 
                                   else{
@@ -3408,10 +2615,13 @@ class DTRController extends Controller
 
                 //$wsch->push(['noWorkSched'=>$noWorkSched]);
 
+                        
+               
+
 
              }//END foreach payrollPeriod
 
-           //return $wsch;
+           //return $coll;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
@@ -3444,7 +2654,7 @@ class DTRController extends Controller
            //return response()->json(['isFixedSched'=>$isFixedSched]);
 
              // return  count($user->monthlySchedules->sortByDesc('productionDate'));
-           //return $coll;
+           //return $myDTR;
            return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
 
 

@@ -148,6 +148,603 @@ trait TimekeepingTraits
 
   }
 
+  public function getActualSchedForToday($user,$id,$payday,$bioForTheDay, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS)
+  {
+    $carbonPayday = Carbon::parse($payday);
+    ( count($approvedCWS) > 0 ) ? $hasApprovedCWS=true : $hasApprovedCWS=false;
+    $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
+
+    if ($hybridSched)
+    {
+
+        $dt  = $carbonPayday->dayOfWeek;
+        switch($dt){
+          case 0: $dayToday = 6; break;
+          case 1: $dayToday = 0; break;
+          default: $dayToday = $dt-1;
+        } 
+
+        //$check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at');
+        $check_fixed_WS = $this->getLatestFixedSchedGrouped($hybridSched_WS_fixed,$payday,$dayToday);
+        $check_fixed_WS_group = $hybridSched_WS_fixed; //collect($check_fixed_WS)->groupBy('schedEffectivity');
+
+        //if (count($check_fixed_WS) > 0) //if may fixed WS, check mo kung ano mas updated vs monthly sched
+        if($check_fixed_WS['workday'] !== null)
+        {
+          $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
+          //$coll->push(['check_monthly_WS'=>$check_monthly_WS]);
+          if (count($check_monthly_WS) > 0)// if may monthly, compare it vs fixed
+          {
+            $stat =  "may monthly WS, compare it with fixed";
+
+            //** but check first grouped Fixed WS; meaning more than 1 fixed scheds
+            if (count($check_fixed_WS_group) > 1)
+            {
+              foreach ($check_fixed_WS_group as $g) 
+              {
+                //$coll->push(['pasok foreach'=>$g->first()]);
+
+                if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($g->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
+                {
+
+                  $workSched = $hybridSched_WS_monthly;
+
+                  (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
+                  $isFixedSched = false;
+                  $noWorkSched =false;
+                  break; //leave the loop kasi you already found the real sched
+
+
+
+                }
+                else //check mo muna validity nung WS na fixed. If no effectivity, then NO SCHED
+                {
+                  if ((Carbon::parse($g->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $g->first()->schedEffectivity == null)
+                  {
+                    $workSched = $hybridSched_WS_fixed;
+                    $RDsched = $hybridSched_RD_fixed;
+                    $isFixedSched = true;
+                    $noWorkSched = false;
+                    break;
+
+                    
+                  }
+                  /*else{
+                    $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                   }*/
+                   else
+                   {
+                      /* DO NOTHING TILL YOU TRAVERSE THE WHOLE GROUP*/
+
+                   }
+
+
+                }
+              }//end foreach grouped fixed sched
+
+            }else
+            {
+
+              if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
+              {
+
+                $workSched = $hybridSched_WS_monthly;
+
+                (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
+                $isFixedSched = false;
+                $noWorkSched =false;
+
+
+
+              }
+              else //check mo muna validity nung WS na fixed. If no effectivity, then NO SCHED
+              {
+                if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
+                {
+                  $workSched = $hybridSched_WS_fixed;
+                  $RDsched = $hybridSched_RD_fixed;
+                  $isFixedSched = true;
+                  $noWorkSched = false;
+
+                  
+                }
+                /*else{
+                  $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                 }*/
+                 else{
+                  $workSched = $hybridSched_WS_monthly;
+
+                  (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
+                  
+                  $isFixedSched = false;
+                  $noWorkSched =false; $hasCWS=false;
+
+                 }
+
+
+              }
+
+            }
+
+            
+
+          }//end if meron monthly sched
+          else /* fixed sched na talaga sya, but not yet coz there's a possibility na RD yung that date sa monthly sched */
+          {
+            $checkKungMayRD = $hybridSched_RD_monthly->where('productionDate', $payday)->sortByDesc('created_at');
+            if (count ($checkKungMayRD) > 0)
+            {
+              //ngayon, check mo kung sino mas updated, si monthlyRD or si fixed
+              foreach ($check_fixed_WS_group as $g) 
+              {
+                //$coll->push(['pasok foreach'=>$g->first()]);
+
+                if( Carbon::parse($checkKungMayRD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($g->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
+                {
+
+                  $workSched = $hybridSched_WS_monthly;
+
+                  (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
+                  $isFixedSched = false;
+                  $noWorkSched =false;
+                  break; //leave the loop kasi you already found the real sched
+
+
+
+                }
+                else //check mo muna validity nung WS na fixed. If no effectivity, then NO SCHED
+                {
+                  if ((Carbon::parse($g->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $g->first()->schedEffectivity == null)
+                  {
+                    $workSched = $hybridSched_WS_fixed;
+                    $RDsched = $hybridSched_RD_fixed;
+                    $isFixedSched = true;
+                    $noWorkSched = false;
+                    break;
+
+                    
+                  }
+                  /*else{
+                    $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                   }*/
+                   else
+                   {
+                      /* DO NOTHING TILL YOU TRAVERSE THE WHOLE GROUP*/
+
+                   }
+
+
+                }
+              }//end foreach grouped fixed sched
+
+
+              
+
+            }
+            else
+            {
+              $stat =  "fixed na talaga";
+              //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
+
+              if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
+              {
+                $workSched = $hybridSched_WS_fixed;
+                $RDsched = $hybridSched_RD_fixed;
+                $isFixedSched = true;
+                $noWorkSched = false;
+                
+              }
+              else
+              {
+                $stat =  "fixed na talaga | ELSE ng empty check_monthly_RD";
+
+                //** new check: get mo yung next available fixed sched grouped by effectivity date
+                $check_fixed_WS = $hybridSched_WS_fixed->where('workday',$dayToday)->sortByDesc('created_at')->groupBy('schedEffectivity');
+                $wsCount = 0;
+                foreach ($check_fixed_WS as $key) 
+                {
+                  if ($wsCount == 1)
+                  {
+                    $workSched = $key;
+                    $RDsched =  $hybridSched_RD_fixed;
+                    $isFixedSched = true;
+                    $noWorkSched = false;
+                    break;
+
+                  } 
+                  else $wsCount++;
+                  
+                } 
+
+                //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = true; $hasCWS=false;
+                //$stat = $check_fixed_WS;
+              }
+            }//end if else checkKungMayRD
+            
+
+            
+            //$check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
+            // * not so fast. Check mo muna kung may monthly RD to be sure. Otherwise, fixed WS nga sya
+
+          
+
+             
+          }
+
+          //$coll->push(['status'=>"has fixed WS", 'stat'=>$stat, 'compared with hybrid'=>$hybridSched_WS_monthly] );
+          
+
+
+        } else //baka RD
+        {
+          //$check_fixed_RD = $hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at');
+          $check_fixed_RD = $this->getLatestFixedSchedGrouped($hybridSched_RD_fixed,$payday,$dayToday);
+
+          //if (count($check_fixed_RD) > 0) //if may fixed RD, check mo kung ano mas updated vs monthly sched
+          if ($check_fixed_RD['workday'] !== null)
+          {
+            $stat =  "if may fixed RD, check mo kung ano mas updated vs monthly sched";
+
+            $check_monthly_RD = $hybridSched_RD_monthly->where('productionDate',$payday)->sortByDesc('created_at');
+
+            if (count($check_monthly_RD) > 0) // if may monthly, compare it vs fixed
+            {
+              if( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ) //mas bago si Monthly
+              {
+                $workSched = $hybridSched_WS_monthly;
+                $RDsched = $hybridSched_RD_monthly;
+                $isFixedSched = false;
+                $noWorkSched = false;
+
+              }
+              else //FIXED RD SYA
+              {
+                //check mo muna validity nung RD na fixed. If not effective, then NO SCHED
+
+                 if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
+                 {
+                  $workSched = $hybridSched_WS_fixed;
+                  $RDsched = $hybridSched_RD_fixed;
+                  $isFixedSched = true;
+                  $noWorkSched= false;
+
+                 }
+                 else
+                 {
+                  //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                  $workSched = $hybridSched_WS_fixed;
+                  $RDsched = $hybridSched_RD_fixed;
+                  $isFixedSched = true;
+                  $noWorkSched= false; $hasCWS=false;
+
+                 }
+
+              }
+
+            }
+            else // no monthly RD -- meaning RD fixed na sya, BUT NOT YET! CHECK MO KUNG MAS UPDATED UNG WS IF EVER MERON
+            {
+              $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
+
+              if (count($check_monthly_WS) > 0)
+              {
+                if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )
+                {
+                  $workSched = $hybridSched_WS_monthly;
+                  $RDsched = $hybridSched_RD_monthly;
+                  $isFixedSched = false;
+                  $noWorkSched =false;
+                }
+                else
+                  {
+                    //check mo muna validity nung RD na fixed. If not effective, then NO SCHED
+
+                     if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
+                     {
+
+                      $workSched = $hybridSched_WS_fixed;
+                      $RDsched = $hybridSched_RD_fixed;
+                      $isFixedSched = true;
+                      $noWorkSched = false;
+                     }
+                     else
+                     {
+                      $noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                     }
+
+                  }
+
+              } else //walang monthly WS, Fixed sched na sya
+              {
+                 //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
+
+                 if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
+                 {
+                    $workSched = $hybridSched_WS_fixed;
+                    $RDsched = $hybridSched_RD_fixed;
+                    $isFixedSched = true;
+                    $noWorkSched = false;
+                 }
+                 else
+                 {
+                  //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
+                   $workSched = $hybridSched_WS_fixed;
+                    $RDsched = $hybridSched_RD_fixed;
+                    $isFixedSched = true;
+                    $noWorkSched = false; $hasCWS=false;
+                 }
+
+
+              }
+             
+            }
+
+          }//end if no fixed RD
+
+          else //---- no both fixed WS & RD, baka monthly sched. Check kung meron
+          {
+            $stat =  "no both fixed WS & RD, baka monthly sched";
+
+            if (count($hybridSched_WS_monthly)>0 && count($hybridSched_RD_monthly)>0)
+            {
+              // if (count($hybridSched_WS_monthly) > 0)
+              // {
+                $workSched = $hybridSched_WS_monthly;
+                $isFixedSched=false;
+
+              // }// else $workSched = null;
+
+              // if (count($hybridSched_RD_monthly) > 0)
+              // {
+                $RDsched = $hybridSched_RD_monthly;
+              //}
+              //else $RDsched = null;
+                $stat =  "both hybrid has count";
+
+            }else //waley na talaga
+            {
+              //final check sa fixed
+              if ( count($hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at') ) > 0 )
+              {
+                $workSched = $hybridSched_WS_fixed;
+                $RDsched = $hybridSched_RD_fixed;
+                $stat =  "waley";
+
+              }else{
+                $workSched=null; $RDsched=null; $isFixedSched=false; $noWorkSched=true;$stat = "superduper waley";
+                
+              }
+              
+
+
+            }
+            
+            
+
+          }//end else no both fixed RD & WS
+
+          //$coll->push(['status'=>"NO fixed WS, baka RD", 'stat'=>$stat]);
+          
+          
+
+        }//end else baka RD
+
+
+    }
+    
+
+
+    if($isFixedSched)
+    {
+      $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'); // for Gregorian cal. Iba kasi jddayofweek sa PHP day
+      $day = date('D', strtotime($payday)); //--- get his worksched and RDsched
+      $theday = (string)$day;
+      $numDay = array_search($theday, $daysOfWeek);
+
+      $yest = date('D', strtotime(Carbon::parse($payday)->subDay()->format('Y-m-d')));
+      $prevNumDay = array_search($yest, $daysOfWeek);
+
+
+
+      if ($hasApprovedCWS)
+      {
+         
+
+         if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
+         {
+          $isRDToday=true;
+          $schedForToday = array('timeStart'=>'* RD *', 
+                                    'timeEnd'=>'* RD *' ,
+                                    'isFlexitime' => false,
+                                    'isRD'=> true);
+
+         } 
+         else 
+         {
+          $isRDToday=false;
+          $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                    'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                    'isFlexitime' => false,
+                                    'isRD'=> $approvedCWS->first()->isRD);
+        }
+        $RDsched1 = $RDsched;
+        /*
+          $ws =$this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
+          if ( is_null($ws->workday))
+          {
+            //di sya worksched, but CWS from RD
+            $ws =$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
+
+          }else
+          {
+            if ($ws->created_at > $approvedCWS->first()->updated_at )
+            {
+              $schedForToday = $ws; //$workSched->where('workday',$numDay)->first();
+              $isRDToday = $ws->isRD;
+              $RDsched1 = $RDsched;
+              
+
+            } else
+            {
+              $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                    'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                    'isFlexitime' => false,
+                                    'isRD'=> $approvedCWS->first()->isRD);
+              $isRDToday = $approvedCWS->first()->isRD;
+              $RDsched1 = $RDsched; //$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
+              
+
+            } 
+
+          }*/
+
+          
+          
+    
+
+      } else
+      {
+        $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);//->toArray();
+        $isRDToday = $schedForToday['isRD'];
+        $RDsched1 = $RDsched;//$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay); //
+
+      } 
+          
+
+      
+
+    }else
+    {
+      // MONTHLY SCHED ANG NAKA PLOT
+      if ($hasApprovedCWS)
+      {
+        // check mo muna kung mas updated ung plotted sched sa CWS
+
+        if ( count($workSched->where('productionDate',$payday)->all()) > 0 )
+        {
+
+           if ($workSched->where('productionDate',$payday)->sortByDesc('id')->first()->created_at > $approvedCWS->first()->updated_at )
+            {
+              $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+              $isRDToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first()->isRD;
+              $RDsched1 = $RDsched;
+
+            }else 
+            {
+
+              // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+              //                   'timeEnd'=> $approvedCWS->first()->timeEnd, 
+              //                   'isFlexitime'=>false,
+              //                   'isRD'=>$approvedCWS->first()->isRD);
+
+              // $isRDToday = $approvedCWS->first()->isRD;
+              // $RDsched1 = $RDsched;
+
+               if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
+               {
+                $isRDToday=true;
+                $schedForToday = array('timeStart'=>'* RD *', 
+                                          'timeEnd'=>'* RD *' ,
+                                          'isFlexitime' => false,
+                                          'isRD'=> true);
+
+               } 
+               else 
+               {
+                $isRDToday=false;
+                $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                          'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                          'isFlexitime' => false,
+                                          'isRD'=> $approvedCWS->first()->isRD);
+               }
+               $RDsched1 = $RDsched;
+
+
+
+            }
+            
+
+        } else 
+        {
+          // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+          //                       'timeEnd'=> $approvedCWS->first()->timeEnd, 
+          //                       'isFlexitime'=>false,
+          //                       'isRD'=>$workSched->where('productionDate',$payday)->first()->isRD);
+          // $isRDToday = $workSched->where('productionDate',$payday)->first()->isRD;
+          // $RDsched1 = $RDsched;
+
+              if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
+               {
+                $isRDToday=true;
+                $schedForToday = array('timeStart'=>'* RD *', 
+                                          'timeEnd'=>'* RD *' ,
+                                          'isFlexitime' => false,
+                                          'isRD'=> true);
+
+               } 
+               else 
+               {
+                $isRDToday=false;
+                $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                          'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                          'isFlexitime' => false,
+                                          'isRD'=> $approvedCWS->first()->isRD);
+               }
+               $RDsched1 = $RDsched;
+
+
+        }
+
+      } else //walang CWS
+      {
+        if (is_null($workSched)){
+          /*$day = date('D', strtotime($payday)); //--- get his worksched and RDsched
+          $theday = (string)$day;
+          $numDay = array_search($theday, $daysOfWeek);
+          $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);*/
+          $schedForToday = null;
+          $isRDToday = null; //$schedForToday['isRD'];
+          $RDsched1 = $RDsched;
+        }else
+        {
+          // know first kung anong meron, RD or workday
+          $rd = $RDsched->where('productionDate',$payday)->sortByDesc('id');
+          $wd = $workSched->where('productionDate',$payday)->sortByDesc('id');
+          if (count($rd) > 0 )
+          {
+            $schedForToday = $rd->first();
+            $isRDToday = true;
+            $RDsched1 = $RDsched;
+
+          }else
+          {
+            $schedForToday = $wd->first();
+            $isRDToday = false;
+            $RDsched1 = $RDsched;
+          }
+          
+          
+          
+          $stat ="final";
+
+        }
+          
+      }
+
+    }//end if else
+
+    $c = new Collection;
+    $c->schedForToday =  collect($schedForToday)->toArray();
+    $c->isRDToday = $isRDToday;
+    $c->RDsched = $RDsched1;
+    $c->isFixedSched = $isFixedSched;
+    $c->allRD = $RDsched;
+    
+    return $c;
+
+
+  }
+
 
   
 
@@ -918,6 +1515,32 @@ trait TimekeepingTraits
 
     //return $schedForToday;
     return $schedForToday;
+
+
+  }
+
+   public function getLatestFixedSchedGrouped($workSched,$payday,$numDay)
+  {
+    $thesched = null;
+
+    if (count($workSched) > 0)
+      foreach ($workSched as $w) {
+      
+        if( $w->first()->schedEffectivity <= $payday || is_null($w->first()->schedEffectivity))
+        {
+          $thesched = collect($w)->where('workday',$numDay)->first();
+          break;
+        }
+      }
+
+    if (is_null($thesched))
+    {
+      $sched = ['timeStart'=>null, 'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>true, 'workday'=>null ];
+    } else $sched = $thesched;
+
+    return $sched;
+
+
 
 
   }
