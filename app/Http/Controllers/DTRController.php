@@ -2022,7 +2022,7 @@ class DTRController extends Controller
 
                 /* +++++++++++++++++ END NEW PROCEDURE ++++++++++++++++++++++++++++++*/
 
-               $coll->push(['cws'=>$approvedCWS, 'allRD'=>$allRD,'RDsched'=>$RDsched, 'isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday]); //,'RDsched'=>$RDsched'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly'stat'=>$actualSchedToday->stat,
+               //$coll->push(['cws'=>$approvedCWS, 'allRD'=>$allRD,'RDsched'=>$RDsched, 'isFixedSched'=>$isFixedSched, 'productionDate'=>$payday, 'isRDToday'=>$isRDToday, 'schedForToday' =>$schedForToday]); //,'RDsched'=>$RDsched'hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly'stat'=>$actualSchedToday->stat,
 
 
                   
@@ -2621,7 +2621,7 @@ class DTRController extends Controller
 
              }//END foreach payrollPeriod
 
-           return $coll;
+           //return $coll;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
