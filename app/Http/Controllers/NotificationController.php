@@ -825,8 +825,9 @@ class NotificationController extends Controller
                                 
                               }
                               else{
-                                $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
-                                $message = " filed a <strong>Pre-Shift OT</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->leaveStart))."</span>";
+                                //$theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
+                                $theBio = Biometrics::find($thereq->biometrics_id);
+                                $message = " filed a <strong>Pre-Shift OT</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($theBio->productionDate))."</span>";
 
 
                               }
