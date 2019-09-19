@@ -72,9 +72,11 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Open Access BPO <span class="text-orange">G2 Office Launching </span><br/><span style="font-size: x-small;">July 12, 2019 Friday</span>  </strong></p>
-                      <video id="teaser" src="storage/uploads/ribboncutting.mp4" width="100%" loop controls></video>
-                      <p align="center">Video by: Azrael Coladila</p>
+                      <p class="text-center"><strong class="text-primary">September 21 : <span class="text-orange">World Gratitude Day! </span> </strong></p>
+                      <video id="teaser" src="storage/uploads/worldgratitude.mp4" width="100%" loop controls></video>
+                      <p align="center"><br/><span style="font-size: small;"><strong>Happy #WorldGratitudeDay!</strong> Do you have a list of things you appreciate in your life? It’s never too late to make a habit of embracing a grateful life. We asked a few of our employees about what makes their lives brighter.<br/><br/>
+
+#WeSpeakYourLanguage</span> </p>
                       
                     </div>
                 </div>
