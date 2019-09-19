@@ -256,6 +256,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_vl.addCredits',
       'uses'=>'UserVLController@addCredits') );
 
+      Route::post('/user_vl/checkExisting', array(
+      'as'=> 'user_vl.checkExisting',
+      'uses'=>'UserVLController@checkExisting') );
+
 
        Route::post('/user_vl/deleteCredit/{id}', array(
       'as'=> 'user_vl.deleteCredit',
@@ -343,6 +347,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
      
         /*********** LWOP **********/
 
+       Route::post('/user_lwop/checkExisting', array(
+      'as'=> 'user_lwop.checkExisting',
+      'uses'=>'UserLWOPController@checkExisting') ); 
+
        Route::post('/user_lwop/getCredits', array(
       'as'=> 'user_lwop.getCredits',
       'uses'=>'UserLWOPController@getCredits') );
@@ -377,6 +385,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
       /*********** OBT **********/
+
+    Route::post('/user_obt/checkExisting', array(
+      'as'=> 'user_obt.checkExisting',
+      'uses'=>'UserOBTController@checkExisting') ); 
 
     Route::post('/user_obt/requestVL', array(
       'as'=> 'user_obt.requestVL',

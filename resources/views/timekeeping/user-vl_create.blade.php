@@ -204,12 +204,18 @@
                 type:'POST',
                 data:{ 
                  'vl_day': $('#vl_from').val(), 
+                 'isStylized':false,
                   '_token':_token
                 },
                 success: function(response){
                   console.log(response);
-                  $('input[name="timestart_old"]').val(response.start);
-                  $('input[name="timeend_old"]').val(response.end);
+                  $('input[name="timestart_old"]').val(response.timeStart);
+                  $('input[name="timeend_old"]').val(response.timeEnd);
+
+                  if (response.timeStart === response.timeEnd || response.isRD == 1)
+                  {
+                    alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
+                  }
                   
 
                   
@@ -240,185 +246,215 @@
             var reason_vl = $('textarea[name="reason_vl"]').val();
             var totalcredits = $('#credits_vl').attr('data-credits');
 
-            //if (checkIfRestday(vl_from, reason_vl))
-            //{
-
-             // checkIfRestday(vl_from, reason_vl);
-
-              console.log("pasok checkIfRestday");
-              console.log('timestart_old1');
-              console.log(timestart_old1);
-              console.log('timeend_old1');
-              console.log(timeend_old1);
-
-
-
-           if (totalcredits == '0' || totalcredits =='0.00')
-           {
-            $.notify("Indicated date is actually a holiday. No need to file for a single-day VL for non-ops personnel.\n\n For those in Operations, please file this as an LWOP instead.",{className:"success", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );return false;
-              
-           }
-            
-          else
-          {
-            if (vl_to == "" || vl_to == vl_from) //one-day leave lang sya
+            $.ajax({
+                url: "{{action('UserController@getWorkSchedForTheDay',$user->id)}}",
+                type:'POST',
+                async:false,
+                data:{ 
+                 'vl_day': vl_from, 
+                 'isStylized':false,
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+                  if (response.timeStart === response.timeEnd || response.isRD == 1)
                   {
-                      //check kung anong covered shift
-                      
-                      
-                        var coveredshifts = getCoveredShifts(coveredshift, vl_from, timestart_old1, timeend_old1);
-                        var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
-                        var leaveTo = coveredshifts.leaveEnd.format('YYYY-MM-D H:mm:ss');
-                        console.log("Start: " + leaveFrom);
-                        console.log("End: " + leaveTo);
-
-                        if (reason_vl == ""){  $.notify("Please include a brief reason about your leave for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
-                        else{
-
-                          $('input[name="leaveFrom"]').val(leaveFrom);$('input[name="leaveTo"]').val(leaveTo);
-
-                              console.log("Do ajax");
-            
-                              $.ajax({
-                                    url: "{{action('UserVLController@requestVL')}}",
-                                    type:'POST',
-                                    data:{ 
-                                      'id': user_id,
-                                      'leaveFrom': leaveFrom,
-                                      'leaveTo': leaveTo,
-                                      'reason_vl': reason_vl,
-                                      'totalcredits': totalcredits,
-                                      'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
-                                      'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
-                                      '_token':_token
-                                    },
-                                    success: function(response){
-                                      $('#save').fadeOut();
-                                     
-
-                                      if (response.success == '1')
-                                        $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-                                        else
-                                          $.notify("Vacation Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
-                                      
-                                      console.log(response);
-                                      window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                      }, 4000);
-                                    }
-                                  });
-                                  
-
-
-                        }
-                      
-                  } 
+                    alert("\n\nNo need to file for a vacation leave. \nThe selected date falls on a REST DAY."); return false;
+                  }
                   else
                   {
-
-                      var mto = moment(vl_to,"MM/D/YYYY").format('YYYY-MM-D');
-                      var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D')
-                      if ( moment(vl_to,"MM/D/YYYY").isBefore( moment(vl_from,"MM/D/YYYY")) )
-                      {
+                    if (totalcredits == '0' || totalcredits =='0.00')
+                     {
+                      $.notify("Indicated date is actually a holiday. No need to file for a single-day VL for non-ops personnel.\n\n For those in Operations, please file this as an LWOP instead.",{className:"success", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );return false;
                         
-                         $.notify("Invalid 'Until' date. Selected date is past your 'From' date.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                     }
+                      
+                    else
+                    {
+                      if (vl_to == "" || vl_to == vl_from) //one-day leave lang sya
+                      {
+                                //check kung anong covered shift
+                                  //var mto = moment(vl_to,"MM/D/YYYY").format('YYYY-MM-D');
+                                  var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D')
+                                
+                                  var coveredshifts = getCoveredShifts(coveredshift, mfrom,mfrom, timestart_old1, timeend_old1);
+                                  var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
+                                  var leaveTo = coveredshifts.leaveEnd.format('YYYY-MM-D H:mm:ss');
+                                  console.log("Start: " + leaveFrom);
+                                  console.log("End: " + leaveTo);
+
+                                  var mayExisting = checkExisting(leaveFrom,_token);
+                                  console.log('mayexisting:');
+                                  console.log(mayExisting);
+
+                                  if (mayExisting)
+                                  {
+                                    $.notify("An existing leave has already been filed for that date.\nIf you wish to file a new one, go to employee\'s DTR Requests page and cancel previously submitted leave.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; 
+
+                                  }
+                                  else
+                                  {
+                                    if (reason_vl == ""){  $.notify("Please include a brief reason about your leave for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
+                                    else
+                                    {
+
+                                      $('input[name="leaveFrom"]').val(leaveFrom);$('input[name="leaveTo"]').val(leaveTo);
+
+                                          console.log("Do ajax");
+                        
+                                          $.ajax({
+                                                url: "{{action('UserVLController@requestVL')}}",
+                                                type:'POST',
+                                                data:{ 
+                                                  'id': user_id,
+                                                  'leaveFrom': leaveFrom,
+                                                  'leaveTo': leaveTo,
+                                                  'reason_vl': reason_vl,
+                                                  'totalcredits': totalcredits,
+                                                  'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
+                                                  'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
+                                                  '_token':_token
+                                                },
+                                                success: function(response1){
+                                                  $('#save').fadeOut();
+                                                 
+
+                                                  if (response1.success == '1')
+                                                    $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                                    else
+                                                      $.notify("Vacation Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
+                                                  
+                                                  console.log(response1);
+                                                  window.setTimeout(function(){
+                                                    window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                                  }, 4000);
+                                                }
+                                              });
+                                              
 
 
-                        console.log("mto: ");
-                        console.log(mto);
-                        console.log("mfrom: ");
-                        console.log(mfrom); //return false;
-                      }
+                                    }
+
+
+                                  }//end if mayexisting
+
+
+
+                                  
+                                
+                      } 
                       else
                       {
 
-                        if (reason_vl == ""){ $.notify("Please include a brief reason about your leave for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
-                        else{
-
-                          console.log("pasok reason_vl");
-
-                              var coveredshifts = getCoveredShifts(coveredshift, vl_from, timestart_old1, timeend_old1);
-                              var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
-                              var coveredshift2 = $('input[name="coveredshift2"]:checked').val();
-                              var timestart_old2 = $('input[name="timestart_old2"]').val();
-                              var timeend_old2 = $('input[name="timeend_old2"]').val();
-
-                              //console.log(timestart_old2);
-                              //console.log(timeend_old2);
+                          var mto = moment(vl_to,"MM/D/YYYY").format('YYYY-MM-D');
+                          var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D')
+                          if ( moment(vl_to,"MM/D/YYYY").isBefore( moment(vl_from,"MM/D/YYYY")) )
+                          {
+                            
+                             $.notify("Invalid 'Until' date. Selected date is past your 'From' date.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
 
 
-                              switch(coveredshift2)
-                              {
-                                case '1': {var leaveEnd2 = moment(timeend_old2);
-                                          leaveTo = leaveEnd2.format('YYYY-MM-D HH:mm:ss');
-                                          }break; //wholeday
-                                case '2': {var l2 =  moment(timestart_old2); var leaveEnd2 = l2.add(4,'hours');
-                                          leaveTo = leaveEnd2.format('YYYY-MM-D HH:mm:ss');
-                                          
-                                }break; //; var leaveEnd2 = l2.add(60,'minutes').add(4,'hours');}break;
-                                default: {var leaveEnd2 = moment(timeend_old2);leaveTo = leaveEnd2.format('YYYY-MM-D HH:mm:ss');}break; //wholeday
+                            console.log("mto: ");
+                            console.log(mto);
+                            console.log("mfrom: ");
+                            console.log(mfrom); //return false;
+                          }
+                          else
+                          {
+                            var coveredshifts = getCoveredShifts(coveredshift, mfrom,mto, timestart_old1, timeend_old1);
+                            var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
+                            var leaveTo = coveredshifts.leaveEnd.format('YYYY-MM-D H:mm:ss');
+                            var coveredshift2 = $('input[name="coveredshift2"]:checked').val();
+                            var timestart_old2 = $('input[name="timestart_old2"]').val();
+                            var timeend_old2 = $('input[name="timeend_old2"]').val();
+
+                            var mayExisting = checkExisting(leaveFrom,_token);
+                            console.log('mayexisting:');
+                            console.log(mayExisting);
+
+                            if (mayExisting)
+                            {
+                              $.notify("An existing leave has already been filed covering those dates.\nIf you wish to file a new one, go to employee\'s DTR Requests page and cancel previously submitted leave.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; 
+
+                            }
+                            else
+                            {
+
+                              if (reason_vl == ""){ $.notify("Please include a brief reason about your leave for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
+                              else
+                              { 
+                                    console.log('Leave from: '+ leaveFrom);
+                                    console.log('Until: '+ leaveTo);
+
+
+                                    $('input[name="leaveFrom"]').val(leaveFrom);
+                                    $('input[name="leaveTo"]').val(leaveTo);
+
+                                    console.log("Do ajax");
+                  
+                                    $.ajax({
+                                          url: "{{action('UserVLController@requestVL')}}",
+                                          type:'POST',
+                                          data:{ 
+                                            'id': user_id,
+                                            'leaveFrom': leaveFrom,
+                                            'leaveTo': leaveTo,
+                                            'reason_vl': reason_vl,
+                                            'totalcredits': totalcredits,
+                                            'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
+                                            'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
+                                            '_token':_token
+                                          },
+                                          success: function(response2){
+                                            
+                                            $('#save').fadeOut();
+
+                                            if (response2.success == '1')
+                                              $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                              else
+                                                $.notify("Vacation Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
+                                            
+                                            console.log(response2);
+                                            window.setTimeout(function(){
+                                              window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                            }, 2000);
+                                          }
+                                        });
+                                        
+
                               }
-                              
-                              //console.log(coveredshifts2);
-                              console.log('Leave from: '+ leaveFrom);
-                              console.log('Until: '+ leaveTo);
 
 
-                              $('input[name="leaveFrom"]').val(leaveFrom);
-                              $('input[name="leaveTo"]').val(leaveTo);
-
-                              console.log("Do ajax");
-            
-                              $.ajax({
-                                    url: "{{action('UserVLController@requestVL')}}",
-                                    type:'POST',
-                                    data:{ 
-                                      'id': user_id,
-                                      'leaveFrom': leaveFrom,
-                                      'leaveTo': leaveTo,
-                                      'reason_vl': reason_vl,
-                                      'totalcredits': totalcredits,
-                                      'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
-                                      'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
-                                      '_token':_token
-                                    },
-                                    success: function(response){
-                                      
-                                      $('#save').fadeOut();
-
-                                      if (response.success == '1')
-                                        $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-                                        else
-                                          $.notify("Vacation Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
-                                      
-                                      console.log(response);
-                                      window.setTimeout(function(){
-                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                      }, 2000);
-                                    }
-                                  });
-                                  
-
-                        }
+                            }//end if else may existing
 
 
 
-                        
 
-                      }
-                      
+                            
 
-                  }//end else checkIfRestday
+                          }//end if else invalid moment
+                          
 
+                      }//end else checkIfRestday
+
+                            
+
+
+
+
+                    }//end if totalcredits == 0
+
+                  }//end if else no need to file
                   
 
-
-
-
-          }//end if totalcredits == 0
+                  
+                }
+              });
 
                 
-      });  
+      }); 
+
+
      
      $( ".datepicker" ).datepicker({dateFormat:"YYYY-mm-dd"});
 
@@ -438,7 +474,7 @@
                     var theshift = $(this).val();
                     var vl_from1 = moment(vl_from,"MM/DD/YYYY");
                     if (theshift == '1')
-                    var creditsleft = {{$creditsLeft}};// $('#creditsleft').attr('data-left');
+                    var creditsleft = "{{$creditsLeft}}";
                     else {
                       var creditsleft =  {{$creditsLeft}};
                       creditsleft += 0.5;
@@ -446,19 +482,11 @@
 
                     console.log("creditsleft: ");
                     console.log(creditsleft);
-                    // console.log("vl_from:");
-                    // console.log(vl_from);
-                    // console.log("vl_to");
-                    // console.log(vl_to);
-                    // console.log("shift2:");
-                    // console.log(shift2);
-                    // console.log("vl_credits");
-                    // console.log(vl_credits);
 
-                        checkIfRestday(vl_from);
+                    checkIfRestday(vl_from);
 
-                        if (vl_to == "") computeCredits(vl_from1,null,theshift,shift2,creditsleft);
-                        else computeCredits(vl_from1,vl_to,theshift,shift2,creditsleft);
+                    if (vl_to == "") computeCredits(vl_from1,null,theshift,shift2,creditsleft);
+                    else computeCredits(vl_from1,vl_to,theshift,shift2,creditsleft);
                       
 
       });
@@ -474,6 +502,9 @@
           var creditsleft = '{{$creditsLeft}}';
           $("#vlfrom").html("From: "+toval);
 
+
+          console.log('creditsleft');
+          console.log(creditsleft);
           if (vl_to == "") computeCredits(vl_from1,null,theshift,shift2,creditsleft);
           else computeCredits(vl_from1,vl_to,theshift,shift2,creditsleft);
 
@@ -483,12 +514,13 @@
                 type:'POST',
                 data:{ 
                  'vl_day': $('#vl_from').val(), 
+                 'isStylized':false,
                   '_token':_token
                 },
                 success: function(response){
                   console.log(response);
-                  $('input[name="timestart_old"]').val(response.start);
-                  $('input[name="timeend_old"]').val(response.end);
+                  $('input[name="timestart_old"]').val(response.timeStart);
+                  $('input[name="timeend_old"]').val(response.timeEnd);
                 }
               });
       });
@@ -503,8 +535,6 @@
         $('.moredays input').prop('disabled',false);
         var creditsleft = '{{$creditsLeft}}';
 
-        
-
         $('#vl_to').on('blur', function(){
 
           if ($('#vl_to').val() !== "")
@@ -516,12 +546,13 @@
                 type:'POST',
                 data:{ 
                  'vl_day': $('#vl_to').val(), 
+                 'isStylized':false,
                   '_token':_token
                 },
                 success: function(response){
                   console.log(response);
-                  $('#pane_VL input[name="timestart_old2"]').val(response.start);
-                  $('#pane_VL input[name="timeend_old2"]').val(response.end);
+                  $('#pane_VL input[name="timestart_old2"]').val(response.timeStart);
+                  $('#pane_VL input[name="timeend_old2"]').val(response.timeEnd);
                   
                 }
               });
@@ -535,18 +566,12 @@
           var vl_to = $('#vl_to').val();
           var shift_to = $('input[name="coveredshift2"]:checked').val();
 
-          
-           // if ( moment(vl_to,"MM/D/YYYY").isBefore( moment(vl_from,"MM/D/YYYY")) )
-           //  {
-           //    alert("Invalid 'Until' date. Selected date is past your 'From' date.");
-           //    return false;
-           //  }else{
-              computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft);
+          computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft);
 
-              var vl_to2 = $('#vl_to').val();
+          var vl_to2 = $('#vl_to').val();
+          var toval = moment(vl_to2,"MM/DD/YYYY").format('MMM DD ddd');
 
-              var toval = moment(vl_to2,"MM/DD/YYYY").format('MMM DD ddd');
-              $("#vlto").html("To: "+toval);
+          $("#vlto").html("To: "+toval);
 
             //}
 
@@ -568,17 +593,39 @@
           
         });
 
+      }); //end onclick addDays
 
-  
-     
-       
-         
 
-        
-      
-      
-   });
 
+function checkExisting(leaveFrom,_token){
+
+  var hasExisting = null;
+  $.ajax({
+                url: "{{action('UserVLController@checkExisting')}}",
+                type:'POST',
+                async: false,
+                data:{ 
+                 'leaveStart': leaveFrom,
+                 'user_id': "{{$user->id}}",
+                 '_token': _token
+                },
+                success: function(response)
+                {
+                  console.log('from checkExisting:');
+                  console.log(response);
+
+                  if (response.existing === 0){
+                    hasExisting = false;
+                  }else
+                    hasExisting = true;
+
+                }
+
+  });
+
+  return hasExisting;
+
+}
 
 function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
   {
@@ -621,11 +668,8 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
                       $("span#credits_vl").html(response.credits);
                       $("span#credits_vl").attr('data-credits', response.credits);
-
-
-                      
-                        $("#creditsleft").html(response.creditsleft);
-                        $("#creditsleft").attr('data-left',response.creditsleft);
+                      $("#creditsleft").html(response.creditsleft);
+                      $("#creditsleft").attr('data-left',response.creditsleft);
                       
 
                       switch(response.shift_from)
@@ -664,13 +708,17 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
                                     type:'POST',
                                     data:{ 
                                      'vl_day': vl_day, // $('#vl_from').val(), 
+                                     'isStylized':false,
                                       '_token':_token
                                     },
                                     success: function(response){
-                                      console.log(response.start);
-                                      console.log(response.end);
-                                      if (response.start === response.end){
-                                        console.log("equal");
+
+                                      //console.log(response.start);
+                                      //console.log(response.end);
+                                      if (response.timeStart === response.timeEnd){
+                                        //console.log("equal");
+                                        console.log('res:');
+                                        console.log(response);
                                         alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
                                       }else {
 
@@ -697,12 +745,13 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
             type:'POST',
             data:{ 
              'vl_day': vl_day, // $('#vl_from').val(), 
+             'isStylized':false,
               '_token':_token
             },
             success: function(response){
 
-              $('input[name="timestart_old"]').val(response.start);
-              $('input[name="timeend_old"]').val(response.end);
+              $('input[name="timestart_old"]').val(response.timeStart);
+              $('input[name="timeend_old"]').val(response.timeEnd);
 
 
             }
@@ -711,7 +760,7 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
   }
 
-  function getCoveredShifts(coveredshift, leave_from, timestart_old, timeend_old)
+  function getCoveredShifts(coveredshift, leave_from,leave_to, timestart_old, timeend_old)
   {
         switch(coveredshift)
             {
@@ -719,21 +768,21 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
                             // var leaveStart = moment(leave_from+" "+timestart_old,"MM/D/YYYY h:m A");
                             // var leaveEnd = moment(leave_from+" "+timeend_old,"MM/D/YYYY h:m A");
-                            var leaveStart = moment(timestart_old,"YYYY-MM-D H:m:s");
-                            var leaveEnd = moment(timeend_old,"YYYY-MM-D H:m:s");
+                            var leaveStart = moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s");
+                            var leaveEnd = moment(leave_to+" "+timeend_old,"YYYY-MM-D H:m:s");
 
                         }break;
 
               case '2': { //1st half of shift
-                            var leaveStart = moment(timestart_old,"YYYY-MM-D H:m:s");
-                            var leaveEnd =  moment(timestart_old,"YYYY-MM-D H:m:s").add(4,'hours');
+                            var leaveStart = moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s");
+                            var leaveEnd =  moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s").add(4,'hours');
 
 
                         }break;
               case '3': { //2nd half
-                            var leaveStart =moment(timestart_old,"YYYY-MM-D H:m:s").add(5,'hours');
+                            var leaveStart =moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s").add(5,'hours');
                             // moment(leave_from+" "+timestart_old,"MM/D/YYYY h:m A").add(5,'hours');
-                            var leaveEnd = moment(timeend_old,"YYYY-MM-D H:m:s");
+                            var leaveEnd = moment(leave_to+" "+timeend_old,"YYYY-MM-D H:m:s");
 
                             
 

@@ -198,6 +198,39 @@ class UserLWOPController extends Controller
     }
 
 
+    public function checkExisting(Request $request)
+    {
+        $existingLeave=0;
+
+        $vf = Carbon::parse($request->leaveStart,"Asia/Manila");
+        $mayExisting = User_LWOP::where('user_id',$request->user_id)->where('leaveEnd','>',$vf->format('Y-m-d H:i:s'))->get();
+        $interval = new \DateInterval("P1D");
+        foreach ($mayExisting as $key) {
+                $period = new \DatePeriod(new \DateTime(Carbon::parse($key->leaveStart,'Asia/Manila')->format('Y-m-d')),$interval, new \DateTime(Carbon::parse($key->leaveEnd,'Asia/Manila')->addDays(1)->format('Y-m-d')));
+                //** we need to add 1 more day kasi di incuded sa loop ung leaveEnd
+
+                foreach ($period as $p) 
+                {
+                    if($p->format('M d, Y') == $vf->format('M d, Y') ){
+                        $existingLeave=true;
+                        goto mayExistingReturn;
+                        //break 2;
+                    }
+                }
+                
+        }
+
+        if ($existingLeave==0)
+            return response()->json(['existing'=>0]);
+
+
+        mayExistingReturn:
+
+            return response()->json(['existing'=>$existingLeave, 'data'=>$mayExisting]);    
+
+    }
+
+
     public function deleteThisLWOP($id, Request $request)
     {
         $theVL = User_LWOP::find($id);
@@ -224,113 +257,123 @@ class UserLWOPController extends Controller
         
     }
 
-
     public function getCredits(Request $request)
     {
-    	$user = User::find($request->user_id);
-    	$vl_from = Carbon::parse($request->date_from,"Asia/Manila");
+        $user = User::find($request->user_id);
+        $vl_from = Carbon::parse($request->date_from,"Asia/Manila");
         $vf = Carbon::parse($request->date_from,"Asia/Manila");
         $dateFrom = Carbon::parse($request->date_from,"Asia/Manila");
         $creditsleft =$request->creditsleft; //less 1 day from default
-    	$coll = new Collection;
-    	
-    	$shift_from = $request->shift_from;$shift_to = $request->shift_to;
-    	$schedules = new Collection;
-        $displayShift = "";
+        $coll = new Collection;
+        
+        $shift_from = $request->shift_from;$shift_to = $request->shift_to;
+        $schedules = new Collection;
+        $displayShift = ""; $credits = 0;
 
         $hasVLalready=false;
-    	
+        
 
         /*** we need to check first kung may existing pending or approved VL na
              para iwas doble filing **/
 
         //$mayExisting = User_VL::where('user_id',$user->id)->where('leaveStart','>=',$vf->startOfDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))get();
 
-        $mayExisting = User_LWOP::where('user_id',$user->id)->where('leaveEnd','>=',$vf->endOfDay()->format('Y-m-d H:i:s'))->get();
+        $mayExisting = User_LWOP::where('user_id',$user->id)->where('leaveEnd','>',$vf->format('Y-m-d H:i:s'))->get();
         $interval = new \DateInterval("P1D");
-
-        /*if (count($mayExisting) > 0)
-        {*/
-
-            foreach ($mayExisting as $key) {
-                $period = new \DatePeriod(new \DateTime(Carbon::parse($key->leaveStart,'Asia/Manila')->format('Y-m-d')),$interval, new \DateTime(Carbon::parse($key->leaveEnd,'Asia/Manila')->format('Y-m-d')));
+        foreach ($mayExisting as $key) {
+                $period = new \DatePeriod(new \DateTime(Carbon::parse($key->leaveStart,'Asia/Manila')->format('Y-m-d')),$interval, new \DateTime(Carbon::parse($key->leaveEnd,'Asia/Manila')->addDays(1)->format('Y-m-d')));
+                //** we need to add 1 more day kasi di incuded sa loop ung leaveEnd
 
                 foreach ($period as $p) {
+
+                    //$coll->push(['p'=>$p]);
                     if($p->format('M d, Y') == $vf->format('M d, Y') ){
                         $hasVLalready=true;
                         $coll->push($p->format('M d, Y'));
+
                         goto mayExistingReturn;
                         //break 2;
                     }
                 }
                 
-            }
-            
-            
+        }
 
-        /*} else{*/
 
             //*** if date range is submitted [from-to]
 
+            $colldates = new Collection;
+            
+
             if ( !is_null($request->date_to) && $request->date_to !== "" )
             {
-                $credits = 0;
+                
                 $holidays = 0;
                 $vl_to =Carbon::parse($request->date_to,"Asia/Manila");
+                $v=null;
                 
-                while ($vl_from <= $vl_to) {
-                    //$schedForTheDay = \App::call("App\Http\UserController@getWorkSchedForTheDay($user->id,[$request->vl_day=>$vl_from])");
-                    //app('App\Http\Controllers\UserController')->getWorkSchedForTheDay($user->id,[$request->vl_day=>$vl_from]);
-                    $schedForTheDay = $this->getWorkSchedForTheDay($user,$vl_from,$mayExisting);
-                    if ( strpos($schedForTheDay['title'], "Rest") !== false ){ /*do not add anything since its rest day */ }
-                        else $credits++;
+                //$ct=0;
+                while ($vl_from->format('Y-m-d') <= $vl_to->format('Y-m-d')) {
+                    
+                    $v = $vl_from->format('Y-m-d');
+                    $schedForTheDay = $this->getWorkSchedForTheDay1($user,$v,$mayExisting,false);
+
+
+                    if (is_null($schedForTheDay->isApproved) && $schedForTheDay->timeStart !== $schedForTheDay->timeEnd && !$schedForTheDay->isRD)
+                    {
+                        $credits++;
+                        //** means mag credit ka lang pag sched na wala nang approval at hindi RD
+                    }
 
                     if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) $holidays++;
 
-                    $vl_from->addDay();
+                    //$colldates->push(['ct'=>$ct, 'credits'=>$credits, 'isRD'=>$schedForTheDay->isRD,'schedForTheDay'=>$schedForTheDay]);
+
+                    $vl_from = $vl_from->addDays(1);//$ct++;
+
                 }
+
+                //$toCredit = $ct - $credits;
 
                 //if ($shift_from == '2' || $shift_from=='3') $credits -= 0.5;
                 if ($shift_to == '2' && $request->date_to !== null)
                 {
                     //check mo muna kung RD to or holiday, wag ka na mag deduct
-                    $schedForTheDay = $this->getWorkSchedForTheDay($user,$vl_to,$mayExisting);
-                    if ( strpos($schedForTheDay['title'], "Rest") !== false || count(Holiday::where('holidate',$vl_to->format('Y-m-d'))->get())>0 ){ }
+                    $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_to,$mayExisting,false);
+                    //if ( strpos($schedForTheDay['title'], "Rest") !== false || count(Holiday::where('holidate',$vl_to->format('Y-m-d'))->get())>0 ){ }
+                    if ( $schedForTheDay->timeStart === $schedForTheDay->timeEnd || count(Holiday::where('holidate',$vl_to->format('Y-m-d'))->get())>0 ){ }
+                    
                     /*else if (count(Holiday::where('holidate',$vl_to->format('Y-m-d'))->get()) > 0){ }*/
                     else $credits -= 0.5;
                 } 
 
 
-                $s = $this->getWorkSchedForTheDay($user,Carbon::parse($request->date_from,"Asia/Manila"),$mayExisting);
+                $s = $this->getWorkSchedForTheDay1($user,Carbon::parse($request->date_from,"Asia/Manila"),$mayExisting,false);
 
 
                 switch ($shift_from) {
                     case '2':{ 
                                 $credits -= 0.5; 
-                                $start = Carbon::parse($s['start'])->format('h:i A');
-                                $end = Carbon::parse($s['start'])->addHour(4)->format('h:i A');
+                                $start = Carbon::parse($s->timeStart)->format('h:i A');
+                                $end = Carbon::parse($s->timeStart)->addHour(4)->format('h:i A');
                                 // Carbon::parse($schedForTheDay['start'])->addHour(4)->format('h:i A');
                                 $displayShift = $start." - ".$end;
-                                $credits -= $holidays;
-                                (is_null($creditsleft)) ? $creditsleft = $credits : $creditsleft = (float)$creditsleft - $credits;
+                                
                              }break;
 
                     
                     case '3':{ 
                                 $credits -= 0.5; 
-                                $start = Carbon::parse($s['end'])->addHour(-4)->format('h:i A');
-                                $end = Carbon::parse($s['end'])->format('h:i A');
+                                $start = Carbon::parse($s->timeEnd)->addHour(-4)->format('h:i A');
+                                $end = Carbon::parse($s->timeEnd)->format('h:i A');
                                 $displayShift = $start." - ".$end;
-                                $credits -= $holidays;
-                                (is_null($creditsleft)) ? $creditsleft = $credits : $creditsleft = (float)$creditsleft - $credits;
 
                              }break;
                 }
 
 
                 
-                
-                //$creditsleft -= $credits;
+                $credits -= $holidays;
+                $creditsleft -= $credits;
                 $creditsleft++; //fix for initially 1 credit deducted from loading
                 
 
@@ -338,7 +381,7 @@ class UserLWOPController extends Controller
             {
                 $credits = 1;
                 //return response()->json(['vl_from'=>$vl_from, 'dateto'=>$request->date_to]);
-                $schedForTheDay = $this->getWorkSchedForTheDay($user,$vl_from,$mayExisting);
+                $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,$mayExisting,false);
                 //return $schedForTheDay;
 
                 //if ($shift_from == '2' || $shift_from=='3') $credits -= 0.5;
@@ -346,25 +389,23 @@ class UserLWOPController extends Controller
                 switch ($shift_from) {
                     case '2':{ 
                                 (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
-                                $start = Carbon::parse($schedForTheDay['start'])->format('h:i A');
-                                $end = Carbon::parse($schedForTheDay['start'])->addHour(4)->format('h:i A');
+                                $start = Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A');
+                                $end = Carbon::parse($schedForTheDay->first()->timeStart)->addHour(4)->format('h:i A');
                                 $displayShift = $start." - ".$end;
-                                (is_null($creditsleft)) ? $creditsleft = $credits : $creditsleft = (float)$creditsleft - $credits;
-                                
+                                //$creditsleft -= $credits;
                              }break;
 
                     
                     case '3':{ 
                                 (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
-                                $start = Carbon::parse($schedForTheDay['end'])->addHour(-4)->format('h:i A');
-                                $end = Carbon::parse($schedForTheDay['end'])->format('h:i A');
+                                $start = Carbon::parse($schedForTheDay->first()->timeEnd)->addHour(-4)->format('h:i A');
+                                $end = Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
                                 $displayShift = $start." - ".$end;
-                                 (is_null($creditsleft)) ? $creditsleft = $credits : (float)$creditsleft - $credits;
                                 //$creditsleft -= $credits;
                              }break;
                     default:{
                                 (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits = 1.00;
-                                $displayShift =  Carbon::parse($schedForTheDay['start'])->format('h:i A'). " - ". Carbon::parse($schedForTheDay['end'])->format('h:i A');
+                                $displayShift =  Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A'). " - ". Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
                                 //$creditsleft;
 
                             }
@@ -387,19 +428,22 @@ class UserLWOPController extends Controller
 
             }
 
-
-            return response()->json(['shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>null, 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
+            return response()->json(['creditsleft'=>$creditsleft,'creditsToEarn'=>$creditsToEarn,'credits'=>$credits,'mayExisting'=>$mayExisting,
+            'vf endOfDay'=>$vf->format('Y-m-d H:i:s'),'coll'=>$coll]);//'colldates'=>$colldates
+            //return response()->json(['request->date_to'=>$request->date_to, 'shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
 
 
 
         /*}//end may existing nang VL application*/
 
         mayExistingReturn:
-        return response()->json(['hasLWOPalready'=>$hasVLalready, 'creditsToEarn'=>0, 'forLWOP'=>0, 'creditsleft'=>0, 'credits'=> 0 , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>null]);
+        return response()->json(['hasLWOPalready'=>$hasVLalready,'existingVL'=>$coll, 'creditsToEarn'=>0, 'forLWOP'=>0, 'creditsleft'=>0, 'credits'=> 0 , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>null]);
 
 
     }
 
+
+   
 
     public function process(Request $request)
     {

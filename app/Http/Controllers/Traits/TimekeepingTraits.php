@@ -1519,7 +1519,7 @@ trait TimekeepingTraits
 
   }
 
-   public function getLatestFixedSchedGrouped($workSched,$payday,$numDay)
+  public function getLatestFixedSchedGrouped($workSched,$payday,$numDay)
   {
     $thesched = null;
 
@@ -1536,6 +1536,8 @@ trait TimekeepingTraits
     if (is_null($thesched))
     {
       $sched = ['timeStart'=>null, 'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>true, 'workday'=>null ];
+      // *** null meaning either wala talga or di pa effective yung sched
+
     } else $sched = $thesched;
 
     return $sched;
@@ -1544,6 +1546,8 @@ trait TimekeepingTraits
 
 
   }
+
+
 
 
   public function getLogDetails($type, $id, $biometrics_id, $logType_id, $schedForToday, $undertime, $problemArea, $isAproblemShift, $isRDYest)
@@ -4006,18 +4010,16 @@ trait TimekeepingTraits
 
 
 
-  public function getWorkSchedForTheDay($user, $leaveDay, $hasPending)
+  public function getWorkSchedForTheDay1($user, $leaveDay, $hasPending,$isStylized)
   {
       DB::connection()->disableQueryLog();
       //$user = User::find($id);
       $vl_to = $leaveDay;
 
       $productionDate = Carbon::parse($vl_to,'Asia/Manila');
+      $pd = $productionDate->format('Y-m-d');
 
       $today = Carbon::create(date('Y'), date('m'), date('d'),0,0,0, 'Asia/Manila');
-      
-      //$dates = Carbon::create(date('Y'), date('m'), date('d'),0,0,0, 'Asia/Manila')->addMonths(-6);
-      $startingPoint =Carbon::parse($vl_to,'Asia/Manila');
       $endDate = Carbon::parse($vl_to,'Asia/Manila');
       
       $coll = new Collection;
@@ -4027,430 +4029,253 @@ trait TimekeepingTraits
       $totalFschedules = count($user->fixedSchedule);
 
         
-       $noWorkSched = true;
-       $startPt = null;
-       $sched = null;
-
-       //------------ NEW CHECK: if has both fixed and monthly sched
-       //------------ 1) if (current date) IN monthly_schedule->productionDate
-       //                   >> check their created_at; compare against FixedSched[dayOfWeek]->created_at; get the latest one
-       //                else you get the fixed sched
-
-       if ($totalMschedules > 0 && $totalFschedules > 0 ) //((count($user->monthlySchedules) > 0) &&  (count($user->fixedSchedule) > 0)) // 
-       {
-
-          $workSched_monthly = MonthlySchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('productionDate','ASC')->get(); 
-          $RDsched_monthly = MonthlySchedules::where('user_id',$user->id)->where('isRD',1)->get(); 
-          $workSched_fixed = FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get();
-                             // $user->fixedSchedule->where('isRD',0);
-          $RDsched_fixed = FixedSchedules::where('user_id',$user->id)->where('isRD',1)->orderBy('created_at','DESC')->get();
-                          // $user->fixedSchedule->where('isRD',1); //->pluck('workday');
-
-          $isFixedSched =false;
-          $noWorkSched = false;
-         
-         //$coll2->push(['start'=>$startingPoint, 'end'=>$endDate]);
-          
-
-              $dt  = $startingPoint->dayOfWeek;
-              switch($dt){
-                case 0: $dayToday = 6; break;
-                case 1: $dayToday = 0; break;
-                default: $dayToday = $dt-1;
-              } 
-
-              $wd_fixed1 = $workSched_fixed->where('workday',$dayToday); 
-                            //$user->fixedSchedule->where('workday',$dayToday)->sortByDesc('created_at')->first();
-
-              if (count($wd_fixed1)>0) 
-              {
-                $wd_fixed = $wd_fixed1->first();
-
-                if ((Carbon::parse($wd_fixed->schedEffectivity)->startOfDay() <= $startingPoint->startOfDay()) || $wd_fixed->schedEffectivity == null)
-                {
-                      if ( $workSched_monthly->contains('productionDate',$startingPoint->format('Y-m-d')) )
-                      {
-                        
-
-                        $latest = $workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('created_at')->first();
-                        $latest_fixed = $workSched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-                       
-                        if ( !($latest_fixed->isEmpty()) ) // (count($latest_fixed)>0) 
-                        {
-                              if ($latest->created_at > $latest_fixed->first()->created_at)
-                              {
-                                 
-                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);
-                                  $sched = $coll->first();
-                                  
-
-                              } else 
-                              {
-
-                                $coll = $this->getFixedSchedules2($wd_fixed,$startingPoint->format('Y-m-d'),$coll,$counter);
-                                $sched = $coll->first();
-
-                                
-                              }
-                             
-                        } else{ 
-
-                                // ----------------- meaning RD sya not WS --------------
-
-                                $latest_fixed = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-                                if (!($latest_fixed->isEmpty()) ){
-
-                                    // --------- check now which of those two is recently updated 
-                                   if ($latest->created_at > $latest_fixed->first()->created_at)
-                                    {
-                                        $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
-                                        
-
-                                    } else 
-                                    {
-                                     
-                                      $coll = $this->getFixedSchedules2($wd_fixed,$startingPoint->format('Y-m-d'),$coll,$counter);
-                                      $sched = $coll->first();
-
-                                    }
-
-                                } else{
-
-                                  
-
-                                }
-
-                                
-                              } 
-
-                        
-
-                      } elseif ( $RDsched_monthly->contains('productionDate',$startingPoint->format('Y-m-d')) )
-                      {
-                        
-
-                          $latest = $RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('created_at')->first();
-                          $latest_fixed = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at'); //->all(); //->first();
-                         
-                          if ( !($latest_fixed->isEmpty()) ){
-
-                                if ($latest->created_at > $latest_fixed->first()->created_at){
-                                
-                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
-                                
-                                } else
-                                {
-                                  $coll = $this->getFixedSchedules2($wd_fixed,$startingPoint->format('Y-m-d'),$coll,$counter);
-                                  $sched = $coll->first();
-                                 
-                                }
-
-                          }else { 
-                            
-                            $coll = $this->getShiftingSchedules2($latest, $coll,$counter);$sched = $coll->first();
-                            
-
-                          }
-
-                        
-
-                      } else
-                      {
-                            $coll = $this->getFixedSchedules2($wd_fixed,$startingPoint->format('Y-m-d'),$coll,$counter); 
-                            $sched = $coll->first();
-                          
-                      }//end else if today is in monthly_sched
-
-                } //gawin mo lang to kung pasok sa effectivity date or hindi naka set ung effectivity ng FIXED SCHED
-              } //end with WD fixed
-              else /*continue on with monthly scheds */
-              {
-                if ( $workSched_monthly->contains('productionDate',$startingPoint->format('Y-m-d')) )
-                {
-                  
-
-                  $latest = $workSched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('created_at')->first();
-                  $latest_fixed = $workSched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-                 
-                  if ( !($latest_fixed->isEmpty()) ) // (count($latest_fixed)>0) 
-                  {
-                        if ($latest->created_at > $latest_fixed->first()->created_at)
-                        {
-                           
-                            $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);
-                            $sched = $coll->first();
-                            
-
-                        } else 
-                        {
-
-                          $coll = $this->getFixedSchedules2($latest_fixed->first(),$startingPoint->format('Y-m-d'),$coll,$counter);
-                          $sched = $coll->first();
-
-                          
-                        }
-                       
-                  } else{ 
-
-                          // ----------------- meaning RD sya not WS --------------
-
-                          $latest_fixed = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at');
-                          if (!($latest_fixed->isEmpty()) ){
-
-                              // --------- check now which of those two is recently updated 
-                             if ($latest->created_at > $latest_fixed->first()->created_at)
-                              {
-                                  $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
-                                  
-
-                              } else 
-                              {
-                               
-                                $coll = $this->getFixedSchedules2($latest_fixed->first(),$startingPoint->format('Y-m-d'),$coll,$counter);
-                                $sched = $coll->first();
-
-                              }
-
-                          } else{
-
-                            
-
-                          }
-
-                          
-                        } 
-
-                  
-
-                } elseif ( $RDsched_monthly->contains('productionDate',$startingPoint->format('Y-m-d')) )
-                {
-                  
-
-                    $latest = $RDsched_monthly->where('productionDate',$startingPoint->format('Y-m-d'))->sortByDesc('created_at')->first();
-                    $latest_fixed = $RDsched_fixed->where('workday',$dayToday)->sortByDesc('created_at'); //->all(); //->first();
-                   
-                    if ( !($latest_fixed->isEmpty()) ){
-
-                          if ($latest->created_at > $latest_fixed->first()->created_at){
-                          
-                            $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
-                          
-                          } else
-                          {
-                            $coll = $this->getFixedSchedules2($latest_fixed->first(),$startingPoint->format('Y-m-d'),$coll,$counter);
-                            $sched = $coll->first();
-                           
-                          }
-
-                    }else { 
-                      
-                      $coll = $this->getShiftingSchedules2($latest, $coll,$counter,$productionDate);$sched = $coll->first();
-                      
-
-                    }
-
-                  
-
-                } else
-                {
-                      $RD_fixed = $RDsched_fixed->where('workday',$dayToday); 
-
-                      if (count($RD_fixed) > 0)
-                      {
-                        $coll = $this->getFixedSchedules2($RD_fixed->first(),$startingPoint->format('Y-m-d'),$coll,$counter); 
-                        $sched = $coll->first();
-                      }
-                      
-                    
-                }//end else if today is in monthly_sched
+      $noWorkSched = true;
+      $startPt = null;
+      $sched = null; $schedule=new Collection;
+      $stat = "";
+      $workSched_monthly=null; $RDsched_monthly=null; $workSched_fixed=null; $RDsched_fixed=null;
 
 
 
+      $workSched_monthly = MonthlySchedules::where('user_id',$user->id)->where('productionDate',$pd)->
+                            where('isRD',0)->orderBy('productionDate','ASC')->get();
+      $RDsched_monthly = MonthlySchedules::where('user_id',$user->id)->where('productionDate',$pd)->where('isRD',1)->
+                            orderBy('created_at','DESC')->get();
+      $workSched_fixed = collect(FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get())->
+                          groupBy('schedEffectivity');
+      $RDsched_fixed = collect(FixedSchedules::where('user_id',$user->id)->where('isRD',1)->orderBy('created_at','DESC')->get())->
+                          groupBy('schedEffectivity');
 
-              }//end if else WD fixed
-                          
+      // return (['workSched_monthly'=>$workSched_monthly,'RDsched_monthly'=>$RDsched_monthly, 'workSched_fixed'=>$workSched_fixed,'RDsched_fixed'=>$RDsched_fixed]);
 
-              
-              
-                    
-                    
+      if (!is_null($RDsched_fixed)) //** understood na if no fixed RD, there's no fixed sched at all
+      {
 
-              if ( $coll->contains('chenes', $startingPoint->format('Y-m-d')) )
-              {
-                //do nothing
-               // $sched->push(['totalFschedules'=>count($totalFschedules), 'totalMschedules'=>$totalMschedules]);
-              } else{
-                $sched->push(['shiftStart'=>null, 'shiftEnd'=>null]);
+        $dt  = $productionDate->dayOfWeek;
+          switch($dt){
+            case 0: $dayToday = 6; break;
+            case 1: $dayToday = 0; break;
+            default: $dayToday = $dt-1;
+          }
 
-              }
+        $actual_fixed_WS = $this->getLatestFixedSchedGrouped($workSched_fixed,$productionDate->format('Y-m-d'),$dayToday);
+        $actual_fixed_RD = $this->getLatestFixedSchedGrouped($RDsched_fixed,$productionDate->format('Y-m-d'),$dayToday);
 
-             
+        if (is_null($actual_fixed_RD['workday']) && is_null($actual_fixed_WS['workday']) )
+        {
+          //** meaning di pa effective, so check monthly sched instead
+          goto monthlySchedNa;
+        }
+        else
+        {
+          //** check which is more updated, fixed or monthly
 
+          if ($actual_fixed_WS['workday'] == null)
+          {
+            //** if walang fixed WS, assumed na its fixed RD
+            //** pero check muna vs monthly
+            if (count($RDsched_monthly) > 0)
+            {
+              if ($RDsched_monthly[0]->created_at > $actual_fixed_RD['created_at'])
+                $sched = $RDsched_monthly[0];
+              else $sched = $actual_fixed_RD;
+            }
+            else $sched= $actual_fixed_RD;  
 
-       } else
-       {
-
-            if ($totalMschedules > 0)
             
-           {
-              //$monthlySched = MonthlySchedules::where('user_id',$id)->get();
-              $workSched = MonthlySchedules::where('user_id',$user->id)->where('isRD',0)->where('productionDate',$productionDate->format('Y-m-d'))->orderBy('productionDate','ASC')->get(); 
-              $RDsched = MonthlySchedules::where('user_id',$user->id)->where('isRD',1)->where('productionDate',$productionDate->format('Y-m-d'))->get(); 
-              $isFixedSched = false;
-              $noWorkSched = false;
 
-            } else
-           {
-              if ( $totalFschedules > 0)
-              {
-                  //merong fixed sched
-                  $workSched = FixedSchedules::where('user_id',$user->id)->where('isRD',0)->orderBy('created_at','DESC')->get();
-                              // $user->fixedSchedule->where('isRD',0);
-                  $RDsched = FixedSchedules::where('user_id',$user->id)->where('isRD',1)->orderBy('created_at','DESC')->select('workday')->get();
-                             // $user->fixedSchedule->where('isRD',1)->pluck('workday');
-                  $isFixedSched =true;
-                  $noWorkSched = false;
-                 // $fsched = $user->fixedSchedule->where('isRD',0)->sortBy('workday')->groupBy('workday');
+          }
 
-              } else
+          if ($actual_fixed_RD['workday'] == null)
+          {
+            //** if walang fixed RD, assumed na its fixed WS
+            //** pero check muna vs monthly
+            if (count($workSched_monthly) > 0)
+            {
+              if ($workSched_monthly[0]->created_at > $actual_fixed_WS['created_at'])
+                $sched = $workSched_monthly[0];
+              else $sched = $actual_fixed_WS;
+            }
+            else $sched= $actual_fixed_WS;  
+
+          }
+
+          //return (['sched'=>$sched]);
+          
+          //return (['dayToday'=>$dayToday, 'workSched_monthly'=>$workSched_monthly,'RDsched_monthly'=>$RDsched_monthly, 'actual_fixed_WS'=>$actual_fixed_WS,'actual_fixed_RD'=>$actual_fixed_RD,'workSched_fixed'=>$workSched_fixed,'RDsched_fixed'=>$RDsched_fixed]);
+        }
+
+        
+      }
+      else 
+      {
+        //*** no fixed, therefore monthly sched na sya
+        monthlySchedNa:
+
+            if (count($workSched_monthly) > 0)
+              $sched = $workSched_monthly[0];
+            else
+              $sched = $RDsched_monthly[0];
+
+      }
+
+      //** now that we have the sched, check if may CWS
+     
+      $bio = Biometrics::where('productionDate',$pd)->get();
+      if ($productionDate->isPast() && !$productionDate->isToday()) {
+              $bgcolor = "#e6e6e6";
+              $border = "#e6e6e6";
+              $startColor = "#7b898e"; $endColor = "#7b898e";
+            } else {
+              $bgcolor="#fff"; $border="#fff";$startColor = "#548807"; $endColor = "#bd3310";
+            }
+
+
+      if (count($bio)>0)
+      {
+        $b = $bio->first(); 
+        $cws = User_CWS::where('biometrics_id',$b->id)->where('user_id',$sched->user_id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
+        //return (['cws'=>$cws]);
+          if (count($cws)> 0)
+          {
+
+            //check mo muna kung alin mas recent between the sched and cws
+            if ($cws->first()->created_at > $sched->created_at){
+              //check mo muna kung RD
+
+              if ($cws->first()->timeStart == $cws->first()->timeEnd)
               {
-                  $noWorkSched = true;
-                  $workSched = null;
-                  $RDsched = null;
-                  $isFixedSched = false;
+                if($isStylized === true)
+                {
+                  //means 00:00:00 to 00:00:00
+
+                   $schedule->push(['title'=>'Rest day ',
+                              'start'=>$productionDate->format('Y-m-d') . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                              'end'=>$productionDate->format('Y-m-d') . " 00:00:00",
+                              'textColor'=> '#ccc',
+                              'backgroundColor'=> '#fff',
+                              'chenes'=>$productionDate,
+                              'biometrics_id'=> $b->id
+                               ]);
+                   $schedule->push(['title'=>'.',
+                                  'start'=>$productionDate->format('Y-m-d') . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                                  'textColor'=> '#fff',
+                                  'borderColor'=>$border,
+                                  'backgroundColor'=> '#e6e6e6',
+                                  'chenes'=>$productionDate->format('Y-m-d'),'icon2'=>"bed", 'biometrics_id'=>null
+                                   ]);
+
+
+                }
+                else
+                {
+                  $schedule = $cws->first();
+
+                }
+
+                return $schedule;
+                 
               }
-           }
+              else 
+              {
 
-             //-------------- if FIXED SCHED ----------------------
-               if ($isFixedSched){
+                 $correctTime = Carbon::parse($productionDate->format('Y-m-d') . " ". $cws->first()->timeStart,"Asia/Manila");
 
-               
-                
+                 if($isStylized===true)
+                 { //return (['isStylized'=>$isStylized]);
+                    $schedule->push(['title'=> date('h:i A', strtotime($cws->first()->timeStart)) . " to ",// '09:00 AM ',
+                          'start'=>$productionDate->format('Y-m-d') . " ". $cws->first()->timeStart, 
+                          'end'=>$correctTime->addHour(9)->format('Y-m-d H:i:s'),
+                          'textColor'=>  $startColor,// '#548807',// '#409c45',
+                          'backgroundColor'=> $bgcolor,
+                          'icon'=>"play-circle", 'biometrics_id'=> $b->id]);
 
-                  $dt  = $startingPoint->dayOfWeek;
+                    $schedule->push(['title'=>date('h:i A', strtotime($cws->first()->timeEnd)),
+                                      'start'=>$productionDate->format('Y-m-d') . " ". $cws->first()->timeStart, //. $sched->timeEnd,
+                                      'end'=>$correctTime->format('Y-m-d H:i:s'),
+                                      'textColor'=> $endColor,// '#bd3310',// '#27a7f7',
+                                      'backgroundColor'=> $bgcolor,
+                                      'icon'=>"stop-circle", 'biometrics_id'=> $b->id]);
+                    return $schedule;
 
-                  switch($dt){
-                    case 0: $dayToday = 6; break;
-                    case 1: $dayToday = 0; break;
-                    default: $dayToday = $dt-1;
-                  } 
-                  $wd_fixed = FixedSchedules::where('user_id',$user->id)->where('workday',$dayToday)->orderBy('created_at','DESC')->get();
-                              // $user->fixedSchedule->where('workday',$dayToday)->sortByDesc('created_at')->first();
+                 } else return $cws->first();
 
-                  //check first kung pasok sa effectivity date
-                 $counter=0;
-                  foreach ($wd_fixed as $key) 
+                 
+                 
+
+              }
+
+            } else{
+              // else, get the sched not the cws
+              goto proceedToSchedules;
+            }
+          } 
+          else 
+          {
+
+            //else, get the sched
+
+            
+
+            
+            proceedToSchedules: 
+            //return (['isStylized'=>$isStylized, 'sched'=>$sched]);
+
+                if($isStylized === true)
+                {
+                  if ($sched->isRD)
                   {
-                      if ( (Carbon::parse($key->schedEffectivity) <= $startingPoint) || $key->schedEffectivity == null )
-                      {
-                        
-                        $coll = $this->getFixedSchedules2($key,$startingPoint->format('Y-m-d'),$coll,$counter);
-                        $sched = $coll->first();
-                        break;
+                     $schedule->push(['title'=>'Rest day ',
+                                          'start'=>$pd . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                                          'end'=>$pd . " 00:00:00",
+                                          'textColor'=> '#ccc',
+                                          'backgroundColor'=> '#fff',
+                                          'chenes'=>$pd,'icon'=>" ", 'biometrics_id'=>$b->id
+                                           ]);
+                     $schedule->push(['title'=>'.',
+                                          'start'=>$pd . " 00:00:00", // dates->format('Y-m-d H:i:s'),
+                                          'end'=>$pd . " 00:00:00",
+                                          'textColor'=> '#fff',
+                                          'borderColor'=>$border,
+                                          'backgroundColor'=> '#e6e6e6',
+                                          'chenes'=>$pd,'icon2'=>"bed", 'biometrics_id'=>$b->id
+                                           ]);
 
-                      } $counter++;
+
                   }
+                  else 
+                  {
+                    $correctTime = Carbon::parse($pd  ." ".$sched->timeStart,"Asia/Manila");
+                    $schedule->push(['title'=> date('h:i A', strtotime($sched->timeStart)) . " to ",
+                                  'end'=>$correctTime->addHour(9)->format('Y-m-d H:i:s'),
+                                  'textColor'=>  $startColor,// '#409c45',
+                                  'backgroundColor'=> $bgcolor,'borderColor'=>$border,
+                                  'icon'=>"play-circle", 'biometrics_id'=>$b->id]);
+                    $schedule->push(['title'=>date('h:i A', strtotime($sched->timeEnd)),
+                                          'start'=>$pd  ." ".$sched->timeStart,
+                                          'end'=>$correctTime->format('Y-m-d H:i:s'),
+                                          'textColor'=> $endColor,// '#27a7f7',
+                                          'backgroundColor'=> $bgcolor,'borderColor'=>$border,
+                                          'icon'=>"stop-circle", 'biometrics_id'=>$b->id]);
 
-
-                  // if ( (Carbon::parse($wd_fixed->schedEffectivity) <= $startingPoint) || $wd_fixed->schedEffectivity == null )
-                  // {
-                  //   $coll = $this->getFixedSchedules2($wd_fixed,$startingPoint->format('Y-m-d'),$coll,$counter);
-                  //   $sched = $coll->first();
-                  // }
-              
-
-               } 
-               else{
-
-                     //-------------- ELSE SHIFTING SCHED ----------------------
-                     $ws = $workSched->groupBy('productionDate');
-
-                      foreach ($ws as $key) {
-
-                        $keys = $key->sortByDesc('created_at')->first();
-                        if($keys->productionDate <= $endDate->format('Y-m-d'))
-                        {
-
-                          //eliminate dupes
-                          $dupes = $RDsched->where('productionDate', $keys->productionDate)->sortByDesc('id');
-                          
-                          if(count($dupes) > 0 ){ //meaning may sched na tagged as workDay pero RD dapat
-
-                            //check mo muna which one is more current, RD or workDay ba sya?
-                               if ($dupes->first()->created_at > $keys->created_at) {
-                               
-                                $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);
-                                $sched = $coll->first();
-                              } else 
-                              {
-                                  $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);$sched = $coll->first();
-
-                              }
-                              
-
-                           } else {
-                             $coll = $this->getShiftingSchedules2($keys, $coll,$counter,$productionDate);$sched = $coll->first();
-
-                           }
-
-                            
-
-                        }
-                        
-                      } //end foreach workday
-
-                 
-
-                 
-
-                       $rs = $RDsched->groupBy('productionDate');
+                  }
+                  return $schedule;
+                }
+                else
+                  //return $b;
+                  return $sched; //** we just return raw schedule
                 
-                          foreach ($rs as $key) {
+                  
+          }
+      }
+      else
+      {
+        //** just return the sched
+        return $sched;
 
-                            if($key->first()->productionDate <= $endDate->format('Y-m-d'))
-                            {
+      } 
 
-                              //check this time if may RD na dapat eh workDay
-                              $dupes = $workSched->where('productionDate', $key->first()->productionDate)->sortByDesc('id');
-                              if (count($dupes) > 0){
-
-
-                              }else {
-
-                                $coll = $this->getShiftingSchedules2($key->first(), $coll,$counter,$productionDate);$sched = $coll->first();
-                               
-                              }
-
-                                
-
-                            }
-                            
-                          } //end foreach workday
-
-
-
-                     //-------------- ELSE SHIFTING SCHED ----------------------
-
-                           
-
-                              if ( $coll->contains('chenes', $startingPoint->format('Y-m-d')) )
-                              {
-                                //do nothing
-                              } else{
-                                $sched->push(['shiftStart'=>null, 'shiftEnd'=>null]);
-
-                              }
-
-               }//end else not fixed sched
-       } //end else both have monthly and fixed
-
-       //return response()->json($sched);
-       return $sched;
-
-      
     
-      //return response()->json($productionDate);
-
   }
 
 
