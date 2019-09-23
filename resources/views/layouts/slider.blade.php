@@ -1,6 +1,75 @@
-                    
+                  <div class="item active text-center" style="background-color: #fff" >
+                    <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <p style="margin-left: 35px;margin-right: 20px">Hello Open Access Family,<br/><br/>
 
-                   <div class="item active text-center" style="background-color: #fff" >
+                    September is almost over which means we are nearing the holiday season!
+                    And what does that mean for Open Access BPO?
+                    It means it's almost time to throw our most awaited event, the<strong> YEAR END PARTY!</strong><br/><br/>
+
+                    Mark your calendars as this year we will party to the theme that won in our survey - <strong style="font-size: larger; color: #000"> BLACK & WHITE!</strong><br/><br/>
+
+                    Date: <strong class="text-danger">December 14, 2019 Saturday</strong> <br/>
+                    Venue:<strong class="text-danger"> Rizal Ballroom, Makati Shangri-La</strong><br/><br/>
+
+                    Express yourself in Black & White as we party all night with great food, drinks, raffle prizes, and entertainment!<br/><br/>
+
+                    <a class="btn btn-md btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScbaoSSOL5m1mAz0ZV5kWqbDi7iTKLIYUkMKsJoL-PNtWEcRA/viewform" target="_blank"> Register Now </a><br/>to confirm your attendance. <br/>Registration ends October 31, 2019<br/><br/><br/></p>
+
+                    </div>  
+
+
+                    <div class="item text-center" >
+                        
+                         <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Dance Your Way</span> To Boracay!</h3>
+                         <br/><br/>
+
+                         <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                            <br/><span class="text-danger">September 24, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+
+                          <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                            <BR/><span class="text-danger">September 26, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                            <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
+                              Sign Up Now</a><br/><br/>
+
+                              <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                              <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                              
+                              <div class="text-left"  style="padding-left: 30px;">
+                                <h5>Minor Prizes:</h5>
+                                <ul>
+                                  <li>3 winners: SM Gift certificates worth Php 2,000</li>
+                                  <li>1 winner: SM Gift certificates worth Php 1,500</li>
+                                  <li>1 winner: SM Gift certificates worth Php 1,000</li>
+                                  <li>1 winner: JBL Flip3 Bluetooth speaker</li>
+                                  <li>1 winner: Promate 10,000mAh Powerbank</li>
+                                  <li>1 winner: urBeats3 earphones</li>
+                                </ul></div>
+
+                             <img src="./storage/uploads/letsgetphysical-118.jpg" style="z-index: 2" /><br/>
+
+                          <br/><br/>
+                           <strong>Venue:</strong><br/>
+
+                            OPEN ACCESS BPO G2 OFFICE<br/>
+
+                            11F Glorietta 2 Corporate Center,<br/>
+
+                            West. St., Ayala Center, Makati City<br/><br/>
+
+                            <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                            <br/><br/>
+
+                              View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                           
+                            <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                  <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                    </div>                  
+
+                   <div class="item text-center" style="background-color: #fff" >
                     <img src="./storage/uploads/suicide-0.png" style="z-index: 2" />
                     <br/><br/><br/>
 
