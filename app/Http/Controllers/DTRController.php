@@ -2203,7 +2203,7 @@ class DTRController extends Controller
                             if ($isRDToday)
                             {
 
-                              $data = $this->getRDinfo($id, $bioForTheDay,false,$payday);
+                              $data = $this->getRDinfo($id, $bioForTheDay,true,$payday);
                               $myDTR->push(['isRDToday'=>$isRDToday, 'payday'=>$payday,
                                    'biometrics_id'=>$bioForTheDay->id,
                                    'hasCWS'=>$hasCWS,
@@ -2241,6 +2241,7 @@ class DTRController extends Controller
                                    'UT'=>$data[0]['UT'],
                                    'isFixedSched'=>$isFixedSched,
                                    'hasApprovedCWS'=>$hasApprovedCWS,
+                                   'allData'=>$data,
                                    'approvedOT' => $data[0]['approvedOT']]);
 
                             }//end if isRDToday
@@ -2653,7 +2654,7 @@ class DTRController extends Controller
 
            //return response()->json(['isFixedSched'=>$isFixedSched]);
 
-             // return  count($user->monthlySchedules->sortByDesc('productionDate'));
+           // return  count($user->monthlySchedules->sortByDesc('productionDate'));
            //return $myDTR;
            return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
 

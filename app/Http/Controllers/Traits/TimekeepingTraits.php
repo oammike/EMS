@@ -2729,7 +2729,7 @@ trait TimekeepingTraits
       $hasPendingIN = null;
       $pendingDTRPin = null;
       $hasPendingOUT = null;
-      $pendingDTRPout = null;
+      $pendingDTRPout = null;$userLogOUT=null;
 
     $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
     $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
@@ -2798,6 +2798,7 @@ trait TimekeepingTraits
                   $userLogOUT = $pendingDTRPout;
 
                 } else {
+                  $userLogIN = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get();
                   $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
                 }
 
@@ -2903,7 +2904,7 @@ trait TimekeepingTraits
           }
           else
           {
-              if( is_null($userLogOUT) || count($userLogOUT)<1 )
+              if( is_null($userLogOUT) || count($userLogOUT) == 0 )
               {
 
                   blankOTout:
@@ -3008,6 +3009,7 @@ trait TimekeepingTraits
        $data->push(['shiftStart'=>$shiftStart, 
         'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
         'logOUT'=>$logOUT,'workedHours'=>$workedHours, 
+        'userLogOUT'=>$userLogOUT,'isSameDayLog'=>$isSameDayLog,
         'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute, 'UT'=>$UT, 
         'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null,
         'hasPendingIN' => $hasPendingIN,

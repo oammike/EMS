@@ -87,7 +87,7 @@ trait UserTraits
                           case 6: //CWS
                                   {
                                     $cws = User_CWS::find($detail->relatedModelID);
-                                    if (count($cws) > 0)
+                                    if (count((array)$cws) > 0)
                                     {
                                       $b = Biometrics::find($cws->biometrics_id);
 
@@ -131,7 +131,7 @@ trait UserTraits
 
                                     
 
-                                    if (count($ots) > 0)
+                                    if (count((array)$ots) > 0)
                                     {
                                       $b = Biometrics::find($ots->biometrics_id);
 
@@ -169,7 +169,7 @@ trait UserTraits
                           case 8: //LOGIN
                                   {
                                     $in = User_DTRP::find($detail->relatedModelID);
-                                    if (count($in) > 0)
+                                    if (count((array)$in) > 0)
                                     { 
                                       $b = Biometrics::find($in->biometrics_id);
 
@@ -207,7 +207,7 @@ trait UserTraits
                           case 9: //LOGOUT
                                   {
                                     $out = User_DTRP::find($detail->relatedModelID); 
-                                    if (count($out) > 0) {
+                                    if (count((array)$out) > 0) {
 
                                       $b = Biometrics::find($out->biometrics_id);
 
@@ -248,7 +248,7 @@ trait UserTraits
                           case 10: //VL
                                   {
                                     $vl = User_VL::find($detail->relatedModelID);
-                                    if (count($vl) > 0)
+                                    if (count((array)$vl) > 0)
                                     {
                                       
                                       if (is_null($vl->isApproved) )
@@ -273,7 +273,7 @@ trait UserTraits
                           case 11: //SL
                                   {
                                     $vl = User_SL::find($detail->relatedModelID);
-                                    if (count($vl) > 0)
+                                    if (count((array)$vl) > 0)
                                     {
                                       if (is_null($vl->isApproved) )
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-stethoscope",
@@ -297,7 +297,7 @@ trait UserTraits
                           case 12: //LWOP
                                   {
                                     $vl = User_LWOP::find($detail->relatedModelID);
-                                    if (count($vl) > 0)
+                                    if (count((array)$vl) > 0)
                                     {
                                       if (is_null($vl->isApproved) )
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-meh-o",
@@ -321,7 +321,7 @@ trait UserTraits
                           case 13: //obt
                                   {
                                     $vl = User_OBT::find($detail->relatedModelID);
-                                    if (count($vl) > 0)
+                                    if (count((array)$vl) > 0)
                                     {
                                       if (is_null($vl->isApproved) )
                                       $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-suitcase",
@@ -347,7 +347,7 @@ trait UserTraits
                           case 14: //Unlock DTR
                                   {
                                     $dtr = User_DTR::find($detail->relatedModelID);
-                                    if (count($dtr) > 0)
+                                    if (count((array)$dtr) > 0)
                                     {
                                       //if (is_null($dtr->isApproved) )
                                       $fromDate = Carbon::parse($dtr->productionDate,"Asia/Manila");
@@ -389,7 +389,7 @@ trait UserTraits
                           case 15: //Pre-shift OT
                                 {
                                   $vl = User_OT::find($detail->relatedModelID);
-                                  if (count($vl) > 0)
+                                  if (count((array)$vl) > 0)
                                   {
                                     if (is_null($vl->isApproved) ){
                                       $bio = Biometrics::find($vl->biometrics_id);
@@ -417,7 +417,7 @@ trait UserTraits
                           case 16: //ML
                                 {
                                   $vl = User_Familyleave::find($detail->relatedModelID);
-                                  if (count($vl) > 0)
+                                  if (count((array)$vl) > 0)
                                   {
                                     if (is_null($vl->isApproved) ){
                                       //$bio = Biometrics::find($vl->biometrics_id);
@@ -442,7 +442,7 @@ trait UserTraits
                           case 17: //PL
                                 {
                                   $vl = User_Familyleave::find($detail->relatedModelID);
-                                  if (count($vl) > 0)
+                                  if (count((array)$vl) > 0)
                                   {
                                     if (is_null($vl->isApproved) ){
                                       //$bio = Biometrics::find($vl->biometrics_id);
@@ -467,7 +467,7 @@ trait UserTraits
                           case 18: //SPL
                                 {
                                   $vl = User_Familyleave::find($detail->relatedModelID);
-                                  if (count($vl) > 0)
+                                  if (count((array)$vl) > 0)
                                   {
                                     if (is_null($vl->isApproved) ){
                                       //$bio = Biometrics::find($vl->biometrics_id);
@@ -492,7 +492,7 @@ trait UserTraits
                           case 19: //Unlock Specific ProductionDate DTR
                                   {
                                     $dtr = User_DTR::find($detail->relatedModelID);
-                                    if (count($dtr) > 0)
+                                    if (count((array)$dtr) > 0)
                                     {
                                       //if (is_null($dtr->isApproved) )
                                       $fromDate = Carbon::parse($dtr->productionDate,"Asia/Manila");

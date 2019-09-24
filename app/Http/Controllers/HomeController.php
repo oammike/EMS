@@ -849,7 +849,7 @@ class HomeController extends Controller
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
                     
-                    return view('dashboard-agent', compact('performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'unseenNotifs',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard-agent', compact('performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                     
 
 
@@ -860,7 +860,7 @@ class HomeController extends Controller
                     //-- Initialize Approvals Dashlet
 
                    
-                    return view('dashboard', compact('performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'unseenNotifs', 'mySubordinates', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard', compact('performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                    
 
 
