@@ -11,6 +11,7 @@ Homestead.json
 package.json
 composer.lock
 composer.json
+/public/img
 /public/img/employees
 /public/build/changes.txt
 /public/build/pmlogs.txt
