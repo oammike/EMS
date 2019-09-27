@@ -581,175 +581,167 @@ class HomeController extends Controller
     
     public function index()
     {
+      $coll = new Collection;
+      $user = $this->user; 
+      DB::connection()->disableQueryLog();
+      $forms = new Collection;
+
+      if ( is_null($user->nickname) ) $greeting = $user->firstname;
+      else $greeting = $user->nickname;
+
+      $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->first();
+      $canDo = UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS');
+      if (count($canDo)> 0 ) $reportsTeam=1; else $reportsTeam=0;
+
+      /* ---------------------------------------------------------*/
+      /* --- WE NOW CHECK FOR CAMPAIGN WIDGETS from FormBuilder --*/
+
+      if (empty($leadershipcheck)) {
+          $myCampaign = collect($this->user->campaign->first()->id);$prg=$myCampaign;} 
+      else { 
+            $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
+            $prg = collect(Campaign::where('name',"Postmates")->first()->id); //for widget
+      }
+
+      foreach ($myCampaign as $c) {
+        $d = DB::table('campaign_forms')->where('campaign_id','=',$c)->
+              join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+              join('campaign','campaign_forms.campaign_id','=','campaign.id')->
+              leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
+              leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
+              leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
+              leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+              select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
+                'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','DESC')->get(); 
+
+
+              if (!empty($d)) $forms->push($d);
+
+      }
+
+      if (!empty($forms) && !$reportsTeam){
+
         
+        $widget = collect($forms->first());
+        $groupedForm = $widget->groupBy('widgetTitle');
+        $groupedSelects = $widget->groupBy('selectGroup');
+
+        //return $groupedForm;
+
        
-       $coll = new Collection;
-       $user = $this->user; 
-       DB::connection()->disableQueryLog();
-       $forms = new Collection;
+
+      }else
+      {
+
+        if ($reportsTeam==1){
+
+          $prg = Campaign::where('name',"Postmates")->first();
+          $d = DB::table('campaign_forms')->where('campaign_id','=',$prg->id)->
+                join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+                join('campaign','campaign_forms.campaign_id','=','campaign.id')->
+                leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
+                leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
+                leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
+                leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
+                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
 
 
+                if (!empty($d)) $forms->push($d);
 
-       if ( is_null($user->nickname) ) $greeting = $user->firstname;
-       else $greeting = $user->nickname;
+                $widget = collect($forms->first());
+                $groupedForm = $widget->groupBy('widgetTitle');
+                $groupedSelects = $widget->groupBy('selectGroup');
 
-       $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->first();
-       $canDo = UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS');
-        if (count($canDo)> 0 ) $reportsTeam=1; else $reportsTeam=0;
+        }else {
+          $groupedForm = null; $groupedSelects=null;
+        }
+        
+      }
 
-       /* ---------------------------------------------------------*/
-       /* --- WE NOW CHECK FOR CAMPAIGN WIDGETS from FormBuilder --*/
+      $forApprovals = $this->getDashboardNotifs();// $this->getApprovalNotifs();USER TRAIT
 
-       if (empty($leadershipcheck)) {
-            $myCampaign = collect($this->user->campaign->first()->id);$prg=$myCampaign;} 
-       else { 
-              $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
-              $prg = collect(Campaign::where('name',"Postmates")->first()->id); //for widget
-              }//end if else
+      /************* PERFORMANCE EVALS ***************/
+      $userEvals = new Collection; $performance = new Collection;
+      $userEvals1 = $user->evaluations->sortBy('created_at')->filter(function($eval){
+                                return $eval->overAllScore > 0;
 
-          foreach ($myCampaign as $c) {
-            $d = DB::table('campaign_forms')->where('campaign_id','=',$c)->
-                  join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
-                  join('campaign','campaign_forms.campaign_id','=','campaign.id')->
-                  leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
-                  leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
-                  leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
-                  leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                  select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
-                    'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','DESC')->get(); 
+                    }); //->pluck('created_at','evalSetting_id','overAllScore'); 
 
+      
+      $byDateEvals =  $userEvals1->groupBy(function($pool) {
+                                    return Carbon::parse($pool->created_at)->format('Y-m-d');
+                                });
 
-                  if (!empty($d)) $forms->push($d);
+      $userEvals = new Collection;
 
-          }//end foreach
+      foreach ($byDateEvals as $evs) {
+        $key = $evs->unique('overAllScore');
 
-          if (!empty($forms) && !$reportsTeam){
+        switch ($key->first()->evalSetting_id) {
+              case '1':{
+                          $performance->push(['type'=>date('Y', strtotime($key->first()->startPeriod))." Jan-Jun", 'score'=>$key->first()->overAllScore]);
 
-            
-            $widget = collect($forms->first());
-            $groupedForm = $widget->groupBy('widgetTitle');
-            $groupedSelects = $widget->groupBy('selectGroup');
+                      }
+                 
+                  break;
 
-            //return $groupedForm;
+              case '2':{
+                          $performance->push(['type'=>date('Y', strtotime($key->first()->startPeriod))." Jul-Dec", 'score'=>$key->first()->overAllScore]);
 
-           
-
-          }else
-          {
-
-            if ($reportsTeam==1){
-
-              $prg = Campaign::where('name',"Postmates")->first();
-              $d = DB::table('campaign_forms')->where('campaign_id','=',$prg->id)->
-                    join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
-                    join('campaign','campaign_forms.campaign_id','=','campaign.id')->
-                    leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
-                    leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
-                    leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
-                    leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                    select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
-                      'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
-
-
-                    if (!empty($d)) $forms->push($d);
-
-                    $widget = collect($forms->first());
-                    $groupedForm = $widget->groupBy('widgetTitle');
-                    $groupedSelects = $widget->groupBy('selectGroup');
-
-            }else {
-              $groupedForm = null; $groupedSelects=null;
-            }
-            
+              }
+                  # code...
+                  break;
+              
+              
           }
 
-          $forApprovals = $this->getDashboardNotifs();// $this->getApprovalNotifs();USER TRAIT
+      };
 
-            /************* PERFORMANCE EVALS ***************/
-            $userEvals = new Collection; $performance = new Collection;
-
-             $userEvals1 = $user->evaluations->sortBy('created_at')->filter(function($eval){
-                                      return $eval->overAllScore > 0;
-
-                          }); //->pluck('created_at','evalSetting_id','overAllScore'); 
-
-            
-            $byDateEvals =  $userEvals1->groupBy(function($pool) {
-                                          return Carbon::parse($pool->created_at)->format('Y-m-d');
-                                      });
-
-            $userEvals = new Collection;
-
-            foreach ($byDateEvals as $evs) {
-              $key = $evs->unique('overAllScore');
-
-              switch ($key->first()->evalSetting_id) {
-                    case '1':{
-                                $performance->push(['type'=>date('Y', strtotime($key->first()->startPeriod))." Jan-Jun", 'score'=>$key->first()->overAllScore]);
-
-                            }
-                       
-                        break;
-
-                    case '2':{
-                                $performance->push(['type'=>date('Y', strtotime($key->first()->startPeriod))." Jul-Dec", 'score'=>$key->first()->overAllScore]);
-
-                    }
-                        # code...
-                        break;
-                    
-                    
-                }
-
-            };
-
-            /************* for SURVEY WIDGET ***************/
-            $doneS = DB::table('survey_user')->where('user_id',$this->user->id)->where('isDone',1)->get();
-            (count($doneS) > 0) ? $doneSurvey=1 : $doneSurvey=0;
+      /************* for SURVEY WIDGET ***************/
+      $doneS = DB::table('survey_user')->where('user_id',$this->user->id)->where('isDone',1)->get();
+      (count($doneS) > 0) ? $doneSurvey=1 : $doneSurvey=0;
 
 
-            /************* for TIMEKEEPING WIDGET ***************/
+      /************* for TIMEKEEPING WIDGET ***************/
 
-            //check if user has already logged in
+      //check if user has already logged in
 
-            $startToday = Carbon::now('GMT+8');
-            
-            if ($startToday->format('H:i') > date('H:i',strtotime('12AM')) && $startToday->format('H:i') <= date('H:i', strtotime('8AM')) ) //for those with 11pm-8am shift
-            {
-              
-              $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d'))->get();
-              //return $tomBio;
-              if (count($tomBio) > 0)
-                $b = $tomBio->first();
-              else {
-                $b = new Biometrics;
-                $b->productionDate = Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d');
-                $b->save();
+      $startToday = Carbon::now('GMT+8');
+      
+      if ($startToday->format('H:i') > date('H:i',strtotime('12AM')) && $startToday->format('H:i') <= date('H:i', strtotime('8AM')) ) //for those with 11pm-8am shift
+      {
+        
+        $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d'))->get();
+        //return $tomBio;
+        if (count($tomBio) > 0)
+          $b = $tomBio->first();
+        else {
+          $b = new Biometrics;
+          $b->productionDate = Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d');
+          $b->save();
 
-              }
-              
+        }
+        
 
-            }else {
+      }else {
 
-              
-              $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->format('Y-m-d'))->get();
-              if (count($tomBio) > 0)
-                $b = $tomBio->first();
-              else {
-                $b = new Biometrics;
-                $b->productionDate = Carbon::now('GMT+8')->format('Y-m-d');
-                $b->save();
+        
+        $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->format('Y-m-d'))->get();
+        if (count($tomBio) > 0)
+          $b = $tomBio->first();
+        else {
+          $b = new Biometrics;
+          $b->productionDate = Carbon::now('GMT+8')->format('Y-m-d');
+          $b->save();
 
-              }
-             
-            }
+        }
+       
+      }
 
-            $loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometrics_id',$b->id)->get();
+      $loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometrics_id',$b->id)->get();
 
-            if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;
-            
-            //return response()->json(['startToday'=>$startToday->format('H:i'), 'log'=> $loggedIn, 'alreadyLoggedIN'=>$alreadyLoggedIN]);// $loggedIn;
-
+      if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;
                
 
 
@@ -807,8 +799,7 @@ class HomeController extends Controller
                       else $notedMemo = false;
 
                     }else { $notedMemo=false; $memo=null; } 
-/*
-                }else {$notedMemo=false; $memo=null;}*/
+
 
 
                 
@@ -1042,11 +1033,36 @@ class HomeController extends Controller
 
         }break;
 
+         case 'VG':{
+                    if($this->user->id !== 564 ) {
+                      $user = User::find(Input::get('id'));
+                      $vg = Input::get('vg');
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n VidGall [".$vg."] by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
+        }break;
+
         
         
       }
       return response()->json(['success'=>"1"]);
 
            
+    }
+
+
+
+    public function videogallery()
+    {
+      if($this->user->id !== 564 ) {
+        $correct = Carbon::now('GMT+8'); 
+        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+          fwrite($file, "-------------------\n VidGallery by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+          fclose($file);
+      } 
+
+      return view('videogallery');
     }
 }

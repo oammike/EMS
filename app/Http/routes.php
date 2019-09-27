@@ -71,6 +71,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=>'page.gallery',
       'uses'=>'HomeController@gallery') );
 
+    Route::get('/videogallery', array(
+      'as'=>'page.videogallery',
+      'uses'=>'HomeController@videogallery') );
+
+
     Route::get('/gallery/getImages', array(
       'as'=>'page.getImages',
       'uses'=>'HomeController@getImages') );

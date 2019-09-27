@@ -223,7 +223,7 @@ select:-webkit-autofill:focus {
 
                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Videos</h3>
+                      <h3 class="box-title">Videos  <a class="btn btn-xs btn-default" href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i> Watch All</a></h3>
                       <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
