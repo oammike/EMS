@@ -23,7 +23,7 @@
                 <div class="item text-center" >
                     
                      <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 2nd Blood Donation Drive 2019</h3><br/><br/>
-                      <img src="./storage/uploads/wellness10.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                      <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
                       <p style="padding: 5px 30px; margin-bottom: 0px">
                       <h4>
                       <strong>When:</strong> <span class="text-danger"> Oct. 16, 2019 Wed (Jaka); <br/>Oct. 17, 2019 Thu (G2 Office)</span><br/>
