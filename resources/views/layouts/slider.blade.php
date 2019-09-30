@@ -1,6 +1,14 @@
                   <div class="item active text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"><strong class="text-primary">CS Week 2019</strong></p>
+                                <img src="./storage/uploads/csweek2019.jpg" style="z-index: 2" />
+
+                  </div>
+
+                  <div class="item  text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/heartday-1.jpg" style="z-index: 2" />
                                <p class="text-center" style="padding: 30px;"><br/><br/><strong class="text-primary">Sept.29 : Happy World Heart Day!</strong>
                                 <br/><br/>Every heartbeat matters. On #WorldHeartDay, make the commitment to take care of your heart and prevent heart diseases and stroke. Inspire your loved ones to do the same!<br/><br/>#WeSpeakYourLanguage #OAonHeartDay</p>
