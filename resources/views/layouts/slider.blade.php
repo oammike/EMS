@@ -1,6 +1,13 @@
                   <div class="item active text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"><strong class="text-primary"></strong></p>
+                                <img src="./storage/uploads/welcome-mattCate.jpg" style="z-index: 2" />
+
+                  </div>
+                  <div class="item text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <p class="text-center"><strong class="text-primary">CS Week 2019</strong></p>
                                 <img src="./storage/uploads/csweek2019.jpg" style="z-index: 2" />
 
