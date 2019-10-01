@@ -112,6 +112,14 @@
           
           <article class="video">
             <figure>
+              <a data-fancybox="gallery" data-file="intlTranslationDay" href="http://172.17.0.2/evaluation/storage/uploads/intlTranslationDay.mp4">
+              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-intlTranslationDay.jpg"></a>
+            </figure>
+            <h5 class="videoTitle text-center">International Translation Day [09.30]</h5>
+          </article>
+
+          <article class="video">
+            <figure>
               <a data-fancybox="gallery" data-file="worldgratitude" href="http://172.17.0.2/evaluation/storage/uploads/worldgratitude.mp4">
               <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-worldgratitude.jpg"></a>
             </figure>

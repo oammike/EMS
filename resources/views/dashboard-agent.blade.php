@@ -72,11 +72,9 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">September 21 : <span class="text-orange">World Gratitude Day! </span> </strong></p>
-                      <video id="teaser" src="storage/uploads/worldgratitude.mp4" width="100%" loop controls></video>
-                      <p align="center"><br/><span style="font-size: small;"><strong>Happy #WorldGratitudeDay!</strong> Do you have a list of things you appreciate in your life? It’s never too late to make a habit of embracing a grateful life. We asked a few of our employees about what makes their lives brighter.<br/><br/>
-
-#WeSpeakYourLanguage</span> </p>
+                      <p class="text-center"><strong class="text-primary">September 30 : <span class="text-orange">International Translation Day! </span> </strong></p>
+                      <video id="teaser" src="storage/uploads/intlTranslationDay.mp4" width="100%" loop controls></video>
+                      <p align="center"><br/><span style="font-size: small;">Language is a catalyst for change, development, and peace. It unites us in ways we never knew possible, making it an important tool to promote culture and unity.<BR/><BR/>Every September 30th, we celebrate #InternationalTranslationDay to honor the work of language professionals—such as translators, interpreters, and terminologists—who connect nations, promote culture, and facilitate understanding and cooperation.<br/><br/>#WeSpeakYourLanguage</span> </p>
                       
                     </div>
                 </div>
