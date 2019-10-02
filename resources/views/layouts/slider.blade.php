@@ -1,7 +1,8 @@
                    <div class="item active text-center" style="background-color: #fff" >
                       
                               <h4 class="text-primary" >Open Access <span class="text-orange"> Mobile Legends Tournament </span></h4>
-                              <p class="text-center"><a class="btn btn-sm btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeqN1SnEJp44dmEmR-rWkPGCd2orZ7lBW7QTFjwFmBZzVHwwA/viewform" target="_blank">Register Now</a></p>
+                              <p class="text-center"><a class="btn btn-md btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeqN1SnEJp44dmEmR-rWkPGCd2orZ7lBW7QTFjwFmBZzVHwwA/viewform" target="_blank">Register Now!</a><br/>
+                                Registration ends <strong>Oct. 9, 2019 Wed 3PM </strong></p>
                               <p class="text-center"><strong class="text-primary"></strong></p>
                                 <img src="./storage/uploads/mobileLegends.jpg" style="z-index: 2" />
 
