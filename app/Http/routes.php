@@ -61,6 +61,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('approver','UserLeaderController');
 
     Route::resource('survey','SurveyController');
+    Route::resource('employeeEngagement','EngagementController');
 
 
     Route::get('/logAction/{action}', array(
