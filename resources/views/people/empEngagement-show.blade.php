@@ -30,7 +30,10 @@
                 @if( $engagement[0]->withVoting === 1 )
                 <hr/>
                 <div class="row">
-                  <div class="col-sm-6"><h3>Vote Now</h3></div>
+                  <div class="col-sm-6">
+                    <h3 class="text-primary">Vote Now</h3>
+                  </div>
+                  
                   <div id="entry" class="col-sm-6" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
                     <h3 class="text-primary">Submit Your Entry:</h3>
 
@@ -97,7 +100,36 @@
     var itemIDs = $('#entry .form-control').map(function( i, e ) {
                   return $( e ).attr('data-itemID');
                 }).get();
-    console.log(items);
+    var _token = "{{ csrf_token() }}";
+
+    $.ajax({
+
+                url:"{{action('EngagementController@saveEntry')}}",
+                type:'POST',
+                data:{
+
+                  'engagement_id': "{{$id}}",
+                  'items': items,
+                  'itemIDs': itemIDs,
+                  
+                  _token: _token
+
+                },
+                error: function(response)
+                { console.log("Error saving entry: ");
+                  console.log(response);
+                  $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                  return false;
+                },
+                success: function(response)
+                {
+                  console.log(response);
+                  $.notify("Entry submitted. \nThank you for participating.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                  $('#submit').fadeOut();
+
+                }
+
+          });
 
    });
 

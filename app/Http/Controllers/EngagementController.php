@@ -21,6 +21,7 @@ use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
 use OAMPI_Eval\Engagement;
 use OAMPI_Eval\Engagement_Entry;
+use OAMPI_Eval\Engagement_EntryDetails;
 use OAMPI_Eval\Cutoff;
 use OAMPI_Eval\User_Leader;
 use OAMPI_Eval\Campaign;
@@ -55,7 +56,14 @@ class EngagementController extends Controller
     						join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
     						select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
     						get();
-    	return view('people.empEngagement-show',compact('engagement'));
+
+    	$existingEntry = DB::table('engagement_entry')->where('engagement_id',$id)->
+    							where('user_id',$this->user->id)->
+    							select('id')->get();
+    	(count($existingEntry) > 0) ? $hasEntry=true : $hasEntry=false;
+    	return $existingEntry;
+
+    	return view('people.empEngagement-show',compact('engagement','id','hasEntry'));
     	//return $engagement;
     }
 
@@ -68,5 +76,20 @@ class EngagementController extends Controller
     	$entry->created_at = $correct->format('Y-m-d H:i:s');
     	$entry->updated_at = $correct->format('Y-m-d H:i:s');
     	$entry->save();
+
+    	$ctr = 0;
+    	foreach ($request->itemIDs as $k) {
+    		$userEntry = new Engagement_EntryDetails;
+    		$userEntry->engagement_entryID = $entry->id;
+    		$userEntry->entry_itemID = $k;
+    		$userEntry->value = $request->items[$ctr];
+    		$userEntry->created_at = $correct->format('Y-m-d H:i:s');
+    		$userEntry->updated_at = $correct->format('Y-m-d H:i:s');
+    		$userEntry->save();
+    		
+    		$ctr++;
+    	}
+
+    	return response()->json(['success'=>1, 'entry'=>$entry]);
     }
 }

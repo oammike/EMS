@@ -105,6 +105,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'resource.download',
       'uses'=>'ResourceController@download') );
 
+
+    /********** emp ENGAGEMENT  **************/
+    Route::post('/employeeEngagement/saveEntry', array(
+      'as'=> 'employeeEngagement.saveEntry',
+      'uses'=>'EngagementController@saveEntry') );
+
     /********** FORM BUILDER **************/
     Route::post('/formSubmissions/process', array(
       'as'=> 'formSubmissions.process',
