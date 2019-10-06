@@ -1,4 +1,11 @@
-                   <div class="item active text-center" style="background-color: #fff" >
+                  <div class="item active text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"><strong class="text-orange">Happy </strong> <strong class="text-primary">CS Week 2019 !!!</strong></p>
+                                <img src="./storage/uploads/csweek2019.jpg" style="z-index: 2" />
+
+                  </div>
+                  <div class="item  text-center" style="background-color: #fff" >
                       
                               <h4 class="text-primary" >Open Access <span class="text-orange"> Mobile Legends Tournament </span></h4>
                               <p class="text-center">Create a <strong class="text-danger" style="font-size: larger;">team of 5 players</strong> and <br/><a class="btn btn-md btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeqN1SnEJp44dmEmR-rWkPGCd2orZ7lBW7QTFjwFmBZzVHwwA/viewform" target="_blank">Register Now!</a><br/><br/>
@@ -8,20 +15,8 @@
 
                   </div>
 
-                  <div class="item text-center" style="background-color: #fff" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <p class="text-center"><strong class="text-primary"></strong></p>
-                                <img src="./storage/uploads/welcome-mattCate.jpg" style="z-index: 2" />
-
-                  </div>
-                  <div class="item text-center" style="background-color: #fff" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <p class="text-center"><strong class="text-primary">CS Week 2019</strong></p>
-                                <img src="./storage/uploads/csweek2019.jpg" style="z-index: 2" />
-
-                  </div>
+                  
+                 
 
                  
                       <!-- BLOOD DONATION-->
@@ -482,6 +477,14 @@
 
 
 <?php /*
+
+<div class="item text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"><strong class="text-primary"></strong></p>
+                                <img src="./storage/uploads/welcome-mattCate.jpg" style="z-index: 2" />
+
+                  </div>
 
 <!-- shana tova -->
 <div class="item  text-center" style="background-color: #fff" >
