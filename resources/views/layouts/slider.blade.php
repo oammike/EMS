@@ -5,6 +5,19 @@
                                 <img src="./storage/uploads/csweek2019.jpg" style="z-index: 2" />
 
                   </div>
+
+                  <div class="item text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"> <strong class="text-primary"><br/>Here's a quick throwback to our last year's</strong>
+                                <br/><strong class="text-orange"> CS Week 2018 </strong></p><a class="btn btn-default btn-sm" href="{{ action('HomeController@gallery',['a'=>18]) }}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a><br/><br/>
+                                 <img src="./storage/uploads/dressupWinner2.jpg" style="z-index: 2" /><br/>
+                                
+                               
+
+                  </div>
+
+
                   <div class="item  text-center" style="background-color: #fff" >
                       
                               <h4 class="text-primary" >Open Access <span class="text-orange"> Mobile Legends Tournament </span></h4>

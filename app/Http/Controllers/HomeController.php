@@ -74,7 +74,12 @@ class HomeController extends Controller
 
           switch ($album) {
 
-             case '17':{
+            case '18':{
+               fwrite($file, "-------------------\n TBT CSweek2018 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
+            case '17':{
                fwrite($file, "-------------------\n Davao Anniv [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
             }break;
@@ -429,6 +434,60 @@ class HomeController extends Controller
                   }
 
         } break;
+
+
+        //CS WEEK 2018 THROWBACK
+
+        case '18': {
+
+                           // Dress up
+                  for($i=1; $i<=24; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-dressupwinner".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/dressupWinner".$i.".jpg",
+                                'description'=>"Dress Up Your Leader Contest - CS WEEK 2018",
+                                'category'=>"Dress Up Your Leader 2018"]);
+
+                  }
+
+
+                   // CS WEEK
+                  for($i=1; $i<=32; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-photobooth".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/photobooth".$i.".jpg",
+                                'description'=>"Thank you all for participating in this year's CS Week!",
+                                'category'=>"Photobooth"]);
+
+                  }
+
+                  // CS WEEK
+                  for($i=1; $i<=22; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-cs_".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/cs_".$i.".jpg",
+                                'description'=>"Thank you all for participating in this year's CS Week!",
+                                'category'=>"CS Week 2018"]);
+
+                  }
+
+                  //appreciation
+                  for($i=1; $i<=10; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-appreciate".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/appreciate".$i.".jpg",
+                                'description'=>"\"Gratitude can transform common days into Thanksgiving, turn routine jobs into joy and change opportunities into blessings.\" - William Arthur Ward ",
+                                'category'=>"CS Week 2018"]);
+
+                  }
+
+                  //donuts
+                  for($i=1; $i<=24; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/thumb-donuts".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/donuts".$i.".jpg",
+                                'description'=>"Dunkin' is in the house! Get your free donuts and coffee at the 8th floor pantry today. Happy <a href=\"https://www.instagram.com/explore/tags/csweek/\" target=\"_blank\">#CSWeek </a>everyone! ",
+                                'category'=>"Dunkin' In The House"]);
+
+                  }
+
+
+        }break;
 
 
         // case '7': {
