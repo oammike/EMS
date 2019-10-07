@@ -1,4 +1,47 @@
-                  <div class="item active text-center" style="background-color: #fff" >
+                  
+
+
+                  <div class="item active text-center" style="background-color: #fff; background:url('./storage/uploads/ben.png')top right no-repeat #fff;" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"><strong class="text-orange">Happy </strong> <strong class="text-primary">CS Week 2019 !!!</strong></p>
+                              <p style="padding-left:30px;padding-right: 250px; font-size: smaller;" class="text-left">
+                                <br/><br/><strong>Dear Open Access Family,</strong> <br/><br/>
+
+                                For us in the Exec team, you’re not just our employees.
+                                Every single one of you is part of the company’s success, and for that, we want to thank you. We organized the Customer Service Week as a way of extending our heartfelt gratitude for your dedication, loyalty, and hard work. This week will be packed with fun activities, so go ahead and enjoy with the rest of the family. <br/><br/>Happy Customer Service Week!<br/><br/>
+
+                                Ben
+                              </p><br/><br/><br/><br/><br/><br/>
+                              <h4 class="text-center text-danger"> CS Week 2019 Activities:</h4>
+
+ 
+                              <table class="table text-left" style="padding:20px;width: 80%">
+                                <tr>
+                                  <td class="text-primary"><strong>Oct 8 (Tue) Movie Day</strong> <br/>9AM - 12MN</td>
+                                  <td>* Jaka - 5F common area <br/>* G2 lobby</td>
+                                  
+                                </tr>
+                                <tr>
+                                  <td class="text-primary"><strong>Oct 9 (Wed) Massage Day</strong> <br/>10AM - 10PM</td>
+                                  <td>* Jaka - 5F common area<br/>* G2 - recreational area</td>
+                                </tr>
+                                <tr>
+                                  <td class="text-primary"><strong>Oct 10 (Thu) Magical Day with your teams</strong> </td>
+                                  <td>(Activities to do with your respective teams)</td>
+                                </tr>
+                                <tr>
+                                  <td class="text-primary"><strong>Oct 11 (Fri) Magical Day as One Team</strong></td>
+                                  <td>(Townhall, Open Access Idol & Snacks for all)</td>
+                                </tr>
+                                
+                              </table><br/><br/><br/><br/><br/><br/><br/><br/>
+                               
+
+
+                  </div>
+
+                  <div class="item  text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <p class="text-center"><strong class="text-orange">Happy </strong> <strong class="text-primary">CS Week 2019 !!!</strong></p>
