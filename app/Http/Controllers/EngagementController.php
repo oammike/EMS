@@ -57,13 +57,15 @@ class EngagementController extends Controller
     						select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
     						get();
 
-    	$existingEntry = DB::table('engagement_entry')->where('engagement_id',$id)->
+    	$existingEntry = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
     							where('user_id',$this->user->id)->
-    							select('id')->get();
+                                join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->get();
+    							//select('id')->get();
     	(count($existingEntry) > 0) ? $hasEntry=true : $hasEntry=false;
-    	return $existingEntry;
+    	//return $existingEntry;
 
-    	return view('people.empEngagement-show',compact('engagement','id','hasEntry'));
+    	return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry'));
     	//return $engagement;
     }
 
@@ -91,5 +93,22 @@ class EngagementController extends Controller
     	}
 
     	return response()->json(['success'=>1, 'entry'=>$entry]);
+    }
+
+    public function voteNow($id)
+    {
+        DB::connection()->disableQueryLog(); 
+        $engagement = DB::table('engagement')->where('engagement.id',$id)->
+                            join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
+                            join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
+                            select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
+                            get();
+        $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
+                                join('engagement','engagement_entry.engagement_id','=','engagement.id')->
+                                join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->get();
+
+        return $allEntries;
+        return view('people.empEngagement-vote',compact('engagement'));
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Employee Engagement Activities | EMS</title>
+<title>All Entries: Employee Engagement Activities | EMS</title>
 @endsection
 
 @section('content')
@@ -24,57 +24,7 @@
 
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4);padding:30px">
                 
-                {!! $engagement[0]->content!!}
 
-
-                @if( $engagement[0]->withVoting === 1 )
-                <hr/>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <h3 class="text-default">View All submitted entries</h3>
-                    <a class="btn btn-lg btn-success" href="{{action('EngagementController@voteNow',$id)}}">Vote for your favorite entry</a>
-                  </div>
-                  
-                  <div id="entry" class="col-sm-6" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
-                    @if ($hasEntry)
-                    <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
-                      @foreach($existingEntry as $e)
-                      <h4 style="padding-top: 20px">{{$e->label}} :</h4> {{$e->value}}<br/>
-
-                      @endforeach
-                    @else
-                        <h3 class="text-primary">Submit Your Entry:</h3>
-                        @foreach($engagement as $element)
-                        <label style="padding-top: 20px">{{$element->label}} </label>
-
-                            @if( $element->dataType == 'TXT' )
-                            <input type="text" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" />
-
-                            @endif
-
-
-                            @if( $element->dataType == 'PAR' )
-                            <textarea name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control"></textarea>
-                            @endif
-
-
-
-                        @endforeach
-                    @endif
-
-                    
-
-                    @if ($hasEntry)
-
-                    @else
-                    <a id="submit" class="btn btn-lg btn-success pull-right" style="margin-top: 20px"> Submit</a>
-
-                    @endif
-                    
-                  </div>
-                </div>
-
-                @endif
 
 
 

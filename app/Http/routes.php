@@ -107,6 +107,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
     /********** emp ENGAGEMENT  **************/
+
+    Route::get('/employeeEngagement/{id}/voteNow', array(
+      'as'=> 'employeeEngagement.voteNow',
+      'uses'=>'EngagementController@voteNow') );
+
     Route::post('/employeeEngagement/saveEntry', array(
       'as'=> 'employeeEngagement.saveEntry',
       'uses'=>'EngagementController@saveEntry') );
