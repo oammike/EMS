@@ -802,6 +802,19 @@ class HomeController extends Controller
 
       if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;
                
+                /************* idols  ***************/
+                $idols = new Collection;
+                $idolIDs = [829, 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 674,1686, 3260, 2723];
+
+                foreach ($idolIDs as $i) {
+                  $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
+                            join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
+                            leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
+                            select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
+                  $idols->push($u[0]);
+                }
+                
+
 
 
                 /************* SHOUT OUT ***************/
@@ -899,7 +912,7 @@ class HomeController extends Controller
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
                     
-                    return view('dashboard-agent', compact('performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard-agent', compact('idols', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                     
 
 
@@ -910,7 +923,7 @@ class HomeController extends Controller
                     //-- Initialize Approvals Dashlet
 
                    
-                    return view('dashboard', compact('performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    return view('dashboard', compact('idols', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
                    
 
 

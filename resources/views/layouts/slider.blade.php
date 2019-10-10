@@ -1,13 +1,35 @@
                   
+                  <?php $cidol=1;?>
+                  @foreach($idols as $idol)
+                   
+                   @if($cidol == 1)
+                   <div class="item active text-center" style="min-height: 800px; background-size:98%; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
+                   @else
+                   <div class="item  text-center" style="min-height: 800px; background-size:98%; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
 
+                   @endif
 
-                   <div class="item active text-center" style="background-color: #fff" >
                       
                              
-                                <img src="./storage/uploads/day4.jpg" style="z-index: 2" />
+                               <h2 style="padding-top: 280px; color: #fff">Preliminary Round</h2>
+                               <p class="text-center">
+                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
+                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
+                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
+                                                          @if (empty($idol->filename))
+                                                              {{$idol->program}}
+                                                          @else
+                                                           <img src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
+
+                                                          @endif
+                                </h4></a></p>
+                                <h5 style="color:#fff"><br/>Friday, Oct.11<br/>Live at the G2 lobby after Townhall Meeting</h5>
                                
 
                   </div>
+
+                  <?php $cidol++;?>
+                  @endforeach
 
                   <div class="item text-center" style="background-color: #fff; background:url('./storage/uploads/ben.png')top right no-repeat #fff;" >
                       
