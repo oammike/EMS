@@ -48,6 +48,8 @@ class EngagementController extends Controller
         $this->user =  User::find(Auth::user()->id);
     }
 
+
+
     public function show($id)
     {
     	DB::connection()->disableQueryLog(); 
@@ -62,7 +64,7 @@ class EngagementController extends Controller
                                 join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                                 join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->
                                 join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
-                                select('engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryDetails.id as itemID', 'engagement_entryItems.label','engagement_entry.user_id','engagement_entry.created_at')->get(); return $existingEntry;
+                                select('engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryDetails.id as itemID', 'engagement_entryItems.label','engagement_entry.user_id','engagement_entry.created_at')->get();
         
     							//select('id')->get();
     	(count($existingEntry) > 0) ? $hasEntry=true : $hasEntry=false;
@@ -97,6 +99,15 @@ class EngagementController extends Controller
     	}
 
     	return response()->json(['success'=>1, 'entry'=>$entry]);
+    }
+
+
+    public function updateEntry(Request $request)
+    {
+        $entry = Engagement_EntryDetails::find($request->itemID);
+        $entry->value = $request->value;
+        $entry->save();
+        return $entry;
     }
 
 

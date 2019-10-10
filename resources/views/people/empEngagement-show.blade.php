@@ -46,9 +46,9 @@
                         
 
                           @if($e->elemType === 'PAR')
-                              <h4 style="padding-top: 20px">{{$e->label}} :<a class="btn btn-xs btn-default pull-right" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a></h4>  <div style="margin:20px; white-space: pre-wrap;">{!! $e->value !!}</div>
+                              <h4 style="padding-top: 20px" class="edit">{{$e->label}} :<a class="btn btn-xs btn-default pull-right" data-itemID="{{$e->itemID}}" data-itemType="{{$e->elemType}}" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a><div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e->value !!}</div></h4>  
                           @else
-                               <h4 style="padding-top: 20px">{{$e->label}} : <a class="btn btn-xs btn-default pull-right" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a> <span style="font-weight: 100"> {!! $e->value !!}</span></h4> 
+                               <h4 style="padding-top: 20px" class="edit">{{$e->label}} : <a class="btn btn-xs btn-default pull-right" data-itemID="{{$e->itemID}}" data-itemType="{{$e->elemType}}"   style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a> <span style="font-weight: 100" class="editable"> {!! $e->value !!}</span></h4> 
 
                           @endif
 
@@ -124,46 +124,120 @@
   $(function () {
    'use strict';
 
-   $('#submit').on('click',function(){
+   @if($hasEntry)
 
-    var items = $('#entry .form-control').map(function( i, e ) {
-                  return $( e ).val();
-                }).get();
-    var itemIDs = $('#entry .form-control').map(function( i, e ) {
-                  return $( e ).attr('data-itemID');
-                }).get();
-    var _token = "{{ csrf_token() }}";
+    $('h4.edit a').on('click',function(){
 
-    $.ajax({
+      var itemID = $(this).attr('data-itemID');
+      var itemType = $(this).attr('data-itemType');
+      var items = $(this).siblings();
+      var contents = items[0].innerText;
+      var btn = $(this);
+      var _token = "{{ csrf_token() }}";
 
-                url:"{{action('EngagementController@saveEntry')}}",
-                type:'POST',
-                data:{
+      items.html("");
+      btn.fadeOut();
 
-                  'engagement_id': "{{$id}}",
-                  'items': items,
-                  'itemIDs': itemIDs,
-                  
-                  _token: _token
+      if (itemType === "TXT")
+        var htmlcode = "<input type='text' class='form-control'  id='"+itemID+"' value='"+contents+"' /> ";
+      else if(itemType === "PAR")
+        var htmlcode = "<textarea id='"+itemID+"'  class='form-control' rows='20' >"+contents+"</textarea>";
 
-                },
-                error: function(response)
-                { console.log("Error saving entry: ");
-                  console.log(response);
-                  $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
-                  return false;
-                },
-                success: function(response)
-                {
-                  console.log(response);
-                  $.notify("Entry submitted. \nThank you for participating.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                  $('#submit').fadeOut();
+      items.append(htmlcode);
 
-                }
 
-          });
+      items.focusout(function(){
 
-   });
+          var newcontents = items[0];
+          var newitems = $('#'+itemID).val();
+          console.log(newitems);
+          $.ajax({
+
+                  url:"{{action('EngagementController@updateEntry')}}",
+                  type:'POST',
+                  data:{
+
+                    'itemID': itemID,
+                    'value': newitems,
+                    _token: _token
+
+                  },
+                  error: function(response)
+                  { console.log("Error saving entry: ");
+                    console.log(response);
+                    $.notify("Error saving entry.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                    return false;
+                  },
+                  success: function(response)
+                  {
+                    console.log(response);
+                    $.notify("Entry updated. \nThank you for participating.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                    btn.fadeIn();window.location.reload(true); 
+                   
+
+                  }
+
+            });
+
+
+          
+          //
+      });
+      
+
+      //console.log($(this).attr('data-itemID'));
+
+    });
+
+
+
+   @else
+
+      $('#submit').on('click',function(){
+
+      var items = $('#entry .form-control').map(function( i, e ) {
+                    return $( e ).val();
+                  }).get();
+      var itemIDs = $('#entry .form-control').map(function( i, e ) {
+                    return $( e ).attr('data-itemID');
+                  }).get();
+      var _token = "{{ csrf_token() }}";
+
+      $.ajax({
+
+                  url:"{{action('EngagementController@saveEntry')}}",
+                  type:'POST',
+                  data:{
+
+                    'engagement_id': "{{$id}}",
+                    'items': items,
+                    'itemIDs': itemIDs,
+                    
+                    _token: _token
+
+                  },
+                  error: function(response)
+                  { console.log("Error saving entry: ");
+                    console.log(response);
+                    $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                    return false;
+                  },
+                  success: function(response)
+                  {
+                    console.log(response);
+                    $.notify("Entry submitted. \nThank you for participating.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                    $('#submit').fadeOut();
+
+                  }
+
+            });
+      });
+
+   @endif
+
+   
+
+  
 
   
        
