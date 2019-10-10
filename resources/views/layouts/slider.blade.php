@@ -37,7 +37,7 @@
                   <?php $cidol++;?>
                   @endforeach
 
-                  <div class="item active  text-center" style="background-color: #fff" >
+                  <div class="item  text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <p class="text-center"><a class="btn btn-lg btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSf1QiZugFbb-8_E4xJBMhwVJf9EzSTlET9ERXR9AfzNgYXKrA/viewform" target="_blank">Register NOW </a> </p>
@@ -271,15 +271,7 @@
 
 
 
-                   <div class="item text-center" style="background-color: #fff" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <img src="./storage/uploads/davao-anniv-1.jpg" style="z-index: 2" />
-                               <p class="text-center" style="padding-left: 0px;"><br/><br/><strong class="text-primary">Open Access BPO Davao recently celebrated it's4th year</strong>  <br/>and we couldn't be any happier!<br/><br/>It was indeed one awesome indoor party, celebrated with<strong>CEO Ben Davidowitz, President Henry Chang, and Business Development Manager Alessio Urbani</strong>  (with two furry friends). Cheers to more years together, team Davao!</strong></p>
-                                <a class="btn btn-md btn-primary" target="_blank" href="{{ action('HomeController@gallery',['a'=>17]) }}"><i class="fa fa-picture-o"></i> View album</a><br/><br/><br/>
-
-                    </div>
-
+                  
 
 
 
@@ -579,6 +571,16 @@
 
 
 <?php /*
+
+ <div class="item text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/davao-anniv-1.jpg" style="z-index: 2" />
+                               <p class="text-center" style="padding-left: 0px;"><br/><br/><strong class="text-primary">Open Access BPO Davao recently celebrated it's4th year</strong>  <br/>and we couldn't be any happier!<br/><br/>It was indeed one awesome indoor party, celebrated with<strong>CEO Ben Davidowitz, President Henry Chang, and Business Development Manager Alessio Urbani</strong>  (with two furry friends). Cheers to more years together, team Davao!</strong></p>
+                                <a class="btn btn-md btn-primary" target="_blank" href="{{ action('HomeController@gallery',['a'=>17]) }}"><i class="fa fa-picture-o"></i> View album</a><br/><br/><br/>
+
+                    </div>
+
 
 <div class="item text-center" style="background-color: #fff" >
                       
