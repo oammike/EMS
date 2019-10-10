@@ -60,7 +60,9 @@ class EngagementController extends Controller
     	$existingEntry = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
     							where('user_id',$this->user->id)->
                                 join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
-                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->get();
+                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->
+                                join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
+                                select('engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryDetails.id as itemID', 'engagement_entryItems.label','engagement_entry.user_id','engagement_entry.created_at')->get(); return $existingEntry;
         
     							//select('id')->get();
     	(count($existingEntry) > 0) ? $hasEntry=true : $hasEntry=false;

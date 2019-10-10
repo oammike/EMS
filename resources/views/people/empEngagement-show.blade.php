@@ -37,11 +37,26 @@
                   
                   <div id="entry" class="col-sm-6" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
                     @if ($hasEntry)
-                    <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
-                      @foreach($existingEntry as $e)
-                      <h4 style="padding-top: 20px">{{$e->label}} :</h4> {{$e->value}}<br/>
 
-                      @endforeach
+                      <a class="btn btn-xs btn-default pull-right"><i class="fa fa-trash"></i> Delete </a> 
+                      <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
+
+
+                        @foreach($existingEntry as $e)
+                        
+
+                          @if($e->elemType === 'PAR')
+                              <h4 style="padding-top: 20px">{{$e->label}} :<a class="btn btn-xs btn-default pull-right" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a></h4>  <div style="margin:20px; white-space: pre-wrap;">{!! $e->value !!}</div>
+                          @else
+                               <h4 style="padding-top: 20px">{{$e->label}} : <a class="btn btn-xs btn-default pull-right" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a> <span style="font-weight: 100"> {!! $e->value !!}</span></h4> 
+
+                          @endif
+
+                        @endforeach
+
+
+
+
                     @else
                         <h3 class="text-primary">Submit Your Entry:</h3>
                         @foreach($engagement as $element)
