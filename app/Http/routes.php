@@ -116,6 +116,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.saveEntry',
       'uses'=>'EngagementController@saveEntry') );
 
+    Route::post('/employeeEngagement/updateEntry', array(
+      'as'=> 'employeeEngagement.updateEntry',
+      'uses'=>'EngagementController@updateEntry') );
+
     /********** FORM BUILDER **************/
     Route::post('/formSubmissions/process', array(
       'as'=> 'formSubmissions.process',
