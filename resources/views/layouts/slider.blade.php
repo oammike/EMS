@@ -1,17 +1,23 @@
                   
+                  <div class="item active  text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"></p>
+                                <img src="./storage/uploads/day5.jpg" style="z-index: 2" />
+
+                  </div>
+
                   <?php $cidol=1;?>
                   @foreach($idols as $idol)
                    
-                   @if($cidol == 1)
-                   <div class="item active text-center" style="min-height: 800px; background-size:98%; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
-                   @else
-                   <div class="item  text-center" style="min-height: 800px; background-size:98%; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
+                  
+                   <div class="item  text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
 
-                   @endif
+                  
 
                       
-                             
-                               <h2 style="padding-top: 280px; color: #fff">Preliminary Round</h2>
+                               
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Preliminary Round</h2>
                                <p class="text-center">
                                 <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
                                 <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
@@ -30,6 +36,16 @@
 
                   <?php $cidol++;?>
                   @endforeach
+
+                  <div class="item active  text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"><a class="btn btn-lg btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSf1QiZugFbb-8_E4xJBMhwVJf9EzSTlET9ERXR9AfzNgYXKrA/viewform" target="_blank">Register NOW </a> </p>
+                                <img src="./storage/uploads/oktoberfest.jpg" style="z-index: 2" />
+
+                  </div>
+
+                  
 
                   <div class="item text-center" style="background-color: #fff; background:url('./storage/uploads/ben.png')top right no-repeat #fff;" >
                       
