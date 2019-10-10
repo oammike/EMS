@@ -3,14 +3,9 @@
 
                    <div class="item active text-center" style="background-color: #fff" >
                       
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <p class="text-center"><strong class="text-orange">Massage Day: </strong> <strong class="text-primary">CS Week 2019</strong><br/><br/>
-                                As part of our CS week activities, today we are treating everyone to FREE MASSAGE!<br/>
-                              </p>
-                                <img src="./storage/uploads/massage.jpg" style="z-index: 2" />
-                                <p class="text-center" style="padding:20px"><br/>
-                                
-                               You may visit the <strong>5F common area/ G2 lobby</strong> from <strong>10:00AM until 10:00PM </strong> today and have a massage before/after your shifts, or during your break time. Take this time to relax and unwind despite the busy schedule in the office</p>
+                             
+                                <img src="./storage/uploads/day4.jpg" style="z-index: 2" />
+                               
 
                   </div>
 
