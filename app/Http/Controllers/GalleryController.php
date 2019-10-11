@@ -79,6 +79,13 @@ class GalleryController extends Controller
       $gallery = Gallery::find($id); 
       $allImg = DB::table('gallery_user')->where('gallery_user.gallery_id',$gallery->id)->get(); 
 
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+      if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n UserGal_1 by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
+
 
       return view('gallery_user',compact('gallery','id','allImg'));
     }
@@ -86,6 +93,12 @@ class GalleryController extends Controller
     public function contribute($id)
     {
       $gallery = Gallery::find($id);
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+      if($this->user->id !== 564 ) {
+                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Contribute UserGal_1 by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    } 
       return view('people.gallery-upload',compact('gallery'));
     }
 
