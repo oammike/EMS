@@ -62,12 +62,15 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     Route::resource('survey','SurveyController');
     Route::resource('employeeEngagement','EngagementController');
+    Route::resource('usergallery','GalleryController');
 
 
     Route::get('/logAction/{action}', array(
       'as'=>'page.logAction',
       'uses'=>'HomeController@logAction') );
 
+
+    /********** GALLERIES   **************/
     Route::get('/gallery', array(
       'as'=>'page.gallery',
       'uses'=>'HomeController@gallery') );
@@ -80,6 +83,23 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/gallery/getImages', array(
       'as'=>'page.getImages',
       'uses'=>'HomeController@getImages') );
+
+    Route::post('/usergallery/upload', array(
+      'as'=>'usergallery.upload',
+      'uses'=>'GalleryController@upload') );
+
+    Route::get('/usergallery/{id}/contribute', array(
+      'as'=>'usergallery.contribute',
+      'uses'=>'GalleryController@contribute') );
+
+    Route::get('/getImgUploads', array(
+      'as'=>'usergallery.getUploads',
+      'uses'=>'GalleryController@getUploads') );
+
+     /********** GALLERIES   **************/
+
+
+
 
     Route::get('/oampi-resources', array(
       'as'=> 'resource.index',

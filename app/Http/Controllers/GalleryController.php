@@ -21,6 +21,7 @@ use OAMPI_Eval\User;
 
 use OAMPI_Eval\Cutoff;
 use OAMPI_Eval\Gallery;
+use OAMPI_Eval\Gallery_User;
 use OAMPI_Eval\User_Leader;
 use OAMPI_Eval\Campaign;
 use OAMPI_Eval\Status;
@@ -45,6 +46,49 @@ class GalleryController extends Controller
         $this->user =  User::find(Auth::user()->id);
     }
 
+    public function getUploads()
+    {
+      $album = Input::get('album');
+      $allImg = DB::table('gallery_user')->where('gallery_user.gallery_id',$album)->
+                        join('users','gallery_user.user_id','=','users.id')->
+                        join('gallery','gallery_user.gallery_id','=','gallery.id')->
+                        select('gallery.name as gallery','gallery.description', 'gallery.id','gallery_user.id as imgID','gallery_user.link','users.id as userID','users.firstname','users.nickname', 'users.lastname')->orderBy('gallery_user.id','DESC')->get();
+
+      $allImages = new Collection;
+
+      foreach ($allImg as $key) {
+
+        if (empty($key->nickname))
+          $allImages->push(['lowsrc'=>"../storage/uploads/".$key->link,
+                                  'fullsrc'=>"../storage/uploads/".$key->link,
+                                  'description'=> $key->description." [ Photo credits: ".$key->firstname." ".$key->lastname." ]",
+                                  'category'=>$key->gallery]);
+        else
+          $allImages->push(['lowsrc'=>"../storage/uploads/".$key->link,
+                                'fullsrc'=>"../storage/uploads/".$key->link,
+                                'description'=> $key->description." [ Photo credits: ".$key->nickname." ".$key->lastname." ]",
+                                'category'=>$key->gallery]);
+      }
+      return $allImages;
+
+      return response()->json($allImages);
+    }
+
+    public function show($id)
+    {
+      $gallery = Gallery::find($id); 
+      $allImg = DB::table('gallery_user')->where('gallery_user.gallery_id',$gallery->id)->get(); 
+
+
+      return view('gallery_user',compact('gallery','id','allImg'));
+    }
+
+    public function contribute($id)
+    {
+      $gallery = Gallery::find($id);
+      return view('people.gallery-upload',compact('gallery'));
+    }
+
 
     public function upload(Request $request)
     {
@@ -55,9 +99,18 @@ class GalleryController extends Controller
 	    foreach($images as $image)
 	     {
 
-	      $new_name = $filen.rand() . '.' . $image->getClientOriginalExtension();
-	      $image->move(public_path('images'), $new_name);
-	      $image_code .= '<div class="col-md-3" style="margin-bottom:24px;"><img src="/storage/uploads/'.$new_name.'" class="img-thumbnail" /></div>';
+	      $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
+        $destinationPath = storage_path() . '/uploads/';
+	      $image->move($destinationPath, $new_name);
+
+        $upload = new Gallery_User;
+        $upload->gallery_id = $gallery->id;
+        $upload->user_id = $this->user->id;
+        $upload->link = $new_name;
+        $upload->save();
+
+
+	      $image_code .= '<div class="col-md-3" style="margin-bottom:24px;"><img src="../../storage/uploads/'.$new_name.'" class="img-thumbnail" /></div>';
 	     }
 
      	$output = array(
@@ -65,6 +118,7 @@ class GalleryController extends Controller
       		'image'   => $image_code
      	);
 
+     //return redirect()->action('GalleryController@show',$gallery->id);
      return response()->json($output);
     }
 }
