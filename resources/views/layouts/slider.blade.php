@@ -1,11 +1,40 @@
                   
-                  <div class="item active  text-center" style="background-color: #fff" >
+                  <?php $ct=0; $songs = ["This Is The Moment","Bring Me To Life","Wildflower"];?>
+
+                  @foreach($top3 as $idol)
+                   
+                  
+                   <div class="item @if($ct==0) active @endif  text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
+
+                  
+
                       
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <p class="text-center"></p>
-                                <img src="./storage/uploads/day5.jpg" style="z-index: 2" />
+                               
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>TOP 3 Finalist</h2>
+                               <p class="text-center">
+                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./storage/uploads/top3-{{$ct+1}}.jpg" width="250px" class="img-circle" /><br/>
+                                <h3 class="text-center">"{{$songs[$ct]}}"</h3>
+                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
+                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
+                                                          @if (empty($idol->filename))
+                                                              {{$idol->program}}
+                                                          @else
+                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
+
+                                                          @endif
+                                </h4></a></p>
+                                <h2>Congratulations!</h2>
+
+                                
+                               
 
                   </div>
+                  <?php $ct++; ?>
+                  @endforeach
+
+                 
+
+                 
 
                   <?php $cidol=1;?>
                   @foreach($idols as $idol)
@@ -29,7 +58,6 @@
 
                                                           @endif
                                 </h4></a></p>
-                                <h5 style="color:#fff"><br/>Friday, Oct.11<br/>Live at the G2 lobby after Townhall Meeting</h5>
                                
 
                   </div>
@@ -562,6 +590,14 @@
 
 
 <?php /*
+
+ <div class="item active  text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"></p>
+                                <img src="./storage/uploads/day5.jpg" style="z-index: 2" />
+
+                  </div>
 
 <!--MOBILE LEGENDS-->
 <div class="item  text-center" style="background-color: #fff" >

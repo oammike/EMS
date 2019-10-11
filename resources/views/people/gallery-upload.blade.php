@@ -30,6 +30,7 @@
                           </div>
                           <div class="panel-body">
                               <br />
+                              <p><span class="text-danger"><i class="fa fa-exclamation-circle"></i> Note: </span>Please limit your image uploads to a <strong>maximum of 1.5MB</strong> per image.<br/><br/></p>
                               <!-- <form id="form" accept-charset="UTF-8" enctype="multipart/form-data"> -->
                                 {{ Form::open(['route' => 'usergallery.upload','id'=> 'form','name'=>'form','accept-charset'=>'UTF-8','enctype'=>"multipart/form-data" ]) }}
                                
