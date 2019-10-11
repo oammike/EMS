@@ -61,12 +61,16 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('approver','UserLeaderController');
 
     Route::resource('survey','SurveyController');
+    Route::resource('employeeEngagement','EngagementController');
+    Route::resource('usergallery','GalleryController');
 
 
     Route::get('/logAction/{action}', array(
       'as'=>'page.logAction',
       'uses'=>'HomeController@logAction') );
 
+
+    /********** GALLERIES   **************/
     Route::get('/gallery', array(
       'as'=>'page.gallery',
       'uses'=>'HomeController@gallery') );
@@ -79,6 +83,23 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/gallery/getImages', array(
       'as'=>'page.getImages',
       'uses'=>'HomeController@getImages') );
+
+    Route::post('/usergallery/upload', array(
+      'as'=>'usergallery.upload',
+      'uses'=>'GalleryController@upload') );
+
+    Route::get('/usergallery/{id}/contribute', array(
+      'as'=>'usergallery.contribute',
+      'uses'=>'GalleryController@contribute') );
+
+    Route::get('/getImgUploads', array(
+      'as'=>'usergallery.getUploads',
+      'uses'=>'GalleryController@getUploads') );
+
+     /********** GALLERIES   **************/
+
+
+
 
     Route::get('/oampi-resources', array(
       'as'=> 'resource.index',
@@ -103,6 +124,21 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/oampi-resources/download/{id}', array(
       'as'=> 'resource.download',
       'uses'=>'ResourceController@download') );
+
+
+    /********** emp ENGAGEMENT  **************/
+
+    Route::get('/employeeEngagement/{id}/voteNow', array(
+      'as'=> 'employeeEngagement.voteNow',
+      'uses'=>'EngagementController@voteNow') );
+
+    Route::post('/employeeEngagement/saveEntry', array(
+      'as'=> 'employeeEngagement.saveEntry',
+      'uses'=>'EngagementController@saveEntry') );
+
+    Route::post('/employeeEngagement/updateEntry', array(
+      'as'=> 'employeeEngagement.updateEntry',
+      'uses'=>'EngagementController@updateEntry') );
 
     /********** FORM BUILDER **************/
     Route::post('/formSubmissions/process', array(
