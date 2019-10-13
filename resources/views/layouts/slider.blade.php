@@ -24,12 +24,10 @@
 
                                                           @endif
                                 </h4></a></p>
-<<<<<<< HEAD
-                                <h2>Congratulations!</h2><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a>
-=======
+
                                 <h2>Congratulations!</h2>
                                 <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
->>>>>>> a336787e65ae65a20470048ea2aaccbcd1bcbb88
+
 
                                 
                                
@@ -53,11 +51,9 @@
                       
                                
                                <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Idol Contender</h2>
-<<<<<<< HEAD
-                               <p class="text-center">
-=======
+
                                <p class="text-center" style="color: #fff">
->>>>>>> a336787e65ae65a20470048ea2aaccbcd1bcbb88
+
                                 <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
                                 <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
                                                           <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
@@ -67,17 +63,12 @@
                                                            <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
 
                                                           @endif
-<<<<<<< HEAD
+
                                 </h4></a></p>
                                 <p style="color:#dedede">Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rockstars!!! 
                                   <br/><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a> </p>
 
-=======
-                                </h4></a>
-                             <span style="color:#fff"> Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rock stars!</span></p>
 
-                              <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
->>>>>>> a336787e65ae65a20470048ea2aaccbcd1bcbb88
                                
 
                   </div>
