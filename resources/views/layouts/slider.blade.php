@@ -60,7 +60,7 @@
 
                                                           @endif
                                 </h4></a>
-                              Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rock stars!</p>
+                             <span style="color:#fff"> Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rock stars!</span></p>
 
                               <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
                                
