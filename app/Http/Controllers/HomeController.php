@@ -805,7 +805,8 @@ class HomeController extends Controller
                 /************* idols  ***************/
                 $idols = new Collection;
                 $top3 = new Collection;
-                $idolIDs = [ 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 3260, 2723];
+                //<!-- ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU -->
+                $idolIDs = [ 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 685, 3260, 2723];
                 $top3s = [829,674,1686];
 
                 foreach ($top3s as $i) {

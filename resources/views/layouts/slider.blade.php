@@ -10,7 +10,8 @@
 
                       
                                
-                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>TOP 3 Finalist</h2>
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/>
+                                <br/>TOP 3 Finalist</h2>
                                <p class="text-center">
                                 <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./storage/uploads/top3-{{$ct+1}}.jpg" width="250px" class="img-circle" /><br/>
                                 <h3 class="text-center">"{{$songs[$ct]}}"</h3>
@@ -24,6 +25,7 @@
                                                           @endif
                                 </h4></a></p>
                                 <h2>Congratulations!</h2>
+                                <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
 
                                 
                                
@@ -35,7 +37,7 @@
                  
 
                  
-
+                  <!-- ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU -->
                   <?php $cidol=1;?>
                   @foreach($idols as $idol)
                    
@@ -46,8 +48,8 @@
 
                       
                                
-                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Preliminary Round</h2>
-                               <p class="text-center">
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Idol Contender</h2>
+                               <p class="text-center" style="color: #fff">
                                 <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
                                 <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
                                                           <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
@@ -57,7 +59,10 @@
                                                            <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
 
                                                           @endif
-                                </h4></a></p>
+                                </h4></a>
+                              Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rock stars!</p>
+
+                              <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
                                
 
                   </div>
