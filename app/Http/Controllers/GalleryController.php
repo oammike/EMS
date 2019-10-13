@@ -69,7 +69,7 @@ class GalleryController extends Controller
                                 'description'=> $key->description." [ Photo credits: ".$key->nickname." ".$key->lastname." ]",
                                 'category'=>$key->gallery]);
       }
-      return $allImages;
+      //return $allImages;
 
       return response()->json($allImages);
     }
