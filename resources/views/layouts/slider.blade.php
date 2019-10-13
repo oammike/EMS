@@ -23,7 +23,7 @@
 
                                                           @endif
                                 </h4></a></p>
-                                <h2>Congratulations!</h2>
+                                <h2>Congratulations!</h2><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a>
 
                                 
                                
@@ -46,7 +46,7 @@
 
                       
                                
-                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Preliminary Round</h2>
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Idol Contender</h2>
                                <p class="text-center">
                                 <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
                                 <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
@@ -58,12 +58,67 @@
 
                                                           @endif
                                 </h4></a></p>
+                                <p style="color:#dedede">Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rockstars!!! 
+                                  <br/><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a> </p>
+
                                
 
                   </div>
 
                   <?php $cidol++;?>
                   @endforeach
+
+                  <!--zumba sched-->
+                <div class="item text-center" >
+                    
+                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Zumba Class</span> Is Back!</h3>
+                     <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
+                     <br/><br/>
+
+                     <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                        <br/><span class="text-danger">October 15, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+
+                      <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                        <BR/><span class="text-danger">October 17, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
+                          Sign Up Now</a><br/><br/>
+
+                          <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                          <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                          
+                          <div class="text-left"  style="padding-left: 30px;">
+                            <h5>Minor Prizes:</h5>
+                            <ul>
+                              <li>3 winners: SM Gift certificates worth Php 2,000</li>
+                              <li>1 winner: SM Gift certificates worth Php 1,500</li>
+                              <li>1 winner: SM Gift certificates worth Php 1,000</li>
+                              <li>1 winner: JBL Flip3 Bluetooth speaker</li>
+                              <li>1 winner: Promate 10,000mAh Powerbank</li>
+                              <li>1 winner: urBeats3 earphones</li>
+                            </ul></div>
+
+                         
+
+                      <br/><br/>
+                       <strong>Venue:</strong><br/>
+
+                        OPEN ACCESS BPO G2 OFFICE<br/>
+
+                        11F Glorietta 2 Corporate Center,<br/>
+
+                        West. St., Ayala Center, Makati City<br/><br/>
+
+                        <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                        <br/><br/>
+
+                          View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                       
+                        <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                              <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                </div> 
 
                   <div class="item  text-center" style="background-color: #fff" >
                       
@@ -642,57 +697,7 @@
                               <br/><br/>
 
                   </div>
- <!--zumba sched-->
-                <div class="item text-center" >
-                    
-                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Dance Your Way</span> To Boracay!</h3>
-                     <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
-                     <br/><br/>
-
-                     <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                        <br/><span class="text-danger">October 01, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
-
-                      <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                        <BR/><span class="text-danger">October 03, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
-
-                        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
-                          Sign Up Now</a><br/><br/>
-
-                          <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
-
-                          <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
-                          
-                          <div class="text-left"  style="padding-left: 30px;">
-                            <h5>Minor Prizes:</h5>
-                            <ul>
-                              <li>3 winners: SM Gift certificates worth Php 2,000</li>
-                              <li>1 winner: SM Gift certificates worth Php 1,500</li>
-                              <li>1 winner: SM Gift certificates worth Php 1,000</li>
-                              <li>1 winner: JBL Flip3 Bluetooth speaker</li>
-                              <li>1 winner: Promate 10,000mAh Powerbank</li>
-                              <li>1 winner: urBeats3 earphones</li>
-                            </ul></div>
-
-                         
-
-                      <br/><br/>
-                       <strong>Venue:</strong><br/>
-
-                        OPEN ACCESS BPO G2 OFFICE<br/>
-
-                        11F Glorietta 2 Corporate Center,<br/>
-
-                        West. St., Ayala Center, Makati City<br/><br/>
-
-                        <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                        <br/><br/>
-
-                          View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                       
-                        <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                              <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                </div> 
+ 
 
 
 <!-- heart day-->
