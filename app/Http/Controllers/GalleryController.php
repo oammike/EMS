@@ -58,13 +58,15 @@ class GalleryController extends Controller
 
       foreach ($allImg as $key) {
 
+        $thumb = explode(".",$key->link);
+
         if (empty($key->nickname))
-          $allImages->push(['lowsrc'=>"../storage/uploads/".$key->link,
+          $allImages->push(['lowsrc'=>"../storage/uploads/".$thumb[0]."-2_thumb.jpg",
                                   'fullsrc'=>"../storage/uploads/".$key->link,
                                   'description'=> $key->description." [ Photo credits: ".$key->firstname." ".$key->lastname." ]",
                                   'category'=>$key->gallery]);
         else
-          $allImages->push(['lowsrc'=>"../storage/uploads/".$key->link,
+          $allImages->push(['lowsrc'=>"../storage/uploads/".$thumb[0]."-2_thumb.jpg",
                                 'fullsrc'=>"../storage/uploads/".$key->link,
                                 'description'=> $key->description." [ Photo credits: ".$key->nickname." ".$key->lastname." ]",
                                 'category'=>$key->gallery]);
