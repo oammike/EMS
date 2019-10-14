@@ -94,12 +94,12 @@
                       $.getJSON("{{action('GalleryController@getUploads',['album'=>$id])}}", function(data) {
                           next(data);
                       });
-                      $('#loader').fadeOut();
+                     
 
                    
                       
                   }
-              })
+              }); 
     
     
     
