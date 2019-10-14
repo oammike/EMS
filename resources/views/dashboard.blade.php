@@ -224,6 +224,24 @@ select:-webkit-autofill:focus {
                
 
 
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Videos  <a class="btn btn-xs btn-default" href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i> Watch All</a></h3>
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <p class="text-center"><strong class="text-primary">Our Company <span class="text-orange">Mission, Vision, and Core Values </span> </strong></p>
+                     <video id="teaser" src="storage/uploads/MVC.mp4" width="100%" loop controls></video>
+                       
+                      
+                    </div>
+                </div>
+
                 <!-- SHOUT OUT -->
                   <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
@@ -276,24 +294,7 @@ select:-webkit-autofill:focus {
                   </div>
                 <!-- /.end SHOUT OUT -->
 
-                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Videos  <a class="btn btn-xs btn-default" href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i> Watch All</a></h3>
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">September 30 : <span class="text-orange">International Translation Day! </span> </strong></p>
-                     <video id="teaser" src="storage/uploads/intlTranslationDay.mp4" width="100%" loop controls></video>
-                       <p align="center"><br/><span style="font-size: small;">Language is a catalyst for change, development, and peace. It unites us in ways we never knew possible, making it an important tool to promote culture and unity.<BR/><BR/>Let's celebrate the language professionals for their work in fostering understanding, peace, development, and unity.<br/>Watch <a style="font-weight: bold;" class="text-danger" href="user/3057">Elmo</a>, <a style="font-weight: bold;" class="text-danger" href="user/3054">Masa</a>, <a style="font-weight: bold;" class="text-danger" href="user/2888">Phil</a>, <a style="font-weight: bold;" class="text-danger" href="user/3042">Yahya</a>, <a style="font-weight: bold;" class="text-danger" href="user/2913">Kael</a>, <a style="font-weight: bold;" class="text-danger" href="user/3095">Mariana</a>, <a style="font-weight: bold;" class="text-danger" href="user/3280">Alessio</a>, <a style="font-weight: bold;" class="text-danger" href="user/3094">Rahied</a>, and <a style="font-weight: bold;" class="text-danger" href="user/2723">Lalo</a>  translate their favorite sayings from their mother tongue to English.<br/><br/>#WeSpeakYourLanguage</span> </p>
-                      
-                    </div>
-                </div>
-
+                
                 
 
 
