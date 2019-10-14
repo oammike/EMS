@@ -75,7 +75,7 @@ class GalleryController extends Controller
                                 'description'=> $key->description." [ Photo credits: ".$key->nickname." ".$key->lastname." ]",
                                 'category'=>$key->gallery]);
       }
-      //return $allImages;
+      
 
       return response()->json($allImages);
     }
@@ -84,6 +84,7 @@ class GalleryController extends Controller
     {
       $gallery = Gallery::find($id); 
       $allImg = DB::table('gallery_user')->where('gallery_user.gallery_id',$gallery->id)->get(); 
+
 
       $correct = Carbon::now('GMT+8'); //->timezoneName();
       if($this->user->id !== 564 ) {
