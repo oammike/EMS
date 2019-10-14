@@ -153,9 +153,9 @@
                       <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
                       <p style="padding: 5px 30px; margin-bottom: 0px">
                       <h4>
-                      <strong>When:</strong> <span class="text-danger"> Oct. 16, 2019 Wed (Jaka); <br/>Oct. 17, 2019 Thu (G2 Office)</span><br/>
+                      <strong>When:</strong> <span class="text-danger"> Oct. 16, 2019 Wed </span><br/>
                       Time: <span class="text-danger"> 8AM-5PM</span><br/>
-                      <strong>Where:</strong>5F Jaka Bldg. , 11th Flr ( G2 ), </h4><br/><br/></p>
+                      <strong>Where:</strong>5F Jaka Bldg. and 11th Flr ( G2 ), </h4><br/><br/></p>
 
                       <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
                       <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
