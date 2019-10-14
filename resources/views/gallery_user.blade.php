@@ -35,7 +35,7 @@
           <div id="gallery">
             @if (count($allImg) > 0)
             <h2 class="text-center" style="position: absolute; top: 0; left:auto; width: 100%"><br/><br/><br/><br/>
-              Loading images. Please wait...<i class="fa fa-refresh"></i> <br/>
+              Loading images. Please wait... <img src="../public/css/images/loadingspin.gif" />  <br/>
              </h2>
 
              @else
