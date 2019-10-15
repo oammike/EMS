@@ -32,13 +32,19 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <h3 class="text-default">View All submitted entries</h3>
+
+                    @if ($alreadyVoted)
+                    <a class="btn btn-lg btn-success" href="{{action('EngagementController@voteNow',$id)}}">View all entries</a>
+                    @else
                     <a class="btn btn-lg btn-success" href="{{action('EngagementController@voteNow',$id)}}">Vote for your favorite entry</a>
+                    
+                    @endif
                   </div>
                   
                   <div id="entry" class="col-sm-6" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
                     @if ($hasEntry)
 
-                      <a class="btn btn-xs btn-default pull-right"><i class="fa fa-trash"></i> Delete </a> 
+                      <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#delModal{{$existingEntry[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
                       <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
 
 
@@ -53,6 +59,31 @@
                           @endif
 
                         @endforeach
+
+
+                    <div class="modal fade" id="delModal{{$existingEntry[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Delete my Entry</h4>
+                                
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to cancel your entry for  <strong>{{$engagement[0]->activity}}</strong>?
+                              </div>
+                              <div class="modal-footer no-border">
+                                {{ Form::open(['route' => ['employeeEngagement.cancelEntry',$existingEntry[0]->entryID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $existingEntry[0]->entryID ]) }} 
+
+                                  <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i> Yes </button>
+                                
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>{{ Form::close() }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
 
 
 
@@ -203,7 +234,14 @@
                   }).get();
       var _token = "{{ csrf_token() }}";
 
-      $.ajax({
+      
+      console.log("items");
+
+      if (items[0] === "" || items[1] === "")
+        $.notify("All fields are required.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+      else
+      {
+        $.ajax({
 
                   url:"{{action('EngagementController@saveEntry')}}",
                   type:'POST',
@@ -231,6 +269,11 @@
                   }
 
             });
+
+      }
+      
+
+      /**/
       });
 
    @endif

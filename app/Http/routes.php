@@ -132,6 +132,18 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.voteNow',
       'uses'=>'EngagementController@voteNow') );
 
+     Route::post('/employeeEngagement/cancelEntry/{id}', array(
+      'as'=> 'employeeEngagement.cancelEntry',
+      'uses'=>'EngagementController@cancelEntry') );
+
+    Route::post('/employeeEngagement/castvote/{id}', array(
+      'as'=> 'employeeEngagement.castvote',
+      'uses'=>'EngagementController@castvote') );
+
+    Route::post('/employeeEngagement/uncastvote/{id}', array(
+      'as'=> 'employeeEngagement.uncastvote',
+      'uses'=>'EngagementController@uncastvote') );
+
     Route::post('/employeeEngagement/saveEntry', array(
       'as'=> 'employeeEngagement.saveEntry',
       'uses'=>'EngagementController@saveEntry') );

@@ -21,6 +21,7 @@ use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
 use OAMPI_Eval\Engagement;
 use OAMPI_Eval\Engagement_Entry;
+use OAMPI_Eval\Engagement_Vote;
 use OAMPI_Eval\Engagement_EntryDetails;
 use OAMPI_Eval\Cutoff;
 use OAMPI_Eval\User_Leader;
@@ -48,6 +49,27 @@ class EngagementController extends Controller
         $this->user =  User::find(Auth::user()->id);
     }
 
+    public function castvote(Request $request, $id)
+    {
+        $userEntry = Engagement_Entry::find($id);
+        $vote = new Engagement_Vote;
+        $vote->engagement_id = $userEntry->engagement_id;
+        $vote->user_id = $this->user->id;
+        $vote->engagement_entryID = $id;
+        $vote->save();
+        return redirect()->back();
+
+    }
+
+    public function cancelEntry($id)
+    {
+        $vote = Engagement_Entry::find($id);
+        $vote->delete();
+        return redirect()->back();
+        //return $vote;
+
+    }
+
 
 
     public function show($id)
@@ -57,7 +79,7 @@ class EngagementController extends Controller
     						join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
     						join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
     						select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
-    						get();
+    						get(); 
 
     	$existingEntry = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
     							where('user_id',$this->user->id)->
@@ -68,9 +90,12 @@ class EngagementController extends Controller
         
     							//select('id')->get();
     	(count($existingEntry) > 0) ? $hasEntry=true : $hasEntry=false;
-    	//return $existingEntry;
+    	
 
-    	return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry'));
+        $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
+        ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
+
+    	return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted'));
     	//return $engagement;
     }
 
@@ -99,6 +124,15 @@ class EngagementController extends Controller
     	}
 
     	return response()->json(['success'=>1, 'entry'=>$entry]);
+    }
+
+    public function uncastvote($id)
+    {
+        $vote = Engagement_Vote::where('engagement_entryID',$id)->where('user_id',$this->user->id)->first();
+        $vote->delete();
+        return redirect()->back();
+        //return $vote;
+
     }
 
 
@@ -130,11 +164,13 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->get();
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->get();
         $userEntries = collect($allEntries)->groupBy('entryID');
         
-        //return $allEntries;
+        $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
+        ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
         
-        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries'));
+        //return $userEntries;
+        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted'));
     }
 }

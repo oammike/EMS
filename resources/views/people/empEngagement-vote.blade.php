@@ -36,7 +36,10 @@
                   <!-- ******** collapsible box ********** -->
                   <div class="box box-default collapsed-box">
                     <div class="box-header with-border">
-                      <h3 class="box-title text-primary">{{$entry[0]->value}}  <small id=" "><i class="fa fa-exclamation-circle text-yellow"></i></small> </h3>
+                      <h3 class="box-title text-primary">{{$entry[0]->value}}   </h3>
+                      @if ( $alreadyVoted && $voted[0]->engagement_entryID == $entry[0]->entryID )
+                      &nbsp;&nbsp;<i class="fa fa-check text-success"></i>
+                      @endif
 
 
 
@@ -63,6 +66,45 @@
 
                       @endforeach
                       <div class="clearfix"></div>
+
+                      @if($alreadyVoted == 0 && $entry[0]->withVoting)
+                      <a class="vote btn btn-lg btn-primary" data-toggle="modal" data-target="#myModal{{$entry[0]->entryID}}"><i class="fa fa-check"></i> Vote for this entry</a>
+                      @endif
+
+                      @if ( $alreadyVoted && $voted[0]->engagement_entryID == $entry[0]->entryID && $entry[0]->withVoting )
+
+                      <h4 style="width: 40%" class="pull-left text-success text-center"><i class="fa fa-check fa-2x"></i> You Voted for this<br/>
+                        <br/><a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delModal{{$entry[0]->entryID}}"><i class="fa fa-times"></i> Cancel Vote</a></h4>
+
+
+                        <div class="modal fade" id="delModal{{$entry[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                
+                                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Cancel Vote for {{$entry[0]->entryID}}</h4>
+                                
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to cancel your vote for this entry by: <strong>{{$entry[0]->firstname}} {{$entry[0]->lastname}}</strong>?
+                              </div>
+                              <div class="modal-footer no-border">
+                                {{ Form::open(['route' => ['employeeEngagement.uncastvote',$entry[0]->entryID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $entry[0]->entryID ]) }} 
+
+                                  <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i> Yes </button>
+                                
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>{{ Form::close() }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      @endif
+
+
+                      
                       <p class="pull-right" style="width: 50%">
                           
                           <a href="{{action('UserController@show',$e->user_id)}}" target="_blank"><img class="user-image pull-right" width="80" src="../../public/img/employees/{{$e->user_id}}.jpg">
@@ -89,6 +131,32 @@
                 <?php $ctr++; ?>
 
 
+                @if($alreadyVoted == 0 && $entry[0]->withVoting)
+                <div class="modal fade" id="myModal{{$entry[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Vote for {{$entry[0]->entryID}}</h4>
+                          
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to vote for this entry by: <strong>{{$entry[0]->firstname}} {{$entry[0]->lastname}}</strong>?
+                        </div>
+                        <div class="modal-footer no-border">
+                          {{ Form::open(['route' => ['employeeEngagement.castvote',$entry[0]->entryID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $entry[0]->entryID ]) }} 
+
+                            <button type="submit" class="btn btn-primary">Yes</button>
+                          
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>{{ Form::close() }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  @endif
+
+
 
                 @endforeach
 
@@ -108,6 +176,8 @@
 
           </div><!--end main row-->
       </section>
+
+
           
 
 
