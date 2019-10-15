@@ -51,12 +51,19 @@ class EngagementController extends Controller
 
     public function castvote(Request $request, $id)
     {
+
         $userEntry = Engagement_Entry::find($id);
         $vote = new Engagement_Vote;
         $vote->engagement_id = $userEntry->engagement_id;
         $vote->user_id = $this->user->id;
         $vote->engagement_entryID = $id;
         $vote->save();
+
+         $correct = Carbon::now('GMT+8'); 
+         if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Castvote Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
         return redirect()->back();
 
     }
@@ -95,6 +102,12 @@ class EngagementController extends Controller
         $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
 
+         $correct = Carbon::now('GMT+8'); 
+         if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n View Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
     	return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted'));
     	//return $engagement;
     }
@@ -123,13 +136,27 @@ class EngagementController extends Controller
     		$ctr++;
     	}
 
+         $correct = Carbon::now('GMT+8'); 
+         if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Submitted Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
     	return response()->json(['success'=>1, 'entry'=>$entry]);
     }
 
     public function uncastvote($id)
     {
+
         $vote = Engagement_Vote::where('engagement_entryID',$id)->where('user_id',$this->user->id)->first();
         $vote->delete();
+
+         $correct = Carbon::now('GMT+8'); 
+         if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Uncastvote Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
         return redirect()->back();
         //return $vote;
 
@@ -171,6 +198,11 @@ class EngagementController extends Controller
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
         
         //return $userEntries;
+         $correct = Carbon::now('GMT+8'); 
+         if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Votenow Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
         return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted'));
     }
 }
