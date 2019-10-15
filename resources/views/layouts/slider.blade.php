@@ -128,16 +128,7 @@
                               <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                 </div> 
 
-                  <div class="item  text-center" style="background-color: #fff" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <p class="text-center"><a class="btn btn-lg btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSf1QiZugFbb-8_E4xJBMhwVJf9EzSTlET9ERXR9AfzNgYXKrA/viewform" target="_blank">Register NOW </a> </p>
-                                <img src="./storage/uploads/oktoberfest.jpg" style="z-index: 2" />
-
-                  </div>
-
                   
-
                   
 
 
@@ -596,6 +587,18 @@
 
 
 <?php /*
+
+<!--OKTOBERFEST-->
+<div class="item  text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <p class="text-center"><a class="btn btn-lg btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSf1QiZugFbb-8_E4xJBMhwVJf9EzSTlET9ERXR9AfzNgYXKrA/viewform" target="_blank">Register NOW </a> </p>
+                                <img src="./storage/uploads/oktoberfest.jpg" style="z-index: 2" />
+
+                  </div>
+
+                  
+
 <!--CS WEEK STUFF -->
 <div class="item text-center" style="background-color: #fff; background:url('./storage/uploads/ben.png')top right no-repeat #fff;" >
                       
