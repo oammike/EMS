@@ -1,6 +1,16 @@
                   
-                   <!-- BLOOD DONATION-->
+                   
                 <div class="item active text-center" >
+                    
+                      <img src="./storage/uploads/frightful_poster.jpg" style="z-index: 2" width="100%" /><br/>
+                      <a class="btn btn-primary" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> View Details </a>
+                      
+                      
+                </div>
+
+                <!-- BLOOD DONATION-->
+
+                <div class="item  text-center" >
                     
                      <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 2nd Blood Donation Drive 2019</h3><br/><br/>
                       <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
