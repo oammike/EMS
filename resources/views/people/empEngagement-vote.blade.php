@@ -34,7 +34,7 @@
 
                 <div style="width: 45%;margin-right:20px" class="pull-left">
                   <!-- ******** collapsible box ********** -->
-                  <div class="box box-default collapsed-box">
+                  <div class="box box-default collapsed-box" style="background-size:98%;background-position: bottom center; background-repeat: no-repeat; background-image: url('../../storage/uploads/frightful2.jpg'); background-color: #000" >
                     <div class="box-header with-border">
                       <h3 class="box-title text-primary">{{$entry[0]->value}}   </h3>
                       @if ( $alreadyVoted && $voted[0]->engagement_entryID == $entry[0]->entryID )
@@ -56,9 +56,9 @@
                       
 
                         @if($e->elemType === 'PAR')
-                          <h4>{{$e->label}} : </h4>   <div style="margin:20px; white-space: pre-wrap;">{!! $e->value !!}</div>
+                          <h4 style="color:#fff">{{$e->label}} : </h4>   <div style="margin:20px; white-space: pre-wrap; color:#fff">{!! $e->value !!}</div>
                         @else
-                           <h4>{{$e->label}} :  <span style="font-weight: 100"> {!! $e->value !!}</span></h4> 
+                           <h4 style="color:#fff">{{$e->label}} :  <span style="font-weight: 100"> {!! $e->value !!}</span></h4> 
 
                         @endif
 
@@ -105,7 +105,7 @@
 
 
                       
-                      <p class="pull-right" style="width: 50%">
+                      <p class="pull-right" style="width: 50%; color:#dedede">
                           
                           <a href="{{action('UserController@show',$e->user_id)}}" target="_blank"><img class="user-image pull-right" width="80" src="../../public/img/employees/{{$e->user_id}}.jpg">
                           @if(empty($e->nickname))
@@ -116,7 +116,7 @@
                           @endif
                         </a>
                           
-                          <small>{{$e->jobTitle}}</small> - {{$e->program}}
+                          <small style="color:#dedede">{{$e->jobTitle}}</small> - {{$e->program}}
                       </p>
 
                       
