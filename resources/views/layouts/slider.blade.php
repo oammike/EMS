@@ -1,144 +1,6 @@
                   
-                  <?php $ct=0; $songs = ["This Is The Moment","Bring Me To Life","Wildflower"];?>
-
-                  @foreach($top3 as $idol)
-                   
-                  
-                   <div class="item @if($ct==0) active @endif  text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
-
-                  
-
-                      
-                               
-                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/>
-                                <br/>TOP 3 Finalist</h2>
-                               <p class="text-center">
-                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./storage/uploads/top3-{{$ct+1}}.jpg" width="250px" class="img-circle" /><br/>
-                                <h3 class="text-center">"{{$songs[$ct]}}"</h3>
-                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
-                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
-                                                          @if (empty($idol->filename))
-                                                              {{$idol->program}}
-                                                          @else
-                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
-
-                                                          @endif
-                                </h4></a></p>
-
-                                <h2>Congratulations!</h2>
-                                <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
-
-
-                                
-                               
-
-                  </div>
-                  <?php $ct++; ?>
-                  @endforeach
-
-                 
-
-                 
-                  <!-- ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU -->
-                  <?php $cidol=1;?>
-                  @foreach($idols as $idol)
-                   
-                  
-                   <div class="item  text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
-
-                  
-
-                      
-                               
-                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Idol Contender</h2>
-
-                               <p class="text-center" style="color: #fff">
-
-                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
-                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
-                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
-                                                          @if (empty($idol->filename))
-                                                              {{$idol->program}}
-                                                          @else
-                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
-
-                                                          @endif
-
-                                </h4></a></p>
-                                <p style="color:#dedede">Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rockstars!!! 
-                                  <br/><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a> </p>
-
-
-                               
-
-                  </div>
-
-                  <?php $cidol++;?>
-                  @endforeach
-
-                  <!--zumba sched-->
-                <div class="item text-center" >
-                    
-                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Zumba Class</span> Is Back!</h3>
-                     <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
-                     <br/><br/>
-
-                     <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                        <br/><span class="text-danger">October 15, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
-
-                      <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                        <BR/><span class="text-danger">October 17, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
-
-                        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
-                          Sign Up Now</a><br/><br/>
-
-                          <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
-
-                          <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
-                          
-                          <div class="text-left"  style="padding-left: 30px;">
-                            <h5>Minor Prizes:</h5>
-                            <ul>
-                              <li>3 winners: SM Gift certificates worth Php 2,000</li>
-                              <li>1 winner: SM Gift certificates worth Php 1,500</li>
-                              <li>1 winner: SM Gift certificates worth Php 1,000</li>
-                              <li>1 winner: JBL Flip3 Bluetooth speaker</li>
-                              <li>1 winner: Promate 10,000mAh Powerbank</li>
-                              <li>1 winner: urBeats3 earphones</li>
-                            </ul></div>
-
-                         
-
-                      <br/><br/>
-                       <strong>Venue:</strong><br/>
-
-                        OPEN ACCESS BPO G2 OFFICE<br/>
-
-                        11F Glorietta 2 Corporate Center,<br/>
-
-                        West. St., Ayala Center, Makati City<br/><br/>
-
-                        <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                        <br/><br/>
-
-                          View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
-
-                       
-                        <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                              <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
-                </div> 
-
-                  
-                  
-
-
-                  
-                  
-                 
-
-                 
-                      <!-- BLOOD DONATION-->
-                <div class="item text-center" >
+                   <!-- BLOOD DONATION-->
+                <div class="item active text-center" >
                     
                      <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 2nd Blood Donation Drive 2019</h3><br/><br/>
                       <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
@@ -161,31 +23,7 @@
                       <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
                 </div>
 
-               
-                  
-
-                  <div class="item text-center" style="background-color: #fff" >
-                    <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <p style="margin-left: 35px;margin-right: 20px">Hello Open Access Family,<br/><br/>
-
-                    September is almost over which means we are nearing the holiday season!
-                    And what does that mean for Open Access BPO?
-                    It means it's almost time to throw our most awaited event, the<strong> YEAR END PARTY!</strong><br/><br/>
-
-                    Mark your calendars as this year we will party to the theme that won in our survey - <strong style="font-size: larger; color: #000"> BLACK & WHITE!</strong><br/><br/>
-
-                    Date: <strong class="text-danger">December 14, 2019 Saturday</strong> <br/>
-                    Venue:<strong class="text-danger"> Rizal Ballroom, Makati Shangri-La</strong><br/><br/>
-
-                    Express yourself in Black & White as we party all night with great food, drinks, raffle prizes, and entertainment!<br/><br/>
-
-                    <a class="btn btn-md btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScbaoSSOL5m1mAz0ZV5kWqbDi7iTKLIYUkMKsJoL-PNtWEcRA/viewform" target="_blank"> Register Now </a><br/>to confirm your attendance. <br/>Registration ends October 31, 2019<br/><br/><br/></p>
-
-                    </div>  
-
-                    
-                    @if(count($firstYears) >= 1)
+                @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
                             <div class="item  text-center">
                               <div class="box box-widget widget-user">
@@ -257,7 +95,176 @@
 
                             @endforeach
 
-                    @endif                
+                @endif  
+
+
+                <!--zumba sched-->
+                <div class="item text-center" >
+                    
+                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Zumba Class</span> Is Back!</h3>
+                     <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
+                     <br/><br/>
+
+                     <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                        <br/><span class="text-danger">October 15, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+
+                      <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                        <BR/><span class="text-danger">October 17, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
+                          Sign Up Now</a><br/><br/>
+
+                          <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                          <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                          
+                          <div class="text-left"  style="padding-left: 30px;">
+                            <h5>Minor Prizes:</h5>
+                            <ul>
+                              <li>3 winners: SM Gift certificates worth Php 2,000</li>
+                              <li>1 winner: SM Gift certificates worth Php 1,500</li>
+                              <li>1 winner: SM Gift certificates worth Php 1,000</li>
+                              <li>1 winner: JBL Flip3 Bluetooth speaker</li>
+                              <li>1 winner: Promate 10,000mAh Powerbank</li>
+                              <li>1 winner: urBeats3 earphones</li>
+                            </ul></div>
+
+                         
+
+                      <br/><br/>
+                       <strong>Venue:</strong><br/>
+
+                        OPEN ACCESS BPO G2 OFFICE<br/>
+
+                        11F Glorietta 2 Corporate Center,<br/>
+
+                        West. St., Ayala Center, Makati City<br/><br/>
+
+                        <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                        <br/><br/>
+
+                          View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                       
+                        <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                              <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                </div>  
+
+               
+
+               <?php $ct=0; $songs = ["This Is The Moment","Bring Me To Life","Wildflower"];?>
+
+                  @foreach($top3 as $idol)
+                   
+                  
+                   <div class="item text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
+
+                  
+
+                      
+                               
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/>
+                                <br/>TOP 3 Finalist</h2>
+                               <p class="text-center">
+                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./storage/uploads/top3-{{$ct+1}}.jpg" width="250px" class="img-circle" /><br/>
+                                <h3 class="text-center">"{{$songs[$ct]}}"</h3>
+                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
+                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
+                                                          @if (empty($idol->filename))
+                                                              {{$idol->program}}
+                                                          @else
+                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
+
+                                                          @endif
+                                </h4></a></p>
+
+                                <h2>Congratulations!</h2>
+                                <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
+
+
+                                
+                               
+
+                  </div>
+                  <?php $ct++; ?>
+                  @endforeach
+
+                 
+
+                 
+                  <!-- ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU -->
+                  <?php $cidol=1;?>
+                  @foreach($idols as $idol)
+                   
+                  
+                   <div class="item  text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
+
+                  
+
+                      
+                               
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Idol Contender</h2>
+
+                               <p class="text-center" style="color: #fff">
+
+                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
+                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
+                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
+                                                          @if (empty($idol->filename))
+                                                              {{$idol->program}}
+                                                          @else
+                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
+
+                                                          @endif
+
+                                </h4></a></p>
+                                <p style="color:#dedede">Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rockstars!!! 
+                                  <br/><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a> </p>
+
+
+                               
+
+                  </div>
+
+                  <?php $cidol++;?>
+                  @endforeach
+
+                  
+
+                  
+                  
+
+
+                  
+                  
+                 
+
+                 
+               
+                  
+
+                  <div class="item text-center" style="background-color: #fff" >
+                    <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <p style="margin-left: 35px;margin-right: 20px">Hello Open Access Family,<br/><br/>
+
+                    September is almost over which means we are nearing the holiday season!
+                    And what does that mean for Open Access BPO?
+                    It means it's almost time to throw our most awaited event, the<strong> YEAR END PARTY!</strong><br/><br/>
+
+                    Mark your calendars as this year we will party to the theme that won in our survey - <strong style="font-size: larger; color: #000"> BLACK & WHITE!</strong><br/><br/>
+
+                    Date: <strong class="text-danger">December 14, 2019 Saturday</strong> <br/>
+                    Venue:<strong class="text-danger"> Rizal Ballroom, Makati Shangri-La</strong><br/><br/>
+
+                    Express yourself in Black & White as we party all night with great food, drinks, raffle prizes, and entertainment!<br/><br/>
+
+                    <a class="btn btn-md btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScbaoSSOL5m1mAz0ZV5kWqbDi7iTKLIYUkMKsJoL-PNtWEcRA/viewform" target="_blank"> Register Now </a><br/>to confirm your attendance. <br/>Registration ends October 31, 2019<br/><br/><br/></p>
+
+                    </div>  
+
+                    
+                                 
 
                     
 
