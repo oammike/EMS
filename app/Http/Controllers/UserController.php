@@ -1108,9 +1108,10 @@ class UserController extends Controller
       }
 
 
+      //return $requests;
 
-
-      return Datatables::collection($requests)->make(true);
+      //return Datatables::collection($requests)->make(true);
+      return response()->json(['data'=>$requests]);
     }
 
     public static function getVLcredits()
