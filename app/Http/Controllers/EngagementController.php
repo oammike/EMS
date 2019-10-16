@@ -246,7 +246,7 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->get();
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->get();
         $userEntries = collect($allEntries)->groupBy('entryID');
 
         $triggers = DB::table('engagement')->where('engagement.id',$id)->

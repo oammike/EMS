@@ -84,7 +84,7 @@
                       @endforeach
                       <div class="clearfix"></div>
 
-                      @if($alreadyVoted == 0 && $entry[0]->withVoting)
+                      @if( $alreadyVoted == 0 && $entry[0]->withVoting && ($entry[0]->disqualified !== 1) )
                       <a class="vote btn btn-lg btn-primary" data-toggle="modal" data-target="#myModal{{$entry[0]->entryID}}"><i class="fa fa-check"></i> Vote for this entry</a>
                       @endif
 
