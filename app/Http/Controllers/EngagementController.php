@@ -22,6 +22,8 @@ use OAMPI_Eval\User;
 use OAMPI_Eval\Engagement;
 use OAMPI_Eval\Engagement_Entry;
 use OAMPI_Eval\Engagement_Vote;
+use OAMPI_Eval\Engagement_Trigger;
+use OAMPI_Eval\Engagement_EntryTrigger;
 use OAMPI_Eval\Engagement_EntryDetails;
 use OAMPI_Eval\Cutoff;
 use OAMPI_Eval\User_Leader;
@@ -85,8 +87,10 @@ class EngagementController extends Controller
     	$engagement = DB::table('engagement')->where('engagement.id',$id)->
     						join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
     						join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
+                            //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
     						select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
-    						get(); 
+    						get();
+        $triggers = Engagement_Trigger::where('engagement_id',$id)->orderBy('name','ASC')->get(); 
 
     	$existingEntry = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
     							where('user_id',$this->user->id)->
@@ -96,8 +100,21 @@ class EngagementController extends Controller
                                 select('engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryDetails.id as itemID', 'engagement_entryItems.label','engagement_entry.user_id','engagement_entry.created_at')->get();
         
     							//select('id')->get();
-    	(count($existingEntry) > 0) ? $hasEntry=true : $hasEntry=false;
-    	
+    	if (count($existingEntry) > 0) 
+        {
+            $hasEntry=true;
+            $myTriggers = DB::table('engagement')->where('engagement.id',$id)->
+                            join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                            join('engagement_entryTrigger','engagement_entry.id','=','engagement_entryTrigger.entryID')->
+                            join('engagement_trigger','engagement_entryTrigger.triggerID','=','engagement_trigger.id')->
+                            select('engagement_entry.id as entryID','engagement_trigger.id as triggerID', 'engagement_trigger.name as trigger')->get();
+            $myTrigger = collect($myTriggers)->where('entryID',$existingEntry[0]->entryID)->all();
+            $myTriggerArray = collect($myTriggers)->where('entryID',$existingEntry[0]->entryID)->pluck('triggerID')->toArray();
+
+
+        } else { $hasEntry=false; $myTrigger=null; $myTriggerArray=null; }
+
+        
 
         $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
@@ -108,7 +125,7 @@ class EngagementController extends Controller
                                     fwrite($file, "-------------------\n View Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
-    	return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted'));
+    	return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
     	//return $engagement;
     }
 
@@ -136,6 +153,13 @@ class EngagementController extends Controller
     		$ctr++;
     	}
 
+        foreach ($request->triggers as $key) {
+            $trigger = new Engagement_EntryTrigger;
+            $trigger->entryID = $entry->id;
+            $trigger->triggerID = $key;
+            $trigger->save();
+        }
+
          $correct = Carbon::now('GMT+8'); 
          if($this->user->id !== 564 ) {
                                   $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
@@ -143,6 +167,31 @@ class EngagementController extends Controller
                                 } 
 
     	return response()->json(['success'=>1, 'entry'=>$entry]);
+    }
+
+    public function saveTriggers(Request $request)
+    {
+        $correct = Carbon::now('GMT+8');
+        $entry = Engagement_Entry::where('user_id',$this->user->id)->where('engagement_id',$request->engagement_id)->first();
+
+        //clear first all saved triggers
+        $clearIt = Engagement_EntryTrigger::where('entryID',$entry->id)->delete();
+
+        //the create new ones
+        if( !is_null($request->triggers) )
+        {
+            foreach($request->triggers as $t)
+            {
+                $trigger = new Engagement_EntryTrigger;
+                $trigger->entryID = $entry->id;
+                $trigger->triggerID = $t;
+                $trigger->save();
+            }
+
+        }
+        
+        return response()->json($entry);
+
     }
 
     public function uncastvote($id)
@@ -182,6 +231,7 @@ class EngagementController extends Controller
                             select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
                             get();
 
+
         $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
                                 join('engagement','engagement_entry.engagement_id','=','engagement.id')->
                                 join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
@@ -193,6 +243,12 @@ class EngagementController extends Controller
                                 join('positions','users.position_id','=','positions.id')->
                                 select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->get();
         $userEntries = collect($allEntries)->groupBy('entryID');
+
+        $triggers = DB::table('engagement')->where('engagement.id',$id)->
+                            join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                            join('engagement_entryTrigger','engagement_entry.id','=','engagement_entryTrigger.entryID')->
+                            join('engagement_trigger','engagement_entryTrigger.triggerID','=','engagement_trigger.id')->
+                            select('engagement_entry.id as entryID','engagement_trigger.name as trigger')->get();
         
         $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
@@ -203,6 +259,7 @@ class EngagementController extends Controller
                                   $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Votenow Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
-        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted'));
+        //return collect($triggers)->where('entryID',7);
+        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers'));
     }
 }

@@ -51,6 +51,33 @@
                       <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#delModal{{$existingEntry[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
                       <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
 
+                       
+
+                         <h4>Triggers:</h4>
+
+                         @if( count($myTrigger) > 0 )
+                         <a id="editTrigger" class="btn btn-xs btn-default pull-right"><i class="fa fa-pencil"></i> Edit </a>
+                         @else
+                         <a id="editTrigger" class="btn btn-xs btn-default pull-right"><i class="fa fa-plus"></i> Add Triggers </a>
+                         @endif
+
+                         <a id="saveTrigger" class="btn btn-xs btn-success pull-right"><i class="fa fa-save"></i> Save </a> 
+                         <div id="triggers" style="font-size: smaller;">
+
+                             @if (count($myTrigger)>0)
+                             @foreach($myTrigger as $t)
+
+                             {{$t->trigger}},</em>&nbsp;
+
+                             @endforeach
+                             @endif
+
+                             <div class="clearfix"></div>
+
+                         </div>
+                       
+
+                    
 
                         @foreach($existingEntry as $e)
                         
@@ -65,7 +92,7 @@
                         @endforeach
 
 
-                    <div class="modal fade" id="delModal{{$existingEntry[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="delModal{{$existingEntry[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -94,11 +121,24 @@
 
                     @else
                         <h3 class="text-primary">Submit Your Entry:</h3>
-                        @foreach($engagement as $element)
+                        <?php $ctr=0; ?>
+                        @foreach($engagement as $element)<br/>
                         <label style="padding-top: 20px">{{$element->label}} </label>
 
                             @if( $element->dataType == 'TXT' )
                             <input type="text" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" />
+
+                            @endif
+
+                            @if($ctr < 1)
+
+                              <label><br/>Triggers:</label><br/>
+                              @foreach($triggers as $trigger)
+                              <label style="font-size: x-small; margin-left: 10px"><input type="checkbox" name="triggers[]" value="{{$trigger->id}}" />&nbsp; {{$trigger->name}} </label>
+
+                              @endforeach
+
+                              <?php $ctr++; ?>
 
                             @endif
 
@@ -190,6 +230,76 @@
 
    @if($hasEntry)
 
+    $('#saveTrigger').fadeOut();
+
+    $('#saveTrigger').on('click',function()
+    {
+      var _token = "{{ csrf_token() }}";
+
+      var triggers = $('input[name="triggers[]"]:checkbox:checked').map(function() {
+                  return this.value;
+              }).get();
+
+       $.ajax({
+
+                  url:"{{action('EngagementController@saveTriggers')}}",
+                  type:'POST',
+                  data:{
+
+                    'engagement_id': "{{$id}}",
+                    'triggers':triggers,
+                    _token: _token
+
+                  },
+                  error: function(response)
+                  { console.log("Error saving entry: ");
+                    console.log(response);
+                    $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                    return false;
+                  },
+                  success: function(response)
+                  {
+                    console.log(response);
+                    $.notify("Entry updated. \nThank you for participating.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                    $('#saveTrigger').fadeOut();$('#editTrigger').fadeIn();
+                    window.location.reload(true);
+
+
+                  }
+
+            });
+      
+
+    });
+
+    $('#editTrigger').on('click',function(){
+      $('#triggers').html();
+      $('#editTrigger').fadeOut(); $('#saveTrigger').fadeIn();
+
+      var htmlcode = "<br/>";
+      
+      @foreach($triggers as $trigger)
+
+        @if( in_array($trigger->id,$myTriggerArray) )
+
+          htmlcode += "<label style=\"font-size: x-small; margin-left: 10px\"><input checked=\"checked\" type=\"checkbox\" name=\"triggers[]\" value=\"{{$trigger->id}}\" />&nbsp; {{$trigger->name}} </label>";
+
+        @else 
+
+          htmlcode += "<label style=\"font-size: x-small; margin-left: 10px\"><input type=\"checkbox\" name=\"triggers[]\" value=\"{{$trigger->id}}\" />&nbsp; {{$trigger->name}} </label>";
+
+        @endif
+
+        
+      @endforeach
+
+      $('#triggers').html(htmlcode);
+
+
+    });
+
+
+
     $('h4.edit a').on('click',function(){
 
       var itemID = $(this).attr('data-itemID');
@@ -265,10 +375,16 @@
       var itemIDs = $('#entry .form-control').map(function( i, e ) {
                     return $( e ).attr('data-itemID');
                   }).get();
+
+      var triggers = $('input[name="triggers[]"]:checkbox:checked').map(function() {
+                  return this.value;
+              }).get();
+
+
       var _token = "{{ csrf_token() }}";
 
       
-      console.log("items");
+      //console.log(triggers);
 
       if (items[0] === "" || items[1] === "")
         $.notify("All fields are required.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
@@ -283,6 +399,7 @@
                     'engagement_id': "{{$id}}",
                     'items': items,
                     'itemIDs': itemIDs,
+                    'triggers':triggers,
                     
                     _token: _token
 

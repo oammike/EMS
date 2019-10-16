@@ -36,7 +36,24 @@
                   <!-- ******** collapsible box ********** -->
                   <div class="box box-default collapsed-box" style="background-size:98%;background-position: bottom center; background-repeat: no-repeat; background-image: url('../../storage/uploads/frightful2.jpg'); background-color: #000" >
                     <div class="box-header with-border">
-                      <h3 class="box-title text-primary">{{$entry[0]->value}}   </h3>
+
+                      
+                      <h3 class="box-title" style="color:#dedede">{{$entry[0]->value}} </h3>
+
+                      <?php $trigger = collect($triggers)->where('entryID',$entry[0]->entryID)->all(); ?>
+
+                      @if(count($trigger) > 0) 
+                        <div class="text-left" style="border-top: 1px dotted #666;margin-top: 5px">
+                          <i class="fa fa-exclamation-triangle text-yellow"></i>
+                          <?php foreach($trigger as $t) { ?>
+
+                          <strong style="font-size: smaller;" class="text-danger">{{$t->trigger}}, </strong>
+
+                         <?php } ?> 
+                        </div>
+                     @endif
+
+
                       @if ( $alreadyVoted && $voted[0]->engagement_entryID == $entry[0]->entryID )
                       &nbsp;&nbsp;<i class="fa fa-check text-success"></i>
                       @endif
@@ -56,9 +73,9 @@
                       
 
                         @if($e->elemType === 'PAR')
-                          <h4 style="color:#fff">{{$e->label}} : </h4>   <div style="margin:20px; white-space: pre-wrap; color:#fff">{!! $e->value !!}</div>
+                             <div style="margin:20px; white-space: pre-wrap; color:#fff">{!! $e->value !!}</div>
                         @else
-                           <h4 style="color:#fff">{{$e->label}} :  <span style="font-weight: 100"> {!! $e->value !!}</span></h4> 
+                           <h4 style="color:#fff"> <span style="font-weight: 100"></span></h4> 
 
                         @endif
 

@@ -148,6 +148,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.saveEntry',
       'uses'=>'EngagementController@saveEntry') );
 
+    Route::post('/employeeEngagement/saveTriggers', array(
+      'as'=> 'employeeEngagement.saveTriggers',
+      'uses'=>'EngagementController@saveTriggers') );
+
     Route::post('/employeeEngagement/updateEntry', array(
       'as'=> 'employeeEngagement.updateEntry',
       'uses'=>'EngagementController@updateEntry') );
