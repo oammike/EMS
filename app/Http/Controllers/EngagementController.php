@@ -153,12 +153,17 @@ class EngagementController extends Controller
     		$ctr++;
     	}
 
-        foreach ($request->triggers as $key) {
+        if( !is_null($request->triggers) )
+        {
+            foreach ($request->triggers as $key) {
             $trigger = new Engagement_EntryTrigger;
             $trigger->entryID = $entry->id;
             $trigger->triggerID = $key;
             $trigger->save();
+            }
+
         }
+            
 
          $correct = Carbon::now('GMT+8'); 
          if($this->user->id !== 564 ) {
