@@ -85,7 +85,9 @@
             </div>
           </div>
           <div id="qr_code_wrapper">
-            <p>Here's your order slip. Show this to the barista to claim your order.</p>
+            <p>Your order has been queued.</p>
+            <p>Tap your ID with the barista @G2.<br/>Alternatively, here's your order slip. Show this to the barista to claim your order.</p>
+            <p>This QR code is the same with the sticker issued by IT.<br/>If you don't have your QR tag yet, contact IT to claim yours.</p>
             <div id="qr-code-container"></div>
           </div>
           
@@ -153,11 +155,13 @@
 			
 			$('#modalConfirmYes').click(function(event){
 				event.preventDefault();
+        var micro = (Date.now() % 1000) / 1000;
 				$('#claimer_loader').show();
 				$.ajax({
 					type: "POST",
-					url : "{{ url('/claim-reward') }}/"+window.selected_reward_id,
+					url : "{{ url('/claim-reward') }}/"+window.selected_reward_id+"?m="+micro,
 					success : function(data){
+            
             $('#modalConfirmYes').hide();
             $('#modalConfirmClose').text("OK");
 						console.log(data);
@@ -165,7 +169,7 @@
 						$('#claimer_error').text();
             $('#form_elements').hide();
             
-            $('#qr-code-container').attr('style','background-image:url("{{ url('/') }}'+data.file+'");');
+            $('#qr-code-container').attr('style','background-image:url("{{ url('/') }}'+data.file+'?micro='+micro+'");');
             $('#qr-code-container').show();
             $('#qr_code_wrapper').show();
 						//$('#modalConfirm').modal('hide');

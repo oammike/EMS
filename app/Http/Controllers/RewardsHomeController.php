@@ -78,65 +78,12 @@ class RewardsHomeController extends Controller
       return view('rewards/home_rewards_catalog', $data);
     }
     
-    
-    public function rewards_catalog_list(Request $request,$page = 0){
-      $skip = $request->input('start', ($page * $this->pagination_items));
-      $take = $request->input('length', $this->pagination_items);
-      $fetch_all = $request->input('fetch_all', FALSE);
-      $data = new \stdClass();    
-      $data->data = Reward::orderBy('name', 'asc')->skip($skip)->take($take)->get();
-      
-      return view('rewards/home_rewards_catalog', $data);
+    public function barista(){
+        return view('barista-home');
     }
     
-    public function claim_reward(Request $request,$reward_id = 0){
-      $tier = $request->input('tier',0);
-      $error = false;
-      $error_message = "";
-      $user_id = \Auth::user()->id;
-      
-      if($tier==0){
-        return response()->json([
-          'exception' => $error_message,
-          'success' => false,
-          'message' => array('invalid reward variant.')
-        ], 422);
-      }
-      
-      $data = new \stdClass();
-      if(intval($reward_id) > 0){
-        $user = User::with('points','team')->find($user_id);
-        $reward = Reward::find($reward_id);
-        Tier::find($tier);
-        
-        if($user->points==null){
-          $record = new Point;
-          $record->idnumber = $user_id;
-          $record->points = 10;
-          $record->save();
-        }
-        
-        if($user->points == null || $reward->cost > $user->points->points ){
-          return response()->json([
-            'success' => false,
-            'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
-          ], 422);
-        }
-        
-          if($user->points()->decrement('points', $reward->cost)){
-            $record = new ActivityLog;
-            $record->initiator_id       = $user_id;
-            $record->target_id      = $user_id;
-            $record->description = "claimed ".$reward->name." for ".$reward->cost." points";
-            
-            $order = new Orders;
-            $order->user_id = $user_id;
-            $order->reward_id = $reward->id;
-            $order->status = "PENDING";
-            $order->save();
-            
-            if($record->save()) {
-              try{
+    public function print_order($code){
+      //sql = select id from users where concat(id,employeeNumber) = $code
                 $micro = microtime(true);
                 /* Information for the receipt */
                 $items = array(
@@ -165,24 +112,106 @@ class RewardsHomeController extends Controller
                 }
                 
                 $printer -> feed(1);
-                $printer -> setJustification(Printer::JUSTIFY_CENTER);
-                $printer -> qrCode($user->employeeNumber.'@@@'.$micro.'@@@'.$record->id, Printer::QR_ECLEVEL_L, 9, Printer::QR_MODEL_2);
-                $printer -> feed(1);
                 $printer -> cut();
                 $printer -> close();
+    }
+    
+    
+    public function rewards_catalog_list(Request $request,$page = 0){
+      $skip = $request->input('start', ($page * $this->pagination_items));
+      $take = $request->input('length', $this->pagination_items);
+      $fetch_all = $request->input('fetch_all', FALSE);
+      $data = new \stdClass();    
+      $data->data = Reward::orderBy('name', 'asc')->skip($skip)->take($take)->get();
+      
+      return view('rewards/home_rewards_catalog', $data);
+    }
+    
+    public function get_qr($user_id){
+      $user = User::find($user_id);
+      QrCode::size(500)
+        ->format('svg')
+        ->errorCorrection('H')
+        ->generate(
+          $user_id . $user->employeeNumber,
+          public_path('media/qr/'.$user_id.'.svg'));
+        
+      return response()->json([
+        'success' => true,
+        'idnumber' => $user_id,
+        'file' => '/public/media/qr/'.$user_id.'.svg'
+      ], 200);
+                
+        
+                
+    }
+    
+    public function claim_reward(Request $request,$reward_id = 0){
+      $tier = $request->input('tier',0);
+      $error = false;
+      $error_message = "";
+      $user_id = \Auth::user()->id;
+      
+      if($tier==0){
+        return response()->json([
+          'exception' => $error_message,
+          'success' => false,
+          'message' => array('invalid reward variant.')
+        ], 422);
+      }
+      
+      $data = new \stdClass();
+      if(intval($reward_id) > 0){
+        $user = User::with('points','team')->find($user_id);
+        $reward = Reward::find($reward_id);
+        Tier::find($tier);
+        
+        if($user->points==null){
+          if($user->points!==0){
+            $record = new Point;
+            $record->idnumber = $user_id;
+            $record->points = 10;
+            $record->save();
+          }
+        }
+        
+        if($user->points == null || $reward->cost > $user->points->points ){
+          return response()->json([
+            'success' => false,
+            'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
+          ], 422);
+        }
+        
+          if($user->points()->decrement('points', $reward->cost)){
+            $record = new ActivityLog;
+            $record->initiator_id       = $user_id;
+            $record->target_id      = $user_id;
+            $record->description = "claimed ".$reward->name." for ".$reward->cost." points";
+            
+            $order = new Orders;
+            $order->user_id = $user_id;
+            $order->reward_id = $reward->id;
+            $order->status = "PENDING";
+            $order->save();
+            
+            if($record->save()) {
+              try{
+                $micro = microtime(true);
+                
                 
                 QrCode::size(500)
                   ->format('svg')
+                  ->errorCorrection('H')
                   ->generate(
-                    $user->employeeNumber.'@@@'.$micro.'@@@'.$record->id,
-                    public_path('media/qr/'.$user->employeeNumber.'_'.$record->id.'.svg'));
+                    $user_id . $user->employeeNumber,
+                    public_path('media/qr/'.$user_id.'.svg'));
                   
                 return response()->json([
                   'success' => true,
-                  'idnumber' => $user->employeeNumber,
+                  'idnumber' => $user_id,
                   'micro' => $micro,
                   'order_id' => $record->id,
-                  'file' => '/public/media/qr/'.$user->employeeNumber.'_'.$record->id.'.svg'
+                  'file' => '/public/media/qr/'.$user_id.'.svg'
                 ], 200);
               }catch(\Exception $e){
                 $error_message = $e->getMessage();

@@ -6,6 +6,15 @@
 <style type="text/css">
 /* Sortable items */
 
+#qr-code-container{
+	margin: 0 auto;
+	width: 480px;
+    height: 480px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
 .sortable-list {
   background: none; /* #fcedc6;*/
   list-style: none;
@@ -154,7 +163,35 @@
        
      </section>
           
-
+	
+<!-- Confirm Modal -->
+<div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel">
+  
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="qrModalLabel">Employee QR Tag</h4>
+        </div>
+        <div class="box modal-body">
+          <div id="qr_code_wrapper">
+            <p>QR Code for <span id="qrModalName"></span>:</p>
+              <p><span id="claimer_error" class="help-block"></span></p>
+            <div id="qr-code-container"></div>
+          </div>
+          
+          <div class="overlay" id="qr_loader"> 
+            <i class="fa fa-refresh fa-spin"></i>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="modalConfirmClose" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="modalConfirmYes" type="button" class="btn btn-primary">Print</button>
+        </div>
+      </div>
+    </div>
+  
+</div>
 
 
 @endsection
@@ -176,8 +213,7 @@
  $(function () {
    'use strict';
   
-
-    
+  
 
     $("#active").DataTable({
                       "ajax": "{{ action('UserController@getAllActiveUsers') }}",
@@ -186,6 +222,43 @@
                       "stateSave": false,
                       "order": [ 1, "asc" ],
                       "lengthMenu": [20, 100, 500],
+                      "initComplete": function () {
+                           @if ($hasUserAccess)
+                            $('.qr_launcher').click(function(e){
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                             
+                             var micro = (Date.now() % 1000) / 1000;
+                             var name = $(this).data('name');
+                             var id = $(this).data('userid');
+                             $('#qrModalName').text(name);
+                             $('#qr_loader').show();
+                             $('#qrModal').modal('show');
+                             $('#modalConfirmYes').hide();
+                             
+                             $.ajax({
+                              type:"GET",
+                              url : "{{ url('/get_qr') }}"+"/"+id+"?micro="+micro,
+                              success : function(data){
+                               
+                               $('#qr-code-container').attr('style','background-image:url("{{ url('/') }}'+data.file+'?micro='+micro+'");');
+                               $('#qr-code-container').show();
+                               $('#qr_code_wrapper').show();
+                               $('#modalConfirmYes').show();
+                               $('#qr_loader').hide();
+                              },
+                              error: function(data){
+                               alert("Could not fetch "+name+"'s QR code.");
+                               $('#qrModal').modal('hide');
+                               $('#qr_loader').hide();
+                              }
+                             });
+                             
+                             
+                            });
+                           @endif  
+                       },
                       "columns": [
                             { title: " ", data:'id', width:'90', class:'text-center', sorting:false, search:true, render: function ( data, type, full, meta ) {
                                var l = data+".jpg";
@@ -242,7 +315,7 @@
 
                             @if ($hasUserAccess)
 
-                            return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a>'+modalcode;
+                            return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a>'+modalcode;
 
                             @else
 
