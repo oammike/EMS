@@ -74,6 +74,11 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '19':{
+               fwrite($file, "-------------------\n Booth CSweek2019 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '18':{
                fwrite($file, "-------------------\n TBT CSweek2018 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -513,7 +518,19 @@ class HomeController extends Controller
 
         // } break;
 
+        case '19': {
+ 
+                    //CSWEEK 2019 BOOTH
+      
+                  for($i=1; $i<=65; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/cs2019booth-".$i."_thumb.jpg",
+                                'fullsrc'=>"storage/uploads/cs2019booth-".$i.".jpg",
+                                'description'=>"Photobooth CS Week 2019",
+                                'category'=>"Photobooth CS Week 2019"]);
 
+                  }
+
+        } break;
         
         default: {
 
