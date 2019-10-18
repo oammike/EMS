@@ -20,6 +20,10 @@ use Yajra\Datatables\Facades\Datatables;
 use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
 use OAMPI_Eval\Engagement;
+use OAMPI_Eval\Engagement_Comment;
+use OAMPI_Eval\Engagement_Reply;
+use OAMPI_Eval\Engagement_CommentLikes;
+use OAMPI_Eval\Engagement_ReplyLikes;
 use OAMPI_Eval\Engagement_Entry;
 use OAMPI_Eval\Engagement_Vote;
 use OAMPI_Eval\Engagement_Trigger;
@@ -77,6 +81,149 @@ class EngagementController extends Controller
         return redirect()->back();
         //return $vote;
 
+    }
+
+    public function deleteComment($id)
+    {
+        $comment = Engagement_Comment::find($id);
+
+        //check mo muna kung may replies na. Pag meron, update content na lang
+        if (count($comment->replies) > 0)
+        {
+            $comment->body = "<em>*** user already removed this comment *** </em> ";
+            $comment->save();
+            return redirect()->back();
+
+        }else
+        {
+            $comment->delete();
+            $correct = Carbon::now('GMT+8');
+            if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n DelComment by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                }
+            return redirect()->back();
+
+        }
+        
+
+    }
+
+    public function deleteReply($id)
+    {
+        $reply = Engagement_Reply::find($id);
+        $reply->delete();
+
+         $correct = Carbon::now('GMT+8'); 
+         if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n DelReply by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
+        return redirect()->back();
+
+    }
+
+    public function like(Request $request)
+    {
+
+        switch ($request->type) 
+        {
+            case 'comment':
+                            {
+                                $c = new Engagement_CommentLikes;
+                                $c->user_id = $this->user->id;
+                                $c->comment_id = $request->commentid;
+                                $c->save();
+
+                            }break;
+            case 'reply':
+                            {
+                                $c = new Engagement_ReplyLikes;
+                                $c->user_id = $this->user->id;
+                                $c->reply_id = $request->commentid;
+                                $c->save();
+
+                            }break;
+
+            
+           
+        }
+
+        return response()->json($c);
+    }
+
+    public function unlike(Request $request)
+    {
+
+        $correct = Carbon::now('GMT+8'); 
+        switch ($request->type) 
+        {
+            case 'comment':
+                            {
+                                $c = Engagement_CommentLikes::where('user_id',$this->user->id)->where('comment_id',$request->commentid)->first();
+                                $c->delete();
+                                if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Unlike (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
+        
+
+                            }break;
+            case 'reply':{ 
+                            $c = Engagement_ReplyLikes::where('user_id',$this->user->id)->where('reply_id',$request->commentid)->first();
+                                $c->delete();
+                                if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Unlike reply (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
+                        }break;
+
+            
+           
+        }
+        return redirect()->back();
+        //return response()->json($c);
+    }
+
+    public function postComment(Request $request,$id)
+    {
+        $correct = Carbon::now('GMT+8'); 
+        $comment = new Engagement_Comment;
+        $comment->user_id = $this->user->id;
+        $comment->engagement_id = $id;
+        $comment->body = $request->comment;
+        $comment->created_at = $correct->format('Y-m-d H:i:s');
+        $comment->updated_at = $correct->format('Y-m-d H:i:s');
+        $comment->save();
+
+        if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Comment on [".$id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                }
+        return response()->json($comment); 
+    }
+
+
+    public function postReply(Request $request,$id)
+    {
+        $correct = Carbon::now('GMT+8'); 
+        $comment = new Engagement_Reply;
+        $comment->user_id = $this->user->id;
+        $comment->engagement_id = $id;
+        $comment->comment_id = $request->comment_id;
+        $comment->body = $request->comment;
+        $comment->created_at = $correct->format('Y-m-d H:i:s');
+        $comment->updated_at = $correct->format('Y-m-d H:i:s');
+        $comment->save();
+
+        if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Reply on [".$request->comment_id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                }
+        return response()->json($comment); 
     }
 
 
@@ -229,6 +376,7 @@ class EngagementController extends Controller
 
     public function voteNow($id)
     {
+        $owner = $this->user;
         DB::connection()->disableQueryLog(); 
         $engagement = DB::table('engagement')->where('engagement.id',$id)->
                             join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
@@ -257,6 +405,38 @@ class EngagementController extends Controller
         
         $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
+
+
+        $comments = DB::table('engagement_comment')->where('engagement_comment.engagement_id',$id)->
+                        join('users','engagement_comment.user_id','=','users.id')->
+                        join('team','team.user_id','=','users.id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        join('positions','users.position_id','=','positions.id')->
+                        select('engagement_comment.id', 'engagement_comment.engagement_id','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_comment.created_at','engagement_comment.updated_at','engagement_comment.body')->orderBy('engagement_comment.updated_at','DESC')->get(); 
+        $commentLikes = DB::table('engagement_comment')->where('engagement_id',$id)->
+                            join('engagement_commentLikes','engagement_commentLikes.comment_id','=','engagement_comment.id')->
+                            join('users','engagement_commentLikes.user_id','=','users.id')->
+                            join('team','team.user_id','=','users.id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('engagement_comment.id as commentID','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program')->get();
+        $replyLikes =  DB::table('engagement_reply')->where('engagement_id',$id)->
+                            join('engagement_replyLikes','engagement_replyLikes.reply_id','=','engagement_reply.id')->
+                            join('users','engagement_replyLikes.user_id','=','users.id')->
+                            join('team','team.user_id','=','users.id')->
+                            join('campaign','team.campaign_id','=','campaign.id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('engagement_reply.id as replyID','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program')->get();
+
+        //return response()->json(['commentLikes'=>$commentLikes,'replyLikes'=>$replyLikes]);
+
+        $replies = DB::table('engagement_reply')->where('engagement_reply.engagement_id',$id)->
+                        
+                        join('users','engagement_reply.user_id','=','users.id')->
+                        join('team','team.user_id','=','users.id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        join('positions','users.position_id','=','positions.id')->
+                        select('engagement_reply.id', 'engagement_reply.comment_id as commentID','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_reply.created_at','engagement_reply.updated_at','engagement_reply.body')->orderBy('engagement_reply.created_at','DESC')->get();
         
         //return $userEntries;
          $correct = Carbon::now('GMT+8'); 
@@ -265,6 +445,6 @@ class EngagementController extends Controller
                                     fwrite($file, "-------------------\n Votenow Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
         //return collect($triggers)->where('entryID',7);
-        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers'));
+        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers','comments','replies','commentLikes','replyLikes','owner'));
     }
 }

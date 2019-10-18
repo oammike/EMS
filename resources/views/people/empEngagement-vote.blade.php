@@ -187,6 +187,260 @@
               </div><!--end box-primary-->
 
 
+
+              
+              <!--COMMENTS -->
+              <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.6);padding:30px; max-height: 500px; overflow-y: scroll;">
+                <h2>Join the Discussion</h2>
+                <p>Share your thoughts and post your comments</p><br/><br/>
+
+                <input type="text" class="form-control input-md pull-left" name="comment" id="comment" placeholder="Post your comment" style="width: 83%" />
+                <a id="submitComment"  style="margin-left: 5px" class="btn btn-sm btn-primary pull-left"> Post</a>
+
+                <div id="new">
+                </div>
+
+                    @foreach($comments as $comment)
+                        <!-- Message -->
+                        <div class="direct-chat-msg">
+
+                          <div class="direct-chat-info clearfix"></div>
+
+                          <a href="{{action('UserController@show',$comment->userID)}}" target="_blank"><img class="direct-chat-img" style="width: 60px; height: 60px; margin-left: -10px"  src="../../public/img/employees/{{$comment->userID}}.jpg" alt="message user image"></a>
+                          
+                          <div class="direct-chat-text" style="padding:20px;background: rgba(256, 256, 256, 0.9); width: 78%" >
+                            
+                            {!! $comment->body !!}
+
+                              <div class="buttons" style="position: absolute; top:0px; right:-130px; width: 15%; margin-left: 50px">
+
+                                <!-- ******* DELETE COMMENT ********-->
+                                @if($owner->id == $comment->userID)
+                                <a data-toggle="modal" data-target="#delComment{{$comment->id}}" data-commentID="{{$comment->id}}" class="deleteComment pull-left btn btn-xs btn-default" style="margin-left: 5px;margin-bottom: 5px;">
+                                  <i class="fa fa-trash"></i> Delete  </a><div class="clearfix"></div>
+                                @endif
+
+
+                                <!-- ******* LIKE COMMENT ********-->
+                                <?php $likes = collect($commentLikes)->where('commentID',$comment->id)->all(); ?>
+                                <?php $mylike = collect($likes)->pluck('userID')->toArray(); ?>
+
+                                @if (in_array($owner->id,$mylike))
+
+                                    <a data-commentID="{{$comment->id}}" data-type="comment" class="unlike pull-left btn btn-xs" style="background-color: #fff; margin-left: 5px;margin-bottom: 5px;">
+                                      <i class="fa fa-thumbs-o-up"></i> Liked 
+                                      <strong style="font-size: x-small;">
+                                        
+                                        @if(count($likes) > 0)
+                                            ( {{count($likes)}} )
+                                        @endif
+                                     </strong>
+                                   </a>
+
+                                @else
+
+                                  <a  data-commentID="{{$comment->id}}" data-type="comment" class="like pull-left btn btn-xs btn-default" style="margin-left: 5px;margin-bottom: 5px;">
+                                      <i class="fa fa-thumbs-o-up"></i> Like 
+                                      <strong style="font-size: x-small;">
+                                        
+                                        @if(count($likes) > 0)
+                                            ( {{count($likes)}} )
+                                        @endif
+                                     </strong>
+                                   </a>
+
+
+                                @endif
+
+                                 <div class="clearfix"></div>
+
+                                <!-- ******* REPLY BTN ********-->
+                                <a class="reply pull-left btn btn-xs btn-default" data-commentID="{{$comment->id}}" style="margin-left: 5px;margin-bottom: 5px;"><i class="fa fa-reply"></i> Reply</a><div class="clearfix"></div>
+                                
+                                
+
+                              </div>
+
+                              <span class="pull-right" style="font-size: x-small;background-color: #dedede; padding:3px;">
+                                <?php echo Carbon\Carbon::now('GMT+8')->diffForHumans($comment->created_at,true) ?> ago
+                                <!-- {date('M d, Y h:m A',strtotime($comment->created_at) )}  --></span>
+                          </div>
+
+
+                          <!-- ********** modal DELETE COMMENT -->
+                           <div class="modal fade" id="delComment{{$comment->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    
+                                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                      <h4 class="modal-title" id="myModalLabel">Delete Comment </h4>
+                                    
+                                  </div>
+                                  <div class="modal-body">
+                                    Are you sure you want to delete your comment?
+                                  </div>
+                                  <div class="modal-footer no-border">
+                                    {{ Form::open(['route' => ['employeeEngagement.deleteComment',$comment->id], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $comment->id ]) }} 
+
+                                      <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i> Yes </button>
+                                    
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>{{ Form::close() }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- ********** modal DELETE COMMENT -->
+
+                          <a href="{{action('UserController@show',$comment->userID)}}" target="_blank">
+                            <span class="direct-chat-name pull-left"  style="line-height: 0.8em;padding-top: 5px">
+                            @if (is_null($comment->nickname))
+                              {{$comment->firstname}} {{$comment->lastname}}<br/>
+                            @else
+                              {{$comment->nickname}} {{$comment->lastname}}<br/>
+                            @endif
+                            <em style="font-size: smaller"><span style="font-weight: normal;">{{$comment->jobTitle}}</span> - {{$comment->program}} </em>
+                          </span></a>
+                          
+
+                          <div class="replydiv" id="replyto_{{$comment->id}}">
+                             <div class="clearfix"></div>
+                             <input id="reply_{{$comment->id}}" type="text" class="form-control input-sm pull-left" name="reply" placeholder="Post your reply" style="margin-left:48px; margin-top:10px;width: 73%" />
+                             <a id="submitReply_{{$comment->id}}" data-commentID="{{$comment->id}}"  style="margin-left: 5px; margin-top:10px;" class="submitReply btn btn-sm btn-default pull-left"> Post</a>
+                          </div>
+
+
+                            <!-- **** REPLIES *** -->
+                            <?php $reply = collect($replies)->where('commentID',$comment->id)->all();?>
+                            
+                            @if( count($reply) > 0)
+                              @foreach($reply as $r)
+
+                                <div class="direct-chat-msg" style="margin-left: 100px">
+                                  <div class="direct-chat-info clearfix"></div>
+                                  
+
+                                  <a href="{{action('UserController@show',$r->userID)}}" target="_blank">
+                                    <img class="direct-chat-img" style="width: 60px; height: 60px; margin-left: -10px"  src="../../public/img/employees/{{$r->userID}}.jpg" alt="message user image"></a>
+                                  
+                                  <div class="direct-chat-text" style="padding:20px;background: rgba(256, 256, 256, 0.9); width: 75%" >
+                                    <span class="pull-right" style="font-size: x-small;background-color: #dedede; padding:3px;"> 
+                                      <?php echo Carbon\Carbon::now('GMT+8')->diffForHumans($r->created_at,true) ?> ago
+                                      <!-- {date('M d, Y h:m A',strtotime($r->created_at) )} --> </span>
+                                    
+                                    {!! $r->body !!}
+
+                                      <div class="buttons" style="position: absolute; top:20px; right:-80px; width: 10%; margin-left: 20px">
+                                        <!-- ******* DELETE REPLY ********-->
+                                        @if($owner->id == $r->userID)
+                                        <a  data-toggle="modal" data-target="#delReply{{$r->id}}" class="pull-left btn btn-xs btn-default" style="margin-left: 5px;margin-bottom: 5px;">
+                                          <i class="fa fa-trash"></i> Delete  </a><div class="clearfix"></div>
+
+
+                                        <!-- ********** modal DELETE REPLY -->
+                                         <div class="modal fade" id="delReply{{$r->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">Delete Reply </h4>
+                                                  
+                                                </div>
+                                                <div class="modal-body">
+                                                  Are you sure you want to delete your reply?
+                                                </div>
+                                                <div class="modal-footer no-border">
+                                                  {{ Form::open(['route' => ['employeeEngagement.deleteReply',$r->id], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $r->id ]) }} 
+
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i> Yes </button>
+                                                  
+                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>{{ Form::close() }}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!-- ********** modal DELETE COMMENT -->
+
+
+                                        @endif
+
+                                        <?php $likes = collect($replyLikes)->where('replyID',$r->id)->all(); ?>
+                                       
+                                        @if(count($likes) > 0)
+                                              <?php $mylike = collect($likes)->pluck('userID')->toArray(); ?>
+                                              
+                                              @if (in_array($owner->id,$mylike))
+                                              <a data-commentID="{{$r->id}}" data-type="reply" class="unlike pull-left btn btn-xs" style="background-color:#fff; margin-left: 5px;margin-bottom: 5px;">
+                                                <i class="fa fa-thumbs-o-up"></i> Liked 
+                                                <strong style="font-size: x-small;">( {{count($likes)}} )</strong>
+                                              @else
+
+                                              <a data-commentID="{{$r->id}}" data-type="reply" class="like pull-left btn btn-xs btn-default" style="margin-left: 5px;margin-bottom: 5px;">
+                                                <i class="fa fa-thumbs-o-up"></i> Like 
+                                                <strong style="font-size: x-small;">( {{count($likes)}} )</strong>
+                                              @endif
+                                            </a>
+                                        @else
+
+                                        <a data-commentID="{{$r->id}}" data-type="reply" class="like pull-left btn btn-xs btn-default" style="margin-left: 5px;margin-bottom: 5px;">
+                                                <i class="fa fa-thumbs-o-up"></i> Like 
+                                                <strong style="font-size: x-small;"></strong><div class="clearfix"></div>
+                                        </a>
+
+
+
+                                        @endif
+
+
+
+                                        
+                                      </div>
+
+
+                                  </div>
+
+                                  <a href="{{action('UserController@show',$r->userID)}}" target="_blank">
+                                    <span class="direct-chat-name pull-left" style="line-height: 0.8em;padding-top: 5px">
+                                    @if (is_null($r->nickname))
+                                     {{$r->firstname}} {{$r->lastname}} <br/>
+                                    @else
+                                    {{$r->nickname}} {{$r->lastname}} <br/>
+                                    @endif
+
+                                    <em style="font-size: smaller"><span style="font-weight: normal;"> {{$r->jobTitle}}</span> - {{$r->program}} </em></span>
+                                  </a>
+                                  
+
+                                 
+                                </div>
+                                <!-- /msg-->
+                                @endforeach
+
+                            @endif
+                            
+
+                         
+                        </div>
+                        <!-- /msg-->
+                    @endforeach
+
+                   
+                   
+
+                    
+
+                    
+
+              </div>
+              <!--end comments-->
+              
+
+
+              
+              
+
+
              
 
              
@@ -213,13 +467,206 @@
 <!-- Page script -->
 <script>
  
-  $(function () {
-   'use strict';
+  $(function () 
+  {
+     'use strict';
 
-   
-  
-       
+     $('.replydiv').fadeOut();
+
+     $('.like.pull-left.btn.btn-xs.btn-default').on('click',function()
+     {
+        var type = $(this).attr('data-type');
+        var commentid = $(this).attr('data-commentID');
+        var _token = "{{ csrf_token() }}";
+
+        console.log(type);
+        console.log(commentid);
+
+        $.ajax({
+
+                      url:"{{action('EngagementController@like')}}",
+                      type:'POST',
+                      data:{
+                        'type':type,
+                        'commentid': commentid,
+                         _token: _token
+
+                      },
+                      error: function(response)
+                      { console.log("Error saving entry: ");
+                        console.log(response);
+                        $.notify("Error sending like.\nThat comment must have been deleted already by the user.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                        return false;
+                      },
+                      success: function(response)
+                      {
+                        console.log(response);
+                        $.notify("Comment liked. ",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                        
+                        window.location.reload(true);
+
+
+                      }
+
+                });
+
+
+     });
+
+
+     $('.unlike.pull-left.btn.btn-xs').on('click',function()
+     {
+        var type = $(this).attr('data-type');
+        var commentid = $(this).attr('data-commentID');
+        var _token = "{{ csrf_token() }}";
+
+        console.log(type);
+        console.log(commentid);
+
+        $.ajax({
+
+                      url:"{{action('EngagementController@unlike')}}",
+                      type:'POST',
+                      data:{
+                        'type':type,
+                        'commentid': commentid,
+                         _token: _token
+
+                      },
+                      error: function(response)
+                      { console.log("Error saving entry: ");
+                        console.log(response);
+                        $.notify("Error unliking. That comment must have been deleted already by the user.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                        return false;
+                      },
+                      success: function(response)
+                      {
+                        console.log(response);
+                        $.notify("Comment unliked. ",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                        
+                        window.location.reload(true);
+
+
+                      }
+
+                });
+
+
+     });
+
+     $('.reply.pull-left.btn.btn-xs.btn-default').on('click',function()
+     {
+
+        var commentid = $(this).attr('data-commentID');
+        $('#replyto_'+commentid).fadeIn();
+        console.log("comment reply: "+commentid);
+
+     });
+
+
+
+     $('.submitReply.btn.btn-sm.btn-default.pull-left').on('click',function()
+     {
+        var commentid = $(this).attr('data-commentID');
         
+
+        var comment = $('#reply_'+commentid).val();
+
+        console.log('submit reply: '+ comment);
+
+        if(comment.length == 0)
+        {
+          $.notify("Reply field is required.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+          return false;
+
+        }else {
+
+          var _token = "{{ csrf_token() }}";
+
+          $.ajax({
+
+                      url:"{{action('EngagementController@postReply',$id)}}",
+                      type:'POST',
+                      data:{
+
+                        'comment': comment,
+                        'comment_id':commentid,
+                         _token: _token
+
+                      },
+                      error: function(response)
+                      { console.log("Error saving entry: ");
+                        console.log(response);
+                        $.notify("Error posting reply. That comment must have been deleted already by the user.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                        return false;
+                      },
+                      success: function(response)
+                      {
+                        console.log(response);
+                        $('#replyto_'+commentid).fadeOut();
+                        $.notify("Reply posted. \nThank you for sharing your thoughts.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                        
+                        window.location.reload(true);
+
+
+                      }
+
+                });
+
+          
+
+        }
+
+     });
+
+     $('#submitComment').on('click',function()
+     {
+
+        var comment = $('#comment').val();
+
+        if(comment.length == 0)
+        {
+          $.notify("Comment field is required.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+          return false;
+
+        }else {
+
+          var _token = "{{ csrf_token() }}";
+
+          $.ajax({
+
+                      url:"{{action('EngagementController@postComment',$id)}}",
+                      type:'POST',
+                      data:{
+
+                        'comment': comment,
+                         _token: _token
+
+                      },
+                      error: function(response)
+                      { console.log("Error saving entry: ");
+                        console.log(response);
+                        $.notify("Error posting comment. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                        return false;
+                      },
+                      success: function(response)
+                      {
+                        console.log(response);
+                        $.notify("Comment posted. \nThank you for sharing your thoughts.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                        
+                        window.location.reload(true);
+
+
+                      }
+
+                });
+
+          
+
+        }
+
+     });
+  
       
       
    });

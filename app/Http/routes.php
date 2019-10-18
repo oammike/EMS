@@ -140,9 +140,30 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.castvote',
       'uses'=>'EngagementController@castvote') );
 
-    Route::post('/employeeEngagement/uncastvote/{id}', array(
-      'as'=> 'employeeEngagement.uncastvote',
-      'uses'=>'EngagementController@uncastvote') );
+    Route::post('/employeeEngagement/deleteComment/{id}', array(
+      'as'=> 'employeeEngagement.deleteComment',
+      'uses'=>'EngagementController@deleteComment') );
+
+    Route::post('/employeeEngagement/deleteReply/{id}', array(
+      'as'=> 'employeeEngagement.deleteReply',
+      'uses'=>'EngagementController@deleteReply') );
+
+
+    Route::post('/employeeEngagement/like/', array(
+      'as'=> 'employeeEngagement.like',
+      'uses'=>'EngagementController@like') );
+    Route::post('/employeeEngagement/unlike/', array(
+      'as'=> 'employeeEngagement.unlike',
+      'uses'=>'EngagementController@unlike') );
+
+
+    Route::post('/employeeEngagement/postComment/{id}', array(
+      'as'=> 'employeeEngagement.postComment',
+      'uses'=>'EngagementController@postComment') );
+
+    Route::post('/employeeEngagement/postReply/{id}', array(
+      'as'=> 'employeeEngagement.postReply',
+      'uses'=>'EngagementController@postReply') );
 
     Route::post('/employeeEngagement/saveEntry', array(
       'as'=> 'employeeEngagement.saveEntry',
@@ -151,6 +172,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/employeeEngagement/saveTriggers', array(
       'as'=> 'employeeEngagement.saveTriggers',
       'uses'=>'EngagementController@saveTriggers') );
+
+
+    Route::post('/employeeEngagement/uncastvote/{id}', array(
+      'as'=> 'employeeEngagement.uncastvote',
+      'uses'=>'EngagementController@uncastvote') );
+
 
     Route::post('/employeeEngagement/updateEntry', array(
       'as'=> 'employeeEngagement.updateEntry',
