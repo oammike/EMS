@@ -262,8 +262,8 @@
                               </div>
 
                               <span class="pull-right" style="font-size: x-small;background-color: #dedede; padding:3px;">
-                                <?php echo Carbon\Carbon::now('GMT+8')->diffForHumans($comment->created_at,true) ?> ago
-                                <!-- {date('M d, Y h:m A',strtotime($comment->created_at) )}  --></span>
+                                <?php //echo Carbon\Carbon::now('GMT+8')->diffForHumans($comment->created_at,true) ?>
+                                {{ date('M d, Y h:m A',strtotime($comment->created_at) ) }} </span>
                           </div>
 
 
@@ -325,8 +325,8 @@
                                   
                                   <div class="direct-chat-text" style="padding:20px;background: rgba(256, 256, 256, 0.9); width: 75%" >
                                     <span class="pull-right" style="font-size: x-small;background-color: #dedede; padding:3px;"> 
-                                      <?php echo Carbon\Carbon::now('GMT+8')->diffForHumans($r->created_at,true) ?> ago
-                                      <!-- {date('M d, Y h:m A',strtotime($r->created_at) )} --> </span>
+                                      <?php //echo Carbon\Carbon::now('GMT+8')->diffForHumans($r->created_at,true) ?>
+                                      {{ date('M d, Y h:m A',strtotime($r->created_at) ) }} </span>
                                     
                                     {!! $r->body !!}
 
