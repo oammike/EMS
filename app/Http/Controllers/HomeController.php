@@ -74,6 +74,11 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '20':{
+               fwrite($file, "-------------------\n OktoberGall by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '19':{
                fwrite($file, "-------------------\n Booth CSweek2019 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -527,6 +532,21 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/cs2019booth-".$i.".jpg",
                                 'description'=>"Photobooth CS Week 2019",
                                 'category'=>"Photobooth CS Week 2019"]);
+
+                  }
+
+        } break;
+
+
+        case '20': {
+ 
+                    //Davao anniv
+      
+                  for($i=1; $i<=152; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/oktoberfest2019_thumb-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/oktoberfest2019-".$i.".jpg",
+                                'description'=>"Oktoberfest 2019 @ The Ruins, Poblacion \n[Photo credits: Mike Pamero]",
+                                'category'=>"Oktoberfest 2019"]);
 
                   }
 
