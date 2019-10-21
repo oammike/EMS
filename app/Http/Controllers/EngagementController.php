@@ -332,16 +332,16 @@ class EngagementController extends Controller
 
         $allEntries = Engagement_Entry::all();
 
-        foreach ($allEntries as $key) {
+        // foreach ($allEntries as $key) {
             
-            $voted = collect($votes)->where('entryID',$key->id)->groupBy('program')->all();
-            $ranking->push(['entry'=>$key->id, 'votes'=>$voted]);
-        }
+        //     $voted = collect($votes)->where('entryID',$key->id)->groupBy('program')->all();
+        //     $ranking->push(['entry'=>$key->id, 'votes'=>$voted]);
+        // }
 
         //return $ranking;
 
         
-
+        //return $votesByCampaign;
         foreach ($votesByCampaign as $camp) {
             
             $entries = collect($camp)->groupBy('entryID');
@@ -351,7 +351,7 @@ class EngagementController extends Controller
             }
         }
 
-        $tallyProg = collect($rankByProgram)->groupBy('camp');
+        $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp');
 
         $tally = new Collection;
 
@@ -362,7 +362,15 @@ class EngagementController extends Controller
                 $vt->push($v);
             }
             $tally->push(['program' => $key[0]['camp'], 'tally'=>$vt]);
+
+            $byVotes = collect($vt)->pluck('votes')->all(); //groupBy('votes')->sortByDesc('votes');
+            $ranking->push(['program' => $key[0]['camp'], 'votes'=>$byVotes]);
         }
+
+        return $tallyProg;
+
+
+        //we now do the ranking by campaign
 
         return $tally;
 
