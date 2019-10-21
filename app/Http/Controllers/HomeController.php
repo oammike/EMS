@@ -542,7 +542,15 @@ class HomeController extends Controller
  
                     //Davao anniv
       
-                  for($i=1; $i<=152; $i++){
+                  for($i=1; $i<=91; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/oktoberfest2019_thumb-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/oktoberfest2019-".$i.".jpg",
+                                'description'=>"Oktoberfest 2019 @ The Ruins, Poblacion \n[Photo credits: Mike Pamero]",
+                                'category'=>"Oktoberfest 2019"]);
+
+                  }
+
+                  for($i=94; $i<=152; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/oktoberfest2019_thumb-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/oktoberfest2019-".$i.".jpg",
                                 'description'=>"Oktoberfest 2019 @ The Ruins, Poblacion \n[Photo credits: Mike Pamero]",
