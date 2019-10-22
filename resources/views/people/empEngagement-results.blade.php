@@ -93,11 +93,12 @@
                       </thead>
 
                       <tbody>
+                        <?php $x=1;?>
                         @foreach($tallyEntry->reverse() as $entry)
                         <tr>
                           <td >
                             <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
-                            {{$t->first()['title']}}
+                            {{$x}}. {{$t->first()['title']}}
                            </td>
                           @foreach($tallyProg as $prog)
                             
@@ -120,6 +121,7 @@
                           </td>
                           
                         </tr>
+                        <?php $x++; ?>
                         @endforeach
                         
                       </tbody>
