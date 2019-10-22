@@ -353,7 +353,9 @@ class EngagementController extends Controller
         $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry'); //return $tallyProg;
         $finalTally = new Collection;
 
-        foreach ($tallyEntry as $key) {
+        
+
+        foreach ($tallyEntry->reverse() as $key) {
 
             $vote=0;
             foreach ($key as $v) {
@@ -366,15 +368,10 @@ class EngagementController extends Controller
             $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e, 'totalPoints'=>$vote,'grandTotal'=>number_format(100*($vote / ( count($allEntries)* count($tallyProg) )),2) ]);
         }
 
+       
 
         return view('people.empEngagement-results',compact('id','finalTally'));
-        return $finalTally;
-
-       
         
-
-        
-        // return response()->json($ranking);
     }
 
     public function uncastvote($id)
