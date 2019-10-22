@@ -40,20 +40,81 @@
                   <div class="box-body">
                     <div id="bar-chart" style="height: 300px;"></div>
 
-                    <h4 class="text-primary">Entries: </h4>
-                    <ol type="1">
+                    <br/><br/><br/>
+                    <table class="table table-hover">
+                      <tr>
+                        <th class="text-primary">Entries: </th>
+                        <th>Votes (%)</th>
+                      </tr>
+
                       @foreach($finalTally as $tally) 
 
-                      <li>{{$tally['title']}} --- <strong>({{$tally["grandTotal"]}}%)</strong></li>
+                      <tr>
+                        <td>{{$tally['title']}}</td>
+                        <td>{{$tally["grandTotal"]}}%</td>
+                      </tr>
 
                       @endforeach
-                    </ol>
+
+
+                      
+                    </table>
+                    
                   </div>
                   <!-- /.box-body-->
                 </div>
                 <!-- /.box -->
 
-                <p><i class="fa fa-exclamation-circle"></i> Note: All votes are tallied using point rank system to allow a fair voting system regardless of how big the voting population of each program/department.</p>
+                <p><i class="fa fa-exclamation-circle"></i> Note: All votes are tallied using point rank system to allow a fair voting system regardless of how big the voting population of each program/department.</p><br/><br/>
+
+                <h3>Voting Breakdown:</h3>
+                <table class="table table-hover">
+                  <tr>
+                    <th>Entry</th>
+                    @foreach($tallyProg as $prog)
+                      <th class="text-center">{{$prog[0]['camp']}}</th>
+                    @endforeach
+                    <th class="text-center">Total</th>
+                  </tr>
+
+                  @foreach($tallyEntry->reverse() as $entry)
+                  <tr>
+                    <td >
+                      <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
+                      {{$t->first()['title']}}
+                     </td>
+                    @foreach($tallyProg as $prog)
+                      
+                      <td class="text-center">@foreach($prog as $p)
+
+                        
+                          @if($p['entry'] === $t->first()['entryID'] ) 
+                          {{$p['points']}}
+                          @endif
+
+
+                      @endforeach</td>
+                    
+
+                    @endforeach
+                    <td class="text-center"> 
+                      <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
+                      <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> <br/>
+                      <strong>{{$g->first()['grandTotal']}} % </strong>
+                    </td>
+                    
+                  </tr>
+                  @endforeach
+                  <tr>
+                    <td></td>
+                    @foreach($tallyProg as $prog)
+                      <td class="text-center"><br/><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
+                    @endforeach
+                    <td class="text-center">
+                      <small>({{$finalTally->first()['maxpoints']}}/{{$finalTally->first()['maxpoints']}})</small><br/>
+                    <strong>100.00 %</strong></td>
+                  </tr>
+                </table>
                 
                 
                 
@@ -148,7 +209,7 @@
       data: [<?php $c=1 ?>
               @foreach($finalTally as $tally) 
               
-              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/>({{$tally["grandTotal"]}}%)",{{$tally["grandTotal"]}}],
+              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/>({{$tally["grandTotal"]}}%) <br/> [{{$tally["actualVotes"]}}]",{{$tally["grandTotal"]}}],
               <?php $c++; ?>
               @endforeach
 

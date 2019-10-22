@@ -328,14 +328,19 @@ class EngagementController extends Controller
 
         $ranking = new Collection;
         $rankByProgram = new Collection;
-        $votesByCampaign = collect($votes)->groupBy('program');
+        $votesByCampaign = collect($votes)->groupBy('program'); 
 
         $allEntries = DB::table('engagement')->where('engagement.id',$id)->
                         join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
 
                         join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                         join('engagement_entryItems','engagement_entryItems.id','=','engagement_entryDetails.entry_itemID')->
-                        select('engagement_entry.id', 'engagement_entry.user_id','engagement_entryItems.label','engagement_entryDetails.value')->get();
+                        join('users','engagement_entry.user_id','=','users.id')->
+                        join('positions','users.position_id','=','positions.id')->
+                        join('team','team.user_id','=','engagement_entry.user_id')->
+                        join('campaign','campaign.id','=','team.campaign_id')->
+                        select('engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->get();
+                        //return count(collect($allEntries)->groupBy('user_id'));
         
         foreach ($votesByCampaign as $camp) {
             
@@ -344,33 +349,37 @@ class EngagementController extends Controller
             foreach ($entries as $key) {
                 $voters = collect($votes)->where('program',$camp[0]->program);
                 $percentage = (count($key)/count($voters));
-                $pointsEarned = number_format( (count($allEntries)*$percentage),2);
-                $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count($allEntries), 'camp'=>$camp[0]->program]);
+                $pointsEarned = number_format( (count(collect($allEntries)->groupBy('user_id')) * $percentage),2);
+                $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count(collect($allEntries)->groupBy('user_id')), 'camp'=>$camp[0]->program]);
             }
-        }
+        } //return $rankByProgram;
 
-        $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp');
-        $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry'); //return $tallyProg;
+        $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp'); //return $tallyProg;
+        $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry');
         $finalTally = new Collection;
 
         
 
         foreach ($tallyEntry->reverse() as $key) {
 
-            $vote=0;
+            $vote=0; $actualVotes=0;
             foreach ($key as $v) {
                 $vote += (float)$v['points'];
+                $actualVotes += (float)$v['votes']; 
             }
 
             $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
             $e = $theEntry->where('label',"Title")->first()->value;
+            $max = count(collect($allEntries)->groupBy('user_id')) * count($tallyProg);
 
-            $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e, 'totalPoints'=>$vote,'grandTotal'=>number_format(100*($vote / ( count($allEntries)* count($tallyProg) )),2) ]);
+            $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e,'actualVotes'=>$actualVotes, 'totalPoints'=>$vote,'maxpoints'=>$max, 'grandTotal'=>number_format(100*($vote / $max ),2) ]);
         }
 
-       
+        //return $tallyProg;
 
-        return view('people.empEngagement-results',compact('id','finalTally'));
+       
+        //return $finalTally;
+        return view('people.empEngagement-results',compact('id','finalTally','tallyProg','tallyEntry'));
         
     }
 
