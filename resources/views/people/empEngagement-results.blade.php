@@ -22,9 +22,7 @@
           <div class="row">
              <div class="col-lg-12">
 
-              <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4);padding:30px">
-
-                <!-- Bar chart -->
+               <!-- Bar chart -->
                 <div class="box box-primary">
                   <div class="box-header with-border">
                     <i class="fa fa-bar-chart-o"></i>
@@ -116,19 +114,11 @@
                     <strong>100.00 %</strong></td>
                   </tr>
                 </table>
-                
-                
-                
-
-
-
-
 
                 
+             </div>
 
-
-
-              </div><!--end box-primary-->
+             
 
 
              
@@ -138,32 +128,7 @@
           </div><!--end main row-->
       </section>
 
-      <div class="modal fade" id="warning" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> Disclaimer</h4>
-              
-            </div>
-            <div class="modal-body">
-              <p>Understand that some of these stories may contain sensitive topics and themes that some people may find triggering.</p>
-              <p>Proceeding means that you understand the potential risks. Each story includes a trigger warning to give you caution before you start reading.</p>
-            </div>
-            <div class="modal-footer no-border">
-              {{ Form::open(['route' => ['employeeEngagement.voteNow',$id], 'method'=>'GET','class'=>'btn-outline pull-right', 'id'=> "show" ]) }} 
-
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Proceed </button>
-              
-              <button type="button" class="btn btn-default" data-dismiss="modal">No, thank you.</button>{{ Form::close() }}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-
-      
+     
  
 
     
