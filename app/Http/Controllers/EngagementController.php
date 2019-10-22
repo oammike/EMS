@@ -329,7 +329,6 @@ class EngagementController extends Controller
         $ranking = new Collection;
         $rankByProgram = new Collection;
         $votesByCampaign = collect($votes)->groupBy('program');
-        $votesByEntry = collect($votes)->groupBy('entryID');
 
         $allEntries = DB::table('engagement')->where('engagement.id',$id)->
                         join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
@@ -337,12 +336,6 @@ class EngagementController extends Controller
                         join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                         join('engagement_entryItems','engagement_entryItems.id','=','engagement_entryDetails.entry_itemID')->
                         select('engagement_entry.id', 'engagement_entry.user_id','engagement_entryItems.label','engagement_entryDetails.value')->get();
-                        
-                        //joinEngagement_Entry::all(); r
-                        //return $allEntries;
-
-        $groupedEntries = collect($allEntries)->groupBy('user_id')->all(); //return $groupedEntries;
-
         
         foreach ($votesByCampaign as $camp) {
             
