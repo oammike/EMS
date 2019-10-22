@@ -90,7 +90,8 @@
                         @foreach($tallyProg as $prog)
                           <th class="text-center">{{$prog[0]['camp']}}</th>
                         @endforeach
-                        <th class="text-center">Total</th>
+                        <th class="text-center">Points</th>
+                        <th class="text-center">Overall</th>
                       </tr>
                         
                       </thead>
@@ -127,11 +128,20 @@
                           
 
                           @endforeach
+
+                           <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
                           <td class="text-center"> 
-                            <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
+                           
+                            
+                            
+                            <small><span style="text-decoration: underline;">&nbsp; {{$g->first()['totalPoints']}} &nbsp;</span><br/>{{$g->first()['maxpoints']}}</small> 
+                          </td>
+
+                          <td class="text-center"> 
+                            
                             
                             <strong>{{$g->first()['grandTotal']}} % </strong><br/>
-                            <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> 
+                            
                           </td>
                           
                         </tr>
@@ -146,11 +156,12 @@
                         <td></td>
                         <td></td>
                         @foreach($tallyProg as $prog)
-                          <td class="text-center"><br/><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
+                          <td class="text-center"><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
                         @endforeach
                         <td class="text-center">
-                          <small>({{$finalTally->first()['maxpoints']}}/{{$finalTally->first()['maxpoints']}})</small><br/>
-                        <strong>100.00 %</strong></td>
+                          <small>({{$finalTally->first()['maxpoints']}}/{{$finalTally->first()['maxpoints']}})</small></td>
+                        <td class="text-center"><strong>100.00 %</strong></td>
+
                       </tr>
                         
                       </tfoot>
