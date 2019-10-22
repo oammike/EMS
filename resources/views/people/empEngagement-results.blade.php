@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Voting Results | EMS</title>
+<title>Voting Results: {{$finalTally->first()['activity']}} | EMS</title>
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
                   <div class="box-header with-border">
                     <i class="fa fa-bar-chart-o"></i>
 
-                    <h3 class="box-title">Voting Results</h3>
+                    <h3 class="box-title">Voting Results: <em><a href="{{action('EngagementController@show',$id)}}"> {{$finalTally->first()['activity']}}</a></em></h3>
 
                     <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -72,7 +72,7 @@
                   <div class="box-header with-border">
                     <i class="fa fa-bar-chart-o"></i>
 
-                    <h3 class="box-title">Voting Breakdown</h3>
+                    <h3 class="box-title">Voting Breakdown: <em><a href="{{action('EngagementController@show',$id)}}"> {{$finalTally->first()['activity']}}</a></em></h3>
 
                     <div class="box-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

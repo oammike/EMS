@@ -339,7 +339,7 @@ class EngagementController extends Controller
                         join('positions','users.position_id','=','positions.id')->
                         join('team','team.user_id','=','engagement_entry.user_id')->
                         join('campaign','campaign.id','=','team.campaign_id')->
-                        select('engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->get();
+                        select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->get();
                         
         
         foreach ($votesByCampaign as $camp) {
@@ -376,8 +376,9 @@ class EngagementController extends Controller
 
             $submission = collect($allEntries)->where('id',$key[0]['entry'])->first();
 
-            $finalTally->push(['entryID'=>$key[0]['entry'],'firstname'=>$submission->firstname,'nickname'=>$submission->nickname,'lastname'=>$submission->lastname,'jobTitle'=>$submission->jobTitle, 'program'=>$submission->program,'title'=>$e,'actualVotes'=>$actualVotes, 'totalPoints'=>$vote,'maxpoints'=>$max, 'grandTotal'=>number_format(100*($vote / $max ),2) ]);
+            $finalTally->push(['activity'=> $votes[0]->activity,'entryID'=>$key[0]['entry'],'firstname'=>$submission->firstname,'nickname'=>$submission->nickname,'lastname'=>$submission->lastname,'jobTitle'=>$submission->jobTitle, 'program'=>$submission->program,'title'=>$e,'actualVotes'=>$actualVotes, 'totalPoints'=>$vote,'maxpoints'=>$max, 'grandTotal'=>number_format(100*($vote / $max ),2) ]);
         }
+        //return $finalTally;
 
         $correct = Carbon::now('GMT+8'); 
 
