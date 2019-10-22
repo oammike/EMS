@@ -129,8 +129,9 @@
                           @endforeach
                           <td class="text-center"> 
                             <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
-                            <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> <br/>
-                            <strong>{{$g->first()['grandTotal']}} % </strong>
+                            
+                            <strong>{{$g->first()['grandTotal']}} % </strong><br/>
+                            <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> 
                           </td>
                           
                         </tr>
@@ -221,6 +222,7 @@
    $('#votetally').DataTable({
       "scrollX": true,
       "scrollY": 500,
+      "paging":false,
       });
 
    
