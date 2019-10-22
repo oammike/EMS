@@ -45,13 +45,14 @@
                         <th>Votes (%)</th>
                       </tr>
 
+                      <?php $c=1; ?>
                       @foreach($finalTally as $tally) 
 
                       <tr>
-                        <td>{{$tally['title']}}</td>
+                        <td>{{$c}}. {{$tally['title']}}</td>
                         <td>{{$tally["grandTotal"]}}%</td>
                       </tr>
-
+                      <?php $c++; ?>
                       @endforeach
 
 
