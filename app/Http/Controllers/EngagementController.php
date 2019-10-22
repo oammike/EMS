@@ -319,6 +319,7 @@ class EngagementController extends Controller
         $votes = DB::table('engagement')->where('engagement.id',$id)->
                     join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     join('engagement_vote','engagement_vote.engagement_entryID','=','engagement_entry.id')->
+                    //join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     join('users','engagement_vote.user_id','=','users.id')->
                     join('positions','users.position_id','=','positions.id')->
                     join('team','team.user_id','=','engagement_vote.user_id')->
@@ -330,60 +331,56 @@ class EngagementController extends Controller
         $votesByCampaign = collect($votes)->groupBy('program');
         $votesByEntry = collect($votes)->groupBy('entryID');
 
-        $allEntries = Engagement_Entry::all();
+        $allEntries = DB::table('engagement')->where('engagement.id',$id)->
+                        join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
 
-        // foreach ($allEntries as $key) {
-            
-        //     $voted = collect($votes)->where('entryID',$key->id)->groupBy('program')->all();
-        //     $ranking->push(['entry'=>$key->id, 'votes'=>$voted]);
-        // }
+                        join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                        join('engagement_entryItems','engagement_entryItems.id','=','engagement_entryDetails.entry_itemID')->
+                        select('engagement_entry.id', 'engagement_entry.user_id','engagement_entryItems.label','engagement_entryDetails.value')->get();
+                        
+                        //joinEngagement_Entry::all(); r
+                        //return $allEntries;
 
-        //return $ranking;
+        $groupedEntries = collect($allEntries)->groupBy('user_id')->all(); //return $groupedEntries;
 
         
-        //return $votesByCampaign;
         foreach ($votesByCampaign as $camp) {
             
             $entries = collect($camp)->groupBy('entryID');
 
             foreach ($entries as $key) {
-                $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key), 'camp'=>$camp[0]->program]);
+                $voters = collect($votes)->where('program',$camp[0]->program);
+                $percentage = (count($key)/count($voters));
+                $pointsEarned = number_format( (count($allEntries)*$percentage),2);
+                $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count($allEntries), 'camp'=>$camp[0]->program]);
             }
         }
 
         $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp');
+        $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry'); //return $tallyProg;
+        $finalTally = new Collection;
 
-        $tally = new Collection;
+        foreach ($tallyEntry as $key) {
 
-        foreach ($tallyProg as $key) {
-
-            $vt = new Collection;
+            $vote=0;
             foreach ($key as $v) {
-                $vt->push($v);
+                $vote += (float)$v['points'];
             }
-            $tally->push(['program' => $key[0]['camp'], 'tally'=>$vt]);
 
-            $byVotes = collect($vt)->pluck('votes')->all(); //groupBy('votes')->sortByDesc('votes');
-            $ranking->push(['program' => $key[0]['camp'], 'votes'=>$byVotes]);
+            $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
+            $e = $theEntry->where('label',"Title")->first()->value;
+
+            $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e, 'totalPoints'=>$vote,'grandTotal'=>100*($vote / ( count($allEntries)* count($tallyProg) )) ]);
         }
 
-        return $tallyProg;
 
+        return view('people.empEngagement-results',compact('id','finalTally'));
+        return $finalTally;
 
-        //we now do the ranking by campaign
+       
+        
 
-        return $tally;
-
-        // foreach ($votesByEntry as $entry) {
-
-        //     $campaigns = collect($entry)->groupBy('program');
-            
-        //     foreach ($campaigns as $key) {
-
-        //         $ranking->push(['entry'=>$entry[0]->entryID, 'program'=>$key[0]->program,'votes'=>count($key)]);
-        //     }
-        //     # code...
-        // }
+        
         // return response()->json($ranking);
     }
 
