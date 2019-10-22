@@ -80,44 +80,52 @@
                     </div>
                   </div>
                   <div class="box-body">
-                    <table class="table table-bordered table-hover" style="background-color: #fff; overflow-y: scroll;">
-                      <tr>
+                    <table id='votetally' class="table table-bordered table-hover" style="background-color: #fff; overflow-y: scroll;">
+                      <thead>
+                        <tr>
                         <th>Entry</th>
                         @foreach($tallyProg as $prog)
                           <th class="text-center">{{$prog[0]['camp']}}</th>
                         @endforeach
                         <th class="text-center">Total</th>
                       </tr>
+                        
+                      </thead>
 
-                      @foreach($tallyEntry->reverse() as $entry)
-                      <tr>
-                        <td >
-                          <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
-                          {{$t->first()['title']}}
-                         </td>
-                        @foreach($tallyProg as $prog)
-                          
-                          <td class="text-center">@foreach($prog as $p)
-
+                      <tbody>
+                        @foreach($tallyEntry->reverse() as $entry)
+                        <tr>
+                          <td >
+                            <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
+                            {{$t->first()['title']}}
+                           </td>
+                          @foreach($tallyProg as $prog)
                             
-                              @if($p['entry'] === $t->first()['entryID'] ) 
-                              {{$p['points']}}
-                              @endif
+                            <td class="text-center">@foreach($prog as $p)
+
+                              
+                                @if($p['entry'] === $t->first()['entryID'] ) 
+                                {{$p['points']}}
+                                @endif
 
 
-                          @endforeach</td>
-                        
+                            @endforeach</td>
+                          
 
+                          @endforeach
+                          <td class="text-center"> 
+                            <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
+                            <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> <br/>
+                            <strong>{{$g->first()['grandTotal']}} % </strong>
+                          </td>
+                          
+                        </tr>
                         @endforeach
-                        <td class="text-center"> 
-                          <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
-                          <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> <br/>
-                          <strong>{{$g->first()['grandTotal']}} % </strong>
-                        </td>
                         
-                      </tr>
-                      @endforeach
-                      <tr>
+                      </tbody>
+
+                      <tfoot>
+                        <tr>
                         <td></td>
                         @foreach($tallyProg as $prog)
                           <td class="text-center"><br/><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
@@ -126,6 +134,12 @@
                           <small>({{$finalTally->first()['maxpoints']}}/{{$finalTally->first()['maxpoints']}})</small><br/>
                         <strong>100.00 %</strong></td>
                       </tr>
+                        
+                      </tfoot>
+
+
+                      
+                      
                     </table>
                   </div>
                   <!-- /.box-body-->
@@ -186,6 +200,11 @@
  
   $(function () {
    'use strict';
+
+   $('#votetally').DataTable({
+      "scrollX": true,
+      "scrollY": 500,
+      });
 
    
 /*
