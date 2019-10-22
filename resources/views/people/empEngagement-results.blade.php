@@ -132,6 +132,7 @@
                       <tfoot>
                         <tr>
                         <td></td>
+                        <td></td>
                         @foreach($tallyProg as $prog)
                           <td class="text-center"><br/><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
                         @endforeach
