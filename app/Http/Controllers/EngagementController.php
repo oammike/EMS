@@ -153,40 +153,7 @@ class EngagementController extends Controller
         return response()->json($c);
     }
 
-    public function unlike(Request $request)
-    {
-
-        $correct = Carbon::now('GMT+8'); 
-        switch ($request->type) 
-        {
-            case 'comment':
-                            {
-                                $c = Engagement_CommentLikes::where('user_id',$this->user->id)->where('comment_id',$request->commentid)->first();
-                                $c->delete();
-                                if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                    fwrite($file, "-------------------\n Unlike (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
-
-        
-
-                            }break;
-            case 'reply':{ 
-                            $c = Engagement_ReplyLikes::where('user_id',$this->user->id)->where('reply_id',$request->commentid)->first();
-                                $c->delete();
-                                if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                    fwrite($file, "-------------------\n Unlike reply (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
-
-                        }break;
-
-            
-           
-        }
-        return redirect()->back();
-        //return response()->json($c);
-    }
+    
 
     public function postComment(Request $request,$id)
     {
@@ -346,6 +313,77 @@ class EngagementController extends Controller
 
     }
 
+
+    public function tallyVotes($id)
+    {
+        $votes = DB::table('engagement')->where('engagement.id',$id)->
+                    join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                    join('engagement_vote','engagement_vote.engagement_entryID','=','engagement_entry.id')->
+                    //join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                    join('users','engagement_vote.user_id','=','users.id')->
+                    join('positions','users.position_id','=','positions.id')->
+                    join('team','team.user_id','=','engagement_vote.user_id')->
+                    join('campaign','campaign.id','=','team.campaign_id')->
+                    select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->get();
+
+        $ranking = new Collection;
+        $rankByProgram = new Collection;
+        $votesByCampaign = collect($votes)->groupBy('program');
+        $votesByEntry = collect($votes)->groupBy('entryID');
+
+        $allEntries = DB::table('engagement')->where('engagement.id',$id)->
+                        join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+
+                        join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                        join('engagement_entryItems','engagement_entryItems.id','=','engagement_entryDetails.entry_itemID')->
+                        select('engagement_entry.id', 'engagement_entry.user_id','engagement_entryItems.label','engagement_entryDetails.value')->get();
+                        
+                        //joinEngagement_Entry::all(); r
+                        //return $allEntries;
+
+        $groupedEntries = collect($allEntries)->groupBy('user_id')->all(); //return $groupedEntries;
+
+        
+        foreach ($votesByCampaign as $camp) {
+            
+            $entries = collect($camp)->groupBy('entryID');
+
+            foreach ($entries as $key) {
+                $voters = collect($votes)->where('program',$camp[0]->program);
+                $percentage = (count($key)/count($voters));
+                $pointsEarned = number_format( (count($allEntries)*$percentage),2);
+                $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count($allEntries), 'camp'=>$camp[0]->program]);
+            }
+        }
+
+        $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp');
+        $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry'); //return $tallyProg;
+        $finalTally = new Collection;
+
+        foreach ($tallyEntry as $key) {
+
+            $vote=0;
+            foreach ($key as $v) {
+                $vote += (float)$v['points'];
+            }
+
+            $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
+            $e = $theEntry->where('label',"Title")->first()->value;
+
+            $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e, 'totalPoints'=>$vote,'grandTotal'=>100*($vote / ( count($allEntries)* count($tallyProg) )) ]);
+        }
+
+
+        return view('people.empEngagement-results',compact('id','finalTally'));
+        return $finalTally;
+
+       
+        
+
+        
+        // return response()->json($ranking);
+    }
+
     public function uncastvote($id)
     {
 
@@ -361,6 +399,41 @@ class EngagementController extends Controller
         return redirect()->back();
         //return $vote;
 
+    }
+
+    public function unlike(Request $request)
+    {
+
+        $correct = Carbon::now('GMT+8'); 
+        switch ($request->type) 
+        {
+            case 'comment':
+                            {
+                                $c = Engagement_CommentLikes::where('user_id',$this->user->id)->where('comment_id',$request->commentid)->first();
+                                $c->delete();
+                                if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Unlike (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
+        
+
+                            }break;
+            case 'reply':{ 
+                            $c = Engagement_ReplyLikes::where('user_id',$this->user->id)->where('reply_id',$request->commentid)->first();
+                                $c->delete();
+                                if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Unlike reply (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
+                        }break;
+
+            
+           
+        }
+        return redirect()->back();
+        //return response()->json($c);
     }
 
 
