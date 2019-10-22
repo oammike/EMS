@@ -70,7 +70,7 @@ class RewardsHomeController extends Controller
       $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
       
       $user_id = \Auth::user()->id;
-      $user = User::with('points','team')->find($user_id);
+      $user = User::with('points','team')->find($user_id); //return $user;
       
       $orders = Orders::with('item')
               ->where([
@@ -78,8 +78,20 @@ class RewardsHomeController extends Controller
                 ['status','=','PENDING'],
               ])
               ->get();
-      
-      $data = [
+
+      //fix for those with null points
+      if( is_null($user->points))
+        $data = [
+        'include_rewards_scripts' => TRUE,
+        'contentheader_title' => "Rewards Catalog",
+        'items_per_page' => $this->pagination_items,
+        'rewards' => $rewards,
+        'remaining_points' => null,
+        'orders' => $orders
+      ];
+
+      else
+        $data = [
         'include_rewards_scripts' => TRUE,
         'contentheader_title' => "Rewards Catalog",
         'items_per_page' => $this->pagination_items,
