@@ -340,7 +340,7 @@ class EngagementController extends Controller
                         join('team','team.user_id','=','engagement_entry.user_id')->
                         join('campaign','campaign.id','=','team.campaign_id')->
                         select('engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->get();
-                        //return count(collect($allEntries)->groupBy('user_id'));
+                        
         
         foreach ($votesByCampaign as $camp) {
             
@@ -354,6 +354,8 @@ class EngagementController extends Controller
             }
         } //return $rankByProgram;
 
+
+        //$submissions = collect($allEntries)->groupBy('id');return $submissions;
         $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp'); //return $tallyProg;
         $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry');
         $finalTally = new Collection;
@@ -372,13 +374,18 @@ class EngagementController extends Controller
             $e = $theEntry->where('label',"Title")->first()->value;
             $max = count(collect($allEntries)->groupBy('user_id')) * count($tallyProg);
 
-            $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e,'actualVotes'=>$actualVotes, 'totalPoints'=>$vote,'maxpoints'=>$max, 'grandTotal'=>number_format(100*($vote / $max ),2) ]);
+            $submission = collect($allEntries)->where('id',$key[0]['entry'])->first();
+
+            $finalTally->push(['entryID'=>$key[0]['entry'],'firstname'=>$submission->firstname,'nickname'=>$submission->nickname,'lastname'=>$submission->lastname,'jobTitle'=>$submission->jobTitle, 'program'=>$submission->program,'title'=>$e,'actualVotes'=>$actualVotes, 'totalPoints'=>$vote,'maxpoints'=>$max, 'grandTotal'=>number_format(100*($vote / $max ),2) ]);
         }
 
-        //return $tallyProg;
+        $correct = Carbon::now('GMT+8'); 
 
-       
-        //return $finalTally;
+        if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n View Tally (".$id.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
         return view('people.empEngagement-results',compact('id','finalTally','tallyProg','tallyEntry'));
         
     }

@@ -49,7 +49,7 @@
                       @foreach($finalTally as $tally) 
 
                       <tr>
-                        <td>{{$c}}. {{$tally['title']}}</td>
+                        <td>{{$c}}. {{$tally['title']}} <br/>by: <span style="font-size: x-small;">{{$tally['firstname']}} {{$tally['lastname']}} - <strong>{{$tally['program']}}</strong> </span></td>
                         <td>{{$tally["grandTotal"]}}%</td>
                       </tr>
                       <?php $c++; ?>
@@ -86,6 +86,7 @@
                         <tr>
                         <th>#</th>
                         <th>Entry</th>
+                        <th>By</th>
                         @foreach($tallyProg as $prog)
                           <th class="text-center">{{$prog[0]['camp']}}</th>
                         @endforeach
@@ -103,6 +104,15 @@
                             <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
                              {{$t->first()['title']}}
                            </td>
+                          <td style="font-size: x-small;">
+                            @if($t->first()['nickname'])
+                            {{$t->first()['nickname']}} {{$t->first()['lastname']}} - 
+                            @else
+                            {{$t->first()['firstname']}} {{$t->first()['lastname']}} -
+                            @endif
+
+                            <em style="font-weight: bold;">{{$t->first()['program']}}</em>
+                          </td>
                           @foreach($tallyProg as $prog)
                             
                             <td class="text-center">@foreach($prog as $p)
@@ -131,6 +141,7 @@
 
                       <tfoot>
                         <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         @foreach($tallyProg as $prog)
