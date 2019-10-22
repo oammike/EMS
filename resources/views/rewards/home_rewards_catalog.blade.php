@@ -7,7 +7,7 @@
 
 @section('content')
   <section class="content-header">
-    <h1><i class="fa fa-picture-o"></i> Open Access Rewards </h1>
+    <h1><i class="fa fa-picture-o"></i> Open Access Rewards <small id="points_counter">Remaining Points: {{ $remaining_points }}</small></h1>
 
     <ol class="breadcrumb">
       <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -59,9 +59,66 @@
             </div>
           </div>
         </div>
+      </div>    
+    </div>
+
+    <div class="row">   
+      
+        
+      <div class="col-xs-6">  
+        <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Transfer Points</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              
+            </div>
+            <!-- /.box-body -->
+          </div>
       </div>
-    </div>    
-		
+        
+      <div class="col-xs-6">  
+        <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Unclaimed Rewards</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table table-condensed table-striped" id="pending_table">
+                <tbody>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Item</th>
+                  <th>Options</th>
+                </tr>
+                
+                @forelse($orders as $key=>$order)
+                
+                  <tr id="order_{{ $order->id }}">
+                    <td>{{ $order->id  }}</td>
+                    <td>{{ $order->item->name  }}</td>
+                    <td>
+                      <button type="button" class="btn btn-block btn-danger btn-xs order-canceller" data-order_id="{{ $order->id }}">Cancel</button>
+                    </td>
+                  </tr>  
+          
+                
+                @empty
+            
+                  <tr>
+                    <td colspan="3">(you have no unclaimed rewards)</td>
+                  </tr>
+              
+                @endforelse  
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>      
+      </div>
+		</div>
   </section>    
 	
 <!-- Confirm Modal -->
@@ -152,6 +209,20 @@
 				});
 				
 			});
+      
+      $(document).on('click','.order-canceller',function(){
+        var id = $(this).data('order_id');
+        
+        var micro = (Date.now() % 1000) / 1000;
+        $.ajax({
+					type: "POST",
+					url : "{{ url('/cancel-order') }}/"+id+"?m="+micro,
+          success : function(data){
+            $('#points_counter').text("Remaining Points: "+data.refund);
+            $('#order_'+id).remove();
+          }
+        });
+      });
 			
 			$('#modalConfirmYes').click(function(event){
 				event.preventDefault();
@@ -174,6 +245,11 @@
             $('#qr_code_wrapper').show();
 						//$('#modalConfirm').modal('hide');
 						window.selected_reward_id = 0;
+            
+            var appendme = $('<tr id="order_'+data.order_id+'"><td>'+data.order_id+'</td><td>'+data.label+'</td><td><button type="button" class="btn btn-block btn-danger btn-xs order-canceller" data-order_id="'+data.order_id+'">Cancel</button></td></tr>');
+            $('#pending_table').append(appendme);
+            
+            $('#points_counter').text("Remaining Points: "+data.points);
 						/*
 						var address = 'http://192.168.4.180/cgi-bin/epos/service.cgi?devid=local_printer&timeout=60000';
 						

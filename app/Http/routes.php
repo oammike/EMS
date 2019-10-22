@@ -1015,7 +1015,9 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/get_qr/{user_id?}', 'RewardsHomeController@get_qr');
     Route::resource('/orders', 'OrdersController');
     Route::get('/barista', 'RewardsHomeController@barista');
-    Route::post('/print-order/{code?}', 'RewardsHomeController@print_order');  
+    Route::get('/print-order/{code?}', 'RewardsHomeController@print_order');
+    Route::get('/print-qr/{employee_id?}', 'RewardsHomeController@print_qr');
+    Route::post('/cancel-order/{id?}', 'RewardsHomeController@cancel_order');
     
 
   });
