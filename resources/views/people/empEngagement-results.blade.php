@@ -68,7 +68,8 @@
                 <p><i class="fa fa-exclamation-circle"></i> Note: All votes are tallied using point rank system to allow a fair voting system regardless of how big the voting population of each program/department.</p><br/><br/>
 
                 <h3>Voting Breakdown:</h3>
-                <table class="table table-hover">
+
+                <table class="table table-bordered table-hover" style="background-color: #fff; overflow-y: scroll;">
                   <tr>
                     <th>Entry</th>
                     @foreach($tallyProg as $prog)
@@ -209,7 +210,7 @@
       data: [<?php $c=1 ?>
               @foreach($finalTally as $tally) 
               
-              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/>({{$tally["grandTotal"]}}%) <br/> [{{$tally["actualVotes"]}}]",{{$tally["grandTotal"]}}],
+              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/><strong style='font-size:larger;'>({{$tally["grandTotal"]}}%)</strong> <br/> [{{$tally["actualVotes"]}}]",{{$tally["grandTotal"]}}],
               <?php $c++; ?>
               @endforeach
 
