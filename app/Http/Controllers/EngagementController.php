@@ -363,7 +363,7 @@ class EngagementController extends Controller
             $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
             $e = $theEntry->where('label',"Title")->first()->value;
 
-            $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e, 'totalPoints'=>$vote,'grandTotal'=>100*($vote / ( count($allEntries)* count($tallyProg) )) ]);
+            $finalTally->push(['entryID'=>$key[0]['entry'],'title'=>$e, 'totalPoints'=>$vote,'grandTotal'=>number_format(100*($vote / ( count($allEntries)* count($tallyProg) )),2) ]);
         }
 
 
