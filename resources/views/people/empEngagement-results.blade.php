@@ -39,6 +39,15 @@
                   </div>
                   <div class="box-body">
                     <div id="bar-chart" style="height: 300px;"></div>
+
+                    <h4 class="text-primary">Entries: </h4>
+                    <ol type="1">
+                      @foreach($finalTally as $tally) 
+
+                      <li>{{$tally['title']}} --- <strong>({{$tally["grandTotal"]}}%)</strong></li>
+
+                      @endforeach
+                    </ol>
                   </div>
                   <!-- /.box-body-->
                 </div>
@@ -136,10 +145,11 @@
     var bar_data = {
       //data : [['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 17], ['June', 9]],
 
-      data: [
+      data: [<?php $c=1 ?>
               @foreach($finalTally as $tally) 
-
-              ["Entry: <br/><span class='text-success'>{{$tally['title']}}</span><br/><strong>({{$tally["grandTotal"]}}%)</strong>",{{$tally["grandTotal"]}}],
+              
+              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/>({{$tally["grandTotal"]}}%)",{{$tally["grandTotal"]}}],
+              <?php $c++; ?>
               @endforeach
 
       ],
