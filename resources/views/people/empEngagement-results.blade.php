@@ -65,57 +65,81 @@
 
                 <p><i class="fa fa-exclamation-circle"></i> Note: All votes are tallied using point rank system to allow a fair voting system regardless of how big the voting population of each program/department.</p><br/><br/>
 
-                <h3>Voting Breakdown:</h3>
 
-                <table class="table table-bordered table-hover" style="background-color: #fff; overflow-y: scroll;">
-                  <tr>
-                    <th>Entry</th>
-                    @foreach($tallyProg as $prog)
-                      <th class="text-center">{{$prog[0]['camp']}}</th>
-                    @endforeach
-                    <th class="text-center">Total</th>
-                  </tr>
+                <!-- Bar chart -->
+                <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <i class="fa fa-bar-chart-o"></i>
 
-                  @foreach($tallyEntry->reverse() as $entry)
-                  <tr>
-                    <td >
-                      <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
-                      {{$t->first()['title']}}
-                     </td>
-                    @foreach($tallyProg as $prog)
-                      
-                      <td class="text-center">@foreach($prog as $p)
+                    <h3 class="box-title">Voting Breakdown</h3>
 
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                  </div>
+                  <div class="box-body">
+                    <table class="table table-bordered table-hover" style="background-color: #fff; overflow-y: scroll;">
+                      <tr>
+                        <th>Entry</th>
+                        @foreach($tallyProg as $prog)
+                          <th class="text-center">{{$prog[0]['camp']}}</th>
+                        @endforeach
+                        <th class="text-center">Total</th>
+                      </tr>
+
+                      @foreach($tallyEntry->reverse() as $entry)
+                      <tr>
+                        <td >
+                          <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
+                          {{$t->first()['title']}}
+                         </td>
+                        @foreach($tallyProg as $prog)
+                          
+                          <td class="text-center">@foreach($prog as $p)
+
+                            
+                              @if($p['entry'] === $t->first()['entryID'] ) 
+                              {{$p['points']}}
+                              @endif
+
+
+                          @endforeach</td>
                         
-                          @if($p['entry'] === $t->first()['entryID'] ) 
-                          {{$p['points']}}
-                          @endif
+
+                        @endforeach
+                        <td class="text-center"> 
+                          <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
+                          <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> <br/>
+                          <strong>{{$g->first()['grandTotal']}} % </strong>
+                        </td>
+                        
+                      </tr>
+                      @endforeach
+                      <tr>
+                        <td></td>
+                        @foreach($tallyProg as $prog)
+                          <td class="text-center"><br/><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
+                        @endforeach
+                        <td class="text-center">
+                          <small>({{$finalTally->first()['maxpoints']}}/{{$finalTally->first()['maxpoints']}})</small><br/>
+                        <strong>100.00 %</strong></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <!-- /.box-body-->
+                </div>
+                <!-- /.box -->
 
 
-                      @endforeach</td>
-                    
 
-                    @endforeach
-                    <td class="text-center"> 
-                      <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
-                      <small>({{$g->first()['totalPoints']}}/{{$g->first()['maxpoints']}})</small> <br/>
-                      <strong>{{$g->first()['grandTotal']}} % </strong>
-                    </td>
-                    
-                  </tr>
-                  @endforeach
-                  <tr>
-                    <td></td>
-                    @foreach($tallyProg as $prog)
-                      <td class="text-center"><br/><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
-                    @endforeach
-                    <td class="text-center">
-                      <small>({{$finalTally->first()['maxpoints']}}/{{$finalTally->first()['maxpoints']}})</small><br/>
-                    <strong>100.00 %</strong></td>
-                  </tr>
-                </table>
 
                 
+
+                
+
+
              </div>
 
              
