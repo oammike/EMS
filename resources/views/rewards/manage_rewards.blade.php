@@ -5,6 +5,15 @@
 @stop
 
 @section('content')
+<section class="content-header">
+    <h1><i class="fa fa-gift"></i> Manage Open Access Rewards </h1>
+
+    <ol class="breadcrumb">
+      <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Rewards</li>
+    </ol>
+  </section>
+
 	<div class="container spark-screen">
 		<div class="row">
 			<div class="col-xs-10 col-md-12">
