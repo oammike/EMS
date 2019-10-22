@@ -173,10 +173,6 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.saveTriggers',
       'uses'=>'EngagementController@saveTriggers') );
 
-    Route::get('/employeeEngagement/{id}/tallyVotes', array(
-      'as'=> 'employeeEngagement.tallyVotes',
-      'uses'=>'EngagementController@tallyVotes') );
-
 
     Route::post('/employeeEngagement/uncastvote/{id}', array(
       'as'=> 'employeeEngagement.uncastvote',
@@ -1016,7 +1012,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/rewards-catalog', 'RewardsHomeController@rewards_catalog');
     Route::get('/rewards-catalog/list/{page?}', 'RewardsHomeController@rewards_catalog_list');  
     Route::post('/claim-reward/{reward_id?}', 'RewardsHomeController@claim_reward');
+    Route::get('/get_qr/{user_id?}', 'RewardsHomeController@get_qr');
     Route::resource('/orders', 'OrdersController');
+    Route::get('/barista', 'RewardsHomeController@barista');
+    Route::post('/print-order/{code?}', 'RewardsHomeController@print_order');  
     
 
   });
