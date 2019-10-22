@@ -174,6 +174,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'EngagementController@saveTriggers') );
 
 
+    Route::get('/employeeEngagement/{id}/tallyVotes', array(
+      'as'=> 'employeeEngagement.tallyVotes',
+      'uses'=>'EngagementController@tallyVotes') );
+
+
     Route::post('/employeeEngagement/uncastvote/{id}', array(
       'as'=> 'employeeEngagement.uncastvote',
       'uses'=>'EngagementController@uncastvote') );
