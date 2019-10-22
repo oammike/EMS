@@ -139,7 +139,7 @@
       data: [
               @foreach($finalTally as $tally) 
 
-              ["Entry: <br/>{{$tally['title']}}<br/><strong>({{$tally["grandTotal"]}}%)</strong>",{{$tally["grandTotal"]}}],
+              ["Entry: <br/><span class='text-success'>{{$tally['title']}}</span><br/><strong>({{$tally["grandTotal"]}}%)</strong>",{{$tally["grandTotal"]}}],
               @endforeach
 
       ],
