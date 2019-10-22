@@ -83,6 +83,7 @@
                     <table id='votetally' class="table table-bordered table-hover" style="background-color: #fff; overflow-y: scroll;">
                       <thead>
                         <tr>
+                        <th>#</th>
                         <th>Entry</th>
                         @foreach($tallyProg as $prog)
                           <th class="text-center">{{$prog[0]['camp']}}</th>
@@ -96,9 +97,10 @@
                         <?php $x=1;?>
                         @foreach($tallyEntry->reverse() as $entry)
                         <tr>
+                          <td>{{$x}}</td>
                           <td >
                             <?php $t = $finalTally->where('entryID',$entry[0]['entry']); ?>
-                            {{$x}}. {{$t->first()['title']}}
+                             {{$t->first()['title']}}
                            </td>
                           @foreach($tallyProg as $prog)
                             
