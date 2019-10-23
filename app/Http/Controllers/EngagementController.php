@@ -516,7 +516,7 @@ class EngagementController extends Controller
                         join('team','team.user_id','=','users.id')->
                         join('campaign','team.campaign_id','=','campaign.id')->
                         join('positions','users.position_id','=','positions.id')->
-                        select('engagement_reply.id', 'engagement_reply.comment_id as commentID','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_reply.created_at','engagement_reply.updated_at','engagement_reply.body')->orderBy('engagement_reply.created_at','DESC')->get();
+                        select('engagement_reply.id', 'engagement_reply.comment_id as commentID','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_reply.created_at','engagement_reply.updated_at','engagement_reply.body')->orderBy('engagement_reply.created_at','ASC')->get();
         
         //return $userEntries;
          $correct = Carbon::now('GMT+8'); 
