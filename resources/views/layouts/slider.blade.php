@@ -2,6 +2,13 @@
                    
                 <div class="item active text-center" >
                     
+                      <img src="./storage/uploads/welcome_advent.jpg" style="z-index: 2" width="100%" /><br/>
+                      
+                      
+                </div>
+
+                <div class="item text-center" >
+                    
                       <img src="./storage/uploads/frightful_prize.jpg" style="z-index: 2" width="100%" /><br/>
                       <a class="btn btn-primary" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> View Details </a>
                       
