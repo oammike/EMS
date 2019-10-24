@@ -120,7 +120,9 @@
 
 
                     @else
-                        <h3 class="text-primary">Submit Your Entry:</h3>
+                    <h3 class="text-primary">Submission of entries is now CLOSED.</h3>
+                    <p>Thank you all for participating. Go and check out all the entries and don't forget to vote for your favorite story!</p>
+                        <!-- <h3 class="text-primary">Submit Your Entry:</h3>
                         <?php $ctr=0; ?>
                         @foreach($engagement as $element)<br/>
                         <label style="padding-top: 20px">{{$element->label}} </label>
@@ -149,17 +151,17 @@
 
 
 
-                        @endforeach
+                        @endforeach -->
                     @endif
 
                     
 
-                    @if ($hasEntry)
+                    <!-- @if ($hasEntry)
 
                     @else
                     <a id="submit" class="btn btn-lg btn-success pull-right" style="margin-top: 20px"> Submit</a>
 
-                    @endif
+                    @endif -->
                     
                   </div>
                 </div>
