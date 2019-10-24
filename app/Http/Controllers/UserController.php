@@ -625,24 +625,48 @@ class UserController extends Controller
     public function getAllActiveUsers(){
 
         DB::connection()->disableQueryLog();
+
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canEditEmployees =  ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
        
 
         /* ------- faster method ----------- */
 
+        if($canEditEmployees){
 
-        $users = DB::table('users')->where([
+          $users = DB::table('users')->where([
                     ['status_id', '!=', 6],
                     ['status_id', '!=', 7],
                     ['status_id', '!=', 8],
                     ['status_id', '!=', 9],
-                ])->
-        leftJoin('team','team.user_id','=','users.id')->
-        leftJoin('campaign','team.campaign_id','=','campaign.id')->
-        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-        leftJoin('positions','users.position_id','=','positions.id')->
-        leftJoin('floor','team.floor_id','=','floor.id')->
-        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+                            ])->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                    leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                    leftJoin('positions','users.position_id','=','positions.id')->
+                    leftJoin('floor','team.floor_id','=','floor.id')->
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+
+        } else {
+
+          $users = DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 16],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                            ])->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                    leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                    leftJoin('positions','users.position_id','=','positions.id')->
+                    leftJoin('floor','team.floor_id','=','floor.id')->
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+        }
+        
 
         return response()->json(['data'=>$users]);
 

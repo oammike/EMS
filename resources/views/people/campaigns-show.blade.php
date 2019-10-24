@@ -245,12 +245,13 @@ div.scroll i {
             
             <div class="col-lg-12">
               
-             
+             @if ($leader->status_id !== 16) <!--CHECK IF CLIENT -->
 
               <div class="box box-default direct-chat direct-chat-default @if(count($hasMembers) <= 0) collapsed-box @endif " style="background: rgba(256, 256, 256, 0.4)">
                   <div class="box-header with-border">
                     
                     <!-- THE TL -->
+                    
                     <h3 class="box-title" style="width:80%"><a target="_blank" href="{{action('UserController@show',$leader->userID)}}">
                       @if ( file_exists('public/img/employees/'.$leader->userID.'.jpg') )
                       <img src="{{asset('public/img/employees/'.$leader->userID.'.jpg')}}"  class="img-circle pull-left" alt="User Image"  width="90" style="padding-right:5px">
@@ -307,6 +308,8 @@ div.scroll i {
                       @endif 
                       
                     </div>
+
+
 
                   </div>
                   <!-- /.box-header -->
@@ -375,6 +378,7 @@ div.scroll i {
                   <!-- /.box-footer-->
               </div>
                 <!--/.direct-chat -->
+              @endif
               
               
             
