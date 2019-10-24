@@ -48,7 +48,10 @@
                   <div id="entry" class="col-sm-6" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
                     @if ($hasEntry)
 
-                      <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#delModal{{$existingEntry[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
+                      <h3 class="text-primary">Submission and editing of entries is now CLOSED.</h3>
+                      <p>Thank you all for participating. Go and check out all the entries and don't forget to vote for your favorite story!</p>
+
+                      <!-- <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#delModal{{$existingEntry[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
                       <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
 
                        
@@ -113,7 +116,7 @@
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
 
 
