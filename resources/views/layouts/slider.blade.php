@@ -14,60 +14,27 @@
                       
                       
                 </div>
-
-                <!--zumba sched-->
-                <div class="item text-center" >
-                    
-                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Last 2</span> Zumba Classes</h3>
-                     <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
-                     <br/><br/>
-
-                     <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
-                        <br/><span class="text-danger">October 22, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
-
-                      <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
-                        <BR/><span class="text-danger">October 24, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
-
-                        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
-                          Sign Up Now</a><br/><br/>
-
-                          <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
-
-                          <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
-                          
-                          <div class="text-left"  style="padding-left: 30px;">
-                            <h5>Minor Prizes:</h5>
-                            <ul>
-                              <li>3 winners: SM Gift certificates worth Php 2,000</li>
-                              <li>1 winner: SM Gift certificates worth Php 1,500</li>
-                              <li>1 winner: SM Gift certificates worth Php 1,000</li>
-                              <li>1 winner: JBL Flip3 Bluetooth speaker</li>
-                              <li>1 winner: Promate 10,000mAh Powerbank</li>
-                              <li>1 winner: urBeats3 earphones</li>
-                            </ul></div>
-
-                         
-
+                <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
                       <br/><br/>
-                       <strong>Venue:</strong><br/>
+                      <p style="margin-left: 35px;margin-right: 20px">Hello Open Access Family,<br/><br/>
 
-                        OPEN ACCESS BPO G2 OFFICE<br/>
+                      October is almost over which means we are nearing the holiday season!
+                      And what does that mean for Open Access BPO?
+                      It means it's almost time to throw our most awaited event, the<strong> YEAR END PARTY!</strong><br/><br/>
 
-                        11F Glorietta 2 Corporate Center,<br/>
+                      Mark your calendars as this year we will party to the theme that won in our survey - <strong style="font-size: larger; color: #000"> BLACK & WHITE!</strong><br/><br/>
 
-                        West. St., Ayala Center, Makati City<br/><br/>
+                      Date: <strong class="text-danger">December 14, 2019 Saturday</strong> <br/>
+                      Venue:<strong class="text-danger"> Rizal Ballroom, Makati Shangri-La</strong><br/><br/>
 
-                        <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
-                        <br/><br/>
+                      Express yourself in Black & White as we party all night with great food, drinks, raffle prizes, and entertainment!<br/><br/>
 
-                          View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+                      <a class="btn btn-md btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScbaoSSOL5m1mAz0ZV5kWqbDi7iTKLIYUkMKsJoL-PNtWEcRA/viewform" target="_blank"> Register Now </a><br/>to confirm your attendance. <br/>Registration ends October 31, 2019<br/><br/><br/></p>
 
-                       
-                        <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                              <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                 </div>  
 
- 
+               
 
                
                 @if(count($firstYears) >= 1)
@@ -142,7 +109,12 @@
 
                             @endforeach
 
-                @endif  
+                @endif 
+
+
+                 
+
+                     
 
 
                
@@ -239,27 +211,7 @@
                
                   
 
-                  <div class="item text-center" style="background-color: #fff" >
-                    <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <p style="margin-left: 35px;margin-right: 20px">Hello Open Access Family,<br/><br/>
-
-                    September is almost over which means we are nearing the holiday season!
-                    And what does that mean for Open Access BPO?
-                    It means it's almost time to throw our most awaited event, the<strong> YEAR END PARTY!</strong><br/><br/>
-
-                    Mark your calendars as this year we will party to the theme that won in our survey - <strong style="font-size: larger; color: #000"> BLACK & WHITE!</strong><br/><br/>
-
-                    Date: <strong class="text-danger">December 14, 2019 Saturday</strong> <br/>
-                    Venue:<strong class="text-danger"> Rizal Ballroom, Makati Shangri-La</strong><br/><br/>
-
-                    Express yourself in Black & White as we party all night with great food, drinks, raffle prizes, and entertainment!<br/><br/>
-
-                    <a class="btn btn-md btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScbaoSSOL5m1mAz0ZV5kWqbDi7iTKLIYUkMKsJoL-PNtWEcRA/viewform" target="_blank"> Register Now </a><br/>to confirm your attendance. <br/>Registration ends October 31, 2019<br/><br/><br/></p>
-
-                    </div>  
-
-                    
+                   
                                  
 
                     
@@ -288,48 +240,7 @@
 
                     </div>
 
-
-
-                  
-
-
-
-                     <div class="item text-center" style="background-color: #fff" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <img src="./storage/uploads/exec.jpg" style="z-index: 2" />
-                               <p class="text-center" style="padding-left: 0px;"><br/><br/>We are on a journey that keeps getting better!<br/>
-                               <strong class="text-primary">Work as one team, one family.</strong></p>
-                                <a class="btn btn-md btn-success" target="_blank" href="{{action('CampaignController@orgChart')}}"><i class="fa fa-sitemap"></i> See the entire team</a><br/><br/><br/>
-
-                    </div>
-
-                      
-                   
-
-
-                    <div class="item text-center" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <img src="./storage/uploads/happiness.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Exercising positive thinking helps us train our minds, letting us achieve better results. <strong>#WeSpeakYourLanguage #MondayMotivation</strong></p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
-                    
-   
-
-                  
-
-
-
-                   
-
-                     @if (count($newHires) >= 1)
+                    @if (count($newHires) >= 1)
                         <!-- **** NEW HIRES ******************** -->
                         <div class="item text-center">
                           <div class="box box-widget widget-user">
@@ -400,7 +311,36 @@
                         @endforeach
 
 
-                      @endif
+                    @endif
+
+
+
+                  
+
+
+
+                     <div class="item text-center" style="background-color: #fff" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/exec.jpg" style="z-index: 2" />
+                               <p class="text-center" style="padding-left: 0px;"><br/><br/>We are on a journey that keeps getting better!<br/>
+                               <strong class="text-primary">Work as one team, one family.</strong></p>
+                                <a class="btn btn-md btn-success" target="_blank" href="{{action('CampaignController@orgChart')}}"><i class="fa fa-sitemap"></i> See the entire team</a><br/><br/><br/>
+
+                    </div>
+
+                      
+                   
+
+
+               
+                  
+
+
+
+                   
+
+                     
 
                    
 
@@ -423,13 +363,7 @@
 
                   
 
-                    <div class="item text-center" >
-                              <img src="./storage/uploads/motivation-mia.jpg" style="z-index: 2" />
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
-
+                  
                    
 
                        
@@ -545,6 +479,35 @@
                   
                      
 
+
+                      
+
+
+                      
+
+                     
+
+
+
+<?php /*
+
+     <div class="item text-center" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/happiness.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Exercising positive thinking helps us train our minds, letting us achieve better results. <strong>#WeSpeakYourLanguage #MondayMotivation</strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+                    
+   
+
+
+
                       <div class="item text-center" >
 
                               <img src="./storage/uploads/dance.jpg" style="z-index: 2" />
@@ -580,16 +543,66 @@
                     
 
 
-                      
+  <div class="item text-center" >
+                              <img src="./storage/uploads/motivation-mia.jpg" style="z-index: 2" />
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+ <!--zumba sched-->
+                <div class="item text-center" >
+                    
+                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">Last 2</span> Zumba Classes</h3>
+                     <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
+                     <br/><br/>
+
+                     <strong style="font-size:larger"><span class="text-primary"> Tuesday:</span> 
+                        <br/><span class="text-danger">October 22, 2019 (Tue) – 4:30 PM</span><br/></strong><br/>
+
+                      <strong style="font-size:larger"><span class="text-primary"> Thursday:</span> 
+                        <BR/><span class="text-danger">October 24, 2019 (Thu) – 7:00 PM</span><br/></strong><br/> 
+
+                        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSeZsdfWT5UvVOWnWmEGG9uAhmfLLVyK1yHyJ9U-wP7KciTsPQ/viewform" target="_blank">
+                          Sign Up Now</a><br/><br/>
+
+                          <p class="text-left" style="padding-left: 30px;"><br/><br/>All attendees of the workout classes will be eligible to win in the raffle! For each class you attend, you'll have a raffle entry. The more classes you attend, the more chances you'll have to win the major prize! <br/><br/>Here are the amazing prizes up for grabs:</p>
+
+                          <h5 class="text-primary">Major Prize: <strong>1 Winner - Trip to Boracay!</strong></h5>
+                          
+                          <div class="text-left"  style="padding-left: 30px;">
+                            <h5>Minor Prizes:</h5>
+                            <ul>
+                              <li>3 winners: SM Gift certificates worth Php 2,000</li>
+                              <li>1 winner: SM Gift certificates worth Php 1,500</li>
+                              <li>1 winner: SM Gift certificates worth Php 1,000</li>
+                              <li>1 winner: JBL Flip3 Bluetooth speaker</li>
+                              <li>1 winner: Promate 10,000mAh Powerbank</li>
+                              <li>1 winner: urBeats3 earphones</li>
+                            </ul></div>
+
+                         
+
+                      <br/><br/>
+                       <strong>Venue:</strong><br/>
+
+                        OPEN ACCESS BPO G2 OFFICE<br/>
+
+                        11F Glorietta 2 Corporate Center,<br/>
+
+                        West. St., Ayala Center, Makati City<br/><br/>
+
+                        <img src="./storage/uploads/oam-location.jpg" style="z-index: 2" width="100%" />
+                        <br/><br/>
+
+                          View our <a class="text-danger" href="./gallery?a=5"><i class="fa fa-picture-o"></i> Gallery</a> for more<br/> #WeSpeakYourLanguage #LetsGetPhysical #OAforWellness
+
+                       
+                        <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                              <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
+                </div>  
 
 
-                      
-
-                     
-
-
-
-<?php /*
 
  <!--zumba sched-->
                 <div class="item text-center" >
