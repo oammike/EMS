@@ -64,7 +64,10 @@
                 </div>
                 <!-- /.box -->
 
-                <p><i class="fa fa-exclamation-circle"></i> Note: All votes are tallied using point rank system to allow a fair voting system regardless of how big the voting population of each program/department.</p><br/><br/>
+                <p><i class="fa fa-exclamation-circle"></i> 
+                  Note: 
+                        All votes are tallied using point rank system to allow a fair voting system regardless of how big the voting population of each program/department. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Entries that have zero votes are not shown in the graph and tally board.</p><br/><br/>
 
 
                 <!-- Bar chart -->
