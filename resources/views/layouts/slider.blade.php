@@ -1,19 +1,24 @@
                   
                    
                 <div class="item active text-center" >
-                    
-                      <img src="./storage/uploads/welcome_advent.jpg" style="z-index: 2" width="100%" /><br/>
+                      <p style="margin-left: 35px; margin-right: 20px">The floodgates of terror have opened!<br/>
+                        Visit our <a href="{{action('EngagementController@show',1)}}">voting page</a> to cast a spell on the most frightening tale.<br/>
+                        <strong class="text-danger"> Top three scariest entries</strong> win power banks and other surprises. Voting ends at <strong>11:59 PM on October 29th.</strong> <br/><br/>
+                      Stay tuned for the ghoulish announcement on All Hallows' Eve, October 31st.</p>
+                      <img src="./storage/uploads/votenow_frightful.jpg" style="z-index: 2" width="100%" /><br/>
+                      <a class="btn btn-primary" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> View Details </a>
                       
                       
                 </div>
 
                 <div class="item text-center" >
                     
-                      <img src="./storage/uploads/frightful_prize.jpg" style="z-index: 2" width="100%" /><br/>
-                      <a class="btn btn-primary" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> View Details </a>
+                      <img src="./storage/uploads/welcome_advent.jpg" style="z-index: 2" width="100%" /><br/>
                       
                       
                 </div>
+
+                
                 <div class="item text-center" style="background-color: #fff" >
                       <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
                       <br/><br/>
