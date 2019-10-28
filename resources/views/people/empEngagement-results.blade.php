@@ -90,6 +90,7 @@
                         <th>#</th>
                         <th>Entry</th>
                         <th>By</th>
+                        <th class="text-center">Overall</th>
                         @foreach($tallyProg as $prog)
                           <th class="text-center">{{$prog[0]['camp']}}</th>
                         @endforeach
@@ -117,7 +118,17 @@
 
                             <em style="font-weight: bold;">{{$t->first()['program']}}</em>
                           </td>
+
+                          <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
+
+                          <td class="text-center"> 
+
+                            <strong>{{$g->first()['grandTotal']}} % </strong><br/>
+                            
+                          </td>
+
                           @foreach($tallyProg as $prog)
+                           
                             
                             <td class="text-center">@foreach($prog as $p)
 
@@ -132,7 +143,7 @@
 
                           @endforeach
 
-                           <?php $g = $finalTally->where('entryID',$entry[0]['entry']); ?> 
+                           
                           <td class="text-center"> 
                            
                             
@@ -158,6 +169,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td><strong>100.00%</strong></td>
                         @foreach($tallyProg as $prog)
                           <td class="text-center"><strong>{{ number_format($prog[0]['entries'],2) }}</strong></td>
                         @endforeach
@@ -237,6 +249,7 @@
       "scrollX": true,
       "scrollY": 500,
       "paging":false,
+      "order": [[ 3, "desc" ]]
       });
 
    
