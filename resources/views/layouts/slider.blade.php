@@ -1,6 +1,43 @@
                   
                    
-                <div class="item active text-center" >
+                <div class="item active text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 10,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start on <strong>Monday, November 11</strong></span></br/><br/>
+                                <span class="text-primary">Client Support Representative <br/> <br/>
+                                <img src="public/img/logo_advent.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              <h4>Brief Description: </h4>
+                              <p style="padding:30px;">As a Client Support Representative for the Global Client Services (GCS) Group, you will
+provide great service to Advent Software’s clients by resolving technical and product
+functionality inquiries via phone, web and e-mail to ensure the successful use of our solutions
+and a high level of customer satisfaction.</p>
+                              
+                             <h4><br/>Qualifications:</h4>
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Strong financial and technical background</li>
+                                <li>Excellent interpersonal skills and ability to work well within a team environment</li>
+                                <li>Superior troubleshooting and analysis / resolution skills</li>
+                                <li>Proven aptitude to learn complex technical and theoretical information quickly</li>
+                                <li>Ability to prioritize and manage multiple complex issues and adapt to different challenges
+and changing priorities</li>
+<li>Excellent written and verbal communication skills in English, with a strong attention to detail</li>
+<li>Working knowledge of MS Windows, MS Office, system architecture and environments</li>
+<li>A degree in MIS, computer science, other technical economics or finance</li>
+<li>Proficiency in SQL and basic Networking Systems.</li>
+                              </ol>
+
+                              
+                              
+                              
+
+
+
+                </div>
+
+                            <div class="item text-center" >
                       <p style="margin-left: 35px; margin-right: 20px">The floodgates of terror have opened!<br/>
                         Visit our <a href="{{action('EngagementController@show',1)}}">voting page</a> to cast a spell on the most frightening tale.<br/>
                         <strong class="text-danger"> Top three scariest entries</strong> win power banks and other surprises. Voting ends at <strong>11:59 PM on October 29th.</strong> <br/><br/>
