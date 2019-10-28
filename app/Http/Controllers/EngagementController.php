@@ -203,6 +203,7 @@ class EngagementController extends Controller
     						join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
                             //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
     						select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
+
     						get();
         $triggers = Engagement_Trigger::where('engagement_id',$id)->orderBy('name','ASC')->get(); 
 
@@ -324,7 +325,8 @@ class EngagementController extends Controller
                     join('positions','users.position_id','=','positions.id')->
                     join('team','team.user_id','=','engagement_vote.user_id')->
                     join('campaign','campaign.id','=','team.campaign_id')->
-                    select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->get();
+                    select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->
+                    where('engagement_entry.disqualified',NULL)->get();
 
         $ranking = new Collection;
         $rankByProgram = new Collection;
@@ -339,7 +341,8 @@ class EngagementController extends Controller
                         join('positions','users.position_id','=','positions.id')->
                         join('team','team.user_id','=','engagement_entry.user_id')->
                         join('campaign','campaign.id','=','team.campaign_id')->
-                        select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->get();
+                        select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->
+                        where('engagement_entry.disqualified',NULL)->get();
                         
         
         foreach ($votesByCampaign as $camp) {
@@ -474,7 +477,8 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->get();
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->
+                                where('engagement_entry.disqualified',NULL)->get();
         $userEntries = collect($allEntries)->groupBy('entryID');
 
         $triggers = DB::table('engagement')->where('engagement.id',$id)->
