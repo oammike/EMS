@@ -264,7 +264,7 @@
       data: [<?php $c=1 ?>
               @foreach($finalTally as $tally) 
               
-              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/><strong style='font-size:larger;'>({{$tally["grandTotal"]}}%)</strong> <br/> [{{$tally["actualVotes"]}}]",{{$tally["grandTotal"]}}],
+              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/><strong style='font-size:x-small;'>({{$tally["grandTotal"]}}%)</strong> <br/> [{{$tally["actualVotes"]}}]",{{$tally["grandTotal"]}}],
               <?php $c++; ?>
               @endforeach
 
