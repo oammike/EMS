@@ -64,6 +64,16 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('employeeEngagement','EngagementController');
     Route::resource('usergallery','GalleryController');
 
+    
+
+    /********** NEW PA   **************/
+
+    Route::resource('performance','NewPA_Form_Controller');
+    Route::resource('newPA_goal','NewPA_Goal_Controller');
+    Route::resource('newPA_formGoal','NewPA_Form_Goal_Controller');
+
+    /********** ------------ END NEW PA ------------  **************/
+
 
     Route::get('/logAction/{action}', array(
       'as'=>'page.logAction',

@@ -293,7 +293,16 @@
 
        </li> -->
 
-        <li class="treeview @if (Request::is('user/'.Auth::user()->id)) active @endif">
+      <li class="treeview @if (Request::is('performance*')) active @endif">
+          <a href="#"><i class="fa fa-2x fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Performance</span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li @if (Request::is('performance*')) class="active" @endif style="padding-left:20px"><a href="{{action('NewPA_Form_Controller@create')}}"><i class="fa fa-clipboard"></i> Setup PA Form</a> </li>
+           
+
+          </ul>
+      </li>
+
+      <li class="treeview @if (Request::is('user/'.Auth::user()->id)) active @endif">
           <a href="#"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Requests</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-calendar"></i> DTR Requests </a> </li>
