@@ -231,7 +231,10 @@ class EngagementController extends Controller
 
         
 
-        $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
+        $voted = DB::table('engagement_vote')->where('engagement_vote.engagement_id',$id)->
+                    join('engagement_entry','engagement_vote.engagement_entryID','=','engagement_entry.id')->
+                    where('engagement_vote.user_id',$this->user->id)->
+                    where('engagement_entry.disqualified',NULL)->get();
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
 
          $correct = Carbon::now('GMT+8'); 
@@ -487,7 +490,12 @@ class EngagementController extends Controller
                             join('engagement_trigger','engagement_entryTrigger.triggerID','=','engagement_trigger.id')->
                             select('engagement_entry.id as entryID','engagement_trigger.name as trigger')->get();
         
-        $voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
+        //$voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
+        $voted = DB::table('engagement_vote')->where('engagement_vote.engagement_id',$id)->
+                    join('engagement_entry','engagement_vote.engagement_entryID','=','engagement_entry.id')->
+                    where('engagement_vote.user_id',$this->user->id)->
+                    where('engagement_entry.disqualified',NULL)->get();
+                                        
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
 
 
