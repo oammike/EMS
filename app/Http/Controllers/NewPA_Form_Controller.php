@@ -64,7 +64,8 @@ class NewPA_Form_Controller extends Controller
 
     public function create()
     {
-    	return view('evaluation.newPA-index');
+    	$roles = NewPA_Type::all();
+    	return view('evaluation.newPA-create',compact('roles'));
 
     }
 }
