@@ -38,22 +38,17 @@ and changing priorities</li>
                 </div>
 
                             <div class="item text-center" >
-                      <p style="margin-left: 35px; margin-right: 20px">The floodgates of terror have opened!<br/>
-                        Visit our <a href="{{action('EngagementController@show',1)}}">voting page</a> to cast a spell on the most frightening tale.<br/>
-                        <strong class="text-danger"> Top three scariest entries</strong> win power banks and other surprises. Voting ends at <strong>11:59 PM on October 29th.</strong> <br/><br/>
+                      <p style="margin-left: 35px; margin-right: 20px">
+                        We've extended the voting deadline to give everyone more time to vote.<br/>
+                        Support their favorite stories by visiting <a href="{{action('EngagementController@show',1)}}">this link </a>now to check out those stories and vote for your favorite frightful tale until 6:00 PM Oct. 30th! <br/><br/>
                       Stay tuned for the ghoulish announcement on All Hallows' Eve, October 31st.</p>
-                      <img src="./storage/uploads/votenow_frightful.jpg" style="z-index: 2" width="100%" /><br/>
+                      <img src="./storage/uploads/votingextended.jpg" style="z-index: 2" width="100%" /><br/>
                       <a class="btn btn-primary" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> View Details </a>
                       
                       
                 </div>
 
-                <div class="item text-center" >
-                    
-                      <img src="./storage/uploads/welcome_advent.jpg" style="z-index: 2" width="100%" /><br/>
-                      
-                      
-                </div>
+                
 
                 
                 <div class="item text-center" style="background-color: #fff" >
@@ -532,7 +527,12 @@ and changing priorities</li>
 
 
 <?php /*
-
+<div class="item text-center" >
+                    
+                      <img src="./storage/uploads/welcome_advent.jpg" style="z-index: 2" width="100%" /><br/>
+                      
+                      
+                </div>
      <div class="item text-center" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
