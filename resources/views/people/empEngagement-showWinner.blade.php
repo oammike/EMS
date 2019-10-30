@@ -41,6 +41,8 @@
                           
                         } ?>
 
+                        @if ($ord <=3)
+
                         <div class="col-md-4">
                           <h2 style="line-height: 0.5em;"><strong>{{$order}}</strong> <br/><span style="font-size: 0.5em;  font-weight: normal;"> "{{$entry['title'] }}"</span></h2>
                           <a class="text-primary" href="{{action('UserController@show',$entry['user_id'])}}" target="_blank"><img src="../public/img/employees/{{$entry['user_id']}}.jpg" width="60%" class="img-circle" /><br/>
@@ -52,6 +54,7 @@
 
                          
                         </div>
+                        @endif
                         <?php $ord++;?>
                         @endforeach
                         
