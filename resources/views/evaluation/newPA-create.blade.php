@@ -44,26 +44,32 @@
         <!-- SmartWizard html -->
         <div id="smartwizard">
             <ul>
-                <li><a href="#step-1">Step 1<br /><small>Email Address</small></a></li>
-                <li><a href="#step-2">Step 2<br /><small>Name</small></a></li>
-                <li><a href="#step-3">Step 3<br /><small>Address</small></a></li>
-                <li><a href="#step-4">Step 4<br /><small>Terms and Conditions</small></a></li>
+                <li><a href="#step-1"><span style="font-size: x-large;"> 1</span><br /><small>Type of Role</small></a></li>
+                <li><a href="#step-2"><span style="font-size: x-large;"> 2</span><br /><small>Create Goals</small></a></li>
+                <li><a href="#step-3"><span style="font-size: x-large;"> 3</span><br /><small>Set Competencies</small></a></li>
+                <li><a href="#step-4"><span style="font-size: x-large;"> 4</span><br /><small>Assign Form</small></a></li>
             </ul>
 
-            <div>
-                <div id="step-1">
-                    <h2>Your Email Address</h2>
+            <div class="row">
+                <div id="step-1" class="col-lg-12" style="padding:20px;">
+                    <h4>Identify employee role for this evaluation form:</h4><br/><br/>
                     <div id="form-step-0" role="form" data-toggle="validator">
                         <div class="form-group">
-                            <label for="email">Email address:</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Write your email address" required>
-                            <div class="help-block with-errors"></div>
+                            
+                            @foreach($roles as $role)
+
+                              <label><input required="required" type="radio" name="type" value="{{$role->id}}"> {{$role->name}} <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small style="font-weight: normal;"> {{$role->description}}</small> </label><div class="clearfix"></div>
+
+                            @endforeach
+                           
+                            <div class="help-block with-errors" style=" padding:30px; "></div>
                         </div>
                     </div>
 
                 </div>
-                <div id="step-2">
-                    <h2>Your Name</h2>
+                <div id="step-2" class="col-lg-12" style="padding:20px;">
+                    <h4>Establish Goals based on our business objectives</h>
                     <div id="form-step-1" role="form" data-toggle="validator">
                         <div class="form-group">
                             <label for="name">Name:</label>
@@ -138,7 +144,7 @@
 <script src="../public/js/modernizr-2.6.2.min.js"></script>
 <!-- <script src="../public/js/jquery-1.9.1.min.js"></script> -->
 <script src="../public/js/jquery.cookie-1.3.1.js"></script> 
-<script src="../build/js/jquery.steps.js"></script>
+<script src="../public/js/jquery.steps.js"></script>
 
 <!-- smartwizard-->
 <!-- <script
@@ -147,11 +153,12 @@
       crossorigin="anonymous"></script> -->
 
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="../public/js/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 
     <!-- Include SmartWizard JavaScript source -->
     <script type="text/javascript" src="../public/js/jquery.smartWizard.min.js"></script>
+    <script type="text/javascript" src="../public/js/validator.min.js"></script>
 
 
 
