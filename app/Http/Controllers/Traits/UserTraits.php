@@ -651,8 +651,8 @@ trait UserTraits
                                   
                                   //$completedEvals = EvalForm::where('evaluatedBy', $isTL->id)->where('overAllScore','>','0.00')->get();
                                   
-                                  
-                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true,'leaderID'=>$leaderID,'ihID'=>$isTL->id, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname,'email'=>$emp->email, 'position'=>$emp->position->name,'program'=>$empCamp,'programID'=>$empCamp1->id,'hiddenProgram'=>$empCamp1->hidden, 'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
+                                  //'leaderID'=>$leaderID,
+                                  $mySubordinates1->push(['id'=>$emp->id, 'isLeader'=>true,'ihID'=>$isTL->id, 'lastname'=> $emp->lastname, 'firstname'=>$emp->firstname,'nickname'=>$emp->nickname,'email'=>$emp->email, 'position'=>$emp->position->name,'program'=>$empCamp,'programID'=>$empCamp1->id,'hiddenProgram'=>$empCamp1->hidden, 'logo'=>$logo, 'subordinates'=>$activeMen, 'completedEvals'=>$completedEvals ]);
 
                               } 
                               else {
