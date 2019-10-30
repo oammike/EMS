@@ -21,6 +21,10 @@
       <!-- ******** THE DATATABLE ********** -->
           <div class="row">
              <div class="col-lg-12">
+              <p><br/><i class="fa fa-exclamation-circle"></i> 
+                  Note: 
+                        <em>All votes are tallied using point rank system for a fair voting system regardless of how big the voting population of each program/department is. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Entries that have zero votes are not shown in the graph and tally board.</em></p>
 
                <!-- Bar chart -->
                 <div class="box box-primary">
@@ -64,10 +68,7 @@
                 </div>
                 <!-- /.box -->
 
-                <p><i class="fa fa-exclamation-circle"></i> 
-                  Note: 
-                        All votes are tallied using point rank system to allow a fair voting system regardless of how big the voting population of each program/department. <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        Entries that have zero votes are not shown in the graph and tally board.</p><br/><br/>
+                <br/><br/>
 
 
                 <!-- Bar chart -->
@@ -264,7 +265,7 @@
       data: [<?php $c=1 ?>
               @foreach($finalTally as $tally) 
               
-              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/><strong style='font-size:x-small;'>({{$tally["grandTotal"]}}%)</strong> <br/> [{{$tally["actualVotes"]}}]",{{$tally["grandTotal"]}}],
+              ["<span class='text-success'><strong> Entry # {{$c}}:</strong></span><br/><strong style='font-size:x-small;'>({{$tally["grandTotal"]}}%)</strong> <br/><small style='color:#dedede'>[{{$tally["actualVotes"]}}]</small>",{{$tally["grandTotal"]}}],
               <?php $c++; ?>
               @endforeach
 

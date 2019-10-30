@@ -39,11 +39,9 @@ and changing priorities</li>
 
                             <div class="item text-center" >
                       <p style="margin-left: 35px; margin-right: 20px">
-                        We've extended the voting deadline to give everyone more time to vote.<br/>
-                        Support their favorite stories by visiting <a href="{{action('EngagementController@show',1)}}">this link </a>now to check out those stories and vote for your favorite frightful tale until 6:00 PM Oct. 30th! <br/><br/>
-                      Stay tuned for the ghoulish announcement on All Hallows' Eve, October 31st.</p>
-                      <img src="./storage/uploads/votingextended.jpg" style="z-index: 2" width="100%" /><br/>
-                      <a class="btn btn-primary" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> View Details </a>
+                        <strong class="text-danger">Congratulations </strong><br/>to all the Winners!</p>
+                      <img src="./storage/uploads/frightful.jpg" style="z-index: 2" width="100%" /><br/>
+                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
                       
                       
                 </div>
