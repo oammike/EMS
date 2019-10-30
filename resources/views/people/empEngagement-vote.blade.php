@@ -84,14 +84,25 @@
                       @endforeach
                       <div class="clearfix"></div>
 
-                      @if( $alreadyVoted == 0 && $entry[0]->withVoting && ($entry[0]->disqualified !== 1) )
+                      @if(( $alreadyVoted == 0 && $entry[0]->withVoting && ($entry[0]->disqualified !== 1) ) && $correct->format('Y-m-d H:i:s') <= $engagement[0]->endDate )
                       <a class="vote btn btn-lg btn-primary" data-toggle="modal" data-target="#myModal{{$entry[0]->entryID}}"><i class="fa fa-check"></i> Vote for this entry</a>
+
                       @endif
+
+
+                      
 
                       @if ( $alreadyVoted && $voted[0]->engagement_entryID == $entry[0]->entryID && $entry[0]->withVoting )
 
                       <h4 style="width: 40%" class="pull-left text-success text-center"><i class="fa fa-check fa-2x"></i> You Voted for this<br/>
-                        <br/><a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delModal{{$entry[0]->entryID}}"><i class="fa fa-times"></i> Cancel Vote</a></h4>
+                        <br/>
+
+                        <!-- if VOTING IS NOW CLOSED -->
+                        @if($correct->format('Y-m-d H:i:s') <= $engagement[0]->endDate)
+                        <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delModal{{$entry[0]->entryID}}">
+                          <i class="fa fa-times"></i> Cancel Vote</a>
+                        @endif
+                      </h4>
 
 
                         <div class="modal fade" id="delModal{{$entry[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -135,6 +146,11 @@
                           
                           <small style="color:#dedede">{{$e->jobTitle}}</small> - {{$e->program}}
                       </p>
+
+
+                      @if ($correct->format('Y-m-d H:i:s') > $engagement[0]->endDate )
+                      <br/><h4 class="btn btn-xs btn-danger pull-left"><i class="fa fa-exclamation-circle"></i> Voting is now closed</h4>
+                      @endif
 
                       
                     </div>

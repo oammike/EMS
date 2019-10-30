@@ -537,6 +537,6 @@ class EngagementController extends Controller
                                     fwrite($file, "-------------------\n Votenow Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
         //return collect($triggers)->where('entryID',7);
-        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers','comments','replies','commentLikes','replyLikes','owner'));
+        return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers','comments','replies','commentLikes','replyLikes','owner','correct'));
     }
 }
