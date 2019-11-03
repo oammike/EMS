@@ -186,7 +186,7 @@
 
             // Toolbar extra buttons
             var btnFinish = $('<button></button>').text('Finish')
-                                             .addClass('btn btn-info')
+                                             .addClass('btn btn-success')
                                              .on('click', function(){
                                                     if( !$(this).hasClass('disabled')){
                                                         var elmForm = $("#myForm");
@@ -194,7 +194,7 @@
                                                             elmForm.validator('validate');
                                                             var elmErr = elmForm.find('.has-error');
                                                             if(elmErr && elmErr.length > 0){
-                                                                alert('Oops we still have error in the form');
+                                                                alert('Kindly fill out all required fields to complete form.');
                                                                 return false;
                                                             }else{
                                                                 alert('Great! we are ready to submit form');
@@ -219,7 +219,7 @@
                     transitionEffect:'fade',
                     showStepURLhash: true,
                     toolbarSettings: {toolbarPosition: 'bottom',
-                                      toolbarExtraButtons: [btnFinish, btnCancel]
+                                      toolbarExtraButtons: [btnFinish]
                                     },
                     anchorSettings: {
                                 markDoneStep: true, // add done css
