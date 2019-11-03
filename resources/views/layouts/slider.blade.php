@@ -49,25 +49,7 @@ and changing priorities</li>
                 
 
                 
-                <div class="item text-center" style="background-color: #fff" >
-                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
-                      <br/><br/>
-                      <p style="margin-left: 35px;margin-right: 20px">Hello Open Access Family,<br/><br/>
-
-                      October is almost over which means we are nearing the holiday season!
-                      And what does that mean for Open Access BPO?
-                      It means it's almost time to throw our most awaited event, the<strong> YEAR END PARTY!</strong><br/><br/>
-
-                      Mark your calendars as this year we will party to the theme that won in our survey - <strong style="font-size: larger; color: #000"> BLACK & WHITE!</strong><br/><br/>
-
-                      Date: <strong class="text-danger">December 14, 2019 Saturday</strong> <br/>
-                      Venue:<strong class="text-danger"> Rizal Ballroom, Makati Shangri-La</strong><br/><br/>
-
-                      Express yourself in Black & White as we party all night with great food, drinks, raffle prizes, and entertainment!<br/><br/>
-
-                      <a class="btn btn-md btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScbaoSSOL5m1mAz0ZV5kWqbDi7iTKLIYUkMKsJoL-PNtWEcRA/viewform" target="_blank"> Register Now </a><br/>to confirm your attendance. <br/>Registration ends October 31, 2019<br/><br/><br/></p>
-
-                </div>  
+              
 
                
 
@@ -525,6 +507,26 @@ and changing priorities</li>
 
 
 <?php /*
+
+  <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
+                      <br/><br/>
+                      <p style="margin-left: 35px;margin-right: 20px">Hello Open Access Family,<br/><br/>
+
+                      October is almost over which means we are nearing the holiday season!
+                      And what does that mean for Open Access BPO?
+                      It means it's almost time to throw our most awaited event, the<strong> YEAR END PARTY!</strong><br/><br/>
+
+                      Mark your calendars as this year we will party to the theme that won in our survey - <strong style="font-size: larger; color: #000"> BLACK & WHITE!</strong><br/><br/>
+
+                      Date: <strong class="text-danger">December 14, 2019 Saturday</strong> <br/>
+                      Venue:<strong class="text-danger"> Rizal Ballroom, Makati Shangri-La</strong><br/><br/>
+
+                      Express yourself in Black & White as we party all night with great food, drinks, raffle prizes, and entertainment!<br/><br/>
+
+                      <a class="btn btn-md btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScbaoSSOL5m1mAz0ZV5kWqbDi7iTKLIYUkMKsJoL-PNtWEcRA/viewform" target="_blank"> Register Now </a><br/>to confirm your attendance. <br/>Registration ends October 31, 2019<br/><br/><br/></p>
+
+                </div>  
 <div class="item text-center" >
                     
                       <img src="./storage/uploads/welcome_advent.jpg" style="z-index: 2" width="100%" /><br/>
