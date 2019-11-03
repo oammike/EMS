@@ -176,56 +176,7 @@ and changing priorities</li>
 
                  
 
-                 
-                  <!-- ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU -->
-                  <?php $cidol=1;?>
-                  @foreach($idols as $idol)
-                   
-                  
-                   <div class="item  text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
-
-                  
-
-                      
-                               
-                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Idol Contender</h2>
-
-                               <p class="text-center" style="color: #fff">
-
-                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
-                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
-                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
-                                                          @if (empty($idol->filename))
-                                                              {{$idol->program}}
-                                                          @else
-                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
-
-                                                          @endif
-
-                                </h4></a></p>
-                                <p style="color:#dedede">Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rockstars!!! 
-                                  <br/><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a> </p>
-
-
-                               
-
-                  </div>
-
-                  <?php $cidol++;?>
-                  @endforeach
-
-                  
-
-                  
-                  
-
-
-                  
-                  
-                 
-
-                 
-               
+         
                   
 
                    
@@ -347,17 +298,6 @@ and changing priorities</li>
                     </div>
 
                       
-                   
-
-
-               
-                  
-
-
-
-                   
-
-                     
 
                    
 
@@ -507,6 +447,43 @@ and changing priorities</li>
 
 
 <?php /*
+
+      <!-- ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU -->
+                  <?php $cidol=1;?>
+                  @foreach($idols as $idol)
+                   
+                  
+                   <div class="item  text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
+
+                  
+
+                      
+                               
+                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/><br/>Idol Contender</h2>
+
+                               <p class="text-center" style="color: #fff">
+
+                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./public/img/employees/{{$idol->id}}.jpg" width="200px" class="img-circle" /><br/>
+                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
+                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
+                                                          @if (empty($idol->filename))
+                                                              {{$idol->program}}
+                                                          @else
+                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
+
+                                                          @endif
+
+                                </h4></a></p>
+                                <p style="color:#dedede">Thank you to all our contenders who joined in our first ever, <br/>Open Access Idol! You are all rockstars!!! 
+                                  <br/><a target="_blank" class="btn btn-sm btn-success" href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i> View Gallery</a> </p>
+
+
+                               
+
+                  </div>
+
+                  <?php $cidol++;?>
+                  @endforeach
 
   <div class="item text-center" style="background-color: #fff" >
                       <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
