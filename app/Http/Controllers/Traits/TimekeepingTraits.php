@@ -3474,7 +3474,8 @@ trait TimekeepingTraits
         //---- MARKETING TEAM CHECK: 15mins grace period
           
           
-             if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
+             //if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
+            $isLateIN=true;
           
 
         
@@ -3529,7 +3530,7 @@ trait TimekeepingTraits
               $icons = "<a  id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
 
             
-             $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
+             //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
             $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
 
             if ($totalbill > 0.5){
@@ -4493,7 +4494,7 @@ trait TimekeepingTraits
 
                 $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 1st Shift ".$l." </em></small></strong>".$icons;
                 if (!empty($ins) && !empty($outs)  ) { //&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
-                  $workedHours = number_format(($wh/60),2)."<br/><small>[ *Late IN* ]</small>";
+                  $workedHours = number_format(($wh/60),2); //."<br/><small>[ *Late IN* ]</small>";
 
                   
 
@@ -4515,12 +4516,13 @@ trait TimekeepingTraits
                 $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[  2nd Shift ".$l." ] </em></small></strong>".$icons;
                 if (!empty($ins) && !empty($outs)  )//&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
                 {
-                  $workedHours = number_format(($wh/60),2)."<br/><small>[ *Late IN* ]</small>";
+                  //add +1 kasi may minus sa break
+                  $workedHours = number_format(($wh/60)+1,2);//."<br/><small>[ *Late IN* ]</small>"
                   $UT = 0;
                 }
                 else
                 {
-                  $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
+                  $workedHours = number_format(($wh/60)+5,2); //."<br/><small>[ Late IN ]</small>"
                   $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
                 }
 
