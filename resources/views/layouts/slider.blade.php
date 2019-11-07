@@ -1,46 +1,34 @@
-                  
-                   
-                <div class="item active text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 10,000.00 </strong> <br/>
-                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start on <strong>Monday, November 11</strong></span></br/><br/>
-                                <span class="text-primary">Client Support Representative <br/> <br/>
-                                <img src="public/img/logo_advent.png" width="40%" /><br/>
-                              </h3><BR/><BR/>
-
-                              <h4>Brief Description: </h4>
-                              <p style="padding:30px;">As a Client Support Representative for the Global Client Services (GCS) Group, you will
-provide great service to Advent Software’s clients by resolving technical and product
-functionality inquiries via phone, web and e-mail to ensure the successful use of our solutions
-and a high level of customer satisfaction.</p>
-                              
-                             <h4><br/>Qualifications:</h4>
-
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>Strong financial and technical background</li>
-                                <li>Excellent interpersonal skills and ability to work well within a team environment</li>
-                                <li>Superior troubleshooting and analysis / resolution skills</li>
-                                <li>Proven aptitude to learn complex technical and theoretical information quickly</li>
-                                <li>Ability to prioritize and manage multiple complex issues and adapt to different challenges
-and changing priorities</li>
-<li>Excellent written and verbal communication skills in English, with a strong attention to detail</li>
-<li>Working knowledge of MS Windows, MS Office, system architecture and environments</li>
-<li>A degree in MIS, computer science, other technical economics or finance</li>
-<li>Proficiency in SQL and basic Networking Systems.</li>
-                              </ol>
-
-                              
-                              
-                              
 
 
-
-                </div>
-
-                            <div class="item text-center" >
+                <div class="item active text-center" >
                       <p style="margin-left: 35px; margin-right: 20px">
-                        <strong class="text-danger">Congratulations </strong><br/>to all the Winners!</p>
-                      <img src="./storage/uploads/frightful.jpg" style="z-index: 2" width="100%" /><br/>
+                        <strong class="text-danger">Congratulations </strong><br/> to our <strong>Frightful Tales contest winners</strong>.<br/>
+                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
+                      <img src="./storage/uploads/winner-1.jpg" style="z-index: 2" width="100%" />
+                      <h3 class="text-primary">Krystle Salde<br/>
+                      <span style="font-size: small;" class="text-danger"><em>"When TL is away, someone/something will play?"</em></span></h3>
+                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
+                      
+                      
+                </div>
+                <div class="item text-center" >
+                      <p style="margin-left: 35px; margin-right: 20px">
+                        <strong class="text-danger">Congratulations </strong><br/> to our Frightful Tales contest winners.<br/>
+                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
+                      <img src="./storage/uploads/winner-2.jpg" style="z-index: 2" width="100%" />
+                      <h3 class="text-primary">Dwik Morados<br/>
+                      <span style="font-size: small;" class="text-danger"><em>"5th Floor"</em></span></h3>
+                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
+                      
+                      
+                </div>
+                <div class="item text-center" >
+                      <p style="margin-left: 35px; margin-right: 20px">
+                        <strong class="text-danger">Congratulations </strong><br/> to our Frightful Tales contest winners.<br/>
+                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
+                      <img src="./storage/uploads/winner-3.jpg" style="z-index: 2" width="100%" />
+                      <h3 class="text-primary">Lester Bambico<br/>
+                      <span style="font-size: small;" class="text-danger"><em>"Linda"</em></span></h3>
                       <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
                       
                       
@@ -447,6 +435,45 @@ and changing priorities</li>
 
 
 <?php /*
+
+                  
+                   
+                <div class="item active text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 10,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start on <strong>Monday, November 11</strong></span></br/><br/>
+                                <span class="text-primary">Client Support Representative <br/> <br/>
+                                <img src="public/img/logo_advent.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              <h4>Brief Description: </h4>
+                              <p style="padding:30px;">As a Client Support Representative for the Global Client Services (GCS) Group, you will
+provide great service to Advent Software’s clients by resolving technical and product
+functionality inquiries via phone, web and e-mail to ensure the successful use of our solutions
+and a high level of customer satisfaction.</p>
+                              
+                             <h4><br/>Qualifications:</h4>
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Strong financial and technical background</li>
+                                <li>Excellent interpersonal skills and ability to work well within a team environment</li>
+                                <li>Superior troubleshooting and analysis / resolution skills</li>
+                                <li>Proven aptitude to learn complex technical and theoretical information quickly</li>
+                                <li>Ability to prioritize and manage multiple complex issues and adapt to different challenges
+and changing priorities</li>
+<li>Excellent written and verbal communication skills in English, with a strong attention to detail</li>
+<li>Working knowledge of MS Windows, MS Office, system architecture and environments</li>
+<li>A degree in MIS, computer science, other technical economics or finance</li>
+<li>Proficiency in SQL and basic Networking Systems.</li>
+                              </ol>
+
+                              
+                              
+                              
+
+
+
+                </div>
 
       <!-- ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU -->
                   <?php $cidol=1;?>
