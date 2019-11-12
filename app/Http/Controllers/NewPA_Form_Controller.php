@@ -65,7 +65,8 @@ class NewPA_Form_Controller extends Controller
     public function create()
     {
     	$roles = NewPA_Type::all();
-    	return view('evaluation.newPA-create',compact('roles'));
+        $objectives = NewPA_Objective::all();
+    	return view('evaluation.newPA-create',compact('roles','objectives'));
 
     }
 }
