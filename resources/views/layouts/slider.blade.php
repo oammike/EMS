@@ -1,6 +1,18 @@
 
 
                 <div class="item active text-center" >
+                      
+                      <img src="./storage/uploads/kindness.jpg" style="z-index: 2" width="100%" />
+                       <p class="text-center" style="padding: 30px;"><br/><br/><strong class="text-primary">World Kindness Day</strong>
+                                <br/><br/>Let the world know that there is kindness everywhere— wherever you are. Happy <strong>#WorldKindnessDay!</strong></p>
+
+                              <br/><br/>
+                      
+                      
+                      
+                </div>
+
+                <div class="item  text-center" >
                       <p style="margin-left: 35px; margin-right: 20px">
                         <strong class="text-danger">Congratulations </strong><br/> to our <strong>Frightful Tales contest winners</strong>.<br/>
                         <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
@@ -11,6 +23,8 @@
                       
                       
                 </div>
+
+
                 <div class="item text-center" >
                       <p style="margin-left: 35px; margin-right: 20px">
                         <strong class="text-danger">Congratulations </strong><br/> to our Frightful Tales contest winners.<br/>
