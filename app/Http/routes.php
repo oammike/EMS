@@ -189,6 +189,16 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'EngagementController@updateEntry') );
 
     /********** FORM BUILDER **************/
+
+    Route::get('/widgets', array(
+      'as'=> 'formSubmissions.widgets',
+      'uses'=>'FormSubmissionsController@widgets') );
+
+    Route::post('/widgets/updateStatus/{id}', array(
+      'as'=> 'formSubmissions.updateStatus',
+      'uses'=>'FormSubmissionsController@updateStatus') );
+
+
     Route::post('/formSubmissions/process', array(
       'as'=> 'formSubmissions.process',
       'uses'=>'FormSubmissionsController@process') );
