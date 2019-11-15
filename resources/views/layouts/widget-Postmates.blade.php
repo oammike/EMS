@@ -49,7 +49,7 @@
                                 @if($f->type == "header")
 
                                 <{{$f->subType}} style="font-size:1.5em; margin-bottom:30px" class="pull-left text-danger"> {{$f->label}}
-                                <a class="btn btn-default btn-xs" href="{{action('CampaignController@widgets',['id'=>$prg[0], 'wID'=>$f->formID])}}" target="_blank"><i class="fa fa-external-link"></i> New Window </a>
+                                <a class="btn btn-default btn-xs" href="{{action('CampaignController@widgets',['id'=>$prg, 'wID'=>$f->formID])}}" target="_blank"><i class="fa fa-external-link"></i> New Window </a>
                                   <a href="{{action('FormSubmissionsController@show',$f->formID)}}" target="_blank" class=" btn btn-xs btn-default"><i class="fa fa-pie-chart"></i> View Form Stats </a> </{{$f->subType}}>
 
 
