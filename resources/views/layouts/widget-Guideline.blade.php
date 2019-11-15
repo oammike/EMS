@@ -59,7 +59,7 @@
                                 <{{$f->subType}} style="font-size:1.5em; margin-bottom:30px" class="pull-left text-danger"> {{$f->label}}
                               
                                   </{{$f->subType}}>
-                                  <a style="margin-top: 30px" href="{{action('FormSubmissionsController@show',$f->formID)}}" target="_blank" class="btn btn-xs btn-default pull-right"><i class="fa fa-pie-chart"></i> View Form Stats </a> 
+                                  <!-- <a style="margin-top: 30px" href="{{action('FormSubmissionsController@show',$f->formID)}}" target="_blank" class="btn btn-xs btn-default pull-right"><i class="fa fa-pie-chart"></i> View Form Stats </a>  -->
 
 
                                 @endif
