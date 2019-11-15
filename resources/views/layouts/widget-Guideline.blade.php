@@ -85,13 +85,34 @@
                                     <select id="{{$f->itemID}}" name="{{strtolower($f->itemName)}}" class="select_{{$f->formOrder}}_{{$f->formID}} formItem {{$f->className}} {{strtolower($f->itemName)}}"  data-formID="{{$f->formID}}" tabindex="{{$f->formOrder}}" @if($f->required==1)required="required" @endif >
 
                                     <option>- select one -</option>
-                                    @foreach ($groupedSelects[$f->selectGroup] as $option) <!-- ->sortByDesc('formOrder') @if($option->selected==1)selected="selected" @endif-->
-                                    <option value="{{strtolower($option->value)}}"  >{{$option->optionLabel}}</option>
-                                    <?php $idx = $f->selectGroup; ?>
+                                    <?php $arr = $groupedSelects[$f->selectGroup]; 
+                                          $arr1 = collect($arr);
+                                          $coll = array();
+
+                                           foreach($arr as $o)
+                                           {
+                                             $coll[$o->value] = $o->optionLabel;
+                                           }
+                                           asort($coll);
+
+                                    ?>
+
+                                    @foreach ($coll as $key => $value)
+                                    <option value="{{$key}}">{{$value}} </option>
+                                             
                                     @endforeach
+
+                                   
+                                    <?php $idx = $f->selectGroup; ?>
+
+
+                                    
                                     </select> 
 
                                   </label>
+
+                                 
+
                                   @endif
 
                                 @endif
