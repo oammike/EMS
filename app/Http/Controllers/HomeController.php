@@ -700,16 +700,43 @@ class HomeController extends Controller
       /* ---------------------------------------------------------*/
       /* --- WE NOW CHECK FOR CAMPAIGN WIDGETS from FormBuilder --*/
 
+      $prg = Campaign::where('name',"Postmates")->first()->id; //for widget
+      $prg2 = Campaign::where('name',"Guideline")->first()->id; 
+
       if (empty($leadershipcheck)) {
-          $myCampaign = collect($this->user->campaign->first()->id);$prg=$myCampaign;} 
+          $myCampaign = collect($this->user->campaign->first()->id);
+          ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
+          ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
+
+         
+      } 
       else { 
             $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
-            $prg = collect(Campaign::where('name',"Postmates")->first()->id); //for widget
+            
+
+            ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
+            ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
+
+
       }
 
-      foreach ($myCampaign as $c) {
+      //return (['fromPostmate'=>$fromPostmate,'fromGuideline'=>$fromGuideline]);
+      
+      /*
+
+      }*/
+
+
+
+      //if (!empty($forms) && !$reportsTeam){
+      
+      if ($fromPostmate || $fromGuideline) 
+      {   
+
+        foreach ($myCampaign as $c) {
         $d = DB::table('campaign_forms')->where('campaign_id','=',$c)->
               join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+              
               join('campaign','campaign_forms.campaign_id','=','campaign.id')->
               leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
               leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
@@ -718,29 +745,33 @@ class HomeController extends Controller
               select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
                 'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','DESC')->get(); 
 
-
               if (!empty($d)) $forms->push($d);
-
-      }
-
-      if (!empty($forms) && !$reportsTeam){
+        }
 
         
-        $widget = collect($forms->first());
-        $groupedForm = $widget->groupBy('widgetTitle');
-        $groupedSelects = $widget->groupBy('selectGroup');
 
-        //return $groupedForm;
-
-       
+        $widget = $forms->first(); //return response()->json($widget[0]);
+        $groupedForm = collect($widget)->groupBy('widgetTitle');
+        $groupedSelects = collect($widget)->groupBy('selectGroup');
+        $campform = $widget[0]->formID;//['formID'];
 
       }else
       {
 
-        if ($reportsTeam==1){
+        if ($reportsTeam){
 
-          $prg = Campaign::where('name',"Postmates")->first();
-          $d = DB::table('campaign_forms')->where('campaign_id','=',$prg->id)->
+          //$prg = Campaign::where('name',"Postmates")->first();
+          $d = DB::table('campaign_forms')->where('campaign_id','=',$prg)->
+                join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+                join('campaign','campaign_forms.campaign_id','=','campaign.id')->
+                leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
+                leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
+                leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
+                leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
+                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
+
+          $d2 = DB::table('campaign_forms')->where('campaign_id','=',$prg2)->
                 join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
                 join('campaign','campaign_forms.campaign_id','=','campaign.id')->
                 leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
@@ -751,17 +782,27 @@ class HomeController extends Controller
                   'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
 
 
-                if (!empty($d)) $forms->push($d);
+                //return (['d'=>$d,'d2'=>$d2]);
 
-                $widget = collect($forms->first());
-                $groupedForm = $widget->groupBy('widgetTitle');
+                if (!empty($d)) $forms->push(collect($d)->groupBy('widgetTitle'));
+                if (!empty($d2)) $forms->push(collect($d2)->groupBy('widgetTitle'));
+
+                //return $forms;
+
+                $widget = collect($forms);
+                $groupedForm = $forms; //$widget->groupBy('widgetTitle');
                 $groupedSelects = $widget->groupBy('selectGroup');
+                $campform = '1'; //$forms->first()[0]->formID;//['formID'];
 
         }else {
-          $groupedForm = null; $groupedSelects=null;
+          $groupedForm = null; $groupedSelects=null; $campform=null;
         }
         
       }
+
+      
+      //return $groupedForm;
+      
 
       $forApprovals = $this->getDashboardNotifs();// $this->getApprovalNotifs();USER TRAIT
 
@@ -968,7 +1009,8 @@ class HomeController extends Controller
                     //return redirect('UserController@show',$this->user->id);
                     //return $groupedSelects;
                     
-                    return view('dashboard-agent', compact('idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                    //return $prg2;
+                    return view('dashboard-agent', compact('campform', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
                     
 
 
@@ -978,8 +1020,8 @@ class HomeController extends Controller
 
                     //-- Initialize Approvals Dashlet
 
-                   
-                    return view('dashboard', compact('idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN','prg','siteTour','notedTour'));
+                   //return $groupedForm[0];
+                    return view('dashboard', compact('campform', 'fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
                    
 
 

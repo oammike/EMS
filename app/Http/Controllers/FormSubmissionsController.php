@@ -54,6 +54,7 @@ use OAMPI_Eval\FormBuilderElements;
 use OAMPI_Eval\FormBuilderSubtypes;
 use OAMPI_Eval\FormSubmissions;
 use OAMPI_Eval\FormSubmissionsUser;
+use OAMPI_Eval\FormSubmissionsReviewer;
 
 class FormSubmissionsController extends Controller
 {
@@ -72,7 +73,7 @@ class FormSubmissionsController extends Controller
 
     public function index()
     {
-    	return view('forms.formBuilder-index');
+        return view('forms.formBuilder-index');
     }
 
     public function deleteDupes(Request $request)
@@ -654,6 +655,182 @@ class FormSubmissionsController extends Controller
 
     }
 
+    public function fetchRanking($type)
+    {
+        $from = Input::get('from');
+        $to = Input::get('to');
+
+        
+
+        switch ($type) {
+
+            case '1': 
+            { 
+                DB::connection()->disableQueryLog();
+                $form = FormBuilder::find($type);
+                $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
+
+                if (!is_null($from) && !is_null($to)){
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value','form_submissions_users.created_at')->get();
+                }
+                
+                else
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+
+
+                        
+                $topPips = collect($rankings)->groupBy('userID');
+                $ranks = new Collection;
+                foreach ($topPips as $t) {
+                    $type = collect($t)->groupBy('value');
+                    $ct = count($type);
+                    $k = new Collection;
+
+                   
+                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
+
+                    $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
+                                'lastname'=>$t->first()->lastname,
+                                'submissions'=>$k,'claimed'=>count($t),'created'=>$t->first()->created_at]);
+                   
+                        
+                }
+
+                //$kol = $ranks->sortByDesc('claimed');
+                return response()->json(['data'=>$ranks]);//->values()->all()] 
+
+            } break;
+
+            case '2': 
+            { 
+                DB::connection()->disableQueryLog();
+
+                $form = FormBuilder::find($type); 
+                $rankCategory = FormBuilder_Items::where('label','Confirmation')->where('formBuilder_id',$type)->first(); 
+                if (!is_null($from) && !is_null($to)){
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+                }else
+
+                $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+
+                   // return $rankings;    
+                $topPips = collect($rankings)->groupBy('userID');
+
+                //return $topPips;
+                $ranks = new Collection;
+                foreach ($topPips as $t) {
+                    $type = collect($t)->groupBy('value');
+                    $ct = count($type);
+                    $k = new Collection;
+
+                   
+                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
+
+                    $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
+                                'lastname'=>$t->first()->lastname,
+                                'submissions'=>$k,'claimed'=>count($t)]);
+                   
+                        
+                }
+
+                //$kol = $ranks->sortByDesc('claimed');
+                return response()->json(['data'=>$ranks]);//->values()->all()] 
+
+            } break;
+            
+            default: 
+            {
+                $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
+                $form = FormBuilder::find($type);
+
+                if (!is_null($from) && !is_null($to)){
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+
+                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value','form_submissions_users.created_at')->get();
+                }else
+                $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
+                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
+
+                        
+                $topPips = collect($rankings)->groupBy('userID');
+                $ranks = new Collection;
+                foreach ($topPips as $t) {
+                    $type = collect($t)->groupBy('value');
+                    $ct = count($type);
+                    $k = new Collection;
+
+                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
+
+                            $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
+                                        'lastname'=>$t->first()->lastname,
+                                        'submissions'=>$k]);
+                      
+                        
+                }
+
+                return response()->json(['data'=>$ranks]); 
+
+            }break; 
+        }
+
+          
+
+    }
+
     public function getAll($id)
     {
         DB::connection()->disableQueryLog();
@@ -868,181 +1045,7 @@ class FormSubmissionsController extends Controller
        
     }
 
-    public function fetchRanking($type)
-    {
-        $from = Input::get('from');
-        $to = Input::get('to');
-
-        
-
-        switch ($type) {
-
-            case '1': 
-            { 
-                DB::connection()->disableQueryLog();
-                $form = FormBuilder::find($type);
-                $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
-
-                if (!is_null($from) && !is_null($to)){
-                    if ($from == $to){
-                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
-                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
-
-                    }else{
-                        $f = Carbon::parse($from,'Asia/Manila');
-                        $t = Carbon::parse($to,'Asia/Manila');
-
-                    }
-
-                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
-                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
-                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
-                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
-                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value','form_submissions_users.created_at')->get();
-                }
-                
-                else
-                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
-                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
-                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
-                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
-
-
-                        
-                $topPips = collect($rankings)->groupBy('userID');
-                $ranks = new Collection;
-                foreach ($topPips as $t) {
-                    $type = collect($t)->groupBy('value');
-                    $ct = count($type);
-                    $k = new Collection;
-
-                   
-                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
-
-                    $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
-                                'lastname'=>$t->first()->lastname,
-                                'submissions'=>$k,'claimed'=>count($t),'created'=>$t->first()->created_at]);
-                   
-                        
-                }
-
-                //$kol = $ranks->sortByDesc('claimed');
-                return response()->json(['data'=>$ranks]);//->values()->all()] 
-
-            } break;
-
-            case '2': 
-            { 
-                DB::connection()->disableQueryLog();
-
-                $form = FormBuilder::find($type); 
-                $rankCategory = FormBuilder_Items::where('label','Confirmation')->where('formBuilder_id',$type)->first(); 
-                if (!is_null($from) && !is_null($to)){
-                    if ($from == $to){
-                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
-                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
-
-                    }else{
-                        $f = Carbon::parse($from,'Asia/Manila');
-                        $t = Carbon::parse($to,'Asia/Manila');
-
-                    }
-
-                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
-                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
-                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
-                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
-                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
-                }else
-
-                $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
-                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
-                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
-                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
-
-                   // return $rankings;    
-                $topPips = collect($rankings)->groupBy('userID');
-
-                //return $topPips;
-                $ranks = new Collection;
-                foreach ($topPips as $t) {
-                    $type = collect($t)->groupBy('value');
-                    $ct = count($type);
-                    $k = new Collection;
-
-                   
-                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
-
-                    $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
-                                'lastname'=>$t->first()->lastname,
-                                'submissions'=>$k,'claimed'=>count($t)]);
-                   
-                        
-                }
-
-                //$kol = $ranks->sortByDesc('claimed');
-                return response()->json(['data'=>$ranks]);//->values()->all()] 
-
-            } break;
-            
-            default: 
-            {
-                $rankCategory = FormBuilder_Items::where('label','Order Status')->first(); 
-                $form = FormBuilder::find($type);
-
-                if (!is_null($from) && !is_null($to)){
-                    if ($from == $to){
-                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
-                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
-
-                    }else{
-                        $f = Carbon::parse($from,'Asia/Manila');
-                        $t = Carbon::parse($to,'Asia/Manila');
-
-                    }
-
-                    $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
-                        where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
-                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
-                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
-                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value','form_submissions_users.created_at')->get();
-                }else
-                $rankings = DB::table('form_submissions_users')->where('formBuilder_id',$form->id)->
-                        join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
-                        where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
-                        leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                        select('users.firstname','users.nickname','users.lastname','users.id as userID','form_submissions.value')->get();
-
-                        
-                $topPips = collect($rankings)->groupBy('userID');
-                $ranks = new Collection;
-                foreach ($topPips as $t) {
-                    $type = collect($t)->groupBy('value');
-                    $ct = count($type);
-                    $k = new Collection;
-
-                    foreach($type as $ty){ $k->push(['count'=>count($ty), 'item'=>$ty->first()->value]); }
-
-                            $ranks->push(['id'=>$t->first()->userID, 'firstname'=>$t->first()->firstname, 
-                                        'lastname'=>$t->first()->lastname,
-                                        'submissions'=>$k]);
-                      
-                        
-                }
-
-                return response()->json(['data'=>$ranks]); 
-
-            }break; 
-        }
-
-          
-
-    }
+    
 
     public function getEscalations($id)
     {
@@ -1903,5 +1906,70 @@ class FormSubmissionsController extends Controller
         else return response()->json(['success'=>false]);
         
 
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $correct = Carbon::now('GMT+8');
+        $submission = FormSubmissionsUser::find($request->id);
+        $update = new FormSubmissionsReviewer;
+
+        $update->user_id = $this->user->id;
+        $update->submission_id = $submission->id;
+        $update->oldStatus = $request->oldStatus;
+        $update->newStatus = $request->newStatus;
+        $update->created_at = $correct->format('Y-m-d H:i:s');
+        $update->updated_at = $correct->format('Y-m-d H:i:s');
+
+        $update->save();
+
+        //we now update the status itself on the form submission
+        $action = FormBuilder_Items::where('formBuilder_id',$submission->formBuilder_id)->where('label',"Action")->get();
+        $toUpdate = FormSubmissions::where('submission_user',$submission->id)->where('formBuilder_itemID',$action->first()->id)->first();
+        $toUpdate->value = $request->newStatus;
+        $toUpdate->push();
+        return back();
+    }
+
+
+    public function widgets()
+    {
+        $prg = Input::get('program');
+        $tab = Input::get('tab');
+
+        $program = Campaign::find($prg);
+        $form = FormBuilder::find(Input::get('form'));
+
+        if (empty($form) || empty($program)) return view('empty');
+
+        $l = DB::table('campaign_logos')->where('campaign_id',$program->id)->get();
+        (count($l) > 0) ? $logo = $l : $logo=null;
+
+        
+        $submissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$form->id)->
+                //where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                //where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->get();
+                //orderBy('form_submissions_users.created_at','DESC')->get();
+        $groupedSubmissions = collect($submissions)->groupBy('submissionID');
+        //return $groupedSubmissions;
+
+        $reviewers = DB::table('formBuilder')->where('formBuilder.id', $form->id)->
+                    join('form_submissions_users','form_submissions_users.formBuilder_id','=','formBuilder.id')->
+                    join('form_submissions_reviewer','form_submissions_reviewer.submission_id','=','form_submissions_users.id')->
+                    join('users','form_submissions_reviewer.user_id','=','users.id')->
+                    select('users.id as userID','users.firstname as reviewerFname','users.lastname as reviewerLname','form_submissions_users.id as submissionID','form_submissions_reviewer.newStatus', 'form_submissions_reviewer.created_at')->get(); //return $reviewers;
+
+        if($this->user->id !== 564 ) {
+            $correct = Carbon::now('GMT+8'); 
+            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              fwrite($file, "-------------------\n Widget [".$form->title."]  by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+              fclose($file);
+          } 
+
+        return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers'));
     }
 }
