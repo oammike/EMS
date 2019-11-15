@@ -862,7 +862,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                ctr++;
             });
             console.log(formItems);
-              /*$.ajax({
+              $.ajax({
                           url: "{{action('FormSubmissionsController@process')}}",
                           type:'POST',
                           data:{ 
@@ -905,7 +905,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                           }
 
 
-                });*/
+                });
           });
      
     
