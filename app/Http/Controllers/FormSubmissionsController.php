@@ -1288,8 +1288,10 @@ class FormSubmissionsController extends Controller
             $userSubmission->updated_at = $correct->format('Y-m-d H:i:s');
             $userSubmission->save();
 
+            $ctr=0;
             foreach($keys as $k){
                 $s = explode('_', $k);
+                $coll->push(['s'=>$s]);
                 
                 /* ---quick hack for signal verification kakatamad i-restructure na DB */
 
@@ -1316,7 +1318,28 @@ class FormSubmissionsController extends Controller
                     }else  $coll->push(['submittedy'=>$formItems[$k], 'lookfor'=>$name] );
                 } else if($s[1] == 'from'){ //do nothing
 
-                } else 
+                } else if ($formItems[$k] == 'xx') { //add new "formBuilderElem_values" || from Guideline submisison
+
+                    $e = new FormBuilderElem_Values;
+                    $e->label = $request->newPayroll;
+                    $e->value = str_replace(" ", "_", $request->newPayroll);
+                    $e->selected = '0';
+                    $e->formBuilder_itemID = $s[1];
+                    $e->save();
+
+                    $submission = new FormSubmissions;
+                    $submission->submission_user = $userSubmission->id;
+                    $submission->formBuilder_itemID = $s[1];
+                    $submission->value = $e->value;
+                    $submission->created_at = $correct->format('Y-m-d H:i:s');
+                    $submission->updated_at = $correct->format('Y-m-d H:i:s');
+                    $submission->save();
+                    $coll->push(['submitted'=>$submission, 's1'=>$s[1],'e'=>$e ]);
+
+
+
+                }
+                else 
                     {
                         //$pushItem = $s[1];
                         $coll->push(['formBuilder_items.id'=>$s[1], 'value'=>$formItems[$k]]);
@@ -1334,7 +1357,7 @@ class FormSubmissionsController extends Controller
                         $coll->push(['submitted'=>$submission, 's1'=>$s[1] ]);
                     } 
 
-                
+                $ctr++;
             }
 
             // $correct = Carbon::now('GMT+8'); //->timezoneName();
@@ -1344,8 +1367,8 @@ class FormSubmissionsController extends Controller
             //     fclose($file);
             // }
 
-
-            return response()->json(['status'=>"ok", 'items'=>$coll,'formid'=>$formItem->formBuilder_id,'usersubmit'=>$userSubmission->id]);
+            return $coll;
+            //return response()->json(['status'=>"ok", 'items'=>$coll,'formid'=>$formItem->formBuilder_id,'usersubmit'=>$userSubmission->id]);
 
         }
                 

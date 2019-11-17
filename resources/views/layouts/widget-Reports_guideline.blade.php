@@ -59,7 +59,7 @@
                                     @endif 
                                     */ ?>
 
-                                     <a target="_blank" href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'issues','form'=>$form[0]->formID])}}" class="btn btn-md btn-default pull-left" style="margin-left: 5px"><h4 class="text-danger"><i class="fa fa-files-o 3x"></i> <br/> {{$form[0]->widgetTitle}}</h4><small>View Submissions <i class="fa fa-files-o"></i></small></a>
+                                     <a target="_blank" href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'review','form'=>$form[0]->formID])}}" class="btn btn-md btn-default pull-left" style="margin-left: 5px"><h4 class="text-danger"><i class="fa fa-files-o 3x"></i> <br/> {{$form[0]->widgetTitle}}</h4><small>View Submissions <i class="fa fa-files-o"></i></small></a>
                                   
                                  
 
@@ -97,7 +97,7 @@
 
                                     @else
 
-                                    <a target="_blank" href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'issues','form'=>$f->first()->formID])}}" class="btn btn-md btn-default pull-left" style="margin-left: 5px"><h4 class="text-danger"><i class="fa fa-files-o 3x"></i> <br/> {{$f->first()->widgetTitle}}</h4><small>View Submissions <i class="fa fa-files-o"></i></small></a>
+                                    <a target="_blank" href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'review','form'=>$f->first()->formID])}}" class="btn btn-md btn-default pull-left" style="margin-left: 5px"><h4 class="text-danger"><i class="fa fa-files-o 3x"></i> <br/> {{$f->first()->widgetTitle}}</h4><small>View Submissions <i class="fa fa-files-o"></i></small></a>
 
                                     
 

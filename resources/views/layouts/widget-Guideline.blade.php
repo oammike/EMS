@@ -105,11 +105,14 @@
                                    
                                     <?php $idx = $f->selectGroup; ?>
 
+                                    <option value="xx"> * add new Payroll *</option>
+
 
                                     
                                     </select> 
 
                                   </label>
+
 
                                  
 
@@ -126,12 +129,14 @@
 
                                 
                                 @if($f->type == "radio-group")
+
                                   <div class="pull-right" style="width: 30%">
                                       <h4><br/>Action:</h4>
                                       <label><input id="{{$f->itemID}}" class="radio-group" type="radio" name="actiontaken" value="FOR REVIEW" required="required" > <i class="fa fa-3x fa-thumbs-up"></i></input> </label>&nbsp;&nbsp; 
                                       <label><input id="{{$f->itemID}}" class="radio-group" type="radio" name="actiontaken" value="WITH ISSUE" required="required" > <i class="fa fa-3x fa-thumbs-down"></i></input></label>
                                   </div>
                                   <div class="clearfix"></div> 
+                                  <div id="addPayroll"></div> 
                                 @endif
 
 

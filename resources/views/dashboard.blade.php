@@ -709,118 +709,151 @@ select:-webkit-autofill:focus {
 
 
 
-  /*---------- GUIDELINE WIDGET ----------- */
+   /*---------- GUIDELINE WIDGET ----------- */
    @if(count($groupedForm)>0 && $fromGuideline)
 
+      $('select.formItem').on('change',function(){
+        var itemName = $(this)[0]['name'];
+        var formID = $(this).attr('data-formID');
+        var selectedItem = $('select[name='+itemName+'] :selected').val();
+        var itemOrder = $(this)[0]['tabIndex'];
+        var s = "."+selectedItem.toLowerCase()+"_"+itemName;
+
+        console.log('itemName:' + itemName);
+        console.log('formID: '+ formID);
+        console.log('selectedItem: ' + selectedItem);
+        console.log('itemOrder: '+ itemOrder);
+        console.log('s: '+ s);
+
+        if (selectedItem == 'xx'){
+          $('#addPayroll').html('<input required type="text" id="newPayroll" placeholder="add new Payroll Provider" class="form-control" />');
+        }else $('#addPayroll').html('');
+      });
+
       $('.submit').on('click',function(e){
-      e.preventDefault();
+          e.preventDefault();
 
-      $('input,textarea,select').filter('[required]:visible').each(
-            function(){
-              var checkCt=0;
-              var v = $(this).val();
-              if (v == ""){
-                $(this).css('border',"solid 3px #e24527");
-                return false;
-              } 
+          var newPayroll = $('#newPayroll').val();
+
+          if (newPayroll == ''){ $('#newPayroll').css('border',"solid 3px #e24527");return false;}
+          else
+          {
+            $('input,textarea,select').filter('[required]:visible').each(
+                function(){
+                  var checkCt=0;
+                  var v = $(this).val();
+                  if (v == ""){
+                    $(this).css('border',"solid 3px #e24527");
+                    return false;
+                  } 
+                  
+                    $(this).css('border',"none");
+                    if (v == "- select one -") 
+                      return false;
+                         
+                  
+                }
+            ).promise().done(function(){
+              var _token = "{{ csrf_token() }}";
+              var formItems_select = $('select.formItem').filter(':visible');
+              var formItems_input = $('input.formItem').filter(':visible');
+              var formItems_radio = $('input.radio-group').filter(':checked');
+
+              console.log("Radio");
+              console.log(formItems_radio);
+              var formItems_textarea = $('textarea.formItem').filter(':visible');
               
-                $(this).css('border',"none");
-                if (v == "- select one -") 
-                  return false;
-                     
-              
-            }
-        ).promise().done(function(){
-          var _token = "{{ csrf_token() }}";
-          var formItems_select = $('select.formItem').filter(':visible');
-          var formItems_input = $('input.formItem').filter(':visible');
-          var formItems_radio = $('input.radio-group').filter(':checked');
+              var formItems ={}; //, inputs: formItems_input, textareas: formItems_textarea }
+              var ctr=0;
 
-          console.log("Radio");
-          console.log(formItems_radio);
-          var formItems_textarea = $('textarea.formItem').filter(':visible');
-          
-          var formItems ={}; //, inputs: formItems_input, textareas: formItems_textarea }
-          var ctr=0;
+              formItems_input.each(function(){
+                 var n = $(this);
+                 if (n[0]['name'] !== "agent") {
+                  formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
+                 }
+                 
+                 ctr++;
+              });
 
-          formItems_input.each(function(){
-             var n = $(this);
-             if (n[0]['name'] !== "agent") {
-              formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
-             }
-             
-             ctr++;
-          });
+              formItems_select.each(function(){
+                 var n = $(this);
+                 formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
+                 if (n[0]['id']=='x'){
+                  formItems[ n[0]['id']+'_from' ] = $(this).attr('data-from');
+                 }
+                 ctr++;
+              });
 
-          formItems_select.each(function(){
-             var n = $(this);
-             formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
-             if (n[0]['id']=='x'){
-              formItems[ n[0]['id']+'_from' ] = $(this).attr('data-from');
-             }
-             ctr++;
-          });
+              formItems_textarea.each(function(){
+                 var n = $(this);
+                 formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
+                 ctr++;
+              });
 
-          formItems_textarea.each(function(){
-             var n = $(this);
-             formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
-             ctr++;
-          });
+              formItems_radio.each(function(){
+                 var n = $(this);
+                 formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
+                 ctr++;
+              });
+              console.log(formItems);
 
-          formItems_radio.each(function(){
-             var n = $(this);
-             formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
-             ctr++;
-          });
-          console.log(formItems);
-            $.ajax({
-                        url: "{{action('FormSubmissionsController@process')}}",
-                        type:'POST',
-                        data:{ 
-                          'formItems': formItems,
-                          'user_id':"{{Auth::user()->id}}",
-                          '_token':_token
-                        },
-
-                       
-                        success: function(res)
-                        {
-                          console.log(res);
-                          $.ajax({
-                                      url: "{{action('HomeController@logAction','3')}}",
-                                      type: "GET",
-                                      data: {'action': '3','formid': res.formid, 'usersubmit':res.usersubmit},
-                                      success: function(response){
-                                                console.log(response);
-
-                                    }
-
-                          });
-
-                          if (res.status == '0')
-                            $.notify(res.error,{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                          else {
-                            $('button[name="submit"]').fadeOut();
-                            $.notify("Form successfully submitted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                            window.setTimeout(function(){
-                                          window.location.href = "{{action('HomeController@index')}}";
-                                        }, 2000);
-                          }
+              //formItems['newPayroll'] = newPayroll;
+              $.ajax({
+                            url: "{{action('FormSubmissionsController@process')}}",
+                            type:'POST',
+                            data:{ 
+                              'formItems': formItems,
+                              'newPayroll': newPayroll,
+                              'user_id':"{{Auth::user()->id}}",
+                              '_token':_token
+                            },
 
                            
-                        }, error: function(res){
-                          console.log("ERROR");
-                          $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                            
-                        }
+                            success: function(res)
+                            {
+                              console.log(res);
+                              $.ajax({
+                                          url: "{{action('HomeController@logAction','3')}}",
+                                          type: "GET",
+                                          data: {'action': '3','formid': res.formid, 'usersubmit':res.usersubmit},
+                                          success: function(response){
+                                                    console.log(response);
+
+                                        }
+
+                              });
+
+                              if (res.status == '0')
+                                $.notify(res.error,{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                              else {
+                                $('button[name="submit"]').fadeOut();
+                                $.notify("Form successfully submitted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                               window.setTimeout(function(){
+                                              window.location.href = "{{action('HomeController@index')}}";
+                                            }, 2000);
+                              }
+
+                               
+                            }, error: function(res){
+                              console.log("ERROR");
+                              $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+                                
+                            }
 
 
-              });
-        });
-   
+                  });
+            });
+       
+
+          }
+          
+
+
+
+          
   
     
-   });
+      });
 
 
    
