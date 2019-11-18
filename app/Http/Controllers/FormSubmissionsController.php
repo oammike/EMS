@@ -1401,6 +1401,8 @@ class FormSubmissionsController extends Controller
 
         $rawData = new Collection;
 
+
+
         switch($id){ 
 
             
@@ -1462,7 +1464,7 @@ class FormSubmissionsController extends Controller
 
                         }
 
-                        
+                        $coll = new Collection;
 
                         if($download==1)
                         {
@@ -1481,6 +1483,8 @@ class FormSubmissionsController extends Controller
                                 fwrite($file, "-------------------\n Downloaded CSV [".$id."]-pp[".$actualSubmissions->currentPage()."] [".$start." - ".$end."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                                 fclose($file);
                             } 
+
+                            //$coll->push(['headers'=>$headers, 'submissions'=>$submissions]);return $coll;
                            
                             Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description,$chenes) 
                                {
@@ -1647,6 +1651,122 @@ class FormSubmissionsController extends Controller
 
                 
             }break;
+
+            case '3':
+            {
+                if (!is_null($from) && !is_null($to)){
+
+                    if ($from == $to){
+                        $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
+                        $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
+
+                    }else{
+                        $f = Carbon::parse($from,'Asia/Manila');
+                        $t = Carbon::parse($to,'Asia/Manila');
+
+                    }
+                }
+                    //$start = Carbon::parse($from,'Asia/Manila')->format('Y-m-d');$end =  Carbon::parse($to,'Asia/Manila')->format('Y-m-d');
+                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                      where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                      join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                      join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                      leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                      select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                      /*$submissions = collect($form)->groupBy('submissionID');
+                        $headers = collect($form)->groupBy('label');
+                        $coll = new Collection;
+                        $coll->push(['headers'=>$headers, 'submissions'=>$submissions]);*/
+
+
+                    $submissions = collect($form)->groupBy('submissionID');
+                    $headers1 = collect($form)->groupBy('label')->keys();
+                    $headers = array("Agent Name");
+
+                    foreach ($headers1 as $key => $value) {
+                        array_push($headers, $value);
+                    }
+                    //array_push($headers, "Status");
+                    //array_unshift($headers, "Agent Name");
+                    $coll = new Collection;
+
+
+                         //$coll->push(['headers'=>$headers, 'submissions'=>$submissions]);return $coll;
+
+                        
+                        
+                    if($download==1)
+                        {
+                            $sheetTitle = FormBuilder::find($id)->title;
+                            $submissions = $rawData;
+                            $chenes = new Collection;
+                            $description = "agent submission for Guideline' ". $sheetTitle;
+
+                            if($this->user->id !== 564 ) {
+                              $user = User::find(Input::get('id'));
+                             
+                              
+                              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Downloaded CSV [".$id."][".$f->format('Y-m-d')." - ".$t->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                                fclose($file);
+                            } 
+
+                            //$coll->push(['headers'=>$headers, 'submissions'=>$submissions]);return $coll;
+                           
+                            Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description,$chenes) 
+                               {
+                                      $excel->setTitle($sheetTitle.' Summary Report');
+
+                                      // Chain the setters
+                                      $excel->setCreator('Programming Team')
+                                            ->setCompany('OpenAccess');
+
+                                      // Call them separately
+                                      $excel->setDescription($description);
+                                      $excel->sheet("Sheet 1", function($sheet) use ($id,$submissions, $headers,$chenes)
+                                      {
+                                        $sheet->appendRow($headers);
+                                        foreach($submissions as $item)
+                                        {
+                                            $arr = array($item[0]['lastname'].", ".$item['firstname'],
+                                                         $item[0]['value'], //ID
+                                                         $item[1]['value'], //plan number
+                                                         $item[2]['value'], //sponsor name
+                                                         $item[3]['value'], //user
+                                                         
+                                                         $item[4]['value'], //payroll provider
+                                                         $item[5]['value'], //action
+                                                         
+                                                    );
+                                            $sheet->appendRow($arr);
+                                           
+
+                                        }
+
+                                     
+
+                                        
+                                     });//end sheet1
+
+                                    
+
+
+
+                              })->export('xls');
+
+                            
+                             
+                              return "Download";
+
+                        }//end download
+
+                    
+
+                
+            
+
+
+            }break;
             
             default: 
             {
@@ -1713,6 +1833,7 @@ class FormSubmissionsController extends Controller
             fwrite($file, "-------------------\n Viewed Form Submissions id[".$id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         }
+
 
         $canAdminister = ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
 
@@ -1966,7 +2087,7 @@ class FormSubmissionsController extends Controller
         if (empty($form) || empty($program)) return view('empty');
 
         $l = DB::table('campaign_logos')->where('campaign_id',$program->id)->get();
-        (count($l) > 0) ? $logo = $l : $logo=null;
+        (count($l) > 0) ? $logo = $l : $logo=null;$correct = Carbon::now('GMT+8');
 
         
         $submissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$form->id)->
@@ -1976,7 +2097,29 @@ class FormSubmissionsController extends Controller
                 //where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
                 leftJoin('users','users.id','=','form_submissions_users.user_id')->
                 select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->get();
+
+        $start = $correct;
+        $end = $correct;
+        $actualSubmissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$form->id)->
+                //where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                //where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
+                leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->paginate(500);
+
                 //orderBy('form_submissions_users.created_at','DESC')->get();
+
+        /*$actualSubmissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                            where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->
+                            where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                        // 
+                        leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                        
+                        select('form_submissions_users.id as submissionID', 'form_submissions_users.user_id as user', 'users.firstname','users.lastname')->
+                        orderBy('submissionID','DESC')->paginate(500);*/
+
+
         $groupedSubmissions = collect($submissions)->groupBy('submissionID');
         //return $groupedSubmissions;
 
@@ -1986,13 +2129,14 @@ class FormSubmissionsController extends Controller
                     join('users','form_submissions_reviewer.user_id','=','users.id')->
                     select('users.id as userID','users.firstname as reviewerFname','users.lastname as reviewerLname','form_submissions_users.id as submissionID','form_submissions_reviewer.newStatus', 'form_submissions_reviewer.created_at')->get(); //return $reviewers;
 
+        
         if($this->user->id !== 564 ) {
-            $correct = Carbon::now('GMT+8'); 
+             
             $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
               fwrite($file, "-------------------\n Widget [".$form->title."]  by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
               fclose($file);
           } 
 
-        return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers'));
+        return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers','actualSubmissions','start','end'));
     }
 }

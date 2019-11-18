@@ -54,7 +54,7 @@
 
                         <!--  <button @if(Auth::user()->id != 564 )disabled="disabled" @endif type="submit" id="download" data-from="" data-to="" style="margin:3px 5px" class="pull-right btn-success btn-sm btn"><i class="fa fa-download"></i> Download Spreadsheet</button>  -->
                         
-                        <a @if(Auth::user()->id != 564 )disabled="disabled" @endif id="rawdata" data-from="" data-to="" style="margin:0px 5px" class="pull-right btn-primary btn-md btn"><i class="fa fa-list-ol"></i> View Raw Data</a>
+                        <a @if(!$canAdminister) disabled="disabled" @endif id="rawdata" data-from="" data-to="" style="margin:0px 5px" class="pull-right btn-primary btn-md btn"><i class="fa fa-list-ol"></i> View Raw Data</a>
 
                         
 
