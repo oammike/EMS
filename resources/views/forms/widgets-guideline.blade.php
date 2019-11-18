@@ -95,6 +95,7 @@
                                   <th>Status</th>
                                   
                                   <th>Verifier</th>
+                                  <th></th>
                                         
                                  
                                 </thead>
@@ -139,6 +140,25 @@
                                         @endif
 
                                       @endif
+                                      <td><a class="btn btn-xs btn-default" data-toggle="modal"  data-target="#myModal_del{{$s[0]->submissionID}}" ><i class="fa fa-trash"></i>  </a> </td>
+
+                                      
+
+                                      @include('layouts.modals-del',[
+                                        'modelType'=>"_del",
+                                        'modelID'=>$s[0]->submissionID ,
+                                        'modalTitle'=>"Delete",
+                                        'modelName'=>"Contribution Sync Submission",
+                                        'modalMessage'=> "Are you sure you want to delete this entry?",
+                                        'modelRoute'=> 'formSubmissions.deleteThis', 
+                                        'modelID'=> $s[0]->submissionID,
+                                        'formID'=>"del".$s[0]->submissionID,
+                                        'icon'=>'glyphicon-trash'
+                                      ])
+
+                                     
+
+                                     <!--  -->
                                    
                                    
                                     
@@ -205,9 +225,23 @@
                                      
                                       <td>
                                          <a id="btnReview" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#verify{{$s->first()->submissionID}}"><i class="fa fa-thumbs-up"></i></a> 
+
+                                         <a class="btn btn-xs btn-default" data-toggle="modal"  data-target="#myModal_issue{{$s[0]->submissionID}}" ><i class="fa fa-trash"></i>  </a> 
                                        
                                         
                                       </td>
+                                      @include('layouts.modals-del',[
+                                        'modelType'=>"_issue",
+                                        'modelID'=>$s[0]->submissionID ,
+                                        'modalTitle'=>"Delete",
+                                        'modelName'=>"Contribution Sync Submission",
+                                        'modalMessage'=> "Are you sure you want to delete this entry with issue?",
+                                        'modelRoute'=> 'formSubmissions.deleteThis', 
+                                        'modelID'=> $s[0]->submissionID,
+                                        'formID'=>"issue".$s[0]->submissionID,
+                                        'icon'=>'glyphicon-trash'
+                                      ])
+
                                       
                                     </tr>
                                     @endif
@@ -282,7 +316,22 @@
                                     <td>
                                       <a id="btnReview" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#update1{{$s->first()->submissionID}}"><i class="fa fa-thumbs-up"></i></a> 
                                       <a id="btnReview" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#update2{{$s->first()->submissionID}}"><i class="fa fa-thumbs-down"></i></a> 
-                                    </td>
+                                      <a class="btn btn-xs btn-default" data-toggle="modal"  data-target="#myModal_rev{{$s[0]->submissionID}}" ><i class="fa fa-trash"></i>  </a> 
+                                       
+                                        
+                                      </td>
+                                      @include('layouts.modals-del',[
+                                        'modelType'=>"_rev",
+                                        'modelID'=>$s[0]->submissionID ,
+                                        'modalTitle'=>"Delete",
+                                        'modelName'=>"Contribution Sync Submission",
+                                        'modalMessage'=> "Are you sure you want to delete this entry that's up for review?",
+                                        'modelRoute'=> 'formSubmissions.deleteThis', 
+                                        'modelID'=> $s[0]->submissionID,
+                                        'formID'=>"issue".$s[0]->submissionID,
+                                        'icon'=>'glyphicon-trash'
+                                      ])
+
                                     
                                   </tr>
                                   @endif

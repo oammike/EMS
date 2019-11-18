@@ -94,6 +94,16 @@ class FormSubmissionsController extends Controller
     public function deleteThis($id)
     {
         $del = FormSubmissionsUser::find($id);
+        $correct = Carbon::now('+GMT8');
+
+        if($this->user->id !== 564 ) {
+             
+            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              fwrite($file, "-------------------\n FormSubmisison [".$del->id."] DEL  by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+              fclose($file);
+          } 
+
+
         $del->delete();
         return back();
         //return response()->json(['success'=>1]);
@@ -2142,6 +2152,8 @@ class FormSubmissionsController extends Controller
               fclose($file);
           } 
 
+
+        //return $groupedSubmissions;
         return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers','actualSubmissions','start','end'));
     }
 }
