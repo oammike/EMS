@@ -1668,11 +1668,15 @@ class FormSubmissionsController extends Controller
                 }
                     //$start = Carbon::parse($from,'Asia/Manila')->format('Y-m-d');$end =  Carbon::parse($to,'Asia/Manila')->format('Y-m-d');
                     $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    //return (['form'=>$form, 'id'=>$id,'f'=>$f->format('Y-m-d H:i:s'), 't'=>$t->format('Y-m-d H:i:s') ]);
+                    
                       where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                       join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
                       join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
                       leftJoin('users','form_submissions_users.user_id','=','users.id')->
                       select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+                      //return (['the form'=>$form, 'id'=>$id,'f'=>$f->format('Y-m-d H:i:s'), 't'=>$t->format('Y-m-d H:i:s') ]);
+
                       /*$submissions = collect($form)->groupBy('submissionID');
                         $headers = collect($form)->groupBy('label');
                         $coll = new Collection;
@@ -1681,7 +1685,7 @@ class FormSubmissionsController extends Controller
 
                     $submissions = collect($form)->groupBy('submissionID');
                     $headers1 = collect($form)->groupBy('label')->keys();
-                    $headers = array("Agent Name");
+                    $headers = array("Date", "Agent Name");
 
                     foreach ($headers1 as $key => $value) {
                         array_push($headers, $value);
@@ -1691,15 +1695,11 @@ class FormSubmissionsController extends Controller
                     $coll = new Collection;
 
 
-                         //$coll->push(['headers'=>$headers, 'submissions'=>$submissions]);return $coll;
-
                         
                         
                     if($download==1)
                         {
                             $sheetTitle = FormBuilder::find($id)->title;
-                            $submissions = $rawData;
-                            $chenes = new Collection;
                             $description = "agent submission for Guideline' ". $sheetTitle;
 
                             if($this->user->id !== 564 ) {
@@ -1711,9 +1711,11 @@ class FormSubmissionsController extends Controller
                                 fclose($file);
                             } 
 
-                            //$coll->push(['headers'=>$headers, 'submissions'=>$submissions]);return $coll;
+                    //$coll->push(['headers'=>$headers, 'submissions'=>$submissions]);return $coll;
+
+                            
                            
-                            Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description,$chenes) 
+                            Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description) 
                                {
                                       $excel->setTitle($sheetTitle.' Summary Report');
 
@@ -1723,19 +1725,22 @@ class FormSubmissionsController extends Controller
 
                                       // Call them separately
                                       $excel->setDescription($description);
-                                      $excel->sheet("Sheet 1", function($sheet) use ($id,$submissions, $headers,$chenes)
+                                      $excel->sheet("Sheet 1", function($sheet) use ($id,$submissions, $headers)
                                       {
                                         $sheet->appendRow($headers);
                                         foreach($submissions as $item)
                                         {
-                                            $arr = array($item[0]['lastname'].", ".$item['firstname'],
-                                                         $item[0]['value'], //ID
-                                                         $item[1]['value'], //plan number
-                                                         $item[2]['value'], //sponsor name
-                                                         $item[3]['value'], //user
+                                            $arr = array($item[0]->created_at, 
+                                                         $item[0]->lastname.", ".$item[0]->firstname,
+                                                         $item[0]->value, //ID
+                                                         $item[1]->value, //plan number
+                                                         $item[2]->value, //sponsor name
+                                                         $item[3]->value, //user
                                                          
-                                                         $item[4]['value'], //payroll provider
-                                                         $item[5]['value'], //action
+                                                         $item[4]->value, //payroll provider
+                                                         $item[5]->value, //action
+                                                         
+                                                    
                                                          
                                                     );
                                             $sheet->appendRow($arr);
