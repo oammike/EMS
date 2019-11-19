@@ -1666,15 +1666,15 @@ class FormSubmissionsController extends Controller
             {
                 if (!is_null($from) && !is_null($to)){
 
-                    if ($from == $to){
+                    // if ($from == $to){
                         $f = Carbon::parse($from,'Asia/Manila')->startOfDay();
                         $t = Carbon::parse($to,'Asia/Manila')->endOfDay();
 
-                    }else{
-                        $f = Carbon::parse($from,'Asia/Manila');
-                        $t = Carbon::parse($to,'Asia/Manila');
+                    // }else{
+                    //     $f = Carbon::parse($from,'Asia/Manila');
+                    //     $t = Carbon::parse($to,'Asia/Manila');
 
-                    }
+                    // }
                 }
                     //$start = Carbon::parse($from,'Asia/Manila')->format('Y-m-d');$end =  Carbon::parse($to,'Asia/Manila')->format('Y-m-d');
                     $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
@@ -1740,6 +1740,8 @@ class FormSubmissionsController extends Controller
                                         $sheet->appendRow($headers);
                                         foreach($submissions as $item)
                                         {
+                                            $citem = count($item)-1;
+
                                             $arr = array($item[0]->created_at, 
                                                          $item[0]->lastname.", ".$item[0]->firstname,
                                                          $item[0]->value, //ID
@@ -1748,7 +1750,7 @@ class FormSubmissionsController extends Controller
                                                          $item[3]->value, //user
                                                          
                                                          $item[4]->value, //payroll provider
-                                                         $item[5]->value, //action
+                                                         $item[$citem]->value, //action
                                                          
                                                     
                                                          
