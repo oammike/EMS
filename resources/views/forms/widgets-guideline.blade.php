@@ -101,7 +101,8 @@
                                 </thead>
                                 <tbody>
                                   @foreach($groupedSubmissions as $s)
-                                  @if ($s[5]->value == "VERIFIED")
+                                  <?php $a = count($s)-1;?>
+                                  @if ($s[$a]->value == "VERIFIED")
                                   <tr style="font-size: smaller;">
                                     <td style="font-size: x-small;">{{$s->first()->created_at}}</td>
                                     <td>{{$s->first()->lastname}}, {{$s->first()->firstname}}</td>
@@ -164,9 +165,8 @@
                                     
                                   </tr>
                                   @endif
-
-                                  
-
+                                
+                               
 
                                   @endforeach
                                   
