@@ -2,11 +2,10 @@
 
                 <div class="item active text-center" >
                       
-                      <img src="./storage/uploads/kindness.jpg" style="z-index: 2" width="100%" />
-                       <p class="text-center" style="padding: 30px;"><br/><br/><strong class="text-primary">World Kindness Day</strong>
-                                <br/><br/>Let the world know that there is kindness everywhere— wherever you are. Happy <strong>#WorldKindnessDay!</strong></p>
-
-                              <br/><br/>
+                      <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
+                      <img src="./storage/uploads/motivation_hinge.jpg" style="z-index: 2" width="100%" />
+                      <p class="text-center" style="padding: 30px;">
+                                <br/><br/>Embrace those little changes in you, be it in your career, finances, or life in general. Those small acts of change can lead to something great in time and that's going to be a win for you.</p>#WeSpeakYourLanguage
                       
                       
                       
