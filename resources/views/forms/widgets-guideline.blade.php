@@ -262,7 +262,7 @@
                                             </div>
                                             <div class="modal-footer no-border">
                                               {{ Form::open(['route' => ['formSubmissions.updateStatus',$s->first()->submissionID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $s->first()->submissionID]) }} 
-                                                <input type="hidden" name="oldStatus" value="{{$s[5]->value}}" />
+                                                <input type="hidden" name="oldStatus" value="{{$s[$b]->value}}" />
                                                 <input type="hidden" name="newStatus" value="VERIFIED" />
                                                 <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Yes </button>
                                               
@@ -354,7 +354,7 @@
                                           </div>
                                           <div class="modal-footer no-border">
                                             {{ Form::open(['route' => ['formSubmissions.updateStatus',$s->first()->submissionID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $s->first()->submissionID]) }} 
-                                              <input type="hidden" name="oldStatus" value="{{$s[5]->value}}" />
+                                              <input type="hidden" name="oldStatus" value="{{$s[$c2]->value}}" />
                                               <input type="hidden" name="newStatus" value="VERIFIED" />
                                               <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Yes </button>
                                             
@@ -380,7 +380,7 @@
                                           </div>
                                           <div class="modal-footer no-border">
                                             {{ Form::open(['route' => ['formSubmissions.updateStatus','id'=>$s->first()->submissionID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $s->first()->submissionID]) }} 
-                                              <input type="hidden" name="oldStatus" value="{{$s[5]->value}}" />
+                                              <input type="hidden" name="oldStatus" value="{{$s[$c2]->value}}" />
                                               <input type="hidden" name="newStatus" value="WITH ISSUE" />
                                               <button type="submit" class="btn btn-danger"><i class="fa fa-check"></i> Yes </button>
                                             
