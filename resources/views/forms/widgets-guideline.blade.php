@@ -194,7 +194,8 @@
                                   </thead>
                                   <tbody>
                                     @foreach($groupedSubmissions as $s)
-                                    @if ($s[5]->value == "WITH ISSUE")
+                                     <?php $b = count($s)-1;?>
+                                    @if ($s[$b]->value == "WITH ISSUE")
 
                                     <tr style="font-size: smaller;">
                                       <td style="font-size: x-small;">{{$s->first()->created_at}}</td>
@@ -298,7 +299,8 @@
                                 </thead>
                                 <tbody>
                                   @foreach($groupedSubmissions as $s)
-                                  @if ($s[5]->value == "FOR REVIEW")
+                                   <?php $c2 = count($s)-1;?>
+                                  @if ($s[$c2]->value == "FOR REVIEW")
                                   <tr>
                                     <td style="font-size: x-small;">{{$s->first()->created_at}}</td>
                                     <td> {{$s->first()->lastname}}, {{$s->first()->firstname}}</td>
