@@ -5,7 +5,7 @@
 
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="../public/js/jquery-ui.css">
 <!-- Include SmartWizard CSS -->
 <link href="../public/css/smart_wizard.css" rel="stylesheet" type="text/css" />
 
@@ -375,7 +375,7 @@
           var newvalue = prevslide[0]/2;
           //console.log("prev slide: ");
           //console.log(prevslide[0]);
-          makeSlider("#slider"+ct, ct,newvalue);
+          makeSlider("#slider"+ct,i, ct,newvalue);
 
           if (ct == 5) $(this).attr('disabled',true)
         } else 
@@ -596,7 +596,13 @@
 
       var ingoal = selectedGoals.includes(selval);
 
-      if (ingoal) {alert("You've already selected that business objective. Please choose a different one."); return false; }
+      if (ingoal) 
+        {
+          alert("You've already selected that business objective. Please choose a different one."); 
+          $('#goal'+goaln+' option[value="'+selval+'"]').attr("selected",false);
+          $('#goal'+goaln+' option[value="0"]').attr("selected",true);
+          return false; 
+        }
 
     });
 
@@ -615,9 +621,113 @@
         var balance = 100 - (v + w);
 
         console.log("balance: "+ balance);
+        console.log("w: "+w);
 
-        $(s).slider({value: balance});
-        h.text(balance+" %");
+        
+        if(s === "#slider3")
+        {
+          if (balance < 1  )//|| v > (100-w)
+          {
+            var adjust = $("#slider2");
+            var hndle =  $( "#weight2" );
+            //var oldval = $(hndle).slider("value");
+            //var newval = oldval - balance
+            
+            //$(adjust).slider({max:0,value:0 });
+            $(s).slider({max:0,value:0 });
+            h.text("0 %");
+
+            var newval = 100-v;
+            $(w1).slider({value:newval});
+            handle1.text(newval+ " %");
+
+            // $(adjust).slider({max:v,value:v });
+            // hndle.text(v+" %");
+            
+
+          }else
+              {
+                $(s).slider({value: balance});
+                h.text(balance+" %");
+
+
+              }
+        } 
+        else if(s === "#slider2")
+        {
+          if (balance < 1  )//|| v > (100-w)
+          {
+            var adjust = $("#slider3");
+            var hndle =  $( "#weight3" );
+            
+            if(w > 1) //paghatian nila ni 2 & 3 yung remaining balance
+            {
+              var half = w/2;
+
+              $(s).slider({value:half });
+              h.text(half+" %");
+
+              
+              $(w1).slider({value:half});
+              handle3.text(half+ " %");
+
+            }else
+            {
+              $(s).slider({max:0,value:0 });
+              h.text("0 %");
+
+              var newval = 100-v;
+              $(w1).slider({value:newval});
+              handle3.text(newval+ " %");
+
+            }
+
+            
+
+          }else
+              {
+                $(s).slider({value: balance});
+                h.text(balance+" %");
+
+
+              }
+        
+        } 
+        else if(s === "#slider1")
+        {
+          if (balance < 1  )//|| v > (100-w)
+          {
+            var adjust = $("#slider3");
+            var hndle =  $( "#weight3" );
+            //var oldval = $(hndle).slider("value");
+            //var newval = oldval - balance
+            
+            //$(adjust).slider({max:0,value:0 });
+            $(s).slider({max:0,value:0 });
+            h.text("0 %");
+
+            var newval = 100-v;
+            $(w1).slider({value:newval});
+            handle3.text(newval+ " %");
+
+            // $(adjust).slider({max:v,value:v });
+            // hndle.text(v+" %");
+            
+
+          }else
+              {
+                $(s).slider({value: balance});
+                h.text(balance+" %");
+
+
+              }
+        }else
+        {
+          $(s).slider({value: balance});
+          h.text(balance+" %");
+        }
+
+        
 
 
    }
@@ -632,9 +742,10 @@
    }
 
 
-   function makeSlider(s,c,p)
+   function makeSlider(s,c,i,p)
    {
       var handle = $("#weight"+c);
+      var adjHandle = $("#weight"+i);
 
       $(s).slider({
         orientation: "horizontal",
@@ -643,6 +754,7 @@
         value: p,
         create: function() {
           handle.text( $(s).slider( "value" ) +" %" );
+          adjHandle.text( p + " %" );
         }
         /*slide: function( event, ui ) {
           handle.text( ui.value + " %");
@@ -703,6 +815,10 @@
       },
       slide: function( event, ui ) {
         handle3.text( ui.value + " %");
+
+        //check mo muna kung may additional goals na
+        //kung waley, eh di si slider 1 galawin mo
+        if($('#goal4').is(":visible") )
         recalculate("#slider1",handle1,ui.value,"#slider2");
       }
       
