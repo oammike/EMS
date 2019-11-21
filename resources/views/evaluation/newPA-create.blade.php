@@ -216,7 +216,7 @@
                                   <textarea class="form-control" name="action3" id="action3" rows="3" placeholder="List down actions/activities in order to achieve Goal 3" required></textarea>
 
                                   <br/>
-                                  <label for="weight3">Goal 3 Weight: </label>
+                                  <label for="weight3">Goal 3 Weight: <input type="text" name=""></label>
                                   <div id="slider3">
                                     <div id="weight3" class="ui-slider-handle"></div>
                                   </div>
@@ -228,6 +228,7 @@
                             </div>
 
 
+                            <div id="total" ><h3>Total Goal weight: <span id="totalweight" class="text-success" style="font-weight: bolder;">100 %</span></h3></div>
                             <a id="addmore" style="margin-top: 20px" class="pull-right btn btn-lg btn-primary" data-count='3'><i class="fa fa-plus"></i> Add more goals </a> 
 
                             <!-- <div class="row">
