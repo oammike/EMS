@@ -2754,8 +2754,9 @@ trait TimekeepingTraits
 
             if (count($pendingDTRPin) > 0)
             {
-              $logIN = "(pending)";
+              $logIN = "(pending DTRP IN)";
               $hasPendingIN = true;
+              $logOUT = "* RD *";
             } else {
 
               $logIN = "* RD *";  //--- di nga sya pumasok
@@ -2814,6 +2815,7 @@ trait TimekeepingTraits
             //$nextDay = Carbon::parse($payday)->addDay();
             $nextDay = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila')->addHour(18);
             $bioForTomorrow = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->first();
+            
 
             //Check mo muna kung may approved DTRPout
              $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
@@ -2936,23 +2938,43 @@ trait TimekeepingTraits
                 legitOT:
                         //--- legit OT, compute billable hours
                         //--- check mo muna kung normal or night diff logtype sya
-                        if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
-                          $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                        else
-                        {
-                          $nextDay = Carbon::parse($payday)->addDay();
-                          $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
-                          if (count($b) > 0)
-                            $bio = $b->first()->productionDate;
-                          else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                        //*** pero check mo muna kung may existing userlogs talaga
+                        if(count($userLogIN) > 0){
+                          
+                          if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
+                          $bio =Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                          else
+                          {
+                            $nextDay = Carbon::parse($payday)->addDay();
+                            $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
+                            if (count($b) > 0)
+                              $bio = $b->first()->productionDate;
+                            else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                          }
+
+                        }else{
+
+                          if( $userLogOUT->first()->logTime > $hasApprovedDTRPin->first()->logTime)
+                          $bio =Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                          else
+                          {
+                            $nextDay = Carbon::parse($payday)->addDay();
+                            $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
+                            if (count($b) > 0)
+                              $bio = $b->first()->productionDate;
+                            else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                          }
+
                         }
+                        
 
                         
                         $logO = Carbon::parse($bio." ".$userLogOUT->first()->logTime, 'Asia/Manila'); 
                         $logOUT = $logO->format('M d h:i:s A'); 
 
-                        $timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
-                        //date('h:i:s A',strtotime($userLogOUT->first()->logTime));
+                        //$timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
+                        $timeStart = Carbon::parse($thisPayrollDate." 20:20:20",'Asia/Manila');
+                       
                         $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
 
                         $wh = $logO->diffInMinutes($timeStart->addHour(1)); //--- pag RD OT, no need to add breaktime 1HR
@@ -3009,6 +3031,8 @@ trait TimekeepingTraits
        $data->push(['shiftStart'=>$shiftStart, 
         'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
         'logOUT'=>$logOUT,'workedHours'=>$workedHours, 
+        'userLogIN'=>$userLogIN,
+        'hasApprovedDTRPin'=>$hasApprovedDTRPin,
         'userLogOUT'=>$userLogOUT,'isSameDayLog'=>$isSameDayLog,
         'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute, 'UT'=>$UT, 
         'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null,

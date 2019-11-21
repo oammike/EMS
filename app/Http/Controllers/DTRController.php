@@ -2479,7 +2479,7 @@ class DTRController extends Controller
                                      //********** LOG OUT ***************
 
                                             
-                                        if(count($bioForTom) > 0){
+                                        if(count((array)$bioForTom) > 0){
                                           $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest);
                                               //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
 
@@ -2622,7 +2622,7 @@ class DTRController extends Controller
 
              }//END foreach payrollPeriod
 
-           //return $coll;
+           //return $myDTR;
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
