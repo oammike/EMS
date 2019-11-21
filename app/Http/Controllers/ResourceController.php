@@ -218,6 +218,38 @@ class ResourceController extends Controller
         return response()->json($item->id);
 
     }
+
+
+    public function waiver()
+    {
+       
+        $id = Input::get('id');
+
+        $resource = Resource::find($id);
+
+        if (empty($resource)) return view('empty');
+
+        $alreadySigned = User_Resource::where('user_id',$this->user->id)->where('resource_id',$resource->id)->get();
+        //return $alreadySigned;
+
+        $employee = $this->user;
+        $today = Carbon::now('GMT+8');
+            
+           
+
+            if ( file_exists('public/img/employees/'.$employee->id.'-sign.png') )
+                 {
+                    $signature = asset('public/img/employees/'.$employee->id.'-sign.png');
+                 } else {
+                    $signature = null;
+                 }
+                 
+
+        return view('resources.waiver', compact('employee','signature','today','id','alreadySigned'));
+        
+    }
+
+
     public function item($id)
     {
         $item = Resource::find($id);

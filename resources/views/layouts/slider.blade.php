@@ -1,6 +1,14 @@
 
 
-                <div class="item active text-center" >
+                <div class="item active text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
+                      <br/><br/>
+
+                      <a class="btn btn-md btn-primary" href="{{action('ResourceController@waiver',['id'=>23])}}" target="_blank"><i class="fa fa-pencil"></i> Read &amp; Sign the Waiver Form </a><br/><br/></p>
+
+                </div>  
+
+                <div class="item text-center" >
                       
                       <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
                       <img src="./storage/uploads/motivation_hinge.jpg" style="z-index: 2" width="100%" />

@@ -105,6 +105,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'resource.index',
       'uses'=>'ResourceController@index') );
 
+    Route::get('/oampi-waiver', array(
+      'as'=> 'resource.waiver',
+      'uses'=>'ResourceController@waiver') );
+
     Route::post('/oampi-resources/viewItem', array(
       'as'=> 'resource.viewItem',
       'uses'=>'ResourceController@viewItem') );
