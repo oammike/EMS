@@ -2729,7 +2729,7 @@ trait TimekeepingTraits
       $hasPendingIN = null;
       $pendingDTRPin = null;
       $hasPendingOUT = null;
-      $pendingDTRPout = null;$userLogOUT=null;
+      $pendingDTRPout = null;$userLogOUT=null;$logOUT=null;
 
     $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
     $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
@@ -3434,7 +3434,7 @@ trait TimekeepingTraits
 
     
           
-    if ((count($userLogIN[0]['logs']) > 0 && count($userLogOUT[0]['logs']) > 0) && !is_null($userLogIN[0]['timing']) && !is_null($userLogOUT[0]['timing']) )
+    if ((count((array)$userLogIN[0]['logs']) > 0 && count((array)$userLogOUT[0]['logs']) > 0) && !is_null($userLogIN[0]['timing']) && !is_null($userLogOUT[0]['timing']) )
     {
       //---- To get the right Worked Hours, check kung early pasok == get schedule Time
       //---- if late pumasok, get user timeIN
