@@ -299,15 +299,15 @@
                            { title: " ", data:'id', width:'90', class:'text-center', sorting:false, search:true, render: function ( data, type, full, meta ) {
                                var l = data+".jpg";
                               var profilepic =  "{{ url('/') }}/public/img/employees/"+l;
-                              return '<a target="_blank" href="user/'+data+'"><img src="'+profilepic+'" class="img-circle" alt="No image" width="60" /></a><br/><small> '+full.employeeNumber+'</small>';} },
+                              return '<img src="'+profilepic+'" class="img-circle" alt="No image" width="60" /><br/><small> '+full.employeeNumber+'</small>';} },
 
                               //return '<a href="user/'+full.id+'"><img src="'+data+'" class="img-circle" alt="User Image" width="60" height="60" />
 
                             { title: "Name", defaultContent: "<i>none</i>" , data:'lastname', width:'200', render:function(data,type,full,meta){
                                if (full.nickname == null)
-                              return '<a style="font-weight:bolder" href="user/'+full.id+'" target="_blank">'+full.lastname+', '+full.firstname+' </a>';
+                              return full.lastname+', '+full.firstname;
                               else
-                                return '<a style="font-weight:bolder" href="user/'+full.id+'" target="_blank">'+full.lastname+', '+full.firstname+'<br/><small><em>( '+full.nickname+' )</em></small></a>';}}, 
+                                return full.lastname+', '+full.firstname+'<br/><small><em>( '+full.nickname+' )</em></small>';}}, 
                             
                             { title: "Position : Program", defaultContent: " ", data:'jobTitle',width:'200', render:function(data, type, full, meta ){
                               return'<small>'+data+'</small><br/><strong>'+full.program+'</strong>';
@@ -320,7 +320,7 @@
                              { title: "Status " ,defaultContent: "<i>empty</i>", data:'employeeStatus',width:'80', render:function(data,type,full,meta){
 
                               
-                              return data;
+                              return "* Access Denied *"; //data;
                              } }, // 2
                             
                             
