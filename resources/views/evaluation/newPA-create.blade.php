@@ -225,6 +225,13 @@
 
                                 <div id="goalholder">
                                 </div>
+                                <div id="hiddengoals">
+                                  <input type="hidden" name="hg1" id="hg1" />
+                                  <input type="hidden" name="hg2" id="hg2" />
+                                  <input type="hidden" name="hg3" id="hg3" />
+                                  <input type="hidden" name="hg4" id="hg4" value="0" />
+                                  <input type="hidden" name="hg5" id="hg5" value="0" />
+                                </div>
                             </div>
 
 
@@ -348,6 +355,8 @@
    $('#addmore').on('click',function(){
 
       var ct = $(this).attr('data-count');
+      console.log('data-count');
+      console.log(ct);
 
 
 
@@ -372,13 +381,15 @@
 
           var i = ct-1;
           var ps = $("#weight"+i).html();
-          var prevslide =  ps.split(" ");
-          var newvalue = prevslide[0]/2;
+          //var prevslide =  ps.split(" ");
+          //var newvalue = prevslide[0]/2;
           //console.log("prev slide: ");
           //console.log(prevslide[0]);
-          makeSlider("#slider"+ct,i, ct,newvalue);
+          console.log('for i value:');
+          console.log(ct);
+          makeSlider("#slider"+ct,ct, ct,0);
 
-          if (ct == 5) $(this).attr('disabled',true)
+          if (ct == 5) {console.log($(this)); $(this).attr('disabled',true);}
         } else 
         {
           $.notify("You can only add up to 5 goals.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
@@ -386,7 +397,7 @@
         }
 
 
-        console.log($('#goal'+(ct+1)));
+        //console.log($('#goal'+(ct+1)));
 
         
 
@@ -429,140 +440,6 @@
          });
 
    
-
-  /* $('.goals.form-control').on("change",function(){
-
-      var selval = $(this).find(":selected").val();
-      var goaln = $(this).attr('data-goalnum');
-      var goalnum = parseInt(goaln);
-
-      //console.log(goalnum);
-
-      var enablegoal = $('#goal'+(parseInt(goalnum)+1));
-      //console.log(enablegoal);
-      enablegoal.attr('disabled',false);
-
-      // switch(goalnum){
-      //   case '1': { var g2 = $('#goal2'); var g3 = $('#goal3'); var g4 = $('#goal4'); var g5 = $('#goal5');}break;
-      //   case '2': { var g2 = $('#goal1'); var g3 = $('#goal3'); var g4 = $('#goal4'); var g5 = $('#goal5');}break;
-      //   case '3': { var g2 = $('#goal1'); var g3 = $('#goal2'); var g4 = $('#goal4'); var g5 = $('#goal5');}break;
-      // }
-
-      var g1 = $('#goal1');
-      var g2 = $('#goal2');
-      var g3 = $('#goal3');
-      var g4 = $('#goal4');
-      var g5 = $('#goal5');
-
-      var g1i = g1.find(":selected").val();
-      var g2i = g2.find(":selected").val();
-      var g3i = g3.find(":selected").val();
-      var g4i = g4.find(":selected").val();
-      var g5i = g5.find(":selected").val();
-
-      
-
-      var selectedGoals = [g1.find(":selected").val(), g2.find(":selected").val(),g3.find(":selected").val(),g4.find(":selected").val(),g5.find(":selected").val()];
-
-      console.log(selectedGoals);
-
-      var htmlcode = '<option value="0">* Select a business objective *</option>';
-     
-     console.log("goalnum :" + goalnum);
-      if (goalnum !== 1)g1.html("");
-      if (goalnum !== 2)g2.html("");
-      if (goalnum !== 3)g3.html("");
-      if (goalnum !== 4)g4.html("");
-      if (goalnum !== 5)g5.html("");
-
-      var c = '1';<?php $c=1; ?>
-      @foreach($objectives as $o)
-
-      //console.log("g2: "+ g2.find(":selected").val());
-      //console.log("g3: "+ g3.find(":selected").val());
-
-
-      //if( (selval === "{{$o->id}}" && g2.find(":selected").val() !== 0) || (selval === "{{$o->id}}" && g3.find(":selected").val() !== 0)) { }
-      var ingoal = selectedGoals.includes("{{$o->id}}");
-      //console.log("ingoal");
-      console.log(ingoal);
-
-      if(ingoal){ 
-
-        var pos = selectedGoals.indexOf("{{$o->id}}");
-        htmlcode += '<option value="{{$o->id}}" selected="selected">Objective {{$c}} </option>';
-        console.log('pos of ' + "{{$o->id}}");
-        console.log(pos);
-        switch(pos){
-          case '0': { if (goalnum !== 1 && g1i == 0) g1.append(htmlcode);}break;
-          case '1': { if (goalnum !== 2 && g2i == 0) g2.append(htmlcode);}break;
-          case '2': { if (goalnum !== 3 && g3i == 0) g3.append(htmlcode);}break;
-        }
-
-        // if( g2.find(":selected").val() == {{$o->id}} )
-        //   { 
-        //     console.log('equal equal');
-        //     console.log(g2.find(":selected").val() );
-        //     console.log("{{$o->id}}");
-        //     g2.html();
-            
-             
-        //     //g3.html();g4.html();g5.html();
-        //   }
-
-        // if( g3.find(":selected").val() == {{$o->id}} )
-        //   { 
-        //     g3.html(); g3.append('<option value="{{$o->id}}" selected="selected">Objective {{$c}} </option>'); 
-        //   }// else {g3.html();}
-
-        // if( g4.find(":selected").val() == {{$o->id}} )
-        //   { 
-        //     g4.html();g4.append('<option value="{{$o->id}}" selected="selected">Objective {{$c}} </option>'); 
-        //   } //else {g4.html();  }
-
-        // if( g5.find(":selected").val() == {{$o->id}} )
-        //   { 
-        //     g5.append('<option value="{{$o->id}}" selected="selected">Objective {{$c}} </option>'); 
-        //   } //else {g5.html();}
-
-        
-
-      }  
-      else 
-      { 
-        var a = '<option value="0">* Select a business objective *</option>'
-        if(g1i == 0 && c=="{{$c}}") g1.append(a);
-        if(g2i == 0 && c=="{{$c}}") g2.append(a);
-        if(g3i == 0 && c=="{{$c}}") g3.append(a);
-        if(g4i == 0 && c=="{{$c}}") g4.append(a);
-        if(g5i == 0 && c=="{{$c}}") g5.append(a);
-
-        htmlcode = '<option value="{{$o->id}}">Objective {{$c}} </option>'; 
-        //if (goalnum !== 1)
-        if (goalnum !== 1) g1.append(htmlcode);
-        if (goalnum !== 2) g2.append(htmlcode);
-        if (goalnum !== 3) g3.append(htmlcode);
-        if (goalnum !== 4) g4.append(htmlcode);
-        if (goalnum !== 5) g5.html(htmlcode); 
-      }
-      <?php $c++; ?>
-      @endforeach
-
-     
-
-      
-      
-
-      
-      
-
-      //console.log(selval);
-
-
-
-
-
-   });*/
 
    $(document).on('change','.goals.form-control',function(){
    //$('.goals.form-control').on("change",function(){
@@ -742,35 +619,70 @@
         h.text(v+" %");
    }
 
+   function showPercentage(s1,s2,s3,s4,s5) 
+   {
+      /*if (s1 instanceof jQuery) s1=0;
+      if (s2 instanceof jQuery) s2=0;
+      if (s3 instanceof jQuery) s3=0;
+      if (s4 instanceof jQuery) s4=0;
+      if (s5 instanceof jQuery) s5=0;*/
+
+      var totalP = parseInt(s1)+parseInt(s2)+parseInt(s3)+parseInt(s4)+parseInt(s5);
+      
+
+      console.log("totalP: "+ totalP);
+
+      if(totalP >= 101)
+      {
+        $('#totalweight').removeClass('text-success').addClass('text-danger').html(totalP+" % ");
+        $('#totalweight').append("<i class='fa fa-exclamation-circle'></i><br/><em style='font-size:smaller'>Please recalibrate your goal weights and make sure it does not exceeed 100%</em>");
+
+      }else if(totalP == 100)
+      {
+        $('#totalweight').removeClass('text-danger').removeClass('text-warning').addClass('text-success').html(totalP+" % ");
+        $('#totalweight').append("<i class='fa fa-thumbs-up'></i>")
+
+      } else{
+        $('#totalweight').removeClass('text-danger').addClass('text-warning').html(totalP+" % ");
+        $('#totalweight').append("<i class='fa fa-exclamation-circle'></i><br/><em style='font-size:small'>Please make sure the total goal weight equals 100%</em>");
+
+      } 
+
+   }
+
 
    function makeSlider(s,c,i,p)
    {
       var handle = $("#weight"+c);
       var adjHandle = $("#weight"+i);
+      console.log('from makeSlider s value');
+      console.log(s);
 
       $(s).slider({
         orientation: "horizontal",
         range: "min",
         max: 100,
-        value: p,
+        value: 0,
         create: function() {
-          handle.text( $(s).slider( "value" ) +" %" );
-          adjHandle.text( p + " %" );
-        }
-        /*slide: function( event, ui ) {
-          handle.text( ui.value + " %");
-          recalculate("#slider1",handle1,ui.value,"#slider2");
-        }*/
+          //handle.text( $(s).slider( "value" ) +" %" );
+          adjHandle.text( 0 + " %" );
+          $('#hg'+i).val(0);
+        },
+        slide: function( event, ui ) {
+            var svalue = $(s).slider( "value" );
+            console.log('svalue');
+            console.log(svalue);
+            $('#hg'+i).val(svalue);
+            var s1 = $('#hg1').val();var s2 = $('#hg2').val();var s3 = $('#hg3').val();var s4 = $('#hg4').val();var s5 = $('#hg5').val();
+        
+            showPercentage(s1,s2,s3,s4,s5);
+            if(i == '4') {  adjHandle.text( s4 + " %"); }
+            if(i == '5') { adjHandle.text( s5 + " %"); }
+
+        
+      }
         
       });
-
-      if (c==5)
-        var c1 = 1;
-      else
-        var c1 = c-1;
-      console.log('reslide');
-      console.log(c1);
-      reslide("#slider"+c1,handle,p)
 
 
 
@@ -781,12 +693,26 @@
       range: "min",
       max: 100,
       value: 50,
+      //step:5,
       create: function() {
         handle1.text( $( this ).slider( "value" ) +" %" );
+        $('#hg1').val($( this ).slider( "value" ));
       },
       slide: function( event, ui ) {
         handle1.text( ui.value + " %");
-        recalculate("#slider2",handle2,ui.value,"#slider3");
+        $('#hg1').val(ui.value);
+        console.log("slide from 1");
+        console.log(ui.value);
+        var s1 = $('#hg1').val();var s2 = $('#hg2').val();var s3 = $('#hg3').val();var s4 = $('#hg4').val();var s5 = $('#hg5').val();
+        /*var s2 = $('#slider2').slider("value");
+        var s3 = $('#slider3').slider("value");
+        var s4 = $('#goalholder #slider4').slider("value");
+        var s5 = $('#goalholder #slider5').slider("value");*/
+        //recalculate("#slider2",handle2,ui.value,"#slider3");
+        //showPercentage("#slider2",handle2,"#slider3");
+        showPercentage(ui.value,s2,s3,s4,s5);
+        console.log('s1 s4');
+        console.log(s4);
       }
       
     });
@@ -796,12 +722,23 @@
       range: "min",
       max: 100,
       value: 30,
+      //step:5,
       create: function() {
         handle2.text( $( this ).slider( "value" ) +" %" );
+        $('#hg2').val($( this ).slider( "value" ));
       },
       slide: function( event, ui ) {
         handle2.text( ui.value + " %");
-        recalculate("#slider3",handle3,ui.value,"#slider1");
+        $('#hg2').val(ui.value);
+        /*var s1 = $('#slider1').slider("value");
+        //var s2 = $('#slider2').slider("value");
+        var s3 = $('#slider3').slider("value");
+        var s4 = $('#slider4').slider("value");
+        var s5 = $('#slider5').slider("value");
+        //showPercentage("#slider3",handle3,ui.value,"#slider1");*/
+        var s1 = $('#hg1').val();var s2 = $('#hg2').val();var s3 = $('#hg3').val();var s4 = $('#hg4').val();var s5 = $('#hg5').val();
+        
+        showPercentage(s1,ui.value,s3,s4,s5);
       }
       
     });
@@ -811,16 +748,22 @@
       range: "min",
       max: 100,
       value: 20,
+      //step:5,
       create: function() {
         handle3.text( $( this ).slider( "value" ) +" %" );
+        $('#hg3').val($( this ).slider( "value" ));
       },
       slide: function( event, ui ) {
         handle3.text( ui.value + " %");
+        $('#hg3').val(ui.value);
+        /*var s1 = $('#slider1').slider("value");
+        var s2 = $('#slider2').slider("value");
+        var s4 = $('#slider4').slider("value");
+        var s5 = $('#slider5').slider("value");*/
 
-        //check mo muna kung may additional goals na
-        //kung waley, eh di si slider 1 galawin mo
-        if($('#goal4').is(":visible") )
-        recalculate("#slider1",handle1,ui.value,"#slider2");
+        var s1 = $('#hg1').val();var s2 = $('#hg2').val();var s3 = $('#hg3').val();var s4 = $('#hg4').val();var s5 = $('#hg5').val();
+        
+        showPercentage(s1,s2,ui.value,s4,s5);
       }
       
     });
