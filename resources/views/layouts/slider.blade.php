@@ -1,6 +1,22 @@
 
 
-                <div class="item active text-center" style="background-color: #fff" >
+                 <div class="item active text-center" style="background-color: #f2232d" >
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/poster-hiv.png" style="z-index: 2" />
+                               <p class="text-center" style="padding: 50px;color:#fff"><strong>Hello, Open Access family,</strong>  <br/><br/>
+                                 
+
+                                We're inviting everyone to join and support the company's advocacy on HIV/AIDS prevention and early diagnosis. This will be our second consecutive HIV/AIDS Prevention Awareness program, and it aims to:<br/><br/>
+                                1. Educate employees about HIV/AIDS prevention through a series of lectures to be held tentatively on the last week of November onwards; and<br/><br/>
+                                2. Encourage employees to get tested for HIV in January during our on-site HIV testing activities, done in partnership with the Social Hygiene Clinic–Makati.<br/><br/>Email us at <strong class="text-black">nurse@openaccessbpo.net</strong> if you’re interested in participating in our activities. The schedule of lectures will be sent separately.<br/><br/>Let us be instruments in achieving an AIDS-free nation. We hope to see you at our lectures and testing!</p>
+
+                              
+                               <br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" style="background-color: #fff" >
                       <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
                       <br/><br/>
 
