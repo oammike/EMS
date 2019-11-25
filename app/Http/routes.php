@@ -72,6 +72,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('newPA_goal','NewPA_Goal_Controller');
     Route::resource('newPA_formGoal','NewPA_Form_Goal_Controller');
 
+    Route::get('/newPA/getFormTypeSettings', array(
+      'as'=>'performance.getFormTypeSettings',
+      'uses'=>'NewPA_Form_Controller@getFormTypeSettings') );
+
+
+
     /********** ------------ END NEW PA ------------  **************/
 
 

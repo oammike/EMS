@@ -63,7 +63,7 @@
             <ul>
                 <li><a href="#step-1"><span style="font-size: x-large;">Step 1:</span><br /><small>Type of Role</small></a></li>
                 <li><a href="#step-2"><span style="font-size: x-large;">Step 2:</span><br /><small>Create Goals</small></a></li>
-                <li><a href="#step-3"><span style="font-size: x-large;">Step 3:</span><br /><small>Set Competencies</small></a></li>
+                <li><a href="#step-3"><span style="font-size: x-large;">Step 3:</span><br /><small>Review </small></a></li>
                 <li><a href="#step-4"><span style="font-size: x-large;">Step 4:</span><br /><small>Assign Form</small></a></li>
             </ul>
 
@@ -126,11 +126,14 @@
 
                     <div id="form-step-1" role="form" data-toggle="validator">
                         <div class="form-group">
-
                             <div class="row">
                                 <div class="col-lg-4">
                                   <br/><br/>
                                   <label for="name">Establish GOAL 1:</label>
+
+                                  
+                            
+
                                   <select class="goals form-control" id="goal1" data-goalnum=1 required>
                                     <option value="0">* Select a business objective *</option>
                                     <?php $c=1; ?>
@@ -145,12 +148,12 @@
                                   <br/><br/>
                                   <label for="goalstmt1">Goal statement 1</label>
                                   
-                                  <textarea class="form-control" name="goalstmt1" id="goalstmt1" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
+                                  <textarea class="goalstatement form-control" name="goalstmt1" id="goalstmt1" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
 
                                   <br/><br/>
                                   <label for="goalstmt1">Activities/Actions 1</label>
                                   
-                                  <textarea class="form-control" name="action1" id="action1" rows="3" placeholder="List down actions/activities in order to achieve Goal 1" required></textarea>
+                                  <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action1" id="action1" rows="3" placeholder="List down actions/activities in order to achieve Goal 1" required></textarea>
 
                                   <br/>
                                   <label for="weight1">Goal 1 Weight: </label>
@@ -177,12 +180,12 @@
                                   <br/><br/>
                                   <label for="goalstmt2">Goal statement 2</label>
                                   
-                                  <textarea class="form-control" name="goalstmt2" id="goalstmt2" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
+                                  <textarea class="goalstatement form-control" name="goalstmt2" id="goalstmt2" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
 
                                    <br/><br/>
                                   <label for="action2">Activities/Actions 2</label>
                                   
-                                  <textarea class="form-control" name="action2" id="action2" rows="3" placeholder="List down actions/activities in order to achieve Goal 2" required></textarea>
+                                  <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action2" id="action2" rows="3" placeholder="List down actions/activities in order to achieve Goal 2" required></textarea>
 
                                   <br/>
                                   <label for="weight1">Goal 2 Weight: </label>
@@ -208,15 +211,15 @@
                                   <br/><br/>
                                   <label for="goalstmt3">Goal statement 3</label>
                                   
-                                  <textarea class="form-control" name="goalstmt3" id="goalstmt3" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
+                                  <textarea class="goalstatement form-control" name="goalstmt3" id="goalstmt3" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
 
                                    <br/><br/>
                                   <label for="action3">Activities/Actions 3</label>
                                   
-                                  <textarea class="form-control" name="action3" id="action3" rows="3" placeholder="List down actions/activities in order to achieve Goal 3" required></textarea>
+                                  <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action3" id="action3" rows="3" placeholder="List down actions/activities in order to achieve Goal 3" required></textarea>
 
                                   <br/>
-                                  <label for="weight3">Goal 3 Weight: <input type="text" name=""></label>
+                                  <label for="weight3">Goal 3 Weight:</label>
                                   <div id="slider3">
                                     <div id="weight3" class="ui-slider-handle"></div>
                                   </div>
@@ -237,40 +240,56 @@
 
                             <div id="total" ><h3>Total Goal weight: <span id="totalweight" class="text-success" style="font-weight: bolder;">100 %</span></h3></div>
                             <a id="addmore" style="margin-top: 20px" class="pull-right btn btn-lg btn-primary" data-count='3'><i class="fa fa-plus"></i> Add more goals </a> 
-
-                            <!-- <div class="row">
-                              <div class="col-lg-12 text-center"><br/><br/></div>
-                            </div> -->
-                            
-
-
-                            
-
-
-                            
-                            
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                 </div>
 
 
+                <!-- ****** STEP 3 COMPETENCIES ********** -->
+                <div id="step-3" class="col-lg-12" style="padding:20px;">
+                    <h3>Review</h3>
+                    <input type="hidden" name="roleid" id="roleid" />
 
-                <div id="step-3">
-                    <h2>Your Address</h2>
+                    <p><i class="fa fa-exclamation-circle"></i> This will the appraisal form generated for  <strong id="roletype_skills" style="font-size: large;"></strong>. Once done reviewing, you'll then choose who among your program/department will use this appraisal form.  <br/><br/><br/></p>
+
+                     
+                      <hr/>
+
+                    <table class="table" id="reviewform">
+                      <thead>
+                        <tr><th><img src="../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="70" class="pull-left"> <h3 class="pull-left" style="padding-left:10px">Annual Performance Appraisal Form<br/><span id="formtype" style="font-size: small;color: #666 "></span></h3><th></tr>
+
+                      </thead>
+                      <tbody>
+
+                        
+                      </tbody>
+                    </table>
+
+                    <table id="competencylist" class="table table-hover">
+                      <thead><tr><th>&nbsp;&nbsp;&nbsp;&nbsp;Competencies</th><th>Weight</th></tr></thead>
+                      <tbody></tbody>
+
+                    </table>
+
                     <div id="form-step-2" role="form" data-toggle="validator">
                         <div class="form-group">
-                            <label for="address">Address</label>
-                            <textarea class="form-control" name="address" id="address" rows="3" placeholder="Write your address..." required></textarea>
+                            <!-- <label for="address">Address</label>
+                            <textarea class="form-control" name="address" id="address" rows="3" placeholder="Write your address..." required></textarea> -->
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
                 </div>
-                <div id="step-4" class="">
-                    <h2>Terms and Conditions</h2>
-                    <p>
-                        Terms and conditions: Keep your smile :)
-                    </p>
+
+
+
+                <div id="step-4" class="col-lg-12" style="padding:20px;">
+                    <h3>Assign this Form</h3>
+                    <input type="hidden" name="roleid" id="roleid" />
+                    <p><i class="fa fa-exclamation-circle"></i> Select all employees under your program who'll use this
+                      <strong id="roletype_skills" style="font-size: larger;"></strong> appraisal form. </p>
+
                     <div id="form-step-3" role="form" data-toggle="validator">
                         <div class="form-group">
                             <label for="terms">I agree with the T&C</label>
@@ -846,19 +865,142 @@
         {
           var role = $('input[name="type"]:checked');
           var roletype = role.attr('data-roletype');
+          var _token = "{{ csrf_token() }}";
+
+          $.ajax({
+            url:"{{action('NewPA_Form_Controller@getFormTypeSettings')}}",
+            type:'GET',
+            data:{
+              'id': role.val(),
+              '_token':_token},
+
+            error: function(response)
+            { console.log("Error fetching form type data ");
+            console.log(response); return false;
+            },
+            success: function(response)
+            {
+              console.log(response);
+              $('#roleid').val(role.val());
+              $('#roletype').html(response['allData'][0].roleType);
+              $('#percentage').html(response['components']['Goals & Objectives'][0].componentWeight + " %");
+
+
+            }
+          });
           
 
-          switch(role.val())
-          {
-            case '2': { var p = "70%";}break;
-            case '4':  { var p = "60%";}break;
-            case '6':  { var p = "50%";}break;
-          }
+          
+        }
 
-          $('#roletype').html(roletype);
-          $('#percentage').html(p);
+        if (stepNumber == 1)
+        {
+          var role = $('#roleid').val();
+          
+          var _token = "{{ csrf_token() }}";
 
-          console.log("roletype: "+ roletype);
+          
+          
+
+          $.ajax({
+            url:"{{action('NewPA_Form_Controller@getFormTypeSettings')}}",
+            type:'GET',
+            data:{
+              'id': role,
+              '_token':_token},
+
+            error: function(response)
+            { console.log("Error fetching form type data ");
+            console.log(response); return false;
+            },
+            success: function(response)
+            {
+              //console.log(response);
+              $('#roletype_skills').html(response['allData'][0].roleType);
+              $('#formtype').html(response['allData'][0].roleType);
+
+              var components = response['components'];
+              console.log("COMPONENTS");
+              console.log(components);
+
+              //****** setup COMPONENTS ************
+              $('#reviewform tbody').html("");
+              $.each( components, function( key, value ) {
+
+                $('#reviewform tbody').append('<tr><td style="font-size:larger;" class="text-primary"><i class="fa fa-check text-success"></i> &nbsp;'+key+'</td><td> <strong class="text-success">'+value[0]["componentWeight"]+'% </strong></td></tr>');
+                
+                if(key == "Goals & Objectives")
+                {
+                  
+
+
+                  var goalstatements = $('.goalstatement.form-control');
+                  var goalactions =  $('.goalaction.form-control');
+
+                  console.log(goalactions);
+
+                  // var html = '<tr><td colspan="2"><table class="table">';
+                  // html += '<thead><tr><th>Goal statement</th><th>Actions</th><th>Weight</th></tr></thead>';
+                  // html += '<tbody>';
+                  // var gctr=0;
+
+                  // $.each( goalstatements, function(key2, value2){
+
+                  //   if (value2.value != "Skills & Competencies")
+                  //   {
+                  //     html += '<tr><td>'+value2.value+'</td>';
+                  //     html += '<td style="white-space: pre-wrap">'+goalactions[gctr].value+'</td>';
+                  //     html += '<td>xx.xx</td>';
+
+                  //   }
+                    
+                  //   gctr++;
+                   
+                  // }); 
+                  // html += '</tbody></table></td></tr>';
+
+                  // $('#reviewform tbody').append(html);
+
+                  //*********
+
+                  var gctr=0;
+
+                  $.each( goalstatements, function(key2, value2){
+
+                    $('#reviewform tbody').append('<tr><td style=""> &nbsp;'+value2.value+' <div style="width:50%; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>XX.xx</td></tr>');
+                    gctr++;
+                
+
+
+                  });
+
+
+
+
+
+                }else{ }
+                
+              });
+
+              
+              //****** setup COMPETENCIES ************
+              var obj = response['components']['Skills & Competencies'];
+              $('#percentage_skills').html(response['components']['Skills & Competencies'][0].componentWeight + " %");
+              $('#competencylist tbody').html("");
+              $.each( obj, function( key, value ) {
+                $('#competencylist tbody').append('<tr><td style="padding-left:35px"><i class="fa fa-check text-success"></i> &nbsp;'+value["competency"]+'</td><td> <strong>'+value["competencyWeight"]+'% </strong></td></tr>');
+                //console.log( value['competency'] );
+              });
+
+              
+              console.log("ALL GOALS:");
+              //console.log(goals);
+              
+
+            }
+          });
+
+         
         }
 
         //console.log("step is: "+ stepNumber);

@@ -66,7 +66,25 @@ class NewPA_Form_Controller extends Controller
     {
     	$roles = NewPA_Type::all();
         $objectives = NewPA_Objective::all();
-    	return view('evaluation.newPA-create',compact('roles','objectives'));
+        $competencies = NewPA_Competencies::all();
+    	return view('evaluation.newPA-create',compact('roles','objectives','competencies'));
 
+    }
+
+    public function getFormTypeSettings()
+    {
+        $id = Input::get('id');
+        $data= DB::table('newPA_type')->where('newPA_type.id',$id)->
+                join('newPA_form_components','newPA_form_components.typeID','=','newPA_type.id')->
+                join('newPA_components','newPA_form_components.componentID','=','newPA_components.id')->
+                join('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_type.id')->
+                join('newPA_competencies','newPA_form_competencies.competencyID','=','newPA_competencies.id')->
+                select('newPA_type.name as roleType','newPA_components.id as componentID', 'newPA_components.name as component','newPA_form_components.weight as componentWeight','newPA_form_competencies.id as competencyID','newPA_competencies.name as competency','newPA_form_competencies.weight as competencyWeight')->get();
+        $data_components = collect($data)->groupBy('component');
+        $data_competencies = collect($data)->groupBy('competency');
+
+        // $data_competencies = DB::table('newPA_type')->where('newPA_type.id',$id)->
+        //                     join()
+        return response()->json(['components'=>$data_components,'competencies'=>$data_competencies,'allData'=>$data]);
     }
 }
