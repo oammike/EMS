@@ -2097,6 +2097,8 @@ class FormSubmissionsController extends Controller
     {
         $prg = Input::get('program');
         $tab = Input::get('tab');
+        $correct = Carbon::now('GMT+8');
+        $daystart = Carbon::now('GMT+8')->startOfDay();
 
         $program = Campaign::find($prg);
         $form = FormBuilder::find(Input::get('form'));
@@ -2104,7 +2106,7 @@ class FormSubmissionsController extends Controller
         if (empty($form) || empty($program)) return view('empty');
 
         $l = DB::table('campaign_logos')->where('campaign_id',$program->id)->get();
-        (count($l) > 0) ? $logo = $l : $logo=null;$correct = Carbon::now('GMT+8');
+        (count($l) > 0) ? $logo = $l : $logo=null;
 
         
         $submissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$form->id)->
@@ -2113,7 +2115,8 @@ class FormSubmissionsController extends Controller
                 join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
                 //where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
                 leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->get();
+                select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->
+                where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->get();
 
         $start = $correct;
         $end = $correct;
@@ -2123,7 +2126,8 @@ class FormSubmissionsController extends Controller
                 join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
                 //where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
                 leftJoin('users','users.id','=','form_submissions_users.user_id')->
-                select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->paginate(500);
+                select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->
+                where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->paginate(500);
 
                 //orderBy('form_submissions_users.created_at','DESC')->get();
 
@@ -2144,7 +2148,8 @@ class FormSubmissionsController extends Controller
                     join('form_submissions_users','form_submissions_users.formBuilder_id','=','formBuilder.id')->
                     join('form_submissions_reviewer','form_submissions_reviewer.submission_id','=','form_submissions_users.id')->
                     join('users','form_submissions_reviewer.user_id','=','users.id')->
-                    select('users.id as userID','users.firstname as reviewerFname','users.lastname as reviewerLname','form_submissions_users.id as submissionID','form_submissions_reviewer.newStatus', 'form_submissions_reviewer.created_at')->get(); //return $reviewers;
+                    select('users.id as userID','users.firstname as reviewerFname','users.lastname as reviewerLname','form_submissions_users.id as submissionID','form_submissions_reviewer.newStatus', 'form_submissions_reviewer.created_at')->
+                    where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->get(); //return $reviewers;
         //return $groupedSubmissions;
         
         if($this->user->id !== 564 ) {
