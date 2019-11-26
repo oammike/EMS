@@ -52,6 +52,12 @@
                   <?php //href="{{route('formSubmissions.rawData',['id'=>$form->id, 'from'=>$start,'to'=>$end,'page'=>$actualSubmissions->currentPage(),'dl'=>1])}}">
                   //href="formSubmissions/rawData/{{$form->id}}?from={{$start}}&to={{$end}}&page={{$actualSubmissions->currentPage()}}&dl=1"> ?>
                   <i class="fa fa-download"></i> Download Spreadsheet</a>
+
+
+                  <div class="pull-right" style="width: 50%; margin-right: 30px;">
+                     <label class="pull-left">Show All Submissions from: </label><input type="text" id="showfrom" name="showfrom" class="datepicker form-control pull-left" placeholder="{{$start->format('m/d/Y')}}" value="{{$daystart->format('m/d/Y')}}" style="width:20%;margin: 0 10px" />
+                     <a class="btn btn-primary btn-sm" id="updatetable"><i class="fa fa-refresh"></i> Update Table</a>
+                  </div>
                 </div>
           </div>
 
@@ -431,6 +437,13 @@
    'use strict';
 
     $( ".datepicker" ).datepicker();
+
+    $('#updatetable').on('click',function(){
+     
+      var showfrom = $('#showfrom').val();
+      window.location = "widgets?program={{$program->id}}&tab={{$tab}}&form={{$form->id}}&showfrom="+showfrom;
+
+    });
 
     $('#download').on('click',function(){
 

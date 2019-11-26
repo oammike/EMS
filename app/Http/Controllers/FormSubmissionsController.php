@@ -2098,7 +2098,12 @@ class FormSubmissionsController extends Controller
         $prg = Input::get('program');
         $tab = Input::get('tab');
         $correct = Carbon::now('GMT+8');
-        $daystart = Carbon::now('GMT+8')->startOfDay();
+
+        if (is_null(Input::get('showfrom')))
+            $daystart = Carbon::now('GMT+8')->startOfDay();
+        else
+            $daystart = Carbon::parse(Input::get('showfrom'),'Asia/Manila')->startOfDay();
+
 
         $program = Campaign::find($prg);
         $form = FormBuilder::find(Input::get('form'));
@@ -2161,6 +2166,6 @@ class FormSubmissionsController extends Controller
 
 
         //return $groupedSubmissions;
-        return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers','actualSubmissions','start','end'));
+        return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers','actualSubmissions','start','end','daystart'));
     }
 }
