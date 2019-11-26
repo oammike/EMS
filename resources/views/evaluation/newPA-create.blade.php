@@ -229,11 +229,11 @@
                                 <div id="goalholder">
                                 </div>
                                 <div id="hiddengoals">
-                                  <input type="hidden" name="hg1" id="hg1" />
-                                  <input type="hidden" name="hg2" id="hg2" />
-                                  <input type="hidden" name="hg3" id="hg3" />
-                                  <input type="hidden" name="hg4" id="hg4" value="0" />
-                                  <input type="hidden" name="hg5" id="hg5" value="0" />
+                                  <input class="hgoals" type="hidden" name="hg1" id="hg1" />
+                                  <input  class="hgoals"type="hidden" name="hg2" id="hg2" />
+                                  <input  class="hgoals"type="hidden" name="hg3" id="hg3" />
+                                  <input  class="hgoals"type="hidden" name="hg4" id="hg4" value="0" />
+                                  <input  class="hgoals"type="hidden" name="hg5" id="hg5" value="0" />
                                 </div>
                             </div>
 
@@ -924,6 +924,10 @@
               console.log(components);
 
               //****** setup COMPONENTS ************
+              var hiddeng = $('.hgoals');
+              console.log("hidden goals:");
+              console.log(hiddeng);
+
               $('#reviewform tbody').html("");
               $.each( components, function( key, value ) {
 
@@ -939,35 +943,13 @@
 
                   console.log(goalactions);
 
-                  // var html = '<tr><td colspan="2"><table class="table">';
-                  // html += '<thead><tr><th>Goal statement</th><th>Actions</th><th>Weight</th></tr></thead>';
-                  // html += '<tbody>';
-                  // var gctr=0;
-
-                  // $.each( goalstatements, function(key2, value2){
-
-                  //   if (value2.value != "Skills & Competencies")
-                  //   {
-                  //     html += '<tr><td>'+value2.value+'</td>';
-                  //     html += '<td style="white-space: pre-wrap">'+goalactions[gctr].value+'</td>';
-                  //     html += '<td>xx.xx</td>';
-
-                  //   }
-                    
-                  //   gctr++;
-                   
-                  // }); 
-                  // html += '</tbody></table></td></tr>';
-
-                  // $('#reviewform tbody').append(html);
-
-                  //*********
-
                   var gctr=0;
+
+                  $('#reviewform tbody').append('<tr><td> Objectives & Action statements</td><td>Weight distribution</td></tr>');
 
                   $.each( goalstatements, function(key2, value2){
 
-                    $('#reviewform tbody').append('<tr><td style=""> &nbsp;'+value2.value+' <div style="width:50%; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>XX.xx</td></tr>');
+                    $('#reviewform tbody').append('<tr><td style="padding:30px"> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>');
                     gctr++;
                 
 
