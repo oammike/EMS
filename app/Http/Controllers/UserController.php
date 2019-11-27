@@ -71,6 +71,14 @@ class UserController extends Controller
       
       (count($canDoThis)> 0 ) ? $hasUserAccess=1 : $hasUserAccess=0;
       (count($wf) > 0) ? $isWorkforce=1 : $isWorkforce=0;
+
+      $hr = Campaign::where('name','HR')->first();
+      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
+
+      if(!$isHR) return view('access-denied');
+
+
       
         /*$campaigns = Campaign::orderBy('name', 'ASC')->get();*/
          $allUsers = User::orderBy('lastname', 'ASC')->get();//->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->get();

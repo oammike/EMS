@@ -63,8 +63,13 @@ class MovementController extends Controller
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
         $canDistributeTeam =  ($roles->contains('MANAGE_TEAM_DISTRIBUTION')) ? '1':'0';
+        $hr = Campaign::where('name','HR')->first();
+        $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
+        
+        
 
-        if (!$canMoveEmployees && !$canDistributeTeam){
+        if (!$canMoveEmployees && !$canDistributeTeam || !$isHR){
             return view('access-denied');
 
         } else
