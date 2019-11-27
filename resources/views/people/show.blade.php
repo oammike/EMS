@@ -105,7 +105,11 @@
                 <div style="text-shadow: 1px 2px #000000; text-transform:uppercase;z-index:100;background-color: #000; padding:15px;filter: alpha(opacity=70); -moz-opacity: 0.7; -khtml-opacity: 0.7; opacity: 0.7;width: 68%; left:240px;margin-left: 0px;top:160px; " class="widget-user-username-profilepage">
                 <h3 style="padding-left: 0px;">
                     <span style="filter: alpha(opacity=100); -moz-opacity: 1; -khtml-opacity: 1; opacity: 1; color:#fff,text-shadow: 1px 2px #000000; "> {{$user->firstname}} {{$user->middlename}} {{$user->lastname}} &nbsp;&nbsp; @if(!is_null($user->nickname)) <em style="font-size: smaller">({{$user->nickname}} )</em> @endif</span> <br/>
-                    <span style="text-shadow: 1px 2px #000000; font-weight:bold;color:#54cbf9"  class="widget-user-desc-profilepage">{{$user->position->name}} </span> <br/>
+
+                    @if($isHR)
+                    <span style="text-shadow: 1px 2px #000000; font-weight:bold;color:#54cbf9"  class="widget-user-desc-profilepage">{{$user->position->name}} </span> 
+                    @endif
+                    <br/>
 
 
                   </h3>

@@ -2050,6 +2050,9 @@ class UserController extends Controller
         $canCWS =  ($roles->contains('CAN_CWS')) ? '1':'0';
 
         $hrDept = Campaign::where('name',"HR")->first();
+        $hrTeam = collect(DB::table('team')->where('campaign_id',$hrDept->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
+
 
         
 
@@ -2477,11 +2480,11 @@ class UserController extends Controller
             $partTimes = $this->generateShifts('12H','part');
             //return $partTimes;
             
-            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','partTimes', 'hasNewPhoto'));
+            return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','partTimes', 'hasNewPhoto','isHR'));
 
             
             
-        } else return view('people.profile', compact('anApprover', 'approvers', 'user','immediateHead','canCWS','canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'greeting'));
+        } else return view('people.profile', compact('anApprover', 'approvers', 'user','immediateHead','canCWS','canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'greeting','isHR'));
                    
     }
 
