@@ -2100,9 +2100,13 @@ class FormSubmissionsController extends Controller
         $correct = Carbon::now('GMT+8');
 
         if (is_null(Input::get('showfrom')))
-            $daystart = Carbon::now('GMT+8')->startOfDay();
-        else
-            $daystart = Carbon::parse(Input::get('showfrom'),'Asia/Manila')->startOfDay();
+        {
+            $daystart = Carbon::now('GMT+8')->startOfDay(); $dayend = Carbon::now('GMT+8')->endOfDay();
+        }
+        else {
+            $daystart = Carbon::parse(Input::get('showfrom'),'Asia/Manila')->startOfDay(); 
+            $dayend = Carbon::parse(Input::get('showfrom'),'Asia/Manila')->endOfDay();
+        }
 
 
         $program = Campaign::find($prg);
@@ -2121,7 +2125,8 @@ class FormSubmissionsController extends Controller
                 //where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
                 leftJoin('users','users.id','=','form_submissions_users.user_id')->
                 select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->
-                where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->get();
+                where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                where('form_submissions_users.created_at','<=',$dayend->format('Y-m-d H:i:s'))->get();
 
         $start = $correct;
         $end = $correct;
@@ -2132,7 +2137,8 @@ class FormSubmissionsController extends Controller
                 //where('form_submissions.formBuilder_itemID','=',$rankCategory->id)->
                 leftJoin('users','users.id','=','form_submissions_users.user_id')->
                 select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->
-                where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->paginate(500);
+                where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                where('form_submissions_users.created_at','<=',$dayend->format('Y-m-d H:i:s'))->paginate(500);
 
                 //orderBy('form_submissions_users.created_at','DESC')->get();
 
@@ -2154,7 +2160,8 @@ class FormSubmissionsController extends Controller
                     join('form_submissions_reviewer','form_submissions_reviewer.submission_id','=','form_submissions_users.id')->
                     join('users','form_submissions_reviewer.user_id','=','users.id')->
                     select('users.id as userID','users.firstname as reviewerFname','users.lastname as reviewerLname','form_submissions_users.id as submissionID','form_submissions_reviewer.newStatus', 'form_submissions_reviewer.created_at')->
-                    where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->get(); //return $reviewers;
+                    where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                    where('form_submissions_users.created_at','<=',$dayend->format('Y-m-d H:i:s'))->get(); //return $reviewers;
         //return $groupedSubmissions;
         
         if($this->user->id !== 564 ) {
