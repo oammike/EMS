@@ -56,7 +56,7 @@
                 <h2>Setup New Annual Performance Appraisal</h2>
                 <p>This will guide you step-by-step on setting up performance appraisal form for your program/team.</p><br/><br/><br/>
 
-                <form action="#" id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
+                <form id="myForm" role="form" data-toggle="validator" method="post" accept-charset="utf-8">
 
         <!-- SmartWizard html -->
         <div id="smartwizard">
@@ -251,7 +251,7 @@
                     <h3>Review</h3>
                     <input type="hidden" name="roleid" id="roleid" />
 
-                    <p><i class="fa fa-exclamation-circle"></i> This will the appraisal form generated for  <strong id="roletype_skills" style="font-size: large;"></strong>. Once done reviewing, you'll then choose who among your program/department will use this appraisal form.  <br/><br/><br/></p>
+                    <p><i class="fa fa-exclamation-circle"></i> This will be the appraisal form generated for  <strong id="roletype_skills" style="font-size: large;"></strong>. Once done reviewing, you'll then choose who among your program/department will use this appraisal form.  <br/><br/><br/></p>
 
                      
                       <hr/>
@@ -287,13 +287,115 @@
                 <div id="step-4" class="col-lg-12" style="padding:20px;">
                     <h3>Assign this Form</h3>
                     <input type="hidden" name="roleid" id="roleid" />
-                    <p><i class="fa fa-exclamation-circle"></i> Select all employees under your program who'll use this
-                      <strong id="roletype_skills" style="font-size: larger;"></strong> appraisal form. </p>
+                    <p><i class="fa fa-exclamation-circle"></i> Select all <strong id="roletype_assign" style="font-size: large;"></strong> under your program who'll use this
+                      <strong id="roletype_assign" style="font-size: larger;"></strong> appraisal form: </p>
 
                     <div id="form-step-3" role="form" data-toggle="validator">
                         <div class="form-group">
-                            <label for="terms">I agree with the T&C</label>
-                            <input type="checkbox" id="terms" data-error="Please accept the Terms and Conditions" required>
+                            <h3 class="text-primary"><br/><br/>My Team:</h3>
+                            <br/><br/>
+                            <label style="margin-right: 10px"><input type="radio" name="selall" value="1" data-parentid="{{$user->id}}" /> Select All</label>
+                            <label><input type="radio" name="selall" value="0"  data-parentid="{{$user->id}}" /> Clear All</label>
+                            <table class="table table-sm" id="myteam">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th></th>
+                                  <th>Last name</th>
+                                  <th>First Name</th>
+                                  
+                                  <th>Job Title</th>
+                                  <th>Program</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                @foreach($mySubordinates as $m)
+                                <tr>
+                                  <td>
+                                    <label><input type="checkbox" class="include_{{$user->id}}" name="include" value="{{$m['id']}}" data-program="{{$m['programID']}}">
+                                    <img src="../public/img/employees/{{$m['id']}}.jpg" width="80" /></label>
+                                  </td>
+                                  <td>{{$m['lastname']}}</td><td>{{$m['firstname']}}</td>
+                                  
+                                  <td>{{$m['position']}}</td>
+                                  <td>{{$m['program']}}</td>
+                                </tr>
+                                @endforeach
+                              </tbody>
+                              
+                            </table>
+
+                            <!-- **** we need to process by tree level *** -->
+                            <?php $l2 = collect($myTree)->where('level','2'); ?>
+
+                            @foreach($l2 as $t)
+
+                            <!-- ******** collapsible box ********** -->
+                              <div class="box box-default collapsed-box">
+                              <div class="box-header with-border">
+                                @if(strlen($t['nickname']) > 0)
+                                  <h3 class="box-title text-primary">Team {{strtoupper($t['nickname'])}} {{strtoupper($t['lastname'])}}</h3>
+                                @else
+                                  <h3 class="box-title text-primary">Team {{strtoupper($t['firstname'])}} {{strtoupper($t['lastname'])}}</h3>
+
+                                @endif
+
+                                <div class="box-tools pull-right">
+                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                  </button>
+                                </div>
+                                <!-- /.box-tools -->
+                              </div>
+                              <!-- /.box-header -->
+
+
+                              <div class="box-body">
+                                <br/><br/>
+                                <label style="margin-right: 10px"><input type="radio" name="selall" value="1" data-parentid="{{$t['tl_userID']}}" /> Select All</label>
+                                <label><input type="radio" name="selall" value="0"  data-parentid="{{$t['tl_userID']}}" /> Clear All</label>
+                            
+                                    
+
+                                 <table class="table table-xs">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        <th></th>
+                                        <th>Last name</th>
+                                        <th>First Name</th>
+                                        
+                                        <th>Job Title</th>
+                                        <th>Program</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+
+                                      @foreach($t['members'] as $m)
+                                      <tr>
+                                        <td><input type="checkbox" class="include_{{$t['tl_userID']}}" name="include" value="{{$m->id}}" data-program="{{$m->programID}}"></td>
+                                        <td>{{strtoupper($m->lastname)}}</td><td>{{strtoupper($m->firstname)}}</td>
+                                        
+                                        <td>{{$m->jobTitle}}</td>
+                                        <td>{{$m->program}}</td>
+                                      </tr>
+                                      @endforeach
+                                    </tbody>
+                                    
+                                 </table>
+
+                                
+                              </div>
+                              <!-- /.box-body -->
+                            </div>
+                            <!-- ******** end collapsible box ********** -->
+
+
+
+                            
+                           
+                            @endforeach
+
+                           <!--  <label for="terms">I agree with the T&C</label>
+                            <input type="checkbox" id="terms" data-error="Please accept the Terms and Conditions" required> -->
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
@@ -371,6 +473,17 @@
    //    
    //  });
 
+   $('#myteam').DataTable({
+      //"scrollX": true,
+      //"scrollY": 500,
+      //"paging":false,
+      "order": [[ 1, "desc" ]]
+      });
+
+
+   $()
+
+
    $('#addmore').on('click',function(){
 
       var ct = $(this).attr('data-count');
@@ -387,15 +500,15 @@
           code += '<div class="col-lg-4">';
           code += '<br/><br/><br/><a class="cancel btn btn-xs btn-default pull-right"><i class="fa fa-times"></i> Cancel</a>';
           code += '<br/><br/><label for="name">Establish GOAL '+ct + '</label>';
-          code += '<select class="goals form-control" id="goal'+ct+'"  required><option value="0">* Select a business objective *</option>';
+          code += '<select class="goals form-control" id="goal'+ct+'" required data-goalnum='+ct+'><option value="0">* Select a business objective *</option>';
                     <?php $c=1; ?>
                     @foreach($objectives as $o)
                     code += '<option value="{{$o->id}}">Objective {{$c}} </option>';
                     <?php $c++; ?>
                     @endforeach
           code += '        </select><br/><br/><label for="goalstmt1">Goal statement '+ct+'</label>';
-          code += ' <textarea class="form-control" name="goalstmt'+ct+'" id="goalstmt'+ct+'" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea><br/><br/><label for="goalstmt'+ct+'">Activities/Actions '+ct+'</label>';
-          code += '<textarea class="form-control" name="action'+ct+'" id="action'+ct+'" rows="3" placeholder="List down actions/activities in order to achieve Goal '+ct+'" required></textarea><br/><label for="weight'+ct+'">Goal '+ct+' Weight: </label><div id="slider'+ct+'"><div id="weight'+ct+'" class="ui-slider-handle"></div></div></div>';
+          code += ' <textarea class="goalstatement form-control" name="goalstmt'+ct+'" id="goalstmt'+ct+'" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea><br/><br/><label for="goalstmt'+ct+'">Activities/Actions '+ct+'</label>';
+          code += '<textarea class="goalaction form-control" name="action'+ct+'" id="action'+ct+'" rows="3" placeholder="List down actions/activities in order to achieve Goal '+ct+'" required></textarea><br/><label for="weight'+ct+'">Goal '+ct+' Weight: </label><div id="slider'+ct+'"><div id="weight'+ct+'" class="ui-slider-handle"></div></div></div>';
           $('#goalholder').html(code);
 
           var i = ct-1;
@@ -421,6 +534,22 @@
         
 
       
+
+   });
+
+   $('input[name="selall"]').on('click',function(){
+
+    var parentid = $(this).attr('data-parentid');
+    var sel = $(this).val();
+    console.log('sel:');
+    console.log(sel);
+
+    if ($(this).val() == '1')
+    {
+      //var tosel = $('input.include')
+      $('.include_'+parentid).prop('checked',true);
+    } else $('.include_'+parentid).prop('checked',false);
+    console.log(parentid);
 
    });
 
@@ -492,6 +621,12 @@
       if (goalnum != 5) selectedGoals.push(g5.find(":selected").val());
 
       var ingoal = selectedGoals.includes(selval);
+      console.log("goaln");
+      console.log(goaln);
+      console.log("selval");
+      console.log(selval);
+      console.log("ingoal");
+      console.log(ingoal);
 
       if (ingoal) 
         {
@@ -816,8 +951,41 @@
                                                         alert('Kindly fill out all required fields to complete form.');
                                                         return false;
                                                     }else{
-                                                        alert('Great! we are ready to submit form');
-                                                        elmForm.submit();
+                                                        //alert('Great! we are ready to submit form');
+                                                        //elmForm.submit();
+                                                        var _token = "{{ csrf_token() }}";
+                                                        var goal1 = $('#form-step-1 #goal1').find(':selected').val();
+                                                        var goal2 = $('#form-step-1 #goal2').find(':selected').val();
+                                                        var goal3 = $('#form-step-1 #goal3').find(':selected').val();
+                                                        var goal4 = $('#form-step-1 #goal4').find(':selected').val();
+                                                        var goal5 = $('#form-step-1 #goal5').find(':selected').val();
+                                                        $.ajax({
+                                                                  url:"{{action('NewPA_Form_Controller@process')}}",
+                                                                  type:'POST',
+                                                                  data:{
+                                                                    'goal1': goal1,
+                                                                    'goal2': goal2,
+                                                                    'goal3': goal3,
+                                                                    'goal4': goal4,
+                                                                    'goal5': goal5,
+                                                                    '_token':_token},
+
+                                                                  error: function(response)
+                                                                  { console.log("Error fetching form type data ");
+                                                                  console.log(response); return false;
+                                                                  },
+                                                                  success: function(response)
+                                                                  {
+
+                                                                    console.log(response);
+                                                                    $.notify("Appraisal Form saved.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+
+                                                                    $('button.btn.btn-success').fadeOut();
+
+
+                                                                  }
+                                                                });
+                                                        
                                                         return false;
                                                     }
                                                 }
@@ -861,6 +1029,7 @@
             }
         }
 
+        // ******   STEP 1: SELECT TYPE OF FORM ******
         if (stepNumber == 0)
         {
           var role = $('input[name="type"]:checked');
@@ -893,6 +1062,8 @@
           
         }
 
+
+        // ******   REVIEW FORM ******
         if (stepNumber == 1)
         {
           var role = $('#roleid').val();
@@ -931,7 +1102,7 @@
               $('#reviewform tbody').html("");
               $.each( components, function( key, value ) {
 
-                $('#reviewform tbody').append('<tr><td style="font-size:larger;" class="text-primary"><i class="fa fa-check text-success"></i> &nbsp;'+key+'</td><td> <strong class="text-success">'+value[0]["componentWeight"]+'% </strong></td></tr>');
+                $('#reviewform tbody').append('<tr><td style="font-size:larger;" class="text-primary"><i class="fa fa-check text-success"></i> &nbsp;'+key+'</td><td> <strong class="text-success" style="font-size:larger">'+value[0]["componentWeight"]+'% </strong></td></tr>');
                 
                 if(key == "Goals & Objectives")
                 {
@@ -945,7 +1116,7 @@
 
                   var gctr=0;
 
-                  $('#reviewform tbody').append('<tr><td> Objectives & Action statements</td><td>Weight distribution</td></tr>');
+                  $('#reviewform tbody').append('<tr><td> Objectives & Action statements</td><td>Goal distribution</td></tr>');
 
                   $.each( goalstatements, function(key2, value2){
 
@@ -985,13 +1156,56 @@
          
         }
 
+        // ******   ASSIGN FORM ******
+        if (stepNumber == 2)
+        {
+          var role = $('#roleid').val();
+          var _token = "{{ csrf_token() }}";
+          $.ajax({
+            url:"{{action('NewPA_Form_Controller@getFormTypeSettings')}}",
+            type:'GET',
+            data:{
+              'id': role,
+              '_token':_token},
+
+            error: function(response)
+            { console.log("Error fetching form type data ");console.log(response); return false;
+            },
+            success: function(response)
+            {
+              //console.log(response);
+              $('#roletype_assign').html(response['allData'][0].roleType);
+              //$('#formtype').html(response['allData'][0].roleType);
+
+              var components = response['components'];
+              console.log("COMPONENTS");
+              console.log(components);
+
+              //****** setup COMPONENTS ************
+              var hiddeng = $('.hgoals');
+              console.log("hidden goals:");
+              console.log(hiddeng);
+
+              
+              //console.log(goals);
+              
+
+            }
+          });
+
+         
+        }
+
+          
+        
+
         //console.log("step is: "+ stepNumber);
-        return true;
+         return true;
     });
 
     $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
         // Enable finish button only on last step
-        if(stepNumber == 3){
+        if(stepNumber == 2){
             $('.btn-finish').removeClass('disabled');
         }else{
             $('.btn-finish').addClass('disabled');

@@ -76,6 +76,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=>'performance.getFormTypeSettings',
       'uses'=>'NewPA_Form_Controller@getFormTypeSettings') );
 
+    Route::post('/newPA/process', array(
+      'as'=>'performance.process',
+      'uses'=>'NewPA_Form_Controller@process') );
+
 
 
     /********** ------------ END NEW PA ------------  **************/
