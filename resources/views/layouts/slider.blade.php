@@ -1,6 +1,20 @@
 
 
-                 <div class="item active text-center" style="background-color: #f2232d" >
+                 <div class="item active text-center" ><!--  style="background-color: #f2232d" -->
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/thanksgiving-2019.png" style="z-index: 2" />
+                               <p class="text-center" style="padding: 50px;f">
+                                 
+
+                                With origins that can be traced back to harvest festivals, #Thanksgiving is a federal holiday celebrated in the United States on the fourth Thursday of November. Traditional celebrations include family gatherings, city parades, and professional football games. How are you celebrating the holiday?<br/><br/>To our friends, family, and colleagues celebrating the holiday, we wish you a happy Thanksgiving!<br/><br/>#WeSpeakYourLanguage #OAonThanksgiving</p>
+
+                              
+                               <br/><br/><br/>
+
+                    </div>
+
+                    <div class="item text-center" style="background-color: #f2232d" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/poster-hiv.png" style="z-index: 2" />
