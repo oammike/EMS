@@ -141,6 +141,8 @@ input.cropit-image-zoom-input {
                       @endif
 
                       @if ($canEditEmployees)
+                      <li @if($page == '4') class="active"  @endif ><a href="#access_pane" data-toggle="tab" ><i class="fa fa-key"></i>&nbsp;&nbsp; Grant Access</a></li>
+
                       <li @if($page == '2') class="active"  @endif ><a href="#approvers_pane" data-toggle="tab" ><i class="fa fa-check-square-o"></i>&nbsp;&nbsp; Approvers</a></li>
                       
                       
@@ -364,6 +366,56 @@ input.cropit-image-zoom-input {
                                   {{$lead->firstname}} {{$lead->lastname}}<br/>
 
                                 <?php } ?> <br/>
+                               
+
+                              </td>
+                              <td></td>
+                            </tr>
+                          
+                        </table>
+                        
+
+                      </div><!-- end APPROVERS pane -->
+
+                      <div class="chart tab-pane @if( $page == '4') active @endif" id="access_pane" style="position: relative; height: 300px;">
+                        <table class="table" style="margin-top: 40px">
+                          <tr>
+                              <td colspan="3" style="background-color: #e6e6e6;">
+                                <h4 class="text-primary pull-left"><i class="fa fa-key"></i>&nbsp;&nbsp; Grant Special Access</h4>
+                              <a id="grantaccess" class="btn btn-md btn-success pull-right"><i class="fa fa-save"></i> Save Settings</a>
+                            </td>
+                            </tr>
+
+                            <tr>
+                              <td><label>Employee Directory:</label></td>
+                              <td>
+
+                                @if(!$hasSpecialAccess)
+                                <label><input type="radio" name="directoryaccess" value="0" checked="checked" /> Disabled</label><br/>
+                                @else
+                                <label><input type="radio" name="directoryaccess" value="0" /> Disabled</label><br/>
+                                
+                                @endif
+
+                                @if ($isHR || $alwaysAccessible)
+                                <label><input type="radio" name="directoryaccess" value="1" checked="checked" /> Always Enabled</label><br/>
+                                @else
+                                <label><input type="radio" name="directoryaccess" value="1" /> Always Enabled</label><br/>
+                                @endif
+
+                                @if($hasSpecialAccess && !$isHR && !$alwaysAccessible)
+                                <label><input type="radio" name="directoryaccess" value="2" checked="checked" /> Limited Access from</label>
+                                <input class="datepicker" type="text" id="accessfrom" name="accessfrom" placeholder="MM/DD/YY" value="{{ date('m/d/Y', strtotime($accessDir->first()->startDate))}}" /> to  
+                                <input class="datepicker" type="text" id="accessto" name="accessto" placeholder="MM/DD/YY" value="{{ date('m/d/Y', strtotime($accessDir->first()->endDate))}}" />
+
+                                @else
+                                <label><input type="radio" name="directoryaccess" value="2" /> Limited Access from</label>
+                                <input class="datepicker" type="text" id="accessfrom" name="accessfrom" placeholder="MM/DD/YY" /> to  
+                                <input class="datepicker" type="text" id="accessto" name="accessto" placeholder="MM/DD/YY" />
+
+                                @endif
+                                
+                                
                                
 
                               </td>
@@ -636,6 +688,52 @@ input.cropit-image-zoom-input {
 
      }
      
+   });
+
+   $('#grantaccess').on('click',function(){
+
+    var selval = $('input[name="directoryaccess"]:checked');
+    var startDate = $('#accessfrom').val();
+    var endDate = $('#accessto').val();
+    var _token = "{{ csrf_token() }}";
+
+    if (selval.length < 1) { alert("Kindly indicate type of user access.");return false;}
+    else if(selval.val() == '2' && (startDate == "" || endDate=="" )){
+      alert("Kindly indicate start and end dates.");return false;
+
+    }else{
+      $.ajax({
+
+          url: "{{action('UserController@grantAccess')}}",
+          type: 'POST',
+          data: {
+              user: "{{$personnel->id}}",
+              directoryaccess: selval.val(),
+              role_id: "{{$role_id}}",
+              startDate: startDate,
+              endDate: endDate,
+              _token: _token
+          },
+          error: function(response){
+
+          },
+          success: function(response){
+
+                  console.log(response);
+
+                  $.notify("User access for "+response['user'].firstname+" "+response['user'].lastname+" updated successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                  setTimeout(function(){
+                     window.location.reload(1);
+                  }, 5000);
+
+                  
+
+          }
+
+      });
+    }
+    //console.log(selval);
+
    });
 
    

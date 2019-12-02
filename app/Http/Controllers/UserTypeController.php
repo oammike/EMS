@@ -120,7 +120,7 @@ class UserTypeController extends Controller
         $existing = UserType::find($request->id);
         $roles = $request->roles;
 
-        if ( count($existing) == 0 )
+        if ( count(array($existing)) == 0 )
         {
             $userType = new UserType;
             $userType->name = $request->name;

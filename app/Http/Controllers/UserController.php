@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Facades\Datatables;
 
 use OAMPI_Eval\Http\Requests;
+use OAMPI_Eval\Role;
 use OAMPI_Eval\User;
 use OAMPI_Eval\Cutoff;
 use OAMPI_Eval\User_Leader;
@@ -28,6 +29,7 @@ use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_Familyleave;
+use OAMPI_Eval\User_SpecialAccess;
 use OAMPI_Eval\Campaign;
 use OAMPI_Eval\Status;
 use OAMPI_Eval\Team;
@@ -66,6 +68,11 @@ class UserController extends Controller
       $myCampaign = $this->user->campaign; 
       $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
       $wf = UserType::find($this->user->userType_id)->roles->where('label','STAFFING_MANAGEMENT');
+      $accessDir = Role::where('label','ACCESS_EMPLOYEE_DIRECTORY')->first();
+
+
+      $today = Carbon::now('GMT+8');
+
 
       ($this->user->userType_id == 11) ? $wfAgent=true : $wfAgent=false;
       
@@ -73,10 +80,45 @@ class UserController extends Controller
       (count($wf) > 0) ? $isWorkforce=1 : $isWorkforce=0;
 
       $hr = Campaign::where('name','HR')->first();
-      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
-      (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
 
-      if(!$isHR) return view('access-denied');
+      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      if (in_array($this->user->id, $hrTeam))
+      {
+        $isHR=1; $canAccessDir=1;
+      }
+      else { $isHR=false; $canAccessDir=false; }
+
+
+
+
+      $specialAccess = User_SpecialAccess::where('user_id',$this->user->id)->where('role_id',$accessDir->id)->get();
+      if (count($specialAccess) > 0 && !$isHR ) {
+
+        // we need to check first kung valid date ba ung access nya
+        if (is_null($specialAccess->first()->startDate))
+          $canAccessDir=1; //meaning always accessbile sya kasi no date specified
+        else
+        {
+          $accessibleFrom = Carbon::parse($specialAccess->first()->startDate,'Asia/Manila');
+          $accessibleTo = Carbon::parse($specialAccess->first()->endDate,'Asia/Manila');
+
+          if( $today->format('Y-m-d') >= $accessibleFrom->format('Y-m-d') && $today->format('Y-m-d') <= $accessibleTo->format('Y-m-d') )
+            $canAccessDir=true;
+          else $canAccessDir=false;
+
+        }
+        
+
+        
+      }// else { $canAccessDir=false; }
+
+
+
+      //return response()->json(['isHR'=>$isHR,'canAccessDir?'=>$canAccessDir]);
+
+      if(!$canAccessDir) return view('access-denied');
+
+      //if(!$isHR) return view('access-denied');
 
 
       
@@ -122,6 +164,14 @@ class UserController extends Controller
 
       $myCampaign = $this->user->campaign; 
       $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
+
+      $hr = Campaign::where('name','HR')->first();
+
+      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
+
+      if (!$isHR) return view('access-denied');
+
       if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
 
         return view('people.employee-inactive', compact( 'hasUserAccess'));
@@ -134,6 +184,16 @@ class UserController extends Controller
 
       $myCampaign = $this->user->campaign; 
       $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
+
+      $hr = Campaign::where('name','HR')->first();
+
+      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
+
+      if (!$isHR) return view('access-denied');
+      
+
+
       if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
 
         return view('people.employee-floating', compact( 'hasUserAccess'));
@@ -555,6 +615,29 @@ class UserController extends Controller
 
         $canEditEmployees1 = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
         $canUpdateLeaves1 = UserType::find($this->user->userType_id)->roles->where('label','UPDATE_LEAVES');
+
+        $access = Role::where('label','ACCESS_EMPLOYEE_DIRECTORY')->first();
+        $role_id = $access->id;
+        $accessDir = User_SpecialAccess::where('user_id',$id)->where('role_id',$role_id)->get();
+
+        $hr = Campaign::where('name','HR')->first();
+        $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($id, $hrTeam)) ? $isHR=true : $isHR=false;
+        //return $accessDir;
+
+        $alwaysAccessible=null;
+        if ( count($accessDir) > 0  ) 
+        {
+          $hasSpecialAccess=true;
+          if ($isHR) $alwaysAccessible=true;
+          else if ( is_null($accessDir->first()->startDate) ) $alwaysAccessible=true;
+          else $alwaysAccessible=false;
+
+
+        } else{ $hasSpecialAccess=false; }
+
+        //return $accessDir;
+
         $page = $request->page;
 
         ($canEditEmployees1->isEmpty()) ? $canEditEmployees=false : $canEditEmployees=true;
@@ -622,8 +705,8 @@ class UserController extends Controller
             $currentTLcamp = Campaign::where('id',ImmediateHead_Campaign::find($personnelTL_ihCampID)->campaign_id)->get();
 
            
-
-            return view('people.employee-edit', compact('fromYr','canEditEmployees','canUpdateLeaves', 'page', 'approvers','teamMates', 'currentTLcamp', 'personnelTL_ihCampID', 'users','floors', 'userTypes', 'leaders', 'myCampaign', 'campaigns', 'personnel','personnelTL', 'statuses', 'positions'));
+            //return $accessDir;
+            return view('people.employee-edit', compact('isHR','alwaysAccessible', 'hasSpecialAccess','accessDir','role_id', 'fromYr','canEditEmployees','canUpdateLeaves', 'page', 'approvers','teamMates', 'currentTLcamp', 'personnelTL_ihCampID', 'users','floors', 'userTypes', 'leaders', 'myCampaign', 'campaigns', 'personnel','personnelTL', 'statuses', 'positions'));
 
 
         } 
@@ -1500,6 +1583,57 @@ class UserController extends Controller
        return response()->json($coll);
 
       
+    }
+
+    public function grantAccess(Request $request)
+    {
+      $user = User::find($request->user);
+      // 0 = disabled, 1 =always enabled; 2=limited
+      $directoryaccess = $request->directoryaccess;
+      $role_id = $request->role_id;
+      $existing=null;
+
+      if($directoryaccess=='0')
+      {
+        $todelete = User_SpecialAccess::where('user_id',$user->id)->where('role_id',$role_id)->delete();
+        
+
+      }else if($directoryaccess == '1')
+      {
+        $newAccess = new User_SpecialAccess;
+        $newAccess->user_id = $user->id;
+        $newAccess->role_id = $role_id;
+        $newAccess->save();
+
+      }else if ($directoryaccess == '2')
+      {
+        $startDate = Carbon::parse($request->startDate,'Asia/Manila');
+        $endDate =  Carbon::parse($request->endDate,'Asia/Manila');
+
+        //first, look for exisiting access
+        $existing = User_SpecialAccess::where('user_id',$user->id)->where('role_id',$role_id)->get();
+        if ( count($existing) > 0 )
+        {
+          $e = $existing->first();
+          $e->startDate = $startDate->format('Y-m-d');
+          $e->endDate = $endDate->format('Y-m-d');
+          $e->save();
+
+        }else
+        {
+          $newAccess = new User_SpecialAccess;
+          $newAccess->user_id = $user->id;
+          $newAccess->role_id = $role_id;
+          $newAccess->startDate = $startDate->format('Y-m-d');
+          $newAccess->endDate = $endDate->format('Y-m-d');
+          $newAccess->save();
+
+        }
+        
+
+      }
+      
+      return response()->json(['existing'=>$existing,'user'=>$user]);
     }
 
 

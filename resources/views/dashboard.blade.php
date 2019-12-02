@@ -55,7 +55,7 @@ select:-webkit-autofill:focus {
 
             <div class="col-lg-7 col-sm-6 col-xs-12">
 
-                @if(count($groupedForm)>0 && !$reportsTeam )
+                @if(count((array)$groupedForm)>0 && !$reportsTeam )
                 <!-- ************* POSTMATE WIDGET CHART ************ -->
 
                      @if($fromGuideline)
@@ -710,7 +710,7 @@ select:-webkit-autofill:focus {
 
 
    /*---------- GUIDELINE WIDGET ----------- */
-   @if(count($groupedForm)>0 && $fromGuideline)
+   @if(count((array)$groupedForm)>0 && $fromGuideline)
 
       $('select.formItem').on('change',function(){
         var itemName = $(this)[0]['name'];
@@ -864,7 +864,7 @@ select:-webkit-autofill:focus {
 
 
   /*---------- POSTMATES WIDGET ----------- */
-   @if(count($groupedForm)>0 && $fromPostmate)
+   @if(count((array)$groupedForm)>0 && $fromPostmate)
 
    $('#playbook').on('click',function(){
 
@@ -1095,7 +1095,7 @@ select:-webkit-autofill:focus {
 
    
 
-@if(count($performance)>0)
+@if(count((array)$performance)>0)
 @include('layouts.charts-scripts')
 @endif
 

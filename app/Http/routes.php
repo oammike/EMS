@@ -822,9 +822,14 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
           'as'=> 'editShifts',
           'uses'=>'UserController@editShifts') );
 
-      Route::post('/user/deleteThisUser/{id}', array(
+     Route::post('/user/deleteThisUser/{id}', array(
           'as'=> 'user.deleteThisUser',
           'uses'=>'UserController@deleteThisUser') );
+
+
+     Route::post('/user/grantAccess', array(
+          'as'=> 'user.grantAccess',
+          'uses'=>'UserController@grantAccess') );
 
 
 
