@@ -137,7 +137,7 @@
                                       
                                   </div>
                                   <div class="clearfix"></div> 
-                                  <div id="addPayroll"></div> 
+                                  <div id="addPayroll_{{$f->formID}}"></div> 
                                 @endif
 
 
@@ -145,7 +145,7 @@
                                   @if ($f->subType == "submit")
                                   
 
-                                  <button type="submit" name="submit" class="submit btn btn-lg btn-primary" style="margin-top: 20px;" ><i class="fa fa-save"></i> Submit</button>
+                                  <button type="submit" data-formid="{{$f->formID}}" name="submit" class="submit btn btn-lg btn-primary" style="margin-top: 20px;" ><i class="fa fa-save"></i> Submit</button>
                                   
 
                                   @endif

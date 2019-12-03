@@ -726,16 +726,17 @@ select:-webkit-autofill:focus {
         console.log('s: '+ s);
 
         if (selectedItem == 'xx'){
-          $('#addPayroll').html('<input required type="text" id="newPayroll" placeholder="add new Payroll Provider" class="form-control" />');
-        }else $('#addPayroll').html('');
+          $('#addPayroll_'+formID).html('<input required type="text" id="newPayroll_'+formID+'" placeholder="add new Payroll Provider" class="form-control" />');
+        }else $('#addPayroll_'+formID).html('');
       });
 
       $('.submit').on('click',function(e){
           e.preventDefault();
+          var formID = $(this).attr('data-formid');
 
-          var newPayroll = $('#newPayroll').val();
+          var newPayroll = $('#newPayroll_'+formID).val();
 
-          if (newPayroll == ''){ $('#newPayroll').css('border',"solid 3px #e24527");return false;}
+          if (newPayroll == ''){ $('#newPayroll_'+formID).css('border',"solid 3px #e24527");return false;}
           else
           {
             $('input,textarea,select').filter('[required]:visible').each(
