@@ -71,14 +71,14 @@
                 <div class="nav-tabs-custom" style="background: rgba(256, 256, 256, 0.1)">
                           <ul class="nav nav-tabs pull-right">  
 
-                             <li @if($tab =='verified')class="active" @endif><a href="{{action('FormSubmissionsController@widgets',['program'=>$program->id,'tab'=>'verified','form'=>$form->id])}}">
+                             <li @if($tab =='verified')class="active" @endif><a href="{{action('FormSubmissionsController@widgets',['program'=>$program->id,'tab'=>'verified','form'=>$form->id,'showfrom'=>$daystart->format('Y-m-d')])}}">
                               <strong class="text-primary "><i class="fa fa-check"></i> All Verified  </strong></a></li>
 
 
-                              <li @if($tab =='issues')class="active" @endif><a href="{{action('FormSubmissionsController@widgets',['program'=>$program->id,'tab'=>'issues','form'=>$form->id])}}">
+                              <li @if($tab =='issues')class="active" @endif><a href="{{action('FormSubmissionsController@widgets',['program'=>$program->id,'tab'=>'issues','form'=>$form->id,'showfrom'=>$daystart->format('Y-m-d')])}}">
                               <strong class="text-primary "><i class="fa fa-files-o"></i> Issues  </strong></a></li>
 
-                              <li  @if($tab =='review')class="active" @endif><a href="{{action('FormSubmissionsController@widgets',['program'=>$program->id,'tab'=>'review','form'=>$form->id])}}">
+                              <li  @if($tab =='review')class="active" @endif><a href="{{action('FormSubmissionsController@widgets',['program'=>$program->id,'tab'=>'review','form'=>$form->id,'showfrom'=>$daystart->format('Y-m-d')])}}">
                               <strong class="text-primary "><i class="fa fa-files-o"></i> Review  </strong></a></li>
 
                           </ul>
@@ -98,9 +98,10 @@
                                   <th>Sponsor Name</th>
                                   <th>User</th>
                                   <th>Payroll Provider</th>
-                                  <th>Status</th>
                                   
+                                  <th>Notes/Comments</th><th>Status</th>
                                   <th>Verifier</th>
+                                  
                                   <th></th>
                                         
                                  
@@ -110,18 +111,48 @@
                                   <?php $a = count($s)-1;?>
                                   @if ($s[$a]->value == "VERIFIED")
                                   <tr style="font-size: smaller;">
+
                                     <td style="font-size: x-small;">{{$s->first()->created_at}}</td>
                                     <td>{{$s->first()->lastname}}, {{$s->first()->firstname}}</td>
                                     <?php $c=0; ?>
-                                    @foreach($s as $item)
-                                      @if($c == 4)
-                                      <td style="text-transform: uppercase;">{{$item->value}} </td>
-                                      @else
-                                      <td>{{$item->value}} </td>
+                                    
 
+                                      @if( count($s) > 6 )
+
+                                          @foreach($s as $item)
+                                            @if($c == 4)
+                                            <td style="text-transform: uppercase;">{{$item->value}} </td>
+
+                                            @else
+                                            <td>{{$item->value}} </td>
+
+                                            @endif
+
+
+                                          <?php $c++; ?>
+                                          @endforeach
+
+                                      @else
+
+                                          @foreach($s as $item)
+                                            @if($c == 4)
+                                            <td style="text-transform: uppercase;">{{$item->value}} </td>
+                                            <td> -- </td>
+
+                                            @else
+                                            <td>{{$item->value}} </td>
+
+                                            @endif
+
+
+                                          <?php $c++; ?>
+                                          @endforeach
+                                      
                                       @endif
-                                    <?php $c++; ?>
-                                    @endforeach
+
+
+
+                                   
 
                                      <?php $r = collect($reviewers)->where('submissionID',$s[0]->submissionID); 
                                           if (count($r) > 1) //if may stages ng review, get only verified
@@ -135,6 +166,7 @@
                                       @if(count($r)==0)
 
                                       <td> <em>* same agent*</em> </td>
+                                      
 
                                       @else
 
@@ -145,6 +177,9 @@
                                         <td>{{$v->first()->reviewerFname}} {{$v->first()->reviewerLname}} </td>
 
                                         @endif
+
+
+
 
                                       @endif
                                       <td><a class="btn btn-xs btn-default" data-toggle="modal"  data-target="#myModal_del{{$s[0]->submissionID}}" ><i class="fa fa-trash"></i>  </a> </td>
@@ -194,7 +229,9 @@
                                     <th>Sponsor Name</th>
                                     <th>User</th>
                                     <th>Payroll Provider</th>
+                                    <th>Notes/Comments</th>
                                     <th>Status</th>
+
                                     <th>Reviewer</th>
                                     <th>Action</th>
                                   </thead>
@@ -207,15 +244,41 @@
                                       <td style="font-size: x-small;">{{$s->first()->created_at}}</td>
                                       <td>{{$s->first()->lastname}}, {{$s->first()->firstname}}</td>
                                       <?php $c=0; ?>
-                                      @foreach($s as $item)
-                                        @if($c == 4)
-                                        <td style="text-transform: uppercase;">{{$item->value}} </td>
-                                        @else
-                                        <td>{{$item->value}} </td>
 
-                                        @endif
-                                      <?php $c++; ?>
-                                      @endforeach
+                                      @if( count($s) > 6 )
+
+                                          @foreach($s as $item)
+                                            @if($c == 4)
+                                            <td style="text-transform: uppercase;">{{$item->value}} </td>
+
+                                            @else
+                                            <td>{{$item->value}} </td>
+
+                                            @endif
+
+
+                                          <?php $c++; ?>
+                                          @endforeach
+
+                                      @else
+
+                                          @foreach($s as $item)
+                                            @if($c == 4)
+                                            <td style="text-transform: uppercase;">{{$item->value}} </td>
+                                            <td> -- </td>
+
+                                            @else
+                                            <td>{{$item->value}} </td>
+
+                                            @endif
+
+
+                                          <?php $c++; ?>
+                                          @endforeach
+                                      
+                                      @endif
+
+                                      
 
                                       <?php $r = collect($reviewers)->where('submissionID',$s[0]->submissionID); ?>
 
@@ -300,7 +363,7 @@
                                   <th>Sponsor Name</th>
                                   <th>User</th>
                                   <th>Payroll Provider</th>
-                                  
+                                  <th>Notes/Comments</th>
                                   <th>Action</th>
                                 </thead>
                                 <tbody>
@@ -311,16 +374,48 @@
                                     <td style="font-size: x-small;">{{$s->first()->created_at}}</td>
                                     <td> {{$s->first()->lastname}}, {{$s->first()->firstname}}</td>
                                     <?php $c=0; ?>
-                                    @foreach($s as $item)
-                                      @if($c == 4)
-                                      <td style="text-transform: uppercase;">{{$item->value}} </td>
-                                      @elseif($c==5)
-                                      @else
-                                      <td>{{$item->value}} </td>
 
+                                    @if( count($s) > 6 )
+
+                                          @foreach($s as $item)
+                                            @if($c == 4)
+                                            <td style="text-transform: uppercase;">{{$item->value}} </td>
+
+                                            @elseif($c==5 || $c==6 )
+                                              @if($item->value !== "" && $item->value !== "FOR REVIEW")
+                                              <td>{{$item->value}}</td>
+                                              @endif
+                                            @else
+                                            <td>{{$item->value}}</td>
+
+                                            @endif
+
+
+                                          <?php $c++; ?>
+                                          @endforeach
+
+                                      @else
+
+                                          @foreach($s as $item)
+                                            @if($c == 4)
+                                            <td style="text-transform: uppercase;">{{$item->value}} </td>
+                                            <td> -- </td>
+
+                                            @elseif($c==5 || $c==6 )
+                                            
+                                            @else
+                                            <td>{{$item->value}} {{$c}}  </td>
+
+                                            @endif
+
+
+                                          <?php $c++; ?>
+                                          @endforeach
+                                      
                                       @endif
-                                    <?php $c++; ?>
-                                    @endforeach
+
+
+                                    
                                     <td>
                                       <a id="btnReview" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#update1{{$s->first()->submissionID}}"><i class="fa fa-thumbs-up"></i></a> 
                                       <a id="btnReview" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#update2{{$s->first()->submissionID}}"><i class="fa fa-thumbs-down"></i></a> 

@@ -55,7 +55,7 @@ select:-webkit-autofill:focus {
             <div class="col-lg-7 col-sm-6 col-xs-12">
 
 
-              @if( count((array)$groupedForm) > 0 && !$reportsTeam )
+              @if(count($groupedForm)>0 && !$reportsTeam )
                 <!-- ************* POSTMATE WIDGET CHART ************ -->
 
                      @if($fromGuideline)
@@ -562,7 +562,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
    });
 
     /*---------- GUIDELINE WIDGET ----------- */
-   @if(count((array)$groupedForm)>0 && $fromGuideline)
+   @if(count($groupedForm)>0 && $fromGuideline)
 
       $('select.formItem').on('change',function(){
         var itemName = $(this)[0]['name'];
@@ -715,7 +715,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
 
    /*---------- POSTMATES WIDGET ----------- */
-   @if(count((array)$groupedForm)>0 && $fromPostmate)
+   @if(count($groupedForm)>0 && $fromPostmate)
 
        $('#playbook').on('click',function(){
 

@@ -18,26 +18,18 @@
                       <div class="nav-tabs-custom" style="background: rgba(256, 256, 256, 0.1)">
                         <ul class="nav nav-tabs pull-right">  
 
-                           <li><a href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'issues','form'=>$campform])}}" target="_blank">
+                           <li><a href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'issues','form'=>'3'])}}" target="_blank">
                             <strong class="text-primary "><i class="fa fa-files-o"></i> Issues  </strong></a></li>
 
-                             <li><a href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'review','form'=>$campform])}}" target="_blank">
+                             <li><a href="{{action('FormSubmissionsController@widgets',['program'=>$prg2,'tab'=>'review','form'=>'3'])}}" target="_blank">
                             <strong class="text-primary "><i class="fa fa-files-o"></i> Review  </strong></a></li>
                           
                           <?php $ctr=0;?>
                           @foreach($groupedForm->keys() as $form)
-                          <li @if($ctr==0)class="active"@endif><a href="#tab_{{$ctr+1}}" data-toggle="tab">
+                          <li @if($ctr==1)class="active"@endif><a href="#tab_{{$ctr+1}}" data-toggle="tab">
                             <strong class="text-primary "><i class="fa fa-files-o"></i> {{$form}}<span id="actives"></span> </strong></a></li>
                           <?php $ctr++;?>  
                           @endforeach
-
-                         
-
-                         
-
-
-                         
-                         
 
 
                         </ul>
@@ -48,7 +40,7 @@
                           <?php $ctr=0; $idx=0; $done = array(); ?>
                           @foreach($groupedForm as $form)
                           
-                          <div class="tab-pane @if($ctr == 0)active @endif" id="tab_{{$ctr+1}}"> 
+                          <div class="tab-pane @if($ctr == 1)active @endif" id="tab_{{$ctr+1}}"> 
                             <form name="form{{$ctr+1}}" method="POST">
                             <?php $ctr2=0; ?>
 
@@ -132,8 +124,17 @@
 
                                   <div class="pull-right" style="width: 30%">
                                       <h4><br/>Action:</h4>
+
+                                      @if ($f->label == "Review Action")
+                                      <label><input id="{{$f->itemID}}" class="radio-group" type="radio" name="actiontaken" value="VERIFIED" required="required" > <i class="fa fa-3x fa-thumbs-up"></i></input> </label>&nbsp;&nbsp; 
+                                      <label><input id="{{$f->itemID}}" class="radio-group" type="radio" name="actiontaken" value="WITH ISSUE" required="required" > <i class="fa fa-3x fa-thumbs-down"></i></input></label>
+
+                                      @else
                                       <label><input id="{{$f->itemID}}" class="radio-group" type="radio" name="actiontaken" value="FOR REVIEW" required="required" > <i class="fa fa-3x fa-thumbs-up"></i></input> </label>&nbsp;&nbsp; 
                                       <label><input id="{{$f->itemID}}" class="radio-group" type="radio" name="actiontaken" value="WITH ISSUE" required="required" > <i class="fa fa-3x fa-thumbs-down"></i></input></label>
+
+                                      @endif
+                                      
                                   </div>
                                   <div class="clearfix"></div> 
                                   <div id="addPayroll"></div> 

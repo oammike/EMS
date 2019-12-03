@@ -1677,23 +1677,32 @@ class FormSubmissionsController extends Controller
                     // }
                 }
                     //$start = Carbon::parse($from,'Asia/Manila')->format('Y-m-d');$end =  Carbon::parse($to,'Asia/Manila')->format('Y-m-d');
-                    $form = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
-                    //return (['form'=>$form, 'id'=>$id,'f'=>$f->format('Y-m-d H:i:s'), 't'=>$t->format('Y-m-d H:i:s') ]);
-                    
+                    $form1 = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+
                       where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                       join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
                       join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
                       leftJoin('users','form_submissions_users.user_id','=','users.id')->
                       select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
-                      //return (['the form'=>$form, 'id'=>$id,'f'=>$f->format('Y-m-d H:i:s'), 't'=>$t->format('Y-m-d H:i:s') ]);
 
-                      /*$submissions = collect($form)->groupBy('submissionID');
-                        $headers = collect($form)->groupBy('label');
-                        $coll = new Collection;
-                        $coll->push(['headers'=>$headers, 'submissions'=>$submissions]);*/
+                    $b = FormBuilder::where('title',"Review Backlog")->first();
 
+       
 
+                    $backlogs = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$b->id)->
+
+                      where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
+                      join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                      join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                      leftJoin('users','form_submissions_users.user_id','=','users.id')->
+                      select('form_submissions_users.id as submissionID','users.firstname','users.lastname','formBuilder_items.label','form_submissions.value','form_submissions_users.created_at')->get();
+
+                    
+
+                    $form = array_merge($form1,$backlogs);
                     $submissions = collect($form)->groupBy('submissionID');
+
+                    //return response()->json(['backlogs'=>$backlogs, 'forms'=>$form1,'submissions'=>$submissions]);
                     $headers1 = collect($form)->groupBy('label')->keys();
                     $headers = array("Date", "Agent Name");
 
@@ -1750,6 +1759,7 @@ class FormSubmissionsController extends Controller
                                                          $item[3]->value, //user
                                                          
                                                          $item[4]->value, //payroll provider
+                                                         $item[count($item)-2]->value, //Notes/comment
                                                          $item[$citem]->value, //action
                                                          
                                                     
@@ -2085,7 +2095,8 @@ class FormSubmissionsController extends Controller
         $update->save();
 
         //we now update the status itself on the form submission
-        $action = FormBuilder_Items::where('formBuilder_id',$submission->formBuilder_id)->where('label',"Action")->get();
+        $action = FormBuilder_Items::where('formBuilder_id',$submission->formBuilder_id)->where('label', 'LIKE', '%Action%')->get();
+        //return response()->json(['action'=>$action,'update'=>$update,'submission'=>$submission]);
         $toUpdate = FormSubmissions::where('submission_user',$submission->id)->where('formBuilder_itemID',$action->first()->id)->first();
         $toUpdate->value = $request->newStatus;
         $toUpdate->push();
@@ -2118,7 +2129,7 @@ class FormSubmissionsController extends Controller
         (count($l) > 0) ? $logo = $l : $logo=null;
 
         
-        $submissions = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$form->id)->
+        $submission1 = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$form->id)->
                 //where('form_submissions_users.created_at','>=',$f->format('Y-m-d H:i:s'))->where('form_submissions_users.created_at','<=',$t->format('Y-m-d H:i:s'))->
                 join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
                 join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
@@ -2127,6 +2138,20 @@ class FormSubmissionsController extends Controller
                 select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->
                 where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
                 where('form_submissions_users.created_at','<=',$dayend->format('Y-m-d H:i:s'))->get();
+
+        $b = FormBuilder::where('title',"Review Backlog")->first();
+
+        $backlogs = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$b->id)->
+                join('form_submissions','form_submissions.submission_user','=','form_submissions_users.id')->
+                join('formBuilder_items','form_submissions.formBuilder_itemID','=','formBuilder_items.id')->
+                leftJoin('users','users.id','=','form_submissions_users.user_id')->
+                select('form_submissions_users.id as submissionID', 'users.firstname','users.nickname','users.lastname','users.id as userID','formBuilder_items.label', 'form_submissions.value','form_submissions_users.created_at')->
+                where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                where('form_submissions_users.created_at','<=',$dayend->format('Y-m-d H:i:s'))->get();
+
+        $submissions = array_merge( $submission1, $backlogs);
+        //return response()->json(['backlogs'=>$backlogs, 'submissions'=>$submissions]);
+
 
         $start = $correct;
         $end = $correct;
@@ -2153,6 +2178,8 @@ class FormSubmissionsController extends Controller
 
 
         $groupedSubmissions = collect($submissions)->groupBy('submissionID');
+
+        //return response()->json(['daystart'=>$daystart,'dayend'=>$dayend, 'groupedSubmissions'=>$groupedSubmissions]);
         //return $groupedSubmissions;
 
         $reviewers = DB::table('formBuilder')->where('formBuilder.id', $form->id)->
@@ -2173,6 +2200,6 @@ class FormSubmissionsController extends Controller
 
 
         //return $groupedSubmissions;
-        return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers','actualSubmissions','start','end','daystart'));
+        return view('forms.widgets-guideline',compact('program','logo','tab','groupedSubmissions','form','reviewers','actualSubmissions','daystart','dayend', 'start','end'));
     }
 }

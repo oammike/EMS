@@ -1010,6 +1010,7 @@ class HomeController extends Controller
                     //return $groupedSelects;
                     
                     //return $prg2;
+                    //return $groupedForm;
                     return view('dashboard-agent', compact('campform', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
                     
 
