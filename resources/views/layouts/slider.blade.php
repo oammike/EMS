@@ -1,20 +1,7 @@
 
+                 
 
-                 <div class="item active text-center" ><!--  style="background-color: #f2232d" -->
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <img src="./storage/uploads/thanksgiving-2019.png" style="z-index: 2" />
-                               <p class="text-center" style="padding: 50px;f">
-                                 
-
-                                With origins that can be traced back to harvest festivals, #Thanksgiving is a federal holiday celebrated in the United States on the fourth Thursday of November. Traditional celebrations include family gatherings, city parades, and professional football games. How are you celebrating the holiday?<br/><br/>To our friends, family, and colleagues celebrating the holiday, we wish you a happy Thanksgiving!<br/><br/>#WeSpeakYourLanguage #OAonThanksgiving</p>
-
-                              
-                               <br/><br/><br/>
-
-                    </div>
-
-                    <div class="item text-center" style="background-color: #f2232d" >
+                    <div class="item active text-center" style="background-color: #f2232d" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/poster-hiv.png" style="z-index: 2" />
@@ -49,42 +36,7 @@
                       
                 </div>
 
-                <div class="item  text-center" >
-                      <p style="margin-left: 35px; margin-right: 20px">
-                        <strong class="text-danger">Congratulations </strong><br/> to our <strong>Frightful Tales contest winners</strong>.<br/>
-                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
-                      <img src="./storage/uploads/winner-1.jpg" style="z-index: 2" width="100%" />
-                      <h3 class="text-primary">Krystle Salde<br/>
-                      <span style="font-size: small;" class="text-danger"><em>"When TL is away, someone/something will play?"</em></span></h3>
-                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
-                      
-                      
-                </div>
-
-
-                <div class="item text-center" >
-                      <p style="margin-left: 35px; margin-right: 20px">
-                        <strong class="text-danger">Congratulations </strong><br/> to our Frightful Tales contest winners.<br/>
-                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
-                      <img src="./storage/uploads/winner-2.jpg" style="z-index: 2" width="100%" />
-                      <h3 class="text-primary">Dwik Morados<br/>
-                      <span style="font-size: small;" class="text-danger"><em>"5th Floor"</em></span></h3>
-                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
-                      
-                      
-                </div>
-                <div class="item text-center" >
-                      <p style="margin-left: 35px; margin-right: 20px">
-                        <strong class="text-danger">Congratulations </strong><br/> to our Frightful Tales contest winners.<br/>
-                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
-                      <img src="./storage/uploads/winner-3.jpg" style="z-index: 2" width="100%" />
-                      <h3 class="text-primary">Lester Bambico<br/>
-                      <span style="font-size: small;" class="text-danger"><em>"Linda"</em></span></h3>
-                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
-                      
-                      
-                </div>
-
+               
                 
 
                 
@@ -486,6 +438,58 @@
 
 
 <?php /*
+
+<!-- FRIGHTENING TALES WINNERS -->
+ <div class="item  text-center" >
+                      <p style="margin-left: 35px; margin-right: 20px">
+                        <strong class="text-danger">Congratulations </strong><br/> to our <strong>Frightful Tales contest winners</strong>.<br/>
+                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
+                      <img src="./storage/uploads/winner-1.jpg" style="z-index: 2" width="100%" />
+                      <h3 class="text-primary">Krystle Salde<br/>
+                      <span style="font-size: small;" class="text-danger"><em>"When TL is away, someone/something will play?"</em></span></h3>
+                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
+                      
+                      
+                </div>
+
+
+                <div class="item text-center" >
+                      <p style="margin-left: 35px; margin-right: 20px">
+                        <strong class="text-danger">Congratulations </strong><br/> to our Frightful Tales contest winners.<br/>
+                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
+                      <img src="./storage/uploads/winner-2.jpg" style="z-index: 2" width="100%" />
+                      <h3 class="text-primary">Dwik Morados<br/>
+                      <span style="font-size: small;" class="text-danger"><em>"5th Floor"</em></span></h3>
+                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
+                      
+                      
+                </div>
+                <div class="item text-center" >
+                      <p style="margin-left: 35px; margin-right: 20px">
+                        <strong class="text-danger">Congratulations </strong><br/> to our Frightful Tales contest winners.<br/>
+                        <em><br/>They each received a 24,000 mAh power bank to help power up their dark evenings (and other goodies).</em></p>
+                      <img src="./storage/uploads/winner-3.jpg" style="z-index: 2" width="100%" />
+                      <h3 class="text-primary">Lester Bambico<br/>
+                      <span style="font-size: small;" class="text-danger"><em>"Linda"</em></span></h3>
+                      <a class="btn btn-success" href="{{action('EngagementController@show',1)}}"><i class="fa fa-search"></i> See the winning entries </a>
+                      
+                      
+                </div>
+
+
+<div class="item active text-center" ><!--  style="background-color: #f2232d" -->
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              <img src="./storage/uploads/thanksgiving-2019.png" style="z-index: 2" />
+                               <p class="text-center" style="padding: 50px;f">
+                                 
+
+                                With origins that can be traced back to harvest festivals, #Thanksgiving is a federal holiday celebrated in the United States on the fourth Thursday of November. Traditional celebrations include family gatherings, city parades, and professional football games. How are you celebrating the holiday?<br/><br/>To our friends, family, and colleagues celebrating the holiday, we wish you a happy Thanksgiving!<br/><br/>#WeSpeakYourLanguage #OAonThanksgiving</p>
+
+                              
+                               <br/><br/><br/>
+
+                    </div>
 
                   
                    
