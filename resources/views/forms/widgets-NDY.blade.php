@@ -176,7 +176,7 @@
       var to = $('#to').val();
 
       if (moment(from) <= moment(to))
-        window.location = 'formSubmissions/rawData/$form->id?from='+from+'&to='+to+'&page=$actualSubmissions->currentPage()&dl=1';
+        window.location = 'downloadTasks?program={{$program->id}}&from='+from+'&to='+to+'&page=$actualSubmissions->currentPage()&dl=1';
       else{
         $.notify("Invalid dates. Please check selected dates and try again.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); return false;
       }
