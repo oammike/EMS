@@ -41,6 +41,12 @@ use OAMPI_Eval\FormBuilderSubtypes;
 use OAMPI_Eval\FormSubmissions;
 use OAMPI_Eval\FormSubmissionsUser;
 
+use OAMPI_Eval\Task;
+use OAMPI_Eval\Task_Campaign;
+use OAMPI_Eval\Task_User;
+use OAMPI_Eval\Taskbreak_User;
+use OAMPI_Eval\TaskGroup;
+
 
 class HomeController extends Controller
 {
@@ -689,6 +695,9 @@ class HomeController extends Controller
       $user = $this->user; 
       DB::connection()->disableQueryLog();
       $forms = new Collection;
+      $groupedTasks=null;
+      $trackerNDY=null;
+
 
       if ( is_null($user->nickname) ) $greeting = $user->firstname;
       else $greeting = $user->nickname;
@@ -702,11 +711,14 @@ class HomeController extends Controller
 
       $prg = Campaign::where('name',"Postmates")->first()->id; //for widget
       $prg2 = Campaign::where('name',"Guideline")->first()->id; 
+      $prg3 = Campaign::where('name',"NDY")->first()->id; 
 
       if (empty($leadershipcheck)) {
           $myCampaign = collect($this->user->campaign->first()->id);
+          ($myCampaign->contains($prg3)) ? $fromNDY=true : $fromNDY=false;
           ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
-          ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
+          ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false;
+
 
          
       } 
@@ -714,17 +726,50 @@ class HomeController extends Controller
             $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
             
 
+            ($myCampaign->contains($prg3)) ? $fromNDY=true : $fromNDY=false; 
             ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
             ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
 
 
       }
 
-      //return (['fromPostmate'=>$fromPostmate,'fromGuideline'=>$fromGuideline]);
-      
-      /*
+      //******************* TASK TRACKER : NDY *************************
+      if ($fromNDY)
+      {
+        $trackerNDY = DB::table('task')->where('task.campaign_id',$prg3)->
+                    join('taskgroup','task.groupID','=','taskgroup.id')->
+                    join('task_campaign','task_campaign.campaign_id','=','task.campaign_id')->
+                    select('taskgroup.id as groupID', 'taskgroup.name as taskgroup','task.name as task','task.id','task_campaign.name as tracker')->
+                    orderBy('task.id','ASC')->get();
+        $groupedTasks = collect($trackerNDY)->groupBy('taskgroup');
 
-      }*/
+        $pending = Task_User::where('user_id',$this->user->id)->where('timeEnd',null)->orderBy('id','DESC')->get();
+        
+
+        if ( count($pending) >= 1 ){
+
+          $pendingTask = $pending->first();
+          $pendingBreak = Taskbreak_User::where('task_userID',$pendingTask->id)->where('timeEnd',null)->orderBy('id','DESC')->get();
+          $hasPendingTask = 1;
+        }else {
+          $pendingBreak=[];
+          $pendingTask = null; $hasPendingTask=0;
+        }
+
+
+        if ( count($pendingBreak) >= 1 ){
+          $pendingTaskBreak = $pendingBreak->first();
+          $hasPendingTaskBreak = 1;
+        }else {
+          $pendingTaskBreak = null; $hasPendingTaskBreak=0;
+        }
+
+        //return $groupedTasks;
+      }
+
+      //return response()->json(['haspendingTask'=>$hasPendingTask, 'haspendingBreak'=>$hasPendingTaskBreak,'pendingTask'=>$pendingTask,'pendingBreak'=>$pendingBreak, 'count'=>count($pendingBreak)]);
+
+      //******************* TASK TRACKER : NDY *************************
 
 
 
@@ -1011,7 +1056,7 @@ class HomeController extends Controller
                     
                     //return $prg2;
                     //return $groupedForm;
-                    return view('dashboard-agent', compact('campform', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
+                    return view('dashboard-agent', compact('campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
                     
 
 
@@ -1022,7 +1067,7 @@ class HomeController extends Controller
                     //-- Initialize Approvals Dashlet
 
                    //return $groupedForm[0];
-                    return view('dashboard', compact('campform', 'fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
+                    return view('dashboard', compact('campform', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
                    
 
 
