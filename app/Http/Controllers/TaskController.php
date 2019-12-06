@@ -62,6 +62,9 @@ class TaskController extends Controller
       $program = Campaign::find(Input::get('program'));
 
       if (empty($program)) return view('empty');
+
+      if ($this->user->userType_id == '4') return view('access-denied');
+
       $l = DB::table('campaign_logos')->where('campaign_id',$program->id)->get();
         (count($l) > 0) ? $logo = $l : $logo=null;
       
@@ -125,7 +128,8 @@ class TaskController extends Controller
                     fclose($file);
                 } 
 
-      return view('forms.widgets-NDY',compact('allTasks','breaks','program','todayStart','todayEnd','logo','tracker','actualSubmissions'));
+      $onlymine=false;
+      return view('forms.widgets-NDY',compact('allTasks','breaks','program','todayStart','todayEnd','logo','tracker','actualSubmissions','onlymine'));
       
     }
 
@@ -311,6 +315,93 @@ class TaskController extends Controller
 
     	return $taskID;
 
+    }
+
+
+    public function myTasks()
+    {
+      
+      DB::connection()->disableQueryLog(); $correct=Carbon::now('GMT+8');
+
+
+
+      $program = Campaign::find(Input::get('program'));
+
+      if (empty($program)) return view('empty');
+      $l = DB::table('campaign_logos')->where('campaign_id',$program->id)->get();
+        (count($l) > 0) ? $logo = $l : $logo=null;
+      
+     
+
+       if (is_null(Input::get('showfrom')))
+        {
+            $todayStart = Carbon::now('GMT+8')->startOfDay(); $todayEnd = Carbon::now('GMT+8')->endOfDay();
+        }
+        else {
+            $todayStart = Carbon::parse(Input::get('showfrom'),'Asia/Manila')->startOfDay(); 
+            $todayEnd = Carbon::parse(Input::get('showfrom'),'Asia/Manila')->endOfDay();
+        }
+
+
+      $allTasks = DB::table('task_campaign')->where('task_campaign.campaign_id',$program->id)->
+                join('task','task.campaign_id','=','task_campaign.campaign_id')->
+                join('taskgroup','task.groupID','=','taskgroup.id')->
+                join('task_user','task_user.task_id','=','task.id')->
+                where('task_user.user_id',$this->user->id)->
+                join('users','users.id','=','task_user.user_id')->
+                join('positions','positions.id','=','users.position_id')->
+                select('task_campaign.name as tracker', 'task.id as taskID','task.name as task', 'taskgroup.name as taskGroup','taskgroup.id as groupID', 'task_user.id as submissionID','task_user.user_id','users.firstname','users.lastname', 'positions.name as jobTitle', 'task_user.timeStart','task_user.timeEnd','task_user.created_at')->
+                
+                where('task_user.created_at','>=',$todayStart->format('Y-m-d H:i:s'))->
+                where('task_user.created_at','<=',$todayEnd->format('Y-m-d H:i:s'))->get();
+
+
+
+      $actualSubmissions = DB::table('task_campaign')->where('task_campaign.campaign_id',$program->id)->
+                join('task','task.campaign_id','=','task_campaign.campaign_id')->
+                join('taskgroup','task.groupID','=','taskgroup.id')->
+                join('task_user','task_user.task_id','=','task.id')->
+                where('task_user.user_id',$this->user->id)->
+                join('users','users.id','=','task_user.user_id')->
+                join('positions','positions.id','=','users.position_id')->
+                select('task_campaign.name as tracker', 'task.id as taskID','task.name as task', 'taskgroup.name as taskGroup','taskgroup.id as groupID', 'task_user.id as submissionID','task_user.user_id','users.firstname','users.lastname', 'positions.name as jobTitle', 'task_user.timeStart','task_user.timeEnd','task_user.created_at')->
+                
+                where('task_user.created_at','>=',$todayStart->format('Y-m-d H:i:s'))->
+                where('task_user.created_at','<=',$todayEnd->format('Y-m-d H:i:s'))->paginate(500);
+
+     $tracker = Task_Campaign::where('campaign_id',$program->id)->first();
+
+      $allBreaks = DB::table('task_campaign')->where('task_campaign.campaign_id',$program->id)->
+                join('task','task.campaign_id','=','task_campaign.campaign_id')->
+                //join('taskgroup','task.groupID','=','taskgroup.id')->
+                join('task_user','task_user.task_id','=','task.id')->
+                where('task_user.user_id',$this->user->id)->
+                join('taskbreak_user','taskbreak_user.task_userID','=','task_user.id')->
+                join('users','users.id','=','task_user.user_id')->
+                //join('positions','positions.id','=','users.position_id')->
+                select('task.id as taskID','task.name as task', 'task_user.id as submissionID','task_user.user_id','users.firstname','users.lastname', 'task_user.timeStart','task_user.timeEnd','taskbreak_user.timeStart as breakStart','taskbreak_user.timeEnd as breakEnd')->get();
+      //Task_User::where()where('created_at','>=',$todayStart->format('Y-m-d H:i:s'))->where('created_at','<=',$todayEnd->format('Y-m-d H:i:s'))->get();
+      $breaks = new Collection;
+      foreach ($allBreaks as $break) {
+        $b = Carbon::parse($break->breakEnd,'Asia/Manila')->diffInMinutes(Carbon::parse($break->breakStart,'Asia/Manila'));
+        $duration = Carbon::parse($break->timeEnd,'Asia/Manila')->diffInMinutes(Carbon::parse($break->timeStart,'Asia/Manila'));
+        $totalDuration = $duration - $b;
+        $breaks->push(['taskID'=>$break->taskID,'submissionID'=>$break->submissionID,'minuteBreaks'=>$b,'totalDuration'=>$totalDuration,'duration'=>$duration, 'timeStart'=>$break->timeStart,'timeEnd'=>$break->timeEnd]);
+
+
+        # code...
+      }
+
+      if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Viewed MyTasks [".$tracker->name."]  ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                } 
+
+      $onlymine = true;
+
+      return view('forms.widgets-NDY',compact('allTasks','breaks','program','todayStart','todayEnd','logo','tracker','actualSubmissions','onlymine'));
+      
     }
 
     public function startBreak(Request $request)

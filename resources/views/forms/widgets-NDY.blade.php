@@ -166,7 +166,17 @@
     $('#updatetable').on('click',function(){
      
       var showfrom = $('#showfrom').val();
-      window.location = "allTasks?program={{$program->id}}&showfrom="+showfrom;
+
+      @if($onlymine)
+
+      window.location = "myTasks?program={{$program->id}}&showfrom="+showfrom;
+
+      @else
+
+      window.location = "allTasks?program={{$program->id}}&showfrom="+showfrom; 
+
+      @endif
+      
 
     });
 

@@ -94,6 +94,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=>'task.allTasks',
       'uses'=>'TaskController@allTasks') );
 
+    Route::get('/myTasks', array(
+      'as'=>'task.myTasks',
+      'uses'=>'TaskController@myTasks') );
+
     Route::get('/downloadTasks', array(
       'as'=>'task.download',
       'uses'=>'TaskController@download') );

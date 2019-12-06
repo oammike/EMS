@@ -112,7 +112,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer" style="background: rgba(0,0,0, 0.7)">
-                       <a href="javascript:void(0)" class="btn btn-xs btn-default btn-flat pull-right" style="margin-left: 5px"><i class="fa fa-file-o"></i>  My Tasks</a>
+                       <a href="{{action('TaskController@myTasks',['program'=>54])}}" class="btn btn-xs btn-default btn-flat pull-right" style="margin-left: 5px"><i class="fa fa-file-o"></i>  My Tasks</a>
                        <a href="{{action('TaskController@allTasks',['program'=>54])}}" class="btn btn-xs btn-default btn-flat pull-right"><i class="fa fa-file"></i> All Tasks</a>
                      </div>
                     <!-- /.box-footer -->
