@@ -51,10 +51,17 @@
                 </div>
                   
 
-                  <a id="download" class="btn btn-success btn-sm pull-left" style="margin-top: 27px; margin-left: 5px">  
-                  <?php //href="{{route('formSubmissions.rawData',['id'=>$form->id, 'from'=>$start,'to'=>$end,'page'=>$actualSubmissions->currentPage(),'dl'=>1])}}">
-                  //href="formSubmissions/rawData/{{$form->id}}?from={{$start}}&to={{$end}}&page={{$actualSubmissions->currentPage()}}&dl=1"> ?>
+                  @if($onlymine)
+                  <a id="download" disabled="disabled" class="btn btn-success btn-sm pull-left" style="margin-top: 27px; margin-left: 5px">  
+                  
                   <i class="fa fa-download"></i> Download Spreadsheet</a>
+
+                  @else
+                  <a id="download" class="btn btn-success btn-sm pull-left" style="margin-top: 27px; margin-left: 5px">  
+                  
+                  <i class="fa fa-download"></i> Download Spreadsheet</a>
+
+                  @endif
 
 
                   <div class="pull-right" style="width: 40%; margin-right: 10px;">
@@ -180,6 +187,7 @@
 
     });
 
+    @if(!$onlymine)
     $('#download').on('click',function(){
 
       var from = $('#from').val();
@@ -193,6 +201,7 @@
 
 
     });
+    @endif
 
   
    
