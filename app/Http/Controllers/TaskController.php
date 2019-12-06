@@ -57,7 +57,7 @@ class TaskController extends Controller
     public function allTasks()
     {
       
-      DB::connection()->disableQueryLog();
+      DB::connection()->disableQueryLog(); $correct=Carbon::now('GMT+8');
 
       $program = Campaign::find(Input::get('program'));
 
@@ -119,7 +119,12 @@ class TaskController extends Controller
       	# code...
       }
 
-      //return $allTasks;
+      if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Viewed AllTasks [".$tracker->name."]  ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                } 
+
       return view('forms.widgets-NDY',compact('allTasks','breaks','program','todayStart','todayEnd','logo','tracker','actualSubmissions'));
       
     }
@@ -278,6 +283,12 @@ class TaskController extends Controller
     	$breakID->timeEnd = Carbon::parse($correct->format('Y-m-d')." ".$request->clocktime,'Asia/Manila')->format('Y-m-d H:i:s');
     	$breakID->save();
 
+      if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n END break ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                } 
+
     	return $breakID;
 
     }
@@ -291,6 +302,12 @@ class TaskController extends Controller
     	$taskID->task_id = $selectedtask->id;
     	$taskID->timeEnd = Carbon::parse($correct->format('Y-m-d')." ".$request->clocktime,'Asia/Manila')->format('Y-m-d H:i:s');
     	$taskID->save();
+
+      if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n END task ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                } 
 
     	return $taskID;
 
@@ -310,6 +327,12 @@ class TaskController extends Controller
     	$taskUser->updated_at = $correct->format('Y-m-d H:i:s');
     	$taskUser->save();
 
+      if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n START break ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                } 
+
     	return $taskUser;
 
     }
@@ -321,6 +344,13 @@ class TaskController extends Controller
     	$taskUser->user_id = $this->user->id;
     	$taskUser->timeStart = Carbon::parse($correct->format('Y-m-d')." ".$request->clocktime,'Asia/Manila')->format('Y-m-d H:i:s');
     	$taskUser->save();
+
+      if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n START task ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                } 
+
 
     	return $taskUser;
     }
