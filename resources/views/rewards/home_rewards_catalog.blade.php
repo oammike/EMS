@@ -143,8 +143,7 @@
           </div>
           <div id="qr_code_wrapper">
             <p>Your order has been queued.</p>
-            <p>Tap your ID with the barista @G2.<br/>Alternatively, here's your order slip. Show this to the barista to claim your order.</p>
-            <p>This QR code is the same with the sticker issued by IT.<br/>If you don't have your QR tag yet, contact IT to claim yours.</p>
+            <p>Claim your reward with the barista @G2.</p>
             <div id="qr-code-container"></div>
           </div>
           
@@ -240,8 +239,8 @@
 						$('#claimer_error').text();
             $('#form_elements').hide();
             
-            $('#qr-code-container').attr('style','background-image:url("{{ url('/') }}'+data.file+'?micro='+micro+'");');
-            $('#qr-code-container').show();
+            //$('#qr-code-container').attr('style','background-image:url("{{ url('/') }}'+data.file+'?micro='+micro+'");');
+            //$('#qr-code-container').show();
             $('#qr_code_wrapper').show();
 						//$('#modalConfirm').modal('hide');
 						window.selected_reward_id = 0;
