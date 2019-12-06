@@ -697,6 +697,11 @@ class HomeController extends Controller
       $forms = new Collection;
       $groupedTasks=null;
       $trackerNDY=null;
+      $pendingTask=null;
+      $hasPendingTask=null;
+      $pendingTaskBreak=null;
+      $hasPendingTaskBreak=null;
+      $fromNDY=null;
 
 
       if ( is_null($user->nickname) ) $greeting = $user->firstname;
@@ -1067,7 +1072,7 @@ class HomeController extends Controller
                     //-- Initialize Approvals Dashlet
 
                    //return $groupedForm[0];
-                    return view('dashboard', compact('campform', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
+                    return view('dashboard', compact('campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
                    
 
 

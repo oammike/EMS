@@ -689,7 +689,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
         console.log('time:');
         console.log(clocktime);
 
-        if (grouptype == 0) {alert("Kindly specify first the task you worked on before ending session."); return false;}
+        if (grouptype == 0 || seltask==0) {alert("Kindly specify first the task you worked on before ending session."); return false;}
         else
         {
           $('.track').fadeOut();
