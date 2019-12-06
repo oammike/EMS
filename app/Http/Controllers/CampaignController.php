@@ -58,6 +58,9 @@ class CampaignController extends Controller
     public function index()
     {
             DB::connection()->disableQueryLog();
+
+            if ($this->user->userType_id == '4') return view('access-denied');
+
             if (Input::get('sort')=='Z'){
 
                 $allCamps = DB::table('campaign')->where([
@@ -173,6 +176,8 @@ class CampaignController extends Controller
     public function orgChart()
     {
       $coll = new Collection;
+
+      if ($this->user->userType_id == '4') return view('access-denied');
 
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canDelete =  ($roles->contains('DELETE_EMPLOYEE')) ? '1':'0';
