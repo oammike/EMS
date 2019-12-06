@@ -12,7 +12,7 @@
                                 <strong>Where:</strong> 5F Left wing Jaka bldg and G2 lobby<br/>
                                 <strong>When:</strong> Monday December 9, 2019 8AM-12noon<br/></br/>See you there!</p>
                              
-                              <img src="./storage/uploads/missu2019.jpg" style="z-index: 2" />
+                              <img src="./storage/uploads/missu-invite.jpg" style="z-index: 2" />
                                
 
 
