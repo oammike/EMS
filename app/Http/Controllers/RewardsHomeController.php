@@ -19,6 +19,7 @@ use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Input;
 use DB;
 
 /**
@@ -35,7 +36,8 @@ class RewardsHomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except' => ['barista']]);
+
         $this->pagination_items = 50;
     }
 
@@ -70,7 +72,7 @@ class RewardsHomeController extends Controller
       $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
       
       $user_id = \Auth::user()->id;
-      $user = User::with('points','team')->find($user_id); //return $user;
+      $user = User::with('points','team')->find($user_id);
       
       $orders = Orders::with('item')
               ->where([
@@ -78,25 +80,13 @@ class RewardsHomeController extends Controller
                 ['status','=','PENDING'],
               ])
               ->get();
-
-      //fix for those with null points
-      if( is_null($user->points))
-        $data = [
+      
+      $data = [
         'include_rewards_scripts' => TRUE,
         'contentheader_title' => "Rewards Catalog",
         'items_per_page' => $this->pagination_items,
         'rewards' => $rewards,
-        'remaining_points' => null,
-        'orders' => $orders
-      ];
-
-      else
-        $data = [
-        'include_rewards_scripts' => TRUE,
-        'contentheader_title' => "Rewards Catalog",
-        'items_per_page' => $this->pagination_items,
-        'rewards' => $rewards,
-        'remaining_points' => $user->points->points,
+        'remaining_points' => is_null($user->points) ? null : $user->points->points,
         'orders' => $orders
       ];
       
@@ -105,7 +95,14 @@ class RewardsHomeController extends Controller
     }
     
     public function barista(){
-        return view('barista-home');
+      $skip = 0 * $this->pagination_items;
+      $take = $this->pagination_items;
+      $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+      $data = [
+        'rewards' => $rewards
+      ];
+      app('debugbar')->disable();
+        return view('barista-home', $data);
     }
     
     public function cancel_order($id){
@@ -133,9 +130,16 @@ class RewardsHomeController extends Controller
     }
     
     public function print_qr($employee_id){
-      $user = User::with('points','team')->find($user_id);
+      //$user = User::with('points','team')->find($employee_id);
       $connector = new NetworkPrintConnector("172.18.36.200", 9100);
       $printer = new Printer($connector);
+      $printer -> setJustification(Printer::JUSTIFY_CENTER);
+      $printer -> qrCode($employee_id, Printer::QR_ECLEVEL_L, 6,Printer::QR_MODEL_2);
+      
+      $printer -> feed(1);
+      
+      $printer -> cut();
+      $printer -> close();
     }
     
     public function print_order($code){
@@ -215,6 +219,119 @@ class RewardsHomeController extends Controller
         ], 200);
       }
               
+      
+    }
+
+    public function create_order(){
+
+      $code = Input::get('code');
+      $reward_id = Input::get('order_id');
+      
+      $id = DB::table('users')
+            ->select('id')
+            ->where(DB::raw('concat(`id`,`employeeNumber`)'),'=',$code)
+            ->get();
+      
+      $user_id = $id[0]->id;
+
+      $user = User::with('points','team')->find($user_id);
+      $reward = Reward::find($reward_id);
+
+        if($user->points==null){
+          if($user->points!==0){
+            $record = new Point;
+            $record->idnumber = $user_id;
+            $record->points = 10;
+            $record->save();
+          }
+        }
+        
+        if($user->points == null || $reward->cost > $user->points->points ){
+          return response()->json([
+            'success' => false,
+            'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
+          ], 422);
+        }
+        
+      if($user->points()->decrement('points', $reward->cost)){
+        $record = new ActivityLog;
+        $record->initiator_id       = $user_id;
+        $record->target_id      = $user_id;
+        $record->description = "claimed ".$reward->name." for ".$reward->cost." points";
+        
+        $order = new Orders;
+        $order->user_id = $user_id;
+        $order->reward_id = $reward->id;
+        $order->status = "PRINTED";
+        $order->save();
+        
+        if($record->save()) {
+          try{
+            $micro = microtime(true);                
+            $current_points = $user->points->points - $reward->cost;                
+
+            $items = array(
+                new PrintItem("Name: ".$user->firstname." ".$user->lastname),
+                new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
+                new PrintItem("Remaining Points:", $user->points->points)
+            );                
+              
+            $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
+            $connector = new NetworkPrintConnector("172.18.36.200", 9100);
+            $printer = new Printer($connector);
+            
+            $printer -> setJustification(Printer::JUSTIFY_CENTER);
+            $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
+            $printer -> setJustification(Printer::JUSTIFY_CENTER);
+            $printer -> setTextSize(2,2);
+            $printer -> text("OAM Rewards\n");
+            $printer -> feed(1);
+            $printer -> setTextSize(1,1);              
+            $printer -> text(date("m/d/Y h:i a")."\n");
+            $printer -> text("Receipt Number:".sprintf('%08d', $order->id)."\n");
+            $printer -> feed(2);
+            
+            $printer -> setJustification(Printer::JUSTIFY_LEFT);
+            $printer -> setTextSize(1,1);
+            foreach ($items as $item) {
+              $printer -> text($item);
+            }      
+            $printer -> feed(2);
+            $printer -> cut();
+            $printer -> close();
+
+            return response()->json([
+                  'success' => true,
+                  'idnumber' => $user_id,
+                  'micro' => $micro,
+                  'order_id' => $record->id,
+                  'label' => $reward->name,
+                  'file' => '/public/media/qr/'.$user_id.'.svg',
+                  'points' => $current_points
+                ], 200);
+          }catch(\Exception $e){
+            $error_message = $e->getMessage();
+            $record->delete();
+            $user->points()->increment('points',$reward->cost);
+            $error = true;
+          }
+        }else{
+          $user->points()->increment('points',$reward->cost);
+          $error = true;
+          $error_message = "could not log the activity";
+        }
+      }else{
+        $error = true;
+        $error_message = "could not re-allocate points properly";
+      }
+
+      if($error){
+        return response()->json([
+          'success' => false,
+          'message' => array('Could not write to database. Please try again later.'),
+          'error'   => $error_message
+        ], 422);
+      }
       
     }
     
@@ -298,9 +415,42 @@ class RewardsHomeController extends Controller
             
             if($record->save()) {
               try{
-                $micro = microtime(true);
-                
-                $current_points = $user->points->points - $reward->cost;
+                $micro = microtime(true);                
+                $current_points = $user->points->points - $reward->cost;                
+
+                $items = array(
+                    new PrintItem("Name: ".$user->firstname." ".$user->lastname),
+                    new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
+                    new PrintItem("Remaining Points:", $user->points->points)
+                );                
+                  
+                  $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
+                  $connector = new NetworkPrintConnector("172.18.36.200", 9100);
+                  $printer = new Printer($connector);
+                  
+                  $printer -> setJustification(Printer::JUSTIFY_CENTER);
+                  $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
+                  $printer -> setJustification(Printer::JUSTIFY_CENTER);
+                  $printer -> setTextSize(2,2);
+                  $printer -> text("OAM Rewards\n");
+                  $printer -> feed(1);
+                  $printer -> setTextSize(1,1);              
+                  $printer -> text(date("m/d/Y h:i a")."\n");
+                  $printer -> text("Receipt Number:".sprintf('%08d', $order->id)."\n");
+                  $printer -> feed(2);
+                  
+                  $printer -> setJustification(Printer::JUSTIFY_LEFT);
+                  $printer -> setTextSize(1,1);
+                  foreach ($items as $item) {
+                    $printer -> text($item);
+                  }      
+                  $printer -> feed(2);
+                  $printer -> cut();
+                  $printer -> close();
+                  
+                  $order->status = "PRINTED";
+                  $order->save();
+              
                 
                 
                 QrCode::size(500)

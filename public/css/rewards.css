@@ -23,7 +23,7 @@
 
 .product-image-container{
 	margin: 0 auto;
-	width: 256px;
+	width: 100%;
     height: 192px;
     background-size: cover;
     background-repeat: no-repeat;
