@@ -64,6 +64,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('employeeEngagement','EngagementController');
     Route::resource('usergallery','GalleryController');
 
+    Route::resource('task','TaskController');
+
     
 
     /********** NEW PA   **************/
@@ -83,6 +85,35 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
     /********** ------------ END NEW PA ------------  **************/
+
+    
+
+    //********************** NDY TASK TRACKER ***********************
+
+    Route::get('/allTasks', array(
+      'as'=>'task.allTasks',
+      'uses'=>'TaskController@allTasks') );
+
+    Route::get('/myTasks', array(
+      'as'=>'task.myTasks',
+      'uses'=>'TaskController@myTasks') );
+
+    Route::get('/downloadTasks', array(
+      'as'=>'task.download',
+      'uses'=>'TaskController@download') );
+
+    Route::post('/startTask', array(
+      'as'=>'task.startTask',
+      'uses'=>'TaskController@startTask') );
+    Route::post('/startBreak', array(
+      'as'=>'task.startBreak',
+      'uses'=>'TaskController@startBreak') );
+    Route::post('/endBreak', array(
+      'as'=>'task.endBreak',
+      'uses'=>'TaskController@endBreak') );
+    Route::post('/endTask', array(
+      'as'=>'task.endTask',
+      'uses'=>'TaskController@endTask') );
 
 
     Route::get('/logAction/{action}', array(

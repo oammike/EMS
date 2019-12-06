@@ -54,8 +54,14 @@ select:-webkit-autofill:focus {
 
             <div class="col-lg-7 col-sm-6 col-xs-12">
 
+              @if($fromNDY)
 
-              @if(count($groupedForm)>0 && !$reportsTeam )
+                @include('layouts.widget-NDY')
+
+              @endif
+
+
+              @if(count(array($groupedForm)) >0 && !$reportsTeam )
                 <!-- ************* POSTMATE WIDGET CHART ************ -->
 
                      @if($fromGuideline)
@@ -92,7 +98,7 @@ select:-webkit-autofill:focus {
 
 
              
-
+              @if(!$fromNDY)
               <!-- ************* TIMEKEEPING BACKUP ************ -->
               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                 <div class="box-header with-border">
@@ -106,8 +112,9 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
+                       <h2 class="text-center text-primary"><span style="font-size: smaller;"><?php echo date('l M d, Y'); ?></span> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
                       <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p>
-                      <h2 class="text-center text-primary"><?php echo date('l M d, Y'); ?> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
+                      
                       <br/><br/>
                       <p class="text-center">
 
@@ -120,6 +127,8 @@ select:-webkit-autofill:focus {
                       </p>
                     </div>
               </div>
+
+              @endif
 
 
              
@@ -391,6 +400,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                 type: "GET",
                 data: {'action': '5'},
                 success: function(response){
+                          
                           console.log(response);
 
               }
@@ -500,7 +510,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
   }
 
 
-   $('.timekeeping').on('click', function(){
+  $('.timekeeping').on('click', function(){
 
     var logtype_id = $(this).attr('data-timetype');
     var btn = $(this);
@@ -551,18 +561,191 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
               $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
 
         }
-      }); 
+      });
+
+  });
+
+  /*---------- NDY WIDGET ----------- */
+
+  @if($fromNDY)
+
+      $('.tasks').fadeOut();$('.track').fadeOut();
+      @if($hasPendingTask=='1' && $hasPendingTaskBreak=='1')
+          $('#btn_breakout').fadeIn('fast');
+      @elseif($hasPendingTask==1) 
+          $('#btn_breakin').fadeIn('fast'); 
+          $('#btn_stop').fadeIn('fast');
+      @else
+          $('#start').fadeIn();
+      @endif
+      
+
+      $('#start').on('click',function(){
+
+        $(this).fadeOut();
+        $('#btn_breakin').fadeIn();
+        $('#btn_stop').fadeIn();
+        var _token = "{{ csrf_token() }}";
+        var clocktime = $('#clock').text();
+
+        $.ajax({
+                          url: "{{action('TaskController@startTask')}}",
+                          type: "POST",
+                          data: {
+                            clocktime: clocktime,
+                            _token: _token
+                          },
+                          success: function(response){
+                                    $('#taskID').val(response.id);
+                                    console.log(response);
+
+                        }
+
+              });
+
+      });
+
+      $('#btn_breakin').on('click',function(){
+
+        $(this).fadeOut('fast');
+        $('#btn_stop').fadeOut('fast');
+        $('#btn_breakout').fadeIn();
+        //create new DB entry for break
+        var _token = "{{ csrf_token() }}";
+        var clocktime = $('#clock').text();
+        var taskID = $('#taskID').val();
+
+        $.ajax({
+                          url: "{{action('TaskController@startBreak')}}",
+                          type: "POST",
+                          data: {
+                            clocktime: clocktime,
+                            taskID: taskID,
+                            _token: _token
+                          },
+                          error: function(res){
+                                console.log(res);
+                          },
+                          success: function(response){
+                                    $('#breakID').val(response.id);
+                                    console.log(response);
+
+                        }
+
+              });
+
+
+      });
+
+      $('#btn_breakout').on('click',function(){
+
+        $(this).fadeOut('fast');$('#btn_stop').fadeIn();$('#btn_breakin').fadeIn();
+        //create new DB entry for break
+        var _token = "{{ csrf_token() }}";
+        var clocktime = $('#clock').text();
+        //var taskID = $('#taskID').val();
+        var breakID = $('#breakID').val();
+
+        $.ajax({
+                          url: "{{action('TaskController@endBreak')}}",
+                          type: "POST",
+                          data: {
+                            clocktime: clocktime,
+                            breakID: breakID,
+                            _token: _token
+                          },
+                          error: function(res){
+                                console.log(res);
+                          },
+                          success: function(response){
+                                    //$('#breakID').val(response.id);
+                                    console.log(response);
+
+                        }
+
+              });
+
+
+      });
+
+      $('#btn_stop').on('click',function(){
+        //check mo muna kung may specified task na
+        var grouptype = $('select#grouptype').find(':selected').val();
+        var tasks = $('select.tasks.form-control'); //.find(':selected');
+        var seltask =null;
+        var clocktime = $('#clock').text();
+        var taskID = $('#taskID').val();
+        var _token = "{{ csrf_token() }}";
+
+        var task = $.each(tasks,function()
+                    { if($(this).is(':visible'))
+                        {
+                          seltask = ( $(this).find(':selected').val() );
+                        } 
+                    });
+
+        console.log('seltask');
+        console.log(seltask);
+        console.log('time:');
+        console.log(clocktime);
+
+        if (grouptype == 0 || seltask==0) {alert("Kindly specify first the task you worked on before ending session."); return false;}
+        else
+        {
+          $('.track').fadeOut();
+          $.ajax({
+                          url: "{{action('TaskController@endTask')}}",
+                          type: "POST",
+                          data: {
+                            clocktime: clocktime,
+                            taskID: taskID,
+                            seltask: seltask,
+                            _token: _token
+                          },
+                          error: function(res){
+                                console.log(res);
+                          },
+                          success: function(response){
+                                    $.notify("Task successfully logged into the system. Thank you.",{className:"success",globalPosition:'left center',autoHideDelay:7000, clickToHide:true} );
+                                    window.setTimeout(function(){window.location.href = "{{action('HomeController@index')}}";}, 2000);
+                                    console.log(response);
+
+                          }
+
+              });
+
+
+        }
+
+      });
+
+      $('select#grouptype').on('change',function(){
+
+        var selval = $(this).find(':selected').val();
+
+        if (selval != 0)
+        {
+          $('.tasks').fadeOut();
+          $('select#task'+selval).fadeIn();
+        
+
+        }else{
+          alert('Please select a task.');return false;
+        }
+        
+
+      });
+
+  @endif
 
 
 
-    
+  /*---------- NDY WIDGET ----------- */
 
-     
 
-   });
 
     /*---------- GUIDELINE WIDGET ----------- */
-   @if(count($groupedForm)>0 && $fromGuideline)
+   @if(count(array($groupedForm))>0 && $fromGuideline)
 
       $('select.formItem').on('change',function(){
         var itemName = $(this)[0]['name'];
@@ -716,7 +899,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
 
    /*---------- POSTMATES WIDGET ----------- */
-   @if(count($groupedForm)>0 && $fromPostmate)
+   @if(count(array($groupedForm))>0 && $fromPostmate)
 
        $('#playbook').on('click',function(){
 
