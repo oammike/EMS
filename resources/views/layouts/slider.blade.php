@@ -1,7 +1,29 @@
 
                  
 
-                    <div class="item active text-center" style="background-color: #f2232d" >
+                    <div class="item active text-center" >
+                      
+                              <h4 class="text-primary">Express yourself <span style="color:#000"> in Black &amp; White! </span></h4>
+                              <img src="./storage/uploads/monochrome_types.jpg" style="z-index: 2" />
+                               
+
+                              
+                               <br/><br/><br/>
+
+                    </div>
+
+
+                    
+
+                  <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
+                      <br/><br/>
+
+                      <a class="btn btn-md btn-primary" href="{{action('ResourceController@waiver',['id'=>23])}}" target="_blank"><i class="fa fa-pencil"></i> Read &amp; Sign the Waiver Form </a><br/><br/></p>
+
+                </div>
+
+                <div class="item  text-center" style="background-color: #f2232d" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/poster-hiv.png" style="z-index: 2" />
@@ -15,15 +37,7 @@
                               
                                <br/><br/><br/>
 
-                    </div>
-
-                    <div class="item text-center" style="background-color: #fff" >
-                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
-                      <br/><br/>
-
-                      <a class="btn btn-md btn-primary" href="{{action('ResourceController@waiver',['id'=>23])}}" target="_blank"><i class="fa fa-pencil"></i> Read &amp; Sign the Waiver Form </a><br/><br/></p>
-
-                </div>  
+                    </div>  
 
                 <div class="item text-center" >
                       
@@ -438,6 +452,23 @@
 
 
 <?php /*
+
+<div class="item active text-center">
+                      
+                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
+                              
+                              <p class="text-center" style="padding: 50px 50px 10px 50px;"><strong>Hello, Open Access family,</strong>  <br/><br/>
+                                 
+
+                                You are all invited to watch the LIVE TELECAST of <br/><span style="font-size: x-large;">Miss Universe 2019!</span><br/><br/>
+                                <strong>Where:</strong> 5F Left wing Jaka bldg and G2 lobby<br/>
+                                <strong>When:</strong> Monday December 9, 2019 8AM-12noon<br/></br/>See you there!</p>
+                             
+                              <img src="./storage/uploads/missu-invite.jpg" style="z-index: 2" />
+                               
+
+
+                    </div>
 
 <!-- FRIGHTENING TALES WINNERS -->
  <div class="item  text-center" >

@@ -12,6 +12,7 @@ package.json
 composer.lock
 composer.json
 /public/img
+/public/media/*
 /public/img/employees
 /public/build/changes.txt
 /public/build/pmlogs.txt

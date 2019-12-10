@@ -88,8 +88,8 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Our Company <span class="text-orange">Mission, Vision, and Core Values </span> </strong></p>
-                     <video id="teaser" src="storage/uploads/MVC.mp4" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-primary">Monochrome Party <span class="text-orange">Teaser Video </span> </strong></p>
+                     <video id="teaser" src="storage/uploads/monochromevid.mp4" width="100%" loop controls></video>
                        
                       
                     </div>

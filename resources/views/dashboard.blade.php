@@ -247,7 +247,7 @@ select:-webkit-autofill:focus {
                
 
 
-                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                 <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos  <a class="btn btn-xs btn-default" href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i> Watch All</a></h3>
                       <div class="box-tools pull-right">
@@ -258,8 +258,8 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Our Company <span class="text-orange">Mission, Vision, and Core Values </span> </strong></p>
-                     <video id="teaser" src="storage/uploads/MVC.mp4" width="100%" loop controls></video>
+                      <p class="text-center"><strong class="text-primary">Monochrome Party <span class="text-orange">Teaser Video </span> </strong></p>
+                     <video id="teaser" src="storage/uploads/monochromevid.mp4" width="100%" loop controls></video>
                        
                       
                     </div>
@@ -316,6 +316,8 @@ select:-webkit-autofill:focus {
                     
                   </div>
                 <!-- /.end SHOUT OUT -->
+
+               
 
                 
                 
