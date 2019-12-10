@@ -1,9 +1,29 @@
 
                  
 
+                    <div class="item active text-center" >
+                      
+                              <h4 class="text-primary">Express yourself <span style="color:#000"> in Black &amp; White! </span></h4>
+                              <img src="./storage/uploads/monochrome_types.jpg" style="z-index: 2" />
+                               
+
+                              
+                               <br/><br/><br/>
+
+                    </div>
+
+
                     
 
-                    <div class="item active text-center" style="background-color: #f2232d" >
+                  <div class="item text-center" style="background-color: #fff" >
+                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
+                      <br/><br/>
+
+                      <a class="btn btn-md btn-primary" href="{{action('ResourceController@waiver',['id'=>23])}}" target="_blank"><i class="fa fa-pencil"></i> Read &amp; Sign the Waiver Form </a><br/><br/></p>
+
+                </div>
+
+                <div class="item  text-center" style="background-color: #f2232d" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/poster-hiv.png" style="z-index: 2" />
@@ -17,15 +37,7 @@
                               
                                <br/><br/><br/>
 
-                    </div>
-
-                    <div class="item text-center" style="background-color: #fff" >
-                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
-                      <br/><br/>
-
-                      <a class="btn btn-md btn-primary" href="{{action('ResourceController@waiver',['id'=>23])}}" target="_blank"><i class="fa fa-pencil"></i> Read &amp; Sign the Waiver Form </a><br/><br/></p>
-
-                </div>  
+                    </div>  
 
                 <div class="item text-center" >
                       
