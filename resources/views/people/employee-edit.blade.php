@@ -377,7 +377,7 @@ input.cropit-image-zoom-input {
 
                       </div><!-- end APPROVERS pane -->
 
-                      <div class="chart tab-pane @if( $page == '4') active @endif" id="access_pane" style="position: relative; height: 300px;">
+                      <div class="chart tab-pane @if( $page == '4') active @endif" id="access_pane" style="position: relative; height: 400px;">
                         <table class="table" style="margin-top: 40px">
                           <tr>
                               <td colspan="3" style="background-color: #e6e6e6;">
@@ -421,6 +421,51 @@ input.cropit-image-zoom-input {
                               </td>
                               <td></td>
                             </tr>
+
+                            <tr>
+                              <td><label>Access Inactives:</label></td>
+                              <td>
+
+                                @if($canAccessInactives || $isHR)
+                                <label><input type="radio" name="inactiveAccess" value="0" /> Disabled</label><br/>
+                                <label><input type="radio" name="inactiveAccess" value="1" checked="checked" /> Always Enabled</label><br/>
+                                @else
+                                <label><input type="radio" name="inactiveAccess" value="0" checked="checked" /> Disabled</label><br/>
+                                <label><input type="radio" name="inactiveAccess" value="1" /> Always Enabled</label><br/>
+                                
+                                
+                                @endif
+
+                                
+                                
+                               
+
+                              </td>
+                              <td></td>
+                            </tr>
+
+                            <tr>
+                              <td><label>Access Floating:</label></td>
+                              <td>
+
+                                @if($canAccessFloating || $isHR)
+                                <label><input type="radio" name="floatingAccess" value="0" /> Disabled</label><br/>
+                                <label><input type="radio" name="floatingAccess" value="1" checked="checked" /> Always Enabled</label><br/>
+                                @else
+                                <label><input type="radio" name="floatingAccess" value="0" checked="checked" /> Disabled</label><br/>
+                                <label><input type="radio" name="floatingAccess" value="1" /> Always Enabled</label><br/>
+                                
+                                
+                                @endif
+
+                                
+                                
+                               
+
+                              </td>
+                              <td></td>
+                            </tr>
+
                           
                         </table>
                         
@@ -693,6 +738,8 @@ input.cropit-image-zoom-input {
    $('#grantaccess').on('click',function(){
 
     var selval = $('input[name="directoryaccess"]:checked');
+    var selval2 = $('input[name="inactiveAccess"]:checked');
+    var selval3 = $('input[name="floatingAccess"]:checked');
     var startDate = $('#accessfrom').val();
     var endDate = $('#accessto').val();
     var _token = "{{ csrf_token() }}";
@@ -709,6 +756,8 @@ input.cropit-image-zoom-input {
           data: {
               user: "{{$personnel->id}}",
               directoryaccess: selval.val(),
+              inactiveAccess: selval2.val(),
+              floatingAccess: selval3.val(),
               role_id: "{{$role_id}}",
               startDate: startDate,
               endDate: endDate,

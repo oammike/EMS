@@ -164,17 +164,21 @@ class UserController extends Controller
 
       $myCampaign = $this->user->campaign; 
       $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
+      $canAccess = Role::where('label','ACCESS_INACTIVES')->first();
+      $specialAccess = User_SpecialAccess::where('user_id',$this->user->id)->where('role_id',$canAccess->id)->get();
 
       $hr = Campaign::where('name','HR')->first();
 
       $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
       (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
 
-      if (!$isHR) return view('access-denied');
+      if (!$isHR ){
+
+        if (count($specialAccess) <= 0) return view('access-denied');
+      } 
 
       if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
-
-        return view('people.employee-inactive', compact( 'hasUserAccess'));
+      return view('people.employee-inactive', compact( 'hasUserAccess'));
     }
 
 
@@ -184,19 +188,22 @@ class UserController extends Controller
 
       $myCampaign = $this->user->campaign; 
       $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
+      $canAccess = Role::where('label','ACCESS_FLOATING')->first();
+      $specialAccess = User_SpecialAccess::where('user_id',$this->user->id)->where('role_id',$canAccess->id)->get();
 
       $hr = Campaign::where('name','HR')->first();
 
       $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
       (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
 
-      if (!$isHR) return view('access-denied');
-      
 
+     if (!$isHR ){
+
+        if ( count($specialAccess) <= 0) return view('access-denied');
+      }
 
       if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
-
-        return view('people.employee-floating', compact( 'hasUserAccess'));
+      return view('people.employee-floating', compact( 'hasUserAccess'));
     }
 
     
@@ -620,6 +627,14 @@ class UserController extends Controller
         $role_id = $access->id;
         $accessDir = User_SpecialAccess::where('user_id',$id)->where('role_id',$role_id)->get();
 
+        $access2 = Role::where('label','ACCESS_INACTIVES')->first();
+        $role2_id = $access2->id;
+        $accessInactives = User_SpecialAccess::where('user_id',$id)->where('role_id',$role2_id)->get();
+        $access3 = Role::where('label','ACCESS_FLOATING')->first();
+        $role3_id = $access3->id;
+        $accessFloating = User_SpecialAccess::where('user_id',$id)->where('role_id',$role3_id)->get();
+
+
         $hr = Campaign::where('name','HR')->first();
         $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
         (in_array($id, $hrTeam)) ? $isHR=true : $isHR=false;
@@ -635,6 +650,10 @@ class UserController extends Controller
 
 
         } else{ $hasSpecialAccess=false; }
+
+        ( count($accessInactives) > 0  ) ? $canAccessInactives = true : $canAccessInactives = false;
+        ( count($accessFloating) > 0  ) ? $canAccessFloating = true : $canAccessFloating = false;
+
 
         //return $accessDir;
 
@@ -706,7 +725,7 @@ class UserController extends Controller
 
            
             //return $accessDir;
-            return view('people.employee-edit', compact('isHR','alwaysAccessible', 'hasSpecialAccess','accessDir','role_id', 'fromYr','canEditEmployees','canUpdateLeaves', 'page', 'approvers','teamMates', 'currentTLcamp', 'personnelTL_ihCampID', 'users','floors', 'userTypes', 'leaders', 'myCampaign', 'campaigns', 'personnel','personnelTL', 'statuses', 'positions'));
+            return view('people.employee-edit', compact('isHR','alwaysAccessible','canAccessInactives','canAccessFloating', 'hasSpecialAccess','accessDir','role_id', 'fromYr','canEditEmployees','canUpdateLeaves', 'page', 'approvers','teamMates', 'currentTLcamp', 'personnelTL_ihCampID', 'users','floors', 'userTypes', 'leaders', 'myCampaign', 'campaigns', 'personnel','personnelTL', 'statuses', 'positions'));
 
 
         } 
@@ -1590,8 +1609,35 @@ class UserController extends Controller
       $user = User::find($request->user);
       // 0 = disabled, 1 =always enabled; 2=limited
       $directoryaccess = $request->directoryaccess;
+      $inactiveAccess = $request->inactiveAccess;
+      $floatingAccess = $request->floatingAccess;
       $role_id = $request->role_id;
       $existing=null;
+
+      $access2 = Role::where('label','ACCESS_INACTIVES')->first();
+      $access3 = Role::where('label','ACCESS_FLOATING')->first();
+      
+
+      if($inactiveAccess=='1')
+      {
+        $newAccess = new User_SpecialAccess;
+        $newAccess->user_id = $user->id;
+        $newAccess->role_id = $access2->id;
+        $newAccess->save();
+
+      }
+
+      if($floatingAccess=='1')
+      {
+        $newAccess = new User_SpecialAccess;
+        $newAccess->user_id = $user->id;
+        $newAccess->role_id = $access3->id;
+        $newAccess->save();
+
+      }
+
+
+
 
       if($directoryaccess=='0')
       {
