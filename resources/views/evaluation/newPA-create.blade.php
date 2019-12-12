@@ -63,8 +63,8 @@
             <ul>
                 <li><a href="#step-1"><span style="font-size: x-large;">Step 1:</span><br /><small>Type of Role</small></a></li>
                 <li><a href="#step-2"><span style="font-size: x-large;">Step 2:</span><br /><small>Create Goals</small></a></li>
-                <li><a href="#step-3"><span style="font-size: x-large;">Step 3:</span><br /><small>Review </small></a></li>
-                <li><a href="#step-4"><span style="font-size: x-large;">Step 4:</span><br /><small>Assign Form</small></a></li>
+                <li><a href="#step-3"><span style="font-size: x-large;">Step 3:</span><br /><small>Review &amp; Save </small></a></li>
+                <!-- <li><a href="#step-4"><span style="font-size: x-large;">Step 4:</span><br /><small>Assign Form</small></a></li> -->
             </ul>
 
             <div class="row">
@@ -78,8 +78,12 @@
                             @foreach($roles as $role)
 
                               @if (strpos($role->description,"without"))
-                              <label><input required="required" type="radio" name="type" value="{{$role->id}}" data-roletype="{{$role->name}}"> {{$role->name}} <br/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small style="font-weight: normal;"> {{$role->description}}</small> </label><div class="clearfix"></div>
+                              <div class="pull-left text-center" style="width: 30%;padding:35px;border:1px dotted #333; margin:5px;min-height: 200px">
+
+                                <label><input required="required" type="radio" name="type" value="{{$role->id}}" data-roletype="{{$role->name}}" style="margin:5px;"> <i class="fa fa-3x fa-street-view"></i><br/>
+                                  {{$role->name}} <br/>
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small style="font-weight: normal;"> {{$role->description}}</small> </label><div class="clearfix"></div>
+                              </div>
                               @endif
 
                             @endforeach
@@ -104,7 +108,7 @@
                       <?php $c=1; ?>
                       @foreach($objectives as $o)
 
-                      <div style="width: 32%; padding:5px; min-height: 150px; border: dotted 1px #000; float: left; margin:5px">
+                      <div style="width: 32%; padding:5px; min-height: 150px; border: dotted 1px #fefefe; float: left; margin:5px">
                         
                         <h1 class="bg-aqua text-center" style="padding:5px 30px 10px 10px;width: 15%; margin:10px; float: left">{{$c}}</h1>
                         <p style="margin-top: 20px;margin-right: 30px" class="text-center">
@@ -127,106 +131,117 @@
                     <div id="form-step-1" role="form" data-toggle="validator">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                   <br/><br/>
-                                  <label for="name">Establish GOAL 1:</label>
+                                  <div style="padding:20px;background: rgba(183, 186, 187, 0.6); ">
+                                      <label for="name">Establish GOAL 1:</label>
+                                      <select class="goals form-control" id="goal1" data-goalnum=1 required>
+                                        <option value="0">* Select a business objective *</option>
+                                        <?php $c=1; ?>
+                                        @foreach($objectives as $o)
 
-                                  
-                            
+                                        <option value="{{$o->id}}">Business Objective {{$c}} </option>
 
-                                  <select class="goals form-control" id="goal1" data-goalnum=1 required>
-                                    <option value="0">* Select a business objective *</option>
-                                    <?php $c=1; ?>
-                                    @foreach($objectives as $o)
-
-                                    <option value="{{$o->id}}">Objective {{$c}} </option>
-
-                                    <?php $c++; ?>
-                                    @endforeach
-                                  </select>
-
-                                  <br/><br/>
-                                  <label for="goalstmt1">Goal statement 1</label>
-                                  
-                                  <textarea class="goalstatement form-control" name="goalstmt1" id="goalstmt1" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
-
-                                  <br/><br/>
-                                  <label for="goalstmt1">Activities/Actions 1</label>
-                                  
-                                  <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action1" id="action1" rows="3" placeholder="List down actions/activities in order to achieve Goal 1" required></textarea>
-
-                                  <br/>
-                                  <label for="weight1">Goal 1 Weight: </label>
-                                  <div id="slider1">
-                                    <div id="weight1" class="ui-slider-handle"></div>
+                                        <?php $c++; ?>
+                                        @endforeach
+                                      </select>
                                   </div>
 
-                                </div>
+                                  
 
-                                <div class="col-lg-4">
+                                  <div style="padding:20px;border:1px dotted #666; ">
+                                    
+                                    <label for="goalstmt1">Goal statement 1</label>
+                                    <textarea class="goalstatement form-control" name="goalstmt1" id="goalstmt1" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
+                                    <br/><br/>
+                                    <label for="goalstmt1">Activities/Actions 1</label>
+                                    <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action1" id="action1" rows="3" placeholder="List down actions/activities in order to achieve Goal 1" required></textarea>
+                                    <br/>
+                                    <label for="weight1">Goal 1 Weight: </label>
+                                    <div id="slider1">
+                                      <div id="weight1" class="ui-slider-handle"></div>
+                                    </div>
+                                  </div>
+
+                                </div>   
+                            </div>
+
+                            <div class="row">
+                               <div class="col-lg-12">
                                   <BR/><BR/>
-                                  <label for="name">Establish GOAL 2:</label>
-                                  <select class="goals form-control" id="goal2" required disabled="disabled" data-goalnum=2>
-                                    <option value="0">* Select a business objective *</option>
-                                    <?php $c=1; ?>
-                                    @foreach($objectives as $o)
+                                  <div style="padding:20px;background: rgba(183, 186, 187, 0.6); ">
+                                    <label for="name">Establish GOAL 2:</label>
+                                    <select class="goals form-control" id="goal2" required disabled="disabled" data-goalnum=2>
+                                      <option value="0">* Select a business objective *</option>
+                                      <?php $c=1; ?>
+                                      @foreach($objectives as $o)
 
-                                    <option value="{{$o->id}}">Objective {{$c}} </option>
+                                      <option value="{{$o->id}}">Business Objective {{$c}} </option>
 
-                                    <?php $c++; ?>
-                                    @endforeach
-                                  </select>
-
-                                  <br/><br/>
-                                  <label for="goalstmt2">Goal statement 2</label>
-                                  
-                                  <textarea class="goalstatement form-control" name="goalstmt2" id="goalstmt2" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
-
-                                   <br/><br/>
-                                  <label for="action2">Activities/Actions 2</label>
-                                  
-                                  <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action2" id="action2" rows="3" placeholder="List down actions/activities in order to achieve Goal 2" required></textarea>
-
-                                  <br/>
-                                  <label for="weight1">Goal 2 Weight: </label>
-                                  <div id="slider2">
-                                    <div id="weight2" class="ui-slider-handle"></div>
-                                  </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                  <BR/><BR/>
-                                  <label for="name">Establish GOAL 3:</label>
-                                  <select class="goals form-control" id="goal3" required disabled="disabled" data-goalnum=3>
-                                    <option value="0">* Select a business objective *</option>
-                                    <?php $c=1; ?>
-                                    @foreach($objectives as $o)
-
-                                    <option value="{{$o->id}}">Objective {{$c}} </option>
-
-                                    <?php $c++; ?>
-                                    @endforeach
-                                  </select>
-
-                                  <br/><br/>
-                                  <label for="goalstmt3">Goal statement 3</label>
-                                  
-                                  <textarea class="goalstatement form-control" name="goalstmt3" id="goalstmt3" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
-
-                                   <br/><br/>
-                                  <label for="action3">Activities/Actions 3</label>
-                                  
-                                  <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action3" id="action3" rows="3" placeholder="List down actions/activities in order to achieve Goal 3" required></textarea>
-
-                                  <br/>
-                                  <label for="weight3">Goal 3 Weight:</label>
-                                  <div id="slider3">
-                                    <div id="weight3" class="ui-slider-handle"></div>
+                                      <?php $c++; ?>
+                                      @endforeach
+                                    </select>
                                   </div>
 
-                                </div>
+                                  <div style="padding:20px;border:1px dotted #666; ">
+                                      <label for="goalstmt2">Goal statement 2</label>
+                                    
+                                      <textarea class="goalstatement form-control" name="goalstmt2" id="goalstmt2" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
 
-                                <div id="goalholder">
+                                       <br/><br/>
+                                      <label for="action2">Activities/Actions 2</label>
+                                      
+                                      <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action2" id="action2" rows="3" placeholder="List down actions/activities in order to achieve Goal 2" required></textarea>
+
+                                      <br/>
+                                      <label for="weight1">Goal 2 Weight: </label>
+                                      <div id="slider2">
+                                        <div id="weight2" class="ui-slider-handle"></div>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <br/><br/>
+                                  <div style="padding:20px;background: rgba(183, 186, 187, 0.6); ">
+                                      <label for="name">Establish GOAL 3:</label>
+                                      <select class="goals form-control" id="goal3" required disabled="disabled" data-goalnum=3>
+                                        <option value="0">* Select a business objective *</option>
+                                        <?php $c=1; ?>
+                                        @foreach($objectives as $o)
+
+                                        <option value="{{$o->id}}">Business Objective {{$c}} </option>
+
+                                        <?php $c++; ?>
+                                        @endforeach
+                                      </select>
+                                  </div>
+
+                                   <div style="padding:20px;border:1px dotted #666; ">
+                                      <label for="goalstmt3">Goal statement 3</label>
+                                    
+                                      <textarea class="goalstatement form-control" name="goalstmt3" id="goalstmt3" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea>
+
+                                       <br/><br/>
+                                      <label for="action3">Activities/Actions 3</label>
+                                      
+                                      <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action3" id="action3" rows="3" placeholder="List down actions/activities in order to achieve Goal 3" required></textarea>
+
+                                      <br/>
+                                      <label for="weight3">Goal 3 Weight:</label>
+                                      <div id="slider3">
+                                        <div id="weight3" class="ui-slider-handle"></div>
+                                      </div>
+                                  </div>
+
+                                </div>
+                            </div><br/><br/>
+
+
+                            <div id="goalholder">
                                 </div>
                                 <div id="hiddengoals">
                                   <input class="hgoals" type="hidden" name="hg1" id="hg1" />
@@ -235,7 +250,6 @@
                                   <input  class="hgoals"type="hidden" name="hg4" id="hg4" value="0" />
                                   <input  class="hgoals"type="hidden" name="hg5" id="hg5" value="0" />
                                 </div>
-                            </div>
 
 
                             <div id="total" ><h3>Total Goal weight: <span id="totalweight" class="text-success" style="font-weight: bolder;">100 %</span></h3></div>
@@ -248,10 +262,10 @@
 
                 <!-- ****** STEP 3 COMPETENCIES ********** -->
                 <div id="step-3" class="col-lg-12" style="padding:20px;">
-                    <h3>Review</h3>
+                    <h3>Review Form &amp; Save</h3>
                     <input type="hidden" name="roleid" id="roleid" />
 
-                    <p><i class="fa fa-exclamation-circle"></i> This will be the appraisal form generated for  <strong id="roletype_skills" style="font-size: large;"></strong>. Once done reviewing, you'll then choose who among your program/department will use this appraisal form.  <br/><br/><br/></p>
+                    <p><i class="fa fa-exclamation-circle"></i> This will be the appraisal form generated for  <strong id="roletype_skills" style="font-size: large;"></strong>.   <br/><br/><br/></p>
 
                      
                       <hr/>
@@ -283,7 +297,7 @@
                 </div>
 
 
-
+                <?php /*
                 <div id="step-4" class="col-lg-12" style="padding:20px;">
                     <h3>Assign this Form</h3>
                     <input type="hidden" name="roleid" id="roleid" />
@@ -402,6 +416,7 @@
 
 
                 </div>
+                */ ?>
             </div>
         </div>
 
@@ -497,18 +512,24 @@
           ct++;
           $(this).attr('data-count',ct);
           var code = $('#goalholder').html();
-          code += '<div class="col-lg-4">';
-          code += '<br/><br/><br/><a class="cancel btn btn-xs btn-default pull-right"><i class="fa fa-times"></i> Cancel</a>';
-          code += '<br/><br/><label for="name">Establish GOAL '+ct + '</label>';
-          code += '<select class="goals form-control" id="goal'+ct+'" required data-goalnum='+ct+'><option value="0">* Select a business objective *</option>';
-                    <?php $c=1; ?>
-                    @foreach($objectives as $o)
-                    code += '<option value="{{$o->id}}">Objective {{$c}} </option>';
-                    <?php $c++; ?>
-                    @endforeach
-          code += '        </select><br/><br/><label for="goalstmt1">Goal statement '+ct+'</label>';
-          code += ' <textarea class="goalstatement form-control" name="goalstmt'+ct+'" id="goalstmt'+ct+'" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea><br/><br/><label for="goalstmt'+ct+'">Activities/Actions '+ct+'</label>';
-          code += '<textarea class="goalaction form-control" name="action'+ct+'" id="action'+ct+'" rows="3" placeholder="List down actions/activities in order to achieve Goal '+ct+'" required></textarea><br/><label for="weight'+ct+'">Goal '+ct+' Weight: </label><div id="slider'+ct+'"><div id="weight'+ct+'" class="ui-slider-handle"></div></div></div>';
+          code += '<div class="row">';
+          code += '   <div class="col-lg-12">';
+          code += '       <div style="padding:20px;background: rgba(183, 186, 187, 0.6); ">';
+          code += '       <br/><a class="cancel btn btn-xs btn-danger pull-right"><i class="fa fa-times"></i> Cancel</a>';
+          code += '       <label for="name">Establish GOAL '+ct + '</label>';
+          code += '       <select class="goals form-control" id="goal'+ct+'" required data-goalnum='+ct+'><option value="0">* Select a business objective *</option>';
+                            <?php $c=1; ?>
+                            @foreach($objectives as $o)
+                            code += '<option value="{{$o->id}}">Business Objective {{$c}} </option>';
+                            <?php $c++; ?>
+                            @endforeach
+          code += '        </select>'
+          code += '     </div>';
+          code += '     <div style="padding:20px;border:1px dotted #666; "><label for="goalstmt1">Goal statement '+ct+'</label>';
+          code += '       <textarea class="goalstatement form-control" name="goalstmt'+ct+'" id="goalstmt'+ct+'" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea><br/><br/><label for="goalstmt'+ct+'">Activities/Actions '+ct+'</label>';
+          code += '       <textarea class="goalaction form-control" name="action'+ct+'" id="action'+ct+'" rows="3" placeholder="List down actions/activities in order to achieve Goal '+ct+'" required></textarea><br/><label for="weight'+ct+'">Goal '+ct+' Weight: </label>';
+          code += '       <div id="slider'+ct+'"><div id="weight'+ct+'" class="ui-slider-handle"></div></div>';
+          code += '     </div></div></div><br/><br/>';
           $('#goalholder').html(code);
 
           var i = ct-1;
@@ -555,7 +576,7 @@
 
    $(document).on('click','#form-step-1 a.cancel',function(){
 
-          $(this).parent().fadeOut();
+          $(this).parent().parent().fadeOut();
           var more = $('#addmore');
           var ct = more.attr('data-count');
 
@@ -569,18 +590,25 @@
 
           if (count > 3)
           {
-            var code = '<div class="col-lg-4">';
-            code += '<br/><br/><br/><a class="cancel btn btn-xs btn-default pull-right"><i class="fa fa-times"></i> Cancel</a>';
-            code += '<br/><br/><label for="name">Establish GOAL '+count+ '</label>';
-            code += '<select class="goals form-control" id="goal'+count+'"  required><option value="0">* Select a business objective *</option>';
-                      <?php $c=1; ?>
-                      @foreach($objectives as $o)
-                      code += '<option value="{{$o->id}}">Objective {{$c}} </option>';
-                      <?php $c++; ?>
-                      @endforeach
-            code += '        </select><br/><br/><label for="goalstmt1">Goal statement '+count+'</label>';
-            code += ' <textarea class="form-control" name="goalstmt'+count+'" id="goalstmt'+count+'" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea><br/><br/><label for="goalstmt'+count+'">Activities/Actions '+count+'</label>';
-            code += '<textarea class="form-control" name="action'+count+'" id="action'+count+'" rows="3" placeholder="List down actions/activities in order to achieve Goal '+count+'" required></textarea><br/><label for="weight'+count+'">Goal '+count+' Weight: </label><div id="slider'+count+'"><div id="weight'+ct+'" class="ui-slider-handle"></div></div></div>';
+            var code = '<div class="row">';
+            code += '       <div class="col-lg-12">';
+            code += '           <div style="padding:20px;background: rgba(183, 186, 187, 0.6); ">';
+            code += '           <br/><a class="cancel btn btn-xs btn-danger pull-right"><i class="fa fa-times"></i> Cancel</a>';
+            code += '           <label for="name">Establish GOAL '+count+ '</label>';
+            code += '           <select class="goals form-control" id="goal'+count+'"  required><option value="0">* Select a business objective *</option>';
+                                <?php $c=1; ?>
+                                @foreach($objectives as $o)
+                                code += '<option value="{{$o->id}}">Objective {{$c}} </option>';
+                                <?php $c++; ?>
+                                @endforeach
+            code += '           </select></div>';
+            code += '           <div style="padding:20px;border:1px dotted #666; "><label for="goalstmt1">Goal statement '+count+'</label>';
+            code += '               <textarea class="form-control" name="goalstmt'+count+'" id="goalstmt'+count+'" rows="3" placeholder="type in goal statement based on your chosen objective" required></textarea><br/><br/><label for="goalstmt'+count+'">Activities/Actions '+count+'</label>';
+            code += '               <textarea class="form-control" name="action'+count+'" id="action'+count+'" rows="3" placeholder="List down actions/activities in order to achieve Goal '+count+'" required></textarea><br/><label for="weight'+count+'">Goal '+count+' Weight: </label>';
+            code += '               <div id="slider'+count+'"><div id="weight'+ct+'" class="ui-slider-handle"></div></div>';
+            code += '           </div>';
+            code += '       </div><br/><br/>';
+            code += '</div>';
             $('#goalholder').html(code);
 
           }
@@ -628,13 +656,14 @@
       console.log("ingoal");
       console.log(ingoal);
 
-      if (ingoal) 
+      /*if (ingoal) 
         {
           alert("You've already selected that business objective. Please choose a different one."); 
           $('#goal'+goaln+' option[value="'+selval+'"]').attr("selected",false);
           $('#goal'+goaln+' option[value="0"]').attr("selected",true);
           return false; 
         }
+        */
 
     });
 
@@ -924,24 +953,14 @@
 
     // ********* Step show event *******************
 
-    $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
-       //alert("You are on step "+stepNumber+" now");
-       if(stepPosition === 'first'){
-           $("#prev-btn").addClass('disabled');
-       }else if(stepPosition === 'final'){
-           $("#next-btn").addClass('disabled');
-       }else{
-           $("#prev-btn").removeClass('disabled');
-           $("#next-btn").removeClass('disabled');
-       }
-    });
+
 
 
 
     // Toolbar extra buttons
-    var btnFinish = $('<button></button>').text('Finish')
+    var btnFinish = $('<button></button>').attr('id','saveform').text('Save Form')
                                      .addClass('btn btn-success')
-                                     .on('click', function(){
+                                     .on('click', function(e){
                                             if( !$(this).hasClass('disabled')){
                                                 var elmForm = $("#myForm");
                                                 if(elmForm){
@@ -953,21 +972,64 @@
                                                     }else{
                                                         //alert('Great! we are ready to submit form');
                                                         //elmForm.submit();
+                                                        e.preventDefault(); e.stopPropagation();
                                                         var _token = "{{ csrf_token() }}";
-                                                        var goal1 = $('#form-step-1 #goal1').find(':selected').val();
-                                                        var goal2 = $('#form-step-1 #goal2').find(':selected').val();
-                                                        var goal3 = $('#form-step-1 #goal3').find(':selected').val();
-                                                        var goal4 = $('#form-step-1 #goal4').find(':selected').val();
-                                                        var goal5 = $('#form-step-1 #goal5').find(':selected').val();
+                                                        // var goal1 = $('#form-step-1 #goal1').find(':selected').val();
+                                                        // var goal2 = $('#form-step-1 #goal2').find(':selected').val();
+                                                        // var goal3 = $('#form-step-1 #goal3').find(':selected').val();
+                                                        // var goal4 = $('#form-step-1 #goal4').find(':selected').val();
+                                                        // var goal5 = $('#form-step-1 #goal5').find(':selected').val();
+                                                        var newgoals = [];
+                                                        var goalids = [];
+
+                                                        for (var i = 1; i <= 5; i++) {
+
+                                                          var g = $('#form-step-1 #goal'+i).find(':selected').val();
+                                                          if( typeof g !== 'undefined') goalids.push(g);
+                                                        }
+
+                                                        console.log("goalids:");
+                                                        console.log(goalids);
+
+                                                        var typeid = $('#roleid').val();
+
+                                                        var goalstatements = $('.goalstatement.form-control');
+                                                        var goalactions =  $('.goalaction.form-control');
+                                                        var hiddeng = $('.hgoals');
+
+                                                        //console.log(goalactions);
+
+                                                        var gctr=0;
+
+                                                        
+                                                        $.each( goalstatements, function(key2, value2){
+
+                                                          $('#reviewform tbody').append('<tr><td style="padding:30px"> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>');
+                                                            var g = {statement:value2.value,
+                                                                     actions: goalactions[gctr].value,
+                                                                     weight: hiddeng[gctr].value};
+                                                            newgoals.push(g);
+                                                            gctr++;
+
+                                                        });
+                                                        console.log("goal actions are:");
+                                                        console.log(newgoals);
+
+
+
+
                                                         $.ajax({
                                                                   url:"{{action('NewPA_Form_Controller@process')}}",
                                                                   type:'POST',
                                                                   data:{
-                                                                    'goal1': goal1,
-                                                                    'goal2': goal2,
-                                                                    'goal3': goal3,
-                                                                    'goal4': goal4,
-                                                                    'goal5': goal5,
+                                                                    // 'goal1': goal1,
+                                                                    // 'goal2': goal2,
+                                                                    // 'goal3': goal3,
+                                                                    // 'goal4': goal4,
+                                                                    // 'goal5': goal5,
+                                                                    'goalids': goalids,
+                                                                    'typeid': typeid,
+                                                                    'newgoals': newgoals,
                                                                     '_token':_token},
 
                                                                   error: function(response)
@@ -980,7 +1042,7 @@
                                                                     console.log(response);
                                                                     $.notify("Appraisal Form saved.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
 
-                                                                    $('button.btn.btn-success').fadeOut();
+                                                                   // $('button.btn.btn-success').fadeOut();
 
 
                                                                   }
@@ -997,6 +1059,19 @@
                                             $('#smartwizard').smartWizard("reset");
                                             $('#myForm').find("input, textarea").val("");
                                         });
+    $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection, stepPosition) {
+       //alert("You are on step "+stepNumber+" now");
+       if(stepPosition === 'first'){
+           $("#prev-btn").addClass('disabled');
+           $('.btn-group.mr-2.sw-btn-group-extra button').attr('disabled',true);
+       }else if(stepPosition === 'final'){
+           $("#next-btn").addClass('disabled');
+           $('.btn-group.mr-2.sw-btn-group-extra button').attr('disabled',false);
+       }else{
+           $("#prev-btn").removeClass('disabled');
+           $("#next-btn").removeClass('disabled');
+       }
+    });
 
 
     // Smart Wizard
@@ -1063,7 +1138,7 @@
         }
 
 
-        // ******   REVIEW FORM ******
+        // ******   REVIEW  and SAVE FORM ******
         if (stepNumber == 1)
         {
           var role = $('#roleid').val();
@@ -1086,7 +1161,7 @@
             },
             success: function(response)
             {
-              //console.log(response);
+              console.log(response);
               $('#roletype_skills').html(response['allData'][0].roleType);
               $('#formtype').html(response['allData'][0].roleType);
 
@@ -1122,6 +1197,8 @@
 
                     $('#reviewform tbody').append('<tr><td style="padding:30px"> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>');
                     gctr++;
+
+
                 
 
 

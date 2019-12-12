@@ -231,18 +231,18 @@
           </ul>
         </li>
 
-        <!-- **** GALLERY ******** -->
+        <!-- **** GALLERY ******** <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>-->
         <li class="treeview @if ( Request::is('gallery') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
 
             <li @if (Request::is('videogallery')) class="active" @endif style="padding-left:20px"><a href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i>All Videos</a> </li>
 
-            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>20]) }}"><i class="fa fa-beer"></i> Oktoberfest 2019 <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
+           
 
-            <li @if (Request::is('usergallery')) class="active" @endif style="padding-left:20px"><a href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i>CS WEEK 2019<span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> </a> </li>
+            <li @if (Request::is('usergallery')) class="active" @endif style="padding-left:20px"><a href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i>CS WEEK 2019</a> </li>
 
-            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>19]) }}"><i class="fa fa-picture-o"></i>CS WEEK 2019 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photobooth<span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> </a> </li>
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>19]) }}"><i class="fa fa-picture-o"></i>CS WEEK 2019 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photobooth </a> </li>
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-beer"></i> Back to the 90s </a> </li>
 
@@ -274,6 +274,8 @@
 
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="cam2" href="{{ action('HomeController@gallery',['a'=>4]) }}"><i class="fa fa-picture-o"></i> Official 2018 YEP [cam2] </a> </li>
 
+               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>20]) }}"><i class="fa fa-beer"></i> Oktoberfest 2019 </a> </li>
+
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{ action('HomeController@gallery',['a'=>2]) }}"><i class="fa fa-camera"></i> Photo Booth </a> </li>
 
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="pose360" target="_blank" href="https://photos.google.com/share/AF1QipOz0s8djIAbsbczBsaQhmh_27gdAvTQTF_qndqKRMA3yUCqMZP4Uyw67TcjBYcr-w?key=OS11TTYtdUhKbnk5RjBlbjhlWmdmRHBJRmF3d1FR"><i class="fa fa-openid"></i> Pose 360&deg;  </a> </li>
@@ -296,7 +298,7 @@
       <li class="treeview @if (Request::is('performance*')) active @endif">
           <a href="#"><i class="fa fa-2x fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Performance</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-            <li @if (Request::is('performance*')) class="active" @endif style="padding-left:20px"><a href="{{action('NewPA_Form_Controller@create')}}"><i class="fa fa-clipboard"></i> Setup PA Form</a> </li>
+            <li @if (Request::is('performance*')) class="active" @endif style="padding-left:20px"><a href="{{action('NewPA_Form_Controller@index')}}"><i class="fa fa-clipboard"></i> View All Forms</a> </li>
            
 
           </ul>

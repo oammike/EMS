@@ -59,7 +59,8 @@ class NewPA_Form_Controller extends Controller
 
     public function index()
     {
-    	return view('evaluation.newPA-index');
+      $forms = NewPA_Form::where('user_id',$this->user->id)->get();
+      return view('evaluation.newPA-index',compact('forms'));
 
     }
 
@@ -70,7 +71,7 @@ class NewPA_Form_Controller extends Controller
 
         if (!in_array($this->user->id, $allowed)) return view('access-denied');
 
-    	$roles = NewPA_Type::all();
+        $roles = NewPA_Type::all();
         $objectives = NewPA_Objective::all();
         $competencies = NewPA_Competencies::all();
         $correct = Carbon::now('GMT+8');
@@ -281,7 +282,7 @@ class NewPA_Form_Controller extends Controller
                         fclose($file);
                     }
         //return response()->json(["myTree"=>$myTree,"mySubordinates"=>$mySubordinates]);//$allTeams;// $myTree;
-    	return view('evaluation.newPA-create',compact('roles','objectives','competencies','mySubordinates','myTree','user'));
+      return view('evaluation.newPA-create',compact('roles','objectives','competencies','mySubordinates','myTree','user'));
 
     }
 
@@ -301,16 +302,92 @@ class NewPA_Form_Controller extends Controller
 
         // $data_competencies = DB::table('newPA_type')->where('newPA_type.id',$id)->
         //                     join()
+
+
         return response()->json(['components'=>$data_components,'competencies'=>$data_competencies,'allData'=>$data]);
     }
 
 
+    
+    public function preview($id)
+    {
+
+      $form = DB::table('newPA_form')->where('newPA_form.id',$id)->
+                  leftJoin('newPA_type','newPA_form.typeID','=','newPA_type.id')->
+                  leftJoin('newPA_form_goal','newPA_form_goal.formID','=','newPA_form.id',)->
+                  leftJoin('newPA_goal','newPA_form_goal.goalID','=','newPA_goal.id')->
+                  leftJoin('newPA_form_components','newPA_form_components.typeID','=','newPA_form.typeID')->
+                  leftJoin('newPA_components','newPA_form_components.componentID','=','newPA_components.id')->
+                  leftJoin('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_type.id')->
+                  leftJoin('newPA_competencies','newPA_form_competencies.competencyID','=','newPA_competencies.id')->
+                  //leftJoin('newPA_competency_descriptor','newPA_competencies.id','=','newPA_competency_descriptor.competencyID')->
+                  select('newPA_form.name','newPA_form.typeID','newPA_components.name as componentName','newPA_form_components.weight as componentWeight', 'newPA_goal.statement','newPA_goal.activities','newPA_form_goal.weight as goalWeight','newPA_form_goal.id as goalID','newPA_competencies.id as competencyID', 'newPA_competencies.name as competency','newPA_form_competencies.weight as competencyWeight')->get();
+                  //'newPA_competency_descriptor.descriptor','newPA_competency_descriptor.competencyID as descriptorID'
+                  //get();
+      $allComponents = collect($form)->groupBy('componentWeight');
+      $allGoals = collect($form)->groupBy('goalID');
+      $allCompetencies = collect($form)->groupBy('competency');
+      //$descriptors = collect($form)->groupBy('descriptorID');
+      $descriptors = DB::table('newPA_form')->where('newPA_form.id',$id)->
+                        leftJoin('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_form.typeID')->
+                        leftJoin('newPA_competency_descriptor','newPA_form_competencies.competencyID','=','newPA_competency_descriptor.competencyID')->
+                        select('newPA_form_competencies.competencyID','newPA_competency_descriptor.descriptor','newPA_competency_descriptor.id')->get();
+
+
+                  //return response()->json(['Components'=>$allComponents, 'Goals'=>$allGoals,'Competencies'=>$allCompetencies,'descriptors'=>$descriptors]);
+      return view('evaluation.newPA-preview',compact('allGoals','allCompetencies','descriptors','allComponents','form'));
+
+    }
+
     public function process(Request $request)
     {
-        $goal1 = $request->goal1;
-        $goal2 = $request->goal2;
-        $goal3 = $request->goal3;
+        // $goal1 = $request->goal1;
+        // $goal2 = $request->goal2;
+        // $goal3 = $request->goal3;
+        // $goal4 = $request->goal4;
+        // $goal5 = $request->goal5;
+        $goalids = $request->goalids;
+        $newGoals = $request->newgoals;
 
-        return response()->json(['goal1'=>$goal1, 'goal2'=> $goal2, 'goal3'=>$goal3]);
+        $type = NewPA_Type::find($request->typeid);
+
+
+        $newForm = new NewPA_Form;
+        $newForm->typeID = $request->typeid;
+        $newForm->user_id = $this->user->id;
+        $newForm->name = $type->name." Appraisal Form";
+        $newForm->description = "appraisal form for ".$type->name." by: ".$this->user->firstname." ".$this->user->lastname;
+        $newForm->save();
+
+        //save the goals you created
+        $ctr=0;
+        foreach ($goalids as $g) {
+          $goal = new NewPA_Goal;
+          $goal->user_id = $this->user->id;
+          $goal->objectiveID = $g;
+          $goal->typeID = $request->typeid;
+          $goal->statement = $newGoals[$ctr]['statement'];
+          $goal->activities = $newGoals[$ctr]['actions'];
+          $goal->targets = " ";
+          $goal->activities = $newGoals[$ctr]['actions'];
+          $goal->save();
+
+          $form_goal =  new NewPA_Form_Goal;
+          $form_goal->formID = $newForm->id;
+          $form_goal->goalID = $goal->id;
+          $form_goal->weight = $newGoals[$ctr]['weight'];
+          $form_goal->save();
+          $ctr++;
+        }
+        
+
+        return response()->json(['newGoals'=>$newGoals, 'goalids'=>$goalids]);
     }
+
+    public function show()
+    {
+
+    }
+
+
 }

@@ -82,6 +82,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=>'performance.process',
       'uses'=>'NewPA_Form_Controller@process') );
 
+    Route::get('/newPA/preview/{id}', array(
+      'as'=>'performance.preview',
+      'uses'=>'NewPA_Form_Controller@preview') );
+
 
 
     /********** ------------ END NEW PA ------------  **************/
