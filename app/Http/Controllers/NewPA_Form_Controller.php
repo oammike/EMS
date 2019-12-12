@@ -314,7 +314,7 @@ class NewPA_Form_Controller extends Controller
 
       $form = DB::table('newPA_form')->where('newPA_form.id',$id)->
                   leftJoin('newPA_type','newPA_form.typeID','=','newPA_type.id')->
-                  leftJoin('newPA_form_goal','newPA_form_goal.formID','=','newPA_form.id',)->
+                  leftJoin('newPA_form_goal','newPA_form_goal.formID','=','newPA_form.id')->
                   leftJoin('newPA_goal','newPA_form_goal.goalID','=','newPA_goal.id')->
                   leftJoin('newPA_form_components','newPA_form_components.typeID','=','newPA_form.typeID')->
                   leftJoin('newPA_components','newPA_form_components.componentID','=','newPA_components.id')->
