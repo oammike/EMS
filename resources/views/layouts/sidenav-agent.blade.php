@@ -216,30 +216,31 @@
         </li>
 
 
-         <li class="treeview @if ( Request::is('gallery') ) active @endif">
+       <li class="treeview @if ( Request::is('gallery') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span><i class="fa fa-angle-left pull-right"></i></a>
-
           <ul class="treeview-menu">
 
-             <li @if (Request::is('videogallery')) class="active" @endif style="padding-left:20px"><a href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i>All Videos</a> </li>
+            <li @if (Request::is('videogallery')) class="active" @endif style="padding-left:20px"><a href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i>All Videos</a> </li>
 
+           
 
-             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>20]) }}"><i class="fa fa-beer"></i> Oktoberfest 2019 <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
-
-            <li @if (Request::is('usergallery')) class="active" @endif style="padding-left:20px"><a href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i>CS WEEK 2019<span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> </a> </li>
-
-            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>19]) }}"><i class="fa fa-picture-o"></i>CS WEEK 2019 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photobooth<span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> </a> </li>
-
-
+            
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-beer"></i> Back to the 90s </a> </li>
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>10]) }}"><i class="fa fa-camera"></i> BTS: We Speak Your<br/> Language <!--  <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> --></a> </li>
 
-             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>9]) }}"><i class="fa fa-beer"></i> Cinco De Mayo </a> </li>
-
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="phys" href="{{ action('HomeController@gallery',['a'=>6]) }}"><i class="fa fa-flag-checkered"></i> Catriona Homecoming </a> </li>
 
-              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>17]) }}"><i class="fa fa-beer"></i> Open Access Davao<br/> 4th Year Anniversary </a> </li>
+             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>9]) }}"><i class="fa fa-beer"></i> Cinco De Mayo </a> </li>
+
+             
+
+             <li @if (Request::is('usergallery')) class="active" @endif style="padding-left:20px"><a href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i>CS WEEK 2019</a> </li>
+
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>19]) }}"><i class="fa fa-picture-o"></i>CS WEEK 2019 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photobooth </a> </li>
+
+
+             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>17]) }}"><i class="fa fa-beer"></i> Open Access Davao<br/> 4th Year Anniversary </a> </li>
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>16]) }}"><i class="fa fa-picture-o"></i> Davao Health &amp; Wellness</a> </li>
 
@@ -261,6 +262,8 @@
 
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="cam2" href="{{ action('HomeController@gallery',['a'=>4]) }}"><i class="fa fa-picture-o"></i> Official 2018 YEP [cam2] </a> </li>
 
+               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>20]) }}"><i class="fa fa-beer"></i> Oktoberfest 2019 </a> </li>
+
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{ action('HomeController@gallery',['a'=>2]) }}"><i class="fa fa-camera"></i> Photo Booth </a> </li>
 
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="pose360" target="_blank" href="https://photos.google.com/share/AF1QipOz0s8djIAbsbczBsaQhmh_27gdAvTQTF_qndqKRMA3yUCqMZP4Uyw67TcjBYcr-w?key=OS11TTYtdUhKbnk5RjBlbjhlWmdmRHBJRmF3d1FR"><i class="fa fa-openid"></i> Pose 360&deg;  </a> </li>
@@ -270,8 +273,10 @@
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery') }}"><i class="fa fa-picture-o"></i> Past Events </a></li>
            
           </ul>
-          
-        </li>
+       </li>
+
+
+         
 
         
         <li @if (Request::is('user/'.Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" > <i class="fa fa-2x fa-address-card-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My Profile</span></a></li>

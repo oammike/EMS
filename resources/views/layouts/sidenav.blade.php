@@ -240,17 +240,21 @@
 
            
 
-            <li @if (Request::is('usergallery')) class="active" @endif style="padding-left:20px"><a href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i>CS WEEK 2019</a> </li>
-
-            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>19]) }}"><i class="fa fa-picture-o"></i>CS WEEK 2019 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photobooth </a> </li>
-
+            
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-beer"></i> Back to the 90s </a> </li>
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>10]) }}"><i class="fa fa-camera"></i> BTS: We Speak Your<br/> Language <!--  <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> --></a> </li>
 
+             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="phys" href="{{ action('HomeController@gallery',['a'=>6]) }}"><i class="fa fa-flag-checkered"></i> Catriona Homecoming </a> </li>
+
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>9]) }}"><i class="fa fa-beer"></i> Cinco De Mayo </a> </li>
 
-             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a id="phys" href="{{ action('HomeController@gallery',['a'=>6]) }}"><i class="fa fa-flag-checkered"></i> Catriona Homecoming </a> </li>
+             
+
+             <li @if (Request::is('usergallery')) class="active" @endif style="padding-left:20px"><a href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i>CS WEEK 2019</a> </li>
+
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>19]) }}"><i class="fa fa-picture-o"></i>CS WEEK 2019 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photobooth </a> </li>
+
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>17]) }}"><i class="fa fa-beer"></i> Open Access Davao<br/> 4th Year Anniversary </a> </li>
 
