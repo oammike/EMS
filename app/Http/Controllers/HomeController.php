@@ -1070,7 +1070,7 @@ class HomeController extends Controller
                 // ------------------------------------------------------------------------------ if user has no subordinates -----------
                
                 
-                $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
+                $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep"," "]; 
                 $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 
                 $pics=["monochrome-393.jpg","monochrome-362.jpg","monochrome-344.jpg"];
 
