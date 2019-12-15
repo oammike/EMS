@@ -67,6 +67,7 @@ class HomeController extends Controller
     {
       $correct = Carbon::now('GMT+8'); //->timezoneName();
       $album = Input::get('a');
+      $total = null;
 
       
 
@@ -79,6 +80,12 @@ class HomeController extends Controller
          if($this->user->id !== 564 ) {
 
           switch ($album) {
+
+            case '21':{
+               $total = 474;
+               fwrite($file, "-------------------\n Monochrome by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
 
             case '20':{
                fwrite($file, "-------------------\n OktoberGall by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -187,7 +194,7 @@ class HomeController extends Controller
                                    
                                     fclose($file);
                                 } 
-        return view('gallery',compact('album'));
+        return view('gallery',compact('album','total'));
       }
     }
 
@@ -563,6 +570,22 @@ class HomeController extends Controller
                                 'category'=>"Oktoberfest 2019"]);
 
                   }
+
+        } break;
+
+        case '21': {
+ 
+                    //MONOCHROME 
+      
+                  for($i=1; $i<=474; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/monochrome_thumb-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/monochrome-".$i.".jpg",
+                                'description'=>"Monochrome Year End Party @ Makati Shangri-La [12.15.2019] \n[Photo credits: Mike Pamero]",
+                                'category'=>"Monochrome Year End Party"]);
+
+                  }
+
+                  
 
         } break;
         
@@ -943,7 +966,7 @@ class HomeController extends Controller
                 $top3 = new Collection;
                 //ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU
                 $idolIDs = [ 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 685, 3260, 2723];
-                $top3s = [829,674,1686];
+                $top3s = [1686,674,829];
 
                 foreach ($top3s as $i) {
                   $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
@@ -1047,7 +1070,11 @@ class HomeController extends Controller
                 // ------------------------------------------------------------------------------ if user has no subordinates -----------
                
                 
-                //return $prg;
+                $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
+                $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 
+                $pics=["monochrome-393.jpg","monochrome-362.jpg","monochrome-344.jpg"];
+
+
                 if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)
                       //strpos($this->user->userType->name, "agent")!==false   )
                     
@@ -1061,7 +1088,7 @@ class HomeController extends Controller
                     
                     //return $prg2;
                     //return $groupedForm;
-                    return view('dashboard-agent', compact('campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
+                    return view('dashboard-agent', compact('campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
                     
 
 
@@ -1072,7 +1099,7 @@ class HomeController extends Controller
                     //-- Initialize Approvals Dashlet
 
                    //return $groupedForm[0];
-                    return view('dashboard', compact('campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
+                    return view('dashboard', compact('campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
                    
 
 

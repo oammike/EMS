@@ -1,54 +1,41 @@
 
-                 
 
+                  @foreach($top3 as $idol)
+
+                    @if($ct1==0)
                     <div class="item active text-center" >
-                      
-                              <h4 class="text-primary">Express yourself <span style="color:#000"> in Black &amp; White! </span></h4>
-                              <img src="./storage/uploads/monochrome_types.jpg" style="z-index: 2" />
-                               
+                    @else
+                    <div class="item text-center" >
 
-                              
-                               <br/><br/><br/>
+                    @endif
+
+
+                    
+                      <h2 style="color:#666">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">{!! $titles[$ct1] !!}</span></h2>
+                      <img src="./storage/uploads/{{$pics[$ct1]}}" width="100%" style="z-index: 2" />
+                      <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
+                                                            <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
+                                                            @if (empty($idol->filename))
+                                                                {{$idol->program}}
+                                                            @else
+                                                             <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
+
+                                                            @endif
+                      </h4>
+                      <h5 class="text-center"><em>"{{$songs[$ct1]}}"</em></h5> <br/><br/><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-md btn-success"><i class="fa fa-image"></i> More Pics</a>
 
                     </div>
 
 
-                    
+                     
+                  
+                   
+                  <?php $ct1++; ?>
+                  @endforeach
 
-                  <div class="item text-center" style="background-color: #fff" >
-                      <img src="./storage/uploads/blacknwhite.jpg" style="z-index: 2" />
-                      <br/><br/>
 
-                      <a class="btn btn-md btn-primary" href="{{action('ResourceController@waiver',['id'=>23])}}" target="_blank"><i class="fa fa-pencil"></i> Read &amp; Sign the Waiver Form </a><br/><br/></p>
 
-                </div>
 
-                <div class="item  text-center" style="background-color: #f2232d" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <img src="./storage/uploads/poster-hiv.png" style="z-index: 2" />
-                               <p class="text-center" style="padding: 50px;color:#fff"><strong>Hello, Open Access family,</strong>  <br/><br/>
-                                 
-
-                                We're inviting everyone to join and support the company's advocacy on HIV/AIDS prevention and early diagnosis. This will be our second consecutive HIV/AIDS Prevention Awareness program, and it aims to:<br/><br/>
-                                1. Educate employees about HIV/AIDS prevention through a series of lectures to be held tentatively on the last week of November onwards; and<br/><br/>
-                                2. Encourage employees to get tested for HIV in January during our on-site HIV testing activities, done in partnership with the Social Hygiene Clinic–Makati.<br/><br/>Email us at <strong class="text-black">nurse@openaccessbpo.net</strong> if you’re interested in participating in our activities. The schedule of lectures will be sent separately.<br/><br/>Let us be instruments in achieving an AIDS-free nation. We hope to see you at our lectures and testing!</p>
-
-                              
-                               <br/><br/><br/>
-
-                    </div>  
-
-                <div class="item text-center" >
-                      
-                      <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
-                      <img src="./storage/uploads/motivation_hinge.jpg" style="z-index: 2" width="100%" />
-                      <p class="text-center" style="padding: 30px;">
-                                <br/><br/>Embrace those little changes in you, be it in your career, finances, or life in general. Those small acts of change can lead to something great in time and that's going to be a win for you.</p>#WeSpeakYourLanguage
-                      
-                      
-                      
-                </div>
 
                
                 
@@ -133,61 +120,6 @@
 
                 @endif 
 
-
-                 
-
-                     
-
-
-               
-               
-
-               <?php $ct=0; $songs = ["This Is The Moment","Bring Me To Life","Wildflower"];?>
-
-                  @foreach($top3 as $idol)
-                   
-                  
-                   <div class="item text-center" style="min-height: 800px; background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('./storage/uploads/idolbg.jpg')" >
-
-                  
-
-                      
-                               
-                               <h2 style="color: #fff"><br/><br/><br/><br/><br/><br/><br/><br/>
-                                <br/>TOP 3 Finalist</h2>
-                               <p class="text-center">
-                                <a class="text-yellow" href="{{action('UserController@show',$idol->id)}}" target="_blank"><img src="./storage/uploads/top3-{{$ct+1}}.jpg" width="250px" class="img-circle" /><br/>
-                                <h3 class="text-center">"{{$songs[$ct]}}"</h3>
-                                <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
-                                                          <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
-                                                          @if (empty($idol->filename))
-                                                              {{$idol->program}}
-                                                          @else
-                                                           <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
-
-                                                          @endif
-                                </h4></a></p>
-
-                                <h2>Congratulations!</h2>
-                                <a class="btn btn-success btn-md" href="{{action('GalleryController@show',1)}}" target="_blank"><i class="fa fa-picture-o"></i> View Gallery</a>
-
-
-                                
-                               
-
-                  </div>
-                  <?php $ct++; ?>
-                  @endforeach
-
-                 
-
-         
-                  
-
-                   
-                                 
-
-                    
 
                     <div class="item text-center" style="background-color: #fff" >
                       
@@ -289,20 +221,7 @@
 
 
                   
-
-
-
-                     <div class="item text-center" style="background-color: #fff" >
-                      
-                              <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
-                              <img src="./storage/uploads/exec.jpg" style="z-index: 2" />
-                               <p class="text-center" style="padding-left: 0px;"><br/><br/>We are on a journey that keeps getting better!<br/>
-                               <strong class="text-primary">Work as one team, one family.</strong></p>
-                                <a class="btn btn-md btn-success" target="_blank" href="{{action('CampaignController@orgChart')}}"><i class="fa fa-sitemap"></i> See the entire team</a><br/><br/><br/>
-
-                    </div>
-
-                      
+  
 
                    
 

@@ -26,7 +26,7 @@
      <section class="content" id='holder'>
       
        <div class="row">
-        <div class="col-lg-12"style="padding-bottom: 28000px; display: block;">
+        <div class="col-lg-12"style="padding-bottom: 58000px; display: block;">
           <h5 class="text-center"><i>"Life is like a camera <i class="fa fa-camera"></i>, <br/>
            you <strong>focus </strong> on the things that matter and <strong>capture</strong> the moments, <br/>
            <strong>develop</strong> from the <strong>negatives</strong>, and if things don't work out -- <br/>
@@ -35,7 +35,7 @@
           <div id="gallery">
             
             <h2 class="text-center" style="position: absolute; top: 0; left:auto; width: 100%"><br/><br/><br/><br/>
-              Loading images. Please wait...<i class="fa fa-refresh"></i> <br/>
+              Loading all <strong class="text-danger">{{$total}} </strong>images. Please wait...<i class="fa fa-refresh"></i> <br/>
              </h2>
           </div>
      
