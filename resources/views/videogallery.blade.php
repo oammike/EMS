@@ -112,6 +112,22 @@
           
           <article class="video">
             <figure>
+              <a data-fancybox="gallery" data-file="intlTranslationDay" href="http://172.17.0.2/evaluation/storage/uploads/monochrome_sde_op.mp4">
+              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-monochrome.jpg"></a>
+            </figure>
+            <h5 class="videoTitle text-center">Monochrome Year End Party SDE [12.14]</h5>
+          </article>
+
+          <article class="video">
+            <figure>
+              <a data-fancybox="gallery" data-file="intlTranslationDay" href="http://172.17.0.2/evaluation/storage/uploads/monochrome_lookback.mp4">
+              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-lookback2019.jpg"></a>
+            </figure>
+            <h5 class="videoTitle text-center">A Look Back 2019 [12.14]</h5>
+          </article>
+
+          <article class="video">
+            <figure>
               <a data-fancybox="gallery" data-file="intlTranslationDay" href="http://172.17.0.2/evaluation/storage/uploads/intlTranslationDay.mp4">
               <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-intlTranslationDay.jpg"></a>
             </figure>
