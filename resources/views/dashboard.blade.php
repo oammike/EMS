@@ -259,7 +259,11 @@ select:-webkit-autofill:focus {
                     <!-- /.box-header -->
                     <div class="box-body">
                       <p class="text-center"><strong class="text-primary">Monochrome Party <span class="text-orange">SDE (Same-Day Edit) </span> </strong></p>
-                     <video id="teaser" src="storage/uploads/monochrome_sde_op.mp4" width="100%" loop controls></video>
+                      <video id="teaser" src="storage/uploads/monochrome_sde_op.mp4" width="100%" loop controls></video>
+                      <p style="padding:30px; font-size: smaller;">During the weekend, our Open Access BPO family had a blast on its 2019 year-end party at Makati Shangri-la with a classic and chic monochromatic theme, creating a sea of unique styles in black and white.<br/><br/>
+                        Hosted by singer-influencer Charlotte Ferguson, the party's highlights included the recognition of the loyalty awardees, the grand finals of the first ever Open Access BPO Idol, and the Star of the Night awards for the most outstanding #OAGoesMonochrome outfits. Of course, the night wouldn't be complete without the surprise performance from the iconic OPM band, Parokya ni Edgar!<br/><br/>
+                      Video by <a href="https://www.facebook.com/acartafilms/" target="_blank"><strong>A Carta Films</strong> </a></p>
+                     
                        
                       
                     </div>
