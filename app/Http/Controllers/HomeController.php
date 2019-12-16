@@ -82,7 +82,7 @@ class HomeController extends Controller
           switch ($album) {
 
             case '21':{
-               $total = 474;
+               $total = 534;
                fwrite($file, "-------------------\n Monochrome by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
             }break;
@@ -577,7 +577,7 @@ class HomeController extends Controller
  
                     //MONOCHROME 
       
-                  for($i=1; $i<=474; $i++){
+                  for($i=1; $i<=534; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/monochrome_thumb-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/monochrome-".$i.".jpg",
                                 'description'=>"Monochrome Year End Party @ Makati Shangri-La [12.15.2019] \n[Photo credits: Mike Pamero]",
@@ -1070,7 +1070,7 @@ class HomeController extends Controller
                 // ------------------------------------------------------------------------------ if user has no subordinates -----------
                
                 
-                $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep"," "]; 
+                $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
                 $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 
                 $pics=["monochrome-393.jpg","monochrome-362.jpg","monochrome-344.jpg"];
 

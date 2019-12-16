@@ -1,13 +1,26 @@
 
 
-                  @foreach($top3 as $idol)
+                  <div class="item active text-center" >
+                    <h2 class="text-primary">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">to our <span style="color:#666">Monochrome Party </span><br/><strong>Star of The Night </strong> winners!</span></h2>
+                      <img src="./storage/uploads/monochrome-516.jpg" width="100%" style="z-index: 2" />
+                      <h4 class="text-warning" style="text-transform: uppercase;"> Janelle De Guzman &amp; Adrian Uro <br/>
+                                                            
+                      </h4>
+                      <h5 class="text-center"></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
+                  </div>
 
-                    @if($ct1==0)
-                    <div class="item active text-center" >
-                    @else
+                  <div class="item  text-center" style="background-color: #000" >
+                    
+                      <img src="./storage/uploads/idol-winners.jpg" width="100%" style="z-index: 2" /><br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
+                  </div>
+                   
+                    @foreach($top3 as $idol)
+
+                    
                     <div class="item text-center" >
 
-                    @endif
+                   
 
 
                     
@@ -16,13 +29,13 @@
                       <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
                                                             <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
                                                             @if (empty($idol->filename))
-                                                                {{$idol->program}}
+                                                               <span style="font-size: 0.5em; font-weight: bolder">{{$idol->program}}</span> 
                                                             @else
                                                              <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
 
                                                             @endif
                       </h4>
-                      <h5 class="text-center"><em>"{{$songs[$ct1]}}"</em></h5> <br/><br/><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-md btn-success"><i class="fa fa-image"></i> More Pics</a>
+                      <h5 class="text-center"><em><i class="fa fa-music"></i> "{{$songs[$ct1]}}" <i class="fa fa-music"></i> </em></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
 
                     </div>
 
