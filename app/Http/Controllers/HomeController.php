@@ -81,6 +81,12 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '24':{
+               $total = 118;
+               fwrite($file, "-------------------\n Official_Mono by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '23':{
                $total = 87;
                fwrite($file, "-------------------\n PB2_Mono by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -627,6 +633,23 @@ class HomeController extends Controller
                                 'fullsrc'=>"storage/uploads/monochrome_booth2-".$i.".jpg",
                                 'description'=>"Monochrome Year End Party (Photobooth 2) @ Makati Shangri-La [12.15.2019] \n",
                                 'category'=>"Monochrome Year End Party Photobooth"]);
+
+                  }
+
+
+                  
+
+        } break;
+
+        case '24': {
+ 
+                    //MONOCHROME official
+      
+                  for($i=1; $i<=118; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/mono_official-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/mono_official-".$i.".jpg",
+                                'description'=>"Monochrome Year End Party (Official) @ Makati Shangri-La [12.15.2019] \n",
+                                'category'=>"Monochrome Year End Party (Official)"]);
 
                   }
 
