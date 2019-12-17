@@ -81,6 +81,18 @@ class HomeController extends Controller
 
           switch ($album) {
 
+            case '23':{
+               $total = 87;
+               fwrite($file, "-------------------\n PB2_Mono by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
+            case '22':{
+               $total = 104;
+               fwrite($file, "-------------------\n PB1_Mono by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+            }break;
+
             case '21':{
                $total = 534;
                fwrite($file, "-------------------\n Monochrome by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -584,6 +596,40 @@ class HomeController extends Controller
                                 'category'=>"Monochrome Year End Party"]);
 
                   }
+
+                  
+
+        } break;
+
+       case '22': {
+ 
+                    //MONOCHROME PHOTOBOOTH 1
+      
+                  for($i=1; $i<=104; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/monochrome_booth1-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/monochrome_booth1-".$i.".jpg",
+                                'description'=>"Monochrome Year End Party (Photobooth 1) @ Makati Shangri-La [12.15.2019] \n",
+                                'category'=>"Monochrome Year End Party Photobooth"]);
+
+                  }
+
+
+                  
+
+        } break;
+
+         case '23': {
+ 
+                    //MONOCHROME PHOTOBOOTH 2
+      
+                  for($i=1; $i<=87; $i++){
+                    $col->push(['lowsrc'=>"storage/uploads/monochrome_booth2-".$i.".jpg",
+                                'fullsrc'=>"storage/uploads/monochrome_booth2-".$i.".jpg",
+                                'description'=>"Monochrome Year End Party (Photobooth 2) @ Makati Shangri-La [12.15.2019] \n",
+                                'category'=>"Monochrome Year End Party Photobooth"]);
+
+                  }
+
 
                   
 

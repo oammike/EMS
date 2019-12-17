@@ -224,6 +224,10 @@
 
            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>21]) }}"><i class="fa fa-beer"></i> 2019 Monochrome Party <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
 
+           <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>22]) }}"><i class="fa fa-beer"></i> 2019 Monochrome <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photo Booth1 <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
+
+              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>23]) }}"><i class="fa fa-beer"></i> 2019 Monochrome <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photo Booth2 <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
+
 
             
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-beer"></i> Back to the 90s </a> </li>

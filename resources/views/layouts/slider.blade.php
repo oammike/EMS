@@ -1,6 +1,27 @@
 
 
-                  <div class="item active text-center" >
+                  <div class="item active text-center">
+                    
+                      <h4 class="text-center">Monochrome <strong>Photo Booth</strong> pics!</h4>
+
+                      <img src="./storage/uploads/pb1.jpg" width="100%" style="z-index: 2" />
+                      
+                      <br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>22]) }}" class="btn btn-md btn-primary">
+                        <i class="fa fa-image"></i> Photobooth 1</a><br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>23]) }}" class="btn btn-md btn-primary">
+                        <i class="fa fa-image"></i> Photobooth 2</a><br/><br/>
+                  </div>
+
+
+
+                  <div class="item  text-center" style="background-color: #000" >
+                    
+                      <img src="./storage/uploads/idol-winners.jpg" width="100%" style="z-index: 2" /><br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
+                  </div>
+
+                  <div class="item  text-center" >
                     <h2 class="text-primary">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">to our <span style="color:#666">Monochrome Party </span><br/><strong>Star of The Night </strong> winners!</span></h2>
                       <img src="./storage/uploads/monochrome-516.jpg" width="100%" style="z-index: 2" />
                       <h4 class="text-warning" style="text-transform: uppercase;"> Janelle De Guzman &amp; Adrian Uro <br/>
