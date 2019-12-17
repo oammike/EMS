@@ -87,7 +87,7 @@
                               @endif
 
                             @endforeach
-                           
+                            <div class="clearfix"></div>
                             <div class="help-block with-errors" style=" padding:30px; "></div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                 <!-- ****** STEP 2 ********** -->
                 <div id="step-2" class="col-lg-12" style="padding:20px;">
                     <h3>Establish Goals based on our business objectives</h3>
-                    <p>Choose a business objective to formulate your goal statement. You need to select at least three (3) business objectives in order to setup goals for your program/department.</p><br/>
+                    <p>Choose a business objective to formulate your goal statement. You need to select at least three (3) business objectives in order to setup goals for your program/department. You may also customize the weight percentages for each goals depending on its impact to your team's objective.</p><br/>
 
                     <p><i class="fa fa-exclamation-circle"></i> Note: Goals and Objectives for <strong id="roletype" style="font-size: large;"></strong> make up <strong id="percentage" class="text-danger" style="font-size: large;"></strong> of the overall appraisal rating.</p>
 
@@ -157,6 +157,10 @@
                                     <label for="goalstmt1">Activities/Actions 1</label>
                                     <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action1" id="action1" rows="3" placeholder="List down actions/activities in order to achieve Goal 1" required></textarea>
                                     <br/>
+                                    <label for="goalstmt1">Measurable targets/KPI 1</label>
+                                    <textarea style="white-space: pre-wrap;" class="target form-control" name="target1" id="target1" rows="3" placeholder="List down measurable goals or KPIs and set target/due dates for  Goal 1" required></textarea>
+                                    <br/>
+
                                     <label for="weight1">Goal 1 Weight: </label>
                                     <div id="slider1">
                                       <div id="weight1" class="ui-slider-handle"></div>
@@ -194,6 +198,9 @@
                                       <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action2" id="action2" rows="3" placeholder="List down actions/activities in order to achieve Goal 2" required></textarea>
 
                                       <br/>
+                                      <label for="goalstmt2">Measurable targets/KPI 2</label>
+                                      <textarea style="white-space: pre-wrap;" class="target form-control" name="target2" id="target2" rows="3" placeholder="List down measurable goals or KPIs and set target/due dates for  Goal 2" required></textarea>
+                                      <br/>
                                       <label for="weight1">Goal 2 Weight: </label>
                                       <div id="slider2">
                                         <div id="weight2" class="ui-slider-handle"></div>
@@ -230,6 +237,9 @@
                                       
                                       <textarea style="white-space: pre-wrap;" class="goalaction form-control" name="action3" id="action3" rows="3" placeholder="List down actions/activities in order to achieve Goal 3" required></textarea>
 
+                                      <br/>
+                                      <label for="goalstmt3">Measurable targets/KPI 3</label>
+                                      <textarea style="white-space: pre-wrap;" class="target form-control" name="target3" id="target3" rows="3" placeholder="List down measurable goals or KPIs and set target/due dates for  Goal 3" required></textarea>
                                       <br/>
                                       <label for="weight3">Goal 3 Weight:</label>
                                       <div id="slider3">
@@ -297,126 +307,7 @@
                 </div>
 
 
-                <?php /*
-                <div id="step-4" class="col-lg-12" style="padding:20px;">
-                    <h3>Assign this Form</h3>
-                    <input type="hidden" name="roleid" id="roleid" />
-                    <p><i class="fa fa-exclamation-circle"></i> Select all <strong id="roletype_assign" style="font-size: large;"></strong> under your program who'll use this
-                      <strong id="roletype_assign" style="font-size: larger;"></strong> appraisal form: </p>
-
-                    <div id="form-step-3" role="form" data-toggle="validator">
-                        <div class="form-group">
-                            <h3 class="text-primary"><br/><br/>My Team:</h3>
-                            <br/><br/>
-                            <label style="margin-right: 10px"><input type="radio" name="selall" value="1" data-parentid="{{$user->id}}" /> Select All</label>
-                            <label><input type="radio" name="selall" value="0"  data-parentid="{{$user->id}}" /> Clear All</label>
-                            <table class="table table-sm" id="myteam">
-                              <thead class="thead-dark">
-                                <tr>
-                                  <th></th>
-                                  <th>Last name</th>
-                                  <th>First Name</th>
-                                  
-                                  <th>Job Title</th>
-                                  <th>Program</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-
-                                @foreach($mySubordinates as $m)
-                                <tr>
-                                  <td>
-                                    <label><input type="checkbox" class="include_{{$user->id}}" name="include" value="{{$m['id']}}" data-program="{{$m['programID']}}">
-                                    <img src="../public/img/employees/{{$m['id']}}.jpg" width="80" /></label>
-                                  </td>
-                                  <td>{{$m['lastname']}}</td><td>{{$m['firstname']}}</td>
-                                  
-                                  <td>{{$m['position']}}</td>
-                                  <td>{{$m['program']}}</td>
-                                </tr>
-                                @endforeach
-                              </tbody>
-                              
-                            </table>
-
-                            <!-- **** we need to process by tree level *** -->
-                            <?php $l2 = collect($myTree)->where('level','2'); ?>
-
-                            @foreach($l2 as $t)
-
-                            <!-- ******** collapsible box ********** -->
-                              <div class="box box-default collapsed-box">
-                              <div class="box-header with-border">
-                                @if(strlen($t['nickname']) > 0)
-                                  <h3 class="box-title text-primary">Team {{strtoupper($t['nickname'])}} {{strtoupper($t['lastname'])}}</h3>
-                                @else
-                                  <h3 class="box-title text-primary">Team {{strtoupper($t['firstname'])}} {{strtoupper($t['lastname'])}}</h3>
-
-                                @endif
-
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                                  </button>
-                                </div>
-                                <!-- /.box-tools -->
-                              </div>
-                              <!-- /.box-header -->
-
-
-                              <div class="box-body">
-                                <br/><br/>
-                                <label style="margin-right: 10px"><input type="radio" name="selall" value="1" data-parentid="{{$t['tl_userID']}}" /> Select All</label>
-                                <label><input type="radio" name="selall" value="0"  data-parentid="{{$t['tl_userID']}}" /> Clear All</label>
-                            
-                                    
-
-                                 <table class="table table-xs">
-                                    <thead class="thead-dark">
-                                      <tr>
-                                        <th></th>
-                                        <th>Last name</th>
-                                        <th>First Name</th>
-                                        
-                                        <th>Job Title</th>
-                                        <th>Program</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-
-                                      @foreach($t['members'] as $m)
-                                      <tr>
-                                        <td><input type="checkbox" class="include_{{$t['tl_userID']}}" name="include" value="{{$m->id}}" data-program="{{$m->programID}}"></td>
-                                        <td>{{strtoupper($m->lastname)}}</td><td>{{strtoupper($m->firstname)}}</td>
-                                        
-                                        <td>{{$m->jobTitle}}</td>
-                                        <td>{{$m->program}}</td>
-                                      </tr>
-                                      @endforeach
-                                    </tbody>
-                                    
-                                 </table>
-
-                                
-                              </div>
-                              <!-- /.box-body -->
-                            </div>
-                            <!-- ******** end collapsible box ********** -->
-
-
-
-                            
-                           
-                            @endforeach
-
-                           <!--  <label for="terms">I agree with the T&C</label>
-                            <input type="checkbox" id="terms" data-error="Please accept the Terms and Conditions" required> -->
-                            <div class="help-block with-errors"></div>
-                        </div>
-                    </div>
-
-
-                </div>
-                */ ?>
+               
             </div>
         </div>
 
@@ -974,11 +865,6 @@
                                                         //elmForm.submit();
                                                         e.preventDefault(); e.stopPropagation();
                                                         var _token = "{{ csrf_token() }}";
-                                                        // var goal1 = $('#form-step-1 #goal1').find(':selected').val();
-                                                        // var goal2 = $('#form-step-1 #goal2').find(':selected').val();
-                                                        // var goal3 = $('#form-step-1 #goal3').find(':selected').val();
-                                                        // var goal4 = $('#form-step-1 #goal4').find(':selected').val();
-                                                        // var goal5 = $('#form-step-1 #goal5').find(':selected').val();
                                                         var newgoals = [];
                                                         var goalids = [];
 
@@ -995,6 +881,7 @@
 
                                                         var goalstatements = $('.goalstatement.form-control');
                                                         var goalactions =  $('.goalaction.form-control');
+                                                        var goaltargets =  $('.target.form-control');
                                                         var hiddeng = $('.hgoals');
 
                                                         //console.log(goalactions);
@@ -1004,9 +891,15 @@
                                                         
                                                         $.each( goalstatements, function(key2, value2){
 
-                                                          $('#reviewform tbody').append('<tr><td style="padding:30px"> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>');
+                                                          
+
+                                                          // ('<tr><td style="padding:30px"> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>')
+
+                                                          $('#reviewform tbody').append('<tr><td style="padding:30px"><label>Goal: </label> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333"><label>Activities/Action: </label><br/>'+goalactions[gctr].value+'</div><div style="width:80%;margin-top:10px; white-space:pre-wrap; padding:20px;border:1px dotted #333"><label>Measurable target/KPI :</label><br/>'+goaltargets[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>');
+
                                                             var g = {statement:value2.value,
                                                                      actions: goalactions[gctr].value,
+                                                                     target: goaltargets[gctr].value,
                                                                      weight: hiddeng[gctr].value};
                                                             newgoals.push(g);
                                                             gctr++;
@@ -1022,11 +915,6 @@
                                                                   url:"{{action('NewPA_Form_Controller@process')}}",
                                                                   type:'POST',
                                                                   data:{
-                                                                    // 'goal1': goal1,
-                                                                    // 'goal2': goal2,
-                                                                    // 'goal3': goal3,
-                                                                    // 'goal4': goal4,
-                                                                    // 'goal5': goal5,
                                                                     'goalids': goalids,
                                                                     'typeid': typeid,
                                                                     'newgoals': newgoals,
@@ -1041,8 +929,8 @@
 
                                                                     console.log(response);
                                                                     $.notify("Appraisal Form saved.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-
-                                                                   // $('button.btn.btn-success').fadeOut();
+                                                                    $('button.btn.btn-success').fadeOut();
+                                                                    window.location = "{{action('NewPA_Form_Controller@index')}}";
 
 
                                                                   }
@@ -1186,6 +1074,7 @@
 
                   var goalstatements = $('.goalstatement.form-control');
                   var goalactions =  $('.goalaction.form-control');
+                  var goaltargets = $('.target.form-control');
 
                   console.log(goalactions);
 
@@ -1195,14 +1084,16 @@
 
                   $.each( goalstatements, function(key2, value2){
 
-                    $('#reviewform tbody').append('<tr><td style="padding:30px"> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333">'+goalactions[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>');
+                    $('#reviewform tbody').append('<tr><td style="padding:30px"><label>Goal: </label> &nbsp;'+value2.value+' <div style="width:80%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333"><label>Activities/Action: </label><br/>'+goalactions[gctr].value+'</div><div style="width:80%;margin-top:10px; white-space:pre-wrap; padding:20px;border:1px dotted #333"><label>Measurable target/KPI :</label><br/>'+goaltargets[gctr].value+'</div></td><td>'+hiddeng[gctr].value +'% </td></tr>');
+                    
                     gctr++;
 
-
-                
-
-
                   });
+
+
+
+
+
 
 
 

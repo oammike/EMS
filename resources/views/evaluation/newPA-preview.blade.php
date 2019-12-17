@@ -91,7 +91,11 @@
                               @foreach($allGoals as $goal)
                               <tr>
                                 <td style="padding:30px"> &nbsp; {{$goal[0]->statement}}
-                                  <div style="width:60%;margin-top:30px; white-space:pre-wrap; padding:20px;border:1px dotted #333">{{$goal[0]->activities}} </div>
+                                  <div style="width:90%;margin-top:30px; padding:20px;border:1px dotted #333; text-align: left;"><!--  -->
+                                    <strong>Action/Activities :</strong><br/><div style=" white-space:pre-wrap;"> {!! $goal[0]->activities !!} </div><br/><br/>
+                                    <strong>Target/KPI :</strong><br/><div style=" white-space:pre-wrap;"> {!! $goal[0]->activities !!}</div>
+                                 
+                                </div>
                                 </td>
                                 <td>{{$goal[0]->goalWeight}} % </td>
                                 <td>
@@ -143,7 +147,7 @@
                               
                                 <a data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="1" class="descs btn btn-xs btn-success " style="margin-left: 2px"><i class="fa fa-thumbs-up"></i> </a> 
                                 <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="2"  class="descs btn btn-xs btn-danger " style="margin-left: 2px"><i class="fa fa-thumbs-down"></i> </a> 
-                                <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}"  data-type="0"  class="descs btn btn-xs btn-primary  " style="margin-left: 2px"><i class="fa fa-ban"></i> </a>{{$d->descriptor}} 
+                                <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}"  data-type="0"  class="descs btn btn-xs btn-primary  " style="margin-left: 2px"><i class="fa fa-ban"></i> </a>&nbsp;&nbsp;{{$d->descriptor}} 
                               </p>
                                 
 

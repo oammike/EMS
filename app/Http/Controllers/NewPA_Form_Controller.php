@@ -321,7 +321,7 @@ class NewPA_Form_Controller extends Controller
                   leftJoin('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_type.id')->
                   leftJoin('newPA_competencies','newPA_form_competencies.competencyID','=','newPA_competencies.id')->
                   //leftJoin('newPA_competency_descriptor','newPA_competencies.id','=','newPA_competency_descriptor.competencyID')->
-                  select('newPA_form.name','newPA_form.typeID','newPA_components.name as componentName','newPA_form_components.weight as componentWeight', 'newPA_goal.statement','newPA_goal.activities','newPA_form_goal.weight as goalWeight','newPA_form_goal.id as goalID','newPA_competencies.id as competencyID', 'newPA_competencies.name as competency','newPA_form_competencies.weight as competencyWeight')->get();
+                  select('newPA_form.name','newPA_form.typeID','newPA_components.name as componentName','newPA_form_components.weight as componentWeight', 'newPA_goal.statement','newPA_goal.activities','newPA_goal.targets', 'newPA_form_goal.weight as goalWeight','newPA_form_goal.id as goalID','newPA_competencies.id as competencyID', 'newPA_competencies.name as competency','newPA_form_competencies.weight as competencyWeight')->get();
                   //'newPA_competency_descriptor.descriptor','newPA_competency_descriptor.competencyID as descriptorID'
                   //get();
       $allComponents = collect($form)->groupBy('componentWeight');
@@ -341,11 +341,7 @@ class NewPA_Form_Controller extends Controller
 
     public function process(Request $request)
     {
-        // $goal1 = $request->goal1;
-        // $goal2 = $request->goal2;
-        // $goal3 = $request->goal3;
-        // $goal4 = $request->goal4;
-        // $goal5 = $request->goal5;
+        $correct = Carbon::now('GMT+8');
         $goalids = $request->goalids;
         $newGoals = $request->newgoals;
 
@@ -356,7 +352,7 @@ class NewPA_Form_Controller extends Controller
         $newForm->typeID = $request->typeid;
         $newForm->user_id = $this->user->id;
         $newForm->name = $type->name." Appraisal Form";
-        $newForm->description = "appraisal form for ".$type->name." by: ".$this->user->firstname." ".$this->user->lastname;
+        $newForm->description = "appraisal form for ".$type->name." by: ".$this->user->firstname." ".$this->user->lastname." [".$correct->format('Y-m-d H:i')."]";
         $newForm->save();
 
         //save the goals you created
@@ -368,7 +364,7 @@ class NewPA_Form_Controller extends Controller
           $goal->typeID = $request->typeid;
           $goal->statement = $newGoals[$ctr]['statement'];
           $goal->activities = $newGoals[$ctr]['actions'];
-          $goal->targets = " ";
+          $goal->targets = $newGoals[$ctr]['target'];
           $goal->activities = $newGoals[$ctr]['actions'];
           $goal->save();
 
