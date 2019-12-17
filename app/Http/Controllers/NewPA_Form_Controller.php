@@ -66,8 +66,9 @@ class NewPA_Form_Controller extends Controller
 
     public function create()
     {
-        // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy
-        $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724 ];
+        // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy, faith
+        $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 ];
+        $objectiveCodes = ["Reliable Service Delivery","Effective Client Partnerships","Cost Optimization","Employee Development &amp; Engagement","Compliance &amp; Commitment","Social Responsibility"];
 
         if (!in_array($this->user->id, $allowed)) return view('access-denied');
 
@@ -282,7 +283,7 @@ class NewPA_Form_Controller extends Controller
                         fclose($file);
                     }
         //return response()->json(["myTree"=>$myTree,"mySubordinates"=>$mySubordinates]);//$allTeams;// $myTree;
-      return view('evaluation.newPA-create',compact('roles','objectives','competencies','mySubordinates','myTree','user'));
+      return view('evaluation.newPA-create',compact('roles','objectives','competencies','mySubordinates','myTree','user','objectiveCodes'));
 
     }
 

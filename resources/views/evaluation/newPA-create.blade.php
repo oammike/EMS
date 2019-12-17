@@ -77,7 +77,7 @@
                             
                             @foreach($roles as $role)
 
-                              @if (strpos($role->description,"without"))
+                              @if (strpos($role->name,"w/o"))
                               <div class="pull-left text-center" style="width: 30%;padding:35px;border:1px dotted #333; margin:5px;min-height: 200px">
 
                                 <label><input required="required" type="radio" name="type" value="{{$role->id}}" data-roletype="{{$role->name}}" style="margin:5px;"> <i class="fa fa-3x fa-street-view"></i><br/>
@@ -112,7 +112,8 @@
                         
                         <h1 class="bg-aqua text-center" style="padding:5px 30px 10px 10px;width: 15%; margin:10px; float: left">{{$c}}</h1>
                         <p style="margin-top: 20px;margin-right: 30px" class="text-center">
-                          {{$o->name}}
+                          <strong>{{$objectiveCodes[$c-1]}} </strong><br/>
+                          <em style="font-size: smaller">{{$o->name}}</em>
                         </p>
                       </div>
                       <?php $c++; ?>
@@ -140,7 +141,7 @@
                                         <?php $c=1; ?>
                                         @foreach($objectives as $o)
 
-                                        <option value="{{$o->id}}">Business Objective {{$c}} </option>
+                                        <option value="{{$o->id}}"> {{$objectiveCodes[$c-1]}} </option>
 
                                         <?php $c++; ?>
                                         @endforeach
@@ -180,7 +181,7 @@
                                       <?php $c=1; ?>
                                       @foreach($objectives as $o)
 
-                                      <option value="{{$o->id}}">Business Objective {{$c}} </option>
+                                      <option value="{{$o->id}}">{{$objectiveCodes[$c-1]}} </option>
 
                                       <?php $c++; ?>
                                       @endforeach
@@ -220,7 +221,7 @@
                                         <?php $c=1; ?>
                                         @foreach($objectives as $o)
 
-                                        <option value="{{$o->id}}">Business Objective {{$c}} </option>
+                                        <option value="{{$o->id}}">{{$objectiveCodes[$c-1]}} </option>
 
                                         <?php $c++; ?>
                                         @endforeach
@@ -411,7 +412,7 @@
           code += '       <select class="goals form-control" id="goal'+ct+'" required data-goalnum='+ct+'><option value="0">* Select a business objective *</option>';
                             <?php $c=1; ?>
                             @foreach($objectives as $o)
-                            code += '<option value="{{$o->id}}">Business Objective {{$c}} </option>';
+                            code += '<option value="{{$o->id}}">{{$objectiveCodes[$c-1]}}  </option>';
                             <?php $c++; ?>
                             @endforeach
           code += '        </select>'
