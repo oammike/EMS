@@ -61,6 +61,9 @@
                    
                     <img src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="70" class="pull-left" /> 
                     <h3 class="pull-left" style="padding-left:10px;width: 90% ">{{$form[0]->name}}<br/></h3>
+                    <h2 id="overall" class="pull-right" style="padding: 20px; background-color: #dedede; color: #fff"></h2>
+                    <div class="clearfix"></div>
+                    <p class="pull-right">Overall Rating</p>
                     <table class="table" id="reviewform">
                       <thead>
                         <tr>
@@ -85,7 +88,7 @@
                             <td style="padding:5px 5px 0px 50px" width="50%"> Goals & Action statements</td>
                             <td width="20%">Goal distribution</td>
                             <td width="15%">Rating</td>
-                            <td>Points</td>
+                            <td class="text-right">Points</td>
                           </tr>
 
                               @foreach($allGoals as $goal)
@@ -99,7 +102,7 @@
                                 </td>
                                 <td>{{$goal[0]->goalWeight}} % </td>
                                 <td>
-                                  <select name="rating_{{$goal[0]->goalID}}" class="form-control">
+                                  <select name="rating_{{$goal[0]->goalID}}" class="rating_goal form-control" data-goalweight="{{$goal[0]->goalWeight}}" data-componentweight="{{$comp[0]->componentWeight}}" data-goalID="{{$goal[0]->goalID}}">
                                     <option value="0">* select rating *</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -108,7 +111,7 @@
                                     <option value="5">5</option>
                                   </select>
                                 </td>
-                                <td></td>
+                                <td style="text-align: right;"><span class="goal_points" id="points_{{$goal[0]->goalID}}" style="font-weight: bold;">0.00</td>
                               </tr>
                               @endforeach
 
@@ -132,51 +135,97 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <tr>
+                          <td colspan="5">
 
                         @foreach($allCompetencies as $comp)
-                        <tr>
-                          <td style="font-size: larger">
-                            {{$comp[0]->competency}}<br/><br/>
 
-                            <div style="font-size: smaller; width: 90%">
-                              <?php $desc = collect($descriptors)->where('competencyID',$comp[0]->competencyID); ?>
-                              @foreach($desc as $d)
+                        <!-- ******** collapsible box ********** -->
+                            <div class="box box-default collapsed-box">
+                            <div class="box-header with-border">
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <h3 class="box-title text-primary">{{$comp[0]->competency}}  </h3>
+                                </div>
+                                <div class="col-lg-3"></div>
+                               
+                                <div class="col-lg-2">
+                                  <h3 class="box-title text-primary"><small id="evaluated-{{$comp[0]->competencyID}}">
+                                    <i class="fa fa-exclamation-circle text-yellow"></i></small>
+                                  </h3>
+                                </div>
+                                <div class="comp_points col-lg-1" id="comp-points_{{$comp[0]->competencyID}}" style="font-weight: bold;">0.00</div>
+                              </div>
                               
-                                
-                              <p id="desc_{{$d->id}}"   style="width: 90%">
-                              
-                                <a data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="1" class="descs btn btn-xs btn-success " style="margin-left: 2px"><i class="fa fa-thumbs-up"></i> </a> 
-                                <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="2"  class="descs btn btn-xs btn-danger " style="margin-left: 2px"><i class="fa fa-thumbs-down"></i> </a> 
-                                <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}"  data-type="0"  class="descs btn btn-xs btn-primary  " style="margin-left: 2px"><i class="fa fa-ban"></i> </a>&nbsp;&nbsp;{{$d->descriptor}} 
-                              </p>
-                                
 
-                              @endforeach
+
+
+                              <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                </button>
+                              </div>
+                              <!-- /.box-tools -->
                             </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                              <table width="100%">
+                                <tr>
+                                    <td style="font-size: larger" width="45%">
+                                      {{$comp[0]->competency}}<br/><br/>
+
+                                      <div style="font-size: smaller; width: 100%">
+                                        <?php $desc = collect($descriptors)->where('competencyID',$comp[0]->competencyID); ?>
+                                        @foreach($desc as $d)
+                                        
+                                          
+                                        <p id="desc_{{$d->id}}"   style="width: 90%">
+                                        
+                                          <a data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="1" class="descs btn btn-xs btn-success " style="margin-left: 2px"><i class="fa fa-thumbs-up"></i> </a> 
+                                          <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="2"  class="descs btn btn-xs btn-danger " style="margin-left: 2px"><i class="fa fa-thumbs-down"></i> </a> 
+                                          <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}"  data-type="0"  class="descs btn btn-xs btn-primary  " style="margin-left: 2px"><i class="fa fa-ban"></i> </a>&nbsp;&nbsp;{{$d->descriptor}} 
+                                        </p>
+                                          
+
+                                        @endforeach
+                                      </div>
 
 
-                          </td>
-                          
-                         
-                          <td>
-                            <label>Strengths </label><textarea rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
-                            <label>Areas For Improvement </label><textarea rows="7" id="afi_{{$comp[0]->competencyID}}" class="form-control"></textarea>
-                          </td>
-                          <td>{{$comp[0]->competencyWeight}} %</td>
-                          <td>
-                            <select name="ratingComp_{{$comp[0]->competencyID}}" class="form-control">
-                                    <option value="0">* select rating *</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                  </select>
-                          </td>
-                          <td></td>
-                        </tr>
+                                    </td>
+                                    
+                                   
+                                    <td width="30%">
+                                      <label>Strengths </label><textarea rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
+                                      <label>Areas For Improvement </label><textarea rows="7" id="afi_{{$comp[0]->competencyID}}" class="form-control"></textarea>
+                                    </td>
+                                    <td>{{$comp[0]->competencyWeight}} %</td>
+                                    <td>
+                                      <select name="ratingComp_{{$comp[0]->competencyID}}" class="rating_comp form-control" data-compID="{{$comp[0]->competencyID}}" data-componentweight="{{$comp[0]->competencyWeight}}">
+                                              <option value="0">* select rating *</option>
+                                              <option value="1">1</option>
+                                              <option value="2">2</option>
+                                              <option value="3">3</option>
+                                              <option value="4">4</option>
+                                              <option value="5">5</option>
+                                            </select>
+                                    </td>
+                                    <td style="font-weight: bold;" id="point-comp_{{$comp[0]->competencyID}}"></td>
+                                </tr>
+                              </table>
+
+                              
+                            </div>
+                            <!-- /.box-body -->
+                          </div>
+                          <!-- ******** end collapsible box ********** -->
+
+
+                        
 
                         @endforeach
+                        </td>
+
+
+                      </tr>
                         
 
                       </tbody>
@@ -243,6 +292,136 @@
    //    
    //  });
 
+   $('.rating_goal.form-control').on('change',function(){
+
+      var rate = $(this).find(':selected').val();
+      var componentWeight = $(this).attr('data-componentweight');
+      var goalWeight = $(this).attr('data-goalweight');
+      var goalID = $(this).attr('data-goalID');
+
+      var overallscore = 0;
+      var allgoal= 0;
+      var allcomp = 0;
+
+      var totalpoint = rate * (((componentWeight/100) * goalWeight)/100);
+
+      $('#points_'+goalID).html("");
+      $('#points_'+goalID).append(totalpoint.toFixed(2));
+      $('#points_'+goalID).attr('data-point', totalpoint.toFixed(2));
+
+
+      var allGoalPoints = $('.goal_points');//.attr('data-point');
+      var allCompPoints = $('.comp_points.col-lg-1'); //.attr('data-point');
+
+      
+
+      $.each( allGoalPoints, function(key,val){
+
+        allgoal += parseFloat(val.innerText);
+
+      });
+      
+
+      $.each( allCompPoints, function(key,val){
+
+        allcomp += parseFloat(val.innerText);
+
+      });
+      
+      overallscore = allgoal+allcomp;
+
+      
+      $('#overall').html("");
+      $('#overall').append(overallscore.toFixed(2));
+
+      if(overallscore > 4.5){
+        $('#overall').css('background-color',"#1a8fcb");
+      }else if(overallscore >= 4.0){
+         $('#overall').css('background-color',"#64d254");
+      }else if(overallscore >= 3.1){
+        $('#overall').css('background-color',"#666");
+      }else if(overallscore >= 2.0){
+        $('#overall').css('background-color',"#ea8f1b");
+      }else{
+        $('#overall').css('background-color',"#ff1212");
+      }
+
+
+
+
+   });
+
+   $('.rating_comp.form-control').on('change',function(){
+
+      var rate = $(this).find(':selected').val();
+      var componentWeight = $(this).attr('data-componentweight');
+      var compID = $(this).attr('data-compID');
+
+      var overallscore = 0;
+      var allgoal= 0;
+      var allcomp = 0;
+
+      var totalpoint = rate * (componentWeight/100);
+
+      $('#point-comp_'+compID).html("");
+      $('#point-comp_'+compID).append(totalpoint.toFixed(2));
+
+      if(rate !== 0){
+
+        $('#evaluated-'+compID).html("");
+        $('#evaluated-'+compID).append('<i class="fa fa-check text-success"></i>&nbsp;<span class="label label-default" style="font-size:larger">'+rate+'</span>');
+        $('#comp-points_'+compID).html("");
+        $('#comp-points_'+compID).append(totalpoint.toFixed(2));
+        $('#comp-points_'+compID).attr('data-point', totalpoint.toFixed(2));
+      }else{
+        $('#evaluated-'+compID).html("");
+        $('#comp-points_'+compID).html("");
+        $('#evaluated-'+compID).append('<i class="fa fa-exclamation-circle text-yellow"></i>');
+        $('#comp-points_'+compID).attr('data-point',0);
+
+      }
+
+      var allGoalPoints = $('.goal_points');//.attr('data-point');
+      var allCompPoints = $('.comp_points.col-lg-1'); //.attr('data-point');
+
+      
+
+      $.each( allGoalPoints, function(key,val){
+
+        allgoal += parseFloat(val.innerText);
+
+        console.log(overallscore);
+
+      });
+      
+
+      $.each( allCompPoints, function(key,val){
+
+        allcomp += parseFloat(val.innerText);
+
+      });
+      
+      overallscore = allgoal+allcomp;
+
+      
+      $('#overall').html("");
+      $('#overall').append(overallscore.toFixed(2));
+
+      if(overallscore > 4.5){
+        $('#overall').css('background-color',"#1a8fcb");
+      }else if(overallscore >= 4.0){
+         $('#overall').css('background-color',"#64d254");
+      }else if(overallscore >= 3.1){
+        $('#overall').css('background-color',"#666");
+      }else if(overallscore >= 2.0){
+        $('#overall').css('background-color',"#ea8f1b");
+      }else{
+        $('#overall').css('background-color',"#ff1212");
+      }
+
+    
+   });
+
   $('a.descs').on('click',function(){
     var item = $(this).attr('data-target');
     var id = $(this).attr('data-id');
@@ -260,8 +439,8 @@
     
 
     switch(clickType){
-      case '1': txt_strength.append("*** "+ reptxt.replace('                              ','')); break;
-      case '2': txt_afi.append("*** "+ reptxt.replace('                              ','')); break;
+      case '1': txt_strength.append("* "+ reptxt.replace('\n','')); break;
+      case '2': txt_afi.append("* "+ reptxt.replace('\n','')); break;
     }
 
 
