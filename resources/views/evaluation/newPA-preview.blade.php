@@ -329,6 +329,7 @@
       });
       
       overallscore = allgoal+allcomp;
+      if (overallscore > 5.0) overallscore=5.00
 
       
       $('#overall').html("");
@@ -402,6 +403,7 @@
       });
       
       overallscore = allgoal+allcomp;
+      if (overallscore > 5.0) overallscore=5.00
 
       
       $('#overall').html("");
