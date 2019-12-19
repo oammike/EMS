@@ -78,10 +78,14 @@
                         <div class="nav-tabs-custom">
                           <ul class="nav nav-tabs">
                            
-                            <li @if($type==1) class="active" @endif><a href="{{action('EvalFormController@index')}}">
+                            <li @if($type==5) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>5])}}">
+                              <strong  @if($type==5) class="text-primary" @else class="text-default" @endif>2019 JAN - DEC<br/> <small>Annual</small></strong></a> </li>
+
+                              <li @if($type==1) class="active" @endif><a href="{{action('EvalFormController@index')}}">
                               <strong @if($type==1) class="text-primary" @else class="text-default" @endif>January-June <br/> <small>Semi-Annual</small> <span style="font-size:smaller" class="text-danger"></span></strong></a></li>
                             <li @if($type==2) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>2])}}">
                               <strong  @if($type==2) class="text-primary" @else class="text-default" @endif>July-December<br/> <small>Semi-Annual</small></strong></a> </li>
+                            
                             <li @if($type==3) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>3])}}">
                               <strong  @if($type==3) class="text-primary" @else class="text-default" @endif>Regularization <br/><small>Evaluation</small></strong></a></li>
                             <li @if($type==4) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>4])}}">
@@ -250,96 +254,6 @@
 
 
 
-
-
-
-
-<?php /*
-
-   $('#teams').DataTable({
-    "scrollX": false,
-    "iDisplayLength": 25,
-    "responsive": false,
-    "columnDefs": [
-            
-            { "width": "60",  "targets": [ 0 ], "sorting":false },
-            // { "width": "150",  "targets": [ 1 ] },
-            // { "width": "150",  "targets": [ 2 ] },
-            // { "width": "180",  "targets": [ 3 ] },
-            // { "width": "150",  "targets": [ 4 ] },
-            {"sorting": false, "targets": [5], "width":"200"}
-        ],
-
-    // "columns": [
-    //             { "searchable": false },
-    //             { "searchable": true },
-    //             { "searchable": true },
-    //             { "searchable": true },
-    //             { "searchable": true },
-                
-    //           ]
-
-   }); */ ?>
-
-  //  $('.teamOption, .saveBtn').hide();
-
-
-  //  $('.teamMovement').on('click', function(e) {
-  //     e.preventDefault();
-  //     var memberID = $(this).attr('memberID');
-  //     var holder = "#teamOption";
-  //     $(this).fadeOut();
-  //     $(holder+memberID).fadeIn();
-  //  });
-
-  //  $('select[name="team"]').change(function(){    
-
-  //   var memberID = $(this).find(':selected').attr('memberID'); // $(this).val();
-  //   var newTeam = $(this).find(':selected').val();
-  //   var saveBtn = $('#save'+memberID).fadeIn();
-
-
-    
-  // });
-
-  //  $(".saveBtn").on("click", function(){
-  //   var memberID = $(this).attr('memberID');
-  //   var newTeam = $("#teamOption"+memberID+" select[name=team]").find(':selected').val(); // $(this).val();
-  //    var _token = "{{ csrf_token() }}";
-
-  //   $.ajax({
-  //                     url:"{{action('UserController@moveToTeam')}} ",
-  //                     type:'POST',
-  //                     data:{memberID:memberID, newTeam:newTeam, _token:_token},
-  //                     error: function(response)
-  //                     {
-  //                         $("#teamOption"+memberID).fadeOut();
-  //                       $("#teamMovement"+memberID).fadeIn();
-                        
-  //                       console.log("Error moving: "+newTeam);
-
-                          
-  //                         return false;
-  //                     },
-  //                     success: function(response)
-  //                     {
-
-  //                       $("#teamOption"+memberID).fadeOut();
-  //                       $("#teamMovement"+memberID).fadeIn();
-  //                       $("#row"+memberID).delay(1000).fadeOut('slow');
-  //                       console.log("Moved to: "+newTeam);
-  //                       console.log(response);
-
-  //                         return true;
-  //                     }
-  //                 });
-
-
-
-
-    
-
-  //  });
 
    
 

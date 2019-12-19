@@ -1557,7 +1557,7 @@
                                       <td valign="top" width="45%">
 
                                         @if($evalForm->evalSetting_id != 3)
-                                        <table style="margin: 0 auto; font-size:0.6em; font-family:'Roboto', Arial, sans-serif; border:1px dotted #666; left-padding:15px" width="80%" cellpadding="1">
+                                        <!-- <table style="margin: 0 auto; font-size:0.6em; font-family:'Roboto', Arial, sans-serif; border:1px dotted #666; left-padding:15px" width="80%" cellpadding="1">
                                           <tr>
                                             <td colspan="2"  align="center">Salary Increase Metrics</td>
                                           </tr>
@@ -1596,7 +1596,7 @@
                                           </tr>
                                           <tr><td colspan="2">&nbsp;</td></tr>
 
-                                        </table>
+                                        </table> -->
 
                                         @endif
 
