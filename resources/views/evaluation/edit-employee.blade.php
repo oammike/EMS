@@ -355,45 +355,7 @@ sidebar-collapse
                                   <h5>Below are the following guidelines for using the performance assessment tool: </h5>
 
                                  
-                                <table class="table" style="width:400px; margin: 0 auto;">
-                                  <tr>
-                                    <td colspan="2" class="text-center"><h4>Salary Increase Metrics</h4></td>
-                                  </tr>
-                                  <tr>
-                                    <td><strong>Total Score</strong></td>
-                                    <td class="text-center"><strong>Salary Increase</strong></td>
-                                  </tr>
-                                  <tr>
-                                    <td>100 - 97.5</td>
-                                    <td class="text-center">5%</td>
-                                    
-                                  </tr>
-                                  <tr>
-                                    <td>97.4 - 89.5</td>
-                                    <td class="text-center">4%</td>
-                                  </tr>
-
-                                  <tr>
-                                    <td>89.4 - 84.5</td>
-                                    <td class="text-center">3%</td>
-                                  </tr>
-
-                                  <tr>
-                                    <td>84.4 - 80.0</td>
-                                    <td class="text-center">2%</td>
-                                  </tr>
-
-                                   <tr>
-                                    <td>79.99 - 70.0</td>
-                                    <td class="text-center">1%</td>
-                                  </tr>
-
-                                  <tr>
-                                    <td>69.99 below</td>
-                                    <td class="text-center">none</td>
-                                  </tr>
-
-                                </table> <br/><br/>
+                                <br/><br/>
 
                                   <p>This Evaluation Form has a graduated scale from 5 to 1 with suggested qualitative definitions. Take your time, give thought to each performance factor and choose a numerical rating which best describes the employee's performance for each section (See second tab: Competencies Definition Guide Sheet). The rating range and definitions are as follows:</p>
                                   <p><br/>
@@ -501,29 +463,29 @@ var rating = parseFloat($('#overallScore').attr('data-value'));
     @endforeach
 
     if ( (trueGrade.toPrecision(4) <= 101) && (trueGrade.toPrecision(4) >= 97.50)){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
             $('input#salaryIncrease').attr("value",5);
 
     } else if ( (trueGrade.toPrecision(4) <= 97.49) && (trueGrade.toPrecision(4) >= 89.50) ){ 
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
             $('input#salaryIncrease').attr("value",4);
 
           } else if ( trueGrade.toPrecision(4) <= 89.49 && trueGrade.toPrecision(4) >= 84.50 ){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
             $('input#salaryIncrease').attr("value",3);
 
           } else if ( trueGrade.toPrecision(4) <= 84.49 && trueGrade.toPrecision(4) >= 80 ){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
             $('input#salaryIncrease').attr("value",2);
 
           } else if ( trueGrade.toPrecision(4) <= 79.99 && trueGrade.toPrecision(4) >= 70 ){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
             $('input#salaryIncrease').attr("value",2);
 
 
 
     } else {
-      $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
+      // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
        $('input#salaryIncrease').attr("value",0);
 
 
@@ -746,28 +708,28 @@ var rating = parseFloat($('#overallScore').attr('data-value'));
 
          if ( (trueGrade.toPrecision(4) <= 101) && (trueGrade.toPrecision(4) >= 97.50))
          {
-                $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
+                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
                 $('input#salaryIncrease').attr("value",5);
 
          } else if ( (trueGrade.toPrecision(4) <= 97.49) && (trueGrade.toPrecision(4) >= 89.50) ){ 
-                $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
+                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
                 $('input#salaryIncrease').attr("value",4);
 
          } else if ( trueGrade.toPrecision(4) <= 89.49 && trueGrade.toPrecision(4) >= 84.50 ){
-          $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
+          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
           $('input#salaryIncrease').attr("value",3);
 
          } else if ( trueGrade.toPrecision(4) <= 84.49 && trueGrade.toPrecision(4) >= 80 ){
-          $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
+          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
           $('input#salaryIncrease').attr("value",2);
 
          } else if ( trueGrade.toPrecision(4) <= 79.99 && trueGrade.toPrecision(4) >= 70 ){
-                $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
+                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
                 $('input#salaryIncrease').attr("value",2);
 
 
          } else {
-          $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
+          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
            $('input#salaryIncrease').attr("value",0);
          }
 
@@ -775,28 +737,28 @@ var rating = parseFloat($('#overallScore').attr('data-value'));
 
          if ( (trueGrade.toPrecision(4) <= 101) && (trueGrade.toPrecision(4) >= 97.50))
          {
-                $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
                 $('input#salaryIncrease').attr("value",5);
 
          } else if ( (trueGrade.toPrecision(4) <= 97.49) && (trueGrade.toPrecision(4) >= 89.50) ){ 
-                $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
                 $('input#salaryIncrease').attr("value",4);
 
           } else if ( trueGrade.toPrecision(4) <= 89.49 && trueGrade.toPrecision(4) >= 84.50 ){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
             $('input#salaryIncrease').attr("value",3);
 
           } else if ( trueGrade.toPrecision(4) <= 84.49 && trueGrade.toPrecision(4) >= 80 ){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
             $('input#salaryIncrease').attr("value",2);
 
           } else if ( trueGrade.toPrecision(4) <= 79.99 && trueGrade.toPrecision(4) >= 70 ){
-                  $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
                   $('input#salaryIncrease').attr("value",2);
 
 
           } else {
-          $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
            $('input#salaryIncrease').attr("value",0);
          }
 

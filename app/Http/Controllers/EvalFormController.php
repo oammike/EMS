@@ -1918,7 +1918,7 @@ class EvalFormController extends Controller
                                         
 
                                           $evalBy = User::find($emp->id)->supervisor->immediateHead_Campaigns_id;
-                                          $existing = EvalForm::where('user_id', $emp->id)->where('evalSetting_id',5)->where('evaluatedBy', $evalBy)->where('endPeriod','<=',$to)->where('startPeriod','>=', $fr)->orderBy('id','DESC')->get();
+                                          $existing = EvalForm::where('user_id', $emp->id)->where('evalSetting_id',5)->orderBy('id','DESC')->get();
                                           $coll->push(['existing'=>$existing]);
                                           
 
@@ -3730,7 +3730,7 @@ class EvalFormController extends Controller
                     if (empty($oldPos->leadershipRole)){
                         $isLead=false; 
                         $showPosition = "(Former ". $oldPos->name. ")";
-                    } else $isLead = $oldPos->leadershipRole;
+                    } else {$isLead = $oldPos->leadershipRole;$showPosition = $employee->position->name;}
 
                 }else {
                     //verify nga kung leader ba talaga or hindi
@@ -3875,7 +3875,9 @@ class EvalFormController extends Controller
 
                      }  else $rows = null;
 
-                     $summaryValue = PerformanceSummary::where('summary_id',$key->id)->where('evalForm_id',$evalForm->id)->first()->value;
+                     $summaryValue1 = PerformanceSummary::where('summary_id',$key->id)->where('evalForm_id',$evalForm->id)->first();
+                     if (!empty($summaryValue1)) $summaryValue = $summaryValue1->value; 
+                     else $summaryValue=null;
                      $summaries->push(['summaryID'=>$key->id,'summaryValue'=>$summaryValue,  'header'=>$key->heading,'details'=>$key->description, 'columns'=>$cols, 'rows'=>$rows]);
                   }
 
@@ -4359,7 +4361,7 @@ class EvalFormController extends Controller
                                             $idvar2 = 'id_'.$ctrSummary.'_'.$row->id;
 
                                             $ps2 = PerformanceSummary::find((int)$request->$idvar2);
-                                            if (count($ps2) !== 0){
+                                            if (!empty($ps2)){
                                                 if ($ps2->value !== $request->$var2){
                                                 $ps2->value = $request->$var2;
                                                 $ps2->push();

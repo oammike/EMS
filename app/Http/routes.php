@@ -717,6 +717,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'newEvaluation',
       'uses'=>'EvalFormController@newEvaluation') );
 
+    Route::get('/evalForm/newAnnual/{user_id}/{evalType_id}', array(
+      'as'=> 'newAnnualEvaluation',
+      'uses'=>'EvalFormController@newAnnualEvaluation') );
+
     Route::get('/evalForm/newContractual/{user_id}/{evalType_id}', array(
       'as'=> 'newContractual',
       'uses'=>'EvalFormController@newContractual') );

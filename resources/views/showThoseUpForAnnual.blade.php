@@ -209,7 +209,7 @@
                         <td>{{$employee['data']->firstname}}</a></td>
                         <td>{{$employee['data']->position->name}}</td>
                         <td>{{$employee['data']->status->name}}</td>
-                        <td>{{$doneEval[$employee['data']->id]['startPeriod']}} to  {{$doneEval[$employee['data']->id]['endPeriod']}}  </td>
+                        <td>Jan 01,2019 to  Dec 31,2019  </td>
                         <td class="text-danger">
                           
                           @if ($doneEval[$employee['data']->id]['isDraft'] == '1' && $doneEval[$employee['data']->id]['evaluated'])
@@ -231,7 +231,7 @@
                               <p class="text-center"><a class="btn btn-sm btn-danger" href="{{action('EvalFormController@edit',$doneEval[$employee['data']->id]['evalForm_id']) }} "><i class="fa fa-check"></i> Continue Evaluating </a></p>
                              
 
-                              @else <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['data']->id, 'evalType_id'=>$evalSetting->id, 'currentPeriod'=>$doneEval[$employee['data']->id]['startPeriod'],'endPeriod'=>$doneEval[$employee['data']->id]['endPeriod'],'isLead'=>$employee['isLead']]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now </a></p> 
+                              @else <p class="text-center"><a class="btn btn-md btn-success" href="{{action('EvalFormController@newEvaluation', ['user_id'=>$employee['data']->id, 'evalType_id'=>$evalSetting->id, 'currentPeriod'=>'2019-01-01','endPeriod'=>'2019-12-31','isLead'=>$employee['isLead']]) }} "><i class="fa fa-check-square-o"></i> Evaluate Now </a></p> 
                               @endif
 
                              
