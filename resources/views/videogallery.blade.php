@@ -112,6 +112,30 @@
           
           <article class="video">
             <figure>
+              <a data-fancybox="gallery" data-file="Idol_WINNER" href="http://172.17.0.2/evaluation/storage/uploads/2019_idol-winner.mp4">
+              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot_2019_idol-winner.jpg"></a>
+            </figure>
+            <h5 class="videoTitle text-center">2019 Open Access Idol WINNER</h5>
+          </article>
+
+           <article class="video">
+            <figure>
+              <a data-fancybox="gallery" data-file="Idol_2ND" href="http://172.17.0.2/evaluation/storage/uploads/2019_idol-2nd.mp4">
+              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot_2019_idol-2nd.jpg"></a>
+            </figure>
+            <h5 class="videoTitle text-center">2019 Open Access Idol 2ND PLACER</h5>
+          </article>
+
+           <article class="video">
+            <figure>
+              <a data-fancybox="gallery" data-file="Idol_3RD" href="http://172.17.0.2/evaluation/storage/uploads/2019_idol-3rd.mp4">
+              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot_2019_idol-3rd.jpg"></a>
+            </figure>
+            <h5 class="videoTitle text-center">2019 Open Access Idol 3RD PLACER</h5>
+          </article>
+
+          <article class="video">
+            <figure>
               <a data-fancybox="gallery" data-file="Mchr_SDE" href="http://172.17.0.2/evaluation/storage/uploads/monochrome_sde_op.mp4">
               <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-monochrome.jpg"></a>
             </figure>
