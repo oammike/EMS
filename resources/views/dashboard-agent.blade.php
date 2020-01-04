@@ -115,7 +115,7 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                       <h2 class="text-center text-primary"><span style="font-size: smaller;"><?php echo date('l M d, Y'); ?></span> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
+                       <h2 class="text-center text-primary"><span style="font-size: smaller;">{{$startToday->format('l M d, Y')}} </span> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
                       <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p>
                       
                       <br/><br/>

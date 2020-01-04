@@ -1157,7 +1157,7 @@ class HomeController extends Controller
                     
                     //return $prg2;
                     //return $groupedForm;
-                    return view('dashboard-agent', compact('campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+                    return view('dashboard-agent', compact('startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
                     
 
 
@@ -1168,7 +1168,7 @@ class HomeController extends Controller
                     //-- Initialize Approvals Dashlet
 
                    //return $groupedForm[0];
-                    return view('dashboard', compact('campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+                    return view('dashboard', compact('startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
                    
 
 
