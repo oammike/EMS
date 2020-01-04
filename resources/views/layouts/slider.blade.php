@@ -1,55 +1,28 @@
 
 
-                  <div class="item active text-center" style="background-color: #fff">
-                              <img src="storage/uploads/bg_2019-awardees.jpg" />
-                              <h1>Loyalty <span style="color: #666"> Awardees</span><br/><br/></h1>
+                  <div class="item active text-center" >
+                    <img src="./storage/uploads/new_year_2020.jpg" style="z-index: 2" />
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>No matter what your plans are for 2020, we hope that you spend your energies on doing things that make you feel most happy and alive. Happy New Year! </strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>   
                   </div>
 
-                 @if(count($tenYears) >= 1)
-
-                 @foreach($tenYears as $n)
-                  <div class="item text-center">
-                    <div style="padding-top:10px;background:url('storage/uploads/bg_2019-awardees.jpg') bottom center no-repeat;background-color: #0b0b0b; background-size: 100%" >
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <h4  style="color: #fbf970"  ><br/>Happy 10th Year<span style="color:#fff"> @ Open Access!</span></h4>
-                      
-                      
-                      <div class="widget-user-image">
-                         
-
-                        @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                        <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="190" alt="User Avatar">
-                        @else
-                        <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="190" alt="User Avatar">
-                        @endif
-
-                      </div>
-                      
-                      <div style="margin-bottom: 180px">
-                          @if (empty($n->nickname) || $n->nickname==" ")
-                             <h3 class="widget-user-username" style="line-height: 0.2em"><a style="color: #fff" href="{{action('UserController@show',$n->id)}}"><small  style="color: #fff"  >{{$n->firstname}} {{$n->lastname}} </small></a><br/></h3>
-                         @else
-                             <h3 class="widget-user-username text-white" style="line-height: 0.2em"><a href="{{action('UserController@show',$n->id)}}"><small style="color: #fff"  >{{$n->nickname}} {{$n->lastname}} </small></a><br/></h3>
-                         @endif
-                         <h5 style="margin-top: -7px"><small style="color:#666; font-weight: bolder"> {{$n->name}} </small><br/>
-
-                        @if ($n->filename == null) 
-                         <span class="text-white"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5><br/><br/><br/><br/><br/>
-                        @else
-                       <img src="{{ asset('public/img/'.$n->filename) }}" height="30" style="margin-top: 40px" /> </h5>
-                        
-                        @endif
-                        
-                      </div><br/><br/>
-                    </div>
+                  <div class="item text-center" style="background-color: #000" >
+                    
+                      <img src="./storage/uploads/idol-winners.jpg" width="100%" style="z-index: 2" /><br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
                   </div>
 
-                  @endforeach
-
-                 @endif
-
-
-                             
+                  <div class="item  text-center" >
+                    <h2 class="text-primary">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">to our <span style="color:#666">Monochrome Party </span><br/><strong>Star of The Night </strong> winners!</span></h2>
+                      <img src="./storage/uploads/monochrome-516.jpg" width="100%" style="z-index: 2" />
+                      <h4 class="text-warning" style="text-transform: uppercase;"> Janelle De Guzman &amp; Adrian Uro <br/>
+                                                            
+                      </h4>
+                      <h5 class="text-center"></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
+                  </div>           
 
 
                   <div class="item text-center">
@@ -65,65 +38,9 @@
                         <i class="fa fa-image"></i> Photobooth 2</a><br/><br/>
                   </div>
 
-                  @if(count($fiveYears) >= 1)
+                 
 
-                   @foreach($fiveYears as $n)
-                    <div class="item text-center">
-                     <div style="padding-top:10px;background:url('storage/uploads/bg_2019-awardees.jpg') bottom center no-repeat;background-color: #0b0b0b; background-size: 100%" >
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <h4  style="color: #fbf970"  ><br/>Happy 5th Year<span style="color:#fff"> @ Open Access!</span></h4>
-                        
-                        
-                        <div class="widget-user-image">
-                           
-
-                          @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                          <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="190" alt="User Avatar">
-                          @else
-                          <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="190" alt="User Avatar">
-                          @endif
-
-                        </div>
-                        
-                        <div style="margin-bottom: 180px">
-                            @if (empty($n->nickname) || $n->nickname==" ")
-                               <h3 class="widget-user-username" style="line-height: 0.2em"><a style="color: #fff" href="{{action('UserController@show',$n->id)}}"><small  style="color: #fff"  >{{$n->firstname}} {{$n->lastname}} </small></a><br/></h3>
-                           @else
-                               <h3 class="widget-user-username text-white" style="line-height: 0.2em"><a href="{{action('UserController@show',$n->id)}}"><small style="color: #fff"  >{{$n->nickname}} {{$n->lastname}} </small></a><br/></h3>
-                           @endif
-                           <h5 style="margin-top: -7px"><small style="color:#666; font-weight: bolder"> {{$n->name}} </small><br/>
-
-                          @if ($n->filename == null) 
-                           <span class="text-white"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5><br/><br/><br/><br/><br/>
-                          @else
-                         <img src="{{ asset('public/img/'.$n->filename) }}" height="30" style="margin-top: 40px" /> </h5>
-                          
-                          @endif
-                          
-                        </div><br/><br/>
-                      </div>
-                    </div>
-
-                    @endforeach
-
-                   @endif
-
-
-
-                  <div class="item  text-center" style="background-color: #000" >
-                    
-                      <img src="./storage/uploads/idol-winners.jpg" width="100%" style="z-index: 2" /><br/><br/>
-                      <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
-                  </div>
-
-                  <div class="item  text-center" >
-                    <h2 class="text-primary">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">to our <span style="color:#666">Monochrome Party </span><br/><strong>Star of The Night </strong> winners!</span></h2>
-                      <img src="./storage/uploads/monochrome-516.jpg" width="100%" style="z-index: 2" />
-                      <h4 class="text-warning" style="text-transform: uppercase;"> Janelle De Guzman &amp; Adrian Uro <br/>
-                                                            
-                      </h4>
-                      <h5 class="text-center"></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
-                  </div>
+                  
 
                   <div class="item  text-center" style="background-color: #000" >
                     
@@ -500,6 +417,98 @@
 
 
 <?php /*
+ @if(count($fiveYears) >= 1)
+
+                   @foreach($fiveYears as $n)
+                    <div class="item text-center">
+                     <div style="padding-top:10px;background:url('storage/uploads/bg_2019-awardees.jpg') bottom center no-repeat;background-color: #0b0b0b; background-size: 100%" >
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <h4  style="color: #fbf970"  ><br/>Happy 5th Year<span style="color:#fff"> @ Open Access!</span></h4>
+                        
+                        
+                        <div class="widget-user-image">
+                           
+
+                          @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                          <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="190" alt="User Avatar">
+                          @else
+                          <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="190" alt="User Avatar">
+                          @endif
+
+                        </div>
+                        
+                        <div style="margin-bottom: 180px">
+                            @if (empty($n->nickname) || $n->nickname==" ")
+                               <h3 class="widget-user-username" style="line-height: 0.2em"><a style="color: #fff" href="{{action('UserController@show',$n->id)}}"><small  style="color: #fff"  >{{$n->firstname}} {{$n->lastname}} </small></a><br/></h3>
+                           @else
+                               <h3 class="widget-user-username text-white" style="line-height: 0.2em"><a href="{{action('UserController@show',$n->id)}}"><small style="color: #fff"  >{{$n->nickname}} {{$n->lastname}} </small></a><br/></h3>
+                           @endif
+                           <h5 style="margin-top: -7px"><small style="color:#666; font-weight: bolder"> {{$n->name}} </small><br/>
+
+                          @if ($n->filename == null) 
+                           <span class="text-white"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5><br/><br/><br/><br/><br/>
+                          @else
+                         <img src="{{ asset('public/img/'.$n->filename) }}" height="30" style="margin-top: 40px" /> </h5>
+                          
+                          @endif
+                          
+                        </div><br/><br/>
+                      </div>
+                    </div>
+
+                    @endforeach
+
+                   @endif
+
+
+
+ <div class="item active text-center" style="background-color: #fff">
+                              <img src="storage/uploads/bg_2019-awardees.jpg" />
+                              <h1>Loyalty <span style="color: #666"> Awardees</span><br/><br/></h1>
+                  </div>
+
+                 @if(count($tenYears) >= 1)
+
+                 @foreach($tenYears as $n)
+                  <div class="item text-center">
+                    <div style="padding-top:10px;background:url('storage/uploads/bg_2019-awardees.jpg') bottom center no-repeat;background-color: #0b0b0b; background-size: 100%" >
+                      <!-- Add the bg color to the header using any of the bg-* classes -->
+                      <h4  style="color: #fbf970"  ><br/>Happy 10th Year<span style="color:#fff"> @ Open Access!</span></h4>
+                      
+                      
+                      <div class="widget-user-image">
+                         
+
+                        @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                        <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="190" alt="User Avatar">
+                        @else
+                        <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="190" alt="User Avatar">
+                        @endif
+
+                      </div>
+                      
+                      <div style="margin-bottom: 180px">
+                          @if (empty($n->nickname) || $n->nickname==" ")
+                             <h3 class="widget-user-username" style="line-height: 0.2em"><a style="color: #fff" href="{{action('UserController@show',$n->id)}}"><small  style="color: #fff"  >{{$n->firstname}} {{$n->lastname}} </small></a><br/></h3>
+                         @else
+                             <h3 class="widget-user-username text-white" style="line-height: 0.2em"><a href="{{action('UserController@show',$n->id)}}"><small style="color: #fff"  >{{$n->nickname}} {{$n->lastname}} </small></a><br/></h3>
+                         @endif
+                         <h5 style="margin-top: -7px"><small style="color:#666; font-weight: bolder"> {{$n->name}} </small><br/>
+
+                        @if ($n->filename == null) 
+                         <span class="text-white"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5><br/><br/><br/><br/><br/>
+                        @else
+                       <img src="{{ asset('public/img/'.$n->filename) }}" height="30" style="margin-top: 40px" /> </h5>
+                        
+                        @endif
+                        
+                      </div><br/><br/>
+                    </div>
+                  </div>
+
+                  @endforeach
+
+                 @endif
 
 <div class="item active text-center">
                       
