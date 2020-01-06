@@ -2396,7 +2396,7 @@ class DTRController extends Controller
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
-                                        $x=$data[0]['x'];$y=$data[0]['y'];
+                                        
                                         //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                       }else{
@@ -2415,7 +2415,7 @@ class DTRController extends Controller
                                       $billableForOT = $data[0]['billableForOT'];
                                       $OTattribute = $data[0]['OTattribute'];
                                       $UT = $data[0]['UT'];
-                                      $x=$data[0]['x'];$y=$data[0]['y'];
+                                      
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                     } 
