@@ -3354,7 +3354,7 @@ trait TimekeepingTraits
     ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
 
     $inTime = null;
-    $outTime = null;
+    $outTime = null;$x=null;$y=null;
 
 
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
@@ -3875,21 +3875,25 @@ trait TimekeepingTraits
 
                    if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                    {
-                    $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila')->format('Y-m-d H:i:s');
+                    $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');//->format('Y-m-d H:i:s');
 
-                    if($isPartTimer)
+                    /*if($isPartTimer)
                       $shift_end = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5);
                     else
-                      $shift_end = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+                      $shift_end = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);*/
 
-                    $totalbill = number_format( $shift_end->diffInMinutes(Carbon::parse($t,"Asia/Manila") )/60,2);
+                    $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    //$totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($t,"Asia/Manila") ))/60,2);
+                    
+                    //$totalbill = 133.33;
                     //$totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($t,"Asia/Manila") ))/60,2);
 
                    }
                     
-                  else{
+                  else{ 
                     $t = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->format('H:i:s');
                     $totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$t,"Asia/Manila") ))/60,2);
+                    //$totalbill = 244.44;
                   }
 
 

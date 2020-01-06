@@ -1940,7 +1940,7 @@ class DTRController extends Controller
             
              $schedRecord = [];
              $schedCtr = 0;
-             $wsch = new Collection;
+             $wsch = new Collection;$x=null;$y=null;
 
 
              //return collect($hybridSched_WS_fixed->first())->where('workday',4)->first();
@@ -2396,6 +2396,7 @@ class DTRController extends Controller
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
+                                        $x=$data[0]['x'];$y=$data[0]['y'];
                                         //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                       }else{
@@ -2414,6 +2415,7 @@ class DTRController extends Controller
                                       $billableForOT = $data[0]['billableForOT'];
                                       $OTattribute = $data[0]['OTattribute'];
                                       $UT = $data[0]['UT'];
+                                      $x=$data[0]['x'];$y=$data[0]['y'];
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                     } 
@@ -2502,6 +2504,7 @@ class DTRController extends Controller
                                         $UT = $data[0]['UT'];
                                         $VLs = $data[0]['VL'];
                                         $LWOPs = $data[0]['LWOP'];
+
                                               
                                       
 
@@ -2591,6 +2594,8 @@ class DTRController extends Controller
                                        'schedForToday'=>$schedForToday,
                                        'sameDayLog'=>$sameDayLog,
                                        'isFixedSched'=>$isFixedSched,
+
+                                      
                                        
                                        
 
