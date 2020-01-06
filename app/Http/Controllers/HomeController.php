@@ -1075,7 +1075,8 @@ class HomeController extends Controller
 
                 //$filtered = array_group_by($newHires,'id');
 
-                //return $firstYears;
+                //$cc = collect($firstYears)->where('nickname',"ROSE")->all();
+                //return $cc[0]->firstname;
 
                
                 $evalTypes = EvalType::all();

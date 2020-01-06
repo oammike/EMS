@@ -637,7 +637,8 @@ trait EvaluationTraits
                                                     {
                                                         $coll2->push(['nilipatan'=>$nilipatan,'nextMovements'=>$nextMovements]); //$nextMovements); 
                                                         $fr = $effective;
-                                                        $to = Carbon::createFromFormat('Y-m-d H:i:s',$nilipatan[0]->effectivity, "Asia/Manila");
+                                                        $to = Carbon::now();
+                                                        //$to = Carbon::createFromFormat('Y-m-d H:i:s',$nilipatan[0]->effectivity, "Asia/Manila");
                                                         goto foundEval;
 
                                                     }else
