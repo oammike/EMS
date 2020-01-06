@@ -3498,7 +3498,7 @@ trait TimekeepingTraits
         //---- MARKETING TEAM CHECK: 15mins grace period
           
           
-             //if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
+            if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
             $isLateIN=true;
           
 
@@ -3728,7 +3728,9 @@ trait TimekeepingTraits
 
               
                 
-                $totalbill = number_format($endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") )/60,2);
+                //$totalbill = number_format($endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") )/60,2);
+                $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                //$totalbill = 33.33;
                 
 
                 if ($totalbill > 0.5)
@@ -3892,7 +3894,8 @@ trait TimekeepingTraits
                     
                   else{ 
                     $t = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->format('H:i:s');
-                    $totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$t,"Asia/Manila") ))/60,2);
+                    //$totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$t,"Asia/Manila") ))/60,2);
+                    $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
                     //$totalbill = 244.44;
                   }
 
