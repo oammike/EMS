@@ -1,6 +1,16 @@
 
 
                   <div class="item active text-center" >
+                    <h3 class="text-primary">Redemption of Raffle Prizes</h3>
+                    <img src="./storage/uploads/raffle2019.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Hope everyone had a great holiday season with their loved ones!<br/><br/>A kind reminder to the winners of the remaining unclaimed items from our year end party last December 14, 2019. You may claim them from the <strong>Marketing office at the 5F of Jaka </strong>from <strong>Mondays-Fridays 8:00AM - 5:00 PM</strong>. Please don't forget to bring your raffle cards. <strong class="text-danger">Last day of redemption is until January 31, 2020.</strong> If the schedule of redemption is in conflict with your shift, kindly send an email to events@openaccessbpo.net<br/><br/>Thanks and wishing you all a HAPPY NEW YEAR!</p>
+
+
+                               <br/><br/>   
+                  </div>
+
+                  <div class="item text-center" >
                     <img src="./storage/uploads/new_year_2020.jpg" style="z-index: 2" />
                     <p class="text-left" style="padding-left: 50px;"><br/><br/>No matter what your plans are for 2020, we hope that you spend your energies on doing things that make you feel most happy and alive. Happy New Year! </strong></p>
 
@@ -41,12 +51,6 @@
                  
 
                   
-
-                  <div class="item  text-center" style="background-color: #000" >
-                    
-                      <img src="./storage/uploads/idol-winners.jpg" width="100%" style="z-index: 2" /><br/><br/>
-                      <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
-                  </div>
                    
                     @foreach($top3 as $idol)
 
