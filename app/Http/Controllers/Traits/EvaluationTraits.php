@@ -288,14 +288,22 @@ trait EvaluationTraits
 
                                             if (count($byme) >= 1){
                                                 $theeval = $byme->first();
-                                            }else $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
-                                            
-                                            $truegrade = $theeval->overAllScore;
 
-                                            if ($theeval->isDraft) 
-                                              $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
-                                            else
-                                            $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                                $truegrade = $theeval->overAllScore;
+
+                                                if ($theeval->isDraft) 
+                                                  $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
+                                                else
+                                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+
+
+                                            }else{
+
+                                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+
+                                            } //$theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
+                                            
+                                            
 
 
 
