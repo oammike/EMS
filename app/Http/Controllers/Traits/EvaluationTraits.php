@@ -283,7 +283,13 @@ trait EvaluationTraits
                                             
                                         } else {
 
-                                            $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
+                                            //** get only yung eval na ikaw gumawa
+                                            $byme = $evaluated->where('evaluatedBy',$moved->imHeadCampID_old);
+
+                                            if (count($byme) >= 1){
+                                                $theeval = $byme->first();
+                                            }else $theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
+                                            
                                             $truegrade = $theeval->overAllScore;
 
                                             if ($theeval->isDraft) 
