@@ -65,8 +65,8 @@
                         <?php $exists = collect($hasExistingForms)->where('formID',$form->id); ?>
                         <ul style="list-style: none">
                           @foreach($exists as $e)
-                          <li><a data-toggle="modal" data-target="#myModal{{$e->id}}" ><i class="fa fa-times"></i></a> <strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
-                            <a class="btn btn-md btn-primary" href="{{action('NewPA_Form_Controller@evaluate',['id'=>$e->user_id, 'form'=>$form->id])}}"><i class="fa fa-thumbs-up"></i>&nbsp; Evaluate Now </a><br/><br/>
+                          <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-trash"></i></a><img src="./public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
+                            <a class="pull-right btn btn-sm btn-primary" href="{{action('NewPA_Form_Controller@evaluate',['id'=>$e->user_id, 'form'=>$form->id])}}"><i class="fa fa-thumbs-up"></i>&nbsp; Evaluate Now </a><br/><br/><br/><br/>
                           </li>
 
                           @include('layouts.modals', [
