@@ -33,21 +33,86 @@
                     <tr>
                       <th>Form</th>
                       <th>Description</th>
-                      <th style="width: 10%"> </th>
+                      <th class="text-center">Applies To</th>
+                      <th style="width: 10%">Actions </th>
                     </tr>
                   </thead>
 
                   <tbody>
                     @foreach($forms as $form)
                     <tr>
-                      <td style="font-size: larger;"><a href="{{action('NewPA_Form_Controller@preview',$form->id)}}"><i class="fa fa-file-o"></i> {{$form->name}} </a></td>
-                      <td style="font-size: smaller;"> {{$form->description}} </td>
+                      <td style="font-size: larger;">
+
+                        @if ( $form->typeID == '1' || $form->typeID == '2' )
+                        <a href="{{action('NewPA_Form_Controller@preview',$form->id)}}">
+                          <span style="background-color: #f1d61c;padding: 10px;color:#fff; font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> FIC </span>&nbsp;&nbsp; {{$form->name}} </a>
+
+                        @elseif ( $form->typeID == '3' || $form->typeID == '4' )
+                        <a href="{{action('NewPA_Form_Controller@preview',$form->id)}}">
+                          <span style="background-color: #72a919;padding: 10px;color:#fff;  font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> SIC </span>&nbsp;&nbsp; {{$form->name}}  </a>
+
+                        @else
+                        <a href="{{action('NewPA_Form_Controller@preview',$form->id)}}" >
+                          <span style="background-color: #0778dc;padding: 10px;color:#fff ; font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> PM </span> &nbsp;&nbsp;{{$form->name}}   </a>
+
+                        @endif
+                        
+                      </td>
+                      <td style="font-size: smaller; white-space: pre;"> {!! $form->description !!} </td>
+
+                      @if($form->typeID == 5 ||  $form->typeID == 6 )
+                      <td>
+                        <?php $exists = collect($hasExistingForms)->where('formID',$form->id); ?>
+                        <ul style="list-style: none">
+                          @foreach($exists as $e)
+                          <li><a data-toggle="modal" data-target="#myModal{{$e->id}}" ><i class="fa fa-times"></i></a> <strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
+                            <a class="btn btn-md btn-primary" href="{{action('NewPA_Form_Controller@evaluate',['id'=>$e->user_id, 'form'=>$form->id])}}"><i class="fa fa-thumbs-up"></i>&nbsp; Evaluate Now </a><br/><br/>
+                          </li>
+
+                          @include('layouts.modals', [
+                          'modelRoute'=>'newPA_form_user.destroy',
+                          'modelID' => $e->id, 
+                          'modelName'=>$e->firstname." ".$e->lastname, 
+                          'modalTitle'=>'Delete', 
+                          'modalMessage'=>'Are you sure you want to remove '.$e->firstname.' '.$e->lastname.' from using this form?', 
+                          'formID'=>'deleteUserForm',
+                          'icon'=>'glyphicon-trash' ])
+
+
+                          @endforeach
+                        </ul>
+                      </td>
+                      
+                      @else
+
+
+                      <td>
+                        <p style="margin-left: 40px">all <em>{{$form->type}}</em> </p>
+                      </td>
+
+
+                      
+                      @endif
+                      
                       <td>
                         <a class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> </a>
                         <a href="{{action('NewPA_Form_Controller@preview',$form->id)}} " class="btn btn-xs btn-default"><i class="fa fa-eye"></i> </a>
-                        <a class="btn btn-xs btn-default"><i class="fa fa-trash"></i> </a>
+                        <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal{{$form->id}}"><i class="fa fa-trash"></i> </a>
                       </td>
+
                     </tr>
+
+                    
+
+                    @include('layouts.modals', [
+                          'modelRoute'=>'performance.destroy',
+                          'modelID' => $form->id, 
+                          'modelName'=>$form->name, 
+                          'modalTitle'=>'Delete', 
+                          'modalMessage'=>'Are you sure you want to delete this?', 
+                          'formID'=>'deleteMovement',
+                          'icon'=>'glyphicon-trash' ])
+
 
                     @endforeach
                   </tbody>

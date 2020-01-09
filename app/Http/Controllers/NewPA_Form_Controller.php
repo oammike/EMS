@@ -29,6 +29,7 @@ use OAMPI_Eval\NewPA_Form;
 use OAMPI_Eval\NewPA_Form_Competencies;
 use OAMPI_Eval\NewPA_Form_Components;
 use OAMPI_Eval\NewPA_Form_Goal;
+use OAMPI_Eval\NewPA_Form_User;
 use OAMPI_Eval\NewPA_Goal;
 use OAMPI_Eval\NewPA_Objective;
 use OAMPI_Eval\NewPA_TeamSetting;
@@ -59,8 +60,23 @@ class NewPA_Form_Controller extends Controller
 
     public function index()
     {
-      $forms = NewPA_Form::where('user_id',$this->user->id)->get();
-      return view('evaluation.newPA-index',compact('forms'));
+      $forms = DB::table('newPA_form')->where('newPA_form.user_id',$this->user->id)->
+                    join('newPA_type','newPA_form.typeID','=','newPA_type.id')->
+                    select('newPA_form.id','newPA_type.id as typeID', 'newPA_form.name','newPA_form.description','newPA_type.name as type')->get(); 
+                    //NewPA_Form::where('user_id',$this->user->id)->get();
+      $hasExistingForms = DB::table('newPA_form')->where('newPA_form.user_id',$this->user->id)->
+                          join('newPA_form_user','newPA_form_user.formID','=','newPA_form.id')->
+                          join('users','newPA_form_user.user_id','=','users.id')->
+                          join('positions','users.position_id','=','positions.id')->
+                          select('newPA_form_user.id','newPA_form_user.user_id', 'newPA_form.id as formID','users.firstname','users.lastname','positions.name as jobTitle')->get();
+
+
+      //return $forms;
+      
+
+      collect(DB::table('newPA_form_user')->where('assignedBy',$this->user->id)->select('user_id')->get())->pluck('user_id')->toArray();
+
+      return view('evaluation.newPA-index',compact('forms','hasExistingForms'));
 
     }
 
@@ -151,6 +167,10 @@ class NewPA_Form_Controller extends Controller
 
         $myTree = new Collection;
         $mySubordinates = $this->getMySubordinates($this->user->employeeNumber);
+        $leaders = [];
+        $hasExistingForms = collect(DB::table('newPA_form_user')->where('assignedBy',$this->user->id)->select('user_id')->get())->pluck('user_id')->toArray();
+
+
         foreach ($mySubordinates as $sub) {
           
           if ($sub['subordinates'] !== null)
@@ -178,6 +198,7 @@ class NewPA_Form_Controller extends Controller
                           });
 
             $myTree->push(['level'=>'2', 'parentID'=>$this->user->id, 'tl_userID'=>$sub['id'], 'firstname'=>$sub['firstname'],'lastname'=>$sub['lastname'],'nickname'=>$sub['nickname'],'jobTitle'=>$sub['position'], 'members'=>$members]);
+            array_push($leaders, $sub['id']);
 
             
             foreach ($nextLevel as $key => $value) {
@@ -203,6 +224,7 @@ class NewPA_Form_Controller extends Controller
                           });
 
                 $myTree->push(['level'=>'3','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level3]);
+                array_push($leaders, $tluser->id);
 
                 //*** LEVEL 4 
                 foreach ($nextLevel as $key => $value) {
@@ -228,6 +250,7 @@ class NewPA_Form_Controller extends Controller
                               });
 
                     $myTree->push(['level'=>'4','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level4]);
+                    array_push($leaders, $tluser->id);
 
                     //*** LEVEL 5
                     foreach ($nextLevel as $key => $value) {
@@ -253,6 +276,7 @@ class NewPA_Form_Controller extends Controller
                                     });
 
                           $myTree->push(['level'=>'5','parentID'=>$sub['id'], 'tl_userID'=>$tluser->id, 'firstname'=>$tluser->firstname, 'lastname'=>$tluser->lastname, 'nickname'=>$tluser->nickname, 'members'=>$level5]);
+                          array_push($leaders, $tluser->id);
 
                          
 
@@ -282,8 +306,53 @@ class NewPA_Form_Controller extends Controller
                         fwrite($file, "-------------------\n Viewed My Team on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                         fclose($file);
                     }
+        //return $hasExistingForms;
         //return response()->json(["myTree"=>$myTree,"mySubordinates"=>$mySubordinates]);//$allTeams;// $myTree;
-      return view('evaluation.newPA-create',compact('roles','objectives','competencies','mySubordinates','myTree','user','objectiveCodes'));
+      return view('evaluation.newPA-create',compact('roles','objectives','competencies','mySubordinates','myTree','leaders','user','objectiveCodes','hasExistingForms'));
+
+    }
+
+    public function destroy($id)
+    {
+        $this->newPA_form->destroy($id);
+        return back();
+
+    }
+
+    public function evaluate($id)
+    {
+      $formID = Input::get('form');
+
+      $user = DB::table('users')->where('users.id',$id)->join('positions','positions.id','=','users.position_id')->
+                  join('team','team.user_id','=','users.id')->
+                  join('campaign','team.campaign_id','=','campaign.id')->
+                  select('users.id','users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program')->get();
+                  
+
+      $form = DB::table('newPA_form')->where('newPA_form.id',$formID)->
+                  leftJoin('newPA_type','newPA_form.typeID','=','newPA_type.id')->
+                  leftJoin('newPA_form_goal','newPA_form_goal.formID','=','newPA_form.id')->
+                  leftJoin('newPA_goal','newPA_form_goal.goalID','=','newPA_goal.id')->
+                  leftJoin('newPA_form_components','newPA_form_components.typeID','=','newPA_form.typeID')->
+                  leftJoin('newPA_components','newPA_form_components.componentID','=','newPA_components.id')->
+                  leftJoin('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_type.id')->
+                  leftJoin('newPA_competencies','newPA_form_competencies.competencyID','=','newPA_competencies.id')->
+                  //leftJoin('newPA_competency_descriptor','newPA_competencies.id','=','newPA_competency_descriptor.competencyID')->
+                  select('newPA_form.name','newPA_form.typeID','newPA_components.name as componentName','newPA_form_components.weight as componentWeight', 'newPA_goal.statement','newPA_goal.activities','newPA_goal.targets', 'newPA_form_goal.weight as goalWeight','newPA_form_goal.id as goalID','newPA_competencies.id as competencyID', 'newPA_competencies.name as competency','newPA_form_competencies.weight as competencyWeight')->get();
+                  //'newPA_competency_descriptor.descriptor','newPA_competency_descriptor.competencyID as descriptorID'
+                  //get();
+      $allComponents = collect($form)->groupBy('componentWeight');
+      $allGoals = collect($form)->groupBy('goalID');
+      $allCompetencies = collect($form)->groupBy('competency');
+      //$descriptors = collect($form)->groupBy('descriptorID');
+      $descriptors = DB::table('newPA_form')->where('newPA_form.id',$id)->
+                        leftJoin('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_form.typeID')->
+                        leftJoin('newPA_competency_descriptor','newPA_form_competencies.competencyID','=','newPA_competency_descriptor.competencyID')->
+                        select('newPA_form_competencies.competencyID','newPA_competency_descriptor.descriptor','newPA_competency_descriptor.id')->get();
+
+
+                  //return response()->json(['Components'=>$allComponents, 'Goals'=>$allGoals,'Competencies'=>$allCompetencies,'descriptors'=>$descriptors]);
+      return view('evaluation.newPA-evaluate',compact('allGoals','allCompetencies','descriptors','allComponents','form','user'));
 
     }
 
@@ -345,6 +414,8 @@ class NewPA_Form_Controller extends Controller
         $correct = Carbon::now('GMT+8');
         $goalids = $request->goalids;
         $newGoals = $request->newgoals;
+        $formdescription = $request->formdescription;
+        $applyto = $request->applyto;
 
         $type = NewPA_Type::find($request->typeid);
 
@@ -353,8 +424,22 @@ class NewPA_Form_Controller extends Controller
         $newForm->typeID = $request->typeid;
         $newForm->user_id = $this->user->id;
         $newForm->name = $type->name." Appraisal Form";
-        $newForm->description = "appraisal form for ".$type->name." by: ".$this->user->firstname." ".$this->user->lastname." [".$correct->format('Y-m-d H:i')."]";
+        $newForm->description = $formdescription."\n Form created by: ".$this->user->firstname." ".$this->user->lastname." \n[".$correct->format('Y-m-d H:i')."]";
         $newForm->save();
+
+        //assign the forms to specific leaders
+        if ($request->applyto)
+        {
+            foreach ($applyto as $k) {
+            $newPA_form_user = new NewPA_Form_User;
+            $newPA_form_user->user_id = $k;
+            $newPA_form_user->formID = $newForm->id;
+            $newPA_form_user->assignedBy = $this->user->id;
+            $newPA_form_user->save();
+          }
+
+        }
+        
 
         //save the goals you created
         $ctr=0;

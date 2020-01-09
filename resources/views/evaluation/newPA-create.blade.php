@@ -82,13 +82,20 @@
 
                                 <label><input required="required" type="radio" name="type" value="{{$role->id}}" data-roletype="{{$role->name}}" style="margin:5px;"> <i class="fa fa-3x fa-street-view"></i><br/>
                                   {{$role->name}} <br/>
-                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small style="font-weight: normal;"> {{$role->description}}</small> </label><div class="clearfix"></div>
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small style="font-weight: normal;"></small> </label><div class="clearfix"></div>
                               </div>
                               @endif
 
                             @endforeach
                             <div class="clearfix"></div>
                             <div class="help-block with-errors" style=" padding:30px; "></div>
+
+                            <div id="subordinates"></div>
+
+                            <div class="clearfix"></div>
+                            <h3><br/><br/>Form Description</h3>
+                            <p>Add a short description about this evaluation form. This will help you identify and distinguish which eval form to use later on when you have multiple saved forms. </p>
+                            <textarea class="form-control" id="formdescription"></textarea>
                         </div>
                     </div>
 
@@ -452,17 +459,17 @@
 
    $('input[name="selall"]').on('click',function(){
 
-    var parentid = $(this).attr('data-parentid');
-    var sel = $(this).val();
-    console.log('sel:');
-    console.log(sel);
+        var parentid = $(this).attr('data-parentid');
+        var sel = $(this).val();
+        console.log('sel:');
+        console.log(sel);
 
-    if ($(this).val() == '1')
-    {
-      //var tosel = $('input.include')
-      $('.include_'+parentid).prop('checked',true);
-    } else $('.include_'+parentid).prop('checked',false);
-    console.log(parentid);
+        if ($(this).val() == '1')
+        {
+          //var tosel = $('input.include')
+          $('.include_'+parentid).prop('checked',true);
+        } else $('.include_'+parentid).prop('checked',false);
+        console.log(parentid);
 
    });
 
@@ -507,6 +514,38 @@
 
          });
 
+   
+   $('input[type="radio"]').on('click', function(){
+
+      var mgrs = $(this).val();
+
+      if (mgrs == '6'){
+        
+        var subs = '<h4>Make this eval form applicable to the following leaders:</h4><div class="row"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please elect at least 1 employee:</p>';
+
+        @foreach($mySubordinates as $m)
+
+          @if(in_array($m['id'],$leaders))
+
+            @if( in_array($m['id'],$hasExistingForms) )
+            subs += "<div class='pull-left col-lg-6'><label style='color:#DEDEDE;margin-left:10px;'class='pull-left'><input disabled='disabled' class='applyto' name='applyto' type='checkbox' value='{{$m['id']}}' />";
+            subs += "<img class='img-circle' width='40' src='../public/img/employees/{{$m['id']}}.jpg'  /> {{$m['lastname']}}, {{$m['firstname']}} <em style='font-size:smaller'>( \"{{$m['nickname']}}\"  )</em> [N/A]</label></div>";
+            @else
+            subs += "<div class='pull-left col-lg-6'><label style='margin-left:10px;'class='pull-left'><input class='applyto' name='applyto' type='checkbox' value='{{$m['id']}}' />";
+            subs += "<img class='img-circle' width='40' src='../public/img/employees/{{$m['id']}}.jpg'  /> {{$m['lastname']}}, {{$m['firstname']}} <em style='font-size:smaller'>( \"{{$m['nickname']}}\"  )</em> </label></div>";
+            @endif
+
+           
+          @endif
+
+        @endforeach
+
+            subs += '</div> ';
+        $('#subordinates').append(subs);
+      }
+      else $('#subordinates').html(""); 
+
+   });
    
 
    $(document).on('change','.goals.form-control',function(){
@@ -884,6 +923,7 @@
                                                         var goalactions =  $('.goalaction.form-control');
                                                         var goaltargets =  $('.target.form-control');
                                                         var hiddeng = $('.hgoals');
+                                                        var formdescription = $('#formdescription').val();
 
                                                         //console.log(goalactions);
 
@@ -909,6 +949,12 @@
                                                         console.log("goal actions are:");
                                                         console.log(newgoals);
 
+                                                        
+
+                                                        var applyto = $('input[name="applyto"]:checkbox:checked').map(function() {
+                                                                            return this.value;
+                                                                        }).get();
+
 
 
 
@@ -919,6 +965,8 @@
                                                                     'goalids': goalids,
                                                                     'typeid': typeid,
                                                                     'newgoals': newgoals,
+                                                                    'formdescription': formdescription,
+                                                                    'applyto':applyto,
                                                                     '_token':_token},
 
                                                                   error: function(response)
@@ -1117,6 +1165,8 @@
               
               console.log("ALL GOALS:");
               //console.log(goals);
+
+
               
 
             }

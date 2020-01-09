@@ -73,6 +73,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('performance','NewPA_Form_Controller');
     Route::resource('newPA_goal','NewPA_Goal_Controller');
     Route::resource('newPA_formGoal','NewPA_Form_Goal_Controller');
+    Route::resource('newPA_form_user','NewPA_Form_User_Controller');
 
     Route::get('/newPA/getFormTypeSettings', array(
       'as'=>'performance.getFormTypeSettings',
@@ -85,6 +86,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/newPA/preview/{id}', array(
       'as'=>'performance.preview',
       'uses'=>'NewPA_Form_Controller@preview') );
+
+    Route::get('/newPA/evaluate/{id}', array(
+      'as'=>'performance.evaluate',
+      'uses'=>'NewPA_Form_Controller@evaluate') );
 
 
 
