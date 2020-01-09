@@ -521,7 +521,7 @@
 
       if (mgrs == '6'){
         
-        var subs = '<h4>Make this eval form applicable to the following leaders:</h4><div class="row"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please elect at least 1 employee:</p>';
+        var subs = '<h4>Make this eval form applicable to the following leaders:</h4><div class="row"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please select at least 1 employee:</p>';
 
         @foreach($mySubordinates as $m)
 

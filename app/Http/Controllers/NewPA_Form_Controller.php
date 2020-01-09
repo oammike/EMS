@@ -345,7 +345,7 @@ class NewPA_Form_Controller extends Controller
       $allGoals = collect($form)->groupBy('goalID');
       $allCompetencies = collect($form)->groupBy('competency');
       //$descriptors = collect($form)->groupBy('descriptorID');
-      $descriptors = DB::table('newPA_form')->where('newPA_form.id',$id)->
+      $descriptors = DB::table('newPA_form')->where('newPA_form.id',$formID)->
                         leftJoin('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_form.typeID')->
                         leftJoin('newPA_competency_descriptor','newPA_form_competencies.competencyID','=','newPA_competency_descriptor.competencyID')->
                         select('newPA_form_competencies.competencyID','newPA_competency_descriptor.descriptor','newPA_competency_descriptor.id')->get();
