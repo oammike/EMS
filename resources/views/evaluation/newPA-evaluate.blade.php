@@ -119,8 +119,11 @@
                                   <div style="width:90%;margin-top:30px; padding:20px;border:1px dotted #333; text-align: left;"><!--  -->
                                     <strong>Action/Activities :</strong><br/><div style=" white-space:pre-wrap;"> {!! $goal[0]->activities !!} </div><br/><br/>
                                     <strong>Target/KPI :</strong><br/><div style=" white-space:pre-wrap;"> {!! $goal[0]->activities !!}</div>
+
                                  
                                 </div>
+                                <br/><label>Notes / Comments: </label>
+                                    <textarea class="goalcomments form-control" id="goalComment{{$goal[0]->goalID}}"></textarea>
                                 </td>
                                 <td>{{$goal[0]->goalWeight}} % </td>
                                 <td>
@@ -218,7 +221,7 @@
                                     <td width="30%">
                                       <label>Strengths </label><textarea rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
                                       <label>Areas For Improvement </label><textarea rows="7" id="afi_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
-                                      <label>Notes/Comments </label><textarea rows="7" id="crit_{{$comp[0]->competencyID}}" class="form-control"></textarea>
+                                      <label>Notes / Comments </label><textarea rows="7" id="crit_{{$comp[0]->competencyID}}" class="form-control"></textarea>
                                     </td>
                                     <td>{{$comp[0]->competencyWeight}} %</td>
                                     <td>
@@ -232,8 +235,12 @@
                                             </select>
                                     </td>
                                     <td style="font-weight: bold;" id="point-comp_{{$comp[0]->competencyID}}"></td>
+
+
                                 </tr>
                               </table>
+
+
 
                               
                             </div>
@@ -245,10 +252,15 @@
                         
 
                         @endforeach
+
+
                         </td>
 
 
+
+
                       </tr>
+                     
                         
 
                       </tbody>
