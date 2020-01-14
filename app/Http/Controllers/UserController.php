@@ -2478,6 +2478,12 @@ class UserController extends Controller
               $end = Carbon::parse($e[0]['evalY']."-".$setting->endMonth."-".$setting->endDate,"Asia/Manila");
               $totalDays = $start->diffInDays($end);
 
+            }elseif($setting->id == 4){ //EXTENDED CONTRACTUAL
+              $hired = User::find($e[0]['eval'][0]['user_id'])->dateHired;
+              $start = Carbon::parse($hired,"Asia/Manila");
+              $end = Carbon::parse($hired,"Asia/Manila")->addMonths(3);
+              $totalDays = $start->diffInDays($end);
+
             }else{
               $hired = User::find($e[0]['eval'][0]['user_id'])->dateHired;
               $start = Carbon::parse($hired,"Asia/Manila");
