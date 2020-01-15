@@ -72,7 +72,25 @@
                       </div>
                       <div class="col-lg-4 text-right">
                         <h3 class="pull-left" style="padding-left:10px">Performance Evaluation<br/>
-                        <span style="font-size: small;">Evaluation Period: <strong>Jan 01, 2020 to Dec 31,2020</strong></span></h3>
+                        <span style="font-size: small;">Evaluation Period: <br/>
+                          <label>From (M/D/Y): 
+                            <select id="period_mfrom">
+                              @for($i=1; $i<=12; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            <select  id="period_dfrom">
+                              @for($i=1; $i<=31; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            2020
+                          </label>
+                          <label>To: <input  class="form-control datepicker pull-left" type="text" id="period_to" /></label> </span></h3>
                       </div>
 
                     </div>
@@ -326,6 +344,7 @@
    //    
    //    
    //  });
+   //$( ".datepicker" ).datepicker();
 
    $('.rating_goal.form-control').on('change',function(){
 
