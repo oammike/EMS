@@ -1083,6 +1083,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/camera_back/', 'IDController@camera_back');
     Route::get('/camera/single/{id}', 'IDController@load_single');
     Route::get('/camera/print/{id}', 'IDController@print_single');
+    Route::get('/camera/get_qr/{id}', 'IDController@get_qr');
     Route::get('/camera/by_campaign/{id}', 'IDController@load_campaign');
     Route::post('/export_id', 'IDController@export_id');
     Route::post('/archive', 'IDController@archive');
