@@ -9,6 +9,7 @@ use OAMPI_Eval\UserType_Roles;
 use OAMPI_Eval\UserType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\UrlGenerator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use \DB;
 
 class IDController extends Controller
@@ -52,6 +53,23 @@ class IDController extends Controller
            return view("access-denied");
         }
         return view('camera.back', ['url'=> $this->url->to('/') ]);
+    }
+
+    public function get_qr($user_id){
+        header("Content-Type: image/png");
+        $user = User::find($user_id);
+        $qr = QrCode::format('png')->size(1200)->generate($user_id . $user->employeeNumber);
+        $image = imagecreatefromstring($qr);
+
+        $output = imagecreatetruecolor(1322,2071);
+        $background = imagecolorallocate($output, 255, 255, 255);
+        imagefilledrectangle($output, 0, 0, 1322, 2071, $background);
+        
+        imagecopy($output, $image, 61, 435, 0, 0, 1200, 1200);
+        imagepng($output, NULL, 0);
+        imagedestroy($image);
+        imagedestroy($output);
+        
     }
     
     public function print_single($id)
