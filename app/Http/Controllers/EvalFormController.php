@@ -3175,8 +3175,8 @@ class EvalFormController extends Controller
                  /* DMPDF */
                     //$pdf = PDF::loadView('evaluation.pdf', compact('allowed', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
 
-                 $evaltype = Input::get('type');
-                    $pdf = PDF::loadView('evaluation.pdf-blankEmployee', compact('allowed','evaltype', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
+                 $customevaltype = Input::get('type');
+                    $pdf = PDF::loadView('evaluation.pdf-blankEmployee', compact('allowed','customevaltype', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
                     
 
                    return $pdf->stream('eval_blank.pdf');
