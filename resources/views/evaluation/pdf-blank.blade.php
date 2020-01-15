@@ -1545,53 +1545,14 @@
 
                                
                                 </h4>
-                                <h1 style="line-height:0.8; background-color:#67aa08; color:#fff; width:200px; padding-top:5px; float:right" id="overallScore"  data-score="{{$evalForm->overAllScore}}">
+                                <h1 style="line-height:0.8; background-color:#0978b0; color:#fff; width:200px; padding-top:5px; float:right" id="overallScore"  data-score="{{$evalForm->overAllScore}}">
                                   <span style="font-size:0.6em;" class="text-gray"><small>Performance Rating: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small> </span>  %<br/></h1>
                                   <div style="clear:both"></div>
 
                                   <table width="100%">
                                     <tr>
                                       <td valign="top" width="45%">
-                                        <table style="margin: 0 auto; font-size:0.6em; font-family:'Roboto', Arial, sans-serif; border:1px dotted #666; left-padding:15px" width="80%" cellpadding="1">
-                                          <tr>
-                                            <td colspan="2"  align="center">Salary Increase Metrics</td>
-                                          </tr>
-                                          <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;<strong>Total Score</strong></td>
-                                            <td><strong>Salary Increase</strong></td>
-                                          </tr>
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 100.0 && $evalForm->overAllScore >= 97.5)  @endif>&nbsp;&nbsp;&nbsp;100 - 97.5</td>
-                                            <td @if ($evalForm->overAllScore <= 100.0 && $evalForm->overAllScore >= 97.5)   @endif align="center">5%</td>
-                                            
-                                          </tr>
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 97.4 && $evalForm->overAllScore >= 89.5)   @endif>&nbsp;&nbsp;&nbsp;97.4 - 89.5</td>
-                                            <td  @if ($evalForm->overAllScore <= 97.4 && $evalForm->overAllScore >= 89.5)   @endif align="center">4%</td>
-                                          </tr>
-
-                                          <tr style="border:1px dotted #67aa08">
-                                            <td @if ($evalForm->overAllScore <= 89.4 && $evalForm->overAllScore >= 84.5)   @endif>&nbsp;&nbsp;&nbsp;89.4 - 84.5</td>
-                                            <td @if ($evalForm->overAllScore <= 89.4 && $evalForm->overAllScore >= 84.5)  @endif align="center">3%</td>
-                                          </tr>
-
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 84.4 && $evalForm->overAllScore >= 80.0)   @endif>&nbsp;&nbsp;&nbsp;84.4 - 80.0</td>
-                                            <td @if ($evalForm->overAllScore <= 84.4 && $evalForm->overAllScore >= 80.0)   @endif align="center">2%</td>
-                                          </tr>
-
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 79.9 && $evalForm->overAllScore >= 70.0)   @endif>&nbsp;&nbsp;&nbsp;79.9 - 70.0</td>
-                                            <td @if ($evalForm->overAllScore <= 79.9 && $evalForm->overAllScore >= 70.0)   @endif align="center">1%</td>
-                                          </tr>
-
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 69.9 )   @endif>&nbsp;&nbsp;&nbsp;69.9 below</td>
-                                            <td @if ($evalForm->overAllScore <= 69.9 )   @endif  align="center">none</td>
-                                          </tr>
-                                          <tr><td colspan="2">&nbsp;</td></tr>
-
-                                        </table>
+                                       
 
                                       </td>
 
