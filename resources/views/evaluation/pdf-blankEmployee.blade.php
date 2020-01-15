@@ -1523,28 +1523,20 @@
       <table class="table">
                             <tr>
                               <td>
-                               
-                                  @if ( file_exists('public/img/employees/'.$employee->id.'.jpg') )
-                                <img src="{{asset('public/img/employees/'.$employee->id.'.jpg')}}" class="img-circle pull-left" style="margin-right:10px;" width="80" alt="User Image">
-                                @else
-                                  <img src="{{asset('public/img/useravatar.png')}}" class="user-image pull-left" alt="Employee Image" width="80" style="margin-right:10px;">
-
-                                  @endif
-
-
-                                  <h5 style="line-height:0.8em"> Name: {{$employee->lastname}}, {{$employee->firstname}} </h5>
-                                 <h5 class="widget-user-desc" ><span style='font-style:italic'>{{$employee->position->name}}</span><br/>
-                                 <strong> {{$employee->campaign[0]->name}} </strong> </h5>
+                                <h5 style="line-height:0.8em"> Name: </h5>
+                                  <h5 class="widget-user-desc" ><span style='font-style:italic'>Job title: </span><br/>
+                                 <strong> Program/Department: </strong> </h5>
                                  
-                                 <p style="font-size:0.7em"><br/>Date Hired: <small>{{ date_format(date_create($employee->dateHired), "M d, Y")  }} </small> <br/>
+                                 <p style="font-size:0.7em"><br/>Date Hired: <small> ________________________</small> <br/>
                                   Date Evaluated: <small> ________________________</small> <br/>
-                                   Evaluated by: {{$evaluator->firstname}} {{$evaluator->lastname}}</p>
+                                   Evaluated by:  ________________________</p>
+
 
                                
 
                               </td>
                               <td align="right">
-                                <h4 class="text-center"><img src="{{asset('public/img/new-oam-footer-logo.png')}}" style="float:left; padding-left:-20px"  />
+                                <h4 class="text-center"><img src="{{asset('public/img/new-2018-logo.png')}}" style="float:left; padding-left:-20px"  />
                                    {{$evalType->name}}<br/>
                                   <small>Evaluation Period: <strong> </strong> </small>
 
@@ -1557,46 +1549,7 @@
                                   <table width="100%">
                                     <tr>
                                       <td valign="top" width="45%">
-                                        <table style="margin: 0 auto; font-size:0.6em; font-family:'Roboto', Arial, sans-serif; border:1px dotted #666; left-padding:15px" width="80%" cellpadding="1">
-                                          <tr>
-                                            <td colspan="2"  align="center">Salary Increase Metrics</td>
-                                          </tr>
-                                          <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;<strong>Total Score</strong></td>
-                                            <td><strong>Salary Increase</strong></td>
-                                          </tr>
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 100.0 && $evalForm->overAllScore >= 97.5)  @endif>&nbsp;&nbsp;&nbsp;100 - 97.5</td>
-                                            <td @if ($evalForm->overAllScore <= 100.0 && $evalForm->overAllScore >= 97.5)   @endif align="center">5%</td>
-                                            
-                                          </tr>
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 97.4 && $evalForm->overAllScore >= 89.5)   @endif>&nbsp;&nbsp;&nbsp;97.4 - 89.5</td>
-                                            <td  @if ($evalForm->overAllScore <= 97.4 && $evalForm->overAllScore >= 89.5)   @endif align="center">4%</td>
-                                          </tr>
-
-                                          <tr style="border:1px dotted #67aa08">
-                                            <td @if ($evalForm->overAllScore <= 89.4 && $evalForm->overAllScore >= 84.5)   @endif>&nbsp;&nbsp;&nbsp;89.4 - 84.5</td>
-                                            <td @if ($evalForm->overAllScore <= 89.4 && $evalForm->overAllScore >= 84.5)  @endif align="center">3%</td>
-                                          </tr>
-
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 84.4 && $evalForm->overAllScore >= 80.0)   @endif>&nbsp;&nbsp;&nbsp;84.4 - 80.0</td>
-                                            <td @if ($evalForm->overAllScore <= 84.4 && $evalForm->overAllScore >= 80.0)   @endif align="center">2%</td>
-                                          </tr>
-
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 79.9 && $evalForm->overAllScore >= 70.0)   @endif>&nbsp;&nbsp;&nbsp;79.9 - 70.0</td>
-                                            <td @if ($evalForm->overAllScore <= 79.9 && $evalForm->overAllScore >= 70.0)   @endif align="center">1%</td>
-                                          </tr>
-
-                                          <tr>
-                                            <td @if ($evalForm->overAllScore <= 69.9 )   @endif>&nbsp;&nbsp;&nbsp;69.9 below</td>
-                                            <td @if ($evalForm->overAllScore <= 69.9 )   @endif  align="center">none</td>
-                                          </tr>
-                                          <tr><td colspan="2">&nbsp;</td></tr>
-
-                                        </table>
+                                       
 
                                       </td>
 
@@ -1707,13 +1660,13 @@
                                                         <div style="font-style:italic; color:gray; font-size:0.6em; padding-bottom:-20px">
 
                                                            @if (!empty($entry['value']))
-                                                                    <label>{{$entry['attribute']}}</label><br />{{$entry['value']}}
+                                                                    <label>{{$entry['attribute']}}</label><br />
                                                                     <br/><br/>
                                                                     @endif
 
                                                                      @if (!empty($formEntries[$cnt+1]['value']))
 
-                                                                     <br/><br/><label>{{$formEntries[$cnt+1]['attribute']}}</label><br/><p>{{$formEntries[$cnt+1]['value']}}</p>
+                                                                     <br/><br/><label>{{$formEntries[$cnt+1]['attribute']}}</label><br/><p></p>
                                                                     <br/>
                                                                     @endif
                                                                     

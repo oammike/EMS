@@ -1539,8 +1539,8 @@
 
                               </td>
                               <td align="right">
-                                <h4 class="text-center"><img src="{{asset('public/img/new-oam-footer-logo.png')}}" style="float:left; padding-left:-20px"  />
-                                   Contract Extension Evaluation<br/>
+                                <h4 class="text-center"><img src="{{asset('public/img/new-2018-logo.png')}}" style="float:left; padding-left:-20px"  />
+                                   {{$evaltype}} Evaluation<br/>
                                   <small>Evaluation Period: <strong> </strong> </small>
 
                                

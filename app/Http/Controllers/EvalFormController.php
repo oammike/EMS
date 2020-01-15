@@ -2934,12 +2934,14 @@ class EvalFormController extends Controller
                        
                     }
 
+                    $evaltype = Input::get('type');
+
 
                    
 
                  /* DMPDF */
                     //$pdf = PDF::loadView('evaluation.pdf', compact('allowed', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
-                    $pdf = PDF::loadView('evaluation.pdf-blank', compact('allowed', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
+                    $pdf = PDF::loadView('evaluation.pdf-blank', compact('allowed','evaltype', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
                     
 
                    return $pdf->stream('eval_'.$employee->lastname."_".$employee->firstname.'.pdf');
@@ -3172,10 +3174,12 @@ class EvalFormController extends Controller
 
                  /* DMPDF */
                     //$pdf = PDF::loadView('evaluation.pdf', compact('allowed', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
-                    $pdf = PDF::loadView('evaluation.pdf-blankEmployee', compact('allowed', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
+
+                 $evaltype = Input::get('type');
+                    $pdf = PDF::loadView('evaluation.pdf-blankEmployee', compact('allowed','evaltype', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries'));
                     
 
-                   return $pdf->stream('eval_'.$employee->lastname."_".$employee->firstname.'.pdf');
+                   return $pdf->stream('eval_blank.pdf');
                    
                    // $tempdir = sys_get_temp_dir();
                    //  $pdf = App::make('dompdf.wrapper');
