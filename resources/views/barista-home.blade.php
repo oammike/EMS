@@ -101,7 +101,14 @@
             </li>
             <li class="col-6-12">
               <!-- <img class="ae-4" width="605" src="assets/img/iphones-34.png" alt="iPhones Thumbnail" data-action="zoom"/> -->
-              <!-- propably would be nice to insert a nice coffee cup graphic here -->
+              <!-- propably would be nice to  insert a nice coffee cup graphic here 
+
+
+
+
+
+
+              -->
             </li>
           </ul>
         </div>
@@ -213,7 +220,8 @@
           <div class="fix-7-12">
             <p class="margin-bottom-2 ae-1"><span class="opacity-6">Verification</p>
             <h1 class="ae-2 fromAbove margin-bottom-2">Tap your QR code to continue</h1>
-            <video autoplay muted playsinline id="preview" width="480" height="480" ></video>
+            <div class="qrscanner" id="preview"></div>
+            
             <p class="margin-top-2 ae-1">
               <a class="button white ae-4 fromCenter" id="bt_cancel">Cancel</a>
             </p>
@@ -268,12 +276,13 @@
   <script src="{{ asset( 'public/js/sweetalert2.js' ) }}"></script>
 
   <!-- Sweet Alert -->
-  <script src="{{ asset( 'public/js/instascan.min.js' ) }}"></script>
+  <script src="{{ asset( 'public/js/jsqr/jsqrscanner.nocache.js' ) }}"></script>
 <!-- custom scripts -->
   <script>
     window.order_id = 0;
-    window.camera = null;
+    window.attached = false;
     window.slideOn = false;
+    window.qrscanner = null;
 
     $.ajaxSetup({
       headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
@@ -296,28 +305,37 @@
       })
     });
 
+    window.addEventListener('cameraSlideOn', function (e) { 
+      window.slideOn = true;
+      if(window.attached == false){
+        var scannerParentElement = document.getElementById("preview");
+        window.qrscanner.appendTo(scannerParentElement);
+        window.attached = true;
+        console.log('scanner attached');
+      }else{
+        console.log('resuming qrscanner');
+        window.qrscanner.resumeScanning();
+      }
+    }, false);
 
-    let opts = {
-      continuous: true,
-      video: document.getElementById('preview'),
-      mirror: true,
-      refractoryPeriod: 10000,
-      scanPeriod: 2
-    };
-    
-    
-    let scanner = new Instascan.Scanner(opts);
-    
-    scanner.addListener('scan', function (content) {
-      console.log("posting: "+content);
-      scanner.stop();
+    window.addEventListener('cameraSlideOff', function (e) { 
+
+      window.slideOn = false;
+      if(window.attached == true && (window.qrscanner.isScanning() || window.qrscanner.isActive()) ) {
+        console.log('stopping scanner');
+        window.qrscanner.stopScanning();
+      }
+    }, false);
+
+    function onQRCodeScanned(scannedText)
+    {
       var micro = (Date.now() % 1000) / 1000;
       
       $.ajax({
         type: "POST",
         data: {
           order_id : window.order_id,
-          code: content
+          code: scannedText
         },
         url : "{{ url('/create-order') }}",
         success : function(data){
@@ -339,44 +357,44 @@
 
         }
       });
-      
-    });
-
-    window.addEventListener('cameraSlideOn', function (e) { 
-      window.slideOn = true;
-      if(window.camera==null){
-        fetchCameras();
-      }else{
-        scanner.start(window.camera);
-      }
-      
-    }, false);
-
-    window.addEventListener('cameraSlideOff', function (e) { 
-      window.slideOn = false;
-      if(window.camera!=null){
-        scanner.stop();
-      }
-    }, false);
-
-    function fetchCameras(){
-      console.log("trying to get cameras");
-      Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-          window.camera = cameras[0];
-
-          if(window.slideOn==true){
-            scanner.start(window.camera);
-          }
-        } else {
-          console.error('No cameras found.');
-        }
-      }).catch(function (e) {
-        console.error(e);
-      });
     }
-
-    fetchCameras();
+    
+    //funtion returning a promise with a video stream
+    function provideVideoQQ()
+    {
+        return navigator.mediaDevices.enumerateDevices()
+        .then(function(devices) {
+            var exCameras = [];
+            devices.forEach(function(device) {
+            if (device.kind === 'videoinput') {
+              exCameras.push(device.deviceId)
+            }
+         });
+            
+            return Promise.resolve(exCameras);
+        }).then(function(ids){
+            if(ids.length === 0)
+            {
+              return Promise.reject('Could not find a webcam');
+            }
+            
+            return navigator.mediaDevices.getUserMedia({
+                video: {
+                  'optional': [{
+                    'sourceId': ids.length === 1 ? ids[0] : ids[1]//this way QQ browser opens the rear camera
+                    }]
+                }
+            });        
+        });                
+    }  
+  
+    //this function will be called when Jsqrscanner is ready to use
+    function JsQRScannerReady()
+    {
+        window.qrscanner = new JsQRScanner(onQRCodeScanned, provideVideoQQ);
+        window.qrscanner.setSnapImageMaxSize(300);
+        console.log('qrscanner initialized succesfully');
+    }
 
     
   </script>

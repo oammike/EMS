@@ -134,8 +134,9 @@ class RewardsHomeController extends Controller
       $connector = new NetworkPrintConnector("172.18.36.200", 9100);
       $printer = new Printer($connector);
       $printer -> setJustification(Printer::JUSTIFY_CENTER);
-      $printer -> qrCode($employee_id, Printer::QR_ECLEVEL_L, 6,Printer::QR_MODEL_2);
+      $printer -> qrCode("835051714", Printer::QR_ECLEVEL_L, 6,Printer::QR_MODEL_2);
       
+      $printer -> feed(1);
       $printer -> feed(1);
       
       $printer -> cut();
