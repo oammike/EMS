@@ -1,6 +1,46 @@
 
 
-                  <div class="item active text-center">
+                  <div class="item active text-center" >
+                    <h3 class="text-primary">Donations for Taal eruption victims</h3>
+                    <img src="./storage/uploads/taal.jpeg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>The recent volcanic eruption of Taal volcano has affected a lot of families in the Tagaytay, Batangas, and Cavite areas. As part of the community, Open Access BPO will be donating to the victims of this unfortunate event. We are accepting in-kind and cash donations.</p>
+
+                    <h4>In-kind donations:</h4>
+                    <ul class="text-left" style="margin-left: 30px">
+                                <li>Bottled drinking water</li>
+                                <li>Easy open canned goods</li>
+                                <li>Cup noodles</li>
+                                <li>Biscuits</li>
+                                <li>3-in-1 coffee</li>
+                                <li>Hygiene products <em>(soap, shampoo, toothpaste, toothbrush, sanitary napkins, wet wipes, alcohol)</em></li>
+                                <li>Slippers (for children and/or adults)</li>
+                                <li>Blankets</li>
+                                <li>Mats</li>
+                                <li>Towels</li>
+                                <li>Diapers (baby and/or adult)</li>
+                                <li>Medicine (for headache, cough, colds, diarrhea, antiseptic solution)</li>
+                                <li>Cleaning materials and soaps</li>
+                                <li>Pet food</li>
+                                <li>N95 face masks</li>
+                              </ul>
+                    <p class="text-left" style="padding-left: 50px;"><br/>You may drop off your donations on the following areas:<br/><br/>
+                      <strong>- Jaka 5F left wing</strong><br/>
+                      <strong>- G2 reception </strong></p>
+
+                      <br/><br/>   
+                    <h4>Cash donations</h4>
+                    <ul class="text-left" style="margin-left: 30px">
+                                <li>Feel free to donate any amount you wish to share. This will be deducted from your salaries on the Fe.10 2020 payout. For cash donations, kindly <strong><a href="https://docs.google.com/forms/d/e/1FAIpQLScG05Ms7Z_V_5kgY3Mpdq6jiZ0cI_UVK1OU-_aZ4m1yrbX7Ww/viewform?usp=sf_link" target="_blank">fill out this form.</a></strong> </li>
+                                <li>We hope to raise Php 50,000 for this cause. All monetary donations received by Open Access BPO will be used to purchase additional in-kind donations.</li>
+                    </ul>
+
+                    <p class="text-left" style="padding-left: 50px;">Kindly drop off or confirm your donations by <strong>Monday, Jan. 20,2020.</strong> Volunteers may also be needed to repack our donations soon. More details will be sent out by next week.<br/><br/>
+                    Thank you, Open Access BPO family!</p>
+
+                  </div>
+
+                  <div class="item text-center">
 
                               <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
                                 <span style="font-size: x-small; line-height: 0.5em">Php 7,500 upon passing the training<br/>
