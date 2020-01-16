@@ -889,8 +889,13 @@ class EvalFormController extends Controller
 
     public function grabAllWhosUpFor(Request $request)
     {
-        $me1 = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->first();
-        $mc = ImmediateHead_Campaign::where('immediateHead_id',$me1->id)->get();
+        $me1 = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->get();
+
+        if (count($me1) < 1){
+          return view('empty');
+        } 
+
+        $mc = ImmediateHead_Campaign::where('immediateHead_id',$me1->first()->id)->get();
         $myIHCampaignIDs = ImmediateHead_Campaign::where('immediateHead_id',$me1->id)->select('id')->get();
         
         $coll = new Collection;
