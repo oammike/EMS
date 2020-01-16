@@ -1,10 +1,44 @@
 
 
                   <div class="item active text-center" >
-                    <h3 class="text-primary">Redemption of Raffle Prizes</h3>
-                    <img src="./storage/uploads/raffle2019.jpg" style="z-index: 2" />
+                    <h3 class="text-primary">Congratulations to all the Winners!</h3>
+                    <img src="./storage/uploads/zumba_winners.jpg" style="z-index: 2" />
 
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Hope everyone had a great holiday season with their loved ones!<br/><br/>A kind reminder to the winners of the remaining unclaimed items from our year end party last December 14, 2019. You may claim them from the <strong>Marketing office at the 5F of Jaka </strong>from <strong>Mondays-Fridays 8:00AM - 5:00 PM</strong>. Please don't forget to bring your raffle cards. <strong class="text-danger">Last day of redemption is until January 31, 2020.</strong> If the schedule of redemption is in conflict with your shift, kindly send an email to events@openaccessbpo.net<br/><br/>Thanks and wishing you all a HAPPY NEW YEAR!</p>
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's Let's Get Physical Program raffle draw winners were announced at our Glorietta 2 Makati site. Participants of the fitness program each earned a raffle entry for every class attended including Yoga, Yogalates, Zumba, and Aero Kickboxing in 2019. <br/><br/>
+                    Congratulations to all the winners!</p>
+
+                    <table class="table" cellpadding="20" style="font-size: smaller;">
+                      <tr>
+                        <td style="font-weight: bolder;">Trip to Boracay</td>
+                        <td>Jayne Lacson, Recruitment</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">JBL Flip bluetooth speaker</td>
+                        <td>Jessica Francia, Recruitment</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">urBeats3 earphones</td>
+                        <td>Mike Pamero, Marketing</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Php 2,000 SM Gift Certificate</td>
+                        <td>Maritess Ferrer, Postmates <br/>
+                          Mikaela Bordon, Recruitment<br/>
+                        Myla Alcantara, QA</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Php 1,500 SM Gift Certificate</td>
+                        <td>Khristine Bachini, Lebua</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Php 1,000 SM Gift Certificate</td>
+                        <td>Eunice Cantos, Data Management</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Promate Powerbank</td>
+                        <td>Wendy Pilar, Marketing</td>
+                      </tr>
+                    </table>
 
 
                                <br/><br/>   
