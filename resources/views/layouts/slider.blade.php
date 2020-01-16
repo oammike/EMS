@@ -44,13 +44,85 @@
                                <br/><br/>   
                   </div>
 
-                  <div class="item text-center" >
-                    <img src="./storage/uploads/new_year_2020.jpg" style="z-index: 2" />
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>No matter what your plans are for 2020, we hope that you spend your energies on doing things that make you feel most happy and alive. Happy New Year! </strong></p>
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CHAT SUPPORT (22K) <br/> <br/>
+                                <img src="public/img/logo_circleslife.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>telco campaign</li>
+                                <li>1 day process</li>
+                                <li>at least college level</li>
+                                <li>at least 6 months BPO service experience</li>
+                              </ul>
+
+                  </div>
+
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
+                                <img src="public/img/logo_lucky.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>health account</li>
+                                <li>pioneer batch, mass hiring</li>
+                                <li>customer service. No sales. No collections</li>
+                                <li>at least 1 year BPO service experience</li>
+                              </ul>
+
+                  </div>
+
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
+                                <img src="public/img/logo_eden.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>VOICE AND NON VOICE</li>
+                                <li>office supplies and services company</li>
+                                <li>strong customer service background</li>
+                                <li>exceptional English communication skills</li>
+                                <li>at least college level</li>
+                                <li>at least 1 year BPO service experience</li>
+                              </ul>
+
+                  </div>
 
 
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>   
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 5,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
+                                <img src="public/img/logo_mymusic.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>VOICE AND NON VOICE</li>
+                                <li>generate events awareness on social media</li>
+                                <li>K-pop lovers / social media butterflies are welcome to apply</li>
+                                <li>exceptional English communication skills</li>
+                                <li>at least college level</li>
+                                <li>at least 6 months BPO service experience</li>
+                              </ul>
+
                   </div>
 
                   <div class="item text-center" style="background-color: #000" >
