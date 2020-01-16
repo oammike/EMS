@@ -896,7 +896,7 @@ class EvalFormController extends Controller
         } 
 
         $mc = ImmediateHead_Campaign::where('immediateHead_id',$me1->first()->id)->get();
-        $myIHCampaignIDs = ImmediateHead_Campaign::where('immediateHead_id',$me1->id)->select('id')->get();
+        $myIHCampaignIDs = ImmediateHead_Campaign::where('immediateHead_id',$me1->first()->id)->select('id')->get();
         
         $coll = new Collection;
         $me = $mc->first();
