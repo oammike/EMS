@@ -1709,9 +1709,47 @@ class FormSubmissionsController extends Controller
                     foreach ($headers1 as $key => $value) {
                         array_push($headers, $value);
                     }
-                    //array_push($headers, "Status");
+                    array_push($headers, "Verifier");
                     //array_unshift($headers, "Agent Name");
+
+
+                    if (is_null(Input::get('from')))
+                    {
+                        $daystart = Carbon::now('GMT+8')->startOfDay(); $dayend = Carbon::now('GMT+8')->endOfDay();
+                    }
+                    else {
+                        $daystart = Carbon::parse(Input::get('from'),'Asia/Manila')->startOfDay(); 
+                        $dayend = Carbon::parse(Input::get('to'),'Asia/Manila')->endOfDay();
+                    }
+
+                    $reviewers = DB::table('form_submissions_users')->where('form_submissions_users.formBuilder_id',$id)->
+                    join('form_submissions_reviewer','form_submissions_reviewer.submission_id','=','form_submissions_users.id')->
+                    join('users','form_submissions_reviewer.user_id','=','users.id')->
+                    select('users.id as userID','users.firstname as reviewerFname','users.lastname as reviewerLname','form_submissions_users.id as submissionID','form_submissions_reviewer.newStatus', 'form_submissions_reviewer.created_at')->
+                    where('form_submissions_users.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                    where('form_submissions_users.created_at','<=',$dayend->format('Y-m-d H:i:s'))->get(); //
+
+                    //return $reviewers;
+
+
                     $coll = new Collection;
+
+                    //$r = $submissions->first()->first()->submissionID;
+                    /*foreach ($submissions as $item) {
+                         $citem = count($item)-1;
+                         if($item[$citem]->value == "VERIFIED"){
+                            $r = collect($reviewers)->where('submissionID',$item->first()->submissionID);
+                            if (count($r) > 0)
+                                $coll->push(['verified'=>true,'ID'=>$item->first()->submissionID, 'rs'=>$r->first()->reviewerFname]);
+                            else
+                                $coll->push(['verified'=>true,'ID'=>$item->first()->submissionID, 'rs'=>"waley"]);
+
+
+                        }else $coll->push(['verified'=>false,'ID'=>$item->first()->submissionID, 'item'=>$item]);
+                     } */
+                    //$r = collect($reviewers)->where('submissionID',$submissions->first()->first()->submissionID);
+                    //return $coll;
+                    //$coll->push(['headers'=>$headers, 'reviewers'=>$reviewers, 'submissions'=>$submissions]);return $coll;
 
 
                         
@@ -1730,11 +1768,11 @@ class FormSubmissionsController extends Controller
                                 fclose($file);
                             } 
 
-                    //$coll->push(['headers'=>$headers, 'submissions'=>$submissions]);return $coll;
+                    
 
                             
                            
-                            Excel::create($sheetTitle,function($excel) use($id,$submissions, $sheetTitle, $headers,$description) 
+                            Excel::create($sheetTitle,function($excel) use($id,$submissions,$reviewers, $sheetTitle, $headers,$description) 
                                {
                                       $excel->setTitle($sheetTitle.' Summary Report');
 
@@ -1744,14 +1782,45 @@ class FormSubmissionsController extends Controller
 
                                       // Call them separately
                                       $excel->setDescription($description);
-                                      $excel->sheet("Sheet 1", function($sheet) use ($id,$submissions, $headers)
+                                      $excel->sheet("Sheet 1", function($sheet) use ($id,$submissions,$reviewers, $headers)
                                       {
                                         $sheet->appendRow($headers);
                                         foreach($submissions as $item)
                                         {
                                             $citem = count($item)-1;
 
-                                            $arr = array($item[0]->created_at, 
+                                            if($item[$citem]->value == "VERIFIED"){
+
+                                                $r = collect($reviewers)->where('submissionID',$item->first()->submissionID);
+                                                if ( count($r) == 0)
+                                                    $arr = array($item[0]->created_at, 
+                                                             $item[0]->lastname.", ".$item[0]->firstname,
+                                                             $item[0]->value, //ID
+                                                             $item[1]->value, //plan number
+                                                             $item[2]->value, //sponsor name
+                                                             $item[3]->value, //user
+                                                             
+                                                             $item[4]->value, //payroll provider
+                                                             $item[count($item)-2]->value, //Notes/comment
+                                                             $item[$citem]->value, //action
+                                                             "* same agent *");
+                                                else
+                                                    $arr = array($item[0]->created_at, 
+                                                             $item[0]->lastname.", ".$item[0]->firstname,
+                                                             $item[0]->value, //ID
+                                                             $item[1]->value, //plan number
+                                                             $item[2]->value, //sponsor name
+                                                             $item[3]->value, //user
+                                                             
+                                                             $item[4]->value, //payroll provider
+                                                             $item[count($item)-2]->value, //Notes/comment
+                                                             $item[$citem]->value, //action
+                                                             $r->first()->reviewerLname.", ".$r->first()->reviewerFname);
+
+
+                                            }else{
+
+                                                $arr = array($item[0]->created_at, 
                                                          $item[0]->lastname.", ".$item[0]->firstname,
                                                          $item[0]->value, //ID
                                                          $item[1]->value, //plan number
@@ -1761,10 +1830,15 @@ class FormSubmissionsController extends Controller
                                                          $item[4]->value, //payroll provider
                                                          $item[count($item)-2]->value, //Notes/comment
                                                          $item[$citem]->value, //action
+                                                         "*same agent*");
+
+                                            }
+
+                                            
                                                          
                                                     
                                                          
-                                                    );
+                                                    
                                             $sheet->appendRow($arr);
                                            
 
