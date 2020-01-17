@@ -62,62 +62,6 @@
       </div>    
     </div>
 
-    <div class="row">   
-      
-        
-      <div class="col-xs-6">  
-        <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Transfer Points</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              
-            </div>
-            <!-- /.box-body -->
-          </div>
-      </div>
-        
-      <div class="col-xs-6">  
-        <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Unclaimed Rewards</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <table class="table table-condensed table-striped" id="pending_table">
-                <tbody>
-                <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Item</th>
-                  <th>Options</th>
-                </tr>
-                
-                @forelse($orders as $key=>$order)
-                
-                  <tr id="order_{{ $order->id }}">
-                    <td>{{ $order->id  }}</td>
-                    <td>{{ $order->item->name  }}</td>
-                    <td>
-                      <button type="button" class="btn btn-block btn-danger btn-xs order-canceller" data-order_id="{{ $order->id }}">Cancel</button>
-                    </td>
-                  </tr>  
-          
-                
-                @empty
-            
-                  <tr>
-                    <td colspan="3">(you have no unclaimed rewards)</td>
-                  </tr>
-              
-                @endforelse  
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-        </div>      
-      </div>
 		</div>
   </section>    
 	

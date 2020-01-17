@@ -94,12 +94,27 @@ class RewardsHomeController extends Controller
       return view('rewards/home_rewards_catalog', $data);
     }
     
-    public function barista(){
+    public function barista($code){
+      $id = DB::table('users')
+            ->select('id')
+            ->where(DB::raw('concat(`id`,`employeeNumber`)'),'=',$code)
+            ->get();
+      if($id->first()){
+        $user_id = $id[0]->id;
+        $user = User::with('points','team')->find($user_id);
+      }else{
+        $user = null;
+        $user_id = 0;
+      }
+
       $skip = 0 * $this->pagination_items;
       $take = $this->pagination_items;
       $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
       $data = [
-        'rewards' => $rewards
+        'rewards' => $rewards,
+        'include_barista_scripts' => true,
+        'user' => $user,
+        'user_id' => $user_id
       ];
       app('debugbar')->disable();
         return view('barista-home', $data);
@@ -364,6 +379,51 @@ class RewardsHomeController extends Controller
                 
         
                 
+    }
+
+    public function send_points(){
+      
+      $points_to_send = Input::get('amount');
+      $recipient_id = Input::get('recipient_id');
+
+      if(!is_numeric($points_to_send)){
+        return response()->json([
+          'success' => false,
+          'message' => "Please enter a proper amount of points to send. (must be numeric value)"
+        ], 422);
+      }
+
+      if(!is_numeric($recipient_id)){
+        return response()->json([
+          'success' => false,
+          'message' => "Please select a recipient of your points"
+        ], 422);
+      }
+
+      $user_id = \Auth::user()->id;
+      $user = User::with('points','team')->find($user_id);
+      $recipient = User::with('points','team')->find($recipient_id);
+      if($user->points == null || $points_to_send > $user->points->points ){        
+        return response()->json([
+          'success' => false,
+          'message' => 'Failed to send '.$points_to_send.' because you only have '.$user->points->points.' points remaining.'
+        ], 422);
+      }
+
+      $user->points()->decrement('points', $points_to_send);
+      $recipient->points()->increment('points', $points_to_send);
+
+      $record = new ActivityLog;
+      $record->initiator_id       = $user_id;
+      $record->target_id      = $recipient_id;
+      $record->description = "Shared ".$points_to_send." points";
+
+      return response()->json([
+        'success' => true,
+        'message' => 'Points sent successfully'
+      ], 422);
+
+      
     }
     
     public function claim_reward(Request $request,$reward_id = 0){

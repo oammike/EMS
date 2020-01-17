@@ -85,40 +85,6 @@
   </div>
 </nav>
 
-
-<!-- Slide 1 (#34) -->
-<section class="slide fade-6 kenBurns" data-name="home">
-  <div class="content">
-    <div class="container">
-      <div class="wrap">
-      
-        <div class="fix-12-12">
-          <ul class="flex fixedSpaces verticalCenter reverse">
-            <li class="col-6-12 left middle">
-              <h1 class="ae-1 fromLeft">Welcome to OAM Rewards</h1>
-              <p class="ae-2 fromLeft"><span class="opacity-8">Take a break from your strenous activities and take a sip of our expertly handcrafted coffee.</span></p>
-              <a class="nextSlide button blue gradient ae-3 fromCenter cropLeft">Get Started</a>
-            </li>
-            <li class="col-6-12">
-              <!-- <img class="ae-4" width="605" src="assets/img/iphones-34.png" alt="iPhones Thumbnail" data-action="zoom"/> -->
-              <!-- propably would be nice to  insert a nice coffee cup graphic here 
-
-
-
-
-
-
-              -->
-            </li>
-          </ul>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="background" style="background-image:url({{ asset( 'public/img/barista/beans.jpg' ) }})"></div>
-</section>
-
 <!-- Slide 2 (#26) -->
 <section class="slide fade-6 kenBurns" data-name="menu">
   <div class="content">

@@ -71,6 +71,27 @@ class IDController extends Controller
         imagedestroy($output);
         
     }
+
+    public function get_qr_front($user_id){
+        header("Content-Type: image/png");
+        $user = User::find($user_id);
+        $name = ucwords( strtolower($user->firstname) . " " . strtolower($user->lastname) );
+        $idnumber = str_replace("-","",$user->employeeNumber);
+        $idnumber = str_pad($idnumber, 8, "0", STR_PAD_LEFT);
+        $medium_font = public_path('fonts/futura-medium.ttf');
+        $light_font = public_path('fonts/futura-light.ttf');
+        
+        
+        $output = imagecreatefrompng(public_path('img/rewardcard.png'));
+        $grey = imagecolorallocate($output, 96, 96, 96);
+        
+        imagettftext($output, 50, -90, 220, 130, $grey, $medium_font, $name);
+        imagettftext($output, 35, -90, 130, 130, $grey, $light_font, $idnumber);
+
+        imagepng($output, NULL, 0);
+        imagedestroy($output);
+        
+    }
     
     public function print_single($id)
     {

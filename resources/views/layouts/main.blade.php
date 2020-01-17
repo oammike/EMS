@@ -50,7 +50,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
+@if ( isset($include_barista_scripts) && $include_barista_scripts===TRUE )
+ <link rel="preload" as="script" href="{{asset('public/js/jsqr/decoder.js')}}">
+@endif
 @if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE )
  <link href="{{asset('public/css/rewardsfonts.css')}}" rel="stylesheet">
  <link href="{{asset('public/css/rewards.css')}}" rel="stylesheet">

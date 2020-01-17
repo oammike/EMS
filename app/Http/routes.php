@@ -1084,6 +1084,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/camera/single/{id}', 'IDController@load_single');
     Route::get('/camera/print/{id}', 'IDController@print_single');
     Route::get('/camera/get_qr/{id}', 'IDController@get_qr');
+    Route::get('/camera/get_qr_front/{user_id?}', 'IDController@get_qr_front');
     Route::get('/camera/by_campaign/{id}', 'IDController@load_campaign');
     Route::post('/export_id', 'IDController@export_id');
     Route::post('/archive', 'IDController@archive');
@@ -1103,8 +1104,9 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/claim-reward/{reward_id?}', 'RewardsHomeController@claim_reward');
     Route::post('/create-order', 'RewardsHomeController@create_order');
     Route::get('/get_qr/{user_id?}', 'RewardsHomeController@get_qr');
+
     Route::resource('/orders', 'OrdersController');
-    Route::get('/barista', 'RewardsHomeController@barista');
+    Route::get('/barista/{code?}', 'RewardsHomeController@barista');
     Route::get('/print-order/{code?}', 'RewardsHomeController@print_order');
     Route::get('/print-qr/{employee_id?}', 'RewardsHomeController@print_qr');
     Route::post('/cancel-order/{id?}', 'RewardsHomeController@cancel_order');
