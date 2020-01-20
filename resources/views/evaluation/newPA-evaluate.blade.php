@@ -73,7 +73,7 @@
                       <div class="col-lg-4 text-right">
                         <h3 class="pull-left" style="padding-left:10px">Performance Evaluation<br/>
                         <span style="font-size: small;">Evaluation Period: <br/>
-                          <label>From (M/D/Y): 
+                          <label>From (MM/DD/YYYY): 
                             <select id="period_mfrom">
                               @for($i=1; $i<=12; $i++)
                               <option value="{{$i}} ">{{$i}} </option>
@@ -90,7 +90,23 @@
                             /
                             2020
                           </label>
-                          <label>To: <input  class="form-control datepicker pull-left" type="text" id="period_to" /></label> </span></h3>
+                          <label>To (MM/DD/YYYY): 
+                            <select id="period_mto">
+                              @for($i=1; $i<=12; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            <select  id="period_dto">
+                              @for($i=1; $i<=31; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            2020
+                          </label> </span></h3>
                       </div>
 
                     </div>
@@ -278,12 +294,15 @@
 
 
                       </tr>
+
                      
                         
 
                       </tbody>
 
                     </table>
+
+                    <p class="text-center" style="margin-top: 20px"><a id="saveEval" class="btn btn-lg btn-success"><i class="fa fa-save"></i> Save Evaluation</a></p>
 
                     
                 <div class="clearfix"></div>
@@ -503,6 +522,43 @@
 
      $('p#desc_'+item).fadeOut();
    
+
+  });
+
+
+  $('#saveEval').on('click', function(){
+
+    var goalRatings = [];
+    var compRatings=[];
+    var overall = $('#overall').html();
+
+    $('.rating_goal.form-control').find(':selected').each(function(key,value){
+
+      var cid= $(this).parent().attr('data-goalID');
+      var r = {goalID: cid, goalRating: value['value'], 
+                points: $('#points_'+cid).attr('data-point'), goalComment: $('#goalComment'+cid).val()};
+      goalRatings.push(r);
+
+
+    });
+
+    $('.rating_comp.form-control').find(':selected').each(function(key,value){
+
+      var cid= $(this).parent().attr('data-compID');
+      var r = {competencyID: cid, compRating: value['value'], 
+                strengths: $('#strengths_'+cid).val(), afi: $('#afi_'+cid).val(), crit: $('#crit_'+cid).val()};
+      compRatings.push(r);
+    });
+
+    
+
+    console.log('GOALS: ');
+    console.log(goalRatings);
+    console.log('COMPETENCIES: ');
+    console.log(compRatings);
+    console.log('Overall:');
+    console.log(overall);
+
 
   });
 
