@@ -72,7 +72,41 @@
                       </div>
                       <div class="col-lg-4 text-right">
                         <h3 class="pull-left" style="padding-left:10px">Performance Evaluation<br/>
-                        <span style="font-size: small;">Evaluation Period: <strong>Jan 01, 2020 to Dec 31,2020</strong></span></h3>
+                        <span style="font-size: small;">Evaluation Period: <br/>
+                          <label>From (MM/DD/YYYY): 
+                            <select id="period_mfrom">
+                              @for($i=1; $i<=12; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            <select  id="period_dfrom">
+                              @for($i=1; $i<=31; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            2020
+                          </label>
+                          <label>To (MM/DD/YYYY): 
+                            <select id="period_mto">
+                              @for($i=1; $i<=12; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            <select  id="period_dto">
+                              @for($i=1; $i<=31; $i++)
+                              <option value="{{$i}} ">{{$i}} </option>
+
+                              @endfor
+                            </select>
+                            /
+                            2020
+                          </label> </span></h3>
                       </div>
 
                     </div>
@@ -119,8 +153,11 @@
                                   <div style="width:90%;margin-top:30px; padding:20px;border:1px dotted #333; text-align: left;"><!--  -->
                                     <strong>Action/Activities :</strong><br/><div style=" white-space:pre-wrap;"> {!! $goal[0]->activities !!} </div><br/><br/>
                                     <strong>Target/KPI :</strong><br/><div style=" white-space:pre-wrap;"> {!! $goal[0]->activities !!}</div>
+
                                  
                                 </div>
+                                <br/><label>Notes / Comments: </label>
+                                    <textarea class="goalcomments form-control" id="goalComment{{$goal[0]->goalID}}"></textarea>
                                 </td>
                                 <td>{{$goal[0]->goalWeight}} % </td>
                                 <td>
@@ -218,7 +255,7 @@
                                     <td width="30%">
                                       <label>Strengths </label><textarea rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
                                       <label>Areas For Improvement </label><textarea rows="7" id="afi_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
-                                      <label>Notes/Comments </label><textarea rows="7" id="crit_{{$comp[0]->competencyID}}" class="form-control"></textarea>
+                                      <label>Notes / Comments </label><textarea rows="7" id="crit_{{$comp[0]->competencyID}}" class="form-control"></textarea>
                                     </td>
                                     <td>{{$comp[0]->competencyWeight}} %</td>
                                     <td>
@@ -232,8 +269,12 @@
                                             </select>
                                     </td>
                                     <td style="font-weight: bold;" id="point-comp_{{$comp[0]->competencyID}}"></td>
+
+
                                 </tr>
                               </table>
+
+
 
                               
                             </div>
@@ -245,15 +286,23 @@
                         
 
                         @endforeach
+
+
                         </td>
 
 
+
+
                       </tr>
+
+                     
                         
 
                       </tbody>
 
                     </table>
+
+                    <p class="text-center" style="margin-top: 20px"><a id="saveEval" class="btn btn-lg btn-success"><i class="fa fa-save"></i> Save Evaluation</a></p>
 
                     
                 <div class="clearfix"></div>
@@ -314,6 +363,7 @@
    //    
    //    
    //  });
+   //$( ".datepicker" ).datepicker();
 
    $('.rating_goal.form-control').on('change',function(){
 
@@ -472,6 +522,43 @@
 
      $('p#desc_'+item).fadeOut();
    
+
+  });
+
+
+  $('#saveEval').on('click', function(){
+
+    var goalRatings = [];
+    var compRatings=[];
+    var overall = $('#overall').html();
+
+    $('.rating_goal.form-control').find(':selected').each(function(key,value){
+
+      var cid= $(this).parent().attr('data-goalID');
+      var r = {goalID: cid, goalRating: value['value'], 
+                points: $('#points_'+cid).attr('data-point'), goalComment: $('#goalComment'+cid).val()};
+      goalRatings.push(r);
+
+
+    });
+
+    $('.rating_comp.form-control').find(':selected').each(function(key,value){
+
+      var cid= $(this).parent().attr('data-compID');
+      var r = {competencyID: cid, compRating: value['value'], 
+                strengths: $('#strengths_'+cid).val(), afi: $('#afi_'+cid).val(), crit: $('#crit_'+cid).val()};
+      compRatings.push(r);
+    });
+
+    
+
+    console.log('GOALS: ');
+    console.log(goalRatings);
+    console.log('COMPETENCIES: ');
+    console.log(compRatings);
+    console.log('Overall:');
+    console.log(overall);
+
 
   });
 
