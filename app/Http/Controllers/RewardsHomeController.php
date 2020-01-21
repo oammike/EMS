@@ -36,7 +36,7 @@ class RewardsHomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['barista']]);
+        $this->middleware('auth',['except' => ['barista','create-order']]);
 
         $this->pagination_items = 50;
     }
