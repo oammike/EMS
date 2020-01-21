@@ -44,10 +44,27 @@
       clear: both;
     }
 
-    .bt_claimer{
+    .button_wrapper{
       clear: both;
+    }
+
+    .bt_claimer{
       float: right;
       padding: 25px 30px;
+    }
+    .bt_cancel{
+      float: left;
+      padding: 25px 30px;
+    }
+
+    #menu_visual{
+      height: 600px;
+      overflow-y: scroll;
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox */
+    }
+    #menu_visual::-webkit-scrollbar {
+        display: none;
     }
   </style>
  
@@ -110,24 +127,27 @@
               <p class="ae-2">Select Your Coffee</p>
               <ul class="tabs controller uppercase bold" data-slider-id="60-1">
                 @forelse($rewards as $key=>$reward)
-                  <li @if ($key == 0) class="selected" @endif >{{ $reward->name }}</li>
+                  <li @if ($key == 0) class="selected" @endif data-name={{ $reward->name }} data-order-id="{{ $reward->id }}" >{{ $reward->name }}</li>
                 @empty      
-                  <li class="selected">Still Brewing</li>              
+                  <li class="selected" data-order-id="0">Still Brewing</li>              
                 @endforelse
               </ul>
             </li>
-            <li class="col-7-12 left ae-4 fromRight">
+            <li id="menu_visual" class="col-7-12 left ae-4 fromRight">
               <ul class="slider animated" data-slider-id="60-1">
                 @forelse($rewards as $key=>$reward)
-                  <li class="@if ($key == 0) selected @endif fromRight" data-id="{{ $reward->id }}" data-cost="{{ $reward->category->tiers->average('cost') }}">
+                  <li class="@if ($key == 0) selected @endif fromRight" data-cost="{{ $reward->category->tiers->average('cost') }}">
                     <div class="popupTrigger videoThumbnail shadow rounded" data-popup-id="60-{{ $key + 1 }}">
                       
                       <h2>{{ $reward->name }}</h2>
                       <p class="tiny opacity-8">{{ $reward->description }}</p>
                       
                       <img class="popupimg" src="{{ url('/') }}/public/{{ $reward->attachment_image }}" alt="{{ $reward->name }} Thumbnail"/>
-                      
-                      <a class="button orange gradient bt_claimer">Claim</a>
+
+                      <div class="button_wrapper">                      
+                        <a class="button orange gradient bt_cancel">Cancel</a>
+                        <a class="button orange gradient bt_claimer">Claim</a>
+                      </div>
 
                     </div>
                   </li>
@@ -170,7 +190,7 @@
           <h1 class="huge ae-1 margin-bottom-2">Thank You</h1>
           <p class="hero ae-2 margin-bottom-3"><span class="opacity-8">Your order has been received by our barista.</span></p>
           <p class="opacity-8 ae-3">Your name will be called once your coffee is ready.</p>
-          <a class="button white ae-4 fromCenter" id="bt_cancel">OK</a>
+          <a class="button orange ae-4 fromCenter" id="bt_finish">OK</a>
         </div>
                 
       </div>
@@ -205,7 +225,8 @@
   <script src="{{ asset( 'public/js/jsqr/jsqrscanner.nocache.js' ) }}"></script>
 <!-- custom scripts -->
   <script>
-    window.order_id = 0;
+    window.order_id = {{ $order_id }};
+    window.order_name = "{{ $order_name }}";
     window.attached = false;
     window.slideOn = false;
     window.qrscanner = null;
@@ -214,7 +235,12 @@
       headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
     });
 
-    $('#bt_cancel').click(function(){
+    $('#bt_finish').click(function(){
+      window.open("https://172.17.0.2/oam-barista", "_self");
+      //window.open("https://172.18.36.1/barcode-scanner/dist", "_self"); 
+    });
+
+    $('.bt_cancel').click(function(){
       Swal.fire({
         title: 'Confirm Cancellation',
         text: "Are you sure you want to cancel your order and return to the home page?",
@@ -225,102 +251,57 @@
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.value) {
-          window.order = 0;
-          window.changeSlide(1);
+          window.open("https://172.17.0.2/oam-barista", "_self");
+          //window.open("https://172.18.36.1/barcode-scanner/dist", "_self"); 
         }
       })
     });
 
-    window.addEventListener('cameraSlideOn', function (e) { 
-      window.slideOn = true;
-      if(window.attached == false){
-        var scannerParentElement = document.getElementById("preview");
-        window.qrscanner.appendTo(scannerParentElement);
-        window.attached = true;
-        console.log('scanner attached');
-      }else{
-        console.log('resuming qrscanner');
-        window.qrscanner.resumeScanning();
-      }
-    }, false);
-
-    window.addEventListener('cameraSlideOff', function (e) { 
-
-      window.slideOn = false;
-      if(window.attached == true && (window.qrscanner.isScanning() || window.qrscanner.isActive()) ) {
-        console.log('stopping scanner');
-        window.qrscanner.stopScanning();
-      }
-    }, false);
-
-    function onQRCodeScanned(scannedText)
-    {
-      var micro = (Date.now() % 1000) / 1000;
+    $('.bt_claimer').click(function(){
+      Swal.fire({
+        title: 'Confirm Order',
+        text: "Are you sure you want to order a "+window.order_name,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.value) {
+          var micro = (Date.now() % 1000) / 1000;
       
-      $.ajax({
-        type: "POST",
-        data: {
-          order_id : window.order_id,
-          code: scannedText
-        },
-        url : "{{ url('/create-order') }}",
-        success : function(data){
-          $('#content').LoadingOverlay("hide");
-          if(data.success==false || data.success=="false"){
-            Swal.fire(data.message);
-          }
-          if(data.success==true || data.success=="true"){
-            window.changeSlide('increase');
-          }
-        },
-        error: function(data){
-          if(data.success==false || data.success=="false"){
+          $.ajax({
+            type: "POST",
+            data: {
+              order_id : window.order_id,
+              code: {{ $code }}
+            },
+            url : "{{ url('/create-order') }}",
+            success : function(data){
+              if(data.success==false || data.success=="false"){
+                Swal.fire(data.message);
+              }
+              if(data.success==true || data.success=="true"){
+                window.changeSlide('increase');
+              }
+            },
+            error: function(data){
+              if(data.success==false || data.success=="false"){
 
-            window.changeSlide(1);
-            Swal.fire(data.message);
-            
-          }
+                Swal.fire(data.message);
+                
+              }
 
+            }
+          });
         }
-      });
-    }
-    
-    //funtion returning a promise with a video stream
-    function provideVideoQQ()
-    {
-        return navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-            var exCameras = [];
-            devices.forEach(function(device) {
-            if (device.kind === 'videoinput') {
-              exCameras.push(device.deviceId)
-            }
-         });
-            
-            return Promise.resolve(exCameras);
-        }).then(function(ids){
-            if(ids.length === 0)
-            {
-              return Promise.reject('Could not find a webcam');
-            }
-            
-            return navigator.mediaDevices.getUserMedia({
-                video: {
-                  'optional': [{
-                    'sourceId': ids.length === 1 ? ids[0] : ids[1]//this way QQ browser opens the rear camera
-                    }]
-                }
-            });        
-        });                
-    }  
-  
-    //this function will be called when Jsqrscanner is ready to use
-    function JsQRScannerReady()
-    {
-        window.qrscanner = new JsQRScanner(onQRCodeScanned, provideVideoQQ);
-        window.qrscanner.setSnapImageMaxSize(300);
-        console.log('qrscanner initialized succesfully');
-    }
+      })
+    });
+
+    window.addEventListener("controllerClicked", function (e) {
+      window.order_id = e.detail.order_id;
+      console.log('order id:' + order_id);
+    });
 
     
   </script>

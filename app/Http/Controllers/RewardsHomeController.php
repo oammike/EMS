@@ -109,11 +109,16 @@ class RewardsHomeController extends Controller
       $skip = 0 * $this->pagination_items;
       $take = $this->pagination_items;
       $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+      $order_id = $rewards->first()->id;
+      $order_name = $rewards->first()->name;
       $data = [
         'rewards' => $rewards,
         'include_barista_scripts' => true,
         'user' => $user,
-        'user_id' => $user_id
+        'user_id' => $user_id,
+        'order_id' => $order_id,
+        'order_name' => $order_name,
+        'code' => $code
       ];
       app('debugbar')->disable();
         return view('barista-home', $data);
@@ -241,13 +246,13 @@ class RewardsHomeController extends Controller
 
       $code = Input::get('code');
       $reward_id = Input::get('order_id');
-      
+
       $id = DB::table('users')
             ->select('id')
-            ->where(DB::raw('concat(`id`,`employeeNumber`)'),'=',$code)
-            ->get();
+            ->whereRaw('concat(`id`,`employeeNumber`)=?',[$code])->first();
       
-      $user_id = $id[0]->id;
+      $user_id = $id->id;       
+      
 
       $user = User::with('points','team')->find($user_id);
       $reward = Reward::find($reward_id);
