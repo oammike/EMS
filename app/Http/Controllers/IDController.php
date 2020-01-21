@@ -59,6 +59,7 @@ class IDController extends Controller
         header("Content-Type: image/png");
         $user = User::find($user_id);
         $qr = QrCode::format('png')->size(1200)->generate($user_id . $user->employeeNumber);
+        $name = ucwords( strtolower($user->firstname) . " " . strtolower($user->lastname) );
         $image = imagecreatefromstring($qr);
 
         $output = imagecreatetruecolor(1322,2071);
@@ -66,6 +67,11 @@ class IDController extends Controller
         imagefilledrectangle($output, 0, 0, 1322, 2071, $background);
         
         imagecopy($output, $image, 61, 435, 0, 0, 1200, 1200);
+
+        $light_font = public_path('fonts/futura-light.ttf');
+        $black = imagecolorallocate($output, 0, 0, 0);
+        imagettftext($output, 35, 0, 10, 2040, $black, $light_font, $name);
+
         imagepng($output, NULL, 0);
         imagedestroy($image);
         imagedestroy($output);

@@ -97,10 +97,9 @@ class RewardsHomeController extends Controller
     public function barista($code){
       $id = DB::table('users')
             ->select('id')
-            ->where(DB::raw('concat(`id`,`employeeNumber`)'),'=',$code)
-            ->get();
-      if($id->first()){
-        $user_id = $id[0]->id;
+            ->whereRaw('concat(`id`,`employeeNumber`)=?',[$code])->first();
+      if($id->id){
+        $user_id = $id->id;
         $user = User::with('points','team')->find($user_id);
       }else{
         $user = null;
