@@ -14,6 +14,8 @@
 
 
 Route::auth();
+Route::get('/barista/{code?}', 'RewardsHomeController@barista');
+Route::post('/create-order', 'RewardsHomeController@create_order');
 Route::group( [ 'middleware' => ['auth'] ], function () 
   { 
     Route::get('/', 'HomeController@index');
@@ -1102,16 +1104,15 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/rewards-catalog', 'RewardsHomeController@rewards_catalog');
     Route::get('/rewards-catalog/list/{page?}', 'RewardsHomeController@rewards_catalog_list');  
     Route::post('/claim-reward/{reward_id?}', 'RewardsHomeController@claim_reward');
-    Route::post('/create-order', 'RewardsHomeController@create_order');
+    
     Route::get('/get_qr/{user_id?}', 'RewardsHomeController@get_qr');
 
     Route::resource('/orders', 'OrdersController');
-    Route::get('/barista/{code?}', 'RewardsHomeController@barista');
+    
     Route::get('/print-order/{code?}', 'RewardsHomeController@print_order');
     Route::get('/print-qr/{employee_id?}', 'RewardsHomeController@print_qr');
     Route::post('/cancel-order/{id?}', 'RewardsHomeController@cancel_order');
     
 
   });
-
 
