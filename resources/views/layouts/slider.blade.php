@@ -1,44 +1,57 @@
 
 
                   <div class="item active text-center" >
-                    <h3 class="text-primary">Donations for Taal eruption victims</h3>
+                    <h3 class="text-primary">SSS | Pag-Ibig Calamity Loan</h3>
                     <img src="./storage/uploads/taal.jpeg" style="z-index: 2" />
 
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>The recent volcanic eruption of Taal volcano has affected a lot of families in the Tagaytay, Batangas, and Cavite areas. As part of the community, Open Access BPO will be donating to the victims of this unfortunate event. We are accepting in-kind and cash donations.</p>
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>To those who were affected by the Taal Volcanic eruption specifically those under the state of calamity (Province of Batangas), you may now avail the SSS Calamity Loan starting January 22, 2019.</p>
 
-                    <h4>In-kind donations:</h4>
-                    <ul class="text-left" style="margin-left: 30px">
-                                <li>Bottled drinking water</li>
-                                <li>Easy open canned goods</li>
-                                <li>Cup noodles</li>
-                                <li>Biscuits</li>
-                                <li>3-in-1 coffee</li>
-                                <li>Hygiene products <em>(soap, shampoo, toothpaste, toothbrush, sanitary napkins, wet wipes, alcohol)</em></li>
-                                <li>Slippers (for children and/or adults)</li>
-                                <li>Blankets</li>
-                                <li>Mats</li>
-                                <li>Towels</li>
-                                <li>Diapers (baby and/or adult)</li>
-                                <li>Medicine (for headache, cough, colds, diarrhea, antiseptic solution)</li>
-                                <li>Cleaning materials and soaps</li>
-                                <li>Pet food</li>
-                                <li>N95 face masks</li>
-                              </ul>
-                    <p class="text-left" style="padding-left: 50px;"><br/>You may drop off your donations on the following areas:<br/><br/>
-                      <strong>- Jaka 5F left wing</strong><br/>
-                      <strong>- G2 reception </strong></p>
+                    <a class="btn btn-success btn-sm" href="storage/uploads/SSS_loan.pdf">See SSS Loan Details</a>
+                    <a class="btn btn-primary btn-sm" href="storage/uploads/pagibig_calamity_loan.PDF"><i class="fa fa-download"></i> Download Pagibig Form</a>
 
-                      <br/><br/>   
-                    <h4>Cash donations</h4>
-                    <ul class="text-left" style="margin-left: 30px">
-                                <li>Feel free to donate any amount you wish to share. This will be deducted from your salaries on the Fe.10 2020 payout. For cash donations, kindly <strong><a href="https://docs.google.com/forms/d/e/1FAIpQLScG05Ms7Z_V_5kgY3Mpdq6jiZ0cI_UVK1OU-_aZ4m1yrbX7Ww/viewform?usp=sf_link" target="_blank">fill out this form.</a></strong> </li>
-                                <li>We hope to raise Php 50,000 for this cause. All monetary donations received by Open Access BPO will be used to purchase additional in-kind donations.</li>
-                    </ul>
-
-                    <p class="text-left" style="padding-left: 50px;">Kindly drop off or confirm your donations by <strong>Monday, Jan. 20,2020.</strong> Volunteers may also be needed to repack our donations soon. More details will be sent out by next week.<br/><br/>
-                    Thank you, Open Access BPO family!</p>
+                   
 
                   </div>
+
+
+                  <div class="item text-center" >
+                    <h3 class="text-primary">Attn: all JAKA bldg Employees</h3>
+                    <img src="./storage/uploads/jaka_bldg.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;background-color: #000; color:#fff">
+                      From               :           Building Administration Office <br/>
+                      Subject            :           Temporary Elevator Scheme<br/>
+
+                      <br/><br/>Please be guided on the following elevator scheme below. Effective 22nd of January 2020, we will temporarily implement an Odd-Even Elevator Service. This scheme is on trial basis only and we hope it will help speed up the conveyance of passengers and reduce waiting time.<br/><br/>
+
+                      PASSENGER ELEVATOR No. 4 WILL ONLY SERVE FLOORS 2, 4, 6, 8, 10 and 12 during these hours: <br/><br/>
+
+                        6:00am – 8:00am<br/>
+
+                      10:00am – 1:00pm<br/>
+
+                        3:00pm – 5:00pm<br/><br/><br/>
+
+
+                      PASSENGER ELEVATOR No. 1 WILL ONLY SERVE FLOORS 3, 5, 7, 9, 11, PH1 and PH2 during these hours:<br/><br/>
+
+                      6:00am – 8:00am<br/>
+
+                    10:00am – 1:00pm<br/>
+
+                      3:00pm – 5:00pm<br/><br/><br/>
+                    Thank you for your understanding and cooperation. <br/><br/></p>
+
+                  
+
+                  </div>
+
+
+                
+
+ 
+
+
 
                   <div class="item text-center">
 
@@ -690,6 +703,47 @@
 
 
 <?php /*
+
+// TAAL
+<div class="item active text-center" >
+                    <h3 class="text-primary">Donations for Taal eruption victims</h3>
+                    <img src="./storage/uploads/taal.jpeg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>The recent volcanic eruption of Taal volcano has affected a lot of families in the Tagaytay, Batangas, and Cavite areas. As part of the community, Open Access BPO will be donating to the victims of this unfortunate event. We are accepting in-kind and cash donations.</p>
+
+                    <h4>In-kind donations:</h4>
+                    <ul class="text-left" style="margin-left: 30px">
+                                <li>Bottled drinking water</li>
+                                <li>Easy open canned goods</li>
+                                <li>Cup noodles</li>
+                                <li>Biscuits</li>
+                                <li>3-in-1 coffee</li>
+                                <li>Hygiene products <em>(soap, shampoo, toothpaste, toothbrush, sanitary napkins, wet wipes, alcohol)</em></li>
+                                <li>Slippers (for children and/or adults)</li>
+                                <li>Blankets</li>
+                                <li>Mats</li>
+                                <li>Towels</li>
+                                <li>Diapers (baby and/or adult)</li>
+                                <li>Medicine (for headache, cough, colds, diarrhea, antiseptic solution)</li>
+                                <li>Cleaning materials and soaps</li>
+                                <li>Pet food</li>
+                                <li>N95 face masks</li>
+                              </ul>
+                    <p class="text-left" style="padding-left: 50px;"><br/>You may drop off your donations on the following areas:<br/><br/>
+                      <strong>- Jaka 5F left wing</strong><br/>
+                      <strong>- G2 reception </strong></p>
+
+                      <br/><br/>   
+                    <h4>Cash donations</h4>
+                    <ul class="text-left" style="margin-left: 30px">
+                                <li>Feel free to donate any amount you wish to share. This will be deducted from your salaries on the Fe.10 2020 payout. For cash donations, kindly <strong><a href="https://docs.google.com/forms/d/e/1FAIpQLScG05Ms7Z_V_5kgY3Mpdq6jiZ0cI_UVK1OU-_aZ4m1yrbX7Ww/viewform?usp=sf_link" target="_blank">fill out this form.</a></strong> </li>
+                                <li>We hope to raise Php 50,000 for this cause. All monetary donations received by Open Access BPO will be used to purchase additional in-kind donations.</li>
+                    </ul>
+
+                    <p class="text-left" style="padding-left: 50px;">Kindly drop off or confirm your donations by <strong>Monday, Jan. 20,2020.</strong> Volunteers may also be needed to repack our donations soon. More details will be sent out by next week.<br/><br/>
+                    Thank you, Open Access BPO family!</p>
+
+                  </div>
  @if(count($fiveYears) >= 1)
 
                    @foreach($fiveYears as $n)
