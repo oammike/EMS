@@ -36,6 +36,36 @@
     .menu_slider_right{
       transform: rotate(270deg);
     }
+
+    img.popupimg{
+      width: 60%;
+      margin: 30px auto;
+      display: block;
+      clear: both;
+    }
+
+    .button_wrapper{
+      clear: both;
+    }
+
+    .bt_claimer{
+      float: right;
+      padding: 25px 30px;
+    }
+    .bt_cancel{
+      float: left;
+      padding: 25px 30px;
+    }
+
+    #menu_visual{
+      height: 600px;
+      overflow-y: scroll;
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox */
+    }
+    #menu_visual::-webkit-scrollbar {
+        display: none;
+    }
   </style>
  
 </head>
@@ -92,81 +122,55 @@
       <div class="wrap">
         <div class="fix-12-12">
 
-          <ul class="flex fixedSpaces verticalCenter reverse">
-          <li class="col-1-12">
-            <span href="#" id="bt_menu_left" data-slider-action="prev" data-slider-id="coffee_menu">
-              <svg class="menu_slider_left" width="24" height="24">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-down"></use>
-              </svg>
-            </span>
-          </li>
-        
-          <li class="col-10-12">
-            <div class="fix-12-12">
-              
-              <ul class="flex reverse verticalCenter margin-bottom-3">
-                <li class="col-7-12 left cell-26">
-                  <h1 class="ae-2 fromLeft" id="coffee_menu_title">{{ $rewards->first()->name }}</h1>
-                  <div class="ae-3 fromLeft">
-                    <p class="opacity-8" id="coffee_menu_desc">{{ $rewards->first()->description }}</p>
-                  </div>
-                  <div class="relative">
-                    <div class="left">
-                      <div class="ae-5 fromLeft">
-                        <a class="nextSlide button blue gradient ae-3 fromCenter cropLeft">Claim</a>
-                        <p class="tiny opacity-6">Cost: <span id="coffe_menu_cost">{{ $rewards->first()->category->tiers->average('cost') }}</span> Point</p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                </li>
-                <li class="col-5-12">
-
-                  <div class="fix-4-12 center">
-                    <ul class="slider clickable ae-4 fromAbove" data-slider-id="coffee_menu">
-                      @forelse($rewards as $key=>$reward)
-
-                        <li class="@if ($key == 0) selected @endif" data-title="{{ $reward->name }}" data-desc="{{ $reward->description }}" data-id="{{ $reward->id }}" data-cost="{{ $reward->category->tiers->average('cost') }}" class="selected">
-                          <img src="{{ url('/') }}/public/{{ $reward->attachment_image }}" alt="{{ $reward->name }} Thumbnail"/>
-                        </li>
-
-                      @empty
-            
-                        <li data-title="Still Brewing" data-desc="Sorry, our barista has not yet configured our menu." data-id="0" data-cost="free" class="selected"><img src="{{ asset( 'public/img/barista/empty.jpg' ) }}" alt="Empty Coffee Cup"/></li>
-                    
-                      @endforelse
-                    </ul>
-                    <ul class="controller dots ae-3 fromCenter margin-top-3" data-slider-id="coffee_menu">
-                      @forelse($rewards as $key=>$reward)
-
-                        <li class="dot @if ($key == 0) selected @endif"></li>
-
-                      @empty
-            
-                        <li class="dot selected"></li>
-                    
-                      @endforelse
-                    </ul>
-                  </div>
-                </li>
+          <ul class="grid">
+            <li class="col-5-12 left ae-2 fromLeft">
+              <p class="ae-2">Select Your Coffee</p>
+              <ul class="tabs controller uppercase bold" data-slider-id="60-1">
+                @forelse($rewards as $key=>$reward)
+                  <li @if ($key == 0) class="selected" @endif data-name={{ $reward->name }} data-order-id="{{ $reward->id }}" >{{ $reward->name }}</li>
+                @empty      
+                  <li class="selected" data-order-id="0">Still Brewing</li>              
+                @endforelse
               </ul>
+            </li>
+            <li id="menu_visual" class="col-7-12 left ae-4 fromRight">
+              <ul class="slider animated" data-slider-id="60-1">
+                @forelse($rewards as $key=>$reward)
+                  <li class="@if ($key == 0) selected @endif fromRight" data-cost="{{ $reward->category->tiers->average('cost') }}">
+                    <div class="popupTrigger videoThumbnail shadow rounded" data-popup-id="60-{{ $key + 1 }}">
+                      
+                      <h2>{{ $reward->name }}</h2>
+                      <p class="tiny opacity-8">{{ $reward->description }}</p>
+                      
+                      <img class="popupimg" src="{{ url('/') }}/public/{{ $reward->attachment_image }}" alt="{{ $reward->name }} Thumbnail"/>
 
-              <div class="fix-7-12">
-                <p class="ae-1 fromBelow"><span class="opacity-5">Select Your Coffee</span></p>
-              </div>
+                      <div class="button_wrapper">                      
+                        <a class="button orange gradient bt_cancel">Cancel</a>
+                        <a class="button orange gradient bt_claimer">Claim</a>
+                      </div>
 
-            </div>
-          </li>
-          
+                    </div>
+                  </li>
 
-          <li class="col-1-12">
-            <span id="bt_menu_right" data-slider-action="next" data-slider-id="coffee_menu">
-              <svg class="menu_slider_right" width="24" height="24">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-down"></use>
-              </svg>
-            </span>
-          </li>
-        </ul>
+                @empty
+      
+                  <li>
+                    <div class="popupTrigger videoThumbnail shadow rounded" data-popup-id="60-1">
+                                            
+                      <img class="popupimg" src="{{ asset( 'public/img/barista/empty.jpg' ) }}" alt="Empty Coffee Cup"/>
+                      <p class="tiny opacity-6">Sorry, our barista has not yet configured our menu.</p>
+                      
+
+                    </div>
+                  </li>
+              
+                @endforelse
+
+
+
+              </ul>
+            </li>
+          </ul>
 
         </div>
 
@@ -174,30 +178,6 @@
     </div>
   </div>
   <div class="background" style="background-image:url({{ asset( 'public/img/barista/menu.jpg' ) }})"></div>
-</section>
-
-<!-- Slide 5 (#91) -->
-<section class="slide fade-6 kenBurns scanner" data-name="scanner">
-  <div class="content">
-    <div class="container">
-      <div class="wrap">
-      
-        <div class="fix-12-12 toCenter">
-          <div class="fix-7-12">
-            <p class="margin-bottom-2 ae-1"><span class="opacity-6">Verification</p>
-            <h1 class="ae-2 fromAbove margin-bottom-2">Tap your QR code to continue</h1>
-            <div class="qrscanner" id="preview"></div>
-            
-            <p class="margin-top-2 ae-1">
-              <a class="button white ae-4 fromCenter" id="bt_cancel">Cancel</a>
-            </p>
-          </div>
-        </div>
-                
-      </div>
-    </div>
-  </div>
-  <div class="background" style="background-image:url({{ asset( 'public/img/barista/secure.jpg' ) }})"></div>
 </section>
 
 <!-- Slide 7 (#95) -->
@@ -210,7 +190,7 @@
           <h1 class="huge ae-1 margin-bottom-2">Thank You</h1>
           <p class="hero ae-2 margin-bottom-3"><span class="opacity-8">Your order has been received by our barista.</span></p>
           <p class="opacity-8 ae-3">Your name will be called once your coffee is ready.</p>
-          <a class="button white ae-4 fromCenter" id="bt_cancel">OK</a>
+          <a class="button orange ae-4 fromCenter" id="bt_finish">OK</a>
         </div>
                 
       </div>
@@ -245,7 +225,8 @@
   <script src="{{ asset( 'public/js/jsqr/jsqrscanner.nocache.js' ) }}"></script>
 <!-- custom scripts -->
   <script>
-    window.order_id = 0;
+    window.order_id = {{ $order_id }};
+    window.order_name = "{{ $order_name }}";
     window.attached = false;
     window.slideOn = false;
     window.qrscanner = null;
@@ -254,7 +235,12 @@
       headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
     });
 
-    $('#bt_cancel').click(function(){
+    $('#bt_finish').click(function(){
+      window.open("https://172.17.0.2/oam-barista", "_self");
+      //window.open("https://172.18.36.1/barcode-scanner/dist", "_self"); 
+    });
+
+    $('.bt_cancel').click(function(){
       Swal.fire({
         title: 'Confirm Cancellation',
         text: "Are you sure you want to cancel your order and return to the home page?",
@@ -265,102 +251,57 @@
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.value) {
-          window.order = 0;
-          window.changeSlide(1);
+          window.open("https://172.17.0.2/oam-barista", "_self");
+          //window.open("https://172.18.36.1/barcode-scanner/dist", "_self"); 
         }
       })
     });
 
-    window.addEventListener('cameraSlideOn', function (e) { 
-      window.slideOn = true;
-      if(window.attached == false){
-        var scannerParentElement = document.getElementById("preview");
-        window.qrscanner.appendTo(scannerParentElement);
-        window.attached = true;
-        console.log('scanner attached');
-      }else{
-        console.log('resuming qrscanner');
-        window.qrscanner.resumeScanning();
-      }
-    }, false);
-
-    window.addEventListener('cameraSlideOff', function (e) { 
-
-      window.slideOn = false;
-      if(window.attached == true && (window.qrscanner.isScanning() || window.qrscanner.isActive()) ) {
-        console.log('stopping scanner');
-        window.qrscanner.stopScanning();
-      }
-    }, false);
-
-    function onQRCodeScanned(scannedText)
-    {
-      var micro = (Date.now() % 1000) / 1000;
+    $('.bt_claimer').click(function(){
+      Swal.fire({
+        title: 'Confirm Order',
+        text: "Are you sure you want to order a "+window.order_name,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.value) {
+          var micro = (Date.now() % 1000) / 1000;
       
-      $.ajax({
-        type: "POST",
-        data: {
-          order_id : window.order_id,
-          code: scannedText
-        },
-        url : "{{ url('/create-order') }}",
-        success : function(data){
-          $('#content').LoadingOverlay("hide");
-          if(data.success==false || data.success=="false"){
-            Swal.fire(data.message);
-          }
-          if(data.success==true || data.success=="true"){
-            window.changeSlide('increase');
-          }
-        },
-        error: function(data){
-          if(data.success==false || data.success=="false"){
+          $.ajax({
+            type: "POST",
+            data: {
+              order_id : window.order_id,
+              code: {{ $code }}
+            },
+            url : "{{ url('/create-order') }}",
+            success : function(data){
+              if(data.success==false || data.success=="false"){
+                Swal.fire(data.message);
+              }
+              if(data.success==true || data.success=="true"){
+                window.changeSlide('increase');
+              }
+            },
+            error: function(data){
+              if(data.success==false || data.success=="false"){
 
-            window.changeSlide(1);
-            Swal.fire(data.message);
-            
-          }
+                Swal.fire(data.message);
+                
+              }
 
+            }
+          });
         }
-      });
-    }
-    
-    //funtion returning a promise with a video stream
-    function provideVideoQQ()
-    {
-        return navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-            var exCameras = [];
-            devices.forEach(function(device) {
-            if (device.kind === 'videoinput') {
-              exCameras.push(device.deviceId)
-            }
-         });
-            
-            return Promise.resolve(exCameras);
-        }).then(function(ids){
-            if(ids.length === 0)
-            {
-              return Promise.reject('Could not find a webcam');
-            }
-            
-            return navigator.mediaDevices.getUserMedia({
-                video: {
-                  'optional': [{
-                    'sourceId': ids.length === 1 ? ids[0] : ids[1]//this way QQ browser opens the rear camera
-                    }]
-                }
-            });        
-        });                
-    }  
-  
-    //this function will be called when Jsqrscanner is ready to use
-    function JsQRScannerReady()
-    {
-        window.qrscanner = new JsQRScanner(onQRCodeScanned, provideVideoQQ);
-        window.qrscanner.setSnapImageMaxSize(300);
-        console.log('qrscanner initialized succesfully');
-    }
+      })
+    });
+
+    window.addEventListener("controllerClicked", function (e) {
+      window.order_id = e.detail.order_id;
+      console.log('order id:' + order_id);
+    });
 
     
   </script>

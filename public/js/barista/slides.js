@@ -39,8 +39,6 @@ window.enableMobileZoom = 0;
 window.hideOnScrollSensitivity = 100;
 window.allowParallaxOnMobile = 1;
 window.hidePopupOnBodyClick = 1;
-window.cameraSlideOn = new Event('cameraSlideOn');
-window.cameraSlideOff = new Event('cameraSlideOff');
 
 var $html = $('html');
 
@@ -407,11 +405,7 @@ $(document).ready(function() { "use strict";
 
           setTimeout(function(){
               var slide = $('.slide').eq(window.stage - 1);
-              if ( slide.hasClass('scanner') ){
-                window.dispatchEvent(cameraSlideOn);
-              }else{
-                window.dispatchEvent(cameraSlideOff);
-              }
+              
             showSlide(window.stage);
             setTimeout(function(){ window.inAction = 0; }, window.slideSpeed);
           }, delay);
@@ -1376,6 +1370,7 @@ $(document).ready(function() { "use strict";
   if ($controller.length > 0) {
 
     var controllerSelector = $controller.data('controller-selector') ? $controller.data('controller-selector') : "li";
+    var orderId = 0;
 
     $controller.on('click', controllerSelector, function(){
       var $controllerElement = $(this),
@@ -1383,8 +1378,11 @@ $(document).ready(function() { "use strict";
           $selectedElement = $controller.find('.selected'),
           nextIndex = $($controller.find(controllerSelector)).index($controllerElement),
           sliderId = $controller.data('slider-id'),
+
           $slider = $('.slider[data-slider-id="'+sliderId+'"]'),
           isAnimated = $slider.hasClass('animated');
+
+      orderId = $controllerElement.data('order-id');    
 
       if (!$controllerElement.hasClass('selected')){
         $selectedElement.removeClass('selected');
@@ -1396,6 +1394,7 @@ $(document).ready(function() { "use strict";
         var $newElement = $slider.children('li').eq(nextIndex);
 
         $newElement.removeClass('hide').addClass('selected');
+        
 
         //set status
         if (window.sliderStatus) {
@@ -1415,6 +1414,11 @@ $(document).ready(function() { "use strict";
 
         $(window).scroll();
       }
+
+      var controllerClicked = new CustomEvent("controllerClicked", {
+        "detail": {"order_id":orderId}
+      });
+      window.dispatchEvent(controllerClicked);
     });
   }
   
