@@ -22,11 +22,14 @@
           <div class="box-heading"></div>
           <div class="box-body">
             <div class="row no_margin catalog">
+
+              <h3 class="text-right" style="padding: 10px;background-color: #666; color:#fff"><i class="fa fa-coffee"></i> Coffee Drinks &nbsp;</h3> 
+              
               @forelse($rewards as $key=>$reward)
               
                 
-                <div class="col-sm-5 col-md-3 product">
-                  <span class="product-title">{{ $reward->name }}</span>
+                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                  <span class="product-title"><span style="font-size: larger;"> [{{$key + 1}}]</span> {{ $reward->name }} </span>
                   <span class="product-excerpt">{{ $reward->description }}</span>
                   <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/{{ $reward->attachment_image }}');"></div>
                   
@@ -42,10 +45,12 @@
                     </div>
                   </div>
                 </div>
+
                 
-                @if ($key % 3 == 0 && $key!=0)
+                
+               <!--  @if ($key % 3 == 0 && $key!=0)
                   </div><div class="row no_margin catalog">
-                @endif
+                @endif -->
                 
         
               
@@ -56,6 +61,12 @@
                 </div>
             
               @endforelse
+
+              <div class="clearfix"></div>
+              <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-trophy"></i> Souvenir Items &nbsp; </h3> 
+              <p></p><p></p>
+              <h4 class="text-center"> <br/><br/><br/>Coming Soon! <br/><br/><br/></h4><br/><br/><br/>
+             
             </div>
           </div>
         </div>
@@ -139,7 +150,10 @@
 								var tier = v;
 								console.log(tier);
 								
-								$('#variants').append($('<input class="state iradio_square-green" type="radio" name="tier" value="'+tier.id+'"><label> '+tier.description+' - '+tier.cost+' points </label><br/>'));
+                if(~tier.description.indexOf("NOT YET AVAILABLE"))
+                  $('#variants').append($('<label><input disabled="disabled" class="state iradio_square-green" type="radio" name="tier" value="'+tier.id+'">&nbsp; '+tier.description+' - '+tier.cost+' points </label><br/>'));
+                else
+                  $('#variants').append($('<label><input class="state iradio_square-green" type="radio" name="tier" value="'+tier.id+'">&nbsp; '+tier.description+' - '+tier.cost+' points </label><br/>'));
 							});
 						
 						$('#claimer_loader').hide();
