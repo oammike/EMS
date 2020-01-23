@@ -30,6 +30,7 @@ use OAMPI_Eval\NewPA_Form_Competencies;
 use OAMPI_Eval\NewPA_Form_Components;
 use OAMPI_Eval\NewPA_Form_Goal;
 use OAMPI_Eval\NewPA_Form_User;
+use OAMPI_Eval\NewPA_Evals;
 use OAMPI_Eval\NewPA_Goal;
 use OAMPI_Eval\NewPA_Objective;
 use OAMPI_Eval\NewPA_TeamSetting;
@@ -69,14 +70,18 @@ class NewPA_Form_Controller extends Controller
                           join('users','newPA_form_user.user_id','=','users.id')->
                           join('positions','users.position_id','=','positions.id')->
                           select('newPA_form_user.id','newPA_form_user.user_id', 'newPA_form.id as formID','users.firstname','users.lastname','positions.name as jobTitle')->get();
-
-
-      //return $forms;
+      $evals = DB::table('newPA_form')->where('newPA_form.user_id',$this->user->id)->
+                          join('newPA_evals','newPA_evals.form_id','=','newPA_form.id')->
+                          select('newPA_evals.user_id','newPA_evals.id','newPA_evals.finalRating')->get();
+      $evaluatedAlready = collect($evals)->pluck('user_id')->toArray();
       
 
-      collect(DB::table('newPA_form_user')->where('assignedBy',$this->user->id)->select('user_id')->get())->pluck('user_id')->toArray();
 
-      return view('evaluation.newPA-index',compact('forms','hasExistingForms'));
+      
+
+      //collect(DB::table('newPA_form_user')->where('assignedBy',$this->user->id)->select('user_id')->get())->pluck('user_id')->toArray();
+
+      return view('evaluation.newPA-index',compact('forms','hasExistingForms','evaluatedAlready','evals'));
 
     }
 
@@ -323,10 +328,17 @@ class NewPA_Form_Controller extends Controller
     {
       $formID = Input::get('form');
 
+      $months = [];
+
+      for ($m=1; $m<=12; $m++)
+      {
+        array_push($months, Carbon::parse($m."/1/2020")->format('M'));
+      }
+
       $user = DB::table('users')->where('users.id',$id)->join('positions','positions.id','=','users.position_id')->
                   join('team','team.user_id','=','users.id')->
                   join('campaign','team.campaign_id','=','campaign.id')->
-                  select('users.id','users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program')->get();
+                  select('users.id','users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','team.immediateHead_Campaigns_id as tlID')->get();
                   
 
       $form = DB::table('newPA_form')->where('newPA_form.id',$formID)->
@@ -338,7 +350,7 @@ class NewPA_Form_Controller extends Controller
                   leftJoin('newPA_form_competencies','newPA_form_competencies.typeID','=','newPA_type.id')->
                   leftJoin('newPA_competencies','newPA_form_competencies.competencyID','=','newPA_competencies.id')->
                   //leftJoin('newPA_competency_descriptor','newPA_competencies.id','=','newPA_competency_descriptor.competencyID')->
-                  select('newPA_form.name','newPA_form.typeID','newPA_components.name as componentName','newPA_form_components.weight as componentWeight', 'newPA_goal.statement','newPA_goal.activities','newPA_goal.targets', 'newPA_form_goal.weight as goalWeight','newPA_form_goal.id as goalID','newPA_competencies.id as competencyID', 'newPA_competencies.name as competency','newPA_form_competencies.weight as competencyWeight')->get();
+                  select('newPA_form.id', 'newPA_form.name','newPA_form.typeID','newPA_components.name as componentName','newPA_form_components.weight as componentWeight', 'newPA_goal.statement','newPA_goal.activities','newPA_goal.targets', 'newPA_form_goal.weight as goalWeight','newPA_form_goal.id as goalID','newPA_competencies.id as competencyID', 'newPA_competencies.name as competency','newPA_form_competencies.weight as competencyWeight')->get();
                   //'newPA_competency_descriptor.descriptor','newPA_competency_descriptor.competencyID as descriptorID'
                   //get();
       $allComponents = collect($form)->groupBy('componentWeight');
@@ -352,7 +364,7 @@ class NewPA_Form_Controller extends Controller
 
 
                   //return response()->json(['Components'=>$allComponents, 'Goals'=>$allGoals,'Competencies'=>$allCompetencies,'descriptors'=>$descriptors]);
-      return view('evaluation.newPA-evaluate',compact('allGoals','allCompetencies','descriptors','allComponents','form','user'));
+      return view('evaluation.newPA-evaluate',compact('allGoals','allCompetencies','descriptors','allComponents','form','user','months'));
 
     }
 

@@ -73,6 +73,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     /********** NEW PA   **************/
 
     Route::resource('performance','NewPA_Form_Controller');
+    Route::resource('newPA_evals','NewPA_Evals_Controller');
     Route::resource('newPA_goal','NewPA_Goal_Controller');
     Route::resource('newPA_formGoal','NewPA_Form_Goal_Controller');
     Route::resource('newPA_form_user','NewPA_Form_User_Controller');
@@ -92,6 +93,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/newPA/evaluate/{id}', array(
       'as'=>'performance.evaluate',
       'uses'=>'NewPA_Form_Controller@evaluate') );
+
+    Route::post('/newPA_evals/process', array(
+      'as'=>'newPA_evals.process',
+      'uses'=>'NewPA_Evals_Controller@process') );
 
 
 

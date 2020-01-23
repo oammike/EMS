@@ -61,61 +61,23 @@
 
                     <div class="row">
                       <div class="col-lg-5">
-                        <img src="../../public/img/employees/{{$user[0]->id}}.jpg" width="30%" class="pull-left" />
-                        <h4 class="pull-left" style="padding-left:10px;width: 70%">{{$user[0]->lastname}}, {{$user[0]->firstname}}<br/>
+                        <img src="../public/img/employees/{{$user[0]->id}}.jpg" width="30%" class="pull-left" />
+                        <h4 class="pull-left" style="padding-left:10px;width: 70%">{{$user[0]->lastname}}, {{$user[0]->firstname}} <em>({{$user[0]->nickname}})</em><br/>
                           <em style="font-size: smaller;">{{$user[0]->jobTitle}} </em><br/>
                           <span style="font-size: smaller;"><br/>{{$user[0]->program}} </span> </h4>
                       </div>
 
                       <div class="col-lg-3 text-center">
-                        <img src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="70" /> 
+                        <img src="../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="70" /> 
                       </div>
                       <div class="col-lg-4 text-right">
                         <h3 class="pull-left" style="padding-left:10px">Performance Evaluation<br/>
                         <span style="font-size: small;">Evaluation Period: <br/>
                           <label>From : 
-                            <select id="period_mfrom">
-                              @foreach($months as $m)
-                              <option value="{{$m}} ">{{$m}} </option>
-
-                              @endforeach
-                            </select>
-                            /
-                            <select  id="period_dfrom">
-                              @for($i=1; $i<=31; $i++)
-                              <option value="{{$i}} ">{{$i}} </option>
-
-                              @endfor
-                            </select>
-                            /
-                            2020
+                            {{ date('M d, Y', strtotime($evalCompetencies[0]->startPeriod))}}
                           </label>
                           <label>To  : 
-                            <select id="period_mto">
-                              @foreach($months as $m)
-
-                                @if($m=='Dec')
-                                <option selected="selected" value="{{$m}} ">{{$m}} </option>
-                                @else
-                                <option value="{{$m}} ">{{$m}} </option>
-                                @endif
-
-                              @endforeach
-                            </select>
-                            /
-                            <select  id="period_dto">
-
-                              @for($i=1; $i<=31; $i++)
-                                @if($i==31)
-                                <option selected="selected" value="{{$i}} ">{{$i}} </option>
-                                @else
-                                <option value="{{$i}} ">{{$i}} </option>
-                                @endif
-
-                              @endfor
-                            </select>
-                            /
-                            2020
+                             {{ date('M d, Y', strtotime($evalCompetencies[0]->endPeriod))}}
                           </label> </span></h3>
                       </div>
 
@@ -158,6 +120,7 @@
                           </tr>
 
                               @foreach($allGoals as $goal)
+                              <?php $e = collect($evalGoals)->where('goal_id',$goal[0]->goalID); ?>
                               <tr>
                                 <td style="padding:30px"> &nbsp; {{$goal[0]->statement}}
                                   <div style="width:90%;margin-top:30px; padding:20px;border:1px dotted #333; text-align: left;"><!--  -->
@@ -167,20 +130,22 @@
                                  
                                 </div>
                                 <br/><label>Notes / Comments: </label>
-                                    <textarea class="goalcomments form-control" id="goalComment{{$goal[0]->goalID}}"></textarea>
+                                    <textarea disabled="disabled" class="goalcomments form-control" id="goalComment{{$goal[0]->goalID}}" style="white-space: pre-wrap;">
+                                      
+                                      {{$e->first()->notes}}
+
+                                    </textarea>
                                 </td>
                                 <td>{{$goal[0]->goalWeight}} % </td>
                                 <td>
-                                  <select name="rating_{{$goal[0]->goalID}}" class="rating_goal form-control" data-goalweight="{{$goal[0]->goalWeight}}" data-componentweight="{{$comp[0]->componentWeight}}" data-goalID="{{$goal[0]->goalID}}">
-                                    <option value="0">* select rating *</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                  </select>
+                                  
+                                  <h4 class="text-primary">{{$e->first()->rating}}</h4>
                                 </td>
-                                <td style="text-align: right;"><span class="goal_points" id="points_{{$goal[0]->goalID}}" style="font-weight: bold;">0.00</td>
+                                <td style="text-align: right;"><span class="goal_points" id="points_{{$goal[0]->goalID}}" style="font-weight: bold;">
+                                  <?php $p = (($goal[0]->goalWeight/100) * $e->first()->rating) * ($comp[0]->componentWeight/100); ?>
+                                  {{$p}}
+
+                                </td>
                               </tr>
                               @endforeach
 
@@ -196,7 +161,7 @@
                       <thead>
                         <tr>
                           <th width="40%">&nbsp;&nbsp;&nbsp;&nbsp;Competencies</th>
-                          <th width="30%">Critical Incidents</th>
+                          <th width="30%"> </th>
                          
                           <th>Weight</th>
                           <th width="10%">Rating</th>
@@ -208,6 +173,9 @@
                           <td colspan="5">
 
                         @foreach($allCompetencies as $comp)
+                        <?php $c = collect($evalCompetencies)->where('competency_id',$comp[0]->competencyID); ?>
+                        <?php $p = (($comp[0]->competencyWeight/100) * $c->first()->rating); ?>
+                                 
 
                         <!-- ******** collapsible box ********** -->
                             <div class="box box-default collapsed-box">
@@ -219,11 +187,16 @@
                                 <div class="col-lg-3"></div>
                                
                                 <div class="col-lg-2">
-                                  <h3 class="box-title text-primary"><small id="evaluated-{{$comp[0]->competencyID}}">
-                                    <i class="fa fa-exclamation-circle text-yellow"></i></small>
+                                  <h3 class="box-title text-primary"><span id="evaluated-{{$comp[0]->competencyID}}">
+                                    @if($c->first()->rating == '0.00')
+                                    <i class="fa fa-exclamation-circle text-yellow"></i> {{$c->first()->rating}}</span>
+                                    @else
+                                    <i class="fa fa-check text-success"></i> {{$c->first()->rating}}</span>
+                                    @endif
+                                    
                                   </h3>
                                 </div>
-                                <div class="comp_points col-lg-1" id="comp-points_{{$comp[0]->competencyID}}" style="font-weight: bold;">0.00</div>
+                                <div class="comp_points col-lg-1" id="comp-points_{{$comp[0]->competencyID}}" style="font-weight: bold;"> {{$p}} </div>
                               </div>
                               
 
@@ -239,8 +212,8 @@
                             <div class="box-body">
                               <table width="100%">
                                 <tr>
-                                    <td style="font-size: larger" width="45%">
-                                      {{$comp[0]->competency}}<br/><br/>
+                                    <td style="font-size: larger" width="35%">
+                                      
 
                                       <div style="font-size: smaller; width: 100%">
                                         <?php $desc = collect($descriptors)->where('competencyID',$comp[0]->competencyID); ?>
@@ -258,29 +231,42 @@
                                         @endforeach
                                       </div>
 
+                                      <label>Strengths </label>
+                                      <textarea disabled="disabled" rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control" style="white-space: pre-wrap;">
+                                        {{$c->first()->strengths}}
+                                      </textarea><br/><br/>
+
+
 
                                     </td>
                                     
                                    
-                                    <td width="30%">
-                                      <label>Strengths </label><textarea rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
-                                      <label>Areas For Improvement </label><textarea rows="7" id="afi_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
-                                      <label>Notes / Comments </label><textarea rows="7" id="crit_{{$comp[0]->competencyID}}" class="form-control"></textarea>
+                                    <td width="35%" style="padding-left: 30px">
+                                      
+                                      <label>Areas For Improvement </label>
+                                      <textarea  disabled="disabled" rows="7" id="afi_{{$comp[0]->competencyID}}" class="form-control" style="white-space: pre-wrap;">
+                                        {{$c->first()->afi}}
+                                      </textarea><br/><br/>
+
+                                      
                                     </td>
                                     <td>{{$comp[0]->competencyWeight}} %</td>
                                     <td>
-                                      <select name="ratingComp_{{$comp[0]->competencyID}}" class="rating_comp form-control" data-compID="{{$comp[0]->competencyID}}" data-componentweight="{{$comp[0]->competencyWeight}}">
-                                              <option value="0">* select rating *</option>
-                                              <option value="1">1</option>
-                                              <option value="2">2</option>
-                                              <option value="3">3</option>
-                                              <option value="4">4</option>
-                                              <option value="5">5</option>
-                                            </select>
+                                     
+
+                                      <h4>{{$c->first()->rating}} </h4>
                                     </td>
                                     <td style="font-weight: bold;" id="point-comp_{{$comp[0]->competencyID}}"></td>
 
 
+                                </tr>
+                                <tr>
+                                  <td colspan="5">
+                                    <label>Notes / Comments </label>
+                                      <textarea  disabled="disabled" rows="7" id="crit_{{$comp[0]->competencyID}}" class="form-control" style="white-space: pre-wrap;">
+                                        {{$c->first()->notes}}
+                                      </textarea>
+                                    </td>
                                 </tr>
                               </table>
 
@@ -312,7 +298,7 @@
 
                     </table>
 
-                    <p class="text-center" style="margin-top: 20px"><a id="saveEval" class="btn btn-lg btn-success"><i class="fa fa-save"></i> Save Evaluation</a></p>
+                    <p class="text-center" style="margin-top: 20px"><a id="saveEval" class="btn btn-lg btn-danger"><i class="fa fa-pencil"></i> Modify Evaluation</a></p>
 
                     
                 <div class="clearfix"></div>
@@ -374,6 +360,23 @@
    //    
    //  });
    //$( ".datepicker" ).datepicker();
+
+   $('#overall').html("");
+   var overallscore = {{$evalCompetencies[0]->finalRating}};
+      $('#overall').append(overallscore.toFixed(2));
+
+      if(overallscore > 4.5){
+        $('#overall').css('background-color',"#1a8fcb");
+      }else if(overallscore >= 4.0){
+         $('#overall').css('background-color',"#64d254");
+      }else if(overallscore >= 3.1){
+        $('#overall').css('background-color',"#666");
+      }else if(overallscore >= 2.0){
+        $('#overall').css('background-color',"#ea8f1b");
+      }else{
+        $('#overall').css('background-color',"#ff1212");
+      }
+
 
    $('.rating_goal.form-control').on('change',function(){
 
