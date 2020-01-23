@@ -215,21 +215,7 @@
                                     <td style="font-size: larger" width="35%">
                                       
 
-                                      <div style="font-size: smaller; width: 100%">
-                                        <?php $desc = collect($descriptors)->where('competencyID',$comp[0]->competencyID); ?>
-                                        @foreach($desc as $d)
-                                        
-                                          
-                                        <p id="desc_{{$d->id}}"   style="width: 90%">
-                                        
-                                          <a data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="1" class="descs btn btn-xs btn-success " style="margin-left: 2px"><i class="fa fa-thumbs-up"></i> </a> 
-                                          <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}" data-type="2"  class="descs btn btn-xs btn-danger " style="margin-left: 2px"><i class="fa fa-thumbs-down"></i> </a> 
-                                          <a  data-target="{{$d->id}}" data-id="{{$comp[0]->competencyID}}"  data-type="0"  class="descs btn btn-xs btn-primary  " style="margin-left: 2px"><i class="fa fa-ban"></i> </a>&nbsp;&nbsp;{{$d->descriptor}} 
-                                        </p>
-                                          
-
-                                        @endforeach
-                                      </div>
+                                     
 
                                       <label>Strengths </label>
                                       <textarea disabled="disabled" rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control" style="white-space: pre-wrap;">
