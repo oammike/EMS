@@ -53,38 +53,7 @@
 
 
 
-                  <div class="item text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/><span style="font-size: larger;"> Php 50,000.00</span> </strong> <br/>
-                                <span style="font-size: x-small; line-height: 0.5em">No restrictions - TLs and Managers can also send their referrals!<br/></span>
-                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start this January</span></br/><br/>
-                                <span class="text-primary">JAPANESE CONTENT MODERATION ANALYST (up to 120K/mo) <br/> <br/>
-                                <img src="public/img/logo_quora.png" width="40%" /><br/>
-                              </h3><BR/><BR/>
-
-                              
-
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>As a Content Moderator Analyst, applicant will be working for an online Q&amp;A platform, where questions are asked, answered,edited, and organized by its community of users</li>
-                                <li>Applicant will be tasked to moderate content based on given guidelines using both JAPANESE and ENGLISH</li>
-                              </ul>
-
-                              <h4>Qualifications</h4>
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>Must be proficient in both written and spoken English and Japanese;</li>
-                                <li>Preferably with at least six (6) months of experience working in a BPO company (preferably in a customer service program)</li>
-                                <li>Able to read fast and demonstrate high attention to detail;</li>
-                                <li>A critical thinker with good analytical skills;</li>
-                                <li>With an upbeat and inquisitive personality;</li>
-                                <li>Equipped with basic technical skills - able to navigate through computer and web applications with ease; and</li>
-                                <li>Willing to work in Makati</li>
-                              </ul>
-
-                              <h5>Please have your referrals come in from MON-FRI 8AM-3PM at G2 office</h5>
-
-
-                  </div>
-
+                 
                   <div class="item text-center">
 
                               <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/><span style="font-size: larger;"> Php 50,000.00</span> </strong> <br/>
@@ -707,6 +676,37 @@
 
 
 <?php /*
+ <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/><span style="font-size: larger;"> Php 50,000.00</span> </strong> <br/>
+                                <span style="font-size: x-small; line-height: 0.5em">No restrictions - TLs and Managers can also send their referrals!<br/></span>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start this January</span></br/><br/>
+                                <span class="text-primary">JAPANESE CONTENT MODERATION ANALYST (up to 120K/mo) <br/> <br/>
+                                <img src="public/img/logo_quora.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>As a Content Moderator Analyst, applicant will be working for an online Q&amp;A platform, where questions are asked, answered,edited, and organized by its community of users</li>
+                                <li>Applicant will be tasked to moderate content based on given guidelines using both JAPANESE and ENGLISH</li>
+                              </ul>
+
+                              <h4>Qualifications</h4>
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Must be proficient in both written and spoken English and Japanese;</li>
+                                <li>Preferably with at least six (6) months of experience working in a BPO company (preferably in a customer service program)</li>
+                                <li>Able to read fast and demonstrate high attention to detail;</li>
+                                <li>A critical thinker with good analytical skills;</li>
+                                <li>With an upbeat and inquisitive personality;</li>
+                                <li>Equipped with basic technical skills - able to navigate through computer and web applications with ease; and</li>
+                                <li>Willing to work in Makati</li>
+                              </ul>
+
+                              <h5>Please have your referrals come in from MON-FRI 8AM-3PM at G2 office</h5>
+
+
+                  </div>
 
 // TAAL
 <div class="item active text-center" >
