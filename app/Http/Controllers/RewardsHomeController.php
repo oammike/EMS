@@ -36,7 +36,7 @@ class RewardsHomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['barista','create_order']]);
+        $this->middleware('auth',['except' => ['barista','create_order','check_points','fetch_coffees']]);
 
         $this->pagination_items = 50;
     }
@@ -122,6 +122,43 @@ class RewardsHomeController extends Controller
       ];
       app('debugbar')->disable();
         return view('barista-home', $data);
+    }
+
+    public function fetch_coffees(){
+      $rewards = Reward::with("category")->orderBy('name', 'asc')->get();
+      $out_reward = [];
+      foreach($rewards as $reward){
+        $out_reward[] = [
+          "id" => $reward->id,
+          "name" => $reward->name,
+          "description" => $reward->description,
+          "attachment_image" => $reward->attachment_image,
+          "cost" => $reward->cost
+        ];
+      }
+
+      return response('{"rewards":' . json_encode($out_reward)   . "}", 200)
+                  ->header('Content-Type', 'application/json');
+    }
+
+    public function check_points($code){
+      $id = DB::table('users')
+            ->select('id')
+            ->whereRaw('concat(`id`,`employeeNumber`)=?',[$code])->first();
+      if($id->id){
+        $user = User::with('points','team')->find($id->id);
+        $points = $user->points->points;
+        $name = $user->firstname." ".$user->middlename." ".$user->lastname;
+      }else{
+        $points = 0;
+        $name = "";
+      }
+
+
+      return response()->json([
+        'points' => $points,
+        'name' => $name
+      ], 200);
     }
     
     public function cancel_order($id){
@@ -287,13 +324,14 @@ class RewardsHomeController extends Controller
         
         if($record->save()) {
           try{
+            date_default_timezone_set('Asia/Singapore');
             $micro = microtime(true);                
             $current_points = $user->points->points - $reward->cost;                
 
             $items = array(
                 new PrintItem("Name: ".$user->firstname." ".$user->lastname),
                 new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
-                new PrintItem("Remaining Points:", $user->points->points)
+                new PrintItem("Remaining Points:", $current_points)
             );                
               
             $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
@@ -486,9 +524,9 @@ class RewardsHomeController extends Controller
                 $items = array(
                     new PrintItem("Name: ".$user->firstname." ".$user->lastname),
                     new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
-                    new PrintItem("Remaining Points:", $user->points->points)
+                    new PrintItem("Remaining Points:", $current_points)
                 );                
-                  
+                  date_default_timezone_set('Asia/Singapore');
                   $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
                   $connector = new NetworkPrintConnector("172.18.36.200", 9100);
                   $printer = new Printer($connector);

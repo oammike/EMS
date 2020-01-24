@@ -14,8 +14,12 @@
 
 
 Route::auth();
+
 Route::get('/barista/{code?}', 'RewardsHomeController@barista');
+Route::get('/check_rewards_points/{code?}', 'RewardsHomeController@check_points');
+Route::get('/fetch_coffees', 'RewardsHomeController@fetch_coffees');
 Route::post('/create-order', 'RewardsHomeController@create_order');
+
 Route::group( [ 'middleware' => ['auth'] ], function () 
   { 
     Route::get('/', 'HomeController@index');
