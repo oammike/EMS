@@ -555,13 +555,14 @@ class RewardsHomeController extends Controller
                   $order->save();
               
                 
-                
+                /*
                 QrCode::size(500)
                   ->format('svg')
                   ->errorCorrection('H')
                   ->generate(
                     $user_id . $user->employeeNumber,
                     public_path('media/qr/'.$user_id.'.svg'));
+                    */
                   
                 return response()->json([
                   'success' => true,
