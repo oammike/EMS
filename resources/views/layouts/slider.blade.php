@@ -1,6 +1,34 @@
 
 
-                  <div class="item active text-center" >
+                   <div class="item active text-center" >
+                    <h3 class="text-primary">2020 Year of the Rat</h3>
+                    <img src="./storage/uploads/cny2020.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>It's the time of the year when our Chinese brothers and sisters celebrate good fortune and happiness!<br/><br/>
+
+                    To everyone who are celebrating the holiday, we at Open Access BPO wish you a Happy Chinese New Year! May the new year continue to bring you and your family an abundance of joy, peace, good health, and prosperity in life.
+
+                    #WeSpeakYourLanguage #OAHolidays #CNY2020</p>
+
+                    
+
+                  </div>
+
+                  @for($r=1;$r<=12;$r++)
+
+                  <div class="item text-center" >
+                    <h3 class="text-danger">Year of the Metal Rat Predictions</h3>
+                    <img src="./storage/uploads/cny2020_{{$r}}.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/></p>
+
+                    
+
+                  </div>
+
+                  @endfor
+
+                  <div class="item text-center" >
                     <h3 class="text-primary">SSS | Pag-Ibig Calamity Loan</h3>
                     <img src="./storage/uploads/taal.jpeg" style="z-index: 2" />
 
