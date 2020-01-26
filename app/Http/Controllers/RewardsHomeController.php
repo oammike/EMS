@@ -147,7 +147,16 @@ class RewardsHomeController extends Controller
             ->whereRaw('concat(`id`,`employeeNumber`)=?',[$code])->first();
       if($id->id){
         $user = User::with('points','team')->find($id->id);
+        if($user->points==null){
+          if($user->points!==0){
+            $record = new Point;
+            $record->idnumber = $user_id;
+            $record->points = 10;
+            $record->save();
+          }
+        }
         $points = $user->points->points;
+
         $name = $user->firstname." ".$user->middlename." ".$user->lastname;
       }else{
         $points = 0;
