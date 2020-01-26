@@ -147,16 +147,20 @@ class RewardsHomeController extends Controller
             ->whereRaw('concat(`id`,`employeeNumber`)=?',[$code])->first();
       if($id->id){
         $user = User::with('points','team')->find($id->id);
+
         if($user->points==null){
           if($user->points!==0){
             $record = new Point;
-            $record->idnumber = $id;
+            $record->idnumber = $user->id;
             $record->points = 10;
             $record->save();
-          }
-        }
-        $points = $user->points->points;
 
+            $points = 10;
+          }
+        }else{
+          $points = $user->points->points;  
+        }
+        
         $name = $user->firstname." ".$user->middlename." ".$user->lastname;
       }else{
         $points = 0;
@@ -196,7 +200,7 @@ class RewardsHomeController extends Controller
     
     public function print_qr($employee_id){
       //$user = User::with('points','team')->find($employee_id);
-      $connector = new NetworkPrintConnector("172.22.18.200", 9100);
+      $connector = new NetworkPrintConnector("172.18.36.200", 9100);
       $printer = new Printer($connector);
       $printer -> setJustification(Printer::JUSTIFY_CENTER);
       $printer -> qrCode("835051714", Printer::QR_ECLEVEL_L, 6,Printer::QR_MODEL_2);
@@ -240,7 +244,7 @@ class RewardsHomeController extends Controller
         try{
           
           $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
-          $connector = new NetworkPrintConnector("172.22.18.200", 9100);
+          $connector = new NetworkPrintConnector("172.18.36.200", 9100);
           $printer = new Printer($connector);
           
           $printer -> setJustification(Printer::JUSTIFY_CENTER);
@@ -344,7 +348,7 @@ class RewardsHomeController extends Controller
             );                
               
             $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
-            $connector = new NetworkPrintConnector("172.22.18.200", 9100);
+            $connector = new NetworkPrintConnector("172.18.36.200", 9100);
             $printer = new Printer($connector);
             
             $printer -> setJustification(Printer::JUSTIFY_CENTER);
@@ -537,7 +541,7 @@ class RewardsHomeController extends Controller
                 );                
                   date_default_timezone_set('Asia/Singapore');
                   $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
-                  $connector = new NetworkPrintConnector("172.22.18.200", 9100);
+                  $connector = new NetworkPrintConnector("172.18.36.200", 9100);
                   $printer = new Printer($connector);
                   
                   $printer -> setJustification(Printer::JUSTIFY_CENTER);
