@@ -318,7 +318,7 @@ class RewardsHomeController extends Controller
         if($user->points == null || $reward->cost > $user->points->points ){
           return response()->json([
             'success' => false,
-            'message' => $user->firstname.', you do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
+            'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
           ], 422);
         }
         
