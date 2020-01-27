@@ -340,7 +340,7 @@ class RewardsHomeController extends Controller
             $micro = microtime(true);                
             $current_points = $user->points->points - $reward->cost;                
 
-            /*
+            
 
             $items = array(
                 new PrintItem("Name: ".$user->firstname." ".$user->lastname),
@@ -371,7 +371,7 @@ class RewardsHomeController extends Controller
             $printer -> feed(2);
             $printer -> cut();
             $printer -> close();
-            */
+            
 
             return response()->json([
                   'success' => true,
