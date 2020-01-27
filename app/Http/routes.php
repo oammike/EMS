@@ -886,6 +886,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
           'as'=> 'user.grantAccess',
           'uses'=>'UserController@grantAccess') );
 
+     Route::post('/user/claimedcard', array(
+          'as'=> 'user.claimedcard',
+          'uses'=>'UserController@claimedcard') );
+
 
 
      Route::get('/immediateHead/{id}/members', array(

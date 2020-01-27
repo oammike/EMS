@@ -208,7 +208,14 @@ class UserController extends Controller
 
     
 
-   
+   public function claimedcard(Request $request)
+   {
+      $user = User::find($request->id);
+      $user->claimedCard = true;
+      $user->save();
+      return $user;
+
+   }
 
     public function create()
     {
@@ -757,7 +764,7 @@ class UserController extends Controller
                     leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
                     leftJoin('positions','users.position_id','=','positions.id')->
                     leftJoin('floor','team.floor_id','=','floor.id')->
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.claimedCard')->orderBy('users.lastname')->get();
 
         } else {
 
