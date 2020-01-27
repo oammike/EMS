@@ -231,7 +231,8 @@ class RewardsHomeController extends Controller
               
       if ($order) {
         $reward = Reward::find($order->reward_id);
-        $user = User::with('points','team')->find($user_id);
+        //$user = User::with('points','team')->find($user_id);
+        $user = User::find($user_id);
   
         $micro = microtime(true);
         /* Information for the receipt */
