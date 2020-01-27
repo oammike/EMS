@@ -151,10 +151,9 @@ class RewardsHomeController extends Controller
         if($user->points==null){
           if($user->points!==0){
             $record = new Point;
-            $record->idnumber = $id;
+            $record->idnumber = $user->id;
             $record->points = 10;
             $record->save();
-
             $points = 10;
           }
         }else{
@@ -232,7 +231,6 @@ class RewardsHomeController extends Controller
       if ($order) {
         $reward = Reward::find($order->reward_id);
         $user = User::with('points','team')->find($user_id);
-        //$user = User::find($user_id);
   
         $micro = microtime(true);
         /* Information for the receipt */
@@ -311,7 +309,7 @@ class RewardsHomeController extends Controller
         if($user->points==null){
           if($user->points!==0){
             $record = new Point;
-            $record->idnumber = $id;
+            $record->idnumber = $user_id;
             $record->points = 10;
             $record->save();
           }
@@ -342,6 +340,8 @@ class RewardsHomeController extends Controller
             $micro = microtime(true);                
             $current_points = $user->points->points - $reward->cost;                
 
+            
+
             $items = array(
                 new PrintItem("Name: ".$user->firstname." ".$user->lastname),
                 new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
@@ -371,6 +371,7 @@ class RewardsHomeController extends Controller
             $printer -> feed(2);
             $printer -> cut();
             $printer -> close();
+            
 
             return response()->json([
                   'success' => true,
