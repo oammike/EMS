@@ -250,7 +250,7 @@ class RewardsHomeController extends Controller
           $printer -> graphics($logo);
           $printer -> setJustification(Printer::JUSTIFY_CENTER);
           $printer -> setTextSize(2,2);
-          $printer -> text("OAM Rewards\n");
+          $printer -> text("Open Access BPO Rewards\n");
           $printer -> setTextSize(1,1);              
           $printer -> text(date("m/d/Y h:i a")."\n");
           $printer -> text("Receipt Number:".sprintf('%08d', $order->id)."\n");
@@ -356,7 +356,7 @@ class RewardsHomeController extends Controller
             $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
             $printer -> setJustification(Printer::JUSTIFY_CENTER);
             $printer -> setTextSize(2,2);
-            $printer -> text("OAM Rewards\n");
+            $printer -> text("Open Access BPO Rewards\n");
             $printer -> feed(1);
             $printer -> setTextSize(1,1);              
             $printer -> text(date("m/d/Y h:i a")."\n");
@@ -550,7 +550,7 @@ class RewardsHomeController extends Controller
                   $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
                   $printer -> setJustification(Printer::JUSTIFY_CENTER);
                   $printer -> setTextSize(2,2);
-                  $printer -> text("OAM Rewards\n");
+                  $printer -> text("Open Access BPO Rewards\n");
                   $printer -> feed(1);
                   $printer -> setTextSize(1,1);              
                   $printer -> text(date("m/d/Y h:i a")."\n");
