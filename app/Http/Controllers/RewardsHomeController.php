@@ -151,7 +151,7 @@ class RewardsHomeController extends Controller
         if($user->points==null){
           if($user->points!==0){
             $record = new Point;
-            $record->idnumber = $user->id;
+            $record->idnumber = $id;
             $record->points = 10;
             $record->save();
 
@@ -311,7 +311,7 @@ class RewardsHomeController extends Controller
         if($user->points==null){
           if($user->points!==0){
             $record = new Point;
-            $record->idnumber = $user_id;
+            $record->idnumber = $id;
             $record->points = 10;
             $record->save();
           }
