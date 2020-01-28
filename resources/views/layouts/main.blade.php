@@ -54,6 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
  <link rel="preload" as="script" href="{{asset('public/js/jsqr/decoder.js')}}">
 @endif
 @if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE )
+ <link href="{{asset('public/plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
  <link href="{{asset('public/css/rewardsfonts.css')}}" rel="stylesheet">
  <link href="{{asset('public/css/rewards.css')}}" rel="stylesheet">
  
@@ -433,6 +434,7 @@ function validateRequired(param, availability, defaultval) {
  </script>
  
 @if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE ) 
+ <script src="{{ asset('/public/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
  <script src="{{ asset('/public/plugins/pace/pace.js') }}"></script>
  <script src="{{ asset('/public/plugins/iCheck/icheck.min.js') }}"></script>
  

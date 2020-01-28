@@ -80,8 +80,18 @@ class RewardsHomeController extends Controller
                 ['status','=','PENDING'],
               ])
               ->get();
+
+      date_default_timezone_set('Asia/Singapore');      
+      $t=time();
+      $interval=15*60;
+      $last = $t - $t % $interval;
+      $next = $last + $interval;
+
+      $time = strftime('%H:%M %p', $next);
       
       $data = [
+
+        'time' => $time,
         'include_rewards_scripts' => TRUE,
         'contentheader_title' => "Rewards Catalog",
         'items_per_page' => $this->pagination_items,
@@ -484,7 +494,15 @@ class RewardsHomeController extends Controller
     }
     
     public function claim_reward(Request $request,$reward_id = 0){
+
+      date_default_timezone_set('Asia/Singapore');
+      $now = strtotime('now');
       $tier = $request->input('tier',0);
+      $debug = $request->input('debug',0);
+      $time = $request->input('time',"now");
+
+      $time = strtotime($time);
+
       $error = false;
       $error_message = "";
       $user_id = \Auth::user()->id;
@@ -493,7 +511,17 @@ class RewardsHomeController extends Controller
         return response()->json([
           'exception' => $error_message,
           'success' => false,
-          'message' => array('invalid reward variant.')
+          'message' => array('Please select a proper reward variant.')
+        ], 422);
+      }
+
+      if($time<$now){
+        return response()->json([
+          'exception' => $error_message,
+          'success' => false,
+          'message' => array('Your desired pick-up time must be in the future.'),
+          'time' => $time,
+          'now' => $now
         ], 422);
       }
       
@@ -539,35 +567,41 @@ class RewardsHomeController extends Controller
                 $items = array(
                     new PrintItem("Name: ".$user->firstname." ".$user->lastname),
                     new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
+                    new PrintItem("Pickup by: ".$request->input('time',"NOW")),
                     new PrintItem("Remaining Points:", $current_points)
-                );                
-                  date_default_timezone_set('Asia/Singapore');
-                  $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
-                  $connector = new NetworkPrintConnector("172.22.18.200", 9100);
-                  $printer = new Printer($connector);
-                  
-                  $printer -> setJustification(Printer::JUSTIFY_CENTER);
-                  $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
-                  $printer -> setJustification(Printer::JUSTIFY_CENTER);
-                  $printer -> setTextSize(2,2);
-                  $printer -> text("Open Access BPO Rewards\n");
-                  $printer -> feed(1);
-                  $printer -> setTextSize(1,1);              
-                  $printer -> text(date("m/d/Y h:i a")."\n");
-                  $printer -> text("Receipt Number:".sprintf('%08d', $order->id)."\n");
-                  $printer -> feed(2);
-                  
-                  $printer -> setJustification(Printer::JUSTIFY_LEFT);
-                  $printer -> setTextSize(1,1);
-                  foreach ($items as $item) {
-                    $printer -> text($item);
-                  }      
-                  $printer -> feed(2);
-                  $printer -> cut();
-                  $printer -> close();
-                  
-                  $order->status = "PRINTED";
-                  $order->save();
+                );
+
+
+
+                  if($debug==false){
+                    $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
+                    $connector = new NetworkPrintConnector("172.22.18.200", 9100);
+                    $printer = new Printer($connector);
+                    
+                    $printer -> setJustification(Printer::JUSTIFY_CENTER);
+                    $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
+                    $printer -> setJustification(Printer::JUSTIFY_CENTER);
+                    $printer -> setTextSize(2,2);
+                    $printer -> text("Open Access BPO Rewards\n");
+                    $printer -> feed(1);
+                    $printer -> setTextSize(1,1);              
+                    $printer -> text(date("m/d/Y h:i a")."\n");
+                    $printer -> text("Receipt Number:".sprintf('%08d', $order->id)."\n");
+                    $printer -> feed(2);
+                    
+                    $printer -> setJustification(Printer::JUSTIFY_LEFT);
+                    $printer -> setTextSize(1,1);
+                    foreach ($items as $item) {
+                      $printer -> text($item);
+                    }      
+                    $printer -> feed(2);
+                    $printer -> cut();
+                    $printer -> close();
+                    
+                    $order->status = "PRINTED";
+                    $order->save();
+
+                  }
               
                 
                 /*
@@ -580,6 +614,7 @@ class RewardsHomeController extends Controller
                     */
                   
                 return response()->json([
+                  'time'=>$time,
                   'success' => true,
                   'idnumber' => $user_id,
                   'micro' => $micro,

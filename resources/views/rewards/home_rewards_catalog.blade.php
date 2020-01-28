@@ -88,13 +88,29 @@
         <div class="box modal-body">
           <div id="form_elements">
               <p>Please select a variant for your <span id="modalConfirmRewardName"></span>:</p>
-              <p><span id="claimer_error" class="help-block"></span></p>
+              
             
             <div id="variants">
               <input type="radio" name="tier" value="small" checked> Small<br/>
               <input type="radio" name="tier" value="medium"> Medium<br/>
               <input type="radio" name="tier" value="large"> Large
             </div>
+
+            <div id="pickuptime">
+              <p><br/>Set Pickup Time</p>
+              <div class="input-group">
+                <input type="text" class="form-control timepicker" name="time">
+
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+              </div>
+            </div>
+
+            <p><span id="claimer_error" class="help-block"></span></p>
+
+            
+            
           </div>
           <div id="qr_code_wrapper">
             <p>Your order has been queued.</p>
@@ -119,8 +135,18 @@
 
 @section('footer-scripts')
 	<script>
+
 		window.selected_reward_id = 0;
 		$(function() {
+
+      //Timepicker
+      $('.timepicker').timepicker({
+        showInputs: false,
+        snapToStep: true,
+        showMeridian: true,
+        defaultTime: '{{ $time }}'
+      })
+
 			$('.bt_claimer').click(function(){
       
         $('#qr_code_wrapper').hide();
@@ -136,7 +162,7 @@
 				var category_id = $(this).data('category-id');
 				var name = $(this).data('name');
 				window.selected_reward_id = id;
-				$('#claimer_loader').hide();
+
 				$('#modalConfirmRewardName').text(name);
 				$('#modalConfirm').modal('show');
         $('#modalConfirmClose').text("Cancel");
@@ -185,6 +211,8 @@
 				event.preventDefault();
         var micro = (Date.now() % 1000) / 1000;
 				$('#claimer_loader').show();
+        var data = $('#claimRewardForm').serialize();
+        console.log("passing: "+data);
 				$.ajax({
 					type: "POST",
 					url : "{{ url('/claim-reward') }}/"+window.selected_reward_id+"?m="+micro,
@@ -207,32 +235,7 @@
             $('#pending_table').append(appendme);
             
             $('#points_counter').text("Remaining Points: "+data.points);
-						/*
-						var address = 'http://192.168.4.180/cgi-bin/epos/service.cgi?devid=local_printer&timeout=60000';
 						
-						var builder = new epson.ePOSBuilder();
-						builder.addTextAlign(builder.ALIGN_CENTER);
-						builder.addText('OAM Rewards\n');
-						builder.addText('Mark Lester Bambico (5051714)');
-						builder.addFeed();
-						builder.addTextAlign(builder.ALIGN_LEFT);
-						builder.addText('Item: Death Wish Coffee (150ml)');
-						builder.addTextAlign(builder.ALIGN_RIGHT);
-						builder.addTextPosition(475);
-						builder.addText('34');
-						builder.addTextPosition(0);
-						builder.addFeed();
-						builder.addText('Remaining Credits:');
-						builder.addTextPosition(475);
-						builder.addTextAlign(builder.ALIGN_RIGHT);
-						builder.addText('34');
-						
-						var epos = new epson.ePOSPrint(address);
-						epos.onreceive = function (res) { alert(res.success); };
-						epos.onerror = function (err) { alert(err.status); };
-						epos.oncoveropen = function () { alert('coveropen'); };
-						epos.send(builder.toString());
-						*/
 					},
 					data: $('#claimRewardForm').serialize(),
 					error: function(data){
