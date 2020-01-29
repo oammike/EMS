@@ -302,6 +302,7 @@ class RewardsHomeController extends Controller
     }
 
     public function create_order(){
+      date_default_timezone_set('Asia/Singapore');
 
       $code = Input::get('code');
       $reward_id = Input::get('order_id');
@@ -336,7 +337,7 @@ class RewardsHomeController extends Controller
         $record = new ActivityLog;
         $record->initiator_id       = $user_id;
         $record->target_id      = $user_id;
-        $record->description = "claimed ".$reward->name." for ".$reward->cost." points";
+        $record->description = "claimed ".$reward->name." for ".$reward->cost." points using barista app";
         
         $order = new Orders;
         $order->user_id = $user_id;
@@ -346,7 +347,7 @@ class RewardsHomeController extends Controller
         
         if($record->save()) {
           try{
-            date_default_timezone_set('Asia/Singapore');
+            
             $micro = microtime(true);                
             $current_points = $user->points->points - $reward->cost;                
 
@@ -551,7 +552,7 @@ class RewardsHomeController extends Controller
             $record = new ActivityLog;
             $record->initiator_id       = $user_id;
             $record->target_id      = $user_id;
-            $record->description = "claimed ".$reward->name." for ".$reward->cost." points";
+            $record->description = "claimed ".$reward->name." for ".$reward->cost." points using EMS portal";
             
             $order = new Orders;
             $order->user_id = $user_id;
