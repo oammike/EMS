@@ -28,56 +28,8 @@
 
                   @endfor
 
-                  <div class="item text-center" >
-                    <h3 class="text-primary">SSS | Pag-Ibig Calamity Loan</h3>
-                    <img src="./storage/uploads/taal.jpeg" style="z-index: 2" />
-
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>To those who were affected by the Taal Volcanic eruption specifically those under the state of calamity (Province of Batangas), you may now avail the SSS Calamity Loan starting January 22, 2019.</p>
-
-                    <a class="btn btn-success btn-sm" href="storage/uploads/SSS_loan.pdf">See SSS Loan Details</a>
-                    <a class="btn btn-primary btn-sm" href="storage/uploads/pagibig_calamity_loan.PDF"><i class="fa fa-download"></i> Download Pagibig Form</a>
-
-                   
-
-                  </div>
-
-
-                  <div class="item text-center" >
-                    <h3 class="text-primary">Attn: all JAKA bldg Employees</h3>
-                    <img src="./storage/uploads/jaka_bldg.jpg" style="z-index: 2" />
-
-                    <p class="text-left" style="padding-left: 50px;background-color: #000; color:#fff">
-                      From               :           Building Administration Office <br/>
-                      Subject            :           Temporary Elevator Scheme<br/>
-
-                      <br/><br/>Please be guided on the following elevator scheme below. Effective 22nd of January 2020, we will temporarily implement an Odd-Even Elevator Service. This scheme is on trial basis only and we hope it will help speed up the conveyance of passengers and reduce waiting time.<br/><br/>
-
-                      PASSENGER ELEVATOR No. 4 WILL ONLY SERVE FLOORS 2, 4, 6, 8, 10 and 12 during these hours: <br/><br/>
-
-                        6:00am – 8:00am<br/>
-
-                      10:00am – 1:00pm<br/>
-
-                        3:00pm – 5:00pm<br/><br/><br/>
-
-
-                      PASSENGER ELEVATOR No. 1 WILL ONLY SERVE FLOORS 3, 5, 7, 9, 11, PH1 and PH2 during these hours:<br/><br/>
-
-                      6:00am – 8:00am<br/>
-
-                    10:00am – 1:00pm<br/>
-
-                      3:00pm – 5:00pm<br/><br/><br/>
-                    Thank you for your understanding and cooperation. <br/><br/></p>
-
-                  
-
-                  </div>
-
-
                 
-
- 
+                  
 
 
 
@@ -704,6 +656,58 @@
 
 
 <?php /*
+
+  <div class="item text-center" >
+                    <h3 class="text-primary">SSS | Pag-Ibig Calamity Loan</h3>
+                    <img src="./storage/uploads/taal.jpeg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>To those who were affected by the Taal Volcanic eruption specifically those under the state of calamity (Province of Batangas), you may now avail the SSS Calamity Loan starting January 22, 2019.</p>
+
+                    <a class="btn btn-success btn-sm" href="storage/uploads/SSS_loan.pdf">See SSS Loan Details</a>
+                    <a class="btn btn-primary btn-sm" href="storage/uploads/pagibig_calamity_loan.PDF"><i class="fa fa-download"></i> Download Pagibig Form</a>
+
+                   
+
+                  </div>
+
+
+
+<div class="item text-center" >
+                    <h3 class="text-primary">Attn: all JAKA bldg Employees</h3>
+                    <img src="./storage/uploads/jaka_bldg.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;background-color: #000; color:#fff">
+                      From               :           Building Administration Office <br/>
+                      Subject            :           Temporary Elevator Scheme<br/>
+
+                      <br/><br/>Please be guided on the following elevator scheme below. Effective 22nd of January 2020, we will temporarily implement an Odd-Even Elevator Service. This scheme is on trial basis only and we hope it will help speed up the conveyance of passengers and reduce waiting time.<br/><br/>
+
+                      PASSENGER ELEVATOR No. 4 WILL ONLY SERVE FLOORS 2, 4, 6, 8, 10 and 12 during these hours: <br/><br/>
+
+                        6:00am – 8:00am<br/>
+
+                      10:00am – 1:00pm<br/>
+
+                        3:00pm – 5:00pm<br/><br/><br/>
+
+
+                      PASSENGER ELEVATOR No. 1 WILL ONLY SERVE FLOORS 3, 5, 7, 9, 11, PH1 and PH2 during these hours:<br/><br/>
+
+                      6:00am – 8:00am<br/>
+
+                    10:00am – 1:00pm<br/>
+
+                      3:00pm – 5:00pm<br/><br/><br/>
+                    Thank you for your understanding and cooperation. <br/><br/></p>
+
+                  
+
+                  </div>
+
+
+                
+
+
  <div class="item text-center">
 
                               <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/><span style="font-size: larger;"> Php 50,000.00</span> </strong> <br/>
