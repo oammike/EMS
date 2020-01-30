@@ -836,7 +836,7 @@ class HomeController extends Controller
         $trackerNDY = DB::table('task')->where('task.campaign_id',$prg3)->
                     join('taskgroup','task.groupID','=','taskgroup.id')->
                     join('task_campaign','task_campaign.campaign_id','=','task.campaign_id')->
-                    select('taskgroup.id as groupID', 'taskgroup.name as taskgroup','task.name as task','task.id','task_campaign.name as tracker')->
+                    select('taskgroup.id as groupID', 'taskgroup.name as taskgroup','task.name as task','task.id','task_campaign.name as tracker','task_campaign.activated')->
                     orderBy('task.id','ASC')->get();
         $groupedTasks = collect($trackerNDY)->groupBy('taskgroup');
 

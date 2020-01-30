@@ -55,7 +55,7 @@ select:-webkit-autofill:focus {
 
             <div class="col-lg-7 col-sm-6 col-xs-12">
 
-              @if($fromNDY)
+              @if($fromNDY && $trackerNDY[0]->activated)
 
                 @include('layouts.widget-NDY')
 
@@ -718,7 +718,7 @@ select:-webkit-autofill:focus {
 
    /*---------- NDY WIDGET ----------- */
 
-  @if($fromNDY)
+  @if($fromNDY && $trackerNDY[0]->activated)
 
       $('.tasks').fadeOut();$('.track').fadeOut();
       @if($hasPendingTask=='1' && $hasPendingTaskBreak=='1')
