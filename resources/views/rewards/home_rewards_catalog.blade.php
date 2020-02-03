@@ -7,7 +7,13 @@
 
 @section('content')
   <section class="content-header">
-    <h1><i class="fa fa-gift"></i> Open Access Rewards <small id="points_counter">Remaining Points: {{ $remaining_points }}</small></h1>
+    <h1><i class="fa fa-gift"></i> Open Access Rewards <small id="points_counter">Remaining Points: 
+        @if ($remaining_points > 10000)
+        <em style="font-weight: bolder;">UNLIMITED</em>
+        @else
+        {{ $remaining_points }}
+        @endif
+    </small></h1>
 
     <ol class="breadcrumb">
       <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>

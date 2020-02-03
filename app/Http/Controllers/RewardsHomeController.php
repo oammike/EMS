@@ -10,6 +10,7 @@ use OAMPI_Eval\ActivityLog;
 use OAMPI_Eval\Reward;
 use OAMPI_Eval\RewardCategoryTier as Tier;
 use OAMPI_Eval\Orders;
+use OAMPI_Eval\Coffeeshop;
 use OAMPI_Eval\User;
 use OAMPI_Eval\Point;
 use OAMPI_Eval\Utilities\PrintItem;
@@ -21,6 +22,7 @@ use Mike42\Escpos\EscposImage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Input;
 use DB;
+use Carbon\Carbon;
 
 /**
  * Class HomeController
@@ -39,6 +41,8 @@ class RewardsHomeController extends Controller
         $this->middleware('auth',['except' => ['barista','create_order','check_points','fetch_coffees']]);
 
         $this->pagination_items = 50;
+        $this->maxDailyOrder = 65;
+        $this->initLoad = 100;
     }
 
     /**
@@ -66,42 +70,100 @@ class RewardsHomeController extends Controller
       return view('rewards/home_dashboard', $data);
     }
     
-    public function rewards_catalog(){
-      $skip = 0 * $this->pagination_items;
-      $take = $this->pagination_items;
-      $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
-      
-      $user_id = \Auth::user()->id;
-      $user = User::with('points','team')->find($user_id);
-      
-      $orders = Orders::with('item')
-              ->where([
-                ['user_id','=',$user_id],
-                ['status','=','PENDING'],
-              ])
-              ->get();
+    public function rewards_catalog()
+    {
 
-      date_default_timezone_set('Asia/Singapore');      
-      $t=time();
-      $interval=15*60;
-      $last = $t - $t % $interval;
-      $next = $last + $interval;
+      //check first if OPEN
+      $shop = Coffeeshop::orderBy('id','DESC')->first();
+      if( \Auth::user()->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n View catalog on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                fclose($file);
+            }
 
-      $time = strftime('%H:%M %p', $next);
-      
-      $data = [
+      if ($shop->status !== "OPEN")
+      {
+        if ($shop->status == "ON_BREAK")
+          $data = ['msg' => 'Sorry, our barista is currently <br><span style="font-size:x-large; class="text-danger">ON BREAK</span>'];
 
-        'time' => $time,
-        'include_rewards_scripts' => TRUE,
-        'contentheader_title' => "Rewards Catalog",
-        'items_per_page' => $this->pagination_items,
-        'rewards' => $rewards,
-        'remaining_points' => is_null($user->points) ? null : $user->points->points,
-        'orders' => $orders
-      ];
+        else
+        $data = ['msg' => 'Sorry, we\'re <br><span style="font-size:x-large; class="text-danger">CLOSED</span>'];
+
+        return view('rewards.unavailable',$data);
+
+      }
+      else
+      {
+        // let's check first if we've already reached max limit of order per day
+        $startDay = Carbon::now('GMT+8')->startOfDay();
+        $endDay = Carbon::now('GMT+8')->endOfDay();
+        $allOrders = DB::table('orders')->where('created_at','>=',$startDay->format('Y-m-d H:i:s'))->
+                          where('created_at','<',$endDay->format('Y-m-d H:i:s'))->
+                          where('status','PRINTED')->get();
+
+        
+        $skip = 0 * $this->pagination_items;
+        $take = $this->pagination_items;
+        $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+        
+        $user_id = \Auth::user()->id;
+        $user = User::with('points','team')->find($user_id);
+        
+        $orders = Orders::with('item')
+                ->where([
+                  ['user_id','=',$user_id],
+                  ['status','=','PENDING'],
+                ])
+                ->get();
+
+        date_default_timezone_set('Asia/Singapore');      
+        $t=time();
+        $interval=15*60;
+        $last = $t - $t % $interval;
+        $next = $last + $interval;
+
+        $time = strftime('%H:%M %p', $next);
+        
+
+        
+        
+        if(count($allOrders) >= $this->maxDailyOrder) 
+        {
+          $data = [
+
+            'time' => $time,
+            'include_rewards_scripts' => TRUE,
+            'contentheader_title' => "Rewards Catalog",
+            'items_per_page' => $this->pagination_items,
+            'rewards' => $rewards,
+            'remaining_points' => is_null($user->points) ? null : $user->points->points,
+            'orders' => $orders,
+            'msg' => "Sorry, we've already reached maximum daily limit of redeemable drinks.<br/>Please try again tomorrow."
+          ];
+          
+          return view('rewards.unavailable',$data);
+        }
+        else 
+        {
+          $data = [
+
+            'time' => $time,
+            'include_rewards_scripts' => TRUE,
+            'contentheader_title' => "Rewards Catalog",
+            'items_per_page' => $this->pagination_items,
+            'rewards' => $rewards,
+            'remaining_points' => is_null($user->points) ? null : $user->points->points,
+            'orders' => $orders,
+            'msg' => ""
+          ];
+
+          return view('rewards/home_rewards_catalog', $data);
+        }
+
+      }
+
+
       
-      
-      return view('rewards/home_rewards_catalog', $data);
     }
     
     public function barista($code){
@@ -162,9 +224,9 @@ class RewardsHomeController extends Controller
           if($user->points!==0){
             $record = new Point;
             $record->idnumber = $user->id;
-            $record->points = 10;
+            $record->points = $this->initLoad;// 10;
             $record->save();
-            $points = 10;
+            $points = $this->initLoad;// 10;
           }
         }else{
           $points = $user->points->points;  
@@ -321,7 +383,7 @@ class RewardsHomeController extends Controller
           if($user->points!==0){
             $record = new Point;
             $record->idnumber = $user_id;
-            $record->points = 10;
+            $record->points = $this->initLoad; // 10;
             $record->save();
           }
         }
@@ -536,7 +598,7 @@ class RewardsHomeController extends Controller
           if($user->points!==0){
             $record = new Point;
             $record->idnumber = $user_id;
-            $record->points = 10;
+            $record->points = $this->initLoad;// 10;
             $record->save();
           }
         }

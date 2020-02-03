@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Access Denied | OAMPI Evaluation System</title>
+<title>Access Denied | Open Access BPO EMS</title>
 @endsection
 
 @section('content')

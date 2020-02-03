@@ -115,36 +115,12 @@ class UserTypeController extends Controller
     public function store(Request $request)
     {
 
+        $roles = $request->roles;
         //check first if already existing
 
-        $existing = UserType::find($request->id);
-        $roles = $request->roles;
-
-        if ( count(array($existing)) == 0 )
+        if ($request->id)
         {
-            $userType = new UserType;
-            $userType->name = $request->name;
-            $userType->description = $request->description;
-            $userType->save();
-
-
-           
-
-            foreach($roles as $role){
-                $userType_Role = new UserType_Roles;
-                $userType_Role->userType_id = $userType->id;
-                $userType_Role->role_id = $role;
-                $userType_Role->save();
-
-
-            }
-
-           
-
-        } else 
-        {
-           
-
+            $existing = UserType::find($request->id);
             foreach($roles as $role){
 
                 $uRole = UserType_Roles::where('userType_id', $request->id)->where('role_id',$role)->get();
@@ -161,10 +137,28 @@ class UserTypeController extends Controller
 
 
             }
+            
+
+        }else
+        {
+            $userType = new UserType;
+            $userType->name = $request->name;
+            $userType->description = $request->description;
+            $userType->save();
+            foreach($roles as $role){
+                $userType_Role = new UserType_Roles;
+                $userType_Role->userType_id = $userType->id;
+                $userType_Role->role_id = $role;
+                $userType_Role->save();
 
 
+            }
 
         }
+
+        
+
+       
 
          // now compare saved vs submitted values
          // and then delete those unchecked roles

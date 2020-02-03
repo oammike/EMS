@@ -48,10 +48,16 @@ use OAMPI_Eval\Biometrics;
 use OAMPI_Eval\User_VLcredits;
 use OAMPI_Eval\User_SLcredits;
 use OAMPI_Eval\EvalType;
+use OAMPI_Eval\Point;
+use OAMPI_Eval\Reward;
+use OAMPI_Eval\Reward_Transfers;
+use OAMPI_Eval\Orders;
+use OAMPI_Eval\Coffeeshop;
 
 class UserController extends Controller
 {
     protected $user;
+    protected $pagination_items = 50;
     use Traits\UserTraits;
     use Traits\TimekeepingTraits;
 
@@ -59,6 +65,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
         $this->user =  User::find(Auth::user()->id);
+        $this->pagination_items = 50;
     }
 
     public function index()
@@ -1692,6 +1699,85 @@ class UserController extends Controller
 
     
 
+    public function initializeRewards($floor_id)
+    {
+      $floor = Floor::find($floor_id);
+
+      if (empty($floor)) return view('empty');
+
+      ( empty(Input::get('points')) ) ? $points=10 : $points = Input::get('points');
+
+      $allEmployees = DB::table('team')->where('floor_id',$floor_id)->
+                          join('users','team.user_id','=','users.id')->
+                          select('users.id','users.status_id')->
+                          where([
+                                  ['users.status_id', '!=', 6],
+                                  ['users.status_id', '!=', 7],
+                                  ['users.status_id', '!=', 8],
+                                  ['users.status_id', '!=', 9],
+                                          ])->get();
+       $ct=0;
+       foreach ($allEmployees as $e) {
+         //check if has existing point
+         $p = Point::where('idnumber',$e->id)->get();
+          (count($p) > 0) ? $hasExisting=true : $hasExisting=false;
+
+         if ($hasExisting){
+
+              $pt = $p->first();
+              $pt->points += $points;
+              $pt->push();
+
+         }else{
+
+              $empReward = new Point;
+              $empReward->idnumber = $e->id;
+              $empReward->points = $points;
+              $empReward->save();
+
+         }
+         $ct++;
+       }
+
+       return response()->json(['total awarded employees'=>$ct]);
+    }
+
+
+    public function listAllActive(){
+
+        DB::connection()->disableQueryLog();
+        $users = (array)DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 16],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                            ])->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                    leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                    leftJoin('positions','users.position_id','=','positions.id')->
+                    leftJoin('floor','team.floor_id','=','floor.id')->//,
+                    select('users.id', 'users.lastname','users.firstname as fullname' ,'users.nickname','campaign.id as campID', 'campaign.name as program')
+                    //select(DB::raw("CONCAT(users.lastname,', ',users.firstname,' (',users.nickname,') | ',campaign.name) AS fullname"),'campaign.id as campID')
+                    //lists(DB::raw('CONCAT(firstname, " ", lastname)'), 'id')
+                    //lists(DB::raw("CONCAT(users.lastname,', ',users.firstname,' (',users.nickname,') | ',campaign.name) AS fullname"),'campaign.id as campID');//
+
+                    ->orderBy('users.lastname')->get();
+        
+        
+
+        return response()->json($users);
+
+         /* ------- faster method ----------- */        
+
+
+        
+        //return Datatables::collection($allUsers)->make(true);
+       
+    }
+
     public function moveToTeam(Request $request)
     {
       $memberID = $request->memberID;
@@ -2203,6 +2289,325 @@ class UserController extends Controller
         if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
           return view('people.myRequests',['user'=>$user,'forOthers'=>false,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
         else return view('access-denied');
+
+    }
+
+
+    public function rewards()
+    {
+      $today = Carbon::now('GMT+8')->startOfDay();
+      $eod = Carbon::now('GMT+8')->endOfDay();
+      $skip = 0 * $this->pagination_items;
+      $take = $this->pagination_items;
+      $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+      
+      $user_id = \Auth::user()->id;
+      $user = User::with('points','team')->find($user_id);
+      
+      $orders = Orders::with('item')
+              ->where([
+                ['user_id','=',$user_id],
+                ['status','=','PENDING'],
+              ])
+              ->get();
+
+
+      // we now get any transfers made within the day
+      $allTransfers = 0;
+      $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
+                            where('created_at','>=',$today->format('Y-m-d H:i:s'))->
+                            where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
+                            select('transferedPoints')->get();
+      if (count($transfersMade) > 0)
+      {
+        foreach($transfersMade as $t){
+          $allTransfers += $t->transferedPoints;
+
+        }
+        
+      }
+     
+
+      $data = [
+        'include_rewards_scripts' => TRUE,
+        'contentheader_title' => "Rewards Catalog",
+        'items_per_page' => $this->pagination_items,
+        'rewards' => $rewards,
+        'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
+        'orders' => $orders,
+        'allTransfers'=>$allTransfers,
+        'userID'=> $user_id
+      ];
+
+      if( \Auth::user()->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n View Transfer on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                fclose($file);
+            }
+      return view('rewards.transfer_points',$data);
+      
+
+    }
+
+    public function rewards_about()
+    {
+      $today = Carbon::now('GMT+8')->startOfDay();
+      $eod = Carbon::now('GMT+8')->endOfDay();
+      $skip = 0 * $this->pagination_items;
+      $take = $this->pagination_items;
+      $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+      
+      $user_id = \Auth::user()->id;
+      $user = User::with('points','team')->find($user_id);
+      
+      $orders = Orders::with('item')
+              ->where([
+                ['user_id','=',$user_id],
+                ['status','=','PENDING'],
+              ])
+              ->get();
+
+
+      // we now get any transfers made within the day
+      $allTransfers = 0;
+      $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
+                            where('created_at','>=',$today->format('Y-m-d H:i:s'))->
+                            where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
+                            select('transferedPoints')->get();
+      if (count($transfersMade) > 0)
+      {
+        foreach($transfersMade as $t){
+          $allTransfers += $t->transferedPoints;
+
+        }
+        
+      }
+
+      if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n View About on ".$today->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+     
+
+      $data = [
+        'include_rewards_scripts' => TRUE,
+        'contentheader_title' => "Rewards Catalog",
+        'items_per_page' => $this->pagination_items,
+        'rewards' => $rewards,
+        'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
+        'orders' => $orders,
+        'allTransfers'=>$allTransfers,
+        'userID'=> $user_id
+      ];
+
+      return view('rewards.about',$data);
+    }
+
+    public function rewards_barista()
+    {
+      //check first if OPEN
+      $shop = Coffeeshop::orderBy('id','DESC')->first();
+
+      
+        
+     
+      $roles = UserType::find($this->user->userType_id)->roles->pluck('label');
+      $isBarista =  ($roles->contains('BARISTA')) ? '1':'0';
+
+      if (!$isBarista)
+        return view('access-denied');
+      else
+      {
+        $today = Carbon::now('GMT+8')->startOfDay();
+        $eod = Carbon::now('GMT+8')->endOfDay();
+        $skip = 0 * $this->pagination_items;
+        $take = $this->pagination_items;
+        $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+        
+        $user_id = \Auth::user()->id;
+        $user = User::with('points','team')->find($user_id);
+        
+        $orders = Orders::with('item')
+                ->where([
+                  ['user_id','=',$user_id],
+                  ['status','=','PENDING'],
+                ])
+                ->get();
+
+
+        // we now get any transfers made within the day
+        $allTransfers = 0;
+        $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
+                              where('created_at','>=',$today->format('Y-m-d H:i:s'))->
+                              where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
+                              select('transferedPoints')->get();
+        if (count($transfersMade) > 0)
+        {
+          foreach($transfersMade as $t){
+            $allTransfers += $t->transferedPoints;
+
+          }
+          
+        }
+
+        // reward items
+        $allItems = Reward::all();
+        $allOrders = DB::table('orders')->where('orders.created_at','>=',$today->format('Y-m-d H:i:s'))->
+                        where('orders.created_at','<',$eod->format('Y-m-d H:i:s'))->
+                        where('orders.status','PRINTED')->
+                        join('rewards','orders.reward_id','=','rewards.id')->get(); //)->groupBy('reward_id');
+                        
+
+        $data = [
+          'include_rewards_scripts' => TRUE,
+          'contentheader_title' => "Rewards Catalog",
+          'items_per_page' => $this->pagination_items,
+          'rewards' => $rewards,
+          'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
+          'orders' => $orders,
+          'allTransfers'=>$allTransfers,
+          'userID'=> $user_id,
+          'today'=> $today->format('l M d, Y'),
+          'allItems'=> $allItems,
+          'allOrders' => $allOrders,
+          'shop'=> $shop
+        ];
+
+        return view('rewards.shop',$data);
+
+      }
+
+      
+      
+
+      
+    }
+
+    public function rewards_coffeeshop(Request $request)
+    {
+      $shop = new Coffeeshop;
+      $shop->barista_user = $this->user->id;
+      $shop->status = $request->status;
+      $shop->save();
+
+     
+      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n Coffeeshop ".$request->status. " on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+        fclose($file);
+    
+
+      return response()->json(['success'=>1, 'shop'=>$shop]);
+
+    }
+
+
+    public function rewardsTransfer(Request $request)
+    {
+      //check first if correct password
+      $to = User::find($request->id_to);
+
+      
+      if ( !(Hash::check($request->pw, $this->user->password) ))
+        return response()->json(['success'=>0, 'message'=>'Incorrect EMS Password. Unable to transfer reward points to','user'=>$to->lastname.', '.$to->firstname,'bcrypt'=>$request->pw]);
+      else
+      {
+        $existing_from = DB::table('points')->where('idnumber',$this->user->id)->get();
+        $existing_to = DB::table('points')->where('idnumber',$to->id)->get();
+
+        if(count((array)$existing_from) > 0 )
+        {
+          //existing na yung nagtransfer
+          $transfer = Point::find($existing_from[0]->id);
+          if($request->points > $transfer->points)
+            return response()->json(['message'=>'Sorry, you don\'t have enough points to transfer to.','user'=>$to->lastname.', '.$to->firstname,'success'=>0]);
+          else
+          {
+            $transfer->points -= $request->points;
+            $transfer->push();
+            $beginningBal = null;$endingBal=null;
+
+            
+            if(count((array)$existing_to) > 0 )
+            {
+              $ntransfer = Point::find($existing_to[0]->id);
+              $beginningBal = $ntransfer->points;
+              $ntransfer->points += $request->points;
+              $ntransfer->push();
+
+
+            }else{
+              // meaning wala pa, so default + transfered
+              $beginningBal = 100;
+              $ntransfer = new Point;
+              $ntransfer->idnumber = $to->id;
+              $ntransfer->points = $request->points + $beginningBal;
+              $ntransfer->save();
+            }
+
+            // we now save record of transfer
+            $record = new Reward_Transfers;
+            $record->from_user = $this->user->id;
+            $record->to_user = $to->id;
+            $record->beginningBal = $beginningBal;
+            $record->transferedPoints = $request->points;
+            $record->notes = $request->notes;
+            $record->save();
+
+            
+
+          }
+
+        }else
+        {
+          //default 100pt from nagtransfer
+          $beginningBal = 100;
+          $transfer = new Point;
+          $transfer->idnumber = $this->user->id;
+          $transfer->points =  ($beginningBal - $request->points);
+          $transfer->save();
+
+          //then update yung pinaglipatan
+           if(count((array)$existing_to) > 0 )
+              {
+                $ntransfer = Point::find($existing_to[0]->id);
+                $beginningBal = $ntransfer->points;
+                $ntransfer->points += $request->points;
+                $ntransfer->push();
+
+
+              }else{
+                // meaning wala pa, so default + transfered
+                $beginningBal = 100;
+                $ntransfer = new Point;
+                $ntransfer->idnumber = $to->id;
+                $ntransfer->points = $request->points + $beginningBal;
+                $ntransfer->save();
+              }
+
+          // we now save record of transfer
+          $record = new Reward_Transfers;
+          $record->from_user = $this->user->id;
+          $record->to_user = $to->id;
+          $record->beginningBal = $beginningBal;
+          $record->transferedPoints = $request->points;
+          $record->notes = $request->notes;
+          $record->save();
+
+
+        }
+
+        if( \Auth::user()->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Transfer ".$request->points. "pts to {". $request->id_to. "} on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                fclose($file);
+            }
+
+        return response()->json(['message'=>' reward points successfully transfered to: ','user'=>$to->lastname.', '.$to->firstname,'success'=>1]);
+      }
+
+
+      
 
     }
 

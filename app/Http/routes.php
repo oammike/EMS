@@ -912,6 +912,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'getAllFloatingUsers',
       'uses'=>'UserController@getAllFloatingUsers') );
 
+     Route::get('/listAllActive', array(
+      'as'=> 'listAllActive',
+      'uses'=>'UserController@listAllActive') );
+
 
       Route::get('/inactives', array(
       'as'=> 'inactives',
@@ -1093,6 +1097,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     
     
     /* ---------- ID PRINTING ---------------*/
+    
     Route::get('/camera/', 'IDController@index');
     Route::get('/trainee/', 'IDController@trainee');
     Route::get('/camera_back/', 'IDController@camera_back');
@@ -1109,6 +1114,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/save_portrait','IDController@save_portrait');
     
     
+    /* ---------- REWARDS SYSTEM ---------------*/
+
     Route::get('/manage-rewards/list/{page?}', 'RewardController@list_rewards');
     Route::resource('/manage-rewards', 'RewardController');    
     Route::get('/manage-categories/list/{page?}', 'RewardsCategoryController@list_categories');
@@ -1125,6 +1132,33 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/print-order/{code?}', 'RewardsHomeController@print_order');
     Route::get('/print-qr/{employee_id?}', 'RewardsHomeController@print_qr');
     Route::post('/cancel-order/{id?}', 'RewardsHomeController@cancel_order');
+
+    
+    //USER-based reward actions
+
+    Route::get('/initializeRewards/{floor_id}', array(
+      'as'=> 'initializeRewards',
+      'uses'=>'UserController@initializeRewards') );
+
+    Route::get('/userRewards', array(
+      'as'=> 'userRewards',
+      'uses'=>'UserController@rewards') );
+
+    Route::get('/userRewards/about', array(
+      'as'=> 'rewards_about',
+      'uses'=>'UserController@rewards_about') );
+
+    Route::post('/rewardsTransfer', array(
+      'as'=> 'rewardsTransfer',
+      'uses'=>'UserController@rewardsTransfer') );
+
+    Route::post('/coffeeshop', array(
+      'as'=> 'rewardsCofeeshop',
+      'uses'=>'UserController@rewards_coffeeshop') );
+
+    Route::get('/userRewards/barista', array(
+      'as'=> 'rewards_barista',
+      'uses'=>'UserController@rewards_barista') );
     
 
   });
