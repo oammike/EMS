@@ -2401,6 +2401,7 @@ class UserController extends Controller
         'userID'=> $user_id
       ];
 
+      return view('access-denied');
       return view('rewards.about',$data);
     }
 
