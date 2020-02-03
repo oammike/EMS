@@ -240,9 +240,9 @@
                                   @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )<br/><br/><br/>
                                   @endif
                                   @if (empty($n->nickname) || $n->nickname==" ")
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
                                  @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Date hired: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
                                  @endif
 
                                  <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
