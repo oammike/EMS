@@ -1,32 +1,16 @@
 
 
                    <div class="item active text-center" >
-                    <h3 class="text-primary">2020 Year of the Rat</h3>
-                    <img src="./storage/uploads/cny2020.jpg" style="z-index: 2" />
+                    <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3>
+                    <img src="./storage/uploads/corona.png" style="z-index: 2" />
 
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>It's the time of the year when our Chinese brothers and sisters celebrate good fortune and happiness!<br/><br/>
-
-                    To everyone who are celebrating the holiday, we at Open Access BPO wish you a Happy Chinese New Year! May the new year continue to bring you and your family an abundance of joy, peace, good health, and prosperity in life.
-
-                    #WeSpeakYourLanguage #OAHolidays #CNY2020</p>
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Stay safe everyone and keep this simple but useful tips for the prevention of coronavirus. <br/><br/>Also, if anyone from you have cough and colds with fever,we encourage you to drop by the clinic for assessment.</p>
 
                     
 
                   </div>
 
-                  @for($r=1;$r<=12;$r++)
-
-                  <div class="item text-center" >
-                    <h3 class="text-danger">Year of the Metal Rat Predictions</h3>
-                    <img src="./storage/uploads/cny2020_{{$r}}.jpg" style="z-index: 2" />
-
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/></p>
-
-                    
-
-                  </div>
-
-                  @endfor
+                 
 
                 
                   
@@ -656,6 +640,19 @@
 
 
 <?php /*
+ @for($r=1;$r<=12;$r++)
+
+                  <div class="item text-center" >
+                    <h3 class="text-danger">Year of the Metal Rat Predictions</h3>
+                    <img src="./storage/uploads/cny2020_{{$r}}.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/></p>
+
+                    
+
+                  </div>
+
+                  @endfor
 
   <div class="item text-center" >
                     <h3 class="text-primary">SSS | Pag-Ibig Calamity Loan</h3>
