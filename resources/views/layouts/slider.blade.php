@@ -2,7 +2,7 @@
 
                    <div class="item active text-center" >
                     <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3>
-                    <img src="./storage/uploads/corona.png" style="z-index: 2" />
+                    <img src="./storage/uploads/corona.jpg" style="z-index: 2" />
 
                     <p class="text-left" style="padding-left: 50px;"><br/><br/>Stay safe everyone and keep this simple but useful tips for the prevention of coronavirus. <br/><br/>Also, if anyone from you have cough and colds with fever,we encourage you to drop by the clinic for assessment.</p>
 
