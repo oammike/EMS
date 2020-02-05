@@ -217,6 +217,7 @@ class RewardsHomeController extends Controller
     }
 
     public function check_points($code){
+      $code = str_replace(".", "", trim($code) );
       $id = DB::table('users')
             ->select('id')
             ->whereRaw('concat(`id`,`employeeNumber`)=?',[$code])->first();
@@ -395,7 +396,7 @@ class RewardsHomeController extends Controller
           return response()->json([
             'success' => false,
             'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
-          ], 422);
+          ], 200);
         }
         
       if($user->points()->decrement('points', $reward->cost)){
@@ -459,7 +460,7 @@ class RewardsHomeController extends Controller
                   'points' => $current_points
                 ], 200);
           }catch(\Exception $e){
-            $error_message = $e->getMessage();
+            $error_message = "Could not access the printer.";
             $record->delete();
             $user->points()->increment('points',$reward->cost);
             $error = true;
@@ -467,18 +468,18 @@ class RewardsHomeController extends Controller
         }else{
           $user->points()->increment('points',$reward->cost);
           $error = true;
-          $error_message = "could not log the activity";
+          $error_message = "Could not complete your order. Please try again later.";
         }
       }else{
         $error = true;
-        $error_message = "could not re-allocate points properly";
+        $error_message = "Could not complete your order. Please try again later.";
       }
 
       if($error){
         return response()->json([
           'success' => false,
-          'message' => array('Could not write to database. Please try again later.'),
-          'error'   => $error_message
+          'error' => array('Could not write to database. Please try again later.'),
+          'message'   => $error_message
         ], 422);
       }
       
