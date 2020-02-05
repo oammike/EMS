@@ -480,7 +480,7 @@ class RewardsHomeController extends Controller
           'success' => false,
           'error' => array('Could not write to database. Please try again later.'),
           'message'   => $error_message
-        ], 422);
+        ], 200);
       }
       
     }
