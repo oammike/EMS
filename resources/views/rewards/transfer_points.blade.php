@@ -221,11 +221,11 @@
       </div>    
     </div>
 
-		</div>
+    </div>
   </section>    
-	
+  
 
-	
+  
 @stop
 
 @section('footer-scripts')
@@ -233,9 +233,9 @@
 
   <script src="public/js/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
 
-	<script>
-		window.selected_reward_id = 0;
-		$(function() {
+  <script>
+    window.selected_reward_id = 0;
+    $(function() {
 
       var options = {
         url: "{{action('UserController@listAllActive')}}",
@@ -285,11 +285,11 @@
             if( {{$userID}} !== item.id ){
                   if (item.nickname){
                   
-                    return  '<span></span><img src="public/img/employees/'+item.id+'.jpg" width=70 />&nbsp;&nbsp;'  + value.toUpperCase();
+                    return  '<span></span><i style="margin:10px" class="fa fa-user"></i>&nbsp;&nbsp;'  + value.toUpperCase();
                   }
                   else{
                     
-                    return  '<i style="margin:10px" class="fa fa-user fa-5x"></i> '+ value.toUpperCase();
+                    return  '<i style="margin:10px" class="fa fa-user"></i> '+ value.toUpperCase();
                   }
 
             }
@@ -425,7 +425,7 @@
   
 
 
-			
-		});
-	</script>
+      
+    });
+  </script>
 @stop

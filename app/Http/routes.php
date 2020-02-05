@@ -1144,6 +1144,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'userRewards',
       'uses'=>'UserController@rewards') );
 
+    Route::get('/awardPoints', array(
+      'as'=> 'awardPoints',
+      'uses'=>'UserController@rewards_award') );
+
+
     Route::get('/userRewards/about', array(
       'as'=> 'rewards_about',
       'uses'=>'UserController@rewards_about') );
@@ -1151,6 +1156,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/rewardsTransfer', array(
       'as'=> 'rewardsTransfer',
       'uses'=>'UserController@rewardsTransfer') );
+
+    Route::post('/grantRewardPoints', array(
+      'as'=> 'grantRewardPoints',
+      'uses'=>'UserController@rewards_grantPoints') );
 
     Route::post('/coffeeshop', array(
       'as'=> 'rewardsCofeeshop',

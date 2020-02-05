@@ -51,6 +51,8 @@ use OAMPI_Eval\EvalType;
 use OAMPI_Eval\Point;
 use OAMPI_Eval\Reward;
 use OAMPI_Eval\Reward_Transfers;
+use OAMPI_Eval\Reward_Award;
+use OAMPI_Eval\Reward_Creditor;
 use OAMPI_Eval\Orders;
 use OAMPI_Eval\Coffeeshop;
 
@@ -66,6 +68,7 @@ class UserController extends Controller
         $this->middleware('auth');
         $this->user =  User::find(Auth::user()->id);
         $this->pagination_items = 50;
+        $this->initLoad =100;
     }
 
     public function index()
@@ -2385,7 +2388,7 @@ class UserController extends Controller
 
       if($this->user->id !== 564 ) {
               $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n View About on ".$today->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fwrite($file, "-------------------\n View About on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
             }
      
@@ -2403,6 +2406,81 @@ class UserController extends Controller
 
       return view('access-denied');
       return view('rewards.about',$data);
+    }
+
+    public function rewards_award()
+    {
+      $today = Carbon::now('GMT+8')->startOfDay();
+      $eod = Carbon::now('GMT+8')->endOfDay();
+      $skip = 0 * $this->pagination_items;
+      $take = $this->pagination_items;
+
+      // check first if user is a creditor
+      $creditor = DB::table('reward_creditor')->where('reward_creditor.user_id',$this->user->id)->
+                      join('reward_waysto','reward_creditor.waysto_id','=','reward_waysto.id')->get();
+
+      if (count($creditor) <= 0)
+        return view('access-denied');
+      else 
+      {
+        $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+      
+        $user_id = \Auth::user()->id;
+        $user = User::with('points','team')->find($user_id);
+        
+        $orders = Orders::with('item')
+                ->where([
+                  ['user_id','=',$user_id],
+                  ['status','=','PENDING'],
+                ])
+                ->get();
+
+
+        // we now get any transfers made within the day
+        $allTransfers = 0;
+        $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
+                              where('created_at','>=',$today->format('Y-m-d H:i:s'))->
+                              where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
+                              select('transferedPoints')->get();
+        if (count($transfersMade) > 0)
+        {
+          foreach($transfersMade as $t){
+            $allTransfers += $t->transferedPoints;
+
+          }
+          
+        }
+
+        $waysToEarn = DB::table('reward_waysto')->where('reward_waysto.automatic',null)->get();
+
+       
+
+        $data = [
+          'include_rewards_scripts' => TRUE,
+          'contentheader_title' => "Rewards Catalog",
+          'items_per_page' => $this->pagination_items,
+          'rewards' => $rewards,
+          'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
+          'orders' => $orders,
+          'allTransfers'=>$allTransfers,
+          'waysToEarn'=>$waysToEarn,
+          'creditor'=>$creditor,
+          'userID'=> $user_id
+        ];
+
+        if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n View AwardPoints on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+              }
+        //return $creditor;
+        return view('rewards.award_points',$data);
+
+      }
+
+      
+      
+
     }
 
     public function rewards_barista()
@@ -2499,6 +2577,81 @@ class UserController extends Controller
     
 
       return response()->json(['success'=>1, 'shop'=>$shop]);
+
+    }
+
+
+     public function rewards_grantPoints(Request $request)
+    {
+      //check first if correct password
+      /*$allRecipients = new Collection;
+      foreach ($request->recipients as $u) {
+        $allRecipients->push(User::find($u));
+      }*/
+      $coll = new Collection;
+      $collstr ="";
+      $now = Carbon::now('GMT+8');
+
+      if ( !(Hash::check($request->pw, $this->user->password) )) {
+        return response()->json(['success'=>0, 'message'=>'Incorrect EMS Password. Unable to transfer reward points.','bcrypt'=>$request->pw]);
+      }
+      else 
+      {
+        foreach ($request->recipients as $r) {
+
+          $b = Point::where('idnumber',$r)->get();
+
+          if (count($b) > 0){
+            $beginningBal = $b->first()->points;
+
+            $pt = Point::find($b->first()->id);
+            $pt->points += $request->points;
+            $pt->updated_at = $now->format('Y-m-d H:i:s');
+            $pt->save();
+
+          }else {
+            $beginningBal = $this->initLoad;
+            $pt = new Point;
+            $pt->idnumber = $r;
+            $pt->points = $beginningBal;
+            $pt->created_at = $now->format('Y-m-d H:i:s');
+            $pt->updated_at = $now->format('Y-m-d H:i:s');
+            $pt->save();
+          }
+
+
+
+          $award = new Reward_Award;
+          $award->user_id = $r;
+          $award->waysto_id = $request->waysto;
+          $award->beginningBal = $beginningBal;
+          $award->points = $request->points;
+          $award->notes = $request->notes;
+          $award->awardedBy = $this->user->id;
+          $award->created_at = $now->format('Y-m-d H:i:s');
+          $award->updated_at = $now->format('Y-m-d H:i:s');
+          $award->save();
+          $coll->push($award);
+          $collstr .= $r.",";
+        }
+
+        if( \Auth::user()->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Awarded ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                fclose($file);
+        }
+        return response()->json(['success'=>1,'awardees'=>$coll,'total'=>count($coll)]);
+
+      }
+
+
+
+      
+      
+  
+
+
+      
 
     }
 
@@ -3339,42 +3492,35 @@ class UserController extends Controller
     public function updateCoverPhoto()
     {
         
-           //$destinationPath = 'uploads'; // upload path
-              $destinationPath = storage_path() . '/uploads/';
-              $uid = str_random(5);
-              $extension = '_'.$uid.'.png'; // getting image extension
-              $fileName = 'cover-'.$this->user->id.$extension; // renameing image
+        //$destinationPath = 'uploads'; // upload path
+        $destinationPath = storage_path() . '/uploads/';
+        $uid = str_random(5);
+        $extension = '_'.$uid.'.png'; // getting image extension
+        $fileName = 'cover-'.$this->user->id.$extension; // renameing image
+        $data = Input::get('data');
+        $file = fopen($destinationPath.$fileName, 'w+');
 
-              $data = Input::get('data');
+        $data = str_replace('data:image/png;base64,', '', $data);
 
+        $data = str_replace(' ', '+', $data);
 
+        $data = base64_decode($data);
 
-                $file = fopen($destinationPath.$fileName, 'w+');
+        $imgfile = $destinationPath.$fileName; // 'images/'.rand() . '.png';
 
-                $data = str_replace('data:image/png;base64,', '', $data);
+        $success = file_put_contents($imgfile, $data);
 
-                $data = str_replace(' ', '+', $data);
+        
 
-                $data = base64_decode($data);
+        fclose($file);
+        $this->user->hascoverphoto = $uid;
+        $this->user->push();
+        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n New Cover photo uploaded - ". date('M d h:i:s'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+        fclose($file);
+        return response()->json(['success'=>'ok', 'img'=> $imgfile]);
 
-                $imgfile = $destinationPath.$fileName; // 'images/'.rand() . '.png';
-
-                $success = file_put_contents($imgfile, $data);
-
-                
-
-                fclose($file);
-                $this->user->hascoverphoto = $uid;
-                $this->user->push();
-
-                 /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n New Cover photo uploaded - ". date('M d h:i:s'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-            fclose($file);
-
-                return response()->json(['success'=>'ok', 'img'=> $imgfile]);
-
-                //return redirect()->action('UserController@show', $this->user->id);
+          //return redirect()->action('UserController@show', $this->user->id);
 
      
     }
