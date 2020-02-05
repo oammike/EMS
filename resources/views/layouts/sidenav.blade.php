@@ -224,12 +224,12 @@
         <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
 
-        <li class="treeview @if ( Request::is('employeeEngagement*') ) active @endif">
+        <!-- <li class="treeview @if ( Request::is('employeeEngagement*') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-trophy"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Contests</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',1)}}"><i class="fa fa-moon-o"></i>Frightful Tales</a> </li>
           </ul>
-        </li>
+        </li> -->
 
 
         <li class="treeview @if (Request::is('userRewards*') || Request::is('rewards*') || Request::is('award*')) active @endif">
