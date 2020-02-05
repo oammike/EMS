@@ -167,6 +167,9 @@ class RewardsHomeController extends Controller
     }
     
     public function barista($code){
+
+      $code = str_replace(".", "", trim($code) );
+
       $id = DB::table('users')
             ->select('id')
             ->whereRaw('concat(`id`,`employeeNumber`)=?',[$code])->first();
@@ -366,7 +369,7 @@ class RewardsHomeController extends Controller
     public function create_order(){
       date_default_timezone_set('Asia/Singapore');
 
-      $code = Input::get('code');
+      $code = str_replace(".", "", trim(Input::get('code')) );
       $reward_id = Input::get('order_id');
 
       $id = DB::table('users')
