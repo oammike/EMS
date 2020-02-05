@@ -2298,133 +2298,85 @@ class UserController extends Controller
 
     public function rewards()
     {
-      $today = Carbon::now('GMT+8')->startOfDay();
-      $eod = Carbon::now('GMT+8')->endOfDay();
-      $skip = 0 * $this->pagination_items;
-      $take = $this->pagination_items;
-      $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
-      
-      $user_id = \Auth::user()->id;
-      $user = User::with('points','team')->find($user_id);
-      
-      $orders = Orders::with('item')
-              ->where([
-                ['user_id','=',$user_id],
-                ['status','=','PENDING'],
-              ])
-              ->get();
+      // check first if from Davao
+      $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
 
-
-      // we now get any transfers made within the day
-      $allTransfers = 0;
-      $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
-                            where('created_at','>=',$today->format('Y-m-d H:i:s'))->
-                            where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
-                            select('transferedPoints')->get();
-      if (count($transfersMade) > 0)
+      if ($floor == 9)
+        return view('access-denied');
+      else
       {
-        foreach($transfersMade as $t){
-          $allTransfers += $t->transferedPoints;
-
-        }
+        $today = Carbon::now('GMT+8')->startOfDay();
+        $eod = Carbon::now('GMT+8')->endOfDay();
+        $skip = 0 * $this->pagination_items;
+        $take = $this->pagination_items;
+        $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
         
+        $user_id = \Auth::user()->id;
+        $user = User::with('points','team')->find($user_id);
+        
+        $orders = Orders::with('item')
+                ->where([
+                  ['user_id','=',$user_id],
+                  ['status','=','PENDING'],
+                ])
+                ->get();
+
+
+        // we now get any transfers made within the day
+        $allTransfers = 0;
+        $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
+                              where('created_at','>=',$today->format('Y-m-d H:i:s'))->
+                              where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
+                              select('transferedPoints')->get();
+        if (count($transfersMade) > 0)
+        {
+          foreach($transfersMade as $t){
+            $allTransfers += $t->transferedPoints;
+
+          }
+          
+        }
+       
+
+        $data = [
+          'include_rewards_scripts' => TRUE,
+          'contentheader_title' => "Rewards Catalog",
+          'items_per_page' => $this->pagination_items,
+          'rewards' => $rewards,
+          'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
+          'orders' => $orders,
+          'allTransfers'=>$allTransfers,
+          'userID'=> $user_id
+        ];
+
+        if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n View Transfer on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+              }
+        return view('rewards.transfer_points',$data);
+
       }
-     
-
-      $data = [
-        'include_rewards_scripts' => TRUE,
-        'contentheader_title' => "Rewards Catalog",
-        'items_per_page' => $this->pagination_items,
-        'rewards' => $rewards,
-        'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
-        'orders' => $orders,
-        'allTransfers'=>$allTransfers,
-        'userID'=> $user_id
-      ];
-
-      if( \Auth::user()->id !== 564 ) {
-              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n View Transfer on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                fclose($file);
-            }
-      return view('rewards.transfer_points',$data);
+      
       
 
     }
 
     public function rewards_about()
     {
-      $today = Carbon::now('GMT+8')->startOfDay();
-      $eod = Carbon::now('GMT+8')->endOfDay();
-      $skip = 0 * $this->pagination_items;
-      $take = $this->pagination_items;
-      $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
-      
-      $user_id = \Auth::user()->id;
-      $user = User::with('points','team')->find($user_id);
-      
-      $orders = Orders::with('item')
-              ->where([
-                ['user_id','=',$user_id],
-                ['status','=','PENDING'],
-              ])
-              ->get();
+      // check first if from Davao
+      $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
 
-
-      // we now get any transfers made within the day
-      $allTransfers = 0;
-      $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
-                            where('created_at','>=',$today->format('Y-m-d H:i:s'))->
-                            where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
-                            select('transferedPoints')->get();
-      if (count($transfersMade) > 0)
-      {
-        foreach($transfersMade as $t){
-          $allTransfers += $t->transferedPoints;
-
-        }
-        
-      }
-
-      if($this->user->id !== 564 ) {
-              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n View About on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
-                fclose($file);
-            }
-     
-
-      $data = [
-        'include_rewards_scripts' => TRUE,
-        'contentheader_title' => "Rewards Catalog",
-        'items_per_page' => $this->pagination_items,
-        'rewards' => $rewards,
-        'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
-        'orders' => $orders,
-        'allTransfers'=>$allTransfers,
-        'userID'=> $user_id
-      ];
-
-      return view('access-denied');
-      return view('rewards.about',$data);
-    }
-
-    public function rewards_award()
-    {
-      $today = Carbon::now('GMT+8')->startOfDay();
-      $eod = Carbon::now('GMT+8')->endOfDay();
-      $skip = 0 * $this->pagination_items;
-      $take = $this->pagination_items;
-
-      // check first if user is a creditor
-      $creditor = DB::table('reward_creditor')->where('reward_creditor.user_id',$this->user->id)->
-                      join('reward_waysto','reward_creditor.waysto_id','=','reward_waysto.id')->get();
-
-      if (count($creditor) <= 0)
+      if ($floor == 9)
         return view('access-denied');
-      else 
+      else
       {
+        $today = Carbon::now('GMT+8')->startOfDay();
+        $eod = Carbon::now('GMT+8')->endOfDay();
+        $skip = 0 * $this->pagination_items;
+        $take = $this->pagination_items;
         $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
-      
+        
         $user_id = \Auth::user()->id;
         $user = User::with('points','team')->find($user_id);
         
@@ -2451,8 +2403,11 @@ class UserController extends Controller
           
         }
 
-        $waysToEarn = DB::table('reward_waysto')->where('reward_waysto.automatic',null)->get();
-
+        if($this->user->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n View About on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                  fclose($file);
+              }
        
 
         $data = [
@@ -2463,20 +2418,94 @@ class UserController extends Controller
           'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
           'orders' => $orders,
           'allTransfers'=>$allTransfers,
-          'waysToEarn'=>$waysToEarn,
-          'creditor'=>$creditor,
           'userID'=> $user_id
         ];
 
-        if( \Auth::user()->id !== 564 ) {
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n View AwardPoints on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                  fclose($file);
-              }
-        //return $creditor;
-        return view('rewards.award_points',$data);
+        return view('access-denied');
+        return view('rewards.about',$data);
 
       }
+      
+    }
+
+    public function rewards_award()
+    {
+      // check first if from Davao
+      $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
+
+      if ($floor == 9)
+        return view('access-denied');
+      else
+      {
+        $today = Carbon::now('GMT+8')->startOfDay();
+        $eod = Carbon::now('GMT+8')->endOfDay();
+        $skip = 0 * $this->pagination_items;
+        $take = $this->pagination_items;
+
+        // check first if user is a creditor
+        $creditor = DB::table('reward_creditor')->where('reward_creditor.user_id',$this->user->id)->
+                        join('reward_waysto','reward_creditor.waysto_id','=','reward_waysto.id')->get();
+
+        if (count($creditor) <= 0)
+          return view('access-denied');
+        else 
+        {
+          $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+        
+          $user_id = \Auth::user()->id;
+          $user = User::with('points','team')->find($user_id);
+          
+          $orders = Orders::with('item')
+                  ->where([
+                    ['user_id','=',$user_id],
+                    ['status','=','PENDING'],
+                  ])
+                  ->get();
+
+
+          // we now get any transfers made within the day
+          $allTransfers = 0;
+          $transfersMade = DB::table('reward_transfers')->where('from_user', $user_id)->
+                                where('created_at','>=',$today->format('Y-m-d H:i:s'))->
+                                where('created_at','<=',$eod->format('Y-m-d H:i:s'))->
+                                select('transferedPoints')->get();
+          if (count($transfersMade) > 0)
+          {
+            foreach($transfersMade as $t){
+              $allTransfers += $t->transferedPoints;
+
+            }
+            
+          }
+
+          $waysToEarn = DB::table('reward_waysto')->where('reward_waysto.automatic',null)->get();
+
+         
+
+          $data = [
+            'include_rewards_scripts' => TRUE,
+            'contentheader_title' => "Rewards Catalog",
+            'items_per_page' => $this->pagination_items,
+            'rewards' => $rewards,
+            'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
+            'orders' => $orders,
+            'allTransfers'=>$allTransfers,
+            'waysToEarn'=>$waysToEarn,
+            'creditor'=>$creditor,
+            'userID'=> $user_id
+          ];
+
+          if( \Auth::user()->id !== 564 ) {
+                  $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n View AwardPoints on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                    fclose($file);
+                }
+          //return $creditor;
+          return view('rewards.award_points',$data);
+
+        }
+      }
+      
 
       
       

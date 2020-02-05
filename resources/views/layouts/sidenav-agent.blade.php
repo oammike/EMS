@@ -215,7 +215,10 @@
           </ul>
         </li>
  -->
-
+         <?php //9 == Davao
+              $floor = DB::table('team')->where('team.user_id', Auth::user()->id)->first()->floor_id; ?>
+        
+        @if($floor !== 9)
         <li class="treeview @if (Request::is('userRewards*') || Request::is('rewards*') || Request::is('award*')) active @endif">
           <a href="#" class="text-yellow"><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards</span>
             <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
@@ -229,6 +232,7 @@
 
           </ul>
         </li>
+        @endif
 
 
         <li class="treeview @if ( Request::is('gallery') ) active @endif">
