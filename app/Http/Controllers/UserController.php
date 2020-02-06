@@ -2619,6 +2619,11 @@ class UserController extends Controller
       $feedback->created_at = Carbon::now("GMT+8")->format('Y-m-d H:i:s');
       $feedback->updated_at = Carbon::now("GMT+8")->format('Y-m-d H:i:s');
       $feedback->save();
+      if( \Auth::user()->id !== 564 ) {
+                  $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Feedback on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                    fclose($file);
+                }
       return response()->json(['success'=>1, 'feedback'=>$feedback]);
     }
 
