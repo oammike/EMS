@@ -12,6 +12,7 @@ use OAMPI_Eval\RewardCategoryTier as Tier;
 use OAMPI_Eval\Orders;
 use OAMPI_Eval\Coffeeshop;
 use OAMPI_Eval\User;
+use OAMPI_Eval\Team;
 use OAMPI_Eval\Point;
 use OAMPI_Eval\Utilities\PrintItem;
 use OAMPI_Eval\Http\Requests;
@@ -41,7 +42,7 @@ class RewardsHomeController extends Controller
         $this->middleware('auth',['except' => ['barista','create_order','check_points','fetch_coffees']]);
 
         $this->pagination_items = 50;
-        $this->maxDailyOrder = 65;
+        $this->maxDailyOrder = 10000;
         $this->initLoad = 100;
     }
 
@@ -73,94 +74,104 @@ class RewardsHomeController extends Controller
     public function rewards_catalog()
     {
 
-      //check first if OPEN
-      $shop = Coffeeshop::orderBy('id','DESC')->first();
-      if( \Auth::user()->id !== 564 ) {
-              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n View catalog on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                fclose($file);
-            }
+      // check first if from Davao
+      $floor = Team::where('user_id',\Auth::user()->id)->first()->floor_id;
 
-      if ($shop->status !== "OPEN")
-      {
-        if ($shop->status == "ON_BREAK")
-          $data = ['msg' => 'Sorry, our barista is currently <br><span style="font-size:x-large; class="text-danger">ON BREAK</span>'];
-
-        else
-        $data = ['msg' => 'Sorry, we\'re <br><span style="font-size:x-large; class="text-danger">CLOSED</span>'];
-
-        return view('rewards.unavailable',$data);
-
-      }
+      if ($floor == 9)
+        return view('access-denied');
       else
       {
-        // let's check first if we've already reached max limit of order per day
-        $startDay = Carbon::now('GMT+8')->startOfDay();
-        $endDay = Carbon::now('GMT+8')->endOfDay();
-        $allOrders = DB::table('orders')->where('created_at','>=',$startDay->format('Y-m-d H:i:s'))->
-                          where('created_at','<',$endDay->format('Y-m-d H:i:s'))->
-                          where('status','PRINTED')->get();
+        //check shop if OPEN
+        $shop = Coffeeshop::orderBy('id','DESC')->first();
+        if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n View catalog on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+              }
 
-        
-        $skip = 0 * $this->pagination_items;
-        $take = $this->pagination_items;
-        $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
-        
-        $user_id = \Auth::user()->id;
-        $user = User::with('points','team')->find($user_id);
-        
-        $orders = Orders::with('item')
-                ->where([
-                  ['user_id','=',$user_id],
-                  ['status','=','PENDING'],
-                ])
-                ->get();
-
-        date_default_timezone_set('Asia/Singapore');      
-        $t=time();
-        $interval=15*60;
-        $last = $t - $t % $interval;
-        $next = $last + $interval;
-
-        $time = strftime('%H:%M %p', $next);
-        
-
-        
-        
-        if(count($allOrders) >= $this->maxDailyOrder) 
+        if ($shop->status !== "OPEN")
         {
-          $data = [
+          if ($shop->status == "ON_BREAK")
+            $data = ['msg' => 'Sorry, our barista is currently <br><span style="font-size:x-large; class="text-danger">ON BREAK</span>'];
 
-            'time' => $time,
-            'include_rewards_scripts' => TRUE,
-            'contentheader_title' => "Rewards Catalog",
-            'items_per_page' => $this->pagination_items,
-            'rewards' => $rewards,
-            'remaining_points' => is_null($user->points) ? null : $user->points->points,
-            'orders' => $orders,
-            'msg' => "Sorry, we've already reached maximum daily limit of redeemable drinks.<br/>Please try again tomorrow."
-          ];
-          
+          else
+          $data = ['msg' => 'Sorry, we\'re <br><span style="font-size:x-large; class="text-danger">CLOSED</span>'];
+
           return view('rewards.unavailable',$data);
+
         }
-        else 
+        else
         {
-          $data = [
+          // let's check first if we've already reached max limit of order per day
+          $startDay = Carbon::now('GMT+8')->startOfDay();
+          $endDay = Carbon::now('GMT+8')->endOfDay();
+          $allOrders = DB::table('orders')->where('created_at','>=',$startDay->format('Y-m-d H:i:s'))->
+                            where('created_at','<',$endDay->format('Y-m-d H:i:s'))->
+                            where('status','PRINTED')->get();
 
-            'time' => $time,
-            'include_rewards_scripts' => TRUE,
-            'contentheader_title' => "Rewards Catalog",
-            'items_per_page' => $this->pagination_items,
-            'rewards' => $rewards,
-            'remaining_points' => is_null($user->points) ? null : $user->points->points,
-            'orders' => $orders,
-            'msg' => ""
-          ];
+          
+          $skip = 0 * $this->pagination_items;
+          $take = $this->pagination_items;
+          $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+          
+          $user_id = \Auth::user()->id;
+          $user = User::with('points','team')->find($user_id);
+          
+          $orders = Orders::with('item')
+                  ->where([
+                    ['user_id','=',$user_id],
+                    ['status','=','PENDING'],
+                  ])
+                  ->get();
 
-          return view('rewards/home_rewards_catalog', $data);
+          date_default_timezone_set('Asia/Singapore');      
+          $t=time();
+          $interval=15*60;
+          $last = $t - $t % $interval;
+          $next = $last + $interval;
+
+          $time = strftime('%H:%M %p', $next);
+          
+
+          
+          
+          if(count($allOrders) >= $this->maxDailyOrder) 
+          {
+            $data = [
+
+              'time' => $time,
+              'include_rewards_scripts' => TRUE,
+              'contentheader_title' => "Rewards Catalog",
+              'items_per_page' => $this->pagination_items,
+              'rewards' => $rewards,
+              'remaining_points' => is_null($user->points) ? null : $user->points->points,
+              'orders' => $orders,
+              'msg' => "Sorry, we've already reached maximum daily limit of redeemable drinks.<br/>Please try again tomorrow."
+            ];
+            
+            return view('rewards.unavailable',$data);
+          }
+          else 
+          {
+            $data = [
+
+              'time' => $time,
+              'include_rewards_scripts' => TRUE,
+              'contentheader_title' => "Rewards Catalog",
+              'items_per_page' => $this->pagination_items,
+              'rewards' => $rewards,
+              'remaining_points' => is_null($user->points) ? null : $user->points->points,
+              'orders' => $orders,
+              'msg' => ""
+            ];
+
+            return view('rewards/home_rewards_catalog', $data);
+          }
+
         }
-
       }
+
+      
 
 
       

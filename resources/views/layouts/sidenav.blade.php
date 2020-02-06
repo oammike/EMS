@@ -224,16 +224,19 @@
         <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
 
-        <li class="treeview @if ( Request::is('employeeEngagement*') ) active @endif">
+        <!-- <li class="treeview @if ( Request::is('employeeEngagement*') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-trophy"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Contests</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',1)}}"><i class="fa fa-moon-o"></i>Frightful Tales</a> </li>
           </ul>
-        </li>
+        </li> -->
 
-
-        <li class="treeview @if (Request::is('userRewards*') || Request::is('rewards*')) active @endif">
-          <a href="#" class="text-yellow"><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards</span>
+        <?php //9 == Davao
+              $floor = DB::table('team')->where('team.user_id', Auth::user()->id)->first()->floor_id; ?>
+        
+        @if($floor !== 9)
+        <li class="treeview @if (Request::is('userRewards*') || Request::is('rewards*') || Request::is('award*')) active @endif">
+          <a href="#" class="text-yellow"><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards </span>
             <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
@@ -241,9 +244,11 @@
             <li @if (Request::is('userRewards/barista')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_barista')}}"><i class="fa fa-coffee"></i> Barista </a> </li>
             <li @if (Request::is('rewards*')) class="active" @endif style="padding-left:20px"><a href="{{action('RewardsHomeController@rewards_catalog')}}"><i class="fa fa-tablet"></i> Reward Items </a> </li>
             <li @if (Request::is('userRewards')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards') }}"><i class="fa fa-exchange"></i> Transfer Points </a> </li>
+             <li @if (Request::is('awardPoints')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards_award') }}"><i class="fa fa-trophy"></i> Award Points </a> </li>
 
           </ul>
         </li>
+        @endif
 
         <!-- **** GALLERY ******** <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>-->
         <li class="treeview @if ( Request::is('gallery') ) active @endif">

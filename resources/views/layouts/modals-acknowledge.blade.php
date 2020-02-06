@@ -4,7 +4,7 @@
       <div class="modal-header">
         
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="myModalLabel"><img src="{{asset('public/img/oabpo_logo.jpg')}}" width="90px" align="center" />{{$modelName}}</h4>
+          <h4 class="modal-title" id="myModalLabel"><img src="{{asset('public/img/oabpo_logo_new.jpg')}}" width="90px" align="center" />{{$modelName}}</h4>
         
       </div>
       <div class="modal-body">
