@@ -208,7 +208,8 @@ class RewardsHomeController extends Controller
           "name" => $reward->name,
           "description" => $reward->description,
           "attachment_image" => $reward->attachment_image,
-          "cost" => $reward->cost
+          "cost" => $reward->cost,
+          "category" => $reward->category->name
         ];
       }
 
@@ -462,6 +463,7 @@ class RewardsHomeController extends Controller
           }catch(\Exception $e){
             $error_message = "Could not access the printer.";
             $record->delete();
+            $order->delete();
             $user->points()->increment('points',$reward->cost);
             $error = true;
           }
@@ -693,6 +695,7 @@ class RewardsHomeController extends Controller
               }catch(\Exception $e){
                 $error_message = $e->getMessage();
                 $record->delete();
+                $order->delete();
                 $user->points()->increment('points',$reward->cost);
                 $error = true;
               }
