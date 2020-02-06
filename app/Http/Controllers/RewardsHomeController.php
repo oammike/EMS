@@ -83,97 +83,82 @@ class RewardsHomeController extends Controller
       {
         //check shop if OPEN
         $shop = Coffeeshop::orderBy('id','DESC')->first();
-        if( \Auth::user()->id !== 564 ) {
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n View catalog on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                  fclose($file);
-              }
+        
+        // let's check first if we've already reached max limit of order per day
+        $startDay = Carbon::now('GMT+8')->startOfDay();
+        $endDay = Carbon::now('GMT+8')->endOfDay();
+        $allOrders = DB::table('orders')->where('created_at','>=',$startDay->format('Y-m-d H:i:s'))->
+                          where('created_at','<',$endDay->format('Y-m-d H:i:s'))->
+                          where('status','PRINTED')->get();
 
-        if ($shop->status !== "OPEN")
+        
+        $skip = 0 * $this->pagination_items;
+        $take = $this->pagination_items;
+        $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
+        
+        $user_id = \Auth::user()->id;
+        $user = User::with('points','team')->find($user_id);
+        
+        $orders = Orders::with('item')
+                ->where([
+                  ['user_id','=',$user_id],
+                  ['status','=','PENDING'],
+                ])
+                ->get();
+
+        date_default_timezone_set('Asia/Singapore');      
+        $t=time();
+        $interval=15*60;
+        $last = $t - $t % $interval;
+        $next = $last + $interval;
+
+        $time = strftime('%H:%M %p', $next);
+        $maxedOut = 0;
+        
+        if(count($allOrders) >= $this->maxDailyOrder) 
         {
-          if ($shop->status == "ON_BREAK")
-            $data = ['msg' => 'Sorry, our barista is currently <br><span style="font-size:x-large; class="text-danger">ON BREAK</span>'];
-
-          else
-          $data = ['msg' => 'Sorry, we\'re <br><span style="font-size:x-large; class="text-danger">CLOSED</span>'];
-
-          return view('rewards.unavailable',$data);
-
+          $msg = "Sorry, we've already reached maximum daily limit of redeemable drinks.<br/>Please try again tomorrow.";
+          $maxedOut = 1;
         }
-        else
+        else 
         {
-          // let's check first if we've already reached max limit of order per day
-          $startDay = Carbon::now('GMT+8')->startOfDay();
-          $endDay = Carbon::now('GMT+8')->endOfDay();
-          $allOrders = DB::table('orders')->where('created_at','>=',$startDay->format('Y-m-d H:i:s'))->
-                            where('created_at','<',$endDay->format('Y-m-d H:i:s'))->
-                            where('status','PRINTED')->get();
-
-          
-          $skip = 0 * $this->pagination_items;
-          $take = $this->pagination_items;
-          $rewards = Reward::with("category")->orderBy('name', 'asc')->skip($skip)->take($take)->get();
-          
-          $user_id = \Auth::user()->id;
-          $user = User::with('points','team')->find($user_id);
-          
-          $orders = Orders::with('item')
-                  ->where([
-                    ['user_id','=',$user_id],
-                    ['status','=','PENDING'],
-                  ])
-                  ->get();
-
-          date_default_timezone_set('Asia/Singapore');      
-          $t=time();
-          $interval=15*60;
-          $last = $t - $t % $interval;
-          $next = $last + $interval;
-
-          $time = strftime('%H:%M %p', $next);
-          
-
-          
-          
-          if(count($allOrders) >= $this->maxDailyOrder) 
+          if ($shop->status !== "OPEN")
           {
-            $data = [
+            if ($shop->status == "ON_BREAK")
+              $msg ='Sorry, our barista is currently <br><span style="font-size:4.5em; class="text-yellow">ON BREAK</span>';
 
-              'time' => $time,
-              'include_rewards_scripts' => TRUE,
-              'contentheader_title' => "Rewards Catalog",
-              'items_per_page' => $this->pagination_items,
-              'rewards' => $rewards,
-              'remaining_points' => is_null($user->points) ? null : $user->points->points,
-              'orders' => $orders,
-              'msg' => "Sorry, we've already reached maximum daily limit of redeemable drinks.<br/>Please try again tomorrow."
-            ];
-            
-            return view('rewards.unavailable',$data);
-          }
-          else 
-          {
-            $data = [
+            else
+              $msg = 'Sorry, we\'re <br><span style="font-size:5em; class="text-yellow">CLOSED</span>';
 
-              'time' => $time,
-              'include_rewards_scripts' => TRUE,
-              'contentheader_title' => "Rewards Catalog",
-              'items_per_page' => $this->pagination_items,
-              'rewards' => $rewards,
-              'remaining_points' => is_null($user->points) ? null : $user->points->points,
-              'orders' => $orders,
-              'msg' => ""
-            ];
-
-            return view('rewards/home_rewards_catalog', $data);
-          }
-
+          } else $msg="";  
         }
+
+        $data = [
+
+            'time' => $time,
+            'include_rewards_scripts' => TRUE,
+            'contentheader_title' => "Rewards Catalog",
+            'items_per_page' => $this->pagination_items,
+            'rewards' => $rewards,
+            'remaining_points' => is_null($user->points) ? $this->initLoad : $user->points->points,
+            'orders' => $orders,
+            'msg' => $msg,
+            'shop'=>$shop,
+            'maxedOut'=>$maxedOut
+          ];
+
+        if( \Auth::user()->id !== 564 ) 
+        {
+          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+          fwrite($file, "-------------------\n Checkout Catalog on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+          fclose($file);
+        }
+
+
+        return view('rewards/home_rewards_catalog', $data);
+
+        
       }
-
-      
-
-
       
     }
     

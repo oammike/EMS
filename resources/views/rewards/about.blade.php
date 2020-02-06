@@ -35,11 +35,11 @@
         <div class="box"  style="background: rgba(256, 256, 256, 0.4); min-height: 1200px;padding:50px">
           <div class="box-heading"></div>
           <div class="box-body">
-            <h1 class="text-center">EARN POINTS, GET COOL REWARDS</h1>
+            <h1 class="text-center">EARN <strong class="text-primary"> POINTS</strong>, GET COOL <strong class="text-orange">REWARDS</strong> </h1><br/><br/>
             <img src="../storage/uploads/rewards.png" class="pull-left" width="400" />
             <p>
               Open Access BPO wants to <strong>celebrate YOU!</strong><br/><br/>
-              To show our appreciation for all the awesome work you do, we've launched OPEN ACCESS BPO REWARDS.</p><br/><br/>
+              To show our appreciation for all the awesome work you do, we are launching <strong class="text-primary">OPEN ACCESS BPO REWARDS</strong> this coming <strong class="text-orange">Monday, Feb 10, 2020</strong>.</p><br/><br/>
 
             
 
@@ -69,7 +69,7 @@
             <div class="clearfix"></div>
 
             <div style="background: url('../storage/uploads/REWARDS_COFFEE.jpg')top left no-repeat; width:60%; padding:40px 40px 60px 40px; color:#fff;font-size: larger;text-shadow: 2px 2px #333" class="pull-left">
-                <p><strong>PERK UP WITH FREE COFFEE</strong><br/>
+                <p><strong>PERK UP WITH FREE DRINKS</strong><br/>
                     For starters, you can use your points to redeem any of our top-of-the-line brews freshly prepared for you by our very own barista: <br/><br/>
 
                 <ul>
@@ -78,6 +78,7 @@
                   <li>Cappuccino</li>
                   <li>Flat White</li>
                   <li>Café Latte [Hazelnut / Vanilla / Caramel]</li>
+                  <li>Hot Choco</li>
                 </ul>
                 <br/><br/>
                 These special handcrafted beverages are available for pick up Mondays to Fridays at the G2 Cafeteria, from 9:00 am to 5:30 pm (a later barista shift will be added and announced soon for our evening folks).</p>
@@ -99,15 +100,14 @@
             waiting period from the set pickup time and automatically credit the points.</p>
              
             <h4>FOR OPEN ACCESS JAKA TEAMS</h4>
-            <p>For your convenience, you may redeem your coffee by presenting your card when you swing by G2 or ordering online
-            ahead of time and selecting your preferred pickup time there.</p>
+            <p>You may order your coffee drinks online ahead of time and indicate your preferred pickup time in our G2 office Cafeteria .</p>
              
             <h4>DESIGNATED REWARDS CARDS</h4>
             <p>The cards you will receive are your permanently assigned cards that contain your name and corresponding unique QR
             Code. These are nontransferable.</p>
             
             <h4><br/>ACCOUNTABILITY FORMS</h4>
-            <p>Claim yours at HR where you will be asked to sign and confirm receipt on accountability forms.</p>
+            <p>Claim yours starting on <strong class="text-orange">Monday Feb.10, 2020</strong> at HR where you will be asked to sign and confirm receipt on accountability forms.</p>
 
             <h4><br/>LOST OR DAMAGED CARDS</h4>
             <p>Please take care of your reward card.  Replacement for lost or damaged cards cost <strong>P150.00 each</strong>.</p>
@@ -116,7 +116,7 @@
             <p>Sharing is caring! You may share your earned points to your team mates and friends online via Rewards Central!</p>
 
             <p>We&#39;re working on expanding our rewards catalogue, so stay tuned for more cool stuff to pop up at our
-            [Open Access BPO Rewards Central]! For now, enjoy your hot caffeine fix while we put together more treats for your hard work.</p>
+            Open Access BPO Rewards page! For now, enjoy your hot caffeine fix while we put together more treats for your hard work.</p>
 
             <br/><br/>
             <h1 class="text-primary">We want to hear from you!</h1>

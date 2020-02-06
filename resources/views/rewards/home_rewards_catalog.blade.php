@@ -7,7 +7,7 @@
 
 @section('content')
   <section class="content-header">
-    <h1><i class="fa fa-gift"></i> Open Access Rewards <small id="points_counter">Remaining Points: 
+    <h1><i class="fa fa-gift"></i> Rewards Catalog <small id="points_counter">Remaining Points: 
         @if ($remaining_points > 10000)
         <em style="font-weight: bolder;">UNLIMITED</em>
         @else
@@ -29,49 +29,91 @@
           <div class="box-body">
             <div class="row no_margin catalog">
 
+              
+
+              @if($shop->status !== "OPEN")
               <h3 class="text-right" style="padding: 10px;background-color: #666; color:#fff"><i class="fa fa-coffee"></i> Coffee Drinks &nbsp;</h3> 
-              
-              @forelse($rewards as $key=>$reward)
-              
+              <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/COFFEE_prm.jpg')top center no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 500px;padding:50px">
+                <div class="box-heading"></div>
+                <div class="box-body">
+                  
+                  <h4 class="text-right pull-right" style="background: rgba(256, 256, 256, 0.4);width:40%;padding: 30px;margin-top: 15%">{!! $msg !!} </h4>
+                 
+                </div>
+              </div>
+
+              @else
+              <h3 class="text-right" style="padding: 10px;background-color: #666; color:#fff"><i class="fa fa-coffee"></i> Coffee Drinks &nbsp;</h3> 
+               <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/Coffee_making_grp.jpg')center center no-repeat rgba(256, 256, 256, 0.4);background-size: cover;  min-height: 50%;padding:50px">
+                  
+                  @forelse($rewards as $key=>$reward)
+                  
+                    
+                    <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                      <span class="product-title"><span style="font-size: larger;"> [{{$key + 1}}]</span> {{ $reward->name }} </span>
+                      <span class="product-excerpt">{{ $reward->description }}</span>
+                      <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/{{ $reward->attachment_image }}');"></div>
+                      
+                      <div class="row claim">
+                        <div class="col-sm-6 col-xs-6">
+                          <span class="product-points">
+                            <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                            {{ $reward->category->tiers->average('cost') }}
+                          </span>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 bt_claimer" data-name="{{ $reward->name }}" data-reward-id="{{ $reward->id }}" data-category-id="{{ $reward->category->id }}">
+                          <span class="product-claim"><i class="fa fa-check"></i> Claim</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+                    
+                   <!--  @if ($key % 3 == 0 && $key!=0)
+                      </div><div class="row no_margin catalog">
+                    @endif -->
+                    
+            
+                  
+                  @empty
                 
-                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                  <span class="product-title"><span style="font-size: larger;"> [{{$key + 1}}]</span> {{ $reward->name }} </span>
-                  <span class="product-excerpt">{{ $reward->description }}</span>
-                  <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/{{ $reward->attachment_image }}');"></div>
+                    <div class="col-xs-12">
+                      <p>The rewards catalog is currently unavailable</p>
+                    </div>
+                
+                  @endforelse
+                  <div class="clearfix"></div>
+              </div>
+
+              @endif
+              <div class="clearfix"></div> 
+
+              <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-trophy"></i> Souvenir Items &nbsp; </h3> 
+              <p></p><p></p>
+              <div class="box"  style="background:url('<?php echo url("/"); ?>/public/img/Merch_0.jpg')bottom right no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:50px">
+
+              @for($i=1;$i<=11;$i++)
+              <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                  <span class="product-title"><span style="font-size: larger;"> Merchandise [ {{$i}} ]</span> </span>
+                  <span class="product-excerpt">Open Access merchandise {{$i}}</span>
+                  <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/img/Merch_{{$i}}.jpg');"></div>
                   
                   <div class="row claim">
-                    <div class="col-sm-6 col-xs-6">
+                    <div class="col-sm-3 col-xs-6">
                       <span class="product-points">
                         <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                        {{ $reward->category->tiers->average('cost') }}
+                        0.00
                       </span>
                     </div>
-                    <div class="col-sm-6 col-xs-6 bt_claimer" data-name="{{ $reward->name }}" data-reward-id="{{ $reward->id }}" data-category-id="{{ $reward->category->id }}">
-                      <span class="product-claim"><i class="fa fa-check"></i> Claim</span>
+                    <div class="col-sm-7 col-xs-6" data-name="Merch_{{$i}}" data-reward-id="merch_{{ $i }}" data-category-id="merch">
+                      <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
                     </div>
                   </div>
                 </div>
-
-                
-                
-               <!--  @if ($key % 3 == 0 && $key!=0)
-                  </div><div class="row no_margin catalog">
-                @endif -->
-                
-        
-              
-              @empty
-            
-                <div class="col-xs-12">
-                  <p>The rewards catalog is currently unavailable</p>
-                </div>
-            
-              @endforelse
-
+              @endfor
               <div class="clearfix"></div>
-              <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-trophy"></i> Souvenir Items &nbsp; </h3> 
-              <p></p><p></p>
-              <h4 class="text-center"> <br/><br/><br/>Coming Soon! <br/><br/><br/></h4><br/><br/><br/>
+
+
              
             </div>
           </div>
