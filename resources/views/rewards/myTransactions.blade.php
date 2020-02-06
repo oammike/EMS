@@ -106,7 +106,7 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                   <div class="inner">
-                    <h3>{{$allReceived}} </h3>
+                    <h3>{{$totalEarnings}} </h3>
 
                     <p>Total Points <br/>Earned</p>
                   </div>
@@ -142,18 +142,20 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
+                            <th>Date Redeemed</th>
                             <th>Item</th>
                             <th>Points</th>
-                            <th>Date Redeemed</th>
+                            
                           </tr>
                         </thead>
 
                         <tbody>
                           @foreach($myTransactions as $myOrder)
                           <tr>
+                            <td>{{date('Y-m-d h:i A', strtotime($myOrder->created_at))}} </td>
                             <td>{{$myOrder->name}} </td>
                             <td>{{$myOrder->cost}} </td>
-                            <td>{{date('Y-m-d h:i A', strtotime($myOrder->created_at))}} </td>
+                            
                           </tr>
                           @endforeach
                         </tbody>
@@ -183,21 +185,34 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
+                            <th>Date Transferred</th>
                             <th>From</th>
                             <th>Points</th>
                             <th>Notes / Comments</th>
-                            <th>Date Transferred</th>
+                            
                           </tr>
                         </thead>
 
                         <tbody>
                           @foreach($pointsReceived as $p)
                           <tr>
-                            <td style="text-transform: uppercase;">{{$p->from_lname}}, {{$p->from_fname}} <em> "{{$p->from_nname}}"</em> </td>
+                             <td>{{date('Y-m-d h:i A', strtotime($p->created_at))}} </td>
+                             <td style="text-transform: uppercase;">{{$p->from_lname}}, {{$p->from_fname}} <em> "{{$p->from_nname}}"</em> </td>
                             <td>{{$p->transferedPoints}} </td>
-                            <td>{!! $p->notes !!} </td>
-                            <td>{{date('Y-m-d h:i A', strtotime($p->created_at))}} </td>
+                            <td><strong>Co-worker Transfer</strong><br/><em style="font-size: small;">{!! $p->notes !!}</em> </td>
+                           
                           </tr>
+                          @endforeach
+
+                          @foreach($awardsReceived as $a)
+                          <tr>
+                            <td>{{date('Y-m-d h:i A', strtotime($a->created_at))}} </td>
+                            <td style="text-transform: uppercase;">{{$a->from_lname}}, {{$a->from_fname}} <em> "{{$a->from_nname}}"</em> </td>
+                            <td>{{$a->points}} </td>
+                            <td><strong>{{$a->reason}}</strong><br/><em style="font-size: small;"> {!! $a->notes !!} </em></td>
+                            
+                          </tr>
+
                           @endforeach
                         </tbody>
                       </table>
@@ -227,20 +242,22 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
+                            <th>Date Transferred</th>
                             <th>To</th>
                             <th>Points</th>
                             <th>Notes / Comments</th>
-                            <th>Date Transferred</th>
+                            
                           </tr>
                         </thead>
 
                         <tbody>
                           @foreach($transfersMade as $p)
                           <tr>
+                            <td>{{date('Y-m-d h:i A', strtotime($p->created_at))}} </td>
                             <td style="text-transform: uppercase;">{{$p->to_lname}}, {{$p->to_fname}} <em> "{{$p->to_nname}}"</em> </td>
                             <td>{{$p->transferedPoints}} </td>
                             <td>{!! $p->notes !!} </td>
-                            <td>{{date('Y-m-d h:i A', strtotime($p->created_at))}} </td>
+                            
                           </tr>
                           @endforeach
                         </tbody>
@@ -288,7 +305,7 @@
     window.selected_reward_id = 0;
     $(function() {
 
-      $(".table").DataTable(); 
+      $(".table").DataTable({"order": [[ 0, "ASC" ]]}); 
 
 
      

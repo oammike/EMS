@@ -2740,6 +2740,25 @@ class UserController extends Controller
           }
           
         }
+
+        $allAwards = 0;
+        $awardsReceived = DB::table('reward_award')->where('reward_award.user_id', $this->user->id)->
+                              join('users','reward_award.awardedBy','=','users.id')->
+                              join('reward_waysto','reward_award.waysto_id','=','reward_waysto.id')->
+                              select('users.firstname as from_fname','users.lastname as from_lname','users.nickname as from_nname','reward_award.points','reward_award.notes','reward_waysto.name as reason', 'reward_award.created_at')->get();
+                              // where('created_at','>=',$today->startOfDay()->format('Y-m-d H:i:s'))->
+                              // where('created_at','<=',$today->endOfDay()->format('Y-m-d H:i:s'))->
+                              //select('transferedPoints')->get();
+        if (count($awardsReceived) > 0)
+        {
+          foreach($awardsReceived as $t){
+            $allAwards += $t->points;
+
+          }
+          
+        }
+
+        $totalEarnings = $allReceived + $allAwards;
        
 
         $data = [
@@ -2748,9 +2767,12 @@ class UserController extends Controller
           'remaining_points' => is_null($user->points) ? $this->initLoad : $user->points->points,
           'allTransfers'=>$allTransfers,
           'allReceived'=>$allReceived,
+          'allAwards'=>$allAwards,
+          'totalEarnings'=>$totalEarnings,
           'myTransactions'=>$myTransactions,
           'transfersMade'=>$transfersMade,
-          'pointsReceived'=>$pointsReceived
+          'pointsReceived'=>$pointsReceived,
+          'awardsReceived'=>$awardsReceived
 
         ]; 
 
