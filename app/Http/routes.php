@@ -1140,6 +1140,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'initializeRewards',
       'uses'=>'UserController@initializeRewards') );
 
+
+    Route::get('/rewardTransactions', array(
+      'as'=> 'myTransactions',
+      'uses'=>'UserController@rewards_transactions') );
+
     Route::get('/userRewards', array(
       'as'=> 'userRewards',
       'uses'=>'UserController@rewards') );

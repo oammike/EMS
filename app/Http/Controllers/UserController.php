@@ -2685,6 +2685,89 @@ class UserController extends Controller
     }
 
 
+    public function rewards_transactions()
+    {
+      // check first if from Davao
+      $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
+      $user = User::find($this->user->id);
+
+      if ($floor == 9)
+        return view('access-denied');
+      else
+      {
+        $today = Carbon::now('GMT+8');
+        $skip = 0 * $this->pagination_items;
+        $take = $this->pagination_items;
+        
+        $myTransactions = DB::table('users')->where('users.id',$this->user->id)->
+                              join('points','points.idnumber','=','users.id')->
+                              join('orders','orders.user_id','=','users.id')->
+                              join('rewards','rewards.id','=','orders.reward_id')->
+                              select('points.points','rewards.name','rewards.cost', 'orders.created_at')->get();
+
+       
+
+
+        // we now get any transfers made within the day
+        $allTransfers = 0;
+        $transfersMade = DB::table('reward_transfers')->where('from_user', $this->user->id)->
+                              join('users','reward_transfers.to_user','=','users.id')->
+                              select('users.firstname as to_fname','users.lastname as to_lname','users.nickname as to_nname','reward_transfers.transferedPoints','reward_transfers.notes','reward_transfers.created_at')->get();
+                              // where('created_at','>=',$today->startOfDay()->format('Y-m-d H:i:s'))->
+                              // where('created_at','<=',$today->endOfDay()->format('Y-m-d H:i:s'))->
+                              //select('transferedPoints')->get();
+        if (count($transfersMade) > 0)
+        {
+          foreach($transfersMade as $t){
+            $allTransfers += $t->transferedPoints;
+
+          }
+          
+        }
+
+        $allReceived = 0;
+        $pointsReceived = DB::table('reward_transfers')->where('reward_transfers.to_user', $this->user->id)->
+                              join('users','reward_transfers.from_user','=','users.id')->
+                              select('users.firstname as from_fname','users.lastname as from_lname','users.nickname as from_nname','reward_transfers.transferedPoints','reward_transfers.notes','reward_transfers.created_at')->get();
+                              // where('created_at','>=',$today->startOfDay()->format('Y-m-d H:i:s'))->
+                              // where('created_at','<=',$today->endOfDay()->format('Y-m-d H:i:s'))->
+                              //select('transferedPoints')->get();
+        if (count($pointsReceived) > 0)
+        {
+          foreach($pointsReceived as $t){
+            $allReceived += $t->transferedPoints;
+
+          }
+          
+        }
+       
+
+        $data = [
+          'include_rewards_scripts' => TRUE,
+          'items_per_page' => $this->pagination_items,
+          'remaining_points' => is_null($user->points) ? $this->initLoad : $user->points->points,
+          'allTransfers'=>$allTransfers,
+          'allReceived'=>$allReceived,
+          'myTransactions'=>$myTransactions,
+          'transfersMade'=>$transfersMade,
+          'pointsReceived'=>$pointsReceived
+
+        ]; 
+
+        if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n Transactions on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+              }
+        return view('rewards.myTransactions',$data);
+
+      }
+      
+      
+
+    }
+
+
     public function rewardsTransfer(Request $request)
     {
       //check first if correct password
