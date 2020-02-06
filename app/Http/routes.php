@@ -1141,9 +1141,14 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserController@initializeRewards') );
 
 
-    Route::get('/rewardTransactions', array(
+    Route::post('/rewardsFeedback', array(
+      'as'=> 'rewardsFeedback',
+      'uses'=>'UserController@rewards_feedback') );
+
+     Route::get('/rewardTransactions', array(
       'as'=> 'myTransactions',
       'uses'=>'UserController@rewards_transactions') );
+
 
     Route::get('/userRewards', array(
       'as'=> 'userRewards',

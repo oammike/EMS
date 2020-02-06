@@ -118,6 +118,12 @@
             <p>We&#39;re working on expanding our rewards catalogue, so stay tuned for more cool stuff to pop up at our
             [Open Access BPO Rewards Central]! For now, enjoy your hot caffeine fix while we put together more treats for your hard work.</p>
 
+            <br/><br/>
+            <h1 class="text-primary">We want to hear from you!</h1>
+            <label>What other items do you wish to be included in the catalog for redemption?</label>
+            <textarea class="form-control" id="feedback" rows="7"></textarea>
+            <a id="send" class="btn btn-lg btn-success pull-right" style="margin-top: 20px">Send Feedback</a>
+
 
 
             
@@ -207,83 +213,25 @@
         }
       };
 
-      $('#transferto').easyAutocomplete(options);
+      
 
-      $('#go').on('click',function(){
-        console.log("go");
-        var amt = $('#code').val();
-        var receiver = $('#transfer_name').val();
-        var rid = $('#transfer_id').val();
-        var p = $('#transfer_prog').val();
-        var a = $('#allTransfers').attr('data-val');
-        var ap =  parseInt(a) + parseInt(amt);
-
-        $('#amt').html(amt);
-        $('#receiver').html(receiver);
-        $('#campaign').html(p);
-        $('#pic').attr('src','public/img/employees/'+rid+'.jpg');
-
-        if(receiver == "")
-          $.notify("Please specify the receiver of reward points.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-
-        else if(amt == "")
-          $.notify("Please enter number of points you want to transfer.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-        
-        else if (amt > 50 || ap > 50){
-           $.notify("Sorry, you've reached maximum amount of transferrable points.\nPlease try a smaller amount.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-          return false;
-
-        }
-
-        else if(isNaN(amt) || !(amt.indexOf(".") == -1)) {
-          $.notify("Sorry, you\'ve entered an Invalid Amount.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-
-        }
-
-        else
-          $('#mytransfer').modal('show');
-
-      });
-
-      $('#proceed').on('click',function(){
-
-        var points = $('#code').val();
-        var to = $('#transfer_name').val();
-        var id_to =  $('#transfer_id').val();
-        var a = $('#allTransfers').attr('data-val');
-        var r = $('#remainingpts').attr('data-val');
-        var ap =  parseInt(a) + parseInt(points);
-        var rp =   parseInt(r)- parseInt(points);
-        var pw = $('#pw').val();
+      $('#send').on('click',function(){
 
         var _token = "{{ csrf_token() }}";
+        var feedback = $('#feedback').val();
 
-        if (points > 50 || ap > 50){
-           $.notify("Sorry, you've reached maximum amount of transferrable points.\nPlease try a smaller amount.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+        if (feedback == ""){
+           $.notify("Let us know what items you'd want to be included into our Rewards Catalog!",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
           return false;
 
         }
-         
-        else if(isNaN(points)) {
-
-          $.notify("Sorry, you\'ve entered an Invalid Value.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-          return false;
-
-        }
-
-    
-
         else{
 
           $.ajax({
             type:"POST",
-            url : "{{ url('/rewardsTransfer') }}",
+            url : "{{ url('/rewardsFeedback') }}",
             data : {
-                      'points' : points,
-                      'to' : to,
-                      'id_to' : id_to,
-                      'notes': $('#notes').val(),
-                      'pw' : pw,
+                      'feedback': feedback,
                       '_token' : _token
 
             },
@@ -292,19 +240,11 @@
 
                                       if (data.success == '1')
                                       {
-                                        $('#allTransfers').html("");
-                                        $('#allTransfers').html(ap);
-                                        $('#remainingpts').html("");
-                                        $('#remainingpts').html(rp);
+                                        
 
-                                        $.notify(points+ data.message + '\n'+data.user,{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                                        $('#go').attr('disabled',true);
+                                        $.notify("Thank you for sending your suggestions.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
 
-                                        $('#makenew').fadeIn();
-
-                                      }else {
-
-                                        $.notify(data.message + '\n'+data.user,{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                        $('#send').fadeOut();
 
                                       }
                                       
@@ -313,7 +253,7 @@
             },
             error: function(data){
               
-                                      $.notify(data.message+"\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                      $.notify("An error occured. Please try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
               
             }
           });

@@ -53,6 +53,7 @@ use OAMPI_Eval\Reward;
 use OAMPI_Eval\Reward_Transfers;
 use OAMPI_Eval\Reward_Award;
 use OAMPI_Eval\Reward_Creditor;
+use OAMPI_Eval\Reward_Feedback;
 use OAMPI_Eval\Orders;
 use OAMPI_Eval\Coffeeshop;
 
@@ -2421,7 +2422,7 @@ class UserController extends Controller
           'userID'=> $user_id
         ];
 
-        return view('access-denied');
+        //return view('access-denied');
         return view('rewards.about',$data);
 
       }
@@ -2610,7 +2611,18 @@ class UserController extends Controller
     }
 
 
-     public function rewards_grantPoints(Request $request)
+    public function rewards_feedback(Request $request)
+    {
+      $feedback = new Reward_Feedback;
+      $feedback->user_id = $this->user->id;
+      $feedback->notes = $request->feedback;
+      $feedback->created_at = Carbon::now("GMT+8")->format('Y-m-d H:i:s');
+      $feedback->updated_at = Carbon::now("GMT+8")->format('Y-m-d H:i:s');
+      $feedback->save();
+      return response()->json(['success'=>1, 'feedback'=>$feedback]);
+    }
+
+    public function rewards_grantPoints(Request $request)
     {
       //check first if correct password
       /*$allRecipients = new Collection;
