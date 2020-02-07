@@ -15,6 +15,7 @@ composer.json
 /public/media/*
 /public/img/employees
 /public/build/changes.txt
+/public/build/rewards.txt
 /public/build/pmlogs.txt
 /public/build/postmates.txt
 /tests

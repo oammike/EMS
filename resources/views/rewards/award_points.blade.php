@@ -456,7 +456,7 @@ span.to-input {
                                       if (data.success == '1')
                                       {
                                         
-                                        $.notify(points+ " points successfully transferred to "+data.total+" employees",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                        $.notify(points+ " points successfully transferred to "+data.total+" employee(s)",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                                         $('#go').attr('disabled',true);
 
                                         $('#sendpts').fadeOut(); $('#makenew').fadeIn();
