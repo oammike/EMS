@@ -200,13 +200,15 @@ class RewardsHomeController extends Controller
       $rewards = Reward::with("category")->orderBy('name', 'asc')->get();
       $out_reward = [];
       foreach($rewards as $reward){
+        $cat = $reward->category->name;
+        $category = ($cat == "Coffee" || $cat == "Latte" || $cat == "Flavored Coffee" || $cat == "Choco Drinks" )  ? "Coffee" : $reward->category->name;
         $out_reward[] = [
           "id" => $reward->id,
           "name" => $reward->name,
           "description" => $reward->description,
           "attachment_image" => $reward->attachment_image,
           "cost" => $reward->cost,
-          "category" => $reward->category->name
+          "category" => $category
         ];
       }
 
