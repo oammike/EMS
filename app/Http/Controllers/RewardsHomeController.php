@@ -372,7 +372,7 @@ class RewardsHomeController extends Controller
 
       $code = str_replace(".", "", trim(Input::get('code')) );
       $reward_id = Input::get('order_id');
-      $owncup = $request->input('owncup',"");
+      $owncup = Input::get('owncup',"");
 
       $id = DB::table('users')
             ->select('id')
