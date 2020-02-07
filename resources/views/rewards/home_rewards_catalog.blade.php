@@ -58,7 +58,8 @@
                         <div class="col-sm-6 col-xs-6">
                           <span class="product-points">
                             <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                            {{ $reward->category->tiers->average('cost') }}
+                            <!-- {{ $reward->category->tiers->average('cost') }} -->
+                            {{ $reward->cost }} 
                           </span>
                         </div>
                         <div class="col-sm-6 col-xs-6 bt_claimer" data-name="{{ $reward->name }}" data-reward-id="{{ $reward->id }}" data-category-id="{{ $reward->category->id }}">
@@ -142,6 +143,7 @@
               <input type="radio" name="tier" value="small" checked> Small<br/>
               <input type="radio" name="tier" value="medium"> Medium<br/>
               <input type="radio" name="tier" value="large"> Large
+
             </div>
 
             <div id="pickuptime">
@@ -155,6 +157,12 @@
               </div>
             </div>
 
+            <div id="owncup_wrapper">
+              <label><input type="checkbox" name="owncup" id="owncup" value="owncup"/> I'll bring my own cup</label>
+              <p>Save 5 Points if you bring your own cup.<br/>Note that the barista is not required to fill your cup to the brim and will only serve 12oz.</p>
+
+            </div>
+
             <p><span id="claimer_error" class="help-block"></span></p>
 
             
@@ -163,9 +171,12 @@
           <div id="qr_code_wrapper">
             <p>Your order has been queued.</p>
             <p>Claim your reward with the barista @G2.</p>
+            <p id="owncup_message">Please bring your own cup as stated in your order. Failure to do so will void this transaction and your points will NOT be refunded.</p>
             <div id="qr-code-container"></div>
           </div>
           
+          <!-- <input type="hidden" name="debug" value="true" /> -->
+
           <div class="overlay" id="claimer_loader"> 
             <i class="fa fa-refresh fa-spin"></i>
           </div>
@@ -196,6 +207,7 @@
       })
 
 			$('.bt_claimer').click(function(){
+        $('#owncup').prop('checked',false);
       
         $('#qr_code_wrapper').hide();
         $('#qr-code-container').hide();
@@ -220,14 +232,25 @@
 					url : "{{ url('/manage-categories/fetch_tiers/') }}"+"/"+category_id,
 					success : function(data){
 						$('#variants').empty();
+              var variant_count = 0;
 							$.each(data, function(k, v) {
 								var tier = v;
 								console.log(tier);
 								
-                if(~tier.description.indexOf("NOT YET AVAILABLE"))
+                if(~tier.description.indexOf("NOT YET AVAILABLE")){
                   $('#variants').append($('<label><input disabled="disabled" class="state iradio_square-green" type="radio" name="tier" value="'+tier.id+'">&nbsp; '+tier.description+' - '+tier.cost+' points </label><br/>'));
-                else
-                  $('#variants').append($('<label><input class="state iradio_square-green" type="radio" name="tier" value="'+tier.id+'">&nbsp; '+tier.description+' - '+tier.cost+' points </label><br/>'));
+                } else{
+                  var checked = "";
+                  if(variant_count===0){
+                    checked = "checked";
+                  }
+
+                  $('#variants').append($('<label><input '+checked+' class="state iradio_square-green" type="radio" name="tier" value="'+tier.id+'">&nbsp; '+tier.description+' - '+tier.cost+' points </label><br/>'));  
+
+                  
+                }
+
+                variant_count = variant_count + 1;
 							});
 						
 						$('#claimer_loader').hide();
@@ -265,6 +288,12 @@
 					type: "POST",
 					url : "{{ url('/claim-reward') }}/"+window.selected_reward_id+"?m="+micro,
 					success : function(data){
+
+            if(data.owncup==="owncup"){
+              $('#owncup_message').show();
+            }else{
+              $('#owncup_message').hide();
+            }
             
             $('#modalConfirmYes').hide();
             $('#modalConfirmClose').text("OK");

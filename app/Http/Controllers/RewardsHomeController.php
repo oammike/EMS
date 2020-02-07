@@ -44,6 +44,7 @@ class RewardsHomeController extends Controller
         $this->pagination_items = 50;
         $this->maxDailyOrder = 10000;
         $this->initLoad = 100;
+        $this->cup_discount = 5;
     }
 
     /**
@@ -369,6 +370,7 @@ class RewardsHomeController extends Controller
 
       $code = str_replace(".", "", trim(Input::get('code')) );
       $reward_id = Input::get('order_id');
+      $owncup = $request->input('owncup',"");
 
       $id = DB::table('users')
             ->select('id')
@@ -395,12 +397,17 @@ class RewardsHomeController extends Controller
             'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
           ], 200);
         }
+
+      $cost = $reward->cost;
+      if($owncup==="owncup"){
+        $cost = $cost - $this->cup_discount;
+      }  
         
-      if($user->points()->decrement('points', $reward->cost)){
+      if($user->points()->decrement('points', $cost)){
         $record = new ActivityLog;
         $record->initiator_id       = $user_id;
         $record->target_id      = $user_id;
-        $record->description = "claimed ".$reward->name." for ".$reward->cost." points using barista app";
+        $record->description = "claimed ".$reward->name." for ".$cost." points using barista app";
         
         $order = new Orders;
         $order->user_id = $user_id;
@@ -412,13 +419,13 @@ class RewardsHomeController extends Controller
           try{
             
             $micro = microtime(true);                
-            $current_points = $user->points->points - $reward->cost;                
+            $current_points = $user->points->points - $cost;                
 
             
 
             $items = array(
                 new PrintItem("Name: ".$user->firstname." ".$user->lastname),
-                new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
+                new PrintItem("Item: ".$reward->name, "Cost: ".$cost),
                 new PrintItem("Remaining Points:", $current_points)
             );                
               
@@ -460,11 +467,11 @@ class RewardsHomeController extends Controller
             $error_message = "Could not access the printer.";
             $record->delete();
             $order->delete();
-            $user->points()->increment('points',$reward->cost);
+            $user->points()->increment('points',$cost);
             $error = true;
           }
         }else{
-          $user->points()->increment('points',$reward->cost);
+          $user->points()->increment('points',$cost);
           $error = true;
           $error_message = "Could not complete your order. Please try again later.";
         }
@@ -565,6 +572,7 @@ class RewardsHomeController extends Controller
       $tier = $request->input('tier',0);
       $debug = $request->input('debug',0);
       $time = $request->input('time',"now");
+      $owncup = $request->input('owncup',"");
 
       $time = strtotime($time);
 
@@ -604,19 +612,24 @@ class RewardsHomeController extends Controller
             $record->save();
           }
         }
+
+        $cost = $reward->cost;
+        if($owncup==="owncup"){
+          $cost = $cost - $this->cup_discount;
+        }
         
-        if($user->points == null || $reward->cost > $user->points->points ){
+        if($user->points == null || $cost > $user->points->points ){
           return response()->json([
             'success' => false,
-            'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$reward->cost.")"
+            'message' => 'You do not have enough points to claim this reward. Your current points: '.$user->points->points.' (required: '.$cost.")"
           ], 422);
         }
         
-          if($user->points()->decrement('points', $reward->cost)){
+          if($user->points()->decrement('points', $cost)){
             $record = new ActivityLog;
             $record->initiator_id       = $user_id;
             $record->target_id      = $user_id;
-            $record->description = "claimed ".$reward->name." for ".$reward->cost." points using EMS portal";
+            $record->description = "claimed ".$reward->name." for ".$cost." points using EMS portal";
             
             $order = new Orders;
             $order->user_id = $user_id;
@@ -627,11 +640,11 @@ class RewardsHomeController extends Controller
             if($record->save()) {
               try{
                 $micro = microtime(true);                
-                $current_points = $user->points->points - $reward->cost;                
+                $current_points = $user->points->points - $cost;                
 
                 $items = array(
                     new PrintItem("Name: ".$user->firstname." ".$user->lastname),
-                    new PrintItem("Item: ".$reward->name, "Cost: ".$reward->cost),
+                    new PrintItem("Item: ".$reward->name, "Cost: ".$cost),
                     new PrintItem("Pickup by: ".$request->input('time',"NOW")),
                     new PrintItem("Remaining Points:", $current_points)
                 );
@@ -692,11 +705,11 @@ class RewardsHomeController extends Controller
                 $error_message = $e->getMessage();
                 $record->delete();
                 $order->delete();
-                $user->points()->increment('points',$reward->cost);
+                $user->points()->increment('points',$cost);
                 $error = true;
               }
             }else{
-              $user->points()->increment('points',$reward->cost);
+              $user->points()->increment('points',$cost);
               $error = true;
               $error_message = "could not log the activity";
             }
