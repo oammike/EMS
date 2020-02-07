@@ -455,6 +455,7 @@ class RewardsHomeController extends Controller
             
 
             return response()->json([
+                  'owncup'=>$owncup,
                   'success' => true,
                   'idnumber' => $user_id,
                   'micro' => $micro,
@@ -692,6 +693,7 @@ class RewardsHomeController extends Controller
                     */
                   
                 return response()->json([
+                  'owncup'=>$owncup,
                   'time'=>$time,
                   'success' => true,
                   'idnumber' => $user_id,
