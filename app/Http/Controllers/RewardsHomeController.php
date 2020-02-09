@@ -373,6 +373,7 @@ class RewardsHomeController extends Controller
       $code = str_replace(".", "", trim(Input::get('code')) );
       $reward_id = Input::get('order_id');
       $owncup = Input::get('owncup',"");
+      $debug = Input::get('debug',false);
 
       $id = DB::table('users')
             ->select('id')
@@ -419,41 +420,46 @@ class RewardsHomeController extends Controller
         
         if($record->save()) {
           try{
+
             
             $micro = microtime(true);                
             $current_points = $user->points->points - $cost;                
-
+            if($debug==false){
             
 
-            $items = array(
-                new PrintItem("Name: ".$user->firstname." ".$user->lastname),
-                new PrintItem("Item: ".$reward->name, "Cost: ".$cost),
-                new PrintItem("Remaining Points:", $current_points)
-            );                
+              $items = array(
+                  new PrintItem("Name: ".$user->firstname." ".$user->lastname),
+                  new PrintItem("Item: ".$reward->name, "Cost: ".$cost),
+                  new PrintItem("Remaining Points:", $current_points)
+              );                
+                
+              $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
+              $connector = new NetworkPrintConnector("172.22.18.200", 9100);
+              $printer = new Printer($connector);
               
-            $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
-            $connector = new NetworkPrintConnector("172.22.18.200", 9100);
-            $printer = new Printer($connector);
-            
-            $printer -> setJustification(Printer::JUSTIFY_CENTER);
-            $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
-            $printer -> setJustification(Printer::JUSTIFY_CENTER);
-            $printer -> setTextSize(2,2);
-            $printer -> text("Open Access BPO Rewards\n");
-            $printer -> feed(1);
-            $printer -> setTextSize(1,1);              
-            $printer -> text(date("m/d/Y h:i a")."\n");
-            $printer -> text("Receipt Number:".sprintf('%08d', $order->id)."\n");
-            $printer -> feed(2);
-            
-            $printer -> setJustification(Printer::JUSTIFY_LEFT);
-            $printer -> setTextSize(1,1);
-            foreach ($items as $item) {
-              $printer -> text($item);
-            }      
-            $printer -> feed(2);
-            $printer -> cut();
-            $printer -> close();
+              $printer -> setJustification(Printer::JUSTIFY_CENTER);
+              $printer -> graphics($logo,Printer::IMG_DOUBLE_WIDTH|Printer::IMG_DOUBLE_HEIGHT);
+              $printer -> setJustification(Printer::JUSTIFY_CENTER);
+              $printer -> setTextSize(2,2);
+              $printer -> text("Open Access BPO Rewards\n");
+              $printer -> feed(1);
+              $printer -> setTextSize(1,1);              
+              $printer -> text(date("m/d/Y h:i a")."\n");
+              $printer -> text("Receipt Number:".sprintf('%08d', $order->id)."\n");
+              $printer -> feed(2);
+              
+              $printer -> setJustification(Printer::JUSTIFY_LEFT);
+              $printer -> setTextSize(1,1);
+              foreach ($items as $item) {
+                $printer -> text($item);
+              }      
+              if($owncup==="owncup"){
+                $printer -> text("NOTE: I'LL BRING MY OWN CUP ");
+              }
+              $printer -> feed(2);
+              $printer -> cut();
+              $printer -> close();
+            }
             
 
             return response()->json([
@@ -675,6 +681,9 @@ class RewardsHomeController extends Controller
                     foreach ($items as $item) {
                       $printer -> text($item);
                     }      
+                    if($owncup==="owncup"){
+                      $printer -> text("NOTE: I'LL BRING MY OWN CUP ");
+                    }
                     $printer -> feed(2);
                     $printer -> cut();
                     $printer -> close();
