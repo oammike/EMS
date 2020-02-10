@@ -2457,7 +2457,7 @@ class DTRController extends Controller
                                           }else{
 
                                             if (!is_null($RDsched))
-                                              $rd = $monthlySched->where('isRD',1)->where('productionDate',$prevDay->format('Y-m-d'))->first();  
+                                              $rd = $RDsched->where('isRD',1)->where('productionDate',$prevDay->format('Y-m-d'))->first();  
                                             else
                                               $rd = null;
 
