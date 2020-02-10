@@ -2408,8 +2408,9 @@ class UserController extends Controller
     {
       // check first if from Davao
       $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
+      $noaccess = [6,7,8,9];
 
-      if ($floor == 9)
+      if ($floor == 9 || in_array($this->user->status_id, $noaccess))
         return view('access-denied');
       else
       {
@@ -2907,8 +2908,9 @@ class UserController extends Controller
       // check first if from Davao
       $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
       $user = User::find($this->user->id);
+      $noaccess = [6,7,8,9];
 
-      if ($floor == 9)
+      if ($floor == 9 || in_array($this->user->status_id, $noaccess))
         return view('access-denied');
       else
       {

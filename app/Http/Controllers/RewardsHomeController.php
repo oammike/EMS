@@ -78,7 +78,9 @@ class RewardsHomeController extends Controller
       // check first if from Davao
       $floor = Team::where('user_id',\Auth::user()->id)->first()->floor_id;
 
-      if ($floor == 9)
+      $noaccess = [6,7,8,9];
+
+      if ($floor == 9 || in_array(\Auth::user()->status_id, $noaccess))
         return view('access-denied');
       else
       {
