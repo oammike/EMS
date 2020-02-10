@@ -56,6 +56,30 @@ trait UserTraits
 {
 
 
+  public function getBdayCelebrators($m_from,$d_from,$m_to,$d_to)
+  {
+    // $y = date('Y');
+    // if ($m_to !== '0' && $d_to !== '0'){
+    //   $celebrators =  DB::select( DB::raw("SELECT users.id, users.status_id, users.firstname,users.lastname,users.nickname,DATE_FORMAT(users.birthday, '%m-%d-1920')as birthday,users.dateHired,positions.name as jobTitle, campaign.id as campID, campaign.name as program, users.employeeNumber FROM users INNER JOIN team ON team.user_id = users.id INNER JOIN campaign ON team.campaign_id = campaign.id INNER JOIN positions ON users.position_id = positions.id WHERE MONTH(users.birthday) != '00' AND DAY(users.birthday) != '00' AND birthday >= :bdf AND birthday <= :bdt  AND  users.status_id != 6 AND users.status_id != 7 AND users.status_id != 9  ORDER BY birthday ASC"), array(
+    //                   'bdf'=> $m_from."-".$d_from.'-1920',//  date('m-d-Y', strtotime($m_from."-".$d_from.'-1920')),
+    //                   'bdt'=> $m_to."-".$d_to.'-1920' //date('m-d-Y', strtotime($m_to."-".$d_to.'-1920')),
+    //                  // 'm_from' => $m_from,
+    //                  // 'd_from' => $d_from,
+    //                  // 'm_to' => $m_to,
+    //                  // 'd_to' => $d_to,
+    //                )); //MONTH(birthday) >= :m_from AND DAY(birthday) >= :d_from AND MONTH(birthday) <= :m_to AND DAY(birthday) <= :d_to 
+    // }else 
+    // {
+      $celebrators =  DB::select( DB::raw("SELECT users.id, users.status_id, users.firstname,users.lastname,users.nickname,DATE_FORMAT(users.birthday, '%m-%d-%Y')as birthday,users.dateHired,positions.name as jobTitle, campaign.id as campID, campaign.name as program, users.employeeNumber FROM users INNER JOIN team ON team.user_id = users.id INNER JOIN campaign ON team.campaign_id = campaign.id INNER JOIN positions ON users.position_id = positions.id WHERE MONTH(users.birthday) = :m AND DAY(users.birthday) >= :d AND DAY(users.birthday) <= :dt AND  users.status_id != 6 AND users.status_id != 7 AND users.status_id != 9  ORDER BY birthday ASC"), array(
+                     'm' => $m_from,
+                     'd' => $d_from,
+                     'dt' =>$d_to
+                   ));
+
+    //}
+    return $celebrators;
+  }
+
   public function getDashboardNotifs()
   {
        $notifs = User_Notification::where('user_id',$this->user->id)->orderBy('created_at','DESC')->get(); 
@@ -677,12 +701,12 @@ trait UserTraits
         
     }
 
-	public function getTeammates($id)
-	{
-		$user = User::find($id);
-		$teams = new Collection;
-		
-		$fellowTeam = Team::where('immediateHead_Campaigns_id',$user->team->immediateHead_Campaigns_id)->get(); 
+  public function getTeammates($id)
+  {
+    $user = User::find($id);
+    $teams = new Collection;
+    
+    $fellowTeam = Team::where('immediateHead_Campaigns_id',$user->team->immediateHead_Campaigns_id)->get(); 
             foreach ($fellowTeam as $pip) {
 
             if ($pip->user_id !== (int)$id && $this->isInactive($pip->user_id)==false )
@@ -695,11 +719,11 @@ trait UserTraits
 
             $teammates = $teams->sortBy('lastname');   
             return $teammates; 
-	}
+  }
 
-	public function getProfilePic($user_id)
-	{
-		if ( file_exists('public/img/employees/'.$user_id.'.jpg') )
+  public function getProfilePic($user_id)
+  {
+    if ( file_exists('public/img/employees/'.$user_id.'.jpg') )
              {
                 $img = asset('public/img/employees/'.$user_id.'.jpg');
              } else {
@@ -707,16 +731,16 @@ trait UserTraits
              }
 
          return $img;
-	}
+  }
 
 
-	public function isInactive($user_id)
-	{
+  public function isInactive($user_id)
+  {
 
-		$emp = User::find($user_id);
-		// Resigned || Terminated || End of Contract
-		if ($emp->status_id == 7 || $emp->status_id == 8 || $emp->status_id == 9 ) return true; else return false;
-	}
+    $emp = User::find($user_id);
+    // Resigned || Terminated || End of Contract
+    if ($emp->status_id == 7 || $emp->status_id == 8 || $emp->status_id == 9 ) return true; else return false;
+  }
 
 
   public function notifySender($requestItem,$notif,$notifType)

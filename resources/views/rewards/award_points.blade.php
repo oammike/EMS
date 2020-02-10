@@ -70,7 +70,7 @@ span.to-input {
       </div>
       <div class="modal-body">
         
-        <p>You are about to award <strong id="amt" class="text-danger" style="font-size: large;"></strong> reward point(s) to the following employee(s):<br/></p><ul id="receiver"></ul> 
+        <p id="msg"></p><ul id="receiver"></ul> 
         <p class="text-right" style="margin-top: 120px">Please type-in your EMS password to proceed.</p>
         <label class="pull-right">EMS Password: <input type="password" name="pw" id="pw" class="form-control" autocomplete="off" /></label>
         <div class="clearfix"></div>
@@ -111,32 +111,123 @@ span.to-input {
 
                   <div class="col-lg-1"></div>
                   <div class="col-lg-6" style="padding:20px"><h2 class="text-left"><i class="fa fa-trophy"></i> Award Points <br><br></h2>
-                    <label style="width:100%"><br/>Award <span id="ptsto"></span> to : <i style="margin-top: 10px" class="fa fa-angle-double-right fa-3x pull-right"></i> 
 
-                    <input style="width:95%" type="text" name="transferto" required="required" id="transferto" class="form-control" placeholder="search for FIRSTNAME, LASTNAME, NICKNAME, or PROGRAM name" /></label>
+                    <label class="text-primary"><input type="radio" class="awardees" name="awardees" id="specific" value="SPECIFIC"> Search for specific employee(s) by name or program<br/><small><em>You may add in multiple employees</em></small></label>
 
-
-                    <input id="transfer_id" disabled="disabled" type="hidden" />
-                    <input id="transfer_name" disabled="disabled" type="hidden" />
-                    <input id="transfer_prog" disabled="disabled" type="hidden" />
-                    <input id="recipients" type="hidden" name="recipients" />
                     
                    
+                        
+                        <input type="text" style="width: 95%;display:none;margin-top:10px" name="transferto" required="required" id="transferto" class="form-control pull-left" placeholder="search for FIRSTNAME, LASTNAME, NICKNAME, or PROGRAM name" /><i style="display: none;" id="transfertoi" class="fa fa-angle-double-right fa-3x pull-right"></i>
+                        <input id="transfer_id" disabled="disabled" type="hidden" />
+                        <input id="transfer_name" disabled="disabled" type="hidden" />
+                        <input id="transfer_prog" disabled="disabled" type="hidden" />
+                        <input id="recipients" type="hidden" name="recipients" />
+                        <input type="hidden" id="essai" placeholder="Email" />
+                        <h3 id="maxpoints" style="display: none;padding-top: 50px"></h3>
+                      
 
-                    <input type="hidden" id="essai" placeholder="Email" />
+                        <label id="reasonl" style="display: none;margin-top: 20px">Reason: </label>
+                        <select class="form-control" id="reason" style="display: none;">
+                          <option value="0">* select a reason *</option>
+                          @foreach($creditor as $w)
+                          @if( (strpos($w->name,'Birth') !== 0) && !(strpos($w->name,'Anniversary')) )
+                          <option value="{{$w->waysto_id}}" data-points="{{$w->allowed_points}}">{{$w->name}} </option>
+                          @endif
+                          @endforeach
+                        </select><br/>
+                        
+                     
+
+                    @if($canAwardBday)
+                    <label class="text-primary" style="margin-top: 0px"><input type="radio" class="awardees" name="awardees" id="bday" value="BDAY"> Search for Birthday Celebrators</label>
+                    <div id="bdays" style="margin: 20px 35px; display: none;">
+                      <p>Award <strong style="font-size: large;" class="text-danger" id="bdaymaxpt"> {{ $bdayPoints }} </strong> points to all employees celebrating their birthdays </p>
+                      <label class="pull-left">From: </label> 
+                        <select id="from_mos" class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select month *</option>
+                          @foreach($months as $m=>$k)
+                            <option value="{{$m+1}}">{{$k}} </option>
+                          @endforeach
+                        </select>
+                        <select id="from_day"  class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select day *</option>
+                          @for($i=1; $i<=31; $i++)
+                          <option value="{{$i}}">{{$i}}</option>
+                          @endfor
+                        </select>
+                      <div class="clearfix" style="margin:10px"></div>
+                      <label class="pull-left">To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                      <select id="to_mos" disabled="disabled" class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select month *</option>
+                          @foreach($months as $m=>$k)
+                            <option value="{{$m+1}}">{{$k}} </option>
+                          @endforeach
+                        </select>
+                        <select id="to_day" class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select day *</option>
+                          @for($i=1; $i<=31; $i++)
+                          <option value="{{$i}}">{{$i}}</option>
+                          @endfor
+                        </select>
+                        <div class="clearfix"></div>
+                        
+                        <!-- ******** collapsible box ********** -->
+                        <div class="box box-default collapsed-box" style="margin-top: 20px">
+                          <div class="box-header with-border">
+                            <h3 class="box-title text-primary"><strong class="text-orange" id="ct"></strong> Birthday Celebrator(s):
+                             </h3>
+                            <div class="box-tools pull-right">
+                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+                            <!-- /.box-tools -->
+                          </div>
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <table id="celebs" class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>Celebrator</th>
+                                  <th>Program</th>
+                                  <th>Birthday</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                
+                              </tbody>
+                              
+                            </table>
+                            <div class="clearfix"></div>
+                          
+
+
+                            
+                          </div>
+                          <!-- /.box-body -->
+                        </div>
+                       <!-- ******** end collapsible box ********** -->
+                        
+                    </div>
+                    
+                    @else
+                    <label title="Sorry, you don't have enough access to do this." style="margin-top: 0px"><input disabled="disabled" type="radio" class="awardees" name="awardees" id="bday" value="BDAY"> Search for Birthday Celebrators</label>
+                    
+
+                    @endif
+
+                    @if($canAwardAnniv)
                     <div class="clearfix"></div>
+                   <!--  <label class="text-primary" style="margin-top: 20px"><input type="radio" class="awardees" name="awardees" id="anniv" value="ANNIV"> Search by Work Anniversary</label>
+ -->
+                    @else
+                    <div class="clearfix"></div>
+                    <label title="Sorry, you don't have enough access to do this." style="margin-top: 20px"><input disabled="disabled" type="radio" class="awardees" name="awardees" id="anniv" value="ANNIV"> Search by Work Anniversary</label>
 
-                    <br/>
-                    <label>Reason: </label>
-                    <select class="form-control" id="reason">
-                      <option value="0">* select a reason *</option>
-                      @foreach($creditor as $w)
-                      <option value="{{$w->waysto_id}}" data-points="{{$w->allowed_points}}">{{$w->name}} </option>
-                      @endforeach
-                    </select>
-                    <br/>
+                    @endif
 
-                    <h3 id="maxpoints" style="display: none;"></h3>
+
+
+                    
 
 
                     
@@ -245,21 +336,24 @@ span.to-input {
       </div>    
     </div>
 
-		</div>
+    </div>
   </section>    
-	
+  
 
-	
+  
 @stop
 
 @section('footer-scripts')
 
-
+  <script src="{{URL::asset('public/js/moment.min.js')}}" ></script>
   <script src="public/js/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
 
-	<script>
-		window.selected_reward_id = 0;
-		$(function() {
+  <script>
+    window.selected_reward_id = 0;
+    $(function() {
+      $('#specified').hide();
+
+      var all_celebrator = [];
 
       var options = {
         url: "{{action('UserController@listAllActive')}}",
@@ -350,8 +444,83 @@ span.to-input {
 
       };
 
-      $('#transferto').easyAutocomplete(options);
-      
+      $('#transferto').easyAutocomplete(options); 
+
+
+      $('.awardees').on('click',function(){
+        var v = $(this).val();
+
+
+        switch(v){
+          case 'SPECIFIC': {
+                              $('#transferto,#transfertoi,#reason,#reasonl,#awardees').fadeIn();
+                              $('#reason').val('0');
+                              $('#bdays').fadeOut();
+
+                           }break;
+          case 'BDAY': {
+                          $('#transferto,#transfertoi,#reason,#reasonl,#maxpoints,#awardees,#pad').fadeOut();
+                          $('#bdays,#sendpts').fadeIn();
+                          $('#bdays select').on('change',function(){
+                            var m_from = $('#from_mos').find(':selected').val();
+                            var d_f = $('#from_day').find(':selected').val();
+                            var m_t = $('#to_mos').val(m_from);
+                            var d_t = $('#to_day').find(':selected').val();
+
+                            
+                            var d_from = (d_f==0) ? '1':d_f;
+                            var m_to = (m_t==0) ? m_from : m_t;
+                            var d_to = (d_t==0) ? '1' : d_t;
+
+                            
+
+                            console.log("m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to);
+                            // dt.ajax.url("{{ url('/birthdayCelebrators') }}?m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to).load();
+                            // dt.ajax.reload();
+                            var tbl = $('#holder tbody');
+                             $.ajax({
+                                      type:"GET",
+                                      url : "{{ url('/birthdayCelebrators') }}?m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to,
+                                      
+                                      success : function(response){
+                                                                //console.log(data);
+                                                                tbl.empty();
+                                                                $('#ct').html("");
+                                                                all_celebrator=[];
+                                                                $('#ct').html(response['data'].length);
+                                                                $.each(response['data'], function(k,v){
+                                                                  //console.log(v);
+                                                                  all_celebrator.push(v.id);
+
+                                                                  tbl.append('<tr> <td>'+(k+1)+') '+v.lastname+', '+v.firstname+'</td><td>'+v.program+'</td><td>'+ moment(v.birthday).format("MMM D")+'</td></tr>');
+
+                                                                });
+                                                                console.log(all_celebrator);
+
+
+                                                              
+
+                                                                
+                                      },
+                                      error: function(data){
+                                        
+                                                                $.notify("An error occured. Please try again later.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                        
+                                      }
+                                    });
+
+                          });
+
+                       }break;
+          case 'ANNIV': {
+
+                          $('#transferto,#transfertoi,#reason,#reasonl').fadeOut();
+
+                        }break;
+        }
+
+
+      });
 
       $('#reason').on('change', function(){
         var r = $(this).find(':selected').val();
@@ -403,12 +572,15 @@ span.to-input {
 
         else {
 
+           
+           $('#code').val($('#maxpoints strong').text());
            $('#receiver').html("");
            $.each(allexist,function(k,v){
                 var o = $(v); $('#receiver').append('<li>'+o.attr('data-emp')+'</li>');
                 
             });
-
+          $('#msg').html('You are about to award <strong id="amt" class="text-danger" style="font-size: large;"></strong> reward point(s) to the following employee(s):<br/>');
+          $('#amt').html(amt);
           $('#mytransfer').modal('show');
         }
 
@@ -416,70 +588,147 @@ span.to-input {
 
       $('#proceed').on('click',function(){
 
-        var points = $('#code').val();
+        
         
         var allexist = $('#awardees span.email-ids'); //.attr('data-userid');
-        var recipients =  getAllRecipients(allexist);
+        
 
        
         var a = $('#allTransfers').attr('data-val');
         var pw = $('#pw').val();
+        var awardtype = $('.awardees:checked').val();
+       
 
         var _token = "{{ csrf_token() }}";
 
-        if(isNaN(points)) {
+        
 
-          $.notify("Sorry, you\'ve entered an Invalid Value.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-          return false;
 
-        }
+           switch(awardtype)
+           {
 
-    
+            case 'SPECIFIC': { 
 
-        else{
+                                var points = $('#code').val();
+                                if(isNaN(points)) {
 
-          $.ajax({
-            type:"POST",
-            url : "{{ url('/grantRewardPoints') }}",
-            data : {
-                      'points' : points,
-                      'recipients': recipients,
-                      'waysto': $('#reason').find(':selected').val(),
-                      'notes': $('#notes').val(),
-                      'pw' : pw,
-                      '_token' : _token
+                                  $.notify("Sorry, you\'ve entered an Invalid Value.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                  return false;
 
-            },
-            success : function(data){
-                                      console.log(data);
+                                }else 
+                                {
+                                  var recipients =  getAllRecipients(allexist);
+                                  $.ajax({
+                                          type:"POST",
+                                          url : "{{ url('/grantRewardPoints') }}",
+                                          data : {
+                                                    'points' : points,
+                                                    'awardtype': awardtype,
+                                                    'recipients': recipients,
+                                                    'waysto': $('#reason').find(':selected').val(),
+                                                    'notes': $('#notes').val(),
+                                                    'pw' : pw,
+                                                    '_token' : _token
 
-                                      if (data.success == '1')
-                                      {
-                                        
-                                        $.notify(points+ " points successfully transferred to "+data.total+" employee(s)",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                                        $('#go').attr('disabled',true);
+                                          },
+                                          success : function(data){
+                                                                    console.log(data);
 
-                                        $('#sendpts').fadeOut(); $('#makenew').fadeIn();
+                                                                    if (data.success == '1')
+                                                                    {
+                                                                      
+                                                                      $.notify(points+ " points successfully transferred to "+data.total+" employee(s)",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                                                      $('#go').attr('disabled',true);
 
-                                      }else {
+                                                                      $('#sendpts').fadeOut(); $('#makenew').fadeIn();
 
-                                        $.notify("Unable to award points. Please try again later.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                                                    }else {
 
-                                      }
-                                      
+                                                                      $.notify("Unable to award points. Please try again later.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
 
-                                      
-            },
-            error: function(data){
-              
-                                      $.notify("An error occured. Please try again later.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-              
-            }
-          });
-          
-          
+                                                                    }
+                                                                    
 
-        }
+                                                                    
+                                          },
+                                          error: function(data){
+                                            
+                                                                    $.notify("An error occured. Please try again later.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                            
+                                          }
+                                        });
+
+                                }
+                                
+                              }break;
+
+            case 'BDAY': {
+                            var points = $('#amt').attr('data-amt');
+                            console.log(points);
+                            if(isNaN(points)) {
+
+                              $.notify("Sorry, you\'ve entered an Invalid Value.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                              return false;
+
+                            }else 
+                            {
+                              var recipients =  all_celebrator;
+                              $.ajax({
+                                          type:"POST",
+                                          url : "{{ url('/grantRewardPoints') }}",
+                                          data : {
+                                                    'points' : points,
+                                                    'awardtype': awardtype,
+                                                    'recipients': recipients,
+                                                    
+                                                    'notes': $('#notes').val(),
+                                                    'pw' : pw,
+                                                    '_token' : _token
+
+                                          },
+                                          success : function(data){
+                                                                    console.log(data);
+
+                                                                    if (data.success == '1')
+                                                                    {
+                                                                      if(data.already)
+                                                                        $.notify(points+ " birthday reward points successfully transferred to "+data.total+" employee(s).\nThe other ("+data.already.length+") employees already had existing Birthday Reward points.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                                                      else
+                                                                        $.notify(points+ " birthday reward points successfully transferred to "+data.total+" employee(s)",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+
+                                                                      $('#go').attr('disabled',true);
+
+                                                                      $('#sendpts').fadeOut(); $('#makenew').fadeIn();
+
+                                                                    }else {
+
+                                                                      $.notify("Unable to send birthday reward points. Please try again later.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+
+                                                                    }
+                                                                    
+
+                                                                    
+                                          },
+                                          error: function(data){
+                                            
+                                                                    $.notify("An error occured. Please try again later.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                            
+                                          }
+                                        });
+                              
+                              $('#sendpts').fadeOut(); $('#makenew').fadeIn();
+                            
+                            }
+
+                            
+
+
+                        }break;
+           }
+
+  
+
+        
 
 
         
@@ -490,33 +739,72 @@ span.to-input {
 
       $('#sendpts').on('click',function(){
 
-        var allexist = $('#awardees span.email-ids'); //.attr('data-userid');
-        var allReceiver =  getAllRecipients(allexist);
-        var reason = $('#reason').find(':selected').val();
+        // *** check mo muna anong type of award
+        var awardType = $('.awardees:checked').val();
+        switch(awardType){
+          case 'BDAY': { 
+                          var m_f = $('#from_mos').find(':selected').val();
+                          var d_f = $('#from_day').find(':selected').val();
+                          var m_t = $('#to_mos').find(':selected').val();
+                          var d_t = $('#to_day').find(':selected').val();
 
-        if(allReceiver.length == 0) {
-          $.notify("Please specify the receiver(s) of reward points.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-          return false;
-        }
-        else if(reason==0) 
-        {
-          $.notify("Please indicate the reason for awarding reward points.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-          return false;
+                          console.log('array:');
+                          console.log(all_celebrator);
+                          if(m_f==0 || d_f==0) {
+                            $.notify("Please indicate awardee's date of birth.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
+                          }else if(all_celebrator.length == 0){
+                            $.notify("No employees based on that query. Please try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
 
-        }
-        else {
+                          }else {
 
-          $('#code').val($('#maxpoints strong').text());
-          $('#receiver').html("");
-          $.each(allexist,function(k,v){
-                var o = $(v); $('#receiver').append('<li>'+o.attr('data-emp')+'</li>');
-                
-            });
-           $('#amt').html($('#maxpoints strong').text()); $('#mytransfer').modal('show');
+                                $('#code').val($('#bdaymaxpt').text());
+                                $('#receiver').html("");
+                                $('#msg').html('You are about to award <strong id="amt" data-amt="'+$('#bdaymaxpt').text()+'" class="text-danger" style="font-size: large;"></strong> reward point(s) to <strong class="text-success">'+all_celebrator.length+' birthday celebrator(s)</strong><br/>');
+                                $('#amt').html($('#bdaymaxpt').text()); $('#mytransfer').modal('show');
+
+                          }
+
+                       }break;
+          case 'SPECIFIC': { 
+
+                              var allexist = $('#awardees span.email-ids'); //.attr('data-userid');
+                              var allReceiver =  getAllRecipients(allexist);
+                              var reason = $('#reason').find(':selected').val();
+
+                              if(allReceiver.length == 0) {
+                                $.notify("Please specify the receiver(s) of reward points.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                return false;
+                              }
+                              else if(reason==0) 
+                              {
+                                $.notify("Please indicate the reason for awarding reward points.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                return false;
+
+                              }
+                              else {
+
+                                $('#code').val($('#maxpoints strong').text());
+                                $('#receiver').html("");
+                                $.each(allexist,function(k,v){
+                                      var o = $(v); $('#receiver').append('<li>'+o.attr('data-emp')+'</li>');
+                                      
+                                  });
+                                 $('#msg').html("");
+                                 $('#msg').html('You are about to award <strong id="amt" class="text-danger" style="font-size: large;"></strong> reward point(s) to the following employee(s):<br/>');
+                                 $('#amt').html($('#maxpoints strong').text()); $('#mytransfer').modal('show');
+                              }
+
+                           }break;
         }
+
+        
 
 
       });
+
+      
+
+
 
 
       let data = [
@@ -546,8 +834,8 @@ span.to-input {
   
 
 
-			
-		});
+      
+    });
 
 
 
@@ -620,5 +908,5 @@ span.to-input {
 
 })(jQuery);
 
-	</script>
+  </script>
 @stop

@@ -881,6 +881,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
           'as'=> 'user.deleteThisUser',
           'uses'=>'UserController@deleteThisUser') );
 
+     Route::post('/user/updateBday/{id}', array(
+          'as'=> 'user.updateBday',
+          'uses'=>'UserController@updateBday') );
+
 
      Route::post('/user/grantAccess', array(
           'as'=> 'user.grantAccess',
@@ -912,6 +916,17 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'getAllFloatingUsers',
       'uses'=>'UserController@getAllFloatingUsers') );
 
+
+     Route::get('/getAllPendingBdays', array(
+      'as'=> 'getAllPendingBdays',
+      'uses'=>'UserController@getAllPendingBdays') );
+
+     Route::get('/birthdayCelebrators', array(
+      'as'=> 'birthdayCelebrators',
+      'uses'=>'UserController@birthdayCelebrators') );
+
+
+
      Route::get('/listAllActive', array(
       'as'=> 'listAllActive',
       'uses'=>'UserController@listAllActive') );
@@ -924,6 +939,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::get('/floating', array(
       'as'=> 'floating',
       'uses'=>'UserController@index_floating') );
+
+      Route::get('/pendings', array(
+      'as'=> 'pendings',
+      'uses'=>'UserController@index_pendings') );
 
 
      Route::get('/editUser/{id}', array(

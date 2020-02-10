@@ -54,6 +54,7 @@ use OAMPI_Eval\Reward_Transfers;
 use OAMPI_Eval\Reward_Award;
 use OAMPI_Eval\Reward_Creditor;
 use OAMPI_Eval\Reward_Feedback;
+use OAMPI_Eval\Reward_Waysto;
 use OAMPI_Eval\Orders;
 use OAMPI_Eval\Coffeeshop;
 
@@ -217,6 +218,40 @@ class UserController extends Controller
       return view('people.employee-floating', compact( 'hasUserAccess'));
     }
 
+
+    public function index_pendings()
+    {
+       
+
+      $myCampaign = $this->user->campaign; 
+      $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
+      $canAccess = Role::where('label','ACCESS_EMPLOYEE_DIRECTORY')->first();
+      $specialAccess = User_SpecialAccess::where('user_id',$this->user->id)->where('role_id',$canAccess->id)->get();
+
+      $hr = Campaign::where('name','HR')->first();
+
+      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      (in_array($this->user->id, $hrTeam)) ? $isHR=true : $isHR=false;
+
+      if (!$isHR ){
+
+        if (count($specialAccess) <= 0) return view('access-denied');
+      } 
+
+      if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
+      return view('people.employee-pendings', compact( 'hasUserAccess'));
+    }
+
+
+
+    public function birthdayCelebrators()
+    {
+      $d = $this->getBdayCelebrators(Input::get('m_from'), Input::get('d_from'),Input::get('m_to'),Input::get('d_to'));
+
+      return response()->json(['data'=>$d]);
+      //return response()->json([ 'recordsTotal'=>count($d),'data'=>$d ]);
+    }
+
     
 
    public function claimedcard(Request $request)
@@ -365,7 +400,7 @@ class UserController extends Controller
 
     }
 
-     public function changePassword()
+    public function changePassword()
     {
         $user = $this->user;
         return view('people.changePassword', compact('user'));
@@ -868,6 +903,78 @@ class UserController extends Controller
         //return Datatables::collection($allUsers)->make(true);
 
     }
+
+
+    public function getAllPendingBdays(){
+
+        DB::connection()->disableQueryLog();
+
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canEditEmployees =  ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
+       
+
+        /* ------- faster method ----------- */
+
+        if($canEditEmployees){
+
+          $users = DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                            ])->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    
+                    leftJoin('positions','users.position_id','=','positions.id')->
+                    
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.birthday', 'users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','users.employeeNumber')->
+                    where('users.birthday','0000-00-00')->orderBy('users.lastname')->get();
+
+        } else {
+
+          $users = DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 16],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                            ])->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('positions','users.position_id','=','positions.id')->
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.birthday', 'users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','users.employeeNumber')->
+                    where('users.birthday','0000-00-00')->orderBy('users.lastname')->get();
+        }
+        
+
+        $month = 1;
+        $young = Carbon::now()->format('Y') - 16;
+
+        // $celebrators = DB::select( DB::raw("SELECT users.lastname,users.firstname,users.nickname,users.birthday,team.campaign_id FROM users INNER JOIN team ON team.user_id = users.id WHERE MONTH(users.birthday) = :month AND  users.status_id != 6 AND users.status_id != 7 AND users.status_id != 9  ORDER BY users.lastname ASC"), array(
+        //              'month' => $month,
+        //            ));
+
+        $superyoung =  DB::select( DB::raw("SELECT users.id, users.status_id, users.firstname,users.lastname,users.nickname,users.birthday,users.dateHired,positions.name as jobTitle, campaign.id as campID, campaign.name as program, users.employeeNumber FROM users INNER JOIN team ON team.user_id = users.id INNER JOIN campaign ON team.campaign_id = campaign.id INNER JOIN positions ON users.position_id = positions.id WHERE YEAR(users.birthday) >= :young AND  users.status_id != 6 AND users.status_id != 7 AND users.status_id != 9  ORDER BY users.lastname ASC"), array(
+                     'young' => $young,
+                   ));
+
+        $allpendings = array_merge($superyoung,$users);
+        //return $allpendings;
+        
+
+        return response()->json(['data'=>$allpendings]);
+
+         /* ------- faster method ----------- */        
+
+
+        
+        //return Datatables::collection($allUsers)->make(true);
+       
+    }
+
+
 
     public function getAllUsers(){
 
@@ -2446,6 +2553,12 @@ class UserController extends Controller
         // check first if user is a creditor
         $creditor = DB::table('reward_creditor')->where('reward_creditor.user_id',$this->user->id)->
                         join('reward_waysto','reward_creditor.waysto_id','=','reward_waysto.id')->get();
+        $canAwardBday =  (count(collect($creditor)->where('name','Birthday Rewards') ) > 0) ? true:false;
+        $bdayPoints = DB::table('reward_waysto')->where('name','Birthday Rewards')->first()->allowed_points;
+        $canAwardAnniv =  (count(collect($creditor)->where('name','Work Anniversary') ) > 0) ? true:false;
+        $annivPoints = DB::table('reward_waysto')->where('name','Work Anniversary')->first()->allowed_points;
+        $months=["January",'February','March','April','May','June','July','August','September','October','November','December'];
+       
 
         if (count($creditor) <= 0)
           return view('access-denied');
@@ -2493,6 +2606,11 @@ class UserController extends Controller
             'allTransfers'=>$allTransfers,
             'waysToEarn'=>$waysToEarn,
             'creditor'=>$creditor,
+            'canAwardAnniv'=>$canAwardAnniv,
+            'canAwardBday' => $canAwardBday,
+            'months'=>$months,
+            'bdayPoints'=>$bdayPoints,
+            'annivPoints'=>$annivPoints,
             'userID'=> $user_id
           ];
 
@@ -2636,6 +2754,7 @@ class UserController extends Controller
       }*/
       $coll = new Collection;
       $collstr ="";
+      $coll2 = new Collection;
       $now = Carbon::now('GMT+8');
 
       if ( !(Hash::check($request->pw, $this->user->password) )) {
@@ -2643,50 +2762,131 @@ class UserController extends Controller
       }
       else 
       {
-        foreach ($request->recipients as $r) {
+        switch ($request->awardtype) {
+          case 'SPECIFIC': {
 
-          $b = Point::where('idnumber',$r)->get();
+                              foreach ($request->recipients as $r) {
 
-          if (count($b) > 0){
-            $beginningBal = $b->first()->points;
+                                  $b = Point::where('idnumber',$r)->get();
 
-            $pt = Point::find($b->first()->id);
-            $pt->points += $request->points;
-            $pt->updated_at = $now->format('Y-m-d H:i:s');
-            $pt->save();
+                                  if (count($b) > 0){
+                                    $beginningBal = $b->first()->points;
 
-          }else {
-            $beginningBal = $this->initLoad;
-            $pt = new Point;
-            $pt->idnumber = $r;
-            $pt->points = $this->initLoad + $request->points;;
-            $pt->created_at = $now->format('Y-m-d H:i:s');
-            $pt->updated_at = $now->format('Y-m-d H:i:s');
-            $pt->save();
-          }
+                                    $pt = Point::find($b->first()->id);
+                                    $pt->points += $request->points;
+                                    $pt->updated_at = $now->format('Y-m-d H:i:s');
+                                    $pt->save();
+
+                                  }else {
+                                    $beginningBal = $this->initLoad;
+                                    $pt = new Point;
+                                    $pt->idnumber = $r;
+                                    $pt->points = $beginningBal;
+                                    $pt->created_at = $now->format('Y-m-d H:i:s');
+                                    $pt->updated_at = $now->format('Y-m-d H:i:s');
+                                    $pt->save();
+                                  }
 
 
 
-          $award = new Reward_Award;
-          $award->user_id = $r;
-          $award->waysto_id = $request->waysto;
-          $award->beginningBal = $beginningBal;
-          $award->points = $request->points;
-          $award->notes = $request->notes;
-          $award->awardedBy = $this->user->id;
-          $award->created_at = $now->format('Y-m-d H:i:s');
-          $award->updated_at = $now->format('Y-m-d H:i:s');
-          $award->save();
-          $coll->push($award);
-          $collstr .= $r.",";
+                                  $award = new Reward_Award;
+                                  $award->user_id = $r;
+                                  $award->waysto_id = $request->waysto;
+                                  $award->beginningBal = $beginningBal;
+                                  $award->points = $request->points;
+                                  $award->notes = $request->notes;
+                                  $award->awardedBy = $this->user->id;
+                                  $award->created_at = $now->format('Y-m-d H:i:s');
+                                  $award->updated_at = $now->format('Y-m-d H:i:s');
+                                  $award->save();
+                                  $coll->push($award);
+                                  $collstr .= $r.",";
+                                }
+
+                                if( \Auth::user()->id !== 564 ) {
+                                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                        fwrite($file, "-------------------\n Awarded ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                                        fclose($file);
+                                }
+
+          }break;
+
+          case 'BDAY': {
+
+                            foreach ($request->recipients as $r) {
+
+                                  
+
+                                  //*** check mo muna baka nabigyan na sya ng bday reward
+                                  $w = Reward_Waysto::where('name','Birthday Rewards')->first();
+                                  
+                                  $already = DB::select(DB::raw("SELECT reward_award.id, reward_award.user_id, reward_award.waysto_id, reward_award.created_at FROM reward_award WHERE reward_award.user_id = :u AND reward_award.waysto_id = :w AND YEAR(reward_award.created_at) = :y"),array(
+                                     'y' => date('Y'),
+                                     'u' => $r,
+                                     'w' => $w->id
+                                   ));
+
+                                  if (count($already) > 0){
+                                    $coll2->push($already);
+
+                                  }else
+                                  {
+                                    $b = Point::where('idnumber',$r)->get();
+
+                                    if (count($b) > 0){
+                                      $beginningBal = $b->first()->points;
+
+                                      $pt = Point::find($b->first()->id);
+                                      $pt->points += (int)$request->points;
+                                      $pt->updated_at = $now->format('Y-m-d H:i:s');
+                                      $pt->save();
+
+                                    }else {
+                                      $beginningBal = $this->initLoad;
+                                      $pt = new Point;
+                                      $pt->idnumber = $r;
+                                      $pt->points = $beginningBal;
+                                      $pt->created_at = $now->format('Y-m-d H:i:s');
+                                      $pt->updated_at = $now->format('Y-m-d H:i:s');
+                                      $pt->save();
+                                    }
+
+                                    $award = new Reward_Award;
+                                    $award->user_id = $r;
+                                    $award->waysto_id = Reward_Waysto::where('name','Birthday Rewards')->first()->id;
+                                    $award->beginningBal = $beginningBal;
+                                    $award->points = $request->points;
+                                    $award->notes = $request->notes;
+                                    $award->awardedBy = 1;
+                                    $award->created_at = $now->format('Y-m-d H:i:s');
+                                    $award->updated_at = $now->format('Y-m-d H:i:s');
+                                    $award->save();
+                                    
+                                    //$coll->push($award);
+                                    $coll->push($award);
+                                    $collstr .= $r.",";
+
+                                  }
+
+
+                                  
+                                  
+                                }
+
+                                if( \Auth::user()->id !== 564 ) {
+                                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                        fwrite($file, "-------------------\n Bday ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                                        fclose($file);
+                                }
+
+          }break;
+          
+          
         }
 
-        if( \Auth::user()->id !== 564 ) {
-              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Awarded ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                fclose($file);
-        }
-        return response()->json(['success'=>1,'awardees'=>$coll,'total'=>count($coll)]);
+
+        
+        return response()->json(['success'=>1,'awardees'=>$coll,'already'=>$coll2, 'total'=>count($coll)]);
 
       }
 
@@ -3569,6 +3769,26 @@ class UserController extends Controller
 
         return response()->json($team);
         //return "hello";
+
+    }
+
+    public function updateBday($id, Request $request)
+    {
+        $employee = User::find($id);
+        $employee->birthday = Carbon::parse($request->bmonth."/".$request->bdate."/".$request->byear)->format('Y-m-d');
+        $employee->push();
+
+        /* -------------- log updates made --------------------- */
+         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "\n-------------------\n". $employee->lastname .",". $employee->firstname." BDAY ". Carbon::now('GMT+8')->format('Y-m-d H:i'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+            fclose($file);
+        return redirect()->back();
+           
+
+        //return response()->json($employee);
+        //return "hello";
+
+
 
     }
 

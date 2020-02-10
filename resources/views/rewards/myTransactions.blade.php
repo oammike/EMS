@@ -207,7 +207,13 @@
                           @foreach($awardsReceived as $a)
                           <tr>
                             <td>{{date('Y-m-d h:i A', strtotime($a->created_at))}} </td>
+                            @if( strpos($a->reason,"Birthday") !== false)
+                            <td style="text-transform: uppercase;">Open Access BPO </td>
+                            @else
                             <td style="text-transform: uppercase;">{{$a->from_lname}}, {{$a->from_fname}} <em> "{{$a->from_nname}}"</em> </td>
+
+                            @endif
+                            
                             <td>{{$a->points}} </td>
                             <td><strong>{{$a->reason}}</strong><br/><em style="font-size: small;"> {!! $a->notes !!} </em></td>
                             

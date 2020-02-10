@@ -93,6 +93,7 @@
                                                   <li class="active"><a href="#tab_1" data-toggle="tab"><strong class="text-primary ">ACTIVE EMPLOYEES <span id="actives"></span> </strong></a></li>
                                                   <li><a href="{{action('UserController@index_inactive')}}" ><strong class="text-primary">INACTIVE EMPLOYEES <span id="inactives"></span></strong></a></li>
                                                   <li><a href="{{action('UserController@index_floating')}}" ><strong class="text-primary">FLOATING <span id="floating"></span></strong></a></li>
+                                                  <li><a href="{{action('UserController@index_pendings')}}" ><strong class="text-primary">w/ PENDING INFO <i class="fa fa-exclamation-triangle text-red"></i> <span id="pendings"></span></strong></a></li>
                                                    @if ($hasUserAccess) 
                                                     <a href="{{action('UserController@create')}} " class="btn btn-sm btn-primary  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
                                                    
