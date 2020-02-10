@@ -39,28 +39,35 @@
             <img src="../storage/uploads/rewards.png" class="pull-left" width="400" />
             <p>
               Open Access BPO wants to <strong>celebrate YOU!</strong><br/><br/>
-              To show our appreciation for all the awesome work you do, we are launching <strong class="text-primary">OPEN ACCESS BPO REWARDS</strong> this coming <strong class="text-orange">Monday, Feb 10, 2020</strong>.</p><br/><br/>
+              To show our appreciation for all the awesome work you do, we've launched <strong class="text-primary">OPEN ACCESS BPO REWARDS</strong>.</p><br/><br/>
 
             
 
             <p style="width: 60%" class="pull-right"><strong>EARN POINTS</strong><br/><br/>
 
-            - Through awesome performance and stellar team / individual metrics  
-            (attendance, retention, quality, productivity, etc. <em>Program heads to announce details soon!</em>)<br/>
-            - By participating and registering in company events<br/>
-            - Through point transfers from teammates and friends<br/><br/>
+            - Through awesome team and individual performance<br/>
+            - Through employee referral<br/>
+            - By having a perfect attendance<br/>
+            - By completing the LEAD training<br/>
+            - By participating in company events<br/>
+            - When you celebrate your work anniversary<br/>
+            - During your birthday<br/>
+            - When your team has the lowest quarterly attrition<br/>
+            - Via monthly free points from Open Access BPO depending on tenure<br/>
+            - Via point transfers from your coworkers<br/>
+            <br/><br/>
 
-            Your points will be stored in and are redeemable through your very own OA Rewards card. 
-            Visit your EMS account to check and transfer your accumulated points and to redeem rewards.<br/><br/><br/></p>
+            Visit the Open Access BPO Rewards Central today to check your accumulated points or transfer them to your coworkers.
+<br/><br/><br/></p>
 
             <div class="clearfix"></div>
 
 
             <div style="background:url('../storage/uploads/Coffee_making_rewards.jpg')top left no-repeat #000; color:#fff; width: 100%; padding:50px 50px 200px 50px; margin-bottom: 30px;font-size: larger;text-shadow: 2px 2px #333"> 
               <p style="width: 50%; left:45%;position: relative;background: rgba(0, 0, 0, 0.4);padding: 20px"><br/><strong>REDEEM FUN REWARDS</strong><br/><br/>
-                Our online catalog showcases the goodies you can redeem through your earned points.  Visit our EMS portal to find out what hot items are up for grabs. Learn more about our Rewards Program Mechanics and soon-to-grow merch catalog!<br/><br/>
+                Use your points to redeem rewards online or with your Open Access BPO Rewards card. <br/><br/>Just visit the Open Access BPO Rewards Central to find out what hot items are up for grabs. Learn more about our Rewards Program Mechanics and merch catalog!
+<br/><br/>
 
-                The more points you earn, the more exciting rewards you can redeem!<br/><br/>
               </p>
               <div class="clearfix"></div>
             </div>
@@ -68,7 +75,7 @@
             
             <div class="clearfix"></div>
 
-            <div style="background: url('../storage/uploads/REWARDS_COFFEE.jpg')top left no-repeat; width:60%; padding:40px 40px 60px 40px; color:#fff;font-size: larger;text-shadow: 2px 2px #333" class="pull-left">
+            <div style="background: url('../storage/uploads/REWARDS_COFFEE.jpg')top left no-repeat; width:60%; padding:40px 40px 10px 40px; color:#fff;font-size: larger;text-shadow: 2px 2px #333" class="pull-left">
                 <p><strong>PERK UP WITH FREE DRINKS</strong><br/>
                     For starters, you can use your points to redeem any of our top-of-the-line brews freshly prepared for you by our very own barista: <br/><br/>
 
@@ -80,27 +87,34 @@
                   <li>Café Latte [Hazelnut / Vanilla / Caramel]</li>
                   <li>Hot Choco</li>
                 </ul>
-                <br/><br/>
-                These special handcrafted beverages are available for pick up Mondays to Fridays at the G2 Cafeteria, from 9:00 am to 5:30 pm (a later barista shift will be added and announced soon for our evening folks).</p>
+                <br/>
+                These special handcrafted beverages are available for pick up at the G2 Cafeteria from Mondays to Fridays, 9:00 AM to 5:30 PM. We’re working on adding a later barista shift soon for our evening folks.<br/><br/>
+                Each employee is entitled to order up to two (2) beverages per day.<br/><br/>
+                Limited cups are available for daily redemption, so order as early as you can!<br/><br/>
+                </strong>.
+</p>
             </div>
 
             <img src="../storage/uploads/Coffee_making_grp.jpg" class="pull-right" width="37%" />
             <img src="../storage/uploads/Coffee_making_stock.jpg" class="pull-right" width="37%" style="margin-top: 30px" />
 
             <div class="clearfix"></div>
+            <h3>Get a <strong class="text-orange">five-point discount</strong> when you <strong>bring your own non-spill tumbler!</h3>
 
-            <h2>ORDERING AND CLAIMING</h2>
+            <div class="clearfix"></div>
+
+            <h2 style="margin-top: 30px">ORDERING AND CLAIMING</h2>
             <p>There are two ways to place your orders:<br/>
                 1. On-site (G2 Cafeteria) by presenting your reward card to our barista or <br/>
                 2. Online at OPEN ACCESS REWARDS EMS Catalog</p>
  
             <h4>ONLINE ORDERING</h4>
-            <p>Our coffee menu is now available and may be viewed via the <a href="{{action('RewardsHomeController@rewards_catalog')}}">Open Access BPO Rewards Catalog </a>page.  Select your
-            coffee by clicking the Claim button and indicate pickup time (Glorietta site cafeteria).Online orders have a 15-minute
-            waiting period from the set pickup time and automatically credit the points.</p>
+            <p>Visit the <a href="{{action('RewardsHomeController@rewards_catalog')}}">Open Access BPO Rewards Central</a> to check out our  beverage menu. Select your drink by clicking the Claim button and indicating pickup time at our G2 cafeteria. <br/><br/>    
+            Online orders will automatically be deducted from your accumulated points. You will have 15 minutes to claim your drink from your set pickup time. You may lose your beverage and points when you miss your claiming window.</p>
              
             <h4>FOR OPEN ACCESS JAKA TEAMS</h4>
-            <p>You may order your coffee drinks online ahead of time and indicate your preferred pickup time in our G2 office Cafeteria .</p>
+            <p><a href="{{action('RewardsHomeController@rewards_catalog')}}">Order online</a> in advance to save time and have your beverage ready for pick up when you visit our G2 cafeteria. You may also redeem your beverage of choice by presenting your card when you swing by G2. For Jaka employees – your cards will be available soon! In the meantime, you can place your orders online and still enjoy your chosen beverage.
+</p>
              
             <h4>DESIGNATED REWARDS CARDS</h4>
             <p>The cards you will receive are your permanently assigned cards that contain your name and corresponding unique QR
