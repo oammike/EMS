@@ -424,7 +424,7 @@ class RewardsHomeController extends Controller
             
             $micro = microtime(true);                
             $current_points = $user->points->points - $cost;                
-            if($debug==false){
+            //if($debug==false){
             
 
               $items = array(
@@ -459,7 +459,7 @@ class RewardsHomeController extends Controller
               $printer -> feed(2);
               $printer -> cut();
               $printer -> close();
-            }
+            //}
             
 
             return response()->json([
