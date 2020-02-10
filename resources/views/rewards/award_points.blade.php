@@ -492,7 +492,8 @@ span.to-input {
                                                                   //console.log(v);
                                                                   all_celebrator.push(v.id);
 
-                                                                  tbl.append('<tr> <td>'+(k+1)+') '+v.lastname+', '+v.firstname+'</td><td>'+v.program+'</td><td>'+ moment(v.birthday).format("MMM D")+'</td></tr>');
+                                                                  tbl.append('<tr> <td>'+(k+1)+') '+v.lastname+', '+v.firstname+'</td><td>'+v.program+'</td><td>'+ moment(v.birthday, 'MM-DD-YYYY').format("MMM D")+'</td></tr>');
+                                                                  
 
                                                                 });
                                                                 console.log(all_celebrator);
