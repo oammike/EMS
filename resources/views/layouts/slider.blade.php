@@ -1,6 +1,92 @@
 
 
                    <div class="item active text-center" >
+                    <h3 class="text-primary"> OAMPI CLINIC Wellness Program  </h3>
+                    <img src="./storage/uploads/wellness2019.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the following activities of OAM Clinic's Wellness Event on <strong class="text-orange">February 11 and 12, 2020</strong> during your break time:</p>
+
+
+                    <h2 class="text-primary" style="font-size: small;">
+                    WHAT:    ﻿ OAM Clinic Wellness Program<br/>
+                    WHERE:  5TH FLR JAKA BLDG<br/>
+                    WHEN:    TUESDAY FEB. 11, 2020, 10AM- 7PM<br/><br/>
+
+                    WHAT:     OAM Clinic Wellness Program<br/>
+                    WHERE:  11TH FLR ADP BLDG<br/>
+                    WHEN:    WEDNESDAY FEB. 12, 2020, 10AM-7PM</h2>
+
+
+                      <h3>Activities:</h3><p class="text-left" style="padding-left: 50px;"><br/><br/>
+
+
+                      <strong>LENNY'S MASSAGE (Feb.11-12)</strong><br/>
+
+                                - Free Massage Therapy<br/>
+
+                                - Product Sampling of White Flower Oil<br/>
+
+                                - Product Sampling of Hot/Warm Compress Bag<br/>
+
+                                - Ear Candling and Soft Selling<br/><br/>
+
+
+
+                      <strong>BUSINESS INNOVATIVE GATEWAY INC. (Feb.11-12)</strong><br/>
+
+                                 -Product sampling (Health and wellness)<br/><br/>
+
+
+
+                      <strong>SLIMMERS WORLD (Feb.11-12)</strong><br/>
+
+                                -Body composition analysis and consultation<br/>
+
+                                -Membership Promos<br/><br/>
+
+
+
+                      <strong>FARMER AND BROWN HEALTHCARE DISTRIBUTORS INC.﻿ (Feb.11-12)</strong><br/>
+
+                                -Product sampling ( Morning power anti-hangover/anti-fatigue drinks)<br/><br/>
+
+
+
+                      <strong>WISE SPENDER (Feb.11-12)</strong><br/>
+
+                               -Product selling<br/><br/>
+
+
+
+                      <strong>BRIGHTMOVE CORP. (Feb.11 ONLY)</strong><br/>
+
+                             -Exercise Demo<br/>
+
+                             -Free Non cleansing and foot detox<br/>
+
+                             -Free body massage<br/>
+
+                             -Free foot reflex<br/><br/>
+
+                       
+
+                      <strong>MANILA NATURES LINK CORP. (Feb.12 ONLY)</strong><br/>
+
+                             -Product sampling (Malungai Life Oil)<br/><br/>
+
+
+
+                      <strong>YAKULT PHIL. INC. (Feb.12 ONLY)</strong><br/>
+
+                              -Product sampling and film showing<br/>
+
+                      </p>
+
+                    
+
+                  </div>
+
+                  <div class="item text-center" >
                     <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3>
                     <img src="./storage/uploads/corona.jpg" style="z-index: 2" />
 
