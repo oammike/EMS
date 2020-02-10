@@ -126,7 +126,7 @@
             <h4><br/>LOST OR DAMAGED CARDS</h4>
             <p>Please take care of your reward card.  Replacement for lost or damaged cards cost <strong>P150.00 each</strong>.</p>
 
-            <h4><br/>TRANSFER PONTS</h4>
+            <h4><br/>TRANSFER POINTS</h4>
             <p>Sharing is caring! You may share your earned points to your team mates and friends online via Rewards Central!</p>
 
             <p>We&#39;re working on expanding our rewards catalogue, so stay tuned for more cool stuff to pop up at our
