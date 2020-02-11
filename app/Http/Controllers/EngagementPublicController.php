@@ -115,7 +115,7 @@ class EngagementPublicController extends Controller
         // 			leftJoin('users','users.id','=','engagement_entry.user_id')->
         // 			select('users.firstname','users.lastname','engagement_entry.id as entryID','engagement_entryDetails.value')->get())->groupBy('entryID');
         
-        return $posts;
+        return response()->json(["posts"=>$posts]);
     }
 
    
