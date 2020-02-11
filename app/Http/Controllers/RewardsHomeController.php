@@ -662,7 +662,7 @@ class RewardsHomeController extends Controller
 
 
 
-                  if($debug==false){
+                  
                     $logo = EscposImage::load(base_path() . "/public/img/oam_logo.png", false);
                     $connector = new NetworkPrintConnector("172.22.18.200", 9100);
                     $printer = new Printer($connector);
@@ -693,7 +693,7 @@ class RewardsHomeController extends Controller
                     $order->status = "PRINTED";
                     $order->save();
 
-                  }
+                  
               
                 
                 /*
