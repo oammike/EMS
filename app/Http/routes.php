@@ -11,7 +11,9 @@
 |
 */
 
-
+Route::get('/getAllPosts/{id}', array(
+      'as'=> 'getAllPosts',
+      'uses'=>'EngagementPublicController@getAllPosts') );
 
 Route::auth();
 
@@ -1154,6 +1156,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     
     //USER-based reward actions
+
+
 
     Route::get('/initializeRewards/{floor_id}', array(
       'as'=> 'initializeRewards',

@@ -124,6 +124,21 @@ class EngagementController extends Controller
 
     }
 
+
+    public function getAllPosts($id)
+    {
+        // DB::select( DB::raw("SELECT users.id, users.status_id, users.firstname,users.lastname,users.nickname,DATE_FORMAT(users.birthday, '%m-%d-%Y')as birthday,users.dateHired,positions.name as jobTitle, campaign.id as campID, campaign.name as program, users.employeeNumber FROM users INNER JOIN team ON team.user_id = users.id INNER JOIN campaign ON team.campaign_id = campaign.id INNER JOIN positions ON users.position_id = positions.id WHERE MONTH(users.birthday) = :m AND DAY(users.birthday) >= :d AND DAY(users.birthday) <= :dt AND  users.status_id != 6 AND users.status_id != 7 AND users.status_id != 8 AND users.status_id != 9  ORDER BY birthday ASC"), array(
+        //              'm' => $m_from,
+        //              'd' => $d_from,
+        //              'dt' =>$d_to
+        //            ));
+
+        $post = DB::select( DB::raw("SELECT engagement.id as engagementID, engagement_elements.id as elementID, engagement_elements.label as elementLabel, engagement_entryItems.id as itemID, engagement_entryItems.label as entryLabel, engagement_entryItems.element_id as elementID, engagement_entryItems.ordering, engagement_entry.id as postID, engagement_entry.user_id as postedBy, engagement_entry.anonymous, engagement_entryDetails.value FROM engagement INNER JOIN engagement_entry ON engagement_entry.id = engagement.id INNER JOIN engagement_entryItems ON engagement_entryItems.engagement_id = engagement.id INNER JOIN engagement_entryDetails ON engagement_entryDetails.engagement_entryID = engagement_entry.id WHERE engagement.id = :id"), array(
+                     'id' => $id
+                   ));
+        return $post;
+    }
+
     public function like(Request $request)
     {
 
