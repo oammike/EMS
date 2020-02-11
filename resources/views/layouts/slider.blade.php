@@ -1,6 +1,16 @@
 
 
                    <div class="item active text-center" >
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/rewards_poster.jpg" style="z-index: 2" />
+
+                    <a class="btn btn-lg btn-success" href="{{action('UserController@rewards_about')}}" style="margin-top: 20px">Learn More!</a>
+
+                    
+
+                  </div>
+
+                  <div class="item text-center" >
                     <h3 class="text-primary"> OAMPI CLINIC Wellness Program  </h3>
                     <img src="./storage/uploads/wellness2019.jpg" style="z-index: 2" />
 
