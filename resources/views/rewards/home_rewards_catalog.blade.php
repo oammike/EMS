@@ -94,6 +94,8 @@
               <div class="box"  style="background:url('<?php echo url("/"); ?>/public/img/Merch_0.jpg')bottom right no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:50px">
 
               @for($i=1;$i<=11;$i++)
+
+              @if( $i != 3 && $i != 8)
               <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
                   <span class="product-title"><span style="font-size: larger;"> Merchandise [ {{$i}} ]</span> </span>
                   <span class="product-excerpt">Open Access merchandise {{$i}}</span>
@@ -111,6 +113,7 @@
                     </div>
                   </div>
                 </div>
+                @endif
               @endfor
               <div class="clearfix"></div>
 
