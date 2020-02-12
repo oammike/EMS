@@ -601,6 +601,9 @@ span.to-input {
        
 
         var _token = "{{ csrf_token() }}";
+        var points = $('#code').val();
+        console.log('points1');
+                                  console.log(points);
 
         
 
@@ -610,7 +613,7 @@ span.to-input {
 
             case 'SPECIFIC': { 
 
-                                var points = $('#code').val();
+                                var points = $('#amt').text();
                                 if(isNaN(points)) {
 
                                   $.notify("Sorry, you\'ve entered an Invalid Value.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
@@ -618,6 +621,9 @@ span.to-input {
 
                                 }else 
                                 {
+
+                                  console.log('points');
+                                  console.log(points);
                                   var recipients =  getAllRecipients(allexist);
                                   $.ajax({
                                           type:"POST",

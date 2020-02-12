@@ -2774,9 +2774,9 @@ class UserController extends Controller
                                     $beginningBal = $b->first()->points;
 
                                     $pt = Point::find($b->first()->id);
-                                    $pt->points += $request->points;
+                                    $pt->points += (int)$request->points;
                                     $pt->updated_at = $now->format('Y-m-d H:i:s');
-                                    $pt->save();
+                                    $pt->push();
 
                                   }else {
                                     $beginningBal = $this->initLoad;
