@@ -188,34 +188,7 @@ select:-webkit-autofill:focus {
 
 
              @if(!$fromNDY)
-              <!-- ************* TIMEKEEPING BACKUP ************ -->
-              <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                <div class="box-header with-border">
-                      <h3 class="box-title">Timekeeping</h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                       <h2 class="text-center text-primary"><span style="font-size: smaller;">{{$startToday->format('l M d, Y')}} </span> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
-                      <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p>
-                      
-                      <br/><br/>
-                      <p class="text-center">
-
-                        @if (!$alreadyLoggedIN)
-                          <a id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
-                        @endif
-                          <button id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
-                          <button type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
-                          <a id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
-                      </p>
-                    </div>
-              </div>
+             
 
               @endif
 
@@ -555,7 +528,7 @@ select:-webkit-autofill:focus {
    $(window).bind("load", function() {
 
       getNewNotifications();
-      startTime();
+      //startTime();
 
      // ********* temporarily disable memo EES ************** 
      // @if (!is_null($memo) && $notedMemo != true)
@@ -595,96 +568,7 @@ select:-webkit-autofill:focus {
 
 });
 
-   /*------------- TIMEKEEPING --------------*/
-   //QUORA
-   // MOUS
-   // AVA
-   // WORLDVENTURES
-   // OPS
-
-
-   function startTime() 
-   {
-    
-      var d = new Date();
-      var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-      var today = new Date(utc + (3600000*8));
-
-      
-      var h = today.getHours() > 12 ? today.getHours() - 12 : today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-
-      var am_pm = today.getHours() >= 12 ? "PM" : "AM";
-
-      m = checkTime(m);
-      s = checkTime(s);
-
-      document.getElementById('clock').innerHTML =
-      h + ":" + m + ":" + s + " " + am_pm
-      var t = setTimeout(startTime, 500);
-   }
-
-  function checkTime(i) {
-      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-      return i;
-  }
-
-
-   $('.timekeeping').on('click', function(){
-
-      var logtype_id = $(this).attr('data-timetype');
-      var btn = $(this);
-      var _token = "{{ csrf_token() }}";
-
-      var clocktime = $('#clock').text();
-      $.ajax({
-          url: "{{action('LogsController@saveDashboardLog')}}",
-          type:'POST',
-          data:{ 
-            'logtype_id': logtype_id,
-            'clocktime': clocktime,
-            '_token':_token
-          },
-
-          success: function(res){
-                  console.log(res);
-
-                  switch(logtype_id){
-                    case '1': {
-                                  $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-                                  btn.fadeOut("slow");
-                                } break;
-                    case '2': { 
-                                  $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-                                  btn.fadeOut("slow");
-
-                              }break;
-                    case '3': { 
-                                  $.notify("End Breaktime. \n\n",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-                                  btn.attr('disabled',true);
-                                  $('#btn_breakin').attr('disabled',false);
-
-                              }break;
-                    case '4': { 
-
-                              btn.attr("disabled",'disabled');
-                              $('#btn_breakout').attr('disabled',false);
-
-
-                              $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} ); }break;
-
-                  }
-                  
-                  
-          },
-          error: function(res){
-                $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left top',autoHideDelay:7000, clickToHide:true} );
-
-          }
-        }); 
-  });
-
+  
 
 
    /*----------------- MEMO ----------------*/
