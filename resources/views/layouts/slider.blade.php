@@ -1,6 +1,53 @@
 
 
-                   <div class="item active text-center" >
+                    <!-- BLOOD DONATION-->
+
+                <div class="item active  text-center" >
+                    
+                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>OAMPI Clinic 10<sup>th</sup> Blood Donation Drive</h3><br/><br/>
+                      <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                      <p style="padding: 5px 30px; margin-bottom: 0px">
+                      <h4>
+                      <strong>When:</strong> <span class="text-danger">Feb. 13, 2020 Thu </span><br/>
+                      Time: <span class="text-danger">9AM to 5PM</span><br/>
+                      <strong>Where:</strong> 5F Jaka Bldg. </h4><br/><br/></p>
+
+                      <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                      <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
+                      Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
+                      You can donate blood if you…<br/>
+                      - Are in good health<br/>
+                      - Are between 16 to 65 years old<br/>
+                      - Weigh at least 110 pounds (approximately 50kg)<br/>
+                      - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
+                      - Pass the physical and health history assessments.</p>
+
+
+                      <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left"><br/><br/>
+                      <strong>Screening:</strong> <br/><br/><br/>
+
+ 
+
+                      PRC Blood Services Facilities carefully screen potential donors. The screening guidelines are necessary to ensure that blood donation is safe for you and that it is safe for the person who will be receiving your blood.<br/><br/>
+
+
+
+                      In the screening process, you have to fill out a blood donation questionnaire form that includes direct questions about behaviors known to carry a higher risk of blood-borne infections—infections that are transmitted through the blood. A trained physician will be asking you about your medical/ health history, and a physical examination will be conducted—which includes checking your blood pressure, pulse and temperature. All of the information from this evaluation is kept strictly confidential.<br/><br/>
+
+
+
+                      During your blood donation screening procedure, a small sample of blood taken from a finger prick is used to check your hemoglobin level, the oxygen-carrying component of your blood. If your hemoglobin concentration is normal, and you've met all the other screening requirements, you can donate blood.<br/><br/>
+
+
+
+                      Q: Can a person who has tattoo,piercing, currently taking medication and with travel history still donate blood?<br/>
+
+                      A: Medication taken, travel history, tattoo and piercing to be assessed if qualified to donate.<br/>
+
+                      <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
+                </div>
+
+                <div class="item  text-center" >
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <img src="./storage/uploads/rewards_poster.jpg" style="z-index: 2" />
 
@@ -10,91 +57,7 @@
 
                   </div>
 
-                  <div class="item text-center" >
-                    <h3 class="text-primary"> OAMPI CLINIC Wellness Program  </h3>
-                    <img src="./storage/uploads/wellness2019.jpg" style="z-index: 2" />
-
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the following activities of OAM Clinic's Wellness Event on <strong class="text-orange">February 11 and 12, 2020</strong> during your break time:</p>
-
-
-                    <h2 class="text-primary" style="font-size: small;">
-                    WHAT:    ﻿ OAM Clinic Wellness Program<br/>
-                    WHERE:  5TH FLR JAKA BLDG<br/>
-                    WHEN:    TUESDAY FEB. 11, 2020, 10AM- 7PM<br/><br/>
-
-                    WHAT:     OAM Clinic Wellness Program<br/>
-                    WHERE:  11TH FLR ADP BLDG<br/>
-                    WHEN:    WEDNESDAY FEB. 12, 2020, 10AM-7PM</h2>
-
-
-                      <h3>Activities:</h3><p class="text-left" style="padding-left: 50px;"><br/><br/>
-
-
-                      <strong>LENNY'S MASSAGE (Feb.11-12)</strong><br/>
-
-                                - Free Massage Therapy<br/>
-
-                                - Product Sampling of White Flower Oil<br/>
-
-                                - Product Sampling of Hot/Warm Compress Bag<br/>
-
-                                - Ear Candling and Soft Selling<br/><br/>
-
-
-
-                      <strong>BUSINESS INNOVATIVE GATEWAY INC. (Feb.11-12)</strong><br/>
-
-                                 -Product sampling (Health and wellness)<br/><br/>
-
-
-
-                      <strong>SLIMMERS WORLD (Feb.11-12)</strong><br/>
-
-                                -Body composition analysis and consultation<br/>
-
-                                -Membership Promos<br/><br/>
-
-
-
-                      <strong>FARMER AND BROWN HEALTHCARE DISTRIBUTORS INC.﻿ (Feb.11-12)</strong><br/>
-
-                                -Product sampling ( Morning power anti-hangover/anti-fatigue drinks)<br/><br/>
-
-
-
-                      <strong>WISE SPENDER (Feb.11-12)</strong><br/>
-
-                               -Product selling<br/><br/>
-
-
-
-                      <strong>BRIGHTMOVE CORP. (Feb.11 ONLY)</strong><br/>
-
-                             -Exercise Demo<br/>
-
-                             -Free Non cleansing and foot detox<br/>
-
-                             -Free body massage<br/>
-
-                             -Free foot reflex<br/><br/>
-
-                       
-
-                      <strong>MANILA NATURES LINK CORP. (Feb.12 ONLY)</strong><br/>
-
-                             -Product sampling (Malungai Life Oil)<br/><br/>
-
-
-
-                      <strong>YAKULT PHIL. INC. (Feb.12 ONLY)</strong><br/>
-
-                              -Product sampling and film showing<br/>
-
-                      </p>
-
-                    
-
-                  </div>
+                  
 
                   <div class="item text-center" >
                     <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3>
@@ -105,6 +68,81 @@
                     
 
                   </div>
+
+
+                   @if(count($firstYears) >= 1)
+                            <!-- ******** FIRST YEAR ANNIV ******* -->
+                            <div class="item  text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <br/><br/>
+                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/><br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
+                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
+                                
+                                <div class="widget-user-image">
+                                   
+
+                                 
+
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                              </div>
+                            </div>
+                            @foreach($firstYears as $n)
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes --><br/>
+                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span><br/></h4>
+                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                                @if (is_null($n->hascoverphoto) )  
+                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                                
+                                @else
+                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                               @endif
+                                  
+                                  
+                                </div>
+                                
+                                   
+
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                  <div class="widget-user-image" style="left: 40%">
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="100" style="width: 170px" alt="User Avatar">
+                                  @else
+                                  <div class="widget-user-image">
+                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                  @endif
+
+                                </div>
+                                
+                                <div class="box-footer">
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )<br/><br/><br/>
+                                  @endif
+                                  @if (empty($n->nickname) || $n->nickname==" ")
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @else
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @endif
+
+                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                                  @if ($n->filename == null) 
+                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                                  @else
+                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                                  
+                                  @endif
+                                  <br/>
+                                </div>
+                              </div>
+                            </div>
+
+                            @endforeach
+
+                   @endif 
 
                  
 
@@ -284,79 +322,7 @@
 
                   </div>
 
-                    @if(count($firstYears) >= 1)
-                            <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item  text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/><br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
-                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-                            @foreach($firstYears as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes --><br/>
-                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span><br/></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <div class="widget-user-image" style="left: 40%">
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="100" style="width: 170px" alt="User Avatar">
-                                  @else
-                                  <div class="widget-user-image">
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )<br/><br/><br/>
-                                  @endif
-                                  @if (empty($n->nickname) || $n->nickname==" ")
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                @endif 
+               
 
                 
 
@@ -404,6 +370,79 @@
                                <br/><br/>   
                   </div>
 
+                   @if (count($newHires) >= 1)
+                        <!-- **** NEW HIRES ******************** -->
+                        <div class="item text-center">
+                          <div class="box box-widget widget-user">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <br/><br/>
+                            <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
+                              <br/><span style="font-size:smaller">of our growing family...</span></h4>
+                            
+                            <div class="widget-user-image">
+                               
+
+                             
+
+                            </div>
+                            <div class="box-footer">
+                            </div>
+                          </div>
+                        </div>
+
+                        @foreach($newHires as $n)
+                        <div class="item text-center">
+                          <div class="box box-widget widget-user">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
+                            <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                            @if (is_null($n->hascoverphoto) )  
+                             <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                            
+                            @else
+                            <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                           @endif
+                              
+                              
+                            </div>
+                            <div class="widget-user-image">
+                               
+
+                              @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                              <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
+                              @else
+                              <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                              @endif
+
+                            </div>
+                            
+                            <div class="box-footer">
+                              @if (empty($n->nickname))
+                                 <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}" target="_blank"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
+                             @else
+                                 <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}" target="_blank"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
+                             @endif
+
+                             <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                              @if ($n->filename == null) 
+                               <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                              @else
+                             <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                              
+                              @endif
+                              <br/>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        @endforeach
+
+
+                    @endif
+
                   
 
                   <div class="item text-center" style="background-color: #000" >
@@ -412,28 +451,7 @@
                       <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
                   </div>
 
-                  <div class="item  text-center" >
-                    <h2 class="text-primary">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">to our <span style="color:#666">Monochrome Party </span><br/><strong>Star of The Night </strong> winners!</span></h2>
-                      <img src="./storage/uploads/monochrome-516.jpg" width="100%" style="z-index: 2" />
-                      <h4 class="text-warning" style="text-transform: uppercase;"> Janelle De Guzman &amp; Adrian Uro <br/>
-                                                            
-                      </h4>
-                      <h5 class="text-center"></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
-                  </div>           
-
-
-                  <div class="item text-center">
-                    
-                      <h4 class="text-center">Monochrome <strong>Photo Booth</strong> pics!</h4>
-
-                      <img src="./storage/uploads/pb1.jpg" width="100%" style="z-index: 2" />
-                      
-                      <br/><br/>
-                      <a href="{{ action('HomeController@gallery',['a'=>22]) }}" class="btn btn-md btn-primary">
-                        <i class="fa fa-image"></i> Photobooth 1</a><br/><br/>
-                      <a href="{{ action('HomeController@gallery',['a'=>23]) }}" class="btn btn-md btn-primary">
-                        <i class="fa fa-image"></i> Photobooth 2</a><br/><br/>
-                  </div>
+                 
 
                  
 
@@ -510,78 +528,7 @@
 
                     </div>
 
-                    @if (count($newHires) >= 1)
-                        <!-- **** NEW HIRES ******************** -->
-                        <div class="item text-center">
-                          <div class="box box-widget widget-user">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <br/><br/>
-                            <h4 class="text-primary">A warm <span style="color:#f59c0f"> welcome</span> <br/><span style="color:#9c9fa0">to the newest members</span>
-                              <br/><span style="font-size:smaller">of our growing family...</span></h4>
-                            
-                            <div class="widget-user-image">
-                               
-
-                             
-
-                            </div>
-                            <div class="box-footer">
-                            </div>
-                          </div>
-                        </div>
-
-                        @foreach($newHires as $n)
-                        <div class="item text-center">
-                          <div class="box box-widget widget-user">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <h4 class="text-default">Welcome to<span class="text-primary"> Open Access!</span></h4>
-                            <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                            @if (is_null($n->hascoverphoto) )  
-                             <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                            
-                            @else
-                            <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                           @endif
-                              
-                              
-                            </div>
-                            <div class="widget-user-image">
-                               
-
-                              @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                              <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="80" alt="User Avatar">
-                              @else
-                              <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                              @endif
-
-                            </div>
-                            
-                            <div class="box-footer">
-                              @if (empty($n->nickname))
-                                 <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}" target="_blank"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3>
-                             @else
-                                 <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}" target="_blank"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3>
-                             @endif
-
-                             <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                              @if ($n->filename == null) 
-                               <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                              @else
-                             <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                              
-                              @endif
-                              <br/>
-                            </div>
-                          </div>
-                        </div>
-
-
-                        @endforeach
-
-
-                    @endif
+                   
 
 
 
@@ -736,6 +683,113 @@
 
 
 <?php /*
+ <div class="item  text-center" >
+                    <h2 class="text-primary">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">to our <span style="color:#666">Monochrome Party </span><br/><strong>Star of The Night </strong> winners!</span></h2>
+                      <img src="./storage/uploads/monochrome-516.jpg" width="100%" style="z-index: 2" />
+                      <h4 class="text-warning" style="text-transform: uppercase;"> Janelle De Guzman &amp; Adrian Uro <br/>
+                                                            
+                      </h4>
+                      <h5 class="text-center"></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
+                  </div>           
+
+
+                  <div class="item text-center">
+                    
+                      <h4 class="text-center">Monochrome <strong>Photo Booth</strong> pics!</h4>
+
+                      <img src="./storage/uploads/pb1.jpg" width="100%" style="z-index: 2" />
+                      
+                      <br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>22]) }}" class="btn btn-md btn-primary">
+                        <i class="fa fa-image"></i> Photobooth 1</a><br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>23]) }}" class="btn btn-md btn-primary">
+                        <i class="fa fa-image"></i> Photobooth 2</a><br/><br/>
+                  </div>
+<div class="item text-center" >
+                    <h3 class="text-primary"> OAMPI CLINIC Wellness Program  </h3>
+                    <img src="./storage/uploads/wellness2019.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>We invite everyone to participate in the following activities of OAM Clinic's Wellness Event on <strong class="text-orange">February 11 and 12, 2020</strong> during your break time:</p>
+
+
+                    <h2 class="text-primary" style="font-size: small;">
+                    WHAT:    ﻿ OAM Clinic Wellness Program<br/>
+                    WHERE:  5TH FLR JAKA BLDG<br/>
+                    WHEN:    TUESDAY FEB. 11, 2020, 10AM- 7PM<br/><br/>
+
+                    WHAT:     OAM Clinic Wellness Program<br/>
+                    WHERE:  11TH FLR ADP BLDG<br/>
+                    WHEN:    WEDNESDAY FEB. 12, 2020, 10AM-7PM</h2>
+
+
+                      <h3>Activities:</h3><p class="text-left" style="padding-left: 50px;"><br/><br/>
+
+
+                      <strong>LENNY'S MASSAGE (Feb.11-12)</strong><br/>
+
+                                - Free Massage Therapy<br/>
+
+                                - Product Sampling of White Flower Oil<br/>
+
+                                - Product Sampling of Hot/Warm Compress Bag<br/>
+
+                                - Ear Candling and Soft Selling<br/><br/>
+
+
+
+                      <strong>BUSINESS INNOVATIVE GATEWAY INC. (Feb.11-12)</strong><br/>
+
+                                 -Product sampling (Health and wellness)<br/><br/>
+
+
+
+                      <strong>SLIMMERS WORLD (Feb.11-12)</strong><br/>
+
+                                -Body composition analysis and consultation<br/>
+
+                                -Membership Promos<br/><br/>
+
+
+
+                      <strong>FARMER AND BROWN HEALTHCARE DISTRIBUTORS INC.﻿ (Feb.11-12)</strong><br/>
+
+                                -Product sampling ( Morning power anti-hangover/anti-fatigue drinks)<br/><br/>
+
+
+
+                      <strong>WISE SPENDER (Feb.11-12)</strong><br/>
+
+                               -Product selling<br/><br/>
+
+
+
+                      <strong>BRIGHTMOVE CORP. (Feb.11 ONLY)</strong><br/>
+
+                             -Exercise Demo<br/>
+
+                             -Free Non cleansing and foot detox<br/>
+
+                             -Free body massage<br/>
+
+                             -Free foot reflex<br/><br/>
+
+                       
+
+                      <strong>MANILA NATURES LINK CORP. (Feb.12 ONLY)</strong><br/>
+
+                             -Product sampling (Malungai Life Oil)<br/><br/>
+
+
+
+                      <strong>YAKULT PHIL. INC. (Feb.12 ONLY)</strong><br/>
+
+                              -Product sampling and film showing<br/>
+
+                      </p>
+
+                    
+
+                  </div>
  @for($r=1;$r<=12;$r++)
 
                   <div class="item text-center" >
@@ -1301,30 +1355,7 @@ and changing priorities</li>
                               <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/> #WeSpeakYourLanguage #OAforWellness #LetsGetPhysical #Zumba</small></a></div> <br/><br/><br/><br/>
                 </div>  
 
- <!-- BLOOD DONATION-->
 
-                <div class="item  text-center" >
-                    
-                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>Open Access 2nd Blood Donation Drive 2019</h3><br/><br/>
-                      <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                      <p style="padding: 5px 30px; margin-bottom: 0px">
-                      <h4>
-                      <strong>When:</strong> <span class="text-danger"> Oct. 16, 2019 Wed </span><br/>
-                      Time: <span class="text-danger"> 8AM-5PM</span><br/>
-                      <strong>Where:</strong>5F Jaka Bldg. and 11th Flr ( G2 ), </h4><br/><br/></p>
-
-                      <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                      <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
-                      Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
-                      You can donate blood if you…<br/>
-                      - Are in good health<br/>
-                      - Are between 16 to 65 years old<br/>
-                      - Weigh at least 110 pounds (approximately 50kg)<br/>
-                      - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
-                      - Pass the physical and health history assessments.</p>
-
-                      <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
-                </div>
 
 <!--OKTOBERFEST-->
 <div class="item  text-center" style="background-color: #fff" >
