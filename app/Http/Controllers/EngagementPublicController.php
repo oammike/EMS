@@ -76,7 +76,7 @@ class EngagementPublicController extends Controller
         $posts = new Collection;
         foreach ($allPosts as $p) {
 
-            (count($p) > 1) ? $img=url('/')."/storage/uploads".$p[1]->value : $img=null;
+            (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
             
             if ($p[0]->anonymous){
                 $posts->push(['id'=>$p[0]->entryID,'from'=>"anonymous",'img'=>$img,'message'=>$p[0]->value]);

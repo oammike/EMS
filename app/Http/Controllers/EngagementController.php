@@ -466,6 +466,7 @@ class EngagementController extends Controller
         $entry->user_id = $this->user->id;
         $entry->engagement_id = $request->engagement_id;
         $entry->anonymous = $request->anonymous;
+        $entry->disqualified = 0;
         $entry->created_at = $correct->format('Y-m-d H:i:s');
         $entry->updated_at = $correct->format('Y-m-d H:i:s');
         $entry->save();
