@@ -8,50 +8,146 @@
 	<link rel="stylesheet" type="text/css" href="http://172.17.0.2/project/freedomwall/wall/assets/css/style.css">
 	
 </head>
+
 <body translate="no" style="">
 	<div class="freedom-wall">
-		<ul data-postcount="{{count($posts)}}">
-			
+		<ul data-postcount="{{count($posts)}}" data-maxpost="<?php 
+		if(isset($_SESSION['postCount'])) {
+			echo $_SESSION['postCount'];
+		}
 
-					<?php $postCount=5000; $i=0; ?>
+		else {
+			echo '';
+		}
+		?>">
+			<?php
+				if (isset($_SESSION["firstPost"]) && isset($_SESSION["lastPost"]) && isset($_SESSION['postCount'])) {
+					$fp=$_SESSION["firstPost"];
+					$lp=$_SESSION["lastPost"];
+					$postCount=$_SESSION["postCount"];
+					$i=0;
 
-					@foreach($posts as $post)
+					foreach ($posts as $post) {
+						if ($post['id']>=$fp) {
+							if ($i++ == $postCount) break;
 
-					@if($post['disqualified'])
-					<!--do nothing-->
-					@else
+							if ($post['img'] !== "") {
+								$bg = 'background-image: url('.$post["img"].');';
+							}
 
-					<?php
-						($post['img'] !== "" && !empty($post['img'])) ?  $bg = 'background-image: url('.$post['img'].');' : $bg = "";
-						$length = 150;
+							else {
+								$bg = "";
+							}
+
+							$length = 150;
+							$end = "...";
+							$string = strip_tags($post['message']);
+
+						    if (strlen($string) > $length) {
+
+						        // truncate string
+						        $stringCut = substr($string, 0, $length);
+
+						        // make sure it ends in a word so assassinate doesn't become ass...
+						        $string = substr($stringCut, 0, strrpos($stringCut, ' ')).$end;
+						    }
+						    
+							?>
+							<li class="post-it" data-post="<?php echo $post['id']; ?>">
+								<a href="#"
+
+									<?php
+										if ($bg != null) {
+											echo "class='polaroid'";
+										}
+
+										else {
+											echo "style=$bg";
+										}
+									?>
+									>
+
+									<div class="img" style="<?php echo $bg; ?>">
+										
+									</div>
+									<p style="display: none;">
+										<?php
+											echo $post['message'];
+										?>
+									</p>
+									<p>
+										<?php
+											echo $string;
+										?>
+									</p>
+								</a>
+							</li>
+							<?php
+						}
+					}
+					session_destroy();
+				}
+
+				else {
+					$postCount=5000;
+
+					$i=0;
+
+					foreach ($posts as $post) {
+						if ($i++ == $postCount) break;
+
+						if ($post['img'] !== "" && !empty($post['img'])) {
+							$bg = 'background-image: url('.$post["img"].');';
+						}
+
+						else {
+							$bg = "";
+						}
+
+						$length = 100;
 						$end = "...";
+
 						$string = strip_tags($post['message']);
 
 					    if (strlen($string) > $length) {
 					        $stringCut = substr($string, 0, $length);
 					        $string = substr($stringCut, 0, strrpos($stringCut, ' ')).$end;
 					    }
-					?>
-					<li class="post-it" data-post="{{$post['id']}}">
-						<a href="#" style="{{$bg}}">
-							<p style="display: none;">
-								{{$post['message']}}
-								<br/><strong style="color: #333">From: {{$post['from']}} </strong>
-							</p>
-							<p>
+					    
+						?>
+						<li class="post-it" data-post="<?php echo $post['id']; ?>">
+							<a href="#"
+
 								<?php
-									echo $string;
+									if ($bg != null) {
+										echo "class='polaroid'";
+									}
+
+									else {
+										echo "style=$bg";
+									}
 								?>
-								<br/><strong style="font-size: x-small;color: #3ea6ff">From: {{$post['from']}} </strong>
-							</p>
-						</a>
-					</li>
-					@endif
+								>
 
-					@endforeach
-
-
-					
+								<div class="img" style="<?php echo $bg; ?>">
+									
+								</div>
+								<p style="display: none;">
+									<?php
+										echo $post['message'];
+									?>
+								</p>
+								<p>
+									<?php
+										echo $string;
+									?>
+								</p>
+							</a>
+						</li>
+						<?php
+					}
+				}
+			?>
 		</ul>
 		<div class="full-message">
 			<div class="message minimized">
@@ -100,4 +196,6 @@
 	<script type="text/javascript" src="http://172.17.0.2/project/freedomwall/wall/assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="http://172.17.0.2/project/freedomwall/wall/assets/js/script.js"></script>
 </body>
+
+
 </html>
