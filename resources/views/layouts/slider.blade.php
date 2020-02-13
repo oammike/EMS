@@ -11,52 +11,7 @@
 
                 </div>
 
-                <!-- BLOOD DONATION-->
-
-                <div class="item  text-center" >
-                    
-                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>OAMPI Clinic 10<sup>th</sup> Blood Donation Drive</h3><br/><br/>
-                      <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
-                      <p style="padding: 5px 30px; margin-bottom: 0px">
-                      <h4>
-                      <strong>When:</strong> <span class="text-danger">Feb. 13, 2020 Thu </span><br/>
-                      Time: <span class="text-danger">9AM to 5PM</span><br/>
-                      <strong>Where:</strong> 5F Jaka Bldg. </h4><br/><br/></p>
-
-                      <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
-                      <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
-                      Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
-                      You can donate blood if you…<br/>
-                      - Are in good health<br/>
-                      - Are between 16 to 65 years old<br/>
-                      - Weigh at least 110 pounds (approximately 50kg)<br/>
-                      - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
-                      - Pass the physical and health history assessments.</p>
-
-
-                      <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left"><br/><br/>
-                      <strong>Screening:</strong> <br/><br/><br/>
-
- 
-
-                      PRC Blood Services Facilities carefully screen potential donors. The screening guidelines are necessary to ensure that blood donation is safe for you and that it is safe for the person who will be receiving your blood.<br/><br/>
-
-
-
-                      In the screening process, you have to fill out a blood donation questionnaire form that includes direct questions about behaviors known to carry a higher risk of blood-borne infections—infections that are transmitted through the blood. A trained physician will be asking you about your medical/ health history, and a physical examination will be conducted—which includes checking your blood pressure, pulse and temperature. All of the information from this evaluation is kept strictly confidential.<br/><br/>
-
-
-
-                      During your blood donation screening procedure, a small sample of blood taken from a finger prick is used to check your hemoglobin level, the oxygen-carrying component of your blood. If your hemoglobin concentration is normal, and you've met all the other screening requirements, you can donate blood.<br/><br/>
-
-
-
-                      Q: Can a person who has tattoo,piercing, currently taking medication and with travel history still donate blood?<br/>
-
-                      A: Medication taken, travel history, tattoo and piercing to be assessed if qualified to donate.<br/>
-
-                      <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
-                </div>
+                
 
                 <div class="item  text-center" >
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
@@ -694,6 +649,52 @@
 
 
 <?php /*
+<!-- BLOOD DONATION-->
+
+                <div class="item  text-center" >
+                    
+                     <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>OAMPI Clinic 10<sup>th</sup> Blood Donation Drive</h3><br/><br/>
+                      <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
+                      <p style="padding: 5px 30px; margin-bottom: 0px">
+                      <h4>
+                      <strong>When:</strong> <span class="text-danger">Feb. 13, 2020 Thu </span><br/>
+                      Time: <span class="text-danger">9AM to 5PM</span><br/>
+                      <strong>Where:</strong> 5F Jaka Bldg. </h4><br/><br/></p>
+
+                      <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left">
+                      <span style="font-size: x-large;"> Basic Requirements:</span><br/><br/>
+                      Blood donation helps save lives. Find out if you're eligible to donate blood and what to expect if you decide to donate.<br/><br/>
+                      You can donate blood if you…<br/>
+                      - Are in good health<br/>
+                      - Are between 16 to 65 years old<br/>
+                      - Weigh at least 110 pounds (approximately 50kg)<br/>
+                      - Have a blood pressure between Systolic: 90-140mmHg,Diastolic: 60-100mmHg; and<br/>
+                      - Pass the physical and health history assessments.</p>
+
+
+                      <p style="padding: 5px 30px; margin-bottom: 0px;" class="text-left"><br/><br/>
+                      <strong>Screening:</strong> <br/><br/><br/>
+
+ 
+
+                      PRC Blood Services Facilities carefully screen potential donors. The screening guidelines are necessary to ensure that blood donation is safe for you and that it is safe for the person who will be receiving your blood.<br/><br/>
+
+
+
+                      In the screening process, you have to fill out a blood donation questionnaire form that includes direct questions about behaviors known to carry a higher risk of blood-borne infections—infections that are transmitted through the blood. A trained physician will be asking you about your medical/ health history, and a physical examination will be conducted—which includes checking your blood pressure, pulse and temperature. All of the information from this evaluation is kept strictly confidential.<br/><br/>
+
+
+
+                      During your blood donation screening procedure, a small sample of blood taken from a finger prick is used to check your hemoglobin level, the oxygen-carrying component of your blood. If your hemoglobin concentration is normal, and you've met all the other screening requirements, you can donate blood.<br/><br/>
+
+
+
+                      Q: Can a person who has tattoo,piercing, currently taking medication and with travel history still donate blood?<br/>
+
+                      A: Medication taken, travel history, tattoo and piercing to be assessed if qualified to donate.<br/>
+
+                      <h5 class="text-primary"> Every volunteer donor will be given a BLOOD DONOR CARD during the event. This card may be used as a record of donation. However, this card does not exempt the holder from paying the processing fee. This is intended to cover the cost of the reagents an operating expenses used to collect and screen all donated blood for infectious disease</h5><br/><br/><br/><br/>
+                </div>
  <div class="item  text-center" >
                     <h2 class="text-primary">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">to our <span style="color:#666">Monochrome Party </span><br/><strong>Star of The Night </strong> winners!</span></h2>
                       <img src="./storage/uploads/monochrome-516.jpg" width="100%" style="z-index: 2" />
