@@ -27,6 +27,7 @@ use OAMPI_Eval\Engagement_ReplyLikes;
 use OAMPI_Eval\Engagement_Entry;
 use OAMPI_Eval\Engagement_Vote;
 use OAMPI_Eval\Engagement_Trigger;
+use OAMPI_Eval\Engagement_Flags;
 use OAMPI_Eval\Engagement_EntryTrigger;
 use OAMPI_Eval\Engagement_EntryDetails;
 use OAMPI_Eval\Cutoff;
@@ -234,6 +235,27 @@ class EngagementController extends Controller
                                     fwrite($file, "-------------------\n Reply on [".$request->comment_id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
         return response()->json($comment); 
+    }
+
+    public function reportEntry(Request $request)
+    {
+        $report = new Engagement_Flags;
+        $report->user_id = $this->user->id;
+        $report->engagement_entryID = $request->entry_id;
+        $report->reason = $request->reason;
+        $report->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+        $report->save();
+        $correct = Carbon::now('GMT+8');
+
+        if($this->user->id !== 564 )  //VALENTINES
+        {
+            $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Reported_ValNote by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+        }
+
+        return response()->json(['success'=>1, 'report'=>$report]);
+
     }
 
 

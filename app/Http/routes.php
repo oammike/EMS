@@ -209,6 +209,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.disqualify',
       'uses'=>'EngagementController@disqualify') );
 
+    Route::post('/employeeEngagement/report', array(
+      'as'=> 'employeeEngagement.report',
+      'uses'=>'EngagementController@reportEntry') );
+
     Route::get('/employeeEngagement/{id}/wall', array(
       'as'=> 'employeeEngagement.wall',
       'uses'=>'EngagementController@wall') );

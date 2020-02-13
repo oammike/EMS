@@ -172,7 +172,7 @@
 		<div class="flagged">
 			<label>
 				<span>Reason: </span>
-				<textarea name="flagReason" placeholder="State Your Reason Here.."></textarea>
+				<textarea id="flagReason" name="flagReason" placeholder="Indicate reason for flagging this post as inappropriate"></textarea>
 				<button type="button" id="submitReason">
 					Submit <i class="fas fa-angle-right"></i>
 				</button>
@@ -199,9 +199,61 @@
 	<script type="text/javascript" src="http://172.17.0.2/project/freedomwall/wall/assets/js/script.js"></script>
 
 	<script type="text/javascript">
+
+		 $(function () {
+   'use strict';
+
+
+    $('#submitReason').on('click',function()
+    {
+      var _token = "{{ csrf_token() }}";
+      var entry_id = $('.flag').attr('data-messageid');
+
+      
+
+
+       $.ajax({
+
+                  url:"{{action('EngagementController@reportEntry')}}",
+                  type:'POST',
+                  data:{
+
+                    'reason': $('#flagReason').val(),
+                    'entry_id': entry_id,
+                    _token: _token
+
+                  },
+                  error: function(response)
+                  { console.log("Error reporting note: ");
+                    console.log(response);
+                    alert('Error reporting note');
+                    return false;
+                  },
+                  success: function(response)
+                  {
+                    console.log(response);
+                    // $.notify("Entry updated. \nThank you for participating.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                    // $('#saveTrigger').fadeOut();$('#editTrigger').fadeIn();
+                    //alert('Thank you. Our moderators will review your reported concerns.');
+                    window.location.reload(true);
+
+
+                  }
+
+            });
+      
+
+    });
+
+      
+      
+      
+   });
+
+   
 		
 
-		
+
 	</script>
 </body>
 
