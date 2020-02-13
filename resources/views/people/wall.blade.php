@@ -16,6 +16,11 @@
 					<?php $postCount=5000; $i=0; ?>
 
 					@foreach($posts as $post)
+
+					@if($post['disqualified'])
+					<!--do nothing-->
+					@else
+
 					<?php
 						($post['img'] !== "" && !empty($post['img'])) ?  $bg = 'background-image: url('.$post['img'].');' : $bg = "";
 						$length = 150;
@@ -41,6 +46,8 @@
 							</p>
 						</a>
 					</li>
+					@endif
+
 					@endforeach
 
 

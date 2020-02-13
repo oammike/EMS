@@ -1,8 +1,19 @@
 
 
-                    <!-- BLOOD DONATION-->
+                <div class="item active text-center" >
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/thankyou_card.jpg" style="z-index: 2" />
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Congratulations to us! We raised a total of P45,000 in cash donations. And because of the company's price match, we were able to donate a grand total of P90,000 worth of goods and more to the Lipa Archdiocesan Social Action Commission's Malasakit Para sa Batangas initiative.<br/><br/>Thank you for your generosity in helping our brothers and sisters who were impacted by the Taal volcano eruption.</p>
 
-                <div class="item active  text-center" >
+                    
+
+                    
+
+                </div>
+
+                <!-- BLOOD DONATION-->
+
+                <div class="item  text-center" >
                     
                      <p style="padding: 5px 30px; margin-bottom: 0px"><h3 class="text-orange"><span style="font-size: smaller;" class="text-primary">What: </span>OAMPI Clinic 10<sup>th</sup> Blood Donation Drive</h3><br/><br/>
                       <img src="./storage/uploads/blooddonation.jpg" style="z-index: 2" width="100%" /><br/><br/>
@@ -55,7 +66,7 @@
 
                     
 
-                  </div>
+                </div>
 
                   
 

@@ -788,7 +788,7 @@ class EngagementController extends Controller
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     leftJoin('users','users.id','=','engagement_entry.user_id')->
-                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value')->get();
+                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified')->get(); 
                     //'engagement_entryItems.label','engagement_entryItems.ordering',
 
         $allPosts = collect($post)->groupBy('entryID');
@@ -798,13 +798,13 @@ class EngagementController extends Controller
             (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
             
             if ($p[0]->anonymous){
-                $posts->push(['id'=>$p[0]->entryID,'from'=>"anonymous",'img'=>$img,'message'=>$p[0]->value]);
+                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 'from'=>"anonymous",'img'=>$img,'message'=>$p[0]->value]);
 
             }else
             {
                 ($p[0]->nickname) ? $from = $p[0]->nickname." ".$p[0]->lastname : $p[0]->firstname." ".$p[0]->lastname;
 
-                $posts->push(['id'=>$p[0]->entryID,'from'=>$from,'img'=>$img,'message'=>$p[0]->value]);
+                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 'from'=>$from,'img'=>$img,'message'=>$p[0]->value]);
 
             }
         }
