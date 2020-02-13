@@ -74,11 +74,12 @@
 										<?php
 											echo $post['message'];
 										?>
+										<br/><strong style="color:#3ea6ff; font-size: x-small;">From: {{$post['from']}}</strong>
 									</p>
 									<p>
 										<?php
 											echo $string;
-										?>
+										?><br/><strong style="color:#3ea6ff; font-size: x-small;">From: {{$post['from']}}</strong>
 									</p>
 								</a>
 							</li>
@@ -136,11 +137,12 @@
 									<?php
 										echo $post['message'];
 									?>
+									<br/><strong style="color:#3ea6ff; font-size: x-small;">From: {{$post['from']}}</strong>
 								</p>
 								<p>
 									<?php
 										echo $string;
-									?>
+									?><br/><strong style="color:#3ea6ff; font-size: x-small;">From: {{$post['from']}}</strong>
 								</p>
 							</a>
 						</li>
