@@ -1,6 +1,19 @@
 
 
-                <div class="item active text-center" >
+                 <div class="item active text-center" >
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/whos_valentine.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',2)}}"><i class="fa fa-heart"></i> Post your Valentine messages </a>
+                    <a class="btn btn-md btn-primary" href="{{action('EngagementController@show',2)}}"><i class="fa fa-th-large"></i> Check our Valentine Wall! </a><br /><br/>
+
+                    
+
+                    
+
+                </div>
+
+                <div class="item text-center" >
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <img src="./storage/uploads/thankyou_card.jpg" style="z-index: 2" />
                     <p class="text-left" style="padding-left: 50px;"><br/><br/>Congratulations to us! We raised a total of P45,000 in cash donations. And because of the company's price match, we were able to donate a grand total of P90,000 worth of goods and more to the Lipa Archdiocesan Social Action Commission's Malasakit Para sa Batangas initiative.<br/><br/>Thank you for your generosity in helping our brothers and sisters who were impacted by the Taal volcano eruption.</p>

@@ -70,7 +70,7 @@
 									<div class="img" style="<?php echo $bg; ?>">
 										
 									</div>
-									<p style="display: none;">
+									<p style="display: none; white-space:pre-wrap;">
 										<?php
 											echo $post['message'];
 										?>
@@ -133,7 +133,7 @@
 								<div class="img" style="<?php echo $bg; ?>">
 									
 								</div>
-								<p style="display: none;">
+								<p style="display: none; white-space:pre-wrap;"">
 									<?php
 										echo $post['message'];
 									?>

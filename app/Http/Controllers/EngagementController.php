@@ -113,6 +113,11 @@ class EngagementController extends Controller
     {
         $vote = Engagement_Entry::find($id);
         $vote->delete();
+         if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n Delete Valentine on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+              }
         return redirect()->action('EngagementController@show',2);
         //return $vote;
 
@@ -138,6 +143,11 @@ class EngagementController extends Controller
         $d = Engagement_Entry::find($request->entry_id);
         $d->disqualified = $request->q;
         $d->push();
+         if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n FlaggedNote on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+              }
         return response()->json(['success'=>1, 'entry'=>$d]);
 
     }
@@ -240,7 +250,7 @@ class EngagementController extends Controller
             return view('access-denied');
         }
 
-        $mods = [564,534,879,1717,1611];
+        $mods = [564,534,879,1717,1611,1398];
 
         in_array($this->user->id, $mods) ? $canModerate=1 : $canModerate=0;
         
@@ -386,7 +396,13 @@ class EngagementController extends Controller
                                 select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous')->get();
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
-                //return $userEntries;
+
+                if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n Check Vday2020 on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+                }
+
                 return view('people.empEngagement-show_valentines',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries'));
 
             }else
@@ -522,12 +538,12 @@ class EngagementController extends Controller
         $correct = Carbon::now('GMT+8'); 
         if( ($request->engagement_id == 2) && ($this->user->id !== 564 ) ) //VALENTINES
         {
-            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Posted Val2020 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+            $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n ValentineNote by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
         }else
         {
-            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n Submitted Frightful [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
         }
 
@@ -811,6 +827,11 @@ class EngagementController extends Controller
         }
    
         //return response()->json(["posts"=>$posts]);
+        if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n VDay_wall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+              }
 
         return view('people.wall',compact('posts'));
 
