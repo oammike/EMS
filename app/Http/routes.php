@@ -205,11 +205,19 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     /********** emp ENGAGEMENT  **************/
 
+    Route::post('/employeeEngagement/disqualify', array(
+      'as'=> 'employeeEngagement.disqualify',
+      'uses'=>'EngagementController@disqualify') );
+
+    Route::get('/employeeEngagement/{id}/wall', array(
+      'as'=> 'employeeEngagement.wall',
+      'uses'=>'EngagementController@wall') );
+
     Route::get('/employeeEngagement/{id}/voteNow', array(
       'as'=> 'employeeEngagement.voteNow',
       'uses'=>'EngagementController@voteNow') );
 
-     Route::post('/employeeEngagement/cancelEntry/{id}', array(
+    Route::post('/employeeEngagement/cancelEntry/{id}', array(
       'as'=> 'employeeEngagement.cancelEntry',
       'uses'=>'EngagementController@cancelEntry') );
 
@@ -224,6 +232,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/employeeEngagement/deleteReply/{id}', array(
       'as'=> 'employeeEngagement.deleteReply',
       'uses'=>'EngagementController@deleteReply') );
+
+    Route::post('/employeeEngagement/deletePost/{id}', array(
+      'as'=> 'employeeEngagement.deletePost',
+      'uses'=>'EngagementController@deletePost') );
 
 
     Route::post('/employeeEngagement/like/', array(
@@ -245,6 +257,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/employeeEngagement/saveEntry', array(
       'as'=> 'employeeEngagement.saveEntry',
       'uses'=>'EngagementController@saveEntry') );
+
+    Route::post('/employeeEngagement/saveEntry2', array(
+      'as'=> 'employeeEngagement.saveEntry2',
+      'uses'=>'EngagementController@saveEntry2') );
 
     Route::post('/employeeEngagement/saveTriggers', array(
       'as'=> 'employeeEngagement.saveTriggers',
