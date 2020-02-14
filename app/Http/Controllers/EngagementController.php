@@ -823,7 +823,7 @@ class EngagementController extends Controller
 
     public function wall($id)
     {
-        return Redirect::to('http://172.17.0.2/project/freedomwall/index.php');
+        return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
 
         $post = DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
