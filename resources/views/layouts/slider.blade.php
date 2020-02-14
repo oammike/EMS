@@ -2,7 +2,7 @@
 
                  <div class="item active text-center" >
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/whos_valentine.jpg" style="z-index: 2" />
+                    <img src="./storage/uploads/valentine2020.jpg" style="z-index: 2" />
                     <br/><br/>
                     <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',2)}}"><i class="fa fa-heart"></i> Post your Valentine messages </a>
                     <a class="btn btn-md btn-primary" href="{{action('EngagementController@wall',2)}}"><i class="fa fa-th-large"></i> Check our Valentine Wall! </a><br /><br/>

@@ -31,7 +31,8 @@
 
 
                
-                <p class="text-center"> <a class="btn btn-lg btn-danger" href="{{action('EngagementController@wall',$id)}}" target="_blank"><i class="fa fa-th-large"></i> View Wall</a></p>
+               <p class="text-center"> <a class="btn btn-lg btn-danger" href="{{action('EngagementController@wall',$id)}}" target="_blank"><i class="fa fa-th-large"></i> View Wall</a></p>
+
                 <hr/>
 
                 @if($canModerate)

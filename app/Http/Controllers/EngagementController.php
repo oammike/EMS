@@ -823,6 +823,8 @@ class EngagementController extends Controller
 
     public function wall($id)
     {
+        return Redirect::to('http://172.17.0.2/project/freedomwall/index.php');
+
         $post = DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
@@ -855,7 +857,71 @@ class EngagementController extends Controller
                   fclose($file);
               }
 
+        //$posts = new Collection;
+        //$posts->push(['posts'=> $posts1]);
+
         return view('people.wall',compact('posts'));
+
+    }
+
+    public function next(Request $request)
+    {
+        // if (isset($_POST['firstPost']) && isset($_POST['lastPost'])) 
+        // {
+            $fp = $request->firstPost;
+            $lp = $request->lastPost;
+
+            $postCount = $lp - $fp + 1;
+            $temp= $lp+1;
+
+            $fp=$temp;
+            $lp=$lp + $postCount;
+
+            $_SESSION["firstPost"] = $fp;
+            $_SESSION["lastPost"] = $lp;
+            $_SESSION["postCount"] = $postCount;
+        //}
+
+        return response()->json(['firstPost'=>$fp,'lastPost'=>$lp,'postCount'=>$postCount]);
+
+    }
+
+    public function prev(Request $request)
+    {
+        // if (isset($_POST['firstPost']) && isset($_POST['lastPost'])) 
+        // {
+            $fp = $request->firstPost;
+            $lp = $request->lastPost;
+            $postCount = $request->postCount;
+
+            $postCount = $lp - $fp + 1;
+            $postCount = $request->postCount;
+            $temp= $lp;
+
+            $fp= $fp - $postCount;
+            $lp=$temp - $postCount;
+
+
+            // echo "$fp $lp";
+
+            $_SESSION["firstPost"] = $fp;
+            $_SESSION["lastPost"] = $lp;
+
+            $_SESSION["postCount"] = $postCount;
+
+
+
+            $fpost = $request->fp;
+            $lpost = $request->lp;
+
+            $fp = $fp-$postCount-1;
+
+            if ($fp==$fpost) {
+                session_destroy();
+            }
+
+            return response()->json(['firstPost'=>$fp,'lastPost'=>$lp,'postCount'=>$postCount]);
+        //}
 
     }
 }

@@ -213,6 +213,14 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.report',
       'uses'=>'EngagementController@reportEntry') );
 
+    Route::post('/employeeEngagement/next', array(
+      'as'=> 'employeeEngagement.next',
+      'uses'=>'EngagementController@next') );
+
+    Route::post('/employeeEngagement/prev', array(
+      'as'=> 'employeeEngagement.prev',
+      'uses'=>'EngagementController@prev') );
+
     Route::get('/employeeEngagement/{id}/wall', array(
       'as'=> 'employeeEngagement.wall',
       'uses'=>'EngagementController@wall') );
