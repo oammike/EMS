@@ -68,8 +68,8 @@ class EngagementPublicController extends Controller
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     leftJoin('users','users.id','=','engagement_entry.user_id')->
-                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified')->
-                    where('engagement_entry.disqualified','!=','1')->get();
+                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at')->
+                    where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','DESC')->get();
                     //'engagement_entryItems.label','engagement_entryItems.ordering',
 
         $allPosts = collect($post)->groupBy('entryID');

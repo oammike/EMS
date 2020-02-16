@@ -415,7 +415,7 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous')->get();
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->orderBy('engagement_entry.created_at','DESC')->get(); 
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
 
@@ -829,7 +829,7 @@ class EngagementController extends Controller
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     leftJoin('users','users.id','=','engagement_entry.user_id')->
-                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->get(); 
+                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','DESC')->get(); 
                     //'engagement_entryItems.label','engagement_entryItems.ordering',
 
         $allPosts = collect($post)->groupBy('entryID');
