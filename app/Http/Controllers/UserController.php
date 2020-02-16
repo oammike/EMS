@@ -1226,7 +1226,7 @@ class UserController extends Controller
         {
           //check first kung may immediateHead approver; else direct userID yon
           $hasIMhead = ImmediateHead_Campaign::find($key->approver);
-          if (count($hasIMhead) > 0){
+          if (count( (array)$hasIMhead) > 0){
             $approver = User::where('employeeNumber', $hasIMhead->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
           }else{
             $approver = User::find($key->approver);

@@ -55,8 +55,8 @@ use OAMPI_Eval\User_Notification;
 
 class UserVLController extends Controller
 {
-   	protected $user;
-   	protected $user_vl;
+    protected $user;
+    protected $user_vl;
     use Traits\TimekeepingTraits;
     use Traits\UserTraits;
 
@@ -329,19 +329,19 @@ class UserVLController extends Controller
 
     public function getCredits(Request $request)
     {
-    	$user = User::find($request->user_id);
-    	$vl_from = Carbon::parse($request->date_from,"Asia/Manila");
+        $user = User::find($request->user_id);
+        $vl_from = Carbon::parse($request->date_from,"Asia/Manila");
         $vf = Carbon::parse($request->date_from,"Asia/Manila");
         $dateFrom = Carbon::parse($request->date_from,"Asia/Manila");
         $creditsleft =$request->creditsleft; //less 1 day from default
-    	$coll = new Collection;
-    	
-    	$shift_from = $request->shift_from;$shift_to = $request->shift_to;
-    	$schedules = new Collection;
+        $coll = new Collection;
+        
+        $shift_from = $request->shift_from;$shift_to = $request->shift_to;
+        $schedules = new Collection;
         $displayShift = ""; $credits = 0;
 
         $hasVLalready=false;
-    	
+        
 
         /*** we need to check first kung may existing pending or approved VL na
              para iwas doble filing **/
@@ -798,7 +798,7 @@ class UserVLController extends Controller
         $fromYr = Carbon::parse($personnel->dateHired)->addMonths(6)->format('Y');
 
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'page', 'approvers', 'myCampaign', 'personnel'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel'));
         else return view('access-denied');
 
 
@@ -860,21 +860,23 @@ class UserVLController extends Controller
                 while (($result = fgetcsv($file)) !== false)
                 {
                     $user = User::find($result[0]);
-                    $vlCredits = User_VLcredits::where('user_id',$user->id)->where('creditYear',date('Y'))->get();
-                    foreach($vlCredits as $vl){ $vl->delete(); }
+                    if ($user)
+                    {
+                        $vlCredits = User_VLcredits::where('user_id',$user->id)->where('creditYear',date('Y'))->delete();
+                        //foreach($vlCredits as $vl){ $vl->delete(); }
 
-                    $newCredit = new User_VLcredits;
-                    $newCredit->user_id = $user->id;
-                    $newCredit->beginBalance = $result[1];
-                    $newCredit->used =$result[2];
-                    $newCredit->paid =0.0;
-                    $newCredit->creditYear = date('Y');
-                    $newCredit->lastUpdated = $result[3];
-                    $newCredit->save();
-                    $coll->push($newCredit);
+                        $newCredit = new User_VLcredits;
+                        $newCredit->user_id = $user->id;
+                        $newCredit->beginBalance = $result[1];
+                        $newCredit->used = abs($result[2]);
+                        $newCredit->paid =0.0;
+                        $newCredit->creditYear = date('Y');
+                        $newCredit->lastUpdated = $result[3];
+                        $newCredit->save();
+                        $coll->push($newCredit);
 
-                            
-
+                    }
+                    
                         
                 }//end while
 

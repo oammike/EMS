@@ -50,7 +50,7 @@
 
               <a href="{{action('UserLWOPController@create')}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay <br/> <strong>(LWOP)</strong></a>
 
-              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Pre-Shift OT <br/> <strong>(PS-OT)</strong></a> 
+              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Meeting/Huddle <br/> <strong>(PS-OT)</strong></a> 
 
               <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
 
@@ -77,7 +77,7 @@
 
               <a href="{{action('UserLWOPController@create',['for'=>$user->id])}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay  <br/><strong>(LWOP)</strong></a>
 
-              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Pre-Shift OT <br/> <strong>(PS-OT)</strong></a> 
+              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Meeting/Huddle <br/> <strong>(PS-OT)</strong></a> 
 
               <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
 
@@ -519,7 +519,7 @@
                                           var shiftEnd_new = new Date(full.productionDate+ " "+full.details.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
 
                                           modalcode += '<p class="text-left">';
-                                          modalcode += 'I would like to file a <strong>PRE-SHIFT OT </strong> for <strong>'+full.productionDate+'</strong></p>';
+                                          modalcode += 'I would like to file a <strong>Meeting/Huddle </strong> for <strong>'+full.productionDate+'</strong></p>';
                                           modalcode += '<div class="row">';
 
                                           modalcode +='<div class="col-sm-6" style="font-size: 12px"><h5 class="text-primary">OT Details:</h5>';
@@ -906,7 +906,7 @@
                 case '11': {var requesttype="Sick Leave"; var processlink = "{{action('UserSLController@process')}}"; }break;
                 case '12': {var requesttype="Leave Without Pay"; var processlink = "{{action('UserLWOPController@process')}}"; }break;
                 case '13': {var requesttype="Official Business Leave"; var processlink = "{{action('UserOBTController@process')}}"; }break;
-                case '15': {var requesttype="Overtime (Pre-Shift)"; var processlink = "{{action('UserOTController@process')}}"; }break;
+                case '15': {var requesttype="Meeting/Huddle (Pre-Shift)"; var processlink = "{{action('UserOTController@process')}}"; }break;
                 case '16': {var requesttype="Maternity Leave (ML)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
                 case '17': {var requesttype="Paternity Leave (PL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
                 case '18': {var requesttype="Single-Parent Leave (SPL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;

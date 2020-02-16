@@ -789,7 +789,7 @@
 
                                                                             @if (count($preOT) > 0)
 
-                                                                               {{$preOT->first()->billable_hours}} <a style="font-weight: bold;font-size: smaller;" class="text-success" target="_blank" href="../user_ot/{{$preOT->first()->id}}" title="Pre-shift OT Details">(Pre-shift)</a><br/>
+                                                                               {{$preOT->first()->billable_hours}} <a style="font-weight: bold;font-size: smaller;" class="text-success" target="_blank" href="../user_ot/{{$preOT->first()->id}}" title="Meeting/Huddle Details">(Pre-shift)</a><br/>
                                                                              
 
                                                                             @endif

@@ -179,31 +179,31 @@
       @endif
         <div class="col-lg-1 col-sm-12"></div>
         <div class="col-lg-4 col-sm-12 text-center">
-          <a id="askVL" class="btn btn-xs" title="Ask Finance for your leave credits to-date" onclick="javascript:alertAsk();"> <i class="fa fa-exclamation-triangle text-yellow"></i></a>
+          <!-- <a id="askVL" class="btn btn-xs" title="Ask Finance for your leave credits to-date" onclick="javascript:alertAsk();"> <i class="fa fa-exclamation-triangle text-yellow"></i></a> -->
           
-          <!-- <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"><i class="fa fa-plane"></i></span><span class="label label-primary">
-             {{$currentVLbalance}} </span></a> --></div>
+          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"><i class="fa fa-plane"></i></span><span class="label label-primary">
+             {{$currentVLbalance}} </span></a></div>
 
             
         <div class="col-lg-4 col-sm-12 text-center">
-           <a id="askSL" class="btn btn-xs" title="Ask Finance for your leave credits to-date"  onclick="javascript:alertAsk();"> <i class="fa fa-exclamation-triangle text-yellow"></i></a>
-         <!--  <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"> <i class="fa fa-stethoscope"></i></span><span class="label label-danger">{{$currentSLbalance}}</span></a> --></div>
+           <!-- <a id="askSL" class="btn btn-xs" title="Ask Finance for your leave credits to-date"  onclick="javascript:alertAsk();"> <i class="fa fa-exclamation-triangle text-yellow"></i></a> -->
+          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"> <i class="fa fa-stethoscope"></i></span><span class="label label-danger">{{$currentSLbalance}}</span></a></div>
           <div class="col-lg-2 col-sm-12"></div>
       </div>
       <div class="row">
         <div class="col-lg-1 col-sm-12"></div>
-        <div class="col-lg-4 col-sm-12 text-center"><span class="label"><i class="fa fa-plane"></i> VL credit(s) 
-         <!--  @if (!$updatedVL)
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> VL credit(s) 
+          @if (!$updatedVL)
           <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}" title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
 
-          @endif -->
+          @endif
           </span>
         </div>
-        <div class="col-lg-4 col-sm-12 text-center"><span class="label"><i class="fa fa-stethoscope"></i> SL credit(s) 
-         <!--  @if (!$updatedSL)
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> SL credit(s) 
+          @if (!$updatedSL)
           <a title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
 
-          @endif -->
+          @endif
           </span>
           <!-- <a title="Request HR/Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span> -->
         </div>
@@ -498,6 +498,8 @@
 
             <li style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_upload4"><i class="fa fa-upload"></i>Upload SL Credits</a></li>
 
+            <li style="padding-left:20px"><a href="{{action('BiometricsController@workSched_upload')}}" data-backdrop="static" data-keyboard="false" ><i class="fa fa-upload"></i>Upload Work Sched</a></li>
+
             <?php } ?><br/>
           </ul>
         </li>
@@ -548,6 +550,14 @@
   </aside>
 
   @if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') )
+  @include('layouts.modals-upload', [
+                                'modelRoute'=>'biometrics.uploadSched',
+                                'modelID' => '_upload5', 
+                                'modelName'=>"Work Schedule", 
+                                'modalTitle'=>'Upload', 
+                                'modalMessage'=>'Select CSV file to upload (*.csv):', 
+                                'formID'=>'uploadBio5',
+                                'icon'=>'glyphicon-up' ])
   @include('layouts.modals-upload', [
                                 'modelRoute'=>'user_sl.uploadCredits',
                                 'modelID' => '_upload4', 

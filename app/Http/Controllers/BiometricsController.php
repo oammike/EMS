@@ -129,6 +129,11 @@ class BiometricsController extends Controller
 
     }
 
+    public function show()
+    {
+
+    }
+
     public function upload(Request $request)
     {
     	$today = date('Y-m-d');
@@ -513,6 +518,307 @@ class BiometricsController extends Controller
 
     }
 
+    public function uploadSched(Request $request)
+    {
+    	$today = date('Y-m-d');
+    	
+    	$bioFile = $request->file('biometricsData');
+    	
+	    //if (Input::file('biometricsData')->isValid()) 
+	    if (!empty($bioFile))
+	    {
+			//$destinationPath = 'uploads'; // upload path
+			$destinationPath = storage_path() . '/uploads/';
+			$extension = Input::file('biometricsData')->getClientOriginalExtension(); // getting image extension
+			$fileName = $today.'-biometrics-finance.'.$extension; // renameing image
+			$bioFile->move($destinationPath, $fileName); // uploading file to given path
+
+			$file = fopen($destinationPath.$fileName, 'r');
+			$file2 = fopen($destinationPath.$fileName, 'r');
+
+			$coll = new Collection;
+			$ctr=0;
+			$headers = [];
+			$flag = true;
+			DB::connection()->disableQueryLog();
+			$csvCol = fgets($file2); 
+
+			$headers = explode(',', $csvCol);
+			$totalCols = count($headers);
+			$total = 0;
+
+			//return response()->json(['headers'=>$headers, 'totalCols'=>$totalCols]);
+
+			// rows H
+			// NAME | EMP ID NO.| ACCESSCODE | SCHEDULE | APPROVER | 21-Oct-2018 | TIME IN | TIME OUT | LATE | ND | OT | TOTAL ND | TOTAL OT
+			//EMP # | Access Code | Agents Name | 1-Feb |	2-Feb |  3-Feb ...	29-Feb
+			//EMP # | Access Code | Status |Agents Name | 2/1/2020 | 2/2/2020 ... 2/29/2020
+			//misc: VL, A, SL, SPL, HD-VL SH ,ATTRIT, ML, SUSP, LOA, FLEX, HD-VL FH
+
+			$legends = ['RD', 'VL', 'A', 'SL', 'SPL', 'HD-VL', 'SH' ,'ATTRIT', 'ML', 'SUSP', 'LOA', 'FLEX', 'HD-VL FH','HD-A FH','HD-SL FH','HD-A','HD-VL SH'];
+
+			//* there are 2 possible types of CSV uploads: with or without STATUS column
+			if ( strpos( strtoupper($headers[2]), 'STATUS') !== false ) // HAS STATUS COL
+			{
+				while (($result = fgetcsv($file)) !== false)
+				{
+					if ($flag) $flag=false; //skip headers
+					else{
+
+						for ($i=4; $i < $totalCols ; $i++) {
+							//$coll->push(['item'=>$headers[$i], 'keme'=>strpos($headers[$i],"TOTAL") ]);
+
+							$pd = preg_replace('/\s+/', '', $headers[$i]);
+
+							if( (in_array($pd, $legends) == false) && ($prodDate = Carbon::parse($pd,'Asia/Manila')) ) // (Carbon::parse($headers[$i]." ".date('Y'),'Asia/Manila') !== false) 
+							{
+								$paydate = $prodDate;
+								$bio = Biometrics::where('productionDate',$paydate->format('Y-m-d'))->get();
+								if (count($bio)>0) $b = $bio->first(); 
+								else {
+									// create new Biometrics
+									$b = new Biometrics;
+									$b->productionDate = $paydate->format('Y-m-d');
+									$b->save();
+
+								} 
+
+								$u = User::where('accesscode',$result[1])->get();
+								
+								if (count($u)>0 )
+								{
+										$emp = $u->first();
+										//$user = $emp->firstname.' '.$emp->lastname;
+
+										$existingSched = MonthlySchedules::where('user_id', $emp->id)->where('productionDate',$paydate->format('Y-m-d'))->orderBy('created_at','DESC')->delete();
+
+										
+										// setup worksched. Kung may DTRP submitted and approved yun ang gamitin
+										// else save it as user-monthlysched
+										//save it as MOnthlysched
+
+										$worksched = new MonthlySchedules;
+										$worksched->user_id = $emp->id;
+										$worksched->productionDate = $paydate->format('Y-m-d');
+										$worksched->isFlexitime = false;
+
+										if( in_array($result[$i], $legends) )
+										{
+											//*** if non-RD, check the most frequent time shift on that row
+											if ($result[$i]== 'FLEX')
+											{
+												$worksched->isFlexitime = true;
+												$worksched->timeStart = "00:00:00"; //$startSched->format('H:i'); 
+												$worksched->timeEnd = "00:00:00"; //$endSched->format('H:i');
+												$worksched->isRD = false;
+
+											}else
+											{
+												$array_scheds = [];
+												for($a=4;$a < $totalCols;$a++)
+												{
+													array_push($array_scheds, $result[$a]);
+												}
+												$arr = array_count_values($array_scheds);
+												arsort($arr);
+												$popularSched = array_slice(array_keys($arr), 0, 1, true);
+
+												if( in_array($popularSched[0], $legends) !== false ) // $popularSched[0] == 'RD' || $popularSched[0] == 'FLEX')
+													$startSched = Carbon::parse($paydate->format('Y-m-d'))->startOfDay();
+												else
+													$startSched = Carbon::parse($paydate->format('Y-m-d')." ".$popularSched[0],'Asia/Manila');
+											
+												//check kung full time or part timeer
+
+												if($result[2] == 'PT') {
+
+													if( in_array($popularSched[0], $legends) !== false )
+														$endSched = Carbon::parse($paydate->format('Y-m-d'),'Asia/Manila')->endOfDay();
+													else
+														$endSched = Carbon::parse($paydate->format('Y-m-d')." ".$popularSched[0],'Asia/Manila')->addHour(4);
+												}
+												else {
+													if( in_array($popularSched[0], $legends) !== false )
+														$endSched = Carbon::parse($paydate->format('Y-m-d'),'Asia/Manila')->endOfDay();
+														
+													else
+														$endSched = Carbon::parse($paydate->format('Y-m-d')." ".$popularSched[0],'Asia/Manila')->addHour(9);
+												}
+
+												
+												$worksched->timeStart = $startSched->format('H:i:s'); 
+												$worksched->timeEnd = $endSched->format('H:i:s');
+												
+												($result[$i] == 'RD') ? $worksched->isRD = true : $worksched->isRD = false;
+
+											}
+											
+
+										}
+										else
+										{
+											
+
+											$startSched = Carbon::parse($paydate->format('Y-m-d')." ".$result[$i],'Asia/Manila');
+										
+											//check kung full time or part timeer
+
+											if($emp->status_id == 14)
+												$endSched = Carbon::parse($paydate->format('Y-m-d')." ".$result[$i],'Asia/Manila')->addHour(5);
+											else
+												$endSched = Carbon::parse($paydate->format('Y-m-d')." ".$result[$i],'Asia/Manila')->addHour(9);
+
+											
+											$worksched->timeStart = $startSched->format('H:i:s'); 
+											$worksched->timeEnd = $endSched->format('H:i:s');
+											
+											$worksched->isRD = false;
+
+										}
+
+										$worksched->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+										$worksched->save();
+										$coll->push(['created sched'=>$worksched]);
+
+
+										
+
+								}  else $user = null;
+
+								
+							} else{ 
+								
+								// do nothing
+								//( strtoupper($csvCol[$i]) == 'TIME IN' )
+								# code...
+							} 
+				    	}//end for
+
+				    	$total++;
+					}//end else
+					
+
+					
+				    $ctr++;
+				    
+				}//end while
+
+			
+
+			}else
+			{
+				while (($result = fgetcsv($file)) !== false)
+				{
+					if ($flag) $flag=false; //skip headers
+					else{
+
+						for ($i=3; $i < $totalCols ; $i++) {
+							//$coll->push(['item'=>$headers[$i], 'keme'=>strpos($headers[$i],"TOTAL") ]);
+
+							$pd = preg_replace('/\s+/', '', $headers[$i]);
+
+							if($prodDate = Carbon::parse($pd." ".date('Y'),'Asia/Manila')) // (Carbon::parse($headers[$i]." ".date('Y'),'Asia/Manila') !== false) 
+							{
+								$paydate = $prodDate;
+								$bio = Biometrics::where('productionDate',$paydate->format('Y-m-d'))->get();
+								if (count($bio)>0) $b = $bio->first(); 
+								else {
+									// create new Biometrics
+									$b = new Biometrics;
+									$b->productionDate = $paydate->format('Y-m-d');
+									$b->save();
+
+								} 
+
+								$u = User::where('accesscode',$result[1])->get();
+								
+								if (count($u)>0 )
+								{
+										$emp = $u->first();
+										//$user = $emp->firstname.' '.$emp->lastname;
+
+										$existingSched = MonthlySchedules::where('user_id', $emp->id)->where('productionDate',$paydate->format('Y-m-d'))->orderBy('created_at','DESC')->delete();
+
+										
+										// setup worksched. Kung may DTRP submitted and approved yun ang gamitin
+										// else save it as user-monthlysched
+										//save it as MOnthlysched
+
+										$worksched = new MonthlySchedules;
+										$worksched->user_id = $emp->id;
+										$worksched->productionDate = $paydate->format('Y-m-d');
+
+										if ($result[$i] == 'RD')
+										{
+
+											$worksched->timeStart = "00:00:00"; //$startSched->format('H:i'); 
+											$worksched->timeEnd = "00:00:00"; //$endSched->format('H:i');
+											$worksched->isFlexitime = false;
+											$worksched->isRD = true;
+											
+
+										}else
+										{
+											$startSched = Carbon::parse($paydate->format('Y-m-d')." ".$result[$i]);
+										
+											//check kung full time or part timeer
+
+											if($emp->status_id == 14)
+												$endSched = Carbon::parse($paydate->format('Y-m-d')." ".$result[$i])->addHour(5);
+											else
+												$endSched = Carbon::parse($paydate->format('Y-m-d')." ".$result[$i])->addHour(9);
+
+											
+											$worksched->timeStart = $startSched->format('H:i'); 
+											$worksched->timeEnd = $endSched->format('H:i');
+											$worksched->isFlexitime = false;
+											$worksched->isRD = false;
+
+										}
+										$worksched->save();
+										$coll->push(['created sched'=>$worksched]);
+
+
+										
+
+								}  else $user = null;
+
+								
+							} else{ 
+								
+								// do nothing
+								//( strtoupper($csvCol[$i]) == 'TIME IN' )
+								# code...
+							} 
+				    	}//end for
+
+				    	$total++;
+					}//end else
+					
+
+					
+				    $ctr++;
+				    
+				}//end while
+
+			}
+
+			fclose($file);fclose($file2);
+
+			//return response()->json($coll);
+			return view('timekeeping.workSched_success',compact('total'));
+		      
+	    }
+	    else return response()->json(['success'=>false, 'bioFile'=>$bioFile]);
+    	
+
+    }
+
+    public function workSched_upload()
+    {
+    	return view('timekeeping.workSched_upload');
+    }
+
 
 
     public function store(Request $request)
@@ -626,23 +932,8 @@ class BiometricsController extends Controller
          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
             fwrite($file, "\n-------------------\n Biometrics uploaded : ". $ctr .", updated ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
-			    return response()->json(['ct'=>$ctr, 'data'=>$coll]);
-
-
-
-
-
-
-
-
-
-
-
-		      
+			    return response()->json(['ct'=>$ctr, 'data'=>$coll]);    
 	    }
-    	
-    	
-
 
     }
 }

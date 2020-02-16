@@ -54,8 +54,8 @@ use OAMPI_Eval\User_Notification;
 
 class UserSLController extends Controller
 {
-   	protected $user;
-   	protected $user_sl;
+    protected $user;
+    protected $user_sl;
     use Traits\TimekeepingTraits;
     use Traits\UserTraits;
 
@@ -69,7 +69,7 @@ class UserSLController extends Controller
 
     public function addCredits(Request $request)
     {
-    	$sl = new User_SLcredits;
+        $sl = new User_SLcredits;
         $sl->creditYear = $request->creditYear;
 
         $user = User::find($request->user_id);
@@ -137,7 +137,7 @@ class UserSLController extends Controller
             }
                  
 
-        if (count($user) <1) return view('empty');
+        if (count( (array)$user) <1) return view('empty');
         else
         {
             //check mo kung leave for himself or if for others and approver sya
@@ -504,13 +504,9 @@ class UserSLController extends Controller
 
     public function process(Request $request)
     {
-
-         /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n [". $request->id."] VL REQUEST \n");
-            fclose($file);
-
-
+        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n [". $request->id."] VL REQUEST \n");
+        fclose($file);
         $vl = User_SL::find($request->id);
         $vl->approver = $this->getTLapprover($vl->user_id, $this->user->id);
         
@@ -854,18 +850,22 @@ class UserSLController extends Controller
                 while (($result = fgetcsv($file)) !== false)
                 {
                     $user = User::find($result[0]);
-                    $vlCredits = User_SLcredits::where('user_id',$user->id)->where('creditYear',date('Y'))->get();
-                    foreach($vlCredits as $vl){ $vl->delete(); }
+                    if ($user) {
+                        $vlCredits = User_SLcredits::where('user_id',$user->id)->where('creditYear',date('Y'))->delete();
+                        //foreach($vlCredits as $vl){ $vl->delete(); }
 
-                    $newCredit = new User_SLcredits;
-                    $newCredit->user_id = $user->id;
-                    $newCredit->beginBalance = $result[1];
-                    $newCredit->used =$result[2];
-                    $newCredit->paid =0.0;
-                    $newCredit->creditYear = date('Y');
-                    $newCredit->lastUpdated = $result[3];
-                    $newCredit->save();
-                    $coll->push($newCredit);
+                        $newCredit = new User_SLcredits;
+                        $newCredit->user_id = $user->id;
+                        $newCredit->beginBalance = $result[1];
+                        $newCredit->used = abs($result[2]);
+                        $newCredit->paid =0.0;
+                        $newCredit->creditYear = date('Y');
+                        $newCredit->lastUpdated = $result[3];
+                        $newCredit->save();
+                        $coll->push($newCredit);
+
+                    }
+                    
 
                             
 

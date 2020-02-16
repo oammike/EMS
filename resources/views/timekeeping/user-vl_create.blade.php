@@ -668,8 +668,9 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
                       $("span#credits_vl").html(response.credits);
                       $("span#credits_vl").attr('data-credits', response.credits);
-                      $("#creditsleft").html(response.creditsleft);
-                      $("#creditsleft").attr('data-left',response.creditsleft);
+                      var cl = response.creditsleft;
+                      $("#creditsleft").html(cl.toFixed(2));
+                      $("#creditsleft").attr('data-left',cl.toFixed(2));
                       
 
                       switch(response.shift_from)

@@ -747,6 +747,16 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'biometrics.uploadFinanceCSV',
       'uses'=>'BiometricsController@uploadFinanceCSV') );
 
+    Route::post('/biometrics/uploadSched', array(
+      'as'=> 'biometrics.uploadSched',
+      'uses'=>'BiometricsController@uploadSched') );
+
+    Route::get('/workSched_upload', array(
+      'as'=> 'biometrics.workSched_upload',
+      'uses'=>'BiometricsController@workSched_upload') );
+
+
+
      Route::post('/dtrSheet/upload', array(
       'as'=> 'biometrics.uploadDTR',
       'uses'=>'BiometricsController@uploadDTR') );

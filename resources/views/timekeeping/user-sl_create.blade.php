@@ -393,7 +393,7 @@
                                             }
                                           
                                           console.log(response);
-                                          location.reload();
+                                          
                                           window.setTimeout(function(){
                                             window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                                           }, 2000);

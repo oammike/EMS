@@ -53,7 +53,7 @@ use OAMPI_Eval\User_VLcredits;
 class UserOTController extends Controller
 {
     protected $user;
-   	protected $user_ot;
+    protected $user_ot;
     use Traits\TimekeepingTraits;
     use Traits\UserTraits;
 
@@ -103,7 +103,7 @@ class UserOTController extends Controller
         }
                  
 
-        if (count($user) <1) return view('empty');
+        if (count((array)$user) <1) return view('empty');
         else
         {
             //check mo kung leave for himself or if for others and approver sya
@@ -434,19 +434,19 @@ class UserOTController extends Controller
     public function store(Request $request)
     {
 
-    	
+        
 
-    	$OT = new User_OT;
-    	$OT->user_id = $request->user_id;
-    	$OT->biometrics_id = $request->biometrics_id;
-    	$OT->billable_hours = $request->billableHours;
-    	$OT->filed_hours = $request->filedHours;
+        $OT = new User_OT;
+        $OT->user_id = $request->user_id;
+        $OT->biometrics_id = $request->biometrics_id;
+        $OT->billable_hours = $request->billableHours;
+        $OT->filed_hours = $request->filedHours;
         $OT->timeStart = Carbon::parse($request->OTstart,"Asia/Manila");
         $OT->timeEnd = Carbon::parse($request->OTend,"Asia/Manila");
-    	$OT->isRD = $request->isRD;
+        $OT->isRD = $request->isRD;
         $OT->reason = $request->reason;
         $OT->billedType = $request->billedtype;
-    	$OT->isApproved = null;
+        $OT->isApproved = null;
 
        
         $employee = User::find($OT->user_id);
@@ -456,17 +456,17 @@ class UserOTController extends Controller
         //Timekeeping Trait
         $isApprover = $this->checkIfAnApprover($approvers, $this->user);
 
-    	if ($request->TLsubmitted == 1 || $isApprover)
-		{
-			$OT->isApproved = true; $TLsubmitted=true; $OT->approver =$employee->supervisor->immediateHead_Campaigns_id;
-		} else { $OT->isApproved = null; $TLsubmitted=false;$OT->approver = null; }
+        if ($request->TLsubmitted == 1 || $isApprover)
+        {
+            $OT->isApproved = true; $TLsubmitted=true; $OT->approver =$employee->supervisor->immediateHead_Campaigns_id;
+        } else { $OT->isApproved = null; $TLsubmitted=false;$OT->approver = null; }
 
 
-    	 //$request->approver; *------- set to null muna. Will have value depende kung sinong approver mag approve
-    	$OT->save();
+         //$request->approver; *------- set to null muna. Will have value depende kung sinong approver mag approve
+        $OT->save();
 
-    	//--- notify the TL concerned
-    	
+        //--- notify the TL concerned
+        
 
         // get WFM
         $wfm = collect(DB::table('team')->where('campaign_id',50)->
@@ -480,15 +480,15 @@ class UserOTController extends Controller
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
 
-    	if (!$TLsubmitted)
-    	{
-    		$TL = ImmediateHead::find(ImmediateHead_Campaign::find($request->approver)->immediateHead_id);
+        if (!$TLsubmitted)
+        {
+            $TL = ImmediateHead::find(ImmediateHead_Campaign::find($request->approver)->immediateHead_id);
 
-	    	$notification = new Notification;
-	        $notification->relatedModelID = $OT->id;
-	        $notification->type = 7;
-	        $notification->from = $OT->user_id;
-	        $notification->save();
+            $notification = new Notification;
+            $notification->relatedModelID = $OT->id;
+            $notification->type = 7;
+            $notification->from = $OT->user_id;
+            $notification->save();
 
             foreach ($employee->approvers as $key) {
               $teamlead = ImmediateHead::find($key->immediateHead_id)->userData;
@@ -529,29 +529,29 @@ class UserOTController extends Controller
             }
             
 
-	        
+            
 
             /*
-	        // NOW, EMAIL THE TL CONCERNED
-	        
-	        $email_heading = "New Over Time Approval Request  from: ";
-	        $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>Total Over time: <strong> [". $OT->filed_hours." hours] </strong>". date('h:i A', strtotime($OT->timeStart)). " - ". date('h:i A', strtotime($OT->timeEnd)). " <br/>";
-			$actionLink = action('UserOTController@show',$OT->id);
-	       
-	         Mail::send('emails.generalNotif', ['user' => $TL, 'employee'=>$employee, 'email_heading'=>$email_heading, 'email_body'=>$email_body, 'actionLink'=>$actionLink], function ($m) use ($TL) 
-	         {
-	            $m->from('OES@openaccessbpo.net', 'OES-OAMPI Evaluation System');
-	            $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New Over Time Approval request');     
+            // NOW, EMAIL THE TL CONCERNED
+            
+            $email_heading = "New Over Time Approval Request  from: ";
+            $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>Total Over time: <strong> [". $OT->filed_hours." hours] </strong>". date('h:i A', strtotime($OT->timeStart)). " - ". date('h:i A', strtotime($OT->timeEnd)). " <br/>";
+            $actionLink = action('UserOTController@show',$OT->id);
+           
+             Mail::send('emails.generalNotif', ['user' => $TL, 'employee'=>$employee, 'email_heading'=>$email_heading, 'email_body'=>$email_body, 'actionLink'=>$actionLink], function ($m) use ($TL) 
+             {
+                $m->from('OES@openaccessbpo.net', 'OES-OAMPI Evaluation System');
+                $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New Over Time Approval request');     
 
-	           
-	                 $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-	                    fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
-	                    fclose($file);                      
-	        
+               
+                     $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
+                        fclose($file);                      
+            
 
-	        }); //end mail */
+            }); //end mail */
 
-    	}
+        }
 
         /* -------------- log updates made --------------------- */
          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
@@ -560,8 +560,8 @@ class UserOTController extends Controller
         
 
 
-    	return redirect()->back();
-    	//return redirect()->action('DTRController@show', $cws->user_id);
+        return redirect()->back();
+        //return redirect()->action('DTRController@show', $cws->user_id);
     }
 
     //*** this one is called from non-ajax form

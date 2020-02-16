@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>New Pre-shift OT Request | Employee Management System</title>
+<title>New Meeting/Huddle Request | Employee Management System</title>
 
 @endsection
 
@@ -11,7 +11,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-       <i class="fa fa-clock-o"></i> New Overtime (Pre-shift)
+       <i class="fa fa-clock-o"></i> New Meeting/Huddle (Pre-shift)
        <small>: {{$user->firstname}} {{$user->lastname}} </small>
       </h1>
      
@@ -142,7 +142,7 @@
                               </div><!--end moredays-->
 
                               <label><r/><br/><br/> Notes: </label><br/>
-                              <small>Kindly provide details about this pre-shift OT </small><br/> 
+                              <small>Kindly provide details about this Meeting/Huddle </small><br/> 
                               <textarea name="reason_vl" style="width:100%;"></textarea>
                             </div>
                           </div>
@@ -288,7 +288,7 @@
                     if (response.message == "invalid date"){}
                       else{
                         $('.moredays').fadeOut();
-                        $.notify("No biometrics found for that date. \n\nSubmit first a DTRP IN for that production date, and then file again for a pre-shift OT once DTRP IN is approved.",{className:"error", globalPosition:'right middle',autoHideDelay:5000, clickToHide:true} );
+                        $.notify("No biometrics found for that date. \n\nSubmit first a DTRP IN for that production date, and then file again for a Meeting/Huddle once DTRP IN is approved.",{className:"error", globalPosition:'right middle',autoHideDelay:5000, clickToHide:true} );
                       }
                   }
                     
@@ -350,7 +350,7 @@
         var biometrics_id = $('#biometrics_id2').val();
         var reason_vl = $('textarea[name="reason_vl"]').val();
 
-         if (reason_vl == ""){ $.notify("Please include a brief description about this pre-shift OT.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
+         if (reason_vl == ""){ $.notify("Please include a brief description about this Meeting/Huddle.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
         else
         {
 
@@ -377,9 +377,9 @@
                      $('#save').fadeOut();
 
                       if (response.success == '1')
-                        $.notify("Pre-shift OT saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                        $.notify("Meeting/Huddle saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
                         else
-                          $.notify("Pre-shift OT submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
+                          $.notify("Meeting/Huddle submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                       
                       console.log(response);
                       window.setTimeout(function(){
