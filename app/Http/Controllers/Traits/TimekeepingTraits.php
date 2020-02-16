@@ -898,7 +898,7 @@ trait TimekeepingTraits
                //---- MARKETING TEAM CHECK: 15mins grace period
               
               
-                 if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
+                 if ($checkLate > 2) $isLateIN = true; else $isLateIN= false;
               
 
             } else {$isLateIN=false;$checkLate = $gbID->productionDate."| ". $actualIN->format('Y-m-d H:i:s')." > ". $todayStart->format('Y-m-d H:i:s')." && ". $todayEnd->format('Y-m-d H:i:s');}
@@ -910,7 +910,7 @@ trait TimekeepingTraits
 
                //---- MARKETING TEAM CHECK: 15mins grace period
               
-                 if ($checkEarlyOut > 1) $isEarlyOUT = true; else $isEarlyOUT= false;
+                 if ($checkEarlyOut > 2) $isEarlyOUT = true; else $isEarlyOUT= false;
               
 
               
@@ -1039,7 +1039,7 @@ trait TimekeepingTraits
               //---- MARKETING TEAM CHECK: 15mins grace period
               
               
-                 if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
+                 if ($checkLate >= 1.5) $isLateIN = true; else $isLateIN= false;
               
              
 
@@ -3498,7 +3498,7 @@ trait TimekeepingTraits
         //---- MARKETING TEAM CHECK: 15mins grace period
           
           
-            if ($checkLate > 1) $isLateIN = true; else $isLateIN= false;
+            if ($checkLate > 2) $isLateIN = true; else $isLateIN= false;
             $isLateIN=true;
           
 
