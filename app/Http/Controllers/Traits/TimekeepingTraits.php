@@ -3491,7 +3491,7 @@ trait TimekeepingTraits
 
 
 
-      if ($inTime->format('Y-m-d H:i:s') > $scheduleStart->format('Y-m-d H:i:s'))
+      if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
       {
         //$checkLate = $userLogIN[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeStart'], "Asia/Manila"));
         $checkLate = $inTime->diffInMinutes($scheduleStart);
