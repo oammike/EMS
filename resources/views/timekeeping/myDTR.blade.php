@@ -138,7 +138,21 @@
 
                                                   </div>
                                                   <div class="col-lg-5 text-left"><a class="btn btn-default btn-sm" href="{{action('DTRController@show',['id'=>$user->id,'from'=>$nextFrom, 'to'=>$nextTo])}}">
-                                                  <i class="fa fa-arrow-right"></i></a></div>
+                                                  <i class="fa fa-arrow-right"></i></a>
+
+                                                  <table class="table table-bordered pull-right text-center" style="width: 60%;margin-right: 30px">
+                                                    <tr>
+                                                      <th class="text-center" style="background: rgba(72, 178, 219, 0.4);font-size: smaller"><i class="fa fa-plane"></i> VL Credits</th>
+                                                      <th class="text-center"style="background: rgba(234, 0, 0, 0.4);font-size: smaller;"><i class="fa fa-stethoscope"></i> SL Credits</th>
+                                                    </tr>
+                                                    <tr>
+                                                      <td style="background: rgba(72, 178, 219, 0.4); font-size: smaller;color:#000; font-weight: bolder;" >{{$currentVLbalance}} </td>
+                                                      <td style="background: rgba(234, 0, 0, 0.4); font-size: smaller;color:#000;font-weight: bolder;" >{{$currentSLbalance}} </td>
+                                                    </tr>
+                                                    
+                                                  </table>
+
+                                                </div>
 
                                                 </div>
 
@@ -148,6 +162,8 @@
 
                                                   
                                               </h4>
+
+                                              
 
                                               <!-- ********** DTR BUTTONS ************** -->
                                               

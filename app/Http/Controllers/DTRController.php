@@ -1696,6 +1696,122 @@ class DTRController extends Controller
         $DTRapprovers = '<strong>';
         $ctr = 0;
 
+
+        /**************  LEAVE CREDITS ****************/
+        $leave1 = Carbon::parse('first day of January '. date('Y'),"Asia/Manila")->format('Y-m-d');
+        $leave2 = Carbon::parse('last day of December '.date('Y'),"Asia/Manila")->format('Y-m-d');
+        $currentVLbalance ="N/A";
+        $updatedVL = false;
+        $currentSLbalance ="N/A";
+        $updatedSL = false;
+
+
+        if ($lengthOfService > 6) //do this if only 6mos++
+        {
+          $today= date('m');//today();
+          $avail = $user->vlCredits;
+          $avail2 = $user->slCredits;
+
+          $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
+          $approvedSLs = User_SL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
+
+            /************ for VL ************/
+            if (count($avail)>0){
+              $vls = $user->vlCredits->sortByDesc('creditYear');
+
+              if($vls->contains('creditYear',date('Y')))
+              {
+                $updatedVL=true;
+                $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) - $vls->first()->paid;
+              }
+              else{
+                
+                if (count($approvedVLs)>0)
+                {
+                  $bal = 0.0;
+                  foreach ($approvedVLs as $key) {
+                    $bal += $key->totalCredits;
+                  }
+
+                  $currentVLbalance = (0.84 * $today) - $bal;
+
+                }else{
+
+                  $currentVLbalance = (0.84 * $today);
+                }
+
+              } 
+
+
+
+            }else {
+              
+
+              if (count($approvedVLs)>0){
+                $bal = 0.0;
+                foreach ($approvedVLs as $key) {
+                  $bal += $key->totalCredits;
+                }
+
+                $currentVLbalance = (0.84 * $today) - $bal;
+
+              }else{
+
+                $currentVLbalance = (0.84 * $today);
+              }
+              
+            }
+
+
+            /************ for SL ************/
+             if (count($avail2)>0)
+             {
+              $sls = $user->slCredits->sortByDesc('creditYear');
+
+              if($sls->contains('creditYear',date('Y')))
+              {
+                $updatedSL=true;
+                $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used) - $sls->first()->paid;
+              }
+              else{
+                
+                if (count($approvedSLs)>0)
+                {
+                  $bal = 0.0;
+                  foreach ($approvedSLs as $key) {
+                    $bal += $key->totalCredits;
+                  }
+
+                  $currentSLbalance = (0.84 * $today) - $bal;
+
+                }else{
+
+                  $currentSLbalance = (0.84 * $today);
+                }
+
+              }
+            }else {
+              
+
+              if (count($approvedSLs)>0){
+                $bal = 0.0;
+                foreach ($approvedSLs as $key) {
+                  $bal += $key->totalCredits;
+                }
+
+                $currentSLbalance = (0.84 * $today) - $bal;
+
+              }else{
+
+                $currentSLbalance = (0.84 * $today);
+              }
+              
+            }
+
+        }
+        
+            
+
         /* ------- APPROVERS *-------*/
         $approvers = $user->approvers;
         foreach ($approvers as $key) {
@@ -1829,7 +1945,7 @@ class DTRController extends Controller
                 $myDTRSheet = $verifiedDTR;
                 $paystart = $currentPeriod[0];
                 $payend = $currentPeriod[1];
-                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend'));
+                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
  
 
              }
@@ -2657,11 +2773,8 @@ class DTRController extends Controller
                 $notedMemo=true; $memo=null; //override for tour
 
 
-           //return response()->json(['isFixedSched'=>$isFixedSched]);
-
-           // return  count($user->monthlySchedules->sortByDesc('productionDate'));
-           //return $myDTR;
-           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod'));
+           
+           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance'));
 
 
         } else return view('access-denied');
