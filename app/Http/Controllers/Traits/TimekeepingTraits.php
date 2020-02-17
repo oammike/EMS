@@ -1581,20 +1581,25 @@ trait TimekeepingTraits
 
     ($employee->status_id == 12 || $employee->status_id == 14 ) ? $isPartTimer = true : $isPartTimer=false;
 
+    //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
+    $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+
+    ($isPartTimer) ? $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) : $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
 
 
   
 
      /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
-    $vl = User_VL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $vl = User_VL::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $sl = User_SL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $sl = User_SL::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $lwop = User_LWOP::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $lwop = User_LWOP::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $obt = User_OBT::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $obt = User_OBT::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $fl = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $fl = User_Familyleave::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
 
 
@@ -1682,10 +1687,7 @@ trait TimekeepingTraits
 
     ( count($pendingDTRP) > 0  ) ? $hasPendingDTRP=true : $hasPendingDTRP=false;
 
-    //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
-    $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
-
-    ($isPartTimer) ? $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) : $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+    
 
     ($beginShift->format('Y-m-d') == $endShift->format('Y-m-d')) ? $sameDayShift = true : $sameDayShift=false;
     
@@ -2679,10 +2681,10 @@ trait TimekeepingTraits
 
 
        $data->push(['biometrics_id'=>$biometrics_id, 'logPalugit'=>$logPalugit,
-                      'palugitDate' =>$palugitDate,
-                       'beginShift'=> $beginShift,
-                       'maxOut'=> $maxOut,
-                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 
+                    'palugitDate' =>$palugitDate,
+                    'beginShift'=> $beginShift,
+                    'maxOut'=> $maxOut,
+                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'vl'=>$vl,'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
                     'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
                     'sl'=>$slDeet,
                     'UT'=>$UT, 'logTxt'=>$log,
@@ -3351,6 +3353,7 @@ trait TimekeepingTraits
     $theDay = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
     $fix= Carbon::parse($payday." 23:59:00","Asia/Manila");
 
+    $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
     ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
 
     $inTime = null;
@@ -3359,16 +3362,21 @@ trait TimekeepingTraits
 
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
+    
+    $vl = User_VL::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $vl = User_VL::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $sl = User_SL::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $sl = User_SL::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $lwop = User_LWOP::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $lwop = User_LWOP::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $obt = User_OBT::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $obt = User_OBT::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-
-    $fl = User_Familyleave::where('user_id',$user_id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $fl = User_Familyleave::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
 
 
