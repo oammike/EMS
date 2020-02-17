@@ -592,17 +592,11 @@ class UserSLController extends Controller
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
 
+
+
+
+        $correct = Carbon::now('GMT+8'); $key=null;
         
-        // if ($anApprover)
-        // {
-        //     $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
-
-           
-
-        // } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
-
-
-
         if ( ($isWorkforce && ($this->user->id !== $employee->id) )
             || ($anApprover && $employeeisBackoffice) 
             || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
@@ -613,7 +607,38 @@ class UserSLController extends Controller
             else
                 $vl->approver = $TLapprover;
 
-        } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
+            
+
+
+            //Update leave credits
+            $key = User_SLcredits::where('user_id',$employee->id)->where('creditYear',Carbon::parse($request->leaveFrom,'Asia/Manila')->format('Y'))->get();
+            
+            if ( count($key) > 0) {
+                $vlcred = $key->first();
+                $vlcred->used += $request->totalcredits;
+                $vlcred->lastUpdated = $correct->format('Y-m-d H:i:s');
+                $vlcred->push();
+                //$coll->push($key);
+
+                $vl->created_at = $correct->format('Y-m-d H:i:s');
+                $vl->updated_at = $correct->format('Y-m-d H:i:s');
+                $vl->save();
+
+                $success = 1; $msg = "SL saved successfully.";
+            }else {
+                $success = -1; $msg = "No leave credits available";
+            }
+            
+
+
+
+        } else 
+        { 
+            $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; 
+            $vl->created_at = $correct->format('Y-m-d H:i:s');
+            $vl->updated_at = $correct->format('Y-m-d H:i:s');
+            $vl->save();
+        }
 
 
 
@@ -741,8 +766,10 @@ class UserSLController extends Controller
             fclose($file);
          
 
-        if ($anApprover) return response()->json(['success'=>1,'vl'=>$vl]);
-        else return response()->json(['success'=>0,'vl'=>$vl]);
+       
+
+        if ($anApprover) return response()->json(['success'=>$success,'vl'=>$vl, 'message'=>$msg,'key'=>$key]);
+        else return response()->json(['success'=>0,'vl'=>$vl,'message'=>"for approval",'key'=>$key]);
 
 
 

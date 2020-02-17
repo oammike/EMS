@@ -454,7 +454,7 @@
                                     var data = new FormData();
                        
                                     data.append('attachments',attachments);
-                                    data.append('userid',userid);
+                                    data.append('userid',user_id);
                                     data.append('leaveFrom',leaveFrom);
                                     data.append('leaveTo',leaveTo);
                                     data.append('reason_vl',reason_vl);
@@ -475,7 +475,7 @@
                                             type:'POST',
                                             data:{
                                               '_token': _token,
-                                              'userid': userid,
+                                              'userid': user_id,
                                               'leaveFrom': leaveFrom,
                                               'leaveTo': leaveTo,
 
@@ -505,9 +505,9 @@
                                                             
                                                             console.log(response); 
                                                             $('a#save').fadeOut();
-                                                            // window.setTimeout(function(){
-                                                            //   window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                                            // }, 4000);
+                                                            window.setTimeout(function(){
+                                                              window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                                            }, 4000);
                                                           }
                                                         });
                                               }else{

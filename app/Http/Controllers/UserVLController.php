@@ -612,6 +612,9 @@ class UserVLController extends Controller
         // {
         //     $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
         // } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
+
+        $correct = Carbon::now('GMT+8'); $key=null;
+        
         if ( ($isWorkforce && ($this->user->id !== $employee->id) )
             || ($anApprover && $employeeisBackoffice) 
             || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
@@ -622,14 +625,44 @@ class UserVLController extends Controller
             else
                 $vl->approver = $TLapprover;
 
-        } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
+            
 
 
-        $correct = Carbon::now('GMT+8');
-        $vl->created_at = $correct->format('Y-m-d H:i:s');
-        $vl->updated_at = $correct->format('Y-m-d H:i:s');
-        $vl->save();
+            //Update leave credits
+            $key = User_VLcredits::where('user_id',$employee->id)->where('creditYear',Carbon::parse($request->leaveFrom,'Asia/Manila')->format('Y'))->get();
+            
+            if ( count($key) > 0) {
+                $vlcred = $key->first();
+                $vlcred->used += $request->totalcredits;
+                $vlcred->lastUpdated = $correct->format('Y-m-d H:i:s');
+                $vlcred->push();
+                //$coll->push($key);
 
+                $vl->created_at = $correct->format('Y-m-d H:i:s');
+                $vl->updated_at = $correct->format('Y-m-d H:i:s');
+                $vl->save();
+
+                $success = 1; $msg = "VL saved successfully.";
+            }else {
+                $success = -1; $msg = "No leave credits available";
+            }
+            
+
+
+
+        } else 
+        { 
+            $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; 
+            $vl->created_at = $correct->format('Y-m-d H:i:s');
+            $vl->updated_at = $correct->format('Y-m-d H:i:s');
+            $vl->save();
+        }
+
+
+        
+        
+
+        //*** IF OPS || not approver & not workforce || not approver & backoffice
         if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
         {
             /***** once saved, update your leave credits ***/
@@ -712,7 +745,7 @@ class UserVLController extends Controller
             }
 
 
-        }
+        } 
 
 
 
@@ -722,8 +755,8 @@ class UserVLController extends Controller
             fclose($file);
          
 
-        if ($anApprover) return response()->json(['success'=>1,'vl'=>$vl]);
-        else return response()->json(['success'=>0,'vl'=>$vl]);
+        if ($anApprover) return response()->json(['success'=>$success,'vl'=>$vl, 'message'=>$msg,'key'=>$key]);
+        else return response()->json(['success'=>0,'vl'=>$vl,'message'=>"for approval",'key'=>$key]);
 
 
 

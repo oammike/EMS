@@ -319,15 +319,17 @@
                                                   $('#save').fadeOut();
                                                  
 
-                                                  if (response1.success == '1')
+                                                  if (response1.success == '1') {
                                                     $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-                                                    else
+                                                  }else if (response1.success == '-1'){
+                                                    $.notify(response1.message,{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                                  }else
                                                       $.notify("Vacation Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                                   
                                                   console.log(response1);
-                                                  window.setTimeout(function(){
+                                                  /*window.setTimeout(function(){
                                                     window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                                  }, 4000);
+                                                  }, 4000);*/
                                                 }
                                               });
                                               
@@ -668,7 +670,9 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
                       $("span#credits_vl").html(response.credits);
                       $("span#credits_vl").attr('data-credits', response.credits);
-                      var cl = response.creditsleft;
+                      var cl = parseFloat(response.creditsleft);
+                      console.log("cl");
+                      console.log(cl);
                       $("#creditsleft").html(cl.toFixed(2));
                       $("#creditsleft").attr('data-left',cl.toFixed(2));
                       
