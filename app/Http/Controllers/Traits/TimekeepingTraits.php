@@ -1591,9 +1591,24 @@ trait TimekeepingTraits
   
 
      /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
-    $vl = User_VL::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $sl = User_SL::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    
+    /*$vl = collect(DB::select(DB::raw("SELECT user_vl.id, user_vl.leaveStart, user_vl.leaveEnd, user_vl.totalCredits, user_vl.halfdayFrom, user_vl.halfdayTo, user_vl.notes,user_vl.isApproved, user_vl.user_id, user_vl.approver, user_vl.created_at, user_vl.updated_at FROM user_vl WHERE user_vl.user_id = :u AND YEAR(user_vl.leaveStart) = :y AND MONTH(user_vl.leaveStart) = :m AND DAY(user_vl.leaveStart) = :d "),array(
+                                     'y' => $beginShift->format('Y'),
+                                     'd' => $beginShift->format('d'),
+                                     'm' => $beginShift->format('m'),
+                                     'u' => $employee->id
+                                   )) );
+    $vls = User_VL::where('user_id',$id)->where('leaveStart','>=',$beginShift->format('Y-m-d H:i'))->get();
+    $vl_dates = collect($vls)->pluck()
+    //->where('leaveEnd','<=',$endShift->format('Y-m-d H:i'))->orderBy('created_at','DESC')->get();
+    */
+    $vl = User_VL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+
+    //$sl = User_SL::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $sl = User_SL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $lwop = User_LWOP::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
@@ -2683,6 +2698,7 @@ trait TimekeepingTraits
        $data->push(['biometrics_id'=>$biometrics_id, 'logPalugit'=>$logPalugit,
                     'palugitDate' =>$palugitDate,
                     'beginShift'=> $beginShift,
+                    'endShift'=> $endShift,
                     'maxOut'=> $maxOut,
                     'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'vl'=>$vl,'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
                     'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
