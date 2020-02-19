@@ -1588,7 +1588,7 @@ trait TimekeepingTraits
 
 
 
-  
+    $alldays = [];
 
      /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
 
@@ -1610,7 +1610,36 @@ trait TimekeepingTraits
 
     $sl = User_SL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $lwop = User_LWOP::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $l = User_LWOP::where('user_id',$id)->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    if (count($l) > 0)
+    {
+      $l_dayS = Carbon::parse($l->first()->leaveStart,'Asia/Manila');
+      $l_dayE = Carbon::parse($l->first()->leaveEnd,'Asia/Manila');
+      $lend = $l_dayE->format('Y-m-d');
+
+      $cd = $l_dayS->diffInDays($l_dayE);
+
+      //array_push($alldays, $cd);
+      
+      
+      $cl = 0;
+      while( $cl <= $cd){
+        
+        array_push($alldays, $l_dayS->format('Y-m-d'));
+        $l_dayS->addDays(1);
+        $cl++;
+      }
+
+      if(in_array($thisPayrollDate, $alldays) )
+        $lwop= $l;
+      else $lwop=[];
+
+
+      
+    }else $lwop=[];
+
+    // $lwop = User_LWOP::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $obt = User_OBT::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
@@ -1691,7 +1720,7 @@ trait TimekeepingTraits
     }
 
 
-$col = [];$keme=0;
+    $col = [];$keme=0;
 
 
     if (count($holidayToday) > 0) $hasHolidayToday = true;
@@ -2720,7 +2749,7 @@ $col = [];$keme=0;
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
                     'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
                     'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
-                    'arg1'=>$keme,
+                    'arg1'=>$alldays,
                     'isAproblemShift'=>$isAproblemShift,
                     'dtrp'=>$hasApprovedDTRP->first()]);
 
