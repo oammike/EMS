@@ -31,10 +31,8 @@
 
 
                
-               <p class="text-center"> <a class="btn btn-lg btn-danger" href="{{action('EngagementController@wall',$id)}}" target="_blank"><i class="fa fa-th-large"></i> View Wall</a></p>
-
+               
                 <hr/>
-
                 @if($canModerate)
                 <div class="row">
                   <div class="col-lg-12">
@@ -54,8 +52,10 @@
                                   <thead>
                                     <tr>
                                       <th>From</th>
-                                      <th>Message Body</th>
                                       <th>Image</th>
+                                      <th>Portfolio Link</th>
+                                      
+                                      <th>Message Body</th>
                                       <th>Date Posted</th>
                                       <th>Status</th>
                                       
@@ -70,13 +70,16 @@
 
                                         <tr>
                                           <td>{{$e[0]->lastname}},{{$e[0]->firstname}} -- <strong>{{$e[0]->program}} </strong> </td>
+
+                                          <td><a href="../storage/uploads/{{$e[2]->value}}" target="_blank"><img src="../storage/uploads/{{$e[2]->value}}" width="120" /></a></td>
                                           
                                           <td>
                                             <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}
 
                                               </div>
                                           </td>
-                                          <td><a href="../storage/uploads/{{$e[1]->value}}" target="_blank"><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                          
+                                          <td class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[1]->value !!} </td>
                                           <td>{{$e[0]->created_at}} </td>
                                           
                                           @if($e[0]->disqualified)
@@ -198,7 +201,7 @@
                         <!-- ******** collapsible box ********** -->
                           <div class="box box-primary collapsed-box" style="margin-top: 20px">
                             <div class="box-header with-border">
-                             <h3 class="text-primary">Your Posted Messages <strong class="text-orange">({{count($allPosts)}})</strong> :</h3>
+                             <h3 class="text-primary">Your Submitted Entries <strong class="text-orange">({{count($allPosts)}})</strong> :</h3>
                               <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                 </button>
@@ -210,11 +213,14 @@
                                 <table class="table table-bordered">
                                   <thead>
                                     <tr>
+                                      
                                       <th>Image</th>
+                                      <th>Portfolio Link</th>
+                                      
                                       <th>Message Body</th>
                                       <th>Date Posted</th>
                                       <th>Status</th>
-                                      <th>Anonymous</th>
+                                      
                                       <th class="text-center">Actions</th>
                                     </tr>
                                   </thead>
@@ -225,25 +231,26 @@
                                       @if(count($e) > 1)
 
                                         <tr>
-                                          <td><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                          <td><img src="../storage/uploads/{{$e[2]->value}}" width="120" /></td>
+                                          @if($e[0]->value)
+                                          <td><em><a href="{{$e[0]->value}}" target="_blank">{{$e[0]->value}}</em></td>
+                                          @else
+                                          <td><em>No</em></td>
+                                          @endif
                                           <td>
-                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}
+                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[1]->value !!}
 
                                               </div>
                                           </td>
                                           <td>{{$e[0]->created_at}} </td>
                                           
                                           @if($e[0]->disqualified)
-                                          <td><em>Flagged inappropriate</em></td>
+                                          <td><em>Disqualified</em></td>
                                           @else
                                           <td><em>Posted</em></td>
                                           @endif
 
-                                          @if($e[0]->anonymous)
-                                          <td><em>Yes</em></td>
-                                          @else
-                                          <td><em>No</em></td>
-                                          @endif
+                                          
                                           
                                           <td class="text-center">
                                             
@@ -257,16 +264,22 @@
 
                                         <tr>
                                           <td>None</td>
-                                          <td>
-                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}</div>
-                                          </td>
-                                          <td>{{$e[0]->created_at}} </td>
-                                          <td>status</td>
-                                           @if($e[0]->anonymous)
+                                          @if($e[0]->anonymous)
                                           <td><em>Yes</em></td>
                                           @else
                                           <td><em>No</em></td>
                                           @endif
+
+                                          <td>
+                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}</div>
+                                          </td>
+                                          <td>{{$e[0]->created_at}} </td>
+                                           @if($e[0]->disqualified)
+                                            <td><em>Flagged inappropriate</em></td>
+                                            @else
+                                            <td><em>Posted</em></td>
+                                           @endif
+                                           
 
                                           <td class="actions">
                                             
@@ -324,18 +337,19 @@
 
 
                          <!-- ************* POST NEW ************** -->
-                         <div style="background: rgba(255, 132, 130, 0.7);padding:30px">
-                                <h3 class="text-primary">Post New <span class="text-danger"> Valentine Message <i class="fa fa-heart"></i> </span></h3>
+                         <div style="padding:30px">
+                               <h3 class="text-primary">Submit your <span class="text-danger"> Masterpiece! <i class="fa fa-paint-brush"></i> </span></h3>
                                 <?php $ctr=0; ?>
 
                                       <!-- <form id="form" accept-charset="UTF-8" enctype="multipart/form-data"> -->
                                         {{ Form::open(['route' => 'employeeEngagement.saveEntry2','id'=> 'form','itemids'=>$itemIDs, 'name'=>'form','accept-charset'=>'UTF-8','enctype'=>"multipart/form-data" ]) }}
+                                        <input type="hidden" name="anonymous" id="anonymous" value="0" />
 
                                 @foreach($engagement as $element)<br/>
                                 <label style="padding-top: 20px">{{$element->label}} </label>
 
                                     @if( $element->dataType == 'TXT' )
-                                    <input type="text" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" />
+                                    <input type="text" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" style="width: 50%" placeholder="http://www.link-to-your-online-portfolio" />
 
                                     @endif
 
@@ -354,9 +368,8 @@
 
                                 @endforeach
 
-                                <label><input type="radio" name="anonymous" value="1"> Post this anonymously</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label><input type="radio" name="anonymous" value="0" checked="checked"> Let them know it's me!</label><br/>
-                                <input type="submit" name="upload" value="Post It! " class="btn btn-lg btn-primary" style="margin: 20px 0 30px 0;"> </input>
+                                
+                                <input type="submit" name="upload" value="Send Entry " class="btn btn-lg btn-success" style="margin: 20px 0 30px 0;"> </input>
 
                                 <div class="progress">
                                           <div class="progress-bar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -365,6 +378,7 @@
                                 </div>
                                 <div id="success" class="row"></div>
                                 <input type="hidden" name="itemids" id="itemids" value="{{$itemIDs}}" />
+                                <input type="hidden" name="itemtypes" id="itemtypes" value="{{$itemTypes}}" />
                                 <input type="hidden" name="engagement_id" value="{{$id}}" />
                                 {{Form::close()}}
                           </div>
@@ -377,18 +391,19 @@
 
 
                     @else
-                   <div id="entry" class="col-sm-8" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
-                        <h3 class="text-primary">Post your <span class="text-danger"> Valentine Message <i class="fa fa-heart"></i> </span></h3>
+                   <div id="entry" class="col-sm-12" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
+                        <h3 class="text-primary">Submit your <span class="text-danger"> Masterpiece! <i class="fa fa-paint-brush"></i> </span></h3>
                         <?php $ctr=0; ?>
 
                               <!-- <form id="form" accept-charset="UTF-8" enctype="multipart/form-data"> -->
                                 {{ Form::open(['route' => 'employeeEngagement.saveEntry2','id'=> 'form','itemids'=>$itemIDs, 'name'=>'form','accept-charset'=>'UTF-8','enctype'=>"multipart/form-data" ]) }}
+                                <input type="hidden" name="anonymous" id="anonymous" value="0" />
 
                         @foreach($engagement as $element)<br/>
                         <label style="padding-top: 20px">{{$element->label}} </label>
 
                             @if( $element->dataType == 'TXT' )
-                            <input type="text" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" />
+                            <input type="text" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" style="width: 50%" placeholder="http://www.link-to-your-online-portfolio" />
 
                             @endif
 
@@ -399,7 +414,7 @@
                             @if( $element->dataType == 'IMG' )
                              <p><span class="text-danger"><i class="fa fa-exclamation-circle"></i> Note: </span>Please limit your image uploads to a <strong>maximum of 1.5MB</strong> per image.<br/></p>
                             
-                            <input type="file" name="file" id="file" accept="image/*"   class="form-control" data-itemID="{{$element->itemID}}" /><br/><br/>
+                            <input type="file" name="file" id="file" accept="image/*"   class="form-control" data-itemID="{{$element->itemID}}" />
                             
                             @endif
 
@@ -407,9 +422,8 @@
 
                         @endforeach
 
-                        <label><input type="radio" name="anonymous" value="1"> Post this anonymously</label>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label><input type="radio" name="anonymous" value="0" checked="checked"> Let them know it's me!</label><br/>
-                        <input type="submit" name="upload" value="Post It! " class="btn btn-lg btn-primary" style="margin: 20px 0 30px 0;"> </input>
+                        
+                        <input type="submit" name="upload" value="Send Entry " class="btn btn-lg btn-success" style="margin: 20px 0 30px 0;"> </input>
 
                          <div class="progress">
                                   <div class="progress-bar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
@@ -421,20 +435,14 @@
 
                          
                           <input type="hidden" name="itemids" id="itemids" value="{{$itemIDs}}" />
+                          <input type="hidden" name="itemtypes" id="itemtypes" value="{{$itemTypes}}" />
                           
                           <input type="hidden" name="engagement_id" value="{{$id}}" />
                          {{Form::close()}}
 
                        </div>
 
-                       <div class="col-sm-4 text-center">
-                        <h3 class="text-default">Check out our Valentine's Wall!</h3>
-
-                       
-                        <a class="btn btn-lg btn-danger" href="{{action('EngagementController@wall',$id)}}">View Wall</a>
-                        
-                       
-                      </div>
+                      
                   
 
                     @endif
@@ -448,6 +456,7 @@
                   
                   
                 </div>
+
 
                
 
@@ -488,7 +497,6 @@
 <script>
 
    $(document).ready(function(){
-
 
     $('.row').on('click','input.flag',function(){
 
@@ -546,6 +554,8 @@
 
      
     });
+   
+
 
 
     $('form').ajaxForm({
@@ -566,9 +576,9 @@
             {
                 console.log(data);
                 $('input[name="upload"]').fadeOut();
-                $('#success').html('<div class="text-success text-center"><br/><a href=\"{{action("EngagementController@show",$id)}}\" class="btn btn-lg btn-danger"><i class="fa fa-heart" ></i> Create New Post <i class="fa fa-heart" ></i></a>&nbsp;&nbsp;<a href=\"{{action("EngagementController@wall",$id)}}\" target="_blank" class="btn btn-lg btn-success"><i class="fa fa-th-large" ></i> View Wall  <i class="fa fa-th-large" ></i></a></div><br /><br />');
+                $('#success').html('<h2 class="text-success">Thank you for participating!</h2><br /><br />');
                 //$('#success').append(data.image);
-                $('.progress-bar').text('Message Uploaded!');
+                $('.progress-bar').text('Entry Uploaded!');
                 $('.progress-bar').css('width', '100%');
                
             }

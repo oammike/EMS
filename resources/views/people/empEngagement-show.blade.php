@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Employee Engagement Activities | EMS</title>
+<title>{{$engagement[0]->activity}} | EMS</title>
 @endsection
 
 @section('content')
@@ -24,7 +24,9 @@
 
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4);padding:30px">
                 
-                {!! $engagement[0]->content!!}
+                 {!! $engagement[0]->content!!} 
+                 
+ 
                 
 
 
