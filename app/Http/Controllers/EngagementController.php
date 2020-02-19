@@ -522,7 +522,7 @@ class EngagementController extends Controller
          $correct = Carbon::now('GMT+8'); 
          if($this->user->id !== 564 ) {
                                   $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                    fwrite($file, "-------------------\n Submitted Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                    fwrite($file, "-------------------\n Submitted EE entry by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
         return response()->json(['success'=>1, 'entry'=>$entry]);
@@ -610,7 +610,7 @@ class EngagementController extends Controller
         }else
         {
             $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n Submitted Frightful [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+            fwrite($file, "-------------------\n Submitted EE entry [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
         }
 
 

@@ -66,83 +66,106 @@
                                   <tbody>
                                      @foreach($userEntries as $e)
 
-                                      @if(count($e) > 1)
+                                        @if(count($e) == 3)
 
-                                        <tr>
-                                          <td>{{$e[0]->lastname}},{{$e[0]->firstname}} -- <strong>{{$e[0]->program}} </strong> </td>
+                                          <tr>
+                                            <td>{{$e[0]->lastname}},{{$e[0]->firstname}} -- <strong>{{$e[0]->program}} </strong> </td>
 
-                                          <td><a href="../storage/uploads/{{$e[2]->value}}" target="_blank"><img src="../storage/uploads/{{$e[2]->value}}" width="120" /></a></td>
-                                          
-                                          <td>
-                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}
-
-                                              </div>
-                                          </td>
-                                          
-                                          <td class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[1]->value !!} </td>
-                                          <td>{{$e[0]->created_at}} </td>
-                                          
-                                          @if($e[0]->disqualified)
-                                          <td><em>Flagged inappropriate</em></td>
-                                          @else
-                                          <td>
-                                            <em>Posted</em> <br/>
-                                            @if($e[0]->anonymous)
-                                            <em style="font-size: x-small;">(Anonymous)</em>
-                                            @else
+                                            <td><a href="../storage/uploads/{{$e[2]->value}}" target="_blank"><img src="../storage/uploads/{{$e[2]->value}}" width="120" /></a></td>
                                             
+                                            <td>
+                                              <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}
+
+                                                </div>
+                                            </td>
+                                            
+                                            <td class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[1]->value !!} </td>
+                                            <td>{{$e[0]->created_at}} </td>
+                                            
+                                            @if($e[0]->disqualified)
+                                            <td><em>Disqualified</em></td>
+                                            @else
+                                            <td>
+                                              <em>Posted</em> <br/>
+                                              @if($e[0]->anonymous)
+                                              <em style="font-size: x-small;">(Anonymous)</em>
+                                              @else
+                                              
+                                              @endif
+
+                                            </td>
                                             @endif
 
-                                          </td>
-                                          @endif
-
-                                          
-                                          
-                                          <td class="text-center">
                                             
-                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
-                                            <label style="margin-top: 20px"><input type="checkbox" @if($e[0]->disqualified) checked="checked" @endif class="flag" data-entryid="{{$e[0]->entryID}}"> Flag as Inappropriate</label>
-                                          </td>
-                                          
-                                        </tr>
-                                  
+                                            
+                                            <td class="text-center">
+                                              
+                                              <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
+                                              <label style="margin-top: 20px"><input type="checkbox" @if($e[0]->disqualified) checked="checked" @endif class="flag" data-entryid="{{$e[0]->entryID}}"> Disqualify</label>
+                                            </td>
+                                            
+                                          </tr>
+                                    
 
-                                      @else
+                                        @else
 
-                                        <tr>
-                                          <td>{{$e[0]->lastname}},{{$e[0]->firstname}} -- <strong>{{$e[0]->program}} </strong> </td>
-                                          
-                                          <td>
-                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}</div>
-                                          </td>
-                                          <td>None</td>
-                                          <td>{{$e[0]->created_at}} </td>
-                                          @if($e[0]->disqualified)
-                                          <td><em>Flagged inappropriate</em></td>
-                                          @else
-                                          <td>
-                                            <em>Posted</em> <br/>
-                                            @if($e[0]->anonymous)
-                                            <em style="font-size: x-small;">(Anonymous)</em>
+                                         <!-- either no image or no link -->
+                                          <tr>
+
+                                            <td>{{$e[0]->lastname}},{{$e[0]->firstname}} -- <strong>{{$e[0]->program}} </strong> </td>
+
+                                            <?php $img = collect($e)->where('elemType','IMG');
+                                                  $link = collect($e)->where('elemType','TXT');
+                                                  $msg = collect($e)->where('elemType','PAR'); ?>
+
+                                            @if(count($img)>0)
+                                            <td><a href="../storage/uploads/{{$img->first()->value}}" target="_blank"><img src="../storage/uploads/{{$img->first()->value}}" width="120" /></a></td>
                                             @else
-                                            
+                                            <td>None</td>
+
                                             @endif
 
-                                          </td>
-                                          @endif
+                                            @if(count($link) > 0)
+                                            <td><a href="{{$link->first()->value}}" target="_blank">{!! $link->first()->value !!}</a></td>
+                                            @else
+                                            <td>None</td>
+                                            @endif
 
-                                          <td class="text-center">
+                                            @if(count($msg)>0)
+                                            <td> <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $msg->first()->value !!}</div></td>
+                                            @else
+                                            <td>None</td>
+                                            @endif
+
+                                            <td>{{$e[0]->created_at}} </td>
+                                            @if($e[0]->disqualified)
+                                            <td><em>Disqualified</em></td>
+                                            @else
+                                            <td>
+                                              <em>Posted</em> <br/>
+                                            </td>
+                                            @endif
+
+                                            <td class="text-center">
+                                              
+                                              <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
+
+                                              <label style="margin-top: 20px"><input type="checkbox" @if($e[0]->disqualified) checked="checked" @endif class="flag" data-entryid="{{$e[0]->entryID}}"> Disqualify</label>
+                                            </td>
                                             
-                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
+                                          </tr>
 
-                                            <label style="margin-top: 20px"><input type="checkbox" @if($e[0]->disqualified) checked="checked" @endif class="flag" data-entryid="{{$e[0]->entryID}}"> Flag as Inappropriate</label>
-                                          </td>
+   
                                           
-                                        </tr>
+                                         
+                                        @endif
 
 
 
-                                      @endif
+                                     
+
+                                       
+                                      
 
                                       <div class="modal fade" id="adminModal{{$e[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog">
@@ -228,14 +251,14 @@
                                   <tbody>
                                      @foreach($allPosts as $e)
 
-                                      @if(count($e) > 1)
+                                      @if(count($e) >= 3)
 
                                         <tr>
                                           <td><img src="../storage/uploads/{{$e[2]->value}}" width="120" /></td>
                                           @if($e[0]->value)
                                           <td><em><a href="{{$e[0]->value}}" target="_blank">{{$e[0]->value}}</em></td>
                                           @else
-                                          <td><em>No</em></td>
+                                          <td><em>None</em></td>
                                           @endif
                                           <td>
                                             <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[1]->value !!}
@@ -262,23 +285,41 @@
 
                                       @else
 
-                                        <tr>
-                                          <td>None</td>
-                                          @if($e[0]->anonymous)
-                                          <td><em>Yes</em></td>
-                                          @else
-                                          <td><em>No</em></td>
-                                          @endif
 
-                                          <td>
-                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}</div>
-                                          </td>
-                                          <td>{{$e[0]->created_at}} </td>
-                                           @if($e[0]->disqualified)
-                                            <td><em>Flagged inappropriate</em></td>
+                                            <?php $img = collect($e)->where('elemType','IMG');
+                                                  $link = collect($e)->where('elemType','TXT');
+                                                  $msg = collect($e)->where('elemType','PAR'); ?>
+                                        <tr>
+                                            @if(count($img)>0)
+                                            <td><a href="../storage/uploads/{{$img->first()->value}}" target="_blank"><img src="../storage/uploads/{{$img->first()->value}}" width="120" /></a></td>
                                             @else
-                                            <td><em>Posted</em></td>
-                                           @endif
+                                            <td>None</td>
+
+                                            @endif
+
+                                            @if(count($link) > 0)
+                                            <td><a href="{{$link->first()->value}}" target="_blank">{!! $link->first()->value !!}</a></td>
+                                            @else
+                                            <td>None</td>
+                                            @endif
+
+                                            @if(count($msg)>0)
+                                            <td> <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $msg->first()->value !!}</div></td>
+                                            @else
+                                            <td>None</td>
+                                            @endif
+
+                                            <td>{{$e[0]->created_at}} </td>
+                                            @if($e[0]->disqualified)
+                                            <td><em>Disqualified</em></td>
+                                            @else
+                                            <td>
+                                              <em>Posted</em> <br/>
+                                            </td>
+                                            @endif
+
+
+
                                            
 
                                           <td class="actions">
@@ -529,9 +570,9 @@
                   {
                     console.log(response);
                     if(q)
-                      $.notify("Post tagged as inappropriate.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                      $.notify("Post tagged as disqualified.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                     else
-                      $.notify("Post unflagged as inappropriate.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                      $.notify("Post unflagged as disqualified.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                     
 
                   }
