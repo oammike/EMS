@@ -265,6 +265,9 @@ class EngagementController extends Controller
 
         DB::connection()->disableQueryLog(); 
         $correct = Carbon::now('GMT+8'); 
+
+        if(is_null(Engagement::find($id))) return view('empty');
+         
         if (Engagement::find($id)->active != '1'){
             if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
