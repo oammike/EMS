@@ -1760,7 +1760,7 @@ trait TimekeepingTraits
               //*** new fix for issues with LOGIN
               //*** we need to check its grouped LogINS and if log is within maxIN (4hrs) and maxLate (2nd shift) or shift +5hrs
               {
-                $checker="else if in sya";
+                
                 //$userLog=null;
                 /*if ($isRDYest)
                 {*/
@@ -1788,21 +1788,32 @@ trait TimekeepingTraits
                                 // Get from TOmmorrow ---
                                 // except kung 12Mn start, sure na  kahapon yun
 
-                    if ($beginShift->format('Y-m-d H:i:s') == Carbon::parse($thisPayrollDate)->startOfDay()->format('Y-m-d H:i:s')){
+                    $checker="dun sa beginshift";
+
+                    /*if ($beginShift->format('Y-m-d H:i:s') == Carbon::parse($thisPayrollDate)->startOfDay()->format('Y-m-d H:i:s')){
                       $yest = Carbon::parse($thisPayrollDate)->subDay(1);
                       $bioYest = Biometrics::where('productionDate',$yest->format('Y-m-d'))->get();
                     }else{
                       $yest = Carbon::parse($thisPayrollDate);
                       $bioYest = Biometrics::where('productionDate',$yest->format('Y-m-d'))->get();
 
-                    }
+                    }*/
                     
+                    //check mo muna yung max allowable pre-in
+                    $maxIntime = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6);
+                    $maxInBio = Biometrics::where('productionDate',$maxIntime->format('Y-m-d'))->get();
+                    $bioYest = $maxInBio;
                     
 
-                    if (count($bioYest) > 0)
+                    if (count($maxInBio) > 0)
                     {
+                      //dapat kunin mo lang yung maximum allowable
+                      //$logsKahapon = Logs::where('user_id',$id)->where('biometrics_id',$bioYest->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
 
-                      $logsKahapon = Logs::where('user_id',$id)->where('biometrics_id',$bioYest->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                      $logsKahapon = Logs::where('user_id',$id)->where('biometrics_id',$maxInBio->first()->id)->where('logType_id',$logType_id)->
+                                           where('logTime','>=',$maxIntime->format('H:i:s'))->orderBy('biometrics_id','ASC')->get();
+
+                      $checker = $logsKahapon;
 
                      
 
@@ -1969,7 +1980,7 @@ trait TimekeepingTraits
 
      //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
 
-     $checker = null; //['userLg'=>$userLog];
+     //$checker = null; //['userLg'=>$userLog];
      
       if (is_null($userLog) || count($userLog)<1 )
       {  
@@ -2749,7 +2760,7 @@ trait TimekeepingTraits
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
                     'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
                     'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
-                    'arg1'=>$alldays,
+                    'arg1'=>$checker,
                     'isAproblemShift'=>$isAproblemShift,
                     'dtrp'=>$hasApprovedDTRP->first()]);
 
