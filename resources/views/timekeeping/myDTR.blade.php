@@ -87,8 +87,8 @@
                                           <!-- /.col -->
                                           <div class="col-sm-3">
                                             <div class="description-block">
-                                              <p class="description-header"><i class="fa fa-address-card-o margin-r-5"></i> Employee Number : </p>
-                                              <span class="description-text text-primary">{{$user->employeeNumber}} </span>
+                                              <p class="description-header"><i class="fa fa-address-card-o margin-r-5"></i> Biometric Code : </p>
+                                              <span class="description-text text-primary">{{$user->accesscode}} </span>
                                             </div>
                                             <!-- /.description-block -->
                                           </div>
