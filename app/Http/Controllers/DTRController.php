@@ -2621,6 +2621,7 @@ class DTRController extends Controller
                                         $VLs = $data[0]['VL'];
                                         $LWOPs = $data[0]['LWOP'];
 
+
                                               
                                       
 
@@ -2743,7 +2744,7 @@ class DTRController extends Controller
 
              }//END foreach payrollPeriod
 
-           //return $myDTR;
+           //return $myDTR->where('productionDate','Feb 17, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

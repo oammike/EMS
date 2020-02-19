@@ -1691,7 +1691,7 @@ trait TimekeepingTraits
     }
 
 
-
+$col = [];$keme=0;
 
 
     if (count($holidayToday) > 0) $hasHolidayToday = true;
@@ -1747,9 +1747,9 @@ trait TimekeepingTraits
                   //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
                   $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6)->format('Y-m-d H:i:s');
                 
-                  $col = [];
+                  
 
-                  //array_push($col, ['l'=>$l->format('Y-m-d H:i:s'), 'b'=> $beginShift->format('Y-m-d H:i:s'), 'm'=>$maxO->format('Y-m-d H:i:s') ]);
+                  array_push($col, ['beginShift'=>$beginShift->format('Y-m-d H:i:s'), 'probTime1'=> $probTime1, 'probTime2'=>$probTime2 ]);
                   if ($beginShift->format('Y-m-d H:i:s') >= $probTime1 && $beginShift->format('Y-m-d H:i:s') <= $probTime2)
                   {
                     /*-- check for logs within 6hr grace period for problem shifts --*/
@@ -1941,6 +1941,7 @@ trait TimekeepingTraits
      //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
 
      $checker = null; //['userLg'=>$userLog];
+     
       if (is_null($userLog) || count($userLog)<1 )
       {  
 
@@ -1948,14 +1949,11 @@ trait TimekeepingTraits
                                   perform this only for LOG INS                         */
 
 
-          if ($logType_id == 1){
-
-                
-                
+          if ($logType_id == 1)
+          {
                 $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6)->format('Y-m-d H:i:s');
                 
-
-
+           
                 if ($beginShift >= $probTime1 && $beginShift <= $probTime2)
                 {
                   /*-- check for logs within 6hr grace period for problem shifts --*/
@@ -1963,6 +1961,7 @@ trait TimekeepingTraits
                   /*-- FIRST: get yung from yesterday
                               pag wala pa rin, 
                               Get from TOmmorrow --- */
+
                   $yest = Carbon::parse($thisPayrollDate)->addDay(-1);
                   $bioYest = Biometrics::where('productionDate',$yest->format('Y-m-d'))->get();
 
@@ -2009,7 +2008,7 @@ trait TimekeepingTraits
                     $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
 
                     if (count($bioForTom) > 0){
-                      $finishShift = Carbon::parse($bioForTom->first()->productionDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+                      //$finishShift = Carbon::parse($bioForTom->first()->productionDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
 
                         $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
 
@@ -2026,7 +2025,7 @@ trait TimekeepingTraits
                             $userLog = $logPalugit;
                             goto proceedWithLogs;
 
-                          } else if ($palugitDate >= $beginShift &&  $palugitDate <= $finishShift) //meaning late lang sya
+                          } else if ($palugitDate >= $beginShift &&  $palugitDate <= $endShift) //meaning late lang sya
                           {
 
                               $userLog = $logPalugit;
@@ -2043,6 +2042,18 @@ trait TimekeepingTraits
                   
 
                 } //end ($beginShift >= $probTime1 && $beginShift <= $probTime2) 
+                else //check mo kung may undertime IN
+                {
+                  $maxIn = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(7);//->format('Y-m-d H:i:s');
+                  $currBio = Biometrics::where('productionDate',$maxIn->format('Y-m-d'))->get();
+                  if (count($currBio) > 0) $cb=$currBio->first(); else goto proceedWithBlank;
+
+                  $lateLogs = Logs::where('user_id',$id)->where('biometrics_id',$cb->id)->where('logType_id',$logType_id)->
+                                  where('logTime','<=',$maxIn->format('H:i:s'))->orderBy('biometrics_id','ASC')->get();
+                  //$keme=$maxIn;
+                  if (count($lateLogs) > 0){  $userLog = $lateLogs; goto proceedWithLogs; } else {  goto proceedWithBlank; }
+
+                }
 
           /* ------------ END THIS IS WHERE WE CHECK FOR THOSE PROBLEM AREAS : LOG IN ---------*/       
           } else if($logType_id == 2)
@@ -2552,7 +2563,7 @@ trait TimekeepingTraits
                           } 
 
 
-
+                          $keme="done proceed";
 
                          $timing = Carbon::parse($b->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
                          
@@ -2709,7 +2720,7 @@ trait TimekeepingTraits
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
                     'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
                     'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
-                    'arg1'=>$checker,
+                    'arg1'=>$keme,
                     'isAproblemShift'=>$isAproblemShift,
                     'dtrp'=>$hasApprovedDTRP->first()]);
 
@@ -3346,7 +3357,7 @@ trait TimekeepingTraits
   public function getWorkedHours($user_id, $userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday, $isRDYest)
   {
 
-    $employee = User::find($user_id);
+    $employee = User::find($user_id);$koll=new Collection;
 
     ($employee->status_id == 12 || $employee->status_id == 14 ) ? $isPartTimer = true : $isPartTimer=false;
 
@@ -3512,7 +3523,7 @@ trait TimekeepingTraits
 
      
 
-
+      $koll->push(['userLogIN'=>$inTime->format('Y-m-d H:i'), 'scheduleStart'=>$scheduleStart->format('Y-m-d H:i')]);
 
 
       if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
@@ -4039,8 +4050,9 @@ trait TimekeepingTraits
      
 
     $data->push([
+                  
                   'holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 
-                  'checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
+                  'checkLate'=>"nonComplicated", 'workedHours'=> $workedHours, //$koll, // 
                   'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'LWOP'=>$hasLWOP ]);
     /*              $t=$userLogIN[0]['timing']->format('H:i:s');
