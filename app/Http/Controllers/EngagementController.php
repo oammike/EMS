@@ -113,12 +113,13 @@ class EngagementController extends Controller
     public function deletePost($id)
     {
         $vote = Engagement_Entry::find($id);
-        $vote->delete();
-         if( \Auth::user()->id !== 564 ) {
+        if( \Auth::user()->id !== 564 ) {
                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n Delete Valentine on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fwrite($file, "-------------------\n Delete Entry on [".$vote->engagement_id."] ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
               }
+        $vote->delete();
+         
         return redirect()->action('EngagementController@show',2);
         //return $vote;
 
@@ -267,7 +268,7 @@ class EngagementController extends Controller
         $correct = Carbon::now('GMT+8'); 
 
         if(is_null(Engagement::find($id))) return view('empty');
-         
+
         if (Engagement::find($id)->active != '1'){
             if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
@@ -453,7 +454,7 @@ class EngagementController extends Controller
 
                 if( \Auth::user()->id !== 564 ) {
                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n Check Vday2020 on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fwrite($file, "-------------------\n Check Painting2020 on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
                 }
                 //return $allPosts;
@@ -604,7 +605,7 @@ class EngagementController extends Controller
         }else if( ($request->engagement_id == 3) && ($this->user->id !== 564 ) ) //painting
         {
             $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Painting2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                fwrite($file, "-------------------\n SubmitPainting2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
         }else
         {
