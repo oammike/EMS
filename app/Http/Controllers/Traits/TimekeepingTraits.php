@@ -1555,7 +1555,7 @@ trait TimekeepingTraits
 
     if (is_null($thesched))
     {
-      $sched = ['timeStart'=>null, 'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>true, 'workday'=>null ];
+      $sched = ['timeStart'=>null, 'timeEnd'=>'00:00:00','isFlexitime'=>false,'isRD'=>false, 'workday'=>null,'created_at'=>null ];
       // *** null meaning either wala talga or di pa effective yung sched
 
     } else $sched = $thesched;
@@ -4190,6 +4190,8 @@ trait TimekeepingTraits
 
         $actual_fixed_WS = $this->getLatestFixedSchedGrouped($workSched_fixed,$productionDate->format('Y-m-d'),$dayToday);
         $actual_fixed_RD = $this->getLatestFixedSchedGrouped($RDsched_fixed,$productionDate->format('Y-m-d'),$dayToday);
+
+        //return response()->json(['actual_fixed_WS'=>$actual_fixed_WS,'actual_fixed_RD'=>$actual_fixed_RD]);
 
         if (is_null($actual_fixed_RD['workday']) && is_null($actual_fixed_WS['workday']) )
         {
