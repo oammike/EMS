@@ -552,8 +552,8 @@ trait TimekeepingTraits
 
          if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
          {
-          $isRDToday=true;
-          $schedForToday = array('timeStart'=>'* RD *', 
+            $isRDToday=true;
+            $schedForToday = array('timeStart'=>'* RD *', 
                                     'timeEnd'=>'* RD *' ,
                                     'isFlexitime' => false,
                                     'isRD'=> true);
@@ -561,12 +561,12 @@ trait TimekeepingTraits
          } 
          else 
          {
-          $isRDToday=false;
-          $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+            $isRDToday=false;
+            $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
                                     'timeEnd'=> $approvedCWS->first()->timeEnd,
                                     'isFlexitime' => false,
                                     'isRD'=> $approvedCWS->first()->isRD);
-        }
+         }
         $RDsched1 = $RDsched;
         /*
           $ws =$this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
@@ -1555,7 +1555,8 @@ trait TimekeepingTraits
 
     if (is_null($thesched))
     {
-      $sched = ['timeStart'=>null, 'timeEnd'=>'00:00:00','isFlexitime'=>false,'isRD'=>false, 'workday'=>null,'created_at'=>null ];
+      //$sched = ['timeStart'=>null, 'timeEnd'=>'00:00:00','isFlexitime'=>false,'isRD'=>false, 'workday'=>null,'created_at'=>null ];
+      $sched = ['timeStart'=>null, 'timeEnd'=>'null','isFlexitime'=>false,'isRD'=>true, 'workday'=>null,'created_at'=>null ];
       // *** null meaning either wala talga or di pa effective yung sched
 
     } else $sched = $thesched;

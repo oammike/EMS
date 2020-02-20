@@ -80,7 +80,7 @@ class FixedScheduleController extends Controller
 	    		$sched->save();
 	    		
 
-                if (count($applySchedToOthers) > 0)
+                if (count( (array)$applySchedToOthers) > 0)
                 {
                     foreach($applySchedToOthers as $user2)
                     {
@@ -127,7 +127,7 @@ class FixedScheduleController extends Controller
     		$sched->save();
     		
 
-            if (count($applySchedToOthers) > 0)
+            if (count((array)$applySchedToOthers) > 0)
             {
                 foreach($applySchedToOthers as $user2)
                 {
