@@ -619,81 +619,101 @@ trait TimekeepingTraits
       if ($hasApprovedCWS)
       {
         // check mo muna kung mas updated ung plotted sched sa CWS
+        if (is_null($workSched)){
+          $isRDToday=false;
+          $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                            'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                            'isFlexitime' => false,
+                                            'isRD'=> $approvedCWS->first()->isRD);
 
-        if ( count($workSched->where('productionDate',$payday)->all()) > 0 )
-        {
-
-           if ($workSched->where('productionDate',$payday)->sortByDesc('id')->first()->created_at > $approvedCWS->first()->updated_at )
-            {
-              $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
-              $isRDToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first()->isRD;
-              $RDsched1 = $RDsched;
-
-            }else 
-            {
-
-              // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-              //                   'timeEnd'=> $approvedCWS->first()->timeEnd, 
-              //                   'isFlexitime'=>false,
-              //                   'isRD'=>$approvedCWS->first()->isRD);
-
-              // $isRDToday = $approvedCWS->first()->isRD;
-              // $RDsched1 = $RDsched;
-
-               if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
-               {
-                $isRDToday=true;
-                $schedForToday = array('timeStart'=>'* RD *', 
-                                          'timeEnd'=>'* RD *' ,
-                                          'isFlexitime' => false,
-                                          'isRD'=> true);
-
-               } 
-               else 
-               {
-                $isRDToday=false;
-                $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                          'timeEnd'=> $approvedCWS->first()->timeEnd,
-                                          'isFlexitime' => false,
-                                          'isRD'=> $approvedCWS->first()->isRD);
-               }
-               $RDsched1 = $RDsched;
-
-
-
-            }
-            
-
-        } else 
-        {
-          // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-          //                       'timeEnd'=> $approvedCWS->first()->timeEnd, 
-          //                       'isFlexitime'=>false,
-          //                       'isRD'=>$workSched->where('productionDate',$payday)->first()->isRD);
-          // $isRDToday = $workSched->where('productionDate',$payday)->first()->isRD;
-          // $RDsched1 = $RDsched;
-
-              if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
-               {
-                $isRDToday=true;
-                $schedForToday = array('timeStart'=>'* RD *', 
-                                          'timeEnd'=>'* RD *' ,
-                                          'isFlexitime' => false,
-                                          'isRD'=> true);
-
-               } 
-               else 
-               {
-                $isRDToday=false;
-                $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                          'timeEnd'=> $approvedCWS->first()->timeEnd,
-                                          'isFlexitime' => false,
-                                          'isRD'=> $approvedCWS->first()->isRD);
-               }
-               $RDsched1 = $RDsched;
-
+          /*$schedForToday = array('timeStart'=>'00:00', 
+                                            'timeEnd'=>'00:00' ,
+                                            'isFlexitime' => false,
+                                            'isRD'=> false);*/
+          $isRDToday=false;
+          $RDsched1=null;
+          $isFixedSched=false;
+          $RDsched=null;
 
         }
+        else 
+        { 
+          if ( count($workSched->where('productionDate',$payday)->all()) > 0 )
+          {
+
+             if ($workSched->where('productionDate',$payday)->sortByDesc('id')->first()->created_at > $approvedCWS->first()->updated_at )
+              {
+                $schedForToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first();
+                $isRDToday = $workSched->where('productionDate',$payday)->sortByDesc('id')->first()->isRD;
+                $RDsched1 = $RDsched;
+
+              }else 
+              {
+
+                // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                //                   'timeEnd'=> $approvedCWS->first()->timeEnd, 
+                //                   'isFlexitime'=>false,
+                //                   'isRD'=>$approvedCWS->first()->isRD);
+
+                // $isRDToday = $approvedCWS->first()->isRD;
+                // $RDsched1 = $RDsched;
+
+                 if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
+                 {
+                  $isRDToday=true;
+                  $schedForToday = array('timeStart'=>'* RD *', 
+                                            'timeEnd'=>'* RD *' ,
+                                            'isFlexitime' => false,
+                                            'isRD'=> true);
+
+                 } 
+                 else 
+                 {
+                  $isRDToday=false;
+                  $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                            'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                            'isFlexitime' => false,
+                                            'isRD'=> $approvedCWS->first()->isRD);
+                 }
+                 $RDsched1 = $RDsched;
+
+
+
+              }
+              
+
+          } else 
+          {
+            // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+            //                       'timeEnd'=> $approvedCWS->first()->timeEnd, 
+            //                       'isFlexitime'=>false,
+            //                       'isRD'=>$workSched->where('productionDate',$payday)->first()->isRD);
+            // $isRDToday = $workSched->where('productionDate',$payday)->first()->isRD;
+            // $RDsched1 = $RDsched;
+
+                if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
+                 {
+                  $isRDToday=true;
+                  $schedForToday = array('timeStart'=>'* RD *', 
+                                            'timeEnd'=>'* RD *' ,
+                                            'isFlexitime' => false,
+                                            'isRD'=> true);
+
+                 } 
+                 else 
+                 {
+                  $isRDToday=false;
+                  $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
+                                            'timeEnd'=> $approvedCWS->first()->timeEnd,
+                                            'isFlexitime' => false,
+                                            'isRD'=> $approvedCWS->first()->isRD);
+                 }
+                 $RDsched1 = $RDsched;
+
+
+          }
+        }
+        
 
       } else //walang CWS
       {
