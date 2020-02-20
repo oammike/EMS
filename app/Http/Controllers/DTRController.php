@@ -1706,7 +1706,7 @@ class DTRController extends Controller
         $updatedSL = false;
 
 
-        if ($lengthOfService > 6) //do this if only 6mos++
+        if ($lengthOfService >= 6) //do this if only 6mos++
         {
           $today= date('m');//today();
           $avail = $user->vlCredits;
