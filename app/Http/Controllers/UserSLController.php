@@ -638,6 +638,8 @@ class UserSLController extends Controller
             $vl->created_at = $correct->format('Y-m-d H:i:s');
             $vl->updated_at = $correct->format('Y-m-d H:i:s');
             $vl->save();
+
+            $success = 1; $msg = "SL saved successfully.";
         }
 
 

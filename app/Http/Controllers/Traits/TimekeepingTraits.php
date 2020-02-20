@@ -4213,7 +4213,20 @@ trait TimekeepingTraits
                 $sched = $RDsched_monthly[0];
               else $sched = $actual_fixed_RD;
             }
-            else $sched= $actual_fixed_RD;  
+            else //kung walang RD monthly, baka WS monthly
+            {
+              if (count($workSched_monthly) > 0)
+              {
+                //compare mo alin mas latest between the two
+                if ($workSched_monthly[0]->created_at > $actual_fixed_RD['created_at'])
+                  $sched = $workSched_monthly[0];
+                else
+                  $sched = $actual_fixed_RD;
+
+              }
+              else
+              $sched= $actual_fixed_RD;
+            }   
 
             
 
@@ -4229,7 +4242,23 @@ trait TimekeepingTraits
                 $sched = $workSched_monthly[0];
               else $sched = $actual_fixed_WS;
             }
-            else $sched= $actual_fixed_WS;  
+            else
+            {
+              if (count($RDsched_monthly) > 0)
+              {
+                if ($RDsched_monthly[0]->created_at > $actual_fixed_WS['created_at'])
+                {
+                  $sched = $RDsched_monthly[0];
+
+                }else $sched = $actual_fixed_WS;
+
+              }else  $sched= $actual_fixed_WS; 
+              
+
+              
+
+            }
+            //else $sched= $actual_fixed_WS;  
 
           }
 
