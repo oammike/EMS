@@ -1854,7 +1854,7 @@ trait TimekeepingTraits
                 
                   
 
-                  array_push($col, ['beginShift'=>$beginShift->format('Y-m-d H:i:s'), 'probTime1'=> $probTime1, 'probTime2'=>$probTime2 ]);
+                  //array_push($col, ['beginShift'=>$beginShift->format('Y-m-d H:i:s'), 'probTime1'=> $probTime1, 'probTime2'=>$probTime2 ]);
                   if ($beginShift->format('Y-m-d H:i:s') >= $probTime1 && $beginShift->format('Y-m-d H:i:s') <= $probTime2)
                   {
                     /*-- check for logs within 6hr grace period for problem shifts --*/
@@ -1893,7 +1893,7 @@ trait TimekeepingTraits
 
                       $checker = $logsKahapon;
 
-                     
+                      array_push($col,['pasok logsKahapon'=>"yes",'logsKahapon'=>$logsKahapon]);
 
                         if (count($logsKahapon) > 0) 
                         { 
@@ -1974,7 +1974,14 @@ trait TimekeepingTraits
 
                           
                           
-                        } else goto checkTomorrowLogs; 
+                        } else //check mo muna for today before going tomorrow
+                        {
+                          $ul = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+                          if (count($ul) > 0) goto theUsual;
+                          else goto checkTomorrowLogs; 
+
+                        } 
 
                     
 
@@ -2126,7 +2133,7 @@ trait TimekeepingTraits
                     $tommorow = Carbon::parse($thisPayrollDate)->addDay();
                     $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
 
-                      array_push($col,['pasok tommorow'=>"yes",'bioForTom'=>$bioForTom->first()->id ]);
+                      
 
                     if (count($bioForTom) > 0){
                       //$finishShift = Carbon::parse($bioForTom->first()->productionDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
