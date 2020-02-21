@@ -3178,7 +3178,8 @@ trait TimekeepingTraits
                         $logOUT = $logO->format('M d h:i:s A'); 
 
                         //$timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
-                        $timeStart = Carbon::parse($thisPayrollDate." 20:20:20",'Asia/Manila');
+                        $timeStart = Carbon::parse(Biometrics::find($userLogIN->first()->biometrics_id)->productionDate." ".$userLogIN->first()->logTime,'Asia/Manila'); 
+                        //Carbon::parse($thisPayrollDate." 20:20:20",'Asia/Manila');
                        
                         $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
 
