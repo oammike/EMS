@@ -3183,8 +3183,17 @@ trait TimekeepingTraits
                        
                         $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
 
-                        $wh = $logO->diffInMinutes($timeStart->addHour(1)); //--- pag RD OT, no need to add breaktime 1HR
+                        $mindiff = $timeStart->diffInMinutes($logO);
+
+                        //*** if RD OT hrs > 5, less 1hr break
+
+                        if ($mindiff > 300) $wh = $logO->diffInMinutes($timeStart->addHour(1));
+                        else  $wh = $logO->diffInMinutes($timeStart); 
                         $workedHours = number_format($wh/60,2);
+
+                        
+                        //if ($workedHours > 5) $workedHours = $workedHours-1;
+
                         $billableForOT = $workedHours;
 
                         if ($hasHolidayToday)
