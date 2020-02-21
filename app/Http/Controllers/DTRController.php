@@ -2714,7 +2714,7 @@ class DTRController extends Controller
                                        'sameDayLog'=>$sameDayLog,
                                        'isFixedSched'=>$isFixedSched,
                                        //'allData'=>$data,
-                                       'coll'=>$coll
+                                       //'coll'=>$coll
 
                                       
                                        
