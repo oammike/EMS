@@ -1609,7 +1609,7 @@ trait TimekeepingTraits
 
 
 
-    $alldays = [];
+    $alldays = [];$alldaysLWOP=[]; $alldaysFL=[]; $alldaysVL=[]; $alldaysSL=[];$col =[];$fl=[];
 
      /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
 
@@ -1672,6 +1672,7 @@ trait TimekeepingTraits
       //************* gawin mo to foreach family leave ************//
       foreach ($famL as $familyleave) 
       {
+         
         $f_dayS = Carbon::parse($familyleave->leaveStart,'Asia/Manila');
         $f_dayE = Carbon::parse($familyleave->leaveEnd,'Asia/Manila');
         $full_leave = Carbon::parse($familyleave->leaveEnd,'Asia/Manila')->addDays($familyleave->totalCredits)->addDays(-1);
@@ -1682,29 +1683,30 @@ trait TimekeepingTraits
 
         if ($familyleave->totalCredits <= 1)
         {
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysFL, $f_dayS->format('Y-m-d'));
             
 
         }else
         {
           while( $cf2 <= $cf){
           
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysFL, $f_dayS->format('Y-m-d'));
             $f_dayS->addDays(1);
             $cf2++;
           }
 
         }
         
-        
+        array_push($col, ['pasok alldaysFL'=>$alldaysFL, 'thisPayrollDate'=>$thisPayrollDate]);
 
         //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
 
-        if(in_array($thisPayrollDate, $alldays) ) {
+        if(in_array($thisPayrollDate, $alldaysFL) ) {
 
-          $fl= $familyleave; 
-          $hasFL=true;
+          $fl = $familyleave; 
+          $hasFL=true; $hasLeave=true;
           $flDeet= $familyleave;
+
           (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
 
           break(1);
@@ -1712,11 +1714,12 @@ trait TimekeepingTraits
         
       }
 
-
+      array_push($col, ['fl'=>$fl]);
       
     }else 
     {
-      $fl=[];$hasFL = false;
+      $fl=[];
+      $hasFL = false; $hasLeave=false;
       $flDeet = null;
     }
 
@@ -1796,7 +1799,7 @@ trait TimekeepingTraits
     }*/
 
 
-    $col = [];$keme=0;
+    //$col = [];$keme=0;
 
 
     if (count($holidayToday) > 0) $hasHolidayToday = true;
@@ -2072,7 +2075,7 @@ trait TimekeepingTraits
              
           
 
-      //} 
+ 
 
 
       /*--- after getting the logs, IF (logIN_type) go to another filter pass
@@ -3536,7 +3539,7 @@ trait TimekeepingTraits
     $inTime = null;
     $outTime = null;$x=null;$y=null;
 
-    $alldays=[];
+    $alldays=[]; $alldaysLWOP=[]; $alldaysFL=[]; $alldaysVL=[]; $alldaysSL=[];
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
     /*-------- VACATION LEAVE  -----------*/
@@ -3546,7 +3549,7 @@ trait TimekeepingTraits
     $vlcol= new Collection;
     if (count($vl1) > 0)
     {
-      $alldays=[];
+      
       //************* gawin mo to foreach family leave ************//
       foreach ($vl1 as $vacay) 
       {
@@ -3561,14 +3564,14 @@ trait TimekeepingTraits
 
         if ($vacay->totalCredits <= 1)
         {
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysVL, $f_dayS->format('Y-m-d'));
             
 
         }else
         {
           while( $cf2 <= $cf){
           
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysVL, $f_dayS->format('Y-m-d'));
             $f_dayS->addDays(1);
             $cf2++;
           }
@@ -3579,7 +3582,7 @@ trait TimekeepingTraits
 
         //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
 
-        if(in_array($payday, $alldays) ) {
+        if(in_array($payday, $alldaysVL) ) {
 
           $vl= $vacay; 
           $hasVL=true;
@@ -3609,7 +3612,7 @@ trait TimekeepingTraits
     if (count($sl1) > 0)
     {
       //************* gawin mo to foreach sick leave ************//
-      $alldays=[];
+      
       foreach ($sl1 as $sick) 
       {
         $f_dayS = Carbon::parse($sick->leaveStart,'Asia/Manila');
@@ -3622,14 +3625,14 @@ trait TimekeepingTraits
 
         if ($sick->totalCredits <= 1)
         {
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysSL, $f_dayS->format('Y-m-d'));
             
 
         }else
         {
           while( $cf2 <= $cf){
           
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysSL, $f_dayS->format('Y-m-d'));
             $f_dayS->addDays(1);
             $cf2++;
           }
@@ -3640,7 +3643,7 @@ trait TimekeepingTraits
 
         $slcol->push(['payday'=>$payday, 'sick sl1'=>$sl1]);
 
-        if(in_array($payday, $alldays) ) {
+        if(in_array($payday, $alldaysSL) ) {
 
           $sl= $sick; 
           $hasSL=true;
@@ -3668,7 +3671,7 @@ trait TimekeepingTraits
     $lwopcol= new Collection;
     if (count($lwop1) > 0)
     {
-      $alldays=[];
+     
       //************* gawin mo to foreach family leave ************//
       foreach ($lwop1 as $leavewop) 
       {
@@ -3683,14 +3686,14 @@ trait TimekeepingTraits
 
         if ($leavewop->totalCredits <= 1)
         {
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysLWOP, $f_dayS->format('Y-m-d'));
             
 
         }else
         {
           while( $cf2 <= $cf){
           
-            array_push($alldays, $f_dayS->format('Y-m-d'));
+            array_push($alldaysLWOP, $f_dayS->format('Y-m-d'));
             $f_dayS->addDays(1);
             $cf2++;
           }
@@ -3701,7 +3704,7 @@ trait TimekeepingTraits
 
         //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
 
-        if(in_array($payday, $alldays) ) {
+        if(in_array($payday, $alldaysLWOP) ) {
 
           $lwop= $leavewop; 
           $hasLWOP=true;
