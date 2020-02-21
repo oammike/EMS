@@ -1830,7 +1830,26 @@ trait TimekeepingTraits
                 {
                   $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
 
-                }else goto proceedWithBlank;
+                }else
+                {
+                  //******** HIDE MUNA TO CHECKOUT 
+                  /*
+                  //check mo muna kung RD nya and 12MN shart ng shift
+                  if ($isRDYest && ($beginshift->format('H:i') == Carbon::now()->startOfDay()->format('H:i')))
+                  {
+                    //check mo kung end shift eh for today, else
+                    array_push($col, "check RDyest");
+                    if ($endShift->format('Y-m-d') == $thisPayrollDate) {  goto proceedToLogTomorrow; } 
+                    else
+                      goto theUsual;
+                    
+                  } else goto proceedWithBlank;
+                  */
+
+                  goto proceedWithBlank;
+
+
+                }
 
               }else if($logType_id == 1)// && $isAproblemShift
               //*** new fix for issues with LOGIN
@@ -2852,6 +2871,7 @@ trait TimekeepingTraits
                     'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
                     'arg1'=>$col,
                     'isAproblemShift'=>$isAproblemShift,
+                    'isRDYest'=>$isRDYest,
                     'dtrp'=>$hasApprovedDTRP->first()]);
 
               
@@ -3519,27 +3539,196 @@ trait TimekeepingTraits
     $alldays=[];
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
+    /*-------- VACATION LEAVE  -----------*/
+    $vl1 = User_VL::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $vlcol= new Collection;
+    if (count($vl1) > 0)
+    {
+      $alldays=[];
+      //************* gawin mo to foreach family leave ************//
+      foreach ($vl1 as $vacay) 
+      {
+
+        $f_dayS = Carbon::parse($vacay->leaveStart,'Asia/Manila');
+        $f_dayE = Carbon::parse($vacay->leaveEnd,'Asia/Manila');
+        $full_leave = Carbon::parse($vacay->leaveEnd,'Asia/Manila')->addDays($vacay->totalCredits)->addDays(-1);
+        $fend = $f_dayE->format('Y-m-d');
+
+        $cf = $vacay->totalCredits; // $f_dayS->diffInDays($f_dayE)+1;
+        $cf2 = 1;
+
+        if ($vacay->totalCredits <= 1)
+        {
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            
+
+        }else
+        {
+          while( $cf2 <= $cf){
+          
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            $f_dayS->addDays(1);
+            $cf2++;
+          }
+
+        }
+        
+        
+
+        //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
+
+        if(in_array($payday, $alldays) ) {
+
+          $vl= $vacay; 
+          $hasVL=true;
+          $vlDeet= $vacay;
+          (!is_null($vlDeet->isApproved)) ? $hasPendingVL=false : $hasPendingVL=true;
+
+          break(1);
+        }
+        
+      }
+
+
+      
+    }else 
+    {
+      $vl=[];$hasVL = false;
+      $vlDeet = null;
+    }
+    /*-------- VACATION LEAVE  -----------*/
+
+
+     /*-------- SICK LEAVE  -----------*/
+    $sl1 = User_SL::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    $slcol= new Collection;$hasSL=null;
+    if (count($sl1) > 0)
+    {
+      //************* gawin mo to foreach sick leave ************//
+      $alldays=[];
+      foreach ($sl1 as $sick) 
+      {
+        $f_dayS = Carbon::parse($sick->leaveStart,'Asia/Manila');
+        $f_dayE = Carbon::parse($sick->leaveEnd,'Asia/Manila');
+        $full_leave = Carbon::parse($sick->leaveEnd,'Asia/Manila')->addDays($sick->totalCredits)->addDays(-1);
+        $fend = $f_dayE->format('Y-m-d');
+
+        $cf = $sick->totalCredits; // $f_dayS->diffInDays($f_dayE)+1;
+        $cf2 = 1;
+
+        if ($sick->totalCredits <= 1)
+        {
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            
+
+        }else
+        {
+          while( $cf2 <= $cf){
+          
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            $f_dayS->addDays(1);
+            $cf2++;
+          }
+
+        }
+        
+        
+
+        $slcol->push(['payday'=>$payday, 'sick sl1'=>$sl1]);
+
+        if(in_array($payday, $alldays) ) {
+
+          $sl= $sick; 
+          $hasSL=true;
+          $slDeet= $sick;
+          (!is_null($slDeet->isApproved)) ? $hasPendingSL=false : $hasPendingSL=true;
+
+          break(1);
+        }
+        
+      }
+
+
+      
+    }else 
+    {
+      $sl=[];$hasSL = false;
+      $slDeet = null;
+    }
+     /*-------- SICK LEAVE  -----------*/
+
+
+
+    $lwop1 = User_LWOP::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     
-    $vl = User_VL::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $lwopcol= new Collection;
+    if (count($lwop1) > 0)
+    {
+      $alldays=[];
+      //************* gawin mo to foreach family leave ************//
+      foreach ($lwop1 as $leavewop) 
+      {
 
-    $sl = User_SL::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+        $f_dayS = Carbon::parse($leavewop->leaveStart,'Asia/Manila');
+        $f_dayE = Carbon::parse($leavewop->leaveEnd,'Asia/Manila');
+        $full_leave = Carbon::parse($leavewop->leaveEnd,'Asia/Manila')->addDays($leavewop->totalCredits)->addDays(-1);
+        $fend = $f_dayE->format('Y-m-d');
 
-    $lwop = User_LWOP::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+        $cf = $leavewop->totalCredits; // $f_dayS->diffInDays($f_dayE)+1;
+        $cf2 = 1;
+
+        if ($leavewop->totalCredits <= 1)
+        {
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            
+
+        }else
+        {
+          while( $cf2 <= $cf){
+          
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            $f_dayS->addDays(1);
+            $cf2++;
+          }
+
+        }
+        
+        
+
+        //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
+
+        if(in_array($payday, $alldays) ) {
+
+          $lwop= $leavewop; 
+          $hasLWOP=true;
+          $lwopDeet= $leavewop;
+          (!is_null($lwopDeet->isApproved)) ? $hasPendingLWOP=false : $hasPendingLWOP=true;
+
+          break(1);
+        }
+        
+      }
+
+
+      
+    }else 
+    {
+      $lwop=[];$hasLWOP = false;
+      $lwopDeet = null;
+    }
+
+
+
 
     $obt = User_OBT::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $famL = User_Familyleave::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    //->where('leaveEnd','>=',$startOfShift->format('Y-m-d H:i:s'))
-    //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-
-    //where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    //$familyleave=null;
-    //$f = User_Familyleave::where('user_id',$user_id)->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    //$fl=[];
+    
     $flcol= new Collection;
     if (count($famL) > 0)
     {
@@ -3598,7 +3787,7 @@ trait TimekeepingTraits
 
 
     /*-------- LEAVE WITHOUT PAY -----------*/
-    if (count($lwop) > 0) 
+    /*if (count($lwop) > 0) 
     {
       $hasLWOP=true;
       $lwopDeet= $lwop->first();
@@ -3609,10 +3798,10 @@ trait TimekeepingTraits
       $hasLWOP = false;
       $lwopDeet = null;
 
-    }
+    }*/
 
     /*-------- VACATION LEAVE  -----------*/
-    if (count($vl) > 0) 
+    /*if (count($vl) > 0) 
     {
       $hasVL=true;
       $vlDeet= $vl->first();
@@ -3623,7 +3812,7 @@ trait TimekeepingTraits
       $hasVL = false;
       $vlDeet = null;
 
-    }
+    }*/
 
 
   
@@ -3648,7 +3837,7 @@ trait TimekeepingTraits
     
     
 
-    if (count($sl) > 0) 
+   /* if (count($sl) > 0) 
     {
       $hasSL=true;
       $slDeet= $sl->first();
@@ -3659,7 +3848,7 @@ trait TimekeepingTraits
       $hasSL = false;
       $slDeet = null;
 
-    }
+    }*/
 
      /*-------- FAMILY LEAVE  -----------*/
     
@@ -4244,7 +4433,7 @@ trait TimekeepingTraits
                   'holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 
                   'checkLate'=>"nonComplicated", 'workedHours'=> $workedHours, //$koll, // 
                   'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
-                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP,'FLinfo'=>$alldays, 'famL'=>$famL,'flcol'=>$flcol ]);
+                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP,'FLinfo'=>$alldays, 'famL'=>$famL,'flcol'=>$slcol ]);
     /*              $t=$userLogIN[0]['timing']->format('H:i:s');
                   $o = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s')
     $data->push(['checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
