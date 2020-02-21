@@ -63,7 +63,7 @@ use OAMPI_Eval\User_Memo;
 class DTRController extends Controller
 {
     protected $user;
-   	protected $user_dtr;
+    protected $user_dtr;
     use Traits\TimekeepingTraits;
     use Traits\UserTraits;
 
@@ -2711,6 +2711,7 @@ class DTRController extends Controller
                                        'schedForToday'=>$schedForToday,
                                        'sameDayLog'=>$sameDayLog,
                                        'isFixedSched'=>$isFixedSched,
+                                       'allData'=>$data
 
                                       
                                        
@@ -2744,7 +2745,7 @@ class DTRController extends Controller
 
              }//END foreach payrollPeriod
 
-            //return $myDTR->where('productionDate','Feb 13, 2020');
+            //return $myDTR->where('productionDate','Feb 10, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

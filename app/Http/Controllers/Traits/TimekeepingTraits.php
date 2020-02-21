@@ -1664,7 +1664,121 @@ trait TimekeepingTraits
 
     $obt = User_OBT::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $fl = User_Familyleave::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    
+
+    /*$fl = User_Familyleave::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();*/
+    
+    /*$f = User_Familyleave::where('user_id',$id)->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    if (count($f) > 0)
+    {
+      $f_dayS = Carbon::parse($f->first()->leaveStart,'Asia/Manila');
+      $f_dayE = Carbon::parse($f->first()->leaveEnd,'Asia/Manila');
+      $fend = $f_dayE->format('Y-m-d');
+
+      $cf = $f_dayS->diffInDays($f_dayE);
+
+      //array_push($alldays, $cd);
+      
+      
+      $cf2 = 0;
+      while( $cf2 <= $cf){
+        
+        array_push($alldays, $f_dayS->format('Y-m-d'));
+        $f_dayS->addDays(1);
+        $cf2++;
+      }
+
+      if(in_array($thisPayrollDate, $alldays) )
+        $fl= $f;
+      else $fl=[];
+
+
+      
+    }else $fl=[];*/
+    $famL = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    /*$familyleave=null;
+    if (count($f) > 0)
+    {
+      
+      foreach ($f as $familyleave) 
+      {
+        $f_dayS = Carbon::parse($familyleave->leaveStart,'Asia/Manila');
+        $f_dayE = Carbon::parse($familyleave->leaveEnd,'Asia/Manila');
+        $fend = $f_dayE->format('Y-m-d');
+
+        $cf = $f_dayS->diffInDays($f_dayE);
+        $cf2 = 0;
+
+        while( $cf2 <= $cf){
+          
+          array_push($alldays, $f_dayS->format('Y-m-d'));
+          $f_dayS->addDays(1);
+          $cf2++;
+        }
+
+        if(in_array($thisPayrollDate, $alldays) ) {
+          $fl= $f; break;
+        }
+        else $fl=[];
+      }
+      
+    }else $fl=[];*/
+
+
+
+    if (count($famL) > 0)
+    {
+      //************* gawin mo to foreach family leave ************//
+      foreach ($famL as $familyleave) 
+      {
+        $f_dayS = Carbon::parse($familyleave->leaveStart,'Asia/Manila');
+        $f_dayE = Carbon::parse($familyleave->leaveEnd,'Asia/Manila');
+        $full_leave = Carbon::parse($familyleave->leaveEnd,'Asia/Manila')->addDays($familyleave->totalCredits)->addDays(-1);
+        $fend = $f_dayE->format('Y-m-d');
+
+        $cf = $familyleave->totalCredits; // $f_dayS->diffInDays($f_dayE)+1;
+        $cf2 = 1;
+
+        if ($familyleave->totalCredits <= 1)
+        {
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            
+
+        }else
+        {
+          while( $cf2 <= $cf){
+          
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            $f_dayS->addDays(1);
+            $cf2++;
+          }
+
+        }
+        
+        
+
+        //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
+
+        if(in_array($thisPayrollDate, $alldays) ) {
+
+          $fl= $familyleave; 
+          $hasFL=true;
+          $flDeet= $familyleave;
+          (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
+
+          break(1);
+        }
+        
+      }
+
+
+      
+    }else 
+    {
+      $fl=[];$hasFL = false;
+      $flDeet = null;
+    }
+
 
 
 
@@ -1727,7 +1841,7 @@ trait TimekeepingTraits
     }
 
     /*-------- FAMILY LEAVE  -----------*/
-    if (count($fl) > 0) 
+    /*if (count($fl) > 0) 
     {
       $hasFL=true; $hasLeave = true;
       $flDeet= $fl->first();
@@ -1738,7 +1852,7 @@ trait TimekeepingTraits
       $hasFL = false;
       $flDeet = null;
 
-    }
+    }*/
 
 
     $col = [];$keme=0;
@@ -3447,7 +3561,7 @@ trait TimekeepingTraits
     $inTime = null;
     $outTime = null;$x=null;$y=null;
 
-
+    $alldays=[];
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
     
@@ -3463,8 +3577,68 @@ trait TimekeepingTraits
     $obt = User_OBT::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $fl = User_Familyleave::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $famL = User_Familyleave::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //->where('leaveEnd','>=',$startOfShift->format('Y-m-d H:i:s'))
     //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+    //where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //$familyleave=null;
+    //$f = User_Familyleave::where('user_id',$user_id)->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    //$fl=[];
+    $flcol= new Collection;
+    if (count($famL) > 0)
+    {
+      //************* gawin mo to foreach family leave ************//
+      foreach ($famL as $familyleave) 
+      {
+        $f_dayS = Carbon::parse($familyleave->leaveStart,'Asia/Manila');
+        $f_dayE = Carbon::parse($familyleave->leaveEnd,'Asia/Manila');
+        $full_leave = Carbon::parse($familyleave->leaveEnd,'Asia/Manila')->addDays($familyleave->totalCredits)->addDays(-1);
+        $fend = $f_dayE->format('Y-m-d');
+
+        $cf = $familyleave->totalCredits; // $f_dayS->diffInDays($f_dayE)+1;
+        $cf2 = 1;
+
+        if ($familyleave->totalCredits <= 1)
+        {
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            
+
+        }else
+        {
+          while( $cf2 <= $cf){
+          
+            array_push($alldays, $f_dayS->format('Y-m-d'));
+            $f_dayS->addDays(1);
+            $cf2++;
+          }
+
+        }
+        
+        
+
+        $flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
+
+        if(in_array($payday, $alldays) ) {
+
+          $fl= $familyleave; 
+          $hasFL=true;
+          $flDeet= $familyleave;
+          (!is_null($flDeet->isApproved)) ? $hasPendingFL=false : $hasPendingFL=true;
+
+          break(1);
+        }
+        
+      }
+
+
+      
+    }else 
+    {
+      $fl=[];$hasFL = false;
+      $flDeet = null;
+    }
+    
 
 
 
@@ -3536,7 +3710,7 @@ trait TimekeepingTraits
     
     
 
-    if (count($fl) > 0) 
+   /* if ($fl) 
     {
       $hasFL=true;
       $flDeet= $fl->first();
@@ -3547,7 +3721,7 @@ trait TimekeepingTraits
       $hasFL = false;
       $flDeet = null;
 
-    }
+    }*/
 
     if (count($holidayToday) > 0) $hasHolidayToday = true;
 
@@ -4115,7 +4289,7 @@ trait TimekeepingTraits
                   'holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 
                   'checkLate'=>"nonComplicated", 'workedHours'=> $workedHours, //$koll, // 
                   'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
-                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'LWOP'=>$hasLWOP ]);
+                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP,'FLinfo'=>$alldays, 'famL'=>$famL,'flcol'=>$flcol ]);
     /*              $t=$userLogIN[0]['timing']->format('H:i:s');
                   $o = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s')
     $data->push(['checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
