@@ -1632,35 +1632,69 @@ trait TimekeepingTraits
     $sl = User_SL::where('user_id',$id)->where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
 
-    $l = User_LWOP::where('user_id',$id)->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    if (count($l) > 0)
+
+
+    //******* LWOP ********
+    $lwop1 = User_LWOP::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+   
+    if (count($lwop1) > 0)
     {
-      $l_dayS = Carbon::parse($l->first()->leaveStart,'Asia/Manila');
-      $l_dayE = Carbon::parse($l->first()->leaveEnd,'Asia/Manila');
-      $lend = $l_dayE->format('Y-m-d');
+      //************* gawin mo to foreach family leave ************//
+      foreach ($lwop1 as $leavewop) 
+      {
+         
+        $f_dayS = Carbon::parse($leavewop->leaveStart,'Asia/Manila');
+        $f_dayE = Carbon::parse($leavewop->leaveEnd,'Asia/Manila');
+        $full_leave = Carbon::parse($leavewop->leaveEnd,'Asia/Manila')->addDays($leavewop->totalCredits)->addDays(-1);
+        $fend = $f_dayE->format('Y-m-d');
 
-      $cd = $l_dayS->diffInDays($l_dayE);
+        $cf = $leavewop->totalCredits; // $f_dayS->diffInDays($f_dayE)+1;
+        $cf2 = 1;
 
-      //array_push($alldays, $cd);
-      
-      
-      $cl = 0;
-      while( $cl <= $cd){
+        if ($leavewop->totalCredits <= 1)
+        {
+            array_push($alldaysLWOP, $f_dayS->format('Y-m-d'));
+            
+
+        }else
+        {
+          while( $cf2 <= $cf){
+          
+            array_push($alldaysLWOP, $f_dayS->format('Y-m-d'));
+            $f_dayS->addDays(1);
+            $cf2++;
+          }
+
+        }
         
-        array_push($alldays, $l_dayS->format('Y-m-d'));
-        $l_dayS->addDays(1);
-        $cl++;
+        //array_push($col, ['pasok alldaysFL'=>$alldaysLWOP, 'thisPayrollDate'=>$thisPayrollDate]);
+
+        //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
+
+        if(in_array($thisPayrollDate, $alldaysLWOP) ) {
+
+          $lwop = $leavewop; 
+          $hasLWOP=true; //$hasLeave=true;
+          $lwopDeet= $leavewop;
+
+          (!is_null($lwopDeet->isApproved)) ? $hasPendingLWOP=false : $hasPendingLWOP=true;
+
+          break(1);
+        }
+        
       }
 
-      if(in_array($thisPayrollDate, $alldays) )
-        $lwop= $l;
-      else $lwop=[];
-
-
+      //array_push($col, ['fl'=>$fl]);
       
-    }else $lwop=[];
+    }else 
+    {
+      $lwop=[];
+      $hasLWOP = false; //$hasLeave=false;
+      $lwopDeet = null;
+    }
+    /*-------- LEAVE WITHOUT PAY -----------*/
 
-    // $lwop = User_LWOP::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
 
     $obt = User_OBT::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
@@ -1726,19 +1760,8 @@ trait TimekeepingTraits
 
 
 
-    /*-------- LEAVE WITHOUT PAY -----------*/
-    if (count($lwop) > 0) 
-    {
-      $hasLWOP=true;
-      $lwopDeet= $lwop->first();
-      (!is_null($lwopDeet->isApproved)) ? $hasPendingLWOP=false : $hasPendingLWOP=true;
-
-    }else{
-
-      $hasLWOP = false;
-      $lwopDeet = null;
-
-    }
+    
+    
 
     /*-------- VACATION LEAVE  -----------*/
     if (count($vl) > 0) 
