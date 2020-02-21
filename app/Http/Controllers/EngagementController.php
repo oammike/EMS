@@ -276,7 +276,7 @@ class EngagementController extends Controller
             return view('access-denied');
         }
 
-        $mods = [564,534,879,1717,1611,1398];
+        $mods = [564,534,879,1717,1611,1398,491];
 
         in_array($this->user->id, $mods) ? $canModerate=1 : $canModerate=0;
         
@@ -333,6 +333,18 @@ class EngagementController extends Controller
         //if tapos na ung contest
         if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate)
         {
+            if($id == 2) //VALENTINES
+            {
+                if($this->user->id !== 564 ) 
+                 {
+                    $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Reminisce Valentine [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                 }
+
+                 return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
+
+            }
+
             $votes = DB::table('engagement')->where('engagement.id',$id)->
                     join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     join('engagement_vote','engagement_vote.engagement_entryID','=','engagement_entry.id')->
@@ -400,6 +412,8 @@ class EngagementController extends Controller
             }
 
            //return $finalTally;
+
+
 
            if($this->user->id !== 564 ) 
              {
