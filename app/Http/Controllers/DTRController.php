@@ -2496,7 +2496,9 @@ class DTRController extends Controller
 
                                     $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift,$isRDYest);
                                     $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift,$isRDYest);
-                                    //$coll->push(['IN'=>$userLogIN, 'OUT'=>$userLogOUT]); 
+                                    
+
+                                    
 
 
 
@@ -2612,7 +2614,7 @@ class DTRController extends Controller
 
                                             $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest);
 
-                                        
+                                        $coll->push(['bioForTheDay'=>$bioForTheDay->id, 'schedForToday'=> $schedForToday, 'problemArea'=> $problemArea]); 
 
                                         $workedHours= $data[0]['workedHours']; //$data[0]['compare']; //
                                         $billableForOT = $data[0]['billableForOT'];
@@ -2711,7 +2713,8 @@ class DTRController extends Controller
                                        'schedForToday'=>$schedForToday,
                                        'sameDayLog'=>$sameDayLog,
                                        'isFixedSched'=>$isFixedSched,
-                                       'allData'=>$data
+                                       //'allData'=>$data,
+                                       'coll'=>$coll
 
                                       
                                        
@@ -2745,7 +2748,7 @@ class DTRController extends Controller
 
              }//END foreach payrollPeriod
 
-            //return $myDTR->where('productionDate','Feb 10, 2020');
+            //return $myDTR->where('productionDate','Feb 07, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

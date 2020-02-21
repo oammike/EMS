@@ -1664,68 +1664,9 @@ trait TimekeepingTraits
 
     $obt = User_OBT::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    
-
-    /*$fl = User_Familyleave::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();*/
-    
-    /*$f = User_Familyleave::where('user_id',$id)->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    if (count($f) > 0)
-    {
-      $f_dayS = Carbon::parse($f->first()->leaveStart,'Asia/Manila');
-      $f_dayE = Carbon::parse($f->first()->leaveEnd,'Asia/Manila');
-      $fend = $f_dayE->format('Y-m-d');
-
-      $cf = $f_dayS->diffInDays($f_dayE);
-
-      //array_push($alldays, $cd);
-      
-      
-      $cf2 = 0;
-      while( $cf2 <= $cf){
-        
-        array_push($alldays, $f_dayS->format('Y-m-d'));
-        $f_dayS->addDays(1);
-        $cf2++;
-      }
-
-      if(in_array($thisPayrollDate, $alldays) )
-        $fl= $f;
-      else $fl=[];
-
-
-      
-    }else $fl=[];*/
+  
     $famL = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
-    /*$familyleave=null;
-    if (count($f) > 0)
-    {
-      
-      foreach ($f as $familyleave) 
-      {
-        $f_dayS = Carbon::parse($familyleave->leaveStart,'Asia/Manila');
-        $f_dayE = Carbon::parse($familyleave->leaveEnd,'Asia/Manila');
-        $fend = $f_dayE->format('Y-m-d');
-
-        $cf = $f_dayS->diffInDays($f_dayE);
-        $cf2 = 0;
-
-        while( $cf2 <= $cf){
-          
-          array_push($alldays, $f_dayS->format('Y-m-d'));
-          $f_dayS->addDays(1);
-          $cf2++;
-        }
-
-        if(in_array($thisPayrollDate, $alldays) ) {
-          $fl= $f; break;
-        }
-        else $fl=[];
-      }
-      
-    }else $fl=[];*/
-
-
-
+   
     if (count($famL) > 0)
     {
       //************* gawin mo to foreach family leave ************//
@@ -1923,7 +1864,8 @@ trait TimekeepingTraits
                                 // Get from TOmmorrow ---
                                 // except kung 12Mn start, sure na  kahapon yun
 
-                    $checker="dun sa beginshift";
+                    //$checker="dun sa beginshift";
+
 
                     /*if ($beginShift->format('Y-m-d H:i:s') == Carbon::parse($thisPayrollDate)->startOfDay()->format('Y-m-d H:i:s')){
                       $yest = Carbon::parse($thisPayrollDate)->subDay(1);
@@ -1938,7 +1880,7 @@ trait TimekeepingTraits
                     $maxIntime = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->subHour(6);
                     $maxInBio = Biometrics::where('productionDate',$maxIntime->format('Y-m-d'))->get();
                     $bioYest = $maxInBio;
-                    
+                   
 
                     if (count($maxInBio) > 0)
                     {
@@ -1947,6 +1889,7 @@ trait TimekeepingTraits
 
                       $logsKahapon = Logs::where('user_id',$id)->where('biometrics_id',$maxInBio->first()->id)->where('logType_id',$logType_id)->
                                            where('logTime','>=',$maxIntime->format('H:i:s'))->orderBy('biometrics_id','ASC')->get();
+
 
                       $checker = $logsKahapon;
 
@@ -2041,9 +1984,10 @@ trait TimekeepingTraits
 
                       
                       //tomorrow in this case is maxLate IN
-                      $tommorow = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
-                      $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
+                      $tommorow = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(8);
+                      $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get(); 
 
+                      $col->push(['bioForTom'=>$bioForTom]);
 
                       if (count($bioForTom) > 0){
                         $finishShift = Carbon::parse($bioForTom->first()->productionDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
@@ -2182,10 +2126,14 @@ trait TimekeepingTraits
                     $tommorow = Carbon::parse($thisPayrollDate)->addDay();
                     $bioForTom = Biometrics::where('productionDate',$tommorow->format('Y-m-d'))->get();
 
+                      array_push($col,['pasok tommorow'=>"yes",'bioForTom'=>$bioForTom->first()->id ]);
+
                     if (count($bioForTom) > 0){
                       //$finishShift = Carbon::parse($bioForTom->first()->productionDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
 
                         $logPalugit = Logs::where('user_id',$id)->where('biometrics_id',$bioForTom->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+
 
                         if (count($logPalugit) > 0) 
                         { 
@@ -2895,7 +2843,7 @@ trait TimekeepingTraits
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
                     'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
                     'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
-                    'arg1'=>$checker,
+                    'arg1'=>$col,
                     'isAproblemShift'=>$isAproblemShift,
                     'dtrp'=>$hasApprovedDTRP->first()]);
 
