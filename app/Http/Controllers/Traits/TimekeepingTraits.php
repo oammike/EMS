@@ -3975,8 +3975,11 @@ trait TimekeepingTraits
 
         $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
         $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
-        //we less 1hr for the break
-        $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+        
+        //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+        ($isPartTimer) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+        //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
         $billableForOT=0; //$userLogIN[0]['timing']/60;
 
         $stat = User::find($user_id)->status_id;
@@ -4306,7 +4309,10 @@ trait TimekeepingTraits
       }//end if lateIN
       else {
 
-         $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
+        if ($isPartTimer)
+          $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+        else
+          $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
 
 
          
