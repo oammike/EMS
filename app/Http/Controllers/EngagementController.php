@@ -331,7 +331,7 @@ class EngagementController extends Controller
 
 
         //if tapos na ung contest
-        if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate)
+        if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate && !$canModerate)
         {
             if($id == 2) //VALENTINES
             {
