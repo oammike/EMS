@@ -3451,7 +3451,7 @@ class UserController extends Controller
                       'daysHandled'=>$daysHandled, 
                       'percentage'=> $daysHandled/$totalDays,
                       'grade'=> $g,
-                      'finalGrade'=> $finalGrade+=$g,
+                      'finalGrade'=> $finalGrade+=(float)$g,
                       'daysCtr'=> $daysCtr+=$daysHandled,
                       'missing'=> $totalDays-$daysCtr,
                       'details'=>$ev['eval']]);
@@ -3469,7 +3469,7 @@ class UserController extends Controller
                       'daysHandled'=>$daysHandled, 
                       'percentage'=> 100,
                       'grade'=> $g,
-                      'finalGrade'=> $finalGrade+=$g,
+                      'finalGrade'=> $finalGrade+=(float)$g,
                       'daysCtr'=> $daysCtr+=$daysHandled,
                       'missing'=> $totalDays-$daysCtr,
                       'details'=>$ev['eval']]);
@@ -3500,7 +3500,7 @@ class UserController extends Controller
                   'daysHandled'=>$daysHandled, 
                   'percentage'=> $daysHandled/$totalDays,
                   'grade'=> $g,
-                  'finalGrade'=> $finalGrade+=$g,
+                  'finalGrade'=> $finalGrade+=(float)$g,
                   'daysCtr'=> $daysCtr+=$daysHandled,
                   'missing'=> $totalDays-$daysCtr,
                   'details'=>$ev['eval']]);
