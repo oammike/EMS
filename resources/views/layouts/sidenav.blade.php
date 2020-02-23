@@ -9,11 +9,16 @@
             $updatedSL = false;
 
 
-            if ($lengthOfservice > 6) //do this if only 6mos++
+            if ($lengthOfservice > 1) //do this if only 6mos++
             {
               $today= date('m');//today();
               $avail = $u->vlCredits;
               $avail2 = $u->slCredits;
+
+              $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$u->id)->
+                              join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',\Carbon\Carbon::parse('first day of this year','Asia/Manila')->format('Y-m-d'))->get();
+              $totalVLearned = collect($vlEarnings)->sum('credits');
 
               $approvedVLs = OAMPI_Eval\User_VL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
               $approvedSLs = OAMPI_Eval\User_SL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
@@ -25,7 +30,7 @@
                   if($vls->contains('creditYear',date('Y')))
                   {
                     $updatedVL=true;
-                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) - $vls->first()->paid;
+                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) + $totalVLearned - $vls->first()->paid;
                   }
                   else{
                     
@@ -192,7 +197,7 @@
       </div>
       <div class="row">
         <div class="col-lg-1 col-sm-12"></div>
-        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> VL credit(s) 
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label">{{count($vlEarnings)}} VL credit(s) 
           @if (!$updatedVL)
           <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}" title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
 

@@ -77,10 +77,10 @@ class NotificationController extends Controller
         //return $yourNotif;
         foreach($yourNotif->take(50) as $notif){
 
-        	if($notif->detail->from !== null)
-        	{ // ****** if notif has an actual requestor
+          if($notif->detail->from !== null)
+          { // ****** if notif has an actual requestor
 
-            	if ($notif->detail->type == 5){ //if New Regularization eval, use ImmediateHeadCamp_id
+              if ($notif->detail->type == 5){ //if New Regularization eval, use ImmediateHeadCamp_id
                     //$fromData =ImmediateHead::find(ImmediateHead_Campaign::find($notif->detail->from)->immediateHead_id);
                     $ev = EvalForm::find($notif->detail->relatedModelID);
 
@@ -122,7 +122,7 @@ class NotificationController extends Controller
                         case '6': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_CWS::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
                         case '7': { 
                                     $ih = ImmediateHead_Campaign::find(User_OT::find($notif->detail->relatedModelID)->approver);
-                                    if ( count($ih) > 0 ){
+                                    if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
@@ -137,7 +137,7 @@ class NotificationController extends Controller
                         case '10': {
 
                                     $ih = ImmediateHead_Campaign::find(User_VL::find($notif->detail->relatedModelID)->approver);
-                                    if ( count($ih) > 0 ){
+                                    if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
@@ -151,7 +151,7 @@ class NotificationController extends Controller
                         case '11': {
 
                                     $ih = ImmediateHead_Campaign::find(User_SL::find($notif->detail->relatedModelID)->approver);
-                                    if ( count($ih) > 0 ){
+                                    if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
@@ -167,7 +167,7 @@ class NotificationController extends Controller
                         case '12': {
 
                                     $ih = ImmediateHead_Campaign::find(User_LWOP::find($notif->detail->relatedModelID)->approver);
-                                    if ( count($ih) > 0 ){
+                                    if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
@@ -182,7 +182,7 @@ class NotificationController extends Controller
                         case '13': {
 
                                     $ih = ImmediateHead_Campaign::find(User_OBT::find($notif->detail->relatedModelID)->approver);
-                                    if ( count($ih) > 0 ){
+                                    if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
@@ -349,20 +349,20 @@ class NotificationController extends Controller
 
             
 
-        	switch($notif->detail->type)
+          switch($notif->detail->type)
             {
                 case 1: { $actionlink = action('UserController@changePassword'); 
-                			$message = "Kindly update your default password for security purposes. Thank you."; 
+                      $message = "Kindly update your default password for security purposes. Thank you."; 
 
-                			$fromImage =null;
+                      $fromImage =null;
 
-                			break; 
+                      break; 
 
 
-                			} //change of password
+                      } //change of password
 
                 case 2: {
-			                 // CHANGE OF PROGRAM DEPT
+                       // CHANGE OF PROGRAM DEPT
                           // $tlConcerned = null;
                           // $actionlink = null;
                           // $fromImage = null;
@@ -407,7 +407,7 @@ class NotificationController extends Controller
                           break; 
                           }
 
-                			
+                      
 
                 case 3: { $actionlink = action('MovementController@show',$notif->detail->relatedModelID ); 
                             $mvtDeets = Movement::find($notif->detail->relatedModelID); 
@@ -465,7 +465,7 @@ class NotificationController extends Controller
                 case 4: {   $actionlink = action('MovementController@show',$notif->detail->id );
                             $mvtDeets = Movement::find($notif->detail->relatedModelID); 
 
-                            if (count($mvtDeets)>0)
+                            if (count((array)$mvtDeets)>0)
                             {
                               $requestor = ImmediateHead::find($mvtDeets->requestedBy); 
 

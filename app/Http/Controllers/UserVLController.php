@@ -48,6 +48,7 @@ use OAMPI_Eval\Paycutoff;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_VLcredits;
+use OAMPI_Eval\User_VLearnings;
 use OAMPI_Eval\VLupdate;
 use OAMPI_Eval\SLupdate;
 use OAMPI_Eval\Notification;
@@ -196,16 +197,25 @@ class UserVLController extends Controller
                     $today=Carbon::today();
                     $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
 
-                    if ($lengthOfService >= 6)
+                    //actually, pwede na basta regular
+
+                    if ($lengthOfService >= 1)
                     {
                         if (empty($request->from))
                             $vl_from = Carbon::today();
                         else $vl_from = Carbon::parse($request->from,"Asia/Manila");
 
+
+
                         
                         $hasSavedCredits=false;
 
                         $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
+                        
+                        $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
+                              join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',Carbon::parse('first day of this year','Asia/Manila')->format('Y-m-d'))->get();
+                        $totalVLearned = collect($vlEarnings)->sum('credits');
 
                         
                         
@@ -237,7 +247,7 @@ class UserVLController extends Controller
                                 $used='1.00';
                                 if (count($savedCredits)>0){
                                     $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used-1);
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used-1) + $totalVLearned;
                                  }else {
 
                                     //check muna kung may existing approved VLs
@@ -498,7 +508,13 @@ class UserVLController extends Controller
 
             }
 
-            return response()->json(['creditsleft'=>$creditsleft,'creditsToEarn'=>$creditsToEarn,'credits'=>$credits,'mayExisting'=>$mayExisting,
+             //**** we now check if VL is filed 2wk prior to day of leave
+            $prior = Carbon::now('GMT+8')->addDays(14);
+            if ($vl_from < $prior) $notAllowed='1'; else $notAllowed='0';
+
+                        
+
+            return response()->json(['notAllowed'=>$notAllowed,'twoWeeks'=>$prior->format('M d, Y'), 'creditsleft'=>$creditsleft,'creditsToEarn'=>$creditsToEarn,'credits'=>$credits,'mayExisting'=>$mayExisting,
             'vf endOfDay'=>$vf->format('Y-m-d H:i:s'),'coll'=>$coll]);//'colldates'=>$colldates
             //return response()->json(['request->date_to'=>$request->date_to, 'shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
 
@@ -507,7 +523,7 @@ class UserVLController extends Controller
         /*}//end may existing nang VL application*/
 
         mayExistingReturn:
-        return response()->json(['hasVLalready'=>$hasVLalready,'existingVL'=>$coll, 'creditsToEarn'=>0, 'forLWOP'=>0, 'creditsleft'=>0, 'credits'=> 0 , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>null]);
+        return response()->json(['notAllowed'=>$notAllowed, 'hasVLalready'=>$hasVLalready,'twoWeeks'=>$prior->format('M d, Y'), 'existingVL'=>$coll, 'creditsToEarn'=>0, 'forLWOP'=>0, 'creditsleft'=>0, 'credits'=> 0 , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>null]);
 
 
     }
@@ -830,8 +846,16 @@ class UserVLController extends Controller
         $approvers = $personnel->approvers;
         $fromYr = Carbon::parse($personnel->dateHired)->addMonths(6)->format('Y');
 
+        $allVLs = User_VL::where('user_id',$id)->where('isApproved','1')->orderBy('created_at','DESC')->get();
+        $allEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$id)->
+                            join('vlupdate','vlupdate.id','=','user_vlearnings.vlupdate_id')->
+                            select('vlupdate.period','vlupdate.credits','vlupdate.created_at')->
+                            orderBy('vlupdate.created_at','DESC')->get(); //return $allEarnings;
+
+       
+
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allVLs','allEarnings'));
         else return view('access-denied');
 
 
@@ -858,14 +882,38 @@ class UserVLController extends Controller
             $updates->credits = $credits;
             $updates->save();
 
+            //for part timers
+            $updates2 = new VLupdate;
+            $updates2->period = $period->format('Y-m-d');
+            $updates2->credits = (float)$credits/2;
+            $updates2->save();
+
             $allLeaves = User_VLcredits::where('creditYear',$period->format('Y'))->get();
 
             foreach ($allLeaves as $key) {
 
-                $key->beginBalance += $credits;
+                /*----- we need to check if regular or part timer -------*/
+                $stat = User::find($key->user_id)->status_id;
+                if ( $stat == '12' || $stat == '14' ) //part timer
+                    $give = (float)$credits/2;
+                else
+                    $give = $credits;
+
+                //$key->beginBalance += $give;
                 $key->lastUpdated = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
                 $key->save();
-                $coll->push($key);
+
+                //now, record that earning
+                $earn = new User_VLearnings;
+                $earn->user_id = $key->user_id;
+                if ( $stat == '12' || $stat == '14' )
+                    $earn->vlupdate_id = $updates2->id;
+                else
+                    $earn->vlupdate_id = $updates->id;
+                $earn->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                $earn->save();
+
+                $coll->push(['earning'=>$earn,'earn for'=>$key]);
             }
 
         }

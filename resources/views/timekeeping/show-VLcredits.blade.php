@@ -127,7 +127,8 @@
                                   <th class="text-center">Year</th>
                                   <th class="text-center">Beginning Balance</th>
                                   <th class="text-center">Used</th>
-                                  <th class="text-center">Paid</th>
+                                 
+                                  <th class="text-center">Earnings</th>
                                   <th class="text-center">Total Remaining</th>
                                   <th class="text-center">Actions</th>
                                 </thead>
@@ -144,9 +145,182 @@
                                       <tr>
                                         <td class="text-center">{{$v->creditYear}} </td>
                                         <td class="text-center">{{$v->beginBalance}} </td>
-                                        <td class="text-center">{{$v->used}} </td>
-                                        <td class="text-center"> N/A </td>
-                                        <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">{{ number_format( ($v->beginBalance - $v->used)-$v->paid, 2) }}</td>
+                                        <td class="text-center">
+
+                                          @if ($v->used == '0.00') ( {{$v->used}} )&nbsp;&nbsp;&nbsp; @else
+                                          <!-- ******** collapsible box ********** -->
+                                          <div class="box collapsed-box" style="margin-top: 0px">
+                                            <div class="box-header">
+                                             ( {{$v->used}} )
+                                             &nbsp;&nbsp;&nbsp;
+                                              <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                </button>
+                                              </div>
+                                              <!-- /.box-tools -->
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                              <p style="font-size: x-small;">All filed VLs in EMS: </p>
+                                              
+                                                @foreach($allVLs as $vl)
+                                                  <?php if(strpos($vl->leaveStart, (string)$v->creditYear) !== false) { ?>
+                                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal_VL{{$vl->id}}">VL ({{$vl->totalCredits}} ) : {{date('M d',strtotime($vl->leaveStart))}}</a><br/>
+                                                  <?php } ?>
+
+
+                                                  <div class="modal fade" id="myModal_VL{{$vl->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                          <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                                                                          <span class="sr-only">Close</span></button>
+                                                                          <h4 class="modal-title text-black" id="myModalLabel"><i class="fa fa-plane"></i> Vacation Leave</h4>
+                                                                  </div>
+                                                                  <div class="modal-body-upload" style="padding:20px;">
+
+                                                                          <!-- DIRECT CHAT PRIMARY -->
+                                                                          <div class="box box-primary direct-chat direct-chat-primary">
+                                                                            <div class="box-body">
+                                                                                <!-- Conversations are loaded here -->
+                                                                                  <div class="direct-chat-messages">
+                                                                                  <!-- Message. Default to the left -->
+                                                                                  <div class="direct-chat-msg">
+                                                                                          <div class="direct-chat-info clearfix">
+                                                                                                  <span class="direct-chat-name pull-left">{{$personnel->firstname}}</span>
+                                                                                                  <span class="direct-chat-timestamp pull-right">{{$vl->created_at}} </span>
+                                                                                          </div>
+                                                                                          <!-- /.direct-chat-info -->
+                                                                                          <a href="{{action('UserController@show',$personnel->id)}}" target="_blank">
+                                                                                          <img src="../../public/img/employees/{{$personnel->id}}.jpg" class="img-circle pull-left" alt="User Image" width="70" /></a>
+                                                                                          <div class="direct-chat-text" style="width:85%; left:30px; background-color:#fcfdfd">
+                                                                                                  <p class="text-left"><br/>
+                                                                                                    I would like to file a <strong class="text-danger">{{number_format($vl->totalCredits,0)}}-day </strong><strong>VACATION LEAVE</strong> <br/><br/>
+                                                                                                    <strong>VL credits used: </strong>
+                                                                                                    <span class="text-danger">{{$vl->totalCredits}}</span><br/>
+                                                                                                    <strong> &nbsp;&nbsp;Reason: </strong><em>{{$vl->notes}} </em></p>
+                                                                                                          <div class="row">
+                                                                                                                  <div class="col-sm-12"> 
+                                                                                                                          <div class="row">
+                                                                                                                                  <div class="col-sm-6"><h5 class="text-primary">From: </h5></div>
+                                                                                                                                  <div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>
+                                                                                                                                  <div class="col-sm-6" style="font-size: 12px">
+                                                                                                                                    @if ($vl->halfdayFrom == '1' && $vl->halfdayTo == '1')
+                                                                                                                                    <p><strong>{{$vl->leaveStart}} (Whole day) </strong></p>
+                                                                                                                                    @else
+                                                                                                                                    <p><strong>{{$vl->leaveStart}} </strong></p>
+                                                                                                                                    @endif
+                                                                                                                                  </div>
+
+                                                                                                                                  <div class="col-sm-6" style="font-size: 12px">
+                                                                                                                                          <p><strong>{{$vl->leaveEnd}}</strong></p></div>
+
+                                                                                                                                  <div class="col-sm-3"> </div>
+                                                                                                                          </div>
+                                                                                                                  </div>
+                                                                                                          </div>
+                                                                                          </div>
+                                                                                  </div>
+                                                                                  <!-- /.direct-chat-text -->
+                                                                                  </div>
+                                                                                                      
+                                                                                  <!-- /.direct-chat-msg -->
+                                                                                  <!-- Message to the right -->
+                                                                                  <div class="direct-chat-msg right" style="margin-top:50px">
+                                                                                    @if(!is_null($vl->approver))
+                                                                                          <!-- /.direct-chat-info -->
+                                                                                          <?php $tl = OAMPI_Eval\ImmediateHead::find(OAMPI_Eval\ImmediateHead_Campaign::find($vl->approver)->immediateHead_id);
+                                                                                          $tlpic = OAMPI_Eval\User::where('employeeNumber',$tl->employeeNumber)->first(); ?>
+                                                                                        
+
+                                                                                          <div class="direct-chat-default clearfix">
+                                                                                                    <span class="direct-chat-name pull-right">
+                                                                                                      @if($tlpic->nickname)
+                                                                                                      {{$tlpic->nickname}}
+                                                                                                      @else {{$tl->firstname}}@endif 
+
+                                                                                                      {{$tl->lastname}}
+                                                                                                    </span>
+                                                                                                    <span class="direct-chat-timestamp pull-left">
+                                                                                                      {{$vl->updated_at}} </span>
+                                                                                          </div>
+
+                                                                                          <img class="direct-chat-img" src="../../public/img/employees/{{$tlpic->id}}.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                                                                                          @else
+                                                                                         <div class="direct-chat-default clearfix">
+                                                                                                    
+                                                                                                    <span class="direct-chat-timestamp pull-left">
+                                                                                                      {{$vl->updated_at}} </span>
+                                                                                          </div>
+                                                                                          <img class="direct-chat-img" src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" alt="Message User Image">
+                                                                                          @endif
+                                                                                          <div class="direct-chat-text bg-green" >
+                                                                                                  <h5><i class="fa fa-thumbs-up"></i> Approved</h5>
+                                                                                          </div>
+
+                                                                                  </div>
+                                                                                         <!-- /.direct-chat-text -->
+                                                                            </div>
+                                                                                  <!-- /.direct-chat-msg -->
+                                                                          </div>
+                                                                          <!--/.direct-chat-messages-->
+
+                                                                  </div>
+                                                          <!--/.direct-chat-messages-->
+                                                          </div>
+                                                   <!-- /.box-body -->
+                                                   </div>
+                                                  <!--/.direct-chat -->
+                                                  </div>
+                                                  <!--end DTRP modal-->
+                                                  
+                                                
+                                                @endforeach
+                                              
+                                              
+                                            </div>
+                                            <!-- /.box-body -->
+                                          </div>
+                                         <!-- ******** end collapsible box ********** -->@endif
+
+
+                                        </td>
+                                        
+                                        <td  class="text-center">
+                                          
+                                          <?php $earn=0; $deets=""; 
+                                                foreach ($allEarnings as $e){ 
+                                                  if(strpos($e->period, (string)$v->creditYear) !== false){ 
+                                                          $deets .= date('M d',strtotime($e->period)).' : ' . $e->credits.'<br/>';
+                                                          $earn += $e->credits; }
+                                                } ?>
+                                          @if ($earn == 0) {{$earn}} @else
+
+                                          <!-- ******** collapsible box ********** -->
+                                          <div class="box collapsed-box" style="margin-top: 0px">
+                                            <div class="box-header">
+                                              {{$earn}} &nbsp;&nbsp;&nbsp;
+                                              <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                </button>
+                                              </div>
+                                              <!-- /.box-tools -->
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                              <p style="font-size: x-small;" class="text-right"> {!! $deets !!}</p>
+                                              
+                                            </div>
+                                            <!-- /.box-body -->
+                                          </div>
+                                         <!-- ******** end collapsible box ********** -->
+                                         @endif
+
+
+                                 
+                                          
+                                        </td>
+                                        <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">{{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earn, 2) }}</td>
                                         <td class="text-center">
                                          
                                          @if($canUpdateLeaves)
