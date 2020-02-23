@@ -48,7 +48,7 @@
                                       <!-- Add the bg color to the header using any of the bg-* classes -->
                                       <div class="widget-user-header bg-black" style="background: url('{{URL:: asset("public/img/bg_swish.png")}}') bottom left;">
                                         
-                                        <h3 style="text-shadow: 1px 2px #000000; text-transform:uppercase" class="widget-user-username">{{$user->lastname}}, {{$user->firstname}} {{$user->middlename}} &nbsp;@if(!is_null($user->nickname)) (<small><em style="color:#fff">{{$user->nickname}}</em> </small>) @endif</h3>
+                                        <h3 style="text-shadow: 1px 2px #000000; text-transform:uppercase" class="widget-user-username">{{$user->lastname}}, {{$user->firstname}}&nbsp;@if(!is_null($user->nickname)) (<small><em style="color:#fff">{{$user->nickname}}</em> </small>) @endif</h3>
                                         <h5 style="text-shadow: 1px 2px #000000;"  class="widget-user-desc">{{$user->position->name}} </h5>
                                       </div>
                                       <div class="widget-user-image" style="top:10px; left:95%">
@@ -168,7 +168,7 @@
                                               <!-- ********** DTR BUTTONS ************** -->
                                               
                                               @if(count($payrollPeriod) > 1 && ( count($myDTR) >= count($payrollPeriod) ) )
-                                              <a id="lockDTR" class="btn btn-primary btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a>
+                                              <a id="lockDTR" class="btn btn-danger btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a>
                                               @endif
                                               <a id="unlock" class="btn btn-sm btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a>
                                               <a target="_blank" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-search"></i> View Uploaded Biometrics</a>

@@ -223,22 +223,7 @@
         <?php //9 == Davao
               $floor = DB::table('team')->where('team.user_id', Auth::user()->id)->first()->floor_id; ?>
         
-        @if($floor !== 9)
-        <li class="treeview @if (Request::is('userRewards*') || Request::is('reward*') || Request::is('award*')) active @endif">
-          <a href="#" class="text-yellow"><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards </span>
-            <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
-            <i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_about')}}"><i class="fa fa-info-circle"></i> About </a> </li>
-            <li @if (Request::is('userRewards/barista')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_barista')}}"><i class="fa fa-coffee"></i> Barista </a> </li>
-            <li @if (Request::is('rewards*')) class="active" @endif style="padding-left:20px"><a href="{{action('RewardsHomeController@rewards_catalog')}}"><i class="fa fa-book"></i> Catalog </a> </li>
-            <li @if (Request::is('rewardTransactions')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_transactions')}}"><i class="fa fa-cart-arrow-down"></i> My Transactions </a> </li>
-            <li @if (Request::is('userRewards')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards') }}"><i class="fa fa-exchange"></i> Transfer Points </a> </li>
-             <li @if (Request::is('awardPoints')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards_award') }}"><i class="fa fa-trophy"></i> Award Points </a> </li>
-
-          </ul>
-        </li>
-        @endif
+        
 
 
         <li class="treeview @if ( Request::is('gallery') ) active @endif">
@@ -323,35 +308,31 @@
 
          <li @if (Request::is('myEvals')) class="active" @endif><a href="{{action('UserController@myEvals')}}" ><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Evals</span></a></li>
 
-          <li class="treeview @if ( Request::is('survey*') ) active @endif">
-          <a href="#"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
+         @if($floor !== 9)
+        <li class="treeview @if (Request::is('userRewards*') || Request::is('reward*') || Request::is('award*')) active @endif">
+          <a href="#" class="text-yellow"><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards </span>
+            <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
+            <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_about')}}"><i class="fa fa-info-circle"></i> About </a> </li>
+            <li @if (Request::is('userRewards/barista')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_barista')}}"><i class="fa fa-coffee"></i> Barista </a> </li>
+            <li @if (Request::is('rewards*')) class="active" @endif style="padding-left:20px"><a href="{{action('RewardsHomeController@rewards_catalog')}}"><i class="fa fa-book"></i> Catalog </a> </li>
+            <li @if (Request::is('rewardTransactions')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_transactions')}}"><i class="fa fa-cart-arrow-down"></i> My Transactions </a> </li>
+            <li @if (Request::is('userRewards')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards') }}"><i class="fa fa-exchange"></i> Transfer Points </a> </li>
+             <li @if (Request::is('awardPoints')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards_award') }}"><i class="fa fa-trophy"></i> Award Points </a> </li>
 
-            
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>Year End Party Artists <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> Year End Theme <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@show',1)}} "><i class="fa fa-question-circle"></i> <span>EES ( * 2019 Survey )</span> </a> </li>
-            
-           
           </ul>
         </li>
+        @endif
+
+          
         
      
 
         <li class="header">OAMPI SYSTEM</li>
         <li><a href="http://172.17.0.2/coffeebreak/" target="_blank"><i class="fa fa-coffee" ></i> <img src="{{ asset('public/img/logo_coffeebreak.png')}}" width="100" /> <span></span></a></li>
 
-        <li class="treeview @if (Request::is('campaign*')) active @endif">
-          <a href="#"><i class="fa fa-sitemap"></i> <span>Departments / Programs</span> <i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
-            <li style="padding-left:20px" @if (Request::is('campaign')) class="active" @endif ><a href="{{action('CampaignController@index')}} "><i class="fa fa-users"></i> View All</a></li>
-
-            <li style="padding-left:20px" @if (Request::is('campaign')) class="active" @endif ><a href="{{action('CampaignController@orgChart')}} "><i class="fa fa-sitemap"></i> Organizational Chart</a></li>
-          </ul>
-        </li>
-
-        <li @if (Request::is('user')) class="active" @endif><a href="{{action('UserController@index')}} ">
-          <i class="fa fa-users"></i> Employees</a></li>
+        
 
 
           <li class="treeview @if (Request::is('user_dtr')) active @endif">
@@ -374,7 +355,20 @@
 
           <li @if (Request::is('oampi-resources')) class="active" @endif><a href="{{action('ResourceController@index')}}" ><i class="fa fa-book"></i> <span>Resources</span></a></li>
 
-           <li @if (Request::is('formBuilder')) class="active" @endif><a href="{{action('FormBuilderController@index')}}"><i class="fa fa-list"></i> <span>Reports</span></a></li>
+          <li class="treeview @if ( Request::is('survey*') ) active @endif">
+          <a href="#"><i class="fa fa-question-circle"></i>&nbsp;<span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+
+            
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>Year End Party Artists <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> Year End Theme <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@show',1)}} "><i class="fa fa-question-circle"></i> <span>EES ( * 2019 Survey )</span> </a> </li>
+            
+           
+          </ul>
+        </li>
+
+         
        
          
        <!-- 
