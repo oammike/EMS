@@ -197,7 +197,7 @@
       </div>
       <div class="row">
         <div class="col-lg-1 col-sm-12"></div>
-        <div class="col-lg-4 col-sm-12 text-center"><span class="label">{{count($vlEarnings)}} VL credit(s) 
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> VL credit(s) 
           @if (!$updatedVL)
           <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}" title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
 
