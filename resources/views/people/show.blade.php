@@ -400,7 +400,7 @@
                                       <td> <em>* Access Denied * </em></td>
                                       @endif
 
-
+                                      <?php if ($ev['totalDays'] !== 0){ ?>
 
                                       <!-- ******* if may missing dates na minimal, add it to first eval nalang *********-->
                                       @if($ev['missing'] > 0 && $ev['missing']<= count($eval))
@@ -413,6 +413,12 @@
                                       <td>{{ $ev['grade'] }} </td>
 
                                       @endif
+
+                                    <?php } else { ?>
+                                      <td> - </td>
+                                      <td> - </td>
+
+                                    <?php } ?>
 
                                       
                                      
