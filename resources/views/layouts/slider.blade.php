@@ -1,6 +1,19 @@
 
 
                  <div class="item active text-center" >
+                   <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
+                              <img src="./storage/uploads/champions.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Never let your failures be the reason why you can't succeed. Just keep on trying and believe that soon, you'll finally get to where you've always wanted to be. After all, creating a masterpiece takes time.<br/><strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
+
+                    <br /><br/>
+
+                    
+
+                    
+
+                </div>
+
+                <div class="item  text-center" >
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <img src="./storage/uploads/paintingContest.jpg" style="z-index: 2" />
                     <br/><br/>
