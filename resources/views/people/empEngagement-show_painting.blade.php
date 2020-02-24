@@ -65,54 +65,16 @@
 
                                   <tbody>
                                      @foreach($userEntries as $e)
-
-                                       
-
-
-                                     
-
-                                       
                                       
-                                      @if(count($e) >= 3)
-
-                                        <tr>
-                                          <td>{{$e[0]->lastname}},{{$e[0]->firstname}} -- <strong>{{$e[0]->program}} </strong> </td>
-                                          <td><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
-                                          @if($e[2]->value)
-                                          <td><em><a href="{{$e[2]->value}}" target="_blank">{{$e[2]->value}}</em></td>
-                                          @else
-                                          <td><em>None</em></td>
-                                          @endif
-                                          <td>
-                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}
-
-                                              </div>
-                                          </td>
-                                          <td>{{$e[0]->created_at}} </td>
-                                          
-                                          @if($e[0]->disqualified)
-                                          <td><em>Disqualified</em></td>
-                                          @else
-                                          <td><em>Posted</em></td>
-                                          @endif
-
-                                          
-                                          
-                                          <td class="text-center">
-                                            
-                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
-                                          </td>
-                                          
-                                        </tr>
-                                  
-
-                                      @else
+                                    
+                                     
 
 
                                             <?php $img = collect($e)->where('elemType','IMG');
                                                   $link = collect($e)->where('elemType','TXT');
                                                   $msg = collect($e)->where('elemType','PAR'); ?>
                                         <tr>
+                                          <td>{{$e[0]->lastname}},{{$e[0]->firstname}} -- <strong>{{$e[0]->program}} </strong> </td>
                                             @if(count($img)>0)
                                             <td><a href="../storage/uploads/{{$img->first()->value}}" target="_blank"><img src="../storage/uploads/{{$img->first()->value}}" width="120" /></a></td>
                                             @else
@@ -154,7 +116,7 @@
 
 
 
-                                      @endif
+                                  
 
 
                                       <div class="modal fade" id="adminModal{{$e[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -241,39 +203,7 @@
                                   <tbody>
                                      @foreach($allPosts as $e)
 
-                                      @if(count($e) >= 3)
-
-                                        <tr>
-                                          <td><img src="../storage/uploads/{{$e[2]->value}}" width="120" /></td>
-                                          @if($e[0]->value)
-                                          <td><em><a href="{{$e[0]->value}}" target="_blank">{{$e[0]->value}}</em></td>
-                                          @else
-                                          <td><em>None</em></td>
-                                          @endif
-                                          <td>
-                                            <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[1]->value !!}
-
-                                              </div>
-                                          </td>
-                                          <td>{{$e[0]->created_at}} </td>
-                                          
-                                          @if($e[0]->disqualified)
-                                          <td><em>Disqualified</em></td>
-                                          @else
-                                          <td><em>Posted</em></td>
-                                          @endif
-
-                                          
-                                          
-                                          <td class="text-center">
-                                            
-                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
-                                          </td>
-                                          
-                                        </tr>
-                                  
-
-                                      @else
+                                     
 
 
                                             <?php $img = collect($e)->where('elemType','IMG');
@@ -321,7 +251,7 @@
 
 
 
-                                      @endif
+                                     
 
                                       <div class="modal fade" id="delModal{{$e[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                           <div class="modal-dialog">
