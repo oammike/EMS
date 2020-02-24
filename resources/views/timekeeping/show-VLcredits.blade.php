@@ -231,33 +231,14 @@
                                                                                   <!-- /.direct-chat-msg -->
                                                                                   <!-- Message to the right -->
                                                                                   <div class="direct-chat-msg right" style="margin-top:50px">
-                                                                                    @if(!is_null($vl->approver))
-                                                                                          <!-- /.direct-chat-info -->
-                                                                                          <?php $tl = OAMPI_Eval\ImmediateHead::find(OAMPI_Eval\ImmediateHead_Campaign::find($vl->approver)->immediateHead_id);
-                                                                                          $tlpic = OAMPI_Eval\User::where('employeeNumber',$tl->employeeNumber)->first(); ?>
-                                                                                        
-
-                                                                                          <div class="direct-chat-default clearfix">
-                                                                                                    <span class="direct-chat-name pull-right">
-                                                                                                      @if($tlpic->nickname)
-                                                                                                      {{$tlpic->nickname}}
-                                                                                                      @else {{$tl->firstname}}@endif 
-
-                                                                                                      {{$tl->lastname}}
-                                                                                                    </span>
-                                                                                                    <span class="direct-chat-timestamp pull-left">
-                                                                                                      {{$vl->updated_at}} </span>
-                                                                                          </div>
-
-                                                                                          <img class="direct-chat-img" src="../../public/img/employees/{{$tlpic->id}}.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-                                                                                          @else
-                                                                                         <div class="direct-chat-default clearfix">
+                                                                                    <div class="direct-chat-default clearfix">
                                                                                                     
                                                                                                     <span class="direct-chat-timestamp pull-left">
                                                                                                       {{$vl->updated_at}} </span>
                                                                                           </div>
                                                                                           <img class="direct-chat-img" src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" alt="Message User Image">
-                                                                                          @endif
+                                                                                    
+                                                                                    
                                                                                           <div class="direct-chat-text bg-green" >
                                                                                                   <h5><i class="fa fa-thumbs-up"></i> Approved</h5>
                                                                                           </div>
