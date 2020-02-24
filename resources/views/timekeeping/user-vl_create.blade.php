@@ -249,9 +249,10 @@
             var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D');
             var twoweeks = moment(vl_from,"MM/D/YYYY").add(-14,'days');
 
+            /* ------- 2wk NOTICE on VL
             if ( twoweeks.format('YYYY-MM-DD') <= moment().format('YYYY-MM-DD')) {
               $.notify("Sorry, this VL period is already past the submisison deadline. \nNote that all vacation leaves must be filed 2-weeks in advance. \n(i.e. before "+twoweeks.format('MMM D, YYYY')+")",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );return false; 
-            }
+            }*/
 
 
             console.log('two weeks');console.log(twoweeks);
