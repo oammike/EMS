@@ -154,6 +154,8 @@ trait TimekeepingTraits
     ( count($approvedCWS) > 0 ) ? $hasApprovedCWS=true : $hasApprovedCWS=false;
     $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
 
+    
+
     if ($hybridSched)
     {
 
@@ -548,9 +550,7 @@ trait TimekeepingTraits
 
       if ($hasApprovedCWS)
       {
-         
-
-         if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
+        if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
          {
             $isRDToday=true;
             $schedForToday = array('timeStart'=>'* RD *', 
@@ -567,36 +567,7 @@ trait TimekeepingTraits
                                     'isFlexitime' => false,
                                     'isRD'=> $approvedCWS->first()->isRD);
          }
-        $RDsched1 = $RDsched;
-        /*
-          $ws =$this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);
-          if ( is_null($ws->workday))
-          {
-            //di sya worksched, but CWS from RD
-            $ws =$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
-
-          }else
-          {
-            if ($ws->created_at > $approvedCWS->first()->updated_at )
-            {
-              $schedForToday = $ws; //$workSched->where('workday',$numDay)->first();
-              $isRDToday = $ws->isRD;
-              $RDsched1 = $RDsched;
-              
-
-            } else
-            {
-              $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                                    'timeEnd'=> $approvedCWS->first()->timeEnd,
-                                    'isFlexitime' => false,
-                                    'isRD'=> $approvedCWS->first()->isRD);
-              $isRDToday = $approvedCWS->first()->isRD;
-              $RDsched1 = $RDsched; //$this->getLatestFixedSchedGrouped($RDsched,$payday,$numDay);
-              
-
-            } 
-
-          }*/
+         $RDsched1 = $RDsched;
 
           
           
@@ -626,10 +597,6 @@ trait TimekeepingTraits
                                             'isFlexitime' => false,
                                             'isRD'=> $approvedCWS->first()->isRD);
 
-          /*$schedForToday = array('timeStart'=>'00:00', 
-                                            'timeEnd'=>'00:00' ,
-                                            'isFlexitime' => false,
-                                            'isRD'=> false);*/
           $isRDToday=false;
           $RDsched1=null;
           $isFixedSched=false;
@@ -649,14 +616,6 @@ trait TimekeepingTraits
 
               }else 
               {
-
-                // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-                //                   'timeEnd'=> $approvedCWS->first()->timeEnd, 
-                //                   'isFlexitime'=>false,
-                //                   'isRD'=>$approvedCWS->first()->isRD);
-
-                // $isRDToday = $approvedCWS->first()->isRD;
-                // $RDsched1 = $RDsched;
 
                  if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
                  {
@@ -684,12 +643,6 @@ trait TimekeepingTraits
 
           } else 
           {
-            // $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
-            //                       'timeEnd'=> $approvedCWS->first()->timeEnd, 
-            //                       'isFlexitime'=>false,
-            //                       'isRD'=>$workSched->where('productionDate',$payday)->first()->isRD);
-            // $isRDToday = $workSched->where('productionDate',$payday)->first()->isRD;
-            // $RDsched1 = $RDsched;
 
                 if ($approvedCWS->first()->timeStart === '00:00:00' && $approvedCWS->first()->timeEnd === '00:00:00')
                  {
@@ -718,10 +671,7 @@ trait TimekeepingTraits
       } else //walang CWS
       {
         if (is_null($workSched)){
-          /*$day = date('D', strtotime($payday)); //--- get his worksched and RDsched
-          $theday = (string)$day;
-          $numDay = array_search($theday, $daysOfWeek);
-          $schedForToday = $this->getLatestFixedSchedGrouped($workSched,$payday,$numDay);*/
+
           $schedForToday = null;
           $isRDToday = null; //$schedForToday['isRD'];
           $RDsched1 = $RDsched;
@@ -759,7 +709,7 @@ trait TimekeepingTraits
     $c->RDsched = $RDsched1;
     $c->isFixedSched = $isFixedSched;
     $c->allRD = $RDsched;
-    
+   
     return $c;
 
 
@@ -936,9 +886,7 @@ trait TimekeepingTraits
               
             } else $isEarlyOUT=false;
 
-            // if ($userLogIN[0]['timing']->format('H:i:s') > $schedForToday['timeStart'] && $userLogIN[0]['timing']->format('H:i:s') > $schedForToday['timeEnd'] )  $isLateIN = false; else $isLateIN= true;
-            // if ($userLogOUT[0]['timing']->format('H:i:s') < $schedForToday['timeEnd'])  $isEarlyOUT = true; else $isEarlyOUT= false;
-
+         
           
 
             if ($isEarlyOUT && $isLateIN)//use user's logs
@@ -1077,12 +1025,7 @@ trait TimekeepingTraits
               $workedHours = number_format($wh/60,2);
               $billableForOT=0;
               $UT = abs(number_format($wh/60,2) - 8.0);
-               // if ($hasHolidayToday)
-               //    {
-               //      $workedHours .= "<br/> <strong>* ". $holidayToday->first()->name. " * </strong>";
-               //    }
-              
-               //    $chenes = "if ($isEarlyOUT && $isLateIN)";
+               
             }
             else if ($isEarlyOUT){
 
@@ -1847,7 +1790,7 @@ trait TimekeepingTraits
               {
 
                 //kunin mo yung bio id ng log 9HRs from shiftstart or 5hrs if parttime
-                (!$isPartTimer) ? $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9) : $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5);
+                (!$isPartTimer) ? $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9) : $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
                   
 
                 $bioEnd = Biometrics::where('productionDate',$bEnd->format('Y-m-d'))->get();
@@ -2705,10 +2648,7 @@ trait TimekeepingTraits
                                       }//end if pasok sa alloted OT
                                       else { $checker=['l'=>$l->format('Y-m-d H:i:s'),'bs'=>$beginShift,'aOT'=>$allowedOT->format('Y-m-d H:i:s')]; goto proceedWithBlank;}
 
-                                    } else {  goto proceedWithBlank;} //$checker=collect($userLog)->groupBy('logTime');
-                                    //"non ideal, empty $uLog"; '1'=>Carbon::parse($thisPayrollDate." ".$userLog->first()->logTime,'Asia/Manila')->format('Y-m-d H:i:s'),
-                                    //'2'=>$beginShift->format('Y-m-d H:i:s')
-                                    //['grouped'=>collect($userLog)->groupBy('logTime')]
+                                    } else {  goto proceedWithBlank;} 
 
                                   }else {$checker="from non ideal, proceed Blank"; goto proceedWithBlank;}
 
@@ -2762,12 +2702,7 @@ trait TimekeepingTraits
                          } 
                           
                           
-                          //if ($problemArea[0]['problemShift'])
-                          //  $timing = Carbon::parse(Biometrics::find($userLog->first()->biometrics_id)->productionDate." ".$userLog->first()->logTime, "Asia/Manila");
-                          //else
-                          //  $timing = Carbon::parse($userLog->first()->logTime, "Asia/Manila");
-
-                          //$timing2 = $userLog->first()->logTime;
+                          
 
                           //*********** APPLICABLE ONLY TO WORK DAY ********************//
 
@@ -2925,10 +2860,11 @@ trait TimekeepingTraits
   }
 
 
-  public function getRDinfo($user_id, $biometrics,$isSameDayLog,$payday)
+  public function getRDinfo($user_id, $biometrics,$isSameDayLog,$payday, $schedKahapon)
   {
 
     /* init $approvedOT */
+      $legitRD = 0;
       $approvedOT=0; $OTattribute="";
       $hasHolidayToday = false;
       $hasPendingIN = null;
@@ -2936,8 +2872,8 @@ trait TimekeepingTraits
       $hasPendingOUT = null;
       $pendingDTRPout = null;$userLogOUT=null;$logOUT=null;
 
-    $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
-    $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
+      $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
+      $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
 
      if (count($holidayToday) > 0) $hasHolidayToday = true;
 
@@ -2948,7 +2884,10 @@ trait TimekeepingTraits
       $hasApprovedDTRPin = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('updated_at','DESC')->get();
 
       if (count($hasApprovedDTRPin) > 0){ $userLogIN = $hasApprovedDTRPin;} 
-      else { $userLogIN = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get(); }
+      else 
+        { 
+          $userLogIN = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get(); 
+        }
 
 
 
@@ -2984,10 +2923,42 @@ trait TimekeepingTraits
       } 
       else
       {
-          $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
-          $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
+          //** i-check mo muna kung pasok sa worksched nya kahapon yung login na ito, otherwise, tag it as RD in
 
-          if ($isSameDayLog) 
+          if ($schedKahapon['workday'] != null)
+          {
+            $ts = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
+            $tend = Carbon::parse($payday." ".$schedKahapon['timeStart'],'Asia/Manila')->addHour(9);
+            if ($ts < $tend) //meaning, yung login eh for workshift na pang kahapon
+            {
+              $logIN = "* RD *" ;
+              $timeStart = "* RD *";
+              $logOUT = "* RD *" ;
+              $timeEnd = "* RD *";
+              $legitRD = 1;
+              //goto pushData;
+
+            }else
+            {
+              $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
+              $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
+
+            }
+            
+
+          }else
+          {
+            $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
+            $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
+
+          }
+
+          
+
+          /*-- we need to check yung sched kahapon if sameday log sched or not ------*/
+
+
+          if ($isSameDayLog && !$legitRD) 
           {
             //Check mo muna kung may approved DTRPout
              $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
@@ -3044,18 +3015,37 @@ trait TimekeepingTraits
 
                 } else {
 
-                  //--- di nga sya pumasok
-                  $logOUT = "* RD *";
-                  $uLogout = Logs::where('user_id',$user_id)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+                  if ($legitRD) 
+                  {
+                    $shiftStart= "* RD *";
+                    $shiftEnd = "* RD *"; 
+                    $workedHours = "N/A";
+                    $userLogIN = null;
+                    $hasApprovedDTRPin = null;
+                    $userLogOUT = null;
+                    $isSameDayLog = false;
+                    $billableForOT = 0;
+                    $OTattribute = ""; $UT= 0;
 
-                  //** check mo muna kung pasok yung log sa allowed RD OT
-                  if (count($uLogout) > 0){
+                    goto pushData;
 
-                    if (Carbon::parse($bioForTomorrow->productionDate." ".$uLogout->first()->logTime,"Asia/Manila")->format('Y-m-d H:i:s') <= $nextDay->format('Y-m-d H:i:s'))
-                      $userLogOUT = $uLogout;
-                    else $userLogOUT = null;
+                  } 
+                  else
+                  {
+                    $logOUT = "* RD *";
+                    $uLogout = Logs::where('user_id',$user_id)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
 
-                  }else $userLogOUT = $uLogout;
+                    //** check mo muna kung pasok yung log sa allowed RD OT
+                    if (count($uLogout) > 0){
+
+                      if (Carbon::parse($bioForTomorrow->productionDate." ".$uLogout->first()->logTime,"Asia/Manila")->format('Y-m-d H:i:s') <= $nextDay->format('Y-m-d H:i:s'))
+                        $userLogOUT =$uLogout;// ******* !!make new for filing RD OT
+                      else $userLogOUT = null;
+
+                    }else $userLogOUT = $uLogout;
+
+                  }
+                  
 
 
                 }
@@ -3066,6 +3056,7 @@ trait TimekeepingTraits
           } //end else not sameday log
             
 
+          proceedToRDOT:
 
           //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
           $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
@@ -3242,6 +3233,8 @@ trait TimekeepingTraits
 
        }//end if may login kahit RD
 
+       pushData:
+
        $data = new Collection;
        $data->push(['shiftStart'=>$shiftStart, 
         'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
@@ -3255,6 +3248,7 @@ trait TimekeepingTraits
         'pendingDTRPin'=> $pendingDTRPin,
         'hasPendingOUT' => $hasPendingOUT,
         'pendingDTRPout' => $pendingDTRPout,
+        'schedKahapon' => $schedKahapon,
         'approvedOT'=>$approvedOT]);
        return $data;
 
@@ -3450,16 +3444,7 @@ trait TimekeepingTraits
               
 
            } else {
-            /*$coll->push(['title'=> date('h:i A', strtotime($keys->timeStart)) . " to ",// '09:00 AM ',
-                    'start'=>$keys->productionDate . " ". $keys->timeStart, //->format('Y-m-d H:i:s'),
-                    'textColor'=> '#548807',// '#409c45',
-                    'backgroundColor'=> '#fff',
-                  'chenes'=>$keys->productionDate]);
-            $coll->push(['title'=>date('h:i A', strtotime($keys->timeEnd)),
-                      'start'=>$keys->productionDate . " ". $keys->timeEnd,
-                      'textColor'=> '#bd3310',// '#27a7f7',
-                      'backgroundColor'=> '#fff',
-                    'chenes'=>$keys->productionDate]);*/
+            
 
 
             $coll->push(['title'=> date('h:i A', strtotime($keys->timeStart)) . " to ",// '09:00 AM ',
@@ -4476,11 +4461,7 @@ trait TimekeepingTraits
                   'checkLate'=>"nonComplicated", 'workedHours'=> $workedHours, //$koll, // 
                   'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP,'FLinfo'=>$alldays, 'famL'=>$famL,'flcol'=>$slcol ]);
-    /*              $t=$userLogIN[0]['timing']->format('H:i:s');
-                  $o = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s')
-    $data->push(['checkLate'=>"nonComplicated", 'workedHours'=>$workedHours, 
-                  'billableForOT'=>Carbon::parse($payday." ".$t,'Asia/Manila')->format('Y-m-d H:i:s'), 'OTattribute'=>$OTattribute,
-                  'UT'=>, 'VL'=>$hasVL, 'SL'=>$hasSL, 'LWOP'=>$hasLWOP ]);*/
+   
 
 
 
@@ -4622,9 +4603,7 @@ trait TimekeepingTraits
 
           }
 
-          //return (['sched'=>$sched]);
           
-          //return (['dayToday'=>$dayToday, 'workSched_monthly'=>$workSched_monthly,'RDsched_monthly'=>$RDsched_monthly, 'actual_fixed_WS'=>$actual_fixed_WS,'actual_fixed_RD'=>$actual_fixed_RD,'workSched_fixed'=>$workSched_fixed,'RDsched_fixed'=>$RDsched_fixed]);
         }
 
         
