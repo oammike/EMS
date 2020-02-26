@@ -1706,11 +1706,16 @@ class DTRController extends Controller
         $updatedSL = false;
 
 
-        if ($lengthOfService >= 6) //do this if only 6mos++
+        if ($lengthOfService >= 1) //do this if only 6mos++
         {
           $today= date('m');//today();
           $avail = $user->vlCredits;
           $avail2 = $user->slCredits;
+
+          $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
+                              join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse('first day of this year','Asia/Manila')->format('Y-m-d'))->get();
+          $totalVLearned = collect($vlEarnings)->sum('credits');
 
           $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
           $approvedSLs = User_SL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
@@ -1722,7 +1727,7 @@ class DTRController extends Controller
               if($vls->contains('creditYear',date('Y')))
               {
                 $updatedVL=true;
-                $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) - $vls->first()->paid;
+                $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid;
               }
               else{
                 
@@ -2308,7 +2313,7 @@ class DTRController extends Controller
                             if ($isRDToday)
                             {
 
-                              $data = $this->getRDinfo($id, $bioForTheDay,null,$payday,$schedKahapon);
+                              $data = $this->getRDinfo($id, $bioForTheDay,null,$payday,$schedKahapon,$isFixedSched);
                               $myDTR->push([
 
                                   'allData'=>$data,
@@ -2487,8 +2492,8 @@ class DTRController extends Controller
                                         $isRDYest=false; else $isRDYest=true;
                                     }
 
-                                    $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift,$isRDYest);
-                                    $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift,$isRDYest);
+                                    $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
+                                    $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
                                     
 
                                     
@@ -2553,7 +2558,7 @@ class DTRController extends Controller
                                       // if shift is 12MN - 5AM -> PROBLEM AREA
                                       //----------------------------------------
                                       if($isFixedSched)
-                                          $isRDYest = true; //$RDsched->contains($prevNumDay); 
+                                          $isRDYest = $actualSchedKahapon->isRDToday; //true; //$RDsched->contains($prevNumDay); 
                                         else
                                         {
                                           if ($hybridSched)
@@ -2583,7 +2588,7 @@ class DTRController extends Controller
                                           Problem shifts: 12MN-5am
                                       ---------------------------------------------*/
                                      
-                                        $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift,$isRDYest);
+                                        $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
                                         //$coll->push(['datafrom'=>"else NOT Problem shift",'data IN'=>$userLogIN ]);
                                       //}
 
@@ -2593,7 +2598,7 @@ class DTRController extends Controller
 
                                             
                                         if(count((array)$bioForTom) > 0){
-                                          $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest);
+                                          $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
                                               //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
 
                                           
@@ -2734,7 +2739,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Feb 13, 2020');
+            //return $myDTR->where('productionDate','Feb 14, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
