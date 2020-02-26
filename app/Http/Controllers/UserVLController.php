@@ -620,7 +620,7 @@ class UserVLController extends Controller
         $isWorkforce = in_array($this->user->id, $wfm->toArray());
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
-
+        $success = 1; $msg = "VL saved successfully.";
        
 
         
