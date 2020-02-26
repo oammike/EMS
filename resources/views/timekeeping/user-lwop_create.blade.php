@@ -74,7 +74,11 @@
                                     <span class="info-box-number"><span class="text-black">Days: </span><span id="credits_vl" data-credits="{{$used}}"> {{$used}} </span> 
                                     </span>
 
+                                    @if($creditsLeft > 0)
                                     <div class="progress"><?php $progressBar = (1/$creditsLeft)*100; ?>
+                                    @else
+                                    <div class="progress"><?php $progressBar = 0; ?>
+                                    @endif
                                       <div id="percentage" class="progress-bar" style="width: 100%"></div>
                                     </div>
                                     <span class="progress-description text-black">
