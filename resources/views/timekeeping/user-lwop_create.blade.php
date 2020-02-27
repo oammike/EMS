@@ -250,6 +250,18 @@
             var reason_vl = $('textarea[name="reason_vl"]').val();
             var totalcredits = $('#credits_vl').attr('data-credits');
 
+
+            var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D');
+            var coveredshifts = getCoveredShifts(coveredshift, mfrom,mfrom, timestart_old1, timeend_old1);
+            var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
+            var leaveTo = coveredshifts.leaveEnd.format('YYYY-MM-D H:mm:ss');
+
+            console.log('leaveFrom:');
+            console.log(leaveFrom);
+            console.log('leaveTo:');
+            console.log(leaveTo);
+
+
             $.ajax({
                 url: "{{action('UserController@getWorkSchedForTheDay',$user->id)}}",
                 type:'POST',
@@ -295,6 +307,13 @@
                         console.log(reply);
                         if (reply == true)
                         {
+                          var timestart_old1 = $('input[name="timestart_old"]').val();
+                          var timeend_old1 =  $('input[name="timeend_old"]').val();
+                          var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D');
+                          var coveredshifts = getCoveredShifts(coveredshift, mfrom,mfrom, timestart_old1, timeend_old1);
+                          var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
+                          var leaveTo = coveredshifts.leaveEnd.format('YYYY-MM-D H:mm:ss');
+                          console.log('leaveFrom REPLY'); console.log(leaveFrom);
                           $.ajax({
                             url: "{{action('UserLWOPController@requestLWOP')}}",
                             type:'POST',

@@ -540,6 +540,7 @@ class UserLWOPController extends Controller
         $correct = Carbon::now('GMT+8');
         $vl->created_at = $correct->format('Y-m-d H:i:s');
         $vl->updated_at = $correct->format('Y-m-d H:i:s');
+        //return response()->json($vl);
         $vl->save();
 
         // get WFM
