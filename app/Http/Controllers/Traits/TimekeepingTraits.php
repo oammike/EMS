@@ -128,16 +128,19 @@ trait TimekeepingTraits
     for( $i = 1; $i <= 24; $i++)
         { 
           $time1 = Carbon::parse('1999-01-01 '.$i.':00:00');
+          $time1b = Carbon::parse('1999-01-01 '.$i.':15:00');
           $time2 = Carbon::parse('1999-01-01 '.$i.':30:00');
 
           if($timeFormat == '12H')
           {
             array_push($data, $time1->format('h:i A')." - ".$time1->addHours($addHr)->format('h:i A'));
+            array_push($data, $time1b->format('h:i A')." - ".$time1b->addHours($addHr)->format('h:i A'));
             array_push($data, $time2->format('h:i A')." - ".$time2->addHours($addHr)->format('h:i A'));
 
           } else
           {
             array_push($data, $time1->format('H:i')." - ".$time1->addHours($addHr)->format('H:i'));
+            array_push($data, $time1b->format('H:i')." - ".$time1b->addHours($addHr)->format('H:i'));
             array_push($data, $time2->format('H:i')." - ".$time2->addHours($addHr)->format('H:i'));
           }
         }
