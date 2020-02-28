@@ -1518,7 +1518,7 @@ trait TimekeepingTraits
 
 
 
-  public function getLogDetails($type, $id, $biometrics_id, $logType_id, $schedForToday, $undertime, $problemArea, $isAproblemShift, $isRDYest,$schedKahapon)
+  public function getLogDetails($type, $id, $biometrics_id, $logType_id, $schedForToday, $undertime, $problemArea, $isAproblemShift, $isRDYest,$schedKahapon, $isBackoffice)
   {
 
 
@@ -1858,6 +1858,7 @@ trait TimekeepingTraits
                   //else if 12MN and kahapon 12MN din shift nya, kunin mo yung shift for this bio instead
                   //else if ( $beginShift->format('H:i:s') == '00:00:00' && $schedKahapon['timeStart']=='00:00:00') goto theUsual;
                   else if ( $beginShift->format('H:i:s') == '00:00:00') goto checkKahapon;
+                  else if ($beginShift->format('H:i:s') > '00:00:00' && $beginShift->format('H:i:s') < '23:59:00' ) goto theUsual;
                   else goto proceedToLogTomorrow;
 
                 }
@@ -2395,9 +2396,14 @@ trait TimekeepingTraits
                                $icons = "<a title=\"Verify Biometrics data\" class=\"pull-right text-gray\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link#$biometrics_id\"><i class=\"fa fa-clock-o\"></i></a>";
                                 
                                 
-                               if ($hasHolidayToday)
+                               if ($hasHolidayToday && $isBackoffice)
                                {
                                 $log = "<strong class=\"text-danger\">N/A</strong>". $icons;
+                                $workedHours = $holidayToday->first()->name;
+
+                               }else if ($hasHolidayToday && !$isBackoffice)
+                               {
+                                $log = "<strong class=\"text-danger\">No IN</strong>". $icons;
                                 $workedHours = $holidayToday->first()->name;
 
                                } else if ($hasLWOP){
@@ -2791,24 +2797,33 @@ trait TimekeepingTraits
 
 
 
-       $data->push(['biometrics_id'=>$biometrics_id, 'logPalugit'=>$logPalugit,
-                    'palugitDate' =>$palugitDate,
-                    'beginShift'=> $beginShift,
-                    'endShift'=> $endShift,
-                    'maxOut'=> $maxOut,
-                    'leave'=>$leaveDetails, 'hasLeave'=>$hasLeave, 'vl'=>$vl,'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
-                    'logs'=>$userLog,'lwop'=>$lwopDetails, 'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
-                    'sl'=>$slDeet,
-                    'UT'=>$UT, 'logTxt'=>$log,
-                    'hasPendingDTRP' => $hasPendingDTRP,
-                    'pendingDTRP' => $pendingDTRP, 
+       $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
+                    'dtrp'=>$hasApprovedDTRP->first(),
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
                     'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
-                    'timing'=>$timing, 'pal'=>$pal,'maxIn'=>$maxIn,'beginShift'=>$beginShift,'finishShift'=>$finishShift,
-                    'CHECKER'=>$checker,
+                    'endShift'=> $endShift,
                     'isAproblemShift'=>$isAproblemShift,
                     'isRDYest'=>$isRDYest,
-                    'dtrp'=>$hasApprovedDTRP->first()]);
+                    'finishShift'=>$finishShift,
+                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
+                    'hasPendingDTRP' => $hasPendingDTRP,
+                    'leave'=>$leaveDetails,
+                    'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    'logPalugit'=>$logPalugit,
+                    'logs'=>$userLog,'lwop'=>$lwopDetails, 
+                    'logTxt'=>$log,
+                    'maxIn'=>$maxIn,
+                    'maxOut'=> $maxOut,
+                    'palugitDate' =>$palugitDate,
+                    'pendingDTRP' => $pendingDTRP,
+                    'sl'=>$slDeet,
+                    'timing'=>$timing,'UT'=>$UT,
+                    'vl'=>$vl,
+                    
+                    'pal'=>$pal,
+                    'CHECKER'=>$checker,
+                    
+                    ]);
 
               
 

@@ -2492,8 +2492,8 @@ class DTRController extends Controller
                                         $isRDYest=false; else $isRDYest=true;
                                     }
 
-                                    $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
-                                    $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
+                                    $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon,$isBackoffice);
+                                    $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon,$isBackoffice);
                                     
 
                                     
@@ -2588,7 +2588,7 @@ class DTRController extends Controller
                                           Problem shifts: 12MN-5am
                                       ---------------------------------------------*/
                                      
-                                        $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
+                                        $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT, $problemArea,$isAproblemShift,$isRDYest,$schedKahapon,$isBackoffice);
                                         //$coll->push(['datafrom'=>"else NOT Problem shift",'data IN'=>$userLogIN ]);
                                       //}
 
@@ -2598,7 +2598,7 @@ class DTRController extends Controller
 
                                             
                                         if(count((array)$bioForTom) > 0){
-                                          $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest,$schedKahapon);
+                                          $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest,$schedKahapon,$isBackoffice);
                                               //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
 
                                           
@@ -2739,7 +2739,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Feb 14, 2020');
+            //return $myDTR->where('productionDate','Feb 25, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
