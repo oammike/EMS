@@ -434,15 +434,16 @@ class UserOTController extends Controller
     public function store(Request $request)
     {
 
-        
+        $productionDate = Biometrics::find($request->biometrics_id);
+        $otendTime = Carbon::parse($productionDate->productionDate." ". $request->OTstart, "Asia/Manila")->addMinutes($request->filedHours*60);
 
         $OT = new User_OT;
         $OT->user_id = $request->user_id;
         $OT->biometrics_id = $request->biometrics_id;
         $OT->billable_hours = $request->billableHours;
         $OT->filed_hours = $request->filedHours;
-        $OT->timeStart = Carbon::parse($request->OTstart,"Asia/Manila");
-        $OT->timeEnd = Carbon::parse($request->OTend,"Asia/Manila");
+        $OT->timeStart = Carbon::parse($request->OTstart,"Asia/Manila")->format('H:i:s');
+        $OT->timeEnd = $otendTime->format($otendTime->format('H:i:s')); //Carbon::parse($request->OTend,"Asia/Manila");
         $OT->isRD = $request->isRD;
         $OT->reason = $request->reason;
         $OT->billedType = $request->billedtype;
@@ -569,7 +570,7 @@ class UserOTController extends Controller
     public function update($id, Request $request)
     {
         $OT = User_OT::find($id);
-        if (count($OT) >0 )
+        if (count((array)$OT) >0 )
         {
             $OT->approver = $this->getTLapprover($OT->user_id,$this->user->id);
 

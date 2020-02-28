@@ -19,7 +19,7 @@
       <input type="hidden" name="OTstart" value="{{$data['shiftEnd']}}" />
       @endif
       <input type="hidden" name="OTend" value="{{$data['logOUT']}}" />
-      <div class="modal-body-upload" style="padding:20px;">
+      <div id="otmodal" class="modal-body-upload" style="padding:20px;">
        
 
         <br/><br/>
@@ -41,9 +41,10 @@
 
                          
                           <?php 
-                          for ($i=(float)$data['billableForOT']; $i >= 0.1; $i=$i-0.5 )
+                          for ($i=(float)$data['billableForOT']; $i >= 0.1; $i=$i-0.25 )
                           { 
-                              $num = (round($i/5,1, PHP_ROUND_HALF_DOWN))*5; 
+                              //$num = (round($i/5,1, PHP_ROUND_HALF_DOWN))*5; 
+                              $num =$i;// (round($i,1, PHP_ROUND_HALF_DOWN))*5; 
                                if ( strpos($data['shiftEnd'], "RD") )
                                 { $start = Carbon\Carbon::parse($data['logIN']); $t1 = Carbon\Carbon::parse($data['logIN']); } 
                                else {$start= Carbon\Carbon::parse($data['shiftEnd']); $t1 = Carbon\Carbon::parse($data['shiftEnd']); }
@@ -51,7 +52,7 @@
                               ?>
 
                           @if ( $num < (float)$data['billableForOT'] && $num != '0')    
-                          <option data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$data['logOUT']}}"" value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT</option><!--  data-timeend="{{$t1->addMinutes($num*60)->format('h:i A')}}" --><!-- [{{$start->format('h:i A')}} - {{$t1->format('h:i A')}}]  -->
+                          <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$data['logOUT']}}"" value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT</option><!--  data-timeend="{{$t1->addMinutes($num*60)->format('h:i A')}}" --><!-- [{{$start->format('h:i A')}} - {{$t1->format('h:i A')}}]  -->
                           @endif
 
                           <?php } ?> 

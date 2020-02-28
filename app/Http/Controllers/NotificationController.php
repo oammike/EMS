@@ -367,7 +367,7 @@ class NotificationController extends Controller
                           // $actionlink = null;
                           // $fromImage = null;
                           $mvt = Movement::find($notif->detail->relatedModelID);
-                          if (count($mvt)>0) 
+                          if (count((array)$mvt)>0) 
                           {
                             $tlConcerned = ImmediateHead_Campaign::find($mvt->immediateHead_details->imHeadCampID_new);
                             $personConcerned = ImmediateHead::find($tlConcerned->immediateHead_id);

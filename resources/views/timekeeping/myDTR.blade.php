@@ -117,7 +117,7 @@
                                     </div>
                                     <!-- /.widget-user -->
 
-                                    <div class="row">
+                                    <div class="row" id="thedtr">
                                           <!--   <div class="col-lg-1 col-sm-12"></div> -->
                                             <div class="col-lg-12 col-sm-12"><br/><br/>
                                               
@@ -1247,6 +1247,20 @@ $(function ()
   $('.timepick').bootstrapMaterialDatePicker({format: 'hh:mm a',monthPicker: false, date: false, year:false, shortTime:true}); //wickedpicker(options);
 
 
+  $('#thedtr').on('change','#otmodal select',function(){
+      var workedOT = $(this).find(':selected');
+      var proddate = workedOT.attr('data-proddate');
+      var ottimeS = moment(proddate+' '+workedOT.attr('data-timestart'),'HH:MM A');
+      var duration = moment.duration({'minutes' : workedOT.val()*60});
+      var otend = moment(proddate+' '+workedOT.attr('data-timestart'),'HH:MM A').add(duration); //moment(workedOT.attr('data-timestart'),'HH:MM A').add(workedOT.val()*60,'m');
+     
+            //var twoweeks = moment(vl_from,"MM/D/YYYY").add(-14,'days');
+            console.log('otS:');console.log(ottimeS.add(1,'hours'));
+            console.log('otEnd:');console.log(otend.add(duration));
+            console.log('date:');console.log(proddate);
+
+       //alert('Filing OT for: '+workedOT.val()+'\n '+'to : '+ workedOT.attr('data-timeend'));
+  });
   $('a.reportDTRP').on('click',function()
     { $('input[type="checkbox"]').removeAttr('checked');
       $('.container').hide(); $('.detail').hide(); 
