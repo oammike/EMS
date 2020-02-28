@@ -798,7 +798,7 @@
                                                                            
                                                                     <!-- ** we now process any pre and post OTs ** -->
                                                                     <td class="text-center"> 
-                                                                        @if( count($data['userOT']) > 1)
+                                                                        @if( count($data['userOT']) >= 1)
 
                                                                             <?php $postOT = collect($data['userOT'])->where('preshift',null); ?>
                                                                             <?php $preOT = collect($data['userOT'])->where('preshift',1); ?>
@@ -850,32 +850,17 @@
 
                                                                             {!! $data['billableForOT'] !!} 
 
-                                                                            @if(count($data['approvedOT']) > 0)
+                                                                            @if(count((array)$data['approvedOT']) > 0)
 
-                                                                                @if(is_null($data['approvedOT']->first()->preshift))
-                                                                                     <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right @if ($data['approvedOT']->first()->isApproved)text-green @else text-gray @endif" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a></td>
+                                                                                @if($data['approvedOT'] !== 0)
+                                                                                  @if(is_null($data['approvedOT']->first()->preshift))
+                                                                                       <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right @if ($data['approvedOT']->first()->isApproved)text-green @else text-gray @endif" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a></td>
 
-                                                                                     @include('layouts.modals-OT_details', [
-                                                                                    'modelRoute'=>'user_ot.store',
-                                                                                    'modelID' => '_OT_details'.$data["payday"], 
-                                                                                    'modelName'=>"Overtime ", 
-                                                                                    'modalTitle'=>'OT Details', 
-                                                                                    'Dday' =>$data["day"],
-                                                                                    'DproductionDate' =>$data["productionDate"],
-                                                                                    'biometrics_id'=> $data["biometrics_id"],
-                                                                                    'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                                    'isRD'=> $data["isRD"],
-                                                                                    'formID'=>'submitOT',
-                                                                                    'icon'=>'glyphicon-up' ])
-
-                                                                                @else
-
-                                                                                   {!! $data['OTattribute'] !!}
-                                                                                    @include('layouts.modals-OT', [
+                                                                                       @include('layouts.modals-OT_details', [
                                                                                       'modelRoute'=>'user_ot.store',
-                                                                                      'modelID' => '_OT'.$data["payday"], 
+                                                                                      'modelID' => '_OT_details'.$data["payday"], 
                                                                                       'modelName'=>"Overtime ", 
-                                                                                      'modalTitle'=>'Submit', 
+                                                                                      'modalTitle'=>'OT Details', 
                                                                                       'Dday' =>$data["day"],
                                                                                       'DproductionDate' =>$data["productionDate"],
                                                                                       'biometrics_id'=> $data["biometrics_id"],
@@ -884,7 +869,24 @@
                                                                                       'formID'=>'submitOT',
                                                                                       'icon'=>'glyphicon-up' ])
 
+                                                                                  @else
 
+                                                                                     {!! $data['OTattribute'] !!}
+                                                                                      @include('layouts.modals-OT', [
+                                                                                        'modelRoute'=>'user_ot.store',
+                                                                                        'modelID' => '_OT'.$data["payday"], 
+                                                                                        'modelName'=>"Overtime ", 
+                                                                                        'modalTitle'=>'Submit', 
+                                                                                        'Dday' =>$data["day"],
+                                                                                        'DproductionDate' =>$data["productionDate"],
+                                                                                        'biometrics_id'=> $data["biometrics_id"],
+                                                                                        'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                                        'isRD'=> $data["isRD"],
+                                                                                        'formID'=>'submitOT',
+                                                                                        'icon'=>'glyphicon-up' ])
+
+
+                                                                                  @endif
                                                                                 @endif
 
                                                                             @else

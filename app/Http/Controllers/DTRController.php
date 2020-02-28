@@ -2316,7 +2316,7 @@ class DTRController extends Controller
                               $data = $this->getRDinfo($id, $bioForTheDay,null,$payday,$schedKahapon,$isFixedSched);
                               $myDTR->push([
 
-                                  'allData'=>$data,
+                                  //'allData'=>$data,
                                   'approvedOT' => $data[0]['approvedOT'],
                                   'billableForOT' => $data[0]['billableForOT'],
                                   'biometrics_id'=>$bioForTheDay->id,
