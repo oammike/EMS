@@ -12,7 +12,9 @@
 
 	@if ($canUpload)
 	<div style="background: rgba(72, 164, 220, 0.4); position: fixed;right: 0; padding:50px; width: 25%" class="pull-right">
-		<img src="../public/img/oabpo_logo_new.jpg" /><h2><br/>Insert Bio Logs<br/><br/></h2>
+		<img src="../public/img/oabpo_logo_new.jpg" /><h2><br/>Insert Bio Logs<br/>
+			<small>for: <strong style="font-size: smaller;">{{$user->lastname}},{{$user->firstname}} </strong><br/>
+			</small><em style="font-size: small;">{{$user->campaign->first()->name}} </em></h2>
 		<label>Log Date: <br/><small>(actual date of employee's finger scan)</small></small> 
 			<input class="form-control datepicker" type="text" name="productionDate" id="productionDate" placeholder="YYYY-MM-DD" datepicker /> </label><br/><br/>
 		<label>Time (24hr format): <input class="form-control" type="text" name="logTime" id="logTime" placeholder="HH:mm:ss" /></label><br/><br/>
@@ -109,6 +111,10 @@
 									 window.setTimeout(function(){
 	                                   window.location.href = "{{action('LogsController@viewRawBiometricsData',$id)}}";
 	                                 }, 4000);
+
+                              	}else
+                              	{
+                              		$.notify("An error occured while saving bio log: \n"+productionDate + " "+logTime+"\n"+response.msg,{className:"error", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
 
                               	}
                                 

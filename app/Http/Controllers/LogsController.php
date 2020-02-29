@@ -284,7 +284,7 @@ class LogsController extends Controller
                      select('biometrics.id as id','biometrics.productionDate as Production_Date', 'logType.name as Log_Type','logs.logTime','logs.id as logID')->
                      orderBy('biometrics.productionDate','DESC')->get();
 
-            return view('timekeeping.rawBio', compact('dtr','id','canUpload'));
+            return view('timekeeping.rawBio', compact('dtr','id','canUpload','user'));
 
         }
         
