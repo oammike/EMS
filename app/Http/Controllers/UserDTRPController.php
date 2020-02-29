@@ -92,7 +92,7 @@ class UserDTRPController extends Controller
     {
         //return $request;
         $DTRP = User_DTRP::find($request->id);
-        if(count($DTRP)>0)
+        if(count((array)$DTRP)>0)
         {
             $DTRP->approvedBy = $this->getTLapprover($DTRP->user_id, $this->user->id);
         

@@ -61,6 +61,14 @@ class LogsController extends Controller
     	//return $this->cutoff->first()->startingPeriod(). " - " . $paycutoff->endingPeriod();
     }
 
+    public function deleteBio($id)
+    {
+        $delLog = Logs::find($id);
+        
+        $delLog->delete();
+        return redirect()->back();
+    }
+
     
 
     public function myDTR()
@@ -136,6 +144,24 @@ class LogsController extends Controller
 
         return response()->json(['success'=>'1','logs'=>$log]);
 
+    }
+
+    public function saveBioLog(Request $request)
+    {
+        $b = Carbon::parse($request->productionDate." ".$request->logTime,'Asia/Manila');
+        $bio = Biometrics::where('productionDate',$b->format('Y-m-d'))->get();
+        if (count($bio) > 0)
+        {
+            $l = new Logs;
+            $l->biometrics_id = $bio->first()->id;
+            $l->logTime = $request->logTime;
+            $l->logType_id = $request->logType_id;
+            $l->user_id = $request->user_id;
+            $l->save();
+            return response()->json(['success'=>1, 'msg'=>"Biometric saved.",'data'=>$l]);
+
+        }else
+            return response()->json(['success'=>0, 'msg'=>"No Biometric data for that productionDate."]);
     }
 
 
@@ -246,16 +272,19 @@ class LogsController extends Controller
         if (is_null($user)) return view('empty');
         else
         {
+            $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+            $canUpload =  ($roles->contains('UPLOAD_BIOMETRICS')) ? '1':'0';
+
             DB::connection()->disableQueryLog();
             $dtr = DB::table('logs')->where('user_id',$user->id)->//leftJoin('users','logs.user_id','=','users.id')->
             //         
                      leftJoin('logType','logs.logType_id','=','logType.id')->
                      leftJoin('biometrics','logs.biometrics_id','=','biometrics.id')->
 
-                     select('biometrics.id as id','biometrics.productionDate as Production_Date', 'logType.name as Log_Type','logs.logTime')->
+                     select('biometrics.id as id','biometrics.productionDate as Production_Date', 'logType.name as Log_Type','logs.logTime','logs.id as logID')->
                      orderBy('biometrics.productionDate','DESC')->get();
 
-            return view('timekeeping.rawBio', compact('dtr'));
+            return view('timekeeping.rawBio', compact('dtr','id','canUpload'));
 
         }
         

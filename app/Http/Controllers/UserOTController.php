@@ -620,7 +620,7 @@ class UserOTController extends Controller
     {
         $OT = User_OT::find($request->id);
 
-        if (count($OT) >0 )
+        if (count((array)$OT) >0 )
         {
             $OT->approver = $this->getTLapprover($OT->user_id,$this->user->id);
             

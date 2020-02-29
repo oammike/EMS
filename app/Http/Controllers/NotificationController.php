@@ -412,7 +412,7 @@ class NotificationController extends Controller
                 case 3: { $actionlink = action('MovementController@show',$notif->detail->relatedModelID ); 
                             $mvtDeets = Movement::find($notif->detail->relatedModelID); 
 
-                            if (count($mvtDeets)>0)
+                            if (count((array)$mvtDeets)>0)
                             {
                               $requestor = ImmediateHead::find($mvtDeets->requestedBy); 
 

@@ -3527,18 +3527,20 @@ trait TimekeepingTraits
 
 
 
-  public function getWorkedHours($user_id, $userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday, $isRDYest)
+  public function getWorkedHours($user, $userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday, $isRDYest,$isPartTimer)
   {
 
-    $employee = User::find($user_id);$koll=new Collection;
+    $employee = $user;// User::find($user_id);
 
-    ($employee->status_id == 12 || $employee->status_id == 14 ) ? $isPartTimer = true : $isPartTimer=false;
+    $koll=new Collection;
+    $comp = new Collection;
+    //($employee->status_id == 12 || $employee->status_id == 14 ) ? $isPartTimer = true : $isPartTimer=false;
 
     $data = new Collection;
     $billableForOT=0;
     $UT = 0;
     $OTattribute = "";
-    $campName = User::find($user_id)->campaign->first()->name;
+    $campName = User::find($user->id)->campaign->first()->name;
 
     $hasHolidayToday = false;
     $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
@@ -3554,7 +3556,13 @@ trait TimekeepingTraits
     $fix= Carbon::parse($payday." 23:59:00","Asia/Manila");
 
     $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
-    ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+    ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
+    //**** for checking Foreigners na contractual == kasi tagged lang sila as CONTRACTUAL [FOREIGN] :id=15
+    $checkEndShift = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila");
+    $checkSShift = Carbon::parse($schedForToday['timeStart'],"Asia/Manila");
+    $diffHours = $checkEndShift->diffInHours($checkSShift);
+    ($diffHours > 4) ? $isPartTimerForeign = false :  $isPartTimerForeign = true; 
 
     $inTime = null;
     $outTime = null;$x=null;$y=null;
@@ -3563,7 +3571,7 @@ trait TimekeepingTraits
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
     /*-------- VACATION LEAVE  -----------*/
-    $vl1 = User_VL::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $vl1 = User_VL::where('user_id',$user->id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     //where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $vlcol= new Collection;
@@ -3625,7 +3633,7 @@ trait TimekeepingTraits
 
 
      /*-------- SICK LEAVE  -----------*/
-    $sl1 = User_SL::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $sl1 = User_SL::where('user_id',$user->id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     //->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $slcol= new Collection;$hasSL=null;
@@ -3686,7 +3694,7 @@ trait TimekeepingTraits
 
 
 
-    $lwop1 = User_LWOP::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $lwop1 = User_LWOP::where('user_id',$user->id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     
     $lwopcol= new Collection;
     if (count($lwop1) > 0)
@@ -3747,10 +3755,10 @@ trait TimekeepingTraits
 
 
 
-    $obt = User_OBT::where('user_id',$user_id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $obt = User_OBT::where('user_id',$user->id)->where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     //where('leaveStart','<=',$fix->format('Y-m-d H:i:s'))->where('leaveEnd','>=',$theDay->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
-    $famL = User_Familyleave::where('user_id',$user_id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+    $famL = User_Familyleave::where('user_id',$user->id)->where('leaveStart','<=',$endOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
     
     $flcol= new Collection;
     if (count($famL) > 0)
@@ -3913,7 +3921,7 @@ trait TimekeepingTraits
       $outTime = $userLogOUT[0]['timing']; //Carbon::parse($payday." ".$t2,'Asia/Manila');
 
 
-      $link = action('UserController@myRequests',$user_id);
+      $link = action('UserController@myRequests',$user->id);
       $icons ="";
       $workedHours=null;$log="";
 
@@ -3925,7 +3933,7 @@ trait TimekeepingTraits
 
      
 
-      $koll->push(['userLogIN'=>$inTime->format('Y-m-d H:i'), 'scheduleStart'=>$scheduleStart->format('Y-m-d H:i')]);
+      //koll->push(['userLogIN'=>$inTime->format('Y-m-d H:i'), 'scheduleStart'=>$scheduleStart->format('Y-m-d H:i')]);
 
 
       if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
@@ -3969,10 +3977,10 @@ trait TimekeepingTraits
         //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
         $billableForOT=0; //$userLogIN[0]['timing']/60;
 
-        $stat = User::find($user_id)->status_id;
+        //$stat = User::find($user_id)->status_id;
         //****** part time user
 
-        if ($stat == 12 || $stat ==14)
+        if ($isPartTimer)
           $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
         else
           $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
@@ -3981,13 +3989,14 @@ trait TimekeepingTraits
       }
       else if ($isEarlyOUT)
       {
+         $koll=["from"=>"isEarlyOUT"];
          //--- but u need to make sure if nag late out sya
           if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"))
           {
             $workedHours = 8.00;
 
             //check first if Locked na DTR for that production date
-            $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+            $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
             if (count($verifiedDTR) > 0)
               $icons = "<a title=\"Unlock DTR to File this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\" ><i class=\"fa fa-credit-card\"></i></a>";
             else
@@ -4013,7 +4022,7 @@ trait TimekeepingTraits
           {
 
             /*--- WE NEED TO CHECK FIRST KUNG MAY LEGIt LEAVES SYA ***/
-
+            $comp->push(['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")]);
             $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
 
 
@@ -4067,10 +4076,10 @@ trait TimekeepingTraits
             {
               $workedHours .= number_format($wh/60,2)."<br/><small>(early OUT)</small>";
 
-              $stat = User::find($user_id)->status_id;
+              //$stat = User::find($user_id)->status_id;
               //****** part time user
 
-              if ($stat == 12 || $stat ==14)
+              if ($isPartTimer)
                 $UT = round((240.0 - $wh)/60,2); 
               else
                 $UT = round((480.0 - $wh)/60,2); 
@@ -4090,16 +4099,19 @@ trait TimekeepingTraits
         
       }//end if EarlyOUT
 
-      else if($isLateIN){
-
+      else if($isLateIN)
+      {
+        //$koll=["from"=>"isLateIN"];
         //--- but u need to make sure if nag late out sya
         //    otherwise, super undertime talaga sya
 
         if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) // Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
         {
-          //$wh = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
-
-          $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+          
+          if ($isPartTimer || $isPartTimerForeign ) 
+          {
+            $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
+          } else  $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
          
           /* ---- but we need to check Jeff's case of multiple requessts
                   bakit sya lateIN? baka may valid SL | VL |OBT */
@@ -4159,7 +4171,7 @@ trait TimekeepingTraits
 
 
                 //check first if Locked na DTR for that production date
-                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
                   if (count($verifiedDTR) > 0)
                     $icons = "<a title=\"Unlock DTR to File this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\" ><i class=\"fa fa-credit-card\"></i></a>";
                   else
@@ -4173,7 +4185,7 @@ trait TimekeepingTraits
                 //$totalbill = 33.33;
                 
 
-                if ($totalbill > 0.5)
+                if ($totalbill > 0.25)
                 {
                   $billableForOT = $totalbill;
                   $OTattribute = $icons;
@@ -4181,10 +4193,10 @@ trait TimekeepingTraits
                   
                 else { $billableForOT = 0; /*$totalbill*/; $OTattribute = "&nbsp;&nbsp;&nbsp;";} 
 
-                $stat = User::find($user_id)->status_id;
+                //$stat = User::find($user_id)->status_id;
                 //****** part time user
 
-                if ($stat == 12 || $stat ==14)
+                if ($isPartTimer || $isPartTimerForeign)
                 $UT = round((240.0 - $wh)/60,2); 
                 else
                   $UT = round((480.0 - $wh)/60,2); 
@@ -4200,6 +4212,7 @@ trait TimekeepingTraits
         else //super undertime sya
         {
             //$wh = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+            $comp->push(['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")]);
             $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
             
              
@@ -4251,10 +4264,10 @@ trait TimekeepingTraits
                 {
                   $workedHours .= number_format($wh/60,2)."<br/><small>(Late IN)</small>";
 
-                  $stat = User::find($user_id)->status_id;
+                  //$stat = User::find($user->id)->status_id;
                   //****** part time user
 
-                  if ($stat == 12 || $stat ==14)
+                  if ($isPartTimer)
                   $UT = round((240.0 - $wh)/60,2); //33.33; //
                   else
                     $UT =round((480.0 - $wh)/60,2); //33.33; //
@@ -4270,7 +4283,7 @@ trait TimekeepingTraits
                     $billableForOT= number_format($outNya->diffInMinutes($schedEnd)/60,2);
 
                     //check first if Locked na DTR for that production date
-                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
                   if (count($verifiedDTR) > 0)
                     $OTattribute = "<a title=\"Unlock DTR to file this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
                   else
@@ -4295,11 +4308,12 @@ trait TimekeepingTraits
         
       }//end if lateIN
       else {
-
-        if ($isPartTimer)
-          $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+        //$koll=["from"=>$isPartTimer,'diffHours'=>$diffHours];
+        if ($isPartTimer || $isPartTimerForeign ) {
+          $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+        }
         else
-          $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
+          $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
 
 
          
@@ -4309,10 +4323,10 @@ trait TimekeepingTraits
 
                 if ($wh > 480)
                 {
-                  $workedHours =8.00; 
+                  $workedHours =8.00; $UT=0;
 
                   //check first if Locked na DTR for that production date
-                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
                   if (count($verifiedDTR) > 0)
                     $icons = "<a title=\"Unlock DTR to file an OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
                   else
@@ -4359,17 +4373,71 @@ trait TimekeepingTraits
                       }
 
 
-                } 
+                }else if($wh > 240) 
+                {
+                  if ($isPartTimer || $isPartTimerForeign)
+                  {
+                      $workedHours ="4.00"; $UT = 0;// number_format(240 - $wh,2);
+                  }else
+                  {
+                    $workedHours = number_format($wh/60,2); $UT = number_format(8 - $workedHours,2);
+                  }
+
+                  //check first if Locked na DTR for that production date
+                  $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
+                  if (count($verifiedDTR) > 0)
+                    $icons = "<a title=\"Unlock DTR to file an OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                  else
+                   $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                   if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
+                   {
+                      $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');//->format('Y-m-d H:i:s');
+                    
+                    //$totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                      //$totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
+                      ($isPartTimer || $isPartTimerForeign) ? $totalbill = number_format(($wh - 240)/60,2) :  $totalbill = number_format(($wh - 480)/60,2);
+                    
+                   }
+                    
+                  else{ 
+                    $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
+                    //$totalbill = 9.99;
+                    //$totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    $totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
+                    
+                  }
+
+
+                  
+
+                  if ($totalbill > 0.25)
+                  {
+                    $billableForOT = $totalbill;
+                    $OTattribute = $icons;
+                  }
+                    
+                  else { $billableForOT = 0; /* $totalbill*/; $OTattribute= "&nbsp;&nbsp;&nbsp;";} 
+
+                  if ($hasHolidayToday)
+                      {
+                        $workedHours .= "<br/> <strong>[* ". $holidayToday->first()->name. " *]</strong>";
+                      }
+
+
+                }
                 else 
-                  { 
-                    $workedHours = number_format($wh/60,2); $billableForOT=0; 
+                { 
+                    $workedHours = number_format($wh/60,2); 
+                    //$workedHours = ['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")];
+                    $billableForOT=0; 
                       if ($hasHolidayToday)
                       {
                         $workedHours .= "<br/> <strong>[* ". $holidayToday->first()->name. " *]</strong>";
                       }
-                  }//end else di overworked, sakto lang
+                }//end else di overworked, sakto lang
 
-                  $UT = '0';
+                  //$UT = '0';
             
           
 
@@ -4380,8 +4448,8 @@ trait TimekeepingTraits
     } //end if may login and logout
     else
     {
-      $WHcounter = 8.0; $UT=0;
-      $link = action('UserController@myRequests',$user_id);
+      ($isPartTimer || $isPartTimerForeign) ? $WHcounter = 4.0 : $WHcounter = 8.0; $UT=0;
+      $link = action('UserController@myRequests',$user->id);
       $icons ="";
       $workedHours=null;$log="";
 
@@ -4458,10 +4526,14 @@ trait TimekeepingTraits
      
 
     $data->push([
-                  
-                  'holidayToday'=>$holidayToday, 'schedForToday'=>$schedForToday, 
-                  'checkLate'=>"nonComplicated", 'workedHours'=> $workedHours, //$koll, // 
-                  'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute,
+                  //'koll'=>$koll,
+                  'billableForOT'=>$billableForOT,
+                  'holidayToday'=>$holidayToday, 
+                  'schedForToday'=>$schedForToday,
+                  'OTattribute'=>$OTattribute, 
+                  'checkLate'=>"nonComplicated", 
+                  //'wh'=>$wh,'comp'=>$comp,
+                  'workedHours'=> $workedHours, //$koll, // 
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP,'FLinfo'=>$alldays, 'famL'=>$famL,'flcol'=>$slcol ]);
    
 

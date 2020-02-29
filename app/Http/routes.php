@@ -364,9 +364,17 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'page.module',
       'uses'=>'HomeController@module') );
 
+    Route::post('/saveBioLog', array(
+      'as'=> 'logs.saveBioLog',
+      'uses'=>'LogsController@saveBioLog') );
+
     Route::post('/saveDailyUserLogs', array(
       'as'=> 'logs.saveDailyUserLogs',
       'uses'=>'LogsController@saveDailyUserLogs') );
+
+    Route::post('/deleteBio/{id}', array(
+      'as'=> 'logs.deleteBio',
+      'uses'=>'LogsController@deleteBio') );
 
     
 

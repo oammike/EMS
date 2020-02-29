@@ -1555,6 +1555,8 @@ class DTRController extends Controller
 
         if (is_null($user)) return view('empty');
 
+        ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+
         /*--check floor for Beta testing --*/
         //$saanLocated = DB::table('team')->where('user_id','=',$user->id)->get();
 
@@ -2383,7 +2385,7 @@ class DTRController extends Controller
 
                                   $shiftStart = date('h:i A',strtotime($schedForToday['timeStart']));
 
-                                  if ($user->status_id == 12 || $user->status_id == 14  )
+                                  if ($isParttimer)
                                   {
                                     if (is_null($schedForToday['timeStart']))
                                     {
@@ -2507,8 +2509,8 @@ class DTRController extends Controller
                                       //** but check mo muna kung may filed leave ba OR HOLIDAY
                                       if($userLogOUT[0]['hasLeave'] || $userLogOUT[0]['hasLWOP'] || $userLogOUT[0]['hasSL'] || $hasHolidayToday)
                                       {
-                                        $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday,$isRDYest);
-                                        $workedHours= $data[0]['workedHours'];
+                                        $data = $this->getWorkedHours($user,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday,$isRDYest,$isParttimer);
+                                        $workedHours= $data[0]['workedHours'];//$wh=$data[0]['wh'];
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
@@ -2525,8 +2527,8 @@ class DTRController extends Controller
                                       
 
                                     }else{
-                                      $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday,$isRDYest);
-                                      $workedHours= $data[0]['workedHours'];
+                                      $data = $this->getWorkedHours($user,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday,$isRDYest,$isParttimer);
+                                      $workedHours= $data[0]['workedHours'];//$wh=$data[0]['wh'];
                                       
                                       $billableForOT = $data[0]['billableForOT'];
                                       $OTattribute = $data[0]['OTattribute'];
@@ -2535,6 +2537,7 @@ class DTRController extends Controller
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                     } 
+                                    $coll->push($data);
                                     // //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
                                     
                                    
@@ -2610,11 +2613,13 @@ class DTRController extends Controller
 
                                         }
 
-                                            $data = $this->getWorkedHours($user->id,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest);
+                                            $data = $this->getWorkedHours($user,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest,$isParttimer);
 
-                                        $coll->push(['bioForTheDay'=>$bioForTheDay->id, 'schedForToday'=> $schedForToday, 'problemArea'=> $problemArea]); 
+                                        //$coll->push(['bioForTheDay'=>$bioForTheDay->id, 'schedForToday'=> $schedForToday, 'problemArea'=> $problemArea]); 
+                                            //$coll->empty();
+                                            $coll->push($data);
 
-                                        $workedHours= $data[0]['workedHours']; //$data[0]['compare']; //
+                                        $workedHours= $data[0]['workedHours']; //$wh=$data[0]['wh'];
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
@@ -2711,6 +2716,8 @@ class DTRController extends Controller
                                       'wholeIN' => $userLogIN,
                                       'wholeOUT' =>$userLogOUT,
                                       'workedHours'=> $workedHours,
+                                      //'wh' => $wh,
+                                      'alldata'=>$coll
 
                                      ]);
 
@@ -2739,7 +2746,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Feb 25, 2020');
+            //return $myDTR->where('productionDate','Feb 19, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
