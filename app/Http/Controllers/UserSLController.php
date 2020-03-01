@@ -134,12 +134,18 @@ class UserSLController extends Controller
                 $user = User::find($request->for);
                 $forSomeone = $user;
 
+                
+
             }
                  
 
         if (count( (array)$user) <1) return view('empty');
         else
         {
+            ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+            $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+
             //check mo kung leave for himself or if for others and approver sya
             $approvers = $user->approvers;
             //Timekeeping Trait
@@ -148,7 +154,7 @@ class UserSLController extends Controller
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 
                        if($this->user->id !== 564 ) {
-                          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                             fwrite($file, "-------------------\n Tried [SL]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                             fclose($file);
                         } 
@@ -192,49 +198,54 @@ class UserSLController extends Controller
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                             $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
-                            if (count($holiday) > 0 ){
-                                $used = '0.00'; //less 1 day assume wholeday initially
-                                if (count($savedCredits)>0){
-                                     $hasSavedCredits = true;
-                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
-                                 }else {
-
-                                    //check muna kung may existing approved VLs
-                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                    if (count($approvedVLs) > 0 )
-                                    {
-                                        $usedC = 0;
-                                        foreach ($approvedVLs as $key) {
-                                            $usedC += $key->totalCredits;
+                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                {
+                                    $used = '0.00';
+                                    if (count($savedCredits)>0){
+                                         $hasSavedCredits = true;
+                                         $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+                                     }else 
+                                     {
+                                        //check muna kung may existing approved VLs
+                                        $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                        if (count($approvedVLs) > 0 )
+                                        {
+                                            $usedC = 0;
+                                            foreach ($approvedVLs as $key) {
+                                                $usedC += $key->totalCredits;
+                                            }
+                                            $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
                                         }
-                                        $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
-                                    }
-                                    else
-                                    $creditsLeft = (0.84 * $today->format('m')) ;
-                                 }
-                                 
-                            }
-                            else{
-                                $used='1.00';
-                                if (count($savedCredits)>0){
-                                    $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used-1);
-                                 }else {
+                                        else
+                                        $creditsLeft = (0.84 * $today->format('m')) ;
+                                     }
 
-                                    //check muna kung may existing approved VLs
-                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                    if (count($approvedVLs) > 0 )
-                                    {
-                                        $usedC = 0;
-                                        foreach ($approvedVLs as $key) {
-                                            $usedC += $key->totalCredits;
+                                } else 
+                                {
+                                    ($isParttimer) ? $used = 0.5 : $used = 1.00; 
+                                    if (count($savedCredits)>0){
+                                        $hasSavedCredits = true;
+                                         $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used-1);
+                                     }else 
+                                     {
+
+                                        //check muna kung may existing approved VLs
+                                        $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                        if (count($approvedVLs) > 0 )
+                                        {
+                                            $usedC = 0;
+                                            foreach ($approvedVLs as $key) {
+                                                $usedC += $key->totalCredits;
+                                            }
+                                            $creditsLeft =((0.84 * $today->format('m')) - $usedC) - 1 ;
                                         }
-                                        $creditsLeft =((0.84 * $today->format('m')) - $usedC) - 1 ;
+                                        else
+                                            $creditsLeft = (0.84 * $today->format('m'))-1 ;
                                     }
-                                    else
-                                        $creditsLeft = (0.84 * $today->format('m'))-1 ;
                                 }
-                            } 
+
+
+                            
 
                         
                         
@@ -314,6 +325,9 @@ class UserSLController extends Controller
     public function getCredits(Request $request)
     {
         $user = User::find($request->user_id);
+        ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
         $vl_from = Carbon::parse($request->date_from,"Asia/Manila");
         $vf = Carbon::parse($request->date_from,"Asia/Manila");
         $dateFrom = Carbon::parse($request->date_from,"Asia/Manila");
@@ -429,16 +443,30 @@ class UserSLController extends Controller
 
             } else
             {
-                $credits = 1;
-                //return response()->json(['vl_from'=>$vl_from, 'dateto'=>$request->date_to]);
                 $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,$mayExisting,false);
+
+                //if 4HRs lang work nya, part timer sya
+                //dapat half lang credit nila
+                if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd)) > 4)
+                    $credits = 1;
+                else
+                    $credits = 0.5;
+                //return response()->json(['vl_from'=>$vl_from, 'dateto'=>$request->date_to]);
+                
                 //return $schedForTheDay;
 
                 //if ($shift_from == '2' || $shift_from=='3') $credits -= 0.5;
 
                 switch ($shift_from) {
                     case '2':{ 
-                                (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
+                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                {
+                                    $credits = 0;
+                                } else 
+                                {
+                                    ($isParttimer) ? $credits -= 0.25 : $credits -= 0.5; 
+                                }
+
                                 $start = Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A');
                                 $end = Carbon::parse($schedForTheDay->first()->timeStart)->addHour(4)->format('h:i A');
                                 $displayShift = $start." - ".$end;
@@ -447,14 +475,30 @@ class UserSLController extends Controller
 
                     
                     case '3':{ 
-                                (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
+                                
+                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                {
+                                    $credits = 0;
+                                } else 
+                                {
+                                    ($isParttimer) ? $credits -= 0.25 : $credits -= 0.5; 
+                                }
+
                                 $start = Carbon::parse($schedForTheDay->first()->timeEnd)->addHour(-4)->format('h:i A');
                                 $end = Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
                                 $displayShift = $start." - ".$end;
                                 //$creditsleft -= $credits;
                              }break;
                     default:{
-                                (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits = 1.00;
+                                
+                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                {
+                                    $credits = 0;
+                                } else 
+                                {
+                                    ($isParttimer) ? $credits -= 0.5 : $credits -= 1.00; 
+                                }
+
                                 $displayShift =  Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A'). " - ". Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
                                 //$creditsleft;
 

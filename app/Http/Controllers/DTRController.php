@@ -2127,7 +2127,10 @@ class DTRController extends Controller
                   $isFixedSched =  $actualSchedToday->isFixedSched;
                   $allRD = $actualSchedToday->allRD;
 
-                  //for RD OT checkings
+                  //another check if part timer: FOR FOREIGN CONTRACTUAL. check if 4h > work hours
+                  /*( Carbon::parse($schedForToday['timeStart'],'Asia/Manila')->diffInHours(Carbon::parse($schedForToday['timeEnd'],'Asia/Manila')) > 4) ? $isParttimer=false : $isParttimer=true;
+
+                  return response()->json(['isParttimer'=>$isParttimer, 'schedForToday'=>$schedForToday]);*/
                   
 
                   $actualSchedKahapon = $this->getActualSchedForToday($user,$id,$prevDay->format('Y-m-d'),$bioForYest, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
@@ -2392,7 +2395,7 @@ class DTRController extends Controller
                                       $shiftStart2 = '<span class="text-danger" style="font-weight:bold">No Work Sched</span>';
                                       $schedForToday = collect([
                                         'timeStart'=>null, 
-                                        'timeEnd'=>null,'isFlexitime'=>false]);
+                                        'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>0]);
                                       $shiftEnd = null;
 
                                     }else
@@ -2400,7 +2403,7 @@ class DTRController extends Controller
                                         $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
                                         $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
                                         $f = $schedForToday['isFlexitime'];
-                                        $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f]);
+                                        $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
 
                                     }
                                    

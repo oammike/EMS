@@ -318,14 +318,14 @@
                 }
                 else
                 {
-                  if (totalcredits == '0' || totalcredits =='0.00')
+                  /*if (totalcredits == '0' || totalcredits =='0.00')
                    {
                     $.notify("Indicated date is actually a holiday. No need to file for a single-day VL for non-ops personnel.\n\n For those in Operations, please file this as an LWOP instead.",{className:"success", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );return false;
                       
                    }
                     
                   else
-                  {
+                  { */
                     if (vl_to == "" || vl_to == vl_from) //one-day leave lang sya
                     {
                       //check kung anong covered shift
@@ -540,7 +540,7 @@
 
                     }//end else checkIfRestday
 
-                  }//end if totalcredits == 0
+                  /* }//end if totalcredits == 0 */
 
                 }
                 

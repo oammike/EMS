@@ -764,7 +764,8 @@
 
                                                         @if($data['hasLeave'])
 
-                                                             <td class="text-center"> 0
+                                                             <td class="text-center"> 0 <br/>
+                                                              
 
                                                               <!--  <td class="text-center"><a href="{{action('UserController@myRequests',$user->id)}}"><strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong></a> -->
 

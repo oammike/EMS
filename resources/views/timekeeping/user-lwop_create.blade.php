@@ -332,7 +332,7 @@
                              // $(this).fadeOut();//prop('disabled',"disabled");
 
                               if (response.success == '1')
-                                $.notify("LWOP saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                $.notify("LWOP saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                                 else
                                   $.notify("LWOP submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                               
@@ -395,7 +395,7 @@
                                                  
 
                                                   if (response1.success == '1')
-                                                    $.notify("LWOP saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                                    $.notify("LWOP saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                                                     else
                                                       $.notify("LWOP submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                                   
@@ -483,7 +483,7 @@
                                              $('#save').fadeOut();
 
                                               if (response.success == '1')
-                                                        $.notify("LWOP saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                                        $.notify("LWOP saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                                                         else
                                                           $.notify("LWOP submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                                       
