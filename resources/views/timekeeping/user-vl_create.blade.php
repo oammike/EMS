@@ -212,7 +212,8 @@
                   '_token':_token
                 },
                 success: function(response){
-                  console.log(response);
+                   console.log('from getWorkSchedForTheDay');
+                          console.log(response);
                   $('input[name="timestart_old"]').val(response.timeStart);
                   $('input[name="timeend_old"]').val(response.timeEnd);
 
@@ -271,6 +272,7 @@
                           '_token':_token
                         },
                         success: function(response){
+                          console.log('from getWorkSchedForTheDay');
                           console.log(response);
                           if (response.timeStart === response.timeEnd || response.isRD == 1)
                           {
@@ -342,9 +344,9 @@
                                                       $.notify("Vacation Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                                   
                                                   console.log(response1);
-                                                  /*window.setTimeout(function(){
+                                                  window.setTimeout(function(){
                                                     window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                                  }, 4000);*/
+                                                  }, 4000);
                                                 }
                                               });
                                               
@@ -693,6 +695,8 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
                       $("span#credits_vl").html(response.credits);
                       $("span#credits_vl").attr('data-credits', response.credits);
                       var cl = parseFloat(response.creditsleft);
+                      console.log("response.creditsleft");
+                      console.log(response.creditsleft);
                       console.log("cl");
                       console.log(cl);
                       $("#creditsleft").html(cl.toFixed(2));

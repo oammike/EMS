@@ -2537,7 +2537,7 @@ class DTRController extends Controller
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                     } 
-                                    $coll->push($data);
+                                    //$coll->push($data);
                                     // //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
                                     
                                    
@@ -2673,6 +2673,8 @@ class DTRController extends Controller
                                   else{
                                     $actualSchedKahapon = $this->getActualSchedForToday($user,$id,$prevDay->format('Y-m-d'),$bioForYest, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
 
+                                    if(count($userLogIN[0]['leave']) > 0  )$hasLeave=true; else $hasLeave=false;
+
                                     $myDTR->push([
                                       'approvedOT' => $approvedOT,
                                       'billableForOT' => $billableForOT,
@@ -2687,7 +2689,7 @@ class DTRController extends Controller
                                       'hasOT'=>$hasOT,
                                       'hasApprovedCWS'=>$hasApprovedCWS,
                                       'hasApprovedOT'=>$hasApprovedOT,
-                                      'hasLeave' => $userLogIN[0]['hasLeave'],
+                                      'hasLeave' => $hasLeave, //$userLogIN[0]['hasLeave'],
                                       'hasPendingIN' => $userLogIN[0]['hasPendingDTRP'],
                                       'hasPendingOUT' => $userLogOUT[0]['hasPendingDTRP'],
                                       'isAproblemShift'=>$isAproblemShift,
@@ -2746,7 +2748,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Feb 19, 2020');
+            //return $myDTR->where('productionDate','Feb 24, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

@@ -429,6 +429,7 @@ class UserVLController extends Controller
 
                 $s = $this->getWorkSchedForTheDay1($user,Carbon::parse($request->date_from,"Asia/Manila"),$mayExisting,false);
 
+                //return $s;
 
                 switch ($shift_from) {
                     case '2':{ 
