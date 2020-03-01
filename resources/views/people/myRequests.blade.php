@@ -50,7 +50,7 @@
 
               <a href="{{action('UserLWOPController@create')}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay <br/> <strong>(LWOP)</strong></a>
 
-              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Meeting/Huddle <br/> <strong>(PS-OT)</strong></a> 
+              <!-- <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Meeting/Huddle <br/> <strong>(PS-OT)</strong></a>  -->
 
               <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
 
@@ -77,7 +77,7 @@
 
               <a href="{{action('UserLWOPController@create',['for'=>$user->id])}}" class="btn btn-sm bg-orange"><i class="fa fa-meh-o fa-2x"></i> New Leave Without Pay  <br/><strong>(LWOP)</strong></a>
 
-              <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Meeting/Huddle <br/> <strong>(PS-OT)</strong></a> 
+              <!-- <a href="{{action('UserOTController@create',['for'=>$user->id])}}" class="btn btn-sm" style="background-color: #ffea7f"><i class="fa fa-clock-o fa-2x"></i> New Meeting/Huddle <br/> <strong>(PS-OT)</strong></a>  -->
 
               <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm bg-green"><i class="fa fa-2x fa-calendar-times-o"></i> Change Work Schedule  <br/><strong>(CWS)</strong></a>
 
