@@ -337,9 +337,9 @@
                                                  
 
                                                   if (response1.success == '1') {
-                                                    $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                                    $.notify("Vacation Leave saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                                                   }else if (response1.success == '-1'){
-                                                    $.notify(response1.message,{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                                    $.notify(response1.message,{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                                                   }else
                                                       $.notify("Vacation Leave submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                                   

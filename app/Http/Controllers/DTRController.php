@@ -2620,7 +2620,7 @@ class DTRController extends Controller
 
                                         //$coll->push(['bioForTheDay'=>$bioForTheDay->id, 'schedForToday'=> $schedForToday, 'problemArea'=> $problemArea]); 
                                             //$coll->empty();
-                                            $coll->push($data);
+                                            $coll->push(['payday'=>$payday,'data'=>$data]);
 
                                         $workedHours= $data[0]['workedHours']; //$wh=$data[0]['wh'];
                                         $billableForOT = $data[0]['billableForOT'];
@@ -2751,7 +2751,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Feb 24, 2020');
+            //return $myDTR->where('productionDate','Feb 22, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

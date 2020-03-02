@@ -580,10 +580,16 @@
             var creditsleft = "{{$creditsLeft}}";// $('#creditsleft').attr('data-left');
             else {
               var creditsleft =  {{$creditsLeft}};
-              creditsleft += 0.5;
+              @if( $foreignPartime || $isParttimer )
+                creditsleft += 0.25;
+              @else
+                creditsleft += 0.5;
+              @endif
             }
            
 
+            console.log('CREDITS LEFT: ');
+            console.log(creditsleft);
             console.log("vl_from:");
             console.log(vl_from);
             console.log("vl_to");
@@ -809,7 +815,7 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
                       }
 
                      console.log("100 - "+parseFloat(response.credits)+'/'+parseFloat("{{$creditsLeft}}"));
-                      var bar = parseFloat(100-(parseFloat(response.credits)/(parseFloat("{{$creditsLeft}}") +1 )*100));
+                      var bar = parseFloat(100-(parseFloat(response.credits)/(parseFloat(response.creditsleft) +1 )*100));//"{{$creditsLeft}}"
                       $('#percentage').css({width:bar+'%'});
 
                       if (parseFloat(response.forLWOP) > 0)

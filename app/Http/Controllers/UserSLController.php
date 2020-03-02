@@ -199,57 +199,72 @@ class UserSLController extends Controller
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                             $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
                             if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
-                                {
-                                    $used = '0.00';
-                                    if (count($savedCredits)>0){
-                                         $hasSavedCredits = true;
-                                         $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
-                                     }else 
-                                     {
-                                        //check muna kung may existing approved VLs
-                                        $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                        if (count($approvedVLs) > 0 )
-                                        {
-                                            $usedC = 0;
-                                            foreach ($approvedVLs as $key) {
-                                                $usedC += $key->totalCredits;
-                                            }
-                                            $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
+                            {
+                                $used = '0.00';
+                                if (count($savedCredits)>0){
+                                     $hasSavedCredits = true;
+                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+                                 }else 
+                                 {
+                                    //check muna kung may existing approved VLs
+                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                    if (count($approvedVLs) > 0 )
+                                    {
+                                        $usedC = 0;
+                                        foreach ($approvedVLs as $key) {
+                                            $usedC += $key->totalCredits;
                                         }
-                                        else
-                                        $creditsLeft = (0.84 * $today->format('m')) ;
-                                     }
-
-                                } else 
-                                {
-                                    ($isParttimer) ? $used = 0.5 : $used = 1.00; 
-                                    if (count($savedCredits)>0){
-                                        $hasSavedCredits = true;
-                                         $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used-1);
-                                     }else 
-                                     {
-
-                                        //check muna kung may existing approved VLs
-                                        $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                        if (count($approvedVLs) > 0 )
-                                        {
-                                            $usedC = 0;
-                                            foreach ($approvedVLs as $key) {
-                                                $usedC += $key->totalCredits;
-                                            }
-                                            $creditsLeft =((0.84 * $today->format('m')) - $usedC) - 1 ;
-                                        }
-                                        else
-                                            $creditsLeft = (0.84 * $today->format('m'))-1 ;
+                                        $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
                                     }
+                                    else
+                                    $creditsLeft = (0.84 * $today->format('m')) ;
+                                 }
+
+                            } else 
+                            {
+                                $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
+
+                                //if 4HRs lang work nya, part timer sya or foreign na part timer
+                                //dapat half lang credit nila
+                                $totalworked = Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila'));
+                                
+                                if( $totalworked  > 4)
+                                    $foreignPartime = 0;
+                                    //credits = 1;
+                                else
+                                    $foreignPartime = 1; // 0.5;
+
+
+
+                                ($isParttimer || $foreignPartime) ? $used = 0.5 : $used = 1.00; 
+
+                                if (count($savedCredits)>0){
+                                    $hasSavedCredits = true;
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used);
+                                 }else 
+                                 {
+
+                                    //check muna kung may existing approved VLs
+                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                    if (count($approvedVLs) > 0 )
+                                    {
+                                        $usedC = 0;
+                                        foreach ($approvedVLs as $key) {
+                                            $usedC += $key->totalCredits;
+                                        }
+                                        $creditsLeft =((0.84 * $today->format('m')) - $usedC) - $used ;
+                                    }
+                                    else
+                                        $creditsLeft = (0.84 * $today->format('m')) - $used ;
                                 }
+                            }
 
 
                             
 
                         
                         
-                        return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits'));
+                        return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime'));
 
                     }else return view('access-denied');
 
@@ -447,10 +462,14 @@ class UserSLController extends Controller
 
                 //if 4HRs lang work nya, part timer sya
                 //dapat half lang credit nila
-                if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd)) > 4)
-                    $credits = 1;
-                else
+                if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd)) > 4) {
+                    
+                    $isPartForeign=false;$credits = 1;
+                }
+                else {
+                    $isPartForeign=true;
                     $credits = 0.5;
+                }
                 //return response()->json(['vl_from'=>$vl_from, 'dateto'=>$request->date_to]);
                 
                 //return $schedForTheDay;
@@ -464,7 +483,7 @@ class UserSLController extends Controller
                                     $credits = 0;
                                 } else 
                                 {
-                                    ($isParttimer) ? $credits -= 0.25 : $credits -= 0.5; 
+                                    ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
                                 }
 
                                 $start = Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A');
@@ -481,7 +500,7 @@ class UserSLController extends Controller
                                     $credits = 0;
                                 } else 
                                 {
-                                    ($isParttimer) ? $credits -= 0.25 : $credits -= 0.5; 
+                                    ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
                                 }
 
                                 $start = Carbon::parse($schedForTheDay->first()->timeEnd)->addHour(-4)->format('h:i A');
@@ -496,7 +515,7 @@ class UserSLController extends Controller
                                     $credits = 0;
                                 } else 
                                 {
-                                    ($isParttimer) ? $credits -= 0.5 : $credits -= 1.00; 
+                                    ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.00; 
                                 }
 
                                 $displayShift =  Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A'). " - ". Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');

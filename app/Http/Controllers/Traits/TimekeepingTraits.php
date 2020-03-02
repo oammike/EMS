@@ -118,6 +118,7 @@ trait TimekeepingTraits
   public function establishLeaves($id,$endShift,$leaveType,$thisPayrollDate,$schedForToday)
   {
     $alldaysVL=[];$hasVL=null;$vlDeet=null;$hasLeave=null;$vl=null;$hasPendingVL=null;
+
     /*-------- VACATION LEAVE  -----------*/
     switch ($leaveType) {
       case 'VL': $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
@@ -217,6 +218,7 @@ trait TimekeepingTraits
     $theLeave->hasPending = $hasPendingVL;
     $theLeave->daysSakop = $daysSakop;
     $theLeave->schedForToday = $schedForToday;
+    $theLeave->query = ['leaveStart<='=>$endShift->format('Y-m-d H:i:s')];
 
     return $theLeave;
 
@@ -3585,6 +3587,7 @@ trait TimekeepingTraits
     $hasLeave = $vacationleave->hasLeave; 
     $vlDeet = $vacationleave->details;
     $hasPendingVL = $vacationleave->hasPending;
+    $koll->push(['hasVL'=>$hasVL,'alldaysVL'=>$alldaysVL,'vlDeet'=>$vlDeet,'query'=>$vacationleave->query]);
     /*-------- VACATION LEAVE  -----------*/
 
 
@@ -3596,6 +3599,8 @@ trait TimekeepingTraits
     //$hasLeave = $sickleave->hasLeave; 
     $slDeet = $sickleave->details;
     $hasPendingSL = $sickleave->hasPending;
+
+    
      /*-------- SICK LEAVE  -----------*/
 
 
@@ -4332,12 +4337,12 @@ trait TimekeepingTraits
      
 
     $data->push([
-                  //'koll'=>$koll,
+                  'koll'=>$koll,
                   'billableForOT'=>$billableForOT,
                   'holidayToday'=>$holidayToday, 
                   'schedForToday'=>$schedForToday,
                   'OTattribute'=>$OTattribute, 
-                  'checkLate'=>"nonComplicated", 
+                  //'checkLate'=>"nonComplicated", 
                   //'wh'=>$wh,'comp'=>$comp,
                   'workedHours'=> $workedHours, //$koll, // 
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP ]);
@@ -5008,11 +5013,49 @@ trait TimekeepingTraits
                     
                   
         }// end if 0.5 credits
-      
+        else
+        {
+          //just output value; most likely part timer filed this
+          if($hasPending){
+              if ($deet->halfdayFrom == 2)
+                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [1st Shift ".$l."] (for approval) </em></small></strong>".$icons;
+              else if ($deet->halfdayFrom == 3)
+                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [2nd Shift ".$l."] (for approval) </em></small></strong>".$icons;
+              else
+                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [ Half-day ".$l."] (for approval) </em></small></strong>".$icons;
+              
+              
+                    //no logs, meaning halfday AWOL sya
+                    if (count($ins) < 1 && count($outs) < 1) 
+                      $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+
+              $workedHours = "<strong class='text-danger'>AWOL</strong>";
+              $workedHours .= "<br/>".$log;
+
+            }else{
+
+              if ($deet->halfdayFrom == 2)
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 1st Shift ".$l." ]</em></small></strong>".$icons;
+              else if ($deet->halfdayFrom == 3)
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 2nd Shift ".$l." ]</em></small></strong>".$icons;
+              else
+                $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ Half-day ".$l."  ]</em></small></strong>".$icons;
+
+              
+                    if (count($ins) < 1 && count($outs) < 1) 
+                      $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
+
+              if($leaveType=='LWOP') $workedHours  = 0.0;     
+              else $workedHours = 4 - $deet->totalCredits;
+              $WHcounter = 4 - $deet->totalCredits;
+              $workedHours .= "<br/>".$log;
+            }
+
+        }
 
       }//end withIssue
 
-      $coll->push(['workedHours'=>$workedHours,'UT'=>$UT,]);
+      $coll->push(['workedHours'=>$workedHours,'UT'=>$UT,'withIssue'=>$withIssue]);
       return $coll;
 
 
