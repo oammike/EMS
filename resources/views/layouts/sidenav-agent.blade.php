@@ -15,10 +15,17 @@
               $avail = $u->vlCredits;
               $avail2 = $u->slCredits;
 
-              $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$u->id)->
+              /*$vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$u->id)->
                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
                               select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',\Carbon\Carbon::parse('first day of this year','Asia/Manila')->format('Y-m-d'))->get();
+              $totalVLearned = collect($vlEarnings)->sum('credits');*/
+
+              $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$u->id)->
+                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
+                               select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',\Carbon\Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
               $totalVLearned = collect($vlEarnings)->sum('credits');
+
+
 
               $approvedVLs = OAMPI_Eval\User_VL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
               $approvedSLs = OAMPI_Eval\User_SL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
