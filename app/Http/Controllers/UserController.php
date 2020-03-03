@@ -2902,6 +2902,122 @@ class UserController extends Controller
 
     }
 
+    public function rewards_tenure()
+    {
+      DB::connection()->disableQueryLog(); 
+      $coll =  new Collection; $coll2 = new Collection; $now= Carbon::now('GMT+8');
+      $notes = Input::get('notes');
+
+      switch (Input::get('tenure')) {
+        case '6mos': {
+                        $waysto_id = 1;
+                        $s = Carbon::now('GMT+8')->subMonths(6);
+                        $e = Carbon::now('GMT+8');
+                        $tenures =  DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('dateHired','>=',$s->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.lastname','ASC')->get();
+
+                    }
+                    break;
+        
+        case '1': {
+                        $waysto_id = 2;
+                        $s = Carbon::now('GMT+8')->subYear(3)->startOfYear();
+                        $e = Carbon::now('GMT+8')->subYear(1)->endOfYear();
+                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('dateHired','>=',$s->format('Y-m-d H:i:s'))->
+                          where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','ASC')->get();
+
+                    }
+                    break;
+      
+        case '4': {
+                        $waysto_id = 3;
+                        $s = Carbon::now('GMT+8')->subYear(7)->startOfYear();
+                        $e = Carbon::now('GMT+8')->subYear(4)->endOfYear();
+                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('dateHired','>=',$s->format('Y-m-d H:i:s'))->
+                        where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','ASC')->get();
+
+                    }
+                    break;
+
+        case '8': {
+                        $waysto_id = 4;
+                        $s = Carbon::now('GMT+8')->subYear(9)->startOfYear();
+                        $e = Carbon::now('GMT+8')->subYear(8)->endOfYear();
+                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('dateHired','>=',$s->format('Y-m-d H:i:s'))->
+                        where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','ASC')->get();
+
+                    }
+                    break;
+
+        case '10': {
+                        $waysto_id = 9;
+                        $s = Carbon::now('GMT+8')->subYear(10)->startOfYear();
+                        $e = Carbon::now('GMT+8')->subYear(10)->endOfYear();
+                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+
+                    }
+                    break;            
+      }
+      
+      $w = Reward_Waysto::find($waysto_id);
+      foreach ($tenures as $r) {
+          
+                                  
+          $already = DB::select(DB::raw("SELECT reward_award.id, reward_award.user_id, reward_award.waysto_id, reward_award.created_at FROM reward_award WHERE reward_award.user_id = :u AND reward_award.waysto_id = :w AND YEAR(reward_award.created_at) = :y AND MONTH(reward_award.created_at) = :m"),array(
+             'y' => date('Y'),
+             'm' => date('m'),
+             'u' => (int)$r->id,
+             'w' => (int)$w->id
+           ));
+
+          if (count($already) > 0){
+            $coll2->push($already);
+
+          }else
+          {
+            $b = Point::where('idnumber',$r->id)->get();
+
+            if (count($b) > 0){
+              $beginningBal = $b->first()->points;
+
+              $pt = Point::find($b->first()->id);
+              $pt->points += (int)$w->allowed_points;
+              $pt->updated_at = $now->format('Y-m-d H:i:s');
+              $pt->save();
+
+            }else {
+              $beginningBal = $this->initLoad;
+              $pt = new Point;
+              $pt->idnumber = $r->id;
+              $pt->points = $beginningBal + (int)$w->allowed_points;
+              $pt->created_at = $now->format('Y-m-d H:i:s');
+              $pt->updated_at = $now->format('Y-m-d H:i:s');
+              $pt->save();
+            }
+
+            $award = new Reward_Award;
+            $award->user_id = $r->id;
+            $award->waysto_id = $w->id;
+            $award->beginningBal = $beginningBal;
+            $award->points = $w->allowed_points;
+            $award->notes = $notes;
+            $award->awardedBy = 1;
+            $award->created_at = $now->format('Y-m-d H:i:s');
+            $award->updated_at = $now->format('Y-m-d H:i:s');
+            $award->save();
+            
+            //$coll->push($award);
+            $coll->push($award);
+            //$collstr .= $r->id.",";
+
+          }
+      }
+
+      //return response()->json(['total_awardees'=> count($tenures), 'awardees'=>$tenures, 'startPeriod'=>$s,'endPeriod'=>$e]);
+      return response()->json(['success'=>1,'awardees'=>$coll,'already'=>$coll2, 'total'=>count($coll)]);
+   
+
+    }
+
 
     public function rewards_transactions()
     {
