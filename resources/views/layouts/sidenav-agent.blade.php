@@ -30,7 +30,8 @@
                   if($vls->contains('creditYear',date('Y')))
                   {
                     $updatedVL=true;
-                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) + $totalVLearned - $vls->first()->paid;
+                    $currentVLbalance= ( $vls->first()->beginBalance + $totalVLearned) - $vls->first()->used;
+
                   }
                   else{
                     
