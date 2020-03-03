@@ -44,15 +44,18 @@
                           for ($i=(float)$data['billableForOT']; $i >= 0.1; $i=$i-0.25 )
                           { 
                               //$num = (round($i/5,1, PHP_ROUND_HALF_DOWN))*5; 
-                              $num =$i;// (round($i,1, PHP_ROUND_HALF_DOWN))*5; 
+                              //$num =$i;// (round($i,1, PHP_ROUND_HALF_DOWN))*5; 
+                              // $num = (round($i/5,1, PHP_ROUND_HALF_DOWN))*5; 
+                              
+                              $num = round($i,1); //round($i,PHP_ROUND_HALF_DOWN);
                                if ( strpos($data['shiftEnd'], "RD") )
-                                { $start = Carbon\Carbon::parse($data['logIN']); $t1 = Carbon\Carbon::parse($data['logIN']); } 
-                               else {$start= Carbon\Carbon::parse($data['shiftEnd']); $t1 = Carbon\Carbon::parse($data['shiftEnd']); }
+                                { $start = Carbon\Carbon::parse($data['logIN']); $t1 = Carbon\Carbon::parse($data['logIN']); $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($i*60); } 
+                               else {$start= Carbon\Carbon::parse($data['shiftEnd']); $t1 = Carbon\Carbon::parse($data['shiftEnd']); $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($i*60); }
                            
                               ?>
 
                           @if ( $num < (float)$data['billableForOT'] && $num != '0')    
-                          <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$data['logOUT']}}"" value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT</option><!--  data-timeend="{{$t1->addMinutes($num*60)->format('h:i A')}}" --><!-- [{{$start->format('h:i A')}} - {{$t1->format('h:i A')}}]  -->
+                          <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$endOT->format('H:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('H:i A')}} ]</option><!--  data-timeend="{{$t1->addMinutes($num*60)->format('h:i A')}}" --><!-- [{{$start->format('h:i A')}} - {{$t1->format('h:i A')}}]  -->
                           @endif
 
                           <?php } ?> 
