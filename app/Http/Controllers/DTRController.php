@@ -1257,7 +1257,7 @@ class DTRController extends Controller
       $bio = Biometrics::find($id);
       $u = User::find($request->user_id);
 
-      $existing = User_RDoverride::where('biometrics_id',$bio->id)->get();
+      $existing = User_RDoverride::where('biometrics_id',$bio->id)->where('user_id',$u->id)->get();
       if (count($existing) > 0)
       {
         return redirect()->back();
