@@ -366,6 +366,21 @@
 
                                                               <input type="hidden" name="cws_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0" />
 
+                                                             
+
+                                                                @include('layouts.modals-RDoverride', [
+                                                                          'modelID' => $data['biometrics_id'],
+                                                                          'modalTitle'=>'Mark as', 
+                                                                          'modelName'=>"Rest Day",
+                                                                          'user_id'=>$user->id,
+                                                                          'modalMessage'=>"You are about to mark this production date as 'REST DAY' and disregard the displayed biometric logs, along with the entitlement of filing this as a RestDay-OT.",
+                                                                          'modelRoute'=>'user_dtr.overrideRD',
+                                                                          'modalTitle2'=>"POST",
+                                                                          'formID'=>'bpass',
+                                                                          'icon'=>'glyphicon-up' ])
+
+                                                              
+
                                                          @endif
 
                                                          
@@ -487,7 +502,7 @@
                                                                         {!! $data['logIN'] !!}
                                                                     @else
                                                                         ** Rest Day ** <br/>
-                                                                        <small>({!! $data['logIN'] !!})</small>
+                                                                        <small>( {!! $data['logIN'] !!} )</small>
                                                                     @endif
 
                                                               @else
@@ -596,7 +611,7 @@
                                                           <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
 
 
-                                                        @elseif($data['hasLWOP'])
+                                                         @elseif($data['hasLWOP'])
 
                                                              <td class="text-center">
 
@@ -647,7 +662,25 @@
                                                           <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
 
                                                         @else
-                                                              <td class="text-center">{!! $data['logOUT'] !!} 
+                                                            <td class="text-center">
+
+                                                              @if ($data['isRDToday'])
+
+                                                                    @if ( (strpos($data['logOUT'], "RD") !== false)  )
+                                                                        {!! $data['logOUT'] !!}
+                                                                    @else
+                                                                        ** Rest Day ** <br/>
+                                                                        <small>( {!! $data['logOUT'] !!} )</small>
+                                                                    @endif
+
+                                                              @else
+
+                                                                  {!! $data['logOUT'] !!}
+
+                                                              @endif
+
+
+                                                             
 
                                                                 
                                                                 <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logOUT']}}" />
@@ -662,7 +695,7 @@
                                                                <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
 
                                                               @endif
-                                                              </td>
+                                                            </td>
 
 
                                                         @endif <!--end if hasleave-->
@@ -1243,6 +1276,12 @@ $(function ()
   $('.container#login').fadeOut();
   $('.container#logout').fadeOut();
   $('.container#leave').fadeOut(); 
+
+
+  // for bypassing RD
+  // $('.actualRD').on('click',function(){
+  //     alert('This is rd');
+  // });
   
   //complicated clock
   $('.timepick').bootstrapMaterialDatePicker({format: 'hh:mm a',monthPicker: false, date: false, year:false, shortTime:true}); //wickedpicker(options);

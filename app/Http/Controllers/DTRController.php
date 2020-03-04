@@ -56,6 +56,7 @@ use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
 use OAMPI_Eval\Memo;
 use OAMPI_Eval\User_Memo;
+use OAMPI_Eval\User_RDoverride;
 
 
 
@@ -1251,6 +1252,30 @@ class DTRController extends Controller
     }
 
 
+    public function overrideRD($id,Request $request)
+    {
+      $bio = Biometrics::find($id);
+      $u = User::find($request->user_id);
+
+      $existing = User_RDoverride::where('biometrics_id',$bio->id)->get();
+      if (count($existing) > 0)
+      {
+        return redirect()->back();
+
+      }else
+      {
+        $override = new User_RDoverride;
+        $override->biometrics_id = $bio->id;
+        $override->user_id = $u->id;
+        $override->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+        $override->save();
+        return redirect()->back(); //action('DTRController@show',$u->id);
+      }
+
+      //return response()->json(['bio'=>$bio,'u'=>$u]);
+    }
+
+
     //******* used to create DTR sheet entries for locking
     //******* a.k.a function lock()
     public function processSheet($id, Request $request)
@@ -1556,59 +1581,6 @@ class DTRController extends Controller
         if (is_null($user)) return view('empty');
 
         ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
-
-        /*--check floor for Beta testing --*/
-        //$saanLocated = DB::table('team')->where('user_id','=',$user->id)->get();
-
-        //if($saanLocated[0]->floor_id != 1 && $saanLocated[0]->floor_id != 2  )
-        // 37 = BD
-        // 12 = Lebua
-        // 16 = Marketing
-        // 10 = Finance
-        // 31 = SheerID
-        // 32 = Circles
-        // 47 = Advance Wellness
-        // 42 - Bird
-        // 48 - another
-        // 26 = WV
-
-        // if ($saanLocated[0]->campaign_id != 10 && 
-        //     $saanLocated[0]->campaign_id != 12 && 
-        //     $saanLocated[0]->campaign_id != 16 && 
-        //     $saanLocated[0]->campaign_id != 26 &&
-        //     $saanLocated[0]->campaign_id != 37 && 
-        //     $saanLocated[0]->campaign_id != 31 && 
-        //     $saanLocated[0]->campaign_id != 32 && 
-        //     $saanLocated[0]->campaign_id != 42 && 
-        //     $saanLocated[0]->campaign_id != 47 && 
-        //     $saanLocated[0]->campaign_id != 48 
-        //      )
-        //     {
-        //             $message = '<br/><br/><h1><i class="fa fa-file-code-o fa-2x"></i></h1>';
-        //             $message .='<h3>DTR Module Under Construction </h3>';
-        //             $message .='<p>Viewing of DTR sheet is currently available for all 5F employees as test groups only: <br/>
-        //              <strong>Advance Wellness <br/>
-        //              AnOther <br/>
-        //              Bird <br/>
-        //              Circles.Life <br/>
-        //              Business Dev <br/>
-        //              Finance <br />
-        //              Marketing <br/> 
-        //              Lebua <br/>
-        //              SheerID </strong>. <br/><br/><br/> <em>Workforce and Programming Team is still working on streamlining DTR processes for the rest of our office floors. <br/>We will let you know once we are done with beta testing.</em><br/><br/> Thank you.</p>';
-
-        //             $correct = Carbon::now('GMT+8'); //->timezoneName();
-
-        //              if($this->user->id !== 564 ) {
-        //                 $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-        //                   fwrite($file, "-------------------\n Tried to View DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-        //                   fclose($file);
-        //               }  
-
-        //             return view('empty-page',['message'=>$message, 'title'=>"DTR Under Construction"]);
-        //     }
-        
-        //return $pass = bcrypt('rtalusan'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
         $collect = new Collection; 
         $coll = new Collection;
@@ -2321,7 +2293,7 @@ class DTRController extends Controller
                               $data = $this->getRDinfo($id, $bioForTheDay,null,$payday,$schedKahapon,$isFixedSched);
                               $myDTR->push([
 
-                                  //'allData'=>$data,
+                                  'allData'=>$data,
                                   'approvedOT' => $data[0]['approvedOT'],
                                   'billableForOT' => $data[0]['billableForOT'],
                                   'biometrics_id'=>$bioForTheDay->id,

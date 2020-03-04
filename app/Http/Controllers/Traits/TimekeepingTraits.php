@@ -51,6 +51,7 @@ use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\User_LWOP;
+use OAMPI_Eval\User_RDoverride;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
 use OAMPI_Eval\Paycutoff;
@@ -2864,7 +2865,7 @@ trait TimekeepingTraits
   public function getRDinfo($user_id, $biometrics,$isSameDayLog,$payday, $schedKahapon,$isFixedSched)
   {
 
-    /* init $approvedOT */
+      /* init $approvedOT */
       $legitRD = 0;
       $approvedOT=0; $OTattribute="";
       $hasHolidayToday = false;
@@ -2876,7 +2877,33 @@ trait TimekeepingTraits
       $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
       $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
 
-     if (count($holidayToday) > 0) $hasHolidayToday = true;
+      if (count($holidayToday) > 0) $hasHolidayToday = true;
+
+      // check first if there's an RD override:
+      $hasOverride = User_RDoverride::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
+
+      if(count($hasOverride) > 0)
+      {
+        $approvedOT = null; 
+        //** fill in necessary details from the approved RD OT
+        $shiftStart = "* RD *";
+        $shiftEnd = "* RD *";
+        $logIN = "* RD *";  //--- di nga sya pumasok
+        $logOUT = "* RD *";
+        $workedHours = "N/A";
+        $billableForOT = 0;
+        $OTattribute = null;
+        $UT = 0;
+        $hasPendingIN = null;
+        $hasApprovedDTRPin=null;
+        $pendingDTRPin = null;
+        $hasPendingOUT = null;
+        $pendingDTRPout = null;
+        $userLogIN=null; $userLogOUT=null;
+
+        goto pushData;
+      }
+
 
 
       /* -- you still have to create module for checking and filing OTs */
@@ -2924,332 +2951,314 @@ trait TimekeepingTraits
       } 
       else
       {
-          //** i-check mo muna kung pasok sa worksched nya kahapon yung login na ito, otherwise, tag it as RD in
+          
 
-          if ($isFixedSched)
+          //--------------- RD REWORK ----------------------------------------------
+          // get login, kung meron then get log out
+          // if both meron, then legit RDOT + OPTION to disregard logs
+          // if no OUT, then check for max allowed out of say 12HRs?
+          //       if wala pa rin out, then NO RDOT OUT. Verify with Immediate Head for logs
+          //       else, legit RDOT
+          // else RD lang
+
+          $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
+          $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
+          $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+
+          if (count($userLogOUT) > 0) 
           {
-            if ($schedKahapon['workday'] != null)
+            /*$rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
+            if (count($rdOT) > 0)
             {
-              $ts = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
-              $tend = Carbon::parse($payday." ".$schedKahapon['timeStart'],'Asia/Manila')->addHour(9);
-              if ($ts < $tend) //meaning, yung login eh for workshift na pang kahapon
+              if ($rdOT->first()->isApproved)
               {
-                $logIN = "* RD *" ;
-                $timeStart = "* RD *";
-                $logOUT = "* RD *" ;
-                $timeEnd = "* RD *";
-                $legitRD = 1;
-                //goto pushData;
+                $approvedOT = $rdOT; 
+                //** fill in necessary details from the approved RD OT
+                $shiftStart = "* RD *";
+                $shiftEnd = "* RD *";
+                $logIN = $rdOT->first()->timeStart;
+                $logOUT = $rdOT->first()->timeEnd;
+                $workedHours = $rdOT->first()->filed_hours."<br/><small>[ * RD-OT * ]</small>";
+                $billableForOT = $rdOT->first()->billable_hours;
+                $OTattribute = null;
+                $UT = 0;
+                $hasPendingIN = null;
+                $pendingDTRPin = null;
+                $hasPendingOUT = null;
+                $pendingDTRPout = null;
 
               }else
               {
-                $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
-                $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
-
+                $approvedOT = $rdOT; 
+                //** fill in necessary details from the approved RD OT
+                $shiftStart = "* RD *";
+                $shiftEnd = "* RD *";
+                $logIN = $rdOT->first()->timeStart;
+                $logOUT = $rdOT->first()->timeEnd;
+                $workedHours = "0<br/><small>[ * RD-OT * ]</small>";
+                $billableForOT = $rdOT->first()->billable_hours;
+                $OTattribute = null;
+                $UT = 0;
+                $hasPendingIN = null;
+                $pendingDTRPin = null;
+                $hasPendingOUT = null;
+                $pendingDTRPout = null;
               }
               
 
+            }
+            else
+            {
+              goto legitOT;
+            }*/
+            goto proceedToRDOT;
+
+          } else
+          {
+            // we check for maximum allowed out of 12HRs from start of OT
+            $maxOTOut = Carbon::parse($thisPayrollDate.' '.$userLogIN->first()->logTime,'Asia/Manila')->addHours(12);
+            $bOut = Biometrics::where('productionDate',$maxOTOut->format('Y-m-d'))->get();
+
+            if (count($bOut) > 0)
+            {
+              $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$bOut->first()->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+
+              if (count($userLogOUT) > 0)
+              {
+                goto proceedToRDOT;
+
+              }else
+              {
+                $logOUT = "No RD-OT Out <br/><small>Verify with Immediate Head</small>";
+                $workedHours="N/A"; 
+
+                if ($hasHolidayToday){ $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>"; }      
+                $shiftStart = "* RD *";
+                $shiftEnd = "* RD *";
+                $UT = 0;
+                $billableForOT=0;
+              }
+
+
             }else
             {
-              $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
-              $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
+              //Check mo muna kung may approved DTRPout
+              $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
 
-            }
+              if (count($hasApprovedDTRPout) > 0) { $userLogOUT = $hasApprovedDTRPout;} 
+              else 
+              {
+                  $pendingDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();//--- ** baka naman may DTRP syang di pa approved? 
 
-          }
-          else
-          {
-            $legitRD=1;
-            $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
-            $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
-          }
-          
-
-          
-
-          /*-- we need to check yung sched kahapon if sameday log sched or not ------*/
-
-
-          if ($isSameDayLog && !$legitRD) 
-          {
-            //Check mo muna kung may approved DTRPout
-             $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
-
-             if (count($hasApprovedDTRPout) > 0) { $userLogOUT = $hasApprovedDTRPout;} 
-             else 
-             {
-                $pendingDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();//--- ** baka naman may DTRP syang di pa approved? 
-
-                if (count($pendingDTRPout) > 0)
-                {
-                  $logOUT = "(pending)";
-                  $hasPendingOUT = true;
-                  $userLogOUT = $pendingDTRPout;
-
-                } else {
-                  $userLogIN = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',1)->orderBy('biometrics_id','ASC')->get();
-                  $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
-                }
-
-             }
-
-             
-          } //end if sameday log
-
-          else
-          {
-            //--- NEXT DAY LOG OUT
-            //--- pero i-allow mo lang na maximum of 18H from login time
-            //$nextDay = Carbon::parse($payday)->addDay();
-            $nextDay = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila')->addHour(18);
-            $bioForTomorrow = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->first();
-            
-
-            //Check mo muna kung may approved DTRPout
-             $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
-
-             if (count($hasApprovedDTRPout) > 0)
-             {
-
-              $userLogOUT = $hasApprovedDTRPout;
-
-             } else 
-             {
-
-               //--- ** baka naman may DTRP syang di pa approved? 
-                $pendingDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',null)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
-
-                if (count($pendingDTRPout) > 0)
-                {
-                  $logOUT = "(pending)";
-                  $hasPendingOUT = true;
-                  $userLogOUT = $pendingDTRPout;
-
-                } else {
-
-                  if ($legitRD) 
+                  if (count($pendingDTRPout) > 0)
                   {
-                    $shiftStart= "* RD *";
-                    $shiftEnd = "* RD *"; 
-                    $logOUT = "* RD *";
-                    $workedHours = "N/A";
-                    $userLogIN = null;
-                    $hasApprovedDTRPin = null;
-                    $userLogOUT = null;
-                    $isSameDayLog = false;
-                    $billableForOT = 0;
-                    $OTattribute = ""; $UT= 0;
+                    $logOUT = "(pending)";
+                    $hasPendingOUT = true;
+                    $userLogOUT = $pendingDTRPout;
 
-                    goto pushData;
-
-                  } 
-                  else
+                  } else 
                   {
-                    $logOUT = "* RD *";
-                    $uLogout = Logs::where('user_id',$user_id)->where('biometrics_id',$bioForTomorrow->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
-
-                    //** check mo muna kung pasok yung log sa allowed RD OT
-                    if (count($uLogout) > 0){
-
-                      if (Carbon::parse($bioForTomorrow->productionDate." ".$uLogout->first()->logTime,"Asia/Manila")->format('Y-m-d H:i:s') <= $nextDay->format('Y-m-d H:i:s'))
-                        $userLogOUT = $uLogout;// ******* !!make new for filing RD OT
-                      else $userLogOUT = null;
-
-                    }else $userLogOUT = $uLogout;
-
+                    goto blankOTout;
+                    
                   }
-                  
 
-
-                }
+              }
 
               
-             }
-
-          } //end else not sameday log
+            }
             
+
+          }//end if no logout
+
 
           proceedToRDOT:
 
-          //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
-          $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
-          
-          if (count($rdOT) > 0)
-          {
-            if ($rdOT->first()->isApproved)
-            {
-              $approvedOT = $rdOT; 
-              //** fill in necessary details from the approved RD OT
-              $shiftStart = "* RD *";
-              $shiftEnd = "* RD *";
-              $logIN = $rdOT->first()->timeStart;
-              $logOUT = $rdOT->first()->timeEnd;
-              $workedHours = $rdOT->first()->filed_hours."<br/><small>[ * RD-OT * ]</small>";
-              $billableForOT = $rdOT->first()->billable_hours;
-              $OTattribute = null;
-              $UT = 0;
-              $hasPendingIN = null;
-              $pendingDTRPin = null;
-              $hasPendingOUT = null;
-              $pendingDTRPout = null;
-
-            }else
-            {
-              $approvedOT = $rdOT; 
-              //** fill in necessary details from the approved RD OT
-              $shiftStart = "* RD *";
-              $shiftEnd = "* RD *";
-              $logIN = $rdOT->first()->timeStart;
-              $logOUT = $rdOT->first()->timeEnd;
-              $workedHours = "0<br/><small>[ * RD-OT * ]</small>";
-              $billableForOT = $rdOT->first()->billable_hours;
-              $OTattribute = null;
-              $UT = 0;
-              $hasPendingIN = null;
-              $pendingDTRPin = null;
-              $hasPendingOUT = null;
-              $pendingDTRPout = null;
-            }
+            //--- ** May issue: pano kung RD OT ng gabi, then kinabukasan na sya nag LogOUT. Need to check kung may approved OT from IH
+            $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
             
-
-          }
-          else
-          {
-              if( is_null($userLogOUT) || count($userLogOUT) == 0 )
+            if (count($rdOT) > 0)
+            {
+              if ($rdOT->first()->isApproved)
               {
+                $approvedOT = $rdOT; 
+                //** fill in necessary details from the approved RD OT
+                $shiftStart = "* RD *";
+                $shiftEnd = "* RD *";
+                $logIN = $rdOT->first()->timeStart;
+                $logOUT = $rdOT->first()->timeEnd;
+                $workedHours = $rdOT->first()->filed_hours."<br/><small>[ * RD-OT * ]</small>";
+                $billableForOT = $rdOT->first()->billable_hours;
+                $OTattribute = null;
+                $UT = 0;
+                $hasPendingIN = null;
+                $pendingDTRPin = null;
+                $hasPendingOUT = null;
+                $pendingDTRPout = null;
 
-                  blankOTout:
+              }else
+              {
+                $approvedOT = $rdOT; 
+                //** fill in necessary details from the approved RD OT
+                $shiftStart = "* RD *";
+                $shiftEnd = "* RD *";
+                $logIN = $rdOT->first()->timeStart;
+                $logOUT = $rdOT->first()->timeEnd;
+                $workedHours = "0<br/><small>[ * RD-OT * ]</small>";
+                $billableForOT = $rdOT->first()->billable_hours;
+                $OTattribute = null;
+                $UT = 0;
+                $hasPendingIN = null;
+                $pendingDTRPin = null;
+                $hasPendingOUT = null;
+                $pendingDTRPout = null;
+              }
+              
 
-                      $logOUT = "No RD-OT Out <br/><small>Verify with Immediate Head</small>";
+            }
+            else
+            {
+                if( is_null($userLogOUT) || count($userLogOUT) == 0 )
+                {
 
-                      $workedHours="N/A"; 
+                    blankOTout:
 
-                      if ($hasHolidayToday)
-                      {
-                        
-                        $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>";
+                        $logOUT = "No RD-OT Out <br/><small>Verify with Immediate Head</small>";
 
-                      }  
-
-                     
-                      $shiftStart = "* RD *";
-                      $shiftEnd = "* RD *";
-                      $UT = 0;
-                      $billableForOT=0;
-
-          
-                 
-                  
-
-              } else 
-              { 
-
-                legitOT:
-                        //--- legit OT, compute billable hours
-                        //--- check mo muna kung normal or night diff logtype sya
-                        //*** pero check mo muna kung may existing userlogs talaga
-                        if(count($userLogIN) > 0){
-                          
-                          if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
-                          $bio =Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                          else
-                          {
-                            $nextDay = Carbon::parse($payday)->addDay();
-                            $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
-                            if (count($b) > 0)
-                              $bio = $b->first()->productionDate;
-                            else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                          }
-
-                        }else{
-
-                          if( $userLogOUT->first()->logTime > $hasApprovedDTRPin->first()->logTime)
-                          $bio =Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                          else
-                          {
-                            $nextDay = Carbon::parse($payday)->addDay();
-                            $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
-                            if (count($b) > 0)
-                              $bio = $b->first()->productionDate;
-                            else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                          }
-
-                        }
-                        
-
-                        
-                        $logO = Carbon::parse($bio." ".$userLogOUT->first()->logTime, 'Asia/Manila'); 
-                        $logOUT = $logO->format('M d h:i:s A'); 
-
-                        //$timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
-                        $timeStart = Carbon::parse(Biometrics::find($userLogIN->first()->biometrics_id)->productionDate." ".$userLogIN->first()->logTime,'Asia/Manila'); 
-                        //Carbon::parse($thisPayrollDate." 20:20:20",'Asia/Manila');
-                       
-                        $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
-
-                        $mindiff = $timeStart->diffInMinutes($logO);
-
-                        //*** if RD OT hrs > 5, less 1hr break
-
-                        if ($mindiff > 300) $wh = $logO->diffInMinutes($timeStart->addHour(1));
-                        else  $wh = $logO->diffInMinutes($timeStart); 
-                        $workedHours = number_format($wh/60,2);
-
-                        
-                        //if ($workedHours > 5) $workedHours = $workedHours-1;
-
-                        $billableForOT = $workedHours;
+                        $workedHours="N/A"; 
 
                         if ($hasHolidayToday)
                         {
                           
-                          $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+                          $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>";
 
-                        } else $workedHours .= "<br /><small> [* RD-OT *] </small>";
+                        }  
 
-
-                         if ($hasHolidayToday)
-                         {
-                            //check first if Locked na DTR for that production date
-                            $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
-                            if (count($verifiedDTR) > 0)
-                              $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
-                            else
-                             $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
-
-                         
-                         }
-                         
-                         else
-                         {
-                            //check first if Locked na DTR for that production date
-                              $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
-                              if (count($verifiedDTR) > 0)
-                                $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
-                              else
-                               $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
-
-                            
-                         }
-                        
-                        $OTattribute = $icons;
+                       
                         $shiftStart = "* RD *";
                         $shiftEnd = "* RD *";
                         $UT = 0;
-              }//end if-else null logout
+                        $billableForOT=0;
 
-          }//wala pang approved RD OT 
+            
+                   
+                    
 
-          
+                } else 
+                { 
+
+                  legitOT:
+                          //--- legit OT, compute billable hours
+                          //--- check mo muna kung normal or night diff logtype sya
+                          //*** pero check mo muna kung may existing userlogs talaga
+                          if(count($userLogIN) > 0){
+                            
+                            if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
+                            $bio =Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                            else
+                            {
+                              $nextDay = Carbon::parse($payday)->addDay();
+                              $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
+                              if (count($b) > 0)
+                                $bio = $b->first()->productionDate;
+                              else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                            }
+
+                          }else{
+
+                            if( $userLogOUT->first()->logTime > $hasApprovedDTRPin->first()->logTime)
+                            $bio =Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                            else
+                            {
+                              $nextDay = Carbon::parse($payday)->addDay();
+                              $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
+                              if (count($b) > 0)
+                                $bio = $b->first()->productionDate;
+                              else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                            }
+
+                          }
+                          
+
+                          
+                          $logO = Carbon::parse($bio." ".$userLogOUT->first()->logTime, 'Asia/Manila'); 
+                          $logOUT = $logO->format('M d h:i:s A'); 
+
+                          //$timeStart = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila');
+                          $timeStart = Carbon::parse(Biometrics::find($userLogIN->first()->biometrics_id)->productionDate." ".$userLogIN->first()->logTime,'Asia/Manila'); 
+                          //Carbon::parse($thisPayrollDate." 20:20:20",'Asia/Manila');
+                         
+                          $timeEnd = Carbon::parse($payday." ".$userLogOUT->first()->logTime, 'Asia/Manila');
+
+                          $mindiff = $timeStart->diffInMinutes($logO);
+
+                          //*** if RD OT hrs > 5, less 1hr break
+
+                          if ($mindiff > 300) $wh = $logO->diffInMinutes($timeStart->addHour(1));
+                          else  $wh = $logO->diffInMinutes($timeStart); 
+                          $workedHours = number_format($wh/60,2);
+
+                          
+                          //if ($workedHours > 5) $workedHours = $workedHours-1;
+
+                          $billableForOT = $workedHours;
+
+                          //check first if Locked na DTR for that production date
+                          $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                          (count($verifiedDTR) > 0) ? $isLocked=true : $isLocked=false;
+
+                         
 
 
+                           if ($hasHolidayToday)
+                           {
+                              //check first if Locked na DTR for that production date
+                              $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+                              if($isLocked)
+                                $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                              else
+                               $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                           
+                           }
+                           
+                           else
+                           {
+                              
+                              if($isLocked) 
+                              {
+                                $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a title='Unlock first to mark this as actual RD' class='btn btn-xs btn-default'><i class='fa fa-bed'></i> </a>";
+                                $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                              }
+                              else {
+                                $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal_bypass_".$biometrics->id."\"   title='Mark as REST DAY' class='actualRD btn btn-xs btn-danger'><i class='fa fa-bed'></i> </a>";
+                                $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                              }
+
+                              
+                           }
+                          
+                          $OTattribute = $icons;
+                          $shiftStart = "* RD *";
+                          $shiftEnd = "* RD *";
+                          $UT = 0;
+                }//end if-else null logout
+
+            }//wala pang approved RD OT 
+
+
+            
+
+
+          //--------------- END REWORK ----------------------------------------------
 
        }//end if may login kahit RD
 
        pushData:
 
        $data = new Collection;
-       $data->push(['shiftStart'=>$shiftStart, 
+       $data->push([
+        'biometric_id'=>$biometrics->id,
+        'shiftStart'=>$shiftStart, 
         'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
         'logOUT'=>$logOUT,'workedHours'=>$workedHours, 
         'userLogIN'=>$userLogIN,

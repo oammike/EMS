@@ -41,24 +41,49 @@
 
                          
                           <?php 
-                          for ($i=(float)$data['billableForOT']; $i >= 0.1; $i=$i-0.25 )
-                          { 
-                              //$num = (round($i/5,1, PHP_ROUND_HALF_DOWN))*5; 
-                              //$num =$i;// (round($i,1, PHP_ROUND_HALF_DOWN))*5; 
-                              // $num = (round($i/5,1, PHP_ROUND_HALF_DOWN))*5; 
-                              
-                              $num = round($i,1); //round($i,PHP_ROUND_HALF_DOWN);
-                               if ( strpos($data['shiftEnd'], "RD") )
-                                { $start = Carbon\Carbon::parse($data['logIN']); $t1 = Carbon\Carbon::parse($data['logIN']); $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($i*60); } 
-                               else {$start= Carbon\Carbon::parse($data['shiftEnd']); $t1 = Carbon\Carbon::parse($data['shiftEnd']); $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($i*60); }
-                           
-                              ?>
 
-                          @if ( $num < (float)$data['billableForOT'] && $num != '0')    
-                          <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$endOT->format('H:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('H:i A')}} ]</option><!--  data-timeend="{{$t1->addMinutes($num*60)->format('h:i A')}}" --><!-- [{{$start->format('h:i A')}} - {{$t1->format('h:i A')}}]  -->
-                          @endif
+                          //check mo muna kung divisible by 5, otherwise round it off first
+                          $distOT = (float)$data['billableForOT']/0.25; //hatiin mo sya in 15/60 mins
+                          $preventDupes = [];
 
-                          <?php } ?> 
+                            for( $d=$distOT; $d >0; $d=$d-0.25)
+                            {
+                              $num = $d;// round($d,1,PHP_ROUND_HALF_DOWN);
+
+                              $whole = floor($num);
+                              $fraction = $num - $whole;
+
+                              if($fraction <= 0.9 && $fraction > 0.6)
+                                $num = $whole + 0.50;
+                              else if($fraction <= 0.4 && $fraction > 0.2)
+                                $num = $whole + 0.25;
+                              else
+                                $num = number_format($whole,1); // - $fraction;
+
+                              if (in_array($num, $preventDupes)){ }
+                              else
+                              {
+                                array_push($preventDupes, $num);
+                                if ( strpos($data['shiftEnd'], "RD") )
+                                {
+                                  $start = Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                  $t1 = Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                  $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num*60); 
+                                } 
+                                else 
+                                {
+                                  $start= Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+                                  $t1 = Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+                                  $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num*60); 
+                                } 
+                                ?>
+
+                                @if ( $num < (float)$data['billableForOT'] && $num != '0')  
+                                <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$endOT->format('H:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
+                                @endif
+                        <?php }      
+
+                            } //end for ?>
 
 
 
@@ -68,6 +93,7 @@
 
                         <br/><br/>
                          <label ><input type="radio" name="billedtype" id="shift_whole" value="1" checked="checked" />&nbsp; &nbsp;<i class="fa fa-hourglass"></i> Billed</label>
+                       
                         <br/>
                         <label id="shift_first" ><input type="radio" name="billedtype" id="shift_first" value="2" />&nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> Non-Billed <span id="shiftFrom_1"></span> </label>
                          <br/>

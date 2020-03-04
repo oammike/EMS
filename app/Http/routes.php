@@ -112,35 +112,36 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     //********************** NDY TASK TRACKER ***********************
 
-    Route::get('/allTasks', array(
+      Route::get('/allTasks', array(
       'as'=>'task.allTasks',
       'uses'=>'TaskController@allTasks') );
 
-    Route::get('/myTasks', array(
+      Route::get('/myTasks', array(
       'as'=>'task.myTasks',
       'uses'=>'TaskController@myTasks') );
 
-    Route::get('/downloadTasks', array(
+      Route::get('/downloadTasks', array(
       'as'=>'task.download',
       'uses'=>'TaskController@download') );
 
-    Route::post('/startTask', array(
+      Route::post('/startTask', array(
       'as'=>'task.startTask',
       'uses'=>'TaskController@startTask') );
-    Route::post('/startBreak', array(
+      Route::post('/startBreak', array(
       'as'=>'task.startBreak',
       'uses'=>'TaskController@startBreak') );
-    Route::post('/endBreak', array(
+      Route::post('/endBreak', array(
       'as'=>'task.endBreak',
       'uses'=>'TaskController@endBreak') );
-    Route::post('/endTask', array(
+      Route::post('/endTask', array(
       'as'=>'task.endTask',
       'uses'=>'TaskController@endTask') );
 
 
-    Route::get('/logAction/{action}', array(
+      Route::get('/logAction/{action}', array(
       'as'=>'page.logAction',
       'uses'=>'HomeController@logAction') );
+    //-- END NDY
 
 
     /********** GALLERIES   **************/
@@ -205,127 +206,129 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     /********** emp ENGAGEMENT  **************/
 
-    Route::post('/employeeEngagement/disqualify', array(
+      Route::post('/employeeEngagement/disqualify', array(
       'as'=> 'employeeEngagement.disqualify',
       'uses'=>'EngagementController@disqualify') );
 
-    Route::post('/employeeEngagement/report', array(
+      Route::post('/employeeEngagement/report', array(
       'as'=> 'employeeEngagement.report',
       'uses'=>'EngagementController@reportEntry') );
 
-    Route::post('/employeeEngagement/next', array(
+      Route::post('/employeeEngagement/next', array(
       'as'=> 'employeeEngagement.next',
       'uses'=>'EngagementController@next') );
 
-    Route::post('/employeeEngagement/prev', array(
+      Route::post('/employeeEngagement/prev', array(
       'as'=> 'employeeEngagement.prev',
       'uses'=>'EngagementController@prev') );
 
-    Route::get('/employeeEngagement/{id}/wall', array(
+      Route::get('/employeeEngagement/{id}/wall', array(
       'as'=> 'employeeEngagement.wall',
       'uses'=>'EngagementController@wall') );
 
-    Route::get('/employeeEngagement/{id}/voteNow', array(
+      Route::get('/employeeEngagement/{id}/voteNow', array(
       'as'=> 'employeeEngagement.voteNow',
       'uses'=>'EngagementController@voteNow') );
 
-    Route::post('/employeeEngagement/cancelEntry/{id}', array(
+      Route::post('/employeeEngagement/cancelEntry/{id}', array(
       'as'=> 'employeeEngagement.cancelEntry',
       'uses'=>'EngagementController@cancelEntry') );
 
-    Route::post('/employeeEngagement/castvote/{id}', array(
+      Route::post('/employeeEngagement/castvote/{id}', array(
       'as'=> 'employeeEngagement.castvote',
       'uses'=>'EngagementController@castvote') );
 
-    Route::post('/employeeEngagement/deleteComment/{id}', array(
+      Route::post('/employeeEngagement/deleteComment/{id}', array(
       'as'=> 'employeeEngagement.deleteComment',
       'uses'=>'EngagementController@deleteComment') );
 
-    Route::post('/employeeEngagement/deleteReply/{id}', array(
+      Route::post('/employeeEngagement/deleteReply/{id}', array(
       'as'=> 'employeeEngagement.deleteReply',
       'uses'=>'EngagementController@deleteReply') );
 
-    Route::post('/employeeEngagement/deletePost/{id}', array(
+      Route::post('/employeeEngagement/deletePost/{id}', array(
       'as'=> 'employeeEngagement.deletePost',
       'uses'=>'EngagementController@deletePost') );
 
 
-    Route::post('/employeeEngagement/like/', array(
+      Route::post('/employeeEngagement/like/', array(
       'as'=> 'employeeEngagement.like',
       'uses'=>'EngagementController@like') );
-    Route::post('/employeeEngagement/unlike/', array(
+      Route::post('/employeeEngagement/unlike/', array(
       'as'=> 'employeeEngagement.unlike',
       'uses'=>'EngagementController@unlike') );
 
 
-    Route::post('/employeeEngagement/postComment/{id}', array(
+      Route::post('/employeeEngagement/postComment/{id}', array(
       'as'=> 'employeeEngagement.postComment',
       'uses'=>'EngagementController@postComment') );
 
-    Route::post('/employeeEngagement/postReply/{id}', array(
+      Route::post('/employeeEngagement/postReply/{id}', array(
       'as'=> 'employeeEngagement.postReply',
       'uses'=>'EngagementController@postReply') );
 
-    Route::post('/employeeEngagement/saveEntry', array(
+      Route::post('/employeeEngagement/saveEntry', array(
       'as'=> 'employeeEngagement.saveEntry',
       'uses'=>'EngagementController@saveEntry') );
 
-    Route::post('/employeeEngagement/saveEntry2', array(
+      Route::post('/employeeEngagement/saveEntry2', array(
       'as'=> 'employeeEngagement.saveEntry2',
       'uses'=>'EngagementController@saveEntry2') );
 
-    Route::post('/employeeEngagement/saveTriggers', array(
+      Route::post('/employeeEngagement/saveTriggers', array(
       'as'=> 'employeeEngagement.saveTriggers',
       'uses'=>'EngagementController@saveTriggers') );
 
 
-    Route::get('/employeeEngagement/{id}/tallyVotes', array(
+      Route::get('/employeeEngagement/{id}/tallyVotes', array(
       'as'=> 'employeeEngagement.tallyVotes',
       'uses'=>'EngagementController@tallyVotes') );
 
 
-    Route::post('/employeeEngagement/uncastvote/{id}', array(
+      Route::post('/employeeEngagement/uncastvote/{id}', array(
       'as'=> 'employeeEngagement.uncastvote',
       'uses'=>'EngagementController@uncastvote') );
 
 
-    Route::post('/employeeEngagement/updateEntry', array(
+      Route::post('/employeeEngagement/updateEntry', array(
       'as'=> 'employeeEngagement.updateEntry',
       'uses'=>'EngagementController@updateEntry') );
 
+    //-- END EMPLOYEE ENGAGEMENTS
+
     /********** FORM BUILDER **************/
 
-    Route::get('/widgets', array(
+      Route::get('/widgets', array(
       'as'=> 'formSubmissions.widgets',
       'uses'=>'FormSubmissionsController@widgets') );
 
-    Route::post('/widgets/updateStatus/{id}', array(
+      Route::post('/widgets/updateStatus/{id}', array(
       'as'=> 'formSubmissions.updateStatus',
       'uses'=>'FormSubmissionsController@updateStatus') );
 
 
-    Route::post('/formSubmissions/process', array(
+      Route::post('/formSubmissions/process', array(
       'as'=> 'formSubmissions.process',
       'uses'=>'FormSubmissionsController@process') );
-    
-    Route::post('/formSubmissions/deleteDupes', array(
+
+      Route::post('/formSubmissions/deleteDupes', array(
       'as'=> 'formSubmissions.deleteDupes',
       'uses'=>'FormSubmissionsController@deleteDupes') );
 
-    Route::post('/formSubmissions/deleteThis/{id}', array(
+      Route::post('/formSubmissions/deleteThis/{id}', array(
       'as'=> 'formSubmissions.deleteThis',
       'uses'=>'FormSubmissionsController@deleteThis') );
 
 
-    Route::post('/formSubmissions/downloadCSV/{id}', array(
+      Route::post('/formSubmissions/downloadCSV/{id}', array(
       'as'=> 'formSubmissions.downloadCSV',
       'uses'=>'FormSubmissionsController@downloadCSV') );
 
-    Route::get('/formSubmissions/fetchFrom/{id}', array(
+      Route::get('/formSubmissions/fetchFrom/{id}', array(
       'as'=> 'formSubmissions.fetchFrom',
       'uses'=>'FormSubmissionsController@fetchFrom') );
 
-     Route::get('/formSubmissions/fetchRanking/{id}', array(
+      Route::get('/formSubmissions/fetchRanking/{id}', array(
       'as'=> 'formSubmissions.fetchRanking',
       'uses'=>'FormSubmissionsController@fetchRanking') );
 
@@ -341,18 +344,18 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'formSubmissions.getEscalations',
       'uses'=>'FormSubmissionsController@getEscalations') );
 
-     Route::get('/formSubmissions/getOrderStatus/{id}', array(
+      Route::get('/formSubmissions/getOrderStatus/{id}', array(
       'as'=> 'formSubmissions.getOrderStatus',
       'uses'=>'FormSubmissionsController@getOrderStatus') );
 
 
-     Route::get('/formSubmissions/rawData/{id}', array(
+      Route::get('/formSubmissions/rawData/{id}', array(
       'as'=> 'formSubmissions.rawData',
       'uses'=>'FormSubmissionsController@rawData') );
 
-    
 
-    Route::post('/formSubmissions/uploadCSV', array(
+
+      Route::post('/formSubmissions/uploadCSV', array(
       'as'=> 'formSubmissions.uploadCSV',
       'uses'=>'FormSubmissionsController@uploadCSV') );
 
@@ -410,43 +413,44 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     /*********** DTRP  ROUTES ************/
 
-    Route::post('/user_dtr/manage', array(
+      Route::post('/user_dtr/manage', array(
       'as'=> 'user_dtr.manage',
       'uses'=>'DTRController@manage') );
 
-    Route::post('/user_dtrp/process', array(
+      Route::post('/user_dtrp/process', array(
       'as'=> 'user_dtrp.process',
       'uses'=>'UserDTRPController@process') );
 
-    Route::post('/user_dtrp/deleteThisDTRP/{id}', array(
+      Route::post('/user_dtrp/deleteThisDTRP/{id}', array(
       'as'=> 'user_dtrp.deleteThisDTRP',
       'uses'=>'UserDTRPController@deleteThisDTRP') );
 
 
-    Route::post('/user_ot/process', array(
+      Route::post('/user_ot/process', array(
       'as'=> 'user_ot.process',
       'uses'=>'UserOTController@process') );
 
-    Route::post('/user_ot/deleteOT/{id}', array(
+      Route::post('/user_ot/deleteOT/{id}', array(
       'as'=> 'user_ot.deleteOT',
       'uses'=>'UserOTController@deleteOT') );
 
-    Route::post('/user_notification/process', array(
+      Route::post('/user_notification/process', array(
       'as'=> 'user_notification.process',
       'uses'=>'UserNotificationController@process') );
+    //--- END DTRP
 
 
     /*********** CWS **********/
 
-    Route::post('/user_cws/deleteCWS', array(
+      Route::post('/user_cws/deleteCWS', array(
       'as'=> 'user_cws.deleteCWS',
       'uses'=>'UserCWSController@deleteCWS') );
 
-    Route::post('/user_cws/deleteThisCWS/{id}', array(
+      Route::post('/user_cws/deleteThisCWS/{id}', array(
       'as'=> 'user_cws.deleteThisCWS',
       'uses'=>'UserCWSController@deleteThisCWS') );
 
-    Route::post('/user_cws/requestCWS', array(
+      Route::post('/user_cws/requestCWS', array(
       'as'=> 'user_cws.requestCWS',
       'uses'=>'UserCWSController@requestCWS') );
 
@@ -454,355 +458,363 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
 
-    /*********** VL **********/
+      /*********** VL **********/
 
-    Route::post('/user_vl/requestVL', array(
-      'as'=> 'user_vl.requestVL',
-      'uses'=>'UserVLController@requestVL') );
+        Route::post('/user_vl/requestVL', array(
+        'as'=> 'user_vl.requestVL',
+        'uses'=>'UserVLController@requestVL') );
 
-     Route::post('/user_vl/getCredits', array(
-      'as'=> 'user_vl.getCredits',
-      'uses'=>'UserVLController@getCredits') );
+        Route::post('/user_vl/getCredits', array(
+        'as'=> 'user_vl.getCredits',
+        'uses'=>'UserVLController@getCredits') );
 
-      Route::post('/user_vl/addCredits', array(
-      'as'=> 'user_vl.addCredits',
-      'uses'=>'UserVLController@addCredits') );
+        Route::post('/user_vl/addCredits', array(
+        'as'=> 'user_vl.addCredits',
+        'uses'=>'UserVLController@addCredits') );
 
-      Route::post('/user_vl/checkExisting', array(
-      'as'=> 'user_vl.checkExisting',
-      'uses'=>'UserVLController@checkExisting') );
+        Route::post('/user_vl/checkExisting', array(
+        'as'=> 'user_vl.checkExisting',
+        'uses'=>'UserVLController@checkExisting') );
 
 
-       Route::post('/user_vl/deleteCredit/{id}', array(
-      'as'=> 'user_vl.deleteCredit',
-      'uses'=>'UserVLController@deleteCredit') );
+         Route::post('/user_vl/deleteCredit/{id}', array(
+        'as'=> 'user_vl.deleteCredit',
+        'uses'=>'UserVLController@deleteCredit') );
 
-       Route::post('/user_vl/editCredits/{id}', array(
-      'as'=> 'user_vl.editCredits',
-      'uses'=>'UserVLController@editCredits') );
+         Route::post('/user_vl/editCredits/{id}', array(
+        'as'=> 'user_vl.editCredits',
+        'uses'=>'UserVLController@editCredits') );
 
-       Route::get('/user_vl/showCredits/{id}', array(
-      'as'=> 'user_vl.showCredits',
-      'uses'=>'UserVLController@showCredits') );
+         Route::get('/user_vl/showCredits/{id}', array(
+        'as'=> 'user_vl.showCredits',
+        'uses'=>'UserVLController@showCredits') );
 
-        Route::post('/user_vl/deleteThisVL/{id}', array(
-      'as'=> 'user_vl.deleteThisVL',
-      'uses'=>'UserVLController@deleteThisVL') );
+          Route::post('/user_vl/deleteThisVL/{id}', array(
+        'as'=> 'user_vl.deleteThisVL',
+        'uses'=>'UserVLController@deleteThisVL') );
 
-      Route::post('/user_vl/process', array(
-      'as'=> 'user_vl.process',
-      'uses'=>'UserVLController@process') );
+        Route::post('/user_vl/process', array(
+        'as'=> 'user_vl.process',
+        'uses'=>'UserVLController@process') );
 
-      Route::post('/user_vl/uploadCredits', array(
-      'as'=> 'user_vl.uploadCredits',
-      'uses'=>'UserVLController@uploadCredits') );
+        Route::post('/user_vl/uploadCredits', array(
+        'as'=> 'user_vl.uploadCredits',
+        'uses'=>'UserVLController@uploadCredits') );
 
-      Route::get('/updateVLCredits', array(
-      'as'=> 'user_vl.updateCredits',
-      'uses'=>'UserVLController@updateCredits') );
+        Route::get('/updateVLCredits', array(
+        'as'=> 'user_vl.updateCredits',
+        'uses'=>'UserVLController@updateCredits') );
        /*********** VL **********/
 
 
 
       /*********** SL **********/
 
-       Route::post('/user_sl/editCredits/{id}', array(
-      'as'=> 'user_sl.editCredits',
-      'uses'=>'UserSLController@editCredits') );
+        Route::post('/user_sl/editCredits/{id}', array(
+        'as'=> 'user_sl.editCredits',
+        'uses'=>'UserSLController@editCredits') );
 
 
-      Route::post('/user_sl/addCredits', array(
-      'as'=> 'user_sl.addCredits',
-      'uses'=>'UserSLController@addCredits') );
+        Route::post('/user_sl/addCredits', array(
+        'as'=> 'user_sl.addCredits',
+        'uses'=>'UserSLController@addCredits') );
 
-      Route::post('/user_sl/checkExisting', array(
-      'as'=> 'user_sl.checkExisting',
-      'uses'=>'UserSLController@checkExisting') );
+        Route::post('/user_sl/checkExisting', array(
+        'as'=> 'user_sl.checkExisting',
+        'uses'=>'UserSLController@checkExisting') );
 
-      Route::post('/user_sl/deleteCredit/{id}', array(
-      'as'=> 'user_sl.deleteCredit',
-      'uses'=>'UserSLController@deleteCredit') );
+        Route::post('/user_sl/deleteCredit/{id}', array(
+        'as'=> 'user_sl.deleteCredit',
+        'uses'=>'UserSLController@deleteCredit') );
 
-       Route::post('/user_sl/requestSL', array(
-      'as'=> 'user_sl.requestSL',
-      'uses'=>'UserSLController@requestSL') );
+        Route::post('/user_sl/requestSL', array(
+        'as'=> 'user_sl.requestSL',
+        'uses'=>'UserSLController@requestSL') );
 
-       Route::post('/user_sl/getCredits', array(
-      'as'=> 'user_sl.getCredits',
-      'uses'=>'UserSLController@getCredits') );
+        Route::post('/user_sl/getCredits', array(
+        'as'=> 'user_sl.getCredits',
+        'uses'=>'UserSLController@getCredits') );
 
-       Route::get('/user_sl/showCredits/{id}', array(
-      'as'=> 'user_sl.showCredits',
-      'uses'=>'UserSLController@showCredits') );
+        Route::get('/user_sl/showCredits/{id}', array(
+        'as'=> 'user_sl.showCredits',
+        'uses'=>'UserSLController@showCredits') );
 
         Route::post('/user_sl/deleteThisSL/{id}', array(
-      'as'=> 'user_sl.deleteThisVL',
-      'uses'=>'UserSLController@deleteThisSL') );
+        'as'=> 'user_sl.deleteThisVL',
+        'uses'=>'UserSLController@deleteThisSL') );
 
-      Route::post('/user_sl/process', array(
-      'as'=> 'user_sl.process',
-      'uses'=>'UserSLController@process') );
+        Route::post('/user_sl/process', array(
+        'as'=> 'user_sl.process',
+        'uses'=>'UserSLController@process') );
 
-      Route::get('/updateSLCredits', array(
-      'as'=> 'user_sl.updateCredits',
-      'uses'=>'UserSLController@updateCredits') );
+        Route::get('/updateSLCredits', array(
+        'as'=> 'user_sl.updateCredits',
+        'uses'=>'UserSLController@updateCredits') );
 
-      Route::post('/user_sl/uploadCredits', array(
-      'as'=> 'user_sl.uploadCredits',
-      'uses'=>'UserSLController@uploadCredits') );
+        Route::post('/user_sl/uploadCredits', array(
+        'as'=> 'user_sl.uploadCredits',
+        'uses'=>'UserSLController@uploadCredits') );
 
-       Route::get('/user_sl/medCert/{id}', array(
-      'as'=> 'user_sl.item',
-      'uses'=>'UserSLController@item') );
+        Route::get('/user_sl/medCert/{id}', array(
+        'as'=> 'user_sl.item',
+        'uses'=>'UserSLController@item') );
+
+      //---- end SL
 
 
      
-        /*********** LWOP **********/
+      /*********** LWOP **********/
 
-       Route::post('/user_lwop/checkExisting', array(
-      'as'=> 'user_lwop.checkExisting',
-      'uses'=>'UserLWOPController@checkExisting') ); 
+        Route::post('/user_lwop/checkExisting', array(
+        'as'=> 'user_lwop.checkExisting',
+        'uses'=>'UserLWOPController@checkExisting') ); 
 
-       Route::post('/user_lwop/getCredits', array(
-      'as'=> 'user_lwop.getCredits',
-      'uses'=>'UserLWOPController@getCredits') );
+         Route::post('/user_lwop/getCredits', array(
+        'as'=> 'user_lwop.getCredits',
+        'uses'=>'UserLWOPController@getCredits') );
 
-       Route::post('/user_lwop/requestLWOP', array(
-      'as'=> 'user_lwop.requestLWOP',
-      'uses'=>'UserLWOPController@requestLWOP') );
+         Route::post('/user_lwop/requestLWOP', array(
+        'as'=> 'user_lwop.requestLWOP',
+        'uses'=>'UserLWOPController@requestLWOP') );
 
-       Route::post('/user_lwop/deleteThisLWOP/{id}', array(
-      'as'=> 'user_lwop.deleteThisLWOP',
-      'uses'=>'UserLWOPController@deleteThisLWOP') );
+         Route::post('/user_lwop/deleteThisLWOP/{id}', array(
+        'as'=> 'user_lwop.deleteThisLWOP',
+        'uses'=>'UserLWOPController@deleteThisLWOP') );
 
-      Route::post('/user_lwop/process', array(
-      'as'=> 'user_lwop.process',
-      'uses'=>'UserLWOPController@process') );
+        Route::post('/user_lwop/process', array(
+        'as'=> 'user_lwop.process',
+        'uses'=>'UserLWOPController@process') );
+      //-- END LWOP
 
 
 
 
       /*********** OT **********/
-      Route::post('/user_ot/requestPSOT', array(
-      'as'=> 'user_ot.requestPSOT',
-      'uses'=>'UserOTController@requestPSOT') );
+        Route::post('/user_ot/requestPSOT', array(
+        'as'=> 'user_ot.requestPSOT',
+        'uses'=>'UserOTController@requestPSOT') );
 
-      Route::get('/getPSOTworkedhours/{id}', array(
-      'as'=> 'user_ot.getPSOTworkedhours',
-      'uses'=>'UserOTController@getPSOTworkedhours') );
+        Route::get('/getPSOTworkedhours/{id}', array(
+        'as'=> 'user_ot.getPSOTworkedhours',
+        'uses'=>'UserOTController@getPSOTworkedhours') );
 
-    Route::get('/getPSOTLogsForThisDate/{id}', array(
-      'as'=> 'user_ot.getPSOTLogsForThisDate',
-      'uses'=>'UserOTController@getPSOTLogsForThisDate') );
+        Route::get('/getPSOTLogsForThisDate/{id}', array(
+        'as'=> 'user_ot.getPSOTLogsForThisDate',
+        'uses'=>'UserOTController@getPSOTLogsForThisDate') );
+      //--- END OT
 
 
       /*********** OBT **********/
 
-    Route::post('/user_obt/checkExisting', array(
-      'as'=> 'user_obt.checkExisting',
-      'uses'=>'UserOBTController@checkExisting') ); 
+        Route::post('/user_obt/checkExisting', array(
+        'as'=> 'user_obt.checkExisting',
+        'uses'=>'UserOBTController@checkExisting') ); 
 
-    Route::post('/user_obt/requestVL', array(
-      'as'=> 'user_obt.requestVL',
-      'uses'=>'UserOBTController@requestOBT') );
+        Route::post('/user_obt/requestVL', array(
+        'as'=> 'user_obt.requestVL',
+        'uses'=>'UserOBTController@requestOBT') );
 
-     Route::post('/user_obt/getCredits', array(
-      'as'=> 'user_obt.getCredits',
-      'uses'=>'UserOBTController@getCredits') );
+        Route::post('/user_obt/getCredits', array(
+        'as'=> 'user_obt.getCredits',
+        'uses'=>'UserOBTController@getCredits') );
 
-      Route::post('/user_obt/addCredits', array(
-      'as'=> 'user_obt.addCredits',
-      'uses'=>'UserOBTController@addCredits') );
+        Route::post('/user_obt/addCredits', array(
+        'as'=> 'user_obt.addCredits',
+        'uses'=>'UserOBTController@addCredits') );
 
 
-       Route::post('/user_obt/deleteCredit/{id}', array(
-      'as'=> 'user_obt.deleteCredit',
-      'uses'=>'UserOBTController@deleteCredit') );
+         Route::post('/user_obt/deleteCredit/{id}', array(
+        'as'=> 'user_obt.deleteCredit',
+        'uses'=>'UserOBTController@deleteCredit') );
 
-       Route::post('/user_obt/editCredits/{id}', array(
-      'as'=> 'user_obt.editCredits',
-      'uses'=>'UserOBTController@editCredits') );
+         Route::post('/user_obt/editCredits/{id}', array(
+        'as'=> 'user_obt.editCredits',
+        'uses'=>'UserOBTController@editCredits') );
 
-       Route::get('/user_obt/showCredits/{id}', array(
-      'as'=> 'user_obt.showCredits',
-      'uses'=>'UserOBTController@showCredits') );
+         Route::get('/user_obt/showCredits/{id}', array(
+        'as'=> 'user_obt.showCredits',
+        'uses'=>'UserOBTController@showCredits') );
 
-        Route::post('/user_obt/deleteThisOBT/{id}', array(
-      'as'=> 'user_obt.deleteThisOBT',
-      'uses'=>'UserOBTController@deleteThisOBT') );
+          Route::post('/user_obt/deleteThisOBT/{id}', array(
+        'as'=> 'user_obt.deleteThisOBT',
+        'uses'=>'UserOBTController@deleteThisOBT') );
 
-      Route::post('/user_obt/process', array(
-      'as'=> 'user_obt.process',
-      'uses'=>'UserOBTController@process') );
+        Route::post('/user_obt/process', array(
+        'as'=> 'user_obt.process',
+        'uses'=>'UserOBTController@process') );
+      //--- END OBT
 
 
       /*********** FAMILY LEAVES **********/
 
-       Route::post('/user_fl/editCredits/{id}', array(
-      'as'=> 'user_fl.editCredits',
-      'uses'=>'UserFamilyleaveController@editCredits') );
+        Route::post('/user_fl/editCredits/{id}', array(
+        'as'=> 'user_fl.editCredits',
+        'uses'=>'UserFamilyleaveController@editCredits') );
 
 
-      Route::post('/user_fl/addCredits', array(
-      'as'=> 'user_fl.addCredits',
-      'uses'=>'UserFamilyleaveController@addCredits') );
+        Route::post('/user_fl/addCredits', array(
+        'as'=> 'user_fl.addCredits',
+        'uses'=>'UserFamilyleaveController@addCredits') );
 
-      Route::post('/user_fl/checkExisting', array(
-      'as'=> 'user_fl.checkExisting',
-      'uses'=>'UserFamilyleaveController@checkExisting') );
+        Route::post('/user_fl/checkExisting', array(
+        'as'=> 'user_fl.checkExisting',
+        'uses'=>'UserFamilyleaveController@checkExisting') );
 
-      Route::post('/user_fl/deleteCredit/{id}', array(
-      'as'=> 'user_fl.deleteCredit',
-      'uses'=>'UserFamilyleaveController@deleteCredit') );
+        Route::post('/user_fl/deleteCredit/{id}', array(
+        'as'=> 'user_fl.deleteCredit',
+        'uses'=>'UserFamilyleaveController@deleteCredit') );
 
-       Route::post('/user_fl/requestFL', array(
-      'as'=> 'user_fl.requestFL',
-      'uses'=>'UserFamilyleaveController@requestFL') );
+        Route::post('/user_fl/requestFL', array(
+        'as'=> 'user_fl.requestFL',
+        'uses'=>'UserFamilyleaveController@requestFL') );
 
-       Route::post('/user_fl/getCredits', array(
-      'as'=> 'user_fl.getCredits',
-      'uses'=>'UserFamilyleaveController@getCredits') );
+        Route::post('/user_fl/getCredits', array(
+        'as'=> 'user_fl.getCredits',
+        'uses'=>'UserFamilyleaveController@getCredits') );
 
-       Route::get('/user_fl/showCredits/{id}', array(
-      'as'=> 'user_fl.showCredits',
-      'uses'=>'UserFamilyleaveController@showCredits') );
+        Route::get('/user_fl/showCredits/{id}', array(
+        'as'=> 'user_fl.showCredits',
+        'uses'=>'UserFamilyleaveController@showCredits') );
 
         Route::post('/user_fl/deleteThisSL/{id}', array(
-      'as'=> 'user_fl.deleteThisVL',
-      'uses'=>'UserFamilyleaveController@deleteThisSL') );
+        'as'=> 'user_fl.deleteThisVL',
+        'uses'=>'UserFamilyleaveController@deleteThisSL') );
 
-      Route::post('/user_fl/process', array(
-      'as'=> 'user_fl.process',
-      'uses'=>'UserFamilyleaveController@process') );
+        Route::post('/user_fl/process', array(
+        'as'=> 'user_fl.process',
+        'uses'=>'UserFamilyleaveController@process') );
 
-      
+        Route::post('/user_fl/uploadCredits', array(
+        'as'=> 'user_fl.uploadCredits',
+        'uses'=>'UserFamilyleaveController@uploadCredits') );
 
-      Route::post('/user_fl/uploadCredits', array(
-      'as'=> 'user_fl.uploadCredits',
-      'uses'=>'UserFamilyleaveController@uploadCredits') );
-
-       Route::get('/user_fl/requirements/{id}', array(
-      'as'=> 'user_fl.item',
-      'uses'=>'UserFamilyleaveController@item') );
+        Route::get('/user_fl/requirements/{id}', array(
+        'as'=> 'user_fl.item',
+        'uses'=>'UserFamilyleaveController@item') );
+      //--- END FAMILY
 
 
     
     /*********** DTR ROUTES ************/
 
-    Route::get('/myDTR', array(
-      'as'=> 'user_dtr.myDTR',
-      'uses'=>'DTRController@myDTR') );
-
-    Route::post('/dtrSheet/{id}', array(
-      'as'=> 'user_dtr.processSheet',
-      'uses'=>'DTRController@processSheet') );
-
-    Route::post('/unlock/{id}', array(
-      'as'=> 'user_dtr.requestUnlock',
-      'uses'=>'DTRController@requestUnlock') );
-
-    Route::get('/seen-unlockRequest/{id}', array(
-      'as'=> 'user_dtr.seenzoned',
-      'uses'=>'DTRController@seenzoned') );
-
-    Route::get('/seen-unlockPDRequest/{id}', array(
-      'as'=> 'user_dtr.seenzonedPD',
-      'uses'=>'DTRController@seenzonedPD') );
-
-    Route::post('/doUnlock/{id}', array(
+      Route::post('/doUnlock/{id}', array(
       'as'=> 'user_dtr.unlock',
       'uses'=>'DTRController@unlock') );
 
-
-    Route::post('/plotSchedule', array(
-      'as'=> 'monthlySchedule.plot',
-      'uses'=>'MonthlyScheduleController@plot') );
-
-    Route::post('/downloadDTRsheet', array(
+      Route::post('/downloadDTRsheet', array(
       'as'=> 'user_dtr.downloadDTRsheet',
       'uses'=>'DTRController@downloadDTRsheet') );
 
-    Route::get('/sheets', array(
+      Route::post('/dtrSheet/{id}', array(
+      'as'=> 'user_dtr.processSheet',
+      'uses'=>'DTRController@processSheet') );
+
+      Route::get('/myDTR', array(
+      'as'=> 'user_dtr.myDTR',
+      'uses'=>'DTRController@myDTR') );
+
+      Route::post('/overrideRD/{id}', array(
+      'as'=> 'user_dtr.overrideRD',
+      'uses'=>'DTRController@overrideRD') );
+
+      Route::post('/plotSchedule', array(
+      'as'=> 'monthlySchedule.plot',
+      'uses'=>'MonthlyScheduleController@plot') );
+
+      Route::get('/seen-unlockRequest/{id}', array(
+      'as'=> 'user_dtr.seenzoned',
+      'uses'=>'DTRController@seenzoned') );
+
+      Route::get('/seen-unlockPDRequest/{id}', array(
+      'as'=> 'user_dtr.seenzonedPD',
+      'uses'=>'DTRController@seenzonedPD') );
+
+      Route::post('/unlock/{id}', array(
+      'as'=> 'user_dtr.requestUnlock',
+      'uses'=>'DTRController@requestUnlock') );
+
+      Route::get('/sheets', array(
       'as'=> 'user_dtr.dtrSheets',
       'uses'=>'DTRController@dtrSheets') );
 
-    Route::post('/sheets/getValidated', array(
+      Route::post('/sheets/getValidated', array(
       'as'=> 'user_dtr.getValidatedDTRs',
       'uses'=>'DTRController@getValidatedDTRs') );
 
 
-    Route::post('/zendesk', array(
+      Route::post('/zendesk', array(
       'as'=> 'user_dtr.zendesk',
       'uses'=>'DTRController@zendesk') );
+    // --------- end DTR 
 
 
     
      /*********** BIOMETRICS ROUTES ************/
 
-    Route::post('/tempUpload/purge', array(
-      'as'=> 'tempUpload.purge',
-      'uses'=>'TempUploadController@purge') );
+        Route::post('/tempUpload/purge', array(
+        'as'=> 'tempUpload.purge',
+        'uses'=>'TempUploadController@purge') );
 
-    Route::post('/tempUpload/purgeThis', array(
-      'as'=> 'tempUpload.purgeThis',
-      'uses'=>'TempUploadController@purgeThis') );
+        Route::post('/tempUpload/purgeThis', array(
+        'as'=> 'tempUpload.purgeThis',
+        'uses'=>'TempUploadController@purgeThis') );
 
-    Route::post('/biometrics/upload', array(
-      'as'=> 'biometrics.upload',
-      'uses'=>'BiometricsController@upload') );
+        Route::post('/biometrics/upload', array(
+        'as'=> 'biometrics.upload',
+        'uses'=>'BiometricsController@upload') );
 
-    Route::post('/biometrics/uploadFinanceCSV', array(
-      'as'=> 'biometrics.uploadFinanceCSV',
-      'uses'=>'BiometricsController@uploadFinanceCSV') );
+        Route::post('/biometrics/uploadFinanceCSV', array(
+        'as'=> 'biometrics.uploadFinanceCSV',
+        'uses'=>'BiometricsController@uploadFinanceCSV') );
 
-    Route::post('/biometrics/uploadSched', array(
-      'as'=> 'biometrics.uploadSched',
-      'uses'=>'BiometricsController@uploadSched') );
+        Route::post('/biometrics/uploadSched', array(
+        'as'=> 'biometrics.uploadSched',
+        'uses'=>'BiometricsController@uploadSched') );
 
-    Route::get('/workSched_upload', array(
-      'as'=> 'biometrics.workSched_upload',
-      'uses'=>'BiometricsController@workSched_upload') );
+        Route::get('/workSched_upload', array(
+        'as'=> 'biometrics.workSched_upload',
+        'uses'=>'BiometricsController@workSched_upload') );
 
+        Route::post('/dtrSheet/upload', array(
+        'as'=> 'biometrics.uploadDTR',
+        'uses'=>'BiometricsController@uploadDTR') );
 
-
-     Route::post('/dtrSheet/upload', array(
-      'as'=> 'biometrics.uploadDTR',
-      'uses'=>'BiometricsController@uploadDTR') );
-
-    Route::get('/setupBiometricUserLogs', array(
-      'as'=> 'biometrics.setupBiometricUserLogs',
-      'uses'=>'BiometricsController@setupBiometricUserLogs') );
+        Route::get('/setupBiometricUserLogs', array(
+        'as'=> 'biometrics.setupBiometricUserLogs',
+        'uses'=>'BiometricsController@setupBiometricUserLogs') );
+    
+    //--- END BIOMETRICS
     
 
 
     /*********** EVAL FORM ROUTES ************/
 
-    Route::get('/evalForm/new/{user_id}/{evalType_id}', array(
+      Route::get('/evalForm/new/{user_id}/{evalType_id}', array(
       'as'=> 'newEvaluation',
       'uses'=>'EvalFormController@newEvaluation') );
 
-    Route::get('/evalForm/newAnnual/{user_id}/{evalType_id}', array(
+      Route::get('/evalForm/newAnnual/{user_id}/{evalType_id}', array(
       'as'=> 'newAnnualEvaluation',
       'uses'=>'EvalFormController@newAnnualEvaluation') );
 
-    Route::get('/evalForm/newContractual/{user_id}/{evalType_id}', array(
+      Route::get('/evalForm/newContractual/{user_id}/{evalType_id}', array(
       'as'=> 'newContractual',
       'uses'=>'EvalFormController@newContractual') );
 
-    Route::post('/evalForm/grabAllWhosUpFor', array(
+      Route::post('/evalForm/grabAllWhosUpFor', array(
       'as'=> 'evalForm.grabAllWhosUpFor',
       'uses'=>'EvalFormController@grabAllWhosUpFor') );
 
 
-    Route::post('/evalForm/deleteThisEval/{id}', array(
+      Route::post('/evalForm/deleteThisEval/{id}', array(
       'as'=> 'evalForm.deleteThisEval',
       'uses'=>'EvalFormController@deleteThisEval') );
 
-     Route::get('/evalForm/review/{id}', array(
+      Route::get('/evalForm/review/{id}', array(
       'as'=> 'evalForm.review',
       'uses'=>'EvalFormController@review') );
 
-     Route::get('/getAllEval', array(
+      Route::get('/getAllEval', array(
       'as'=> 'evalForm.getAllEval',
       'uses'=>'EvalFormController@getAllEval') );
 
@@ -815,29 +827,31 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'EvalFormController@updatePeriod') );
 
 
-    Route::get('/download', array(
+      Route::get('/download', array(
       'as'=> 'downloadReport',
       'uses'=>'EvalFormController@downloadReport') );
 
-     Route::get('/downloadAllUsers', array(
+      Route::get('/downloadAllUsers', array(
       'as'=> 'downloadAllUsers',
       'uses'=>'UserController@downloadAllUsers') );
 
 
 
-    Route::get('/evalForm/blank/{id}', array(
+      Route::get('/evalForm/blank/{id}', array(
       'as'=> 'printBlankEval',
       'uses'=>'EvalFormController@printBlankEval') );
 
-    Route::get('/evalForm/blankEmployee/{id}', array(
+      Route::get('/evalForm/blankEmployee/{id}', array(
       'as'=> 'printBlankEmployee',
       'uses'=>'EvalFormController@printBlankEmployee') );
 
 
 
-    Route::get('/evalForm/print/{id}', array(
+      Route::get('/evalForm/print/{id}', array(
       'as'=> 'printEval',
       'uses'=>'EvalFormController@printEval') );
+
+    //--- END EVAL FORMS
 
 
     Route::get('/immediateHead/{id}/members', array(
@@ -1201,9 +1215,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/cancel-order/{id?}', 'RewardsHomeController@cancel_order');
 
     
-    //USER-based reward actions
-
-
+    //----------- USER-based reward actions
 
     Route::get('/initializeRewards/{floor_id}', array(
       'as'=> 'initializeRewards',
