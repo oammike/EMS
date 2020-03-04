@@ -1688,7 +1688,7 @@ class DTRController extends Controller
 
           $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
-                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse('first day of this year','Asia/Manila')->format('Y-m-d'))->get();
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
           $totalVLearned = collect($vlEarnings)->sum('credits');
 
           $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
