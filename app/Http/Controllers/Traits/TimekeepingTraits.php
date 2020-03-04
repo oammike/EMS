@@ -2967,50 +2967,7 @@ trait TimekeepingTraits
 
           if (count($userLogOUT) > 0) 
           {
-            /*$rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
-            if (count($rdOT) > 0)
-            {
-              if ($rdOT->first()->isApproved)
-              {
-                $approvedOT = $rdOT; 
-                //** fill in necessary details from the approved RD OT
-                $shiftStart = "* RD *";
-                $shiftEnd = "* RD *";
-                $logIN = $rdOT->first()->timeStart;
-                $logOUT = $rdOT->first()->timeEnd;
-                $workedHours = $rdOT->first()->filed_hours."<br/><small>[ * RD-OT * ]</small>";
-                $billableForOT = $rdOT->first()->billable_hours;
-                $OTattribute = null;
-                $UT = 0;
-                $hasPendingIN = null;
-                $pendingDTRPin = null;
-                $hasPendingOUT = null;
-                $pendingDTRPout = null;
-
-              }else
-              {
-                $approvedOT = $rdOT; 
-                //** fill in necessary details from the approved RD OT
-                $shiftStart = "* RD *";
-                $shiftEnd = "* RD *";
-                $logIN = $rdOT->first()->timeStart;
-                $logOUT = $rdOT->first()->timeEnd;
-                $workedHours = "0<br/><small>[ * RD-OT * ]</small>";
-                $billableForOT = $rdOT->first()->billable_hours;
-                $OTattribute = null;
-                $UT = 0;
-                $hasPendingIN = null;
-                $pendingDTRPin = null;
-                $hasPendingOUT = null;
-                $pendingDTRPout = null;
-              }
-              
-
-            }
-            else
-            {
-              goto legitOT;
-            }*/
+            
             goto proceedToRDOT;
 
           } else
@@ -3032,11 +2989,50 @@ trait TimekeepingTraits
                 $logOUT = "No RD-OT Out <br/><small>Verify with Immediate Head</small>";
                 $workedHours="N/A"; 
 
-                if ($hasHolidayToday){ $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>"; }      
+                //if ($hasHolidayToday){ $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>"; }      
                 $shiftStart = "* RD *";
                 $shiftEnd = "* RD *";
                 $UT = 0;
                 $billableForOT=0;
+
+                //check first if Locked na DTR for that production date
+                $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                (count($verifiedDTR) > 0) ? $isLocked=true : $isLocked=false;
+
+                if ($hasHolidayToday)
+                 {
+                    //check first if Locked na DTR for that production date
+                    $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+                    if($isLocked)
+                      $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                    else
+                     $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                 
+                 }
+                 
+                 else
+                 {
+                    
+                    if($isLocked) 
+                    {
+                      $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a title='Unlock first to mark this as actual RD' class='btn btn-xs btn-default'><i class='fa fa-bed'></i> </a>";
+                      $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                    }
+                    else {
+                      $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal_bypass_".$biometrics->id."\"   title='Mark as REST DAY' class='actualRD btn btn-xs btn-danger'><i class='fa fa-bed'></i> </a>";
+                      $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                    }
+
+                    
+                 }
+                
+                $OTattribute = $icons;
+
+                goto pushData;
+                         
+
+
               }
 
 
@@ -3123,21 +3119,47 @@ trait TimekeepingTraits
                     blankOTout:
 
                         $logOUT = "No RD-OT Out <br/><small>Verify with Immediate Head</small>";
-
                         $workedHours="N/A"; 
 
-                        if ($hasHolidayToday)
-                        {
-                          
-                          $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>";
-
-                        }  
-
-                       
+                        //if ($hasHolidayToday){ $workedHours .= "<br /><strong>* " . $holidayToday->first()->name." * </strong>"; }      
                         $shiftStart = "* RD *";
                         $shiftEnd = "* RD *";
                         $UT = 0;
                         $billableForOT=0;
+
+                        //check first if Locked na DTR for that production date
+                        $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+                        (count($verifiedDTR) > 0) ? $isLocked=true : $isLocked=false;
+
+                        if ($hasHolidayToday)
+                         {
+                            //check first if Locked na DTR for that production date
+                            $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+                            if($isLocked)
+                              $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                            else
+                             $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                         
+                         }
+                         
+                         else
+                         {
+                            
+                            if($isLocked) 
+                            {
+                              $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a title='Unlock first to mark this as actual RD' class='btn btn-xs btn-default'><i class='fa fa-bed'></i> </a>";
+                              $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                            }
+                            else {
+                              $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal_bypass_".$biometrics->id."\"   title='Mark as REST DAY' class='actualRD btn btn-xs btn-danger'><i class='fa fa-bed'></i> </a>";
+                              $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                            }
+
+                            
+                         }
+                        
+                        $OTattribute = $icons;
 
             
                    
