@@ -3827,7 +3827,7 @@ trait TimekeepingTraits
         //$stat = User::find($user_id)->status_id;
         //****** part time user
 
-        if ($isPartTimer)
+        if ($isPartTimer || $isPartTimerForeign)
           $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
         else
           $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
@@ -3840,7 +3840,7 @@ trait TimekeepingTraits
          //--- but u need to make sure if nag late out sya
           if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"))
           {
-            $workedHours = 8.00;
+            ($isPartTimer | $isPartTimerForeign) ? $workedHours = 4.00 : $workedHours = 8.00;
 
             //check first if Locked na DTR for that production date
             $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
@@ -3870,6 +3870,7 @@ trait TimekeepingTraits
 
             /*--- WE NEED TO CHECK FIRST KUNG MAY LEGIt LEAVES SYA ***/
             $comp->push(['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")]);
+            
             $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
 
 
@@ -3926,7 +3927,7 @@ trait TimekeepingTraits
               //$stat = User::find($user_id)->status_id;
               //****** part time user
 
-              if ($isPartTimer)
+              if ($isPartTimer || $isPartTimerForeign)
                 $UT = round((240.0 - $wh)/60,2); 
               else
                 $UT = round((480.0 - $wh)/60,2); 
@@ -3958,7 +3959,7 @@ trait TimekeepingTraits
           if ($isPartTimer || $isPartTimerForeign ) 
           {
             $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
-          } else  $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+          } else  $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")); //->addMinutes(60));
          
           /* ---- but we need to check Jeff's case of multiple requessts
                   bakit sya lateIN? baka may valid SL | VL |OBT */
@@ -4170,7 +4171,7 @@ trait TimekeepingTraits
 
                 if ($wh > 480)
                 {
-                  $workedHours =8.00; $UT=0;
+                  ($isPartTimer || $isPartTimerForeign )  ? $workedHours = '4.00' : $workedHours = 8.00; //workedHours =8.00; $UT=0;
 
                   //check first if Locked na DTR for that production date
                   $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
