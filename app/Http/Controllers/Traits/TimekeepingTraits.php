@@ -1858,7 +1858,7 @@ trait TimekeepingTraits
                 if($isAproblemShift)
                 {
                   //****check mo kung RD nya kahapon && 12MN
-                  if($isRDYest && $beginShift->format('H:i:s') == '00:00:00')
+                  if($isRDYest && ($beginShift->format('H:i:s') >= '00:00:00' && $beginShift->format('H:i:s') <= '03:00:00' ) )
                   {
                     goto checkKahapon;
 
@@ -1870,6 +1870,10 @@ trait TimekeepingTraits
                   //else if 12MN and kahapon 12MN din shift nya, kunin mo yung shift for this bio instead
                   //else if ( $beginShift->format('H:i:s') == '00:00:00' && $schedKahapon['timeStart']=='00:00:00') goto theUsual;
                   else if ( $beginShift->format('H:i:s') == '00:00:00') goto checkKahapon;
+
+                  else if ($beginShift->format('H:i:s') > '00:00:00' && $beginShift->format('H:i:s') <= '04:00:00' ) goto checkKahapon;
+
+                  //*** dito mo ilagay yung extra check for 1am scheds
                   else if ($beginShift->format('H:i:s') > '00:00:00' && $beginShift->format('H:i:s') < '23:59:00' ) goto theUsual;
                   else goto proceedToLogTomorrow;
 
