@@ -3960,13 +3960,13 @@ trait TimekeepingTraits
         if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) // Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
         {
           
-          if ($isPartTimer || $isPartTimerForeign ) 
+          if ($isPartTimer ) 
           {
             $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
           } else
           {
-            $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")); //->addMinutes(60));
-            if ($wh > 5) $wh = $wh -1;
+            $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+            //if ($wh > 5) $wh = $wh -1;
           }
 
 
