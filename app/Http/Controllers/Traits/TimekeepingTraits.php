@@ -3817,6 +3817,8 @@ trait TimekeepingTraits
 
         $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
         $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+
+        if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh -1;
         
         //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
         ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
@@ -3961,7 +3963,13 @@ trait TimekeepingTraits
           if ($isPartTimer || $isPartTimerForeign ) 
           {
             $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
-          } else  $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")); //->addMinutes(60));
+          } else
+          {
+            $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")); //->addMinutes(60));
+            if ($wh > 5) $wh = $wh -1;
+          }
+
+
          
           /* ---- but we need to check Jeff's case of multiple requessts
                   bakit sya lateIN? baka may valid SL | VL |OBT */
