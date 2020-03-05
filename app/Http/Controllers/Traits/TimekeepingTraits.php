@@ -3819,7 +3819,7 @@ trait TimekeepingTraits
         $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
         
         //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
-        ($isPartTimer) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+        ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
 
         //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
         $billableForOT=0; //$userLogIN[0]['timing']/60;
@@ -3871,7 +3871,9 @@ trait TimekeepingTraits
             /*--- WE NEED TO CHECK FIRST KUNG MAY LEGIt LEAVES SYA ***/
             $comp->push(['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")]);
             
-            $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
+            $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));//->addHour());
+
+            if ($wh >=5 ) $wh = $wh-1; 
 
 
 
@@ -4171,7 +4173,7 @@ trait TimekeepingTraits
 
                 if ($wh > 480)
                 {
-                  ($isPartTimer || $isPartTimerForeign )  ? $workedHours = '4.00' : $workedHours = 8.00; //workedHours =8.00; $UT=0;
+                  ($isPartTimer || $isPartTimerForeign )  ? $workedHours = '4.00' : $workedHours = 8.00; $UT=0; //workedHours =8.00;
 
                   //check first if Locked na DTR for that production date
                   $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
