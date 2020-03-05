@@ -217,8 +217,77 @@ span.to-input {
 
                     @if($canAwardAnniv)
                     <div class="clearfix"></div>
-                   <!--  <label class="text-primary" style="margin-top: 20px"><input type="radio" class="awardees" name="awardees" id="anniv" value="ANNIV"> Search by Work Anniversary</label>
- -->
+                    <label class="text-primary" style="margin-top: 20px"><input type="radio" class="awardees" name="awardees" id="anniv" value="ANNIV"> Search by Work Anniversary</label>
+
+                    <div id="workannivs" style="margin: 20px 35px; display: none;">
+                      <p>Award <strong style="font-size: large;" class="text-danger" id="bdaymaxpt"> {{ $bdayPoints }} </strong> points to all employees celebrating their work anniversary </p>
+                      <label class="pull-left">From: </label> 
+                        <select id="wfrom_mos" class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select month *</option>
+                          @foreach($months as $m=>$k)
+                            <option value="{{$m+1}}">{{$k}} </option>
+                          @endforeach
+                        </select>
+                        <select id="wfrom_day"  class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select day *</option>
+                          @for($i=1; $i<=31; $i++)
+                          <option value="{{$i}}">{{$i}}</option>
+                          @endfor
+                        </select>
+                      <div class="clearfix" style="margin:10px"></div>
+                      <label class="pull-left">To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                      <select id="wto_mos" disabled="disabled" class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select month *</option>
+                          @foreach($months as $m=>$k)
+                            <option value="{{$m+1}}">{{$k}} </option>
+                          @endforeach
+                        </select>
+                        <select id="wto_day" class="form-control pull-left" style="width: 30%">
+                          <option value="0">* select day *</option>
+                          @for($i=1; $i<=31; $i++)
+                          <option value="{{$i}}">{{$i}}</option>
+                          @endfor
+                        </select>
+                        <div class="clearfix"></div>
+                        
+                        <!-- ******** collapsible box ********** -->
+                        <div class="box box-default collapsed-box" style="margin-top: 20px">
+                          <div class="box-header with-border">
+                            <h3 class="box-title text-primary"><strong class="text-orange" id="wct"></strong> Work Anniv Celebrator(s):
+                             </h3>
+                            <div class="box-tools pull-right">
+                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+                            <!-- /.box-tools -->
+                          </div>
+                          <!-- /.box-header -->
+                          <div class="box-body">
+                            <table id="wcelebs" class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>Celebrator</th>
+                                  <th>Program</th>
+                                  <th>Work Anniv</th>
+                                </tr>
+                              </thead>
+                              <tbody id="work">
+                                
+                              </tbody>
+                              
+                            </table>
+                            <div class="clearfix"></div>
+                          
+
+
+                            
+                          </div>
+                          <!-- /.box-body -->
+                        </div>
+                       <!-- ******** end collapsible box ********** -->
+                        
+                    </div>
+
                     @else
                     <div class="clearfix"></div>
                     <label title="Sorry, you don't have enough access to do this." style="margin-top: 20px"><input disabled="disabled" type="radio" class="awardees" name="awardees" id="anniv" value="ANNIV"> Search by Work Anniversary</label>
@@ -515,7 +584,59 @@ span.to-input {
                        }break;
           case 'ANNIV': {
 
-                          $('#transferto,#transfertoi,#reason,#reasonl').fadeOut();
+                          $('#transferto,#transfertoi,#reason,#reasonl,#maxpoints,#awardees,#pad,#bdays').fadeOut();
+
+                          $('#workannivs,#sendpts').fadeIn();
+                          $('#workannivs select').on('change',function(){
+                            var m_from = $('#wfrom_mos').find(':selected').val();
+                            var d_f = $('#wfrom_day').find(':selected').val();
+                            var m_t = $('#wto_mos').val(m_from);
+                            var d_t = $('#wto_day').find(':selected').val();
+
+                            
+                            var d_from = (d_f==0) ? '1':d_f;
+                            var m_to = (m_t==0) ? m_from : m_t;
+                            var d_to = (d_t==0) ? '1' : d_t;
+
+                            
+
+                            console.log("m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to);
+                            // dt.ajax.url("{{ url('/birthdayCelebrators') }}?m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to).load();
+                            // dt.ajax.reload();
+                            var tbl = $('#holder tbody#work');
+                             $.ajax({
+                                      type:"GET",
+                                      url : "{{ url('/birthdayCelebrators') }}?m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to,
+                                      
+                                      success : function(response){
+                                                                //console.log(data);
+                                                                tbl.empty();
+                                                                $('#wct').html("");
+                                                                all_celebrator=[];
+                                                                $('#wct').html(response['data'].length);
+                                                                $.each(response['data'], function(k,v){
+                                                                  //console.log(v);
+                                                                  all_celebrator.push(v.id);
+
+                                                                  tbl.append('<tr> <td>'+(k+1)+') '+v.lastname+', '+v.firstname+'</td><td>'+v.program+'</td><td>'+ moment(v.birthday, 'MM-DD-YYYY').format("MMM D")+'</td></tr>');
+                                                                  
+
+                                                                });
+                                                                console.log(all_celebrator);
+
+
+                                                              
+
+                                                                
+                                      },
+                                      error: function(data){
+                                        
+                                                                $.notify("An error occured. Please try again later.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                        
+                                      }
+                                    });
+
+                          });
 
                         }break;
         }
