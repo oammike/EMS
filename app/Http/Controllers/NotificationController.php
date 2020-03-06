@@ -119,7 +119,20 @@ class NotificationController extends Controller
                     if ($ownNotif) //show the TL who approved instead
                     {
                       switch ($notif->detail->type) {
-                        case '6': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_CWS::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
+                        case '6': {
+                                      $ih = ImmediateHead_Campaign::find(User_CWS::find($notif->detail->relatedModelID)->approver);
+                                      if ( count((array)$ih) > 0 ){
+
+                                        $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                      }else{
+                                        $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->user_id)->id;
+                                        $hasIssue = true;
+
+                                      }
+
+                                      //$fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_CWS::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
+
+                        } 
                         case '7': { 
                                     $ih = ImmediateHead_Campaign::find(User_OT::find($notif->detail->relatedModelID)->approver);
                                     if ( count((array)$ih) > 0 ){
