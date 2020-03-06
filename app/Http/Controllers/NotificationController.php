@@ -125,7 +125,7 @@ class NotificationController extends Controller
 
                                         $fromData =ImmediateHead::find($ih->immediateHead_id);
                                       }else{
-                                        $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->user_id)->id;
+                                        $fromData = User::find(User_CWS::find($notif->detail->relatedModelID)->user_id)->id;
                                         $hasIssue = true;
 
                                       }
