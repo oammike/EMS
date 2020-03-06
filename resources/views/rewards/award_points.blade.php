@@ -220,7 +220,7 @@ span.to-input {
                     <label class="text-primary" style="margin-top: 20px"><input type="radio" class="awardees" name="awardees" id="anniv" value="ANNIV"> Search by Work Anniversary</label>
 
                     <div id="workannivs" style="margin: 20px 35px; display: none;">
-                      <p>Award <strong style="font-size: large;" class="text-danger" id="bdaymaxpt"> {{ $bdayPoints }} </strong> points to all employees celebrating their work anniversary </p>
+                      <p>Award <strong style="font-size: large;" class="text-danger" id="annivmaxpt"> {{ $annivPoints }} </strong> points to all employees celebrating their work anniversary </p>
                       <label class="pull-left">From: </label> 
                         <select id="wfrom_mos" class="form-control pull-left" style="width: 30%">
                           <option value="0">* select month *</option>
@@ -606,7 +606,7 @@ span.to-input {
                             var tbl = $('#holder tbody#work');
                              $.ajax({
                                       type:"GET",
-                                      url : "{{ url('/birthdayCelebrators') }}?m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to,
+                                      url : "{{ url('/workAnnivCelebrators') }}?m_from="+m_from+"&d_from="+d_from+"&m_to="+m_to+"&d_to="+d_to,
                                       
                                       success : function(response){
                                                                 //console.log(data);
@@ -618,7 +618,7 @@ span.to-input {
                                                                   //console.log(v);
                                                                   all_celebrator.push(v.id);
 
-                                                                  tbl.append('<tr> <td>'+(k+1)+') '+v.lastname+', '+v.firstname+'</td><td>'+v.program+'</td><td>'+ moment(v.birthday, 'MM-DD-YYYY').format("MMM D")+'</td></tr>');
+                                                                  tbl.append('<tr> <td>'+(k+1)+') '+v.lastname+', '+v.firstname+'</td><td>'+v.program+'</td><td>'+ moment(v.dateHired, 'MM-DD-YYYY').format("MMM D, Y")+'</td></tr>');
                                                                   
 
                                                                 });
@@ -852,6 +852,68 @@ span.to-input {
 
 
                         }break;
+            case 'ANNIV': {
+                            var points = $('#amt').attr('data-amt');
+                            console.log(points);
+                            if(isNaN(points)) {
+
+                              $.notify("Sorry, you\'ve entered an Invalid Value.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                              return false;
+
+                            }else 
+                            {
+                              var recipients =  all_celebrator;
+                              $.ajax({
+                                          type:"POST",
+                                          url : "{{ url('/grantRewardPoints') }}",
+                                          data : {
+                                                    'points' : points,
+                                                    'awardtype': awardtype,
+                                                    'recipients': recipients,
+                                                    
+                                                    'notes': $('#notes').val(),
+                                                    'pw' : pw,
+                                                    '_token' : _token
+
+                                          },
+                                          success : function(data){
+                                                                    console.log(data);
+
+                                                                    if (data.success == '1')
+                                                                    {
+                                                                      if(data.already)
+                                                                        $.notify(points+ " work anniv reward points successfully transferred to "+data.total+" employee(s).\nThe other ("+data.already.length+") employees already had existing Work Anniv Reward points.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                                                      else
+                                                                        $.notify(points+ " work anniv reward points successfully transferred to "+data.total+" employee(s)",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+
+                                                                      $('#go').attr('disabled',true);
+
+                                                                      $('#sendpts').fadeOut(); $('#makenew').fadeIn();
+
+                                                                    }else {
+
+                                                                      $.notify("Unable to send work anniv reward points. Please try again later.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+
+                                                                    }
+                                                                    
+
+                                                                    
+                                          },
+                                          error: function(data){
+                                            
+                                                                    $.notify("An error occured. Please try again later.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                            
+                                          }
+                                        });
+                              
+                              $('#sendpts').fadeOut(); $('#makenew').fadeIn();
+                            
+                            }
+
+                            
+
+
+                        }break;
            }
 
   
@@ -889,6 +951,30 @@ span.to-input {
                                 $('#receiver').html("");
                                 $('#msg').html('You are about to award <strong id="amt" data-amt="'+$('#bdaymaxpt').text()+'" class="text-danger" style="font-size: large;"></strong> reward point(s) to <strong class="text-success">'+all_celebrator.length+' birthday celebrator(s)</strong><br/>');
                                 $('#amt').html($('#bdaymaxpt').text()); $('#mytransfer').modal('show');
+
+                          }
+
+                       }break;
+
+          case 'ANNIV': { 
+                          var m_f = $('#wfrom_mos').find(':selected').val();
+                          var d_f = $('#wfrom_day').find(':selected').val();
+                          var m_t = $('#wto_mos').find(':selected').val();
+                          var d_t = $('#wto_day').find(':selected').val();
+
+                          console.log('array:');
+                          console.log(all_celebrator);
+                          if(m_f==0 || d_f==0) {
+                            $.notify("Please indicate employees date of hire.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
+                          }else if(all_celebrator.length == 0){
+                            $.notify("No employees based on that query. Please try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
+
+                          }else {
+
+                                $('#code').val($('#annivmaxpt').text());
+                                $('#receiver').html("");
+                                $('#msg').html('You are about to award <strong id="amt" data-amt="'+$('#annivmaxpt').text()+'" class="text-danger" style="font-size: large;"></strong> reward point(s) to <strong class="text-success">'+all_celebrator.length+' work anniversary celebrator(s)</strong><br/>');
+                                $('#amt').html($('#annivmaxpt').text()); $('#mytransfer').modal('show');
 
                           }
 

@@ -987,6 +987,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'birthdayCelebrators',
       'uses'=>'UserController@birthdayCelebrators') );
 
+     Route::get('/workAnnivCelebrators', array(
+      'as'=> 'workAnnivCelebrators',
+      'uses'=>'UserController@workAnnivCelebrators') );
+
 
 
      Route::get('/listAllActive', array(

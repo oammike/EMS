@@ -734,6 +734,22 @@ trait UserTraits
   }
 
 
+
+  public function getWorkAnnivs($m_from,$d_from,$m_to,$d_to)
+  {
+    
+      $celebrators =  DB::select( DB::raw("SELECT users.id, users.status_id, users.firstname,users.lastname,users.nickname,DATE_FORMAT(users.dateHired, '%m-%d-%Y')as dateHired, positions.name as jobTitle, campaign.id as campID, campaign.name as program, users.employeeNumber FROM users INNER JOIN team ON team.user_id = users.id INNER JOIN campaign ON team.campaign_id = campaign.id INNER JOIN positions ON users.position_id = positions.id WHERE MONTH(users.dateHired) = :m AND DAY(users.dateHired) >= :d AND DAY(users.dateHired) <= :dt AND YEAR(users.dateHired) < :yr  AND  users.status_id != 6 AND users.status_id != 7 AND users.status_id != 8 AND users.status_id != 9  ORDER BY birthday ASC"), array(
+                     'm' => $m_from,
+                     'd' => $d_from,
+                     'dt' =>$d_to,
+                     'yr'=> date('Y')
+                   ));
+
+    //}
+    return $celebrators;
+  }
+
+
   public function isInactive($user_id)
   {
 

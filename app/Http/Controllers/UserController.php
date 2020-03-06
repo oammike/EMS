@@ -2881,6 +2881,78 @@ class UserController extends Controller
                                 }
 
           }break;
+
+
+          case 'ANNIV': {
+
+                            $w = Reward_Waysto::where('name','Work Anniversary')->first();
+                            foreach ($request->recipients as $r) {
+
+                                  
+
+                                  //*** check mo muna baka nabigyan na sya ng bday reward
+                                  
+                                  
+                                  $already = DB::select(DB::raw("SELECT reward_award.id, reward_award.user_id, reward_award.waysto_id, reward_award.created_at FROM reward_award WHERE reward_award.user_id = :u AND reward_award.waysto_id = :w AND YEAR(reward_award.created_at) = :y"),array(
+                                     'y' => date('Y'),
+                                     'u' => $r,
+                                     'w' => $w->id
+                                   ));
+
+                                  if (count($already) > 0){
+                                    $coll2->push($already);
+
+                                  }else
+                                  {
+                                    $b = Point::where('idnumber',$r)->get();
+
+                                    if (count($b) > 0){
+                                      $beginningBal = $b->first()->points;
+
+                                      $pt = Point::find($b->first()->id);
+                                      $pt->points += (int)$request->points;
+                                      $pt->updated_at = $now->format('Y-m-d H:i:s');
+                                      $pt->save();
+
+                                    }else {
+                                      $beginningBal = $this->initLoad;
+                                      $pt = new Point;
+                                      $pt->idnumber = $r;
+                                      $pt->points = $beginningBal + (int)$request->points;
+                                      $pt->created_at = $now->format('Y-m-d H:i:s');
+                                      $pt->updated_at = $now->format('Y-m-d H:i:s');
+                                      $pt->save();
+                                    }
+
+                                    $award = new Reward_Award;
+                                    $award->user_id = $r;
+                                    $award->waysto_id = $w->id;
+                                    $award->beginningBal = $beginningBal;
+                                    $award->points = $request->points;
+                                    $award->notes = $request->notes;
+                                    $award->awardedBy = 1;
+                                    $award->created_at = $now->format('Y-m-d H:i:s');
+                                    $award->updated_at = $now->format('Y-m-d H:i:s');
+                                    $award->save();
+                                    
+                                    //$coll->push($award);
+                                    $coll->push($award);
+                                    $collstr .= $r.",";
+
+                                  }
+
+
+                                  
+                                  
+                                }
+
+                                if( \Auth::user()->id !== 564 ) {
+                                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                        fwrite($file, "-------------------\n WORKanniv ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                                        fclose($file);
+                                }
+
+          }break;
           
           
         }
@@ -4098,6 +4170,15 @@ class UserController extends Controller
         //return "hello";
 
 
+    }
+
+
+    public function workAnnivCelebrators()
+    {
+      $d = $this->getWorkAnnivs(Input::get('m_from'), Input::get('d_from'),Input::get('m_to'),Input::get('d_to'));
+
+      return response()->json(['data'=>$d]);
+      //return response()->json([ 'recordsTotal'=>count($d),'data'=>$d ]);
     }
 
     

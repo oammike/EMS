@@ -207,7 +207,7 @@
                           @foreach($awardsReceived as $a)
                           <tr>
                             <td>{{date('Y-m-d h:i A', strtotime($a->created_at))}} </td>
-                            @if( strpos($a->reason,"Birthday") !== false)
+                            @if( strpos($a->reason,"Birthday") !== false || strpos($a->reason,"Monthly") !== false || strpos($a->reason,"Anniversary") !== false)
                             <td style="text-transform: uppercase;">Open Access BPO </td>
                             @else
                             <td style="text-transform: uppercase;">{{$a->from_lname}}, {{$a->from_fname}} <em> "{{$a->from_nname}}"</em> </td>
