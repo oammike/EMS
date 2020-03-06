@@ -53,7 +53,9 @@
                               $whole = floor($num);
                               $fraction = $num - $whole;
 
-                              if($fraction <= 0.9 && $fraction > 0.6)
+                              if($fraction <= 0.9 && $fraction >= 0.7)
+                                $num = $whole + 0.75;
+                              else if($fraction < 0.7 && $fraction >= 0.5)
                                 $num = $whole + 0.50;
                               else if($fraction <= 0.4 && $fraction > 0.2)
                                 $num = $whole + 0.25;
