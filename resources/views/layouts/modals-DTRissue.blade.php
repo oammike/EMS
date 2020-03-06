@@ -174,7 +174,7 @@
 
                         @if($entitledForLeaves)
 
-                            @if($anApprover && Auth::user()->id != $user->id)
+                            @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                           <a href="{{action('UserSLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}" style="margin-bottom: 5px">
                             @else
                             <a href="{{action('UserSLController@create',['from'=>$DproductionDate])}}" style="margin-bottom: 5px">
@@ -184,7 +184,7 @@
 
 
 
-                            @if($anApprover && Auth::user()->id != $user->id)
+                            @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                             <a style="margin-bottom: 5px" href="{{action('UserVLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></a><br/><br/>
 
                             @else
@@ -195,7 +195,7 @@
                         @endif
 
 
-                        @if($anApprover && Auth::user()->id != $user->id)
+                        @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                         <a href="{{action('UserLWOPController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}" style="margin-bottom: 5px"><i class="fa fa-meh-o fa-2x"></i>&nbsp;&nbsp;&nbsp; Leave Without Pay  <strong>(LWOP)</strong></a><br/><br/>
 
                         @else
@@ -204,7 +204,7 @@
 
 
 
-                        @if($anApprover && Auth::user()->id != $user->id)
+                        @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                         <a href="{{action('UserOBTController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-briefcase"></i>&nbsp;&nbsp; Official Business Trip  <strong>(OBT)</strong></a></strong>
 
                         @else
@@ -214,7 +214,7 @@
                         @endif
 
 
-                        @if($anApprover && Auth::user()->id != $user->id)
+                        @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'ML'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-female"></i>&nbsp;&nbsp; Maternity Leave  <strong>(ML)</strong></a></strong><br/><br/>
 
                         @else
@@ -224,7 +224,7 @@
                         @endif
 
 
-                        @if($anApprover && Auth::user()->id != $user->id)
+                        @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'PL'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-male"></i>&nbsp;&nbsp; Paternity Leave  <strong>(PL)</strong></a></strong><br/><br/>
 
                         @else
@@ -234,7 +234,7 @@
                         @endif
 
 
-                        @if($anApprover && Auth::user()->id != $user->id)
+                        @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'SPL'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-street-view"></i>&nbsp;&nbsp; Single-Parent Leave  <strong>(SPL)</strong></a></strong><br/><br/>
 
                         @else

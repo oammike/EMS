@@ -158,18 +158,25 @@ class UserVLController extends Controller
 
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-                       if($this->user->id !== 564 ) {
-                          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                            fwrite($file, "-------------------\n Tried [VL]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-                            fclose($file);
-                        } 
+       if($this->user->id !== 564 ) {
+          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n Tried [VL]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        } 
+
+        
                  
 
         if ( empty($user) ) return view('empty');
         else
         {
             ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+            //$isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+            $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+            /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+            $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
 
             //check mo kung leave for himself or if for others and approver sya
@@ -177,7 +184,7 @@ class UserVLController extends Controller
             //Timekeeping Trait
             $anApprover = $this->checkIfAnApprover($approvers, $this->user);
 
-            if(!is_null($request->for) && !$anApprover ) return view('access-denied');
+            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) ) return view('access-denied');
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {

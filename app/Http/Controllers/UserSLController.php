@@ -143,7 +143,7 @@ class UserSLController extends Controller
         else
         {
             ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
-            $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+            //$isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
 
             //check mo kung leave for himself or if for others and approver sya
@@ -159,7 +159,12 @@ class UserSLController extends Controller
                             fclose($file);
                         } 
 
-            if(!is_null($request->for) && !$anApprover ) return view('access-denied');
+            $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+            /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+            $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+            $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) ) return view('access-denied');
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {

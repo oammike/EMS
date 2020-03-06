@@ -99,7 +99,13 @@ class UserLWOPController extends Controller
             //Timekeeping Trait
             $anApprover = $this->checkIfAnApprover($approvers, $this->user);
 
-            if(!is_null($request->for) && !$anApprover ) return view('access-denied');
+            $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+            /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+            $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+            $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+            if(!is_null($request->for) && !$anApprover && (!$isWorkforce && $isBackoffice) ) return view('access-denied');
+            
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {

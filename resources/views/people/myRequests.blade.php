@@ -66,7 +66,7 @@
              <br/><br/><br/>
            </p>
          
-           @elseif ($forOthers)
+           @elseif ($forOthers ||  ($isWorkforce && !$isBackoffice) )
            <span style="text-align: left; font-size:12px"><em>Click on the buttons below to file new requests for <a href="{{action('UserController@show',$user->id)}}"> <strong>{{$user->firstname}} {{$user->lastname}}</strong></a> :</em></span><br/><br/>
           <p class="text-center">
             <strong>
