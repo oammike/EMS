@@ -134,15 +134,25 @@ class NotificationController extends Controller
 
                         } 
                         case '7': { 
-                                    $ih = ImmediateHead_Campaign::find(User_OT::find($notif->detail->relatedModelID)->approver);
-                                    if ( count((array)$ih) > 0 ){
+                                    $otdetail = User_OT::find($notif->detail->relatedModelID);
 
-                                      $fromData =ImmediateHead::find($ih->immediateHead_id);
-                                    }else{
-                                      $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->user_id)->id;
-                                      $hasIssue = true;
+                                    if ($otdetail)
+                                    {
+                                      $ih = ImmediateHead_Campaign::find($otdetail->approver);
+                                      if ( count((array)$ih) > 0 ){
 
+                                        $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                      }else{
+                                        $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->user_id)->id;
+                                        $hasIssue = true;
+
+                                      }
+
+                                    }else
+                                    {
+                                      $fromData=null;$hasIssue=true;
                                     }
+                                    
                                   }
                                   break;
                         case '8': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy)->immediateHead_id);break;
