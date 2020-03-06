@@ -1,16 +1,23 @@
 
 
                  <div class="item active text-center" >
+                   <h4 class="text-orange" >Information <span class="text-primary"> Security </span></h4>
+                              <img src="./storage/uploads/compliance1.jpg" style="z-index: 2" />
+                             
+                               
+
+                    <br /><br/>
+
+   
+
+                </div>
+
+                <div class="item text-center" >
                    <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
                               <img src="./storage/uploads/champions.jpg" style="z-index: 2" />
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>Never let your failures be the reason why you can't succeed. Just keep on trying and believe that soon, you'll finally get to where you've always wanted to be. After all, creating a masterpiece takes time.<br/><strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
 
                     <br /><br/>
-
-                    
-
-                    
-
                 </div>
 
                 <div class="item  text-center" >
@@ -25,18 +32,7 @@
 
                 </div>
 
-                <div class="item text-center" >
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/valentine2020.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',2)}}"><i class="fa fa-heart"></i> Post your Valentine messages </a>
-                    <a class="btn btn-md btn-primary" href="{{action('EngagementController@wall',2)}}"><i class="fa fa-th-large"></i> Check our Valentine Wall! </a><br /><br/>
-
-                    
-
-                    
-
-                </div>
+              
 
                 <div class="item text-center" >
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
@@ -156,176 +152,7 @@
 
 
                  
-                  <div class="item text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/><span style="font-size: larger;"> Php 50,000.00</span> </strong> <br/>
-                                <span style="font-size: x-small; line-height: 0.5em">No restrictions - TLs and Managers can also send their referrals!<br/></span>
-                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start this January</span></br/><br/>
-                                <span class="text-primary">JAPANESE CONTENT SUPPORT AGENT (up to 120K/mo) <br/> <br/>
-                                <img src="public/img/logo_eden.png" width="40%" /><br/>
-                              </h3><BR/><BR/>
-
-                              
-
-                              <ul class="text-left" style="margin-left: 30px">As a Customer Support agent, applicant will be tasked to:
-                                <li>Respond and resolve customer service and technical support concerns via LIVE CHAT and EMAIL ina a timely, accurate and professional manner</li>
-                                <li>Connect and build rapport with representatives and member by actively listening, asking the right questions and offering solutions, while demonstrating a deep understanding of their concern.</li>
-                                <li>Offer quality customer service on every call to surpass expectations</li>
-                                <li>Efficiently escalate complex problems to appropriate internal resources</li>
-                                <li>Document customer interactions to help maintain the client's internal and external knowledge bases</li>
-                                <li>Collaborate with co-workers to provide insightul feedback that will improve processes and products</li>
-                                <li>Perform other tasks as required by the campaign</li>
-                              </ul>
-
-                              <h4>Qualifications</h4>
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>Must be proficient in both written and spoken English and Japanese;</li>
-                                <li>With at least college-level education</li>
-                                <li>Preferably with at least one year of experience working in a BPO company (preferably in a customer service program)</li>
-                                <li>Diligent and keen on exceeding expectations and continuously seeking improvement opportunities</li>
-                                <li>Able to multitask and embrace change in a fast-paced, performance-driven team</li>
-                                <li>Punctual and committed to work schedules</li>
-                                <li>With an upbeat and inquisitive personality;</li>
-                                <li>Equipped with basic technical skills - able to navigate through computer and web applications with ease; and</li>
-                                <li>Willing to work immediately in Makati</li>
-                              </ul>
-
-                              <h5>Please have your referrals come in from MON-FRI 8AM-3PM at G2 office</h5>
-
-
-                  </div>
-
-                  <div class="item text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
-                                <span style="font-size: x-small; line-height: 0.5em">Php 7,500 upon passing the training<br/>
-                                Php 7,500 upon Regularization</span>
-                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
-                                <span class="text-primary">CHAT SUPPORT (22K) <br/> <br/>
-                                <img src="public/img/logo_circleslife.png" width="40%" /><br/>
-                              </h3><BR/><BR/>
-
-                              
-
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>telco campaign</li>
-                                <li>1 day process</li>
-                                <li>at least college level</li>
-                                <li>at least 6 months BPO service experience</li>
-                              </ul>
-
-                              <h4>Qualifications</h4>
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>Excellent written and spoken English communication skills</li>
-                                <li>Minimum of 1 to 2 years' experience</li>
-                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
-                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
-                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
-                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
-                                <li>Positive and friendly with an upbeat personality</li>
-                              </ul>
-
-
-                  </div>
-
-                  <div class="item text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
-                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
-                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
-                                <img src="public/img/logo_lucky.png" width="40%" /><br/>
-                              </h3><BR/><BR/>
-
-                              
-
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>health account</li>
-                                <li>pioneer batch, mass hiring</li>
-                                <li>customer service. No sales. No collections</li>
-                                <li>at least 1 year BPO service experience</li>
-                              </ul>
-
-                              <h4>Qualifications</h4>
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>Excellent written and spoken English communication skills</li>
-                                <li>Minimum of 1 to 2 years' experience</li>
-                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
-                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
-                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
-                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
-                                <li>Positive and friendly with an upbeat personality</li>
-                              </ul>
-
-
-                  </div>
-
-                  <div class="item text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
-                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
-                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
-                                <img src="public/img/logo_eden.png" width="40%" /><br/>
-                              </h3><BR/><BR/>
-
-                              
-
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>VOICE AND NON VOICE</li>
-                                <li>office supplies and services company</li>
-                                <li>strong customer service background</li>
-                                <li>exceptional English communication skills</li>
-                                <li>at least college level</li>
-                                <li>at least 1 year BPO service experience</li>
-                              </ul>
-
-                              <h4>Qualifications</h4>
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>Excellent written and spoken English communication skills</li>
-                                <li>Minimum of 1 to 2 years' experience</li>
-                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
-                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
-                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
-                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
-                                <li>Positive and friendly with an upbeat personality</li>
-                              </ul>
-
-
-                  </div>
-
-
-                  <div class="item text-center">
-
-                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 5,000.00 </strong> <br/>
-                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
-                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
-                                <img src="public/img/logo_mymusic.png" width="40%" /><br/>
-                              </h3><BR/><BR/>
-
-                              
-
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>VOICE AND NON VOICE</li>
-                                <li>generate events awareness on social media</li>
-                                <li>K-pop lovers / social media butterflies are welcome to apply</li>
-                                <li>exceptional English communication skills</li>
-                                <li>at least college level</li>
-                                <li>at least 6 months BPO service experience</li>
-                              </ul>
-
-                              <h4>Qualifications</h4>
-                              <ul class="text-left" style="margin-left: 30px">
-                                <li>Excellent written and spoken English communication skills</li>
-                                <li>Minimum of 1 to 2 years' experience</li>
-                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
-                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
-                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
-                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
-                                <li>Positive and friendly with an upbeat personality</li>
-                              </ul>
-
-
-                  </div>
-
+                
                
 
                 
@@ -687,6 +514,188 @@
 
 
 <?php /*
+  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/><span style="font-size: larger;"> Php 50,000.00</span> </strong> <br/>
+                                <span style="font-size: x-small; line-height: 0.5em">No restrictions - TLs and Managers can also send their referrals!<br/></span>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start this January</span></br/><br/>
+                                <span class="text-primary">JAPANESE CONTENT SUPPORT AGENT (up to 120K/mo) <br/> <br/>
+                                <img src="public/img/logo_eden.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">As a Customer Support agent, applicant will be tasked to:
+                                <li>Respond and resolve customer service and technical support concerns via LIVE CHAT and EMAIL ina a timely, accurate and professional manner</li>
+                                <li>Connect and build rapport with representatives and member by actively listening, asking the right questions and offering solutions, while demonstrating a deep understanding of their concern.</li>
+                                <li>Offer quality customer service on every call to surpass expectations</li>
+                                <li>Efficiently escalate complex problems to appropriate internal resources</li>
+                                <li>Document customer interactions to help maintain the client's internal and external knowledge bases</li>
+                                <li>Collaborate with co-workers to provide insightul feedback that will improve processes and products</li>
+                                <li>Perform other tasks as required by the campaign</li>
+                              </ul>
+
+                              <h4>Qualifications</h4>
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Must be proficient in both written and spoken English and Japanese;</li>
+                                <li>With at least college-level education</li>
+                                <li>Preferably with at least one year of experience working in a BPO company (preferably in a customer service program)</li>
+                                <li>Diligent and keen on exceeding expectations and continuously seeking improvement opportunities</li>
+                                <li>Able to multitask and embrace change in a fast-paced, performance-driven team</li>
+                                <li>Punctual and committed to work schedules</li>
+                                <li>With an upbeat and inquisitive personality;</li>
+                                <li>Equipped with basic technical skills - able to navigate through computer and web applications with ease; and</li>
+                                <li>Willing to work immediately in Makati</li>
+                              </ul>
+
+                              <h5>Please have your referrals come in from MON-FRI 8AM-3PM at G2 office</h5>
+
+
+                  </div>
+
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
+                                <span style="font-size: x-small; line-height: 0.5em">Php 7,500 upon passing the training<br/>
+                                Php 7,500 upon Regularization</span>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CHAT SUPPORT (22K) <br/> <br/>
+                                <img src="public/img/logo_circleslife.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>telco campaign</li>
+                                <li>1 day process</li>
+                                <li>at least college level</li>
+                                <li>at least 6 months BPO service experience</li>
+                              </ul>
+
+                              <h4>Qualifications</h4>
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Excellent written and spoken English communication skills</li>
+                                <li>Minimum of 1 to 2 years' experience</li>
+                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
+                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
+                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
+                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
+                                <li>Positive and friendly with an upbeat personality</li>
+                              </ul>
+
+
+                  </div>
+
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
+                                <img src="public/img/logo_lucky.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>health account</li>
+                                <li>pioneer batch, mass hiring</li>
+                                <li>customer service. No sales. No collections</li>
+                                <li>at least 1 year BPO service experience</li>
+                              </ul>
+
+                              <h4>Qualifications</h4>
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Excellent written and spoken English communication skills</li>
+                                <li>Minimum of 1 to 2 years' experience</li>
+                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
+                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
+                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
+                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
+                                <li>Positive and friendly with an upbeat personality</li>
+                              </ul>
+
+
+                  </div>
+
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 15,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
+                                <img src="public/img/logo_eden.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>VOICE AND NON VOICE</li>
+                                <li>office supplies and services company</li>
+                                <li>strong customer service background</li>
+                                <li>exceptional English communication skills</li>
+                                <li>at least college level</li>
+                                <li>at least 1 year BPO service experience</li>
+                              </ul>
+
+                              <h4>Qualifications</h4>
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Excellent written and spoken English communication skills</li>
+                                <li>Minimum of 1 to 2 years' experience</li>
+                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
+                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
+                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
+                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
+                                <li>Positive and friendly with an upbeat personality</li>
+                              </ul>
+
+
+                  </div>
+
+
+                  <div class="item text-center">
+
+                              <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/>Php 5,000.00 </strong> <br/>
+                                <br/><span class="text-orange" style="font-size:0.8em">For those referrals who can start ASAP</span></br/><br/>
+                                <span class="text-primary">CUSTOMER SERVICE REPRESENTATIVE (25K) <br/> <br/>
+                                <img src="public/img/logo_mymusic.png" width="40%" /><br/>
+                              </h3><BR/><BR/>
+
+                              
+
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>VOICE AND NON VOICE</li>
+                                <li>generate events awareness on social media</li>
+                                <li>K-pop lovers / social media butterflies are welcome to apply</li>
+                                <li>exceptional English communication skills</li>
+                                <li>at least college level</li>
+                                <li>at least 6 months BPO service experience</li>
+                              </ul>
+
+                              <h4>Qualifications</h4>
+                              <ul class="text-left" style="margin-left: 30px">
+                                <li>Excellent written and spoken English communication skills</li>
+                                <li>Minimum of 1 to 2 years' experience</li>
+                                <li>Able to multitask and embrace change in a fast-paced, performance driven team</li>
+                                <li>mastery of CRM and ticketing tools (Zendesk, Service Cloud, Zopim, etc.)</li>
+                                <li>Basic technical skills (able to navigate through smartphone and computer applications)</li>
+                                <li>Flexible and willing to work in a fast-paced and quickly growing environment</li>
+                                <li>Positive and friendly with an upbeat personality</li>
+                              </ul>
+
+
+                  </div>
+
+  <div class="item text-center" >
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/valentine2020.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',2)}}"><i class="fa fa-heart"></i> Post your Valentine messages </a>
+                    <a class="btn btn-md btn-primary" href="{{action('EngagementController@wall',2)}}"><i class="fa fa-th-large"></i> Check our Valentine Wall! </a><br /><br/>
+
+                    
+
+                    
+
+                </div>
 <!-- BLOOD DONATION-->
 
                 <div class="item  text-center" >
