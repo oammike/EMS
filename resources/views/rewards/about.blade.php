@@ -10,10 +10,93 @@
 
   </style>
 
-  <link href="./public/css/easy-autocomplete.min.css" rel="stylesheet" type="text/css">
-  <link href="./public/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css">
-  <link href="./public/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css">
-  <link href="./public/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+  <link href="../public/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css">
+  <link href="../public/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css">
+  <link href="../public/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+
+  <script src="../public/js/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="../public/css/jquery.fancybox.min.css" />
+  <script src="../public/js/jquery.fancybox.min.js"></script>
+
+
+<style type="text/css">
+  /* First make sure the video thumbnail images are responsive. */
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* 
+  This is the starting grid for each video with thumbnails 4 across for the largest screen size.
+  It's important to use percentages or there may be gaps on the right side of the page. 
+  */
+
+  .video {
+    background: #fff;
+    padding-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    width: 23%; /* Thumbnails 4 across */
+    margin: 1%;
+    float: left;
+  }
+
+   /* 
+   These keep the height of each video thumbnail consistent between YouTube and Vimeo.
+   Each can have thumbnail sizes that vary by 1px and are likely break your layout. 
+   */
+
+  .video figure {
+    height: 0;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+
+    .video figure a {
+      display: block;
+      margin: 0;
+      padding: 0;
+      border: none;
+      line-height: 0;
+    }
+  }
+
+  /* Media Queries - This is the responsive grid. */
+
+  @media (max-width: 1024px) {
+    .video {
+      width: 31.333%; /* Thumbnails 3 across */
+    }
+  }
+
+  @media (max-width: 600px) {
+    .video {
+      width: 48%; /* Thumbnails 2 across */
+    }
+  }
+
+  @media (max-width: 360px) {
+    .video {
+      display: block;
+      width: 96%; /* Single column view. */
+      margin: 2%; /* The smaller the screen, the smaller the percentage actually is. */
+      float: none;
+    }
+  }
+
+  /* These are my preferred rollover styles. */
+
+  .video img {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .video img:hover, .video img:active, .video img:focus {
+    opacity: 0.75;
+  }
+
+</style> 
 @stop
 
 
@@ -35,30 +118,120 @@
         <div class="box"  style="background: rgba(256, 256, 256, 0.4); min-height: 1200px;padding:50px">
           <div class="box-heading"></div>
           <div class="box-body">
-            <h1 class="text-center">EARN <strong class="text-primary"> POINTS</strong>, GET COOL <strong class="text-orange">REWARDS</strong> </h1><br/><br/>
-            <img src="../storage/uploads/rewards.png" class="pull-left" width="400" />
+            <img src="../storage/uploads/rewards_poster.jpg" width="100%"/>
+            <h1 class="text-center"><br/><br/>EARN <strong class="text-primary"> POINTS</strong>, GET COOL <strong class="text-orange">REWARDS</strong> </h1><br/><br/>
+            <!-- <img src="../storage/uploads/rewards_poster.jpg" class="pull-left" width="400" /> -->
             <p>
               Open Access BPO wants to <strong>celebrate YOU!</strong><br/><br/>
               To show our appreciation for all the awesome work you do, we've launched <strong class="text-primary">OPEN ACCESS BPO REWARDS</strong>.</p><br/><br/>
 
+
+             <article class="video">
+                <figure>
+                  <a data-fancybox="gallery" data-file="Idol_WINNER" href="../storage/uploads/reward_tenure.jpg">
+                  <img class="videoThumb" src="../storage/uploads/reward_tenure.jpg"></a>
+                </figure>
+                <h5 class="videoTitle text-center">TENURE REWARD</h5>
+              </article>
+
+              <article class="video">
+                <figure>
+                  <a data-fancybox="gallery" data-file="Idol_WINNER" href="../storage/uploads/reward_bday.png">
+                  <img class="videoThumb" src="../storage/uploads/reward_bday.png"></a>
+                </figure>
+                <h5 class="videoTitle text-center">BDAY REWARD</h5>
+              </article>
+
+              <article class="video">
+                <figure>
+                  <a data-fancybox="gallery" data-file="Idol_WINNER" href="../storage/uploads/reward_anniv.jpg">
+                  <img class="videoThumb" src="../storage/uploads/reward_anniv.jpg"></a>
+                </figure>
+                <h5 class="videoTitle text-center">ANNIV REWARD</h5>
+              </article>
+
+              <article class="video">
+                <figure>
+                  <a data-fancybox="gallery" data-file="Idol_WINNER" href="../storage/uploads/reward_training.jpg">
+                  <img class="videoThumb" src="../storage/uploads/reward_training.jpg"></a>
+                </figure>
+                <h5 class="videoTitle text-center">TRAINING REWARD</h5>
+              </article>
+              <div class="clearfix"></div><br/><br/>
+
+              
+              <div class="row" style="background: url('../storage/uploads/Coffee_making_grp.jpg')top left no-repeat;background-size: cover;margin-bottom: 30px">
+                <div class="col-lg-12">
+                  <table class="table text-orange" >
+                    <thead>
+                      <tr>
+                        <th><h1 style="color: #f0bd65">PERFORMANCE AND PARTICIPATION REWARDS</h1></th>
+                        <th>POINTS</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h3 style="text-shadow: 2px 2px #333">Perfect Monthly Attendance</h3>
+                          <p style=" color:#fff;font-size: larger;text-shadow: 2px 2px #333">Automatic 50 points by month-end for <strong>zero lates and absences</strong></p>
+                        </td>
+                        <td style="color:#dbeeff; font-size: xx-large; text-shadow: 2px 2px #333">50</td>
+                      </tr>
+                      
+                      <tr>
+                        <td>
+                          <h3 style="text-shadow: 2px 2px #333">Outstanding Monthly Performance</h3>
+                          <p style=" color:#fff;font-size: larger;text-shadow: 2px 2px #333">Program and Department perforrmance achievers will be recognized and awarded points by your program heads each month. Stay tuned for best-in-performance, outstanding quality and productivity, and other metric-exceeding criteria your leaders will be announcing.</p>
+                        </td>
+                        <td style="color:#dbeeff; font-size: large; text-shadow: 2px 2px #333">* varies * </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3 style="text-shadow: 2px 2px #333">Best in Quarterly Retention</h3>
+                          <p style=" color:#fff;font-size: larger;text-shadow: 2px 2px #333">Teams or clusters who sustain the most members (i.e. lose zero or lose the least employees) get points too! Rewarded points depend on headcount. Check with your Group Team Leaders for details.</p>
+                        </td>
+                        <td style="color:#dbeeff; font-size: large; text-shadow: 2px 2px #333">by GTL cluster</td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3 style="text-shadow: 2px 2px #333">Annual Top Performers</h3>
+                          <p style=" color:#fff;font-size: larger;text-shadow: 2px 2px #333">2020 Perfect Scorer's Reward: all employees who score a perfect 5.0 Overall Rating in their 2020 Annual Performance Appraisal earn 150 points!</p>
+                        </td>
+                        <td style="color:#dbeeff; font-size: xx-large; text-shadow: 2px 2px #333">50</td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3 style="text-shadow: 2px 2px #333">Employee Referral Participation</h3>
+                          <p style=" color:#fff;font-size: larger;text-shadow: 2px 2px #333">You get awarded 50 points when the candidate you refer comes and completes their interviews! The more you refer, the more you earn!</p>
+                        </td>
+                        <td style="color:#dbeeff; font-size: xx-large; text-shadow: 2px 2px #333">50</td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <h3 style="text-shadow: 2px 2px #333">Employee Engagement Participation</h3>
+                          <p style=" color:#fff;font-size: larger;text-shadow: 2px 2px #333">Participate in Employee Engagement activities and follow event instructions, and you earn points! Specific criteria will be set pet event, so be sure to follow. See you! </p>
+                        </td>
+                        <td style="color:#dbeeff; font-size:large; text-shadow: 2px 2px #333">* varies *</td>
+                      </tr>
+                      
+                      
+                    </tbody>
+                    
+                    
+                  </table>
+                  
+                </div>
+              </div>
+
+              
+
             
-
-            <p style="width: 60%" class="pull-right"><strong>EARN POINTS</strong><br/><br/>
-
-            - Through awesome team and individual performance<br/>
-            - Through employee referral<br/>
-            - By having a perfect attendance<br/>
-            - By completing the LEAD training<br/>
-            - By participating in company events<br/>
-            - When you celebrate your work anniversary<br/>
-            - During your birthday<br/>
-            - When your team has the lowest quarterly attrition<br/>
-            - Via monthly free points from Open Access BPO depending on tenure<br/>
-            - Via point transfers from your coworkers<br/>
-            <br/><br/>
-
-            Visit the Open Access BPO Rewards Central today to check your accumulated points or transfer them to your coworkers.
-<br/><br/><br/></p>
+         
 
             <div class="clearfix"></div>
 
@@ -75,7 +248,7 @@
             
             <div class="clearfix"></div>
 
-            <div style="background: url('../storage/uploads/REWARDS_COFFEE.jpg')top left no-repeat; width:60%; padding:40px 40px 10px 40px; color:#fff;font-size: larger;text-shadow: 2px 2px #333" class="pull-left">
+            <div style="background: url('../storage/uploads/REWARDS_COFFEE.jpg')top left no-repeat; width:60%; padding:40px 40px 10px 40px; color:#fff;font-size: larger;text-shadow: 2px 2px #333;max-width: 900px" class="row pull-left">
                 <p><strong>PERK UP WITH FREE DRINKS</strong><br/>
                     For starters, you can use your points to redeem any of our top-of-the-line brews freshly prepared for you by our very own barista: <br/><br/>
 
@@ -89,9 +262,9 @@
                 </ul>
                 <br/>
                 These special handcrafted beverages are available for pick up at the G2 Cafeteria from Mondays to Fridays, 9:00 AM to 5:30 PM. We’re working on adding a later barista shift soon for our evening folks.<br/><br/>
-                Each employee is entitled to order up to two (2) beverages per day.<br/><br/>
+                Each employee is entitled to order up to two (2) beverages per day.<br/>
                 Limited cups are available for daily redemption, so order as early as you can!<br/><br/>
-                </strong>.
+                </strong>
 </p>
             </div>
 
@@ -158,75 +331,13 @@
 @section('footer-scripts')
 
 
-  <script src="public/js/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
+ 
 
 	<script>
 		window.selected_reward_id = 0;
 		$(function() {
 
-      var options = {
-        url: "{{action('UserController@listAllActive')}}",
-
-        getValue: function(item) {
-          return item.lastname+ ', '+item.fullname+' ( "'+item.nickname+'" )  -- '+ item.program;
-        },
-
-        list: {
-                match: {
-                  enabled: true
-                },
-                sort: {
-                  enabled: true
-                },
-                maxNumberOfElements: 100,
-                onSelectItemEvent: function() {
-                                  var value = $("#transferto").getSelectedItemData().id;
-                                  var valname = $("#transferto").getSelectedItemData().lastname; 
-                                  var valfname = $("#transferto").getSelectedItemData().fullname;
-                                  var prog = $("#transferto").getSelectedItemData().program;
-
-                                  $("#transfer_id").val(value).trigger("change");
-                                  $("#transfer_name").val(valname+', '+valfname).trigger("change");
-                                  $("#transfer_prog").val(prog).trigger("change");
-                                },
-                showAnimation: {
-                                type: "fade", //normal|slide|fade
-                                time: 400,
-                                callback: function() {}
-                              },
-
-                hideAnimation: {
-                  type: "slide", //normal|slide|fade
-                  time: 400,
-                  callback: function() {}
-                }
-              },
-
-
-       
-
-        template: {
-          type: 'custom',
-          method: function (value, item) {
-
-            if( {{$userID}} !== item.id ){
-                  if (item.nickname){
-                  
-                    return  '<span></span><img src="public/img/employees/'+item.id+'.jpg" width=70 />&nbsp;&nbsp;'  + value.toUpperCase();
-                  }
-                  else{
-                    
-                    return  '<i style="margin:10px" class="fa fa-user fa-5x"></i> '+ value.toUpperCase();
-                  }
-
-            }
-            
-            //console.log(value);
-            //console.log(item);
-          }
-        }
-      };
-
+     
       
 
       $('#send').on('click',function(){
