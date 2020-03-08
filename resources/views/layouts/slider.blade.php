@@ -1,15 +1,16 @@
 
 
-                 <div class="item active text-center" >
+                <div class="item active text-center" >
+                   <h4 class="text-orange" >International <span class="text-primary"> Womens Day </span></h4>
+                              <img src="./storage/uploads/womansday2020.jpg" style="z-index: 2" /><br /><br/>
+                              <p class="text-left" style="padding-left: 50px;">It's #InternationalWomensDay. We recognize and celebrate the incredible work accomplished by Open Access BPO’s women employees in strengthening a diverse and inclusive workplace culture. We recognize and celebrate their contributions that enable the service industry to thrive.<br/><br/>
+
+Happy International Womens Day!
+                </div>
+
+                <div class="item text-center" >
                    <h4 class="text-orange" >Information <span class="text-primary"> Security </span></h4>
-                              <img src="./storage/uploads/compliance1.jpg" style="z-index: 2" />
-                             
-                               
-
-                    <br /><br/>
-
-   
-
+                              <img src="./storage/uploads/compliance1.jpg" style="z-index: 2" /><br /><br/>
                 </div>
 
                 <div class="item text-center" >
