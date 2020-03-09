@@ -1,6 +1,19 @@
 
 
-                <div class="item active text-center" >
+                <div class="item active text-center" style="background: url('./storage/uploads/coffeebg.jpg')bottom center no-repeat; padding:50px" >
+                   <h4 class="text-orange" >NEW BARISTA <span class="text-primary"> SCHEDULE </span></h4>
+                              <br /><br/>
+                              <p class="text-left" style="padding-left: 30px;color:#fff;text-shadow: 2px 2px #333"> 
+                                To accommodate more of our Open Access teams, we have rescheduled our Barista Shifts to match our peak hours and staffing:  <br/><br/>
+                                Mondays through Fridays<br/>
+                                <strong class="text-yellow">6:00AM - 3:00 PM<br/>
+                                2:00 PM - 11:00PM</strong><br/>
+
+                                <br/><br/>Here to serve and prep with happiness and care!</p>
+
+                </div>
+
+                <div class="item text-center" >
                    <h4 class="text-orange" >International <span class="text-primary"> Women's Day </span></h4>
                               <img src="./storage/uploads/womansday2020.jpg" style="z-index: 2" /><br /><br/>
                               <p class="text-left" style="padding-left: 50px;">It's #InternationalWomensDay. We recognize and celebrate the incredible work accomplished by Open Access BPO’s women employees in strengthening a diverse and inclusive workplace culture. We recognize and celebrate their contributions that enable the service industry to thrive.<br/><br/>
