@@ -550,7 +550,7 @@ class UserVLController extends Controller
                                     $credits = 0;
                                 } else 
                                 {
-                                    ($isParttimer || $isPartForeign) ? $credits -= 0.5 : $credits -= 1.00; 
+                                    ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.00; 
                                 }
 
                                 $displayShift =  Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A'). " - ". Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');

@@ -668,6 +668,8 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
         var totalcredits = 0;
 
         //console.log("IN--computeCredits");
+        console.log('passed items:');
+        console.log('date_from: '+ date_from+ ' date_to: '+ date_to, 'creditsleft: '+ creditsleft);
 
         $.ajax({
                   url: "{{action('UserVLController@getCredits')}}",
