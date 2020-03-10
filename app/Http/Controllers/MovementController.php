@@ -1510,12 +1510,13 @@ class MovementController extends Controller
                                     {
 
                                         $moveHead = Movement_ImmediateHead::where('movement_id',$movement->id)->first();
+                                        $employee = User::find($movement->user_id);
 
                                         if (  date("Y-m-d", strtotime($movement->effectivity)) <= date("Y-m-d") ) //if effectivity is past or today
                                                     {
 
                                                         //get the Team table
-                                                        $employee = User::find($movement->user_id);
+                                                        
                                                         $updateTeam = $employee->team;
                                                         $updateTeam->immediateHead_Campaigns_id = $moveHead->imHeadCampID_new;
                                                         $updateTeam->floor_id = $moveHead->newFloor;
