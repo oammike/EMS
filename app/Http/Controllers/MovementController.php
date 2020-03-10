@@ -406,7 +406,7 @@ class MovementController extends Controller
     {
         DB::connection()->disableQueryLog(); 
         
-        $changes = PersonnelChange::all();
+        $changes = PersonnelChange::all(); $signatureRequestedBy=null;
 
          $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
@@ -544,7 +544,7 @@ class MovementController extends Controller
                     }
                     $requestorPosition = Position::find($this->user->position_id)->name;
 
-                    if (count($requestor->myCampaigns) > 1) //if marami syang campaigns na hawak, indicate mo lahat
+                    if (count((array)$requestor->myCampaigns) > 1) //if marami syang campaigns na hawak, indicate mo lahat
                     {
                         foreach ($requestor->myCampaigns as $key) {
                             $requestorCampaign .= Campaign::find($key->campaign_id)->name . ", ";
@@ -600,7 +600,7 @@ class MovementController extends Controller
 
                         $l1 = $personnel->supervisor;
                         
-                        if (count($l1) > 0){
+                        if (count((array)$l1) > 0){
                             $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
                             
@@ -637,7 +637,7 @@ class MovementController extends Controller
 
             
 
-                return view('people.changePersonnel', compact('theApprover','theApproverTitle', 'signatureRequestedBy', 'users','canMoveOthers','requestor', 'requestorPosition', 'requestorCampaign','leaders','immediateHead', 'hrPersonnels', 'campaigns', 'floors', 'personnel','statuses','changes', 'positions')); //'myCampaign', 
+                return view('people.changePersonnel', compact('theApprover','theApproverTitle', 'users','canMoveOthers','requestor', 'requestorPosition', 'requestorCampaign','leaders','immediateHead','signatureRequestedBy', 'hrPersonnels', 'campaigns', 'floors', 'personnel','statuses','changes', 'positions')); //'myCampaign', 
 
     }
 
@@ -1732,7 +1732,7 @@ class MovementController extends Controller
     public function show($id)
     {
         $correct = Carbon::now('GMT+8'); //->timezoneName();
-        $movement = Movement::find($id);
+        $movement = Movement::find($id); $signatureOpsMgr=null;
 
         if ( empty($movement)) return view('empty');
 
@@ -1794,7 +1794,7 @@ class MovementController extends Controller
 
                 $l1 = User::find($movement->user_id)->supervisor;
                 
-                if (count($l1) > 0){
+                if (count((array)$l1) > 0){
                     $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
                     //return $l2;
