@@ -40,7 +40,7 @@
             
             <div class="box-body">
 
-              <h4><i class="fa fa-file"></i> {{$resource['name']}} </h4>
+              <h4 id="resource_{{$resource['id']}}"><i class="fa fa-file"></i> {{$resource['name']}} </h4>
 
                 <table id="forms" class="table table-bordered table-striped">
                       <thead>

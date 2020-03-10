@@ -141,7 +141,7 @@ class ResourceController extends Controller
             $categories = Category::all()->sortBy('name');
             $allResource = new Collection;
             foreach ($categories as $cat) {
-               $allResource->push(["name"=>$cat->name, "item" => $cat->resources]);
+               $allResource->push(["name"=>$cat->name, "item" => $cat->resources,'id'=>$cat->id]);
             }
 
             if ( file_exists('public/img/employees/'.$employee->id.'-sign.png') )
@@ -150,7 +150,7 @@ class ResourceController extends Controller
                  } else {
                     $signature = null;
                  }
-                 //return $resources;
+                 //return $allResource;
                  //return $employee->viewedResources->where('resource_id',11)->where('agreed',1)->first();
                 // return $employee->viewedResources->where('resource_id', 14)->where('agreed',1);
         return view('resources.index', compact('isAdmin','resources', 'categories','allResource','employee','signature'));
