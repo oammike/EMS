@@ -1,6 +1,13 @@
 
 
-                <div class="item active text-center" style="background: url('./storage/uploads/coffeebg.jpg')bottom center no-repeat; padding:50px" >
+                <div class="item active  text-center" >
+                  <h4 class="text-orange" >Open Access BPO <span class="text-primary"> Painting Contest </span></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/allEntries.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',3)}}"><i class="fa fa-paint-brush"></i> View All Entries </a><br /><br/>
+                </div>
+                <div class="item text-center" style="background: url('./storage/uploads/coffeebg.jpg')bottom center no-repeat; padding:50px" >
                    <h4 class="text-orange" >NEW BARISTA <span class="text-primary"> SCHEDULE </span></h4>
                               <br /><br/>
                               <p class="text-left" style="padding-left: 30px;color:#fff;text-shadow: 2px 2px #333"> 
@@ -34,17 +41,7 @@ Happy International Womens Day!
                     <br /><br/>
                 </div>
 
-                <div class="item  text-center" >
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/paintingContest.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',3)}}"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
-
-                    
-
-                    
-
-                </div>
+                
 
               
 
