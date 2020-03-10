@@ -333,6 +333,17 @@ class EngagementController extends Controller
         //if tapos na ung contest
         if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate && !$canModerate)
         {
+            if($id == 3) //painting
+            {
+                if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n PaintingEntries on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+                }
+                return view('people.empEngagement-show_paintingEntries',compact( 'engagement'));
+
+
+            }
             if($id == 2) //VALENTINES
             {
                 if($this->user->id !== 564 ) 
@@ -452,6 +463,13 @@ class EngagementController extends Controller
 
             }else if($id == 3) //PAINTING
             {
+                if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n PaintingEntries on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+                }
+                return view('people.empEngagement-show_paintingEntries',compact( 'engagement'));
+
                 $allPosts = collect($existingEntry)->groupBy('entryID');
                 $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
                                 join('engagement','engagement_entry.engagement_id','=','engagement.id')->
