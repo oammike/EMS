@@ -1,6 +1,31 @@
 
-
                 <div class="item active text-center" >
+                  <h4 class="text-orange" >Mobile Legends<span class="text-primary"> Tournament </span></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    
+                    <img src="./storage/uploads/mltournament.jpg" style="z-index: 2" /><br/><br/>
+                    <h4 class="text-primary">MECHANICS</h4>
+                    <ul class="text-left" style="padding-left: 50px;">
+                      <li>Open Access BPO Makati &amp; Davao employees are invited to join in the tournament</li>
+                      <li>Teams should consist of <strong>5 members and 1 optional reserve player</strong></li>
+                      <li>All ML ranks are qualified to join (Elite to Mythic).</li>
+                      <li>Each game will be played on custom 5V5 battle mode.</li>
+                      <li>Teams are required to bring their own phone chargers and earphones during all matches.</li>
+                      <li>Trash talking, bashing, and or any forms of violent reactions or profuse language towards other players is not allowed.</li>
+                      <li>Any forms of cheating (use of VPN and cheats) is strictly prohibited.</li>
+                      <li>Best of 3 on eliminations and best of 5 on the finals round.</li>
+                      <li>In case of any dispute, the decision of the game facilitator shall be deemed final and irrevocable.</li>
+                    </ul><br/><br/>
+                    <h4 class="text-danger">PRIZES</h4>
+                    <H5>1st Place: Php 15,000  |  2nd Place: Php 10,000. | 3rd Place: Php 5,000</H5>
+                    <p>Non-winning participants - Reward Points</p>
+
+                    <h4>Registration Ends: March 15, 2020</h4>
+
+                    <a class="btn btn-md btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSdaHWBP0pmIYfhCCetW9uW_QzSDqyPd3C_M7EE9m51HzOGU5g/viewform" target="_blank"><i class="fa fa-info-circle"></i> Register Now </a><br /><br/>
+                </div>
+
+                <div class="item text-center" >
                   <h4 class="text-orange" >Health &amp;<span class="text-primary"> Awareness </span></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     
