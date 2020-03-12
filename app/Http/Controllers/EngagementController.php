@@ -516,11 +516,7 @@ class EngagementController extends Controller
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
 
-                if( \Auth::user()->id !== 564 ) {
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n Check Painting2020 on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                  fclose($file);
-                }
+                
                 //return $engagement;
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
