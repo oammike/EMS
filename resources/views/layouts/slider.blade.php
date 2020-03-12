@@ -1,6 +1,6 @@
                
                 
-                <div class="item  text-center" >
+                <div class="item active  text-center" >
                   <h4 class="text-orange" >Mobile Legends<span class="text-primary"> Tournament </span></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     
