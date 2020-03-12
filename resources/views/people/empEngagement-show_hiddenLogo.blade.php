@@ -385,7 +385,15 @@
                         <label style="padding-top: 20px">{{$element->label}} </label>
 
                             @if( $element->dataType == 'TXT' )
-                            <input type="text" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" style="width: 50%"  />
+
+                              @if($element->label == "IG Handle")
+                            <input type="text" placeholder="https://www.instagram.com/your-IG-handle" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" style="width: 50%"  />
+                              @elseif ($element->label == "FB account name")
+                              <input type="text" placeholder="https://www.facebook.com/your-FB-name" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" style="width: 50%"  />
+                              @else
+                              <input type="text" required="required" name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control" style="width: 50%"  />
+                            @endif
+                              
 
                             @endif
 
