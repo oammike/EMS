@@ -1,4 +1,4 @@
-                <div class="item text-center" >
+                <div class="item active text-center" >
                   <h4 class="text-orange" >Find the Hidden &amp;<span class="text-primary"> Logos </span></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <img src="./storage/uploads/hiddenOA.jpg" style="z-index: 2" />
@@ -6,7 +6,7 @@
                     <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',4)}}#resource_4"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
                 </div>
                 
-                <div class="item active text-center" >
+                <div class="item  text-center" >
                   <h4 class="text-orange" >Mobile Legends<span class="text-primary"> Tournament </span></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     
