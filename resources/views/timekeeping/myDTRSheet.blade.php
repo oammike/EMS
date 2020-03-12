@@ -5,7 +5,7 @@
   <title>DTR Sheet | {{$user->firstname}}</title>
     <meta name="description" content="profile page">
  <link href="{{URL::asset('storage/resources/js/bootstrap-material-datetimepicker.css')}}" rel="stylesheet" /> 
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<!--  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> -->
  
 @stop
 

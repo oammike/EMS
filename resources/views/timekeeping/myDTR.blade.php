@@ -5,7 +5,7 @@
   <title>Daily Time Record | {{$user->firstname}}</title>
     <meta name="description" content="profile page">
  <link href="{{URL::asset('storage/resources/js/bootstrap-material-datetimepicker.css')}}" rel="stylesheet" /> 
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<!--  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> -->
  <style type="text/css">
    #unlock { visibility: hidden;  }
  </style>
