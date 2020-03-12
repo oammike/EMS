@@ -558,7 +558,7 @@
             {
                 console.log(data);
                 $('input[name="upload"]').fadeOut();
-                $('#success').html('<h2 class="text-success">Thank you for participating!</h2><br /><br />');
+                $('#success').html('<h2 class="text-success">Thank you for your entry! <br/> <span style="font-size:smaller">Don\'t forget to post a photo on your Facebook/Instagram and tag Open Access BPO &amp; use the official hashtags!</span></h2><br /><br />');
                 //$('#success').append(data.image);
                 $('.progress-bar').text('Entry Uploaded!');
                 $('.progress-bar').css('width', '100%');
