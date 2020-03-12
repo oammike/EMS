@@ -285,9 +285,10 @@ class EngagementController extends Controller
                                 join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
                                 join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
                                 //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID')->
+                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
 
-                                get(); //return $engagement;
+                                get(); 
+        //return $engagement;
         $triggers = Engagement_Trigger::where('engagement_id',$id)->orderBy('name','ASC')->get(); 
         $itemIDs1 = collect($engagement)->pluck('itemID')->flatten();
         $itemType = collect($engagement)->pluck('dataType')->flatten();
@@ -492,7 +493,39 @@ class EngagementController extends Controller
                 //return $allPosts;
                 return view('people.empEngagement-show_painting',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
-            }else
+            }else if($id == 4) //hidden OA
+            {
+                if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n HiddenEntries on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+                }
+                //return view('people.empEngagement-show_paintingEntries',compact( 'engagement'));
+
+                $allPosts = collect($existingEntry)->groupBy('entryID');
+                $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
+                                join('engagement','engagement_entry.engagement_id','=','engagement.id')->
+                                join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->
+                                join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
+                                join('users','engagement_entry.user_id','=','users.id')->
+                                join('team','team.user_id','=','users.id')->
+                                join('campaign','team.campaign_id','=','campaign.id')->
+                                join('positions','users.position_id','=','positions.id')->
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at','engagement.multipleEntry')->get(); 
+                                //where('engagement_entry.disqualified',NULL)->get();
+                $userEntries = collect($allEntries)->groupBy('entryID');
+
+                if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n Check Painting2020 on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+                }
+                //return $engagement;
+                return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
+
+            }
+            else
             {
                 if($this->user->id !== 564 ) 
                  {
@@ -596,6 +629,7 @@ class EngagementController extends Controller
                         switch ($request->engagement_id) {
                             case '2':$filen = "valentines2020_"; break;
                             case '3':$filen = "painting2020_"; break;
+                            case '4':$filen = "guess2020_"; break;
                             
                         }
 
