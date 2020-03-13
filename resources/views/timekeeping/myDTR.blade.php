@@ -1331,19 +1331,29 @@ $(function ()
                     $('select#fulltimes').prop('disabled',true);
                     $('select#parttimes').prop('required',true);
                     $('select#parttimes').prop('disabled',true);
+                    $('select#full4x11').prop('required',true);
+                    $('select#full4x11').prop('disabled',true);
 
                     $('input[name="shifttype"]').on('click',function(){
                       {
                       var shifttype = $(this).val();
                       if(shifttype == 'full'){
-                        $('select#fulltimes').prop('disabled',false); $('select#parttimes').prop('disabled',true);
+                        $('select#fulltimes').prop('disabled',false); $('select#parttimes').prop('disabled',true);$('select#full4x11').prop('disabled',true);
                          if ($('input[name="timeEnd"]').val() == "0" )
                           $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                         else
                           $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
 
-                      }else{
-                        $('select#parttimes').prop('disabled',false); $('select#fulltimes').prop('disabled',true);
+                      }else if(shifttype == '4x11'){
+                        $('select#full4x11').prop('disabled',false); $('select#parttimes').prop('disabled',true);$('select#fulltimes').prop('disabled',true);
+                         if ($('input[name="timeEnd"]').val() == "0" )
+                          $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                        else
+                          $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                      }
+                      else{
+                        $('select#parttimes').prop('disabled',false); $('select#fulltimes').prop('disabled',true);$('select#full4x11').prop('disabled',true);
                          if ($('input[name="timeEnd"]').val() == "0" )
                           $.notify("Please fill out required field before submitting.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                         else

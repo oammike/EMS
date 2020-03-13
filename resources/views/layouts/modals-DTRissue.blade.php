@@ -36,7 +36,7 @@
 
              <div class="row">
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-4">
                     <div style="margin-top:30px">
                       <label><input type="radio" name="shifttype" value="full" required="required" /> Full Time </label> &nbsp;&nbsp;&nbsp;
                       
@@ -55,7 +55,7 @@
 
                   </div>
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-4">
                     <div style="margin-top:30px">
                       <label><input type="radio" name="shifttype" value="part" required="required" /> Part Time </label> &nbsp;&nbsp;&nbsp;
                       
@@ -67,6 +67,30 @@
                         @endif
 
                         @foreach ($partTimes as $shift)
+                           <option value="{{$shift}}">{{$shift}} </option>
+
+                       @endforeach
+                      </select><p></p>
+
+                      <input type="hidden" name="timeEnd" value="0" />
+
+                      
+
+                     
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div style="margin-top:30px">
+                      <label><input type="radio" name="shifttype" value="4x11" required="required" /> 4 x 11 </label> &nbsp;&nbsp;&nbsp;
+                      
+                    </div>
+
+                      <select id="full4x11" name="timeEnd2" class="end form-control" style="margin-top:20px"><option value="">* Select shift *</option>';
+                        @if ($data['shiftStart']  !== "* RD *")
+                        <option value="RD"> REST DAY </option>';
+                        @endif
+
+                        @foreach ($shift4x11 as $shift)
                            <option value="{{$shift}}">{{$shift}} </option>
 
                        @endforeach

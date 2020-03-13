@@ -1906,7 +1906,9 @@ class DTRController extends Controller
              $shiftStart2=null;$shiftEnd2=null;
              $hybridSched = null;
              $shifts = $this->generateShifts('12H','full');
+             $shift4x11 = $this->generateShifts('12H','4x11');
              $partTimes = $this->generateShifts('12H','part');
+
 
              $noWorkSched = true;
              $holiday = " ";
@@ -1924,7 +1926,7 @@ class DTRController extends Controller
                 $myDTRSheet = $verifiedDTR;
                 $paystart = $currentPeriod[0];
                 $payend = $currentPeriod[1];
-                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
+                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
  
 
              }
@@ -2754,7 +2756,7 @@ class DTRController extends Controller
 
 
            
-           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice'));
+           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice'));
 
 
         } else return view('access-denied');

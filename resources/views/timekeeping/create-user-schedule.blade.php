@@ -342,7 +342,7 @@ $(function () {
                     htmlcode += '                                                     <select name="workday[]" class="days form-control" style="margin-bottom:5px">';
                     htmlcode += "<option value=\""+value+"\">"+weekdays[value]+"</option>";
                     htmlcode += '                                      </select></div><div class="col-lg-6">';
-                    htmlcode +='<label style="font-size:x-small"><input required="required" type="radio" class="schedtype" data-week="'+weekdays[value]+'" name="schedtype_'+weekdays[value]+'" value="full">&nbsp; Full time </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label style="font-size:x-small"><input required="required" type="radio" data-week="'+weekdays[value]+'" class="schedtype" name="schedtype_'+weekdays[value]+'" value="part">&nbsp; Part time</label></div><div class="col-lg-4">';
+                    htmlcode +='<label style="font-size:x-small"><input required="required" type="radio" class="schedtype" data-week="'+weekdays[value]+'" name="schedtype_'+weekdays[value]+'" value="full">&nbsp; Full time </label>&nbsp;&nbsp;&nbsp;&nbsp;<label style="font-size:x-small"><input required="required" type="radio" data-week="'+weekdays[value]+'" class="schedtype" name="schedtype_'+weekdays[value]+'" value="part">&nbsp; Part time</label> &nbsp;&nbsp;&nbsp;<label style="font-size:x-small"><input required="required" type="radio" data-week="'+weekdays[value]+'" class="schedtype" name="schedtype_'+weekdays[value]+'" value="4x11">&nbsp; 4x11</label></div><div class="col-lg-4">';
     
                                                                       
                     htmlcode +='                                                   <select required id="scheds_'+weekdays[value]+'"  name="timeEnd[]" class="end form-control" style="margin-bottom:5px" disabled="disabled"><option class="none" value="0">* Select Work Shift *</option>';
@@ -353,6 +353,10 @@ $(function () {
                                                                          @foreach ($partTimes as $shift2)
                     htmlcode +='                                                       <option class="parttime" value="{{$shift2}}">{{$shift2}} </option>';
                                                                         @endforeach
+                                                                        @foreach ($shifts4x11 as $shift3)
+                    htmlcode +='                                                       <option class="4x11" value="{{$shift3}}">{{$shift3}} </option>';
+                                                                        @endforeach
+
                     htmlcode +='                                                   </select></div>';
              
                 $('#addShifts').append(htmlcode);
@@ -367,8 +371,9 @@ $(function () {
           var dday = $(this).attr('data-week');
 
           switch(chosentype){
-            case 'full':{ $('select#scheds_'+dday).prop('disabled',false); $('select#scheds_'+dday+' option.none').prop('selected','selected'); $('option.full').css('display','block'); $('option.parttime').css('display','none'); } break;
-            case 'part':{ $('select#scheds_'+dday).prop('disabled',false); $('select#scheds_'+dday+' option.none').prop('selected','selected'); $('option.parttime').css('display','block'); $('option.full').css('display','none');} break;
+            case 'full':{ $('select#scheds_'+dday).prop('disabled',false); $('select#scheds_'+dday+' option.none').prop('selected','selected'); $('option.full').css('display','block'); $('option.parttime').css('display','none');$('option.4x11').css('display','none'); } break;
+            case 'part':{ $('select#scheds_'+dday).prop('disabled',false); $('select#scheds_'+dday+' option.none').prop('selected','selected'); $('option.parttime').css('display','block'); $('option.full').css('display','none');$('option.4x11').css('display','none');} break;
+            case '4x11':{ $('select#scheds_'+dday).prop('disabled',false); $('select#scheds_'+dday+' option.none').prop('selected','selected'); $('option.parttime').css('display','none'); $('option.full').css('display','none');$('option.4x11').css('display','block'); } break;
 
           }
         });

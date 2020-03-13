@@ -234,6 +234,7 @@ trait TimekeepingTraits
     switch ($shiftType) {
       case 'full': $addHr = 9;break; 
       case 'part': $addHr = 4; break;
+      case '4x11': $addHr = 11; break;
     }
 
     for( $i = 1; $i <= 24; $i++)
