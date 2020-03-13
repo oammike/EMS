@@ -1,12 +1,22 @@
                
                 
                 <div class="item active text-center" >
+                  <h4 class="text-orange" >Take the COVID-19 <span class="text-primary"> PREVENTION TRAINING </span></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/covid19.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a target="_blank" class="btn btn-md btn-primary" href="https://rise.articulate.com/share/HL1HpxI4bcOo6j0gE16afeNey4gx-ySk"><i class="fa fa-info-circle"></i> LAUNCH TRAINING  </a><br /><br/>
+                </div>
+
+                <div class="item text-center" >
                   <h4 class="text-orange" >Find the Hidden <span class="text-primary"> Logos </span></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <img src="./storage/uploads/hiddenOA.jpg" style="z-index: 2" />
                     <br/><br/>
                     <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',4)}}#resource_4"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
                 </div>
+
+
 
                 <div class="item text-center" >
                   <h4 class="text-orange" >Mobile Legends<span class="text-primary"> Tournament </span></h4>
