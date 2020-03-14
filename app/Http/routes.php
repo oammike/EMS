@@ -76,6 +76,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     
 
+    Route::get('/logout', 'HomeController@logout');
     /********** NEW PA   **************/
 
     Route::resource('performance','NewPA_Form_Controller');

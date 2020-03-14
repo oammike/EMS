@@ -29,6 +29,7 @@ use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_DTRP;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_Memo;
+use OAMPI_Eval\User_CCTV;
 use OAMPI_Eval\Memo;
 use OAMPI_Eval\Logs;
 use OAMPI_Eval\Biometrics;
@@ -831,7 +832,7 @@ class HomeController extends Controller
       }
 
       //******************* TASK TRACKER : NDY *************************
-      if ($fromNDY)
+      /*if ($fromNDY)
       {
         $trackerNDY = DB::table('task')->where('task.campaign_id',$prg3)->
                     join('taskgroup','task.groupID','=','taskgroup.id')->
@@ -857,14 +858,12 @@ class HomeController extends Controller
         if ( count($pendingBreak) >= 1 ){
           $pendingTaskBreak = $pendingBreak->first();
           $hasPendingTaskBreak = 1;
-        }else {
+        }else {*/
           $pendingTaskBreak = null; $hasPendingTaskBreak=0;
-        }
+        //}
 
         //return $groupedTasks;
-      }
-
-      //return response()->json(['haspendingTask'=>$hasPendingTask, 'haspendingBreak'=>$hasPendingTaskBreak,'pendingTask'=>$pendingTask,'pendingBreak'=>$pendingBreak, 'count'=>count($pendingBreak)]);
+      //}
 
       //******************* TASK TRACKER : NDY *************************
 
@@ -949,7 +948,7 @@ class HomeController extends Controller
       $forApprovals = $this->getDashboardNotifs();// $this->getApprovalNotifs();USER TRAIT
 
       /************* PERFORMANCE EVALS ***************/
-      $userEvals = new Collection; $performance = new Collection;
+      /*$userEvals = new Collection; $performance = new Collection;
       $userEvals1 = $user->evaluations->sortBy('created_at')->filter(function($eval){
                                 return $eval->overAllScore > 0;
 
@@ -958,11 +957,11 @@ class HomeController extends Controller
       
       $byDateEvals =  $userEvals1->groupBy(function($pool) {
                                     return Carbon::parse($pool->created_at)->format('Y-m-d');
-                                });
+                                });*/
 
       $userEvals = new Collection;
 
-      foreach ($byDateEvals as $evs) {
+      /*foreach ($byDateEvals as $evs) {
         $key = $evs->unique('overAllScore');
 
         switch ($key->first()->evalSetting_id) {
@@ -983,7 +982,7 @@ class HomeController extends Controller
               
           }
 
-      };
+      };*/
 
       /************* for SURVEY WIDGET ***************/
       $doneS = DB::table('survey_user')->where('user_id',$this->user->id)->where('isDone',1)->get();
@@ -1033,154 +1032,166 @@ class HomeController extends Controller
 
       $alreadyLoggedIN=false;
       //if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;//return response()->json(['alreadyLoggedIN'=>$alreadyLoggedIN]);
-               
-                /************* idols  ***************/
-                $idols = new Collection;
-                $top3 = new Collection;
-                //ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU
-                $idolIDs = [ 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 685, 3260, 2723];
-                $top3s = [1686,674,829];
 
-                foreach ($top3s as $i) {
-                  $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
-                            join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
-                            leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
-                            select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
-                  $top3->push($u[0]);
-                }
+      //-- IDOLS ----
+        $idols = new Collection;
+        $top3 = new Collection;
+        //ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU
+        $idolIDs = [ 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 685, 3260, 2723];
+        $top3s = [1686,674,829];
 
-                foreach ($idolIDs as $i) {
-                  $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
-                            join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
-                            leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
-                            select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
-                  $idols->push($u[0]);
-                }
-                
+        foreach ($top3s as $i) {
+          $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
+                    join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
+                    select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
+          $top3->push($u[0]);
+        }
 
+        foreach ($idolIDs as $i) {
+          $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
+                    join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
+                    select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
+          $idols->push($u[0]);
+        }
 
+        $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
+        $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 
+        $pics=["monochrome-393.jpg","monochrome-362.jpg","monochrome-344.jpg"];
 
-                /************* SHOUT OUT ***************/
-                $bago = Carbon::today()->subWeeks(1);
-                $annivs = Carbon::today()->subWeeks(1)->subYear(1);
-                $annivs2 = Carbon::today()->subYear(1);
-                $anniv10s = Carbon::today()->subYear(10)->startOfYear();
-                $anniv10e = Carbon::today()->subYear(10)->endOfYear();
-                $anniv5s = Carbon::today()->subYear(5)->startOfYear();
-                $anniv5e = Carbon::today()->subYear(5)->endOfYear();
-                
-                $newHires = DB::table('users')->where('dateHired','>=',$bago->format('Y-m-d'))->where('status_id','!=',16)->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',7)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+      //-- end idols
 
-                $firstYears = DB::table('users')->where('dateHired','>=',$annivs->format('Y-m-d H:i:s'))->where('dateHired','<=',$annivs2->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+      //-- SHOUT OUT --
+        $bago = Carbon::today()->subWeeks(1);
+        $annivs = Carbon::today()->subWeeks(1)->subYear(1);
+        $annivs2 = Carbon::today()->subYear(1);
+        $anniv10s = Carbon::today()->subYear(10)->startOfYear();
+        $anniv10e = Carbon::today()->subYear(10)->endOfYear();
+        $anniv5s = Carbon::today()->subYear(5)->startOfYear();
+        $anniv5e = Carbon::today()->subYear(5)->endOfYear();
+        
+        $newHires = DB::table('users')->where('dateHired','>=',$bago->format('Y-m-d'))->where('status_id','!=',16)->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',7)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
 
-                $tenYears = DB::table('users')->where('dateHired','>=',$anniv10s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv10e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+        $firstYears = DB::table('users')->where('dateHired','>=',$annivs->format('Y-m-d H:i:s'))->where('dateHired','<=',$annivs2->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
 
-                $fiveYears = DB::table('users')->where('dateHired','>=',$anniv5s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv5e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('team.campaign_id','ASC')->get();
+        $tenYears = DB::table('users')->where('dateHired','>=',$anniv10s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv10e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
 
-                //$filtered = array_group_by($newHires,'id');
+        $fiveYears = DB::table('users')->where('dateHired','>=',$anniv5s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv5e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('team.campaign_id','ASC')->get();
 
-                //$cc = collect($firstYears)->where('nickname',"ROSE")->all();
-                //return $cc[0]->firstname;
-
-               
-                $evalTypes = EvalType::all();
-                //$evalSetting = EvalSetting::all()->first();
-                // --------- temporarily we set it for Semi annual of July to Dec 
-                $evalSetting = EvalSetting::find(2);
-
-                
-                $currentPeriod = Carbon::create((date("Y")-1), $evalSetting->startMonth, $evalSetting->startDate,0,0,0, 'Asia/Manila');
-                $endPeriod = Carbon::create((date("Y")-1), $evalSetting->endMonth, $evalSetting->endDate,0,0,0, 'Asia/Manila');
-
-                $doneEval = new Collection;
-                $pendingEval = new Collection;
-
-                
-                $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
-
-
-                //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
-                /*$testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
-                if (in_array($this->user->id, $testgroup))
-                {*/
-                  /*----------- check for available MEMOS --------------*/
-                    $activeMemo = Memo::where('active',1)->where('type','modal')->orderBy('created_at','DESC')->get();
-                    if (count($activeMemo)>0){
-                      $memo = $activeMemo->first();
-
-                      //check if nakita na ni user yung memo
-                      $seenMemo = User_Memo::where('user_id',$this->user->id)->where('memo_id',$memo->id)->get();
-                      if (count($seenMemo)>0)
-                        $notedMemo = true;
-                      else $notedMemo = false;
-
-                    }else { $notedMemo=false; $memo=null; } 
-
-
-
-                
+      //-- end SHOUTOUT
 
                
+      $evalTypes = EvalType::all();
+      //$evalSetting = EvalSetting::all()->first();
+      // --------- temporarily we set it for Semi annual of July to Dec 
+      $evalSetting = EvalSetting::find(2);
+
+      
+      $currentPeriod = Carbon::create((date("Y")-1), $evalSetting->startMonth, $evalSetting->startDate,0,0,0, 'Asia/Manila');
+      $endPeriod = Carbon::create((date("Y")-1), $evalSetting->endMonth, $evalSetting->endDate,0,0,0, 'Asia/Manila');
+
+      $doneEval = new Collection;
+      $pendingEval = new Collection;
+
+      
+      $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
 
 
-                 /*----------- check if done with TOUR --------------*/
+      //******* show MEMO for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
+          /*$testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+          if (in_array($this->user->id, $testgroup))
+          {*/
+          /*----------- check for available MEMOS --------------*/
+          $activeMemo = Memo::where('active',1)->where('type','modal')->orderBy('created_at','DESC')->get();
+          if (count($activeMemo)>0){
+            $memo = $activeMemo->first();
 
-                $tour = Memo::where('active',1)->where('type',"tour")->orderBy('created_at','DESC')->get();
-                if (count($tour)>0){
-                  $siteTour = $tour->first();
-                 // $memo=null; $notedMemo=true;
+            //check if nakita na ni user yung memo
+            $seenMemo = User_Memo::where('user_id',$this->user->id)->where('memo_id',$memo->id)->get();
+            if (count($seenMemo)>0)
+              $notedMemo = true;
+            else $notedMemo = false;
 
-                  //check if nakita na ni user yung memo
-                  $toured = User_Memo::where('user_id',$this->user->id)->where('memo_id',$siteTour->id)->get();
-                  if (count($toured)>0)
-                    $notedTour = true;
-                  else $notedTour = false;
+          }else { $notedMemo=false; $memo=null; } 
+      //-- END MEMO
 
-                }else { $notedTour=false; $siteTour=null; } 
-                
+      /*----------- check if done with TOUR --------------*/
 
-                //return $pass = bcrypt('cmijares'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+      $tour = Memo::where('active',1)->where('type',"tour")->orderBy('created_at','DESC')->get();
+      if (count($tour)>0){
+        $siteTour = $tour->first();
+       // $memo=null; $notedMemo=true;
 
-                // ------------------------------------------------------------------------------ if user has no subordinates -----------
-               
-                
-                $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
-                $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 
-                $pics=["monochrome-393.jpg","monochrome-362.jpg","monochrome-344.jpg"];
+        //check if nakita na ni user yung memo
+        $toured = User_Memo::where('user_id',$this->user->id)->where('memo_id',$siteTour->id)->get();
+        if (count($toured)>0)
+          $notedTour = true;
+        else $notedTour = false;
+
+      }else { $notedTour=false; $siteTour=null; } 
+      
+
+      //return $pass = bcrypt('cmijares'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+
+      //---------- new feature: log user activity as cctv BACKUP------
+      $endHr = Carbon::now('GMT+8');
+      $startHr = Carbon::now('GMT+8')->addHours(-4);
+      $alreadyIn = User_CCTV::where('user_id',$this->user->id)->where('logType','1')->where('created_at','>=',$startHr->format('Y-m-d H:i:s'))->where('created_at','<=',$endHr->format('Y-m-d H:i:s'))->get();
+
+      if (count($alreadyIn) > 0){}
+      else 
+      {
+        $cctv = new User_CCTV;
+        $cctv->user_id = $this->user->id;
+        $cctv->logType = 1;
+        $cctv->created_at = $startToday->format('Y-m-d H:i:s');
+        $cctv->save();
+
+      }
+
+      
+
+      //---------- end cctv backup ------
+
+      // --------- if user has no subordinates -----------
+      if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)
+      { //  AGENT or ADMIN pero agent level
+          $employee = User::find($this->user->id);
+          $meLeader = $employee->supervisor->first(); 
+          //return redirect()->route('user.show',['id'=>$this->user->id]);
+
+          return view('dashboard-agent', compact('startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+          
+      // ----------- endif user has no subordinates -----------
+
+      } else {
+
+          //-- Initialize Approvals Dashlet
+
+         //return $groupedForm[0];
+          return view('dashboard', compact('startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+         
 
 
-                if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)
-                      //strpos($this->user->userType->name, "agent")!==false   )
-                    
-
-                { //  AGENT or ADMIN pero agent level
-                    $employee = User::find($this->user->id);
-                    $meLeader = $employee->supervisor->first(); 
-                    //return redirect()->route('user.show',['id'=>$this->user->id]);
-                    //return redirect('UserController@show',$this->user->id);
-                    //return $groupedSelects;
-                    
-                    //return $prg2;
-                    //return $groupedForm;
-                    return view('dashboard-agent', compact('startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3', 'performance','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
-                    
-
-
-                // ------------------------------------------------------------------------------ endif user has no subordinates -----------
-
-                } else {
-
-                    //-- Initialize Approvals Dashlet
-
-                   //return $groupedForm[0];
-                    return view('dashboard', compact('startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'performance', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
-                   
-
-
-                } 
+      } 
 
       
         
+    }
+
+    public function logout() 
+    {
+        //---------- new feature: log user activity as cctv BACKUP------
+        $cctv = new User_CCTV;
+        $cctv->user_id = $this->user->id;
+        $cctv->logType = 2;
+        $cctv->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+        $cctv->save();
+
+        //---------- end cctv backup ------
+        auth()->logout();
+        return redirect('/');
     }
 
     public function module()

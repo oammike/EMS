@@ -286,7 +286,7 @@
                   <a href="{{action('UserController@show',Auth::user()->id)}}" class="btn btn-default btn-flat">Profile</a>
                 </div> -->
                 <!-- <div class="pull-right"> -->
-                  <a href="{{ url('logout') }}" class="btn bg-red btn-flat"><i class="fa fa-sign-out"></i> Sign out</a>
+                  <a href="{{action('HomeController@logout')}}" class="btn bg-red btn-flat"><i class="fa fa-sign-out"></i> Sign out</a> <!-- {url('logout')} -->
                 <!-- </div> -->
               </li>
             </ul>
