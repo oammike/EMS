@@ -995,6 +995,8 @@ class HomeController extends Controller
       //check if user has already logged in
 
       $startToday = Carbon::now('GMT+8');
+      // check mo muna kung may biodata na for today:
+
       
       if (( $startToday->format('H:i') > Carbon::now('GMT+8')->startOfDay()->format('H:i')) && ($startToday->format('H:i') <= Carbon::parse(date('Y-m-d').' 8:00:00','Asia/Manila')->format('H:i')) ) //for those with 11pm-8am shift
       {
@@ -1029,8 +1031,8 @@ class HomeController extends Controller
       $loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometrics_id',$b->id)->get();
 
 
-
-      if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;//return response()->json(['alreadyLoggedIN'=>$alreadyLoggedIN]);
+      $alreadyLoggedIN=false;
+      //if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;//return response()->json(['alreadyLoggedIN'=>$alreadyLoggedIN]);
                
                 /************* idols  ***************/
                 $idols = new Collection;
