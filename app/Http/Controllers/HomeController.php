@@ -996,7 +996,7 @@ class HomeController extends Controller
 
       $startToday = Carbon::now('GMT+8');
       
-      if ($startToday->format('H:i') > date('H:i',strtotime('12AM')) && $startToday->format('H:i') <= date('H:i', strtotime('8AM')) ) //for those with 11pm-8am shift
+      if (( $startToday->format('H:i') > Carbon::now('GMT+8')->startOfDay()->format('H:i')) && ($startToday->format('H:i') <= Carbon::parse(date('Y-m-d').' 8:00:00','Asia/Manila')->format('H:i')) ) //for those with 11pm-8am shift
       {
         
         $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d'))->get();
@@ -1028,7 +1028,9 @@ class HomeController extends Controller
 
       $loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometrics_id',$b->id)->get();
 
-      if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;
+
+
+      if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;//return response()->json(['alreadyLoggedIN'=>$alreadyLoggedIN]);
                
                 /************* idols  ***************/
                 $idols = new Collection;
