@@ -2577,18 +2577,18 @@ class DTRController extends Controller
                                      //********** LOG OUT ***************
 
                                             
-                                        if(count((array)$bioForTom) > 0){
+                                        //if(count((array)$bioForTom) > 0){
                                           $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0, $problemArea,$isAproblemShift,$isRDYest,$schedKahapon,$isBackoffice);
                                               //$coll->push(['datafrom'=>"Normal out",'data OUT'=>$userLogOUT ]);
 
                                           
-                                        }
+                                        /*}
                                         else
                                         {
                                           $userLogOUT[0]= array('logTxt'=> "No Data", 
                                                                 'UT'=>0,'logs'=>null,'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null, 'hasPendingDTRP'=>null,'pendingDTRP'=>null);
 
-                                        }
+                                        }*/
 
                                             $data = $this->getWorkedHours($user,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd, $payday,$isRDYest,$isParttimer);
 
