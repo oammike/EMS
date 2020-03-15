@@ -141,6 +141,7 @@ class LogsController extends Controller
             $b->save();
             $log->biometrics_id = $b->id;
         }
+        $log->created_at = $now->format('Y-m-d H:i:s');
         $log->save();
 
         return response()->json(['success'=>'1','logs'=>$log]);
