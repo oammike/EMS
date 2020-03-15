@@ -368,48 +368,64 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'page.module',
       'uses'=>'HomeController@module') );
 
-    Route::post('/saveBioLog', array(
+    //----- WFH and LOGS --------
+
+      Route::post('/saveBioLog', array(
       'as'=> 'logs.saveBioLog',
       'uses'=>'LogsController@saveBioLog') );
 
-    Route::post('/saveDailyUserLogs', array(
-      'as'=> 'logs.saveDailyUserLogs',
-      'uses'=>'LogsController@saveDailyUserLogs') );
+      Route::post('/saveDailyUserLogs', array(
+        'as'=> 'logs.saveDailyUserLogs',
+        'uses'=>'LogsController@saveDailyUserLogs') );
 
-    Route::post('/deleteBio/{id}', array(
-      'as'=> 'logs.deleteBio',
-      'uses'=>'LogsController@deleteBio') );
+      Route::post('/deleteBio/{id}', array(
+        'as'=> 'logs.deleteBio',
+        'uses'=>'LogsController@deleteBio') );
+      
+
+      Route::get('/view-raw-biometrics-data/{id}', array(
+        'as'=> 'logs.saveDailyUserLogs',
+        'uses'=>'LogsController@viewRawBiometricsData') );
+
+      Route::post('/saveDashboardLog', array(
+        'as'=> 'logs.saveDashboardLog',
+        'uses'=>'LogsController@saveDashboardLog') );
+
+      Route::get('/getWFH', array(
+        'as'=> 'logs.getWFH',
+        'uses'=>'LogsController@getWFH') );
+
+      Route::get('/wfh', array(
+        'as'=> 'logs.wfh',
+        'uses'=>'LogsController@wfh') );
+        
+
+    //---- end WFH AND LOGS
 
     
 
-    Route::get('/view-raw-biometrics-data/{id}', array(
-      'as'=> 'logs.saveDailyUserLogs',
-      'uses'=>'LogsController@viewRawBiometricsData') );
-
-    Route::post('/saveDashboardLog', array(
-      'as'=> 'logs.saveDashboardLog',
-      'uses'=>'LogsController@saveDashboardLog') );
-
-    Route::post('/user_cws/process', array(
+    //--- NOTIFS
+      Route::post('/user_cws/process', array(
       'as'=> 'user_cws.process',
       'uses'=>'UserCWSController@process') );
 
-    Route::get('/deleteAllNotifs', array(
+      Route::get('/deleteAllNotifs', array(
       'as'=> 'user_notification.deleteAll',
       'uses'=>'UserNotificationController@deleteAll') );
 
 
-    Route::post('/user_notification/deleteRequest/{id}', array(
+      Route::post('/user_notification/deleteRequest/{id}', array(
       'as'=> 'user_notification.deleteRequest',
       'uses'=>'UserNotificationController@deleteRequest') );
 
-    Route::post('/user_notification/deleteNotif', array(
+      Route::post('/user_notification/deleteNotif', array(
       'as'=> 'user_notification.deleteNotif',
       'uses'=>'UserNotificationController@deleteNotif') );
 
-    Route::get('/user_notification/getApprovalNotifications/{id}', array(
+      Route::get('/user_notification/getApprovalNotifications/{id}', array(
       'as'=> 'user_notification.getApprovalNotifications',
       'uses'=>'UserNotificationController@getApprovalNotifications') );
+    // -- END NOTIFS
 
 
     /*********** DTRP  ROUTES ************/
@@ -785,6 +801,9 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'uses'=>'BiometricsController@setupBiometricUserLogs') );
     
     //--- END BIOMETRICS
+
+
+
     
 
 

@@ -69,6 +69,24 @@ class LogsController extends Controller
         return redirect()->back();
     }
 
+
+    public function getWFH()
+    {
+        if (Input::get('date'))
+            $productionDate = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $productionDate = Carbon::now('GMT+8');
+
+        $wfh = DB::table('logs')->where('logs.manual',1)->where('logs.created_at','>=',$productionDate->startOfDay()->format('Y-m-d H:i:s'))->where('logs.created_at','<=',$productionDate->endOfDay()->format('Y-m-d H:i:s'))->
+            leftJoin('users','logs.user_id','=','users.id')->
+            leftJoin('team','team.user_id','=','users.id')->
+            leftJoin('campaign','team.campaign_id','=','campaign.id')->
+            select('users.id as userID', 'users.lastname','users.firstname','campaign.name as program','logs.logType_id','logs.logTime','logs.created_at')->orderBy('logs.created_at','DESC')->get();
+
+        return response()->json(['data'=>$wfh, 'count'=>count($wfh)]);
+
+    }
+
     
 
     public function myDTR()
@@ -309,5 +327,17 @@ class LogsController extends Controller
         $record = $record1->sortByDesc('id');*/
         
 
+    }
+
+    public function wfh()
+    {
+        $user = $this->user;
+        if (Input::get('date'))
+            $start = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $start = Carbon::now('GMT+8');
+
+        
+        return view('people.wfh',compact('user','start'));
     }
 }
