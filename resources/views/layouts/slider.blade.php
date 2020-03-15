@@ -80,7 +80,7 @@
 
                 </div>
 
-                <div class="item text-center" >
+                <!-- <div class="item text-center" >
                    <h4 class="text-orange" >International <span class="text-primary"> Women's Day </span></h4>
                               <img src="./storage/uploads/womansday2020.jpg" style="z-index: 2" /><br /><br/>
                               <p class="text-left" style="padding-left: 50px;">It's #InternationalWomensDay. We recognize and celebrate the incredible work accomplished by Open Access BPO’s women employees in strengthening a diverse and inclusive workplace culture. We recognize and celebrate their contributions that enable the service industry to thrive.<br/><br/>
@@ -99,46 +99,13 @@ Happy International Womens Day!
                                <p class="text-left" style="padding-left: 50px;"><br/><br/>Never let your failures be the reason why you can't succeed. Just keep on trying and believe that soon, you'll finally get to where you've always wanted to be. After all, creating a masterpiece takes time.<br/><strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
 
                     <br /><br/>
-                </div>
+                </div> -->
 
                 
 
               
 
-                <div class="item text-center" >
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/thankyou_card.jpg" style="z-index: 2" />
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Congratulations to us! We raised a total of P45,000 in cash donations. And because of the company's price match, we were able to donate a grand total of P90,000 worth of goods and more to the Lipa Archdiocesan Social Action Commission's Malasakit Para sa Batangas initiative.<br/><br/>Thank you for your generosity in helping our brothers and sisters who were impacted by the Taal volcano eruption.</p>
-
-                    
-
-                    
-
-                </div>
-
                 
-
-                <div class="item  text-center" >
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/rewards_poster.jpg" style="z-index: 2" />
-
-                    <a class="btn btn-lg btn-success" href="{{action('UserController@rewards_about')}}" style="margin-top: 20px">Learn More!</a>
-
-                    
-
-                </div>
-
-                  
-
-                  <div class="item text-center" >
-                    <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3>
-                    <img src="./storage/uploads/corona.jpg" style="z-index: 2" />
-
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Stay safe everyone and keep this simple but useful tips for the prevention of coronavirus. <br/><br/>Also, if anyone from you have cough and colds with fever,we encourage you to drop by the clinic for assessment.</p>
-
-                    
-
-                  </div>
 
 
                    @if(count($firstYears) >= 1)
@@ -228,49 +195,7 @@ Happy International Womens Day!
 
                 
 
-                  <div class="item text-center" >
-                    <h3 class="text-primary">Congratulations to all the Winners!</h3>
-                    <img src="./storage/uploads/zumba_winners.jpg" style="z-index: 2" />
-
-                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's Let's Get Physical Program raffle draw winners were announced at our Glorietta 2 Makati site. Participants of the fitness program each earned a raffle entry for every class attended including Yoga, Yogalates, Zumba, and Aero Kickboxing in 2019. <br/><br/>
-                    Congratulations to all the winners!</p>
-
-                    <table class="table" cellpadding="20" style="font-size: smaller;">
-                      <tr>
-                        <td style="font-weight: bolder;">Trip to Boracay</td>
-                        <td>Jayne Lacson, Recruitment</td>
-                      </tr>
-                      <tr>
-                        <td style="font-weight: bolder;">JBL Flip bluetooth speaker</td>
-                        <td>Jessica Francia, Recruitment</td>
-                      </tr>
-                      <tr>
-                        <td style="font-weight: bolder;">urBeats3 earphones</td>
-                        <td>Mike Pamero, Marketing</td>
-                      </tr>
-                      <tr>
-                        <td style="font-weight: bolder;">Php 2,000 SM Gift Certificate</td>
-                        <td>Maritess Ferrer, Postmates <br/>
-                          Mikaela Bordon, Recruitment<br/>
-                        Myla Alcantara, QA</td>
-                      </tr>
-                      <tr>
-                        <td style="font-weight: bolder;">Php 1,500 SM Gift Certificate</td>
-                        <td>Khristine Bachini, Lebua</td>
-                      </tr>
-                      <tr>
-                        <td style="font-weight: bolder;">Php 1,000 SM Gift Certificate</td>
-                        <td>Eunice Cantos, Data Management</td>
-                      </tr>
-                      <tr>
-                        <td style="font-weight: bolder;">Promate Powerbank</td>
-                        <td>Wendy Pilar, Marketing</td>
-                      </tr>
-                    </table>
-
-
-                               <br/><br/>   
-                  </div>
+                 
 
                    @if (count($newHires) >= 1)
                         <!-- **** NEW HIRES ******************** -->
@@ -347,48 +272,7 @@ Happy International Womens Day!
 
                   
 
-                  <div class="item text-center" style="background-color: #000" >
-                    
-                      <img src="./storage/uploads/idol-winners.jpg" width="100%" style="z-index: 2" /><br/><br/>
-                      <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
-                  </div>
-
-                 
-
-                 
-
-                  
-                   
-                    @foreach($top3 as $idol)
-
-                    
-                    <div class="item text-center" >
-
-                   
-
-
-                    
-                      <h2 style="color:#666">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">{!! $titles[$ct1] !!}</span></h2>
-                      <img src="./storage/uploads/{{$pics[$ct1]}}" width="100%" style="z-index: 2" />
-                      <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
-                                                            <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
-                                                            @if (empty($idol->filename))
-                                                               <span style="font-size: 0.5em; font-weight: bolder">{{$idol->program}}</span> 
-                                                            @else
-                                                             <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
-
-                                                            @endif
-                      </h4>
-                      <h5 class="text-center"><em><i class="fa fa-music"></i> "{{$songs[$ct1]}}" <i class="fa fa-music"></i> </em></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
-
-                    </div>
-
-
-                     
-                  
-                   
-                  <?php $ct1++; ?>
-                  @endforeach
+      
 
 
 
@@ -430,27 +314,7 @@ Happy International Womens Day!
 
                     </div>
 
-                   
-
-
-
-                  
-  
-
-                   
-
-
-                    <div class="item text-center" >
-                      
-                              <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
-                              <img src="./storage/uploads/confucius.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Build your success at your own phase and never quit until you are done. <strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
-
-
-                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
-                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
-
-                    </div>
+          
 
                    
 
@@ -585,6 +449,148 @@ Happy International Womens Day!
 
 
 <?php /*
+
+          <div class="item text-center" >
+                    <h3 class="text-primary">Congratulations to all the Winners!</h3>
+                    <img src="./storage/uploads/zumba_winners.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Open Access BPO's Let's Get Physical Program raffle draw winners were announced at our Glorietta 2 Makati site. Participants of the fitness program each earned a raffle entry for every class attended including Yoga, Yogalates, Zumba, and Aero Kickboxing in 2019. <br/><br/>
+                    Congratulations to all the winners!</p>
+
+                    <table class="table" cellpadding="20" style="font-size: smaller;">
+                      <tr>
+                        <td style="font-weight: bolder;">Trip to Boracay</td>
+                        <td>Jayne Lacson, Recruitment</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">JBL Flip bluetooth speaker</td>
+                        <td>Jessica Francia, Recruitment</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">urBeats3 earphones</td>
+                        <td>Mike Pamero, Marketing</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Php 2,000 SM Gift Certificate</td>
+                        <td>Maritess Ferrer, Postmates <br/>
+                          Mikaela Bordon, Recruitment<br/>
+                        Myla Alcantara, QA</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Php 1,500 SM Gift Certificate</td>
+                        <td>Khristine Bachini, Lebua</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Php 1,000 SM Gift Certificate</td>
+                        <td>Eunice Cantos, Data Management</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bolder;">Promate Powerbank</td>
+                        <td>Wendy Pilar, Marketing</td>
+                      </tr>
+                    </table>
+
+
+                               <br/><br/>   
+                  </div>
+
+
+            <div class="item text-center" style="background-color: #000" >
+                    
+                      <img src="./storage/uploads/idol-winners.jpg" width="100%" style="z-index: 2" /><br/><br/>
+                      <a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-default"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
+                  </div>
+
+                 
+
+                 
+
+                  
+                   
+                    @foreach($top3 as $idol)
+
+                    
+                    <div class="item text-center" >
+
+                   
+
+
+                    
+                      <h2 style="color:#666">Congratulations <br/><span  class="text-primary" style="font-size: 0.8em">{!! $titles[$ct1] !!}</span></h2>
+                      <img src="./storage/uploads/{{$pics[$ct1]}}" width="100%" style="z-index: 2" />
+                      <h4 class="text-warning" style="text-transform: uppercase;"> {{$idol->firstname}} {{$idol->lastname}} <br/>
+                                                            <span style="font-size: x-small;">{{$idol->jobTitle}} </span><br/>
+                                                            @if (empty($idol->filename))
+                                                               <span style="font-size: 0.5em; font-weight: bolder">{{$idol->program}}</span> 
+                                                            @else
+                                                             <img style="background-color: #fff;" src="{{ asset('public/img/'.$idol->filename) }}" height="30" />
+
+                                                            @endif
+                      </h4>
+                      <h5 class="text-center"><em><i class="fa fa-music"></i> "{{$songs[$ct1]}}" <i class="fa fa-music"></i> </em></h5><a href="{{ action('HomeController@gallery',['a'=>21]) }}" class="btn btn-lg btn-danger"><i class="fa fa-image"></i> See all party pics</a><br/><br/>
+
+                    </div>
+
+
+                     
+                  
+                   
+                  <?php $ct1++; ?>
+                  @endforeach
+                  
+  
+
+                   
+
+
+                    <div class="item text-center" >
+                      
+                              <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
+                              <img src="./storage/uploads/confucius.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Build your success at your own phase and never quit until you are done. <strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
+
+
+                               <div style="padding:10px; position: absolute;bottom: 0px; right: 0px; background: rgba(0, 0, 0, 0.8)"> <a style="color:#fff" href="https://www.instagram.com/openaccessbpo/" target="_blank" title="Follow us on Instagram!">
+                                    <small>Follow us on Instagram! <strong>@openaccessbpo</strong> <br/>#WeSpeakYourLanguage #MondayMotivation</small></a></div> <br/><br/><br/><br/>          
+
+                    </div>
+
+<div class="item text-center" >
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/thankyou_card.jpg" style="z-index: 2" />
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Congratulations to us! We raised a total of P45,000 in cash donations. And because of the company's price match, we were able to donate a grand total of P90,000 worth of goods and more to the Lipa Archdiocesan Social Action Commission's Malasakit Para sa Batangas initiative.<br/><br/>Thank you for your generosity in helping our brothers and sisters who were impacted by the Taal volcano eruption.</p>
+
+                    
+
+                    
+
+                </div>
+
+                
+
+                <div class="item  text-center" >
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/rewards_poster.jpg" style="z-index: 2" />
+
+                    <a class="btn btn-lg btn-success" href="{{action('UserController@rewards_about')}}" style="margin-top: 20px">Learn More!</a>
+
+                    
+
+                </div>
+
+                  
+
+                  <div class="item text-center" >
+                    <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3>
+                    <img src="./storage/uploads/corona.jpg" style="z-index: 2" />
+
+                    <p class="text-left" style="padding-left: 50px;"><br/><br/>Stay safe everyone and keep this simple but useful tips for the prevention of coronavirus. <br/><br/>Also, if anyone from you have cough and colds with fever,we encourage you to drop by the clinic for assessment.</p>
+
+                    
+
+                  </div>
+
+
   <div class="item text-center">
 
                               <h3 class="text-danger"><strong><i class="fa fa-money"></i> <span style="font-size:smaller">Referral Bonus: </span><i class="fa fa-money"></i> <br/><span style="font-size: larger;"> Php 50,000.00</span> </strong> <br/>
