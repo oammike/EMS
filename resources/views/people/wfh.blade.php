@@ -111,7 +111,7 @@
                   { title: "Program", defaultContent: " ", data:'program', width:'180', render:function(data,type,full,meta){
                     return data;
                   }}, 
-                  { title: "Log Time", defaultContent: " ", data:'logTime',width:'150',render:function(data){return moment(data,"hh:mm:ss").format('HH:mm A')} }, 
+                  { title: "Log Time", defaultContent: " ", data:'logTime',width:'150',render:function(data){return moment(data,"hh:mm:ss").format('HH:mm:ss A')} }, 
                   { title: "Log Type", defaultContent: " ", data:'logType_id',width:'150',render:function(data){
                       if (data == '1')
                       return  "<strong>TIME IN</strong>";
