@@ -813,7 +813,7 @@ class HomeController extends Controller
 
       if (empty($leadershipcheck)) {
           $myCampaign = collect($this->user->campaign->first()->id);
-          ($myCampaign->contains($prg3)) ? $fromNDY=true : $fromNDY=false;
+          ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false;
           ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
           ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false;
 
@@ -824,7 +824,7 @@ class HomeController extends Controller
             $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
             
 
-            ($myCampaign->contains($prg3)) ? $fromNDY=true : $fromNDY=false; 
+            ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false; 
             ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
             ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
 
