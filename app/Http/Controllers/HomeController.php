@@ -1132,7 +1132,7 @@ class HomeController extends Controller
       }else { $notedTour=false; $siteTour=null; } 
       
 
-      //return $pass = bcrypt('mccastro'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+      
 
       //---------- new feature: log user activity as cctv BACKUP------
       $endHr = Carbon::now('GMT+8');
@@ -1153,6 +1153,10 @@ class HomeController extends Controller
       
 
       //---------- end cctv backup ------
+
+
+
+      //return $pass = bcrypt('jpaz'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
       // --------- if user has no subordinates -----------
       if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)

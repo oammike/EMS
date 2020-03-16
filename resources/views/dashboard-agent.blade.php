@@ -397,6 +397,30 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
   $(function () {
    'use strict';
 
+   function startTime() {
+    
+      var d = new Date();
+      var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+      var today = new Date(utc + (3600000*8));
+      
+      var h = today.getHours() > 12 ? today.getHours() - 12 : today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+      m = checkTime(m);
+      s = checkTime(s);
+      document.getElementById('clock').innerHTML =
+      h + ":" + m + ":" + s + " " + am_pm
+      var t = setTimeout(startTime, 500);
+    }
+
+  function checkTime(i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+  }
+
+   startTime();
+
     /* ---- VIDEO PLAYER -------- */
    var vid = document.getElementById("teaser");
    vid.onplay = function() {
@@ -419,7 +443,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
     $(window).bind("load", function() {
 
-       startTime();
+       
 
        // ********* temporarily disable memo EES ************** 
        // @if (!is_null($memo) && $notedMemo != true)
@@ -486,27 +510,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
    // AVA
    // WORLDVENTURES
    // OPS
-   function startTime() {
-    
-    var d = new Date();
-    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    var today = new Date(utc + (3600000*8));
-    
-    var h = today.getHours() > 12 ? today.getHours() - 12 : today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    var am_pm = today.getHours() >= 12 ? "PM" : "AM";
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('clock').innerHTML =
-    h + ":" + m + ":" + s + " " + am_pm
-    var t = setTimeout(startTime, 500);
-  }
-
-  function checkTime(i) {
-      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-      return i;
-  }
+   
   $('.timekeeping').on('click', function(){
     var logtype_id = $(this).attr('data-timetype');
     var btn = $(this);
