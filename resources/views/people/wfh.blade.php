@@ -118,9 +118,9 @@
                       else if(data == '2')
                       return  "<strong>TIME OUT</strong>";
                       else if(data == '3')
-                      return  "<strong>BREAK OUT</strong>";
+                      return  "<strong>BREAK end</strong>";
                       else if(data == '4')
-                      return  "<strong>BREAK IN</strong>"
+                      return  "<strong>BREAK start</strong>"
                       } }, //,width:'180'}, // 1
                   { title: "DTR sheet", defaultContent: " ", data:'userID',width:'150',render:function(data){
                        
