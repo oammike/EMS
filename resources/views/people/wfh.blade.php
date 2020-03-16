@@ -115,8 +115,13 @@
                   { title: "Log Type", defaultContent: " ", data:'logType_id',width:'150',render:function(data){
                       if (data == '1')
                       return  "<strong>TIME IN</strong>";
-                      else 
-                      return  "<strong>TIME OUT</strong>"} }, //,width:'180'}, // 1
+                      else if(data == '2')
+                      return  "<strong>TIME OUT</strong>";
+                      else if(data == '3')
+                      return  "<strong>BREAK OUT</strong>";
+                      else if(data == '4')
+                      return  "<strong>BREAK IN</strong>"
+                      } }, //,width:'180'}, // 1
                   { title: "DTR sheet", defaultContent: " ", data:'userID',width:'150',render:function(data){
                        
                       return  '<a target="_blank" href="user_dtr/'+data+'"><i class="fa fa-calendar"></i> View DTR </strong></a>'} }, //,width:'180'}, // 1
