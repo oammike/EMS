@@ -144,8 +144,8 @@ class LogsController extends Controller
     public function saveDashboardLog(Request $request)
     {
         $log = new Logs;
-        $now = Carbon::now('GMT+8');
-        $log->logTime = $now->format('H:i:s'); // Carbon::parse($now->format('Y-m-d')." ".$request->clocktime,'Asia/Manila')->format('H:i:s');
+        $now = Carbon::now('GMT+8');//$now->format('H:i:s'); 
+        $log->logTime = Carbon::parse($now->format('Y-m-d')." ".$request->clocktime,'Asia/Manila')->format('H:i:s');
         $log->logType_id = $request->logtype_id;
         $log->manual = true;
         $log->user_id = $this->user->id;
