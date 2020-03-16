@@ -337,6 +337,15 @@ class LogsController extends Controller
         else
             $start = Carbon::now('GMT+8');
 
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+        if($this->user->id !== 564 ) {
+        $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n WFH track on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+        fclose($file);
+        } 
+
         
         return view('people.wfh',compact('user','start'));
     }
