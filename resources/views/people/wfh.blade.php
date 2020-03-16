@@ -135,7 +135,7 @@
             "responsive":true,
             //"scrollX":false,
             "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
-            "order": [[ 2, 'DESC' ]],
+            "order": [[ 3, 'DESC' ]],
             "lengthChange": true,
             "oLanguage": {
                "sSearch": "<strong>Recorded Logs</strong> <br/><br/>To re-order entries, click the sort icon on the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",
