@@ -161,23 +161,22 @@ select:-webkit-autofill:focus {
                           </button>
                           <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
                         </div>
-                      </div>
-                      <!-- /.box-header -->
-                      <div class="box-body">
-                         <h2 class="text-center text-primary"><span style="font-size: smaller;">{{$startToday->format('l M d, Y')}} </span> <br/> <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
-                        <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p>
-
-                        <br/><br/>
-                        <p class="text-center">
-
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                         <h2 class="text-center text-primary"><span style="font-size: smaller;">{{$startToday->format('l M d, Y')}} </span> <br/>
+                         <span id="wait" style="font-size: small;" class="text-success">Initializing clock. Please wait...<br/><img src="./storage/uploads/loading.gif" width="30" />  </span><br/>
+                         <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
+                         <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p><br/><br/>
+                         <p class="text-center">
                           @if (!$alreadyLoggedIN)
-                            <a id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
+                            <a style="display: none" id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
                           @endif
-                            <button id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
-                            <button type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
-                            <a id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
-                        </p>
-                      </div>
+                            <button style="display: none;" id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
+                            <button style="display: none" type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
+                            <a style="display: none;" id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
+                         </p>
+                  </div>
                 </div>
                
 
@@ -553,6 +552,7 @@ select:-webkit-autofill:focus {
         var m = today.getMinutes();
         var s = today.getSeconds();
         var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+        h = checkTime(h);
         m = checkTime(m);
         s = checkTime(s);
         document.getElementById('clock').innerHTML =
@@ -587,6 +587,8 @@ select:-webkit-autofill:focus {
    $(window).bind("load", function() {
 
       getNewNotifications();
+      $('#wait').fadeOut();
+      $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
       
 
      // ********* temporarily disable memo EES ************** 
