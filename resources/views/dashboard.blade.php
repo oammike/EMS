@@ -553,6 +553,7 @@ select:-webkit-autofill:focus {
         var s = today.getSeconds();
         var am_pm = today.getHours() >= 12 ? "PM" : "AM";
         h = checkTime(h);
+        if (h == '00') h = '12';
         m = checkTime(m);
         s = checkTime(s);
         document.getElementById('clock').innerHTML =
