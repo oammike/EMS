@@ -1,12 +1,37 @@
                
                 
-                <div class="item active text-center" >
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" > <span class="text-primary"> SKELETAL WORKFORCE  </span><br/><img src="storage/uploads/divider.png" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">As you may know, Business Process Outsourcing companies are permitted to remain operational despite the imposed Enhanced Community Quarantine. Thus, for those who are willing to report to the office this week, especially those with private vehicles or residing nearby, please be advised that Open Access BPO's G2 and 6780 Makati sites may accommodate a skeletal workforce. <br/><br/>
+                      If you wish to voluntarily report to work, kindly inform your Immediate Head and wait for your Immediate Head's confirmation before proceeding to the office.  Kindly take note that only those who are required and permitted by the Program Manager and/or Client  to render services may be allowed to report to the office. Lastly, be reminded to strictly practice social distancing.<br/><br/>Thank you and stay safe.</p> <br /><br/>
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px"  class="item text-center" >
+                  <h4 class="text-orange" > <span class="text-primary">Temporary Suspension of Office Operations  </span><br/> (Makati Site Only)<br/><img src="storage/uploads/divider.png" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                      In view of the imposition of an "Enhanced Community Quarantine" over Luzon which mandates strict home quarantine at 12:00am of March 17, 2020, please be advised we will temporarily suspend business operations at our Makati sites (G2 and 6780) starting today, March 17, 2020 (Tuesday) up to March 22, 2020 (Sunday).<br/><br/>
+
+                      For employees who are allowed to work from home ("WFH"), you are advised to continue working as scheduled.  To facilitate this WHF, we have assembled a deployment team who will help us enable work from home arrangements for programs whose clients have permitted us to do so. In this regard, kindly coordinate with your respective Immediate Heads and Managers.<br/><br/>
+
+                      For the rest, please stay at home. Rest assured everyone will be fully paid for this week as Finance will automatically apply all accrued sick and vacation leaves. For those not entitled to any leaves yet or those who have no more leaves available, Finance will advance your leave credits which will be offset as you earn them.  <br/><br/>
+
+                      To emphasize, the suspension of operations in merely temporary as we are aiming to work through the requirements in resuming operations onsite by next week to, at the very least, set up a skeletal workforce, for those that can and want to report back to work.  <br/><br/>
+
+                      We encourage everyone to comply with the Government's directives in the hope that this community-quarantine is lifted sooner for us to be able to return to normal operations.
+                    </p> <br /><br/>
+                </div>
+
+                <div class="item  text-center" >
                   <h4 class="text-orange" >Take the COVID-19 <span class="text-primary"> PREVENTION TRAINING </span></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <img src="./storage/uploads/covid19.jpg" style="z-index: 2" />
                     <br/><br/>
                     <a target="_blank" class="btn btn-md btn-primary" href="https://rise.articulate.com/share/HL1HpxI4bcOo6j0gE16afeNey4gx-ySk"><i class="fa fa-info-circle"></i> LAUNCH TRAINING  </a><br /><br/>
                 </div>
+
 
                 <div class="item text-center" >
                   <h4 class="text-orange" >Find the Hidden <span class="text-primary"> Logos </span></h4>
