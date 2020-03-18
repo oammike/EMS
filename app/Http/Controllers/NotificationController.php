@@ -159,7 +159,7 @@ class NotificationController extends Controller
                                     $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy);
                                     if (count((array)$ap) > 0)
                                     {
-                                      $fromData =ImmediateHead::find($ap)->immediateHead_id);
+                                      $fromData =ImmediateHead::find($ap->immediateHead_id);
 
                                     }else
                                     {
@@ -176,7 +176,7 @@ class NotificationController extends Controller
                                     $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy);
                                     if (count((array)$ap) > 0)
                                     {
-                                      $fromData =ImmediateHead::find($ap)->immediateHead_id);
+                                      $fromData =ImmediateHead::find($ap->immediateHead_id);
 
                                     }else
                                     {
