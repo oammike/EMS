@@ -314,7 +314,9 @@ select:-webkit-autofill:focus {
                     <!-- /.box-header -->
                     <div class="box-body">
                       <p class="text-center"><strong class="text-primary">2019 Open Access Idol<span class="text-orange"> Winner </span> </strong></p>
-                      <video id="teaser" src="storage/uploads/2019_idol-winner.mp4" width="100%" loop controls></video>
+
+                      <a href="{{action('HomeController@videogallery')}}" target="_blank"><img src="storage/uploads/winnermp4.jpg" width="100%" /></a>
+                      <!-- <video id="teaser" src="storage/uploads/2019_idol-winner.mp4" width="100%" loop controls></video> -->
                       <p style="padding:30px; font-size: smaller;">Kirk Michael Teoxon of Business Development's winning rendition of James Ingram's There's No Easy Way<br/><br/>
                       See all performances  <a href="{{action('HomeController@videogallery')}}" target="_blank"><strong>here</strong> </a></p>
                      
@@ -569,20 +571,20 @@ select:-webkit-autofill:focus {
    startTime();
 
    /* ---- VIDEO PLAYER -------- */
-   var vid = document.getElementById("teaser");
-   vid.onplay = function() {
-        //alert("The video has started to play");
-        $.ajax({
-                url: "{{action('HomeController@logAction','5')}}",
-                type: "GET",
-                data: {'action': '5'},
-                success: function(response){
-                          console.log(response);
+   // var vid = document.getElementById("teaser");
+   // vid.onplay = function() {
+   //      //alert("The video has started to play");
+   //      $.ajax({
+   //              url: "{{action('HomeController@logAction','5')}}",
+   //              type: "GET",
+   //              data: {'action': '5'},
+   //              success: function(response){
+   //                        console.log(response);
 
-              }
+   //            }
 
-        });
-    };
+   //      });
+   //  };
      /* ---- VIDEO PLAYER -------- */
 
    $(window).bind("load", function() {
