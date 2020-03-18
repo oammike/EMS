@@ -102,10 +102,11 @@
             "lengthMenu": [10, 50, 100],//[5, 20, 50, -1],
             "columns": [
                  
-                  { title: "Lastname", defaultContent: "<i>none</i>" , data:'lastname', width:'180', render:function( data, type, full, meta ){return data;}}, // width:'180'},  
+                  { title: "Bio AccessCode", defaultContent: "<i>none</i>" , data:'accesscode', width:'150', render:function( data, type, full, meta ){return data;}}, // width:'180'},  
+                  { title: "Lastname", defaultContent: "<i>none</i>" , data:'lastname', width:'180', render:function( data, type, full, meta ){return '<span style="text-transform:uppercase">'+data+'</span>';}}, // width:'180'},  
                   { title: "Firstname", defaultContent: " ", width:'180',data:'firstname',render:function(data){
                         //return moment(data,"M d, Y").format('MMM DD, YYYY - ddd')
-                        return data
+                        return '<span style="text-transform:uppercase; font-size:x-small">'+data+'</span>';
                     } 
                   }, //,width:'180'}, // 1YYYY-MM-DD hh:mm:ss
                   { title: "Program", defaultContent: " ", data:'program', width:'180', render:function(data,type,full,meta){
@@ -114,13 +115,13 @@
                   { title: "Log Time", defaultContent: " ", data:'logTime',width:'150',render:function(data){return moment(data,"hh:mm:ss").format('HH:mm:ss A')} }, 
                   { title: "Log Type", defaultContent: " ", data:'logType_id',width:'150',render:function(data){
                       if (data == '1')
-                      return  "<strong>TIME IN</strong>";
+                      return  "<strong>TIME_IN</strong>";
                       else if(data == '2')
-                      return  "<strong>TIME OUT</strong>";
+                      return  "<strong>TIME_OUT</strong>";
                       else if(data == '3')
-                      return  "<strong>BREAK end</strong>";
+                      return  "<strong>BREAK_end</strong>";
                       else if(data == '4')
-                      return  "<strong>BREAK start</strong>"
+                      return  "<strong>BREAK_start</strong>"
                       } }, //,width:'180'}, // 1
                   { title: "DTR sheet", defaultContent: " ", data:'userID',width:'150',render:function(data){
                        

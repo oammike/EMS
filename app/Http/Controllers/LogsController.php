@@ -81,7 +81,7 @@ class LogsController extends Controller
             leftJoin('users','logs.user_id','=','users.id')->
             leftJoin('team','team.user_id','=','users.id')->
             leftJoin('campaign','team.campaign_id','=','campaign.id')->
-            select('users.id as userID', 'users.lastname','users.firstname','campaign.name as program','logs.logType_id','logs.logTime','logs.created_at')->orderBy('logs.created_at','DESC')->get();
+            select('users.id as userID','users.accesscode',  'users.lastname','users.firstname','campaign.name as program','logs.logType_id','logs.logTime','logs.created_at')->orderBy('logs.created_at','DESC')->get();
 
         return response()->json(['data'=>$wfh, 'count'=>count($wfh)]);
 
