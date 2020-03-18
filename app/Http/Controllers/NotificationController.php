@@ -657,11 +657,8 @@ class NotificationController extends Controller
 
                               
                             }
-
-                            // $img = asset('public/img/employees/'.$fromData->id.'.jpg');
-                            // $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
-                            break; 
-                          }
+                            
+                          }break; 
 
                // DTRP OUT
                 case 9: {   
