@@ -398,6 +398,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::get('/wfh', array(
         'as'=> 'logs.wfh',
         'uses'=>'LogsController@wfh') );
+
+      Route::get('/wfh_download', array(
+        'as'=> 'logs.wfh_download',
+        'uses'=>'LogsController@wfh_download') );
         
 
     //---- end WFH AND LOGS

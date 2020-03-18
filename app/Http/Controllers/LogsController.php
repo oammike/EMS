@@ -349,4 +349,86 @@ class LogsController extends Controller
         
         return view('people.wfh',compact('user','start'));
     }
+
+    public function wfh_download()
+    {
+        DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
+        $canAdminister = ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
+
+        $from = Input::get('from');
+        
+        $download = Input::get('dl');
+
+        $rawData = new Collection;
+
+        if (is_null(Input::get('from')))
+        {
+            $daystart = Carbon::now('GMT+8')->startOfDay(); $dayend = Carbon::now('GMT+8')->endOfDay();
+        }
+        else {
+            $daystart = Carbon::parse(Input::get('from'),'Asia/Manila')->startOfDay(); 
+            $dayend = Carbon::parse(Input::get('from'),'Asia/Manila')->endOfDay();
+        }
+
+        $form = DB::table('logs')->where('logs.manual',1)->where('logs.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                    where('logs.created_at','<=',$dayend->format('Y-m-d H:i:s'))->
+                    leftJoin('logType','logs.logType_id','=','logType.id')->
+                    leftJoin('users','logs.user_id','=','users.id')->
+                    leftJoin('team','users.id','=','team.user_id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    select('users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logType.name as logType')->
+                    orderBy('logs.created_at','DESC')->get();
+        
+
+        
+        $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type");
+        $sheetTitle = "WFH Tracker [".$daystart->format('M d l')."]";
+        $description = " ". $sheetTitle;
+
+        if($this->user->id !== 564 ) {
+          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n DL_wfh_csv [".$f->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        } 
+
+        
+
+       Excel::create($sheetTitle,function($excel) use($form, $sheetTitle, $headers,$description,$daystart) 
+       {
+              $excel->setTitle($sheetTitle.' Summary Report');
+
+              // Chain the setters
+              $excel->setCreator('Programming Team')
+                    ->setCompany('OpenAccess');
+
+              // Call them separately
+              $excel->setDescription($description);
+              $excel->sheet($daystart->format('M d l'), function($sheet) use ($form, $headers)
+              {
+                $sheet->appendRow($headers);
+                foreach($form as $item)
+                {
+                    
+                    $arr = array($item->accesscode, 
+                                 $item->lastname,
+                                 $item->firstname,
+                                 $item->program, //ID
+                                 $item->logTime, //plan number
+                                 $item->logType
+                                  
+                                 );
+                    $sheet->appendRow($arr);
+
+                }
+                
+             });//end sheet1
+
+       })->export('xls');
+
+       return "Download";
+
+                        
+
+    }
 }
