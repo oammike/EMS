@@ -1,6 +1,21 @@
                
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" > <span class="text-primary"> <i class="fa fa-clock-o"></i> Timekeeping Policy </span><br/><img src="storage/uploads/divider.png" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear ALL,<br /><br/>
+
+                      Here is the timekeeping policy which we will apply for this cut-off. <br /><br/>
+
+                      <strong>TIMEKEEPING POLICY</strong><br/><br/>
+                      - Work-from-home employees need to update their logs via EMS.<br/><br/>
+                      - EMS approvers or team leaders should approve DTRs on or before the cut-off date.<br/><br/>
+                      - Monitoring of actual attendance from March 6 to 15, 2020 still applies.<br/><br/>
+                      - For employees with zero logs from March 16 to 20, 2020, we will apply SL first then VL if former was fully consumed.  If they don't have leave credits anymore, we will advance the SL/ VL for them.<br /><br/>
+                      Thank you and stay safe!</p> <br /><br/>
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > <span class="text-primary"> SKELETAL WORKFORCE  </span><br/><img src="storage/uploads/divider.png" /></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px" class="text-left">As you may know, Business Process Outsourcing companies are permitted to remain operational despite the imposed Enhanced Community Quarantine. Thus, for those who are willing to report to the office this week, especially those with private vehicles or residing nearby, please be advised that Open Access BPO's G2 and 6780 Makati sites may accommodate a skeletal workforce. <br/><br/>
