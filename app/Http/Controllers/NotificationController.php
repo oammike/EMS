@@ -155,8 +155,37 @@ class NotificationController extends Controller
                                     
                                   }
                                   break;
-                        case '8': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy)->immediateHead_id);break;
-                        case '9': $fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy)->immediateHead_id);break;
+                        case '8': {
+                                    $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy);
+                                    if (count((array)$ap) > 0)
+                                    {
+                                      $fromData =ImmediateHead::find($ap)->immediateHead_id);
+
+                                    }else
+                                    {
+                                      $fromData = User::find(User_DTRP::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
+
+                                    }
+                                    break;
+
+
+                         
+                        }
+                        case '9':{
+                                    $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy);
+                                    if (count((array)$ap) > 0)
+                                    {
+                                      $fromData =ImmediateHead::find($ap)->immediateHead_id);
+
+                                    }else
+                                    {
+                                      $fromData = User::find(User_DTRP::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
+
+                                    }
+                                    break;
+                        }
                         case '10': {
 
                                     $ih = ImmediateHead_Campaign::find(User_VL::find($notif->detail->relatedModelID)->approver);
