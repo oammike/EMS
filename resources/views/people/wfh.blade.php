@@ -38,8 +38,9 @@
              <div class="col-lg-1 col-sm-4  col-xs-9">
               </div>
               <div class="col-lg-10 col-sm-4 col-xs-12" ><!--style="background-color:#fff"-->
-                <label class="pull-left">Production Date: </label><input type="text" id="date" name="date" class="datepicker form-control pull-left" placeholder="{{$start->format('m/d/Y')}}" style="width:20%;margin: 0 10px" />
+                <label class="pull-left">Production Date: </label><input type="text" id="date" name="date" class="datepicker form-control pull-left" placeholder="{{$start->format('m/d/Y')}}" value="{{$start->format('m/d/Y')}}"  style="width:20%;margin: 0 10px" />
                      <a class="btn btn-primary btn-sm" id="refresh"><i class="fa fa-refresh"></i> Update Table</a>
+                     <a class="btn btn-success btn-md pull-right" id="dl"><i class="fa fa-download"></i> Download CSV </a>
                  <br/><br/><br/><br/>
                 
                 <table class="table no-margin table-bordered table-striped" id="requests" style="background: rgba(256, 256, 256, 0.3)" style="margin-top: 30px" ></table>
@@ -161,6 +162,13 @@
               dt.ajax.reload();
               
             });*/
+        });
+
+        $('#dl').on('click', function(){
+          var d = $('#date').val();
+          console.log(d);
+          window.location= 'wfh_download?from='+d;
+
         });
 
 
