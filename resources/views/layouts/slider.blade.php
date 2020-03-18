@@ -1,6 +1,17 @@
                
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" > Attention: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>EMPLOYEES USING COMPANY’S COMPUTERS AND PERSONAL/ISSUED LAPTOPS FOR WORK FROM HOME USE AS PERMITTED <br/><img src="storage/uploads/divider.png" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">For your information and guidance.<br /><br/>
+
+                    Please be informed that there is an urgent need to set your computer time to PH TIME effective immediately for timekeeping purposes.<br /><br/>
+
+                    Check out the IT resource document on <strong>how to set the date and time on your computer and laptop</strong> for your reference. Should there be concerns, please email IT Team at itgroup@openaccessbpo.com.</p>
+                    <a href="oampi-resources#resource_7" target="_blank" class="btn btn-success btn-md"><i class="fa fa-book"></i> See How to Change PC clock Settings</a>
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > <span class="text-primary"> <i class="fa fa-clock-o"></i> Timekeeping Policy </span><br/><img src="storage/uploads/divider.png" /></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px" class="text-left">Dear ALL,<br /><br/>
