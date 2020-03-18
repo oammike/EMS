@@ -1,6 +1,35 @@
                
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" > Reminder to Practice: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>SOCIAL DISTANCING <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/distancing.png" width="100%" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                        We are implementing strict SOCIAL DISTANCING at our G2 and 6780 sites.  Everyone should maintain a distance of <strong class="text-danger">at least one (1) meter radius apart</strong> during essential work-related meetings and activities.<br/><br/>
+
+                         
+
+                        In general, we can all practice social distancing by:<br/><br/>
+
+                         
+
+                        - Practicing good hand and sneeze/cough hygiene.<br/><br/>
+                        - Wearing a facemask if sick.<br/><br/>
+                        - Regularly using hand sanitizers or alcohol.<br/><br/>
+                        - Holding meetings via video or phone call.<br/><br/>
+                        - Reconsidering non-essential travel.<br/><br/>
+                         
+
+                        Stay healthy and be safe.<br/><br/><br/><br/>
+
+
+
+                        <strong>From HR Department</strong></p>
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" > Attention: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>EMPLOYEES USING COMPANY’S COMPUTERS AND PERSONAL/ISSUED LAPTOPS FOR WORK FROM HOME USE AS PERMITTED <br/><img src="storage/uploads/divider.png" /></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px" class="text-left">For your information and guidance.<br /><br/>
