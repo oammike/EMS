@@ -388,7 +388,7 @@ class LogsController extends Controller
 
         if($this->user->id !== 564 ) {
           $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n DL_wfh_csv [".$f->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fwrite($file, "-------------------\n DL_wfh_csv [".$daystart->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         } 
 
