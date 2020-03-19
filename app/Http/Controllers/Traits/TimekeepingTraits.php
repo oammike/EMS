@@ -3610,7 +3610,10 @@ trait TimekeepingTraits
     //pangcheck pag 12MN end ng shift
     if ($checkEndShift->format('H:i:s') == '00:00:00') $checkEndShift->addHours(24);
     
+    //check mo kung begin shift eh today tapos bukas na end ng shift: 3PM min
     $checkSShift = Carbon::parse($schedForToday['timeStart'],"Asia/Manila");
+    if($checkSShift->format('H:i:s') > '15:00:00')$checkEndShift->addHours(24);
+
     $diffHours = $checkEndShift->diffInHours($checkSShift);
     ($diffHours > 9) ? $is4x11 = true : $is4x11=false;
     ($diffHours <= 4 && $employee->status_id == 15 ) ? $isPartTimerForeign = true :  $isPartTimerForeign =false; 
