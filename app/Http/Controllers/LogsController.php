@@ -377,12 +377,12 @@ class LogsController extends Controller
                     leftJoin('users','logs.user_id','=','users.id')->
                     leftJoin('team','users.id','=','team.user_id')->
                     leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                    select('users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logType.name as logType')->
+                    select('users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType')->
                     orderBy('logs.created_at','DESC')->get();
         
 
         
-        $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type");
+        $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp");
         $sheetTitle = "WFH Tracker [".$daystart->format('M d l')."]";
         $description = " ". $sheetTitle;
 
@@ -409,14 +409,16 @@ class LogsController extends Controller
                 $sheet->appendRow($headers);
                 foreach($form as $item)
                 {
+                    $t = Carbon::parse($item->serverTime);
                     
                     $arr = array($item->accesscode, 
                                  $item->lastname,
                                  $item->firstname,
                                  $item->program, //ID
                                  $item->logTime, //plan number
-                                 $item->logType
-                                  
+                                 $item->logType,
+                                 
+                                 $t->format('H:i:s') 
                                  );
                     $sheet->appendRow($arr);
 
