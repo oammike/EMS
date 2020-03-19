@@ -3602,14 +3602,23 @@ trait TimekeepingTraits
     $theDay = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
     $fix= Carbon::parse($payday." 23:59:00","Asia/Manila");
 
-    $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
-    ($isPartTimer) ? $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4) :  $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+    
 
     //**** for checking Foreigners na contractual == kasi tagged lang sila as CONTRACTUAL [FOREIGN] :id=15
     $checkEndShift = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila");
     $checkSShift = Carbon::parse($schedForToday['timeStart'],"Asia/Manila");
     $diffHours = $checkEndShift->diffInHours($checkSShift);
     ($diffHours > 4) ? $isPartTimerForeign = false :  $isPartTimerForeign = true; 
+    ($diffHours > 9) ? $is4x11 = true : $is4x11=false;
+
+    $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
+    if ($isPartTimer)
+      $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
+    else {
+      ($is4x11) ? $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(11) : $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+    }
+
+
 
     $inTime = null;
     $outTime = null;$x=null;$y=null;
@@ -3832,8 +3841,13 @@ trait TimekeepingTraits
 
         if ($isPartTimer || $isPartTimerForeign)
           $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
-        else
-          $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+        else {
+          if ($is4x11)
+            $UT = number_format((600.0 - (($wh-60) - $minsLate) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+          else
+            $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2); 
+
+        }
         
 
       }
@@ -3843,7 +3857,11 @@ trait TimekeepingTraits
          //--- but u need to make sure if nag late out sya
           if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"))
           {
-            ($isPartTimer | $isPartTimerForeign) ? $workedHours = 4.00 : $workedHours = 8.00;
+            if($isPartTimer | $isPartTimerForeign)
+              $workedHours = 4.00;
+            else {
+              ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00;
+            }
 
             //check first if Locked na DTR for that production date
             $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
@@ -3935,7 +3953,14 @@ trait TimekeepingTraits
               if ($isPartTimer || $isPartTimerForeign)
                 $UT = round((240.0 - $wh)/60,2); 
               else
-                $UT = round((480.0 - $wh)/60,2); 
+              {
+                if ($is4x11)
+                  $UT = round((600.0 - $wh )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                else
+                  $UT = round((480.0 - $wh )/60,2); 
+              }
+
+
 
               $billableForOT=0;
               }
@@ -4058,7 +4083,14 @@ trait TimekeepingTraits
                 if ($isPartTimer || $isPartTimerForeign)
                 $UT = round((240.0 - $wh)/60,2); 
                 else
-                  $UT = round((480.0 - $wh)/60,2); 
+                  {
+                    if ($is4x11)
+                      $UT = round((600.0 - $wh )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                    else
+                      $UT = round((480.0 - $wh )/60,2); 
+                  }
+
+                  
 
 
 
@@ -4129,8 +4161,14 @@ trait TimekeepingTraits
                   if ($isPartTimer)
                   $UT = round((240.0 - $wh)/60,2); //33.33; //
                   else
-                    $UT =round((480.0 - $wh)/60,2); //33.33; //
+                    {
+                      if ($is4x11)
+                        $UT = round((600.0 - $wh )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                      else
+                        $UT = round((480.0 - $wh )/60,2); 
+                    }
 
+                   
 
                  
 
@@ -4182,7 +4220,13 @@ trait TimekeepingTraits
 
                 if ($wh > 480)
                 {
-                  ($isPartTimer || $isPartTimerForeign )  ? $workedHours = '4.00' : $workedHours = 8.00; $UT=0; //workedHours =8.00;
+                  if($isPartTimer || $isPartTimerForeign )
+                    $workedHours = '4.00';
+                  else 
+                  {
+                    ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00; 
+                  }
+                  $UT=0; //workedHours =8.00;
 
                   //check first if Locked na DTR for that production date
                   $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
@@ -4239,7 +4283,10 @@ trait TimekeepingTraits
                       $workedHours ="4.00"; $UT = 0;// number_format(240 - $wh,2);
                   }else
                   {
-                    $workedHours = number_format($wh/60,2); $UT = number_format(8 - $workedHours,2);
+                    $workedHours = number_format($wh/60,2); 
+                    ($is4x11) ? $UT = number_format(10 - $workedHours,2) : $UT = number_format(8 - $workedHours,2);
+
+                    
                   }
 
                   //check first if Locked na DTR for that production date
@@ -4307,7 +4354,13 @@ trait TimekeepingTraits
     } //end if may login and logout
     else
     {
-      ($isPartTimer || $isPartTimerForeign) ? $WHcounter = 4.0 : $WHcounter = 8.0; $UT=0;
+      if($isPartTimer || $isPartTimerForeign)
+        $WHcounter = 4.0;
+      else {
+        ($is4x11) ? $WHcounter = 10.0 : $WHcounter = 8.0; 
+      }
+
+      $UT=0;
       $link = action('UserController@myRequests',$user->id);
       $icons ="";
       $workedHours=null;$log="";
