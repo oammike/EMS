@@ -2696,7 +2696,7 @@ class DTRController extends Controller
                                       'wholeOUT' =>$userLogOUT,
                                       'workedHours'=> $workedHours,
                                       //'wh' => $wh,
-                                      'alldata'=>$data
+                                      //'alldata'=>$data
 
                                      ]);
 
