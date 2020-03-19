@@ -3606,10 +3606,15 @@ trait TimekeepingTraits
 
     //**** for checking Foreigners na contractual == kasi tagged lang sila as CONTRACTUAL [FOREIGN] :id=15
     $checkEndShift = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila");
+
+    //pangcheck pag 12MN end ng shift
+    if ($checkEndShift->format('H:i:s') == '00:00:00') $checkEndShift->addHours(24);
+    
     $checkSShift = Carbon::parse($schedForToday['timeStart'],"Asia/Manila");
     $diffHours = $checkEndShift->diffInHours($checkSShift);
-    ($diffHours > 4) ? $isPartTimerForeign = false :  $isPartTimerForeign = true; 
     ($diffHours > 9) ? $is4x11 = true : $is4x11=false;
+    ($diffHours <= 4 && $employee->status_id == 15 ) ? $isPartTimerForeign = true :  $isPartTimerForeign =false; 
+    
 
     $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
     if ($isPartTimer)
@@ -4440,7 +4445,7 @@ trait TimekeepingTraits
      
 
     $data->push([
-                  'koll'=>$koll,
+                  'koll'=>['diffHours'=>$diffHours, 'checkEndShift'=>$checkEndShift,'checkSShift'=>$checkSShift],
                   'billableForOT'=>$billableForOT,
                   'holidayToday'=>$holidayToday, 
                   'schedForToday'=>$schedForToday,

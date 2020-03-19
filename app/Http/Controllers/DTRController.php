@@ -2696,7 +2696,7 @@ class DTRController extends Controller
                                       'wholeOUT' =>$userLogOUT,
                                       'workedHours'=> $workedHours,
                                       //'wh' => $wh,
-                                      'alldata'=>$coll
+                                      'alldata'=>$data
 
                                      ]);
 
@@ -2725,7 +2725,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Feb 22, 2020');
+            //return $myDTR->where('productionDate','Mar 16, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
