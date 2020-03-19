@@ -4218,7 +4218,7 @@ trait TimekeepingTraits
 
                   
 
-                  if ($totalbill > 0.5)
+                  if ($totalbill >= 0.25)
                   {
                     $billableForOT = $totalbill;
                     $OTattribute = $icons;
