@@ -8,7 +8,7 @@
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
 
-                        OAM empathizes with the plight of each employee in the midst of these trying times. As you all know, the Department of Labor and Employment (DOLE) has released a series of advisories regarding the financial support in the amount of <strong style="font-size: large;"> Php5,000.00</strong> to affected workers of COVID-19. Please be informed that the company is closely coordinating with the Department of Labor on this matter. Rest assured that we will be issuing updates early next week.<br/>Thank you.<br/><br/>Sincerely,<br/>Management
+                        Open Access BPO empathizes with the plight of each employee in the midst of these trying times. As you all know, the Department of Labor and Employment (DOLE) has released a series of advisories regarding the financial support in the amount of <strong style="font-size: large;"> Php5,000.00</strong> to affected workers of COVID-19. Please be informed that the company is closely coordinating with the Department of Labor on this matter. Rest assured that we will be issuing updates early next week.<br/>Thank you.<br/><br/>Sincerely,<br/>Management
                     </p>
                     
                 </div>
