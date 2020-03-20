@@ -49,6 +49,9 @@ use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_VLcredits;
 use OAMPI_Eval\User_VLearnings;
+use OAMPI_Eval\User_SL;
+use OAMPI_Eval\User_SLcredits;
+use OAMPI_Eval\User_SLearnings;
 use OAMPI_Eval\VLupdate;
 use OAMPI_Eval\SLupdate;
 use OAMPI_Eval\Notification;
@@ -915,10 +918,16 @@ class UserVLController extends Controller
         $fromYr = Carbon::parse($personnel->dateHired)->addMonths(6)->format('Y');
 
         $allVLs = User_VL::where('user_id',$id)->where('isApproved','1')->orderBy('created_at','DESC')->get();
+        $allSLs = User_SL::where('user_id',$id)->where('isApproved','1')->orderBy('created_at','DESC')->get();
         $allEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$id)->
                             join('vlupdate','vlupdate.id','=','user_vlearnings.vlupdate_id')->
                             select('vlupdate.period','vlupdate.credits','vlupdate.created_at')->
                             orderBy('vlupdate.created_at','DESC')->get(); //return $allEarnings;
+
+        $allEarnings_SL = DB::table('user_slearnings')->where('user_slearnings.user_id',$id)->
+                            join('slupdate','slupdate.id','=','user_slearnings.slupdate_id')->
+                            select('slupdate.period','slupdate.credits','slupdate.created_at')->
+                            orderBy('slupdate.created_at','DESC')->get(); //return $allEarnings;
 
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
@@ -931,7 +940,7 @@ class UserVLController extends Controller
        
 
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allVLs','allEarnings'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL'));
         else return view('access-denied');
 
 
