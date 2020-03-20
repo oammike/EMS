@@ -1,6 +1,20 @@
                
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >  Company Carpool Shuttle Scheme <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Policy and Guidelines<br/><br/>
+                  <span style="font-size: smaller;"> Reimbursements and Incentives <br/>for Business Continuity for ECQ</span>
+ <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/carpool.png" width="100%" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                        This policy outlines the rules and procedures for drivers carpooling to work as part of our Company Shuttle Scheme for our skeletal workforce onsite during ECQ. This includes submission and payout procedures for reimbursement and incentive claims for office parking, toll fees, and carpooling. This is in response to the industry exemptions from suspended public transportation operations due to the Enhanced Community Quarantine for Luzon and in support of our employees who can drive to work during this period.
+</p>
+                    <a class="btn-success btn btn-md" href="oampi-resources/item/52" target="_blank"><i class="fa fa-car"></i> Read the Guidelines</a>
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > Reminder to Practice: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>SOCIAL DISTANCING <br/>
                     <img src="storage/uploads/divider.png" /><br/>
                     <img src="storage/uploads/distancing.png" width="100%" /></h4>
