@@ -1,6 +1,20 @@
                
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >  DOLE <em>(Department of Labor &amp; Employment)</em> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Financial Support<br/><br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/bills.jpg" width="90%" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                        OAM empathizes with the plight of each employee in the midst of these trying times. As you all know, the Department of Labor and Employment (DOLE) has released a series of advisories regarding the financial support in the amount of <strong style="font-size: large;"> Php5,000.00</strong> to affected workers of COVID-19. Please be informed that the company is closely coordinating with the Department of Labor on this matter. Rest assured that we will be issuing updates early next week.<br/>Thank you.<br/><br/>Sincerely,<br/>Management
+                    </p>
+                    
+                </div>
+
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >  Company Carpool Shuttle Scheme <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Policy and Guidelines<br/><br/>
                   <span style="font-size: smaller;"> Reimbursements and Incentives <br/>for Business Continuity for ECQ</span>
  <br/>
