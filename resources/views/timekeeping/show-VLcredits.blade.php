@@ -554,7 +554,7 @@
                                  
                                           
                                         </td>
-                                        <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">{{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earn, 2) }}</td>
+                                        <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">{{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earnSL, 2) }}</td>
                                         <td class="text-center">
                                          
                                         
