@@ -88,8 +88,8 @@
                                           <!-- /.col -->
                                           <div class="col-sm-3">
                                             <div class="description-block">
-                                              <p class="description-header"><i class="fa fa-address-card-o margin-r-5"></i> Employee Number : </p>
-                                              <span class="description-text text-primary">{{$user->employeeNumber}} </span>
+                                              <p class="description-header"><i class="fa fa-address-card-o margin-r-5"></i> Bio AccessCode : </p>
+                                              <span class="description-text text-primary">{{$user->accesscode}} </span>
                                             </div>
                                             <!-- /.description-block -->
                                           </div>
@@ -243,7 +243,18 @@
                                                         
                                                         <td class="text-center"><small class="text-success"><strong title="Verified DTR entry"><i class="fa fa-2x fa-check-square-o"></i></strong></small> &nbsp;&nbsp; {{ date('M d, Y',strtotime($data->productionDate)) }} </td>
 
+                                                        <!-- we determin here if WFH -->
+                                                        <?php $hasWFH = collect($wfhData)->where('biometrics_id',$data['biometrics_id']); ?>
+                                                        
+                                                        @if(count($hasWFH) > 0)
+                                                        <td class="text-center"><a title="WFH log indicator" class="btn btn-sm btn-primary" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> {{ date('l',strtotime($data->productionDate)) }} </a> </td>
+                                                        @else
                                                         <td class="text-center">{{ date('l',strtotime($data->productionDate)) }} </td>
+                                                        @endif
+
+
+
+                                                        
 
                                                          <!---- *****  WORK SCHED --------->
                                                          <td class="text-center"> {!! $data->workshift !!} </td>

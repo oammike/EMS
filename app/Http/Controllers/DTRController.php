@@ -1680,7 +1680,7 @@ class DTRController extends Controller
         $updatedSL = false;
 
 
-        if ($lengthOfService >= 1) //do this if only 6mos++
+        if ($lengthOfService >= 6) //do this if only 6mos++
         {
           $today= date('m');//today();
           $avail = $user->vlCredits;
@@ -1712,11 +1712,11 @@ class DTRController extends Controller
                     $bal += $key->totalCredits;
                   }
 
-                  $currentVLbalance = (0.84 * $today) - $bal;
+                  $currentVLbalance = "N/A"; //(0.84 * $today) - $bal;
 
                 }else{
 
-                  $currentVLbalance = (0.84 * $today);
+                  $currentVLbalance = "N/A";// (0.84 * $today);
                 }
 
               } 
@@ -1732,11 +1732,11 @@ class DTRController extends Controller
                   $bal += $key->totalCredits;
                 }
 
-                $currentVLbalance = (0.84 * $today) - $bal;
+                $currentVLbalance = "N/A";// (0.84 * $today) - $bal;
 
               }else{
 
-                $currentVLbalance = (0.84 * $today);
+                $currentVLbalance = "N/A";// (0.84 * $today);
               }
               
             }
@@ -1761,11 +1761,11 @@ class DTRController extends Controller
                     $bal += $key->totalCredits;
                   }
 
-                  $currentSLbalance = (0.84 * $today) - $bal;
+                  $currentSLbalance = "N/A";// (0.84 * $today) - $bal;
 
                 }else{
 
-                  $currentSLbalance = (0.84 * $today);
+                  $currentSLbalance = "N/A";// (0.84 * $today);
                 }
 
               }
@@ -1778,11 +1778,11 @@ class DTRController extends Controller
                   $bal += $key->totalCredits;
                 }
 
-                $currentSLbalance = (0.84 * $today) - $bal;
+                $currentSLbalance = "N/A";// (0.84 * $today) - $bal;
 
               }else{
 
-                $currentSLbalance = (0.84 * $today);
+                $currentSLbalance = "N/A";// (0.84 * $today);
               }
               
             }
@@ -1919,6 +1919,10 @@ class DTRController extends Controller
              // *************************** VERIFIED DTR SHEET
              $verifiedDTR = User_DTR::where('user_id',$user->id)->where('productionDate','>=',$currentPeriod[0])->
                                                   where('productionDate','<=',$currentPeriod[1])->orderBy('productionDate','ASC')->get();
+             $startWFH = Biometrics::where('productionDate',date('Y-m-d', strtotime($currentPeriod[0])) )->first();
+             $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->where('biometrics_id','>=',$startWFH->id)->get();
+
+                                                 
 
             if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
              {
@@ -1926,7 +1930,7 @@ class DTRController extends Controller
                 $myDTRSheet = $verifiedDTR;
                 $paystart = $currentPeriod[0];
                 $payend = $currentPeriod[1];
-                return view('timekeeping.myDTRSheet', compact('fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
+                return view('timekeeping.myDTRSheet', compact('wfhData', 'fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
  
 
              }
@@ -2026,7 +2030,7 @@ class DTRController extends Controller
             
              $schedRecord = [];
              $schedCtr = 0;
-             $wsch = new Collection;$x=null;$y=null;
+             $wsch = new Collection;$x=null;$y=null;$isWFH=null;
 
              $forRD = new Collection;
 
@@ -2038,6 +2042,7 @@ class DTRController extends Controller
 
                 if(count($bioForTheDay1) <= 0) break;
                 else $bioForTheDay =  $bioForTheDay1->first();
+
 
                 $carbonPayday = Carbon::parse($payday);
                 $nextDay = Carbon::parse($payday)->addDay();
@@ -2051,6 +2056,12 @@ class DTRController extends Controller
                 }
                 else
                   $bioForTomorrow = $bioForTom;
+
+
+                //**** check if working from home
+                $wfh = Logs::where('user_id',$user->id)->where('biometrics_id',$bioForTheDay->id)->where('manual',1)->get();
+
+                (count($wfh) > 0) ? $isWFH=true : $isWFH=false;
 
                 $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
                 $hasLWOP=false; 
@@ -2221,7 +2232,7 @@ class DTRController extends Controller
                            'dtrpOUT'=> null,
                            'dtrpOUT_id'=> null,
                            'hasPendingIN' => null,
-
+                           'isWFH'=>$isWFH,
                            'hasLeave' => null,
                            'leaveDetails'=>null,
                            'hasLWOP' => null,
@@ -2316,6 +2327,7 @@ class DTRController extends Controller
                                   'isRD'=>$isRDToday,
                                   'isFixedSched'=>$isFixedSched,
                                   'isFlexitime'=> $isFlexitime,
+                                  'isWFH'=>$isWFH,
                                   'leaveDetails'=>null,
                                   'logIN' => $data[0]['logIN'],
                                   'logOUT'=>$data[0]['logOUT'],
@@ -2633,6 +2645,7 @@ class DTRController extends Controller
                                                     'hasLeave' => $userLogIN[0]['hasLeave'],
                                                     'leaveDetails'=>$userLogIN[0]['leave'],
                                                     'hasLWOP' => $userLogIN[0]['hasLWOP'],
+                                                    'isWFH'=>$isWFH,
                                                     'lwopDetails'=>$userLogIN[0]['lwop'],
                                                     'logIN' => $userLogIN[0]['logTxt'],
                                                     'logOUT'=>$userLogOUT[0]['logTxt'],
@@ -2674,6 +2687,7 @@ class DTRController extends Controller
                                       'isFlexitime'=>$schedForToday['isFlexitime'],
                                       'isRDToday'=>$isRDToday,  
                                       'isRD'=> 0,
+                                      'isWFH'=>$isWFH,
                                       'leaveDetails'=>$userLogIN[0]['leave'],
                                       'logIN' => $userLogIN[0]['logTxt'],
                                       'logOUT'=>$userLogOUT[0]['logTxt'],

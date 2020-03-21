@@ -316,7 +316,11 @@
                                                            
                                                           </td>
 
+                                                        @if($data['isWFH'])
+                                                        <td class="text-center"><a title="WFH log indicator" class="btn btn-sm btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> {{ $data['day'] }}</a> </td>
+                                                        @else
                                                         <td class="text-center">{{ $data['day'] }} </td>
+                                                        @endif
 
                                                          <!---- *****  WORK SCHED --------->
 
