@@ -25,7 +25,7 @@
 
                         This policy outlines the rules and procedures for drivers carpooling to work as part of our Company Shuttle Scheme for our skeletal workforce onsite during ECQ. This includes submission and payout procedures for reimbursement and incentive claims for office parking, toll fees, and carpooling. This is in response to the industry exemptions from suspended public transportation operations due to the Enhanced Community Quarantine for Luzon and in support of our employees who can drive to work during this period.
 </p>
-                    <a class="btn-success btn btn-md" href="oampi-resources/item/52" target="_blank"><i class="fa fa-car"></i> Read the Guidelines</a>
+                    <a class="btn-success btn btn-md" href="oampi-resources#resource_2" target="_blank"><i class="fa fa-car"></i> Read the Guidelines</a>
                 </div>
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
