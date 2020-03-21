@@ -247,7 +247,7 @@
                                                         <?php $hasWFH = collect($wfhData)->where('biometrics_id',$data['biometrics_id']); ?>
                                                         
                                                         @if(count($hasWFH) > 0)
-                                                        <td class="text-center"><a title="WFH log indicator" class="btn btn-sm btn-primary" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> {{ date('l',strtotime($data->productionDate)) }} </a> </td>
+                                                        <td class="text-center"><a title="WFH log indicator" class="btn btn-xs btn-primary" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> {{ date('l',strtotime($data->productionDate)) }} </a> </td>
                                                         @else
                                                         <td class="text-center">{{ date('l',strtotime($data->productionDate)) }} </td>
                                                         @endif
