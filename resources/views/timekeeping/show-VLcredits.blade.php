@@ -174,7 +174,7 @@
                                               
                                                 @foreach($allVLs as $vl)
                                                   <?php if(strpos($vl->leaveStart, (string)$v->creditYear) !== false) { ?>
-                                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal_VL{{$vl->id}}">VL ({{$vl->totalCredits}} ) : {{date('M d',strtotime($vl->leaveStart))}}</a><br/>
+                                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal_VL{{$vl->id}}"><i class="fa fa-plane"></i> VL ({{$vl->totalCredits}} ) : {{date('M d',strtotime($vl->leaveStart))}}</a><br/>
                                                   <?php } ?>
 
 
@@ -418,7 +418,7 @@
                                               
                                                 @foreach($allSLs as $vl)
                                                   <?php if(strpos($vl->leaveStart, (string)$v->creditYear) !== false) { ?>
-                                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal_SL{{$vl->id}}">VL ({{$vl->totalCredits}} ) : {{date('M d',strtotime($vl->leaveStart))}}</a><br/>
+                                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal_SL{{$vl->id}}"><i class="fa fa-stethoscope"></i> SL ({{$vl->totalCredits}} ) : {{date('M d',strtotime($vl->leaveStart))}}</a><br/>
                                                   <?php } ?>
 
 
