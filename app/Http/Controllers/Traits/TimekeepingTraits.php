@@ -3355,6 +3355,7 @@ trait TimekeepingTraits
           $wh=0;//workedHours;
 
           if ((float)$workedHours > 4.0) $wh = (float)$workedHours-1;
+          else $wh = $workedHours;
 
           $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
           (count($verifiedDTR) > 0) ? $isLocked=true : $isLocked=false;
