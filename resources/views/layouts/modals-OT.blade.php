@@ -14,6 +14,7 @@
       <input type="hidden" name="approver" value="{{$approver}}" />
       <input type="hidden" name="billableHours" value="{{$data['billableForOT']}}" />
       @if($data['shiftEnd'] == "* RD *")
+      <input type="hidden" name="fromRD" value="1" />
       <input type="hidden" name="OTstart" value="{{$data['logIN']}}" />
       @else
       <input type="hidden" name="OTstart" value="{{$data['shiftEnd']}}" />

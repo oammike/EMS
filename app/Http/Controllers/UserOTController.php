@@ -435,7 +435,7 @@ class UserOTController extends Controller
     {
 
         $productionDate = Biometrics::find($request->biometrics_id);
-        $otendTime = Carbon::parse($productionDate->productionDate." ". $request->OTstart, "Asia/Manila")->addMinutes($request->filedHours*60);
+        ($request->fromRD) ? $otendTime = Carbon::parse($request->OTstart, "Asia/Manila")->addMinutes($request->filedHours*60) : $otendTime = Carbon::parse($productionDate->productionDate." ". $request->OTstart, "Asia/Manila")->addMinutes($request->filedHours*60);
 
         $OT = new User_OT;
         $OT->user_id = $request->user_id;
