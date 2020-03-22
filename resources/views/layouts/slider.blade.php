@@ -1,6 +1,155 @@
                
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" > Supporting our Employees <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> through Enhanced Community <br/>Quarantine Period<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;" class="text-left">Team,<br/><br/>
+
+                        Thank you for the flexibility in adapting to the ever-changing government response and restrictions to help keep our teams and families safe, while enabling us to continue with business operations.<br/><br/>
+                        We are permitted to operate a skeletal workforce within our office premises so we can continue service delivery by providing Program Hours of Operations & critical lines of business coverage as deemed necessary by our clients.<br/><br/>
+                        <strong class="text-primary"> Check out the following posts about our efforts to help support our employees: <i class="fa fa-arrow-right"></i></strong>
+                    </p>
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Payout Schedule: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>March 25<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/bdoatm.jpg" width="60%" />
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;" class="text-left"><br/>
+                      - Eligibility: <strong class="text-danger">all employees hired before March 16 </strong><br/><br/>
+                      - Unless otherwise expressed by the employee, available leave credits will be used for days not worked (SL then VL)<br/><br/>
+                      - <strong>For employees with no or not enough leave credits,</strong> the company will advance up to 5 SL credits to be offset as they earn it (use of SL credits during the ECQ period will not be grounds for disqualification from SL conversion<br/><br/>
+                      - All employees that reported for work on March 16 <strong class="text-danger">will be paid in full <em style="font-size: smaller;"> (including those that were sent home after the announcement and did not finish their shift)</em></strong><br/><br/>
+                      - All agents and TLs that continued to report for work from March 17-20 will get <strong class="text-danger">+50% base pay on hours worked</strong>
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >1/2 13th-Month  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Advance Payout<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      - Payout Schedule:<strong class="text-danger"> April 10</strong><br/><br/>
+                      - Computation will be based on 3/12 of monthly base salary+non-taxable allowance<br/><br/>
+                      - Example: (((10,000 + 2,800))/12 months) x 6 months = Php 6,400<br/><br/>
+                      - <strong class="text-primary">Employee may opt out (to get the 13th month in full during December payout). </strong><br/>
+                     Send an email to:  <strong>salaryinquiry@openaccessbpo.com</strong>
+
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Pag-IBIG  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>MULTI-PURPOSE LOAN (MPL) AND <br/> CALAMITY LOAN APPLICATION <br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/calamityloan.jpg" width="90%" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      Below is the pertinent information necessary for securing a PAG-IBIG calamity loan and a multi-purpose loan. We hope this will answer crucial questions.<br/><br/>
+
+                      The Pag-IBIG Fund Calamity Loan Program seeks to provide immediate financial aid to affected members in calamity-stricken areas.<br/><br/>
+
+
+
+                      <strong>Home Development Fund (Pag-IBIG)–Calamity Loan Qualifications</strong><br/><br/>
+
+                      Any Pag-IBIG member who -<br/>
+
+                      Has made at least 24 monthly savings<br/>
+                      Has made at least 5 monthly savings in the last 6 months<br/>
+                      Resides in an area under the State of Calamity<br/><br/>
+
+                       <strong class="text-primary">Process and Requirements:</strong><br/><br/>
+
+                      The borrower must submit the following to any Pag-IBIG office:<br/><br/>
+
+                      Calamity Loan Application Form*<br/>
+                      Photocopy of at least 2 valid IDs<br/>
+                      Proof of Income<br/>
+                      Declaration of Being Affected by Calamity* (for formally employed members)<br/>
+                                    <em>[*Documents are available at www.pagibigfund.gov.ph and Pag-IBIG offices]</em><br/><br/>
+
+                      
+                      <strong>Filing:</strong> Loans may be filed within 90 days from the declaration of State of Calamity.<br/><br/>
+
+                      <strong class="text-primary"> Loan Amount</strong><br/><br/>
+
+                      Members can borrow up to 80% of their Total Accumulated Value (TAV) subject to the terms and conditions of the program. Calamity Loan Interest rate is 5.95% per annum. The loan is amortized over 24 months, with a grace period of 3 months. Paying period begins on the 4th month following their check date.<br/><br/>
+
+                      For inquiries and details, see below:<br/><br/>
+
+                      Website:         https://www.pagibigfund.gov.ph/#<br/>
+
+                      Email:              contactus@pagibigfund.gov.ph<br/>
+
+                      Facebook:       https://www.facebook.com/PagIBIGFundOfficialPage/<br/>
+
+                      Pag-IBIG FUND HOTLINE: 8-724-4244 (8-Pag-IBIG) - 24/7 Call Center operation<br/>
+
+                      Virtual Pag-IBIG:  by visiting www.pagibigfund.gov.ph and clicking on the Virtual Pag-IBIG button.<br/><br/>
+
+                       
+
+                      List of valid IDs:<br/><br/>
+
+                      1.       Passport, issued by the Philippine or Foreign Government<br/>
+
+                      2.       Social Security System (SSS) Card<br/>
+
+                      3.       Government Office and GOCC ID (e.g. AFP ID, Pag-IBIG Loyalty Card)<br/>
+
+                      4.       Overseas Workers Welfare Administration (OWWA) ID<br/>
+
+                      5.       Company ID<br/>
+
+                      6.       Senior Citizen Card<br/>
+
+                      7.       Voter’s ID<br/>
+
+                      8.       Professional Regulation Commission (PRC) ID<br/>
+
+                      9.       Integrated Bar of the Philippines (IBP) ID<br/>
+
+                      10.   Driver’s License<br/>
+
+                      11.   Postal ID<br/><br/><br/>
+
+                  
+
+                      For further inquiries, please email Grazelene Anne Hermo, our PAGIBIG FUND Coordinator at ghermo@openaccessbpo.com, employee_relations@openaccessbpo.com and copy salaryinquiry@openaccessbpo.com.<br/><br/>
+
+                      For your information and guidance.<br/><br/>
+
+
+
+                      Sincerely,<br/>
+
+                      HR DEPARTMENT
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >  DOLE <em>(Department of Labor &amp; Employment)</em> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Financial Support<br/><br/>
                  <br/>
                     <img src="storage/uploads/divider.png" /><br/>
@@ -12,6 +161,7 @@
                     </p>
                     
                 </div>
+
 
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
