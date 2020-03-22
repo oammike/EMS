@@ -52,6 +52,7 @@ use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_RDoverride;
+use OAMPI_Eval\User_LogOverride;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
 use OAMPI_Eval\Paycutoff;
@@ -2813,8 +2814,19 @@ trait TimekeepingTraits
       }
 
 
+      // --------- here we check for the new LOG OVERRIDE ---------
+      $hasLogOverride = User_LogOverride::where('user_id',$id)->where('affectedBio',$biometrics_id)->where('logType_id',$logType_id)->get();
 
-       $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
+      if(count($hasLogOverride) > 0)
+      {
+        $logOverride = $hasLogOverride->first();
+        
+        $timing = Carbon::parse($logOverride->productionDate." ".$logOverride->logTime,'Asia/Manila');
+        $log = $timing->format('M d H:i:s A');
+        $userLog = new Collection;
+        $userLog->push(['id'=>$logOverride->id,'biometrics_id'=> $logOverride->affectedBio,'user_id'=>$id, 'logTime'=>$logOverride->logTime,'logType_id',$logOverride->logType_id,'manual'=>null,'created_at'=>$logOverride->created_at, 'updated_at'=>$logOverride->updated_at]);
+
+        $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
                     
                     'dtrp'=>$hasApprovedDTRP->first(),
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
@@ -2841,6 +2853,42 @@ trait TimekeepingTraits
                     'CHECKER'=>$alldaysVL,
                     
                     ]);
+
+       
+
+      }else
+      {
+        $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
+                    
+                    'dtrp'=>$hasApprovedDTRP->first(),
+                    'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
+                    'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
+                    'endShift'=> $endShift,
+                    'isAproblemShift'=>$isAproblemShift,
+                    'isRDYest'=>$isRDYest,
+                    'finishShift'=>$finishShift,
+                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
+                    'hasPendingDTRP' => $hasPendingDTRP,
+                    'leave'=>$leaveDetails,
+                    'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    'logPalugit'=>$logPalugit,
+                    'logs'=>$userLog,'lwop'=>$lwopDetails, 
+                    'logTxt'=>$log,
+                    'maxIn'=>$maxIn,
+                    'maxOut'=> $maxOut,
+                    'palugitDate' =>$palugitDate,
+                    'pendingDTRP' => $pendingDTRP,
+                    'sl'=>$slDeet,
+                    'timing'=>$timing,'UT'=>$UT,
+                    'vl'=>$vl,
+                    'pal'=>$pal,
+                    'CHECKER'=>$alldaysVL,
+                    
+                    ]);
+
+       
+
+      }
 
               
 
