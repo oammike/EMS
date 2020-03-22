@@ -2303,7 +2303,7 @@ class DTRController extends Controller
                             if ($isRDToday)
                             {
 
-                              $data = $this->getRDinfo($id, $bioForTheDay,null,$payday,$schedKahapon,$isFixedSched);
+                              $data = $this->getRDinfo($id, $bioForTheDay,null,$payday,$schedKahapon,$isFixedSched,$isParttimer);
                               $myDTR->push([
 
                                   'allData'=>$data,

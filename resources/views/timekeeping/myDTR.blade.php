@@ -1133,7 +1133,7 @@
                                                                       'icon'=>'glyphicon-up' ])
                                                                 @else
 
-                                                                    @include('layouts.modals-OT', [
+                                                                     @include('layouts.modals-OT', [
                                                                       'modelRoute'=>'user_ot.store',
                                                                       'modelID' => '_OT'.$data["payday"], 
                                                                       'modelName'=>"Overtime ", 
@@ -1150,7 +1150,7 @@
                                                             
                                                             @else
 
-                                                                @include('layouts.modals-OT', [
+                                                              @include('layouts.modals-OT', [
                                                                   'modelRoute'=>'user_ot.store',
                                                                   'modelID' => '_OT'.$data["payday"], 
                                                                   'modelName'=>"Overtime ", 

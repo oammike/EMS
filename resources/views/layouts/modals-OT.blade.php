@@ -68,14 +68,14 @@
                                 array_push($preventDupes, $num);
                                 if ( strpos($data['shiftEnd'], "RD") )
                                 {
-                                  $start = Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
-                                  $t1 = Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                  $start = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                  $t1 = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
                                   $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num*60); 
                                 } 
                                 else 
                                 {
-                                  $start= Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
-                                  $t1 = Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+                                  $start= \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+                                  $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
                                   $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num*60); 
                                 } 
                                 ?>

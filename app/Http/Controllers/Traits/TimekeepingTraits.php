@@ -2915,7 +2915,7 @@ trait TimekeepingTraits
   }
 
 
-  public function getRDinfo($user_id, $biometrics,$isSameDayLog,$payday, $schedKahapon,$isFixedSched)
+  public function getRDinfo($user_id, $biometrics,$isSameDayLog,$payday, $schedKahapon,$isFixedSched,$isPartTimer)
   {
 
       /* init $approvedOT */
@@ -3330,23 +3330,117 @@ trait TimekeepingTraits
 
        pushData:
 
-       $data = new Collection;
-       $data->push([
-        'biometric_id'=>$biometrics->id,
-        'shiftStart'=>$shiftStart, 
-        'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
-        'logOUT'=>$logOUT,'workedHours'=>$workedHours, 
-        'userLogIN'=>$userLogIN,
-        'hasApprovedDTRPin'=>$hasApprovedDTRPin,
-        'userLogOUT'=>$userLogOUT,'isSameDayLog'=>$isSameDayLog,
-        'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute, 'UT'=>$UT, 
-        'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null,
-        'hasPendingIN' => $hasPendingIN,
-        'pendingDTRPin'=> $pendingDTRPin,
-        'hasPendingOUT' => $hasPendingOUT,
-        'pendingDTRPout' => $pendingDTRPout,
-        'schedKahapon' => $schedKahapon,
-        'approvedOT'=>$approvedOT]);
+       $logOverrideIN=null; $logOverrideOUT=null;
+       $hasLogOverrideIN = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',1)->get();
+       $hasLogOverrideOUT = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',2)->get();
+
+        if(count($hasLogOverrideIN) > 0)
+        {
+          $logOverrideIN = $hasLogOverrideIN->first();
+          $affectedBioIN = Biometrics::find($logOverrideIN->affectedBio);
+          $lIN = Carbon::parse($affectedBioIN->productionDate.' '.$logOverrideIN->logTime,'Asia/Manila');
+          $logIN =$lIN->format('M d H:i:s'); //$lIN->format('M d H:i:s A');
+        }
+        if(count($hasLogOverrideOUT) > 0)
+        {
+          $logOverrideOUT = $hasLogOverrideOUT->first();
+          $affectedBioOUT = Biometrics::find($logOverrideOUT->affectedBio);
+          $lOUT = Carbon::parse($affectedBioOUT->productionDate.' '.$logOverrideOUT->logTime,'Asia/Manila');
+          $logOUT = $lOUT->format('M d H:i:s'); //->format('M d H:i:s A');
+        }
+
+        if ($logOverrideIN && $logOverrideOUT)
+        {
+          $workedHours = number_format($lIN->diffInMinutes($lOUT)/60,2);
+          $wh=0;//workedHours;
+
+          if ((float)$workedHours > 4.0) $wh = (float)$workedHours-1;
+
+          $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
+          (count($verifiedDTR) > 0) ? $isLocked=true : $isLocked=false;
+           
+           if ($hasHolidayToday)
+           {
+              //check first if Locked na DTR for that production date
+              $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+              if($isLocked)
+                $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+              else
+               $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+           
+           }
+           
+           else
+           {
+              
+              if($isLocked) 
+              {
+                $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a title='Unlock first to mark this as actual RD' class='btn btn-xs btn-default'><i class='fa fa-bed'></i> </a>";
+                $icons = "<a title=\"Unlock DTR to file this RD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+              }
+              else {
+                $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal_bypass_".$biometrics->id."\"   title='Mark as REST DAY' class='actualRD btn btn-xs btn-danger'><i class='fa fa-bed'></i> </a>";
+                $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+              }
+
+              
+           }
+        
+          $OTattribute = $icons;
+          $shiftStart = "* RD *";
+          $shiftEnd = "* RD *";
+          $UT = 0;
+
+          $collIN = new Collection;
+          $collIN->push(['id'=>$logOverrideIN->id, 'biometrics_id'=>$logOverrideIN->affectedBio,'user_id'=>$user_id,'logTime'=>$logOverrideIN->logTime, 'logType_id'=>$logOverrideIN->logType_id,'manual'=>null,'created_at'=>$logOverrideIN->created_at,'updated_at'=>$logOverrideIN->updated_at]);
+          $collOUT = new Collection;
+          $collOUT->push(['id'=>$logOverrideOUT->id, 'biometrics_id'=>$logOverrideOUT->affectedBio,'user_id'=>$user_id,'logTime'=>$logOverrideOUT->logTime, 'logType_id'=>$logOverrideOUT->logType_id,'manual'=>null,'created_at'=>$logOverrideOUT->created_at,'updated_at'=>$logOverrideOUT->updated_at]);
+
+          $data = new Collection;
+          $data->push([
+            'biometric_id'=>$biometrics->id,
+            'shiftStart'=>$shiftStart, 
+            'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
+            'logOUT'=>$logOUT,'workedHours'=>$wh, 
+            'userLogIN'=>$collIN,
+            'hasApprovedDTRPin'=>$hasApprovedDTRPin,
+            'userLogOUT'=>$collOUT,'isSameDayLog'=>$isSameDayLog,
+            'billableForOT'=>$wh,
+            'OTattribute'=>$OTattribute, 'UT'=>$UT, 
+            'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null,
+            'hasPendingIN' => $hasPendingIN,
+            'pendingDTRPin'=> $pendingDTRPin,
+            'hasPendingOUT' => $hasPendingOUT,
+            'pendingDTRPout' => $pendingDTRPout,
+            'schedKahapon' => $schedKahapon,
+            'approvedOT'=>$approvedOT]);
+
+
+        }
+        else
+        {
+           $data = new Collection;
+           $data->push([
+            'biometric_id'=>$biometrics->id,
+            'shiftStart'=>$shiftStart, 
+            'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
+            'logOUT'=>$logOUT,'workedHours'=>$workedHours, 
+            'userLogIN'=>$userLogIN,
+            'hasApprovedDTRPin'=>$hasApprovedDTRPin,
+            'userLogOUT'=>$userLogOUT,'isSameDayLog'=>$isSameDayLog,
+            'billableForOT'=>$billableForOT, 'OTattribute'=>$OTattribute, 'UT'=>$UT, 
+            'dtrpIN'=>null,'dtrpIN_id'=>null, 'dtrpOUT'=>null,'dtrpOUT_id'=>null,
+            'hasPendingIN' => $hasPendingIN,
+            'pendingDTRPin'=> $pendingDTRPin,
+            'hasPendingOUT' => $hasPendingOUT,
+            'pendingDTRPout' => $pendingDTRPout,
+            'schedKahapon' => $schedKahapon,
+            'approvedOT'=>$approvedOT]);
+
+        }
+
+       
        return $data;
 
 
