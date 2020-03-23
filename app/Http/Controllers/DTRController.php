@@ -340,11 +340,22 @@ class DTRController extends Controller
                               $arr[$i] = $payday->format('M d D')." ". $hday; $i++;
                               $arr[$i] = strip_tags($dData->first()->workshift); $i++; // ** get the sched here
                               
+
                               //*** CWS
                               if (!empty($dData->first()->isCWS_id)){
                                 $deets = User_CWS::find($dData->first()->isCWS_id);
 
-                                $arr[$i] = ' (old sched: '.$deets->timeStart_old. ' - '.$deets->timeEnd_old.' ) | '.$deets->notes; $i++;
+                                if(is_object($deets))
+                                {
+                                  $arr[$i] = ' (old sched: '.$deets->timeStart_old. ' - '.$deets->timeEnd_old.' ) | '.$deets->notes; $i++;
+
+                                }
+                                else
+                                {
+                                  $arr[$i] = ' n/a '; $i++;
+                                }
+
+                                
 
                               }else{
                                 $arr[$i] = "-"; $i++;
@@ -425,25 +436,42 @@ class DTRController extends Controller
                                 {
 
                                   $deets = User_OT::find($dData->first()->OT_id);
-
-                                  $arr[$i] = $deets->timeStart; $i++;
-                                  $arr[$i] = $deets->timeEnd; $i++;
-                                  switch ($deets->billedType) {
-                                    case '1': $otType = "billed"; break;
-                                    case '2': $otType = "non-billed"; break;
-                                    case '3': $otType = "patch"; break;
-                                    default: $otType = "billed"; break;
-                                  }
-                                  if ($deets->isApproved)
+                                  if (is_object($deets))
                                   {
-                                    $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
-                                    $arr[$i] = $deets->reason; $i++;
+                                    $arr[$i] = $deets->timeStart; $i++;
+                                    $arr[$i] = $deets->timeEnd; $i++;
+                                    switch ($deets->billedType) {
+                                      case '1': $otType = "billed"; break;
+                                      case '2': $otType = "non-billed"; break;
+                                      case '3': $otType = "patch"; break;
+                                      default: $otType = "billed"; break;
+                                    }
+                                    if ($deets->isApproved)
+                                    {
+                                      $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
+                                      $arr[$i] = $deets->reason; $i++;
 
-                                  }else{
-                                    $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
-                                    $arr[$i] = $deets->reason; $i++;
+                                    }else{
+                                      $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
+                                      $arr[$i] = $deets->reason; $i++;
+
+                                    }
 
                                   }
+                                  else
+                                  {
+                                    $arr[$i] = "n/a"; $i++;
+                                    $arr[$i] = "n/a"; $i++;
+                                    
+                                    
+                                      $arr[$i] = "n/a"; $i++;
+                                      $arr[$i] = "n/a"; $i++;
+
+                                    
+
+                                  }
+
+                                  
 
                                 }
 
