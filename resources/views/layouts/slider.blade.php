@@ -1,4 +1,4 @@
-               
+
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
                   <h4 class="text-orange" > Supporting our Employees <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> through Enhanced Community <br/>Quarantine Period<br/>
@@ -11,6 +11,29 @@
                         Thank you for the flexibility in adapting to the ever-changing government response and restrictions to help keep our teams and families safe, while enabling us to continue with business operations.<br/><br/>
                         We are permitted to operate a skeletal workforce within our office premises so we can continue service delivery by providing Program Hours of Operations & critical lines of business coverage as deemed necessary by our clients.<br/><br/>
                         <strong class="text-primary"> Check out the following posts about our efforts to help support our employees: <i class="fa fa-arrow-right"></i></strong>
+                    </p>
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > Office Dwelling<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> <span style="font-size: smaller;"> Employee Registration</span><br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="storage/uploads/officedwell.jpg" width="80%" />
+                    <p style="padding: 50px;font-size: smaller;" class="text-left">Team,<br/><br/>
+
+                        To support those who will comprise our skeletal workforce during ECQ, we are offering employees to <strong>temporarily live in our G2 Makati site. </strong><br/><br/>
+                        To register, click the button below:<BR/><BR/>
+
+
+                        <a class="btn btn-lg btn-primary text-center" href="https://docs.google.com/forms/d/e/1FAIpQLSd3PxXcHzD2mFl6BOaMAtmA0GGEdupjBoc23Wvpsvp5ilbWig/viewform?usp=sf_link" target="_blank"><i class="fa fa-home"></i> Register Here</a>
+                        <br/><br/>
+
+
+Please note this is an alternative living accommodation option and is not mandatory. 
                     </p>
 
                     
