@@ -2815,16 +2815,17 @@ trait TimekeepingTraits
 
 
       // --------- here we check for the new LOG OVERRIDE ---------
-      $hasLogOverride = User_LogOverride::where('user_id',$id)->where('affectedBio',$biometrics_id)->where('logType_id',$logType_id)->get();
+      $hasLogOverride = User_LogOverride::where('user_id',$id)->where('productionDate',$thisPayrollDate)->where('logType_id',$logType_id)->get();
 
       if(count($hasLogOverride) > 0)
       {
         $logOverride = $hasLogOverride->first();
+        $bioOverride =Biometrics::find($logOverride->affectedBio);
         
-        $timing = Carbon::parse($logOverride->productionDate." ".$logOverride->logTime,'Asia/Manila');
+        $timing = Carbon::parse($bioOverride->productionDate." ".$logOverride->logTime,'Asia/Manila');
         $log = $timing->format('M d H:i:s A');
         $userLog = new Collection;
-        $userLog->push(['id'=>$logOverride->id,'biometrics_id'=> $logOverride->affectedBio,'user_id'=>$id, 'logTime'=>$logOverride->logTime,'logType_id',$logOverride->logType_id,'manual'=>null,'created_at'=>$logOverride->created_at, 'updated_at'=>$logOverride->updated_at]);
+        $userLog->push(['id'=>$logOverride->id,'biometrics_id'=>$bioOverride->id,'user_id'=>$id, 'logTime'=>$logOverride->logTime,'logType_id',$logOverride->logType_id,'manual'=>null,'created_at'=>$logOverride->created_at, 'updated_at'=>$logOverride->updated_at]);
 
         $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
                     
