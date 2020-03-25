@@ -1,6 +1,59 @@
 
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >DOLE's Php 5,000<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Financial Support<br/>
+                 <br/>
+                    <img src="storage/uploads/DOLE-logo.jpg" width="80%" /> <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                     In Department Order No. 209 dated March 17, 2020, DOLE instituted the COVID-19 Adjustment Measures Program (“CAMP”) aimed at providing Financial Support to all affected workers. The DOLE likewise issued four (4) advisories which sought to clarify and supplement the CAMP guidelines and procedures.<br/><br/>
+
+                      While awaiting DOLE’s FAQs on CAMP implementation, listed below are Q&As that might be of help:<br/><br/>
+
+                      <strong class="text-orange">Q: How much is the DOLE’s financial assistance? </strong>
+
+                      <span class="text-primary"> A: Php5,000. The amount is a one-time financial assistance to affected workers paid lump sum, non-conditional, regardless of employment status.<br/><br/></span>
+
+                      <strong class="text-orange">Q: Who are entitled to the Php 5,000 financial assistance?</strong>
+
+                      <span class="text-primary">A:  Only affected workers. Under DOLE D.O. 209 as supplemented by Labor Advisory 12-20, “affected workers” is defined as those whose employment suffer interruption due to the COVID-19 pandemic such as:<br/><br/></span><br/>
+
+                      i)  Those whose regular wage is reduced due to implementation of flexible work arrangements; and<br/>
+
+                      ii) Those whose employment is temporarily suspended by reason of suspension or closure of business operations.<br/><br/>
+
+                      <strong class="text-orange">Q: Are those who work from home eligible to receive DOLE financial assistance?</strong>
+
+                      <span class="text-primary">A: No. Under DOLE Memorandum COVID No. 01-2020, workers who still receive full wages (e.g. under telecommuting or work from home arrangement) are not entitled to the financial assistance.<br/><br/></span>
+
+                      <strong class="text-orange">Q:  Can leave credits be utilized during the quarantine period?</strong>
+
+                      <span class="text-primary">A: Yes. Under Labor Advisory No. 11-20, the leaves of absence during community quarantine period shall be charged against the workers’ existing leave credits, if any. Remaining unpaid leaves during said period may be covered and be subject to the conditions provided in the DOLE’s CAMP financial support program. Moreover, under DOLE D.O. No. 209, the financial assistance may be used to cover remaining unpaid leaves of affected workers.<br/><br/></span>
+
+                      <strong class="text-orange">Q: Do I have the option not to use any of my leave credits?</strong>
+
+                      <span class="text-primary">A: Apparently, yes. The DOLE Secretary announced in a press conference that employees have the discretion on whether to utilize his/her leave credits.<br/><br/></span>
+
+                      <strong class="text-orange">Q: What is the process in availing the DOLE financial assistance?</strong>
+
+                      <span class="text-primary">A: The Departments involved will initiate the process and apply with DOLE submitting the documentary requirements. The application for financial assistance is subject to approval of the Department of Labor and Employment.<br/><br/></span>
+
+                      <strong class="text-orange">Q: When will DOLE release the Php5,000 financial assistance?</strong>
+
+                      <span class="text-primary">A:  Once approved, the Php 5,000 will be paid by DOLE directly to your bank accounts at the soonest possible time.<br/><br/></span>
+
+                      If there are any further questions, you may send your queries to HR Employee Relations.
+
+                    </p>
+                   
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > Message from <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> OpenAccessBPO Transport<br/>
                  <br/>
                     <img src="storage/uploads/divider.png" /><br/>
@@ -281,22 +334,7 @@ Please note this is an alternative living accommodation option and is not mandat
                       If you wish to voluntarily report to work, kindly inform your Immediate Head and wait for your Immediate Head's confirmation before proceeding to the office.  Kindly take note that only those who are required and permitted by the Program Manager and/or Client  to render services may be allowed to report to the office. Lastly, be reminded to strictly practice social distancing.<br/><br/>Thank you and stay safe.</p> <br /><br/>
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px"  class="item text-center" >
-                  <h4 class="text-orange" > <span class="text-primary">Temporary Suspension of Office Operations  </span><br/> (Makati Site Only)<br/><img src="storage/uploads/divider.png" /></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
-
-                      In view of the imposition of an "Enhanced Community Quarantine" over Luzon which mandates strict home quarantine at 12:00am of March 17, 2020, please be advised we will temporarily suspend business operations at our Makati sites (G2 and 6780) starting today, March 17, 2020 (Tuesday) up to March 22, 2020 (Sunday).<br/><br/>
-
-                      For employees who are allowed to work from home ("WFH"), you are advised to continue working as scheduled.  To facilitate this WHF, we have assembled a deployment team who will help us enable work from home arrangements for programs whose clients have permitted us to do so. In this regard, kindly coordinate with your respective Immediate Heads and Managers.<br/><br/>
-
-                      For the rest, please stay at home. Rest assured everyone will be fully paid for this week as Finance will automatically apply all accrued sick and vacation leaves. For those not entitled to any leaves yet or those who have no more leaves available, Finance will advance your leave credits which will be offset as you earn them.  <br/><br/>
-
-                      To emphasize, the suspension of operations in merely temporary as we are aiming to work through the requirements in resuming operations onsite by next week to, at the very least, set up a skeletal workforce, for those that can and want to report back to work.  <br/><br/>
-
-                      We encourage everyone to comply with the Government's directives in the hope that this community-quarantine is lifted sooner for us to be able to return to normal operations.
-                    </p> <br /><br/>
-                </div>
+                
 
                 <div class="item  text-center" >
                   <h4 class="text-orange" >Take the COVID-19 <span class="text-primary"> PREVENTION TRAINING </span></h4>
@@ -724,6 +762,22 @@ Happy International Womens Day!
 
 
 <?php /*
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px"  class="item text-center" >
+                  <h4 class="text-orange" > <span class="text-primary">Temporary Suspension of Office Operations  </span><br/> (Makati Site Only)<br/><img src="storage/uploads/divider.png" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                      In view of the imposition of an "Enhanced Community Quarantine" over Luzon which mandates strict home quarantine at 12:00am of March 17, 2020, please be advised we will temporarily suspend business operations at our Makati sites (G2 and 6780) starting today, March 17, 2020 (Tuesday) up to March 22, 2020 (Sunday).<br/><br/>
+
+                      For employees who are allowed to work from home ("WFH"), you are advised to continue working as scheduled.  To facilitate this WHF, we have assembled a deployment team who will help us enable work from home arrangements for programs whose clients have permitted us to do so. In this regard, kindly coordinate with your respective Immediate Heads and Managers.<br/><br/>
+
+                      For the rest, please stay at home. Rest assured everyone will be fully paid for this week as Finance will automatically apply all accrued sick and vacation leaves. For those not entitled to any leaves yet or those who have no more leaves available, Finance will advance your leave credits which will be offset as you earn them.  <br/><br/>
+
+                      To emphasize, the suspension of operations in merely temporary as we are aiming to work through the requirements in resuming operations onsite by next week to, at the very least, set up a skeletal workforce, for those that can and want to report back to work.  <br/><br/>
+
+                      We encourage everyone to comply with the Government's directives in the hope that this community-quarantine is lifted sooner for us to be able to return to normal operations.
+                    </p> <br /><br/>
+                </div>
 <div class="item text-center" >
                   <h4 class="text-orange" >Mobile Legends<span class="text-primary"> Tournament </span></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
