@@ -1,6 +1,24 @@
 
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" > Message from <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> OpenAccessBPO Transport<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
+
+                      We apologize for the delays in processing or completing your shuttle ride requests. We are creating a process to be able to dispatch and coordinate rides more smoothly and provide passenger and driver support more quickly. We will be able to launch OA Transport Support which will have the ability to provide ride status updates in real-time very soon. Our goal is to get our skeletal workforce to the office and back home safely and on time.<br/><br/>
+
+                      Thank you for your understanding.
+
+                    </p>
+                    <img src="storage/uploads/carpool.png" width="100%" />
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > Supporting our Employees <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> through Enhanced Community <br/>Quarantine Period<br/>
                  <br/>
                     <img src="storage/uploads/divider.png" /><br/>

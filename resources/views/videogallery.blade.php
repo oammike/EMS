@@ -112,16 +112,24 @@
           
           <article class="video">
             <figure>
-              <a data-fancybox="gallery" data-file="Idol_WINNER" href="http://172.17.0.2/evaluation/storage/uploads/2019_idol-winner.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot_2019_idol-winner.jpg"></a>
+              <a data-fancybox="gallery" data-file="socialDistancing" href="storage/uploads/socialDistancing.mp4">
+              <img class="videoThumb" src="storage/uploads/socialDistancing.jpg"></a>
+            </figure>
+            <h5 class="videoTitle text-center">Explainer: Social Distancing</h5>
+          </article>
+
+          <article class="video">
+            <figure>
+              <a data-fancybox="gallery" data-file="Idol_WINNER" href="storage/uploads/2019_idol-winner.mp4">
+              <img class="videoThumb" src="storage/uploads/sshot_2019_idol-winner.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">2019 Open Access Idol WINNER</h5>
           </article>
 
            <article class="video">
             <figure>
-              <a data-fancybox="gallery" data-file="Idol_2ND" href="http://172.17.0.2/evaluation/storage/uploads/2019_idol-2nd.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot_2019_idol-2nd.jpg"></a>
+              <a data-fancybox="gallery" data-file="Idol_2ND" href="storage/uploads/2019_idol-2nd.mp4">
+              <img class="videoThumb" src="storage/uploads/sshot_2019_idol-2nd.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">2019 Open Access Idol 2ND PLACER</h5>
           </article>
@@ -129,7 +137,7 @@
            <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="Idol_3RD" href="http://172.17.0.2/evaluation/storage/uploads/2019_idol-3rd.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot_2019_idol-3rd.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot_2019_idol-3rd.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">2019 Open Access Idol 3RD PLACER</h5>
           </article>
@@ -137,7 +145,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="Mchr_SDE" href="http://172.17.0.2/evaluation/storage/uploads/monochrome_sde_op.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-monochrome.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-monochrome.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Monochrome Year End Party SDE [12.14]</h5>
           </article>
@@ -145,7 +153,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="2019_LookBack" href="http://172.17.0.2/evaluation/storage/uploads/monochrome_lookback.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-lookback2019.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-lookback2019.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">A Look Back 2019 [12.14]</h5>
           </article>
@@ -153,7 +161,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="intlTranslationDay" href="http://172.17.0.2/evaluation/storage/uploads/intlTranslationDay.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-intlTranslationDay.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-intlTranslationDay.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">International Translation Day [09.30]</h5>
           </article>
@@ -161,7 +169,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="worldgratitude" href="http://172.17.0.2/evaluation/storage/uploads/worldgratitude.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-worldgratitude.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-worldgratitude.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">World Gratitude Day [09.21]</h5>
           </article>
@@ -169,7 +177,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="ribboncutting" href="http://172.17.0.2/evaluation/storage/uploads/ribboncutting.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-ribboncutting.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-ribboncutting.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">G2 Office Ribbon Cutting [07.15]</h5>
           </article>
@@ -177,7 +185,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="zumba-07-09" href="http://172.17.0.2/evaluation/storage/uploads/zumba-07-09.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-zumba-07-09.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-zumba-07-09.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Zumba sessions [07.09]</h5>
           </article>
@@ -185,7 +193,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="henry2019" href="http://172.17.0.2/evaluation/storage/uploads/henry2019.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-henry.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-henry.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Message from Henry [05.24]</h5>
           </article>
@@ -193,7 +201,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="wespeak" href="http://172.17.0.2/evaluation/storage/uploads/wespeak.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-wespeak.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-wespeak.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">We Speak Your Language [05.24]</h5>
           </article>
@@ -201,7 +209,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="cinco" href="http://172.17.0.2/evaluation/storage/uploads/cinco.mp4">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-cinco.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-cinco.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Cinco de Mayo [05.05]</h5>
           </article>
@@ -209,7 +217,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="happyhour" href="http://172.17.0.2/evaluation/storage/uploads/OA-happyhour.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-OA-happyhour.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-OA-happyhour.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Happy Hour [04.20]</h5>
           </article>
@@ -217,7 +225,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="zumba_04-10" href="http://172.17.0.2/evaluation/storage/uploads/zumba_04-10_upload.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-zumba_04-10_upload.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-zumba_04-10_upload.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Zumba sessions [04.10]</h5>
           </article>
@@ -225,7 +233,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="zumba_04-03" href="http://172.17.0.2/evaluation/storage/uploads/zumba_04-03.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-zumba_04-03.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-zumba_04-03.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Zumba sessions [04.03]</h5>
           </article>
@@ -233,7 +241,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="getphysical" href="http://172.17.0.2/evaluation/storage/uploads/getphysical.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-getphysical.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-getphysical.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Let's Get Physical [03.26]</h5>
           </article>
@@ -241,7 +249,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="zumba2" href="http://172.17.0.2/evaluation/storage/uploads/zumba2.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-zumba2.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-zumba2.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Zumba sessions [03.08]</h5>
           </article>
@@ -249,7 +257,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="hobbymonth" href="http://172.17.0.2/evaluation/storage/uploads/hobbymonth.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/sshot-hobbyists.png"></a>
+              <img class="videoThumb" src="storage/uploads/sshot-hobbyists.png"></a>
             </figure>
             <h5 class="videoTitle text-center">Hobby Month </h5>
           </article>
@@ -257,7 +265,7 @@
            <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="sde" href="http://172.17.0.2/evaluation/storage/uploads/sde-back_to_the_90s.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/thumb-backto90s-143.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/thumb-backto90s-143.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Back to 90s SDE</h5>
           </article>
@@ -265,7 +273,7 @@
           <article class="video">
             <figure>
               <a data-fancybox="gallery" data-file="teaser90s" href="http://172.17.0.2/evaluation/storage/uploads/teaser90s.webm">
-              <img class="videoThumb" src="http://172.17.0.2/evaluation/storage/uploads/thumb-backto90s-95.jpg"></a>
+              <img class="videoThumb" src="storage/uploads/thumb-backto90s-95.jpg"></a>
             </figure>
             <h5 class="videoTitle text-center">Back to 90s teaser</h5>
           </article>

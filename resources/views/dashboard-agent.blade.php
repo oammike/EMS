@@ -109,7 +109,7 @@ select:-webkit-autofill:focus {
 
 
  <!--VIDEOS -->
-               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
                     <div class="box-header with-border">
                       <h3 class="box-title">Videos  <a class="btn btn-xs btn-default" href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i> Watch All</a></h3>
                       <div class="box-tools pull-right">
@@ -120,11 +120,12 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">2019 Open Access Idol<span class="text-orange"> Winner </span> </strong></p>
-                      <a href="{{action('HomeController@videogallery')}}" target="_blank"><img src="storage/uploads/winnermp4.jpg" width="100%" /></a>
-                      <!-- <video id="teaser" src="storage/uploads/2019_idol-winner.mp4" width="100%" loop controls></video> -->
-                      <p style="padding:30px; font-size: smaller;">Kirk Michael Teoxon of Business Development's winning rendition of James Ingram's There's No Easy Way<br/><br/>
-                      See all performances  <a href="{{action('HomeController@videogallery')}}" target="_blank"><strong>here</strong> </a></p>
+                      <p class="text-center"><strong class="text-primary">Explainer: <span class="text-orange"> Social Distancing </span> </strong></p>
+
+                      <a href="{{action('HomeController@videogallery')}}" target="_blank"><img src="storage/uploads/socialDistancing.jpg" width="100%" /></a>
+                      <!-- <video id="teaser" src="storage/uploads/socialDistancing.mp4" width="100%" loop controls></video> -->
+                      <p style="padding:30px; font-size: smaller;">Social distancing has become an important new normal worldwide as countries try to stem the spread of coronavirus.   Here are the basics about what it means and how to do it. <br/><br/>
+                      See all videos  <a href="{{action('HomeController@videogallery')}}" target="_blank"><strong>here</strong> </a></p>
                      
                        
                       
