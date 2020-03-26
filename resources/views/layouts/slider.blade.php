@@ -1,6 +1,127 @@
 
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Onsite Employees &amp; Office Dwellers<br/>
+                 <br/>
+                    <img src="storage/uploads/companynurse.jpg" width="80%" /> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
+                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
+                      had history of exposure, compliance with the procedures is mandatory:</p>
+
+                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                      <li>The employee must promptly notify the Nurse on duty. If no nurse is onsite, the employee is directed
+                           immediately call the Nurses (contact information found in Section V)<br/><br/></li>
+                      <li>The Nurse will assess the employee and, if necessary, transfer the employee to the designated holding
+                           area or isolation room. The Immediate Head has the authority to transfer the employee to the designated
+                           isolation room pending the assessment of the Nurse.<br/><br/></li>
+                      <li>If symptoms are mild, the employee will be advised to seek medical consult via Maxicare TeleConsult.
+                           If there are notable symptoms like fever, difficulty of breathing or prolonged cough, the employee will
+                           be advised to immediately seek hospital consult. In either case, the employee will be required to go
+                           home or stay at the designated temporary housing.<br/><br/></li>
+                      <li> If self-quarantine has been advised, the employee must isolate for 14 days. If hospitalization is
+                           recommended, employee is required to be confined.
+                            The employee must provide daily updates to the Nurse (oamnurse@openaccessbpo.com or call/SMS
+                           09178960634).<br/><br/></li>
+                      <li>After 14 days of quarantine or discharge from hospitalization, the employee must seek post
+                           quarantine/post-admission medical consult and submit a medical certificate/fit to work certificate. Post
+                           consultation may be via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent to
+                           the Nurses. <br/>(note: Teleconsultations provide email reports and may be requested by the patient before
+                           ending the call.)<br/><br/></li>
+                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
+                          and will send the appropriate report.</li>
+
+
+                    </ol>
+
+                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
+
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Staying in Temporary Housing<br/>
+                 <br/>
+                    <img src="storage/uploads/wfh.jpg" width="80%" /> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
+                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
+                      had history of exposure, compliance with the procedures is mandatory:</p>
+
+                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                      <li> The Employee should remain in the temporary housing and immediately notify the Nurse
+                      two hours prior to the scheduled shift. (Nurses’ contact information is found in Section V)<br/><br/></li>
+                      <li>The Nurse will assess the employee’s health via phone call. Depending on the assessment, the Nurse
+                       may require Maxicare Teleconsult or Hospital Consult.<br/><br/></li><br/><br/></li>
+                      <li>If 14-day self-quarantine has been advised, the employee should transfer to and/or maintain single
+                      occupancy of the room. If single occupancy is not possible, the employee will be required to selfquarantine at home.<br/><br/></li>
+                      <li>If hospitalization is recommended, employee is required to be confined.<br/><br/></li>
+                      <li>The employee must provide daily updates to the Nurse
+                       (oamnurse@openaccessbpo.com or call/SMS -09178960634).<br/><br/></li>
+                      <li>After 14 days of quarantine or discharge from hospital, the employee must seek post
+                      quarantine/post-admission medical consult and submit a medical certificate/fit to work certificate.
+                      Consultation may be via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent
+                      to the Nurses. <br/>(note: Teleconsultations provide email reports and may be requested by the patient
+                      before ending the call.)<br/><br/></li>
+                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
+                       and will send the appropriate report. </li>
+
+
+                    </ol>
+
+                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
+
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Using CARPOOL/ SHUTTLE SERVICE FOR WORK<br/>
+                 <br/>
+                    <img src="storage/uploads/carpool.jpg" width="80%" /> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
+                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
+                      had history of exposure, compliance with the procedures is mandatory:</p>
+
+                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                      <li>  The employee should stay at home and immediately notify the Nurse two hours prior to the scheduled
+                        shift. (contact information found in Section V)<br/><br/></li>
+                      <li>After assessment, the employee will be required to seek medical consult.<br/><br/></li>
+                      <li>If self-quarantine has been advised, the employee should stay home for the 14-days.<br/><br/></li>
+                      <li>If hospitalization is recommended, employee is required to be confined.<br/><br/></li>
+                      <li>The employee must provide daily updates to the Nurse (oamnurse@openaccessbpo.com or call/SMS
+                         09178960634).<br/><br/></li>
+                      <li>After 14 days of quarantine or discharge from hospital, the employee must seek post-quarantine/post-
+                         admission medical consult and submit a medical certificate/fit to work certificate. Consultation may be
+                         via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent to the Nurses. (note:
+                         Teleconsultations provide email reports and may be requested by the patient before ending the call.)<br/><br/></li>
+                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
+                         and will send the appropriate report.  </li>
+
+
+                    </ol>
+
+                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
+
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >DOLE's Php 5,000<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Financial Support<br/>
                  <br/>
                     <img src="storage/uploads/DOLE-logo.jpg" width="80%" /> <br/>
@@ -243,18 +364,7 @@ Please note this is an alternative living accommodation option and is not mandat
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >  DOLE <em>(Department of Labor &amp; Employment)</em> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Financial Support<br/><br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/bills.jpg" width="90%" /></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
-
-                        Open Access BPO empathizes with the plight of each employee in the midst of these trying times. As you all know, the Department of Labor and Employment (DOLE) has released a series of advisories regarding the financial support in the amount of <strong style="font-size: large;"> Php5,000.00</strong> to affected workers of COVID-19. Please be informed that the company is closely coordinating with the Department of Labor on this matter. Rest assured that we will be issuing updates early next week.<br/>Thank you.<br/><br/>Sincerely,<br/>Management
-                    </p>
-                    
-                </div>
+                
 
 
 
@@ -762,6 +872,18 @@ Happy International Womens Day!
 
 
 <?php /*
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >  DOLE <em>(Department of Labor &amp; Employment)</em> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Financial Support<br/><br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/bills.jpg" width="90%" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                        Open Access BPO empathizes with the plight of each employee in the midst of these trying times. As you all know, the Department of Labor and Employment (DOLE) has released a series of advisories regarding the financial support in the amount of <strong style="font-size: large;"> Php5,000.00</strong> to affected workers of COVID-19. Please be informed that the company is closely coordinating with the Department of Labor on this matter. Rest assured that we will be issuing updates early next week.<br/>Thank you.<br/><br/>Sincerely,<br/>Management
+                    </p>
+                    
+                </div>
 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px"  class="item text-center" >
                   <h4 class="text-orange" > <span class="text-primary">Temporary Suspension of Office Operations  </span><br/> (Makati Site Only)<br/><img src="storage/uploads/divider.png" /></h4>
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
