@@ -2823,7 +2823,7 @@ trait TimekeepingTraits
         $bioOverride =Biometrics::find($logOverride->affectedBio);
         
         $timing = Carbon::parse($bioOverride->productionDate." ".$logOverride->logTime,'Asia/Manila');
-        $log = $timing->format('M d H:i:s A');
+        $log = $timing->format('M d h:i:s A');
         $userLog = new Collection;
         $userLog->push(['id'=>$logOverride->id,'biometrics_id'=>$bioOverride->id,'user_id'=>$id, 'logTime'=>$logOverride->logTime,'logType_id',$logOverride->logType_id,'manual'=>null,'created_at'=>$logOverride->created_at, 'updated_at'=>$logOverride->updated_at]);
 

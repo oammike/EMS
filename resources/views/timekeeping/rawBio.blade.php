@@ -17,6 +17,8 @@
 			</small><em style="font-size: small;">{{$user->campaign->first()->name}} </em></h2>
 		<label>Log Date: <br/><small>(actual date of employee's finger scan)</small></small> 
 			<input class="form-control datepicker" type="text" name="productionDate" id="productionDate" placeholder="YYYY-MM-DD" datepicker /> </label><br/><br/>
+		<label>Target Production Date: <br/><small>(where you want the logs to appear)</small></small> 
+			<input class="form-control datepicker" type="text" name="productionDate_target" id="productionDate_target" placeholder="YYYY-MM-DD" datepicker /> </label><br/><br/>
 		<label>Time (24hr format): <input class="form-control" type="text" name="logTime" id="logTime" placeholder="HH:mm:ss" /></label><br/><br/>
 		<label><input type="radio" name="logType" value="1" checked="checked"> IN </label>&nbsp;&nbsp;&nbsp;
 		<label><input type="radio" name="logType" value="2"> OUT </label><BR/><br/>
@@ -91,6 +93,7 @@
 		e.preventDefault();e.stopPropagation();
 		var logType_id  = $('input[name="logType"]:checked').val();
 		var productionDate = $('#productionDate').val();
+		var productionDate_target = $('#productionDate_target').val();
 		var logTime =  $('#logTime').val();
 		var _token = "{{ csrf_token() }}";
 		 $.ajax({
@@ -99,6 +102,7 @@
                               data:{ 
                                 'logTime': logTime,
 								'productionDate': productionDate,
+								'productionDate_target': productionDate_target,
 								'logType_id':logType_id,
 								'user_id': "{{$id}}",
 								'_token':_token

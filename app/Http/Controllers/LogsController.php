@@ -39,6 +39,7 @@ use OAMPI_Eval\Logs;
 use OAMPI_Eval\LogType;
 use OAMPI_Eval\TempUpload;
 use OAMPI_Eval\User_DTR;
+use OAMPI_Eval\User_LogOverride;
 
 class LogsController extends Controller
 {
@@ -178,7 +179,40 @@ class LogsController extends Controller
             $l->logType_id = $request->logType_id;
             $l->user_id = $request->user_id;
             $l->save();
-            return response()->json(['success'=>1, 'msg'=>"Biometric saved.",'data'=>$l]);
+
+            //** add an override
+            if ($request->productionDate_target)
+            {
+                $b2 = Carbon::parse($request->productionDate_target." ".$request->logTime,'Asia/Manila');
+                $bio2 = Biometrics::where('productionDate',$b2->format('Y-m-d'))->get();
+
+                if(count($bio2) > 0)
+                {
+                    $override_bio = $bio2->first();
+                }else
+                {
+                    $ob = new Biometrics;
+                    $ob->productionDate = $b2->format('Y-m-d');
+                    $ob->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                    $ob->save();
+                    $override_bio = $ob;
+
+                }
+
+                $override = new User_LogOverride;
+                $override->user_id = $request->user_id;
+                $override->productionDate = $override_bio->productionDate; //$request->productionDate_target;
+                $override->affectedBio = $bio->first()->id; 
+                $override->logTime = $request->logTime;
+                $override->logType_id = $request->logType_id;
+                $override->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                $override->save();
+
+                return response()->json(['success'=>1, 'msg'=>"Biometric with Log Override saved.",'data'=>$l]);
+
+            }
+            else
+                return response()->json(['success'=>1, 'msg'=>"Biometric saved.",'data'=>$l]);
 
         }else
             return response()->json(['success'=>0, 'msg'=>"No Biometric data for that productionDate."]);
