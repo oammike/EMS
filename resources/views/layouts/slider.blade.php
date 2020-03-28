@@ -87,7 +87,7 @@
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Using CARPOOL/ SHUTTLE SERVICE FOR WORK<br/>
                  <br/>
-                    <img src="storage/uploads/carpool.jpg" width="80%" /> <br/><br/>
+                    <img src="storage/uploads/carpool.png" width="80%" /> <br/><br/>
                     <img src="storage/uploads/divider.png" /><br/>
                     
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
