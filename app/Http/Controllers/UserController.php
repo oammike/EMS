@@ -811,7 +811,7 @@ class UserController extends Controller
                     leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
                     leftJoin('positions','users.position_id','=','positions.id')->
                     leftJoin('floor','team.floor_id','=','floor.id')->
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.claimedCard')->orderBy('users.lastname')->get();
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.isWFH as isWFH', 'users.claimedCard')->orderBy('users.lastname')->get();
 
         } else {
 
@@ -4170,6 +4170,16 @@ class UserController extends Controller
         return response()->json($employee);
         //return "hello";
 
+
+    }
+
+
+    public function wfh(Request $request)
+    {
+      $u = User::find($request->id);
+      $u->isWFH = $request->enableWFH;
+      $u->push();
+      return $u;
 
     }
 

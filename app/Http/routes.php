@@ -1016,6 +1016,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserController@workAnnivCelebrators') );
 
 
+     Route::post('/enableWFH', array(
+      'as'=> 'enableWFH',
+      'uses'=>'UserController@wfh') );
+
+
 
      Route::get('/listAllActive', array(
       'as'=> 'listAllActive',

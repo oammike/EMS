@@ -1948,7 +1948,7 @@ class DTRController extends Controller
              $verifiedDTR = User_DTR::where('user_id',$user->id)->where('productionDate','>=',$currentPeriod[0])->
                                                   where('productionDate','<=',$currentPeriod[1])->orderBy('productionDate','ASC')->get();
              $startWFH = Biometrics::where('productionDate',date('Y-m-d', strtotime($currentPeriod[0])) )->first();
-             $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->where('biometrics_id','>=',$startWFH->id)->get();
+             
 
                                                  
 
@@ -1958,6 +1958,7 @@ class DTRController extends Controller
                 $myDTRSheet = $verifiedDTR;
                 $paystart = $currentPeriod[0];
                 $payend = $currentPeriod[1];
+                $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->where('biometrics_id','>=',$startWFH->id)->get();
                 return view('timekeeping.myDTRSheet', compact('wfhData', 'fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
  
 
@@ -2058,7 +2059,7 @@ class DTRController extends Controller
             
              $schedRecord = [];
              $schedCtr = 0;
-             $wsch = new Collection;$x=null;$y=null;$isWFH=null;
+             $wsch = new Collection;$x=null;$y=null;$isWFH=null; $isOnsite=null;
 
              $forRD = new Collection;
 
@@ -2087,9 +2088,14 @@ class DTRController extends Controller
 
 
                 //**** check if working from home
+                
                 $wfh = Logs::where('user_id',$user->id)->where('biometrics_id',$bioForTheDay->id)->where('manual',1)->get();
 
-                (count($wfh) > 0) ? $isWFH=true : $isWFH=false;
+                if($user->isWFH )// ||
+                {
+                  (count($wfh) > 0) ? $isWFH=true : $isWFH=false; 
+                }else  {$isWFH=false; $isOnsite=true;}
+
 
                 $hasCWS = false; $hasApprovedCWS=false; $hasOT=false; $hasApprovedOT=false;
                 $hasLWOP=false; 
@@ -2261,6 +2267,7 @@ class DTRController extends Controller
                            'dtrpOUT_id'=> null,
                            'hasPendingIN' => null,
                            'isWFH'=>$isWFH,
+                           'isOnsite'=>$isOnsite,
                            'hasLeave' => null,
                            'leaveDetails'=>null,
                            'hasLWOP' => null,
@@ -2356,6 +2363,7 @@ class DTRController extends Controller
                                   'isFixedSched'=>$isFixedSched,
                                   'isFlexitime'=> $isFlexitime,
                                   'isWFH'=>$isWFH,
+                                  'isOnsite' =>$isOnsite,
                                   'leaveDetails'=>null,
                                   'logIN' => $data[0]['logIN'],
                                   'logOUT'=>$data[0]['logOUT'],
@@ -2674,6 +2682,7 @@ class DTRController extends Controller
                                                     'leaveDetails'=>$userLogIN[0]['leave'],
                                                     'hasLWOP' => $userLogIN[0]['hasLWOP'],
                                                     'isWFH'=>$isWFH,
+                                                    'isOnsite'=>$isOnsite,
                                                     'lwopDetails'=>$userLogIN[0]['lwop'],
                                                     'logIN' => $userLogIN[0]['logTxt'],
                                                     'logOUT'=>$userLogOUT[0]['logTxt'],
@@ -2716,6 +2725,7 @@ class DTRController extends Controller
                                       'isRDToday'=>$isRDToday,  
                                       'isRD'=> 0,
                                       'isWFH'=>$isWFH,
+                                      'isOnsite'=>$isOnsite,
                                       'leaveDetails'=>$userLogIN[0]['leave'],
                                       'logIN' => $userLogIN[0]['logTxt'],
                                       'logOUT'=>$userLogOUT[0]['logTxt'],

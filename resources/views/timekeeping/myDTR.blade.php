@@ -317,7 +317,17 @@
                                                           </td>
 
                                                         @if($data['isWFH'])
-                                                        <td class="text-center"><a title="WFH log indicator" class="btn btn-sm btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> {{ $data['day'] }}</a> </td>
+                                                        <td class="text-center"><a title="WFH log indicator" class="btn btn-sm btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> {{ $data['day'] }}</a> <br/>
+                                                          </td>
+
+                                                        @elseif($data['isOnsite'])
+
+                                                        <td class="text-center"><a title="Onsite log indicator" class="btn btn-sm btn-default" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-building-o"></i> {{ $data['day'] }}</a> <br/>
+                                                          </td>
+
+
+                                                        
+
                                                         @else
                                                         <td class="text-center">{{ $data['day'] }} </td>
                                                         @endif

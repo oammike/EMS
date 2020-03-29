@@ -317,13 +317,27 @@
                             @if ($hasUserAccess)
 
                                 if(full.claimedCard)
+                                {
+                                  if(full.isWFH)
+                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" checked="checked" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> WFH <i class="fa fa-home"></i> </label><br/><br/><label><input type="checkbox" class="claimedcard" checked="checked" disabled="disabled"> Claimed Rewards Card</label>'+modalcode;
+                                  else
+                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> WFH <i class="fa fa-home"></i> </label><br/><br/><label><input type="checkbox" class="claimedcard" checked="checked" disabled="disabled"> Claimed Rewards Card</label>'+modalcode;
+                                }
 
-                                  return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="claimedcard" checked="checked" disabled="disabled"> Claimed Rewards Card</label>'+modalcode;
+                                  
+
+                                  
 
                                 else
+                                {
+                                  if(full.isWFH)
+                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" checked="checked" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'">  WFH <i class="fa fa-home"></i></label><br/><br/><label><input type="checkbox" class="claimedcard" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Claimed Rewards Card</label>'+modalcode;
+                                  else
+                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'">  WFH <i class="fa fa-home"></i></label><br/><br/><label><input type="checkbox" class="claimedcard" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Claimed Rewards Card</label>'+modalcode;
 
-                                  return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="claimedcard" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Claimed Rewards Card</label>'+modalcode;
+                                }
 
+                                 
                                 
 
                             
@@ -489,6 +503,49 @@
                       {
 
                         chck.attr('disabled',true);
+                        console.log(response);
+
+                          return true;
+                      }
+                  });
+
+
+   });
+
+   $('table').on('click','.wfh',function(){
+      var id = $(this).attr('data-cardid');
+      var empname = $(this).attr('data-name');
+      var chck = $(this).prop('checked');
+      if (chck == true) {
+        var enableWFH = 1;
+        alert("Enable Work From Home for employee: "+empname);
+      }
+
+      else {
+        var enableWFH = 0;
+        alert("Disable Work From Home for employee: "+empname);
+      }
+
+
+      
+      var _token = "{{ csrf_token() }}";
+
+      $.ajax({
+                      url:"{{action('UserController@wfh')}} ",
+                      type:'POST',
+                      data:{id:id, enableWFH:enableWFH,  _token:_token},
+                      error: function(response)
+                      {
+                          
+                        console.log("Error saving data: ");
+
+                          
+                          return false;
+                      },
+                      success: function(response)
+                      {
+
+                        //chck.attr('disabled',true);
                         console.log(response);
 
                           return true;
