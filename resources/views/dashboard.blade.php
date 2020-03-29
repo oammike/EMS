@@ -55,37 +55,40 @@ select:-webkit-autofill:focus {
 
             <div class="col-lg-7 col-sm-6 col-xs-12">
 
-              @if($fromNDY && $trackerNDY[0]->activated)
+               @if(!$fromNDY)
+               <!-- ************* TIMEKEEPING BACKUP ************ -->
+                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                  <div class="box-header with-border">
+                        <h3 class="box-title">Timekeeping</h3>
 
-                @include('layouts.widget-NDY')
-
-              @endif
-
-                @if(count(array($groupedForm))>0 && !$reportsTeam )
-                <!-- ************* POSTMATE WIDGET CHART ************ -->
-
-                     @if($fromGuideline)
-                      @include('layouts.widget-Guideline')
-                     @endif
-
-                     @if($fromPostmate)
-                     @include('layouts.widget-Postmates')
-                     @endif
-                @endif
-
-                
-
-
-                @if($reportsTeam)
-                  <!-- ************* POSTMATE WIDGET CHART ************ -->
-                
-
-                 <!-- ************* POSTMATE WIDGET CHART ************ -->
-                 @include('layouts.widget-Reports_guideline')
-
-                @endif
+                        <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                          </button>
+                          <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                        </div>
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                         <h2 class="text-center text-primary"><span style="font-size: smaller;">{{$startToday->format('l M d, Y')}} </span> <br/>
+                         <span id="wait" style="font-size: small;" class="text-success">Initializing clock. Please wait...<br/><img src="./storage/uploads/loading.gif" width="30" />  </span><br/>
+                         <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
+                         <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p><br/><br/>
+                         <p class="text-center">
+                          @if (!$alreadyLoggedIN)
+                            <a style="display: none" id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
+                          @endif
+                            <button style="display: none;" id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
+                            <button style="display: none" type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
+                            <a style="display: none;" id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
+                         </p>
+                  </div>
+                </div>
                
 
+               @endif
+
+
+               
               <!-- For approvals -->
                   <div class="box box-info"style="background: rgba(256, 256, 256, 0.5)">
                     <div class="box-header with-border">
@@ -150,37 +153,41 @@ select:-webkit-autofill:focus {
                 <!-- /.box-info -->
 
 
-                @if(!$fromNDY)
-               <!-- ************* TIMEKEEPING BACKUP ************ -->
-                <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                  <div class="box-header with-border">
-                        <h3 class="box-title">Timekeeping</h3>
 
-                        <div class="box-tools pull-right">
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                          </button>
-                          <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                        </div>
-                  </div>
-                  <!-- /.box-header -->
-                  <div class="box-body">
-                         <h2 class="text-center text-primary"><span style="font-size: smaller;">{{$startToday->format('l M d, Y')}} </span> <br/>
-                         <span id="wait" style="font-size: small;" class="text-success">Initializing clock. Please wait...<br/><img src="./storage/uploads/loading.gif" width="30" />  </span><br/>
-                         <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
-                         <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes.</p><br/><br/>
-                         <p class="text-center">
-                          @if (!$alreadyLoggedIN)
-                            <a style="display: none" id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
-                          @endif
-                            <button style="display: none;" id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
-                            <button style="display: none" type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
-                            <a style="display: none;" id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
-                         </p>
-                  </div>
-                </div>
+              @if($fromNDY && $trackerNDY[0]->activated)
+
+                @include('layouts.widget-NDY')
+
+              @endif
+
+                @if(count(array($groupedForm))>0 && !$reportsTeam )
+                <!-- ************* POSTMATE WIDGET CHART ************ -->
+
+                     @if($fromGuideline)
+                      @include('layouts.widget-Guideline')
+                     @endif
+
+                     @if($fromPostmate)
+                     @include('layouts.widget-Postmates')
+                     @endif
+                @endif
+
+                
+
+
+                @if($reportsTeam)
+                  <!-- ************* POSTMATE WIDGET CHART ************ -->
+                
+
+                 <!-- ************* POSTMATE WIDGET CHART ************ -->
+                 @include('layouts.widget-Reports_guideline')
+
+                @endif
                
 
-               @endif
+
+
+               
 
                 
 
