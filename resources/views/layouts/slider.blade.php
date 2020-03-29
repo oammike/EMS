@@ -22,6 +22,70 @@
 
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Note:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Updated Payroll Calendar 2020<br/>
+                 <br/>
+                    <img src="storage/uploads/payday.png" width="60%"> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/><br/>
+
+                    
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <table class="table table-bordered text-center" style="font-size: smaller; width: 93%" align="center">
+                      <thead>
+                        <tr>
+                          <th>Month</th>
+                          <th class="bg-orange">New Cutoff</th>
+                          <th class="bg-green">New Payday</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>April</td>
+                          <td>Apr 03 (Fri)</td>
+                          <td>Apr 08 (Wed)</td>
+                        </tr>
+
+                        <tr>
+                          <td>May</td>
+                          <td>May 03 (Sun)</td>
+                          <td>May 08 (Fri)</td>
+                        </tr>
+
+                        <tr>
+                          <td>October</td>
+                          <td>Oct 18 (Sun)</td>
+                          <td>Oct 23 (Fri)</td>
+                        </tr>
+
+                        <tr>
+                          <td>December</td>
+                          <td>Dec 18 (Fri)</td>
+                          <td>Dec 23 (Wed)</td>
+                        </tr>
+
+                        <tr>
+                          <td>January 2021</td>
+                          <td>Jan 03, 2021 (Sun)</td>
+                          <td>Jan 08, 2021 (Fri)</td>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                    <p style="padding: 50px;font-size: x-small;line-height: 1.2em" class="text-left">
+
+                      Please take note of the following changes in our cutoff and payout dates for the following months:<br/><br/>
+                      <em> * note that our regular cutoff period is every 5th and 20th day of the month, and every 10th &amp; 25th for our payout dates)</em> 
+                      <br/><br/><br/>
+                    </p>
+
+
+                    
+                </div>
+
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Onsite Employees &amp; Office Dwellers<br/>
                  <br/>
                     <img src="storage/uploads/companynurse.jpg" width="80%" /> <br/><br/>
