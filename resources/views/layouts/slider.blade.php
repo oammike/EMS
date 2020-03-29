@@ -66,6 +66,25 @@
                 </div>
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Office Dwellers:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Shower Room Etiquette<br/>
+                 <br/>
+                   <img src="storage/uploads/shower.png" width="50%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      Since the Men's Shower Room may no longer be used, office dwellers may take turns using the Ladies Shower Room. To be able to accommodate everyone, the allocated shower time is <strong class="text-danger">strictly 20 minutes per user</strong><br/><br/>
+                      As a courtesy to all the other users, please stick to the time, return the key to the reception guard on time and CAYG.<br/><br/>
+                      Let's take good care of our office facilities as this provides a safe dwelling for us during this ECC period. Thank you.
+                      <br/><br/><br/>
+                    Open Access BPO Management</p>
+
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Staying in Temporary Housing<br/>
                  <br/>
                     <img src="storage/uploads/wfh.jpg" width="80%" /> <br/><br/>
