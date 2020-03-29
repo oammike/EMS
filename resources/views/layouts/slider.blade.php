@@ -1,6 +1,27 @@
 
                 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >Memo:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Early Cutoff and Payroll<br/>
+                 <br/>
+                    <i class="fa fa-calendar fa-5x"></i> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      In view of the upcoming Holy Week , we will move the  payroll cut-off to <strong class="text-danger">Mar 21-Apr 3, 2020.</strong> Attendance from April 4 to 5, 2020 will be paid in full.  Any absence, tardiness, or overtime rendered during that two-day period will be accounted on April 25, 2020 payroll. 
+                       <br/><br/>
+                      Our new payout would be <strong>Apr 8th instead of Apr 10th.</strong> <br/><br/>
+                      Attendance should be approved and locked in EMS on or before April 4, 2020 12:00pm. <br/><br/>
+
+                      Please be guided accordingly.</p>
+
+
+                    
+                </div>
+
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Onsite Employees &amp; Office Dwellers<br/>
                  <br/>
                     <img src="storage/uploads/companynurse.jpg" width="80%" /> <br/><br/>
