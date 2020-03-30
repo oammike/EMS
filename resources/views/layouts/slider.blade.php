@@ -2,6 +2,74 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>EMS as primary system for timekeeping <br/> <strong> effective IMMEDIATELY</strong>
+<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/emstimekeeping.png" width="60%" />
+                    </h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                     In compliance to WHO’s mandatory protective measures to maximize social distancing and minimize risk and contact with high-touch surfaces, we are suspending the use of our biometrics devices for clocking in and out:  <strong class="text-primary"> EMS will now be our primary source of daily timekeeping.</strong><br/><br/>
+                     Log in to EMS to access  the Timekeeping Manager on the Landing Page and click:<br/></br/>
+                      <strong class="text-success"> System CHECK IN </strong>to clock in <br/>
+                      <strong>Breaktime START </strong>to go on break <br/>
+                      <strong>Breaktime END</strong> to go back to work after a break<br/>
+                      <strong class="text-danger">System CHECK OUT</strong> to clock out<br/>
+
+
+
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>MANDATORY <br/>BASIC PROTECTIVE MEASURES FOR THE WORKPLACE <br/>
+                    <span style="font-size: small;">World Health Organization COVID19 Advice for the Public</span>
+
+<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/who.png" width="60%" />
+                    </h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                     For workforce health and safety, it is critical that basic protective measures be taken at all times by our skeletal workforce, office dwellers, and temporary accommodation stayers.<br/></br/>
+
+
+                      <strong class="text-primary"> Wash your hands frequently</strong></br/>
+                      Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water.
+                      Why? Washing your hands with soap and water or using alcohol-based hand rub kills viruses that may be on your hands.<br/></br/>
+
+                      <strong class="text-primary"> Maintain social distancing</strong></br/>
+                      Maintain at least 1 meter (3 feet) distance between yourself and anyone who is coughing or sneezing.
+                      Why? When someone coughs or sneezes, they spray small liquid droplets from their nose or mouth which may contain virus. If you are too close, you can breathe in the droplets, including the COVID-19 virus if the person coughing has the disease.<br/></br/>
+
+                      <strong class="text-primary"> Avoid touching eyes, nose and mouth</strong></br/>
+                      Why? Hands touch many surfaces and can pick up viruses. Once contaminated, hands can transfer the virus to your eyes, nose or mouth. From there, the virus can enter your body and can make you sick.<br/></br/>
+
+                      <strong class="text-primary"> Practice respiratory hygiene</strong></br/>
+                      Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze. Then dispose of the used tissue immediately.
+                      Why? Droplets spread virus. By following good respiratory hygiene, you protect the people around you from viruses such as cold, flu and COVID-19.<br/></br/>
+
+                      <strong class="text-primary"> If you have fever, cough and difficulty breathing, seek medical care early</strong></br/>
+                      Stay home if you feel unwell. If you have a fever, cough and difficulty breathing, seek medical attention and call in advance. Follow the directions of your local health authority.
+                      Why? National and local authorities will have the most up to date information on the situation in your area. Calling in advance will allow your health care provider to quickly direct you to the right health facility. This will also protect you and help prevent spread of viruses and other infections.
+
+
+
+
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><sup>1/2</sup> 13th-Month Advance Payout<br/>
                  <br/>
                     <img src="storage/uploads/divider.png" /><br/>
