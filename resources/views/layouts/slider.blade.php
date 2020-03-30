@@ -301,27 +301,7 @@
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" > Message from <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> OpenAccessBPO Transport<br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
-
-                      Thank you for your patience while we sorted out our skeletal workforce's daily round-the-clock shuttle rides. 
-
-                      We have created a process for dispatching and coordinating rides more smoothly which provides passenger and driver support more efficiently. We launched <strong>OA Transport Support</strong>, the hub for ride status updates.
-
-                      For shuttle inquiries, email <a href="mailto:oatransport@openaccessbpo.com">oatransport@openaccessbpo.com</a> and send feedback to
-                      Shuttle Feedback.
-
-                    </p>
-                    <a class="btn btn-primary btn-sm">Shuttle Feedback</a>
-                    <img src="storage/uploads/carpool.png" width="100%" />
-
-                    
-                </div>
+                
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > Supporting our Employees <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> through Enhanced Community <br/>Quarantine Period<br/>
@@ -986,6 +966,27 @@ Happy International Womens Day!
 
 
 <?php /*
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > Message from <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> OpenAccessBPO Transport<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
+
+                      Thank you for your patience while we sorted out our skeletal workforce's daily round-the-clock shuttle rides. 
+
+                      We have created a process for dispatching and coordinating rides more smoothly which provides passenger and driver support more efficiently. We launched <strong>OA Transport Support</strong>, the hub for ride status updates.
+
+                      For shuttle inquiries, email <a href="mailto:oatransport@openaccessbpo.com">oatransport@openaccessbpo.com</a> and send feedback to
+                      Shuttle Feedback.
+
+                    </p>
+                    <a class="btn btn-primary btn-sm">Shuttle Feedback</a>
+                    <img src="storage/uploads/carpool.png" width="100%" />
+
+                    
+                </div>
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Payout Schedule: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>March 25<br/>
                  <br/>
