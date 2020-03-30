@@ -1156,7 +1156,7 @@ class HomeController extends Controller
 
 
 
-      //return $pass = bcrypt('jpaz'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+      //return $pass = bcrypt('ben2020'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
 
       // --------- if user has no subordinates -----------
       if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)
