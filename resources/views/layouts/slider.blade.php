@@ -9,7 +9,7 @@
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
 
-                      In view of the upcoming Holy Week , we will move the  payroll cut-off to <strong class="text-danger">Mar 21-Apr 3, 2020.</strong> Attendance from April 4 to 5, 2020 will be paid in full.  Any absence, tardiness, or overtime rendered during that two-day period will be accounted on April 25, 2020 payroll. 
+                      In view of the upcoming Holy Week , we will move the  payroll cut-off to <br/><strong class="text-danger text-center" style="font-size: larger">Mar 21-Apr 3, 2020.</strong> <br/><br/>Attendance from April 4 to 5, 2020 will be paid in full.  Any absence, tardiness, or overtime rendered during that two-day period will be accounted on April 25, 2020 payroll. 
                        <br/><br/>
                       Our new payout would be <strong>Apr 8th instead of Apr 10th.</strong> <br/><br/>
                       Attendance should be approved and locked in EMS on or before April 4, 2020 12:00pm. <br/><br/>
@@ -362,27 +362,10 @@ Please note this is an alternative living accommodation option and is not mandat
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Payout Schedule: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>March 25<br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/bdoatm.jpg" width="60%" />
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;" class="text-left"><br/>
-                      - Eligibility: <strong class="text-danger">all employees hired before March 16 </strong><br/><br/>
-                      - Unless otherwise expressed by the employee, available leave credits will be used for days not worked (SL then VL)<br/><br/>
-                      - <strong>For employees with no or not enough leave credits,</strong> the company will advance up to 5 SL credits to be offset as they earn it (use of SL credits during the ECQ period will not be grounds for disqualification from SL conversion<br/><br/>
-                      - All employees that reported for work on March 16 <strong class="text-danger">will be paid in full <em style="font-size: smaller;"> (including those that were sent home after the announcement and did not finish their shift)</em></strong><br/><br/>
-                      - All agents and TLs that continued to report for work from March 17-20 will get <strong class="text-danger">+50% base pay on hours worked</strong>
-                    </p>
-
-                   
-                    
-                </div>
+               
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >1/2 13th-Month  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Advance Payout<br/>
+                  <h4 class="text-orange" ><sup>1/2</sup> 13th-Month  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Advance Payout<br/>
                  <br/>
                     <img src="storage/uploads/divider.png" /><br/>
                     <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
@@ -390,7 +373,7 @@ Please note this is an alternative living accommodation option and is not mandat
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px;" class="text-left"><br/>
                       - Payout Schedule:<strong class="text-danger"> April 10</strong><br/><br/>
-                      - Computation will be based on 3/12 of monthly base salary+non-taxable allowance<br/><br/>
+                      - Computation will be based on <strong>6/12</strong> of monthly base salary+non-taxable allowance<br/><br/>
                       - Example: (((10,000 + 2,800))/12 months) x 6 months = Php 6,400<br/><br/>
                       - <strong class="text-primary">Employee may opt out (to get the 13th month in full during December payout). </strong><br/>
                      Send an email to:  <strong>salaryinquiry@openaccessbpo.com</strong>
@@ -1003,6 +986,25 @@ Happy International Womens Day!
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Payout Schedule: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>March 25<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/bdoatm.jpg" width="60%" />
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;" class="text-left"><br/>
+                      - Eligibility: <strong class="text-danger">all employees hired before March 16 </strong><br/><br/>
+                      - Unless otherwise expressed by the employee, available leave credits will be used for days not worked (SL then VL)<br/><br/>
+                      - <strong>For employees with no or not enough leave credits,</strong> the company will advance up to 5 SL credits to be offset as they earn it (use of SL credits during the ECQ period will not be grounds for disqualification from SL conversion<br/><br/>
+                      - All employees that reported for work on March 16 <strong class="text-danger">will be paid in full <em style="font-size: smaller;"> (including those that were sent home after the announcement and did not finish their shift)</em></strong><br/><br/>
+                      - All agents and TLs that continued to report for work from March 17-20 will get <strong class="text-danger">+50% base pay on hours worked</strong>
+                    </p>
+
+                   
+                    
+                </div>
+
 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >  DOLE <em>(Department of Labor &amp; Employment)</em> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Financial Support<br/><br/>
                  <br/>
