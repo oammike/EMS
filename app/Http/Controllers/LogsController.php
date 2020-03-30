@@ -70,6 +70,54 @@ class LogsController extends Controller
         return redirect()->back();
     }
 
+    public function allLogs()
+    {
+        $user = $this->user;
+        if (Input::get('date'))
+            $start = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $start = Carbon::now('GMT+8');
+
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+        if($this->user->id !== 564 ) {
+        $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n AllLogs track on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+        fclose($file);
+        } 
+
+        
+        return view('timekeeping.allLogs',compact('user','start'));
+    }
+
+    public function getAllLogs()
+    {
+        if (Input::get('date'))
+            $productionDate = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $productionDate = Carbon::now('GMT+8');
+
+        $bio = Biometrics::where('productionDate',$productionDate->format('Y-m-d'))->get();
+        if (count($bio) > 0)
+        {
+            $allLogs = DB::table('logs')->where('biometrics_id',$bio->first()->id)->
+            leftJoin('users','logs.user_id','=','users.id')->
+            leftJoin('team','team.user_id','=','users.id')->
+            leftJoin('campaign','team.campaign_id','=','campaign.id')->
+            select('users.id as userID','users.accesscode',  'users.lastname','users.firstname','campaign.name as program','logs.logType_id','logs.logTime','logs.created_at')->orderBy('users.lastname','ASC')->get();
+
+        }else
+        {
+            $allLogs = null;
+
+        }
+
+        
+
+        return response()->json(['data'=>$allLogs, 'count'=>count($allLogs)]);
+
+    }
 
     public function getWFH()
     {

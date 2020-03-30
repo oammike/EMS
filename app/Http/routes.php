@@ -391,7 +391,19 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'logs.saveDashboardLog',
         'uses'=>'LogsController@saveDashboardLog') );
 
-      Route::get('/getWFH', array(
+       Route::get('/getAllLogs', array(
+        'as'=> 'logs.getAllLogs',
+        'uses'=>'LogsController@getAllLogs') );
+
+       Route::get('/allLogs', array(
+        'as'=> 'logs.allLogs',
+        'uses'=>'LogsController@allLogs') );
+
+      Route::get('/allLogs_download', array(
+        'as'=> 'logs.allLogs_download',
+        'uses'=>'LogsController@allLogs_download') );
+
+       Route::get('/getWFH', array(
         'as'=> 'logs.getWFH',
         'uses'=>'LogsController@getWFH') );
 
