@@ -1,6 +1,27 @@
 
                 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><sup>1/2</sup> 13th-Month Advance Payout<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      For those who opted to receive <sup>1/2</sup> 13th month pay, this will be included in the <strong>April 8th payout.</strong><br/><br/>
+
+                      Employees may opt out <em>(meaning they will get the 13th month in full during December payout)</em> by sending an email to <a href="mailto:salaryinquiry@openaccessbpo.com">salaryinquiry@openaccessbpo.com</a> <strong class="text-orange">no later than April 5, 2020</strong><br/><br/> -------------------------- <br/><br/><strong><i class="fa fa-envelope"></i> subject line:</strong> <br/>
+                      <strong class="text-success"> OPT OUT - Early Release of 13th Month Pay. </strong><br/>
+                      <strong><br/> -------------------------- <br/></strong>
+
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Memo:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Early Cutoff and Payroll<br/>
                  <br/>
                     <i class="fa fa-calendar fa-5x"></i> <br/><br/>
