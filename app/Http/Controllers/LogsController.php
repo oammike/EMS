@@ -120,12 +120,12 @@ class LogsController extends Controller
                     leftJoin('users','logs.user_id','=','users.id')->
                     leftJoin('team','users.id','=','team.user_id')->
                     leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                    select('users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType')->
+                    select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType','logs.manual')->
                     orderBy('users.lastname')->get();
         
 
         
-            $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp");
+            $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
             $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
             $description = " ". $sheetTitle;
 
@@ -153,6 +153,8 @@ class LogsController extends Controller
                     foreach($form as $item)
                     {
                         $t = Carbon::parse($item->serverTime);
+
+                        ($item->manual && User::find($item->id)->isWFH) ? $loc='WFH' : $loc='Onsite';
                         
                         $arr = array($item->accesscode, 
                                      $item->lastname,
@@ -161,7 +163,9 @@ class LogsController extends Controller
                                      $item->logTime, //plan number
                                      $item->logType,
                                      
-                                     $t->format('H:i:s') 
+                                     $t->format('H:i:s'),
+                                     $loc 
+
                                      );
                         $sheet->appendRow($arr);
 
