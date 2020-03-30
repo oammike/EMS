@@ -91,6 +91,99 @@ class LogsController extends Controller
         return view('timekeeping.allLogs',compact('user','start'));
     }
 
+    public function allLogs_download()
+    {
+        DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
+        $canAdminister = ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
+
+        $from = Input::get('from');
+        
+        $download = Input::get('dl');
+
+        $rawData = new Collection;
+
+        if (is_null(Input::get('from')))
+        {
+            $daystart = Carbon::now('GMT+8')->startOfDay(); $dayend = Carbon::now('GMT+8')->endOfDay();
+        }
+        else {
+            $daystart = Carbon::parse(Input::get('from'),'Asia/Manila')->startOfDay(); 
+            $dayend = Carbon::parse(Input::get('from'),'Asia/Manila')->endOfDay();
+        }
+
+        $bio = Biometrics::where('productionDate',$daystart->format('Y-m-d'))->get();
+        if (count($bio) > 0)
+        {
+            $form = DB::table('logs')->where('biometrics_id',$bio->first()->id)->
+                    leftJoin('logType','logs.logType_id','=','logType.id')->
+                    leftJoin('users','logs.user_id','=','users.id')->
+                    leftJoin('team','users.id','=','team.user_id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    select('users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType')->
+                    orderBy('users.lastname')->get();
+        
+
+        
+            $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp");
+            $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
+            $description = " ". $sheetTitle;
+
+            if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL_allLogs_csv [".$daystart->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+
+            
+
+           Excel::create($sheetTitle,function($excel) use($form, $sheetTitle, $headers,$description,$daystart) 
+           {
+                  $excel->setTitle($sheetTitle.' Summary Report');
+
+                  // Chain the setters
+                  $excel->setCreator('Programming Team')
+                        ->setCompany('OpenAccess');
+
+                  // Call them separately
+                  $excel->setDescription($description);
+                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form, $headers)
+                  {
+                    $sheet->appendRow($headers);
+                    foreach($form as $item)
+                    {
+                        $t = Carbon::parse($item->serverTime);
+                        
+                        $arr = array($item->accesscode, 
+                                     $item->lastname,
+                                     $item->firstname,
+                                     $item->program, //ID
+                                     $item->logTime, //plan number
+                                     $item->logType,
+                                     
+                                     $t->format('H:i:s') 
+                                     );
+                        $sheet->appendRow($arr);
+
+                    }
+                    
+                 });//end sheet1
+
+           })->export('xls');
+
+           return "Download";
+
+        }else
+        {
+            return view('empty');
+        }
+
+        
+
+                        
+
+    }
+
     public function getAllLogs()
     {
         if (Input::get('date'))
