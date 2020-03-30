@@ -83,6 +83,29 @@
 
                     
                 </div>
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > Message from <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> OpenAccessBPO Transport Support<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
+
+                      Thank you for your patience while we sorted out our skeletal workforce's daily round-the-clock shuttle rides. <br/><br/>
+
+                      We have created a process for dispatching and coordinating rides more smoothly which provides passenger and driver support more efficiently. We launched <strong>OA Transport Support</strong>, the hub for ride status updates.<br/><br/>
+
+                      For shuttle inquiries, email <a href="mailto:oatransport@openaccessbpo.com">oatransport@openaccessbpo.com</a> and send feedback to
+                      Shuttle Feedback.<br/>
+
+                     
+
+                    </p> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxw3XcddE8m_5gnt5GEz-7Qdd7-9CdoZWWS2PkbjrpQB-4JQ/viewform?usp=sf_link" class="btn btn-primary btn-md text-center" target="_blank">Click Here for Shuttle Feedback</a>
+                    
+                    <img src="storage/uploads/carpool.png" width="100%" />
+
+                    
+                </div>
 
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
@@ -286,11 +309,15 @@
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
 
-                      We apologize for the delays in processing or completing your shuttle ride requests. We are creating a process to be able to dispatch and coordinate rides more smoothly and provide passenger and driver support more quickly. We will be able to launch OA Transport Support which will have the ability to provide ride status updates in real-time very soon. Our goal is to get our skeletal workforce to the office and back home safely and on time.<br/><br/>
+                      Thank you for your patience while we sorted out our skeletal workforce's daily round-the-clock shuttle rides. 
 
-                      Thank you for your understanding.
+                      We have created a process for dispatching and coordinating rides more smoothly which provides passenger and driver support more efficiently. We launched <strong>OA Transport Support</strong>, the hub for ride status updates.
+
+                      For shuttle inquiries, email <a href="mailto:oatransport@openaccessbpo.com">oatransport@openaccessbpo.com</a> and send feedback to
+                      Shuttle Feedback.
 
                     </p>
+                    <a class="btn btn-primary btn-sm">Shuttle Feedback</a>
                     <img src="storage/uploads/carpool.png" width="100%" />
 
                     
