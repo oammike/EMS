@@ -117,7 +117,11 @@
                       else if(data == '3')
                       return  "<strong>BREAK_end</strong>";
                       else if(data == '4')
-                      return  "<strong>BREAK_start</strong>"
+                      return  "<strong>BREAK_start</strong>";
+                      else if(data == '5')
+                      return  "<strong>OT_in</strong>";
+                      else if(data == '6')
+                      return  "<strong>OT_out</strong>";
                       } }, //,width:'180'}, // 1
                   { title: "DTR sheet", defaultContent: " ", data:'userID',width:'150',render:function(data){
                        
@@ -132,7 +136,7 @@
             "responsive":true,
             //"scrollX":false,
             "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
-            "order": [[ 4, 'DESC' ]],
+            "order": [[ 3 ]],
             "lengthChange": true,
             "oLanguage": {
                "sSearch": "<strong>Recorded Logs</strong> <br/><br/>To re-order entries, click the sort icon on the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",
@@ -146,7 +150,7 @@
 
         $('#refresh').on('click', function(e, datatable){
           var d = $('#date').val();
-          window.location= 'wfh?date='+d;
+          window.location= 'allLogs?date='+d;
 
            /*$.getJSON("getWFH?date="+d, function (response,datatable) 
             {
