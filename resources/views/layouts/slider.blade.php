@@ -2,9 +2,29 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>EMS as primary system for timekeeping <br/> <strong> effective IMMEDIATELY</strong>
-<br/>
-                 <br/>
+                  <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>All Shuttle/Carpool Riders<br/> <br/>
+                   
+                    <img src="storage/uploads/facemask.png" width="80%" /><br/> 
+                    <img src="storage/uploads/divider.png" /><br/>
+                    </h4>
+                    
+                    <p style="padding: 50px;" class="text-left">
+                      <strong class="text-danger"><i class="fa fa-exclamation-triangle"></i> FACIAL MASKS ARE REQUIRED TO GET INTO THE VEHICLE</strong> --- LGU'S have made it mandatory for citizens to wear masks when in public so this will be inspected in checkpoints.  Hence our company is enforcing this in the office as well as in our company shuttles on the way to our workplace.<br/><br/>
+
+                      For strict compliance.  Please comply and come prepared - so as not to endanger others or delay your shared trip.<br/><br/>
+
+                      Washable masks are available at our clinic. Request for one, if needed.
+
+
+
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>EMS as primary system for timekeeping <br/> <strong> effective IMMEDIATELY</strong><br/> <br/>
                     <img src="storage/uploads/divider.png" /><br/>
                     <img src="storage/uploads/emstimekeeping.png" width="60%" />
                     </h4>
