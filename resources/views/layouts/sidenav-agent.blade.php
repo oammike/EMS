@@ -9,23 +9,21 @@
             $updatedSL = false;
 
 
-             if ($lengthOfservice > 1) //do this if only 6mos++
-            {
+            //if ($lengthOfservice > 6) //do this if only 6mos++
+            //{
               $today= date('m');//today();
               $avail = $u->vlCredits;
               $avail2 = $u->slCredits;
-
-              /*$vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$u->id)->
-                              join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
-                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',\Carbon\Carbon::parse('first day of this year','Asia/Manila')->format('Y-m-d'))->get();
-              $totalVLearned = collect($vlEarnings)->sum('credits');*/
 
               $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$u->id)->
                                join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
                                select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',\Carbon\Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
               $totalVLearned = collect($vlEarnings)->sum('credits');
 
-
+              $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$u->id)->
+                               join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
+                               select('slupdate.credits','slupdate.period')->where('slupdate.period','>',\Carbon\Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+              $totalSLearned = collect($slEarnings)->sum('credits');
 
               $approvedVLs = OAMPI_Eval\User_VL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
               $approvedSLs = OAMPI_Eval\User_SL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
@@ -37,12 +35,12 @@
                   if($vls->contains('creditYear',date('Y')))
                   {
                     $updatedVL=true;
-                    $currentVLbalance= ( $vls->first()->beginBalance + $totalVLearned) - $vls->first()->used;
-
+                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) + $totalVLearned - $vls->first()->paid;
                   }
                   else{
+                    $currentVLbalance = "N/A";
                     
-                    if (count($approvedVLs)>0)
+                    /*if (count($approvedVLs)>0)
                     {
                       $bal = 0.0;
                       foreach ($approvedVLs as $key) {
@@ -54,7 +52,7 @@
                     }else{
 
                       $currentVLbalance = (0.84 * $today);
-                    }
+                    }*/
 
                   } 
 
@@ -63,7 +61,7 @@
                 }else {
                   
 
-                  if (count($approvedVLs)>0){
+                  /*if (count($approvedVLs)>0){
                     $bal = 0.0;
                     foreach ($approvedVLs as $key) {
                       $bal += $key->totalCredits;
@@ -74,20 +72,22 @@
                   }else{
 
                     $currentVLbalance = (0.84 * $today);
-                  }
+                  }*/
+                  $currentVLbalance = "N/A";
                   
                 }
 
 
                 /************ for SL ************/
-                 if (count($avail2)>0)
-                 {
+                if (count($avail2)>0)
+                {
                   $sls = $u->slCredits->sortByDesc('creditYear');
 
                   if($sls->contains('creditYear',date('Y')))
                   {
                     $updatedSL=true;
-                    $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used) - $sls->first()->paid;
+                    $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid;
+                    
                   }
                   else{
                     
@@ -106,10 +106,10 @@
                     }
 
                   }
-                }else {
-                  
-
-                  if (count($approvedSLs)>0){
+                }else 
+                {
+                  $currentSLbalance="N/A";
+                  /*if (count($approvedSLs)>0){
                     $bal = 0.0;
                     foreach ($approvedSLs as $key) {
                       $bal += $key->totalCredits;
@@ -120,14 +120,18 @@
                   }else{
 
                     $currentSLbalance = (0.84 * $today);
-                  }
+                  }*/
                   
                 }
 
-            }
+            //}
             
                 //$avail = $this->user->availableVL;
+
+            //check for updated credits:
             $updatedVLcredits = OAMPI_Eval\VLupdate::orderBy('period','DESC')->get();
+            $updatedSLcredits = OAMPI_Eval\SLupdate::orderBy('period','DESC')->get();
+            
                 
             ?>
 <aside class="main-sidebar">

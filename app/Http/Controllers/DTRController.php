@@ -1708,8 +1708,8 @@ class DTRController extends Controller
         $updatedSL = false;
 
 
-        if ($lengthOfService >= 6) //do this if only 6mos++
-        {
+        /*if ($lengthOfService >= 6) //do this if only 6mos++
+        {*/
           $today= date('m');//today();
           $avail = $user->vlCredits;
           $avail2 = $user->slCredits;
@@ -1718,6 +1718,11 @@ class DTRController extends Controller
                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
                               select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
           $totalVLearned = collect($vlEarnings)->sum('credits');
+
+          $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
+                              join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
+                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+          $totalSLearned = collect($slEarnings)->sum('credits');
 
           $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
           $approvedSLs = User_SL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
@@ -1731,21 +1736,23 @@ class DTRController extends Controller
                 $updatedVL=true;
                 $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid;
               }
-              else{
+              else
+              {
+                $currentVLbalance = "N/A";
                 
-                if (count($approvedVLs)>0)
-                {
-                  $bal = 0.0;
-                  foreach ($approvedVLs as $key) {
-                    $bal += $key->totalCredits;
-                  }
+                // if (count($approvedVLs)>0)
+                // {
+                //   $bal = 0.0;
+                //   foreach ($approvedVLs as $key) {
+                //     $bal += $key->totalCredits;
+                //   }
 
-                  $currentVLbalance = "N/A"; //(0.84 * $today) - $bal;
+                //   $currentVLbalance = "N/A"; //(0.84 * $today) - $bal;
 
-                }else{
+                // }else{
 
-                  $currentVLbalance = "N/A";// (0.84 * $today);
-                }
+                //   $currentVLbalance = "N/A";// (0.84 * $today);
+                // }
 
               } 
 
@@ -1753,19 +1760,20 @@ class DTRController extends Controller
 
             }else {
               
+              $currentVLbalance = "N/A";
 
-              if (count($approvedVLs)>0){
-                $bal = 0.0;
-                foreach ($approvedVLs as $key) {
-                  $bal += $key->totalCredits;
-                }
+              // if (count($approvedVLs)>0){
+              //   $bal = 0.0;
+              //   foreach ($approvedVLs as $key) {
+              //     $bal += $key->totalCredits;
+              //   }
 
-                $currentVLbalance = "N/A";// (0.84 * $today) - $bal;
+              //   $currentVLbalance = "N/A";// (0.84 * $today) - $bal;
 
-              }else{
+              // }else{
 
-                $currentVLbalance = "N/A";// (0.84 * $today);
-              }
+              //   $currentVLbalance = "N/A";// (0.84 * $today);
+              // }
               
             }
 
@@ -1778,44 +1786,48 @@ class DTRController extends Controller
               if($sls->contains('creditYear',date('Y')))
               {
                 $updatedSL=true;
-                $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used) - $sls->first()->paid;
+                $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid;
+                                   
               }
-              else{
+              else
+              {
+                $currentSLbalance = "N/A";
                 
-                if (count($approvedSLs)>0)
-                {
-                  $bal = 0.0;
-                  foreach ($approvedSLs as $key) {
-                    $bal += $key->totalCredits;
-                  }
+                // if (count($approvedSLs)>0)
+                // {
+                //   $bal = 0.0;
+                //   foreach ($approvedSLs as $key) {
+                //     $bal += $key->totalCredits;
+                //   }
 
-                  $currentSLbalance = "N/A";// (0.84 * $today) - $bal;
+                //   $currentSLbalance = "N/A";// (0.84 * $today) - $bal;
 
-                }else{
+                // }else{
 
-                  $currentSLbalance = "N/A";// (0.84 * $today);
-                }
+                //   $currentSLbalance = "N/A";// (0.84 * $today);
+                // }
 
               }
             }else {
               
+              $currentSLbalance = "N/A";
 
-              if (count($approvedSLs)>0){
-                $bal = 0.0;
-                foreach ($approvedSLs as $key) {
-                  $bal += $key->totalCredits;
-                }
+              // if (count($approvedSLs)>0){
+              //   $bal = 0.0;
+              //   foreach ($approvedSLs as $key) {
+              //     $bal += $key->totalCredits;
+              //   }
 
-                $currentSLbalance = "N/A";// (0.84 * $today) - $bal;
+              //   $currentSLbalance = "N/A";// (0.84 * $today) - $bal;
 
-              }else{
+              // }else{
 
-                $currentSLbalance = "N/A";// (0.84 * $today);
-              }
+              //   $currentSLbalance = "N/A";// (0.84 * $today);
+              // }
               
             }
 
-        }
+        //}
         
             
 
