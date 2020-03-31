@@ -1896,6 +1896,7 @@ class DTRController extends Controller
            
 
           }
+
               
            $getday = explode('-',$currentPeriod[0]);
            if ($getday[2] < Cutoff::first()->second)
@@ -1921,6 +1922,7 @@ class DTRController extends Controller
             }
 
              $cutoff = date('M d, Y', strtotime($currentPeriod[0])). " - ". date('M d,Y', strtotime($currentPeriod[1])); 
+             //return $currentPeriod;
 
 
              // ---------------------------

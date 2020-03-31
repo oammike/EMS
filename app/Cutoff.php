@@ -148,9 +148,20 @@ class Cutoff extends Model
                 $to .= ($this->first);
             }
             else{
-                $to = date('Y')."-";
-                $to .= date('m',strtotime("next month"))."-";
-                $to .= ($this->first);
+
+                if(date('d')== '31')
+                {
+                    $to = date('Y')."-";
+                    $m = date('m')+1;
+                    $to .= $m."-";
+                    $to .= ($this->first);
+                
+                }else
+                {
+                    $to = date('Y')."-";
+                    $to .= date('m',strtotime("next month"))."-";
+                    $to .= ($this->first);
+                }
             }
             
             
