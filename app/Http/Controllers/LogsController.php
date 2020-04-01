@@ -192,7 +192,11 @@ class LogsController extends Controller
                     {
                         $t = Carbon::parse($item->submitted);
 
-                       ($item->isApproved) ? $a="Yes" : $a="No";
+                       if($item->isApproved == null)
+                            $a="Pending Approval";
+                       else if($item->isApproved == 1)
+                            $a="Yes";
+                       else $a="No";
                         
                         $arr = array($item->accesscode, 
                                      $item->lastname,
