@@ -158,7 +158,7 @@ class LogsController extends Controller
 
                   // Call them separately
                   $excel->setDescription($description);
-                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form,$allDTRPs, $headers,$headers2)
+                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form, $headers)
                   {
                     $sheet->appendRow($headers);
                     foreach($form as $item)
@@ -185,7 +185,7 @@ class LogsController extends Controller
                  });//end sheet1
 
 
-                  $excel->sheet("DTRPs", function($sheet) use ($form,$allDTRPs, $headers,$headers2)
+                  $excel->sheet('All DTRPs', function($sheet) use ($allDTRPs,$headers2)
                   {
                     $sheet->appendRow($headers2);
                     foreach($allDTRPs as $item)
