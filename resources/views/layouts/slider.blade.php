@@ -2,6 +2,27 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >Message from our Execs: <br/> <span class="text-primary"> <i class="fa fa-thumbs-up"></i> Amazing job, IT Team!</i><br/> <br/>
+                   
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left"><img src="storage/uploads/teamIT.jpg" width="110%" /><br/><br/>Dear Open Access BPO Family,<br/><br/>
+                     Amazing job by our IT team and everyone else involved. In record time we have transferred over 700 people working out of their homes with 50 to o100 more people in progress which is almost 80% of our workforce. <strong>A huge THANK YOU!!!</strong><br/><br/>
+                     Outstanding effort. We appreciate you and everything you have sacrificed to get this done. <br/>
+                    
+
+                    </p>
+
+                    
+                    
+
+
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>Davao Employees<br/> <br/>
                    
                    
