@@ -842,7 +842,7 @@
                                                        <!-- **************** OVERTIME **************** -->    
                                                         @else
 
-                                                            @if ($data['hasOT'])                                     
+                                                            @if ( $data['hasOT'] && ($data['shiftStart'] != null && $data['shiftEnd'] !=null) )                                     
                                                                            
                                                                     <!-- ** we now process any pre and post OTs ** -->
                                                                     <td class="text-center"> 
@@ -876,19 +876,22 @@
                                                                               @endif
                                                                              
 
-                                                                              @include('layouts.modals-OT_details2', [
-                                                                              'modelRoute'=>'user_ot.store',
-                                                                              'modelID' => '_OT_details'.$data["payday"], 
-                                                                              'modelName'=>"Overtime ", 
-                                                                              'modalTitle'=>'OT Details', 
-                                                                              'Dday' =>$data["day"],
-                                                                              'DproductionDate' =>$data["productionDate"],
-                                                                              'biometrics_id'=> $data["biometrics_id"],
-                                                                              'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                              'isRD'=> $data["isRD"],
-                                                                              'formID'=>'submitOT',
-                                                                              'otData'=>$postOT,
-                                                                              'icon'=>'glyphicon-up' ])
+                                                                              @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
+                                                                                @include('layouts.modals-OT_details2', [
+                                                                                'modelRoute'=>'user_ot.store',
+                                                                                'modelID' => '_OT_details'.$data["payday"], 
+                                                                                'modelName'=>"Overtime ", 
+                                                                                'modalTitle'=>'OT Details', 
+                                                                                'Dday' =>$data["day"],
+                                                                                'DproductionDate' =>$data["productionDate"],
+                                                                                'biometrics_id'=> $data["biometrics_id"],
+                                                                                'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                                'isRD'=> $data["isRD"],
+                                                                                'formID'=>'submitOT',
+                                                                                'otData'=>$postOT,
+                                                                                'icon'=>'glyphicon-up' ])
+
+                                                                              @endif
 
                                                                             @endif
 
@@ -896,7 +899,12 @@
 
                                                                         @else
 
-                                                                            {!! $data['billableForOT'] !!} 
+                                                                            @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
+
+                                                                              <!-- show only if may work schedule -->
+                                                                              {!! $data['billableForOT'] !!} 
+
+                                                                            @endif
 
                                                                             @if(count((array)$data['approvedOT']) > 0)
 
@@ -904,22 +912,26 @@
                                                                                   @if(is_null($data['approvedOT']->first()->preshift))
                                                                                        <a data-toggle="modal" data-target="#myModal_OT_details{{$data['payday']}}" title="View Details" class="pull-right @if ($data['approvedOT']->first()->isApproved)text-green @else text-gray @endif" style="font-size:1.2em;" href="#"><i class="fa fa-credit-card"></i></a></td>
 
-                                                                                       @include('layouts.modals-OT_details', [
-                                                                                      'modelRoute'=>'user_ot.store',
-                                                                                      'modelID' => '_OT_details'.$data["payday"], 
-                                                                                      'modelName'=>"Overtime ", 
-                                                                                      'modalTitle'=>'OT Details', 
-                                                                                      'Dday' =>$data["day"],
-                                                                                      'DproductionDate' =>$data["productionDate"],
-                                                                                      'biometrics_id'=> $data["biometrics_id"],
-                                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                                      'isRD'=> $data["isRD"],
-                                                                                      'formID'=>'submitOT',
-                                                                                      'icon'=>'glyphicon-up' ])
+                                                                                      @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
+                                                                                        @include('layouts.modals-OT_details', [
+                                                                                        'modelRoute'=>'user_ot.store',
+                                                                                        'modelID' => '_OT_details'.$data["payday"], 
+                                                                                        'modelName'=>"Overtime ", 
+                                                                                        'modalTitle'=>'OT Details', 
+                                                                                        'Dday' =>$data["day"],
+                                                                                        'DproductionDate' =>$data["productionDate"],
+                                                                                        'biometrics_id'=> $data["biometrics_id"],
+                                                                                        'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                                        'isRD'=> $data["isRD"],
+                                                                                        'formID'=>'submitOT',
+                                                                                        'icon'=>'glyphicon-up' ])
+                                                                                      @endif
 
                                                                                   @else
 
                                                                                      {!! $data['OTattribute'] !!}
+
+                                                                                     @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
                                                                                       @include('layouts.modals-OT', [
                                                                                         'modelRoute'=>'user_ot.store',
                                                                                         'modelID' => '_OT'.$data["payday"], 
@@ -932,6 +944,7 @@
                                                                                         'isRD'=> $data["isRD"],
                                                                                         'formID'=>'submitOT',
                                                                                         'icon'=>'glyphicon-up' ])
+                                                                                      @endif
 
 
                                                                                   @endif
@@ -951,19 +964,20 @@
 
                                                                               @endif 
                                                                       
-
-                                                                                      @include('layouts.modals-OT_details', [
-                                                                                      'modelRoute'=>'user_ot.store',
-                                                                                      'modelID' => '_OT_details'.$data["payday"], 
-                                                                                      'modelName'=>"Overtime ", 
-                                                                                      'modalTitle'=>'OT Details', 
-                                                                                      'Dday' =>$data["day"],
-                                                                                      'DproductionDate' =>$data["productionDate"],
-                                                                                      'biometrics_id'=> $data["biometrics_id"],
-                                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                                      'isRD'=> $data["isRD"],
-                                                                                      'formID'=>'submitOT',
-                                                                                      'icon'=>'glyphicon-up' ])
+                                                                                      @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
+                                                                                        @include('layouts.modals-OT_details', [
+                                                                                        'modelRoute'=>'user_ot.store',
+                                                                                        'modelID' => '_OT_details'.$data["payday"], 
+                                                                                        'modelName'=>"Overtime ", 
+                                                                                        'modalTitle'=>'OT Details', 
+                                                                                        'Dday' =>$data["day"],
+                                                                                        'DproductionDate' =>$data["productionDate"],
+                                                                                        'biometrics_id'=> $data["biometrics_id"],
+                                                                                        'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                                        'isRD'=> $data["isRD"],
+                                                                                        'formID'=>'submitOT',
+                                                                                        'icon'=>'glyphicon-up' ])
+                                                                                      @endif
 
                                                                             
 
@@ -986,7 +1000,14 @@
                                                             @else
                                                             <td class="text-center">
                                                               @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
-                                                              {!! $data['billableForOT'] !!} {!! $data['OTattribute'] !!} </td>
+
+                                                              @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
+
+                                                                {!! $data['billableForOT'] !!} {!! $data['OTattribute'] !!} 
+                                                                
+                                                              @endif
+
+                                                            </td>
 
                                                              
                                                               <input type="hidden" name="OT_billable_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['billableForOT']}}" />
@@ -1143,35 +1164,39 @@
                                                                       'icon'=>'glyphicon-up' ])
                                                                 @else
 
-                                                                     @include('layouts.modals-OT', [
-                                                                      'modelRoute'=>'user_ot.store',
-                                                                      'modelID' => '_OT'.$data["payday"], 
-                                                                      'modelName'=>"Overtime ", 
-                                                                      'modalTitle'=>'Submit', 
-                                                                      'Dday' =>$data["day"],
-                                                                      'DproductionDate' =>$data["productionDate"],
-                                                                      'biometrics_id'=> $data["biometrics_id"],
-                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                      'isRD'=> $data["isRD"],
-                                                                      'formID'=>'submitOT',
-                                                                      'icon'=>'glyphicon-up' ])
+                                                                     @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
+                                                                       @include('layouts.modals-OT', [
+                                                                        'modelRoute'=>'user_ot.store',
+                                                                        'modelID' => '_OT'.$data["payday"], 
+                                                                        'modelName'=>"Overtime ", 
+                                                                        'modalTitle'=>'Submit', 
+                                                                        'Dday' =>$data["day"],
+                                                                        'DproductionDate' =>$data["productionDate"],
+                                                                        'biometrics_id'=> $data["biometrics_id"],
+                                                                        'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                        'isRD'=> $data["isRD"],
+                                                                        'formID'=>'submitOT',
+                                                                        'icon'=>'glyphicon-up' ])
+                                                                      @endif
 
                                                                 @endif
                                                             
                                                             @else
 
-                                                              @include('layouts.modals-OT', [
-                                                                  'modelRoute'=>'user_ot.store',
-                                                                  'modelID' => '_OT'.$data["payday"], 
-                                                                  'modelName'=>"Overtime ", 
-                                                                  'modalTitle'=>'Submit', 
-                                                                  'Dday' =>$data["day"],
-                                                                  'DproductionDate' =>$data["productionDate"],
-                                                                  'biometrics_id'=> $data["biometrics_id"],
-                                                                  'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                  'isRD'=> $data["isRD"],
-                                                                  'formID'=>'submitOT',
-                                                                  'icon'=>'glyphicon-up' ])
+                                                              @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
+                                                                @include('layouts.modals-OT', [
+                                                                    'modelRoute'=>'user_ot.store',
+                                                                    'modelID' => '_OT'.$data["payday"], 
+                                                                    'modelName'=>"Overtime ", 
+                                                                    'modalTitle'=>'Submit', 
+                                                                    'Dday' =>$data["day"],
+                                                                    'DproductionDate' =>$data["productionDate"],
+                                                                    'biometrics_id'=> $data["biometrics_id"],
+                                                                    'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                    'isRD'=> $data["isRD"],
+                                                                    'formID'=>'submitOT',
+                                                                    'icon'=>'glyphicon-up' ])
+                                                              @endif
 
 
                                                             @endif
