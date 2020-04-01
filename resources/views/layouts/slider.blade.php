@@ -2,8 +2,61 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>Davao Employees<br/> <br/>
+                   
+                   
+                    <img src="storage/uploads/divider.png" /><br/>
+                    </h4>
+
+                    <p class="text-center"><a href="oampi-resources#resource_2" class="btn btn-sm btn-primary" target="_blank"><i class="fa fa-book"></i> ECQ Health &amp; Safety Protocols Davao</a></p>
+
+                    <h5>Davao HR Hotline <i class="fa fa-phone"></i> : <br/><span style="font-size: large;" class="text-danger"> 0917-859-2539 </span><br/></h5>
+
+                    <table class="table" width="80%">
+                      <tr>
+                        <th class="text-center text-primary">Point Persons:</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a target="_blank" href="user/3086"><img src="./public/img/employees/3086.jpg" class="img-circle" width="80" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Joash Elisha Arado <br/><small>(jarado@openaccessbpo.net)</small></h4></a>
+                        </td>
+                        
+                      </tr>
+                      <tr>
+                        <td>
+                          <a target="_blank" href="user/2096"><img src="./public/img/employees/2096.jpg" class="img-circle" width="100" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Mary Lord Maulingan<br/><small>(mmaulingan@openaccessbpo.net)</small></h4></a>
+                        </td>
+                      </tr>
+                      
+                    </table>
+
+                     <h5>Davao Nurse Hotline <i class="fa fa-phone"></i> : <br/><span style="font-size: large;" class="text-danger"> 0917-818-7146 </span><br/></h5>
+
+                    <table class="table">
+                      <tr>
+                        <thclass="text-center text-primary">Point Persons</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a target="_blank" href="user/3737"><img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="50" class="img-circle" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Dianna Mariss Ba <br/><small>(dba@openaccessbpo.net)</small></h4></a>
+                        </td>
+                        
+                      </tr>
+                      
+                    </table>
+                    
+
+
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>All Shuttle/Carpool Riders<br/> <br/>
                    
+                   
+                  
                     <img src="storage/uploads/facemask.png" width="80%" /><br/> 
                     <img src="storage/uploads/divider.png" /><br/>
                     </h4>
