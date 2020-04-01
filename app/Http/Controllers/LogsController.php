@@ -122,10 +122,20 @@ class LogsController extends Controller
                     leftJoin('campaign','team.campaign_id','=','campaign.id')->
                     select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType','logs.manual')->
                     orderBy('users.lastname')->get();
+
+
+            $allDTRPs = DB::table('user_dtrp')->where('user_dtrp.biometrics_id',$bio->first()->id)->
+                        leftJoin('logType','user_dtrp.logType_id','=','logType.id')->
+                        leftJoin('users','user_dtrp.user_id','=','users.id')->
+                        leftJoin('team','users.id','=','team.user_id')->
+                        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'user_dtrp.logTime','logType.name as logType','user_dtrp.isApproved','user_dtrp.notes', 'user_dtrp.created_at as submitted' )->
+                        orderBy('users.lastname')->get();
         
 
         
             $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
+            $headers2 = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted");
             $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
             $description = " ". $sheetTitle;
 
@@ -135,9 +145,10 @@ class LogsController extends Controller
                 fclose($file);
             } 
 
+            //return $allDTRPs;
             
 
-           Excel::create($sheetTitle,function($excel) use($form, $sheetTitle, $headers,$description,$daystart) 
+           Excel::create($sheetTitle,function($excel) use($form,$allDTRPs, $sheetTitle, $headers,$headers2,$description,$daystart) 
            {
                   $excel->setTitle($sheetTitle.' Summary Report');
 
@@ -147,7 +158,7 @@ class LogsController extends Controller
 
                   // Call them separately
                   $excel->setDescription($description);
-                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form, $headers)
+                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form,$allDTRPs, $headers,$headers2)
                   {
                     $sheet->appendRow($headers);
                     foreach($form as $item)
@@ -172,6 +183,34 @@ class LogsController extends Controller
                     }
                     
                  });//end sheet1
+
+
+                  $excel->sheet("DTRPs", function($sheet) use ($form,$allDTRPs, $headers,$headers2)
+                  {
+                    $sheet->appendRow($headers2);
+                    foreach($allDTRPs as $item)
+                    {
+                        $t = Carbon::parse($item->submitted);
+
+                       ($item->isApproved) ? $a="Yes" : $a="No";
+                        
+                        $arr = array($item->accesscode, 
+                                     $item->lastname,
+                                     $item->firstname,
+                                     $item->program, //ID
+                                     $item->logTime, //plan number
+                                     $item->logType,
+                                     $a,
+                                     $item->notes,
+                                     $t->format('H:i:s'),
+                                     
+
+                                     );
+                        $sheet->appendRow($arr);
+
+                    }
+                    
+                 });//end sheet2
 
            })->export('xls');
 
