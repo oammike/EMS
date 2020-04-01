@@ -3764,8 +3764,24 @@ trait TimekeepingTraits
     
 
     $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
-    if ($isPartTimer)
-      $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
+    $ptOverride = null;
+    if ($isPartTimer) {
+
+      // ----- we now have to check kung may PT-override
+      $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
+
+      if (count($hasPToverride) > 0)
+      {
+        $ptOverride=true;
+        $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+      }
+      else
+      {
+        $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
+
+      }
+      
+    }
     else {
       ($is4x11) ? $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(11) : $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
     }
@@ -3991,8 +4007,11 @@ trait TimekeepingTraits
         //$stat = User::find($user_id)->status_id;
         //****** part time user
 
-        if ($isPartTimer || $isPartTimerForeign)
-          $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+        if ($isPartTimer || $isPartTimerForeign) {
+
+          ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+          
+        }
         else {
           if ($is4x11)
             $UT = number_format((600.0 - (($wh-60) - $minsLate) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
@@ -4010,7 +4029,7 @@ trait TimekeepingTraits
           if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"))
           {
             if($isPartTimer | $isPartTimerForeign)
-              $workedHours = 4.00;
+              ($ptOverride) ? $workedHours = 8.00 : $workedHours = 4.00; 
             else {
               ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00;
             }
@@ -4102,8 +4121,9 @@ trait TimekeepingTraits
               //$stat = User::find($user_id)->status_id;
               //****** part time user
 
-              if ($isPartTimer || $isPartTimerForeign)
-                $UT = round((240.0 - $wh)/60,2); 
+              if ($isPartTimer || $isPartTimerForeign) {
+                ($ptOverride) ? $UT = round((480.0 - $wh )/60,2) : $UT = round((240.0 - $wh)/60,2); 
+              }
               else
               {
                 if ($is4x11)
@@ -4233,7 +4253,11 @@ trait TimekeepingTraits
                 //****** part time user
 
                 if ($isPartTimer || $isPartTimerForeign)
-                $UT = round((240.0 - $wh)/60,2); 
+                {
+                  ($ptOverride) ? $UT = round((480.0 - $wh )/60,2) : $UT = round((240.0 - $wh)/60,2); 
+
+                }
+                
                 else
                   {
                     if ($is4x11)
@@ -4310,8 +4334,11 @@ trait TimekeepingTraits
                   //$stat = User::find($user->id)->status_id;
                   //****** part time user
 
-                  if ($isPartTimer)
-                  $UT = round((240.0 - $wh)/60,2); //33.33; //
+                  if ($isPartTimer) 
+                  {
+                    ($ptOverride) ? $UT = round((480.0 - $wh )/60,2) : $UT = round((240.0 - $wh)/60,2); //33.33; //
+                  }
+                  
                   else
                     {
                       if ($is4x11)
@@ -4373,7 +4400,7 @@ trait TimekeepingTraits
                 if ($wh > 480)
                 {
                   if($isPartTimer || $isPartTimerForeign )
-                    $workedHours = '4.00';
+                    ($ptOverride) ? $workedHours = '8.00' : $workedHours = '4.00';
                   else 
                   {
                     ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00; 
@@ -4432,7 +4459,7 @@ trait TimekeepingTraits
                 {
                   if ($isPartTimer || $isPartTimerForeign)
                   {
-                      $workedHours ="4.00"; $UT = 0;// number_format(240 - $wh,2);
+                      ($ptOverride) ? $workedHours ="8.00": $workedHours ="4.00"; $UT = 0;// number_format(240 - $wh,2);
                   }else
                   {
                     $workedHours = number_format($wh/60,2); 
@@ -4454,7 +4481,11 @@ trait TimekeepingTraits
                     
                     //$totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
                       //$totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
-                      ($isPartTimer || $isPartTimerForeign) ? $totalbill = number_format(($wh - 240)/60,2) :  $totalbill = number_format(($wh - 480)/60,2);
+                      if ($isPartTimer || $isPartTimerForeign)
+                      {
+                        ($ptOverride) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill = number_format(($wh - 240)/60,2);
+                      }
+                      else $totalbill = number_format(($wh - 480)/60,2);
                     
                    }
                     
@@ -4507,7 +4538,7 @@ trait TimekeepingTraits
     else
     {
       if($isPartTimer || $isPartTimerForeign)
-        $WHcounter = 4.0;
+        ($ptOverride) ? $WHcounter = 8.0 : $WHcounter = 4.0;
       else {
         ($is4x11) ? $WHcounter = 10.0 : $WHcounter = 8.0; 
       }

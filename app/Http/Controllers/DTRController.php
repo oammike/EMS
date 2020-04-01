@@ -2436,11 +2436,29 @@ class DTRController extends Controller
 
                                     }else
                                     {
-                                        $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
-                                        $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
-                                        $f = $schedForToday['isFlexitime'];
-                                        $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
 
+                                        // ----- we now have to check kung may PT-override
+                                        $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
+
+                                        if (count($hasPToverride) > 0)
+                                        {
+                                          $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(9);
+                                          $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
+                                          $f = $schedForToday['isFlexitime'];
+                                          $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
+
+                                        }
+                                        else
+                                        {
+                                          $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
+                                          $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
+                                          $f = $schedForToday['isFlexitime'];
+                                          $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
+
+
+                                        }
+                                        
+                                        
                                     }
                                    
                                    
