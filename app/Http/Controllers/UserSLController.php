@@ -188,7 +188,7 @@ class UserSLController extends Controller
                     $today=Carbon::today();/*------- check first if user is entitled for a leave (Regualr employee or lengOfService > 6mos) *********/
                     $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
 
-                    if ($lengthOfService >= 6)
+                    if ($lengthOfService >= 1)
                     {
                         if (empty($request->from))
                             $vl_from = Carbon::today();
