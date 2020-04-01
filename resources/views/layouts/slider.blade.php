@@ -7,8 +7,10 @@
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left"><img src="storage/uploads/teamIT.jpg" width="110%" /><br/><br/>Dear Open Access BPO Family,<br/><br/>
-                     Amazing job by our IT team and everyone else involved. In record time we have transferred over 700 people working out of their homes with 50 to o100 more people in progress which is almost 80% of our workforce. <strong>A huge THANK YOU!!!</strong><br/><br/>
-                     Outstanding effort. We appreciate you and everything you have sacrificed to get this done. <br/>
+                     Amazing job by our IT team and everyone else involved. In record time we have transferred over 700 people working out of their homes with 50 to 100 more people in progress which is almost 80% of our workforce. <strong>A huge THANK YOU!!!</strong><br/><br/>
+                     Outstanding effort. We appreciate you and everything you have sacrificed to get this done. <br/><br/>
+
+                     <strong>Ben &amp; Henry</strong>
                     
 
                     </p>
