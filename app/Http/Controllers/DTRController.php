@@ -1631,7 +1631,9 @@ class DTRController extends Controller
         /*------- check first if user is entitled for a leave (Regualr employee or lengthOfService > 6mos) *********/
         $today=Carbon::today();
         $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
-        ($lengthOfService >= 6) ? $entitledForLeaves=true : $entitledForLeaves=false;
+        $hasVLCreditsAlready = DB::table('user_vlcredits')->where('user_id',$user->id)->where('creditYear',date('Y'))->get();
+        $hasSLCreditsAlready = DB::table('user_slcredits')->where('user_id',$user->id)->where('creditYear',date('Y'))->get();
+        ($lengthOfService >= 6 || count($hasVLCreditsAlready) > 0 || count($hasSLCreditsAlready) > 0 ) ? $entitledForLeaves=true : $entitledForLeaves=false;
 
 
         $leadershipcheck = ImmediateHead::where('employeeNumber', $user->employeeNumber)->first();
