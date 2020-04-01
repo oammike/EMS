@@ -199,6 +199,11 @@ class UserSLController extends Controller
 
                         $savedCredits = User_SLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
 
+                        $vlEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
+                              join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
+                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>',Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                        $totalVLearned = collect($vlEarnings)->sum('credits');
+
                         
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
@@ -225,27 +230,25 @@ class UserSLController extends Controller
                                     $creditsLeft = (0.84 * $today->format('m')) ;
                                  }
 
-                            } else 
-                            {
+                            }
+                            else{
+
                                 $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
 
                                 //if 4HRs lang work nya, part timer sya or foreign na part timer
                                 //dapat half lang credit nila
-                                $totalworked = Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila'));
-                                
-                                if( $totalworked  > 4)
+                                if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila')) > 4)
                                     $foreignPartime = 0;
                                     //credits = 1;
                                 else
                                     $foreignPartime = 1; // 0.5;
 
 
-
                                 ($isParttimer || $foreignPartime) ? $used = 0.5 : $used = 1.00; 
 
                                 if (count($savedCredits)>0){
                                     $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used);
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned;
                                  }else 
                                  {
 
@@ -262,7 +265,11 @@ class UserSLController extends Controller
                                     else
                                         $creditsLeft = (0.84 * $today->format('m')) - $used ;
                                 }
-                            }
+                            }  
+
+
+
+                            
 
 
                             
