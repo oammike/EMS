@@ -34,7 +34,7 @@
 
                     <table class="table">
                       <tr>
-                        <thclass="text-center text-primary">Point Persons</th>
+                        <thclass="text-center text-primary">Point Person:</th>
                       </tr>
                       <tr>
                         <td>
