@@ -33,21 +33,18 @@
 
                        
 
-                     <strong class="text-primary">  How is advance 13th-month pay computed?</strong><br/>
+                     <strong class="text-primary">  How is advance 13th-month pay computed?</strong><br/><br/><br/>
+                     
+                     <strong>For Regular Employees </strong>: 
+                     <pre> Monthly basic and allowance x 6 months<br/>-----------------------------------<br/>12 months</pre> 
+
+                                                                  
 
                        
 
-                      <strong>For Regular Employees </strong>- Monthly basic and allowance x 6 months
+                      <br/><br/><strong>For Contractuals & Project Based Employees:</strong><br/>
 
-                                                                              12 months<br/><br/>
-
-                       
-
-                      <strong>For Contractuals & Project Based Employees</strong><br/>
-
-                      Monthly basic and allowance X  number of months indicated in the contract  during CY2020) X 50%
-
-                                                                                    12 Months <br/><br/>
+                      <pre>Monthly basic and allowance <br/>X  number of months indicated <br/>in the contract  during CY2020) <br/>X 50%<br/>--------------------------------------------<br/>12 Months</pre> <br/><br/>
 
                        
 
