@@ -3332,8 +3332,10 @@ trait TimekeepingTraits
        pushData:
 
        $logOverrideIN=null; $logOverrideOUT=null;
-       $hasLogOverrideIN = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',1)->get();
-       $hasLogOverrideOUT = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',2)->get();
+       $hasLogOverrideIN = User_LogOverride::where('user_id',$user_id)->where('productionDate',$thisPayrollDate)->where('logType_id',1)->get();
+       $hasLogOverrideOUT = User_LogOverride::where('user_id',$user_id)->where('productionDate',$thisPayrollDate)->where('logType_id',2)->get();
+       // $hasLogOverrideIN = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',1)->get();
+       // $hasLogOverrideOUT = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',2)->get();
 
         if(count($hasLogOverrideIN) > 0)
         {
