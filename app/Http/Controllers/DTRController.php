@@ -1221,6 +1221,7 @@ class DTRController extends Controller
                       //join('user_dtr','user_dtr.user_id','=','users.id')->
                       select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.timeIN', 'user_dtr.user_id')->
                       where([
+                          ['users.status_id', '!=', 6],
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
                           ['users.status_id', '!=', 9],
@@ -1235,6 +1236,7 @@ class DTRController extends Controller
                       
                       select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
                       where([
+                          ['users.status_id', '!=', 6],
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
                           ['users.status_id', '!=', 9],
