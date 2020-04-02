@@ -2,10 +2,36 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><strong class="text-danger"> Opting Out</strong> for Advance 13th Month Pay<br/>
+                  <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary">  Log IN/OUT and DTRP </i><br/> <br/>
+                   <img src="storage/uploads/reminder.jpg" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     This is a reminder to those working in the office and working from home to LOG IN and LOG OUT using EMS.  As previously announced, EMS will now be the primary system for daily timekeeping.<br/><br/>
+
+                     <strong class="text-primary">Any DTRP concerns will be subject to validation and review. </strong> Non-compliance with the requirement to  LOG IN and LOG OUT in EMS will be dealt with in accordance with our Code of Conduct.<br/><br/>
+
+                      Please be guided accordingly.<br/><br/>
+
+                      Thank you.
+                    
+
+                    </p>
+
+                    
+                    
+
+
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><strong class="text-danger"> Opting Out</strong> for Advance 13th Month Pay<br/>
                  <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
+                    
+                    <img src="storage/uploads/13thmonth.jpg" width="90%" /><br/><br/><img src="storage/uploads/divider.png" /></h4>
                     
                     <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
                     <p style="padding: 50px;" class="text-left"><br/>
@@ -64,7 +90,7 @@
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Message from our Execs: <br/> <span class="text-primary"> <i class="fa fa-thumbs-up"></i> Amazing job, IT Team!</i><br/> <br/>
                    
                     <img src="storage/uploads/divider.png" />
