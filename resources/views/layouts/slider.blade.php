@@ -2,6 +2,72 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><strong class="text-danger"> Opting Out</strong> for Advance 13th Month Pay<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      Please be reminded that you still have until <strong>April 5</strong> to opt out your advance 13th-month pay.<br/> <span class="text-danger">For those opting out</span>, you will be receiving your <strong> <span class="text-danger"> 13th month pay in full </span>on December 2020</strong>. <br/><br/>
+
+                      For those <strong>who did not send an email</strong> to opt out on salaryinquiry@openaccessbpo.com until April 5, 2020, you will receive 6/12 of your 13th-month pay on April 8, 2020.  <br/><br/>
+
+                       
+
+                      Below are common FAQs:<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> Who is covered for the advance release of 13th-month pay?</strong><br/>
+
+                      Regular, contractual, and project-based employees as of April 5, 2020.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> Who is not covered for the advance release of 13th-month pay?</strong><br/>
+
+                      Employees who have tendered their resignation.
+
+                      Trainees and Probationary employees.<br/><br/>
+
+                       
+
+                     <strong class="text-primary">  How is advance 13th-month pay computed?</strong><br/>
+
+                       
+
+                      <strong>For Regular Employees </strong>- Monthly basic and allowance x 6 months
+
+                                                                              12 months<br/><br/>
+
+                       
+
+                      <strong>For Contractuals & Project Based Employees</strong><br/>
+
+                      Monthly basic and allowance X  number of months indicated in the contract  during CY2020) X 50%
+
+                                                                                    12 Months <br/><br/>
+
+                       
+
+                     <strong class="text-primary">  When is the release of advance 13th-month pay?</strong><br/>
+
+                      It will be paid on April 8, 2020.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> What will happen if the employee did not fully render the advanced 13th-month pay?</strong><br/>
+
+                      It will be deducted from employees' last pay.
+
+                    </p>
+
+                   
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Message from our Execs: <br/> <span class="text-primary"> <i class="fa fa-thumbs-up"></i> Amazing job, IT Team!</i><br/> <br/>
                    
                     <img src="storage/uploads/divider.png" />
@@ -126,7 +192,7 @@
                   <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>MANDATORY <br/>BASIC PROTECTIVE MEASURES FOR THE WORKPLACE <br/>
                     <span style="font-size: small;">World Health Organization COVID19 Advice for the Public</span>
 
-<br/>
+                  <br/>
                  <br/>
                     <img src="storage/uploads/divider.png" /><br/>
                     <img src="storage/uploads/who.png" width="60%" />
