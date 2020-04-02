@@ -654,7 +654,7 @@ class DTRController extends Controller
                           $sheet->mergeCells($m);
                           $sheet->cell('D'.($lastrow+6), function($cell) {
 
-                            $cell->setValue('LISA JACKSON-MACHALSKI');
+                            $cell->setValue('OLGA PONCE');
                             $cell->setAlignment('center');
                             $cell->setBorder('solid');
                             $cell->setFontSize(30);
@@ -665,7 +665,7 @@ class DTRController extends Controller
                           $sheet->mergeCells($m);
                           $sheet->cell('D'.($lastrow+7), function($cell) {
 
-                            $cell->setValue('Chief Financial Officer');
+                            $cell->setValue('Finance Consultant');
                             $cell->setAlignment('center');
 
                             
