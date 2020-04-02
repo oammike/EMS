@@ -128,6 +128,7 @@ class DTRController extends Controller
 
       DB::connection()->disableQueryLog();
       $allUsers = DB::table('users')->where([
+                    ['status_id', '!=', 6],
                     ['status_id', '!=', 7],
                     ['status_id', '!=', 8],
                     ['status_id', '!=', 9],
