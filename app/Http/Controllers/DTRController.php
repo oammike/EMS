@@ -1977,7 +1977,7 @@ class DTRController extends Controller
                 $myDTRSheet = $verifiedDTR;
                 $paystart = $currentPeriod[0];
                 $payend = $currentPeriod[1];
-                $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->where('biometrics_id','>=',$startWFH->id)->get();
+                $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
                 return view('timekeeping.myDTRSheet', compact('wfhData', 'fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
  
 
