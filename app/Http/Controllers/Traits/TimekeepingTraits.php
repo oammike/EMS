@@ -3015,7 +3015,8 @@ trait TimekeepingTraits
           //       else, legit RDOT
           // else RD lang
 
-          $logIN = date('h:i:s A',strtotime($userLogIN->first()->logTime));
+          $logIN = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila')->format('M d h:i:s A');
+          //date('h:i:s A',strtotime($userLogIN->first()->logTime));
           $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
           $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
 
