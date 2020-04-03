@@ -249,10 +249,10 @@
                                                         <!-- we determin here if WFH -->
                                                         <?php $hasWFH = collect($wfhData)->where('biometrics_id',$data['biometrics_id']); ?>
                                                         
-                                                        @if(count($hasWFH) > 0)
+                                                        @if(count($hasWFH) > 0 && $user->isWFH)
                                                         <td class="text-center"><a title="WFH log indicator" class="btn btn-xs btn-primary" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> {{ date('l',strtotime($data->productionDate)) }} </a> </td>
                                                         @else
-                                                        <td class="text-center">{{ date('l',strtotime($data->productionDate)) }} </td>
+                                                        <td class="text-center"><a title="Onsite log indicator" class="btn btn-xs btn-default" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-building"></i> {{ date('l',strtotime($data->productionDate)) }} </a></td>
                                                         @endif
 
 
