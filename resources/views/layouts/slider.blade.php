@@ -2,6 +2,30 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Message From: <br/> <span class="text-primary"><i class="fa fa-car"></i>   OpenAccessBPO Transport </i><br/> <br/>
+                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     TO ALL SHUTTLERS<br/><br/>
+
+
+                    Due to the high volume of ride requests, we need to streamline our trip planning to utilize our driver pool more efficiently and effectively.<br/><br/>
+
+                    To be able to accommodate more shuttle riders, we would need to schedule shared rides in clusters of 2-3 hours ahead of your actual shift start time (possibly longer for those living in farther vicinities) and up to 1 hour from your shift end time. <br/><br/>
+
+                    Effective immediately, please expect adjustments in your pickup time and allot a longer time allowance. Please take note of your new ride schedules from the email notification that will be sent, and prepare accordingly. <br/><br/>
+
+                    Let’s all help each other get to and from work on time and safely.<br/><br/>
+
+                    Thank you for your understanding.
+                    
+
+                    </p>  
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary">  Log IN/OUT and DTRP </i><br/> <br/>
                    <img src="storage/uploads/reminder.jpg" width="80%" /><br/><br/>
                     <img src="storage/uploads/divider.png" />
@@ -16,14 +40,7 @@
                       Thank you.
                     
 
-                    </p>
-
-                    
-                    
-
-
-
-                   
+                    </p>  
                     
                 </div>
 
