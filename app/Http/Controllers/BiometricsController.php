@@ -44,6 +44,7 @@ use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_LWOP;
+use OAMPI_Eval\ECQ_Workstatus;
 
 class BiometricsController extends Controller
 {
@@ -55,6 +56,11 @@ class BiometricsController extends Controller
         $this->middleware('auth');
         $this->biometrics = $biometrics;
         $this->user =  User::find(Auth::user()->id);
+    }
+
+    public function ecq_upload()
+    {
+    	return view('timekeeping.ecq');
     }
 
     public function index()
@@ -514,6 +520,180 @@ class BiometricsController extends Controller
 		      
 	    }
 	    else return response()->json(['success'=>false]);
+    	
+
+    }
+
+    public function uploadECQ(Request $request)
+    {
+    	DB::connection()->disableQueryLog();
+    	$today = date('Y-m-d');
+    	
+    	$bioFile = $request->file('biometricsData');
+    	
+	    //if (Input::file('biometricsData')->isValid()) 
+	    if (!empty($bioFile))
+	    {
+			//$destinationPath = 'uploads'; // upload path
+			$destinationPath = storage_path() . '/uploads/';
+			$extension = Input::file('biometricsData')->getClientOriginalExtension(); // getting image extension
+			$fileName = $today.'-ecq_status.'.$extension; // renameing image
+			$bioFile->move($destinationPath, $fileName); // uploading file to given path
+
+			$file = fopen($destinationPath.$fileName, 'r');
+			$file2 = fopen($destinationPath.$fileName, 'r');
+
+			$coll = new Collection;
+			$ctr=0;
+			$headers = [];
+			$flag = true;
+			DB::connection()->disableQueryLog();
+			$csvCol = fgets($file2); 
+
+			$headers = explode(',', $csvCol);
+			$totalCols = count($headers);
+			$total = 0;
+
+			//return response()->json(['headers'=>$headers, 'totalCols'=>$totalCols]);
+
+			// rows H
+			// ACCESSCODE | Department | EmpName | March 21 | March 22 ... | April 5
+			$prodDates = [];
+			for ($i=3; $i < $totalCols ; $i++)
+			{ 
+				$pd = preg_replace('/\s+/', '', $headers[$i]);
+				$prodDate = Carbon::parse($pd." ".date('Y'),'Asia/Manila');
+				$b = DB::table('biometrics')->where('productionDate',$prodDate->format('Y-m-d'))->select('id')->get();
+				(count($b) > 0) ? array_push($prodDates, $b[0]->id) : array_push($prodDates, '0'); 
+			}
+			
+
+			//$employee = null;
+			// **************** WORK STATUSES: 1=AHW | 2=Hotel Stayer | 3=Shuttler | 4= Walkers | 5= Dwellers | 6= Carpool Driver | 7= Carpool Passenger
+			
+			while (($result = fgetcsv($file)) !== false)
+			{
+				if ($flag) $flag=false; //skip headers
+				else
+				{
+					$u = DB::table('users')->where('accesscode',$result[0])->select('id','firstname','lastname')->get();// User::where('accesscode',$result[0])->get();
+					if(count($u) > 0)
+						$employee = $u[0];
+					else goto moveNext;//$employee=null;
+					for ($i=3; $i < $totalCols ; $i++) 
+					{
+						switch ($result[$i]) {
+							case 'AHW':
+							{
+								$ecq = new ECQ_Workstatus;
+								$ecq->user_id = $employee->id;
+								$ecq->biometrics_id = $prodDates[$i-3];
+								$ecq->workStatus = 1;
+								$ecq->save();
+								$coll->push(['saved'=>$ecq]);
+
+
+							}break;
+
+							case 'Hotel Stayer':
+							{
+								$ecq = new ECQ_Workstatus;
+								$ecq->user_id = $employee->id;
+								$ecq->biometrics_id = $prodDates[$i-3];
+								$ecq->workStatus = 2;
+								$ecq->save();
+								$coll->push(['saved'=>$ecq]);
+
+
+							}break;
+
+							case 'Shuttler':
+							{
+								$ecq = new ECQ_Workstatus;
+								$ecq->user_id = $employee->id;
+								$ecq->biometrics_id = $prodDates[$i-3];
+								$ecq->workStatus = 3;
+								$ecq->save();
+								$coll->push(['saved'=>$ecq]);
+
+
+							}break;
+							case 'Walkers':
+							{
+								$ecq = new ECQ_Workstatus;
+								$ecq->user_id = $employee->id;
+								$ecq->biometrics_id = $prodDates[$i-3];
+								$ecq->workStatus = 4;
+								$ecq->save();
+								$coll->push(['saved'=>$ecq]);
+
+
+							}break;
+
+							case 'Dwellers':
+							{
+								$ecq = new ECQ_Workstatus;
+								$ecq->user_id = $employee->id;
+								$ecq->biometrics_id = $prodDates[$i-3];
+								$ecq->workStatus = 5;
+								$ecq->save();
+								$coll->push(['saved'=>$ecq]);
+
+
+							}break;
+
+							case 'Carpool Driver':
+							{
+								$ecq = new ECQ_Workstatus;
+								$ecq->user_id = $employee->id;
+								$ecq->biometrics_id = $prodDates[$i-3];
+								$ecq->workStatus = 6;
+								$ecq->save();
+								$coll->push(['saved'=>$ecq]);
+
+
+							}break;
+
+							case 'Carpool Passenger':
+							{
+								$ecq = new ECQ_Workstatus;
+								$ecq->user_id = $employee->id;
+								$ecq->biometrics_id = $prodDates[$i-3];
+								$ecq->workStatus = 7;
+								$ecq->save();
+								$coll->push(['saved'=>$ecq]);
+
+
+							}break;
+
+
+							
+							
+						}
+				
+			    	}//end for
+
+
+			    	moveNext:
+
+			    	$total++;
+				}//end else
+				
+
+				
+			    $ctr++;
+			    
+			}//end while
+
+			
+
+			fclose($file);fclose($file2);
+
+			return response()->json($coll);
+			//return view('timekeeping.workSched_success',compact('total'));
+		      
+	    }
+	    //return response()->json(['success'=>false, 'bioFile'=>$bioFile]);
     	
 
     }

@@ -505,6 +505,8 @@
 
             <li style="padding-left:20px"><a href="{{action('BiometricsController@workSched_upload')}}" data-backdrop="static" data-keyboard="false" ><i class="fa fa-upload"></i>Upload Work Sched</a></li>
 
+            <li style="padding-left:20px"><a href="{{action('BiometricsController@ecq_upload')}}" data-backdrop="static" data-keyboard="false" ><i class="fa fa-ambulance"></i>ECQ Work Status</a></li>
+
             <?php } ?><br/>
           </ul>
         </li>

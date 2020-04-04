@@ -800,6 +800,15 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'biometrics.uploadFinanceCSV',
         'uses'=>'BiometricsController@uploadFinanceCSV') );
 
+        Route::post('/biometrics/uploadECQ', array(
+        'as'=> 'biometrics.uploadECQ',
+        'uses'=>'BiometricsController@uploadECQ') );
+
+        Route::get('/ecq_upload', array(
+        'as'=> 'biometrics.ecq_upload',
+        'uses'=>'BiometricsController@ecq_upload') );
+
+
         Route::post('/biometrics/uploadSched', array(
         'as'=> 'biometrics.uploadSched',
         'uses'=>'BiometricsController@uploadSched') );

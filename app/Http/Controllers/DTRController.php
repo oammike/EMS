@@ -57,6 +57,7 @@ use OAMPI_Eval\HolidayType;
 use OAMPI_Eval\Memo;
 use OAMPI_Eval\User_Memo;
 use OAMPI_Eval\User_RDoverride;
+use OAMPI_Eval\ECQ_Workstatus;
 
 
 
@@ -1977,8 +1978,9 @@ class DTRController extends Controller
                 $myDTRSheet = $verifiedDTR;
                 $paystart = $currentPeriod[0];
                 $payend = $currentPeriod[1];
+                $ecq = ECQ_Workstatus::where('user_id',$user->id)->get();
                 $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
-                return view('timekeeping.myDTRSheet', compact('wfhData', 'fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
+                return view('timekeeping.myDTRSheet', compact('ecq', 'wfhData', 'fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance'));
  
 
              }
@@ -2843,9 +2845,11 @@ class DTRController extends Controller
 
                 $notedMemo=true; $memo=null; //override for tour
 
-
+           $ecq = ECQ_Workstatus::where('user_id',$user->id)->get();
+           $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
+                
            
-           return view('timekeeping.myDTR', compact('fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice'));
+           return view('timekeeping.myDTR', compact('ecq','wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice'));
 
 
         } else return view('access-denied');
