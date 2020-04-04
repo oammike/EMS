@@ -352,7 +352,7 @@
 
                                                         @elseif(count($hasWFH) > 0 && $user->isWFH)
                                                         <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> </a> {{ date('l',strtotime($data['productionDate'])) }} </td>
-                                                        @elseif($user->isWFH && $data->workshift == '* RD * - * RD *')
+                                                        @elseif($user->isWFH && $data['shiftStart2'] == '* RD *')
                                                         <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('l',strtotime($data['productionDate'])) }} </td>
                                                         @else
 
