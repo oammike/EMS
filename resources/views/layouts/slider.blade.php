@@ -2,6 +2,125 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+
+                  <div style="position: relative;width:100%">
+                    <img src="storage/uploads/bdavidowitz.jpg" width="95%"  />
+                     <h4 class="text-orange" style="line-height: 1.4em; width:50%; position: absolute; right: 0px; top: 0px" > Message From Our CEO: <br/> <span class="text-primary"> Ben Davidowitz</i><br/><br/><img src="storage/uploads/divider.png" />
+                  </div>
+                 
+                    
+                    </h4>
+
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     Dear Open Access Family:<br/><br/>
+
+
+
+                      I hope everyone is keeping safe and healthy. Although many of you are in isolation alone many of you are more fortunate to cherish the extra time we can spend with our loved ones.<br/><br/>
+
+
+
+                      We are living through unprecedented times, a period in which 50 years from now people will look back as an important moment in history. It is hard to predict what will happen over the next few weeks and even few months. And while life is now testing each and every one of us, I am 100% confident we will all come through this stronger, if we stick together. Certainly many of us will have a new appreciation for life and the ones we love. <br/><br/>
+
+
+
+                      Open Access has been through many ups and downs since 2006 - we started this business at the beginning of what was to become the Global Financial Crisis, an economic event that had not been seen since the Great Depression in the 1930s. This time is different as that period was just about money and jobs, something that can be replaced. COVID-19 is about something even more important - our health and our lives, which can't be replaced. <br/><br/>
+
+
+
+                      As this situation is evolving, we are prepared to continue to do everything we can to ensure the safety of everyone at Open Access, as well as making sure everyone gets paid. While many companies in the U.S. are having to reduce their workforces, we are very fortunate the bulk of our portfolio of clients are stable and operational.<br/><br/>
+
+
+
+                      In the last two weeks, we have shifted from an in-office BPO to a largely work-from-home operation only made possible by enormous efforts from our stellar IT team, Joy, and the rest of leadership. They have all worked tirelessly making this happen so quickly, which enabled us to continue to operate while Manila is locked down.<strong> Thank you!!!!!!!</strong><br/><br/>
+
+
+
+                      Currently, we have approximately:<br/><br/>
+
+
+
+                      - 800 people working from home <br/><br/>
+
+
+
+                      - 170 people working out of all our Makati and Davao locations <br/><br/>
+
+
+
+                      - 40 people working out of our Taiwan and China locations which are both fully operational <br/><br/>
+
+
+
+                      We've been able to adapt to the situation that is a testament not only to our leadership but to all of you for making this possible. <br/><br/>
+
+
+
+                      Your health and safety is of the utmost importance to me because the virus has also hit close to home. I now have two brothers who have tested positive for COVID-19. One has just recovered and one is still fighting at home, in quarantine, 8500 miles away in the U.S. It has been a sleepless couple weeks as I think about your health and safety as well as that of my brothers.   <br/><br/>
+
+
+
+                      With Easter and Holy Week coming, many of you may think of compromising the current integrity of social isolation. You may want to see friends and family that you haven't seen for weeks now. I want you to all be vigilant in respecting our messaging to keep social isolation and have the least amount of contact with other people outside your household until it is absolute in the sense of your safety and others. The next two weeks are critical as we are expected to hit the peak of transmission in the Philippines.<br/><br/>
+
+
+
+                      There is a ton of information floating around on the internet and I would like to emphasize one point which I hope puts things into perspective with the rest of this email:<br/><br/>
+
+
+
+                      - The Philippines has tested 10,000 people with a population of 100MM<br/><br/>
+
+
+
+                      - Germany is testing 500K people a week and has a population of 83MM<br/><br/>
+
+
+
+                      I have advised Joy and our leadership there is no way the government can make an informed decision on the timing of the lockdown without the ability to test. Therefore, should the lockdown be lifted anytime this month we will continue with our current strategy of working skeleton crews in the office with most working from their home environments. <br/><br/>
+
+
+
+                      I am very concerned the Philippines may make a premature decision heavily weighted by the economic climate. If the lockdown is lifted this month we will sit on the sidelines and observe if there are any new outbreaks and see if the cases are trending downward. A key deciding factor for me is when hospitals return to doing elective surgery - it means their capacity is no longer strained. Today, we are far from that.<br/><br/>
+
+
+
+                      I also understand this situation is evolving daily so we will update you and communicate as much as we can via email and on the EMS. As stated above, your safety and making sure you are employed is our highest priority. <br/><br/>
+
+
+
+
+                      One person I follow, who in my opinion knows more than any government about what is going on, is Bill Gates. I listen carefully to what he says. <br/><br/>
+
+
+
+                      Below is a recent interview with Bill Gates. I encourage you to watch at your leisure…<br/>
+
+
+
+                      <a href="https://youtu.be/4X-KkQeMMSQ" target="_blank">https://youtu.be/4X-KkQeMMSQ</a><br/><br/>
+
+
+
+                      Be Safe. Be Healthy. <br/><br/> 
+
+
+
+                      Best,<br/>
+
+
+
+
+                      <strong>Ben</strong> 
+
+
+                    
+
+                    </p>  
+                    
+                </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Message From: <br/> <span class="text-primary"><i class="fa fa-car"></i>   OpenAccessBPO Transport </i><br/> <br/>
                    <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
                     <img src="storage/uploads/divider.png" />
