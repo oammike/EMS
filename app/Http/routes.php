@@ -742,6 +742,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.processSheet',
       'uses'=>'DTRController@processSheet') );
 
+      Route::get('/financeReports', array(
+      'as'=> 'financeReports',
+      'uses'=>'DTRController@financeReports') );
+
       Route::get('/myDTR', array(
       'as'=> 'user_dtr.myDTR',
       'uses'=>'DTRController@myDTR') );

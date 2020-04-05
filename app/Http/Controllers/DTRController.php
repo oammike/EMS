@@ -210,7 +210,15 @@ class DTRController extends Controller
 
       //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
       
-      $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
+      if($request->reportType == 'dailyLogs') {
+        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours','Project'];
+        $reportType = 'dailyLogs';
+      }
+      else {
+        $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
+        $reportType = null;
+      }
+
       $description = "DTR sheet for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
 
 
@@ -232,7 +240,7 @@ class DTRController extends Controller
         $cutoff = explode('_', $request->cutoff);
         $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
 
-        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
 
@@ -245,302 +253,540 @@ class DTRController extends Controller
 
                       $payday = $cutoffStart;
 
-
-                      do
+                      if($reportType == 'dailyLogs')
                       {
-
-                        $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                        do
                         {
 
-                          $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','','','',''];
-                          $header2 = [$cutoffStart->format('D, m/d/Y'),'Program: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                          {
 
-                          
-                          // Set width for a single column
-                          //$sheet->setWidth('A', 35);
+                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y'),'Program: ',strtoupper($program->name),'','','','','','',''];
 
-                          $sheet->setFontSize(20);
-                          $sheet->setOrientation("landscape");
+                            
+                            // Set width for a single column
+                            //$sheet->setWidth('A', 35);
 
-
-
-                          $sheet->appendRow($header1);
-                          $sheet->appendRow($header2);
-                          $sheet->cells('A1:P2', function($cells) {
-
-                              // call cell manipulation methods
-                              $cells->setBackground('##1a8fcb');
-                              $cells->setFontColor('#ffffff');
-                              $cells->setFontSize(40);
-                              $cells->setFontWeight('bold');
-
-                          });
+                            $sheet->setFontSize(10);
+                            $sheet->setOrientation("landscape");
 
 
-                          $sheet->row(2, function($cells) {
 
-                              // call cell manipulation methods
-                              
-                              $cells->setFontColor('#ffffff');
-                              $cells->setFontSize(40);
-                              $cells->setFontWeight('bold');
+                            $sheet->appendRow($header1);
+                            $sheet->appendRow($header2);
+                            $sheet->cells('A1:P2', function($cells) {
 
-                          });
-
-                         
-                          
-                          $sheet->appendRow($headers);
-
-                          $sheet->row(3, function($row) {
-                              // Set font size
-                              $row->setFontSize(18);
-                              $row->setFontWeight('bold');
+                                // call cell manipulation methods
+                                $cells->setBackground('##1a8fcb');
+                                $cells->setFontColor('#ffffff');
+                                $cells->setFontSize(12);
+                                $cells->setFontWeight('bold');
 
                             });
-                          // Set height for a single row
-                          $sheet->setHeight(2, 80);
-                          $sheet->setHeight(3, 50);
-
-                          // Freeze the first column
-                          //$sheet->freezeFirstColumn();
-
-                          // $sheet->setAutoSize(array(
-                          //     'A',
-                          // ));
-
-                          // Set width for a single column
-                          $sheet->setWidth('A', 40);
-                          $sheet->setWidth('D', 22);
-                          $sheet->setWidth('F', 12);
-                          $sheet->setWidth('G', 12);
-                          $sheet->setWidth('J', 12);
-                          $sheet->setWidth('K', 12);
-                          $sheet->setWidth('L', 9);
-                          $sheet->setWidth('P', 9);
-
-                          
-
-                          $arr = [];
 
 
-                          foreach($allDTR as $employeeDTR)
-                          {
-                            $i = 0;
-                            $dData = collect($employeeDTR)->where('productionDate',$payday->format('Y-m-d'));
+                            $sheet->row(2, function($cells) {
 
-                            if (count($dData) > 0)
+                                // call cell manipulation methods
+                                
+                                $cells->setFontColor('#ffffff');
+                                $cells->setFontSize(12);
+                                $cells->setFontWeight('bold');
+
+                            });
+
+                           
+                            
+                            $sheet->appendRow($headers);
+
+                            $sheet->row(3, function($row) {
+                                // Set font size
+                                $row->setFontSize(10);
+                                $row->setFontWeight('bold');
+
+                              });
+                            // Set height for a single row
+                            $sheet->setHeight(2, 80);
+                            $sheet->setHeight(3, 50);
+
+                            // Freeze the first column
+                            //$sheet->freezeFirstColumn();
+
+                            // $sheet->setAutoSize(array(
+                            //     'A',
+                            // ));
+
+                            // Set width for a single column
+                            $sheet->setWidth('A', 40);
+                            $sheet->setWidth('D', 22);
+                            $sheet->setWidth('F', 12);
+                            $sheet->setWidth('G', 12);
+                            $sheet->setWidth('H', 12);
+                            
+
+                            
+
+                            $arr = [];
+
+
+                            foreach($allDTR as $employeeDTR)
                             {
-                              $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
-                              $arr[$i] = strtoupper($dData->first()->leaderFname)." ".strtoupper($dData->first()->leaderLname); $i++;
+                              $i = 0;
+                              $dData = collect($employeeDTR)->where('productionDate',$payday->format('Y-m-d'));
 
-                              // ** Production Date
-                              // check if there's holiday
-                              $holiday = Holiday::where('holidate',$payday->format('Y-m-d'))->get();
+                              if (count($dData) > 0)
+                              {
+                                 // -------- ACCESS CODE -------------
+                                $arr[$i] = strtoupper($dData->first()->accesscode); $i++;
 
-                              (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
-
-                              $arr[$i] = $payday->format('M d D')." ". $hday; $i++;
-                              $arr[$i] = strip_tags($dData->first()->workshift); $i++; // ** get the sched here
-                              
-
-                              //*** CWS
-                              if (!empty($dData->first()->isCWS_id)){
-                                $deets = User_CWS::find($dData->first()->isCWS_id);
-
-                                if(is_object($deets))
-                                {
-                                  $arr[$i] = ' (old sched: '.$deets->timeStart_old. ' - '.$deets->timeEnd_old.' ) | '.$deets->notes; $i++;
-
-                                }
-                                else
-                                {
-                                  $arr[$i] = ' n/a '; $i++;
-                                }
-
+                                 // -------- FORMAL NAME -------------
+                                $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
                                 
 
-                              }else{
-                                $arr[$i] = "-"; $i++;
-                              }
+                                // -------- DATE -------------
+                                // ** Production Date
+                                // check if there's holiday
+                                $holiday = Holiday::where('holidate',$payday->format('Y-m-d'))->get();
+
+                                (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
+
+                                //$arr[$i] = $payday->format('M d D')." ". $hday; $i++;
+                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
+
+                                // -------- DAY -------------
+                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
 
 
-                              $arr[$i] = strip_tags($dData->first()->timeIN); $i++;
-                              $arr[$i] = strip_tags($dData->first()->timeOUT); $i++;
-
-                              //*** DTRP IN
-                              if (!empty($dData->first()->isDTRP_in)){
-                                $deets = User_DTRP::find($dData->first()->isDTRP_in);
-
-                                $arr[$i] = $deets->notes; $i++;
-
-                              }else{
-                                $arr[$i] = "-"; $i++;
-                              }
-
-                              //*** DTRP OUT
-                              if (!empty($dData->first()->isDTRP_out)){
-                                $deets = User_DTRP::find($dData->first()->isDTRP_out);
-
-                                $arr[$i] = $deets->notes; $i++;
-
-                              }else{
-                                $arr[$i] = "-"; $i++;
-                              }
+                                // -------- TIME IN -------------
+                                $arr[$i] = strip_tags($dData->first()->timeIN); $i++;
 
 
-                              //*** OT
-                              if (!empty($dData->first()->OT_id)){
+                                // -------- TIME OUT -------------
+                                $arr[$i] = strip_tags($dData->first()->timeOUT); $i++;
 
-                                $allOT = User_OT::where('user_id',$dData->first()->id)->where('biometrics_id',$dData->first()->biometrics_id)->get();
 
-                                if (count($allOT) > 1)
+                                // -------- WORKED HOURS  -------------
+                                if (strlen($dData->first()->hoursWorked) > 5)
                                 {
-                                  $s = ""; $e =""; $fh=""; $r=""; $c=1;
-                                  foreach ($allOT as $o) 
-                                  {
-                                    $s .= "[".$c."] ".$o->timeStart." | ";
-                                    $e .= "[".$c."] ".$o->timeEnd." | ";
-
-                                    switch ($o->billedType) {
-                                      case '1': $otType = "billed"; break;
-                                      case '2': $otType = "non-billed"; break;
-                                      case '3': $otType = "patch"; break;
-                                      default: $otType = "billed"; break;
-                                    }
-
-                                    if ($o->isApproved)
-                                    {
-                                      $fh .= "[".$c."] ".$o->filed_hours." (".$otType.") | ";
-                                      
-
-                                    }else{
-                                      
-                                      $fh .= "**[".$c."] ".$o->filed_hours." ( DENIED ) | ";
-                                      
-
-                                    }
-                                    $r .= $c.".) ".$o->reason."  | "; $c++;
-
-
-                                  }
-
-
-                                  $arr[$i] = $s; $i++;
-                                  $arr[$i] = $e; $i++;
-
-                                  $arr[$i] = $fh; $i++;
-                                  $arr[$i] = $r; $i++;
-                                  
-                                  
-
+                                   $arr[$i] = strip_tags($dData->first()->hoursWorked); $i++;
 
                                 }else
-                                {
+                                $arr[$i] = strip_tags($dData->first()->hoursWorked); $i++;
 
-                                  $deets = User_OT::find($dData->first()->OT_id);
-                                  if (is_object($deets))
-                                  {
-                                    $arr[$i] = $deets->timeStart; $i++;
-                                    $arr[$i] = $deets->timeEnd; $i++;
-                                    switch ($deets->billedType) {
-                                      case '1': $otType = "billed"; break;
-                                      case '2': $otType = "non-billed"; break;
-                                      case '3': $otType = "patch"; break;
-                                      default: $otType = "billed"; break;
-                                    }
-                                    if ($deets->isApproved)
-                                    {
-                                      $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
-                                      $arr[$i] = $deets->reason; $i++;
+                                $arr[$i] = "-"; $i++;
 
-                                    }else{
-                                      $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
-                                      $arr[$i] = $deets->reason; $i++;
+                               
 
-                                    }
-
-                                  }
-                                  else
-                                  {
-                                    $arr[$i] = "n/a"; $i++;
-                                    $arr[$i] = "n/a"; $i++;
-                                    
-                                    
-                                      $arr[$i] = "n/a"; $i++;
-                                      $arr[$i] = "n/a"; $i++;
-
-                                    
-
-                                  }
-
-                                  
-
-                                }
 
                                 
                                 
+                                
+                                
+                                
+                                
+                                
+
+                               
+
 
                               }else{
-                                $arr[$i] = "-"; $i++;
-                                $arr[$i] = "-"; $i++;
-                                $arr[$i] = "-"; $i++;
-                                $arr[$i] = "-"; $i++;
+                                 // -------- ACCESS CODE -------------
+                                $arr[$i] = strtoupper($dData->first()->accesscode); $i++;
+
+                                 // -------- FORMAL NAME -------------
+                                $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
+                               
+                                 // -------- DATE -------------
+                                // ** Production Date
+                                // check if there's holiday
+                                $holiday = Holiday::where('holidate',$payday->format('Y-m-d'))->get();
+
+                                (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
+
+                                //$arr[$i] = $payday->format('M d D')." ". $hday; $i++;
+                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
+
+                                // -------- DAY -------------
+                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
+
+
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++; // ** get the sched here
+                                $arr[$i] = " <unverified> "; $i++;
+                                
+                                $arr[$i] = " - "; $i++;
+
                               }
-                              
-                              
-                              
-                              
-                              
-                              
+
                               
 
-                              //if marami contents ang hours worked, may leave details yun
-                              if (strlen($dData->first()->hoursWorked) > 5)
+                              $sheet->appendRow($arr);
+                            
+
+                              
+
+                            }//end foreach employee
+
+                            $lastrow= $sheet->getHighestRow(); 
+
+
+                            $sheet->getStyle('A4:P'.$lastrow)->getAlignment()->setWrapText(true); 
+                            $sheet->setBorder('A4:P'.$lastrow, 'thin');
+
+                            
+                            //****** for SIGNATURE
+                            $m = "D".($lastrow+5).":E".($lastrow+5);
+                            $sheet->mergeCells($m);
+                            $sheet->cell('D'.($lastrow+5), function($cell) {
+
+                              $cell->setValue('___________________________________________');
+                              $cell->setAlignment('center');
+                              $cell->setBorder('solid');
+
+                            });
+
+                            $m = "D".($lastrow+6).":E".($lastrow+6);
+                            $sheet->mergeCells($m);
+                            $sheet->cell('D'.($lastrow+6), function($cell) {
+
+                              $cell->setValue('OLGA PONCE');
+                              $cell->setAlignment('center');
+                              $cell->setBorder('solid');
+                              $cell->setFontSize(30);
+
+                            });
+
+                            $m = "D".($lastrow+7).":E".($lastrow+7);
+                            $sheet->mergeCells($m);
+                            $sheet->cell('D'.($lastrow+7), function($cell) {
+
+                              $cell->setValue('Finance Consultant');
+                              $cell->setAlignment('center');
+
+                              
+                            });
+
+
+                            $m2 = "A".($lastrow+5).":B".($lastrow+5);
+                            $sheet->mergeCells($m2);
+
+                            $sheet->cell('A'.($lastrow+5), function($cell) {
+
+                              $cell->setValue('____________________________________________________________'); 
+                              $cell->setAlignment('center');
+
+                            });
+
+                            $m2 = "A".($lastrow+6).":B".($lastrow+6);
+                            $sheet->mergeCells($m2);
+
+                            $sheet->cell('A'.($lastrow+6), function($cell) {
+
+                              $cell->setValue(' ');
+                            });
+
+                            $m2 = "A".($lastrow+7).":B".($lastrow+7);
+                            $sheet->mergeCells($m2);
+                            $sheet->cell('A'.($lastrow+7), function($cell) {
+
+                              $cell->setValue('Program Manager (signature over printed name)');
+                              $cell->setAlignment('center');
+                              $cell->setFontSize(26);
+
+                              
+                            });
+
+
+                            
+                          });//end sheet1
+
+                          $payday->addDay();
+
+                        } while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );
+
+                      }
+                      else
+                      {
+                        do
+                        {
+
+                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                          {
+
+                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y'),'Program: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+
+                            
+                            // Set width for a single column
+                            //$sheet->setWidth('A', 35);
+
+                            $sheet->setFontSize(20);
+                            $sheet->setOrientation("landscape");
+
+
+
+                            $sheet->appendRow($header1);
+                            $sheet->appendRow($header2);
+                            $sheet->cells('A1:P2', function($cells) {
+
+                                // call cell manipulation methods
+                                $cells->setBackground('##1a8fcb');
+                                $cells->setFontColor('#ffffff');
+                                $cells->setFontSize(40);
+                                $cells->setFontWeight('bold');
+
+                            });
+
+
+                            $sheet->row(2, function($cells) {
+
+                                // call cell manipulation methods
+                                
+                                $cells->setFontColor('#ffffff');
+                                $cells->setFontSize(40);
+                                $cells->setFontWeight('bold');
+
+                            });
+
+                           
+                            
+                            $sheet->appendRow($headers);
+
+                            $sheet->row(3, function($row) {
+                                // Set font size
+                                $row->setFontSize(18);
+                                $row->setFontWeight('bold');
+
+                              });
+                            // Set height for a single row
+                            $sheet->setHeight(2, 80);
+                            $sheet->setHeight(3, 50);
+
+                            // Freeze the first column
+                            //$sheet->freezeFirstColumn();
+
+                            // $sheet->setAutoSize(array(
+                            //     'A',
+                            // ));
+
+                            // Set width for a single column
+                            $sheet->setWidth('A', 40);
+                            $sheet->setWidth('D', 22);
+                            $sheet->setWidth('F', 12);
+                            $sheet->setWidth('G', 12);
+                            $sheet->setWidth('J', 12);
+                            $sheet->setWidth('K', 12);
+                            $sheet->setWidth('L', 9);
+                            $sheet->setWidth('P', 9);
+
+                            
+
+                            $arr = [];
+
+
+                            foreach($allDTR as $employeeDTR)
+                            {
+                              $i = 0;
+                              $dData = collect($employeeDTR)->where('productionDate',$payday->format('Y-m-d'));
+
+                              if (count($dData) > 0)
                               {
+                                $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
+                                $arr[$i] = strtoupper($dData->first()->leaderFname)." ".strtoupper($dData->first()->leaderLname); $i++;
 
-                                //$arr[$i] = strip_tags($dData->first()->hoursWorked); $i++;
-                                if (empty($dData->first()->leaveType)){
-                                  $arr[$i] =" - "; $i++;
-                                } else
-                                {
+                                // ** Production Date
+                                // check if there's holiday
+                                $holiday = Holiday::where('holidate',$payday->format('Y-m-d'))->get();
+
+                                (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
+
+                                $arr[$i] = $payday->format('M d D')." ". $hday; $i++;
+                                $arr[$i] = strip_tags($dData->first()->workshift); $i++; // ** get the sched here
+                                
+
+                                //*** CWS
+                                if (!empty($dData->first()->isCWS_id)){
+                                  $deets = User_CWS::find($dData->first()->isCWS_id);
+
+                                  if(is_object($deets))
+                                  {
+                                    $arr[$i] = ' (old sched: '.$deets->timeStart_old. ' - '.$deets->timeEnd_old.' ) | '.$deets->notes; $i++;
+
+                                  }
+                                  else
+                                  {
+                                    $arr[$i] = ' n/a '; $i++;
+                                  }
+
                                   
 
-                                  //add in kung half leave
-                                  if (strpos($dData->first()->hoursWorked, "1st") !== false ) 
-                                    $arr[$i] =$dData->first()->leaveType."\n"."1st half of Shift";
-                                  else if(strpos($dData->first()->hoursWorked, "2nd") !== false ) 
-                                    $arr[$i] =$dData->first()->leaveType."\n"."2nd half of Shift";
-                                  else
-                                    $arr[$i] =$dData->first()->leaveType;
-                                  $i++;
+                                }else{
+                                  $arr[$i] = "-"; $i++;
                                 }
 
-                                //then we look for its detail
-                                if ($dData->first()->leaveType == "SL") 
-                                //( strpos(strtoupper($dData->first()->leaveType), "SICK") !== false )
-                                {
-                                  if (empty($dData->first()->leave_id))
+
+                                $arr[$i] = strip_tags($dData->first()->timeIN); $i++;
+                                $arr[$i] = strip_tags($dData->first()->timeOUT); $i++;
+
+                                //*** DTRP IN
+                                if (!empty($dData->first()->isDTRP_in)){
+                                  $deets = User_DTRP::find($dData->first()->isDTRP_in);
+
+                                  $arr[$i] = $deets->notes; $i++;
+
+                                }else{
+                                  $arr[$i] = "-"; $i++;
+                                }
+
+                                //*** DTRP OUT
+                                if (!empty($dData->first()->isDTRP_out)){
+                                  $deets = User_DTRP::find($dData->first()->isDTRP_out);
+
+                                  $arr[$i] = $deets->notes; $i++;
+
+                                }else{
+                                  $arr[$i] = "-"; $i++;
+                                }
+
+
+                                //*** OT
+                                if (!empty($dData->first()->OT_id)){
+
+                                  $allOT = User_OT::where('user_id',$dData->first()->id)->where('biometrics_id',$dData->first()->biometrics_id)->get();
+
+                                  if (count($allOT) > 1)
                                   {
-                                    $deets = User_SL::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
-
-                                  } else {
-                                    $deets = User_SL::find($dData->first()->leave_id);
-                                  }
-                                  
-                                  // 
-
-                                  $arr[$i] = $deets->notes; $i++; 
-                                  $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
-
-                                } 
-                                elseif ($dData->first()->leaveType == "VL")
-                                {
-                                   if (empty($dData->first()->leave_id))
+                                    $s = ""; $e =""; $fh=""; $r=""; $c=1;
+                                    foreach ($allOT as $o) 
                                     {
-                                      $deets = User_VL::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+                                      $s .= "[".$c."] ".$o->timeStart." | ";
+                                      $e .= "[".$c."] ".$o->timeEnd." | ";
+
+                                      switch ($o->billedType) {
+                                        case '1': $otType = "billed"; break;
+                                        case '2': $otType = "non-billed"; break;
+                                        case '3': $otType = "patch"; break;
+                                        default: $otType = "billed"; break;
+                                      }
+
+                                      if ($o->isApproved)
+                                      {
+                                        $fh .= "[".$c."] ".$o->filed_hours." (".$otType.") | ";
+                                        
+
+                                      }else{
+                                        
+                                        $fh .= "**[".$c."] ".$o->filed_hours." ( DENIED ) | ";
+                                        
+
+                                      }
+                                      $r .= $c.".) ".$o->reason."  | "; $c++;
+
+
+                                    }
+
+
+                                    $arr[$i] = $s; $i++;
+                                    $arr[$i] = $e; $i++;
+
+                                    $arr[$i] = $fh; $i++;
+                                    $arr[$i] = $r; $i++;
+                                    
+                                    
+
+
+                                  }else
+                                  {
+
+                                    $deets = User_OT::find($dData->first()->OT_id);
+                                    if (is_object($deets))
+                                    {
+                                      $arr[$i] = $deets->timeStart; $i++;
+                                      $arr[$i] = $deets->timeEnd; $i++;
+                                      switch ($deets->billedType) {
+                                        case '1': $otType = "billed"; break;
+                                        case '2': $otType = "non-billed"; break;
+                                        case '3': $otType = "patch"; break;
+                                        default: $otType = "billed"; break;
+                                      }
+                                      if ($deets->isApproved)
+                                      {
+                                        $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
+                                        $arr[$i] = $deets->reason; $i++;
+
+                                      }else{
+                                        $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
+                                        $arr[$i] = $deets->reason; $i++;
+
+                                      }
+
+                                    }
+                                    else
+                                    {
+                                      $arr[$i] = "n/a"; $i++;
+                                      $arr[$i] = "n/a"; $i++;
+                                      
+                                      
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = "n/a"; $i++;
+
+                                      
+
+                                    }
+
+                                    
+
+                                  }
+
+                                  
+                                  
+
+                                }else{
+                                  $arr[$i] = "-"; $i++;
+                                  $arr[$i] = "-"; $i++;
+                                  $arr[$i] = "-"; $i++;
+                                  $arr[$i] = "-"; $i++;
+                                }
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+
+                                //if marami contents ang hours worked, may leave details yun
+                                if (strlen($dData->first()->hoursWorked) > 5)
+                                {
+
+                                  //$arr[$i] = strip_tags($dData->first()->hoursWorked); $i++;
+                                  if (empty($dData->first()->leaveType)){
+                                    $arr[$i] =" - "; $i++;
+                                  } else
+                                  {
+                                    
+
+                                    //add in kung half leave
+                                    if (strpos($dData->first()->hoursWorked, "1st") !== false ) 
+                                      $arr[$i] =$dData->first()->leaveType."\n"."1st half of Shift";
+                                    else if(strpos($dData->first()->hoursWorked, "2nd") !== false ) 
+                                      $arr[$i] =$dData->first()->leaveType."\n"."2nd half of Shift";
+                                    else
+                                      $arr[$i] =$dData->first()->leaveType;
+                                    $i++;
+                                  }
+
+                                  //then we look for its detail
+                                  if ($dData->first()->leaveType == "SL") 
+                                  //( strpos(strtoupper($dData->first()->leaveType), "SICK") !== false )
+                                  {
+                                    if (empty($dData->first()->leave_id))
+                                    {
+                                      $deets = User_SL::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
 
                                     } else {
-                                      $deets = User_VL::find($dData->first()->leave_id);
+                                      $deets = User_SL::find($dData->first()->leave_id);
                                     }
                                     
                                     // 
@@ -548,167 +794,188 @@ class DTRController extends Controller
                                     $arr[$i] = $deets->notes; $i++; 
                                     $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
 
-                                } elseif ($dData->first()->leaveType == "LWOP")
-                                {
-                                  if (empty($dData->first()->leave_id))
+                                  } 
+                                  elseif ($dData->first()->leaveType == "VL")
                                   {
-                                    $deets = User_LWOP::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+                                     if (empty($dData->first()->leave_id))
+                                      {
+                                        $deets = User_VL::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
 
-                                  } else {
-                                    $deets = User_LWOP::find($dData->first()->leave_id);
-                                  }
-                                  $arr[$i] = $deets->notes; $i++; 
-                                  $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+                                      } else {
+                                        $deets = User_VL::find($dData->first()->leave_id);
+                                      }
+                                      
+                                      // 
 
-                                } elseif ($dData->first()->leaveType == "OBT")
-                                { 
-                                  if (empty($dData->first()->leave_id))
+                                      $arr[$i] = $deets->notes; $i++; 
+                                      $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+
+                                  } elseif ($dData->first()->leaveType == "LWOP")
                                   {
-                                    $deets = User_OBT::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+                                    if (empty($dData->first()->leave_id))
+                                    {
+                                      $deets = User_LWOP::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
 
-                                  } else {
-                                    $deets = User_OBT::find($dData->first()->leave_id);
-                                  }
+                                    } else {
+                                      $deets = User_LWOP::find($dData->first()->leave_id);
+                                    }
+                                    $arr[$i] = $deets->notes; $i++; 
+                                    $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
 
-                                  $arr[$i] = $deets->notes; $i++; 
-                                  $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
-                                
-                                } elseif ($dData->first()->leaveType == "PL" || $dData->first()->leaveType == "ML" || $dData->first()->leaveType == "SPL")
-                                { 
-                                  if (empty($dData->first()->leave_id))
-                                  {
-                                    $deets = User_Familyleave::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
+                                  } elseif ($dData->first()->leaveType == "OBT")
+                                  { 
+                                    if (empty($dData->first()->leave_id))
+                                    {
+                                      $deets = User_OBT::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
 
-                                  } else {
-                                    $deets = User_Familyleave::find($dData->first()->leave_id);
-                                  }
+                                    } else {
+                                      $deets = User_OBT::find($dData->first()->leave_id);
+                                    }
+
+                                    $arr[$i] = $deets->notes; $i++; 
+                                    $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
                                   
-                                  // 
+                                  } elseif ($dData->first()->leaveType == "PL" || $dData->first()->leaveType == "ML" || $dData->first()->leaveType == "SPL")
+                                  { 
+                                    if (empty($dData->first()->leave_id))
+                                    {
+                                      $deets = User_Familyleave::where('user_id',$dData->first()->id)->where('leaveStart','>=', $dData->first()->productionDate)->first();
 
-                                  $arr[$i] = $deets->notes; $i++; 
+                                    } else {
+                                      $deets = User_Familyleave::find($dData->first()->leave_id);
+                                    }
+                                    
+                                    // 
+
+                                    $arr[$i] = $deets->notes; $i++; 
+                                    $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+                                  
+                                  }
+                                  else {  $arr[$i] = "-"; $i++; $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s') ;} // $i++; $arr[$i] = "-"; $i++;
+                                   
+
+                                }else {
+                                  $arr[$i] = "-"; $i++; $arr[$i] = "-"; $i++;
                                   $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
-                                
-                                }
-                                else {  $arr[$i] = "-"; $i++; $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s') ;} // $i++; $arr[$i] = "-"; $i++;
-                                 
 
-                              }else {
-                                $arr[$i] = "-"; $i++; $arr[$i] = "-"; $i++;
-                                $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
+                                }
+
+
+                              }else{
+                                $arr[$i] = strtoupper($employeeDTR->first()->lastname).", ".strtoupper($employeeDTR->first()->firstname)." ".strtoupper($employeeDTR->first()->middlename) ; $i++;
+                                $arr[$i] = strtoupper($employeeDTR->first()->leaderFname) ." ". strtoupper($employeeDTR->first()->leaderLname); $i++;
+                                $arr[$i] = $payday->format('M d D'); $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++; // ** get the sched here
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
 
                               }
 
+                              
 
-                            }else{
-                              $arr[$i] = strtoupper($employeeDTR->first()->lastname).", ".strtoupper($employeeDTR->first()->firstname)." ".strtoupper($employeeDTR->first()->middlename) ; $i++;
-                              $arr[$i] = strtoupper($employeeDTR->first()->leaderFname) ." ". strtoupper($employeeDTR->first()->leaderLname); $i++;
-                              $arr[$i] = $payday->format('M d D'); $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++; // ** get the sched here
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
-                              $arr[$i] = " <unverified> "; $i++;
+                              $sheet->appendRow($arr);
+                              //$sheet->getStyle('A4:A200')->getAlignment()->setWrapText(true);
+                              //$sheet->setBorder('A1:F10', 'thin');
+                              
 
-                            }
+                              
 
-                            
+                            }//end foreach employee
 
-                            $sheet->appendRow($arr);
-                            //$sheet->getStyle('A4:A200')->getAlignment()->setWrapText(true);
-                            //$sheet->setBorder('A1:F10', 'thin');
-                            
+                            $lastrow= $sheet->getHighestRow(); 
+
+
+                            $sheet->getStyle('A4:P'.$lastrow)->getAlignment()->setWrapText(true); 
+                            //$sheet->getStyle('E4:P'.$lastrow)->getAlignment()->setWrapText(true); 
+                            //$sheet->getStyle('J4:M'.$lastrow)->getAlignment()->setWrapText(true); 
+                            //$sheet->getStyle('O4:P'.$lastrow)->getAlignment()->setWrapText(true); 
+                            $sheet->setBorder('A4:P'.$lastrow, 'thin');
 
                             
+                            //****** for SIGNATURE
+                            $m = "D".($lastrow+5).":E".($lastrow+5);
+                            $sheet->mergeCells($m);
+                            $sheet->cell('D'.($lastrow+5), function($cell) {
 
-                          }//end foreach employee
+                              $cell->setValue('___________________________________________');
+                              $cell->setAlignment('center');
+                              $cell->setBorder('solid');
 
-                          $lastrow= $sheet->getHighestRow(); 
+                            });
+
+                            $m = "D".($lastrow+6).":E".($lastrow+6);
+                            $sheet->mergeCells($m);
+                            $sheet->cell('D'.($lastrow+6), function($cell) {
+
+                              $cell->setValue('OLGA PONCE');
+                              $cell->setAlignment('center');
+                              $cell->setBorder('solid');
+                              $cell->setFontSize(30);
+
+                            });
+
+                            $m = "D".($lastrow+7).":E".($lastrow+7);
+                            $sheet->mergeCells($m);
+                            $sheet->cell('D'.($lastrow+7), function($cell) {
+
+                              $cell->setValue('Finance Consultant');
+                              $cell->setAlignment('center');
+
+                              
+                            });
 
 
-                          $sheet->getStyle('A4:P'.$lastrow)->getAlignment()->setWrapText(true); 
-                          //$sheet->getStyle('E4:P'.$lastrow)->getAlignment()->setWrapText(true); 
-                          //$sheet->getStyle('J4:M'.$lastrow)->getAlignment()->setWrapText(true); 
-                          //$sheet->getStyle('O4:P'.$lastrow)->getAlignment()->setWrapText(true); 
-                          $sheet->setBorder('A4:P'.$lastrow, 'thin');
+                            $m2 = "A".($lastrow+5).":B".($lastrow+5);
+                            $sheet->mergeCells($m2);
 
-                          
-                          //****** for SIGNATURE
-                          $m = "D".($lastrow+5).":E".($lastrow+5);
-                          $sheet->mergeCells($m);
-                          $sheet->cell('D'.($lastrow+5), function($cell) {
+                            $sheet->cell('A'.($lastrow+5), function($cell) {
 
-                            $cell->setValue('___________________________________________');
-                            $cell->setAlignment('center');
-                            $cell->setBorder('solid');
+                              $cell->setValue('____________________________________________________________'); 
+                              $cell->setAlignment('center');
 
-                          });
+                            });
 
-                          $m = "D".($lastrow+6).":E".($lastrow+6);
-                          $sheet->mergeCells($m);
-                          $sheet->cell('D'.($lastrow+6), function($cell) {
+                            $m2 = "A".($lastrow+6).":B".($lastrow+6);
+                            $sheet->mergeCells($m2);
 
-                            $cell->setValue('OLGA PONCE');
-                            $cell->setAlignment('center');
-                            $cell->setBorder('solid');
-                            $cell->setFontSize(30);
+                            $sheet->cell('A'.($lastrow+6), function($cell) {
 
-                          });
+                              $cell->setValue(' ');
+                            });
 
-                          $m = "D".($lastrow+7).":E".($lastrow+7);
-                          $sheet->mergeCells($m);
-                          $sheet->cell('D'.($lastrow+7), function($cell) {
+                            $m2 = "A".($lastrow+7).":B".($lastrow+7);
+                            $sheet->mergeCells($m2);
+                            $sheet->cell('A'.($lastrow+7), function($cell) {
 
-                            $cell->setValue('Finance Consultant');
-                            $cell->setAlignment('center');
+                              $cell->setValue('Program Manager (signature over printed name)');
+                              $cell->setAlignment('center');
+                              $cell->setFontSize(26);
+
+                              
+                            });
+
 
                             
-                          });
+                          });//end sheet1
 
+                          $payday->addDay();
 
-                          $m2 = "A".($lastrow+5).":B".($lastrow+5);
-                          $sheet->mergeCells($m2);
+                        } while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );
 
-                          $sheet->cell('A'.($lastrow+5), function($cell) {
+                      }
 
-                            $cell->setValue('____________________________________________________________'); 
-                            $cell->setAlignment('center');
-
-                          });
-
-                          $m2 = "A".($lastrow+6).":B".($lastrow+6);
-                          $sheet->mergeCells($m2);
-
-                          $sheet->cell('A'.($lastrow+6), function($cell) {
-
-                            $cell->setValue(' ');
-                          });
-
-                          $m2 = "A".($lastrow+7).":B".($lastrow+7);
-                          $sheet->mergeCells($m2);
-                          $sheet->cell('A'.($lastrow+7), function($cell) {
-
-                            $cell->setValue('Program Manager (signature over printed name)');
-                            $cell->setAlignment('center');
-                            $cell->setFontSize(26);
 
                             
-                          });
-
-
-                          
-                        });//end sheet1
-
-                        $payday->addDay();
-
-                      } while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );      
 
 
                       // $lastrow= $excel->getActiveSheet()->getHighestRow(); 
@@ -1199,60 +1466,57 @@ class DTRController extends Controller
 
     }
 
-    public function getValidatedDTRs(Request $request)
+    public function financeReports()
     {
-      $cutoff = explode('_', $request->cutoff);
+      $cutoffData = $this->getCutoffStartEnd();
+      $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
+      $cutoffEnd = $cutoffData['cutoffEnd'];
 
-      $program = Campaign::find($request->program);
+       //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+      $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
 
       DB::connection()->disableQueryLog();
-      $allDTRs = DB::table('campaign')->where('campaign.id',$request->program)->
-                      join('team','team.campaign_id','=','campaign.id')->
-                      join('users','team.user_id','=','users.id')->
-                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                      leftJoin('positions','users.position_id','=','positions.id')->
-                      leftJoin('floor','team.floor_id','=','floor.id')->
-                      join('user_dtr', function ($join) use ($cutoff) {
-                          $join->on('users.id', '=', 'user_dtr.user_id')
-                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
-                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
-                      })->
+      $allUsers = DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                ])->
+        leftJoin('team','team.user_id','=','users.id')->
+        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+        leftJoin('positions','users.position_id','=','positions.id')->
+        leftJoin('floor','team.floor_id','=','floor.id')->
+        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
 
-                      //join('user_dtr','user_dtr.user_id','=','users.id')->
-                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.timeIN', 'user_dtr.user_id')->
-                      where([
-                          ['users.status_id', '!=', 6],
-                          ['users.status_id', '!=', 7],
-                          ['users.status_id', '!=', 8],
-                          ['users.status_id', '!=', 9],
-                      ])->orderBy('users.lastname')->get();
-      $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
-                      join('team','team.campaign_id','=','campaign.id')->
-                      join('users','team.user_id','=','users.id')->
-                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                      leftJoin('positions','users.position_id','=','positions.id')->
-                      leftJoin('floor','team.floor_id','=','floor.id')->
-                      
-                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
-                      where([
-                          ['users.status_id', '!=', 6],
-                          ['users.status_id', '!=', 7],
-                          ['users.status_id', '!=', 8],
-                          ['users.status_id', '!=', 9],
-                      ])->orderBy('users.lastname')->get();
-                      //return $allDTRs;
+        $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->orderBy('name')->get();//
+        $byTL = collect($allUsers)->groupBy('tlID');
+        $allTL = $byTL->keys();
+        //return collect($allUsers)->where('campID',7);
 
-      $userArray = collect($allUsers)->pluck('id')->toArray();
-      $dtrArray = collect($allDTRs)->pluck('id')->toArray();
-      $pendings = array_diff($userArray, $dtrArray);
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-      //Timekeeping Trait
-      $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
-      //return $dtrArray;
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed DTRsheets on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+        
+      
 
-      return response()->json(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+      return view('timekeeping.financeReport',compact('payrollPeriod','paycutoffs','allProgram'));
+
+    }
+
+    public function getValidatedDTRs(Request $request)
+    {
+      //------ Report type 1= DTR logs | 2= Summary
+
+      ($request->reportType == 'finance') ? $result = $this->fetchLockedDTRs($request->cutoff, $request->program,1) : $result = $this->fetchLockedDTRs($request->cutoff, $request->program,null);
+
+      return $result[0];
 
     }
 

@@ -227,6 +227,96 @@ trait TimekeepingTraits
 
   }
 
+  public function fetchLockedDTRs($c, $p, $reportType)
+  {
+      $cutoff = explode('_', $c);
+
+      $program = Campaign::find($p);
+
+      DB::connection()->disableQueryLog();
+
+      //------ Report type 1= DTR logs | 2= Summary
+      if ($reportType == 1)
+      {
+        $allDTRs = DB::table('campaign')->where('campaign.id',$p)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      join('user_dtr', function ($join) use ($cutoff) {
+                          $join->on('users.id', '=', 'user_dtr.user_id')
+                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
+                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+                      })->
+
+                      //join('user_dtr','user_dtr.user_id','=','users.id')->
+                      select('users.accesscode','users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.UT', 'user_dtr.user_id')->
+                      where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                      ])->orderBy('users.lastname')->get();
+
+      }
+      else
+      {
+        $allDTRs = DB::table('campaign')->where('campaign.id',$p)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      join('user_dtr', function ($join) use ($cutoff) {
+                          $join->on('users.id', '=', 'user_dtr.user_id')
+                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
+                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+                      })->
+
+                      //join('user_dtr','user_dtr.user_id','=','users.id')->
+                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.timeIN', 'user_dtr.user_id')->
+                      where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                      ])->orderBy('users.lastname')->get();
+
+      }
+      
+      $allUsers = DB::table('campaign')->where('campaign.id',$p)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      
+                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                      ])->orderBy('users.lastname')->get();
+                      //return $allDTRs;
+
+      $userArray = collect($allUsers)->pluck('id')->toArray();
+      $dtrArray = collect($allDTRs)->pluck('id')->toArray();
+      $pendings = array_diff($userArray, $dtrArray);
+
+      //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
+
+      $coll = new Collection;
+      $coll->push(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+
+      return $coll;
+  }
+
 
   public function generateShifts($timeFormat, $shiftType)
   {

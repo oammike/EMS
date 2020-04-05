@@ -445,7 +445,7 @@ class UserCWSController extends Controller
     {
         $cws = User_CWS::find($request->id);
 
-        if(count($cws)>0)
+        if(count((array)$cws)>0)
         {
             $cws->approver = $this->getTLapprover($cws->user_id, $this->user->id);
         

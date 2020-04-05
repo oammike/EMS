@@ -46,6 +46,7 @@
                           //check mo muna kung divisible by 5, otherwise round it off first
                           $distOT = (float)$data['billableForOT']/0.25; //hatiin mo sya in 15/60 mins
                           $preventDupes = [];
+                          $fractions = [];
 
                             for( $d=$distOT; $d >0; $d=$d-0.25)
                             {
@@ -53,6 +54,7 @@
 
                               $whole = floor($num);
                               $fraction = $num - $whole;
+                              array_push($fractions, $fraction);
 
                               if($fraction <= 0.9 && $fraction >= 0.7)
                                 $num = $whole + 0.75;
@@ -88,7 +90,7 @@
 
                             } //end for ?>
 
-
+                             
 
                          
                           
