@@ -501,7 +501,7 @@ class DTRController extends Controller
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;
-                                    $arr[$i] = "-"; $i++;
+                                    //$arr[$i] = "-"; $i++;
 
                                     
                                   }
