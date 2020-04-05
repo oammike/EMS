@@ -373,6 +373,10 @@ class DTRController extends Controller
                                   $arr[$i] = strip_tags($key->hoursWorked); $i++;
 
                                   $arr[$i] = "-"; $i++;
+
+                                  //reset
+                                  $sheet->appendRow($arr);
+                                  $i=0;
                                 }
 
                               }else{
@@ -388,11 +392,13 @@ class DTRController extends Controller
                                 
                                 $arr[$i] = " - "; $i++;
 
+                                $sheet->appendRow($arr);
+
                               }
 
                               
 
-                              $sheet->appendRow($arr);
+                              
                             
 
                               
