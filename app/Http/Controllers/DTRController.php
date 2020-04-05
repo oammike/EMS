@@ -190,7 +190,7 @@ class DTRController extends Controller
 
                       //join('user_dtr','user_dtr.user_id','=','users.id')->
                       // select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
-                       select('users.accesscode','users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at')->
+                       select('users.accesscode','users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at')->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
@@ -217,7 +217,7 @@ class DTRController extends Controller
       //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
       
       if($request->reportType == 'dailyLogs') {
-        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours','OT billable','OT Approved','OT Reason'];
+        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours','OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason'];
         $reportType = 'dailyLogs';
       }
       else {
@@ -267,8 +267,9 @@ class DTRController extends Controller
                           $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $allDTRs, $cutoffStart, $cutoffEnd, $headers,$payday)
                           {
 
-                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','',''];
-                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','',''];
+                            //13 headers
+                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','','','',''];
 
                             
                             // Set width for a single column
@@ -372,7 +373,7 @@ class DTRController extends Controller
                                   }else
                                   $arr[$i] = strip_tags($key->hoursWorked); $i++;
 
-                                  $arr[$i] = "-"; $i++;
+                                  
 
                                   // -------- OT BILLABLE HOURS  -------------
                                   $arr[$i] = strip_tags($key->OT_billable); $i++;
@@ -381,7 +382,110 @@ class DTRController extends Controller
                                   // -------- OT approved HOURS  -------------
                                   $arr[$i] = strip_tags($key->OT_approved); $i++;
 
-                                  $arr[$i] = "-"; $i++;
+
+                                  //--------- OT notes ----------------------
+                                  if (!empty($key->OT_id))
+                                  {
+
+                                    $allOT = User_OT::where('user_id',$key->id)->where('biometrics_id',$key->biometrics_id)->get();
+
+                                    if (count($allOT) > 1)
+                                    {
+                                      $s = ""; $e =""; $fh=""; $r=""; $c=1;
+                                      foreach ($allOT as $o) 
+                                      {
+                                        $s .= "[".$c."] ".$o->timeStart." | ";
+                                        $e .= "[".$c."] ".$o->timeEnd." | ";
+
+                                        switch ($o->billedType) {
+                                          case '1': $otType = "billed"; break;
+                                          case '2': $otType = "non-billed"; break;
+                                          case '3': $otType = "patch"; break;
+                                          default: $otType = "billed"; break;
+                                        }
+
+                                        if ($o->isApproved)
+                                        {
+                                          $fh .= "[".$c."] ".$o->filed_hours." (".$otType.") | ";
+                                          
+
+                                        }else{
+                                          
+                                          $fh .= "**[".$c."] ".$o->filed_hours." ( DENIED ) | ";
+                                          
+
+                                        }
+                                        $r .= $c.".) ".$o->reason."  | "; $c++;
+
+
+                                      }
+
+
+                                      $arr[$i] = $s; $i++;
+                                      $arr[$i] = $e; $i++;
+
+                                      $arr[$i] = $fh; $i++;
+                                      $arr[$i] = $r; $i++;
+                                      
+                                      
+
+
+                                    }else
+                                    {
+
+                                      $deets = User_OT::find($key->OT_id);
+                                      if (is_object($deets))
+                                      {
+                                        $arr[$i] = $deets->timeStart; $i++;
+                                        $arr[$i] = $deets->timeEnd; $i++;
+                                        switch ($deets->billedType) {
+                                          case '1': $otType = "billed"; break;
+                                          case '2': $otType = "non-billed"; break;
+                                          case '3': $otType = "patch"; break;
+                                          default: $otType = "billed"; break;
+                                        }
+                                        if ($deets->isApproved)
+                                        {
+                                          $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
+                                          $arr[$i] = $deets->reason; $i++;
+
+                                        }else{
+                                          $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
+                                          $arr[$i] = $deets->reason; $i++;
+
+                                        }
+
+                                      }
+                                      else
+                                      {
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = "n/a"; $i++;
+                                        
+                                        
+                                          $arr[$i] = "n/a"; $i++;
+                                          $arr[$i] = "n/a"; $i++;
+
+                                        
+
+                                      }
+
+                                      
+
+                                    }
+
+                                    
+                                    
+
+                                  }else{
+                                    $arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;
+
+                                    
+                                  }
+
+                                  //$arr[$i] = "-"; $i++;
 
                                   //reset
                                   $sheet->appendRow($arr);
@@ -398,8 +502,14 @@ class DTRController extends Controller
                                 $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++; // ** get the sched here
                                 $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
                                 
-                                $arr[$i] = " - "; $i++;
+                               
 
                                 $sheet->appendRow($arr);
 

@@ -50,7 +50,7 @@
                 
                 <!-- <input type="hidden" name="dtr" /> -->
 
-                <div id="loader" class="text-center" style="display: none;">
+                <div id="loader" class="text-center">
                   <span id="wait" style="font-size: small;" class="text-primary">Fetching DTR data. Please wait...<br/><br/><img src="storage/uploads/loading.gif" width="30" />  </span><br/><br/><br/>
                 </div>
 
@@ -132,6 +132,7 @@
 
 
   $('.notes').fadeOut();
+  $('#loader').fadeOut();
 
   
 
@@ -180,8 +181,8 @@
 
                       var rdata = [];
 
-                      $('.notes').fadeIn();
-                      $('.notes').fadeOut();
+                     
+                      $('#loader').fadeOut();
                       $('#submitted').html('('+response.submitted+')');
                       $('#total').html('('+response.total+') team members ');
                       $('#programName').html(response.program);
@@ -270,6 +271,7 @@
 
     if (selval == 0){
       $('.notes').fadeOut();
+      $('#loader').fadeOut();
 
       $.notify("Please select department/program to download DTR sheet.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
       return false;
@@ -279,7 +281,7 @@
        // get validated dtr
       var _token = "{{ csrf_token() }}";
       var cutoff = $('select[name="cutoff"]').find(':selected').val();
-
+      $('#loader').fadeIn();
 
       $.ajax({
                 url: "{{action('DTRController@getValidatedDTRs')}}",
@@ -294,6 +296,7 @@
                   console.log(response);
 
                   $('.notes').fadeIn();
+                  $('#loader').fadeOut();
                   $('#submitted').html('('+response.submitted+')');
                   $('#total').html('('+response.total+') team members ');
                   $('#programName').html(response.program);
