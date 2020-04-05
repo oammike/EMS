@@ -246,7 +246,7 @@ class DTRController extends Controller
         $cutoff = explode('_', $request->cutoff);
         $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
 
-        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program, $allDTR, $allDTRs, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
 
@@ -261,10 +261,10 @@ class DTRController extends Controller
 
                       if($reportType == 'dailyLogs')
                       {
-                        do
-                        {
+                        // do
+                        // {
 
-                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $allDTRs, $cutoffStart, $cutoffEnd, $headers,$payday)
                           {
 
                             $header1 = ['Open Access BPO | Daily Time Record','','','','','','',''];
@@ -274,7 +274,7 @@ class DTRController extends Controller
                             // Set width for a single column
                             //$sheet->setWidth('A', 35);
 
-                            $sheet->setFontSize(10);
+                            $sheet->setFontSize(12);
                             $sheet->setOrientation("landscape");
 
 
@@ -290,6 +290,11 @@ class DTRController extends Controller
                                 $cells->setFontWeight('bold');
 
                             });
+                            $sheet->cells('A3', function($cells) {
+
+                                $cells->setAlignment('right');
+
+                            });
 
 
                             $sheet->row(2, function($cells) {
@@ -297,7 +302,7 @@ class DTRController extends Controller
                                 // call cell manipulation methods
                                 
                                 $cells->setFontColor('#ffffff');
-                                $cells->setFontSize(12);
+                                $cells->setFontSize(14);
                                 $cells->setFontWeight('bold');
 
                             });
@@ -308,30 +313,13 @@ class DTRController extends Controller
 
                             $sheet->row(3, function($row) {
                                 // Set font size
-                                $row->setFontSize(10);
+                                $row->setFontSize(16);
                                 $row->setFontWeight('bold');
 
                               });
                             // Set height for a single row
                             //$sheet->setHeight(2, 80);
-                            $sheet->setHeight(3, 50);
-
-                            // Freeze the first column
-                            //$sheet->freezeFirstColumn();
-
-                            // $sheet->setAutoSize(array(
-                            //     'A',
-                            // ));
-
-                            // Set width for a single column
-                            // $sheet->setWidth('A', 40);
-                            // $sheet->setWidth('D', 22);
-                            // $sheet->setWidth('F', 12);
-                            // $sheet->setWidth('G', 12);
-                            // $sheet->setWidth('H', 12);
-                            
-
-                            
+                            $sheet->setHeight(3, 50);        
 
                             $arr = [];
 
@@ -339,62 +327,53 @@ class DTRController extends Controller
                             foreach($allDTR as $employeeDTR)
                             {
                               $i = 0;
-                              $dData = collect($employeeDTR)->where('productionDate',$payday->format('Y-m-d'));
+                              //$dData = collect($employeeDTR)->sortBy('productionDate')->where('productionDate',$payday->format('Y-m-d'));
+                              $dData = collect($allDTRs)->where('id',$employeeDTR->first()->id)->sortBy('productionDate');
 
                               if (count($dData) > 0)
                               {
-                                // -------- ACCESS CODE -------------
-                                $arr[$i] = strtoupper($dData->first()->accesscode); $i++;
 
-                                // -------- FORMAL NAME -------------
-                                $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
-                                
-
-                                // -------- DATE -------------
-                                // ** Production Date
-                                // check if there's holiday
-                                $holiday = Holiday::where('holidate',$payday->format('Y-m-d'))->get();
-
-                                (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
-
-                                //$arr[$i] = $payday->format('M d D')." ". $hday; $i++;
-                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
-
-                                // -------- DAY -------------
-                                $arr[$i] = $payday->format('D')." ". $hday; $i++;
-
-
-                                // -------- TIME IN -------------
-                                $arr[$i] = strip_tags($dData->first()->timeIN); $i++;
-
-
-                                // -------- TIME OUT -------------
-                                $arr[$i] = strip_tags($dData->first()->timeOUT); $i++;
-
-
-                                // -------- WORKED HOURS  -------------
-                                if (strlen($dData->first()->hoursWorked) > 5)
+                                foreach ($dData as $key) 
                                 {
-                                   $arr[$i] = strip_tags($dData->first()->hoursWorked); $i++;
+                                  // -------- ACCESS CODE -------------
+                                  $arr[$i] = strtoupper($key->accesscode); $i++;
 
-                                }else
-                                $arr[$i] = strip_tags($dData->first()->hoursWorked); $i++;
+                                  // -------- FORMAL NAME -------------
+                                  $arr[$i] = strtoupper($key->lastname).", ".strtoupper($key->firstname)." ".strtoupper($key->middlename); $i++;
+                                  
 
-                                $arr[$i] = "-"; $i++;
+                                  // -------- DATE -------------
+                                  // ** Production Date
+                                  // check if there's holiday
+                                  $holiday = Holiday::where('holidate',$key->productionDate)->get();
 
-                               
+                                  (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
+
+                                  //$arr[$i] = $payday->format('M d D')." ". $hday; $i++;
+                                  $arr[$i] = date('m/d/y',strtotime($key->productionDate))." ". $hday; $i++; //; $payday->format('m/d/y')." ". $hday; $i++;
+
+                                  // -------- DAY -------------
+                                  $arr[$i] = date('l',strtotime($key->productionDate))." ". $hday; $i++;
 
 
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+                                  // -------- TIME IN -------------
+                                  $arr[$i] = strip_tags($key->timeIN); $i++;
 
-                               
 
+                                  // -------- TIME OUT -------------
+                                  $arr[$i] = strip_tags($key->timeOUT); $i++;
+
+
+                                  // -------- WORKED HOURS  -------------
+                                  if (strlen($key->hoursWorked) > 5)
+                                  {
+                                     $arr[$i] = strip_tags($key->hoursWorked); $i++;
+
+                                  }else
+                                  $arr[$i] = strip_tags($key->hoursWorked); $i++;
+
+                                  $arr[$i] = "-"; $i++;
+                                }
 
                               }else{
                                 
@@ -434,9 +413,9 @@ class DTRController extends Controller
                             
                           });//end sheet1
 
-                          $payday->addDay();
+                          //$payday->addDay();
 
-                        } while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );
+                        //} while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );
 
                       }
                       else
