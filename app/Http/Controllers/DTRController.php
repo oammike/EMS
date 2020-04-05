@@ -268,7 +268,7 @@ class DTRController extends Controller
                           {
 
                             $header1 = ['Open Access BPO | Daily Time Record','','','','','','',''];
-                            $header2 = [$cutoffStart->format('D, m/d/Y'),'Program: ',strtoupper($program->name),'','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','',''];
 
                             
                             // Set width for a single column
@@ -286,7 +286,7 @@ class DTRController extends Controller
                                 // call cell manipulation methods
                                 $cells->setBackground('##1a8fcb');
                                 $cells->setFontColor('#ffffff');
-                                $cells->setFontSize(12);
+                                $cells->setFontSize(20);
                                 $cells->setFontWeight('bold');
 
                             });
@@ -313,7 +313,7 @@ class DTRController extends Controller
 
                               });
                             // Set height for a single row
-                            $sheet->setHeight(2, 80);
+                            //$sheet->setHeight(2, 80);
                             $sheet->setHeight(3, 50);
 
                             // Freeze the first column
@@ -324,11 +324,11 @@ class DTRController extends Controller
                             // ));
 
                             // Set width for a single column
-                            $sheet->setWidth('A', 40);
-                            $sheet->setWidth('D', 22);
-                            $sheet->setWidth('F', 12);
-                            $sheet->setWidth('G', 12);
-                            $sheet->setWidth('H', 12);
+                            // $sheet->setWidth('A', 40);
+                            // $sheet->setWidth('D', 22);
+                            // $sheet->setWidth('F', 12);
+                            // $sheet->setWidth('G', 12);
+                            // $sheet->setWidth('H', 12);
                             
 
                             
@@ -361,7 +361,7 @@ class DTRController extends Controller
                                 $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
 
                                 // -------- DAY -------------
-                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
+                                $arr[$i] = $payday->format('D')." ". $hday; $i++;
 
 
                                 // -------- TIME IN -------------
@@ -424,70 +424,11 @@ class DTRController extends Controller
 
 
                             $sheet->getStyle('A4:P'.$lastrow)->getAlignment()->setWrapText(true); 
-                            $sheet->setBorder('A4:P'.$lastrow, 'thin');
+                            $sheet->setBorder('A4:P'.$lastrow, 1);
 
                             
                             //****** for SIGNATURE
-                            $m = "D".($lastrow+5).":E".($lastrow+5);
-                            $sheet->mergeCells($m);
-                            $sheet->cell('D'.($lastrow+5), function($cell) {
-
-                              $cell->setValue('___________________________________________');
-                              $cell->setAlignment('center');
-                              $cell->setBorder('solid');
-
-                            });
-
-                            $m = "D".($lastrow+6).":E".($lastrow+6);
-                            $sheet->mergeCells($m);
-                            $sheet->cell('D'.($lastrow+6), function($cell) {
-
-                              $cell->setValue('OLGA PONCE');
-                              $cell->setAlignment('center');
-                              $cell->setBorder('solid');
-                              $cell->setFontSize(30);
-
-                            });
-
-                            $m = "D".($lastrow+7).":E".($lastrow+7);
-                            $sheet->mergeCells($m);
-                            $sheet->cell('D'.($lastrow+7), function($cell) {
-
-                              $cell->setValue('Finance Consultant');
-                              $cell->setAlignment('center');
-
-                              
-                            });
-
-
-                            $m2 = "A".($lastrow+5).":B".($lastrow+5);
-                            $sheet->mergeCells($m2);
-
-                            $sheet->cell('A'.($lastrow+5), function($cell) {
-
-                              $cell->setValue('____________________________________________________________'); 
-                              $cell->setAlignment('center');
-
-                            });
-
-                            $m2 = "A".($lastrow+6).":B".($lastrow+6);
-                            $sheet->mergeCells($m2);
-
-                            $sheet->cell('A'.($lastrow+6), function($cell) {
-
-                              $cell->setValue(' ');
-                            });
-
-                            $m2 = "A".($lastrow+7).":B".($lastrow+7);
-                            $sheet->mergeCells($m2);
-                            $sheet->cell('A'.($lastrow+7), function($cell) {
-
-                              $cell->setValue('Program Manager (signature over printed name)');
-                              $cell->setAlignment('center');
-                              $cell->setFontSize(26);
-
-                              
-                            });
+                        
 
 
                             
