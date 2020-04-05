@@ -217,7 +217,7 @@ class DTRController extends Controller
       //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
       
       if($request->reportType == 'dailyLogs') {
-        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours','Project'];
+        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours','OT billable','OT Approved','OT Reason'];
         $reportType = 'dailyLogs';
       }
       else {
@@ -267,8 +267,8 @@ class DTRController extends Controller
                           $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $allDTRs, $cutoffStart, $cutoffEnd, $headers,$payday)
                           {
 
-                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','',''];
-                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','',''];
+                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','',''];
 
                             
                             // Set width for a single column
@@ -371,6 +371,15 @@ class DTRController extends Controller
 
                                   }else
                                   $arr[$i] = strip_tags($key->hoursWorked); $i++;
+
+                                  $arr[$i] = "-"; $i++;
+
+                                  // -------- OT BILLABLE HOURS  -------------
+                                  $arr[$i] = strip_tags($key->OT_billable); $i++;
+
+
+                                  // -------- OT approved HOURS  -------------
+                                  $arr[$i] = strip_tags($key->OT_approved); $i++;
 
                                   $arr[$i] = "-"; $i++;
 

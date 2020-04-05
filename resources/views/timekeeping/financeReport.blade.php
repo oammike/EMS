@@ -50,6 +50,9 @@
                 
                 <!-- <input type="hidden" name="dtr" /> -->
 
+                <div id="loader" class="text-center" style="display: none;">
+                  <span id="wait" style="font-size: small;" class="text-primary">Fetching DTR data. Please wait...<br/><br/><img src="storage/uploads/loading.gif" width="30" />  </span><br/><br/><br/>
+                </div>
 
               <div class="notes">
                 <h4>There are <strong><span class="text-danger" id="submitted"></span> out of <span class="text-primary" id="total"> team members</span> </strong> under <span id="programName" style="font-style: italic;"></span>   who have validated DTR sheets for that cutoff period.<br/> 
@@ -148,13 +151,15 @@
       if (seldept == 0){
         $('select[name="program"]').prop('disabled',false);
         $('select[name="program"]').val("0");//  option[value="0"]').attr('selected','selected').change(); 
-        $('.notes').fadeOut();   
+        $('.notes').fadeOut(); 
+        $('#loader').fadeOut();  
       }else{
 
 
          // get validated dtr
           var _token = "{{ csrf_token() }}";
           var cutoff = $('select[name="cutoff"]').find(':selected').val();
+          $('#loader').fadeIn();
 
 
           $.ajax({
@@ -168,6 +173,7 @@
                     success: function(response){
                       //console.log(response);
                       $('.notes').fadeIn();
+
                       $('#submitted').html('('+response.submitted+')');
                       $('#total').html('('+response.total+') team members ');
                       $('#programName').html(response.program);
@@ -175,6 +181,7 @@
                       var rdata = [];
 
                       $('.notes').fadeIn();
+                      $('.notes').fadeOut();
                       $('#submitted').html('('+response.submitted+')');
                       $('#total').html('('+response.total+') team members ');
                       $('#programName').html(response.program);
