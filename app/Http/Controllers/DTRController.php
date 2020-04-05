@@ -190,7 +190,7 @@ class DTRController extends Controller
 
                       //join('user_dtr','user_dtr.user_id','=','users.id')->
                       // select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
-                       select('users.accesscode','users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at')->
+                       select('users.accesscode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at')->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
@@ -217,7 +217,7 @@ class DTRController extends Controller
       //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
       
       if($request->reportType == 'dailyLogs') {
-        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours','OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason'];
+        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours','ECQ Status', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason'];
         $reportType = 'dailyLogs';
       }
       else {
@@ -238,7 +238,7 @@ class DTRController extends Controller
 
         if($this->user->id !== 564 ) {
               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n DL DTR cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fwrite($file, "-------------------\n DL_FINANCE cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
 
@@ -246,7 +246,13 @@ class DTRController extends Controller
         $cutoff = explode('_', $request->cutoff);
         $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
 
-        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program, $allDTR, $allDTRs, $cutoffStart, $cutoffEnd, $headers,$description) 
+        $ecqStats = DB::table('eqc_workstatus')->join('biometrics','eqc_workstatus.biometrics_id','=','biometrics.id')->
+                        join('ecq_statuses','eqc_workstatus.workStatus','=','ecq_statuses.id')->
+                        join('users','eqc_workstatus.user_id','=','users.id')->
+                        select('eqc_workstatus.id as ecqID','eqc_workstatus.biometrics_id','biometrics.productionDate','ecq_statuses.name as ecqStatus','users.id as userID')->get();
+                        //return $ecqStats;
+
+        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
 
@@ -264,12 +270,12 @@ class DTRController extends Controller
                         // do
                         // {
 
-                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $allDTRs, $cutoffStart, $cutoffEnd, $headers,$payday)
+                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $allDTRs, $ecqStats, $cutoffStart, $cutoffEnd, $headers,$payday)
                           {
 
                             //13 headers
-                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','',''];
-                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','','','',''];
+                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','','','','',''];
 
                             
                             // Set width for a single column
@@ -372,6 +378,19 @@ class DTRController extends Controller
 
                                   }else
                                   $arr[$i] = strip_tags($key->hoursWorked); $i++;
+
+
+                                  // -------- ECQ STATUS  -------------
+                                  $ecq = collect($ecqStats)->where('biometrics_id',$key->biometrics_id)->where('user_id',$key->id);
+                                  if (count($ecq) > 0)
+                                  {
+                                    $arr[$i] = $ecq->first()->ecqStatus;
+                                  }
+                                  else
+                                  {
+                                    ($key->isWFH) ? $arr[$i] = "AHW" : $arr[$i]= "Onsite";
+                                  }
+                                  $i++;
 
                                   
 
