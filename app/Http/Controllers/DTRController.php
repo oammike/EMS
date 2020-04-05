@@ -311,7 +311,7 @@ class DTRController extends Controller
                             
                             $sheet->appendRow($headers);
 
-                            $sheet->row(3, function($row) {
+                            $sheet->row(4, function($row) {
                                 // Set font size
                                 $row->setFontSize(16);
                                 $row->setFontWeight('bold');
