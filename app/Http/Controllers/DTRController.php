@@ -384,13 +384,14 @@ class DTRController extends Controller
                                   $ecq = collect($ecqStats)->where('biometrics_id',$key->biometrics_id)->where('userID',$key->id);
                                   if (count($ecq) > 0)
                                   {
-                                    $arr[$i] = $ecq->first()->ecqStatus;
+                                    $arr[$i] = $ecq->first()->ecqStatus; $i++;
                                   }
                                   else
                                   {
                                     ($key->isWFH) ? $arr[$i] = "AHW" : $arr[$i]= "Onsite";
+                                    $i++;
                                   }
-                                  $i++;
+                                  
 
                                   
 
