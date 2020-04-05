@@ -171,6 +171,10 @@ class DTRController extends Controller
       $program = Campaign::find($request->program);
 
       DB::connection()->disableQueryLog();
+
+      ($request->reportType == 'dailyLogs') ? $result = $this->fetchLockedDTRs($request->cutoff, $request->program,1) : $result = $this->fetchLockedDTRs($request->cutoff, $request->program,null);
+
+
       $allDTRs = DB::table('campaign')->where('campaign.id',$request->program)->
                       join('team','team.campaign_id','=','campaign.id')->
                       join('users','team.user_id','=','users.id')->
@@ -185,12 +189,13 @@ class DTRController extends Controller
                       })->
 
                       //join('user_dtr','user_dtr.user_id','=','users.id')->
-                      select('users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
+                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
                           ['users.status_id', '!=', 9],
                       ])->orderBy('users.lastname')->get();
+      //return $result[0]['DTRs'];
       $allDTR = collect($allDTRs)->groupBy('id');
       //return $allDTR;
       $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
@@ -201,7 +206,7 @@ class DTRController extends Controller
                       leftJoin('positions','users.position_id','=','positions.id')->
                       leftJoin('floor','team.floor_id','=','floor.id')->
                       
-                      select('users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
