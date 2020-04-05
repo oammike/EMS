@@ -381,7 +381,7 @@ class DTRController extends Controller
 
 
                                   // -------- ECQ STATUS  -------------
-                                  $ecq = collect($ecqStats)->where('biometrics_id',$key->biometrics_id)->where('user_id',$key->id);
+                                  $ecq = collect($ecqStats)->where('biometrics_id',$key->biometrics_id)->where('userID',$key->id);
                                   if (count($ecq) > 0)
                                   {
                                     $arr[$i] = $ecq->first()->ecqStatus;
