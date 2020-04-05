@@ -189,7 +189,8 @@ class DTRController extends Controller
                       })->
 
                       //join('user_dtr','user_dtr.user_id','=','users.id')->
-                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
+                      // select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
+                       select('users.accesscode','users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.UT', 'user_dtr.user_id')->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
@@ -342,10 +343,10 @@ class DTRController extends Controller
 
                               if (count($dData) > 0)
                               {
-                                 // -------- ACCESS CODE -------------
+                                // -------- ACCESS CODE -------------
                                 $arr[$i] = strtoupper($dData->first()->accesscode); $i++;
 
-                                 // -------- FORMAL NAME -------------
+                                // -------- FORMAL NAME -------------
                                 $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
                                 
 
@@ -396,26 +397,12 @@ class DTRController extends Controller
 
 
                               }else{
-                                 // -------- ACCESS CODE -------------
-                                $arr[$i] = strtoupper($dData->first()->accesscode); $i++;
+                                
 
-                                 // -------- FORMAL NAME -------------
-                                $arr[$i] = strtoupper($dData->first()->lastname).", ".strtoupper($dData->first()->firstname)." ".strtoupper($dData->first()->middlename); $i++;
-                               
-                                 // -------- DATE -------------
-                                // ** Production Date
-                                // check if there's holiday
-                                $holiday = Holiday::where('holidate',$payday->format('Y-m-d'))->get();
-
-                                (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
-
-                                //$arr[$i] = $payday->format('M d D')." ". $hday; $i++;
-                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
-
-                                // -------- DAY -------------
-                                $arr[$i] = $payday->format('m/d/y')." ". $hday; $i++;
-
-
+                                $arr[$i] = " - "; $i++;
+                                $arr[$i] = " - "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++; // ** get the sched here
                                 $arr[$i] = " <unverified> "; $i++;
