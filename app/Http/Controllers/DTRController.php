@@ -500,6 +500,7 @@ class DTRController extends Controller
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;
 
                                     
                                   }
@@ -520,6 +521,7 @@ class DTRController extends Controller
                                 $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++; // ** get the sched here
+                                $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++;
                                 $arr[$i] = " <unverified> "; $i++;
