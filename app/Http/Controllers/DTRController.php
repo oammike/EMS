@@ -543,7 +543,7 @@ class DTRController extends Controller
                                     $sheet->cells('A'.$startrow.':P'.$startrow, function($cells) {
 
                                         // call cell manipulation methods
-                                        $cells->setBackground('#fff');   
+                                        $cells->setBackground('#ffffff');   
 
                                     });
 
