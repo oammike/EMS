@@ -297,7 +297,7 @@ class DTRController extends Controller
                             $sheet->appendRow($header2);
                             $sheet->appendRow($header2b);
 
-                            $sheet->cells('A1:P4', function($cells) {
+                            $sheet->cells('A1:P3', function($cells) {
 
                                 // call cell manipulation methods
                                 $cells->setBackground('##1a8fcb');
@@ -345,7 +345,7 @@ class DTRController extends Controller
                             //$sheet->setHeight(3, 50);        
 
                             $arr = [];
-
+                            $startrow = 6;
 
                             foreach($allDTR as $employeeDTR)
                             {
@@ -376,7 +376,7 @@ class DTRController extends Controller
                                   $arr[$i] = date('m/d/y',strtotime($key->productionDate))." ". $hday; $i++; //; $payday->format('m/d/y')." ". $hday; $i++;
 
                                   // -------- DAY -------------
-                                  $arr[$i] = date('L',strtotime($key->productionDate))." ". $hday; $i++;
+                                  $arr[$i] = date('D',strtotime($key->productionDate))." ". $hday; $i++;
 
 
                                   // -------- TIME IN -------------
@@ -526,6 +526,29 @@ class DTRController extends Controller
 
                                   //reset
                                   $sheet->appendRow($arr);
+
+                                  if($startrow%2)
+                                  {
+                                    
+                                    $sheet->cells('A'.$startrow.':P'.$startrow, function($cells) {
+
+                                        // call cell manipulation methods
+                                        $cells->setBackground('#d8dcf1');   
+
+                                    });
+
+                                  }
+                                  else
+                                  {
+                                    $sheet->cells('A'.$startrow.':P'.$startrow, function($cells) {
+
+                                        // call cell manipulation methods
+                                        $cells->setBackground('#fff');   
+
+                                    });
+
+                                  }
+                                  $startrow++;
                                   $i=0;
                                 }
 
