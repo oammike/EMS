@@ -195,6 +195,8 @@ class DTRController extends Controller
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
                           ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
                       ])->orderBy('users.lastname')->get();
       //return $result[0]['DTRs'];
       $allDTR = collect($allDTRs)->groupBy('id');
@@ -212,6 +214,8 @@ class DTRController extends Controller
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
                           ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
                       ])->orderBy('users.lastname')->get();
 
       //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
@@ -1541,6 +1545,8 @@ class DTRController extends Controller
                     ['status_id', '!=', 7],
                     ['status_id', '!=', 8],
                     ['status_id', '!=', 9],
+                    ['users.status_id', '!=', 13],
+                    ['users.status_id', '!=', 16],
                 ])->
         leftJoin('team','team.user_id','=','users.id')->
         leftJoin('campaign','team.campaign_id','=','campaign.id')->
