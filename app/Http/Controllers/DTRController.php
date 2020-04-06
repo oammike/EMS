@@ -237,7 +237,7 @@ class DTRController extends Controller
       {
 
         if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n DL_FINANCE cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
@@ -1558,8 +1558,8 @@ class DTRController extends Controller
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
            if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Viewed DTRsheets on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed Finance_DTRsheets on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
             } 
         
