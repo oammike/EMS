@@ -3964,7 +3964,7 @@ trait TimekeepingTraits
     $hasLeave = $vacationleave->hasLeave; 
     $vlDeet = $vacationleave->details;
     $hasPendingVL = $vacationleave->hasPending;
-    $koll->push(['hasVL'=>$hasVL,'alldaysVL'=>$alldaysVL,'vlDeet'=>$vlDeet,'query'=>$vacationleave->query]);
+    //$koll->push(['hasVL'=>$hasVL,'alldaysVL'=>$alldaysVL,'vlDeet'=>$vlDeet,'query'=>$vacationleave->query]);
     /*-------- VACATION LEAVE  -----------*/
 
 
@@ -4119,7 +4119,7 @@ trait TimekeepingTraits
 
      
 
-      //koll->push(['userLogIN'=>$inTime->format('Y-m-d H:i'), 'scheduleStart'=>$scheduleStart->format('Y-m-d H:i')]);
+      //$koll->push(['userLogIN'=>$inTime->format('Y-m-d H:i'), 'scheduleStart'=>$scheduleStart->format('Y-m-d H:i')]);
 
 
       if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
@@ -4137,18 +4137,20 @@ trait TimekeepingTraits
       } else $isLateIN= false;
 
 
-      if ($userLogOUT[0]['timing']->format('Y-m-d H:i:s') < Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s'))
+      if ($userLogOUT[0]['timing']->format('Y-m-d H:i:s') < $endOfShift->format('Y-m-d H:i:s')) //Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s'))
       {
+
         $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"));
         //---- MARKETING TEAM CHECK: 15mins grace period
           
              if ($checkEarlyOut > 1) $isEarlyOUT = true; else $isEarlyOUT= false;
           
-
+            //$koll->push(['keme'=>$isEarlyOUT]);
         
       } else $isEarlyOUT= false;
 
-    
+      //
+      //$koll->push(['1'=>$userLogOUT[0]['timing']->format('Y-m-d H:i:s'),'2'=>Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s')]);
 
       if ($isEarlyOUT && $isLateIN)//use user's logs
       {
@@ -4185,9 +4187,9 @@ trait TimekeepingTraits
       }
       else if ($isEarlyOUT)
       {
-         $koll=["from"=>"isEarlyOUT"];
+         //$koll=["from"=>"isEarlyOUT"];
          //--- but u need to make sure if nag late out sya
-          if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"))
+          if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift ) // Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"))
           {
             if($isPartTimer | $isPartTimerForeign)
               ($ptOverride) ? $workedHours = 8.00 : $workedHours = 4.00; 
@@ -4204,7 +4206,8 @@ trait TimekeepingTraits
 
             
              //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
-            $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
+            //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
+            $totalbill = number_format(($endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
 
             if ($totalbill > 0.5){
               $billableForOT = $totalbill;
@@ -4224,9 +4227,13 @@ trait TimekeepingTraits
             /*--- WE NEED TO CHECK FIRST KUNG MAY LEGIt LEAVES SYA ***/
             $comp->push(['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")]);
             
-            $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));//->addHour());
+            //$noSec = Carbon::parse($schedForToday['timeStart'],'Asia/Manila');
+            $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->diffInMinutes($startOfShift);
+            //$wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->diffInHours($startOfShift);
+            //$koll->push(['1'=> Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->format('Y-m-d H:i:s'), '2'=> $startOfShift->format('Y-m-d H:i:s'),'dh'=>$dh]);
+            //(Carbon::parse($payday." ".$noSec->format('H:i'),"Asia/Manila"));//->addHour());
 
-            if ($wh >=5 ) $wh = $wh-1; 
+            if ($wh >= 300 ) $wh = $wh-1; 
 
 
 
@@ -4296,7 +4303,7 @@ trait TimekeepingTraits
 
 
               $billableForOT=0;
-              }
+            }
 
             if ($hasHolidayToday)
             {
@@ -4312,7 +4319,7 @@ trait TimekeepingTraits
 
       else if($isLateIN)
       {
-        //$koll=["from"=>"isLateIN"];
+        $koll=["from"=>"isLateIN"];
         //--- but u need to make sure if nag late out sya
         //    otherwise, super undertime talaga sya
 
@@ -4796,7 +4803,7 @@ trait TimekeepingTraits
                   'OTattribute'=>$OTattribute, 
                   //'checkLate'=>"nonComplicated", 
                   //'wh'=>$wh,'comp'=>$comp,
-                  'workedHours'=> $workedHours, //$koll, // 
+                  'workedHours'=> $workedHours, //$koll, // $wh,// 
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP ]);
    
 
@@ -5363,7 +5370,8 @@ trait TimekeepingTraits
                 if (!empty($ins) && !empty($outs)  )//&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
                 {
                   //add +1 kasi may minus sa break
-                  $workedHours = number_format(($wh/60)+1,2);//."<br/><small>[ *Late IN* ]</small>"
+                  //$workedHours = number_format(($wh/60)+1,2);
+                  $workedHours = number_format(($wh/60),2);//."<br/><small>[ *Late IN* ]</small>"
                   $UT = 0;
                 }
                 else
