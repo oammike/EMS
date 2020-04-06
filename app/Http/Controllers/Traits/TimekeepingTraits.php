@@ -305,6 +305,8 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
                           ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
                       ])->orderBy('users.lastname')->get();
                       //return $allDTRs;
 
