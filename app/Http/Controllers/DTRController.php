@@ -339,7 +339,7 @@ class DTRController extends Controller
                             $sheet->row(5, function($row) {
                                 // Set font size
                                 $row->setFontSize(13);
-                                $cells->setBackground('#dedede');
+                                $row->setBackground('#dedede');
                                 //$row->setFontWeight('bold');
 
                               });
