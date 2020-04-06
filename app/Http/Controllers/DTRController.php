@@ -278,8 +278,10 @@ class DTRController extends Controller
                           {
 
                             //13 headers
-                            $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','',''];
+                            $header1 = ['Open Access BPO','','','','','','','','','','','','',''];
+                            $header1b = ['Daily Time Record','','','','','','','','','','','','',''];
                             $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+                            $header2b = ['','','','','','','','','','','','','',''];
 
                             
                             // Set width for a single column
@@ -291,46 +293,56 @@ class DTRController extends Controller
 
 
                             $sheet->appendRow($header1);
+                            $sheet->appendRow($header1b);
                             $sheet->appendRow($header2);
-                            $sheet->cells('A1:P2', function($cells) {
+                            $sheet->appendRow($header2b);
+
+                            $sheet->cells('A1:P4', function($cells) {
 
                                 // call cell manipulation methods
                                 $cells->setBackground('##1a8fcb');
                                 $cells->setFontColor('#ffffff');
-                                $cells->setFontSize(20);
-                                $cells->setFontWeight('bold');
-
-                            });
-                            $sheet->cells('A3', function($cells) {
-
-                                $cells->setAlignment('right');
-
-                            });
-
-
-                            $sheet->row(2, function($cells) {
-
-                                // call cell manipulation methods
+                                $cells->setFontSize(13);
                                 
-                                $cells->setFontColor('#ffffff');
+
+                            });
+                            $sheet->cells('A1', function($cells) {
+
                                 $cells->setFontSize(14);
                                 $cells->setFontWeight('bold');
 
                             });
 
+                            // $sheet->cells('A3', function($cells) {
+
+                            //     $cells->setAlignment('right');
+
+                            // });
+
+
+                            // $sheet->row(2, function($cells) {
+
+                            //     // call cell manipulation methods
+                                
+                            //     $cells->setFontColor('#ffffff');
+                            //     $cells->setFontSize(14);
+                            //     $cells->setFontWeight('bold');
+
+                            // });
+
                            
                             
                             $sheet->appendRow($headers);
 
-                            $sheet->row(4, function($row) {
+                            $sheet->row(5, function($row) {
                                 // Set font size
-                                $row->setFontSize(16);
-                                $row->setFontWeight('bold');
+                                $row->setFontSize(13);
+                                //$row->setFontWeight('bold');
 
                               });
                             // Set height for a single row
                             //$sheet->setHeight(2, 80);
-                            $sheet->setHeight(3, 50);        
+                            //$sheet->setHeight(3, 50);        
 
                             $arr = [];
 
@@ -364,7 +376,7 @@ class DTRController extends Controller
                                   $arr[$i] = date('m/d/y',strtotime($key->productionDate))." ". $hday; $i++; //; $payday->format('m/d/y')." ". $hday; $i++;
 
                                   // -------- DAY -------------
-                                  $arr[$i] = date('l',strtotime($key->productionDate))." ". $hday; $i++;
+                                  $arr[$i] = date('L',strtotime($key->productionDate))." ". $hday; $i++;
 
 
                                   // -------- TIME IN -------------
