@@ -3494,12 +3494,53 @@ trait TimekeepingTraits
           $collOUT = new Collection;
           $collOUT->push(['id'=>$logOverrideOUT->id, 'biometrics_id'=>$logOverrideOUT->affectedBio,'user_id'=>$user_id,'logTime'=>$logOverrideOUT->logTime, 'logType_id'=>$logOverrideOUT->logType_id,'manual'=>null,'created_at'=>$logOverrideOUT->created_at,'updated_at'=>$logOverrideOUT->updated_at]);
 
+          $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
+          if (count($rdOT) > 0)
+          {
+              if ($rdOT->first()->isApproved)
+              {
+                $approvedOT = $rdOT; 
+                //** fill in necessary details from the approved RD OT
+                // $shiftStart = "* RD *";
+                // $shiftEnd = "* RD *";
+                // $logIN = $rdOT->first()->timeStart;
+                // $logOUT = $rdOT->first()->timeEnd;
+                // $workedHours = $rdOT->first()->filed_hours."<br/><small>[ * RD-OT * ]</small>";
+                // $billableForOT = $rdOT->first()->billable_hours;
+                // $OTattribute = null;
+                // $UT = 0;
+                // $hasPendingIN = null;
+                // $pendingDTRPin = null;
+                // $hasPendingOUT = null;
+                // $pendingDTRPout = null;
+
+              }else
+              {
+                $approvedOT = $rdOT; 
+                //** fill in necessary details from the approved RD OT
+                // $shiftStart = "* RD *";
+                // $shiftEnd = "* RD *";
+                // $logIN = $rdOT->first()->timeStart;
+                // $logOUT = $rdOT->first()->timeEnd;
+                // $workedHours = "0<br/><small>[ * RD-OT * ]</small>";
+                // $billableForOT = $rdOT->first()->billable_hours;
+                // $OTattribute = null;
+                // $UT = 0;
+                // $hasPendingIN = null;
+                // $pendingDTRPin = null;
+                // $hasPendingOUT = null;
+                // $pendingDTRPout = null;
+              }
+              
+
+          }
+
           $data = new Collection;
           $data->push([
             'biometric_id'=>$biometrics->id,
             'shiftStart'=>$shiftStart, 
             'shiftEnd'=>$shiftEnd, 'logIN'=>$logIN, 
-            'logOUT'=>$logOUT,'workedHours'=>$wh, 
+            'logOUT'=>$logOUT,'workedHours'=>$wh."<br/><small>[ * RD-OT * ]</small>", 
             'userLogIN'=>$collIN,
             'hasApprovedDTRPin'=>$hasApprovedDTRPin,
             'userLogOUT'=>$collOUT,'isSameDayLog'=>$isSameDayLog,
@@ -3514,9 +3555,28 @@ trait TimekeepingTraits
             'approvedOT'=>$approvedOT]);
 
 
+
+            
+            
+
+
         }
         else
         {
+          $rdOT = User_OT::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
+          if (count($rdOT) > 0)
+          {
+              if ($rdOT->first()->isApproved)
+              {
+                $approvedOT = $rdOT; 
+
+              }else
+              {
+                $approvedOT = $rdOT; 
+              }
+              
+
+          }
            $data = new Collection;
            $data->push([
             'biometric_id'=>$biometrics->id,
