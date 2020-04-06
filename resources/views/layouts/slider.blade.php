@@ -1,7 +1,33 @@
 
                 
 
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Message From Finance: <br/> <span class="text-primary">    Extended deadline 4PM  today <br/>to  lock EMS and update <br/>employee status tracker </i><br/> <br/>
+                   <i class="fa fa-3x fa-lock"></i> <img src="storage/uploads/payday.png" width="35%"><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+To those who haven't already, please ensure your entire DTR's are locked on EMS, on or before 4PM today.<br/><br/>
+
+ 
+
+<strong class="text-primary"> TL's and Managers:</strong><br/>
+
+Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too.<br/><br/>
+
+ 
+
+<strong class="text-primary"> After 4:00 pm today:</strong>
+
+Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting.
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
 
                   <div style="position: relative;width:100%">
                     <img src="storage/uploads/bdavidowitz.jpg" width="95%"  />
