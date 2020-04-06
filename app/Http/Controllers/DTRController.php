@@ -397,7 +397,18 @@ class DTRController extends Controller
 
 
                                   // -------- TIME OUT -------------
-                                  $arr[$i] = strip_tags($key->timeOUT); $i++;
+                                   $tout = strip_tags($key->timeOUT);
+
+                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false )
+                                  {
+                                    $arr[$i] = $tout; $i++;
+                                  }
+                                  else
+                                  {
+                                    $arr[$i] = Carbon::parse($tout,'Asia/Manila')->format('h:i:s A'); $i++;
+                                  }
+
+                                  
 
 
                                   // -------- WORKED HOURS  -------------
