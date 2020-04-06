@@ -248,7 +248,7 @@
 
                                                         <!-- we determin here if WFH -->
                                                         <?php $hasWFH = collect($wfhData)->where('biometrics_id',$data['biometrics_id']);
-                                                              $ecqStatus = collect($ecq)->where('biometrics_id',$data['biometrics_id']) 
+                                                              $ecqStatus = collect($ecq)->where('biometrics_id',$data['biometrics_id'])->sortByDesc('created_at') 
 
                                                               //1=AHW | 2=Hotel Stayer | 3=Shuttler | 4= Walkers | 5= Dwellers | 6= Carpool Driver | 7= Carpool Passenger
                                                               ?>
