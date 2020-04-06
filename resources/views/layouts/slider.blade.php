@@ -2,13 +2,13 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Message From Finance: <br/> <span class="text-primary">    Extended deadline 4PM  today <br/>to  lock EMS DTR and update <br/>employee status tracker </i><br/> <br/>
+                  <h4 class="text-orange" style="line-height: 1.6em" > Message From Finance: <br/> <span class="text-primary">    Extended deadline 4PM today <span style="font-size: small;">(Apr.06)</span> <br/>to  lock EMS DTR and update <br/>employee status tracker </i><br/> <br/>
                    <i class="fa fa-3x fa-lock"></i> <img src="storage/uploads/payday.png" width="35%"><br/><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left">
                      
-To those who haven't already, please ensure your entire DTR's are locked on EMS, on or before 4PM today.<br/><br/>
+To those who haven't already, please ensure your entire DTR's are locked on EMS, on or before 4PM today<span style="font-size: small;"> (Apr.06)</span>.<br/><br/>
 
  
 
