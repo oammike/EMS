@@ -248,7 +248,9 @@ class DTRController extends Controller
 
         $dtr = $request->dtr;
         $cutoff = explode('_', $request->cutoff);
+
         $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
+        
 
         $ecqStats = DB::table('eqc_workstatus')->join('biometrics','eqc_workstatus.biometrics_id','=','biometrics.id')->
                         join('ecq_statuses','eqc_workstatus.workStatus','=','ecq_statuses.id')->
@@ -380,7 +382,18 @@ class DTRController extends Controller
 
 
                                   // -------- TIME IN -------------
-                                  $arr[$i] = strip_tags($key->timeIN); $i++;
+                                  $tin = strip_tags($key->timeIN);
+
+                                  if ( strpos($tin, "SL") !== false || strpos($tin, "VL") !== false || strpos($tin, "RD") !== false || strpos($tin, "LWOP") !== false || strpos($tin, "OBT") !== false || strpos($tin, "ML") !== false || strpos($tin, "PL") !== false || strpos($tin, "No IN") !== false || strpos($tin, "No OUT") !== false )
+                                  {
+                                    $arr[$i] = $tin; $i++;
+                                  }
+                                  else
+                                  {
+                                    $arr[$i] = Carbon::parse($tin,'Asia/Manila')->format('h:i:s A'); $i++;
+                                  }
+                                  
+
 
 
                                   // -------- TIME OUT -------------
@@ -533,7 +546,8 @@ class DTRController extends Controller
                                     $sheet->cells('A'.$startrow.':P'.$startrow, function($cells) {
 
                                         // call cell manipulation methods
-                                        $cells->setBackground('#d8dcf1');   
+                                        $cells->setBackground('#d8dcf1'); 
+                                        $cells->setAlignment('left');  
 
                                     });
 
@@ -543,7 +557,8 @@ class DTRController extends Controller
                                     $sheet->cells('A'.$startrow.':P'.$startrow, function($cells) {
 
                                         // call cell manipulation methods
-                                        $cells->setBackground('#ffffff');   
+                                        $cells->setBackground('#ffffff'); 
+                                        $cells->setAlignment('left');  
 
                                     });
 
