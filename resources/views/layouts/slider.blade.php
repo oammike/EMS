@@ -2,25 +2,48 @@
                 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Attention: <br/> <span class="text-primary">    DSWD's Social Amelioration Program  <br/>
+                   <img src="storage/uploads/dswd.png" width="50%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      Below are important information provided by the  DSWD and the IATF regarding the Government's Social Amelioration Program ("SAP"):<br/><br/>
+
+                      1. The SAP will be spearheaded by the DSWD in coordination with the Local Government Units and Barangays;<br/><br/>
+                      2. The DSWD's priority will be the low income families and the informal sector;<br/><br/>
+                      3. The  cash aid of Php 5,000 to Php 8,000 will be per Family/Household; and<br/><br/>
+                      4. The DSWD Social Amelioration Cards will be distributed at the barangay level.<br/><br/>
+
+                      For more information, you may visit the DSWD website at <a href="http://www.dswd.gov.ph" target="_blank">www.dswd.gov.ph</a> and DSWD's FB page.<br/><br/>
+
+                      Thank you.<br/><br/><strong>HR Department</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Message From Finance: <br/> <span class="text-primary">    Extended deadline 4PM today <span style="font-size: small;">(Apr.06)</span> <br/>to  lock EMS DTR and update <br/>employee status tracker </i><br/> <br/>
                    <i class="fa fa-3x fa-lock"></i> <img src="storage/uploads/payday.png" width="35%"><br/><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left">
                      
-To those who haven't already, please ensure your entire DTR's are locked on EMS, on or before 4PM today<span style="font-size: small;"> (Apr.06)</span>.<br/><br/>
+                      To those who haven't already, please ensure your entire DTR's are locked on EMS, on or before 4PM today<span style="font-size: small;"> (Apr.06)</span>.<br/><br/>
 
- 
+                       
 
-<strong class="text-primary"> TL's and Managers:</strong><br/>
+                      <strong class="text-primary"> TL's and Managers:</strong><br/>
 
-Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too.<br/><br/>
+                      Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too.<br/><br/>
 
- 
+                       
 
-<strong class="text-primary"> After 4:00 pm today:</strong>
+                      <strong class="text-primary"> After 4:00 pm today:</strong>
 
-Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting.
+                      Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting.
                     
 
                     </p>  
