@@ -356,7 +356,7 @@
                                                         <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('l',strtotime($data['productionDate'])) }} </td>
                                                         @else
 
-                                                        <td class="text-left"><a title="Onsite" class="btn btn-xs btn-default" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-building"></i> {{ date('l',strtotime($data['productionDate'])) }} </a></td>
+                                                        <td class="text-left"><a title="No ECQ status" class="btn btn-xs btn-default" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"> {{ date('l',strtotime($data['productionDate'])) }} </a></td>
 
                                                         @endif
 
