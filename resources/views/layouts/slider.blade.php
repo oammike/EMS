@@ -1,7 +1,21 @@
 
                 
 
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+              <div style="padding:20px" class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > April 7,2020: <br/> <span class="text-primary">WORLD HEALTH DAY <br/>
+                   <img src="storage/uploads/frontliners.jpg" width="95%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      This <strong>#WorldHealthDay,</strong> we thank those who braved the frontlines to minimize the risk of COVID-19 infections across our communities. Stay safe and healthy!<br/><br/>#WeSpeakYourLanguage #WorldHealthDay
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Attention: <br/> <span class="text-primary">    DSWD's Social Amelioration Program  <br/>
                    <img src="storage/uploads/dswd.png" width="50%"><br/>
                     <img src="storage/uploads/divider.png" />
