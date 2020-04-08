@@ -2,6 +2,75 @@
                 
 
               <div style="padding:20px" class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/grocery_1.png" width="95%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/grocery_2.png" width="95%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong class="text-primary"> BEFORE SHOPPING</strong><br/>
+                      - Take stock of what you already have and plan your daily meals around that<br/><br/>
+                      - Make a grocery list of what you’ll need in the next two or three weeks so you don’t have to go out frequently<br/><br/>
+                      - Avoid going out if you have respiratory or flu-like symptoms<br/><br/>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/grocery_3.png" width="95%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong class="text-primary"> WHILE SHOPPING</strong><br/>
+                      - Wear a face mask and gloves<br/><br/>
+                      - Always observe social distancing<br/><br/>
+                      - Wipe down your shopping cart handle<br/><br/>
+                      - Avoid putting back items you’ve already touched<br/><br/>
+                    
+
+                    </p>  
+                    
+              </div>
+
+
+              <div style="padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/grocery_4.png" width="95%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong class="text-primary"> AFTER SHOPPING</strong><br/>
+                      - Dispose of your used face mask and gloves before entering your home<br/><br/>
+                      - Disinfect all surfaces that may have come in contact with your groceries<br/><br/>
+                      - Remove unnecessary external packaging and move the items to storage containers<br/><br/>
+                      - Wash all fruits and vegetables before storing them
+                      - Heat food before eating whenever possible<br/><br/>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > April 7,2020: <br/> <span class="text-primary">WORLD HEALTH DAY <br/>
                    <img src="storage/uploads/frontliners.jpg" width="95%"><br/>
                     <img src="storage/uploads/divider.png" />
@@ -38,31 +107,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Message From Finance: <br/> <span class="text-primary">    Extended deadline 4PM today <span style="font-size: small;">(Apr.06)</span> <br/>to  lock EMS DTR and update <br/>employee status tracker </i><br/> <br/>
-                   <i class="fa fa-3x fa-lock"></i> <img src="storage/uploads/payday.png" width="35%"><br/><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                      To those who haven't already, please ensure your entire DTR's are locked on EMS, on or before 4PM today<span style="font-size: small;"> (Apr.06)</span>.<br/><br/>
-
-                       
-
-                      <strong class="text-primary"> TL's and Managers:</strong><br/>
-
-                      Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too.<br/><br/>
-
-                       
-
-                      <strong class="text-primary"> After 4:00 pm today:</strong>
-
-                      Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting.
-                    
-
-                    </p>  
-                    
-              </div>
+             
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
 
@@ -473,26 +518,7 @@
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Memo:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Early Cutoff and Payroll<br/>
-                 <br/>
-                    <i class="fa fa-calendar fa-5x"></i> <br/><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-
-                      In view of the upcoming Holy Week , we will move the  payroll cut-off to <br/><strong class="text-danger text-center" style="font-size: larger">Mar 21-Apr 3, 2020.</strong> <br/><br/>Attendance from April 4 to 5, 2020 will be paid in full.  Any absence, tardiness, or overtime rendered during that two-day period will be accounted on April 25, 2020 payroll. 
-                       <br/><br/>
-                      Our new payout would be <strong>Apr 8th instead of Apr 10th.</strong> <br/><br/>
-                      Attendance should be approved and locked in EMS on or before April 4, 2020 12:00pm. <br/><br/>
-
-                      Please be guided accordingly.</p>
-
-
-                    
-                </div>
-
+                
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Note:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Updated Payroll Calendar 2020<br/>
@@ -1439,6 +1465,52 @@ Happy International Womens Day!
 
 
 <?php /*
+
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Memo:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Early Cutoff and Payroll<br/>
+                 <br/>
+                    <i class="fa fa-calendar fa-5x"></i> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      In view of the upcoming Holy Week , we will move the  payroll cut-off to <br/><strong class="text-danger text-center" style="font-size: larger">Mar 21-Apr 3, 2020.</strong> <br/><br/>Attendance from April 4 to 5, 2020 will be paid in full.  Any absence, tardiness, or overtime rendered during that two-day period will be accounted on April 25, 2020 payroll. 
+                       <br/><br/>
+                      Our new payout would be <strong>Apr 8th instead of Apr 10th.</strong> <br/><br/>
+                      Attendance should be approved and locked in EMS on or before April 4, 2020 12:00pm. <br/><br/>
+
+                      Please be guided accordingly.</p>
+
+
+                    
+                </div>
+
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Message From Finance: <br/> <span class="text-primary">    Extended deadline 4PM today <span style="font-size: small;">(Apr.06)</span> <br/>to  lock EMS DTR and update <br/>employee status tracker </i><br/> <br/>
+                   <i class="fa fa-3x fa-lock"></i> <img src="storage/uploads/payday.png" width="35%"><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      To those who haven't already, please ensure your entire DTR's are locked on EMS, on or before 4PM today<span style="font-size: small;"> (Apr.06)</span>.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> TL's and Managers:</strong><br/>
+
+                      Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> After 4:00 pm today:</strong>
+
+                      Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting.
+                    
+
+                    </p>  
+                    
+              </div>
 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > Message from <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> OpenAccessBPO Transport<br/>
                  <br/>
