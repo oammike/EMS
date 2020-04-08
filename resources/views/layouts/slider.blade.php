@@ -1,7 +1,67 @@
 
                 
 
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+               <div style="padding:0px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/safehome_1.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:0px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/safehome_2.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                     <strong class="text-primary"> DISINFECTING PRACTICES</strong><br/>
+                      - Remove and disinfect your footwear before entering your home<br/><br/>
+                      - Segregate your used faced masks and gloves from the rest of your trash<br/><br/>
+                      - Put the items you used outside (such as bags, phone, glasses, spare change, and keys) in a separate container and disinfect each)<br/><br/>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:0px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/safehome_3.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                     <strong class="text-primary">HYGIENE & LAUNDRY ROUTINE</strong><br/>
+                      - Avoid touching surfaces and sitting on chairs or beds if you haven’t washed up<br/><br/>
+                      - Soak your used clothes in soapy water or wash them with bleach or disinfectant<br/><br/>
+                      - Shower and change your clothes immediately<br/><br/>
+                    
+
+                    </p>  
+                    
+              </div>
+
+
+              <div style="padding:0px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                   <img src="storage/uploads/safehome_4.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                     <strong class="text-primary">CLEAN UP DRILLS</strong><br/>
+                      - Use bleach solution or disinfectant to mop floors, clean frequently touched spots, and wipe toilet areas<br/><br/>
+                      - Open windows to ventilate your home during clean-ups and whenever possible<br/><br/>
+                      - Continue practiciing frequent hand washing<br/><br/>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > All Shuttle Passengers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   UPDATED POLICY AND PROCEDURES <br/> FOR CHANGE REQUESTS: <br/>PICKUP TIME and ADDRESSES </i><br/> <br/>
                    <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
                     <img src="storage/uploads/divider.png" />
@@ -71,9 +131,9 @@ Office-Pickup time change from:______To: _______
                     
                 </div>
 
-                <div style="padding:20px" class="item  text-center" >
+                <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_1.png" width="95%"><br/>
+                   <img src="storage/uploads/grocery_1.png" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left">
@@ -85,9 +145,9 @@ Office-Pickup time change from:______To: _______
                     
               </div>
 
-              <div style="padding:20px" class="item  text-center" >
+              <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_2.png" width="95%"><br/>
+                   <img src="storage/uploads/grocery_2.png" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left">
@@ -102,9 +162,9 @@ Office-Pickup time change from:______To: _______
                     
               </div>
 
-              <div style="padding:20px" class="item  text-center" >
+              <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_3.png" width="95%"><br/>
+                   <img src="storage/uploads/grocery_3.png" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left">
@@ -121,9 +181,9 @@ Office-Pickup time change from:______To: _______
               </div>
 
 
-              <div style="padding:20px" class="item  text-center" >
+              <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_4.png" width="95%"><br/>
+                   <img src="storage/uploads/grocery_4.png" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left">
@@ -140,9 +200,9 @@ Office-Pickup time change from:______To: _______
                     
               </div>
 
-              <div style="padding:20px" class="item  text-center" >
+              <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > April 7,2020: <br/> <span class="text-primary">WORLD HEALTH DAY <br/>
-                   <img src="storage/uploads/frontliners.jpg" width="95%"><br/>
+                   <img src="storage/uploads/frontliners.jpg" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p style="padding: 30px;" class="text-left">
