@@ -1,7 +1,66 @@
 
                 
 
-              <div style="padding:20px" class="item active  text-center" >
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > All Shuttle Passengers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   UPDATED POLICY AND PROCEDURES <br/> FOR CHANGE REQUESTS: <br/>PICKUP TIME and ADDRESSES </i><br/> <br/>
+                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     TO ALL SHUTTLERS<br/><br/>
+
+
+                    <strong class="text-primary">Deadline</strong> <br/>
+
+                      Requests to change pick-up time should be submitted at least 24 hours before the schedule. <br/>
+
+                      Same-day adjustment requests will no longer be accommodated. <br/> <br/>
+ 
+
+                       <strong class="text-primary">Request Limit</strong> <br/>
+
+                      To comply with the trip scheduling process and to encourage everyone to plan ahead, each shuttler will be allowed no more than 3* change-requests for the whole duration of ECQ. This will prevent disrupting preset driver and passenger trips. Once the limit has been reached no further requests will be processed.<br/> <br/>
+
+                      * Reasons for pickup time changes due to CWS will require WFM validation.<br/> <br/>
+
+                       
+
+                       
+
+                       <strong class="text-primary">Request Submission Procedure</strong><br/>
+
+                      To avoid confusing multiple entries and unnecessary changes that disrupt trip scheduling and inconvenience other riders, if you are still within the request cap, please follow the steps enumerated below.<br/> <br/>
+
+
+                      1.        Submit a Shuttle Application request at least 1-2 days before the set ride.<br/><br/>
+                      <a class="btn btn-md btn-success" href="https://docs.google.com/forms/d/e/1FAIpQLScN8f9jalq2yUQJbOmw7cY2TYDV5TO5GFMEW9S3opZ7JD9wGQ/viewform?vc=0&c=0&w=1" target="_blank"><i class="fa fa-file-o"></i> Shuttle Application Form </a><br/><br/>
+
+                      2.        Send an email to the Transport Team to itemize the schedule change details (follow the format below), including the link to the application form.<br/><br/>
+                      
+                      3. Wait for a confirmation if the request is accommodated.<br/><br/>
+
+
+                      <strong class="text-primary">Subject to Dispatch Review and Authorization</strong><br/>
+
+                      Validated urgent same-day adjustment requests are SUBJECT TO REVIEW. <br/><br/>
+
+                      If it is a WFM-approved CWS, attach its proof to your email request and complete the steps above.<br/><br/>
+
+                       
+
+                      As master trip lists for each day get set 2 days prior, any changes may potentially mess up the plotted queue of the driver routes and schedules.  Thus, they may not be accommodated or at the very least, take time to confirm and plug into the existing sequence. Please be prepared for the request to possibly either take time to be accommodated or be declined during high volume during peak hours.<br/><br/>
+
+
+                      For your compliance and guidance.
+
+
+                    
+
+                    </p>  
+                    
+                </div>
+
+                <div style="padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
                    <img src="storage/uploads/grocery_1.png" width="95%"><br/>
                     <img src="storage/uploads/divider.png" />
