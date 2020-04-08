@@ -35,8 +35,19 @@
                       1.        Submit a Shuttle Application request at least 1-2 days before the set ride.<br/><br/>
                       <a class="btn btn-md btn-success" href="https://docs.google.com/forms/d/e/1FAIpQLScN8f9jalq2yUQJbOmw7cY2TYDV5TO5GFMEW9S3opZ7JD9wGQ/viewform?vc=0&c=0&w=1" target="_blank"><i class="fa fa-file-o"></i> Shuttle Application Form </a><br/><br/>
 
-                      2.        Send an email to the Transport Team to itemize the schedule change details (follow the format below), including the link to the application form.<br/><br/>
-                      
+                      2.        Send an email to the Transport Team to itemize the schedule change details (follow the format below), including the link to the application form.<br/>
+
+<pre>
+Home-Pickup date change from:______To: _______
+
+Home-Pickup time change from:______To: _______
+
+Pickup address change from: ______To: _______
+
+Office-Pickup date change from:______To: _______
+
+Office-Pickup time change from:______To: _______
+</pre><br/><br/>
                       3. Wait for a confirmation if the request is accommodated.<br/><br/>
 
 
