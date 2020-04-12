@@ -1,7 +1,21 @@
 
                 
 
-               <div style="padding:0px" class="item active text-center" >
+              <div style="padding:0px" class="item active text-center" >
+                 <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
+                   <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/easter2020.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     May the spirit of #Easter bring light and hope into your home. Happy Easter!<br/><br/><strong>#WeSpeakYourLanguage #OAHolidays</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
                    <img src="storage/uploads/safehome_1.jpg" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
