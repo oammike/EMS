@@ -1,7 +1,36 @@
 
                 
 
-              <div style="padding:0px" class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Message from Finance team: <br/> <span class="text-primary">Advance 13th Month Pay <br/>and SL Credits During ECQ <br/>
+                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      During ECQ, we have made several inclusions to our payout.  Among those are advance 13th month pay and advance leaves 5 days SL credits.  Please see information below for your guidance.<br/><br/>
+
+ 
+
+                       <strong class="text-primary">· The advanced 13th month pay was released on April 8, 2020</strong> for employees who did not opt out to receive their advanced 13 month pay.  For those who opted out, they will receive their 13th month pay in full in December 2020.  We will individually send you an email as confirmation.<br/><br/>
+
+                       <strong class="text-primary">·  Sick leave credits have been advanced since March 25th payout until 5 SL credits have been fully used up.</strong>   For probationary employees, advanced SL credits will be deducted upon regularization.  For contractual employees with a 6-month contract or above, advanced SL credits will be deducted after 6 months. For contractual employees with a contract below 6 months, advanced SL credits will be deducted from their last pay if their contract is not renewed. For regular employees, advanced SL will be deducted from their earned SL every cut-off.  Please make sure to regularly file your leave and monitor your leave balances in EMS.<br/><br/>
+
+                      Please be guided accordingly.<br/><br/>
+
+                       
+
+                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
+
+                      Thank you.<br/><br/><strong>Finance Team</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+
+
+              <div style="padding:0px" class="item text-center" >
                  <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
                    <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/easter2020.jpg" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
