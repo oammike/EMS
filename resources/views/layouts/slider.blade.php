@@ -401,29 +401,7 @@ Office-Pickup time change from:______To: _______
                     
                 </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Message From: <br/> <span class="text-primary"><i class="fa fa-car"></i>   OpenAccessBPO Transport </i><br/> <br/>
-                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     TO ALL SHUTTLERS<br/><br/>
-
-
-                    Due to the high volume of ride requests, we need to streamline our trip planning to utilize our driver pool more efficiently and effectively.<br/><br/>
-
-                    To be able to accommodate more shuttle riders, we would need to schedule shared rides in clusters of 2-3 hours ahead of your actual shift start time (possibly longer for those living in farther vicinities) and up to 1 hour from your shift end time. <br/><br/>
-
-                    Effective immediately, please expect adjustments in your pickup time and allot a longer time allowance. Please take note of your new ride schedules from the email notification that will be sent, and prepare accordingly. <br/><br/>
-
-                    Let’s all help each other get to and from work on time and safely.<br/><br/>
-
-                    Thank you for your understanding.
-                    
-
-                    </p>  
-                    
-                </div>
+             
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary">  Log IN/OUT and DTRP </i><br/> <br/>
@@ -444,68 +422,7 @@ Office-Pickup time change from:______To: _______
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><strong class="text-danger"> Opting Out</strong> for Advance 13th Month Pay<br/>
-                 <br/>
-                    
-                    <img src="storage/uploads/13thmonth.jpg" width="90%" /><br/><br/><img src="storage/uploads/divider.png" /></h4>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;" class="text-left"><br/>
-                      Please be reminded that you still have until <strong>April 5</strong> to opt out your advance 13th-month pay.<br/> <span class="text-danger">For those opting out</span>, you will be receiving your <strong> <span class="text-danger"> 13th month pay in full </span>on December 2020</strong>. <br/><br/>
-
-                      For those <strong>who did not send an email</strong> to opt out on salaryinquiry@openaccessbpo.com until April 5, 2020, you will receive 6/12 of your 13th-month pay on April 8, 2020.  <br/><br/>
-
-                       
-
-                      Below are common FAQs:<br/><br/>
-
-                       
-
-                      <strong class="text-primary"> Who is covered for the advance release of 13th-month pay?</strong><br/>
-
-                      Regular, contractual, and project-based employees as of April 5, 2020.<br/><br/>
-
-                       
-
-                      <strong class="text-primary"> Who is not covered for the advance release of 13th-month pay?</strong><br/>
-
-                      Employees who have tendered their resignation.
-
-                      Trainees and Probationary employees.<br/><br/>
-
-                       
-
-                     <strong class="text-primary">  How is advance 13th-month pay computed?</strong><br/><br/><br/>
-                     
-                     <strong>For Regular Employees </strong>: 
-                     <pre> Monthly basic and allowance x 6 months<br/>-----------------------------------<br/>12 months</pre> 
-
-                                                                  
-
-                       
-
-                      <br/><br/><strong>For Contractuals & Project Based Employees:</strong><br/>
-
-                      <pre>Monthly basic and allowance <br/>X  number of months indicated <br/>in the contract  during CY2020) <br/>X 50%<br/>--------------------------------------------<br/>12 Months</pre> <br/><br/>
-
-                       
-
-                     <strong class="text-primary">  When is the release of advance 13th-month pay?</strong><br/>
-
-                      It will be paid on April 8, 2020.<br/><br/>
-
-                       
-
-                      <strong class="text-primary"> What will happen if the employee did not fully render the advanced 13th-month pay?</strong><br/>
-
-                      It will be deducted from employees' last pay.
-
-                    </p>
-
-                   
-                    
-                </div>
+               
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Message from our Execs: <br/> <span class="text-primary"> <i class="fa fa-thumbs-up"></i> Amazing job, IT Team!</i><br/> <br/>
@@ -671,27 +588,7 @@ Office-Pickup time change from:______To: _______
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><sup>1/2</sup> 13th-Month Advance Payout<br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;" class="text-left"><br/>
-                      For those who opted to receive <sup>1/2</sup> 13th month pay, this will be included in the <strong>April 8th payout.</strong><br/><br/>
-
-                      Employees may opt out <em>(meaning they will get the 13th month in full during December payout)</em> by sending an email to <a href="mailto:salaryinquiry@openaccessbpo.com">salaryinquiry@openaccessbpo.com</a> <strong class="text-orange">no later than April 5, 2020</strong><br/><br/> -------------------------- <br/><br/><strong><i class="fa fa-envelope"></i> subject line:</strong> <br/>
-                      <strong class="text-success"> OPT OUT - Early Release of 13th Month Pay. </strong><br/>
-                      <strong><br/> -------------------------- <br/></strong>
-
-                    </p>
-
-                   
-                    
-                </div>
-
-                
+               
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Note:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Updated Payroll Calendar 2020<br/>
@@ -1016,25 +913,7 @@ Please note this is an alternative living accommodation option and is not mandat
 
                
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" ><sup>1/2</sup> 13th-Month  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Advance Payout<br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;" class="text-left"><br/>
-                      - Payout Schedule:<strong class="text-danger"> April 10</strong><br/><br/>
-                      - Computation will be based on <strong>6/12</strong> of monthly base salary+non-taxable allowance<br/><br/>
-                      - Example: (((10,000 + 2,800))/12 months) x 6 months = Php 6,400<br/><br/>
-                      - <strong class="text-primary">Employee may opt out (to get the 13th month in full during December payout). </strong><br/>
-                     Send an email to:  <strong>salaryinquiry@openaccessbpo.com</strong>
-
-                    </p>
-
-                   
-                    
-                </div>
+               
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Pag-IBIG  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>MULTI-PURPOSE LOAN (MPL) AND <br/> CALAMITY LOAN APPLICATION <br/>
@@ -1188,29 +1067,7 @@ Please note this is an alternative living accommodation option and is not mandat
                     <a href="oampi-resources#resource_7" target="_blank" class="btn btn-success btn-md"><i class="fa fa-book"></i> See How to Change PC clock Settings</a>
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" > <span class="text-primary"> <i class="fa fa-clock-o"></i> Timekeeping Policy </span><br/><img src="storage/uploads/divider.png" /></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px" class="text-left">Dear ALL,<br /><br/>
-
-                      Here is the timekeeping policy which we will apply for this cut-off. <br /><br/>
-
-                      <strong>TIMEKEEPING POLICY</strong><br/><br/>
-                      - Work-from-home employees need to update their logs via EMS.<br/><br/>
-                      - EMS approvers or team leaders should approve DTRs on or before the cut-off date.<br/><br/>
-                      - Monitoring of actual attendance from March 6 to 15, 2020 still applies.<br/><br/>
-                      - For employees with zero logs from March 16 to 20, 2020, we will apply SL first then VL if former was fully consumed.  If they don't have leave credits anymore, we will advance the SL/ VL for them.<br /><br/>
-                      Thank you and stay safe!</p> <br /><br/>
-                </div>
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" > <span class="text-primary"> SKELETAL WORKFORCE  </span><br/><img src="storage/uploads/divider.png" /></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px" class="text-left">As you may know, Business Process Outsourcing companies are permitted to remain operational despite the imposed Enhanced Community Quarantine. Thus, for those who are willing to report to the office this week, especially those with private vehicles or residing nearby, please be advised that Open Access BPO's G2 and 6780 Makati sites may accommodate a skeletal workforce. <br/><br/>
-                      If you wish to voluntarily report to work, kindly inform your Immediate Head and wait for your Immediate Head's confirmation before proceeding to the office.  Kindly take note that only those who are required and permitted by the Program Manager and/or Client  to render services may be allowed to report to the office. Lastly, be reminded to strictly practice social distancing.<br/><br/>Thank you and stay safe.</p> <br /><br/>
-                </div>
-
-                
+              
 
                 <div class="item  text-center" >
                   <h4 class="text-orange" >Take the COVID-19 <span class="text-primary"> PREVENTION TRAINING </span></h4>
@@ -1221,76 +1078,7 @@ Please note this is an alternative living accommodation option and is not mandat
                 </div>
 
 
-                <div class="item text-center" >
-                  <h4 class="text-orange" >Find the Hidden <span class="text-primary"> Logos </span></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/hiddenOA.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',4)}}#resource_4"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
-                </div>
-
-
-
-                
-
-                <div class="item text-center" >
-                  <h4 class="text-orange" >Health &amp;<span class="text-primary"> Awareness </span></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    
-                    <img src="./storage/uploads/ncov2019-2.jpg" style="z-index: 2" /><br/><br/>
-                    <a class="btn btn-md btn-danger" href="{{action('ResourceController@index')}}#resource_6"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
-                </div>
-
-                <div class="item  text-center" >
-                  <h4 class="text-orange" >Open Access BPO <span class="text-primary"> Painting Contest </span></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/allEntries.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',3)}}"><i class="fa fa-paint-brush"></i> View All Entries </a><br /><br/>
-                </div>
-
-                <div class="item text-center" >
-                  <h4 class="text-orange" >Health &amp;<span class="text-primary"> Awareness </span></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/ncov2019.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <a class="btn btn-md btn-danger" href="{{action('ResourceController@index')}}#resource_6"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
-                </div>
-                <div class="item text-center" style="background: url('./storage/uploads/coffeebg.jpg')bottom center no-repeat; padding:50px" >
-                   <h4 class="text-orange" >NEW BARISTA <span class="text-primary"> SCHEDULE </span></h4>
-                              <br /><br/>
-                              <p class="text-left" style="padding-left: 30px;color:#fff;text-shadow: 2px 2px #333"> 
-                                To accommodate more of our Open Access teams, we have rescheduled our Barista Shifts to match our peak hours and staffing:  <br/><br/>
-                                Mondays through Fridays<br/>
-                                <strong class="text-yellow">6:00AM - 3:00 PM<br/>
-                                2:00 PM - 11:00PM</strong><br/>
-
-                                <br/><br/>Here to serve and prep with happiness and care!</p>
-
-                </div>
-
-                <!-- <div class="item text-center" >
-                   <h4 class="text-orange" >International <span class="text-primary"> Women's Day </span></h4>
-                              <img src="./storage/uploads/womansday2020.jpg" style="z-index: 2" /><br /><br/>
-                              <p class="text-left" style="padding-left: 50px;">It's #InternationalWomensDay. We recognize and celebrate the incredible work accomplished by Open Access BPO’s women employees in strengthening a diverse and inclusive workplace culture. We recognize and celebrate their contributions that enable the service industry to thrive.<br/><br/>
-
-Happy International Womens Day!
-                </div>
-
-                <div class="item text-center" >
-                   <h4 class="text-orange" >Information <span class="text-primary"> Security </span></h4>
-                              <img src="./storage/uploads/compliance1.jpg" style="z-index: 2" /><br /><br/>
-                </div>
-
-                <div class="item text-center" >
-                   <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
-                              <img src="./storage/uploads/champions.jpg" style="z-index: 2" />
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Never let your failures be the reason why you can't succeed. Just keep on trying and believe that soon, you'll finally get to where you've always wanted to be. After all, creating a masterpiece takes time.<br/><strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
-
-                    <br /><br/>
-                </div> -->
-
-                
+             
 
               
 
@@ -1638,6 +1426,227 @@ Happy International Womens Day!
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><strong class="text-danger"> Opting Out</strong> for Advance 13th Month Pay<br/>
+                 <br/>
+                    
+                    <img src="storage/uploads/13thmonth.jpg" width="90%" /><br/><br/><img src="storage/uploads/divider.png" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      Please be reminded that you still have until <strong>April 5</strong> to opt out your advance 13th-month pay.<br/> <span class="text-danger">For those opting out</span>, you will be receiving your <strong> <span class="text-danger"> 13th month pay in full </span>on December 2020</strong>. <br/><br/>
+
+                      For those <strong>who did not send an email</strong> to opt out on salaryinquiry@openaccessbpo.com until April 5, 2020, you will receive 6/12 of your 13th-month pay on April 8, 2020.  <br/><br/>
+
+                       
+
+                      Below are common FAQs:<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> Who is covered for the advance release of 13th-month pay?</strong><br/>
+
+                      Regular, contractual, and project-based employees as of April 5, 2020.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> Who is not covered for the advance release of 13th-month pay?</strong><br/>
+
+                      Employees who have tendered their resignation.
+
+                      Trainees and Probationary employees.<br/><br/>
+
+                       
+
+                     <strong class="text-primary">  How is advance 13th-month pay computed?</strong><br/><br/><br/>
+                     
+                     <strong>For Regular Employees </strong>: 
+                     <pre> Monthly basic and allowance x 6 months<br/>-----------------------------------<br/>12 months</pre> 
+
+                                                                  
+
+                       
+
+                      <br/><br/><strong>For Contractuals & Project Based Employees:</strong><br/>
+
+                      <pre>Monthly basic and allowance <br/>X  number of months indicated <br/>in the contract  during CY2020) <br/>X 50%<br/>--------------------------------------------<br/>12 Months</pre> <br/><br/>
+
+                       
+
+                     <strong class="text-primary">  When is the release of advance 13th-month pay?</strong><br/>
+
+                      It will be paid on April 8, 2020.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> What will happen if the employee did not fully render the advanced 13th-month pay?</strong><br/>
+
+                      It will be deducted from employees' last pay.
+
+                    </p>
+
+                   
+                    
+                </div>
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" ><sup>1/2</sup> 13th-Month  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Advance Payout<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      - Payout Schedule:<strong class="text-danger"> April 10</strong><br/><br/>
+                      - Computation will be based on <strong>6/12</strong> of monthly base salary+non-taxable allowance<br/><br/>
+                      - Example: (((10,000 + 2,800))/12 months) x 6 months = Php 6,400<br/><br/>
+                      - <strong class="text-primary">Employee may opt out (to get the 13th month in full during December payout). </strong><br/>
+                     Send an email to:  <strong>salaryinquiry@openaccessbpo.com</strong>
+
+                    </p>
+
+                   
+                    
+                </div>
+  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > <span class="text-primary"> <i class="fa fa-clock-o"></i> Timekeeping Policy </span><br/><img src="storage/uploads/divider.png" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear ALL,<br /><br/>
+
+                      Here is the timekeeping policy which we will apply for this cut-off. <br /><br/>
+
+                      <strong>TIMEKEEPING POLICY</strong><br/><br/>
+                      - Work-from-home employees need to update their logs via EMS.<br/><br/>
+                      - EMS approvers or team leaders should approve DTRs on or before the cut-off date.<br/><br/>
+                      - Monitoring of actual attendance from March 6 to 15, 2020 still applies.<br/><br/>
+                      - For employees with zero logs from March 16 to 20, 2020, we will apply SL first then VL if former was fully consumed.  If they don't have leave credits anymore, we will advance the SL/ VL for them.<br /><br/>
+                      Thank you and stay safe!</p> <br /><br/>
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > <span class="text-primary"> SKELETAL WORKFORCE  </span><br/><img src="storage/uploads/divider.png" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">As you may know, Business Process Outsourcing companies are permitted to remain operational despite the imposed Enhanced Community Quarantine. Thus, for those who are willing to report to the office this week, especially those with private vehicles or residing nearby, please be advised that Open Access BPO's G2 and 6780 Makati sites may accommodate a skeletal workforce. <br/><br/>
+                      If you wish to voluntarily report to work, kindly inform your Immediate Head and wait for your Immediate Head's confirmation before proceeding to the office.  Kindly take note that only those who are required and permitted by the Program Manager and/or Client  to render services may be allowed to report to the office. Lastly, be reminded to strictly practice social distancing.<br/><br/>Thank you and stay safe.</p> <br /><br/>
+                </div>
+
+
+
+    <div class="item text-center" >
+                  <h4 class="text-orange" >Find the Hidden <span class="text-primary"> Logos </span></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/hiddenOA.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',4)}}#resource_4"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
+                </div>
+
+
+
+                
+
+              
+                <!-- <div class="item text-center" >
+                   <h4 class="text-orange" >International <span class="text-primary"> Women's Day </span></h4>
+                              <img src="./storage/uploads/womansday2020.jpg" style="z-index: 2" /><br /><br/>
+                              <p class="text-left" style="padding-left: 50px;">It's #InternationalWomensDay. We recognize and celebrate the incredible work accomplished by Open Access BPO’s women employees in strengthening a diverse and inclusive workplace culture. We recognize and celebrate their contributions that enable the service industry to thrive.<br/><br/>
+
+Happy International Womens Day!
+                </div>
+
+                <div class="item text-center" >
+                   <h4 class="text-orange" >Information <span class="text-primary"> Security </span></h4>
+                              <img src="./storage/uploads/compliance1.jpg" style="z-index: 2" /><br /><br/>
+                </div>
+
+                <div class="item text-center" >
+                   <h4 class="text-orange" >Daily <span class="text-primary"> Motivation </span></h4>
+                              <img src="./storage/uploads/champions.jpg" style="z-index: 2" />
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>Never let your failures be the reason why you can't succeed. Just keep on trying and believe that soon, you'll finally get to where you've always wanted to be. After all, creating a masterpiece takes time.<br/><strong>#WeSpeakYourLanguage #MondayMotivation </strong></p>
+
+                    <br /><br/>
+                </div> -->
+
+
+
+  <div class="item text-center" >
+                  <h4 class="text-orange" >Health &amp;<span class="text-primary"> Awareness </span></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    
+                    <img src="./storage/uploads/ncov2019-2.jpg" style="z-index: 2" /><br/><br/>
+                    <a class="btn btn-md btn-danger" href="{{action('ResourceController@index')}}#resource_6"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
+                </div>
+
+                <div class="item  text-center" >
+                  <h4 class="text-orange" >Open Access BPO <span class="text-primary"> Painting Contest </span></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/allEntries.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a class="btn btn-md btn-danger" href="{{action('EngagementController@show',3)}}"><i class="fa fa-paint-brush"></i> View All Entries </a><br /><br/>
+                </div>
+
+                <div class="item text-center" >
+                  <h4 class="text-orange" >Health &amp;<span class="text-primary"> Awareness </span></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <img src="./storage/uploads/ncov2019.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a class="btn btn-md btn-danger" href="{{action('ResourceController@index')}}#resource_6"><i class="fa fa-info-circle"></i> Learn More </a><br /><br/>
+                </div>
+                <div class="item text-center" style="background: url('./storage/uploads/coffeebg.jpg')bottom center no-repeat; padding:50px" >
+                   <h4 class="text-orange" >NEW BARISTA <span class="text-primary"> SCHEDULE </span></h4>
+                              <br /><br/>
+                              <p class="text-left" style="padding-left: 30px;color:#fff;text-shadow: 2px 2px #333"> 
+                                To accommodate more of our Open Access teams, we have rescheduled our Barista Shifts to match our peak hours and staffing:  <br/><br/>
+                                Mondays through Fridays<br/>
+                                <strong class="text-yellow">6:00AM - 3:00 PM<br/>
+                                2:00 PM - 11:00PM</strong><br/>
+
+                                <br/><br/>Here to serve and prep with happiness and care!</p>
+
+                </div>
+
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><sup>1/2</sup> 13th-Month Advance Payout<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/13thmonth.jpg" width="90%" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      For those who opted to receive <sup>1/2</sup> 13th month pay, this will be included in the <strong>April 8th payout.</strong><br/><br/>
+
+                      Employees may opt out <em>(meaning they will get the 13th month in full during December payout)</em> by sending an email to <a href="mailto:salaryinquiry@openaccessbpo.com">salaryinquiry@openaccessbpo.com</a> <strong class="text-orange">no later than April 5, 2020</strong><br/><br/> -------------------------- <br/><br/><strong><i class="fa fa-envelope"></i> subject line:</strong> <br/>
+                      <strong class="text-success"> OPT OUT - Early Release of 13th Month Pay. </strong><br/>
+                      <strong><br/> -------------------------- <br/></strong>
+
+                    </p>
+
+                   
+                    
+                </div>
+
+                
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Message From: <br/> <span class="text-primary"><i class="fa fa-car"></i>   OpenAccessBPO Transport </i><br/> <br/>
+                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     TO ALL SHUTTLERS<br/><br/>
+
+
+                    Due to the high volume of ride requests, we need to streamline our trip planning to utilize our driver pool more efficiently and effectively.<br/><br/>
+
+                    To be able to accommodate more shuttle riders, we would need to schedule shared rides in clusters of 2-3 hours ahead of your actual shift start time (possibly longer for those living in farther vicinities) and up to 1 hour from your shift end time. <br/><br/>
+
+                    Effective immediately, please expect adjustments in your pickup time and allot a longer time allowance. Please take note of your new ride schedules from the email notification that will be sent, and prepare accordingly. <br/><br/>
+
+                    Let’s all help each other get to and from work on time and safely.<br/><br/>
+
+                    Thank you for your understanding.
+                    
+
+                    </p>  
+                    
+                </div>
 
 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Memo:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Early Cutoff and Payroll<br/>
