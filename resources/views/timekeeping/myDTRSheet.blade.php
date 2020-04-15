@@ -256,35 +256,35 @@
                                                         @if(count($ecqStatus) > 0)
 
                                                           @if($ecqStatus->first()->workStatus == 1) <!-- WFH -->
-                                                          <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('l',strtotime($data->productionDate)) }}</td>
+                                                          <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('D',strtotime($data->productionDate)) }}</td>
 
                                                           @elseif($ecqStatus->first()->workStatus == 2) <!-- Hotel -->
-                                                          <td class="text-left"><a title="Hotel Stayer" class="btn btn-xs bg-purple" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-shopping-bag"></i>  </a> {{ date('l',strtotime($data->productionDate)) }} </td>
+                                                          <td class="text-left"><a title="Hotel Stayer" class="btn btn-xs bg-purple" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-shopping-bag"></i>  </a> {{ date('D',strtotime($data->productionDate)) }} </td>
 
                                                           @elseif($ecqStatus->first()->workStatus == 3)
-                                                          <td class="text-left"><a title="Shuttler" class="btn btn-xs btn-warning" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-car"></i> </a> {{ date('l',strtotime($data->productionDate)) }}  </td>
+                                                          <td class="text-left"><a title="Shuttler" class="btn btn-xs btn-warning" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-car"></i> </a> {{ date('D',strtotime($data->productionDate)) }}  </td>
 
                                                           @elseif($ecqStatus->first()->workStatus == 4)
-                                                          <td class="text-left"><a title="Walker" class="btn btn-xs btn-danger" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-blind"></i> </a> {{ date('l',strtotime($data->productionDate)) }}  </td>
+                                                          <td class="text-left"><a title="Walker" class="btn btn-xs btn-danger" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-blind"></i> </a> {{ date('D',strtotime($data->productionDate)) }}  </td>
 
                                                           @elseif($ecqStatus->first()->workStatus == 5)
-                                                          <td class="text-left"><a title="Dweller" class="btn btn-xs bg-aqua" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-bath"></i> </a> {{ date('l',strtotime($data->productionDate)) }}  </td>
+                                                          <td class="text-left"><a title="Dweller" class="btn btn-xs bg-aqua" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-bath"></i> </a> {{ date('D',strtotime($data->productionDate)) }}  </td>
 
                                                           @elseif($ecqStatus->first()->workStatus == 6)
-                                                          <td class="text-left"><a title="Carpool Driver" class="btn btn-xs" style="background-color: #da12f3;color:#fff" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-tachometer"></i> </a> {{ date('l',strtotime($data->productionDate)) }}  </td>
+                                                          <td class="text-left"><a title="Carpool Driver" class="btn btn-xs" style="background-color: #da12f3;color:#fff" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-tachometer"></i> </a> {{ date('D',strtotime($data->productionDate)) }}  </td>
 
                                                           @elseif($ecqStatus->first()->workStatus == 7)
-                                                          <td class="text-left"><a title="Carpool Passenger" class="btn btn-xs" style="background-color: #1219f3; color:#fff" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-users"></i> </a> {{ date('l',strtotime($data->productionDate)) }}  </td>
+                                                          <td class="text-left"><a title="Carpool Passenger" class="btn btn-xs" style="background-color: #1219f3; color:#fff" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-users"></i> </a> {{ date('D',strtotime($data->productionDate)) }}  </td>
 
                                                           @endif
 
                                                         @elseif(count($hasWFH) > 0 && $user->isWFH)
-                                                        <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> </a> {{ date('l',strtotime($data->productionDate)) }} </td>
+                                                        <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i> </a> {{ date('D',strtotime($data->productionDate)) }} </td>
                                                         @elseif($user->isWFH && $data->workshift == '* RD * - * RD *')
-                                                        <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('l',strtotime($data->productionDate)) }} </td>
+                                                        <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('D',strtotime($data->productionDate)) }} </td>
                                                         @else
 
-                                                        <td class="text-left"><a title="No ECQ Status" class="btn btn-xs btn-default" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"> {{ date('l',strtotime($data->productionDate)) }} </a></td>
+                                                        <td class="text-left"><a title="No ECQ Status" class="btn btn-xs btn-default" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"> {{ date('D',strtotime($data->productionDate)) }} </a></td>
                                                         @endif
 
 

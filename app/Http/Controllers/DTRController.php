@@ -57,6 +57,7 @@ use OAMPI_Eval\HolidayType;
 use OAMPI_Eval\Memo;
 use OAMPI_Eval\User_Memo;
 use OAMPI_Eval\User_RDoverride;
+use OAMPI_Eval\User_Unlocks;
 use OAMPI_Eval\ECQ_Workstatus;
 
 
@@ -1826,6 +1827,23 @@ class DTRController extends Controller
           # code...
         }
 
+        foreach ($payrollPeriod as $p) {
+
+          $existingUnlock = User_Unlocks::where('user_id',$user->id)->where('productionDate',$p)->get();
+
+          if(count($existingUnlock) <= 0)
+          {
+            $unl = new User_Unlocks;
+            $unl->user_id = $user->id;
+            $unl->productionDate = $p;
+            $unl->created_at = Carbon::now('GMT+8');
+            $unl->save();
+
+          }
+          
+
+        }
+
 
         return response()->json(['success'=>'1', 'message'=>"DTR Unlock request sent for approval.", 'count'=>count($payrollPeriod)]);
 
@@ -1894,7 +1912,7 @@ class DTRController extends Controller
         else{
           //now redirect it to the DTR sheet
           $theDTR = User_DTR::find(Notification::find($seen->first()->notification_id)->relatedModelID);
-          if (count($theDTR)>0) $fromDate = Carbon::parse($theDTR->productionDate,"Asia/Manila");
+          if (count((array)$theDTR)>0) $fromDate = Carbon::parse($theDTR->productionDate,"Asia/Manila");
           else return view('empty');
 
         }

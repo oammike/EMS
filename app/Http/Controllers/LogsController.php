@@ -40,12 +40,13 @@ use OAMPI_Eval\LogType;
 use OAMPI_Eval\TempUpload;
 use OAMPI_Eval\User_DTR;
 use OAMPI_Eval\User_LogOverride;
+use OAMPI_Eval\User_Unlocks;
 
 class LogsController extends Controller
 {
     protected $user;
-   	protected $logs;
-   	protected $paycutoff;
+    protected $logs;
+    protected $paycutoff;
     use Traits\TimekeepingTraits;
 
      public function __construct(Logs $logs)
@@ -58,8 +59,8 @@ class LogsController extends Controller
 
     public function index()
     {
-    	
-    	//return $this->cutoff->first()->startingPeriod(). " - " . $paycutoff->endingPeriod();
+        
+        //return $this->cutoff->first()->startingPeriod(). " - " . $paycutoff->endingPeriod();
     }
 
     public function deleteBio($id)
@@ -132,10 +133,18 @@ class LogsController extends Controller
                         select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'user_dtrp.logTime','logType.name as logType','user_dtrp.isApproved','user_dtrp.notes', 'user_dtrp.created_at as submitted' )->
                         orderBy('users.lastname')->get();
         
+            $allUnlocks = DB::table('user_unlocks')->where('user_unlocks.productionDate',$bio->first()->productionDate)-> 
+                        leftJoin('users','user_unlocks.user_id','=','users.id')->
+                        leftJoin('team','users.id','=','team.user_id')->
+                        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program','user_unlocks.created_at as submitted' )->
+                        orderBy('users.lastname')->get();
+
 
         
             $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
             $headers2 = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted");
+            $headers3 = array("AccessCode", "Last Name","First Name","Program","Requested");
             $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
             $description = " ". $sheetTitle;
 
@@ -147,8 +156,10 @@ class LogsController extends Controller
 
             //return $allDTRPs;
             
+            
 
-           Excel::create($sheetTitle,function($excel) use($form,$allDTRPs, $sheetTitle, $headers,$headers2,$description,$daystart) 
+
+           Excel::create($sheetTitle,function($excel) use($form,$allDTRPs, $allUnlocks, $sheetTitle, $headers,$headers2,$headers3,$description,$daystart) 
            {
                   $excel->setTitle($sheetTitle.' Summary Report');
 
@@ -209,6 +220,28 @@ class LogsController extends Controller
                                      $t->format('H:i:s'),
                                      
 
+                                     );
+                        $sheet->appendRow($arr);
+
+                    }
+                    
+                 });//end sheet2
+
+
+                  $excel->sheet('Unlocks', function($sheet) use ($allUnlocks,$headers3)
+                  {
+                    $sheet->appendRow($headers3);
+                    foreach($allUnlocks as $item)
+                    {
+                        $t = Carbon::parse($item->submitted);
+
+                      
+                        
+                        $arr = array($item->accesscode, 
+                                     $item->lastname,
+                                     $item->firstname,
+                                     $item->program, //ID
+                                     $t->format('H:i:s'),
                                      );
                         $sheet->appendRow($arr);
 
@@ -280,7 +313,7 @@ class LogsController extends Controller
 
     public function myDTR()
     {
-    	//$roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        //$roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         //$canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
         //$canEditEmployees =  ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
 
@@ -294,40 +327,40 @@ class LogsController extends Controller
 
          if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
 
-    	$dtr = $this->user->logs->sortBy('id')->groupBy('biometrics_id');
-    	//return $myDTR;
-    	$myDTR = new Collection;
+        $dtr = $this->user->logs->sortBy('id')->groupBy('biometrics_id');
+        //return $myDTR;
+        $myDTR = new Collection;
 
-    	 foreach ($dtr as $daily) {
+         foreach ($dtr as $daily) {
 
-    	 	$logIN = $daily->where('logType_id',1)->sortBy('id')->pluck('logTime'); //->get();
-    	 	$logOUT = $daily->where('logType_id',2)->sortBy('id')->pluck('logTime'); //->get();
+            $logIN = $daily->where('logType_id',1)->sortBy('id')->pluck('logTime'); //->get();
+            $logOUT = $daily->where('logType_id',2)->sortBy('id')->pluck('logTime'); //->get();
 
-    	 	if (count($logIN) > 0)
-    	 	{
-    	 		$in = $logIN->first();
-    	 		$timeStart = Carbon::parse($in);
+            if (count($logIN) > 0)
+            {
+                $in = $logIN->first();
+                $timeStart = Carbon::parse($in);
 
-    	 	}  else { $in=null; $timeStart=null; }
-    	 	if (count($logOUT) > 0)
-    	 	{
-    	 		$out = $logOUT->first();
-    	 		$timeEnd = Carbon::parse($out); 
-    	 	} else { $out=null; $timeEnd=null; }
+            }  else { $in=null; $timeStart=null; }
+            if (count($logOUT) > 0)
+            {
+                $out = $logOUT->first();
+                $timeEnd = Carbon::parse($out); 
+            } else { $out=null; $timeEnd=null; }
 
-    	 	if ($in !== null && $out !== null)
-    	 	{
-    	 		//$coll->push(['in'=>$in, 'out'=>$out]);
-    	 		$workedHours = $timeEnd->diffInMinutes($timeStart->addHour());
+            if ($in !== null && $out !== null)
+            {
+                //$coll->push(['in'=>$in, 'out'=>$out]);
+                $workedHours = $timeEnd->diffInMinutes($timeStart->addHour());
 
-    	 	} else $workedHours=null;
+            } else $workedHours=null;
 
-    	 	//DB::table('user_dtr')->insert(['user_id'=>$key[0]->user_id, 'timeIN']);
-    	 $myDTR->push(['biometrics_id'=>$daily[0]->biometrics_id, 'user_id'=>$daily[0]->user_id, 'Time IN'=> $in, 'Time OUT'=> $out, 'Hours Worked'=> round($workedHours/60,2) ]);
-    	 }
-    	 //return $myDTR;
+            //DB::table('user_dtr')->insert(['user_id'=>$key[0]->user_id, 'timeIN']);
+         $myDTR->push(['biometrics_id'=>$daily[0]->biometrics_id, 'user_id'=>$daily[0]->user_id, 'Time IN'=> $in, 'Time OUT'=> $out, 'Hours Worked'=> round($workedHours/60,2) ]);
+         }
+         //return $myDTR;
 
-    	return view('timekeeping.myDTR', compact('myDTR','camps','user'));
+        return view('timekeeping.myDTR', compact('myDTR','camps','user'));
     }
 
     public function saveDashboardLog(Request $request)
@@ -409,102 +442,102 @@ class LogsController extends Controller
 
     public function saveDailyUserLogs(Request $request)
     {
-    	DB::connection()->disableQueryLog();
-    	$biometrics_id = $request->biometrics_id;
+        DB::connection()->disableQueryLog();
+        $biometrics_id = $request->biometrics_id;
 
-    	$ctr = 0;
-    	// DB::table('temp_uploads')->select('employeeNumber','logTime','logType')->where('productionDate',date('Y-m-d', strtotime($request->productionDate)))->chunk(100, function($biosToGet, $biometrics_id, $ctr)
-    	// {
-    	// 	foreach ($biosToGet as $bio) {
-	    // 		$logType = LogType::where('code',$bio->logType)->first()->id;
-	    // 		$user_id = User::where('employeeNumber',$bio->employeeNumber)->first()->id;
+        $ctr = 0;
+        // DB::table('temp_uploads')->select('employeeNumber','logTime','logType')->where('productionDate',date('Y-m-d', strtotime($request->productionDate)))->chunk(100, function($biosToGet, $biometrics_id, $ctr)
+        // {
+        //  foreach ($biosToGet as $bio) {
+        //      $logType = LogType::where('code',$bio->logType)->first()->id;
+        //      $user_id = User::where('employeeNumber',$bio->employeeNumber)->first()->id;
 
-	    // 		DB::table('logs')->insert(['user_id'=>$user_id, 'logTime'=>$bio->logTime, 'logType_id'=>$logType, 'biometrics_id'=>$biometrics_id]);
-	    // 		$ctr++;
-	    // 	}
-    	// })->get();
-
-
-    	$productionDate = date('Y-m-d', strtotime($request->productionDate));
-    	$biosToGet = TempUpload::where('productionDate',$productionDate)->get();
-    	foreach ($biosToGet as $bio) {
-	    		$logType = LogType::where('code', strtoupper($bio->logType) )->first()->id;
-	    		$user_id = User::where('accesscode',$bio->employeeNumber)->get();
-	    		if (count($user_id) > 0 )
-	    		{
-	    			DB::table('logs')->insert(['user_id'=>$user_id->first()->id, 'logTime'=>$bio->logTime, 'logType_id'=>$logType, 'biometrics_id'=>$biometrics_id]);
-
-	    			//save actual user DTR table
-	    			// switch ($logType) {
-	    			// 	case '1':
-	    			// 				$logIN = $bio->logTime;
-	    			// 		break;
-
-	    			// 	case '2':
-	    			// 				$logOUT = $bio->logTime;
-	    			// 		break;
-
-	    			// 	case '3':
-	    			// 				$breakIN = $bio->logTime;
-	    			// 		break;
-
-	    			// 	case '4':
-	    			// 				$breakOUT = $bio->logTime;
-	    			// 		break;
-
-	    			// 	case '5':
-	    			// 				$breakOUT = $bio->logTime;
-	    			// 		break;
-
-	    			// 	case '6':
-	    			// 				$breakIN = $bio->logTime;
-	    			// 		break;
-	    				
-	    			// 	default:
-	    			// 				$logIN = $bio->logTime;
-	    			// 		break;
-	    			// }
-
-	    			// DB::table('user_dtr')->insert(['user_id'=>$user_id->first()->id, 'timeIN'=> ]);
+        //      DB::table('logs')->insert(['user_id'=>$user_id, 'logTime'=>$bio->logTime, 'logType_id'=>$logType, 'biometrics_id'=>$biometrics_id]);
+        //      $ctr++;
+        //  }
+        // })->get();
 
 
-	    			/* ---------------SAVE USER_DTR -------------*/
+        $productionDate = date('Y-m-d', strtotime($request->productionDate));
+        $biosToGet = TempUpload::where('productionDate',$productionDate)->get();
+        foreach ($biosToGet as $bio) {
+                $logType = LogType::where('code', strtoupper($bio->logType) )->first()->id;
+                $user_id = User::where('accesscode',$bio->employeeNumber)->get();
+                if (count($user_id) > 0 )
+                {
+                    DB::table('logs')->insert(['user_id'=>$user_id->first()->id, 'logTime'=>$bio->logTime, 'logType_id'=>$logType, 'biometrics_id'=>$biometrics_id]);
 
-	    			//$logIN = $daily->where('logType_id',1)->sortBy('id')->pluck('logTime'); //->get();
-		    	 	// $logOUT = $daily->where('logType_id',2)->sortBy('id')->pluck('logTime'); //->get();
+                    //save actual user DTR table
+                    // switch ($logType) {
+                    //  case '1':
+                    //              $logIN = $bio->logTime;
+                    //      break;
 
-		    	 	// if (count($logIN) > 0)
-		    	 	// {
-		    	 	// 	$in = $logIN->first();
-		    	 	// 	$timeStart = Carbon::parse($in);
+                    //  case '2':
+                    //              $logOUT = $bio->logTime;
+                    //      break;
 
-		    	 	// }  else { $in=null; $timeStart=null; }
-		    	 	// if (count($logOUT) > 0)
-		    	 	// {
-		    	 	// 	$out = $logOUT->first();
-		    	 	// 	$timeEnd = Carbon::parse($out); 
-		    	 	// } else { $out=null; $timeEnd=null; }
+                    //  case '3':
+                    //              $breakIN = $bio->logTime;
+                    //      break;
 
-		    	 	// if ($in !== null && $out !== null)
-		    	 	// {
-		    	 	// 	//$coll->push(['in'=>$in, 'out'=>$out]);
-		    	 	// 	$workedHours = $timeEnd->diffInMinutes($timeStart);
-		    	 	// } else $workedHours=null;
+                    //  case '4':
+                    //              $breakOUT = $bio->logTime;
+                    //      break;
+
+                    //  case '5':
+                    //              $breakOUT = $bio->logTime;
+                    //      break;
+
+                    //  case '6':
+                    //              $breakIN = $bio->logTime;
+                    //      break;
+                        
+                    //  default:
+                    //              $logIN = $bio->logTime;
+                    //      break;
+                    // }
+
+                    // DB::table('user_dtr')->insert(['user_id'=>$user_id->first()->id, 'timeIN'=> ]);
 
 
-	    			/* ---------------END SAVE DTR --------------*/
+                    /* ---------------SAVE USER_DTR -------------*/
+
+                    //$logIN = $daily->where('logType_id',1)->sortBy('id')->pluck('logTime'); //->get();
+                    // $logOUT = $daily->where('logType_id',2)->sortBy('id')->pluck('logTime'); //->get();
+
+                    // if (count($logIN) > 0)
+                    // {
+                    //  $in = $logIN->first();
+                    //  $timeStart = Carbon::parse($in);
+
+                    // }  else { $in=null; $timeStart=null; }
+                    // if (count($logOUT) > 0)
+                    // {
+                    //  $out = $logOUT->first();
+                    //  $timeEnd = Carbon::parse($out); 
+                    // } else { $out=null; $timeEnd=null; }
+
+                    // if ($in !== null && $out !== null)
+                    // {
+                    //  //$coll->push(['in'=>$in, 'out'=>$out]);
+                    //  $workedHours = $timeEnd->diffInMinutes($timeStart);
+                    // } else $workedHours=null;
 
 
-	    			$ctr++;
+                    /* ---------------END SAVE DTR --------------*/
 
-	    		}//enf if
-	    		
 
-	    		
-	    	}
-    	return response()->json(['save'=>'success', 'records'=>$ctr]);
+                    $ctr++;
 
-    	
+                }//enf if
+                
+
+                
+            }
+        return response()->json(['save'=>'success', 'records'=>$ctr]);
+
+        
 
     }
 
