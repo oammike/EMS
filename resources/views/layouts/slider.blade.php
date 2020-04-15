@@ -1,7 +1,25 @@
 
                 
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div style="padding:0px" class="item active text-center" >
+                 <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
+                   <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/doh.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     DOH launched the DOH COVID-19 emergency hotlines 02-894-COVID (02-894-26843) and 1555 in partnership with the National Emergency Hotline of the DILG, and PLDT and its wireless subsidiary Smart Communications Inc.<br/><br/>
+
+                     Through the hotline, callers can ask questions if they suspect they are infected with COVID-19, or request assistance if they have symptoms and/or known exposure to confirmed cases of patients under investigation.<br/><br/>
+
+                    For more information, visit:  https://www.doh.gov.ph/doh-press-release/doh-launches-covid-19-hotline
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Message from Finance team: <br/> <span class="text-primary">Advance 13th Month Pay <br/>and SL Credits During ECQ <br/>
                    <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
                     <img src="storage/uploads/divider.png" />
