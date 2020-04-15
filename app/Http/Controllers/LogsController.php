@@ -241,7 +241,7 @@ class LogsController extends Controller
                                      $item->lastname,
                                      $item->firstname,
                                      $item->program, //ID
-                                     $t->format('H:i:s'),
+                                     $t->format('M d, h:i A'),
                                      );
                         $sheet->appendRow($arr);
 
