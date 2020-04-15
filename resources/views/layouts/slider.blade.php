@@ -19,6 +19,26 @@
                     
               </div>
 
+              <div style="padding:0px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Message from <br/> <span class="text-primary"> Leadership Development</span><br/>
+                   <h4 class="text-orange" style="line-height: 1.6em" > 
+                    <img src="storage/uploads/elearning.png" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     Please take a few minutes to go through this e-learning module: <strong><a href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P" target="_blank"> Remote Work: Tips and Tricks on How to Stay Productive</a></strong><br/><br/>
+
+                      It has been designed to guide at-home workers to effectively accomplish our jobs and manage our productivity in our new current workspace - our own homes. Many of these are useful also for those working as a skeletal workforce in the office. A host of practical tips and tools were consolidated here to help make self-management and working from home efficient, and even inspirational and fun while keeping safe and healthy.<br/><br/>
+
+                      <a target="_blank" href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P" class="btn btn-md btn-success"><i class="fa fa-book"></i> Read Now</a>.<br/><br/>
+                      Happy Learning!
+                    
+
+                    </p>  
+                    
+              </div>
+
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Message from Finance team: <br/> <span class="text-primary">Advance 13th Month Pay <br/>and SL Credits During ECQ <br/>
                    <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
