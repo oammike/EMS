@@ -112,6 +112,21 @@
           
           <article class="video">
             <figure>
+              <a data-fancybox="gallery" data-file="yt_healthReminders" href="storage/uploads/yt_Health_reminders_regarding COVID-19.mp4">
+              <img class="videoThumb" src="storage/uploads/yt_healthReminders.png"></a>
+            </figure>
+            <h5 class="videoTitle text-center">Health Reminders regarding COVID 19</h5>
+          </article>
+          <article class="video">
+            <figure>
+              <a data-fancybox="gallery" data-file="yt_coronaAnxiety" href="storage/uploads/yt_Coronavirus_Dealing_with_anxiety.mp4">
+              <img class="videoThumb" src="storage/uploads/yt_coronaAnxiety.png"></a>
+            </figure>
+            <h5 class="videoTitle text-center">Dealing with anxiety & mental health</h5>
+          </article>
+
+          <article class="video">
+            <figure>
               <a data-fancybox="gallery" data-file="socialDistancing" href="storage/uploads/socialDistancing.mp4">
               <img class="videoThumb" src="storage/uploads/socialDistancing.jpg"></a>
             </figure>
