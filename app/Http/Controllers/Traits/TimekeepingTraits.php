@@ -3893,6 +3893,7 @@ trait TimekeepingTraits
     $UT = 0;
     $OTattribute = "";
     $campName = User::find($user->id)->campaign->first()->name;
+    $isBackoffice = Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice;
 
     $hasHolidayToday = false;
     $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
@@ -4121,6 +4122,11 @@ trait TimekeepingTraits
 
       //$koll->push(['userLogIN'=>$inTime->format('Y-m-d H:i'), 'scheduleStart'=>$scheduleStart->format('Y-m-d H:i')]);
 
+      // ------- new check override kung holiday at backoffice
+      if ($hasHolidayToday && $isBackoffice ) {
+        $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+        goto proceedWithNormal;
+      }
 
       if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
       {
@@ -4148,6 +4154,9 @@ trait TimekeepingTraits
             //$koll->push(['keme'=>$isEarlyOUT]);
         
       } else $isEarlyOUT= false;
+
+
+      
 
       //
       //$koll->push(['1'=>$userLogOUT[0]['timing']->format('Y-m-d H:i:s'),'2'=>Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s')]);
@@ -4558,6 +4567,9 @@ trait TimekeepingTraits
       }//end if lateIN
       else {
         //$koll=["from"=>$isPartTimer,'diffHours'=>$diffHours];
+
+        normalProcess:
+
         if ($isPartTimer || $isPartTimerForeign ) {
           $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
         }
@@ -4576,7 +4588,17 @@ trait TimekeepingTraits
                     ($ptOverride) ? $workedHours = '8.00' : $workedHours = '4.00';
                   else 
                   {
-                    ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00; 
+                    if($hasHolidayToday && $isBackoffice)
+                    {
+                      $UT = 0;
+                      $workedHours = number_format($wh/60,2); ;
+
+                    }else
+                    {
+                      ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00;
+
+                    }
+                     
                   }
                   $UT=0; //workedHours =8.00;
 
@@ -4586,6 +4608,10 @@ trait TimekeepingTraits
                     $icons = "<a title=\"Unlock DTR to file an OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
                   else
                    $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
+                  //------ override for holiday ng backoffice ---------
+                  if ($hasHolidayToday && $isBackoffice) $icons="";
+                  // ---------------------------------------------------
 
                    if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                    {
@@ -4610,6 +4636,10 @@ trait TimekeepingTraits
                     $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
                     //$totalbill = 244.44;
                   }
+
+                   //------ override for holiday ng backoffice ---------
+                  if ($hasHolidayToday && $isBackoffice) $totalbill=0.0;
+                  // ---------------------------------------------------
 
 
                   
@@ -4636,7 +4666,16 @@ trait TimekeepingTraits
                   }else
                   {
                     $workedHours = number_format($wh/60,2); 
-                    ($is4x11) ? $UT = number_format(10 - $workedHours,2) : $UT = number_format(8 - $workedHours,2);
+
+                    if($hasHolidayToday && $isBackoffice)
+                    {
+                      $UT = 0;
+
+                    }
+                    else
+                      {
+                        ($is4x11) ? $UT = number_format(10 - $workedHours,2) : $UT = number_format(8 - $workedHours,2);
+                      }
 
                     
                   }
