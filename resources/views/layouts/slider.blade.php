@@ -1,7 +1,47 @@
 
                 
 
-              <div style="padding:0px" class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em">Reminders from Finance team: <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; April 24,2020 Payout &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
+                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      To make sure all worked hours and ECQ benefits are applied accurately for this payout, please lock all DTR's and Employee Status Trackers <strong class="text-danger"> on or before 12:00 noon of April 21, 2020</strong>. <br/><br/>
+
+                      The payroll period  will  start on April 4th since we had our early cut off last payroll .<br/><br/>
+
+ 
+
+                       <strong class="text-primary">All employees:</strong>
+
+                       Please ensure your entire DTR's for the period April 4 to 30 are locked on EMS, on or before 12:00 noon of April 21, 2020. <br/><br/>
+
+                       
+
+                      <strong class="text-primary">TL's and Managers:</strong>
+
+                      Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too. You can generate EMS to check  those employees who have not yet completed their logs.  <br/><br/>
+
+                       
+
+                      <strong class="text-primary">After 12:00 noon of April 21, 2020:</strong>
+
+                      Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting. Any update or changes after the said deadline will be included on the next payout. <br/><br/>
+
+                       
+
+                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
+
+                      Thank you.<br/><br/><strong>Finance Team</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:0px" class="item text-center" >
                  <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
                    <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/doh.jpg" width="100%"><br/>
                     <img src="storage/uploads/divider.png" />
@@ -68,19 +108,7 @@
               </div>
 
 
-              <div style="padding:0px" class="item text-center" >
-                 <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
-                   <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/easter2020.jpg" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                     May the spirit of #Easter bring light and hope into your home. Happy Easter!<br/><br/><strong>#WeSpeakYourLanguage #OAHolidays</strong>
-                    
-
-                    </p>  
-                    
-              </div>
+             
 
               <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
@@ -1464,6 +1492,20 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+
+ <div style="padding:0px" class="item text-center" >
+                 <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
+                   <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/easter2020.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     May the spirit of #Easter bring light and hope into your home. Happy Easter!<br/><br/><strong>#WeSpeakYourLanguage #OAHolidays</strong>
+                    
+
+                    </p>  
+                    
+              </div>
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i><strong class="text-danger"> Opting Out</strong> for Advance 13th Month Pay<br/>
                  <br/>
