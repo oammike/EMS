@@ -124,6 +124,27 @@ class LogsController extends Controller
                     select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType','logs.manual')->
                     orderBy('users.lastname')->get();
 
+            $activeUsers = DB::table('campaign')->where('campaign.hidden',NULL)->
+                            where([
+                            ['campaign.id', '!=','26'], //wv
+                            ['campaign.id', '!=','35'], //ceb
+
+                          ])->
+                            join('team','team.campaign_id','=','campaign.id')->
+                            join('users','team.user_id','=','users.id')->
+                            select('users.id','users.accesscode','users.lastname','users.firstname','campaign.name as program')->
+                            where('users.status_id','!=',6)->
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->
+                            where('users.status_id','!=',16)->
+                            orderBy('users.lastname')->get();
+            $allsubs = collect($form)->pluck('id')->unique();
+            $allactives = collect($activeUsers)->pluck('id')->unique();
+            $diff = $allactives->diff($allsubs);
+
+            //return collect($activeUsers)->where('id',564);// $diff;
+
 
             $allDTRPs = DB::table('user_dtrp')->where('user_dtrp.biometrics_id',$bio->first()->id)->
                         leftJoin('logType','user_dtrp.logType_id','=','logType.id')->
@@ -145,6 +166,7 @@ class LogsController extends Controller
             $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
             $headers2 = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted");
             $headers3 = array("AccessCode", "Last Name","First Name","Program","Requested");
+            $headers4 = array("AccessCode", "Last Name","First Name","Program");
             $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
             $description = " ". $sheetTitle;
 
@@ -159,7 +181,7 @@ class LogsController extends Controller
             
 
 
-           Excel::create($sheetTitle,function($excel) use($form,$allDTRPs, $allUnlocks, $sheetTitle, $headers,$headers2,$headers3,$description,$daystart) 
+           Excel::create($sheetTitle,function($excel) use($form,$diff,$activeUsers,$allDTRPs, $allUnlocks, $sheetTitle, $headers,$headers2,$headers3,$headers4,$description,$daystart) 
            {
                   $excel->setTitle($sheetTitle.' Summary Report');
 
@@ -242,6 +264,28 @@ class LogsController extends Controller
                                      $item->firstname,
                                      $item->program, //ID
                                      $t->format('M d, h:i A'),
+                                     );
+                        $sheet->appendRow($arr);
+
+                    }
+                    
+                 });//end sheet2
+
+
+                   $excel->sheet('No Logs', function($sheet) use ($activeUsers,$diff,$headers4)
+                  {
+                    $sheet->appendRow($headers4);
+                    foreach($diff as $item)
+                    {
+                        $look = collect($activeUsers)->where('id',$item)->first();
+
+                      
+                        
+                        $arr = array($look->accesscode, 
+                                     $look->lastname,
+                                     $look->firstname,
+                                     $look->program, //ID
+                                     
                                      );
                         $sheet->appendRow($arr);
 
