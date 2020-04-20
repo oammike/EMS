@@ -2512,7 +2512,7 @@ trait TimekeepingTraits
                                 
                                if ($hasHolidayToday && $isBackoffice)
                                {
-                                $log = "<strong class=\"text-danger\">N/A</strong>". $icons;
+                                $log = "<strong class=\"text-danger\"> N / A </strong>". $icons;
                                 $workedHours = $holidayToday->first()->name;
 
                                }else if ($hasHolidayToday && !$isBackoffice)
