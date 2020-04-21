@@ -386,7 +386,7 @@ class DTRController extends Controller
                                   // -------- TIME IN -------------
                                   $tin = strip_tags($key->timeIN);
 
-                                  if ( strpos($tin, "SL") !== false || strpos($tin, "VL") !== false || strpos($tin, "RD") !== false || strpos($tin, "LWOP") !== false || strpos($tin, "OBT") !== false || strpos($tin, "ML") !== false || strpos($tin, "PL") !== false || strpos($tin, "No IN") !== false || strpos($tin, "No OUT") !== false || strpos($tin, " N / A ") !== false )
+                                  if ( strpos($tin, "SL") !== false || strpos($tin, "VL") !== false || strpos($tin, "RD") !== false || strpos($tin, "LWOP") !== false || strpos($tin, "OBT") !== false || strpos($tin, "ML") !== false || strpos($tin, "PL") !== false || strpos($tin, "No IN") !== false || strpos($tin, "No OUT") !== false || strpos($tin, "N / A") !== false || strpos($tin, "N/A") !== false )
                                   {
                                     $arr[$i] = $tin; $i++;
                                   }
@@ -401,7 +401,7 @@ class DTRController extends Controller
                                   // -------- TIME OUT -------------
                                    $tout = strip_tags($key->timeOUT);
 
-                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false  || strpos($tin, " N / A ") !== false)
+                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false  || strpos($tin, "N / A") !== false || strpos($tin, "N/A") !== false)
                                   {
                                     $arr[$i] = $tout; $i++;
                                   }
