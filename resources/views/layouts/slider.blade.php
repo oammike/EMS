@@ -1,7 +1,29 @@
 
                 
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > To all Shuttlers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   Adjusted Ride Waiting Time <br/>
+                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Due to the elevated ECQ restrictions, high volume of ride requests, and driver head count constraints, we have needed to streamline our trip planning to utilize our vehicle pool more efficiently and effectively. Please allow a ride-wait-time of <strong class="text-danger"> no less than 1 to 1.5 hours (even possibly 2-3 hours for farther vicinities)</strong> while you and your co-passengers get picked up.<br/><br/>
+                    <strong>We request for your patience and adaptability for this time. We need to be able to accommodate everyone as mush as is within government ruling as well as our logistical capacity.</strong><br/><br/>
+                    To be able to accommodate more shuttle riders, we have needed to schedule your shared rides in clusters of 1-3 hours ahead of your actual shift start time (possibly longer for those living in farther vicinities) and up to 1 hour from your shift end time. <br/><br/>
+                    This was implemented April 3, 2020.  To reiterate, necessary adjustments in your pickup time have been made and communicated.  Please allot a longer time allowance. Kindly take note of your new ride schedules from the email notification that will be sent and prepare accordingly. 
+                    Let’s all help each other get to and from work on time and safely.
+                    Thank you for your understanding and cooperation.
+
+
+
+                    
+
+                    </p>  
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em">Reminders from Finance team: <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; April 24,2020 Payout &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
                    <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
                     <img src="storage/uploads/divider.png" />
