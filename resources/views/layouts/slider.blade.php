@@ -1,7 +1,43 @@
 
                 
 
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > To all Onsite Employees: <br/> <span class="text-primary"><i class="fa fa-building"></i>   ECQ G2 Office Guidelines <br/><br/>
+                   <img src="storage/uploads/warning.png" width="98%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    To reiterate our previous email reminders, it is imperative to observe the following:<br/><br/>
+
+
+                    1. <strong class="text-danger"> NO LOITERING </strong>outside the office premises and building.<br/><br/>
+                    2. <strong class="text-danger">NO SMOKING</strong> in non-designated areas.  <br/><br/>
+                    3. <strong class="text-danger">AVOID going in and out</strong> of the office building.<br/><br/>
+                     <i class="fa fa-exclamation-triangle text-orange"></i> Stay inside the lobby while waiting for the shuttle service.<br/><br/>
+                    
+                    <i class="fa fa-exclamation-triangle text-orange"></i> ALWAYS wear a mask inside the office premises, going to/from office, or while outside or in public places.<br/><br/>
+                     <i class="fa fa-exclamation-triangle text-orange"></i> ALWAYS follow the physical distancing inside the office premises, outside the office, at shuttle service and public places.<br/><br/>
+                     
+
+                    In as much as BPO is one of the essential services that are open, it does not mean that we are at liberty of movement. During this ECQ period, movement of BPO employees are allowed only for the purpose of going to/from the office. .In order to address the Makati City Police PCP5 concerns on the volume of personnel loitering around Ayala Center, the G2 Building Admin will be issuing a limited number of passes to all BPO tenants.  For onsite employees, there will be an assigned Housekeeping Personnel with passes who can accommodate requests for emergency/urgent essential purchases within the office vicinity.  <br/><br/>
+
+                     
+
+                    The Ayala Center Estate Association (ACEA) will report all those who are found loitering, smoking or doing unnecessary activities within Ayala Center and the G2 Building Admin may prevent violators from returning to the G2 building until after the ECQ is lifted. Likewise, the City of Makati prohibits among others loitering in public places within the ECQ period.<br/><br/>
+
+                    Further, attached is the Makati City Ordinance No. 2020-089, requiring the mandatory wearing of face masks and other similar protective equipment penalizing its violation thereof.<br/><br/>
+
+                    Please be guided accordingly.
+
+
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > To all Shuttlers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   Adjusted Ride Waiting Time <br/>
                    <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
                     <img src="storage/uploads/divider.png" />
@@ -23,7 +59,7 @@
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em">Reminders from Finance team: <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; April 24,2020 Payout &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
                    <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
                     <img src="storage/uploads/divider.png" />
