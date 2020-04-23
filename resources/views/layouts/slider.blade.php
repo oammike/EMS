@@ -2,6 +2,126 @@
                 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;"> Unworked:</strong> <br/><em>provided the employee (including those on floating status) was present or on leave with pay on the workday prior to the start of the enhanced community quarantine (ECQ) on 17 March 2020.  However, employees who have VTO and on forced-leave on the workday prior to ECQ shall also be entitled to this benefit.</em></p> 
+
+
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>No additional pay</pre>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    As stated in Malacañang Proclamation No. 845, the following have been declared as holidays for the month of April 2020.<br/><br/>
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;"> Worked: </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>(Basic Pay + Allowance) x 300%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>(Basic Pay + Allowance) x 150%</pre>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;">Additional pay for work done <span class="text-danger">in excess of 8 hours</span> </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;">Worked, and falls on the <span class="text-orange">REST DAY </span>of the employee </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    As stated in Malacañang Proclamation No. 845, the following have been declared as holidays for the month of April 2020.<br/><br/>
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;">Additional pay for work done <span class="text-danger">IN EXCESSS OF 8 hours</span>, and falls on the employee's <span class="text-orange">REST DAY</span> </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+
+                    For employees who were hired on March 17, 2020 to April 8, 2020, they will be entitled to regular holiday if they are present or with paid leave on workday immediately preceding the holiday. <br/><br/>Please be guided accordingly.
+ 
+                    
+              </div>
+
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > To all Onsite Employees: <br/> <span class="text-primary"><i class="fa fa-building"></i>   ECQ G2 Office Guidelines <br/><br/>
                    <img src="storage/uploads/warning.png" width="98%" /><br/><br/>
                     <img src="storage/uploads/divider.png" />
