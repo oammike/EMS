@@ -1,7 +1,66 @@
 
                 
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Feature Article: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   The Wall Street Journal <br/>Apr.23, 2020 <br/><br/>
+                  <img src="storage/uploads/wsj.png" width="30%" />
+                  <img src="storage/uploads/ben_article.jpg" width="100%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <h5><a href="https://www.wsj.com/articles/call-center-operator-keeps-phone-lines-open-during-pandemic-11587634205" target="_blank"> Call Center Operator Keeps Phone Lines Open During Pandemic</a></h5>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                      Ben Davidowitz’s company in the Philippines fields customer calls from employees’ homes; ‘we can’t have roosters in the background’<br/><br/>
+
+                      Ben Davidowitz moved to the Philippines in 2010 to open call centers that allowed global companies to move their customer support services offshore. The coronavirus pandemic has forced the American entrepreneur to find a way for his workers to serve global customers from their crowded metro-Manila apartments.<br/><br/>
+
+                      Mr. Davidowitz runs Open Access BPO, a company that counts a U.S. food-delivery service and a major hospital system among its customers. As clients manage the crisis, they rely on his Filipino staffers to field questions about insurance and delivery orders gone wrong.<br/><br/>
+
+                      Two of his company’s largest call centers are based in the Philippines’ capital, Manila, which has been under lockdown since mid-March. While a skeleton crew works in the office, most of his 1,200 employees had to set up makeshift call centers at home.<br/><br/>
+
+                      Open Access BPO’s revenue is down 12% since the start of the coronavirus pandemic, as some clients scaled back and terminated their contracts. And the new working procedures for employees come with additional costs.<br/><br/>
+
+                      Many members of Mr. Davidowitz’s young workforce live in small apartments without desks or even internet connections. He dispatched technicians—carrying special passes from the government—to each of the homes where employees needed support. Over many days, the teams set up internet services, hauled work stations and tested the voice quality of calls.<br/><br/>
+
+                      Answering customer queries, however, requires more than quality equipment. A quiet environment is also necessary.<br/><br/>
+
+                      This is where Mr. Davidowitz faces a problem. Roosters are abundant in the areas a few hours’ drive from central Manila where many call-center workers live.<br/><br/>
+
+                      “We can’t have roosters in the background,” Mr. Davidowitz said. “It may not be a rooster right at their house, but it could be a rooster next door. That immediately sends a red flag to a customer.”<br/><br/>
+
+                      Around 200 of his employees continue to work from the offices because there isn’t enough space in their houses, internet connectivity is poor or the surroundings are too noisy from roosters or neighbors. They are seated far apart, and the company rented housing units and hotel rooms near the call centers for them to stay in. Food is provided for those working from the office.<br/><br/>
+
+                      Once every two weeks, he drops in to his Manila call centers and makes sure employees are following social-distancing procedures.<br/><br/>
+
+                      The complexity the 57-year-old faces in keeping the company’s phone lines open is compounded by increased responsibilities at home. He is now taking care of his 25-year old son, Harry Davidowitz, who has autism, full time because school is closed. Harry’s usual caretaker is staying home with family during the lockdown.<br/><br/>
+
+                      These days, Harry wakes his father up at 6:30 a.m., hungry for breakfast or eager to listen to music. “He’ll just be standing there next to my bed like a statue, waiting for me,” Mr. Davidowitz said.<br/><br/>
+
+                      Mr. Davidowitz said his son was “100% driven by routine” and that it was important to establish a new schedule to replace the old one. Harry, who is mostly nonverbal, still makes requests for his favorite foods and regular activities, such as going to the nearby swimming pool.<br/><br/>
+
+                      “In a kid’s mind like his, the questions start flowing,” he said.<br/><br/>
+
+                      With the pool closed, Mr. Davidowitz took an old bathtub he had in storage and hauled it up to his roof. He fills it with a hose so his son can splash around. “It’s turned into another activity we can incorporate into the day,” Mr. Davidowitz said.<br/><br/>
+
+                      He also gives his son plenty of time to listen to his favorite electronic dance music and watch animation such as “Lilo & Stitch.”<br/><br/>
+
+                      Mr. Davidowitz’s extended family has also been affected. Two of his brothers in Pennsylvania tested positive for Covid-19. One got better quickly, while the other battled the illness for weeks, with a fever, chills and night sweats, though has recently recovered.<br/><br/>
+
+                      Mr. Davidowitz thought about flying home, but most commercial flights to and from the Philippines have been canceled. He also looked into chartering a private flight to see his brothers.<br/><br/>
+
+                      He worried, though, that if he got sick, there would be no one to take care of Harry.<br/><br/>
+
+                      Write to Jon Emont at jonathan.emont@wsj.com <a href="https://www.wsj.com/articles/call-center-operator-keeps-phone-lines-open-during-pandemic-11587634205" target="_blank">[Article link]</a></p> 
+
+
+
+                    
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
                   
                     <img src="storage/uploads/divider.png" />
