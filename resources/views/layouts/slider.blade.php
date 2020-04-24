@@ -101,7 +101,7 @@
                     <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
                     <pre>(Basic Pay + Allowance) x 300%</pre>
                     <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
                     <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
                     <pre>(Basic Pay + Allowance) x 150%</pre>
  
