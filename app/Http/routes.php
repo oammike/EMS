@@ -243,6 +243,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.deleteComment',
       'uses'=>'EngagementController@deleteComment') );
 
+      Route::post('/employeeEngagement/deleteEntryComment/', array(
+      'as'=> 'employeeEngagement.deleteEntryComment',
+      'uses'=>'EngagementController@deleteEntryComment') );
+
       Route::post('/employeeEngagement/deleteReply/{id}', array(
       'as'=> 'employeeEngagement.deleteReply',
       'uses'=>'EngagementController@deleteReply') );
@@ -259,6 +263,9 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'employeeEngagement.unlike',
       'uses'=>'EngagementController@unlike') );
 
+      Route::post('/employeeEngagement/postEntryComment', array(
+      'as'=> 'employeeEngagement.postEntryComment',
+      'uses'=>'EngagementController@postEntryComment') );
 
       Route::post('/employeeEngagement/postComment/{id}', array(
       'as'=> 'employeeEngagement.postComment',

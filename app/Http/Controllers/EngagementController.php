@@ -21,6 +21,8 @@ use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
 use OAMPI_Eval\Engagement;
 use OAMPI_Eval\Engagement_Comment;
+use OAMPI_Eval\Engagement_EntryComments;
+use OAMPI_Eval\Engagement_EntryLikes;
 use OAMPI_Eval\Engagement_Reply;
 use OAMPI_Eval\Engagement_CommentLikes;
 use OAMPI_Eval\Engagement_ReplyLikes;
@@ -109,6 +111,23 @@ class EngagementController extends Controller
         
 
     }
+     public function deleteEntryComment(Request $request)
+    {
+        $comment = Engagement_EntryComments::find($request->commentID);
+
+        
+            $comment->delete();
+            $correct = Carbon::now('GMT+8');
+            if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n DelComment by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                }
+            return redirect()->back();
+
+        
+        
+
+    }
 
     public function deletePost($id)
     {
@@ -182,6 +201,17 @@ class EngagementController extends Controller
                                 $c->save();
 
                             }break;
+
+            case 'post':
+                            {
+                                $c = new Engagement_EntryLikes;
+                                $c->user_id = $this->user->id;
+                                $c->entryID = $request->entryID;
+                                $c->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+                                $c->save();
+
+                            }break;
+
             case 'reply':
                             {
                                 $c = new Engagement_ReplyLikes;
@@ -214,6 +244,25 @@ class EngagementController extends Controller
         if($this->user->id !== 564 ) {
                                   $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Comment on [".$id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                }
+        return response()->json($comment); 
+    }
+
+    public function postEntryComment(Request $request)
+    {
+        $correct = Carbon::now('GMT+8'); 
+        $comment = new Engagement_EntryComments;
+        $comment->user_id = $this->user->id;
+        $comment->entryID = $request->entryID;
+        $comment->body = $request->body;
+        $comment->anonymous = $request->anonymously;
+        $comment->created_at = $correct->format('Y-m-d H:i:s');
+        $comment->updated_at = $correct->format('Y-m-d H:i:s');
+        $comment->save();
+
+        if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n EntryComment on [".$request->entryID."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
         return response()->json($comment); 
     }
@@ -521,6 +570,31 @@ class EngagementController extends Controller
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
             }
+            else if($id == 5) //OPEN WALL
+            {
+                $allPosts = collect($existingEntry)->groupBy('entryID');
+                $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
+                                join('engagement','engagement_entry.engagement_id','=','engagement.id')->
+                                join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->
+                                join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
+                                join('users','engagement_entry.user_id','=','users.id')->
+                                join('team','team.user_id','=','users.id')->
+                                join('campaign','team.campaign_id','=','campaign.id')->
+                                join('positions','users.position_id','=','positions.id')->
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get(); 
+                                //where('engagement_entry.disqualified',NULL)->get();
+                $userEntries = collect($allEntries)->groupBy('entryID');
+
+                if( \Auth::user()->id !== 564 ) {
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n Check openWall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+                }
+
+                return view('people.empEngagement-show_wall',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
+
+            }
             else
             {
                 if($this->user->id !== 564 ) 
@@ -607,18 +681,18 @@ class EngagementController extends Controller
 
         $allitems = explode(',', $request->itemids);
         $allitemTypes = explode(',', $request->itemtypes);
-        //return response()->json(['success'=>1, 'items'=>$request->items, 'allitems'=>$allitems]);
+        //return response()->json(['success'=>1, 'allitemTypes'=>$allitemTypes, 'allitems'=>$allitems]);
         foreach ($allitems as $k) {
 
             //**** with image attachment
             if($k !== "")
             {
-                if(($k == '4' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
+                if(($k == '4' || $k == '13' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
 
                 }
                 else 
                 {
-                    if(($k == '4' || $allitemTypes[$ctr]=='IMG') && $request->file('file') )
+                    if(($k == '4' || $k == '13' || $allitemTypes[$ctr]=='IMG') && $request->file('file') )
                     {
                         $image_code = '';
                         $image = $request->file('file');
@@ -626,6 +700,7 @@ class EngagementController extends Controller
                             case '2':$filen = "valentines2020_"; break;
                             case '3':$filen = "painting2020_"; break;
                             case '4':$filen = "guess2020_"; break;
+                            case '5':$filen = "wall2020_"; break;
                             
                         }
 
@@ -669,7 +744,13 @@ class EngagementController extends Controller
             $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n SubmitPainting2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
-        }else
+        }else if( ($request->engagement_id == 5) && ($this->user->id !== 564 ) ) //painting
+        {
+            $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n SubmitWall_2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+
+        }
+        else
         {
             $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n Submitted EE entry [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -819,6 +900,16 @@ class EngagementController extends Controller
         
 
                             }break;
+            case 'post':{ 
+                            $c = Engagement_EntryLikes::where('user_id',$this->user->id)->where('entryID',$request->entryID)->first();
+                                $c->delete();
+                                if($this->user->id !== 564 ) {
+                                  $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Unlike post (".$request->entryID.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                                } 
+
+                        }break;
+
             case 'reply':{ 
                             $c = Engagement_ReplyLikes::where('user_id',$this->user->id)->where('reply_id',$request->commentid)->first();
                                 $c->delete();
@@ -851,7 +942,7 @@ class EngagementController extends Controller
     {
 
 
-        $owner = $this->user;
+        $owner = $this->user;$correct=Carbon::now();
         DB::connection()->disableQueryLog(); 
         $engagement = DB::table('engagement')->where('engagement.id',$id)->
                             join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
@@ -929,34 +1020,57 @@ class EngagementController extends Controller
 
     public function wall($id)
     {
-        return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
-
+        //return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
+        DB::connection()->disableQueryLog(); 
         $post = DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     leftJoin('users','users.id','=','engagement_entry.user_id')->
-                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','DESC')->get(); 
-                    //'engagement_entryItems.label','engagement_entryItems.ordering',
+                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','ASC')->get(); 
+                    
 
+        $allComments =  DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                    join('engagement_entryComments','engagement_entry.id','=','engagement_entryComments.entryID')->
+                    leftJoin('users','users.id','=','engagement_entryComments.user_id')->
+                    leftJoin('team','team.user_id','=','engagement_entryComments.user_id')->
+                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                    select('engagement_entry.id as entryID','engagement_entryComments.id as commentID', 'engagement_entryComments.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program','campaign.id as programID', 'engagement_entryComments.created_at','engagement_entryComments.body as comment','engagement_entryComments.anonymous', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entryComments.created_at','DESC')->get(); 
+
+        $allLikes =  DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                    join('engagement_entryLikes','engagement_entry.id','=','engagement_entryLikes.entryID')->
+                    leftJoin('users','users.id','=','engagement_entryLikes.user_id')->
+                    leftJoin('team','team.user_id','=','engagement_entryLikes.user_id')->
+                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                    select('engagement_entry.id as entryID','engagement_entryLikes.id as likeID', 'engagement_entryLikes.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program', 'engagement_entryLikes.created_at', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entryLikes.created_at','DESC')->get(); 
+       
+
+        if (count($post) <= 0) return view('empty');
+        
         $allPosts = collect($post)->groupBy('entryID');
         $posts = new Collection;
+        $idArray = [];
         foreach ($allPosts as $p) {
 
             (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
             
             if ($p[0]->anonymous){
-                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 'from'=>"anonymous",'img'=>$img,'message'=>$p[0]->value]);
+                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 
+                                'from'=>"anonymous",'img'=>$img,'message'=>$p[0]->value,
+                                'datePosted'=>$p[0]->created_at]);
 
             }else
             {
                 ($p[0]->nickname) ? $from = $p[0]->nickname." ".$p[0]->lastname : $p[0]->firstname." ".$p[0]->lastname;
 
-                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 'from'=>$from,'img'=>$img,'message'=>$p[0]->value]);
+                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 
+                            'from'=>$from,'img'=>$img,'message'=>$p[0]->value,
+                            'datePosted'=>$p[0]->created_at]);
 
             }
+            array_push($idArray, $p[0]->entryID);
         }
    
-        //return response()->json(["posts"=>$posts]);
+        //return response()->json(["posts"=>$posts[count($posts)-1],'idArray'=>$idArray]); //
         if( \Auth::user()->id !== 564 ) {
                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                   fwrite($file, "-------------------\n VDay_wall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
@@ -965,28 +1079,34 @@ class EngagementController extends Controller
 
         //$posts = new Collection;
         //$posts->push(['posts'=> $posts1]);
+        $allpostCount = count($posts);
+        $firstPost =$posts[$allpostCount-1];
+        $lastPost = $posts[0];
+        $user_id = $this->user->id;
+        //return $posts;
+        
 
-        return view('people.wall',compact('posts'));
+        return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
 
     }
 
     public function next(Request $request)
     {
-        // if (isset($_POST['firstPost']) && isset($_POST['lastPost'])) 
-        // {
-            $fp = $request->firstPost;
-            $lp = $request->lastPost;
+        
+        if (isset($request->firstPost) && isset($request->lastPost)) {
+        $fp = $request->firstPost;
+        $lp = $request->lastPost;
 
-            $postCount = $lp - $fp + 1;
-            $temp= $lp+1;
+        $postCount = $lp - $fp + 1;
+        $temp= $lp+1;
 
-            $fp=$temp;
-            $lp=$lp + $postCount;
+        $fp=$temp;
+        $lp=$lp + $postCount;
 
-            $_SESSION["firstPost"] = $fp;
-            $_SESSION["lastPost"] = $lp;
-            $_SESSION["postCount"] = $postCount;
-        //}
+        $_SESSION["firstPost"] = $fp;
+        $_SESSION["lastPost"] = $lp;
+        $_SESSION["postCount"] = $postCount;
+        }
 
         return response()->json(['firstPost'=>$fp,'lastPost'=>$lp,'postCount'=>$postCount]);
 
@@ -994,36 +1114,36 @@ class EngagementController extends Controller
 
     public function prev(Request $request)
     {
-        // if (isset($_POST['firstPost']) && isset($_POST['lastPost'])) 
-        // {
-            $fp = $request->firstPost;
-            $lp = $request->lastPost;
-            $postCount = $request->postCount;
+            if (isset($request->firstPost) && isset($request->lastPost)) {
+                $fp = $request->firstPost;
+                $lp = $request->lastPost;
+                $postCount = $request->postCount;
 
-            $postCount = $lp - $fp + 1;
-            $postCount = $request->postCount;
-            $temp= $lp;
+                //$postCount = $lp - $fp + 1;
+                //$postCount = $_POST['postCount'];
+                $temp= $lp;
 
-            $fp= $fp - $postCount;
-            $lp=$temp - $postCount;
-
-
-            // echo "$fp $lp";
-
-            $_SESSION["firstPost"] = $fp;
-            $_SESSION["lastPost"] = $lp;
-
-            $_SESSION["postCount"] = $postCount;
+                $fp= $fp - $postCount;
+                $lp=$temp - $postCount;
 
 
+                // echo "$fp $lp";
 
-            $fpost = $request->fp;
-            $lpost = $request->lp;
+                $_SESSION["firstPost"] = $fp;
+                $_SESSION["lastPost"] = $lp;
 
-            $fp = $fp-$postCount-1;
+                $_SESSION["postCount"] = $postCount;
 
-            if ($fp==$fpost) {
-                session_destroy();
+
+
+                $fpost = $request->fp;
+                $lpost = $request->lp;
+
+                $fp = $fp-$postCount-1;
+
+                // if ($fp==$fpost) {
+                //     session_destroy();
+                // }
             }
 
             return response()->json(['firstPost'=>$fp,'lastPost'=>$lp,'postCount'=>$postCount]);
