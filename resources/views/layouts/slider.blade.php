@@ -2,6 +2,33 @@
                 
 
               <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   Tips and Tricks on How to Stay Productive
+<br/>
+                  <img src="storage/uploads/remotework.jpg" width="100%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                      Reminding everyone that the deadline for completing <a href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P#/" target="_blank"> Remote Work: Tips and Tricks on How to Stay Productive</a> is this coming Sunday, April 27, 2020.<br/><br/>
+
+                      Take note that you need to respond to the chatbot LEIA before ending the module so we can capture your completion information. Refer to the image below.<br/><br/>
+
+                      Kudos to the following teams for leading the completion ranking per group:<br/><br/>
+                      <strong><a target="_blank" href="{{action('CampaignController@show',19)}}"> Data Management</a> </strong>- 90% <br/>
+                      <strong><a target="_blank" href="{{action('CampaignController@show',15)}}"> Workforce</a></strong> - 77.78% <br/>
+                      <strong><a target="_blank" href="{{action('CampaignController@show',16)}}"> Marketing</a></strong> - 75% <br/><br/>
+                      Happy weekend everyone. Stay safe!</p> 
+
+
+
+                    
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Feature Article: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   The Wall Street Journal <br/>Apr.23, 2020 <br/><br/>
                   <img src="storage/uploads/wsj.png" width="30%" />
                   <img src="storage/uploads/ben_article.jpg" width="100%" /><br/><br/>
