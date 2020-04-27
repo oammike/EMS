@@ -492,7 +492,70 @@
 
                                                         </td>
                                                         @elseif($user->isWFH && $data['shiftStart2'] == '* RD *')
-                                                        <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('D',strtotime($data['productionDate'])) }} </td>
+                                                        <td class="text-left">
+                                                          <a title="Work From Home (click to update)" class="setECQ pull-left btn btn-xs btn-success" data-toggle="modal" data-target="#noECQ_{{$data['biometrics_id']}}" data-bioID="{{$data['biometrics_id']}}" data-placehold="{{ date('m/d/Y',strtotime($data['productionDate'])) }}"><i class="fa fa-home"></i>  </a> 
+                                                          &nbsp;{{ date('D',strtotime($data['productionDate'])) }}
+                                                                <!-- MODAL FOR NO ECQ SET -->
+                                                                <div class="modal fade text-left" id="noECQ_{{$data['biometrics_id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                  <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                      <div class="modal-header">
+                                                                        
+                                                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                          <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> Set ECQ status</h4>
+                                                                        
+                                                                      </div>
+                                                                      <div class="modal-body">
+                                                                      
+                                                                       Please select ECQ status, specify inclusive dates, and click 'Save' button. <br/><br/>
+                                                                       
+                                                                       @foreach($allECQ as $e)
+
+                                                                    <?php switch($e->id){ 
+
+                                                                          case '1' : { $fa="fa-home"; $attr=null; $btn='btn-success';}break; //WFH -->
+                                                                          case '2' : { $fa="fa-shopping-bag"; $attr="null"; $btn='bg-purple';}break; //<!-- Hotel -->
+                                                                          case '3' : { $fa="fa-car"; $attr=null; $btn='btn-warning';};break; 
+                                                                          case '4' : { $fa="fa-blind"; $attr=null; $btn='btn-danger';};break;
+                                                                          case '5' : { $fa="fa-shower"; $attr=null; $btn='bg-aqua';};break;
+                                                                          case '6' : { $fa="fa-tachometer"; $attr="background-color: #da12f3;color:#fff"; $btn=null;};break;
+                                                                          case '7' : {$fa="fa-users"; $attr="background-color: #1219f3;color:#fff"; $btn=null;};break;
+                                                                        }?>
+
+
+                                                                          @if($e->id === 1)
+                                                                          <label>
+                                                                            <input type="radio" value="{{$e->id}}" name="ecqstat_{{$data['biometrics_id']}}" checked="checked" />&nbsp; <i class="fa {{$fa}}"> </i> {{$e->name}} 
+                                                                          </label><br/>
+                                                                          @else
+                                                                          <label>
+                                                                            <input type="radio" value="{{$e->id}}" name="ecqstat_{{$data['biometrics_id']}}" />&nbsp; <i class="fa {{$fa}}"> </i> {{$e->name}} 
+                                                                          </label><br/>
+
+                                                                          @endif
+
+                                                                       @endforeach
+
+                                                                       <br/><br/>
+                                                                       <label>Effective from:</label>
+                                                                       <input type="text" name="ecqStart_{{$data['biometrics_id']}}" 
+                                                                            placeholder class="form-control datepicker"  /> <br/>
+
+                                                                       <label>Effective until:</label>
+                                                                       <input type="text" name="ecqEnd_{{$data['biometrics_id']}}" 
+                                                                            placeholder="{{ date('m/d/Y',strtotime($data['productionDate'])) }}" class="form-control datepicker"  />
+                                                                       
+                                                                      </div>
+                                                                      <div class="modal-footer no-border">
+                                                                        <button type="button" class="btn btn-default btn-md pull-right " data-dismiss="modal"> <i class="fa fa-times"></i> Cancel</button>
+                                                                        <button type="submit" class="updateECQ btn btn-success btn-md pull-right" data-bioID="{{$data['biometrics_id']}}" style="margin-right:5px" > <i class="fa fa-save" ></i> Save ECQ Status </button>
+                                                                        
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <!-- MODAL FOR NO ecq SET -->
+                                                        </td>
                                                         @else 
 
                                                         <td class="text-left">
