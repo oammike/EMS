@@ -457,7 +457,7 @@
                                                                         }?>
 
 
-                                                                          @if($e->id === $ecqStatus->first()->workStatus)
+                                                                          @if($e->id === 1)
                                                                           <label>
                                                                             <input type="radio" value="{{$e->id}}" name="ecqstat_{{$data['biometrics_id']}}" checked="checked" />&nbsp; <i class="fa {{$fa}}"> </i> {{$e->name}} 
                                                                           </label><br/>
