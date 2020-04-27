@@ -93,7 +93,7 @@ body {
   background-image: url('../img/polaroid.jpg');*/
   
   background-image: url("../img/openaccess.svg");
-  background-color: #000;
+  background-color: #1c6ca5;
   background-size: 100% auto;
   background-position: center;
   margin: 0;
@@ -241,7 +241,7 @@ body {
   transition: 300ms all ease-out;
   /*margin-bottom: 0;*/
   min-height: 50vh;
-  max-height: 90vh;
+  max-height: 70vh;
   overflow: auto;
   padding-left: 10px;
   margin: 50px auto;
@@ -321,7 +321,7 @@ body {
 .message .flag {
   position: absolute;
   overflow: hidden;
-  bottom: 40px;
+  top: 59%; /*0px;*/
   right: 20px;
   font-family: 'Arial',sans-serif;
 }
@@ -329,7 +329,7 @@ body {
 .message .like {
   position: absolute;
   overflow: hidden;
-  bottom: 40px;
+  top: 59%; /*0px;*/
   right: 130px;
   font-family: 'Arial',sans-serif;
 }

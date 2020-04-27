@@ -1073,7 +1073,7 @@ class EngagementController extends Controller
         //return response()->json(["posts"=>$posts[count($posts)-1],'idArray'=>$idArray]); //
         if( \Auth::user()->id !== 564 ) {
                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n VDay_wall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fwrite($file, "-------------------\n ViewWall_[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
               }
 

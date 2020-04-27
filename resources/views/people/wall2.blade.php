@@ -19,7 +19,7 @@
 	<div class="preloader"></div>
 	
 	<div class="freedom-wall">
-		<a href="{{action('EngagementController@show',$id)}}" style="color:#fff;position: absolute; top:0;right: 0; margin: 20px"><i class="fa fa-2x fa-home"></i> </a>
+		
 
 		<ul data-arrlen="{{$allpostCount}}" data-postcount="<?php echo count($posts); ?>" @if (isset($_GET['c'])) data-maxpost="{{$_GET['c']}}"  @else data-maxpost @endif
 
@@ -341,6 +341,9 @@
 				<div class="prev">
 					<i class="fas fa-angle-right"></i>
 				</div>
+				<div class="home"><i class="fa fa-home"></i>
+				</div>
+
 			</div>
 		</div>
 		<div class="system-message">
@@ -350,6 +353,11 @@
 	<script type="text/javascript" src="../../public/js/jquery-3.3.1.min.js"></script>
 	<!-- <script type="text/javascript" src="../../public/js/wall_script.js"></script> -->
 	<script type="text/javascript">
+
+		$(".home").click(function(){
+			window.location.href = "{{action('EngagementController@show',$id)}}";
+
+		});
 		
 		$(".next").click(function() {
 			//alert('next');
