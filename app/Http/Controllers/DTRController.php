@@ -2386,6 +2386,8 @@ class DTRController extends Controller
 
 
 
+             $allECQ = DB::table('ecq_statuses')->select('id','name')->orderBy('id')->get();
+             
 
              // *************************** VERIFIED DTR SHEET
              $verifiedDTR = User_DTR::where('user_id',$user->id)->where('productionDate','>=',$currentPeriod[0])->
@@ -3272,7 +3274,7 @@ class DTRController extends Controller
            $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
                 
            
-           return view('timekeeping.myDTR', compact('ecq','wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice'));
 
 
         } else return view('access-denied');
@@ -3348,6 +3350,80 @@ class DTRController extends Controller
 
 
 
+    }
+
+    public function updateECQ(Request $request)
+    {
+
+      $start = $request->pstart;
+      $end = $request->pend;
+      $ecq = $request->ecq;
+
+      if ($start == $end)
+      {
+        $d = Carbon::parse($start,'Asia/Manila')->format('Y-m-d');
+        $bio = Biometrics::where('productionDate',$d)->get();
+
+        if (count($bio) > 0)
+          $biometrics = $bio->first();
+        else 
+        {
+          $biometrics = new Biometrics;
+          $biometrics->productionDate = $d;
+          $biometrics->save();
+
+        }
+
+        $ecqStat = new ECQ_Workstatus;
+        $ecqStat->user_id = $request->user_id;
+        $ecqStat->biometrics_id = $biometrics->id;
+        $ecqStat->workStatus = $ecq;
+        $ecqStat->save();
+
+        return response()->json(['start'=>$start, 'end'=>$end, 'ecq'=>$ecq, 'success'=>1, 'message'=>'ECQ status saved successfully.']);
+          
+      }
+      else
+      {
+        $s = Carbon::parse($start,'Asia/Manila');
+        $e = Carbon::parse($end,'Asia/Manila');
+
+        if ($e->format('Y-m-d') > $s->format('Y-m-d'))
+        {
+          while($s->format('Y-m-d') <= $e->format('Y-m-d'))
+          {
+             $bio = Biometrics::where('productionDate',$s->format('Y-m-d'))->get();
+             if (count($bio) > 0)
+                $biometrics = $bio->first();
+             else 
+             {
+                $biometrics = new Biometrics;
+                $biometrics->productionDate = $s->format('Y-m-d');
+                $biometrics->save();
+
+             }
+
+             $ecqStat = new ECQ_Workstatus;
+             $ecqStat->user_id = $request->user_id;
+             $ecqStat->biometrics_id = $biometrics->id;
+             $ecqStat->workStatus = $ecq;
+             $ecqStat->save();
+
+             $s->addDay();
+          }
+
+          return response()->json(['start'=>$start, 'end'=>$end, 'ecq'=>$ecq, 'success'=>1, 'message'=>'ECQ status saved successfully.']);
+          
+
+        }else //error on end date
+        {
+          return response()->json(['start'=>$start, 'end'=>$end, 'ecq'=>$ecq, 'success'=>0, 'message'=>'Invalid end date. Please try again.']);
+
+        }
+
+      }
+
+      
     }
 
 

@@ -820,6 +820,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'uses'=>'BiometricsController@ecq_upload') );
 
 
+        Route::post('/ecq_update', array(
+        'as'=> 'dtr.updateECQ',
+        'uses'=>'DTRController@updateECQ') );
+
+
         Route::post('/biometrics/uploadSched', array(
         'as'=> 'biometrics.uploadSched',
         'uses'=>'BiometricsController@uploadSched') );
