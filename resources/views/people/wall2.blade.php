@@ -117,7 +117,7 @@
 										@if($cmt->anonymous)
 										<p style="margin-bottom: 10px; white-space: pre;background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> <em>Anonymous</em>, {{$cmt->program}}  </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer;"data-commentID="{{$cmt->commentID}}"> Delete</i> 
+											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;" data-commentID="{{$cmt->commentID}}"> Delete</i> 
 											@endif
 										</p>
 										
@@ -125,7 +125,7 @@
 										@else
 										<p style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> {{$cmt->nickname}} {{$cmt->lastname}}, {{$cmt->program}} </strong>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer;"data-commentID="{{$cmt->commentID}}"> Delete</i> 
+											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;" data-commentID="{{$cmt->commentID}}"> Delete</i> 
 											@endif
 										</p>
 
@@ -247,7 +247,7 @@
 										@if($cmt->anonymous)
 										<p style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%" >{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> <em>Anonymous</em>, {{$cmt->program}}  </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer;"data-commentID="{{$cmt->commentID}}"> Delete</i> 
+											<i class="fa fa-trash" style="cursor: pointer; float: right ;padding:10px;"data-commentID="{{$cmt->commentID}}"> Delete</i> 
 											@endif
 										</p>
 										
@@ -256,7 +256,7 @@
 										<p style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> {{$cmt->nickname}} {{$cmt->lastname}}, {{$cmt->program}} </strong>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small> &nbsp;&nbsp;
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer;"data-commentID="{{$cmt->commentID}}"> Delete</i> 
+											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;"data-commentID="{{$cmt->commentID}}"> Delete</i> 
 											@endif
 										</p>
 

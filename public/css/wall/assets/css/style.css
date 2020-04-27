@@ -226,7 +226,7 @@ body {
   width: 90%;
 
 }
-.commentholder{ overflow-y: scroll; height: 200px; font-size: small }
+.commentholder{ overflow-y: scroll; min-height:5%; font-size: small }
 
 .message {
 
@@ -321,7 +321,7 @@ body {
 .message .flag {
   position: absolute;
   overflow: hidden;
-  top: 59%; /*0px;*/
+  bottom: 2%; /*0px;*/
   right: 20px;
   font-family: 'Arial',sans-serif;
 }
@@ -329,7 +329,7 @@ body {
 .message .like {
   position: absolute;
   overflow: hidden;
-  top: 59%; /*0px;*/
+  bottom: 2%; /*0px;*/
   right: 130px;
   font-family: 'Arial',sans-serif;
 }
