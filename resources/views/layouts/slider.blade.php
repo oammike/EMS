@@ -2,6 +2,33 @@
                 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/> <span class="text-primary"><i class="fa fa-users"></i> All Open Access BPO Leaders<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Hello Open Access BPO Leaders,<br/><br/>
+
+                    Managing co-located teams is in itself a challenging task, so much more now that our teams have transitioned to a remote setup. We developed <strong class="text-primary"> ALERT,</strong> an eLearning course to help you lead your remote teams. It stands for <strong class="text-primary"> Adeptly Leading Effective Remote Teams</strong>. Part 1 will be released tomorrow. We hope that you'll find this learning resource helpful. Here's a peek at the topics covered:<br/><br/>
+                    - unique challenges of remote teams<br/>
+                    - remote team leader competencies<br/>
+                    - establishing team principles<br/>
+                    - establishing trust and accountability<br/><br/>
+                    Expect another email from <strong>system@open-access.training-online.eu</strong> tomorrow. This will be triggered once your Learning Management System (LMS) user accounts are created tomorrow. There will be a redirect link in the message. Once you are redirected to the LMS page, click on the login button to set your new password, as shown below.<br/>
+                    <img src="storage/uploads/trainingimg.png" width="95%" />
+                    <br/><br/> 
+
+                   
+
+                    </p> 
+
+
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Memo: <br/> <span class="text-primary"><i class="fa fa-file"></i> ASSET DEPLOYMENT PROCESS <br/>FOR AT-HOME-WORKERS<br/><br/>
                   
                     <img src="storage/uploads/divider.png" />
