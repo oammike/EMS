@@ -144,81 +144,87 @@ class UserFamilyleaveController extends Controller
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
-            if ($isBackoffice && $isWorkforce && ($this->user->id != $user->id && !$anApprover) )  return view('access-denied');
+           // if ($isBackoffice && $isWorkforce && ($this->user->id != $user->id && !$anApprover) )  return view('access-denied');
 
-            if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
+            if ( ( $this->user->id == $user->id) || $anApprover || $isWorkforce )
             {
-                $title = 'No Work Schedule found ';
-                $message =  '<br/><br/><br/><br/> No work schedule defined<br /><br/> <i class="fa fa-calendar"></i> <small>Please inform immediate head or Workforce <br/>to have your work schedule plotted before you can file any work-related requests. <br/><br/>Thank you.</smaller></small>
-                  <br /><br/>';
-                  return view('empty-page', compact('message','title'));
-
-            } 
-            else
-            {
-                /*--- we need to check first kung may approver set na ---*/
-                if (count($approvers)<1 ){
-                    $title = 'No Approver defined ';
-                    $message =  '<br/><br/><br/><br/><span class="text-danger"><i class="fa fa-exclamation-triangle"></i> No Approver defined</span><br /><br/><small>Please inform HR to update your profile <br/>and set the necessary approver(s) for all of your request submissions. <br/><br/>Thank you.</smaller></small>
+                if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
+                {
+                    $title = 'No Work Schedule found ';
+                    $message =  '<br/><br/><br/><br/> No work schedule defined<br /><br/> <i class="fa fa-calendar"></i> <small>Please inform immediate head or Workforce <br/>to have your work schedule plotted before you can file any work-related requests. <br/><br/>Thank you.</smaller></small>
                       <br /><br/>';
                       return view('empty-page', compact('message','title'));
-                }else
+
+                } 
+                else
                 {
-
-                    $today=Carbon::today();
-                    /*------- check first if user is entitled for a leave (check tax status) *********/
-                    // also check the gender
-                    //$lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
-
-                    //if ($lengthOfService >= 6)
-                    //{
-
-                    if (empty($request->from))
-                        $vl_from = Carbon::today();
-                    else $vl_from = Carbon::parse($request->from,"Asia/Manila");
-                    $startOfYear = $vl_from->copy()->startOfYear();
-                    $endOfYear   = $vl_from->copy()->endOfYear();
-
-                    
-                    $hasFiledAlready = DB::table('user_familyleaves')->where('user_id',$user->id)->
-                                                            where('leaveType',$type)->
-                                                            where('leaveStart','>=',$startOfYear->format('Y-m-d H:i:s'))->
-                                                            where('leaveEnd','<=',$endOfYear->format('Y-m-d H:i:s'))->
-                                                            where('isApproved',true)->get();
-
-                    if (count($hasFiledAlready) > 0 && $type !== 'SPL') return view('access-denied');
-
-
-                    switch ($type) 
+                    /*--- we need to check first kung may approver set na ---*/
+                    if (count($approvers)<1 ){
+                        $title = 'No Approver defined ';
+                        $message =  '<br/><br/><br/><br/><span class="text-danger"><i class="fa fa-exclamation-triangle"></i> No Approver defined</span><br /><br/><small>Please inform HR to update your profile <br/>and set the necessary approver(s) for all of your request submissions. <br/><br/>Thank you.</smaller></small>
+                          <br /><br/>';
+                          return view('empty-page', compact('message','title'));
+                    }else
                     {
-                        case 'ML': { $leaveType = "Maternity Leave"; $icon="fa fa-female"; if( !is_null($user->gender) && $user->gender !== 'F' ) return view('access-denied'); $creditsLeft=105.0-1.0;} 
-                        break;
 
-                        case 'PL':{ $leaveType = "Paternity Leave"; $icon="fa fa-male"; if( !empty($user->gender) && $user->gender !== 'M' ) return view('access-denied'); $creditsLeft=7.0-1.0; }
-                        break;
+                        $today=Carbon::today();
+                        /*------- check first if user is entitled for a leave (check tax status) *********/
+                        // also check the gender
+                        //$lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
 
-                        case 'SPL':{ $leaveType = "Single-Parent Leave"; $icon="fa fa-street-view"; $creditsLeft=7.0-1.0; }  break;
+                        //if ($lengthOfService >= 6)
+                        //{
+
+                        if (empty($request->from))
+                            $vl_from = Carbon::today();
+                        else $vl_from = Carbon::parse($request->from,"Asia/Manila");
+                        $startOfYear = $vl_from->copy()->startOfYear();
+                        $endOfYear   = $vl_from->copy()->endOfYear();
+
                         
-                    }
+                        $hasFiledAlready = DB::table('user_familyleaves')->where('user_id',$user->id)->
+                                                                where('leaveType',$type)->
+                                                                where('leaveStart','>=',$startOfYear->format('Y-m-d H:i:s'))->
+                                                                where('leaveEnd','<=',$endOfYear->format('Y-m-d H:i:s'))->
+                                                                where('isApproved',true)->get();
 
-                    $hasSavedCredits = true;
-
-                    /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
-                    $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
-
-                    (count($holiday) > 0 ) ? $used = '0.00' : $used='1.00';
+                        if (count($hasFiledAlready) > 0 && $type !== 'SPL') return view('access-denied');
 
 
+                        switch ($type) 
+                        {
+                            case 'ML': { $leaveType = "Maternity Leave"; $icon="fa fa-female"; if( !is_null($user->gender) && $user->gender !== 'F' ) return view('access-denied'); $creditsLeft=105.0-1.0;} 
+                            break;
+
+                            case 'PL':{ $leaveType = "Paternity Leave"; $icon="fa fa-male"; if( !empty($user->gender) && $user->gender !== 'M' ) return view('access-denied'); $creditsLeft=7.0-1.0; }
+                            break;
+
+                            case 'SPL':{ $leaveType = "Single-Parent Leave"; $icon="fa fa-street-view"; $creditsLeft=7.0-1.0; }  break;
+                            
+                        }
+
+                        $hasSavedCredits = true;
+
+                        /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
+                        $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
+
+                        (count($holiday) > 0 ) ? $used = '0.00' : $used='1.00';
+
+
+                        
+
+                        return view('timekeeping.user-fl_create',compact('user','leaveType','type','icon', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits'));
+
+                        //}else return view('access-denied');
+
+                    } /*--- end kung may approver set na ---*/
                     
 
-                    return view('timekeeping.user-fl_create',compact('user','leaveType','type','icon', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits'));
+                }
+               
+            } else return view('access-denied');
 
-                    //}else return view('access-denied');
 
-                } /*--- end kung may approver set na ---*/
-                
-
-            }
 
         }
         
