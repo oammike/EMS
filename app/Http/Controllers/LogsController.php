@@ -143,6 +143,17 @@ class LogsController extends Controller
             $allactives = collect($activeUsers)->pluck('id')->unique();
             $diff = $allactives->diff($allsubs);
 
+
+            $allECQ = DB::table('eqc_workstatus')->join('biometrics','biometrics.id','=','eqc_workstatus.biometrics_id')->
+                      join('users','users.id','=','eqc_workstatus.user_id')->
+                      join('ecq_statuses','ecq_statuses.id','=','eqc_workstatus.workStatus')->
+                      select('biometrics.productionDate','eqc_workstatus.biometrics_id','eqc_workstatus.workStatus as ecqID','ecq_statuses.name as ecqStatus','users.firstname','users.lastname','users.id as user_id','eqc_workstatus.created_at')->
+                      where('biometrics.productionDate',$bio->first()->productionDate)->
+                      orderBy('eqc_workstatus.created_at','DESC')->get(); 
+
+            // $q = collect($allECQ)->where('user_id',1097);
+            // return $q;
+
             //return collect($activeUsers)->where('id',564);// $diff;
 
 
@@ -181,7 +192,7 @@ class LogsController extends Controller
             
 
 
-           Excel::create($sheetTitle,function($excel) use($form,$diff,$activeUsers,$allDTRPs, $allUnlocks, $sheetTitle, $headers,$headers2,$headers3,$headers4,$description,$daystart) 
+           Excel::create($sheetTitle,function($excel) use($form,$diff,$activeUsers,$allDTRPs,$allECQ, $allUnlocks, $sheetTitle, $headers,$headers2,$headers3,$headers4,$description,$daystart) 
            {
                   $excel->setTitle($sheetTitle.' Summary Report');
 
@@ -198,7 +209,20 @@ class LogsController extends Controller
                     {
                         $t = Carbon::parse($item->serverTime);
 
-                        ($item->manual && User::find($item->id)->isWFH) ? $loc='WFH' : $loc='Onsite';
+                        // look for ECQ stat
+                        $ecq = collect($allECQ)->where('user_id',$item->id);
+
+                        if (count($ecq) > 0)
+                        {
+                          $loc = $ecq->first()->ecqStatus;
+
+                        }else
+                        {
+                          ($item->manual && User::find($item->id)->isWFH) ? $loc='WFH' : $loc='Onsite';
+
+                        }
+
+                        
                         
                         $arr = array($item->accesscode, 
                                      $item->lastname,
