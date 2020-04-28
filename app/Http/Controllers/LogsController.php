@@ -218,7 +218,7 @@ class LogsController extends Controller
 
                         }else
                         {
-                          ($item->manual && User::find($item->id)->isWFH) ? $loc='WFH' : $loc='Onsite';
+                          ($item->manual && User::find($item->id)->isWFH) ? $loc='AHW' : $loc='Onsite';
 
                         }
 
