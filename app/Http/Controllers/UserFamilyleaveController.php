@@ -188,7 +188,7 @@ class UserFamilyleaveController extends Controller
                                                                 where('leaveEnd','<=',$endOfYear->format('Y-m-d H:i:s'))->
                                                                 where('isApproved',true)->get();
 
-                        if (count($hasFiledAlready) > 0 && $type !== 'SPL') return view('access-denied');
+                        //if (count($hasFiledAlready) > 0 && $type !== 'SPL') return view('access-denied');
 
 
                         switch ($type) 
@@ -222,7 +222,7 @@ class UserFamilyleaveController extends Controller
 
                 }
                
-            } else return view('empty'); //view('access-denied');
+            } else return view('access-denied');
 
 
 
