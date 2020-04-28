@@ -202,7 +202,7 @@ class LogsController extends Controller
 
                   // Call them separately
                   $excel->setDescription($description);
-                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form, $headers)
+                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form, $headers,$allECQ)
                   {
                     $sheet->appendRow($headers);
                     foreach($form as $item)
