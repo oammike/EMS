@@ -102,7 +102,7 @@ class UserFamilyleaveController extends Controller
 
     public function create(Request $request)
     {
-        //return view('access-denied');
+       
 
         //check first kung may plotted sched and if approver submitted
         if(is_null($request->for))
@@ -222,7 +222,7 @@ class UserFamilyleaveController extends Controller
 
                 }
                
-            } else return view('access-denied');
+            } else return view('empty'); //view('access-denied');
 
 
 
