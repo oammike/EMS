@@ -1,9 +1,28 @@
 
                 
 
-              <div class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Memo: <br/> <span class="text-primary"><i class="fa fa-file"></i> ASSET DEPLOYMENT PROCESS <br/>FOR AT-HOME-WORKERS<br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>Enabling WFH for Open Access Employees Procedures and User Guide</strong><br/><br/>
+                    This document outlines the policies and procedures for setting up employees to work from home utilizing company-issued equipment during the ECQ period.<br/><br/> 
+
+                    <a href="oampi-resources#resource_8" class="btn btn-sm btn-primary" target="_blank"><i class="fa fa-book"></i> Read Memo &amp; Guidelines </a>
+
+                    </p> 
+
+
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminders: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   Tips and Tricks on How to Stay Productive
-<br/>
+                  <br/>
                   <img src="storage/uploads/remotework.jpg" width="100%" /><br/><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
