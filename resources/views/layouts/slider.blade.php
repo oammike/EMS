@@ -2,6 +2,85 @@
                 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Calling all <strong>agents, specialists,<br/> TL’s, and non-manager support personnel!</strong><br/>
+                  If this is you…<br/>
+
+                   <br/> <span class="text-primary"> THERE IS A NEW <br/><i class="fa fa-clock-o"></i>  TIMECLOCK TOOL FOR YOU!<br/>
+                  EFFECTIVE <strong class="text-danger"> MAY 3, 2020 SUNDAY 11:59 PM </strong><br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong> BUNDY.PH</strong>
+                    Will be your new place to clock in and out at the start and end of your workday<br/><br/>
+                    <img src="storage/uploads/bundy.png" width="100%" /><br/><br/>
+
+
+
+                    <strong class="text-primary"> New Tool Use for Who</strong><br/>
+                    For agents, frontline team members, team leaders, non-manager support personnel
+                    Eg: Specialists, Officers, IT desktop support, QA Analysts, Trainers<br/><br/>
+
+                    <strong class="text-primary"> New Tool Use for What</strong><br/>
+                    Solely for clocking in and clocking out<br/>
+                    This replaces the biometric login terminal and EMS clock<br/><br/>
+
+                    <strong class="text-primary"> New Tool Use Starting When</strong><br/>
+                    May 3, 2020 Sunday 11:59 pm!<br/><br/>
+
+                    <strong class="text-primary"> Accessing the New Timeclock</strong><br/>
+                    Access Codes and Passwords will be generated and assigned by the Timekeeping Team <br/><br/>
+                    Please expect your credentials to be emailed to you directly by the Finance May 1, 2020 Friday. <br/><br/>
+                    No reset is required. <br/><br/>
+                    Be sure to remember them and keep them safe.<br/><br/>
+                    Test them ASAP: <br/><br/><br/>
+                    As soon as you receive your credentials via email, please click the Bundy.ph url and test your assigned access code and password.<br/><br/>
+                    For login issues, reach out to your supervisor for help and ask them to email timekeeping@openaccessbpo.com immediately.<br/><br/>
+
+                    <strong class="text-primary"> Camera Feature Will Not Be Used</strong><br/></strong><br/>
+                    Not all of our deployed computers have webcams. (The Bundy,ph camera feature is optional.)<br/><br/>
+                    Only your Access Code and Password credentials will be required. <br/><br/>
+
+                    <strong class="text-primary"> EMS Continued Use for</strong><br/>
+                     - Validating Daily Time Records<br/><br/>
+                     - Filing Daily Time Record Problems<br/><br/>
+                     - Filing leaves<br/><br/>
+                     - Filing overtime<br/><br/>
+
+                    <strong class="text-primary"> Timekeeping Policies</strong><br/>
+                    While the tool has changed, the existing company policies for timekeeping remain the same.<br/><br/>
+                    Everyone is required to strictly adhere to specific timekeeping rules and regulations in our Employee Manual.<br/><br/>
+                    Timekeeping violations will be penalized. <br/><br/>
+                    Please refer to the Open Access Employee Manual for the sanctions and *discipline schedule.<br/><br/>
+                    *Includes but not limited to: Rule IX Timekeeping & Productivity, Rule III Offense Against Company Interest<br/><br/>
+
+
+                    To prevent inaccurate or inexistent logs negatively impacting your pay, please ensure consistency and accuracy in managing your timekeeping.<br/><br/>
+
+                    <em class="text-success"><strong>Ready to practice? Click <a href="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b" target="_blank">here for the one-minute video and simulation.</a></strong> </em><br/><br/>
+
+
+
+                    <strong>Definitions:</strong><br/>
+                    <em style="font-size: x-small;">*Non-exempt employees are those eligible for overtime, night differential, and holiday premiums.<br/> 
+                     Use Bundy.ph for clock in and clock out. <br/>
+                     Eg: Agents, Frontline Team Members, Team Leaders, Non-Manager Support Personnel, Specialists, Officers, IT Desktop Support, QA   
+                     Analysts, Trainers<br/><br/>
+
+                     Exempt employees are those not eligible for those premiums and enjoy flexible start-times. <br/>
+                     Use EMS for all timekeeping activities.<br/>
+                     Eg: GTL’s, Managers</em>
+
+
+
+
+                  </p>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 1 (Labor Day) <br/><br/>
                   
                     <img src="storage/uploads/divider.png" />
