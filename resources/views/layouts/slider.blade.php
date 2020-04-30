@@ -2,6 +2,41 @@
                 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 1 (Labor Day) <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for May 1, 2020<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;"> Unworked:</strong> <br/><em> provided the employee was present or on leave with pay on the workday prior to the start of May 1, 2020</em><pre> (Basic Pay + Allowance) x 100%</pre><br/><br/>
+
+                    <strong class="text-primary" style="font-size: large;"> Worked:</strong> <br/>
+                    <pre> (Basic Pay + Allowance) x 200%</pre><br/><br/>
+
+                    <strong class="text-primary" style="font-size: large;"> Additional pay for work done <span class="text-danger">in excess of 8 hours</span></strong> <br/>
+                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
+
+                    <strong class="text-primary" style="font-size: large;"> Worked, and falls on the <span class="text-danger"> rest day</span> of the employee</strong> <br/>
+                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;"> Additional pay for work done <span class="text-danger">in excess of 8 hours</span>, and falls on the employee's <span class="text-danger">rest day</span></strong> <br/>
+                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
+
+
+                    Please be guided accordingly.  Thank you.
+
+                  </p>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/> <span class="text-primary"><i class="fa fa-users"></i> All Open Access BPO Leaders<br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -133,30 +168,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
-
-
-                    <strong class="text-primary" style="font-size: large;"> Unworked:</strong> <br/><em>provided the employee (including those on floating status) was present or on leave with pay on the workday prior to the start of the enhanced community quarantine (ECQ) on 17 March 2020.  However, employees who have VTO and on forced-leave on the workday prior to ECQ shall also be entitled to this benefit.</em></p> 
-
-
-                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
-                    <pre>(Basic Pay + Allowance) x 200%</pre>
-                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
-                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
-                    <pre>No additional pay</pre>
- 
-                    
-              </div>
+              
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
