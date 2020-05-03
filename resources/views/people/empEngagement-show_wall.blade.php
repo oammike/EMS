@@ -24,9 +24,6 @@
 
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4);padding:30px">
 
- 
-
-                
                 {!! $engagement[0]->content!!}
 
 

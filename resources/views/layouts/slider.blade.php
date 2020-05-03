@@ -80,6 +80,30 @@
                     
               </div>
 
+              <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/ECQWall_poster.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',5)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+              </div>
+
+              <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement:<br/><span class="text-primary">Let's Get Physical<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/ecq_zumba.jpg" width="100%" /><br/>
+                   
+                    
+                    
+              </div>
+
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 1 (Labor Day) <br/><br/>
                   
