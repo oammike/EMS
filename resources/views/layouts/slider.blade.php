@@ -6,7 +6,7 @@
                   If this is you…<br/>
 
                    <br/> <span class="text-primary"> THERE IS A NEW <br/><i class="fa fa-clock-o"></i>  TIMECLOCK TOOL FOR YOU!<br/>
-                  EFFECTIVE <strong class="text-danger"> MAY 3, 2020 SUNDAY 11:59 PM </strong><br/><br/>
+                  EFFECTIVE <strong class="text-danger">May 5, 2020 at 11:59pm</strong><br/><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
