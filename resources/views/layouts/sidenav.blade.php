@@ -251,6 +251,20 @@
         
 
         <!-- **** GALLERY ******** <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>-->
+        <li class="treeview @if (Request::is('employeeEngagement*')) active @endif">
+          <a href="#" class="text-yellow"><i class="fa fa-2x fa-smile-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Activities </span>
+            <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
+            <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',5)}}"><i class="fa fa-th-large"></i> Wall </a> </li>
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',6)}}"><i class="fa fa-child"></i> Zumba </a> </li>
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',7)}}"><i class="fa fa-child"></i> Aero Kickboxing </a> </li>
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',8)}}"><i class="fa fa-child"></i> Yoga </a> </li>
+            
+
+          </ul>
+        </li>
+
         <li class="treeview @if ( Request::is('gallery') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-picture-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Gallery</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
@@ -356,8 +370,8 @@
 
         @if($floor !== 9)
         <li class="treeview @if (Request::is('userRewards*') || Request::is('reward*') || Request::is('award*')) active @endif">
-          <a href="#" class="text-yellow"><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards </span>
-            <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
+          <a href="#"><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards </span>
+            
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_about')}}"><i class="fa fa-info-circle"></i> About </a> </li>

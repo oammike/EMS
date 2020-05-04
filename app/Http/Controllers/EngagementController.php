@@ -328,15 +328,61 @@ class EngagementController extends Controller
         $mods = [564,534,879,1717,1611,1398,491];
 
         in_array($this->user->id, $mods) ? $canModerate=1 : $canModerate=0;
-        
 
-        $engagement = DB::table('engagement')->where('engagement.id',$id)->
+
+        switch ($id) {
+            case 6: {
+                        $engagement = DB::table('engagement')->where('engagement.id',$id)->
+                                
+                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get(); 
+                        if($this->user->id !== 564 ) 
+                             {
+                                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Check_Zumba [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                             }
+                        return view('people.empEngagement-show_plain',compact('engagement','id'));
+
+            } break;
+
+            case 7: {
+                        $engagement = DB::table('engagement')->where('engagement.id',$id)->
+                                
+                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get(); 
+                        if($this->user->id !== 564 ) 
+                             {
+                                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Check_Aero [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                             }
+                        return view('people.empEngagement-show_plain',compact('engagement','id'));
+
+            } break;
+
+            case 8: {
+                        $engagement = DB::table('engagement')->where('engagement.id',$id)->
+                                
+                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get(); 
+                        if($this->user->id !== 564 ) 
+                             {
+                                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Check_Yoga [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                             }
+                        return view('people.empEngagement-show_plain',compact('engagement','id'));
+
+            } break;
+            
+            default:{
+                        $engagement = DB::table('engagement')->where('engagement.id',$id)->
                                 join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
                                 join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
                                 //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
                                 select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
 
                                 get(); 
+                    }break;
+        }
+        
+
+        
         //return $engagement;
         $triggers = Engagement_Trigger::where('engagement_id',$id)->orderBy('name','ASC')->get(); 
         $itemIDs1 = collect($engagement)->pluck('itemID')->flatten();
