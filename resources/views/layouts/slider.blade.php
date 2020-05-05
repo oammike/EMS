@@ -58,7 +58,49 @@
 
                     To prevent inaccurate or inexistent logs negatively impacting your pay, please ensure consistency and accuracy in managing your timekeeping.<br/><br/>
 
-                    <em class="text-success"><strong>Ready to practice? Click <a href="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b" target="_blank">here for the one-minute video and simulation.</a></strong> </em><br/><br/>
+                    <em class="text-success"><strong>Ready to practice? Login to our LMS at <br/>
+                      <span style="color:#333"> https://open-access.training-online.eu </span>and enroll in the course Bundy.PH. <br/><br/>
+                    To get to the tool and video guide, copy-paste the links below on a browser.</strong> </em><br/><br/>
+
+                     <img src="storage/uploads/divider.png" />
+
+                    <strong class="text-primary"> HOW TO GET THERE</strong>  <img src="storage/uploads/divider.png" /><br><br/>
+
+ 
+
+                    <i class="fa fa-info-circle"></i> If you are using the VPN link to access EMS and Zimbra, copy and paste the tool and video links below on a browser  instead of directly clicking on it from the email or EMS announcement.<br><br/>
+
+                     
+
+                    <i class="fa fa-info-circle"></i> Directly clicking the URL or right-clicking then selecting Copy Link Address from there will not work because extraneous elements are added to them, thus failing to load the web page.<br><br/>
+
+                     
+
+                    If you manually highlight the link and copy, you should be able to get to the new web Bundy tool and the video guide.<br><br/>
+
+ 
+
+ 
+
+                    <strong class="text-primary">LINKS</strong><br><br/>
+
+                     
+
+                     
+
+                    <strong class="text-success"> Bundy.ph Time Tool</strong><br/>
+                    <input class="form-control" type="text" id="bundylink" value="https://bundy.payroll.ph/web/oampi" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                     <br><br/>
+
+                  
+
+                     <strong class="text-success">Web Bundy Video Guide</strong><br> 
+                     <input class="form-control" type="text" id="videolink" value="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b#/" />
+                     <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                    <br><br/>
 
 
 

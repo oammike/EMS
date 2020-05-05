@@ -1141,6 +1141,25 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
    $('#myCarousel').carousel();
 
+   $('.cp.btn.btn-xs.btn-primary').on('click',function(){
+    /* Get the text field */
+    var link = $(this).attr('data-link');
+    var copyText = document.getElementById(link);
+
+    /* Select the text field */
+    console.log(link);
+    console.log(copyText);
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("Link copied to clipboard: " + copyText.value+"\n\nOpen a new browser window, and paste the copied link in the address bar.");
+
+  });
+
  
 
 
