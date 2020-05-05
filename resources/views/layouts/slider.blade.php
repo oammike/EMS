@@ -2,6 +2,54 @@
                 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >All you need to know <br/> to get started with Bundy.ph<br/><img src="storage/uploads/divider.png" /><br/>
+
+                   <br/> <span class="text-primary"> <i class="fa fa-book"></i> Bundy.ph Quick Reference Guide,<br/> FAQs, and Question Page</span>
+                   <input class="form-control" type="text" id="guidelink" value="https://rise.articulate.com/share/EhUIcrxCbSRNuoP42zxTUf4RrC8ZyFrD" />
+                   <button class="cp btn btn-xs btn-primary" data-link="guidelink">Copy Link <i class="fa fa-external-link"></i></button>
+                    <br/><br/>
+                   <img src="storage/uploads/bundyguide.png" width="98%" />
+                    
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong> How to pull up the Bundy.ph Quick Reference Guide, FAQs, and Question Page:</strong><br/><br/>
+                   
+
+
+                    If you are using the VPN link to access EMS and Zimbra, copy and paste the  link above on a browser  instead of directly clicking on it from the email or EMS announcement.<br/><br/>
+
+                     
+
+                     
+
+                    <strong class="text-primary"> Other important links:</strong><br/><br/>
+
+                    <strong class="text-success"> Bundy.ph Time Tool</strong><br/>
+                    <input class="form-control" type="text" id="bundylink" value="https://bundy.payroll.ph/web/oampi" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                     <br><br/>
+
+                  
+
+                     <strong class="text-success">Web Bundy Video Guide</strong><br> 
+                     <input class="form-control" type="text" id="videolink" value="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b#/" />
+                     <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                    <br><br/>
+
+
+
+
+
+
+                  </p>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Calling all <strong>agents, specialists,<br/> TL’s, and non-manager support personnel!</strong><br/>
                   If this is you…<br/>
 
