@@ -188,8 +188,8 @@
                     <img src="storage/uploads/divider.png" />
                     </h4>
 
-                    <img src="storage/uploads/ecq_zumba.jpg" width="100%" /><br/>
-                    <img src="storage/uploads/zumba_invite.jpg" width="100%" /><br/>
+                    <img src="storage/uploads/physicalinvite.jpg" width="100%" /><br/><img src="storage/uploads/ecq_zumba.jpg" width="100%" /><br/>
+                    
                    
                     
                     
