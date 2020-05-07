@@ -1643,6 +1643,236 @@ class DTRController extends Controller
 
     }
 
+    public function finance_JPS()
+    {
+      DB::connection()->disableQueryLog();
+
+      $templates = collect([
+                              ['id'=>1,'name'=>'Overtime'],
+                              ['id'=>2,'name'=>'Leaves'],
+                              ['id'=>3,'name'=>'Change Shift Schedules'],
+
+      ]);
+      
+
+
+      $cutoffData = $this->getCutoffStartEnd();
+      $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
+      $cutoffEnd = $cutoffData['cutoffEnd'];
+
+       //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+      $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
+
+      
+      $allUsers = DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                    ['users.status_id', '!=', 13],
+                    ['users.status_id', '!=', 16],
+                ])->
+        leftJoin('team','team.user_id','=','users.id')->
+        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+        leftJoin('positions','users.position_id','=','positions.id')->
+        leftJoin('floor','team.floor_id','=','floor.id')->
+        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+
+        // $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->
+        //                   where([
+        //                     ['campaign.id', '!=','26'], //wv
+        //                     ['campaign.id', '!=','35'], //ceb
+
+        //                   ])->orderBy('name')->get();//
+        //$byTL = collect($allUsers)->groupBy('tlID');
+        //$allTL = $byTL->keys();
+        //return collect($allUsers)->where('campID',7);
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed Finance_DTRsheets on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+        
+      
+
+      return view('timekeeping.finance_JPS',compact('payrollPeriod','paycutoffs','templates'));
+
+    }
+
+
+    public function finance_getJPs(Request $request)
+    {
+      //------ Template type 1= OT | 2= Leaves | 3= CWS
+      switch ($request->template) {
+        case 1: $result = $this->getAllOT($request->cutoff); break;
+        case 2: $result = $this->getAllOT($request->cutoff); break;
+        case 3: $result = $this->getAllOT($request->cutoff); break;
+      }
+
+      
+
+      return $result;
+
+    }
+
+    public function finance_dlJPS(Request $request)
+    {
+      // $dtr = $request->dtr;
+      // $cutoff = explode('_', $request->cutoff);
+      DB::connection()->disableQueryLog();
+      $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
+      $cutoffEnd = Carbon::parse($request->cutoffend,'Asia/Manila');
+      $jpsData = $request->jpsData;
+      $template = $request->template;
+
+      switch ($template) {
+        case '1': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
+        case '2': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="LeaveFiling";} break;
+        case '3': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="ChangeShiftSchedules"; } break; 
+      
+      }
+
+      $description = $type." for cutoff: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
+
+
+      $correct = Carbon::now('GMT+8'); 
+
+      if ($template == '1') // DTR sheets
+      {
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n JPS_".$type." cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
+        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
+              {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description)
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+
+                        foreach($jpsData as $jps)
+                        {
+                          $i = 0;
+
+                          if(count($jps) > 1)
+                          {
+                            foreach ($jps as $j) 
+                            {
+                              $c=0;
+                              $arr[$c] = $j['accesscode']; $c++;
+                              $arr[$c] = $j['lastname'].", ".$j['firstname']; $c++;
+
+                              $s = Carbon::parse($j['productionDate']." ".$j['timeStart'],'Asia/Manila');
+                              $e =  Carbon::parse($j['productionDate']." ".$j['timeStart'],'Asia/Manila')->addHours($j['filed_hours']);
+
+                              //*** ShiftDate
+                              $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                              //*** StartDate
+                              $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                              //*** StartTime
+                              $arr[$c] = $s->format('h:i A'); $c++;
+
+                              //*** EndDate
+                              $arr[$c] = $e->format('m/d/Y'); $c++;
+
+                              //*** EndTime
+                              $arr[$c] = $e->format('h:i A'); $c++;
+
+                              //*** Status
+                              if($j['isApproved'] == '1') $stat = "Approved";
+                              else if ($j['isApproved'] == '0') $stat = "Denied";
+                              else $stat = "Pending Approval";
+
+                              $arr[$c] = $stat; $c++;
+
+                              //*** HoursFiled
+                              $arr[$c] = $j['billable_hours'];$c++;
+
+                               //*** HoursApproved
+                              $arr[$c] = $j['filed_hours'];$c++;
+
+                              $sheet->appendRow($arr);
+                              
+                            }
+
+                          }
+                          else
+                          {
+                            $arr[$i] = $jps[0]['accesscode']; $i++;
+                            $arr[$i] = $jps[0]['lastname'].", ".$jps[0]['firstname']; $i++;
+
+                            $s = Carbon::parse($jps[0]['productionDate']." ".$jps[0]['timeStart'],'Asia/Manila');
+                            $e =  Carbon::parse($jps[0]['productionDate']." ".$jps[0]['timeStart'],'Asia/Manila')->addHours($jps[0]['filed_hours']);
+
+                            //*** ShiftDate
+                            $arr[$i] = $s->format('m/d/Y'); $i++;
+
+                            //*** StartDate
+                            $arr[$i] = $s->format('m/d/Y'); $i++;
+
+                            //*** StartTime
+                            $arr[$i] = $s->format('h:i A'); $i++;
+
+                            //*** EndDate
+                            $arr[$i] = $e->format('m/d/Y'); $i++;
+
+                            //*** EndTime
+                            $arr[$i] = $e->format('h:i A'); $i++;
+
+                            //*** Status
+                            if($jps[0]['isApproved'] == '1') $stat = "Approved";
+                            else if ($jps[0]['isApproved'] == '0') $stat = "Denied";
+                            else $stat = "Pending Approval";
+
+                            $arr[$i] = $stat; $i++;
+
+                            //*** HoursFiled
+                            $arr[$i] = $jps[0]['billable_hours'];$i++;
+
+                             //*** HoursApproved
+                            $arr[$i] = $jps[0]['filed_hours'];$i++;
+
+                            $sheet->appendRow($arr);
+
+                          }
+
+                        }//end foreach employee
+
+                        
+                      });//end sheet1
+
+              })->export('xls');return "Download";
+      }
+
+      
+
+      //return response()->json(['data'=>$jpsData,'template'=>$template, 'cutoffstart'=>$cutoffStart,'cutoffend'=>$cutoffEnd]);
+
+
+
+    }
+
+
+
     public function getValidatedDTRs(Request $request)
     {
       //------ Report type 1= DTR logs | 2= Summary

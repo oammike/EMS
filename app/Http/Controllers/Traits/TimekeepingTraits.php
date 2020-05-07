@@ -931,6 +931,34 @@ trait TimekeepingTraits
 
   }
 
+  public function getAllOT($c)
+  {
+    $cutoff = explode('_', $c);
+    $startCutoff = Biometrics::where('productionDate',$cutoff[0])->first();
+    $endCutoff = Biometrics::where('productionDate',$cutoff[1])->first();
+    $period = Biometrics::where('productionDate','>=',$startCutoff->productionDate)->where('productionDate','<=',$endCutoff->productionDate)->get();
+    //return $period;
+
+    $allOTs = new Collection;
+    $total = 0;
+
+    foreach ($period as $p) {
+       $ot = DB::table('user_ot')->where([ 
+                    ['user_ot.biometrics_id',$p->id]
+                    ])->join('users','users.id','=','user_ot.user_id')->
+                    join('biometrics','user_ot.biometrics_id','=','biometrics.id')->
+                  select('biometrics.productionDate','user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+      if (count($ot) > 0) {
+        $allOTs->push($ot);
+        $total += count($ot);
+      }
+        
+    }
+
+    return response()->json(['OTs'=>$allOTs, 'total'=>$total, 'name'=>'Overtime', 'cutoffstart'=>$startCutoff->productionDate,'cutoffend'=>$endCutoff->productionDate]);
+
+  }
+
 
   
 

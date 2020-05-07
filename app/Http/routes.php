@@ -753,6 +753,19 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'financeReports',
       'uses'=>'DTRController@financeReports') );
 
+      Route::get('/finance_JPS', array(
+      'as'=> 'finance_JPS',
+      'uses'=>'DTRController@finance_JPS') );
+
+      Route::post('/finance_getJPS', array(
+      'as'=> 'user_dtr.finance_getJPS',
+      'uses'=>'DTRController@finance_getJPS') );
+
+      Route::post('/finance_dlJPS', array(
+      'as'=> 'user_dtr.finance_dlJPS',
+      'uses'=>'DTRController@finance_dlJPS') );
+
+
       Route::get('/myDTR', array(
       'as'=> 'user_dtr.myDTR',
       'uses'=>'DTRController@myDTR') );

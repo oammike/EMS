@@ -504,6 +504,8 @@
 
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@financeReports')}}"><i class="fa fa-clipboard"></i> Finance Reports</a></li>
 
+            <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@finance_JPS')}}"><i class="fa fa-calculator"></i>JPS Templates </a></li>
+
            
 
             <hr /><!--  --> 
