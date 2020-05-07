@@ -22,8 +22,8 @@
 
 
           <div class="row">
-            <!-- <form id="dtrform" action="action('DTRController@finance_dlJPS')}}" method="POST">
- -->
+            <form id="dtrform" action="{{action('DTRController@finance_dlJPS')}}" method="POST">
+
             <div class="col-lg-1"></div>
             <div class="col-lg-10" style="background: rgba(255, 255, 255, 0.4);"><BR/><BR/>
               <h3 class="text-primary">1. <span style="font-size: smaller;"> Select cutoff period :</span></h3>
@@ -35,7 +35,7 @@
               </select>
               <h3 class="text-primary">2. <span style="font-size: smaller;"> Select JPS Template :</span></h3>
               <select class="form-control" name="program" disabled="disabled">
-                <option value="0">select program</option>
+                <option value="0">select a template</option>
                 @foreach($templates as $p)
                 <option value="{{$p['id']}}" data-name="{{$p['name']}}"> {{$p['name']}} </option>
                 @endforeach
@@ -75,7 +75,7 @@
 
                 <p class="text-center"> 
                   <button type="submit" class="btn btn-md btn-success" id="dl"><i class="fa fa-save"></i> Download Spreadsheet</button> 
-                  <input type="hidden" name="dltype" id="dltype" />
+                  <input type="hidden" name="template" id="dltype" />
                   
 
                 </p>
@@ -261,8 +261,10 @@
 
   
 
-  $('#dl2').on('click',function(){
-      $('input[name="dltype"]').val(2);
+  $('#dl').on('click',function(){
+      //$('input[name="dltype"]').val(2);
+       $.notify("Processing spreadsheet for download.\nPlease wait...",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                  
   });
 
   $('select[name="program"]').change(function(){
@@ -305,9 +307,13 @@
                   var jpsData = response.OTs;
                   var cutoffstart = response.cutoffstart;
                   var cutoffend = response.cutoffend;
+
+                  $('input[name="template"]').val(selval);
+                  $('input[name="cutoffstart"]').val(cutoffstart);
+                  $('input[name="cutoffend"]').val(cutoffend);
                   
 
-                  $('#dl').on('click',function(){
+                  /*$('#dl').on('click',function(){
                       $('input[name="dltype"]').val(1);
 
                       $.notify("Processing spreadsheet for download.\nPlease wait...",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
@@ -328,7 +334,7 @@
                               }
                             });
 
-                  });
+                  });*/
 
                   /*var rdata = [];
 

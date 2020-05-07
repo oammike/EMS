@@ -931,13 +931,13 @@ trait TimekeepingTraits
 
   }
 
-  public function getAllOT($c)
+  public function getAllOT($c, $json)
   {
-    $cutoff = explode('_', $c);
-    $startCutoff = Biometrics::where('productionDate',$cutoff[0])->first();
-    $endCutoff = Biometrics::where('productionDate',$cutoff[1])->first();
-    $period = Biometrics::where('productionDate','>=',$startCutoff->productionDate)->where('productionDate','<=',$endCutoff->productionDate)->get();
-    //return $period;
+    $cutoff = explode('_', $c); //return $cutoff;
+    $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
+    $endCutoff = $cutoff[1]; //Biometrics::where('productionDate',$cutoff[1])->first();
+    $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+    //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
 
     $allOTs = new Collection;
     $total = 0;
@@ -954,8 +954,10 @@ trait TimekeepingTraits
       }
         
     }
-
-    return response()->json(['OTs'=>$allOTs, 'total'=>$total, 'name'=>'Overtime', 'cutoffstart'=>$startCutoff->productionDate,'cutoffend'=>$endCutoff->productionDate]);
+    if ($json)
+      return response()->json(['OTs'=>$allOTs, 'total'=>$total, 'name'=>'Overtime', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+    else
+      return $allOTs;
 
   }
 

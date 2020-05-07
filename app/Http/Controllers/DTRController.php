@@ -1710,9 +1710,9 @@ class DTRController extends Controller
     {
       //------ Template type 1= OT | 2= Leaves | 3= CWS
       switch ($request->template) {
-        case 1: $result = $this->getAllOT($request->cutoff); break;
-        case 2: $result = $this->getAllOT($request->cutoff); break;
-        case 3: $result = $this->getAllOT($request->cutoff); break;
+        case 1: $result = $this->getAllOT($request->cutoff,1); break;
+        case 2: $result = $this->getAllOT($request->cutoff,1); break;
+        case 3: $result = $this->getAllOT($request->cutoff,1); break;
       }
 
       
@@ -1724,11 +1724,21 @@ class DTRController extends Controller
     public function finance_dlJPS(Request $request)
     {
       // $dtr = $request->dtr;
-      // $cutoff = explode('_', $request->cutoff);
+      $cutoff = $request->cutoffstart."_".$request->cutoffend;
       DB::connection()->disableQueryLog();
       $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
       $cutoffEnd = Carbon::parse($request->cutoffend,'Asia/Manila');
-      $jpsData = $request->jpsData;
+
+      //------ Template type 1= OT | 2= Leaves | 3= CWS
+      switch ($request->template) {
+        case '1': $result = $this->getAllOT($cutoff,0); break;
+        case '2': $result = $this->getAllOT($cutoff,0); break;
+        case '3': $result = $this->getAllOT($cutoff,0); break;
+      }
+
+      //return $result;
+
+      $jpsData = $result;
       $template = $request->template;
 
       switch ($template) {
@@ -1776,11 +1786,11 @@ class DTRController extends Controller
                             foreach ($jps as $j) 
                             {
                               $c=0;
-                              $arr[$c] = $j['accesscode']; $c++;
-                              $arr[$c] = $j['lastname'].", ".$j['firstname']; $c++;
+                              $arr[$c] = $j->accesscode; $c++;
+                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
-                              $s = Carbon::parse($j['productionDate']." ".$j['timeStart'],'Asia/Manila');
-                              $e =  Carbon::parse($j['productionDate']." ".$j['timeStart'],'Asia/Manila')->addHours($j['filed_hours']);
+                              $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                              $e =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
 
                               //*** ShiftDate
                               $arr[$c] = $s->format('m/d/Y'); $c++;
@@ -1798,17 +1808,17 @@ class DTRController extends Controller
                               $arr[$c] = $e->format('h:i A'); $c++;
 
                               //*** Status
-                              if($j['isApproved'] == '1') $stat = "Approved";
-                              else if ($j['isApproved'] == '0') $stat = "Denied";
+                              if($j->isApproved == '1') $stat = "Approved";
+                              else if ($j->isApproved == '0') $stat = "Denied";
                               else $stat = "Pending Approval";
 
                               $arr[$c] = $stat; $c++;
 
                               //*** HoursFiled
-                              $arr[$c] = $j['billable_hours'];$c++;
+                              $arr[$c] = $j->billable_hours;$c++;
 
                                //*** HoursApproved
-                              $arr[$c] = $j['filed_hours'];$c++;
+                              $arr[$c] = $j->filed_hours;$c++;
 
                               $sheet->appendRow($arr);
                               
@@ -1817,11 +1827,11 @@ class DTRController extends Controller
                           }
                           else
                           {
-                            $arr[$i] = $jps[0]['accesscode']; $i++;
-                            $arr[$i] = $jps[0]['lastname'].", ".$jps[0]['firstname']; $i++;
+                            $arr[$i] = $jps[0]->accesscode; $i++;
+                            $arr[$i] = $jps[0]->lastname.", ".$jps[0]->firstname; $i++;
 
-                            $s = Carbon::parse($jps[0]['productionDate']." ".$jps[0]['timeStart'],'Asia/Manila');
-                            $e =  Carbon::parse($jps[0]['productionDate']." ".$jps[0]['timeStart'],'Asia/Manila')->addHours($jps[0]['filed_hours']);
+                            $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+                            $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
 
                             //*** ShiftDate
                             $arr[$i] = $s->format('m/d/Y'); $i++;
@@ -1839,17 +1849,17 @@ class DTRController extends Controller
                             $arr[$i] = $e->format('h:i A'); $i++;
 
                             //*** Status
-                            if($jps[0]['isApproved'] == '1') $stat = "Approved";
-                            else if ($jps[0]['isApproved'] == '0') $stat = "Denied";
+                            if($jps[0]->isApproved == '1') $stat = "Approved";
+                            else if ($jps[0]->isApproved == '0') $stat = "Denied";
                             else $stat = "Pending Approval";
 
                             $arr[$i] = $stat; $i++;
 
                             //*** HoursFiled
-                            $arr[$i] = $jps[0]['billable_hours'];$i++;
+                            $arr[$i] = $jps[0]->billable_hours;$i++;
 
                              //*** HoursApproved
-                            $arr[$i] = $jps[0]['filed_hours'];$i++;
+                            $arr[$i] = $jps[0]->filed_hours;$i++;
 
                             $sheet->appendRow($arr);
 
