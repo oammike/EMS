@@ -1916,7 +1916,20 @@ class DTRController extends Controller
                               $arr[$c] = $s->format('m/d/Y'); $c++;
 
                               //*** LeaveCOde
-                              $arr[$c] = $jps['type']; $c++;
+                              
+
+                               //*** LeaveCOde
+                              if($jps['type'] == 'FL')
+                              {
+                                $arr[$c] = $jps['data'][0]->leaveType; $c++;
+
+                              }else
+                              {
+                                $arr[$c] = $jps['type']; $c++;
+
+                              }
+
+
 
                               //*** Quantity
                               $arr[$c] = $j->totalCredits; $c++;
@@ -1955,7 +1968,16 @@ class DTRController extends Controller
                             $arr[$i] = $s->format('m/d/Y'); $i++;
 
                             //*** LeaveCOde
-                            $arr[$i] = $jps['type']; $i++;
+                            if($jps['type'] == 'FL')
+                            {
+                              $arr[$i] = $jps['data'][0]->leaveType; $i++;
+
+                            }else
+                            {
+                              $arr[$i] = $jps['type']; $i++;
+
+                            }
+                            
 
                             //*** Quantity
                             $arr[$i] = $jps['data'][0]->totalCredits; $i++;

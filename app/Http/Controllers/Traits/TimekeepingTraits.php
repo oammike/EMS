@@ -965,12 +965,20 @@ trait TimekeepingTraits
                   
                 select('user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.created_at', 'user_lwop.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
+    $FL = DB::table('user_familyleaves')->where([ 
+                  ['user_familyleaves.leaveStart','>=', $startCutoff." 00:00:00"],
+                  ['user_familyleaves.leaveEnd','<=', $endCutoff." 23:59:00"],
+                  ])->join('users','users.id','=','user_familyleaves.user_id')->
+                  
+                select('user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.created_at', 'user_familyleaves.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+
     
-    $total = count($VL) + count($SL) + count($LWOP);
+    $total = count($VL) + count($SL) + count($LWOP) + count($FL);
 
     if (count($VL) > 0) $allLeaves->push(['type'=>"VL", 'data'=>$VL]);
     if (count($SL) > 0) $allLeaves->push(['type'=>'SL', 'data'=>$SL]);
     if (count($LWOP) > 0) $allLeaves->push(['type'=>'LWOP', 'data'=>$LWOP]);
+    if (count($FL) > 0) $allLeaves->push(['type'=>'FL', 'data'=>$FL]);
         
     
     if ($json)
