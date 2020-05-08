@@ -1915,6 +1915,9 @@ class DTRController extends Controller
                               //*** LeaveDate
                               $arr[$c] = $s->format('m/d/Y'); $c++;
 
+                              //*** LeaveCOde
+                              $arr[$c] = $jps['type']; $c++;
+
                               //*** Quantity
                               $arr[$c] = $j->totalCredits; $c++;
 
@@ -1950,6 +1953,9 @@ class DTRController extends Controller
 
                             //*** LeaveDate
                             $arr[$i] = $s->format('m/d/Y'); $i++;
+
+                            //*** LeaveCOde
+                            $arr[$i] = $jps['type']; $i++;
 
                             //*** Quantity
                             $arr[$i] = $jps['data'][0]->totalCredits; $i++;
