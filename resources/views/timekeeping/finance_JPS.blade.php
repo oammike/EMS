@@ -142,6 +142,8 @@
   $('select[name="cutoff"]').change(function(){
     var selval = $(this).find(':selected').val();
     var seldept = $('select[name="program"] :selected').val();
+    var selname = $('select[name="program"] :selected').attr('data-name');
+    //var selname = $(this).find(':selected').attr('data-name');
 
     if (selval == 0){
 
@@ -163,92 +165,43 @@
           var cutoff = $('select[name="cutoff"]').find(':selected').val();
           $('#loader').fadeIn();
 
-
           $.ajax({
-                    url: "{{action('DTRController@getValidatedDTRs')}}",
-                    type:'POST',
-                    data:{ 
-                      'cutoff': cutoff,
-                      'program': seldept,
-                      '_token':_token
-                    },
-                    success: function(response){
-                      //console.log(response);
-                      $('.notes').fadeIn();
+                url: "{{action('DTRController@finance_getJPS')}}",
+                type:'POST',
+                data:{ 
+                  'cutoff': cutoff,
+                  'template': seldept,
+                  'name': selname,
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
 
-                      $('#submitted').html('('+response.submitted+')');
-                      $('#total').html('('+response.total+') team members ');
-                      $('#programName').html(response.program);
+                  $('.notes').fadeIn();
+                  $('#loader').fadeOut();
+                  $('#submitted').html('('+response.total+')');
+                  //$('#total').html('('+response.total+') team members ');
+                  $('#programName').html(response.name);
+                  $('#jpsData').val(response.OTs);
 
-                      var rdata = [];
+                  var jpsData = response.OTs;
+                  var cutoffstart = response.cutoffstart;
+                  var cutoffend = response.cutoffend;
 
-                     
-                      $('#loader').fadeOut();
-                      $('#submitted').html('('+response.submitted+')');
-                      $('#total').html('('+response.total+') team members ');
-                      $('#programName').html(response.program);
+                  $('input[name="template"]').val(selval);
+                  $('input[name="cutoffstart"]').val(cutoffstart);
+                  $('input[name="cutoffend"]').val(cutoffend);
+                   $('#loader').fadeOut();  
+                  
 
-                      var rdata = response.DTRs;
-                      var cutoffstart = response.cutoffstart;
-                      var cutoffend = response.cutoffend;
-                      var program = response.program;
-                      var members = response.users;
-                      //console.log("array data:");
-                      console.log(rdata);
+                  
 
-                      //$('input[name="dtr"]').val(jQuery.param(rdata));
-                      $('input[name="cutoffstart"]').val(cutoffstart);
-                      $('input[name="cutoffend"]').val(cutoffend);
-
-                      $('#team').html('');
-
-                      var htmltags="<tr><th>Employee</th><th>Immediate Head</th><th class='text-right'>Locked DTR entries</th><th></th></tr>";// "<tr>";
-
-                      if (members.length > 1)
-                      {
-                        var totalDTR = response.payrollPeriod.length;
-
-                        for(var i = 0; i < members.length; i++)
-                        {
-
-                          var userid = members[i]['id'];
-                          var count = rdata.filter((obj) => obj.id === userid).length;
+                  
+                }
+              });
 
 
-                          if (count == totalDTR ){
-                            htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                            htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
-                            htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
-
-                          }
-                          
-                          else{
-
-                            htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                            htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
-                            htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
-                          }
-
-                          
-
-                        }
-                        htmltags += "</table>";
-
-                      }else{
-                        htmltags += "<td>"+ members[i]['lastname']+", "+members[i]['firstname']+"</td></tr>";
-
-                      }
-                      console.log(members.length);
-
-                      
-                      
-
-                      $('#team').html(htmltags)
-                      
-                    }
-                  });
+         
 
 
       }
@@ -313,109 +266,7 @@
                   $('input[name="cutoffend"]').val(cutoffend);
                   
 
-                  /*$('#dl').on('click',function(){
-                      $('input[name="dltype"]').val(1);
-
-                      $.notify("Processing spreadsheet for download.\nPlease wait...",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                   
-                      console.log(jpsData);
-                      $.ajax({
-                              url: "{{action('DTRController@finance_dlJPS')}}",
-                              type:'POST',
-                              data:{ 
-                                'cutoffstart': cutoffstart,
-                                'cutoffend': cutoffend,
-                                'jpsData': jpsData,
-                                'template': selval,
-                                '_token':_token
-                              },
-                              success: function(res){ 
-                                console.log('result');console.log(res);
-                              }
-                            });
-
-                  });*/
-
-                  /*var rdata = [];
-
-                      $('.notes').fadeIn();
-                      $('#submitted').html('('+response.submitted+')');
-                      $('#total').html('('+response.total+') team members ');
-                      $('#programName').html(response.program);
-
-                      var rdata = response.DTRs;
-                      var cutoffstart = response.cutoffstart;
-                      var cutoffend = response.cutoffend;
-                      var program = response.program;
-                      var members = response.users;
-                      //console.log("array data:");
-                      console.log(rdata);
-
-                      $('input[name="cutoffstart"]').val(cutoffstart);
-                      $('input[name="cutoffend"]').val(cutoffend);
-
-                      $('#team').html('');
-
-                      var htmltags="<tr><th>Employee</th><th>Immediate Head</th><th class='text-right'>Locked DTR entries</th>th class='text-center'>Time IN</th>th class='text-center'>Time OUT</th><th></th></tr>";// "<tr>";
-
-                      if (members.length > 1)
-                      {
-                        var totalDTR = response.payrollPeriod.length;
-
-                        for(var i = 0; i < members.length; i++)
-                        {
-
-                          var userid = members[i]['id'];
-                          var count = rdata.filter((obj) => obj.id === userid).length;
-
-
-                          if (count == totalDTR ){
-                             htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                             htmltags += "<td style='font-weight:bold'>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
-                              htmltags += "<td class='text-right' style='font-weight:bold'>"+ count +" / "+ totalDTR +"</td>";
-                              
-                              htmltags += "<td class='text-center' style='font-weight:bold'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
-                          }
-                         
-
-                          else{
-
-                            if (count>0){
-                              htmltags += "<tr><td style='font-weight:bold'>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                              htmltags += "<td style='font-weight:bold'>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
-                              htmltags += "<td class='text-right' style='font-weight:bold'>"+ count +" / "+ totalDTR +"</td>";
-                              
-                              htmltags += "<td class='text-center' style='font-weight:bold'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
-
-                            }else{
-                              htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                              htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
-                              htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                              
-                              htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
-
-                            }
-
-                            
-
-                          }
-
-                          
-                        }
-                        htmltags += "</table>";
-
-                      }else{
-                        htmltags += "<td>"+ members[i]['lastname']+", "+members[i]['firstname']+"</td></tr>";
-
-                      }
-                      console.log(members.rdata);
-
-                      
-                      
-
-                      $('#team').html(htmltags)
-                      
-                    */
 
                   
                 }
