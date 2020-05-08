@@ -931,6 +931,46 @@ trait TimekeepingTraits
 
   }
 
+  public function getAllLeaves($c, $json)
+  {
+    $cutoff = explode('_', $c); //return $cutoff;
+    $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
+    $endCutoff = $cutoff[1]; //Biometrics::where('productionDate',$cutoff[1])->first();
+    //$period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+    //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
+
+    DB::connection()->disableQueryLog();
+
+    $allOTs = new Collection;
+    $total = 0;
+    $allLeaves = new Collection;
+
+    $VL = DB::table('user_vl')->where([ 
+                  ['user_vl.leaveStart','>=', $startCutoff." 00:00:00"],
+                  ['user_vl.leaveEnd','<=', $endCutoff." 23:59:00"],
+                  ])->join('users','users.id','=','user_vl.user_id')->
+                  
+                select('user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.created_at', 'user_vl.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+    $SL = DB::table('user_sl')->where([ 
+                  ['user_sl.leaveStart','>=', $startCutoff." 00:00:00"],
+                  ['user_sl.leaveEnd','<=', $endCutoff." 23:59:00"],
+                  ])->join('users','users.id','=','user_sl.user_id')->
+                  
+                select('user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.created_at', 'user_sl.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+    
+    $total = count($VL) + count($SL);
+
+    if (count($VL) > 0) $allLeaves->push(['type'=>"VL", 'data'=>$VL]);
+    if (count($SL) > 0) $allLeaves->push(['type'=>'SL', 'data'=>$SL]);
+        
+    
+    if ($json)
+      return response()->json(['leaves'=>$allLeaves, 'total'=>$total, 'name'=>"leave", 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+    else
+      return $allLeaves;
+
+  }
+
   public function getAllOT($c, $json)
   {
     $cutoff = explode('_', $c); //return $cutoff;
@@ -960,7 +1000,6 @@ trait TimekeepingTraits
       return $allOTs;
 
   }
-
 
   
 

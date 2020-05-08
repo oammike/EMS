@@ -1711,7 +1711,7 @@ class DTRController extends Controller
       //------ Template type 1= OT | 2= Leaves | 3= CWS
       switch ($request->template) {
         case 1: $result = $this->getAllOT($request->cutoff,1); break;
-        case 2: $result = $this->getAllOT($request->cutoff,1); break;
+        case 2: $result = $this->getAllLeaves($request->cutoff,1); break;
         case 3: $result = $this->getAllOT($request->cutoff,1); break;
       }
 
@@ -1732,18 +1732,18 @@ class DTRController extends Controller
       //------ Template type 1= OT | 2= Leaves | 3= CWS
       switch ($request->template) {
         case '1': $result = $this->getAllOT($cutoff,0); break;
-        case '2': $result = $this->getAllOT($cutoff,0); break;
+        case '2': $result = $this->getAllLeaves($cutoff,0); break;
         case '3': $result = $this->getAllOT($cutoff,0); break;
       }
 
-      //return $result;
+      //return $result[0];
 
       $jpsData = $result;
       $template = $request->template;
 
       switch ($template) {
         case '1': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
-        case '2': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="LeaveFiling";} break;
+        case '2': { $headers = ['AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
         case '3': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="ChangeShiftSchedules"; } break; 
       
       }
@@ -1753,7 +1753,7 @@ class DTRController extends Controller
 
       $correct = Carbon::now('GMT+8'); 
 
-      if ($template == '1') // DTR sheets
+      if ($template == '1') // OVERTIME
       {
 
         if($this->user->id !== 564 ) {
@@ -1860,6 +1860,115 @@ class DTRController extends Controller
 
                              //*** HoursApproved
                             $arr[$i] = $jps[0]->filed_hours;$i++;
+
+                            $sheet->appendRow($arr);
+
+                          }
+
+                        }//end foreach employee
+
+                        
+                      });//end sheet1
+
+              })->export('xls');return "Download";
+      }
+      else if ($template == '2') // LEAVES
+      {
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n JPS_".$type." cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
+        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
+              {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description)
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+
+                        foreach($jpsData as $jps)
+                        {
+                          $i = 0;
+
+                          if(count($jps['data']) > 1)
+                          {
+                            foreach ($jps['data'] as $j) 
+                            {
+                              $c=0;
+                              //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
+                              $arr[$c] = $j->accesscode; $c++;
+                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+                              $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                              $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                              //*** LeaveDate
+                              $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                              //*** Quantity
+                              $arr[$c] = $j->totalCredits; $c++;
+
+                              //*** Status
+                              if($j->isApproved == '1') $stat = "Approved";
+                              else if ($j->isApproved == '0') $stat = "Denied";
+                              else $stat = "Pending Approval";
+
+                              $arr[$c] = $stat; $c++;
+
+                              //*** Comment
+                              $arr[$c] = $j->notes; $c++;
+
+                              //*** Date Files
+                              $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $i++;
+
+                              //remarks
+                              $arr[$c] = $stat; $c++;
+
+                              $sheet->appendRow($arr);
+                              
+                            }
+
+                          }
+                          else
+                          {
+                            //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
+                            $arr[$i] = $jps['data'][0]->accesscode; $i++;
+                            $arr[$i] = $jps['data'][0]->lastname.", ".$jps['data'][0]->firstname; $i++;
+
+                            $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                            $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+
+                            //*** LeaveDate
+                            $arr[$i] = $s->format('m/d/Y'); $i++;
+
+                            //*** Quantity
+                            $arr[$i] = $jps['data'][0]->totalCredits; $i++;
+
+                            //*** Status
+                            if($jps['data'][0]->isApproved == '1') $stat = "Approved";
+                            else if ($jps['data'][0]->isApproved == '0') $stat = "Denied";
+                            else $stat = "Pending Approval";
+
+                            $arr[$i] = $stat; $i++;
+
+                            //*** Comment
+                            $arr[$i] = $jps['data'][0]->notes; $i++;
+
+                            //*** Date Files
+                            $arr[$i] = date('m/d/Y', strtotime($jps['data'][0]->created_at)); $i++;
+
+                            //remarks
+                            $arr[$i] = $stat; $i++;
 
                             $sheet->appendRow($arr);
 
