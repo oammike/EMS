@@ -1712,7 +1712,7 @@ class DTRController extends Controller
       switch ($request->template) {
         case 1: $result = $this->getAllOT($request->cutoff,1); break;
         case 2: $result = $this->getAllLeaves($request->cutoff,1); break;
-        case 3: $result = $this->getAllOT($request->cutoff,1); break;
+        case 3: $result = $this->getAllCWS($request->cutoff,1); break;
       }
 
       
@@ -1733,7 +1733,7 @@ class DTRController extends Controller
       switch ($request->template) {
         case '1': $result = $this->getAllOT($cutoff,0); break;
         case '2': $result = $this->getAllLeaves($cutoff,0); break;
-        case '3': $result = $this->getAllOT($cutoff,0); break;
+        case '3': $result = $this->getAllCWS($cutoff,0); break;
       }
 
       //return $result[0];
@@ -1744,7 +1744,7 @@ class DTRController extends Controller
       switch ($template) {
         case '1': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
         case '2': { $headers = ['AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
-        case '3': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="ChangeShiftSchedules"; } break; 
+        case '3': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="ChangeShiftSchedules"; } break; 
       
       }
 
@@ -1997,6 +1997,143 @@ class DTRController extends Controller
 
                             //remarks
                             $arr[$i] = $stat; $i++;
+
+                            $sheet->appendRow($arr);
+
+                          }
+
+                        }//end foreach employee
+
+                        
+                      });//end sheet1
+
+              })->export('xls');return "Download";
+      }
+      else if ($template == '3') // CWS
+      {
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n JPS_".$type." cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
+        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
+              {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description)
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+
+                        foreach($jpsData as $jps)
+                        {
+                          $i = 0;
+
+                          if(count($jps) > 1)
+                          {
+                            foreach ($jps as $j) 
+                            {
+                              $c=0;
+                              $arr[$c] = $j->accesscode; $c++;
+                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                              $s_old = Carbon::parse($j->productionDate." ".$j->timeStart_old,'Asia/Manila');
+                              $e_old = Carbon::parse($j->productionDate." ".$j->timeEnd_old,'Asia/Manila');
+                              $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                              $e =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+
+                              //*** ShiftDate
+                              $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                               //*** Status
+                              if($j->isApproved == '1') $stat = "Approved";
+                              else if ($j->isApproved == '0') $stat = "Denied";
+                              else $stat = "Pending Approval";
+
+                              $arr[$c] = $stat; $c++;
+
+                              //*** CurrentDailySchedule
+                              $arr[$c] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $c++;
+
+                              //*** NewDailySchedule
+                              $arr[$c] = $s->format('h:i A')." - ".$e->format('h:i A'); $c++;
+
+                              //*** CurrentDayType
+                              if($j->isRD){
+                                $arr[$c] = "Rest Day"; $c++;
+                              }
+                              else{
+                                $arr[$c] = "Regular Day"; $c++;
+                              }
+
+                              //*** NewDayType
+                              if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00"){
+                                $arr[$c] = "Rest Day"; $c++;
+                              }
+                              else{
+                                $arr[$c] = "Regular Day"; $c++;
+                              }
+
+
+
+                              $sheet->appendRow($arr);
+                              
+                            }
+
+                          }
+                          else
+                          {
+                            //Employee AccessCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType',
+                            $arr[$i] = $jps[0]->accesscode; $i++;
+                            $arr[$i] = $jps[0]->lastname.", ".$jps[0]->firstname; $i++;
+
+                            $s_old = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart_old,'Asia/Manila');
+                            $e_old = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeEnd_old,'Asia/Manila');
+                            $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+                            $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+
+                            //*** ShiftDate
+                            $arr[$i] = $s->format('m/d/Y'); $i++;
+
+                             //*** Status
+                            if($jps[0]->isApproved == '1') $stat = "Approved";
+                            else if ($jps[0]->isApproved == '0') $stat = "Denied";
+                            else $stat = "Pending Approval";
+
+                            $arr[$i] = $stat; $i++;
+
+                            //*** CurrentDailySchedule
+                            $arr[$i] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $i++;
+
+                            //*** NewDailySchedule
+                            $arr[$i] = $s->format('h:i A')." - ".$e->format('h:i A'); $i++;
+
+                            //*** CurrentDayType
+                            if($jps[0]->isRD){
+                              $arr[$i] = "Rest Day"; $i++;
+                            }
+                            else{
+                              $arr[$i] = "Regular Day"; $i++;
+                            }
+
+                            //*** NewDayType
+                            if($jps[0]->timeStart == "00:00:00" && $jps[0]->timeEnd == "00:00:00"){
+                              $arr[$i] = "Rest Day"; $i++;
+                            }
+                            else{
+                              $arr[$i] = "Regular Day"; $i++;
+                            }
+
+                           
 
                             $sheet->appendRow($arr);
 

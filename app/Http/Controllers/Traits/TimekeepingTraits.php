@@ -931,6 +931,39 @@ trait TimekeepingTraits
 
   }
 
+
+  public function getAllCWS($c, $json)
+  {
+    $cutoff = explode('_', $c); //return $cutoff;
+    $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
+    $endCutoff = $cutoff[1]; //Biometrics::where('productionDate',$cutoff[1])->first();
+    $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+    //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
+
+    $allOTs = new Collection;
+    $total = 0;
+
+    foreach ($period as $p) {
+       $ot = DB::table('user_cws')->where([ 
+                    ['user_cws.biometrics_id',$p->id]
+                    ])->join('users','users.id','=','user_cws.user_id')->
+                    join('biometrics','user_cws.biometrics_id','=','biometrics.id')->
+                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+      if (count($ot) > 0) {
+        $allOTs->push($ot);
+        $total += count($ot);
+      }
+        
+    }
+    if ($json)
+      return response()->json(['CWS'=>$allOTs, 'total'=>$total, 'name'=>'Change Shift Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+    else
+      return $allOTs;
+
+  }
+
+
+
   public function getAllLeaves($c, $json)
   {
     $cutoff = explode('_', $c); //return $cutoff;
