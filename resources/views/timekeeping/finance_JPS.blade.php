@@ -48,6 +48,7 @@
                 <input type="hidden" name="cutoffend" />
                 <input type="hidden" name="jpsData" />
                 <input type="hidden" name="reportType" id="reportType" value="dailyLogs" />
+                <input type="hidden" name="template" id="dltype" />
                 
                 <!-- <input type="hidden" name="dtr" /> -->
 
@@ -75,7 +76,7 @@
 
                 <p class="text-center"> 
                   <button type="submit" class="btn btn-md btn-success" id="dl"><i class="fa fa-save"></i> Download Spreadsheet</button> 
-                  <input type="hidden" name="template" id="dltype" />
+                 
                   
 
                 </p>
@@ -188,7 +189,7 @@
                   var cutoffstart = response.cutoffstart;
                   var cutoffend = response.cutoffend;
 
-                  $('input[name="template"]').val(selval);
+                  $('input[name="template"]').val(seldept);
                   $('input[name="cutoffstart"]').val(cutoffstart);
                   $('input[name="cutoffend"]').val(cutoffend);
                    $('#loader').fadeOut();  
