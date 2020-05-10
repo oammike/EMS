@@ -1,7 +1,26 @@
 
                 
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings to all moms out there<br/><span class="text-primary"> <i class="fa fa-heart"></i> HAPPY MOTHER'S DAY! <i class="fa fa-heart"></i> </span><br/><img src="storage/uploads/divider.png" /><br/>
+                   <img src="storage/uploads/moms2020.jpg" width="98%" />
+                    
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Today and always, send her love no matter the distance.<br/><br/>
+
+                    Happy Mother's Day to all moms and mother figures out there! Thank you for your unconditional love.<br/><br/>
+
+                    <strong>#WeSpeakYourLanguage #OAonMothersDay.</strong><br/><br/>
+
+
+                  </p>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >All you need to know <br/> to get started with Bundy.ph<br/><img src="storage/uploads/divider.png" /><br/>
 
                    <br/> <span class="text-primary"> <i class="fa fa-book"></i> Bundy.ph Quick Reference Guide,<br/> FAQs, and Question Page</span>
@@ -49,126 +68,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Calling all <strong>agents, specialists,<br/> TL’s, and non-manager support personnel!</strong><br/>
-                  If this is you…<br/>
-
-                   <br/> <span class="text-primary"> THERE IS A NEW <br/><i class="fa fa-clock-o"></i>  TIMECLOCK TOOL FOR YOU!<br/>
-                  EFFECTIVE <strong class="text-danger">May 5, 2020 at 11:59pm</strong><br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong> BUNDY.PH</strong>
-                    Will be your new place to clock in and out at the start and end of your workday<br/><br/>
-                    <img src="storage/uploads/bundy.png" width="100%" /><br/><br/>
-
-
-
-                    <strong class="text-primary"> New Tool Use for Who</strong><br/>
-                    For agents, frontline team members, team leaders, non-manager support personnel
-                    Eg: Specialists, Officers, IT desktop support, QA Analysts, Trainers<br/><br/>
-
-                    <strong class="text-primary"> New Tool Use for What</strong><br/>
-                    Solely for clocking in and clocking out<br/>
-                    This replaces the biometric login terminal and EMS clock<br/><br/>
-
-                    <strong class="text-primary"> New Tool Use Starting When</strong><br/>
-                    May 3, 2020 Sunday 11:59 pm!<br/><br/>
-
-                    <strong class="text-primary"> Accessing the New Timeclock</strong><br/>
-                    Access Codes and Passwords will be generated and assigned by the Timekeeping Team <br/><br/>
-                    Please expect your credentials to be emailed to you directly by the Finance May 1, 2020 Friday. <br/><br/>
-                    No reset is required. <br/><br/>
-                    Be sure to remember them and keep them safe.<br/><br/>
-                    Test them ASAP: <br/><br/><br/>
-                    As soon as you receive your credentials via email, please click the Bundy.ph url and test your assigned access code and password.<br/><br/>
-                    For login issues, reach out to your supervisor for help and ask them to email timekeeping@openaccessbpo.com immediately.<br/><br/>
-
-                    <strong class="text-primary"> Camera Feature Will Not Be Used</strong><br/></strong><br/>
-                    Not all of our deployed computers have webcams. (The Bundy,ph camera feature is optional.)<br/><br/>
-                    Only your Access Code and Password credentials will be required. <br/><br/>
-
-                    <strong class="text-primary"> EMS Continued Use for</strong><br/>
-                     - Validating Daily Time Records<br/><br/>
-                     - Filing Daily Time Record Problems<br/><br/>
-                     - Filing leaves<br/><br/>
-                     - Filing overtime<br/><br/>
-
-                    <strong class="text-primary"> Timekeeping Policies</strong><br/>
-                    While the tool has changed, the existing company policies for timekeeping remain the same.<br/><br/>
-                    Everyone is required to strictly adhere to specific timekeeping rules and regulations in our Employee Manual.<br/><br/>
-                    Timekeeping violations will be penalized. <br/><br/>
-                    Please refer to the Open Access Employee Manual for the sanctions and *discipline schedule.<br/><br/>
-                    *Includes but not limited to: Rule IX Timekeeping & Productivity, Rule III Offense Against Company Interest<br/><br/>
-
-
-                    To prevent inaccurate or inexistent logs negatively impacting your pay, please ensure consistency and accuracy in managing your timekeeping.<br/><br/>
-
-                    <em class="text-success"><strong>Ready to practice? Login to our LMS at <br/>
-                      <span style="color:#333"> https://open-access.training-online.eu </span>and enroll in the course Bundy.PH. <br/><br/>
-                    To get to the tool and video guide, copy-paste the links below on a browser.</strong> </em><br/><br/>
-
-                     <img src="storage/uploads/divider.png" />
-
-                    <strong class="text-primary"> HOW TO GET THERE</strong>  <img src="storage/uploads/divider.png" /><br><br/>
-
- 
-
-                    <i class="fa fa-info-circle"></i> If you are using the VPN link to access EMS and Zimbra, copy and paste the tool and video links below on a browser  instead of directly clicking on it from the email or EMS announcement.<br><br/>
-
-                     
-
-                    <i class="fa fa-info-circle"></i> Directly clicking the URL or right-clicking then selecting Copy Link Address from there will not work because extraneous elements are added to them, thus failing to load the web page.<br><br/>
-
-                     
-
-                    If you manually highlight the link and copy, you should be able to get to the new web Bundy tool and the video guide.<br><br/>
-
- 
-
- 
-
-                    <strong class="text-primary">LINKS</strong><br><br/>
-
-                     
-
-                     
-
-                    <strong class="text-success"> Bundy.ph Time Tool</strong><br/>
-                    <input class="form-control" type="text" id="bundylink" value="https://bundy.payroll.ph/web/oampi" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-
-                     <br><br/>
-
-                  
-
-                     <strong class="text-success">Web Bundy Video Guide</strong><br> 
-                     <input class="form-control" type="text" id="videolink" value="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b#/" />
-                     <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button>
-
-                    <br><br/>
-
-
-
-                    <strong>Definitions:</strong><br/>
-                    <em style="font-size: x-small;">*Non-exempt employees are those eligible for overtime, night differential, and holiday premiums.<br/> 
-                     Use Bundy.ph for clock in and clock out. <br/>
-                     Eg: Agents, Frontline Team Members, Team Leaders, Non-Manager Support Personnel, Specialists, Officers, IT Desktop Support, QA   
-                     Analysts, Trainers<br/><br/>
-
-                     Exempt employees are those not eligible for those premiums and enjoy flexible start-times. <br/>
-                     Use EMS for all timekeeping activities.<br/>
-                     Eg: GTL’s, Managers</em>
-
-
-
-
-                  </p>
- 
-                    
-              </div>
+             
 
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
@@ -195,40 +95,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 1 (Labor Day) <br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Kindly see below details on the holiday pay treatment for May 1, 2020<br/><br/>
-
-
-                    <strong class="text-primary" style="font-size: large;"> Unworked:</strong> <br/><em> provided the employee was present or on leave with pay on the workday prior to the start of May 1, 2020</em><pre> (Basic Pay + Allowance) x 100%</pre><br/><br/>
-
-                    <strong class="text-primary" style="font-size: large;"> Worked:</strong> <br/>
-                    <pre> (Basic Pay + Allowance) x 200%</pre><br/><br/>
-
-                    <strong class="text-primary" style="font-size: large;"> Additional pay for work done <span class="text-danger">in excess of 8 hours</span></strong> <br/>
-                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
-
-                    <strong class="text-primary" style="font-size: large;"> Worked, and falls on the <span class="text-danger"> rest day</span> of the employee</strong> <br/>
-                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
-
-
-                    <strong class="text-primary" style="font-size: large;"> Additional pay for work done <span class="text-danger">in excess of 8 hours</span>, and falls on the employee's <span class="text-danger">rest day</span></strong> <br/>
-                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
-
-
-                    Please be guided accordingly.  Thank you.
-
-                  </p>
- 
-                    
-              </div>
+              
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/> <span class="text-primary"><i class="fa fa-users"></i> All Open Access BPO Leaders<br/>
@@ -364,99 +231,7 @@
 
               
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    As stated in Malacañang Proclamation No. 845, the following have been declared as holidays for the month of April 2020.<br/><br/>
-                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
-
-
-                    <strong class="text-primary" style="font-size: large;"> Worked: </strong></p>
-                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
-                    <pre>(Basic Pay + Allowance) x 300%</pre>
-                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
-                    <pre>(Basic Pay + Allowance) x 200%</pre>
-                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
-                    <pre>(Basic Pay + Allowance) x 150%</pre>
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
-
-
-                    <strong class="text-primary" style="font-size: large;">Additional pay for work done <span class="text-danger">in excess of 8 hours</span> </strong></p>
-                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
-                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
-
-
-                    <strong class="text-primary" style="font-size: large;">Worked, and falls on the <span class="text-orange">REST DAY </span>of the employee </strong></p>
-                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
-                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    As stated in Malacañang Proclamation No. 845, the following have been declared as holidays for the month of April 2020.<br/><br/>
-                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
-
-
-                    <strong class="text-primary" style="font-size: large;">Additional pay for work done <span class="text-danger">IN EXCESSS OF 8 hours</span>, and falls on the employee's <span class="text-orange">REST DAY</span> </strong></p>
-                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
-                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
-                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
-
-                    For employees who were hired on March 17, 2020 to April 8, 2020, they will be entitled to regular holiday if they are present or with paid leave on workday immediately preceding the holiday. <br/><br/>Please be guided accordingly.
- 
-                    
-              </div>
+              
 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
@@ -517,45 +292,7 @@
                     
                 </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em">Reminders from Finance team: <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; April 24,2020 Payout &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
-                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                      To make sure all worked hours and ECQ benefits are applied accurately for this payout, please lock all DTR's and Employee Status Trackers <strong class="text-danger"> on or before 12:00 noon of April 21, 2020</strong>. <br/><br/>
-
-                      The payroll period  will  start on April 4th since we had our early cut off last payroll .<br/><br/>
-
- 
-
-                       <strong class="text-primary">All employees:</strong>
-
-                       Please ensure your entire DTR's for the period April 4 to 30 are locked on EMS, on or before 12:00 noon of April 21, 2020. <br/><br/>
-
-                       
-
-                      <strong class="text-primary">TL's and Managers:</strong>
-
-                      Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too. You can generate EMS to check  those employees who have not yet completed their logs.  <br/><br/>
-
-                       
-
-                      <strong class="text-primary">After 12:00 noon of April 21, 2020:</strong>
-
-                      Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting. Any update or changes after the said deadline will be included on the next payout. <br/><br/>
-
-                       
-
-                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
-
-                      Thank you.<br/><br/><strong>Finance Team</strong>
-                    
-
-                    </p>  
-                    
-              </div>
+             
 
               <div style="padding:0px" class="item text-center" >
                  <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
@@ -2008,6 +1745,295 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em">Reminders from Finance team: <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; April 24,2020 Payout &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
+                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      To make sure all worked hours and ECQ benefits are applied accurately for this payout, please lock all DTR's and Employee Status Trackers <strong class="text-danger"> on or before 12:00 noon of April 21, 2020</strong>. <br/><br/>
+
+                      The payroll period  will  start on April 4th since we had our early cut off last payroll .<br/><br/>
+
+ 
+
+                       <strong class="text-primary">All employees:</strong>
+
+                       Please ensure your entire DTR's for the period April 4 to 30 are locked on EMS, on or before 12:00 noon of April 21, 2020. <br/><br/>
+
+                       
+
+                      <strong class="text-primary">TL's and Managers:</strong>
+
+                      Please make sure all relevant updates are entered on the Employee Status Tracker on or before the deadline too. You can generate EMS to check  those employees who have not yet completed their logs.  <br/><br/>
+
+                       
+
+                      <strong class="text-primary">After 12:00 noon of April 21, 2020:</strong>
+
+                      Locked/updated or otherwise, the Finance Team will assume the current data reflecting as final for salary computation and crediting. Any update or changes after the said deadline will be included on the next payout. <br/><br/>
+
+                       
+
+                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
+
+                      Thank you.<br/><br/><strong>Finance Team</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    As stated in Malacañang Proclamation No. 845, the following have been declared as holidays for the month of April 2020.<br/><br/>
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;"> Worked: </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>(Basic Pay + Allowance) x 300%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>(Basic Pay + Allowance) x 150%</pre>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;">Additional pay for work done <span class="text-danger">in excess of 8 hours</span> </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;">Worked, and falls on the <span class="text-orange">REST DAY </span>of the employee </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for April 9, 10 and 11 <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    As stated in Malacañang Proclamation No. 845, the following have been declared as holidays for the month of April 2020.<br/><br/>
+                    Kindly see below details on the holiday pay treatment for April 9, 10 and 11.<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;">Additional pay for work done <span class="text-danger">IN EXCESSS OF 8 hours</span>, and falls on the employee's <span class="text-orange">REST DAY</span> </strong></p>
+                    <strong class="text-success">April 9 - Araw ng Kagitingan &amp;<br/>Holy Thursday (2 Regular Holidays)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  300% x 150%</pre>
+                    <strong class="text-success">April 10 – Good Friday (Regular Holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">April 11 – Black Saturday (Special non-working holiday)</strong>
+                    <pre>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+
+                    For employees who were hired on March 17, 2020 to April 8, 2020, they will be entitled to regular holiday if they are present or with paid leave on workday immediately preceding the holiday. <br/><br/>Please be guided accordingly.
+ 
+                    
+              </div>
+
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Calling all <strong>agents, specialists,<br/> TL’s, and non-manager support personnel!</strong><br/>
+                  If this is you…<br/>
+
+                   <br/> <span class="text-primary"> THERE IS A NEW <br/><i class="fa fa-clock-o"></i>  TIMECLOCK TOOL FOR YOU!<br/>
+                  EFFECTIVE <strong class="text-danger">May 5, 2020 at 11:59pm</strong><br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong> BUNDY.PH</strong>
+                    Will be your new place to clock in and out at the start and end of your workday<br/><br/>
+                    <img src="storage/uploads/bundy.png" width="100%" /><br/><br/>
+
+
+
+                    <strong class="text-primary"> New Tool Use for Who</strong><br/>
+                    For agents, frontline team members, team leaders, non-manager support personnel
+                    Eg: Specialists, Officers, IT desktop support, QA Analysts, Trainers<br/><br/>
+
+                    <strong class="text-primary"> New Tool Use for What</strong><br/>
+                    Solely for clocking in and clocking out<br/>
+                    This replaces the biometric login terminal and EMS clock<br/><br/>
+
+                    <strong class="text-primary"> New Tool Use Starting When</strong><br/>
+                    May 3, 2020 Sunday 11:59 pm!<br/><br/>
+
+                    <strong class="text-primary"> Accessing the New Timeclock</strong><br/>
+                    Access Codes and Passwords will be generated and assigned by the Timekeeping Team <br/><br/>
+                    Please expect your credentials to be emailed to you directly by the Finance May 1, 2020 Friday. <br/><br/>
+                    No reset is required. <br/><br/>
+                    Be sure to remember them and keep them safe.<br/><br/>
+                    Test them ASAP: <br/><br/><br/>
+                    As soon as you receive your credentials via email, please click the Bundy.ph url and test your assigned access code and password.<br/><br/>
+                    For login issues, reach out to your supervisor for help and ask them to email timekeeping@openaccessbpo.com immediately.<br/><br/>
+
+                    <strong class="text-primary"> Camera Feature Will Not Be Used</strong><br/></strong><br/>
+                    Not all of our deployed computers have webcams. (The Bundy,ph camera feature is optional.)<br/><br/>
+                    Only your Access Code and Password credentials will be required. <br/><br/>
+
+                    <strong class="text-primary"> EMS Continued Use for</strong><br/>
+                     - Validating Daily Time Records<br/><br/>
+                     - Filing Daily Time Record Problems<br/><br/>
+                     - Filing leaves<br/><br/>
+                     - Filing overtime<br/><br/>
+
+                    <strong class="text-primary"> Timekeeping Policies</strong><br/>
+                    While the tool has changed, the existing company policies for timekeeping remain the same.<br/><br/>
+                    Everyone is required to strictly adhere to specific timekeeping rules and regulations in our Employee Manual.<br/><br/>
+                    Timekeeping violations will be penalized. <br/><br/>
+                    Please refer to the Open Access Employee Manual for the sanctions and *discipline schedule.<br/><br/>
+                    *Includes but not limited to: Rule IX Timekeeping & Productivity, Rule III Offense Against Company Interest<br/><br/>
+
+
+                    To prevent inaccurate or inexistent logs negatively impacting your pay, please ensure consistency and accuracy in managing your timekeeping.<br/><br/>
+
+                    <em class="text-success"><strong>Ready to practice? Login to our LMS at <br/>
+                      <span style="color:#333"> https://open-access.training-online.eu </span>and enroll in the course Bundy.PH. <br/><br/>
+                    To get to the tool and video guide, copy-paste the links below on a browser.</strong> </em><br/><br/>
+
+                     <img src="storage/uploads/divider.png" />
+
+                    <strong class="text-primary"> HOW TO GET THERE</strong>  <img src="storage/uploads/divider.png" /><br><br/>
+
+ 
+
+                    <i class="fa fa-info-circle"></i> If you are using the VPN link to access EMS and Zimbra, copy and paste the tool and video links below on a browser  instead of directly clicking on it from the email or EMS announcement.<br><br/>
+
+                     
+
+                    <i class="fa fa-info-circle"></i> Directly clicking the URL or right-clicking then selecting Copy Link Address from there will not work because extraneous elements are added to them, thus failing to load the web page.<br><br/>
+
+                     
+
+                    If you manually highlight the link and copy, you should be able to get to the new web Bundy tool and the video guide.<br><br/>
+
+ 
+
+ 
+
+                    <strong class="text-primary">LINKS</strong><br><br/>
+
+                     
+
+                     
+
+                    <strong class="text-success"> Bundy.ph Time Tool</strong><br/>
+                    <input class="form-control" type="text" id="bundylink" value="https://bundy.payroll.ph/web/oampi" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                     <br><br/>
+
+                  
+
+                     <strong class="text-success">Web Bundy Video Guide</strong><br> 
+                     <input class="form-control" type="text" id="videolink" value="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b#/" />
+                     <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                    <br><br/>
+
+
+
+                    <strong>Definitions:</strong><br/>
+                    <em style="font-size: x-small;">*Non-exempt employees are those eligible for overtime, night differential, and holiday premiums.<br/> 
+                     Use Bundy.ph for clock in and clock out. <br/>
+                     Eg: Agents, Frontline Team Members, Team Leaders, Non-Manager Support Personnel, Specialists, Officers, IT Desktop Support, QA   
+                     Analysts, Trainers<br/><br/>
+
+                     Exempt employees are those not eligible for those premiums and enjoy flexible start-times. <br/>
+                     Use EMS for all timekeeping activities.<br/>
+                     Eg: GTL’s, Managers</em>
+
+
+
+
+                  </p>
+ 
+                    
+              </div>
+
+
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 1 (Labor Day) <br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for May 1, 2020<br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;"> Unworked:</strong> <br/><em> provided the employee was present or on leave with pay on the workday prior to the start of May 1, 2020</em><pre> (Basic Pay + Allowance) x 100%</pre><br/><br/>
+
+                    <strong class="text-primary" style="font-size: large;"> Worked:</strong> <br/>
+                    <pre> (Basic Pay + Allowance) x 200%</pre><br/><br/>
+
+                    <strong class="text-primary" style="font-size: large;"> Additional pay for work done <span class="text-danger">in excess of 8 hours</span></strong> <br/>
+                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
+
+                    <strong class="text-primary" style="font-size: large;"> Worked, and falls on the <span class="text-danger"> rest day</span> of the employee</strong> <br/>
+                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
+
+
+                    <strong class="text-primary" style="font-size: large;"> Additional pay for work done <span class="text-danger">in excess of 8 hours</span>, and falls on the employee's <span class="text-danger">rest day</span></strong> <br/>
+                    <pre>   [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre><br/><br/>
+
+
+                    Please be guided accordingly.  Thank you.
+
+                  </p>
+ 
+                    
+              </div>
 
  <div style="padding:0px" class="item text-center" >
                  <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
