@@ -50,58 +50,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-@if ( isset($include_barista_scripts) && $include_barista_scripts===TRUE )
- <link rel="preload" as="script" href="{{asset('public/js/jsqr/decoder.js')}}">
-@endif
-@if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE )
- <link href="{{asset('public/plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
- <link href="{{asset('public/css/rewardsfonts.css')}}" rel="stylesheet">
- <link href="{{asset('public/css/rewards.css')}}" rel="stylesheet">
- 
-@endif
+
 </head>
 
-
-
-
-
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-     
-      <ol class="breadcrumb">
-        <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Empty Records</li>
-      </ol>
-    </section>
-
+<body class="content-wrapper" style="padding-left: 0px; margin-left: 0px">
      <section class="content">
-
-
-
-                 <!-- ******** THE DATATABLE ********** -->
-          <div class="row">
-              <div class="col-lg-3 col-sm-4 col-xs-12" style="background-color:#fff">
-
-                        
-                            
-              </div> 
-              <div class="col-lg-3 col-sm-4  col-xs-9">
-                
-                
-                      
-
-          </div>
-               
+     
 
      
+      <div class="row">
+        <div class="col-lg-3 col-sm-12"></div>
+        <div class="col-lg-6 col-sm-12">
+
+          <h4 class="text-center"><img src="storage/uploads/logo_2020_170.png" /> <br/><br/><br/><br /><br/> 
+          <small>
+            In compliance with the  DTI-DOLE Interim Guidelines on Workplace Prevention and Control COVID19, 
+            <br/> all employees must accomplish daily the Health Declaration Form <strong class="text-danger"> prior to reporting to work and entering the work area.</strong></smaller></small>
+            <br /><br/></h4>
+
           <div class="row">
+            <div class="col-sm-6 text-center">
+              <a  style="margin-top: 5px" class="btn btn-success btn-lg" href="{{action('HomeController@healthForm')}}"> All Onsite Workers <br/><small> fill out Health Declaration form here </small><i class="fa fa-file-o pull-right"></i></a>
+            </div>
+            <div class="col-sm-6 text-center">
+              <a style="margin-top: 5px" class="btn btn-default btn-lg" href="{{action('HomeController@home')}}"> At Home Workers <br/><small> proceed with EMS Dashboard</small> <i class="fa fa-home pull-right"></i></a>
+            </div>
+          </div>
+          
+          
+          <div class="clearfix"></div>
+          <h5 class="text-center" style="margin-top: 10%">
+          
+            Thank you for your cooperation.
+            <br /><br/>
+            </h5>
 
-            <h4 class="text-center"> <br/><br/><br/><br/> No data found<br /><br/> <small>I'm afraid it might have already been deleted or it doesn't exist in our system. <br/><smaller>Kindly check the submitted data value and try again. Thank you</smaller></small>
-              <br /><br/></h4>
+        </div>
+        <div class="col-lg-3  col-sm-12"></div>
 
-            
+        
 
-          </div><!-- end row -->
+      </div><!-- end row -->
 
 
 
@@ -109,6 +98,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
        
      </section>
+
+</body>
+</html>
           
 
 

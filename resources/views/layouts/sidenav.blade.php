@@ -235,7 +235,7 @@
         <li class="header">MY TOOLS</li>
        
         <!-- Optionally, you can add icons to the links -->
-        <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
+        <li class="@if (Request::is('home')) active @endif"><a href="{{ action('HomeController@home') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
 
         <!-- <li class="treeview @if ( Request::is('employeeEngagement*') ) active @endif">
@@ -416,6 +416,10 @@
           <a href="#"><i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
            
+            
+            <li style="padding-left:20px"><a href="{{action('HomeController@healthForm_report')}} "><i class="fa fa-medkit"></i> Health Forms </a></li>
+            
+
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADD_NEW_EMPLOYEE') ){ ?> 
             <li @if (Request::is('user/create')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@create')}} "><i class="fa fa-plus"></i> Add New </a></li>
             <?php }  ?>
@@ -426,13 +430,13 @@
             <li style="padding-left:20px"><a href="{{action('UserController@downloadAllUsers')}} "><i class="fa fa-download"></i> Download Masterlist</a></li>
              <?php }  ?>
 
-
-             
-             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MOVE_EMPLOYEE') ){ ?> 
+            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MOVE_EMPLOYEE') ){ ?> 
             <li style="padding-left:20px" @if (Request::is('movement*')) class="active" @endif><a href="{{action('MovementController@index')}}"><i class="fa fa-exchange"></i> <span>Movements</span></a></li> 
           <?php }else if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MANAGE_TEAM_DISTRIBUTION') ) {?>
           <li style="padding-left:20px" @if (Request::is('movement*')) class="active" @endif><a href="{{action('MovementController@index')}}"><i class="fa fa-exchange"></i> <span>Team Distribution</span></a></li> 
           <?php }  ?>
+
+         
             <!-- <li style="padding-left:20px"@if (Request::is('movement*')) class="active" @endif ><a href="{{action('MovementController@index')}}"><i class="fa fa-users"></i> <span>Personnel Change Notice</span></a></li> -->
 
           </ul>

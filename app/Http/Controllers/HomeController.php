@@ -47,6 +47,8 @@ use OAMPI_Eval\Task_Campaign;
 use OAMPI_Eval\Task_User;
 use OAMPI_Eval\Taskbreak_User;
 use OAMPI_Eval\TaskGroup;
+use OAMPI_Eval\Symptoms_User;
+use OAMPI_Eval\Symptoms_Declaration;
 
 
 class HomeController extends Controller
@@ -786,9 +788,126 @@ class HomeController extends Controller
       return view('health');
     }
 
+    public function healthForm()
+    {
+      $user = $this->user;
+      $symptoms = DB::table('symptoms')->where('diagnosis',null)->select('id','name')->get();
+      $diagnosis = DB::table('symptoms')->where('diagnosis',1)->select('id','name')->get();
+      $questions = DB::table('symptoms_questions')->orderBy('ordering')->select('id','question','ordering')->get();
+      $today = Carbon::now('GMT+8');
+      return view('healthform', compact('user','today','symptoms','diagnosis','questions'));
+    }
+
+    public function healthForm_getAll()
+    {
+      if (Input::get('date'))
+            $productionDate = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $productionDate = Carbon::now('GMT+8');
+
+        
+            $allLogs = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$productionDate->startOfDay()->format('Y-m-d H:i:s'))->
+                        where('symptoms_user.created_at','<=',$productionDate->endOfDay()->format('Y-m-d H:i:s'))->
+            leftJoin('users','symptoms_user.user_id','=','users.id')->
+            leftJoin('team','team.user_id','=','users.id')->
+            leftJoin('campaign','team.campaign_id','=','campaign.id')->
+            select('users.id as userID','users.accesscode',  'users.lastname','users.firstname','campaign.name as program','symptoms_user.question_id','symptoms_user.answer','symptoms_user.created_at')->orderBy('users.lastname','ASC')->get();
+
+        
+
+        
+
+        return response()->json(['data'=>$allLogs, 'count'=>count($allLogs)]);
+    }
+
+    public function healthForm_process(Request $request)
+    {
+      $symptoms = $request->sel_symptoms;
+      $diagnosis = $request->sel_diagnosis;
+      $declarations = $request->declarations;
+      $now = Carbon::now('GMT+8');
+
+      foreach ($declarations as $d) {
+        $symptomsUser = new Symptoms_User;
+        $symptomsUser->user_id = $this->user->id;
+        $symptomsUser->question_id = $d['question'];
+        $symptomsUser->answer = $d['answer'];
+        $symptomsUser->created_at = $now->format('Y-m-d H:i:s');
+        $symptomsUser->save();
+
+        //save symptoms declaration
+        if($d['question'] == '1' && $d['answer'] == '1')
+        {
+            foreach ($symptoms as $s) {
+              $sd = new Symptoms_Declaration;
+              $sd->user_id = $this->user->id;
+              $sd->symptoms_id = $s;
+              $sd->user_answerID = $symptomsUser->id;
+              $sd->created_at = $now->format('Y-m-d H:i:s');
+              $sd->save();
+            }
+            
+        }
+
+        if($d['question'] == '5')
+        {
+          //last question
+          foreach ($diagnosis as $d) {
+            if ($d != '0')
+            {
+              $dg = new Symptoms_Declaration;
+              $dg->user_id = $this->user->id;
+              $dg->symptoms_id = $d;
+              $dg->user_answerID = $symptomsUser->id;
+              $dg->isDiagnosis = 1;
+              $dg->created_at = $now->format('Y-m-d H:i:s');
+              $dg->save();
+
+            }
+          }
+
+        }
+
+        
+
+      }
+
+
+
+      return response()->json(['symptoms'=>$symptoms,'diagnosis'=>$diagnosis,'declarations'=>$declarations, 'success'=>1]);
+
+    }
+
+    public function healthForm_report()
+    {
+
+      DB::connection()->disableQueryLog();
+      $user = $this->user;
+      $from = Team::where('user_id',$user->id)->first()->campaign_id;
+      $canView = [10,71,16];
+
+      if (!in_array($from, $canView)) return view('access-denied');
+      
+      if (Input::get('date'))
+          $start = Carbon::parse(Input::get('date'),'Asia/Manila');
+      else
+          $start = Carbon::now('GMT+8');
+
+
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+      if($this->user->id !== 564 ) {
+      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+      fwrite($file, "-------------------\n HealthForms track on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+      fclose($file);
+      }
+
+      return view('people.healthForms_report',compact('user','start'));
+    }
+
     public function home()
     {
-      
+
       $coll = new Collection;
       $user = $this->user; 
       DB::connection()->disableQueryLog();
@@ -1192,10 +1311,20 @@ class HomeController extends Controller
     
     public function index()
     {
-      return redirect()->route('page.health');
+      DB::connection()->disableQueryLog();
+      //check mo muna kung may health form na for today
+      $startToday = Carbon::now('GMT+8');
+      $todayS = Carbon::now('GMT+8')->startOfDay();
+      $todayE = Carbon::now('GMT+8')->endOfDay();
+      $hasForm = DB::table('symptoms_user')->where('user_id',$this->user->id)->where('created_at','>=',$todayS->format('Y-m-d H:i:s'))
+                  ->where('created_at','<=',$todayE->format('Y-m-d H:i:s'))->get();
+
+      if(count($hasForm) == 0) return redirect()->route('page.health');
+
+
       $coll = new Collection;
       $user = $this->user; 
-      DB::connection()->disableQueryLog();
+      
       $forms = new Collection;
       $groupedTasks=null;
       $trackerNDY=null;
@@ -1402,7 +1531,7 @@ class HomeController extends Controller
 
       //check if user has already logged in
 
-      $startToday = Carbon::now('GMT+8');
+      
       // check mo muna kung may biodata na for today:
 
       
