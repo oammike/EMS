@@ -1,7 +1,7 @@
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{ action('HomeController@index') }}" class="logo">
+    <a href="{{ action('HomeController@home') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><img src="{{ asset('public/img/new-oam-logo-small.png')}}" width="48" style="margin: 0 auto;" /></span>
       <!-- public/img/pridelogo.png -->

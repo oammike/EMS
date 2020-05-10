@@ -25,7 +25,8 @@ Route::post('/create-order', 'RewardsHomeController@create_order');
 Route::group( [ 'middleware' => ['auth'] ], function () 
   { 
     Route::get('/', 'HomeController@index');
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home', 'HomeController@home');
+
 
     
     Route::resource('immediateHead', 'ImmediateHeadController');
@@ -77,6 +78,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     
 
     Route::get('/logout', 'HomeController@logout');
+
+    Route::get('/health', array(
+      'as'=>'page.health',
+      'uses'=>'HomeController@health') );
+
     /********** NEW PA   **************/
 
     Route::resource('performance','NewPA_Form_Controller');
