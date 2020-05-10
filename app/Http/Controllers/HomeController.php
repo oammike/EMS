@@ -47,6 +47,8 @@ use OAMPI_Eval\Task_Campaign;
 use OAMPI_Eval\Task_User;
 use OAMPI_Eval\Taskbreak_User;
 use OAMPI_Eval\TaskGroup;
+use OAMPI_Eval\Symptoms_User;
+use OAMPI_Eval\Symptoms_Declaration;
 
 
 class HomeController extends Controller
@@ -781,9 +783,131 @@ class HomeController extends Controller
       return response()->json($col);
     }
 
-    
-    public function index()
+    public function health()
     {
+      return view('health');
+    }
+
+    public function healthForm()
+    {
+      $user = $this->user;
+      $symptoms = DB::table('symptoms')->where('diagnosis',null)->select('id','name')->get();
+      $diagnosis = DB::table('symptoms')->where('diagnosis',1)->select('id','name')->get();
+      $questions = DB::table('symptoms_questions')->orderBy('ordering')->select('id','question','ordering')->get();
+      $today = Carbon::now('GMT+8');
+      return view('healthform', compact('user','today','symptoms','diagnosis','questions'));
+    }
+
+    public function healthForm_getAll()
+    {
+      if (Input::get('date'))
+            $productionDate = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $productionDate = Carbon::now('GMT+8');
+
+        
+            $allLogs = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$productionDate->startOfDay()->format('Y-m-d H:i:s'))->
+                        where('symptoms_user.created_at','<=',$productionDate->endOfDay()->format('Y-m-d H:i:s'))->
+            leftJoin('users','symptoms_user.user_id','=','users.id')->
+            leftJoin('team','team.user_id','=','users.id')->
+            leftJoin('campaign','team.campaign_id','=','campaign.id')->
+            select('users.id as userID','users.accesscode',  'users.lastname','users.firstname','campaign.name as program','symptoms_user.question_id','symptoms_user.answer','symptoms_user.created_at')->orderBy('users.lastname','ASC')->get();
+
+        
+
+        
+
+        return response()->json(['data'=>$allLogs, 'count'=>count($allLogs)]);
+    }
+
+    public function healthForm_process(Request $request)
+    {
+      $symptoms = $request->sel_symptoms;
+      $diagnosis = $request->sel_diagnosis;
+      $declarations = $request->declarations;
+      $now = Carbon::now('GMT+8');
+
+      foreach ($declarations as $d) {
+        $symptomsUser = new Symptoms_User;
+        $symptomsUser->user_id = $this->user->id;
+        $symptomsUser->question_id = $d['question'];
+        $symptomsUser->answer = $d['answer'];
+        $symptomsUser->created_at = $now->format('Y-m-d H:i:s');
+        $symptomsUser->save();
+
+        //save symptoms declaration
+        if($d['question'] == '1' && $d['answer'] == '1')
+        {
+            foreach ($symptoms as $s) {
+              $sd = new Symptoms_Declaration;
+              $sd->user_id = $this->user->id;
+              $sd->symptoms_id = $s;
+              $sd->user_answerID = $symptomsUser->id;
+              $sd->created_at = $now->format('Y-m-d H:i:s');
+              $sd->save();
+            }
+            
+        }
+
+        if($d['question'] == '5')
+        {
+          //last question
+          foreach ($diagnosis as $d) {
+            if ($d != '0')
+            {
+              $dg = new Symptoms_Declaration;
+              $dg->user_id = $this->user->id;
+              $dg->symptoms_id = $d;
+              $dg->user_answerID = $symptomsUser->id;
+              $dg->isDiagnosis = 1;
+              $dg->created_at = $now->format('Y-m-d H:i:s');
+              $dg->save();
+
+            }
+          }
+
+        }
+
+        
+
+      }
+
+
+
+      return response()->json(['symptoms'=>$symptoms,'diagnosis'=>$diagnosis,'declarations'=>$declarations, 'success'=>1]);
+
+    }
+
+    public function healthForm_report()
+    {
+
+      DB::connection()->disableQueryLog();
+      $user = $this->user;
+      $from = Team::where('user_id',$user->id)->first()->campaign_id;
+      $canView = [10,71,16];
+
+      if (!in_array($from, $canView)) return view('access-denied');
+      
+      if (Input::get('date'))
+          $start = Carbon::parse(Input::get('date'),'Asia/Manila');
+      else
+          $start = Carbon::now('GMT+8');
+
+
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+      if($this->user->id !== 564 ) {
+      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+      fwrite($file, "-------------------\n HealthForms track on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+      fclose($file);
+      }
+
+      return view('people.healthForms_report',compact('user','start'));
+    }
+
+    public function home()
+    {
+
       $coll = new Collection;
       $user = $this->user; 
       DB::connection()->disableQueryLog();
@@ -994,6 +1118,420 @@ class HomeController extends Controller
       //check if user has already logged in
 
       $startToday = Carbon::now('GMT+8');
+      // check mo muna kung may biodata na for today:
+
+      
+      if (( $startToday->format('H:i') > Carbon::now('GMT+8')->startOfDay()->format('H:i')) && ($startToday->format('H:i') <= Carbon::parse(date('Y-m-d').' 8:00:00','Asia/Manila')->format('H:i')) ) //for those with 11pm-8am shift
+      {
+        
+        $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d'))->get();
+        //return $tomBio;
+        if (count($tomBio) > 0)
+          $b = $tomBio->first();
+        else {
+          $b = new Biometrics;
+          $b->productionDate = Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d');
+          $b->save();
+
+        }
+        
+
+      }else {
+
+        
+        $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->format('Y-m-d'))->get();
+        if (count($tomBio) > 0)
+          $b = $tomBio->first();
+        else {
+          $b = new Biometrics;
+          $b->productionDate = Carbon::now('GMT+8')->format('Y-m-d');
+          $b->save();
+
+        }
+       
+      }
+
+      $loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometrics_id',$b->id)->get();
+
+
+      $alreadyLoggedIN=false;
+      //if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;//return response()->json(['alreadyLoggedIN'=>$alreadyLoggedIN]);
+
+      //-- IDOLS ----
+        $idols = new Collection;
+        $top3 = new Collection;
+        //ANDALES, ANICETO, AQUINO, DAWIS, DICEN, OCAMPO, PICANA, SIBAL, SIMON, SUAREZ, YLMAZ, ZUNZU
+        $idolIDs = [ 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 685, 3260, 2723];
+        $top3s = [1686,674,829];
+
+        foreach ($top3s as $i) {
+          $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
+                    join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
+                    select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
+          $top3->push($u[0]);
+        }
+
+        foreach ($idolIDs as $i) {
+          $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
+                    join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
+                    select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
+          $idols->push($u[0]);
+        }
+
+        $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
+        $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 
+        $pics=["monochrome-393.jpg","monochrome-362.jpg","monochrome-344.jpg"];
+
+      //-- end idols
+
+      //-- SHOUT OUT --
+        $bago = Carbon::today()->subWeeks(1);
+        $annivs = Carbon::today()->subWeeks(1)->subYear(1);
+        $annivs2 = Carbon::today()->subYear(1);
+        $anniv10s = Carbon::today()->subYear(10)->startOfYear();
+        $anniv10e = Carbon::today()->subYear(10)->endOfYear();
+        $anniv5s = Carbon::today()->subYear(5)->startOfYear();
+        $anniv5e = Carbon::today()->subYear(5)->endOfYear();
+        
+        $newHires = DB::table('users')->where('dateHired','>=',$bago->format('Y-m-d'))->where('status_id','!=',16)->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',7)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+
+        $firstYears = DB::table('users')->where('dateHired','>=',$annivs->format('Y-m-d H:i:s'))->where('dateHired','<=',$annivs2->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+
+        $tenYears = DB::table('users')->where('dateHired','>=',$anniv10s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv10e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+
+        $fiveYears = DB::table('users')->where('dateHired','>=',$anniv5s->format('Y-m-d H:i:s'))->where('dateHired','<=',$anniv5e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('team.campaign_id','ASC')->get();
+
+      //-- end SHOUTOUT
+
+               
+      $evalTypes = EvalType::all();
+      //$evalSetting = EvalSetting::all()->first();
+      // --------- temporarily we set it for Semi annual of July to Dec 
+      $evalSetting = EvalSetting::find(2);
+
+      
+      $currentPeriod = Carbon::create((date("Y")-1), $evalSetting->startMonth, $evalSetting->startDate,0,0,0, 'Asia/Manila');
+      $endPeriod = Carbon::create((date("Y")-1), $evalSetting->endMonth, $evalSetting->endDate,0,0,0, 'Asia/Manila');
+
+      $doneEval = new Collection;
+      $pendingEval = new Collection;
+
+      
+      $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
+
+
+      //******* show MEMO for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
+          /*$testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+          if (in_array($this->user->id, $testgroup))
+          {*/
+          /*----------- check for available MEMOS --------------*/
+          $activeMemo = Memo::where('active',1)->where('type','modal')->orderBy('created_at','DESC')->get();
+          if (count($activeMemo)>0){
+            $memo = $activeMemo->first();
+
+            //check if nakita na ni user yung memo
+            $seenMemo = User_Memo::where('user_id',$this->user->id)->where('memo_id',$memo->id)->get();
+            if (count($seenMemo)>0)
+              $notedMemo = true;
+            else $notedMemo = false;
+
+          }else { $notedMemo=false; $memo=null; } 
+      //-- END MEMO
+
+      /*----------- check if done with TOUR --------------*/
+
+      $tour = Memo::where('active',1)->where('type',"tour")->orderBy('created_at','DESC')->get();
+      if (count($tour)>0){
+        $siteTour = $tour->first();
+       // $memo=null; $notedMemo=true;
+
+        //check if nakita na ni user yung memo
+        $toured = User_Memo::where('user_id',$this->user->id)->where('memo_id',$siteTour->id)->get();
+        if (count($toured)>0)
+          $notedTour = true;
+        else $notedTour = false;
+
+      }else { $notedTour=false; $siteTour=null; } 
+      
+
+      
+
+      //---------- new feature: log user activity as cctv BACKUP------
+      $endHr = Carbon::now('GMT+8');
+      $startHr = Carbon::now('GMT+8')->addHours(-4);
+      $alreadyIn = User_CCTV::where('user_id',$this->user->id)->where('logType','1')->where('created_at','>=',$startHr->format('Y-m-d H:i:s'))->where('created_at','<=',$endHr->format('Y-m-d H:i:s'))->get();
+
+      if (count($alreadyIn) > 0){}
+      else 
+      {
+        $cctv = new User_CCTV;
+        $cctv->user_id = $this->user->id;
+        $cctv->logType = 1;
+        $cctv->created_at = $startToday->format('Y-m-d H:i:s');
+        $cctv->save();
+
+      }
+
+      
+
+      //---------- end cctv backup ------
+
+
+
+      //return $pass = bcrypt('ben2020'); //$2y$10$IQqrVA8oK9uedQYK/8Z4Ae9ttvkGr/rGrwrQ6JVKdobMBt/5Mj4Ja
+
+      // --------- if user has no subordinates -----------
+      if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)
+      { //  AGENT or ADMIN pero agent level
+          $employee = User::find($this->user->id);
+          $meLeader = $employee->supervisor->first(); 
+          //return redirect()->route('user.show',['id'=>$this->user->id]);
+
+          return view('dashboard-agent', compact('startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+          
+      // ----------- endif user has no subordinates -----------
+
+      } else {
+
+          //-- Initialize Approvals Dashlet
+
+         //return $groupedForm[0];
+          return view('dashboard', compact('startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+         
+
+
+      } 
+
+      
+        
+    }
+
+    
+    public function index()
+    {
+      DB::connection()->disableQueryLog();
+      //check mo muna kung may health form na for today
+      $startToday = Carbon::now('GMT+8');
+      $todayS = Carbon::now('GMT+8')->startOfDay();
+      $todayE = Carbon::now('GMT+8')->endOfDay();
+      $hasForm = DB::table('symptoms_user')->where('user_id',$this->user->id)->where('created_at','>=',$todayS->format('Y-m-d H:i:s'))
+                  ->where('created_at','<=',$todayE->format('Y-m-d H:i:s'))->get();
+
+      if(count($hasForm) == 0) return redirect()->route('page.health');
+
+
+      $coll = new Collection;
+      $user = $this->user; 
+      
+      $forms = new Collection;
+      $groupedTasks=null;
+      $trackerNDY=null;
+      $pendingTask=null;
+      $hasPendingTask=null;
+      $pendingTaskBreak=null;
+      $hasPendingTaskBreak=null;
+      $fromNDY=null;
+
+
+      if ( is_null($user->nickname) ) $greeting = $user->firstname;
+      else $greeting = $user->nickname;
+
+      $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->first();
+      $canDo = UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS');
+      if (count($canDo)> 0 ) $reportsTeam=1; else $reportsTeam=0;
+
+      /* ---------------------------------------------------------*/
+      /* --- WE NOW CHECK FOR CAMPAIGN WIDGETS from FormBuilder --*/
+
+      $prg = Campaign::where('name',"Postmates")->first()->id; //for widget
+      $prg2 = Campaign::where('name',"Guideline")->first()->id; 
+      $prg3 = Campaign::where('name',"NDY")->first()->id; 
+
+      if (empty($leadershipcheck)) {
+          $myCampaign = collect($this->user->campaign->first()->id);
+          ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false;
+          ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
+          ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false;
+
+
+         
+      } 
+      else { 
+            $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
+            
+
+            ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false; 
+            ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
+            ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
+
+
+      }
+
+      //******************* TASK TRACKER : NDY *************************
+      /*if ($fromNDY)
+      {
+        $trackerNDY = DB::table('task')->where('task.campaign_id',$prg3)->
+                    join('taskgroup','task.groupID','=','taskgroup.id')->
+                    join('task_campaign','task_campaign.campaign_id','=','task.campaign_id')->
+                    select('taskgroup.id as groupID', 'taskgroup.name as taskgroup','task.name as task','task.id','task_campaign.name as tracker','task_campaign.activated')->
+                    orderBy('task.id','ASC')->get();
+        $groupedTasks = collect($trackerNDY)->groupBy('taskgroup');
+
+        $pending = Task_User::where('user_id',$this->user->id)->where('timeEnd',null)->orderBy('id','DESC')->get();
+        
+
+        if ( count($pending) >= 1 ){
+
+          $pendingTask = $pending->first();
+          $pendingBreak = Taskbreak_User::where('task_userID',$pendingTask->id)->where('timeEnd',null)->orderBy('id','DESC')->get();
+          $hasPendingTask = 1;
+        }else {
+          $pendingBreak=[];
+          $pendingTask = null; $hasPendingTask=0;
+        }
+
+
+        if ( count($pendingBreak) >= 1 ){
+          $pendingTaskBreak = $pendingBreak->first();
+          $hasPendingTaskBreak = 1;
+        }else {*/
+          $pendingTaskBreak = null; $hasPendingTaskBreak=0;
+        //}
+
+        //return $groupedTasks;
+      //}
+
+      //******************* TASK TRACKER : NDY *************************
+
+
+
+      //if (!empty($forms) && !$reportsTeam){
+      
+      if ($fromPostmate || $fromGuideline) 
+      {   
+
+        foreach ($myCampaign as $c) {
+        $d = DB::table('campaign_forms')->where('campaign_id','=',$c)->
+              join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+              
+              join('campaign','campaign_forms.campaign_id','=','campaign.id')->
+              leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
+              leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
+              leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
+              leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+              select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
+                'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','DESC')->get(); 
+
+              if (!empty($d)) $forms->push($d);
+        }
+
+        
+
+        $widget = $forms->first(); //return response()->json($widget[0]);
+        $groupedForm = collect($widget)->groupBy('widgetTitle');
+        $groupedSelects = collect($widget)->groupBy('selectGroup');
+        $campform = $widget[0]->formID;//['formID'];
+
+      }else
+      {
+
+        if ($reportsTeam){
+
+          //$prg = Campaign::where('name',"Postmates")->first();
+          $d = DB::table('campaign_forms')->where('campaign_id','=',$prg)->
+                join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+                join('campaign','campaign_forms.campaign_id','=','campaign.id')->
+                leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
+                leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
+                leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
+                leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
+                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
+
+          $d2 = DB::table('campaign_forms')->where('campaign_id','=',$prg2)->
+                join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
+                join('campaign','campaign_forms.campaign_id','=','campaign.id')->
+                leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
+                leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
+                leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
+                leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
+                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
+                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
+
+
+                //return (['d'=>$d,'d2'=>$d2]);
+
+                if (!empty($d)) $forms->push(collect($d)->groupBy('widgetTitle'));
+                if (!empty($d2)) $forms->push(collect($d2)->groupBy('widgetTitle'));
+
+                //return $forms;
+
+                $widget = collect($forms);
+                $groupedForm = $forms; //$widget->groupBy('widgetTitle');
+                $groupedSelects = $widget->groupBy('selectGroup');
+                $campform = '1'; //$forms->first()[0]->formID;//['formID'];
+
+        }else {
+          $groupedForm = null; $groupedSelects=null; $campform=null;
+        }
+        
+      }
+
+      
+      //return $groupedForm;
+      
+
+      $forApprovals = $this->getDashboardNotifs();// $this->getApprovalNotifs();USER TRAIT
+
+      /************* PERFORMANCE EVALS ***************/
+      /*$userEvals = new Collection; $performance = new Collection;
+      $userEvals1 = $user->evaluations->sortBy('created_at')->filter(function($eval){
+                                return $eval->overAllScore > 0;
+
+                    }); //->pluck('created_at','evalSetting_id','overAllScore'); 
+
+      
+      $byDateEvals =  $userEvals1->groupBy(function($pool) {
+                                    return Carbon::parse($pool->created_at)->format('Y-m-d');
+                                });*/
+
+      $userEvals = new Collection;
+
+      /*foreach ($byDateEvals as $evs) {
+        $key = $evs->unique('overAllScore');
+
+        switch ($key->first()->evalSetting_id) {
+              case '1':{
+                          $performance->push(['type'=>date('Y', strtotime($key->first()->startPeriod))." Jan-Jun", 'score'=>$key->first()->overAllScore]);
+
+                      }
+                 
+                  break;
+
+              case '2':{
+                          $performance->push(['type'=>date('Y', strtotime($key->first()->startPeriod))." Jul-Dec", 'score'=>$key->first()->overAllScore]);
+
+              }
+                  # code...
+                  break;
+              
+              
+          }
+
+      };*/
+
+      /************* for SURVEY WIDGET ***************/
+      $doneS = DB::table('survey_user')->where('user_id',$this->user->id)->where('isDone',1)->get();
+      (count($doneS) > 0) ? $doneSurvey=1 : $doneSurvey=0;
+
+
+      /************* for TIMEKEEPING WIDGET ***************/
+
+      //check if user has already logged in
+
+      
       // check mo muna kung may biodata na for today:
 
       

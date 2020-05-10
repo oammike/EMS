@@ -222,7 +222,7 @@
         <li class="header">MY TOOLS</li>
         <!-- Optionally, you can add icons to the links -->
         <!-- <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li> -->
-        <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
+        <li class="@if (Request::is('home')) active @endif"><a href="{{ action('HomeController@home') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
         
       <!--  <li class="treeview @if ( Request::is('employeeEngagement*') ) active @endif">
