@@ -39,7 +39,7 @@ select:-webkit-autofill:focus {
         Dashboard
       </h1>
       <ol class="breadcrumb">
-        <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{action('HomeController@home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
     </section>
@@ -707,7 +707,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                           },
                           success: function(response){
                                     $.notify("Task successfully logged into the system. Thank you.",{className:"success",globalPosition:'left center',autoHideDelay:7000, clickToHide:true} );
-                                    window.setTimeout(function(){window.location.href = "{{action('HomeController@index')}}";}, 2000);
+                                    window.setTimeout(function(){window.location.href = "{{action('HomeController@home')}}";}, 2000);
                                     console.log(response);
 
                           }
@@ -865,7 +865,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                                 $('button[name="submit"]').fadeOut();
                                 $.notify("Form successfully submitted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
                                window.setTimeout(function(){
-                                              window.location.href = "{{action('HomeController@index')}}";
+                                              window.location.href = "{{action('HomeController@home')}}";
                                             }, 2000);
                               }
 
@@ -1100,7 +1100,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
                               $('button[name="submit"]').fadeOut();
                               $.notify("Form successfully submitted.",{className:"success",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
                               window.setTimeout(function(){
-                                            window.location.href = "{{action('HomeController@index')}}";
+                                            window.location.href = "{{action('HomeController@home')}}";
                                           }, 2000);
                             }
 
