@@ -616,7 +616,7 @@ class EngagementController extends Controller
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
             }
-            else if($id == 5) //OPEN WALL
+            else if($id == 5 || $id == 9) //OPEN WALL
             {
                 $allPosts = collect($existingEntry)->groupBy('entryID');
                 $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
@@ -634,7 +634,7 @@ class EngagementController extends Controller
 
                 if( \Auth::user()->id !== 564 ) {
                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n Check openWall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                ($id == 5) ? fwrite($file, "-------------------\n Check openWall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n") : fwrite($file, "-------------------\n Check openWall[2] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
                 }
 
@@ -733,12 +733,12 @@ class EngagementController extends Controller
             //**** with image attachment
             if($k !== "")
             {
-                if(($k == '4' || $k == '13' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
+                if(($k == '4' || $k == '13'|| $k == '15' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
 
                 }
                 else 
                 {
-                    if(($k == '4' || $k == '13' || $allitemTypes[$ctr]=='IMG') && $request->file('file') )
+                    if(($k == '4' || $k == '13'|| $k == '15' || $allitemTypes[$ctr]=='IMG') && $request->file('file') )
                     {
                         $image_code = '';
                         $image = $request->file('file');
@@ -747,6 +747,7 @@ class EngagementController extends Controller
                             case '3':$filen = "painting2020_"; break;
                             case '4':$filen = "guess2020_"; break;
                             case '5':$filen = "wall2020_"; break;
+                            case '9':$filen = "wall[2]2020_"; break;
                             
                         }
 
