@@ -30,9 +30,8 @@
 
                  <!-- ******** THE DATATABLE ********** -->
           <div class="row">
-             <div class="col-lg-1 col-sm-4  col-xs-9">
-              </div>
-              <div class="col-lg-10 col-sm-4 col-xs-12" ><!--style="background-color:#fff"-->
+             
+              <div class="col-lg-12 col-sm-6 col-xs-12" ><!--style="background-color:#fff"-->
                 <label class="pull-left">Production Date: </label><input type="text" id="date" name="date" class="datepicker form-control pull-left" placeholder="{{$start->format('m/d/Y')}}" value="{{$start->format('m/d/Y')}}"  style="width:20%;margin: 0 10px" />
                      <a class="btn btn-primary btn-sm" id="refresh"><i class="fa fa-refresh"></i> Update Table</a>
                      <a class="btn btn-success btn-md pull-right" id="dl"><i class="fa fa-download"></i> Download CSV </a>
@@ -43,8 +42,7 @@
                         <br/><br/><br/><br/><br/>
                             
               </div> 
-              <div class="col-lg-1 col-sm-4  col-xs-9">
-              </div>
+             
               <div class="holder"></div>
 
 
@@ -108,16 +106,39 @@
                   { title: "Program", defaultContent: " ", data:'program', width:'180', render:function(data,type,full,meta){
                     return data;
                   }}, 
-                  { title: "Question #", defaultContent: " ", data:'question_id',width:'150',render:function(data){return data;} }, 
-                  { title: "Answer_2", defaultContent: " ", data:'answer',width:'150',render:function(data){
+                  { title: "Answer_1", defaultContent: " ", data:'answer1',width:'150',render:function(data){
+                    if(data == '0')
+                        return "No";
+                      else
+                        return "Yes";
+                    } }, 
+                  {
+                    title:"Symptoms", defaultContent:"",data:'symptoms',render:function(data){
+                      var dt = "";
+                      data.forEach(function(item) { dt += item+", \n"; });
+                      
+                      return dt;
+                    }
+                  },
+                  { title: "Answer_2", defaultContent: " ", data:'answer2',width:'150',render:function(data){
                       if(data == '0')
                         return "No";
                       else
                         return "Yes";
                       } }, //,width:'180'}, // 1
-                  { title: "DTR sheet", defaultContent: " ", data:'userID',width:'150',render:function(data){
+                  {
+                    title:"Diagnosis", defaultContent:"",data:'diagnosis',render:function(data){
+                      var dt = "";
+                      data.forEach(function(item) { dt += item+", \n"; });
+                      
+                      return dt;
+                    }
+                  },
+
+                  /*{ title: "DTR sheet", defaultContent: " ", data:'userID',width:'150',render:function(data){
                        
                       return  '<a target="_blank" href="user_dtr/'+data+'"><i class="fa fa-calendar"></i> View DTR </strong></a>'} }, //,width:'180'}, // 1
+                      */
                   
                   
                

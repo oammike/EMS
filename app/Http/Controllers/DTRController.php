@@ -1790,7 +1790,7 @@ class DTRController extends Controller
                               $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
                               $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
-                              $e =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                              $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila'); //->addHours($j->filed_hours);
 
                               //*** ShiftDate
                               $arr[$c] = $s->format('m/d/Y'); $c++;

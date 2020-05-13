@@ -811,13 +811,56 @@ class HomeController extends Controller
             leftJoin('users','symptoms_user.user_id','=','users.id')->
             leftJoin('team','team.user_id','=','users.id')->
             leftJoin('campaign','team.campaign_id','=','campaign.id')->
-            select('users.id as userID','users.accesscode',  'users.lastname','users.firstname','campaign.name as program','symptoms_user.question_id','symptoms_user.answer','symptoms_user.created_at')->orderBy('users.lastname','ASC')->get();
+            select('symptoms_user.id as declareID','users.id as userID','users.accesscode',  'users.lastname','users.firstname','campaign.name as program','symptoms_user.question_id','symptoms_user.answer','symptoms_user.created_at')->orderBy('users.lastname','ASC')->get();
+
+            $allSymptoms = DB::table('symptoms_declare')->where('symptoms_declare.created_at','>=',$productionDate->startOfDay()->format('Y-m-d H:i:s'))->
+                                where('symptoms_declare.created_at','<=',$productionDate->endOfDay()->format('Y-m-d H:i:s'))->
+                                leftJoin('symptoms','symptoms_declare.symptoms_id','=','symptoms.id')->
+                                where('symptoms_declare.isDiagnosis','=',null)->
+                                select('symptoms_declare.user_answerID as declareID','symptoms.name')->get();
+            
+            $allDiagnose = DB::table('symptoms_declare')->where('symptoms_declare.created_at','>=',$productionDate->startOfDay()->format('Y-m-d H:i:s'))->
+                                where('symptoms_declare.created_at','<=',$productionDate->endOfDay()->format('Y-m-d H:i:s'))->
+                                leftJoin('symptoms','symptoms_declare.symptoms_id','=','symptoms.id')->
+                                where('symptoms_declare.isDiagnosis','=',1)->
+                                select('symptoms_declare.user_answerID as declareID','symptoms.name')->get();
+
+
+            $allSubmissions = collect($allLogs)->groupBy('userID');
+            $healthForms = new Collection;
+            //return $allSubmissions;
+            foreach ($allSubmissions as $s) {
+              if($s[0]->answer == 1)
+              {
+                $symp = collect($allSymptoms)->where('declareID',$s[0]->declareID)->pluck('name');
+
+              }else $symp=[];
+
+              if($s[0]->answer == 1)
+              {
+                $symp = collect($allSymptoms)->where('declareID',$s[0]->declareID)->pluck('name');
+
+              }else $symp=[];
+
+              if($s[4]->answer == 1)
+              {
+                $diag = collect($allDiagnose)->where('declareID',$s[4]->declareID)->pluck('name');
+
+              }else $diag=[];
+
+
+              $healthForms->push(['firstname'=>$s[0]->firstname,'lastname'=>$s[0]->lastname,'userID'=>$s[0]->userID,'accesscode'=>$s[0]->accesscode,
+                                  'program'=>$s[0]->program,'answer1'=>$s[0]->answer,'answer2'=>$s[1]->answer, 'symptoms'=>$symp,'diagnosis'=>$diag, 'created_at'=>$s[0]->created_at]);
+            }
+
+            //return $healthForms;
+            
 
         
 
         
 
-        return response()->json(['data'=>$allLogs, 'count'=>count($allLogs)]);
+        return response()->json(['data'=>$healthForms, 'count'=>count($healthForms),'symptoms'=>$allSymptoms]);//count($allLogs)
     }
 
     public function healthForm_process(Request $request)
