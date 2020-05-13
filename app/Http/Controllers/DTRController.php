@@ -1945,7 +1945,7 @@ class DTRController extends Controller
                               $arr[$c] = $j->notes; $c++;
 
                               //*** Date Files
-                              $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $i++;
+                              $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
 
                               //remarks
                               $arr[$c] = $stat; $c++;
