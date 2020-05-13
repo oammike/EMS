@@ -1742,9 +1742,9 @@ class DTRController extends Controller
       $template = $request->template;
 
       switch ($template) {
-        case '1': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
-        case '2': { $headers = ['AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
-        case '3': { $headers = ['Employee AccessCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="ChangeShiftSchedules"; } break; 
+        case '1': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
+        case '2': { $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
+        case '3': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="ChangeShiftSchedules"; } break; 
       
       }
 

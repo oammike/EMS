@@ -948,7 +948,7 @@ trait TimekeepingTraits
                     ['user_cws.biometrics_id',$p->id]
                     ])->join('users','users.id','=','user_cws.user_id')->
                     join('biometrics','user_cws.biometrics_id','=','biometrics.id')->
-                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
       if (count($ot) > 0) {
         $allOTs->push($ot);
         $total += count($ot);
@@ -983,27 +983,27 @@ trait TimekeepingTraits
                   ['user_vl.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_vl.user_id')->
                   
-                select('user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.created_at', 'user_vl.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
     $SL = DB::table('user_sl')->where([ 
                   ['user_sl.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_sl.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_sl.user_id')->
                   
-                select('user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.created_at', 'user_sl.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     $LWOP = DB::table('user_lwop')->where([ 
                   ['user_lwop.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_lwop.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_lwop.user_id')->
                   
-                select('user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.created_at', 'user_lwop.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     $FL = DB::table('user_familyleaves')->where([ 
                   ['user_familyleaves.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_familyleaves.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_familyleaves.user_id')->
                   
-                select('user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.created_at', 'user_familyleaves.notes','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     
     $total = count($VL) + count($SL) + count($LWOP) + count($FL);
@@ -1037,7 +1037,7 @@ trait TimekeepingTraits
                     ['user_ot.biometrics_id',$p->id]
                     ])->join('users','users.id','=','user_ot.user_id')->
                     join('biometrics','user_ot.biometrics_id','=','biometrics.id')->
-                  select('biometrics.productionDate','user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','users.accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                  select('biometrics.productionDate','user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
       if (count($ot) > 0) {
         $allOTs->push($ot);
         $total += count($ot);
