@@ -2,6 +2,84 @@
                 
 
               <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Feature Article: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   The Wall Street Journal (May 15, 2020) <br/><br/>
+                  <img src="storage/uploads/wsj.png" width="30%" />
+                  <img src="storage/uploads/rooster1.jpg" width="100%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <h5><a href="https://www.wsj.com/articles/customer-support-call-animal-noises-rooster-coronavirus-11589465454" target="_blank"> Is That a Rooster on My Customer-Support Call? Yes, Blame Coronavirus.</a></h5>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                      When overseas call-center employees have to work from home, neighborhood animals chime in; ‘the crowing was so close’<br/><br/>
+
+                      When Robin Frost called Verizon Communications Inc.’s customer support last month, she was connected with a rooster. At least that’s what it sounded like.<br/><br/>
+
+                      The Pennsylvania resident wanted to ask about a problem with the telecom company’s app, but the agent on the line said she couldn’t hear. Punctuating her words was “the sound of a very authentic, real-sounding rooster,” Ms. Frost recalled.<br/><br/>
+
+                      Thousands of call-center employees in the Philippines and India are working from home, often on the outskirts of urban areas or outside them, during their countries’ coronavirus lockdowns. That has given cows and pigs—but mainly roosters—a chance to chime in.<br/><br/>
+
+                      “It was funny but not funny, and also maddening, as I couldn’t accomplish my task,” Ms. Frost said.<br/><br/>
+
+                      Stefaan Smith, 36, who lives outside Phoenix, had a similar encounter when he called a Sprint helpline in March. He wanted to defer billing on his account after a pizza-parlor job fell through and left him with no money in the bank.<br/><br/>
+
+                      “The crowing was so close,” he said of what sounded like an angry rooster, though that wasn’t the only animal present. “It was like right outside her window. You could hear her pigs grumbling and groaning.”<br/><br/>
+
+                      After follow-up calls, he received a $50 credit from the provider, he said.<br/><br/>
+
+                      Verizon didn’t respond to requests for comment. T-Mobile US, Inc., which owns Sprint Corp., declined to comment.<br/><br/>
+
+                      Call-center executives say roosters are tough to silence. Americans often make customer-service calls in the late afternoon and evening, just when the sun is rising over countries like the Philippines and the birds are at their loudest. That’s when Junela Dumaya’s job gets tricky.<br/><br/>
+
+                      <img src="storage/uploads/rooster2.jpg" width="98%" />
+
+                      The 20-year-old works for Open Access BPO, a call center, and lives in a mountainous area a few hours’ drive from the Philippine capital, Manila. Her neighbor’s cow makes a racket in the mornings, as do her brother-in-law’s chickens.<br/><br/>
+
+                      “I urge my family members to close the door and windows and to catch the cows and take the animals far from me,” said Ms. Dumaya, who begins her shift at midnight. Her family has been fairly effective, she said, though the animals still pose a distraction sometimes.<br/><br/>
+
+                      Her boss, Ben Davidowitz, said he is doing his best to limit the animal soundtrack, adding: “I don’t want roosters honking in the background.” Sometimes employees are put up in housing close to work so they can go into the office, where small crews are permitted—and no roosters are near.<br/><br/>
+
+                      <img src="storage/uploads/rooster3.jpg" style="padding:10px" width="30%" class="pull-left" />Bryce Maddock, the chief executive of TaskUs Inc., a customer-support outsourcing company, has dispatched noise-cancelling headsets. “I don’t think it’s rooster-proof, but that technology is at least one way to reduce the background noise,” said Mr. Maddock, whose firm has operations in the Philippines and caters to clients such as food-delivery services.<br/><br/>
+
+                      Mr. Maddock has a history with roosters. He ordered a hit on one about a decade ago, when he was setting up his business in the Philippines. The neighbor of a staffer who was working from home had a noisy rooster that had become an operational hurdle.<br/><br/>
+
+                      “We asked her how much we would have to pay to get the rooster killed,” he recalled. “She got a price from her neighbor and we paid the price and that was that. There was no more rooster in the background.”<br/><br/>
+
+                      Mr. Maddock said he feels bad about it, particularly because he is now a vegetarian.<br/><br/>
+
+
+                      Some say the rooster run-ins are providing comic relief. “At first, I was getting tired of hearing all the callers ask about the roosters, but nowadays we just laugh at it,” said Kathryn Ronquillo, a supervisor at a Manila call center that takes calls for a video-streaming company.<br/><br/>
+
+                      A clip of a 2018 avian interruption, posted on Facebook by customer-service agent Jennifer Jasme, is getting fresh online traction in the Philippines. A man can be heard asking Ms. Jasme if she has chickens in her office, with cawing sounds audible in the background. Ms. Jasme responds that it’s actually a ringtone.<br/><br/>
+
+                      “That was really funny,” Ms. Ronquillo said of the recording. “But we don’t want them to lie on their calls.”<br/><br/>
+
+                      For agents like 36-year-old Ms. Jasme, it can be an awkward experience.<br/><br/>
+
+                      “When I’m on a call and the roosters start to do their thing, like as if they are choir singing at the top of their lungs, I’ll start to pray and hope the customer won’t ask me my location,” Ms. Jasme said. Over time, she thinks it will become normal.<br/><br/>
+
+                      “The world is changing, right?," she said. “I think we’ll get used to it.”<br/><br/>
+
+                      Call centers aren’t the only businesses with rooster-induced headaches. Jimmy Roa runs an offshore recruit-process company in Manila whose agents conduct pre-qualifying interviews for job candidates for technology companies in America. When his employees dial out, their phone numbers show U.S. area codes, leaving the impression they are U.S.-based.<br/><br/>
+
+                      “If a dog is barking, you can always apologize and say, ‘I’m sorry, my dog is right beside me,’ ” said Mr. Roa, chief executive of Sysgen RPO. “A rooster isn’t a normal pet in the U.S.”<br/><br/>
+
+                      Because some customers feel being connected to someone halfway around the world means the company isn’t take their problem seriously enough, routing calls to Asia can be a touchy subject. Ms. Ronquillo, the supervisor, said a cock-a-doodle-doo signals to customers that they aren’t speaking to an American. While most callers are pleasant, she said, some ask to be transferred to a U.S. representative.<br/><br/>
+
+                       <img src="storage/uploads/rooster4.jpg" style="padding:10px" width="30%" class="pull-left" />Others are uncomfortable broaching the rooster topic. Danielle Elizabeth, a 25-year-old retail manager in Pittsburgh, was charged twice for a home-delivered order of Chipotle’s veggie burrito bowl. When she called to resolve the matter, she heard what sounded like a rooster squawking.<br/><br/>
+
+                      “I couldn’t get up the courage to ask, like, ‘Is there a rooster?’ ” she said.<br/><br/>
+
+                      Write to Jon Emont at jonathan.emont@wsj.com <a href="https://www.wsj.com/articles/customer-support-call-animal-noises-rooster-coronavirus-11589465454" target="_blank">[Article link]</a></p> 
+
+
+
+                    
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Greetings to all moms out there<br/><span class="text-primary"> <i class="fa fa-heart"></i> HAPPY MOTHER'S DAY! <i class="fa fa-heart"></i> </span><br/><img src="storage/uploads/divider.png" /><br/>
                    <img src="storage/uploads/moms2020.jpg" width="98%" />
                     
