@@ -2064,16 +2064,18 @@ class DTRController extends Controller
                               //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
                              if($j->timeStart_old == "00:00:00" && $j->timeEnd_old == "00:00:00")
                              {
-                                 $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                                 $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++;
                              }
-                             else
-                              $arr[$c] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $c++;
+                             else{
+                               $arr[$c] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $c++;
+                             }
 
                               //*** NewDailySchedule
                               if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00")
                              {
                                  $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
                              }
+                             else
                               $arr[$c] = $s->format('h:i A')." - ".$e->format('h:i A'); $c++;
 
                               //*** CurrentDayType
