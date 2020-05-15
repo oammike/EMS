@@ -2061,10 +2061,19 @@ class DTRController extends Controller
 
                               $arr[$c] = $stat; $c++;
 
-                              //*** CurrentDailySchedule
+                              //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
+                             if($j->timeStart_old == "00:00:00" && $j->timeEnd_old == "00:00:00")
+                             {
+                                 $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                             }
+                             else
                               $arr[$c] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $c++;
 
                               //*** NewDailySchedule
+                              if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00")
+                             {
+                                 $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                             }
                               $arr[$c] = $s->format('h:i A')." - ".$e->format('h:i A'); $c++;
 
                               //*** CurrentDayType
@@ -2112,10 +2121,20 @@ class DTRController extends Controller
                             $arr[$i] = $stat; $i++;
 
                             //*** CurrentDailySchedule
-                            $arr[$i] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $i++;
+                            if($jps[0]->timeStart_old == "00:00:00" && $jps[0]->timeEnd_old == "00:00:00")
+                             {
+                                 $arr[$i] = "FLEXI-TIME 8 HOURS";$i++;
+                             }
+                            else
+                             $arr[$i] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $i++;
 
                             //*** NewDailySchedule
-                            $arr[$i] = $s->format('h:i A')." - ".$e->format('h:i A'); $i++;
+                            if($jps[0]->timeStart == "00:00:00" && $jps[0]->timeEnd == "00:00:00")
+                             {
+                                 $arr[$i] = "FLEXI-TIME 8 HOURS";$i++;
+                             }
+                             else
+                              $arr[$i] = $s->format('h:i A')." - ".$e->format('h:i A'); $i++;
 
                             //*** CurrentDayType
                             if($jps[0]->isRD){
