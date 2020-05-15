@@ -1790,7 +1790,9 @@ class DTRController extends Controller
                               $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
                               $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+
                               $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila'); //->addHours($j->filed_hours);
+                              $endDate =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
 
                               //*** ShiftDate
                               $arr[$c] = $s->format('m/d/Y'); $c++;
@@ -1802,7 +1804,7 @@ class DTRController extends Controller
                               $arr[$c] = $s->format('h:i A'); $c++;
 
                               //*** EndDate
-                              $arr[$c] = $e->format('m/d/Y'); $c++;
+                              $arr[$c] = $endDate->format('m/d/Y'); $c++;
 
                               //*** EndTime
                               $arr[$c] = $e->format('h:i A'); $c++;
@@ -1831,7 +1833,8 @@ class DTRController extends Controller
                             $arr[$i] = $jps[0]->lastname.", ".$jps[0]->firstname; $i++;
 
                             $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
-                            $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
+                            $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                            $endDate =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
 
                             //*** ShiftDate
                             $arr[$i] = $s->format('m/d/Y'); $i++;
@@ -1843,7 +1846,7 @@ class DTRController extends Controller
                             $arr[$i] = $s->format('h:i A'); $i++;
 
                             //*** EndDate
-                            $arr[$i] = $e->format('m/d/Y'); $i++;
+                            $arr[$i] = $endDate->format('m/d/Y'); $i++;
 
                             //*** EndTime
                             $arr[$i] = $e->format('h:i A'); $i++;
