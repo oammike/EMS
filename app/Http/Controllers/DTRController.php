@@ -2099,7 +2099,7 @@ class DTRController extends Controller
                             $s_old = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart_old,'Asia/Manila');
                             $e_old = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeEnd_old,'Asia/Manila');
                             $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
-                            $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+                            $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeEnd,'Asia/Manila');
 
                             //*** ShiftDate
                             $arr[$i] = $s->format('m/d/Y'); $i++;
