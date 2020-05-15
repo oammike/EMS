@@ -7,11 +7,11 @@
                   <img src="storage/uploads/rooster1.jpg" width="100%" /><br/><br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <h5><a href="https://www.wsj.com/articles/customer-support-call-animal-noises-rooster-coronavirus-11589465454" target="_blank"> Is That a Rooster on My Customer-Support Call? Yes, Blame Coronavirus.</a></h5>
+                    <h4><a href="https://www.wsj.com/articles/customer-support-call-animal-noises-rooster-coronavirus-11589465454" target="_blank"> Is That a Rooster on My Customer-Support Call? Yes, Blame Coronavirus.</a></h4>
                     <p style="padding: 30px;" class="text-left">
                      
                    
-                      When overseas call-center employees have to work from home, neighborhood animals chime in; ‘the crowing was so close’<br/><br/>
+                      <strong><em>When overseas call-center employees have to work from home, neighborhood animals chime in; ‘the crowing was so close’</em></strong><br/><br/>
 
                       When Robin Frost called Verizon Communications Inc.’s customer support last month, she was connected with a rooster. At least that’s what it sounded like.<br/><br/>
 
