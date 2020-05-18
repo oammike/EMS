@@ -928,6 +928,10 @@ class UserVLController extends Controller
                             join('slupdate','slupdate.id','=','user_slearnings.slupdate_id')->
                             select('slupdate.period','slupdate.credits','slupdate.created_at')->
                             orderBy('slupdate.created_at','DESC')->get(); //return $allEarnings;
+        $allAdvancedSL = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$id)->
+                            select('user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
+                            orderBy('user_advancedSL.periodEnd','DESC')->get(); //
+
 
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
@@ -940,7 +944,7 @@ class UserVLController extends Controller
        
 
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL'));
         else return view('access-denied');
 
 

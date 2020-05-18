@@ -385,6 +385,7 @@
                                   <th class="text-center">Used</th>
                                  
                                   <th class="text-center">Earnings</th>
+                                  <th class="text-center text-danger">Used in advance</th>
                                   <th class="text-center">Total Remaining</th>
                                   <th class="text-center">Actions</th>
                                 </thead>
@@ -557,8 +558,48 @@
                                  
                                           
                                         </td>
+
+                                        <!-- ****** ADVANCED ******* -->
+                                        @if (count($allAdvancedSL) > 0 && (date('Y') == $v->creditYear) )
+                                        <?php $advSL=0; $deetsadv=""; 
+                                                foreach ($allAdvancedSL as $e){ 
+                                                  
+                                                          $deetsadv .= date('M d',strtotime($e->periodStart)).' - '.date('M d',strtotime($e->periodEnd)).': <strong>' . $e->total.'</strong><br/>';
+                                                          $advSL += $e->total; }
+                                                 ?>
+                                        <td  class="text-center">
+
+                                          <!-- ******** collapsible box ********** -->
+                                          <div class="box collapsed-box" style="margin-top: 0px">
+                                            <div class="box-header">
+                                              {{$advSL}} &nbsp;&nbsp;&nbsp;
+                                              <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                </button>
+                                              </div>
+                                              <!-- /.box-tools -->
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                              <p style="font-size: x-small;" class="text-right"> {!! $deetsadv !!}</p>
+                                              
+                                            </div>
+                                            <!-- /.box-body -->
+                                          </div>
+                                         <!-- ******** end collapsible box ********** -->
+
+
+
+                                        </td>
+
+                                        @else
+                                         <?php $advSL=0; ?>
+                                        <td  class="text-center">0</td>
+
+                                        @endif
+
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
-                                          {{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earnSL, 2) }}
+                                          {{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earnSL - $advSL, 2) }}
                                           @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) </small>@endif
                                         </td>
                                         <td class="text-center">

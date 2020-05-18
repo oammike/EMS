@@ -2758,7 +2758,18 @@ class DTRController extends Controller
               if($sls->contains('creditYear',date('Y')))
               {
                 $updatedSL=true;
-                $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid;
+
+                //get advanced SLs
+                $adv = DB::table('user_advancedSL')->where('user_id',$user->id)->get();
+
+                $advancedSL = 0;
+                foreach ($adv as $a) {
+                  $advancedSL += $a->total;
+                }
+
+                $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL;
+
+
                                    
               }
               else

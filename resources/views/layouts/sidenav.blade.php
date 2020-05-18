@@ -86,12 +86,21 @@
                   if($sls->contains('creditYear',date('Y')))
                   {
                     $updatedSL=true;
-                    $currentSLbalance= ($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid;
+
+                    //get advanced SLs
+                    $adv = DB::table('user_advancedSL')->where('user_id',$u->id)->get();
+
+                    $advancedSL = 0;
+                    foreach ($adv as $a) {
+                      $advancedSL += $a->total;
+                    }
+
+                    $currentSLbalance= (($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL;
                     
                   }
                   else{
                     
-                    if (count($approvedSLs)>0)
+                    /*if (count($approvedSLs)>0)
                     {
                       $bal = 0.0;
                       foreach ($approvedSLs as $key) {
@@ -103,7 +112,8 @@
                     }else{
 
                       $currentSLbalance = (0.84 * $today);
-                    }
+                    }*/
+                    $currentSLbalance="N/A";
 
                   }
                 }else 
