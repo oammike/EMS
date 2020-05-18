@@ -243,6 +243,7 @@
             <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',10)}}"><i class="fa fa-th-large"></i> Wall [Week 3] </a> </li>
            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',9)}}"><i class="fa fa-th-large"></i> Wall [Week 2] </a> </li>
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',5)}}"><i class="fa fa-th-large"></i> Wall [Week 1] </a> </li>
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',6)}}"><i class="fa fa-child"></i> Zumba </a> </li>
