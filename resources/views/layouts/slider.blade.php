@@ -79,24 +79,7 @@
                     
               </div>
 
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings to all moms out there<br/><span class="text-primary"> <i class="fa fa-heart"></i> HAPPY MOTHER'S DAY! <i class="fa fa-heart"></i> </span><br/><img src="storage/uploads/divider.png" /><br/>
-                   <img src="storage/uploads/moms2020.jpg" width="98%" />
-                    
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Today and always, send her love no matter the distance.<br/><br/>
-
-                    Happy Mother's Day to all moms and mother figures out there! Thank you for your unconditional love.<br/><br/>
-
-                    <strong>#WeSpeakYourLanguage #OAonMothersDay.</strong><br/><br/>
-
-
-                  </p>
- 
-                    
-              </div>
+              
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >All you need to know <br/> to get started with Bundy.ph<br/><img src="storage/uploads/divider.png" /><br/>
@@ -410,33 +393,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Message from Finance team: <br/> <span class="text-primary">Advance 13th Month Pay <br/>and SL Credits During ECQ <br/>
-                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                      During ECQ, we have made several inclusions to our payout.  Among those are advance 13th month pay and advance leaves 5 days SL credits.  Please see information below for your guidance.<br/><br/>
-
- 
-
-                       <strong class="text-primary">· The advanced 13th month pay was released on April 8, 2020</strong> for employees who did not opt out to receive their advanced 13 month pay.  For those who opted out, they will receive their 13th month pay in full in December 2020.  We will individually send you an email as confirmation.<br/><br/>
-
-                       <strong class="text-primary">·  Sick leave credits have been advanced since March 25th payout until 5 SL credits have been fully used up.</strong>   For probationary employees, advanced SL credits will be deducted upon regularization.  For contractual employees with a 6-month contract or above, advanced SL credits will be deducted after 6 months. For contractual employees with a contract below 6 months, advanced SL credits will be deducted from their last pay if their contract is not renewed. For regular employees, advanced SL will be deducted from their earned SL every cut-off.  Please make sure to regularly file your leave and monitor your leave balances in EMS.<br/><br/>
-
-                      Please be guided accordingly.<br/><br/>
-
-                       
-
-                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
-
-                      Thank you.<br/><br/><strong>Finance Team</strong>
-                    
-
-                    </p>  
-                    
-              </div>
+             
 
 
              
@@ -501,75 +458,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > All Shuttle Passengers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   UPDATED POLICY AND PROCEDURES <br/> FOR CHANGE REQUESTS: <br/>PICKUP TIME and ADDRESSES </i><br/> <br/>
-                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     TO ALL SHUTTLERS<br/><br/>
-
-
-                    <strong class="text-primary">Deadline</strong> <br/>
-
-                      Requests to change pick-up time should be submitted at least 24 hours before the schedule. <br/>
-
-                      Same-day adjustment requests will no longer be accommodated. <br/> <br/>
- 
-
-                       <strong class="text-primary">Request Limit</strong> <br/>
-
-                      To comply with the trip scheduling process and to encourage everyone to plan ahead, each shuttler will be allowed no more than 3* change-requests for the whole duration of ECQ. This will prevent disrupting preset driver and passenger trips. Once the limit has been reached no further requests will be processed.<br/> <br/>
-
-                      * Reasons for pickup time changes due to CWS will require WFM validation.<br/> <br/>
-
-                       
-
-                       
-
-                       <strong class="text-primary">Request Submission Procedure</strong><br/>
-
-                      To avoid confusing multiple entries and unnecessary changes that disrupt trip scheduling and inconvenience other riders, if you are still within the request cap, please follow the steps enumerated below.<br/> <br/>
-
-
-                      1.        Submit a Shuttle Application request at least 1-2 days before the set ride.<br/><br/>
-                      <a class="btn btn-md btn-success" href="https://docs.google.com/forms/d/e/1FAIpQLScN8f9jalq2yUQJbOmw7cY2TYDV5TO5GFMEW9S3opZ7JD9wGQ/viewform?vc=0&c=0&w=1" target="_blank"><i class="fa fa-file-o"></i> Shuttle Application Form </a><br/><br/>
-
-                      2.        Send an email to the Transport Team to itemize the schedule change details (follow the format below), including the link to the application form.<br/>
-
-<pre>
-Home-Pickup date change from:______To: _______
-
-Home-Pickup time change from:______To: _______
-
-Pickup address change from: ______To: _______
-
-Office-Pickup date change from:______To: _______
-
-Office-Pickup time change from:______To: _______
-</pre><br/><br/>
-                      3. Wait for a confirmation if the request is accommodated.<br/><br/>
-
-
-                      <strong class="text-primary">Subject to Dispatch Review and Authorization</strong><br/>
-
-                      Validated urgent same-day adjustment requests are SUBJECT TO REVIEW. <br/><br/>
-
-                      If it is a WFM-approved CWS, attach its proof to your email request and complete the steps above.<br/><br/>
-
-                       
-
-                      As master trip lists for each day get set 2 days prior, any changes may potentially mess up the plotted queue of the driver routes and schedules.  Thus, they may not be accommodated or at the very least, take time to confirm and plug into the existing sequence. Please be prepared for the request to possibly either take time to be accommodated or be declined during high volume during peak hours.<br/><br/>
-
-
-                      For your compliance and guidance.
-
-
-                    
-
-                    </p>  
-                    
-                </div>
+              
 
                 <div style="padding:0px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
@@ -640,20 +529,7 @@ Office-Pickup time change from:______To: _______
                     
               </div>
 
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > April 7,2020: <br/> <span class="text-primary">WORLD HEALTH DAY <br/>
-                   <img src="storage/uploads/frontliners.jpg" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                      This <strong>#WorldHealthDay,</strong> we thank those who braved the frontlines to minimize the risk of COVID-19 infections across our communities. Stay safe and healthy!<br/><br/>#WeSpeakYourLanguage #WorldHealthDay
-                    
-
-                    </p>  
-                    
-              </div>
-
+              
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.6em" > Attention: <br/> <span class="text-primary">    DSWD's Social Amelioration Program  <br/>
                    <img src="storage/uploads/dswd.png" width="50%"><br/>
@@ -919,28 +795,7 @@ Office-Pickup time change from:______To: _______
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>EMS as primary system for timekeeping <br/> <strong> effective IMMEDIATELY</strong><br/> <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/emstimekeeping.png" width="60%" />
-                    </h4>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;" class="text-left"><br/>
-                     In compliance to WHO’s mandatory protective measures to maximize social distancing and minimize risk and contact with high-touch surfaces, we are suspending the use of our biometrics devices for clocking in and out:  <strong class="text-primary"> EMS will now be our primary source of daily timekeeping.</strong><br/><br/>
-                     Log in to EMS to access  the Timekeeping Manager on the Landing Page and click:<br/></br/>
-                      <strong class="text-success"> System CHECK IN </strong>to clock in <br/>
-                      <strong>Breaktime START </strong>to go on break <br/>
-                      <strong>Breaktime END</strong> to go back to work after a break<br/>
-                      <strong class="text-danger">System CHECK OUT</strong> to clock out<br/>
-
-
-
-                    </p>
-
-                   
-                    
-                </div>
+               
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>MANDATORY <br/>BASIC PROTECTIVE MEASURES FOR THE WORKPLACE <br/>
@@ -1823,6 +1678,160 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > All Shuttle Passengers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   UPDATED POLICY AND PROCEDURES <br/> FOR CHANGE REQUESTS: <br/>PICKUP TIME and ADDRESSES </i><br/> <br/>
+                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     TO ALL SHUTTLERS<br/><br/>
+
+
+                    <strong class="text-primary">Deadline</strong> <br/>
+
+                      Requests to change pick-up time should be submitted at least 24 hours before the schedule. <br/>
+
+                      Same-day adjustment requests will no longer be accommodated. <br/> <br/>
+ 
+
+                       <strong class="text-primary">Request Limit</strong> <br/>
+
+                      To comply with the trip scheduling process and to encourage everyone to plan ahead, each shuttler will be allowed no more than 3* change-requests for the whole duration of ECQ. This will prevent disrupting preset driver and passenger trips. Once the limit has been reached no further requests will be processed.<br/> <br/>
+
+                      * Reasons for pickup time changes due to CWS will require WFM validation.<br/> <br/>
+
+                       
+
+                       
+
+                       <strong class="text-primary">Request Submission Procedure</strong><br/>
+
+                      To avoid confusing multiple entries and unnecessary changes that disrupt trip scheduling and inconvenience other riders, if you are still within the request cap, please follow the steps enumerated below.<br/> <br/>
+
+
+                      1.        Submit a Shuttle Application request at least 1-2 days before the set ride.<br/><br/>
+                      <a class="btn btn-md btn-success" href="https://docs.google.com/forms/d/e/1FAIpQLScN8f9jalq2yUQJbOmw7cY2TYDV5TO5GFMEW9S3opZ7JD9wGQ/viewform?vc=0&c=0&w=1" target="_blank"><i class="fa fa-file-o"></i> Shuttle Application Form </a><br/><br/>
+
+                      2.        Send an email to the Transport Team to itemize the schedule change details (follow the format below), including the link to the application form.<br/>
+
+<pre>
+Home-Pickup date change from:______To: _______
+
+Home-Pickup time change from:______To: _______
+
+Pickup address change from: ______To: _______
+
+Office-Pickup date change from:______To: _______
+
+Office-Pickup time change from:______To: _______
+</pre><br/><br/>
+                      3. Wait for a confirmation if the request is accommodated.<br/><br/>
+
+
+                      <strong class="text-primary">Subject to Dispatch Review and Authorization</strong><br/>
+
+                      Validated urgent same-day adjustment requests are SUBJECT TO REVIEW. <br/><br/>
+
+                      If it is a WFM-approved CWS, attach its proof to your email request and complete the steps above.<br/><br/>
+
+                       
+
+                      As master trip lists for each day get set 2 days prior, any changes may potentially mess up the plotted queue of the driver routes and schedules.  Thus, they may not be accommodated or at the very least, take time to confirm and plug into the existing sequence. Please be prepared for the request to possibly either take time to be accommodated or be declined during high volume during peak hours.<br/><br/>
+
+
+                      For your compliance and guidance.
+
+
+                    
+
+                    </p>  
+                    
+                </div>
+
+<div style="padding:0px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > April 7,2020: <br/> <span class="text-primary">WORLD HEALTH DAY <br/>
+                   <img src="storage/uploads/frontliners.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      This <strong>#WorldHealthDay,</strong> we thank those who braved the frontlines to minimize the risk of COVID-19 infections across our communities. Stay safe and healthy!<br/><br/>#WeSpeakYourLanguage #WorldHealthDay
+                    
+
+                    </p>  
+                    
+              </div>
+
+
+
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>EMS as primary system for timekeeping <br/> <strong> effective IMMEDIATELY</strong><br/> <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/emstimekeeping.png" width="60%" />
+                    </h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                     In compliance to WHO’s mandatory protective measures to maximize social distancing and minimize risk and contact with high-touch surfaces, we are suspending the use of our biometrics devices for clocking in and out:  <strong class="text-primary"> EMS will now be our primary source of daily timekeeping.</strong><br/><br/>
+                     Log in to EMS to access  the Timekeeping Manager on the Landing Page and click:<br/></br/>
+                      <strong class="text-success"> System CHECK IN </strong>to clock in <br/>
+                      <strong>Breaktime START </strong>to go on break <br/>
+                      <strong>Breaktime END</strong> to go back to work after a break<br/>
+                      <strong class="text-danger">System CHECK OUT</strong> to clock out<br/>
+
+
+
+                    </p>
+
+                   
+                    
+                </div>
+
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Message from Finance team: <br/> <span class="text-primary">Advance 13th Month Pay <br/>and SL Credits During ECQ <br/>
+                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      During ECQ, we have made several inclusions to our payout.  Among those are advance 13th month pay and advance leaves 5 days SL credits.  Please see information below for your guidance.<br/><br/>
+
+ 
+
+                       <strong class="text-primary">· The advanced 13th month pay was released on April 8, 2020</strong> for employees who did not opt out to receive their advanced 13 month pay.  For those who opted out, they will receive their 13th month pay in full in December 2020.  We will individually send you an email as confirmation.<br/><br/>
+
+                       <strong class="text-primary">·  Sick leave credits have been advanced since March 25th payout until 5 SL credits have been fully used up.</strong>   For probationary employees, advanced SL credits will be deducted upon regularization.  For contractual employees with a 6-month contract or above, advanced SL credits will be deducted after 6 months. For contractual employees with a contract below 6 months, advanced SL credits will be deducted from their last pay if their contract is not renewed. For regular employees, advanced SL will be deducted from their earned SL every cut-off.  Please make sure to regularly file your leave and monitor your leave balances in EMS.<br/><br/>
+
+                      Please be guided accordingly.<br/><br/>
+
+                       
+
+                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
+
+                      Thank you.<br/><br/><strong>Finance Team</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+<div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings to all moms out there<br/><span class="text-primary"> <i class="fa fa-heart"></i> HAPPY MOTHER'S DAY! <i class="fa fa-heart"></i> </span><br/><img src="storage/uploads/divider.png" /><br/>
+                   <img src="storage/uploads/moms2020.jpg" width="98%" />
+                    
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Today and always, send her love no matter the distance.<br/><br/>
+
+                    Happy Mother's Day to all moms and mother figures out there! Thank you for your unconditional love.<br/><br/>
+
+                    <strong>#WeSpeakYourLanguage #OAonMothersDay.</strong><br/><br/>
+
+
+                  </p>
+ 
+                    
+              </div>
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em">Reminders from Finance team: <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; April 24,2020 Payout &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
                    <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
