@@ -820,34 +820,9 @@ class HomeController extends Controller
             $dayend = Carbon::parse(Input::get('from'),'Asia/Manila')->endOfDay();
         }
 
-        $bio = Biometrics::where('productionDate',$daystart->format('Y-m-d'))->get();
+       
+
         
-        $form = DB::table('logs')->where('biometrics_id',$bio->first()->id)->
-                leftJoin('logType','logs.logType_id','=','logType.id')->
-                leftJoin('users','logs.user_id','=','users.id')->
-                leftJoin('team','users.id','=','team.user_id')->
-                leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType','logs.manual')->
-                orderBy('users.lastname')->get();
-
-        $activeUsers = DB::table('campaign')->where('campaign.hidden',NULL)->
-                        where([
-                        ['campaign.id', '!=','26'], //wv
-                        ['campaign.id', '!=','35'], //ceb
-
-                      ])->
-                        join('team','team.campaign_id','=','campaign.id')->
-                        join('users','team.user_id','=','users.id')->
-                        select('users.id','users.accesscode','users.lastname','users.firstname','campaign.name as program')->
-                        where('users.status_id','!=',6)->
-                        where('users.status_id','!=',7)->
-                        where('users.status_id','!=',8)->
-                        where('users.status_id','!=',9)->
-                        where('users.status_id','!=',16)->
-                        orderBy('users.lastname')->get();
-        $allsubs = collect($form)->pluck('id')->unique();
-        $allactives = collect($activeUsers)->pluck('id')->unique();
-        $diff = $allactives->diff($allsubs);
 
 
         $allAnswers = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
@@ -875,7 +850,7 @@ class HomeController extends Controller
         //return response()->json(['allQuestions'=> $allQuestions, 'allAnswers'=>$allAnswers, 'allSymptoms'=>$allSymptoms,'allRespondents'=>$allRespondents]);
 
         
-        $headers = array("Last Name","First Name","Program");
+        $headers = array("Submitted", "Last Name","First Name","Program");
 
         foreach ($allQuestions as $q) {
           array_push($headers, $q->question);
@@ -924,14 +899,36 @@ class HomeController extends Controller
                         
                         if (count($item) >= 5)
                         {
-                          $arr = array($item[0]->lastname,
+                          
+                          $diagnosis = collect($allSymptoms)->where('user_id',$item[0]->user_id)->where('declareID',$item[4]->declareID)->pluck('symptom');
+
+                          if ($item[4]->answer == 1)
+                          {
+                            $ans5 = "Yes : [ ";
+
+                            foreach ($diagnosis as $s) {
+                              $ans5 .= $s.', ';
+                            }
+                            $ans5 .= "]";
+
+                          }else $ans5 = "No";
+
+
+                          ($item[1]->answer == 1) ? $ans2="Yes" : $ans2="No";
+                          ($item[2]->answer == 1) ? $ans3="Yes" : $ans3="No";
+                          ($item[3]->answer == 1) ? $ans4="Yes" : $ans4="No";
+
+                          $submitted = date('M d h:i A', strtotime($item[0]->created_at));
+                          $arr = array(
+                                     $submitted,
+                                     $item[0]->lastname,
                                      $item[0]->firstname,
                                      $item[0]->program,
                                      $ans1, //Q1
-                                     $item[1]->answer, //Q1
-                                     $item[2]->answer, //Q1
-                                     $item[3]->answer, //Q1
-                                     $item[4]->answer //Q1
+                                     $ans2, //Q1
+                                     $ans3,
+                                     $ans4,
+                                     $ans5 //Q1
                                      
                                      );
                           $sheet->appendRow($arr);
