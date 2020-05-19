@@ -179,7 +179,7 @@
         $('#dl').on('click', function(){
           var d = $('#date').val();
           console.log(d);
-          window.location= 'allLogs_download?from='+d;
+          window.location= 'healthForm_download?from='+d;
 
         });
 

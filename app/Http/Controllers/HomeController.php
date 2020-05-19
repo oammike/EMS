@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use \DB;
 use \Hash;
+use Excel;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
@@ -796,6 +797,164 @@ class HomeController extends Controller
       $questions = DB::table('symptoms_questions')->orderBy('ordering')->select('id','question','ordering')->get();
       $today = Carbon::now('GMT+8');
       return view('healthform', compact('user','today','symptoms','diagnosis','questions'));
+    }
+
+    public function healthForm_download()
+    {
+        DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
+        $canAdminister = true;// ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
+
+        $from = Input::get('from');
+        
+        $download = Input::get('dl');
+
+        $rawData = new Collection;
+
+        if (is_null(Input::get('from')))
+        {
+            $daystart = Carbon::now('GMT+8')->startOfDay(); $dayend = Carbon::now('GMT+8')->endOfDay();
+        }
+        else {
+            $daystart = Carbon::parse(Input::get('from'),'Asia/Manila')->startOfDay(); 
+            $dayend = Carbon::parse(Input::get('from'),'Asia/Manila')->endOfDay();
+        }
+
+        $bio = Biometrics::where('productionDate',$daystart->format('Y-m-d'))->get();
+        
+        $form = DB::table('logs')->where('biometrics_id',$bio->first()->id)->
+                leftJoin('logType','logs.logType_id','=','logType.id')->
+                leftJoin('users','logs.user_id','=','users.id')->
+                leftJoin('team','users.id','=','team.user_id')->
+                leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType','logs.manual')->
+                orderBy('users.lastname')->get();
+
+        $activeUsers = DB::table('campaign')->where('campaign.hidden',NULL)->
+                        where([
+                        ['campaign.id', '!=','26'], //wv
+                        ['campaign.id', '!=','35'], //ceb
+
+                      ])->
+                        join('team','team.campaign_id','=','campaign.id')->
+                        join('users','team.user_id','=','users.id')->
+                        select('users.id','users.accesscode','users.lastname','users.firstname','campaign.name as program')->
+                        where('users.status_id','!=',6)->
+                        where('users.status_id','!=',7)->
+                        where('users.status_id','!=',8)->
+                        where('users.status_id','!=',9)->
+                        where('users.status_id','!=',16)->
+                        orderBy('users.lastname')->get();
+        $allsubs = collect($form)->pluck('id')->unique();
+        $allactives = collect($activeUsers)->pluck('id')->unique();
+        $diff = $allactives->diff($allsubs);
+
+
+        $allAnswers = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                  where('symptoms_user.created_at','<=',$dayend->format('Y-m-d H:i:s'))->
+                  join('users','users.id','=','symptoms_user.user_id')->
+                  leftJoin('team','users.id','=','team.user_id')->
+                  leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                  select('users.firstname','users.lastname','users.id as user_id','campaign.name as program','symptoms_user.id as declareID', 'symptoms_user.question_id', 'symptoms_user.answer', 'symptoms_user.created_at')->
+                  orderBy('symptoms_user.question_id','ASC')->get(); 
+
+        $allSymptoms = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                  where('symptoms_user.created_at','<=',$dayend->format('Y-m-d H:i:s'))->
+                  join('users','users.id','=','symptoms_user.user_id')->
+                  join('symptoms_declare','symptoms_declare.user_answerID','=','symptoms_user.id')->
+                  join('symptoms','symptoms.id','=','symptoms_declare.symptoms_id')->
+                  select('users.firstname','users.lastname','users.id as user_id','symptoms_user.question_id', 'symptoms_user.answer','symptoms_declare.user_answerID as declareID', 'symptoms_declare.symptoms_id','symptoms.name as symptom', 'symptoms_declare.isDiagnosis', 'symptoms_user.created_at')->
+                  orderBy('symptoms_user.created_at','DESC')->get(); 
+        
+
+
+        $allQuestions = DB::table('symptoms_questions')->get();
+        $allRespondents = collect($allAnswers)->groupBy('user_id');
+
+            // $q = collect($allECQ)->where('user_id',1097);
+        //return response()->json(['allQuestions'=> $allQuestions, 'allAnswers'=>$allAnswers, 'allSymptoms'=>$allSymptoms,'allRespondents'=>$allRespondents]);
+
+        
+        $headers = array("Last Name","First Name","Program");
+
+        foreach ($allQuestions as $q) {
+          array_push($headers, $q->question);
+        }
+        
+        $sheetTitle = "Health Declaration Form Responses [".$daystart->format('M d l')."]";
+        $description = " ". $sheetTitle;
+
+        if($this->user->id !== 564 ) {
+          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n DL_healthResponses [".$daystart->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        }    
+
+
+           Excel::create($sheetTitle,function($excel) use($allRespondents, $allAnswers,$allSymptoms, $headers,$description,$daystart) 
+           {
+                  $excel->setTitle('Health Declaration Form Responses');
+
+                  // Chain the setters
+                  $excel->setCreator('Programming Team')
+                        ->setCompany('OpenAccess');
+
+                  // Call them separately
+                  $excel->setDescription($description);
+                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($allRespondents, $allAnswers,$allSymptoms, $headers)
+                  {
+                    $sheet->appendRow($headers);
+                    foreach($allRespondents as $item)
+                    {
+                        //$t = Carbon::parse($item->serverTime);
+
+                        // look for the answers
+                        if ($item[0]->answer == 1)
+                        {
+                          $symp = collect($allSymptoms)->where('user_id',$item[0]->user_id)->where('declareID',$item[0]->declareID)->pluck('symptom');
+                          $ans1 = "Yes : [ ";
+
+                          foreach ($symp as $s) {
+                            $ans1 .= $s.', ';
+                          }
+                          $ans1 .= "]";
+
+                        }else $ans1 = "No";
+
+                        
+                        if (count($item) >= 5)
+                        {
+                          $arr = array($item[0]->lastname,
+                                     $item[0]->firstname,
+                                     $item[0]->program,
+                                     $ans1, //Q1
+                                     $item[1]->answer, //Q1
+                                     $item[2]->answer, //Q1
+                                     $item[3]->answer, //Q1
+                                     $item[4]->answer //Q1
+                                     
+                                     );
+                          $sheet->appendRow($arr);
+
+                        }
+                        
+
+                    }
+                    
+                 });//end sheet1
+
+
+
+           })->export('xls');
+
+           return "Download";
+
+        
+
+        
+
+                        
+
     }
 
     public function healthForm_getAll()

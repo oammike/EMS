@@ -90,6 +90,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'HomeController@healthForm_getAll') );
 
   
+    Route::get('/healthForm_download', array(
+        'as'=> 'page.healthForm_download',
+        'uses'=>'HomeController@healthForm_download') );
+
     Route::post('/healthForm_process', array(
       'as'=>'page.healthForm_process',
       'uses'=>'HomeController@healthForm_process') );
