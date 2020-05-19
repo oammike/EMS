@@ -1651,6 +1651,7 @@ class DTRController extends Controller
                               ['id'=>1,'name'=>'Overtime'],
                               ['id'=>2,'name'=>'Leaves'],
                               ['id'=>3,'name'=>'Change Shift Schedules'],
+                              ['id'=>4,'name'=>'Work Schedules'],
 
       ]);
       
@@ -1708,11 +1709,12 @@ class DTRController extends Controller
 
     public function finance_getJPs(Request $request)
     {
-      //------ Template type 1= OT | 2= Leaves | 3= CWS
+      //------ Template type 1= OT | 2= Leaves | 3= CWS | 4=Work sched
       switch ($request->template) {
         case 1: $result = $this->getAllOT($request->cutoff,1); break;
         case 2: $result = $this->getAllLeaves($request->cutoff,1); break;
         case 3: $result = $this->getAllCWS($request->cutoff,1); break;
+        case 4: $result = $this->getAllWorksched($request->cutoff,1); break;
       }
 
       
@@ -1734,6 +1736,7 @@ class DTRController extends Controller
         case '1': $result = $this->getAllOT($cutoff,0); break;
         case '2': $result = $this->getAllLeaves($cutoff,0); break;
         case '3': $result = $this->getAllCWS($cutoff,0); break;
+        case '4': $result = $this->getAllWorksched($cutoff,0); break;
       }
 
       //return $result[0];
@@ -1745,6 +1748,7 @@ class DTRController extends Controller
         case '1': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
         case '2': { $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
         case '3': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="ChangeShiftSchedules"; } break; 
+        case '4': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="WorSchedules"; } break; 
       
       }
 
@@ -2163,6 +2167,122 @@ class DTRController extends Controller
                             }
 
                            
+
+                            $sheet->appendRow($arr);
+
+                          }
+
+                        }//end foreach employee
+
+                        
+                      });//end sheet1
+
+              })->export('xls');return "Download";
+      }
+      else if ($template == '4') // worksched
+      {
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n JPS_".$type." cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
+        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
+              {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description)
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+
+                        foreach($jpsData as $jps)
+                        {
+                          $i = 0;
+
+                          if(count($jps) > 1)
+                          {
+                            foreach ($jps as $j) 
+                            {
+                              $c=0;
+                              $arr[$c] = $j->accesscode; $c++;
+                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                              $s = Carbon::parse($j->productionDate." 00:00:00",'Asia/Manila');
+                             
+
+                              //*** ShiftDate
+                              $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                               //*** Status
+                              $stat = "Approved";
+                              
+
+                              $arr[$c] = $stat; $c++;
+
+                              //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
+                             if($j->workshift == "* RD * - * RD *")
+                             {
+                                 $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
+                                 $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                                 $arr[$c] = "Rest Day"; $c++;
+                                 $arr[$c] = "Rest Day"; $c++;
+                             }
+                             else{
+                               $arr[$c] = $j->workshift; $c++;
+                               $arr[$c] = $j->workshift; $c++; 
+                               $arr[$c] = "Regular Day"; $c++;
+                               $arr[$c] = "Regular Day"; $c++;
+                             }
+
+                            
+
+                              $sheet->appendRow($arr);
+                              
+                            }
+
+                          }
+                          else
+                          {
+                            //Employee AccessCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType',
+                            $arr[$i] = $jps[0]->accesscode; $i++;
+                            $arr[$i] = $jps[0]->lastname.", ".$jps[0]->firstname; $i++;
+
+                           
+                            $s = Carbon::parse($jps[0]->productionDate." 00:00:00",'Asia/Manila');
+                           
+
+                            //*** ShiftDate
+                            $arr[$i] = $s->format('m/d/Y'); $i++;
+
+                             //*** Status
+                            $stat = "Approved";
+                            
+
+                            $arr[$i] = $stat; $i++;
+
+                            //*** CurrentDailySchedule
+                            if($jps[0]->workshift == "* RD * - * RD *")
+                            {
+                                 $arr[$i] = "FLEXI-TIME 8 HOURS";$i++; 
+                                 $arr[$i] = "FLEXI-TIME 8 HOURS";$i++;
+                                 $arr[$i] = "Rest Day"; $i++;
+                                 $arr[$i] = "Rest Day"; $i++;
+                             }
+                            else {
+                             $arr[$i] = $jps[0]->workshift; $i++;
+                             $arr[$i] = $jps[0]->workshift; $i++;
+                             $arr[$i] = "Regular Day"; $i++;
+                            $arr[$i] = "Regular Day"; $i++;
+                            }
 
                             $sheet->appendRow($arr);
 

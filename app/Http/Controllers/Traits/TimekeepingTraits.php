@@ -1051,6 +1051,36 @@ trait TimekeepingTraits
 
   }
 
+  public function getAllWorksched($c, $json)
+  {
+    $cutoff = explode('_', $c); //return $cutoff;
+    $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
+    $endCutoff = $cutoff[1]; //Biometrics::where('productionDate',$cutoff[1])->first();
+    $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+    //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
+
+    $allOTs = new Collection;
+    $total = 0;
+
+    foreach ($period as $p) {
+       $ot = DB::table('user_dtr')->where([ 
+                    ['user_dtr.productionDate',$p->productionDate]
+                    ])->join('users','users.id','=','user_dtr.user_id')->
+                    
+                  select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+      if (count($ot) > 0) {
+        $allOTs->push($ot);
+        $total += count($ot);
+      }
+        
+    }
+    if ($json)
+      return response()->json(['CWS'=>$allOTs, 'total'=>$total, 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+    else
+      return $allOTs;
+
+  }
+
   
 
   public function getComplicatedWorkedHours($user_id, $userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$isRDYest,$payday)
