@@ -409,6 +409,22 @@
 
 
         <li class="header">OAMPI SYSTEM</li>
+
+        <li class="treeview @if ( Request::is('health*') ) active @endif">
+            <a href="#"><i class="fa fa-user-md"></i>&nbsp;<span>Clinical Services</span><i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+
+              
+              <li @if (Request::is('health*')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@healthForm')}}"><i class="fa fa-medkit"></i> Fill Out Health Form</a> </li>
+              <li @if (Request::is('health*')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@healthForm_report')}}"><i class="fa fa-file-o"></i> View All Responses</a> </li>
+
+              
+              
+             
+            </ul>
+        </li>
+
+
         <li><a href="http://172.17.0.2/coffeebreak/" target="_blank"><i class="fa fa-coffee" ></i> <img src="{{ asset('public/img/logo_coffeebreak.png')}}" width="100" /> <span></span></a></li>
 
          <li class="treeview @if (Request::is('campaign*')) active @endif">
@@ -429,9 +445,7 @@
           <a href="#"><i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
            
-            
-            <li style="padding-left:20px"><a href="{{action('HomeController@healthForm_report')}} "><i class="fa fa-medkit"></i> Health Forms </a></li>
-            
+           
 
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADD_NEW_EMPLOYEE') ){ ?> 
             <li @if (Request::is('user/create')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@create')}} "><i class="fa fa-plus"></i> Add New </a></li>

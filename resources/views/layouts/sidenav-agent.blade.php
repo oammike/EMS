@@ -370,6 +370,21 @@
      
 
         <li class="header">OAMPI SYSTEM</li>
+
+        <li class="treeview @if ( Request::is('health*') ) active @endif">
+            <a href="#"><i class="fa fa-user-md"></i>&nbsp;<span>Clinical Services</span><i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+
+              
+              <li @if (Request::is('health*')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@healthForm')}}"><i class="fa fa-medkit"></i> Fill Out Health Form</a> </li>
+              <li @if (Request::is('health*')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@healthForm_report')}}"><i class="fa fa-file-o"></i> View All Responses</a> </li>
+
+              
+              
+             
+            </ul>
+        </li>
+
         <li><a href="http://172.17.0.2/coffeebreak/" target="_blank"><i class="fa fa-coffee" ></i> <img src="{{ asset('public/img/logo_coffeebreak.png')}}" width="100" /> <span></span></a></li>
 
         
@@ -396,17 +411,17 @@
           <li @if (Request::is('oampi-resources')) class="active" @endif><a href="{{action('ResourceController@index')}}" ><i class="fa fa-book"></i> <span>Resources</span></a></li>
 
           <li class="treeview @if ( Request::is('survey*') ) active @endif">
-          <a href="#"><i class="fa fa-question-circle"></i>&nbsp;<span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
+            <a href="#"><i class="fa fa-question-circle"></i>&nbsp;<span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
 
-            
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>Year End Party Artists <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> Year End Theme <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@show',1)}} "><i class="fa fa-question-circle"></i> <span>EES ( * 2019 Survey )</span> </a> </li>
-            
-           
-          </ul>
-        </li>
+              
+              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>Year End Party Artists <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
+              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> Year End Theme <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
+              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@show',1)}} "><i class="fa fa-question-circle"></i> <span>EES ( * 2019 Survey )</span> </a> </li>
+              
+             
+            </ul>
+          </li>
 
          
        
