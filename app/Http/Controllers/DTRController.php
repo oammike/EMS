@@ -2237,8 +2237,8 @@ class DTRController extends Controller
                                  $arr[$c] = "Rest Day"; $c++;
                              }
                              else{
-                               $arr[$c] = $j->workshift; $c++;
-                               $arr[$c] = $j->workshift; $c++; 
+                               $arr[$c] = strip_tags($j->workshift); $c++;
+                               $arr[$c] = strip_tags($j->workshift); $c++; 
                                $arr[$c] = "Regular Day"; $c++;
                                $arr[$c] = "Regular Day"; $c++;
                              }
@@ -2278,8 +2278,8 @@ class DTRController extends Controller
                                  $arr[$i] = "Rest Day"; $i++;
                              }
                             else {
-                             $arr[$i] = $jps[0]->workshift; $i++;
-                             $arr[$i] = $jps[0]->workshift; $i++;
+                             $arr[$i] = strip_tags($jps[0]->workshift); $i++;
+                             $arr[$i] = strip_tags($jps[0]->workshift); $i++;
                              $arr[$i] = "Regular Day"; $i++;
                             $arr[$i] = "Regular Day"; $i++;
                             }
