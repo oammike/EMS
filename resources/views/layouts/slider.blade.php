@@ -1,7 +1,41 @@
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em">EARLY CUT-OFF DTR: 
+ <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; MAY 22, 2020 PAYOUT &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
+                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      As per Malacañang Proclamation No. 944, <strong>May 25, 2020</strong> has been declared as a <strong class="text-orange"> Regular Holiday.</strong> The payout date will be moved <strong class="text-primary"> from May 25, 2020 to May 22, 2020.</strong><br/><br/>
 
+ 
+
+                      In view of this, we will move the payroll cut-off to May 18, 2020.  Attendance from May 19 to 20, 2020 will be paid in full.  Any absence, tardiness, and overtime incurred during that two-day period will be reflected on June 10, 2020 payroll.<br/><br/>
+
+                       
+
+                      Your daily time record should be approved and locked in EMS on or before 12:00 noon of May 20, 2020.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> ECQ Incentives - </strong> to make sure that the DATA MANAGEMENT TEAM will capture the correct and updated data, kindly update the link that they have shared on or before 12 noon of May 20, 2020.<br/><br/>
+
+
+                      Please be guided accordingly. <br/><br/>
+
+                       
+
+                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
+
+                      Thank you.<br/><br/><strong>Finance Team</strong>
+                    
+
+                    </p>  
+                    
+              </div>
                 
 
-              <div class="item active text-center" >
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Feature Article: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   The Wall Street Journal (May 15, 2020) <br/><br/>
                   <img src="storage/uploads/wsj.png" width="30%" />
                   <img src="storage/uploads/rooster1.jpg" width="100%" /><br/><br/>
