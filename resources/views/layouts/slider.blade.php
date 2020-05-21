@@ -1,6 +1,50 @@
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+              <div class="item active text-center" >
+                  
+                  <img src="storage/uploads/worldday.jpg" width="100%" /><br/><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >World Day for Cultural Diversity <br/> <span class="text-primary">For Dialogue &amp; Development
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                      As a multilingual company, many within our Open Access BPO family are kept away from their loved ones due to the COVID-19 pandemic. This World Day for Cultural Diversity for Dialogue & Development, send a virtual hug to those yearning for their loved ones and homes.<br/><br/>#WeSpeakYourLanguage #OAonDiversityDay</p>    
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 25 Eid'l Fitr 
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for May 25.<br/><br/></p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of May 25, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+ 
+                    
+              </div>
+
+            
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em">EARLY CUT-OFF DTR: 
- <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; MAY 22, 2020 PAYOUT &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
+                    <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; MAY 22, 2020 PAYOUT &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
                    <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
                     <img src="storage/uploads/divider.png" />
                     </h4>
@@ -172,7 +216,7 @@
                     </h4>
 
                     <img src="storage/uploads/ECQWall_poster.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',5)}}"> Check out our ECQonnection Wall</a>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',10)}}"> Check out our ECQonnection Wall</a>
                     
                     
               </div>
