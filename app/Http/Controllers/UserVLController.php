@@ -47,6 +47,7 @@ use OAMPI_Eval\FixedSchedules;
 use OAMPI_Eval\Paycutoff;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_VLcredits;
 use OAMPI_Eval\User_VLearnings;
 use OAMPI_Eval\User_SL;
@@ -112,6 +113,38 @@ class UserVLController extends Controller
     }
 
     public function checkExisting(Request $request)
+    {
+        $existingLeave=0;
+
+        $vf = Carbon::parse($request->leaveStart,"Asia/Manila");
+        $mayExisting = User_VL::where('user_id',$request->user_id)->where('leaveEnd','>',$vf->format('Y-m-d H:i:s'))->get();
+        $interval = new \DateInterval("P1D");
+        foreach ($mayExisting as $key) {
+                $period = new \DatePeriod(new \DateTime(Carbon::parse($key->leaveStart,'Asia/Manila')->format('Y-m-d')),$interval, new \DateTime(Carbon::parse($key->leaveEnd,'Asia/Manila')->addDays(1)->format('Y-m-d')));
+                //** we need to add 1 more day kasi di incuded sa loop ung leaveEnd
+
+                foreach ($period as $p) 
+                {
+                    if($p->format('M d, Y') == $vf->format('M d, Y') ){
+                        $existingLeave=true;
+                        goto mayExistingReturn;
+                        //break 2;
+                    }
+                }
+                
+        }
+
+        if ($existingLeave==0)
+            return response()->json(['existing'=>0]);
+
+
+        mayExistingReturn:
+
+            return response()->json(['existing'=>$existingLeave, 'data'=>$mayExisting]);    
+
+    }
+
+    public function checkExisting_VTO(Request $request)
     {
         $existingLeave=0;
 
@@ -298,6 +331,229 @@ class UserVLController extends Controller
                         
                         //return (['creditsleft'=>$creditsLeft, 'vl_from'=>$vl_from]);
                         return view('timekeeping.user-vl_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits'));
+
+                    }else return view('access-denied');
+
+                }
+
+
+                
+
+            }
+
+        }
+
+    }
+
+    public function VTO_new(Request $request)
+    {
+
+
+        if(is_null($request->for))
+            {
+                $user = $this->user;
+                $forSomeone = null;
+            }
+            else{
+
+                $user = User::find($request->for);
+                $forSomeone = $user;
+
+            }
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+        
+
+       if($this->user->id !== 564 ) {
+          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n Tried [VL]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        } 
+
+       
+                 
+
+        if ( empty($user) ) return view('empty');
+        else
+        {
+            ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+            //$isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+            $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+            /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+            $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+            $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+
+            //check mo kung leave for himself or if for others and approver sya
+            $approvers = $user->approvers;
+            //Timekeeping Trait
+            $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+
+            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) ) return view('access-denied');
+
+            if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
+            {
+                $title = 'No Work Schedule found ';
+                $message =  '<br/><br/><br/><br/> No work schedule defined<br /><br/> <i class="fa fa-calendar"></i> <small>Please inform immediate head or Workforce <br/>to have your work schedule plotted before you can file any work-related requests. <br/><br/>Thank you.</smaller></small>
+                  <br /><br/>';
+                  return view('empty-page', compact('message','title'));
+
+            } 
+            else
+            {
+                 /*--- we need to check first kung may approver set na ---*/
+                if (count($approvers)<1 ){
+                    $title = 'No Approver defined ';
+                    $message =  '<br/><br/><br/><br/><span class="text-danger"><i class="fa fa-exclamation-triangle"></i> No Approver defined</span><br /><br/><small>Please inform HR to update your profile <br/>and set the necessary approver(s) for all of your request submissions. <br/><br/>Thank you.</smaller></small>
+                      <br /><br/>';
+                      return view('empty-page', compact('message','title'));
+                }else
+                {
+                    /*------- check first if user is entitled for a leave (Regualr employee or lengOfService > 6mos) *********/
+                    $today=Carbon::today();
+                    $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
+
+                    //actually, pwede na basta regular
+
+                    if ($lengthOfService >= 1)
+                    {
+                        if (empty($request->from))
+                            $vl_from = Carbon::today();
+                        else $vl_from = Carbon::parse($request->from,"Asia/Manila");
+
+
+
+                        
+                        $hasSavedCredits=false;
+
+                        $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
+                        
+                        $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
+                              join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                        $totalVLearned = collect($vlEarnings)->sum('credits');
+
+                        $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
+                              join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
+                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                        $totalSLearned = collect($slEarnings)->sum('credits');
+                        $slCredits = $user->slCredits;
+
+                        $avail = $user->vlCredits;
+
+                         /************ for VL ************/
+                        if (count($avail)>0){
+                          $vls = $user->vlCredits->sortByDesc('creditYear');
+
+                          if($vls->contains('creditYear',date('Y')))
+                          {
+                            $updatedVL=true;
+                            $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid;
+                          }
+                          else{$currentVLbalance = "N/A";}
+                        }else {$currentVLbalance = "N/A";}
+
+                        /************ for SL ************/
+                         if (count($slCredits)>0)
+                         {
+                          $sls = $user->slCredits->sortByDesc('creditYear');
+
+                          if($sls->contains('creditYear',date('Y')))
+                          {
+                            $updatedSL=true;
+
+                            //get advanced SLs
+                            $adv = DB::table('user_advancedSL')->where('user_id',$user->id)->get();
+
+                            $advancedSL = 0;
+                            foreach ($adv as $a) {
+                              $advancedSL += $a->total;
+                            }
+
+                            $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL;
+                                               
+                          }
+                          else { $currentSLbalance = "N/A"; }
+                        }else { $currentSLbalance = "N/A"; }
+                        
+
+                        
+                        
+                            /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
+                            $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
+
+                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice) //if (count($holiday) > 0 )
+                            {
+                                $used = '0.00'; //less 1 day assume wholeday initially
+                                if (count($savedCredits)>0){
+                                     $hasSavedCredits = true;
+                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+                                 }else {
+
+                                    //check muna kung may existing approved VLs
+                                    $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                    if (count($approvedVLs) > 0 )
+                                    {
+                                        $usedC = 0;
+                                        foreach ($approvedVLs as $key) {
+                                            $usedC += $key->totalCredits;
+                                        }
+                                        $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
+                                    }
+                                    else
+                                    $creditsLeft = (0.84 * $today->format('m')) ;
+                                 }
+                                 
+                            }
+                            else{
+
+                                $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
+
+                                //if 4HRs lang work nya, part timer sya or foreign na part timer
+                                //dapat half lang credit nila
+                                if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila')) > 4)
+                                    $foreignPartime = 0;
+                                    //credits = 1;
+                                else
+                                    $foreignPartime = 1; // 0.5;
+
+
+                                ($isParttimer || $foreignPartime) ? $used = 0.5 : $used = 1.00; 
+
+                                if (count($savedCredits)>0){
+                                    $hasSavedCredits = true;
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned;
+                                 }else 
+                                 {
+
+                                    //check muna kung may existing approved VLs
+                                    $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                    if (count($approvedVLs) > 0 )
+                                    {
+                                        $usedC = 0;
+                                        foreach ($approvedVLs as $key) {
+                                            $usedC += $key->totalCredits;
+                                        }
+                                        $creditsLeft =((0.84 * $today->format('m')) - $usedC) - $used ;
+                                    }
+                                    else
+                                        $creditsLeft = (0.84 * $today->format('m')) - $used ;
+                                }
+                            } 
+
+                        
+                        //return (['creditsleft'=>$creditsLeft, 'vl_from'=>$vl_from]);
+
+                        // we now check which credits to use
+                        $useCredits ="";
+
+                        if ($currentVLbalance > 0) $useCredits="VL";
+                        else if($currentSLbalance > 0) $useCredits="SL";
+                        else $useCredits="AdvSL";
+
+                        return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits'));
 
                     }else return view('access-denied');
 
@@ -821,6 +1077,178 @@ class UserVLController extends Controller
                         // NOW, EMAIL THE TL CONCERNED
                     
                         $email_heading = "New VL Request from: ";
+                        $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
+                                       Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
+                        $actionLink = action('UserVLController@show',$vl->id);
+
+                    }
+
+                
+                }
+            }
+
+
+        } 
+
+
+
+         /* -------------- log updates made --------------------- */
+         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." VL submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+            fclose($file);
+         
+
+        if ($anApprover) return response()->json(['success'=>$success,'vl'=>$vl, 'message'=>$msg,'key'=>$key]);
+        else return response()->json(['success'=>0,'vl'=>$vl,'message'=>"for approval",'key'=>$key]);
+
+
+
+
+    }
+
+    public function requestVTO(Request $request)
+    {
+
+        
+        $vl = new User_VTO;
+        $user_id = $request->id;
+        $leaveStart =  $request->leaveFrom;
+        
+        $notes = $request->reason_vl;
+        $totalhours= $request->totalhours;
+        $timeStart = $request->timeStart;
+        $timeEnd = $request->timeEnd;
+        $useCredits = $request->useCredits;
+
+
+
+        //return response()->json(['useCredits'=>$useCredits, 'leaveStart'=>$leaveStart,'notes'=>$notes,'totalhours'=>$totalhours,'timeStart'=>$timeStart,'timeEnd'=>$timeEnd,'success'=>1]);
+        
+
+        $employee = User::find($request->id);
+
+        $vl->user_id = $employee->id;
+        $vl->productionDate = $request->leaveFrom;
+        $vl->startTime = date('H:i:s',strtotime($request->timeStart));
+        $vl->endTime = date('H:i:s',strtotime($request->timeEnd));
+        $vl->totalhours = $request->totalhours;
+        $vl->deductFrom = $request->useCredits;
+        $vl->notes = $request->reason_vl;
+
+
+
+        $approvers = $employee->approvers;
+        $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+        $TLapprover = $this->getTLapprover($employee->id, $this->user->id);
+
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+        
+
+        $correct = Carbon::now('GMT+8'); $key=null;
+        
+        if ( ($isWorkforce && ($this->user->id !== $employee->id) )
+            || ($anApprover && $employeeisBackoffice) 
+            || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
+        {
+            $vl->isApproved = true; $TLsubmitted=true; 
+            if ($isWorkforce) 
+                $vl->approver = $this->user->id;
+            else
+                $vl->approver = $TLapprover;
+
+            //Update leave credits !! NO NEED kasi iaadjust na lang separately
+
+        } else 
+        { 
+            $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; 
+            
+        }
+        
+        $success = 1; $msg = "VL saved successfully.";
+        $vl->created_at = $correct->format('Y-m-d H:i:s');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
+        $vl->save();
+
+
+        
+        
+
+        //*** IF OPS || not approver & not workforce || not approver & backoffice
+        if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
+        {
+            /***** once saved, update your leave credits ***/
+            
+
+            $notification = new Notification;
+            $notification->relatedModelID = $vl->id;
+            $notification->type = 21;
+            $notification->from = $vl->user_id;
+            $notification->save();
+
+            if ($employeeisBackoffice){
+
+                foreach ($employee->approvers as $approver) {
+                    $TL = ImmediateHead::find($approver->immediateHead_id);
+                    $nu = new User_Notification;
+                    $nu->user_id = $TL->userData->id;
+                    $nu->notification_id = $notification->id;
+                    $nu->seen = false;
+                    $nu->save();
+
+                    // NOW, EMAIL THE TL CONCERNED
+                
+                    $email_heading = "New Voluntary Time Off request from: ";
+                    $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
+                                   Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
+                    $actionLink = action('UserVLController@show',$vl->id);
+                   
+                     /*Mail::send('emails.generalNotif', ['user' => $TL, 'employee'=>$employee, 'email_heading'=>$email_heading, 'email_body'=>$email_body, 'actionLink'=>$actionLink], function ($m) use ($TL) 
+                     {
+                        $m->from('OES@openaccessbpo.net', 'OES-OAMPI Evaluation System');
+                        $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New CWS request');     
+
+                        
+                             $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
+                                fclose($file);                      
+                    
+
+                    }); //end mail */
+
+
+            
+                }
+
+            }
+
+            //-- we now notify all WFM
+            if(!$employeeisBackoffice)
+            {
+                foreach ($wfm as $approver) {
+                    //$TL = ImmediateHead::find($approver->immediateHead_id);
+                    //-- make sure not to send nofication kung WFM agent ang sender
+                    if ($this->user->id !== $approver)
+                    {
+
+                        $nu = new User_Notification;
+                        $nu->user_id = $approver;
+                        $nu->notification_id = $notification->id;
+                        $nu->seen = false;
+                        $nu->save();
+
+                        // NOW, EMAIL THE TL CONCERNED
+                    
+                        $email_heading = "New VTO request from: ";
                         $email_body = "Employee: <strong> ". $employee->lastname.", ". $employee->firstname ."  </strong><br/>
                                        Date: <strong> ".$vl->leaveStart  . " to ". $vl->leaveEnd. " </strong> <br/>";
                         $actionLink = action('UserVLController@show',$vl->id);

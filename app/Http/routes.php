@@ -572,6 +572,23 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
 
+      /*********** VTO **********/
+
+        Route::get('/VTO/new', array(
+        'as'=> 'user_vl.VTO_new',
+        'uses'=>'UserVLController@VTO_new') );
+
+        Route::post('/VTO/checkExisting', array(
+        'as'=> 'user_vl.checkExisting_VTO',
+        'uses'=>'UserVLController@checkExisting_VTO') );
+
+        Route::post('/VTO/requestVTO', array(
+        'as'=> 'user_vl.requestVTO',
+        'uses'=>'UserVLController@requestVTO') );
+
+      /*********** VTO **********/
+
+
       /*********** SL **********/
 
         Route::post('/user_sl/editCredits/{id}', array(
