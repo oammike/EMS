@@ -672,6 +672,37 @@
                                            
 
                                         } break;
+                            case '21': { /*------- VTO LEAVE --------*/
+
+                                          var deleteLink = "../user_vl/deleteThisVTO/"+data_id;
+                                          var leaveStart = moment(full.details.productionDate+' '+full.details.startTime); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.details.productionDate+' '+full.details.endTime); //,"MM/D/YYYY h:m A");
+                                          //var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = full.details.totalHours;
+                                          var totalcreds = hours*0.125;
+
+                                          
+
+                                          modalcode += '<p class="text-left"><br/>';
+                                          modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO  &nbsp;&nbsp;</strong>[ use: '+full.details.deductFrom+' ] <br/><br/>';
+                                         
+
+                                         // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
+                                          modalcode += '<strong>Production Date: </strong>'+leaveStart.format("ddd, MMM DD YYYY")+'<br/>';
+                                          modalcode += '<strong> &nbsp;&nbsp;Reason: </strong><em>'+full.details.notes+'</em></p>';
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                          mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                          mc1 += '<p><strong>'+leaveStart.format("hh:mm A")+' </strong></p>';
+                                          
+                                          
+                                          mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                          mc1 += '<p><strong>'+leaveEnd.format("hh:mm A")+'</strong></p></div>';
+
+                                        } break;
+
 
                                       
                          }
@@ -910,6 +941,7 @@
                 case '16': {var requesttype="Maternity Leave (ML)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
                 case '17': {var requesttype="Paternity Leave (PL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
                 case '18': {var requesttype="Single-Parent Leave (SPL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
+                case '21': {var requesttype="VTO"; var processlink = "{{action('UserVLController@processVTO')}}"; }break;
               }
 
               $.ajax({

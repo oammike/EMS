@@ -69,8 +69,8 @@ class UserNotificationController extends Controller
     {
         $forApprovals = $this->getDashboardNotifs(); //$this->getApprovalNotifs();
         
-        return Datatables::collection($forApprovals)->make(true);
-        //return response()->json($forApprovals);
+        //return Datatables::collection($forApprovals)->make(true);
+        return response()->json(['data'=>$forApprovals,'count'=>count($forApprovals)]);
 
     }
 

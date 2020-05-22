@@ -602,6 +602,33 @@ class UserVLController extends Controller
         
     }
 
+     public function deleteThisVTO($id, Request $request)
+    {
+        $theVL = User_VTO::find($id);
+
+        //find all notifications related to that OT
+        $theNotif = Notification::where('relatedModelID', $theVL->id)->where('type',$request->notifType)->get();
+
+        if (count($theNotif) > 0){
+            $allNotifs = User_Notification::where('notification_id', $theNotif->first()->id)->get();
+            foreach ($allNotifs as $key) {
+                $key->delete();
+                
+            }
+        }
+
+        /*****  update your leave credits ***/
+        
+
+
+        $theVL->delete();
+
+        if ($request->redirect == '1')
+            return redirect()->back();
+        else return response()->json(['success'=>"ok"]);
+        
+    }
+
     public function deleteCredit( $id )
     {
         $vl = User_VLcredits::find($id);
@@ -915,6 +942,59 @@ class UserVLController extends Controller
 
     }
 
+    public function processVTO(Request $request)
+    {
+
+        /* -------------- log updates made --------------------- */
+        $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n [". $request->id."] VL REQUEST \n");
+        fclose($file);
+
+
+        $vl = User_VTO::find($request->id);
+        $vl->approver = $this->getTLapprover($vl->user_id, $this->user->id);
+        
+        if ($request->isApproved == 1){
+            $vl->isApproved = true;
+
+        }  else {
+            $vl->isApproved=false;
+        }
+
+        $correct = Carbon::now('GMT+8');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
+        $vl->save();
+
+        /***** once saved, update your leave credits ***/
+        
+
+         //**** send notification to the sender
+        $theNotif = Notification::where('relatedModelID', $vl->id)->where('type',21)->get();
+
+        //then remove those sent notifs to the approvers since it has already been approved/denied
+        if (count($theNotif) > 0)
+            DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
+
+
+        $unotif = $this->notifySender($vl,$theNotif->first(),21);
+
+        /* //Next, delete all user-notif associated with this:
+        $theNotif = Notification::where('relatedModelID',$vl->id)->where('type',6)->first();
+        $allUserNotifs = User_Notification::where('notification_id',$theNotif->id)->delete(); */
+        
+          /* -------------- log updates made --------------------- */
+         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n [". $vl->id."] VTO update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+            fclose($file);
+
+        $user = User::find($vl->user_id);
+
+        (is_null($user->nickname)) ? $f = $user->firstname : $f = $user->nickname;
+        return response()->json(['success'=>1, 'firstname'=>$f, 'lastname'=>$user->lastname, 'unotif'=>$unotif]);
+
+
+    }
+
 
     public function requestVL(Request $request)
     {
@@ -1141,6 +1221,8 @@ class UserVLController extends Controller
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $TLapprover = $this->getTLapprover($employee->id, $this->user->id);
 
+         //return response()->json(['TLapprover'=>$TLapprover, 'useCredits'=>$useCredits, 'leaveStart'=>$leaveStart,'notes'=>$notes,'totalhours'=>$totalhours,'timeStart'=>$timeStart,'timeEnd'=>$timeEnd,'success'=>1]);
+
         // get WFM
         $wfm = collect(DB::table('team')->where('campaign_id',50)->
                     leftJoin('users','team.user_id','=','users.id')->
@@ -1170,7 +1252,8 @@ class UserVLController extends Controller
 
         } else 
         { 
-            $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; 
+            $vl->isApproved = null; $TLsubmitted=false;
+            $vl->approver = $TLapprover; 
             
         }
         
@@ -1324,6 +1407,51 @@ class UserVLController extends Controller
 
     }
 
+    public function showVTO($id)
+    {
+
+        //--- update notification
+         if (Input::get('seen')){
+            $markSeen = User_Notification::where('notification_id',Input::get('notif'))->where('user_id',$this->user->id)->get();
+            if (count($markSeen)>0)
+            {
+                $markSeen->first()->seen = true;
+                $markSeen->first()->push();
+            }
+                
+
+        }
+
+
+        $vl = User_VTO::find($id);
+
+        if (is_null($vl)) return view('empty');
+
+        $user = User::find($vl->user_id);
+        $profilePic = $this->getProfilePic($user->id);
+        $leadershipcheck = ImmediateHead::where('employeeNumber', $user->employeeNumber)->first();
+
+        $approvers = $user->approvers;
+        $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+
+        if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
+
+        $details = new Collection;
+
+        $details->push(['from'=>date('h:i A', strtotime($vl->startTime)), 'to'=>date('h:i A', strtotime($vl->endTime)),
+            'totalHours'=>$vl->totalHours,
+            'totalCredits'=>number_format((float)$vl->totalHours * 0.125,2).' ['.$vl->deductFrom.']',
+            'dateRequested'=>date('M d, Y - D ', strtotime($vl->created_at)),
+            'notes'=> $vl->notes ]);
+        
+
+        
+        //return $details;
+        return view('timekeeping.show-VTO', compact('user', 'profilePic','camps', 'vl','details','anApprover'));
+
+
+    }
+
     public function showCredits($id)
     {
         $personnel = User::find($id);
@@ -1360,6 +1488,12 @@ class UserVLController extends Controller
                             select('user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
                             orderBy('user_advancedSL.periodEnd','DESC')->get(); //
 
+        $allVTOs = DB::table('user_vto')->where('user_vto.user_id',$id)->where('user_vto.isApproved',1)->
+                        where('user_vto.productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                        where('user_vto.productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
+                            select('user_vto.totalHours','user_vto.productionDate', 'user_vto.deductFrom')->
+                            orderBy('user_vto.productionDate','DESC')->get(); //
+        //return $allVTOs;
 
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
@@ -1372,7 +1506,7 @@ class UserVLController extends Controller
        
 
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL','allVTOs'));
         else return view('access-denied');
 
 

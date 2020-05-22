@@ -49,6 +49,7 @@ use OAMPI_Eval\User_Notification;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_Familyleave;
@@ -2651,7 +2652,7 @@ class DTRController extends Controller
         else{
           //now redirect it to the DTR sheet
           $theDTR = User_DTR::find(Notification::find($seen->first()->notification_id)->relatedModelID);
-          if (count($theDTR)>0){
+          if (count((array)$theDTR)>0){
             $fromDate = Carbon::parse($theDTR->productionDate,"Asia/Manila");
             $toDate = Carbon::parse($theDTR->productionDate,"Asia/Manila");
           } 
@@ -2819,6 +2820,15 @@ class DTRController extends Controller
           $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
           $approvedSLs = User_SL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
 
+          $vtoVL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','VL')->get();
+          $totalVTO_vl = number_format(collect($vtoVL)->sum('totalHours') * 0.125,2);
+
+          $vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','SL')->get();
+          $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();
+          $totalVTO_sl1 = number_format(collect($vtoSL)->sum('totalHours') * 0.125,2);
+          $totalVTO_sl2 = number_format(collect($vtoSL2)->sum('totalHours') * 0.125,2);
+          $totalVTO_sl = $totalVTO_sl1 + $totalVTO_sl2;
+
             /************ for VL ************/
             if (count($avail)>0){
               $vls = $user->vlCredits->sortByDesc('creditYear');
@@ -2826,7 +2836,7 @@ class DTRController extends Controller
               if($vls->contains('creditYear',date('Y')))
               {
                 $updatedVL=true;
-                $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid;
+                $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid - $totalVTO_vl;
               }
               else
               {
@@ -2887,7 +2897,7 @@ class DTRController extends Controller
                   $advancedSL += $a->total;
                 }
 
-                $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL;
+                $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
 
 
                                    
@@ -3475,6 +3485,7 @@ class DTRController extends Controller
                                   'hasCWS'=>$hasCWS,
                                   'hasLeave' => null,
                                   'hasLWOP' => null,
+                                  'hasVTO'=>null,
                                   'hasOT'=>$hasOT,
                                   'hasPendingIN' => $data[0]['hasPendingIN'],
                                   'hasPendingOUT' => $data[0]['hasPendingOUT'],
@@ -3669,7 +3680,7 @@ class DTRController extends Controller
 
                                     if (empty($userLogOUT[0]['timing']))
                                     {
-                                      //** but check mo muna kung may filed leave ba OR HOLIDAY
+                                      //** but check mo muna kung may filed leave ba OR HOLIDAY|| $userLogOUT[0]['hasVTO']
                                       if($userLogOUT[0]['hasLeave'] || $userLogOUT[0]['hasLWOP'] || $userLogOUT[0]['hasSL'] || $hasHolidayToday)
                                       {
                                         $data = $this->getWorkedHours($user,$userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$payday,$isRDYest,$isParttimer);
@@ -3852,6 +3863,7 @@ class DTRController extends Controller
                                       'hasCWS'=>$hasCWS,
                                       'hasLWOP' => $userLogIN[0]['hasLWOP'],
                                       'hasOT'=>$hasOT,
+                                      'hasVTO' => $userLogOUT[0]['hasVTO'],
                                       'hasApprovedCWS'=>$hasApprovedCWS,
                                       'hasApprovedOT'=>$hasApprovedOT,
                                       'hasLeave' => $hasLeave, //$userLogIN[0]['hasLeave'],
@@ -3915,7 +3927,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Mar 23, 2020');
+            //return $myDTR->where('productionDate','May 05, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

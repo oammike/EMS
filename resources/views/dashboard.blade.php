@@ -1374,6 +1374,7 @@ select:-webkit-autofill:focus {
                                 case 17: icon="fa-male";break;
                                 case 18: icon="fa-street-view";break;
                                 case 19: icon="fa-unlock";break;
+                                case 21: icon="fa-history";break;
                               }
             
 
@@ -1389,7 +1390,7 @@ select:-webkit-autofill:focus {
           modalcode += '      <!-- Message. Default to the left -->';
           modalcode += '      <div class="direct-chat-msg">';
           modalcode += '        <div class="direct-chat-info clearfix">';
-          modalcode += '          <span class="direct-chat-name pull-left">'+full.nickname+'</span>';
+          modalcode += '          <span class="direct-chat-name pull-left">'+full.nickname+'<br/>'+ full.program+'</span>';
           modalcode += '          <span class="direct-chat-timestamp pull-right">'+formattedDate+'</span>';
           modalcode += '        </div>';
           modalcode += '        <!-- /.direct-chat-info -->';
@@ -1871,6 +1872,48 @@ select:-webkit-autofill:focus {
                                             } break;
 
                                 
+                                // VTO 
+                                case 21: { 
+
+                                          var leaveStart = moment(full.deets.productionDate+' '+full.deets.startTime); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.deets.productionDate+' '+full.deets.endTime); //,"MM/D/YYYY h:m A");
+                                          //var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = full.deets.totalHours; //moment(full.deets.totalHours).asHours(); // duration.asHours();
+                                          var totalcreds = full.deets.totalHours*0.125;
+                                          
+
+                                         
+
+                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                          modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
+                                         
+
+                                        
+                                          modalcode += '<strong>Total hours: </strong><em>'+full.deets.totalHours+'</em><br/>';
+                                           modalcode += '<strong>&nbsp;&nbsp;Notes: </strong><em>'+full.deets.notes+'</em></p>';
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-4"><h5 class="text-primary">Production Date: </h5></div>';
+                                          modalcode += '<div class="col-sm-4"><h5 class="text-primary">From: </h5></div><div class="col-sm-4"><h5 class="text-primary">Until: </h5></div>';
+
+                                               
+
+
+                                                  mc1 += '<div class="col-sm-4" style="font-size: 12px">';
+                                                  mc1 += '<p><strong>'+full.deets.productionDate+' </strong></p></div>';
+                                                  mc1 += '<div class="col-sm-4" style="font-size: 12px">';
+
+                                                  
+                                                  mc1 += '<p><strong>'+leaveStart.format("hh:mm A")+' </strong></p>';
+
+                                                  mc1 += '</div><div class="col-sm-4" style="font-size: 12px">';
+                                                  mc1 += '<p><strong>'+leaveEnd.format("hh:mm A")+'</strong></p></div>';
+
+                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                            } break;
+
+
+                                
+                                
 
 
                               }
@@ -1984,9 +2027,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted CWS request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted CWS request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted CWS request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted CWS request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2020,9 +2063,9 @@ select:-webkit-autofill:focus {
 
                                               $('#myModal_DTRP'+notif).modal('hide');
                                               if (processAction == '1')
-                                               $.notify("Submitted OT Request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted OT Request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted OT Request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted OT Request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                  
                                                
@@ -2053,9 +2096,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted DTRP - IN by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted DTRP - IN by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted DTRP - IN by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted DTRP - IN by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              
 
                                                
@@ -2087,9 +2130,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted DTRP - OUT by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted DTRP - OUT by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted DTRP - OUT by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted DTRP - OUT by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              
                                              // window.location = "{{action('HomeController@index')}}";
                                                
@@ -2116,9 +2159,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted VL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted VL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted VL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted VL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2150,9 +2193,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted SL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted SL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted SL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted SL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2183,9 +2226,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted LWOP request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted LWOP request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted LWOP request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted LWOP request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2217,9 +2260,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted OBT request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted OBT request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted OBT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted OBT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2250,9 +2293,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2283,9 +2326,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted ML request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted ML request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted ML request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted ML request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2316,9 +2359,9 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted PL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted PL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted PL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted PL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2349,9 +2392,42 @@ select:-webkit-autofill:focus {
                                               $('#myModal_DTRP'+notif).modal('hide');
 
                                               if (processAction == '1')
-                                               $.notify("Submitted SPL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted SPL request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
-                                               $.notify("Submitted SPL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                                               $.notify("Submitted SPL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
+                                              //window.location = "{{action('HomeController@index')}}";
+                                               
+                                            }, error: function(res){
+                                              console.log("ERROR");
+                                              console.log(res);
+                                            }
+
+
+                                  });
+
+                              }break;
+
+                    case '21': { //vto
+                                  $.ajax({
+                                            url: "{{action('UserVLController@processVTO')}}",
+                                            type:'POST',
+                                            data:{ 
+
+                                              'id': id,
+                                              'isApproved': processAction,
+                                              '_token':_token
+                                            },
+
+                                           
+                                            success: function(res)
+                                            {
+                                              console.log(res);
+                                              $('#myModal_DTRP'+notif).modal('hide');
+
+                                              if (processAction == '1')
+                                               $.notify("Submitted VTO request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
+                                             else
+                                               $.notify("Submitted VTO request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){
@@ -2416,7 +2492,7 @@ select:-webkit-autofill:focus {
       var dt = $("#requests").DataTable();
       dt.ajax.reload();
       console.log(response);
-      $('#approvalcount').html(response.recordsTotal);
+      $('#approvalcount').html(response.count);
      
     });
     };
