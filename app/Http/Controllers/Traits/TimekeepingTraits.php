@@ -48,6 +48,7 @@ use OAMPI_Eval\FixedSchedules;
 use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\User_LWOP;
@@ -125,6 +126,8 @@ trait TimekeepingTraits
     switch ($leaveType) {
       case 'VL': $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
                   break;
+      case 'VTO': $vl1 = User_VTO::where('user_id',$id)->where('productionDate',$thisPayrollDate)->orderBy('created_at','DESC')->get();
+                  break;
       case 'SL': $vl1 = User_SL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
                   break;
       case 'FL': $vl1 = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
@@ -134,8 +137,6 @@ trait TimekeepingTraits
       
       
     }
-    
-    //where('leaveEnd','<=',$endOfShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$startOfShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
 
     $vlcol= new Collection;$daysSakop=null;
     if (count($vl1) > 0)
@@ -146,51 +147,10 @@ trait TimekeepingTraits
       foreach ($vl1 as $vacay) 
       {
 
-        $f_dayS = Carbon::parse($vacay->leaveStart,'Asia/Manila');
-        $f_dayE = Carbon::parse($vacay->leaveEnd,'Asia/Manila');
-        $full_leave = Carbon::parse($vacay->leaveEnd,'Asia/Manila')->addDays($vacay->totalCredits)->addDays(-1);
-        $fend = $f_dayE->format('Y-m-d');
-
-        $cf = $vacay->totalCredits; // $f_dayS->diffInDays($f_dayE)+1;
-        $cf2 = 1;
-
-        if ($vacay->totalCredits <= 1)
+        if ($leaveType == "VTO")
         {
-            if($schedForToday['isRD']){ }
-            else
-              array_push($alldaysVL, $f_dayS->format('Y-m-d'));
-
-
-            array_push($alldaysVL, $f_dayE->format('Y-m-d'));
-            
-
-        }else
-        {
-          $daysSakop = $f_dayE->diffInDays($f_dayS)+1;
-
-          if($schedForToday['isRD']){ }
-          else
-          {
-            while( $cf2 <= $daysSakop) {  // $cf){
-          
-              array_push($alldaysVL, $f_dayS->format('Y-m-d'));
-              $f_dayS->addDays(1);
-              $cf2++;
-            }
-            array_push($alldaysVL, $f_dayE->format('Y-m-d'));
-
-          }
-
-          
-
-        }
-        
-        
-
-        //$flcol->push(['payday'=>$payday, 'full_leave'=>$full_leave]);
-
-        if(in_array($thisPayrollDate, $alldaysVL) ) {
-
+          $daysSakop=1;
+          array_push($alldaysVL, $vacay->productionDate);
           $vl= $vacay; 
           $hasVL=true;
           $hasLeave=true;
@@ -198,7 +158,64 @@ trait TimekeepingTraits
           (!is_null($vlDeet->isApproved)) ? $hasPendingVL=false : $hasPendingVL=true;
 
           break(1);
+
         }
+        else
+        {
+          $f_dayS = Carbon::parse($vacay->leaveStart,'Asia/Manila');
+          $f_dayE = Carbon::parse($vacay->leaveEnd,'Asia/Manila');
+          $full_leave = Carbon::parse($vacay->leaveEnd,'Asia/Manila')->addDays($vacay->totalCredits)->addDays(-1);
+          $cf = $vacay->totalCredits;
+          $fend = $f_dayE->format('Y-m-d');
+          $cf2 = 1;
+
+          
+          if ($vacay->totalCredits <= 1)
+          {
+              if($schedForToday['isRD']){ }
+              else
+                array_push($alldaysVL, $f_dayS->format('Y-m-d'));
+
+
+              array_push($alldaysVL, $f_dayE->format('Y-m-d'));
+              
+
+          }else
+          {
+            $daysSakop = $f_dayE->diffInDays($f_dayS)+1;
+
+            if($schedForToday['isRD']){ }
+            else
+            {
+              while( $cf2 <= $daysSakop) {  // $cf){
+            
+                array_push($alldaysVL, $f_dayS->format('Y-m-d'));
+                $f_dayS->addDays(1);
+                $cf2++;
+              }
+              array_push($alldaysVL, $f_dayE->format('Y-m-d'));
+
+            }
+
+            
+
+          }
+          if(in_array($thisPayrollDate, $alldaysVL) ) {
+
+            $vl= $vacay; 
+            $hasVL=true;
+            $hasLeave=true;
+            $vlDeet= $vacay;
+            (!is_null($vlDeet->isApproved)) ? $hasPendingVL=false : $hasPendingVL=true;
+
+            break(1);
+          }
+
+        }
+
+        
+        
+        
         
       }
 
@@ -206,7 +223,7 @@ trait TimekeepingTraits
       
     }else 
     {
-      $vl=[];$hasVL = false;
+      $vl=['X'];$hasVL = false;
       $vlDeet = null;
     }
     /*-------- VACATION LEAVE  -----------*/
@@ -1895,6 +1912,7 @@ trait TimekeepingTraits
     $hasLeave = null; $leaveDetails = new Collection; $hasPendingLeave=null;
     $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
     $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
+    $hasVTO = null; $vtoDetails = new Collection; $hasPendingVTO=false;
     $hasFL = null; $hasVL=null; $hasSL=null; $flDetails = new Collection; $hasPendingFL=false;
     $pendingDTRP = null; 
     $UT=null;$log=null;$timing=null; $pal = null;$maxIn=null;$beginShift=null; $finishShift=null;
@@ -1919,7 +1937,7 @@ trait TimekeepingTraits
 
 
 
-    $alldays = [];$alldaysLWOP=[]; $alldaysFL=[]; $alldaysVL=[]; $alldaysSL=[];$col =[];$fl=[];
+    $alldays = [];$alldaysLWOP=[]; $alldaysFL=[]; $alldaysVL=[]; $alldaysSL=[]; $alldaysVTO=[]; $col =[];$fl=[];
 
  
 
@@ -1930,6 +1948,16 @@ trait TimekeepingTraits
     $hasLeave = $vacationLeave->hasLeave; 
     $vlDeet = $vacationLeave->details;
     $hasPendingVL = $vacationLeave->hasPending;
+
+
+    $vtoff = $this->establishLeaves($id,$endShift,'VTO',$thisPayrollDate,$schedForToday);
+    $vto = $vtoff->leaveType;
+    $alldaysVTO = $vtoff->allDays;
+    $hasVTO = $vtoff->hasTheLeave; 
+    $vtoDeet = $vtoff->details;
+    $hasPendingVTO = $vtoff->hasPending;
+
+
 
     $sickleave = $this->establishLeaves($id,$endShift,'SL',$thisPayrollDate,$schedForToday);
     $sl = $sickleave->leaveType;
@@ -2669,7 +2697,9 @@ trait TimekeepingTraits
                                 $log = "<strong class=\"text-danger\">No IN</strong>". $icons;
                                 $workedHours = $holidayToday->first()->name;
 
-                               } else if ($hasLWOP){
+                               } 
+                               else if ($hasLWOP)
+                               {
 
                                   $link = action('UserController@myRequests',$id);
                                   $icons = "<a title=\"LWOP request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a>";
@@ -2689,6 +2719,29 @@ trait TimekeepingTraits
                                   }
 
                                 }//end if has LWOP
+                                
+                                /*else if ($hasVTO)
+                                 {
+
+                                    $link = action('UserController@myRequests',$id);
+                                    $icons = "<a title=\"VTO request\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a>";
+
+                                    
+                                    if ($lwopDeet->totalCredits >= '1.0'){
+                                      $log="<small><em>Leave Without Pay </em></small>".$icons;
+                                      $workedHours = 8.0;
+
+                                    } 
+                                    else if ($lwopDeet->totalCredits == '0.50'){
+                                            
+                                              $log="<small><em>Half-day LWOP </em></small>".$icons;
+                                              if (count($userLog) <1) $workedHours = 4.0;
+                                              else $workedHours = 8.0;
+                                            
+                                    }
+
+                                  }//end if has VTO
+                                  */
                                 else
                                 {
                                     if($logType_id == 1) $log =  "<strong class=\"text-danger\">No IN</strong>". $icons;
@@ -2987,6 +3040,16 @@ trait TimekeepingTraits
         ($vlDeet->isApproved) ? $leaveDetails->push(['type'=>"VL",'icon'=>'fa-plane', 'details'=>$vlDeet]) : $leaveDetails->push(['type'=>"VL denied",'icon'=>'fa-times', 'details'=>$vlDeet]);
       }
 
+      /*-------- VTO LEAVE -----------*/
+      if ($hasVTO && $hasPendingVTO)
+      {
+        $leaveDetails->push(['type'=>"VTO for approval",'icon'=>'fa-info-circle', 'details'=>$vtoDeet]);
+        
+      } else if($hasVTO)
+      {
+        ($vtoDeet->isApproved) ? $leaveDetails->push(['type'=>"VTO",'icon'=>'fa-history', 'details'=>$vtoDeet]) : $leaveDetails->push(['type'=>"VTO denied",'icon'=>'fa-times', 'details'=>$vtoDeet]);
+      }
+
 
       /*-------- SICK LEAVE -----------*/
       if ($hasSL && $hasPendingSL)
@@ -3081,7 +3144,7 @@ trait TimekeepingTraits
                     'isAproblemShift'=>$isAproblemShift,
                     'isRDYest'=>$isRDYest,
                     'finishShift'=>$finishShift,
-                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
+                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL, 'hasVTO'=>$hasVTO,
                     'hasPendingDTRP' => $hasPendingDTRP,
                     'leave'=>$leaveDetails,
                     'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
@@ -3113,7 +3176,7 @@ trait TimekeepingTraits
                     'isAproblemShift'=>$isAproblemShift,
                     'isRDYest'=>$isRDYest,
                     'finishShift'=>$finishShift,
-                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,
+                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,'hasVTO'=>$hasVTO,
                     'hasPendingDTRP' => $hasPendingDTRP,
                     'leave'=>$leaveDetails,
                     'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
@@ -4047,6 +4110,7 @@ trait TimekeepingTraits
     $hasHolidayToday = false;
     $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
     $hasVL = null; $vlDetails = new Collection; $hasPendingVL=false;
+    $hasVTO = null; $vtoDetails = new Collection; $hasPendingVTO=false;
     $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
     $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
 
@@ -4102,7 +4166,7 @@ trait TimekeepingTraits
     $inTime = null;
     $outTime = null;$x=null;$y=null;
 
-    $alldays=[]; $alldaysLWOP=[]; $alldaysFL=[]; $alldaysVL=[]; $alldaysSL=[];
+    $alldays=[]; $alldaysLWOP=[]; $alldaysFL=[]; $alldaysVL=[]; $alldaysSL=[]; $alldaysVTO=[];
     /*------ WE CHECK FIRST IF THERE'S AN APPROVED VL | SL | LWOP -----*/
     
     /*-------- VACATION LEAVE  -----------*/
@@ -4116,6 +4180,16 @@ trait TimekeepingTraits
     $hasPendingVL = $vacationleave->hasPending;
     //$koll->push(['hasVL'=>$hasVL,'alldaysVL'=>$alldaysVL,'vlDeet'=>$vlDeet,'query'=>$vacationleave->query]);
     /*-------- VACATION LEAVE  -----------*/
+
+    /*-------- VTO LEAVE  -----------*/
+    
+    $vtimeoff = $this->establishLeaves($user->id,$endOfShift,'VTO',$payday,$schedForToday);
+    $vto = $vtimeoff->leaveType;
+    $alldaysVTO = $vtimeoff->allDays;
+    $hasVTO = $vtimeoff->hasTheLeave;  
+    $vtoDeet = $vtimeoff->details;
+    $hasPendingVTO = $vtimeoff->hasPending;
+    /*-------- vto LEAVE  -----------*/
 
 
    
@@ -4391,7 +4465,7 @@ trait TimekeepingTraits
             //$koll->push(['1'=> Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->format('Y-m-d H:i:s'), '2'=> $startOfShift->format('Y-m-d H:i:s'),'dh'=>$dh]);
             //(Carbon::parse($payday." ".$noSec->format('H:i'),"Asia/Manila"));//->addHour());
 
-            if ($wh >= 300 ) $wh = $wh-1; 
+            if ($wh >= 270 ) $wh = $wh-60; 
 
 
 
@@ -4410,6 +4484,14 @@ trait TimekeepingTraits
               $UT = $workedHours1[0]['UT'];
 
             }//end if has VL
+
+            if ($hasVTO)
+            {
+              $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours .= $workedHours1[0]['workedHours'];
+              $UT = $workedHours1[0]['UT'];
+
+            }//end if has VTO
             
 
              if ($hasOBT)
@@ -4440,7 +4522,7 @@ trait TimekeepingTraits
               }//end if has LWOP
             
 
-            if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL)
+            if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL && !$hasVTO)
             {
               $workedHours .= number_format($wh/60,2)."<br/><small>(early OUT)</small>";
 
@@ -4522,6 +4604,15 @@ trait TimekeepingTraits
               $UT = $workedHours1[0]['UT'];
 
             }//end if has VL
+
+            if ($hasVTO)
+            {
+              $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours .= $workedHours1[0]['workedHours'];
+              $UT = $workedHours1[0]['UT'];
+           
+            }//end if has VTO
+             
 
             else if ($hasOBT)
               {
@@ -4630,6 +4721,14 @@ trait TimekeepingTraits
                 $UT = $workedHours1[0]['UT'];
               }//end if has VL
 
+              if ($hasVTO)
+              {
+                $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours .= $workedHours1[0]['workedHours'];
+                $UT = $workedHours1[0]['UT'];
+
+              }//end if has VTO
+
                if ($hasOBT)
               {
 
@@ -4658,7 +4757,7 @@ trait TimekeepingTraits
 
 
 
-              if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL)
+              if (!$hasSL && !$hasVL && !$hasLWOP && !$hasOBT && !$hasFL && !$hasVTO)
                 {
                   $workedHours .= number_format($wh/60,2)."<br/><small>(Late IN)</small>";
 
@@ -4764,18 +4863,9 @@ trait TimekeepingTraits
 
                    if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                    {
-                    $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');//->format('Y-m-d H:i:s');
-
-                    /*if($isPartTimer)
-                      $shift_end = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5);
-                    else
-                      $shift_end = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);*/
+                    $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
 
                     $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
-                    //$totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($t,"Asia/Manila") ))/60,2);
-                    
-                    //$totalbill = 133.33;
-                    //$totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($t,"Asia/Manila") ))/60,2);
 
                    }
                     
@@ -4920,6 +5010,16 @@ trait TimekeepingTraits
 
       }//end if has VL
 
+      if ($hasVTO)
+      {
+          $workedHours1 = $this->processLeaves('VTO',false,$WHcounter,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $workedHours .= $workedHours1[0]['workedHours'];
+          $UT = $workedHours1[0]['UT'];
+
+          
+
+      }//end if has VTO
+
 
       if ($hasOBT)
       {
@@ -4992,7 +5092,7 @@ trait TimekeepingTraits
                   //'checkLate'=>"nonComplicated", 
                   //'wh'=>$wh,'comp'=>$comp,
                   'workedHours'=> $workedHours, //$koll, // $wh,// 
-                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP ]);
+                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP, 'VTO'=>$vtimeoff ]);
    
 
 
@@ -5385,7 +5485,7 @@ trait TimekeepingTraits
               # code...
               }break;
 
-      case 'VL':{$link = action('UserVLController@show',$deet->id);$lTitle = "VL request";
+    case 'VL':{$link = action('UserVLController@show',$deet->id);$lTitle = "VL request";
                     if($deet->isApproved)
                     {
                       
@@ -5406,7 +5506,7 @@ trait TimekeepingTraits
               # code...
               }break;
 
-      case 'FL':{
+    case 'FL':{
                     $link = action('UserFamilyleaveController@show',$deet->id);
 
                     $theleave = User_Familyleave::find($deet->id);
@@ -5467,6 +5567,27 @@ trait TimekeepingTraits
                     
                     
                     $workedHours = "N/A";
+              # code...
+              }break;
+
+    case 'VTO':{$link = action('UserVLController@showVTO',$deet->id);$lTitle = "VTO request";
+                    if($deet->isApproved)
+                    {
+                      
+                      
+                      $i = "fa-history";
+                      $l = "VTO";
+                      $label = " Voluntary Time Off ";
+                      $workedHours = round(number_format($wh/60 + $deet->totalHours,2),PHP_ROUND_HALF_DOWN);// 8.0;
+
+                    }else
+                    {
+                      $i = "fa-times";
+                      $l = "VTO";
+                      $label = "VTO DENIED";
+                      $workedHours = 0.0;
+                    }
+                    
               # code...
               }break;
       
@@ -5604,113 +5725,145 @@ trait TimekeepingTraits
        
 
 
-      }else{
-
-        if ($deet->totalCredits >= '1.0'){
-
-          if($hasPending){
-            $workedHours = "<strong class='text-danger'>AWOL</strong><br/>";
-            $log="<strong><small><i class=\"fa ".$i."\"></i> <em> ".$l." for approval </em></small></strong>".$icons;
-          }else{
-            //$workedHours .=" ";
-            $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$label." ]</em></small></strong>".$icons;
-          }
-          
-          if($leaveType=='LWOP') $workedHours  .= "0.0<br/>".$log;
-          else
-          $workedHours .= "<br/>".$log;
-
-        } 
-        else if ($deet->totalCredits == '0.50'){
-
-            if($hasPending){
-              if ($deet->halfdayFrom == 2)
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [1st Shift ".$l."] (for approval) </em></small></strong>".$icons;
-              else if ($deet->halfdayFrom == 3)
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [2nd Shift ".$l."] (for approval) </em></small></strong>".$icons;
-              else
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [ Half-day ".$l."] (for approval) </em></small></strong>".$icons;
-              
-              
-                    //no logs, meaning halfday AWOL sya
-                    if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
-
-              $workedHours = "<strong class='text-danger'>AWOL</strong>";
-              $workedHours .= "<br/>".$log;
-
-            }else{
-
-              if ($deet->halfdayFrom == 2)
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 1st Shift ".$l." ]</em></small></strong>".$icons;
-              else if ($deet->halfdayFrom == 3)
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 2nd Shift ".$l." ]</em></small></strong>".$icons;
-              else
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ Half-day ".$l."  ]</em></small></strong>".$icons;
-
-              
-                    if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
-
-              if($leaveType=='LWOP') $workedHours  = 0.0;     
-              else $workedHours = '4.0';
-              $WHcounter = 4.0;
+      }
+      else
+      {
+        if($leaveType == "VTO")
+        {
+          if($hasPending)
+            {
+              $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$l."  ] (for approval) </em></small></strong>".$icons;
+              $WHcounter = number_format($wh/60,2);
+              $workedHours = $WHcounter;
               $workedHours .= "<br/>".$log;
             }
-                  
-                    
-                  
-        }// end if 0.5 credits
+            else if( !($deet->isApproved) ){
+              $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$l."  ] (denied) </em></small></strong>".$icons;
+              $WHcounter = number_format($wh/60,2);
+              $workedHours = $WHcounter;
+              $workedHours .= "<br/>".$log;
+
+            }else
+            {
+              $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$deet->totalHours." hr VTO  ] </em></small></strong>".$icons;
+
+             
+              $WHcounter = number_format(round($wh/60 + $deet->totalHours),2);
+              $workedHours = $WHcounter;
+              $workedHours .= "<br/>".$log;
+
+            }
+              
+        }
         else
         {
-          //just output value; most likely part timer filed this
-          if($hasPending){
-              if ($deet->halfdayFrom == 2)
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [1st Shift ".$l."] (for approval) </em></small></strong>".$icons;
-              else if ($deet->halfdayFrom == 3)
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [2nd Shift ".$l."] (for approval) </em></small></strong>".$icons;
-              else
-                $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [ Half-day ".$l."] (for approval) </em></small></strong>".$icons;
-              
-              
-                    //no logs, meaning halfday AWOL sya
-                    if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+          if ($deet->totalCredits >= '1.0')
+          {
 
-              $workedHours = "<strong class='text-danger'>AWOL</strong>";
-              $workedHours .= "<br/>".$log;
-
+            if($hasPending){
+              $workedHours = "<strong class='text-danger'>AWOL</strong><br/>";
+              $log="<strong><small><i class=\"fa ".$i."\"></i> <em> ".$l." for approval </em></small></strong>".$icons;
             }else{
+              //$workedHours .=" ";
+              $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$label." ]</em></small></strong>".$icons;
+            }
+            
+            if($leaveType=='LWOP') $workedHours  .= "0.0<br/>".$log;
+            else
+            $workedHours .= "<br/>".$log;
 
-              if ($deet->halfdayFrom == 2)
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 1st Shift ".$l." ]</em></small></strong>".$icons;
-              else if ($deet->halfdayFrom == 3)
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 2nd Shift ".$l." ]</em></small></strong>".$icons;
-              else
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ Half-day ".$l."  ]</em></small></strong>".$icons;
+          } 
+          else if ($deet->totalCredits == '0.50'){
 
-              
-                    if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
+              if($hasPending){
+                if ($deet->halfdayFrom == 2)
+                  $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [1st Shift ".$l."] (for approval) </em></small></strong>".$icons;
+                else if ($deet->halfdayFrom == 3)
+                  $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [2nd Shift ".$l."] (for approval) </em></small></strong>".$icons;
+                else
+                  $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [ Half-day ".$l."] (for approval) </em></small></strong>".$icons;
+                
+                
+                      //no logs, meaning halfday AWOL sya
+                      if (count($ins) < 1 && count($outs) < 1) 
+                        $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
 
-              if($leaveType=='LWOP') $workedHours  = 0.0;     
-              else $workedHours = 4 - $deet->totalCredits;
-              $WHcounter = 4 - $deet->totalCredits;
-              $workedHours .= "<br/>".$log;
+                $workedHours = "<strong class='text-danger'>AWOL</strong>";
+                $workedHours .= "<br/>".$log;
+
+              }else{
+
+                if ($deet->halfdayFrom == 2)
+                  $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 1st Shift ".$l." ]</em></small></strong>".$icons;
+                else if ($deet->halfdayFrom == 3)
+                  $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 2nd Shift ".$l." ]</em></small></strong>".$icons;
+                else
+                  $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ Half-day ".$l."  ]</em></small></strong>".$icons;
+
+                
+                      if (count($ins) < 1 && count($outs) < 1) 
+                        $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
+
+                if($leaveType=='LWOP') $workedHours  = 0.0;     
+                else $workedHours = '4.0';
+                $WHcounter = 4.0;
+                $workedHours .= "<br/>".$log;
+              }
+                    
+                      
+                    
+          }// end if 0.5 credits
+          else
+          {
+            //just output value; most likely part timer filed this
+            if($hasPending)
+            {
+                if ($deet->halfdayFrom == 2)
+                  $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [1st Shift ".$l."] (for approval) </em></small></strong>".$icons;
+                else if ($deet->halfdayFrom == 3)
+                  $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [2nd Shift ".$l."] (for approval) </em></small></strong>".$icons;
+                else
+                  $log="<strong><small><i class=\"fa ".$i." \"></i> <em> [ Half-day ".$l."] (for approval) </em></small></strong>".$icons;
+                
+                
+                      //no logs, meaning halfday AWOL sya
+                      if (count($ins) < 1 && count($outs) < 1) 
+                        $log.="<br/><strong class='text-danger'><small><em>Half-day AWOL</em></small></strong>";
+
+                $workedHours = "<strong class='text-danger'>AWOL</strong>";
+                $workedHours .= "<br/>".$log;
+
+            }
+            else
+            {
+
+                if ($deet->halfdayFrom == 2)
+                  $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 1st Shift ".$l." ]</em></small></strong>".$icons;
+                else if ($deet->halfdayFrom == 3)
+                  $log="<strong><small><i class=\"fa ".$i."\"></i> <em> [ 2nd Shift ".$l." ]</em></small></strong>".$icons;
+                else
+                  $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ Half-day ".$l."  ]</em></small></strong>".$icons;
+
+                
+                      if (count($ins) < 1 && count($outs) < 1) 
+                        $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
+
+                if($leaveType=='LWOP') $workedHours  = 0.0;     
+                else $workedHours = 4 - $deet->totalCredits;
+                $WHcounter = 4 - $deet->totalCredits;
+                $workedHours .= "<br/>".$log;
             }
 
-        }
+          }
+
+        }//end non VTO
+        
 
       }//end withIssue
 
       $coll->push(['workedHours'=>$workedHours,'UT'=>$UT,'withIssue'=>$withIssue]);
       return $coll;
 
-
-      
-
-
-      
 
   }//end processleaves
 

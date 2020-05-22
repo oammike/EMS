@@ -28,6 +28,15 @@
               $approvedVLs = OAMPI_Eval\User_VL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
               $approvedSLs = OAMPI_Eval\User_SL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
 
+              $vtoVL = OAMPI_Eval\User_VTO::where('user_id',$u->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','VL')->get();
+              $totalVTO_vl = number_format(collect($vtoVL)->sum('totalHours') * 0.125,2);
+
+              $vtoSL = OAMPI_Eval\User_VTO::where('user_id',$u->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','SL')->get();
+              $vtoSL2 = OAMPI_Eval\User_VTO::where('user_id',$u->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();
+              $totalVTO_sl1 = number_format(collect($vtoSL)->sum('totalHours') * 0.125,2);
+              $totalVTO_sl2 = number_format(collect($vtoSL2)->sum('totalHours') * 0.125,2);
+              $totalVTO_sl = $totalVTO_sl1 + $totalVTO_sl2;
+
                 /************ for VL ************/
                 if (count($avail)>0){
                   $vls = $u->vlCredits->sortByDesc('creditYear');
@@ -35,7 +44,7 @@
                   if($vls->contains('creditYear',date('Y')))
                   {
                     $updatedVL=true;
-                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) + $totalVLearned - $vls->first()->paid;
+                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) + $totalVLearned - $vls->first()->paid - $totalVTO_vl;
                   }
                   else{
                     $currentVLbalance = "N/A";
@@ -95,7 +104,7 @@
                       $advancedSL += $a->total;
                     }
 
-                    $currentSLbalance= (($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL;
+                    $currentSLbalance= (($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
                     
                   }
                   else{

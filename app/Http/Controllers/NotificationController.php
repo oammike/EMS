@@ -43,6 +43,7 @@ use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_DTRP;
 use OAMPI_Eval\User_DTR;
 use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_LWOP;
@@ -107,7 +108,7 @@ class NotificationController extends Controller
                        $notif->detail->type == 8 || $notif->detail->type == 9 || 
                        $notif->detail->type == 10 || $notif->detail->type == 11 ||
                        $notif->detail->type == 12 || $notif->detail->type == 13 || 
-                       $notif->detail->type == 14 || $notif->detail->type == 19 ){ //if  request
+                       $notif->detail->type == 14 || $notif->detail->type == 19 || $notif->detail->type == 21){ //if  request
 
                 $fromData = User::find($notif->detail->from);
                 
@@ -251,6 +252,19 @@ class NotificationController extends Controller
                         case '17': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '18': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '19': $fromData = null; break;
+                        case '21': {
+
+                                    $ih = ImmediateHead_Campaign::find(User_VTO::find($notif->detail->relatedModelID)->approver);
+                                    if ( count((array)$ih) > 0 ){
+
+                                      $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                    }else{
+                                      $fromData = User::find(User_VTO::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $hasIssue = true;
+
+                                    }
+
+                                  } break;
 
                       }
                       
@@ -986,7 +1000,7 @@ class NotificationController extends Controller
                             $actionlink = action('DTRController@seenzonedPD',['id'=>$notif->detail->id, 'seen'=>'true' ] ); 
                             $thereq = User_DTR::find($notif->detail->relatedModelID);//Biometrics::find($notif->detail->relatedModelID); //
 
-                            if (count($thereq) > 0)
+                            if (count((array)$thereq) > 0)
                             {
                               $theBio=null;
                               ($ownNotif) ? $message = " Request DTR Unlock for ".$thereq->productionDate.". " : $message = " sent a <strong>DTR Production Date Unlock request</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
@@ -1012,6 +1026,38 @@ class NotificationController extends Controller
 
                             break; 
                           }
+
+                // VTO 
+                case 21: {
+                            $actionlink = action('UserVLController@showVTO',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $thereq =User_VTO::find($notif->detail->relatedModelID);
+                            if (is_null($thereq)){
+                              $theBio = null;
+                              $message=" filed a <strong>VTO</strong>";
+                              //$coll->push(['approved'=>"Data Not Found", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+                            }
+                            else{
+
+                              if ($ownNotif){
+                                if ($thereq->isApproved){
+                                  $message = " <strong>approved</strong> your VTO  request";
+                                }else $message = " <strong>denied</strong> your VTO  request. I'm sorry. <strong><i class='fa fa-meh-o'></i></strong> ";
+                                
+                              }
+                              else{
+                                $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
+                                $message = " filed a <strong>VTO </strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->productionDate))."</span>";
+
+
+                              }
+
+
+                              
+                            }
+
+                        
+
+                          }break;
 
 
             }

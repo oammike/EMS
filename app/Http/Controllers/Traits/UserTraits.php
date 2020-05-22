@@ -44,6 +44,7 @@ use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_OBT;
 use OAMPI_Eval\User_OT;
 use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_Familyleave;
@@ -87,7 +88,7 @@ trait UserTraits
        $forApprovals = new Collection;
 
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
-       $approvalTypes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19];
+       $approvalTypes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,21];
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
 
 
@@ -547,7 +548,30 @@ trait UserTraits
 
                                   }break;
 
+                          case 21: // Vto
+                                  {
+                                    $vl = User_VTO::find($detail->relatedModelID);
+                                    if (count((array)$vl) > 0)
+                                    {
+                                      
+                                      if (is_null($vl->isApproved) )
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-history",
+                                                    'requestor'=>$emp->id,
+                                                    'nickname'=>$nick,
+                                                    'program'=>$camp->name,
+                                                    'user_id'=>$notif->user_id, 'id'=>$notif->id, 
+                                                    'type'=>NotifType::find($detail->type)->title, 
+                                                    'typeID'=>$detail->type,
+                                                    'created_at'=> $detail->created_at->format('M d, Y'),
+                                                    'productionDate'=>date('M d, Y', strtotime($vl->productionDate)),
+                                                    'productionDay'=>date('D', strtotime($vl->productionDate)),
+                                                    'deets'=> $vl]);
 
+                                    }
+                                    
+                                   
+
+                                  }break;
                           
                         
                       }//end switch

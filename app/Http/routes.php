@@ -553,7 +553,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_vl.showCredits',
         'uses'=>'UserVLController@showCredits') );
 
-          Route::post('/user_vl/deleteThisVL/{id}', array(
+        Route::post('/user_vl/deleteThisVL/{id}', array(
         'as'=> 'user_vl.deleteThisVL',
         'uses'=>'UserVLController@deleteThisVL') );
 
@@ -570,6 +570,35 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'uses'=>'UserVLController@updateCredits') );
        /*********** VL **********/
 
+
+
+      /*********** VTO **********/
+
+        Route::get('/VTO/new', array(
+        'as'=> 'user_vl.VTO_new',
+        'uses'=>'UserVLController@VTO_new') );
+
+        Route::post('/user_vl/deleteThisVTO/{id}', array(
+        'as'=> 'user_vl.deleteThisVTO',
+        'uses'=>'UserVLController@deleteThisVTO') );
+
+        Route::get('/showVTO/{id}', array(
+        'as'=> 'user_vl.showVTO',
+        'uses'=>'UserVLController@showVTO') );
+
+        Route::post('/VTO/checkExisting', array(
+        'as'=> 'user_vl.checkExisting_VTO',
+        'uses'=>'UserVLController@checkExisting_VTO') );
+
+        Route::post('/VTO/process', array(
+        'as'=> 'user_vl.processVTO',
+        'uses'=>'UserVLController@processVTO') );
+
+        Route::post('/VTO/requestVTO', array(
+        'as'=> 'user_vl.requestVTO',
+        'uses'=>'UserVLController@requestVTO') );
+
+      /*********** VTO **********/
 
 
       /*********** SL **********/

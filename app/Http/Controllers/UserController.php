@@ -24,6 +24,7 @@ use OAMPI_Eval\User_Leader;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_DTRP;
 use OAMPI_Eval\User_VL;
+use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_SL;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_OT;
@@ -1069,9 +1070,7 @@ class UserController extends Controller
 
     public function getMyRequests($id)
     {
-
-     
-
+      DB::connection()->disableQueryLog();
       if (is_null($id))
       {
         $cws = User_CWS::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
@@ -1079,6 +1078,7 @@ class UserController extends Controller
         $dtrp_out = User_DTRP::where('user_id',$this->user->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
         $ot = User_OT::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $vl = User_VL::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
+        $vto = User_VTO::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $sl = User_SL::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $lwop = User_LWOP::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $obt = User_OBT::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
@@ -1097,6 +1097,7 @@ class UserController extends Controller
         $dtrp_out = User_DTRP::where('user_id',$user->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
         $ot = User_OT::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $vl = User_VL::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
+        $vto = User_VTO::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $sl = User_SL::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $lwop = User_LWOP::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $obt = User_OBT::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
@@ -1245,6 +1246,26 @@ class UserController extends Controller
         ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Vacation Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'10','icon'=>"fa-plane",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
+      }
+
+      /*------ VTO LEAVE --------*/
+
+      foreach ($vto as $key) {
+        if (is_null($key->approver)) {$approver=null; $tlPic = asset('public/img/useravatar.png');}
+         else
+        {
+          $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          if ( file_exists('public/img/employees/'.$approver->id.'.jpg') ) $tlPic = asset('public/img/employees/'.$approver->id.'.jpg');
+          else $tlPic = asset('public/img/useravatar.png');
+        }
+
+        $prod = $key->productionDate; //Biometrics::find($key->biometrics_id)->productionDate;
+        $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
+        $prodDate = Carbon::parse($prod,"Asia/Manila");
+
+        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+
+        $requests->push(['type'=>"VTO",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'21','icon'=>"fa-history",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
 
        /*------ SICK LEAVE --------*/

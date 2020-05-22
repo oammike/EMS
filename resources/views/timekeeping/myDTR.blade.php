@@ -727,9 +727,22 @@
 
                                                                 @else
 
+                                                                  <!-- new if has VTO -->
+                                                                  @if($data['hasVTO'])
+
+                                                                     {!! $data['logIN'] !!} 
+                                                                    <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
+
+
+                                                                  @else
 
                                                                     <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
 
+
+                                                                  @endif
+
+
+                                                                    
                                                                     <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
 
                                                                 @endif
@@ -899,8 +912,19 @@
 
                                                                 @else
 
+                                                                  <!-- new if has VTO -->
+                                                                  @if($data['hasVTO'])
 
-                                                                  <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
+                                                                     {!! $data['logOUT'] !!} 
+                                                                    <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
+                                                                  @else 
+
+                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
+
+                                                                  @endif
+
+
+                                                                 
 
                                                                   <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
 
@@ -1052,17 +1076,46 @@
                                                               
                                                               @if ($data['hasLeave'])
 
-                                                              <!--$data['leaveDetails'][0]['type'] !!}-->
-                                                              {!! $data['workedHours'] !!}
-                                                              <!-- <i class="fa {{$data['leaveDetails'][0]['icon'] }}"></i> -->
-                                                               <input type="hidden" name="workedHours_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['workedHours']}}" />
+                                                                <!--$data['leaveDetails'][0]['type'] !!}-->
+                                                               
 
-                                                               <input type="hidden" name="leaveID_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['details']['id']}}" />
+                                                                <!-- new if has VTO -->
+                                                                  @if($data['hasVTO'])
 
-                                                               <input type="hidden" name="leaveType_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+                                                                    @if($data['workedHours'] == "N/A")
+
+                                                                      @if ($data['leaveDetails'][0]['details']['isApproved'])
+                                                                        {{$data['leaveDetails'][0]['details']['totalHours']}}
+                                                                      @else
+                                                                        {{$data['workedHours']}}
+                                                                      @endif
+                                                                      <br/>
+
+                                                                      <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> &nbsp; 
+                                                                     <strong><a target="_blank" class="text-primary" href="{{action('UserVLController@showVTO',$data['leaveDetails'][0]['details']['id'])}}"><i class="fa fa-info-circle"></i> </a> </strong>
+                                                                    @else
+                                                                       {!! $data['workedHours'] !!} 
 
 
-                                                               @else
+                                                                    @endif
+
+                                                                     
+                                                                    
+                                                                  @else 
+
+
+                                                                  {!! $data['workedHours'] !!}
+
+                                                                  @endif
+                                                                <!-- <i class="fa {{$data['leaveDetails'][0]['icon'] }}"></i> -->
+                                                                 <input type="hidden" name="workedHours_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['workedHours']}}" />
+
+                                                                 <input type="hidden" name="leaveID_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['details']['id']}}" />
+
+                                                                 <input type="hidden" name="leaveType_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+
+
+                                                              @else
                                                                <input type="hidden" name="workedHours_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['workedHours']}}" />
 
                                                                
@@ -1083,7 +1136,7 @@
                                                                   {!! $data['workedHours'] !!}
                                                                
 
-                                                               @endif
+                                                              @endif
 
                                                                 
 
@@ -1096,6 +1149,8 @@
 
 
                                                        
+
+                                                       <!-- *********** OVERTIME ************* -->
 
                                                         @if($data['hasLeave'])
 

@@ -126,6 +126,8 @@
 
                         case 19: { $actionlink = action('DTRController@seenzonedPD',['id'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //Unlock DTR Production date
 
+                        case 21: { $actionlink = action('UserVLController@showVTO',['id'=>$detail->relatedModelID, 'notif'=>$detail->id, 'seen'=>true, 'updateStatus'=>'true']); break; } //VTO LEAVE
+
                         default:{ $actionlink = action('UserController@changePassword'); break; }
                      
                       }?>

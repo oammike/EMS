@@ -136,8 +136,9 @@
                                   <th class="text-center">Year</th>
                                   <th class="text-center">Beginning Balance</th>
                                   <th class="text-center">Used</th>
-                                 
+                                  
                                   <th class="text-center">Earnings</th>
+                                  <th class="text-center">VTOs</th>
                                   <th class="text-center">Total Remaining</th>
                                   <th class="text-center">Actions</th>
                                 </thead>
@@ -276,6 +277,7 @@
 
                                         </td>
                                         
+                                        
                                         <td  class="text-center">
                                           
                                           <?php $earn=0; $deets=""; 
@@ -310,8 +312,46 @@
                                  
                                           
                                         </td>
+
+                                        <!--VTO -->
+                                        <td  class="text-center">
+                                          
+                                          <?php $vtos = collect($allVTOs)->where('deductFrom','VL'); $earnVTO=0; $deets=""; 
+                                                foreach ($vtos as $e){ 
+                                                          $p =$e->totalHours*0.125;
+                                                          $deets .= date('M d',strtotime($e->productionDate)).' : <strong>' . number_format($p,2).'</strong><br/>';
+                                                          $earnVTO += $p; 
+                                                } ?>
+                                          @if ($earnVTO == 0) {{$earnVTO}} @else
+
+                                          <!-- ******** collapsible box ********** -->
+                                          @if($v->creditYear == date('Y'))
+                                          <div class="box collapsed-box" style="margin-top: 0px">
+                                            <div class="box-header">
+                                              ({{ number_format($earnVTO,2) }}) &nbsp;&nbsp;&nbsp;
+                                              <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                </button>
+                                              </div>
+                                              <!-- /.box-tools -->
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                              <p style="font-size: x-small;" class="text-right"> {!! $deets !!}</p>
+                                              
+                                            </div>
+                                            <!-- /.box-body -->
+                                          </div>
+                                         <!-- ******** end collapsible box ********** -->
+                                          @endif
+                                         @endif
+
+
+                                 
+                                          
+                                        </td>
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
-                                          {{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earn, 2) }}
+                                          {{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earn - $earnVTO, 2) }}
                                           @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings[0]->period))}}) </small>@endif
                                         </td>
                                         <td class="text-center">
@@ -385,7 +425,8 @@
                                   <th class="text-center">Used</th>
                                  
                                   <th class="text-center">Earnings</th>
-                                  <th class="text-center text-danger">Used in advance</th>
+                                  <th class="text-center text-danger">Used in <br/>Advance</th>
+                                  <th class="text-center text-danger">VTOs</th>
                                   <th class="text-center">Total Remaining</th>
                                   <th class="text-center">Actions</th>
                                 </thead>
@@ -598,8 +639,52 @@
 
                                         @endif
 
+                                         <!-- ****** VTO ******* -->
+                                        <td  class="text-center">
+                                          
+                                          <?php $vtos = collect($allVTOs)->where('deductFrom','SL'); 
+                                                $vtos2 = collect($allVTOs)->where('deductFrom','AdvSL'); $earnVTO=0; $deets=""; 
+                                                foreach ($vtos as $e){ 
+                                                          $p =$e->totalHours*0.125;
+                                                          $deets .= date('M d',strtotime($e->productionDate)).' : <strong>' . number_format($p,2).'</strong><br/>';
+                                                          $earnVTO += $p; 
+                                                }
+                                                foreach ($vtos2 as $e){ 
+                                                          $p =$e->totalHours*0.125;
+                                                          $deets .= date('M d',strtotime($e->productionDate)).' : <strong>' . number_format($p,2).'</strong><br/>';
+                                                          $earnVTO += $p; 
+                                                } ?>
+                                          @if ($earnVTO == 0) {{$earnVTO}} @else
+
+                                          <!-- ******** collapsible box ********** -->
+                                          @if($v->creditYear == date('Y'))
+                                          <div class="box collapsed-box" style="margin-top: 0px">
+                                            <div class="box-header">
+                                              ({{ number_format($earnVTO,2) }}) &nbsp;&nbsp;&nbsp;
+                                              <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                </button>
+                                              </div>
+                                              <!-- /.box-tools -->
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                              <p style="font-size: x-small;" class="text-right"> {!! $deets !!}</p>
+                                              
+                                            </div>
+                                            <!-- /.box-body -->
+                                          </div>
+                                         <!-- ******** end collapsible box ********** -->
+                                          @endif
+                                         @endif
+
+
+                                 
+                                          
+                                        </td>
+
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
-                                          {{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earnSL - $advSL, 2) }}
+                                          {{ number_format( ((($v->beginBalance - $v->used)-$v->paid)+ $earnSL - $advSL) - $earnVTO, 2) }}
                                           @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) </small>@endif
                                         </td>
                                         <td class="text-center">

@@ -184,7 +184,7 @@
        </div>
 
 
-       <label class="form-control"> <input type="checkbox" name="issue[]" id="leave"  value="4" /> This should be an <span class="text-danger">SL | VL | LWOP | OBT </span>.</label>
+       <label class="form-control"> <input type="checkbox" name="issue[]" id="leave"  value="4" /> This should be an <span class="text-danger">SL | VL | VTO | LWOP | OBT </span>.</label>
 
        <div class="container" id="leave" style="width: 90%; padding-bottom: 30px">
            <div id="leaveheader"><h5 class='text-center'>Select type of leave for <br/> {{ $Dday }} {{ $DproductionDate }}  </h5></div>
@@ -216,6 +216,13 @@
 
                             @endif
 
+                        @endif
+
+                        @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
+                        <a href="{{action('UserVLController@VTO_new',['from'=>$DproductionDate, 'for'=>$user->id])}}" style="margin-bottom: 5px"><i class="fa fa-history fa-2x"></i>&nbsp;&nbsp;&nbsp; Voluntary Time Off  <strong>(VTO)</strong></a><br/><br/>
+
+                        @else
+                        <a href="{{action('UserVLController@VTO_new',['from'=>$DproductionDate])}}" style="margin-bottom: 5px"><i class="fa fa-history fa-2x"></i>&nbsp;&nbsp;&nbsp; Voluntary Time Off  <strong>(VTO)</strong></a><br/><br/>
                         @endif
 
 
