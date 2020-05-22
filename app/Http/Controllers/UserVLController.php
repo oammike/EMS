@@ -443,6 +443,18 @@ class UserVLController extends Controller
 
                         $avail = $user->vlCredits;
 
+                        $leave1 = Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d');
+                        $leave2 = Carbon::parse(date('Y').'-12-31','Asia/Manila')->format('Y-m-d');
+
+                        $vtoVL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','VL')->get();
+                        $totalVTO_vl = number_format(collect($vtoVL)->sum('totalHours') * 0.125,2);
+
+                        $vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','SL')->get();
+                        $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();
+                        $totalVTO_sl1 = number_format(collect($vtoSL)->sum('totalHours') * 0.125,2);
+                        $totalVTO_sl2 = number_format(collect($vtoSL2)->sum('totalHours') * 0.125,2);
+                        $totalVTO_sl = $totalVTO_sl1 + $totalVTO_sl2;
+
                          /************ for VL ************/
                         if (count($avail)>0){
                           $vls = $user->vlCredits->sortByDesc('creditYear');
@@ -450,7 +462,7 @@ class UserVLController extends Controller
                           if($vls->contains('creditYear',date('Y')))
                           {
                             $updatedVL=true;
-                            $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid;
+                            $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid - $totalVTO_vl;
                           }
                           else{$currentVLbalance = "N/A";}
                         }else {$currentVLbalance = "N/A";}
@@ -472,7 +484,7 @@ class UserVLController extends Controller
                               $advancedSL += $a->total;
                             }
 
-                            $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL;
+                            $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
                                                
                           }
                           else { $currentSLbalance = "N/A"; }
