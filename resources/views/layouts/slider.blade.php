@@ -1,5 +1,22 @@
               <div class="item active text-center" >
                   
+                  <img src="storage/uploads/fitr.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Eid Al Fitr
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                     Today marks the end of Ramadan. We wish our Muslim brothers and sisters who are celebrating on #EidAlFitr, a blessed and safe Eid!<br/><br/>
+                    #WeSpeakYourLanguage #OAHolidays</p>    
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
                   <img src="storage/uploads/worldday.jpg" width="100%" /><br/><br/>
                   <h4 class="text-orange" style="line-height: 1.5em" >World Day for Cultural Diversity <br/> <span class="text-primary">For Dialogue &amp; Development
                   <br/>
