@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use \DB;
 use \Hash;
 use Excel;
+use \Mail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
@@ -1026,6 +1027,12 @@ class HomeController extends Controller
       $declarations = $request->declarations;
       $now = Carbon::now('GMT+8');
 
+      $employee = $this->user;
+      $ihCamp = ImmediateHead_Campaign::find(Team::where('user_id',$this->user->id)->first()->immediateHead_Campaigns_id);
+      $program = Campaign::find($ihCamp->campaign_id);
+      $tl = User::where('employeeNumber',ImmediateHead::find($ihCamp->immediateHead_id)->employeeNumber)->first();
+      $notYet = true;
+
       foreach ($declarations as $d) {
         $symptomsUser = new Symptoms_User;
         $symptomsUser->user_id = $this->user->id;
@@ -1035,8 +1042,10 @@ class HomeController extends Controller
         $symptomsUser->save();
 
         //save symptoms declaration
-        if($d['question'] == '1' && $d['answer'] == '1')
+        if(($d['question'] == '1' && $d['answer'] == '1') || ($d['question']=='2' && $d['answer']=='1'))
         {
+          if($d['question']=='1')
+          {
             foreach ($symptoms as $s) {
               $sd = new Symptoms_Declaration;
               $sd->user_id = $this->user->id;
@@ -1045,6 +1054,36 @@ class HomeController extends Controller
               $sd->created_at = $now->format('Y-m-d H:i:s');
               $sd->save();
             }
+
+          }
+            
+
+          // NOW, EMAIL THE TL CONCERNED
+
+          if($notYet)
+          {
+            Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee) 
+             {
+                $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');     
+
+                /* -------------- log updates made --------------------- */
+                     $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Email sent to ". $tl->email."\n");
+                        fwrite($file, "\n New HDF alert:  ". $employee->firstname." ".$employee->lastname."\n");
+                        fclose($file);                      
+            
+
+            }); //end mail
+
+            $notYet=false;
+
+
+          }
+                               
+             
+
+            
             
         }
 
@@ -1066,6 +1105,9 @@ class HomeController extends Controller
           }
 
         }
+
+
+
 
         
 

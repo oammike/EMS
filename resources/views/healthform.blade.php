@@ -89,6 +89,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </ul>
                   <div class="clearfix"></div>
                   <a style="display: none;" data-next="q{{$n}}"  data-qid="{{$question->id}}" class="btn btn-default btn-md pull-left">Next &raquo;</a>
+
+              @elseif($question->ordering == 2)
+              <div class="qs" id="q{{$question->ordering}}" style="display: none"> 
+                <br/><br/>
+                <h4>{{$question->question}} </h4>
+                <h5> <i class="fa fa-exclamation-circle"></i> There is Close Contact with a confirmed covid-19 patient,  <br/>1) if you had face-to-face contact within 1-meter and for more than 15 minutes; or <br/>2) if you had direct physical contact."</h5>
+
+                <h1 class="text-center">
+                  <label class="text-danger"><input type="radio" name="ans{{$question->ordering}}" data-qid="{{$question->id}}" value="1"  data-next="q{{$n}}"  /> Yes</label> &nbsp;&nbsp; <label class="text-success"><input type="radio" name="ans{{$question->ordering}}"  data-qid="{{$question->id}}" value="0"  data-next="q{{$n}}" /> No</label>
+                </h1>
+
               @elseif($question->ordering == 5)
               <div class="qs" id="q{{$question->ordering}}" style="display: none"> 
                 <br/><br/>
@@ -206,7 +217,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 if (ans1 == '1' || ans2 == '1')
                 {
                   //$.notify("Thank you for filling out our health declaration form.\nYou may now proceed to your EMS Dashboard.",{className:"error",globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
-                  alert('Since you answered “YES” to questions 1 and/or 2, you are required to \n\nimmediately NOTIFY our Company Nurses and WAIT FOR NURSES’ ASSESSMENT AND ADVICE \nprior to going to AND/or REPORTING BACK TO the office.');
+                  alert('\n\nSince you answered “YES” to questions 1 and/or 2, you are REQUIRED to: \n\nimmediately NOTIFY our Company Nurses and WAIT FOR NURSES’ ASSESSMENT AND ADVICE prior to going to AND/or REPORTING BACK TO the office.');
                    window.location.replace("{{action('HomeController@home')}}");
                   
 
