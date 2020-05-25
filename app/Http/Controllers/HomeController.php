@@ -1033,6 +1033,8 @@ class HomeController extends Controller
       $tl = User::where('employeeNumber',ImmediateHead::find($ihCamp->immediateHead_id)->employeeNumber)->first();
       $notYet = true;
 
+      $nurses = Team::where('campaign_id',71)->get();
+
       foreach ($declarations as $d) {
         $symptomsUser = new Symptoms_User;
         $symptomsUser->user_id = $this->user->id;
@@ -1075,6 +1077,28 @@ class HomeController extends Controller
             
 
             }); //end mail
+
+            if(count($nurses) > 0)
+            {
+              foreach ($nurses as $n) 
+              {
+                $tl = User::find($n->user_id);
+
+                Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee) 
+                 {
+                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                    $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');     
+
+                    /* -------------- log updates made --------------------- */
+                         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                            fwrite($file, "-------------------\n Email sent to ". $tl->email."\n");
+                            fwrite($file, "\n New HDF alert:  ". $employee->firstname." ".$employee->lastname."\n");
+                            fclose($file);                      
+                
+
+                }); //end mail
+              }
+            }
 
             $notYet=false;
 
