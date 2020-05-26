@@ -1,5 +1,46 @@
               <div class="item active text-center" >
                   
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                      Thank you to all the employees who posted their beautiful photos! <br/><br/>
+
+                      Three stood out and won <strong>P500 worth of Grabfood delivery voucher.</strong><br/><br/>
+
+                      <strong class="text-primary"> Cherry Fuentes of Glassdoor</strong><br/>
+                      <img src="storage/uploads/wall[3]2020_1802_1113508890.jpg" width="95%"><br/><br/>
+
+                      <strong class="text-primary">Rio Dormitorio of NDY</strong>
+                      <img src="storage/uploads/wall[3]2020_3345_2028493235.jpg" width="95%"><br/><br/>
+
+                      <strong class="text-primary">Audrey Reyes of Marketing</strong>
+                       <img src="storage/uploads/wall[3]2020_879_1541706714.jpg" width="95%"><br/><br/>
+                       <br/><br/>
+                       Until our next challenge!
+
+                    </p>    
+ 
+                    
+              </div>
+
+               <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/wall_week4.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',11)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
                   <img src="storage/uploads/fitr.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Eid Al Fitr
                   <br/>
@@ -226,17 +267,7 @@
 
              
 
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/ECQWall_poster.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',10)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-              </div>
+             
 
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Announcement:<br/><span class="text-primary">Let's Get Physical<br/>
