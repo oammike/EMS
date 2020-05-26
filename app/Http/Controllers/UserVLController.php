@@ -1490,7 +1490,7 @@ class UserVLController extends Controller
         $allEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$id)->
                             join('vlupdate','vlupdate.id','=','user_vlearnings.vlupdate_id')->
                             select('vlupdate.period','vlupdate.credits','vlupdate.created_at')->
-                            orderBy('vlupdate.created_at','DESC')->get(); //return $allEarnings;
+                            orderBy('user_vlearnings.created_at','DESC')->get(); //return $allEarnings;
 
         $allEarnings_SL = DB::table('user_slearnings')->where('user_slearnings.user_id',$id)->
                             join('slupdate','slupdate.id','=','user_slearnings.slupdate_id')->
