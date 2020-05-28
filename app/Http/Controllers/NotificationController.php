@@ -1009,7 +1009,17 @@ class NotificationController extends Controller
                               //$theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->productionDate)));
                               $thereq = Biometrics::find($notif->detail->relatedModelID); //
 
-                              ($ownNotif) ? $message = " DTR entry for ".date('M d, Y',strtotime($thereq->productionDate))." is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong>";
+                              if (empty($thereq))
+                              {
+                                $message = "Requested DTR is now unlocked.";
+
+                              }else
+                              {
+                                ($ownNotif) ? $message = " DTR entry for ".date('M d, Y',strtotime($thereq->productionDate))." is now unlocked. " : $message = " is requesting for <strong>DTR Sheet Unlock</strong>";
+
+                              }
+
+                              
                             }
                             
                             // $img = asset('public/img/employees/'.$fromData->id.'.jpg');
