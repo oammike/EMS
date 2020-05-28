@@ -435,7 +435,7 @@ class UserOTController extends Controller
     {
 
         $productionDate = Biometrics::find($request->biometrics_id);
-        ($request->fromRD) ? $otendTime = Carbon::parse($request->OTstart, "Asia/Manila")->addMinutes($request->filedHours*60) : $otendTime = Carbon::parse($productionDate->productionDate." ". $request->OTstart, "Asia/Manila")->addMinutes($request->filedHours*60);
+        ($request->fromRD) ? $otendTime = Carbon::parse($request->OTstart, "Asia/Manila")->addMinutes($request->filedHours*60) : $otendTime = Carbon::parse($request->OTend, "Asia/Manila"); //->addMinutes($request->filedHours*60);
 
         $OT = new User_OT;
         $OT->user_id = $request->user_id;
@@ -443,7 +443,7 @@ class UserOTController extends Controller
         $OT->billable_hours = $request->billableHours;
         $OT->filed_hours = $request->filedHours;
         $OT->timeStart = Carbon::parse($request->OTstart,"Asia/Manila")->format('H:i:s');
-        $OT->timeEnd = $otendTime->format($otendTime->format('H:i:s')); //Carbon::parse($request->OTend,"Asia/Manila");
+        $OT->timeEnd = $otendTime->format('H:i:s'); //$otendTime->format($otendTime->format('H:i:s')); //Carbon::parse($request->OTend,"Asia/Manila");
         $OT->isRD = $request->isRD;
         $OT->reason = $request->reason;
         $OT->billedType = $request->billedtype;
