@@ -17,7 +17,7 @@
       <input type="hidden" name="fromRD" value="1" />
       <input type="hidden" name="OTstart" value="{{$data['logIN']}}" />
       @else
-      <input type="hidden" name="OTstart" value="{{$data['shiftEnd']}}" />
+      <input type="hidden" name="OTstart" value="{{ $DproductionDate }} {{$data['shiftEnd']}}" />
       @endif
       <input type="hidden" name="OTend" value="{{$data['logOUT']}}" />
       <div id="otmodal" class="modal-body-upload" style="padding:20px;">
@@ -36,7 +36,7 @@
 
                         <select name="filedHours" id="filedHours" class="othrs form-control">
                           <option value="0" selected="selected">Indicate total hours you worked</option>
-                          <option value="{{$data['billableForOT']}}" data-timeend="{{$data['logOUT']}}" data-timestart="@if($data['shiftEnd'] == '* RD *'){{$data['logIN']}}@else{{$data['shiftEnd']}}@endif" >{{$data['billableForOT']}} hr. OT</option>
+                          <option value="{{$data['billableForOT']}}" data-timeend="{{$data['logOUT']}}" data-timestart="@if($data['shiftEnd'] == '* RD *'){{$data['logIN']}}@else {{ $DproductionDate }} {{$data['shiftEnd']}} @endif" >{{$data['billableForOT']}} hr. OT</option>
 
                           <!-- gawin mo lang if within OT limits -->
 
@@ -77,14 +77,14 @@
                                 } 
                                 else 
                                 {
-                                  $start= \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+                                  $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila'); 
                                   $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
-                                  $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num*60); 
+                                  $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes($num*60); 
                                 } 
                                 ?>
 
                                 @if ( $num < (float)$data['billableForOT'] && $num != '0')  
-                                <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('h:i A')}}" data-timeend="{{$endOT->format('H:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
+                                <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
                                 @endif
                         <?php }      
 
