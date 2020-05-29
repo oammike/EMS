@@ -1,6 +1,33 @@
               <div class="item active text-center" >
                   
                   
+                  <img src="storage/uploads/mentalhealth.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Mental Health Awareness Month
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                     As Mental Health Awareness Month comes to an end, we’ll leave you with helpful tips to help you look after your mental health during these trying times. Remember: mental health is just as important as physical health! 💛<br/><br/>
+                      - Try out grounding exercises or meditation to reduce anxiety<br/><br/>
+                      - Take breaks when you're feeling unfocused<br/><br/>
+                      - Avoid comparing your feelings and coping mechanisms with those of others<br/><br/>
+                      - Don't let productivity define you<br/><br/>
+                      - Understand there's no correct way to feel during a pandemic<br/><br/>
+                      - Log off social media when your feed becomes too overwhelming<br/><br/>
+                      - Hydrate<br/><br/>
+                      - Check up on each other and stay connected<br/><br/>
+                     <strong>#WeSpeakYourLanguage #OneForHealth #MentalHealthMonth</strong></p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
+                  
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
                   <br/>
                     <img src="storage/uploads/divider.png" />
@@ -39,38 +66,7 @@
                     
               </div>
 
-              <div class="item text-center" >
-                  
-                  <img src="storage/uploads/fitr.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Eid Al Fitr
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   
-                     Today marks the end of Ramadan. We wish our Muslim brothers and sisters who are celebrating on #EidAlFitr, a blessed and safe Eid!<br/><br/>
-                    #WeSpeakYourLanguage #OAHolidays</p>    
- 
-                    
-              </div>
-
-              <div class="item text-center" >
-                  
-                  <img src="storage/uploads/worldday.jpg" width="100%" /><br/><br/>
-                  <h4 class="text-orange" style="line-height: 1.5em" >World Day for Cultural Diversity <br/> <span class="text-primary">For Dialogue &amp; Development
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   
-                      As a multilingual company, many within our Open Access BPO family are kept away from their loved ones due to the COVID-19 pandemic. This World Day for Cultural Diversity for Dialogue & Development, send a virtual hug to those yearning for their loved ones and homes.<br/><br/>#WeSpeakYourLanguage #OAonDiversityDay</p>    
- 
-                    
-              </div>
+             
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 25 Eid'l Fitr <br/>
@@ -100,42 +96,7 @@
 
             
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em">EARLY CUT-OFF DTR: 
-                    <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; MAY 22, 2020 PAYOUT &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
-                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                      As per Malacañang Proclamation No. 944, <strong>May 25, 2020</strong> has been declared as a <strong class="text-orange"> Regular Holiday.</strong> The payout date will be moved <strong class="text-primary"> from May 25, 2020 to May 22, 2020.</strong><br/><br/>
-
- 
-
-                      In view of this, we will move the payroll cut-off to May 18, 2020.  Attendance from May 19 to 20, 2020 will be paid in full.  Any absence, tardiness, and overtime incurred during that two-day period will be reflected on June 10, 2020 payroll.<br/><br/>
-
-                       
-
-                      Your daily time record should be approved and locked in EMS on or before 12:00 noon of May 20, 2020.<br/><br/>
-
-                       
-
-                      <strong class="text-primary"> ECQ Incentives - </strong> to make sure that the DATA MANAGEMENT TEAM will capture the correct and updated data, kindly update the link that they have shared on or before 12 noon of May 20, 2020.<br/><br/>
-
-
-                      Please be guided accordingly. <br/><br/>
-
-                       
-
-                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
-
-                      Thank you.<br/><br/><strong>Finance Team</strong>
-                    
-
-                    </p>  
-                    
-              </div>
-                
+              
 
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Feature Article: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   The Wall Street Journal (May 15, 2020) <br/><br/>
@@ -269,19 +230,7 @@
 
              
 
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement:<br/><span class="text-primary">Let's Get Physical<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/physicalinvite.jpg" width="100%" /><br/><img src="storage/uploads/ecq_zumba.jpg" width="100%" /><br/>
-                    
-                   
-                    
-                    
-              </div>
-
+            
               
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
@@ -1804,6 +1753,87 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em">EARLY CUT-OFF DTR: 
+                    <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; MAY 22, 2020 PAYOUT &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
+                   <!-- <img src="storage/uploads/dswd.png" width="50%"><br/> -->
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      As per Malacañang Proclamation No. 944, <strong>May 25, 2020</strong> has been declared as a <strong class="text-orange"> Regular Holiday.</strong> The payout date will be moved <strong class="text-primary"> from May 25, 2020 to May 22, 2020.</strong><br/><br/>
+
+ 
+
+                      In view of this, we will move the payroll cut-off to May 18, 2020.  Attendance from May 19 to 20, 2020 will be paid in full.  Any absence, tardiness, and overtime incurred during that two-day period will be reflected on June 10, 2020 payroll.<br/><br/>
+
+                       
+
+                      Your daily time record should be approved and locked in EMS on or before 12:00 noon of May 20, 2020.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> ECQ Incentives - </strong> to make sure that the DATA MANAGEMENT TEAM will capture the correct and updated data, kindly update the link that they have shared on or before 12 noon of May 20, 2020.<br/><br/>
+
+
+                      Please be guided accordingly. <br/><br/>
+
+                       
+
+                      Kindly email <strong>salaryinquiries@openaccessbpo.com</strong> for any questions or concerns you may have.<br/><br/>
+
+                      Thank you.<br/><br/><strong>Finance Team</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+                
+  <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement:<br/><span class="text-primary">Let's Get Physical<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/physicalinvite.jpg" width="100%" /><br/><img src="storage/uploads/ecq_zumba.jpg" width="100%" /><br/>
+                    
+                   
+                    
+                    
+              </div>
+
+ <div class="item text-center" >
+                  
+                  <img src="storage/uploads/fitr.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Eid Al Fitr
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                     Today marks the end of Ramadan. We wish our Muslim brothers and sisters who are celebrating on #EidAlFitr, a blessed and safe Eid!<br/><br/>
+                    #WeSpeakYourLanguage #OAHolidays</p>    
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
+                  <img src="storage/uploads/worldday.jpg" width="100%" /><br/><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >World Day for Cultural Diversity <br/> <span class="text-primary">For Dialogue &amp; Development
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                      As a multilingual company, many within our Open Access BPO family are kept away from their loved ones due to the COVID-19 pandemic. This World Day for Cultural Diversity for Dialogue & Development, send a virtual hug to those yearning for their loved ones and homes.<br/><br/>#WeSpeakYourLanguage #OAonDiversityDay</p>    
+ 
+                    
+              </div>
 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > All Shuttle Passengers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   UPDATED POLICY AND PROCEDURES <br/> FOR CHANGE REQUESTS: <br/>PICKUP TIME and ADDRESSES </i><br/> <br/>
                    <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
