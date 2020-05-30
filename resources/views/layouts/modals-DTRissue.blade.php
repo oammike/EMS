@@ -23,7 +23,7 @@
 
         @if (!is_null($data['shiftStart']) || !is_null($data['shiftEnd']) )
 
-       <label class="form-control"> <input type="checkbox" name="issue[]" id="workshift"  value="1" /> The indicated <span class="text-danger">work shift</span> is incorrect. </label>
+       <label class="form-control"> <input type="checkbox" name="issue[]" id="workshift"  value="1" /> The indicated <span class="text-danger">work shift</span> is incorrect. &nbsp;&nbsp; <strong class="text-primary">[ CWS ]</strong> </label>
 
        <div class="container" id="workshiftOptions" style="width: 90%; padding-bottom: 30px">
 
@@ -113,7 +113,7 @@
        </div>
        @endif
 
-       <label class="form-control"><input type="checkbox" name="issue[]" id="login" value="2" /> There's a problem with my <span class="text-danger">LOG IN </span>time.</label>
+       <label class="form-control"><input type="checkbox" name="issue[]" id="login" value="2" /> There's a problem with my <span class="text-danger">LOG IN </span>time.  &nbsp;&nbsp; <strong class="text-primary">[ DTRP - IN ]</strong></label>
 
        <div class="container" id="login" style="width: 90%; padding-bottom: 30px">
           
@@ -162,7 +162,7 @@
        </div>
 
 
-       <label class="form-control"> <input type="checkbox" name="issue[]" id="logout"  value="3" /> There's a problem with my <span class="text-danger">LOG OUT </span>time.</label>
+       <label class="form-control"> <input type="checkbox" name="issue[]" id="logout"  value="3" /> There's a problem with my <span class="text-danger">LOG OUT </span>time.  &nbsp;&nbsp; <strong class="text-primary">[ DTRP - OUT ]</strong></label>
 
        <div class="container" id="logout" style="width: 90%; padding-bottom: 30px">
           

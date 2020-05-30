@@ -113,6 +113,17 @@
                                         <label for="totalhours">Total Hours: <input required type="text" class="form-control " name="totalhours" id="totalhours" placeholder="xx.xx" /></label><div id="alert-hours" style="margin-top:10px"></div>
                                       </div>
                                     </div>
+
+                                    <div class="row">
+                                      <div class="col-sm-6">
+                                        <label for="totalhours">Is this a <span class="text-danger"> Forced leave / Client-mandated</span>?</label><div id="alert-hours" style="margin-top:10px"></div>
+                                      </div>
+                                      <div class="col-sm-6">
+                                        <label><input type="radio" name="forced" value="1" checked="checked"> Yes </label>&nbsp;&nbsp;
+                                        <label><input type="radio" name="forced" value="0"> No </label>
+                                        <div id="alert-forced" style="margin-top:10px"></div>
+                                      </div>
+                                    </div>
                                    
 
                                    
@@ -122,6 +133,11 @@
 
                                     <h4 class="text-primary"><i class="fa fa-plane"></i> VL credits: <strong>{{$currentVLbalance}} </strong> </h4>
                                     <h4 class="text-danger"> <i class="fa fa-stethoscope"></i> SL credits: <strong>{{$currentSLbalance}} </strong> </h4>
+                                    <h5><br/><br/>Deduct Using:</h5>
+                                    <label style="margin-right: 15px"><input type="radio" name="useCredits" value="VL" @if($useCredits=='VL') checked="checked" @endif> VL</label>
+                                    <label style="margin-right: 15px"><input type="radio" name="useCredits" value="SL"  @if($useCredits=='SL') checked="checked" @endif> SL</label>
+                                    <label style="margin-right: 15px"><input type="radio" name="useCredits" value="AdvSL"  @if($useCredits=='AdvSL') checked="checked" @endif> Advanced SL</label>
+                                    <label style="margin-right: 15px"><input type="radio" name="useCredits" value="LWOP"  @if($useCredits=='LWOP') checked="checked" @endif> LWOP</label>
                                     <div id="deduct" style="margin-top: 20px"><i class="fa fa-exclamation-circle"></i> Total credits to be deducted: <strong></strong> </div>
                                    
                                 </div>
@@ -263,12 +279,16 @@
             var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D');
            
             
-            var leaveFrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D H:mm:ss');
+            var leaveFrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D H:mm:ss'); 
+
+            var useCredits = $('input[name="useCredits"]:checked').val();
+            var forced = $('input[name="forced"]:checked').val();
            
 
             var mayExisting = checkExisting(leaveFrom,_token);
             console.log('amStart:amEnd');
             console.log(amStart + '-'+ amEnd);
+            console.log(useCredits);
 
             if (mayExisting)
             {
@@ -283,6 +303,7 @@
               {
                     var isValidTime = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timestart);
                     var isValidTime2 = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timeend);
+
 
                     if (isValidTime && isValidTime2)
                     {
@@ -305,7 +326,8 @@
                                 'totalhours': totalhours,
                                 'timeStart': timestart+' '+amStart,
                                 'timeEnd':  timeend+' '+amEnd,
-                                'useCredits': "{{$useCredits}}",
+                                'useCredits': useCredits,
+                                'forced': forced,
                                 '_token':_token
                               },
                               success: function(response2){
@@ -331,7 +353,7 @@
                     }
                     else
                     {
-                      $.notify("Invalid time format.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
+                      $.notify("Invalid time format. Please make sure you indicate the correct start & end time for this VTO ",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
                     }
 
                     

@@ -1008,6 +1008,12 @@ trait TimekeepingTraits
                   
                 select('user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
+    $all_vto = DB::table('user_vto')->where([ 
+                  ['user_vto.productionDate','>=', $startCutoff],
+                  ['user_vto.productionDate','<=', $endCutoff],
+                  ])->join('users','users.id','=','user_vto.user_id')->
+                  select('user_vto.deductFrom', 'user_vto.productionDate', 'user_vto.startTime','user_vto.endTime', 'user_vto.isApproved','user_vto.totalHours','user_vto.created_at', 'user_vto.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+
     $LWOP = DB::table('user_lwop')->where([ 
                   ['user_lwop.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_lwop.leaveEnd','<=', $endCutoff." 23:59:00"],
@@ -1029,6 +1035,7 @@ trait TimekeepingTraits
     if (count($SL) > 0) $allLeaves->push(['type'=>'SL', 'data'=>$SL]);
     if (count($LWOP) > 0) $allLeaves->push(['type'=>'LWOP', 'data'=>$LWOP]);
     if (count($FL) > 0) $allLeaves->push(['type'=>'FL', 'data'=>$FL]);
+    if (count($all_vto) > 0) $allLeaves->push(['type'=>'VTO', 'data'=>$all_vto]);
         
     
     if ($json)

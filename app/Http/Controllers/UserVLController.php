@@ -959,7 +959,7 @@ class UserVLController extends Controller
 
         /* -------------- log updates made --------------------- */
         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-        fwrite($file, "-------------------\n [". $request->id."] VL REQUEST \n");
+        fwrite($file, "-------------------\n [". $request->id."] VTO REQUEST \n");
         fclose($file);
 
 
@@ -1225,6 +1225,7 @@ class UserVLController extends Controller
         $vl->endTime = date('H:i:s',strtotime($request->timeEnd));
         $vl->totalhours = $request->totalhours;
         $vl->deductFrom = $request->useCredits;
+        $vl->forced = $request->forced;
         $vl->notes = $request->reason_vl;
 
 

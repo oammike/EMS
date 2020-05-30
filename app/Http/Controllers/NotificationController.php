@@ -253,16 +253,25 @@ class NotificationController extends Controller
                         case '18': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '19': $fromData = null; break;
                         case '21': {
+                                    $ap = User_VTO::find($notif->detail->relatedModelID);
+                                    if (is_null($ap))
+                                    {
+                                      $fromData = null; $hasIssue = true;
 
-                                    $ih = ImmediateHead_Campaign::find(User_VTO::find($notif->detail->relatedModelID)->approver);
-                                    if ( count((array)$ih) > 0 ){
+                                    }else
+                                    {
+                                      $ih = ImmediateHead_Campaign::find(User_VTO::find($notif->detail->relatedModelID)->approver);
+                                      if ( count((array)$ih) > 0 ){
 
-                                      $fromData =ImmediateHead::find($ih->immediateHead_id);
-                                    }else{
-                                      $fromData = User::find(User_VTO::find($notif->detail->relatedModelID)->user_id)->id;
-                                      $hasIssue = true;
+                                        $fromData =ImmediateHead::find($ih->immediateHead_id);
+                                      }else{
+                                        $fromData = User::find(User_VTO::find($notif->detail->relatedModelID)->user_id)->id;
+                                        $hasIssue = true;
+
+                                      }
 
                                     }
+                                    
 
                                   } break;
 
