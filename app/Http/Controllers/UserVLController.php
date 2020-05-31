@@ -1453,6 +1453,7 @@ class UserVLController extends Controller
 
         $details->push(['from'=>date('h:i A', strtotime($vl->startTime)), 'to'=>date('h:i A', strtotime($vl->endTime)),
             'totalHours'=>$vl->totalHours,
+            'forced'=> ($vl->forced == '0') ? "NO" : "YES",
             'totalCredits'=>number_format((float)$vl->totalHours * 0.125,2).' ['.$vl->deductFrom.']',
             'dateRequested'=>date('M d, Y - D ', strtotime($vl->created_at)),
             'notes'=> $vl->notes ]);

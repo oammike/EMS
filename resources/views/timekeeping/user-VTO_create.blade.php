@@ -340,9 +340,9 @@
                                     $.notify("VTO submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                 
                                 console.log(response2);
-                                // window.setTimeout(function(){
-                                //   window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                // }, 2000);
+                                window.setTimeout(function(){
+                                  window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                }, 2000);
                               }
                             });
 

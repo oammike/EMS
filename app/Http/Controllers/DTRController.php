@@ -1755,6 +1755,7 @@ class DTRController extends Controller
 
       $description = $type." for cutoff: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
 
+      //return $result;
 
       $correct = Carbon::now('GMT+8'); 
 
@@ -1917,8 +1918,20 @@ class DTRController extends Controller
                               $arr[$c] = $j->accesscode; $c++;
                               $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
-                              $s = Carbon::parse($j->leaveStart,'Asia/Manila');
-                              $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+                              if($jps['type'] == 'VTO')
+                              {
+                                $s = Carbon::parse($j->productionDate." ".$j->startTime,'Asia/Manila');
+                                $e = Carbon::parse($j->productionDate." ".$j->endTime,'Asia/Manila');
+
+                              }
+                              else
+                              {
+                                $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                              }
+
+                              
 
                               //*** LeaveDate
                               $arr[$c] = $s->format('m/d/Y'); $c++;
@@ -1931,6 +1944,21 @@ class DTRController extends Controller
                               {
                                 $arr[$c] = $jps['data'][0]->leaveType; $c++;
 
+                              }
+                              else if($jps['type'] == 'VTO')
+                              {
+                                if($j->deductFrom == "AdvSL")
+                                {
+                                  $arr[$c] = "SL"; $c++;
+
+                                }
+                                else
+                                {
+                                  $arr[$c] = $j->deductFrom; $c++;
+
+                                }
+                                
+
                               }else
                               {
                                 $arr[$c] = $jps['type']; $c++;
@@ -1940,7 +1968,16 @@ class DTRController extends Controller
 
 
                               //*** Quantity
-                              $arr[$c] = $j->totalCredits; $c++;
+                              if($jps['type'] == 'VTO')
+                              {
+                                $arr[$c] =  number_format((float)$j->totalHours*0.125,2); $c++;
+
+                              }
+                              else
+                              {
+                                $arr[$c] = $j->totalCredits; $c++;
+                              }
+                              
 
                               //*** Status
                               if($j->isApproved == '1') $stat = "Approved";
@@ -1969,8 +2006,21 @@ class DTRController extends Controller
                             $arr[$i] = $jps['data'][0]->accesscode; $i++;
                             $arr[$i] = $jps['data'][0]->lastname.", ".$jps['data'][0]->firstname; $i++;
 
-                            $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
-                            $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+                            //-------- check if VTO
+                            if($jps['type'] == 'VTO')
+                            {
+                               $s = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->startTime,'Asia/Manila');
+                               $e = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->endTime,'Asia/Manila');
+
+                            }
+                            else
+                            {
+                               $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                               $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+
+                            }
+
+                           
 
                             //*** LeaveDate
                             $arr[$i] = $s->format('m/d/Y'); $i++;
@@ -1980,6 +2030,15 @@ class DTRController extends Controller
                             {
                               $arr[$i] = $jps['data'][0]->leaveType; $i++;
 
+                            }
+                            else if ($jps['type'] == 'VTO')
+                            {
+                              if($jps['data'][0]->deductFrom == "AdvSL")
+                              { $arr[$i] = "SL"; $i++; }
+                              else {
+                                $arr[$i] = $jps['data'][0]->deductFrom; $i++;
+                              }
+
                             }else
                             {
                               $arr[$i] = $jps['type']; $i++;
@@ -1988,7 +2047,17 @@ class DTRController extends Controller
                             
 
                             //*** Quantity
-                            $arr[$i] = $jps['data'][0]->totalCredits; $i++;
+                            if ($jps['type'] == 'VTO')
+                            {
+                              $arr[$i] = number_format((float)$jps['data'][0]->totalHours*0.125,2); $i++;
+
+                            }
+                            else
+                            {
+                              $arr[$i] = $jps['data'][0]->totalCredits; $i++;
+
+                            }
+                            
 
                             //*** Status
                             if($jps['data'][0]->isApproved == '1') $stat = "Approved";

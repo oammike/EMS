@@ -93,6 +93,7 @@
                                                   <th>From</th>
                                                   <th>Until</th>
                                                   <th>Total Hours</th>
+                                                  <th>Forced?</th>
                                                   <th>Credits</th>
                                                   <th>Notes</th>
                                                   <th></th>
@@ -102,6 +103,7 @@
                                                   <td>{{$details[0]['from']}} </td>
                                                   <td>{{$details[0]['to']}} </td>
                                                   <td>{{$details[0]['totalHours']}} </td>
+                                                  <td>{{$details[0]['forced']}} </td>
                                                   <td>{{$details[0]['totalCredits']}} </td>
                                                   <td style="width: 20%">{{$details[0]['notes']}} </td>
 
