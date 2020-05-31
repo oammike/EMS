@@ -1020,6 +1020,7 @@ class UserVLController extends Controller
         $vl->totalCredits= $request->totalcredits;
         $vl->halfdayFrom = $request->halfdayFrom;
         $vl->halfdayTo = $request->halfdayTo;
+        $vl->forced = $request->forced;
         
 
         $employee = User::find($request->id);
@@ -1409,6 +1410,7 @@ class UserVLController extends Controller
 
         $details->push(['from'=>date('M d - D',strtotime($vl->leaveStart)), 'to'=>date('M d - D',strtotime($vl->leaveEnd)),
             'totalCredits'=>$vl->totalCredits,
+            'forced'=> ($vl->forced == '0') ? "No" : "Yes",
             'dateRequested'=>date('M d, Y - D ', strtotime($vl->created_at)),
             'notes'=> $vl->notes ]);
         

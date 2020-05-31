@@ -101,6 +101,9 @@
                                     <label id="shift_first" ><input type="radio" name="coveredshift" id="shift_first" value="2" />&nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> 1st Half of Shift <span id="shiftFrom_1"></span> </label>
                                      <br/>
                                     <label ><input type="radio" name="coveredshift" id="shift_second" value="3" />&nbsp; &nbsp;<i class="fa fa-hourglass-end"></i> 2nd Half of Shift <span id="shiftFrom_2"></span> </label><br/>
+                                     <label><br/><br/>Forced Leave / Client-mandated?  </label><br/>
+                                     <label style="margin-right: 10px"><input type="radio" name="forced" value="1" /> YES</label>
+                                     <label><input type="radio" name="forced" value="0" checked="checked" /> NO</label>
                                 </div>
                               </div>
 
@@ -119,12 +122,14 @@
                                     <div id="vl_more">
                                       <label ><input type="radio" name="coveredshift2" id="shift2_whole" value="1" /> &nbsp; &nbsp;<i class="fa fa-hourglass"></i> Whole Day</label><br/>
                                       <label ><input type="radio" name="coveredshift2" id="shift2_first" value="2" /> &nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> Half Day</label> <br/>
+
                                       
                                     </div>
                                   </div>
                                 </div>
                               </div><!--end moredays-->
 
+                              
                               <label><r/><br/><br/> Notes: </label><br/>
                               <small>Kindly provide a brief description about your vacation leave</small><br/> 
                               <textarea name="reason_vl" style="width:100%;"></textarea>
@@ -254,12 +259,14 @@
             var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D');
             var twoweeks = moment(vl_from,"MM/D/YYYY").add(-14,'days');
 
+            var forced = $('input[name="forced"]:checked').val();
+
             /* ------- 2wk NOTICE on VL
             if ( twoweeks.format('YYYY-MM-DD') <= moment().format('YYYY-MM-DD')) {
               $.notify("Sorry, this VL period is already past the submisison deadline. \nNote that all vacation leaves must be filed 2-weeks in advance. \n(i.e. before "+twoweeks.format('MMM D, YYYY')+")",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );return false; 
             }*/
 
-
+            console.log("forced: "+ forced);
             console.log('two weeks');console.log(twoweeks);
 
             $.ajax({
@@ -330,6 +337,7 @@
                                                   'totalcredits': totalcredits,
                                                   'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
                                                   'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
+                                                  'forced': forced,
                                                   '_token':_token
                                                 },
                                                 success: function(response1){
@@ -422,6 +430,7 @@
                                                     'totalcredits': totalcredits,
                                                     'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
                                                     'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
+                                                    'forced': forced,
                                                     '_token':_token
                                                   },
                                                   success: function(response2){

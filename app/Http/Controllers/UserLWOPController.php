@@ -508,6 +508,7 @@ class UserLWOPController extends Controller
        $vl = new User_LWOP;
        $vl->user_id = $request->id;
        $vl->leaveStart =  $request->leaveFrom;
+       $vl->forced = $request->forced;
 
         //----- pag blank yung TO:, meaning wholeday sya. So add 9Hours sa FROM
         if($request->leaveTo == '0000-00-00 00:00:00' || is_null($request->leaveTo)){
@@ -683,6 +684,7 @@ class UserLWOPController extends Controller
 
         $details->push(['from'=>date('M d - D',strtotime($vl->leaveStart)), 'to'=>date('M d - D',strtotime($vl->leaveEnd)),
             'totalCredits'=>$vl->totalCredits,
+            'forced'=> ($vl->forced == '0') ? "No" : "Yes",
             'dateRequested'=>date('M d, Y - D ', strtotime($vl->created_at)),
             'notes'=> $vl->notes ]);
         

@@ -103,6 +103,11 @@
                                     <label id="shift_first" ><input type="radio" name="coveredshift" id="shift_first" value="2" />&nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> 1st Half of Shift <span id="shiftFrom_1"></span> </label>
                                      <br/>
                                     <label ><input type="radio" name="coveredshift" id="shift_second" value="3" />&nbsp; &nbsp;<i class="fa fa-hourglass-end"></i> 2nd Half of Shift <span id="shiftFrom_2"></span> </label><br/>
+
+                                    <label><br/><br/>Forced Leave / Client-mandated?  </label><br/>
+                                     <label style="margin-right: 10px"><input type="radio" name="forced" value="1" /> YES</label>
+                                     <label><input type="radio" name="forced" value="0" checked="checked" /> NO</label>
+
                                 </div>
                               </div>
 
@@ -301,6 +306,9 @@
           var reason_vl = $('textarea[name="reason_vl"]').val();
           var totalcredits = $('#credits_vl').attr('data-credits');
 
+          var forced = $('input[name="forced"]:checked').val();
+          console.log("forced: "+forced);
+
           $.ajax({
               url: "{{action('UserController@getWorkSchedForTheDay',$user->id)}}",
               type:'POST',
@@ -369,6 +377,7 @@
                                 data.append('leaveTo',leaveTo);
                                 data.append('reason_vl',reason_vl);
                                 data.append('totalcredits',totalcredits);
+                                data.append('forced',forced);
                                 data.append('halfdayFrom',$('input[name="coveredshift"]:checked').val());
                                 data.append('halfdayTo',$('input[name="coveredshift2"]:checked').val());
                                 data.append('_token',_token);
@@ -463,6 +472,7 @@
                                     data.append('leaveTo',leaveTo);
                                     data.append('reason_vl',reason_vl);
                                     data.append('totalcredits',totalcredits);
+                                    data.append('forced',forced);
                                     data.append('halfdayFrom',$('input[name="coveredshift"]:checked').val());
                                     data.append('halfdayTo',$('input[name="coveredshift2"]:checked').val());
                                     data.append('_token',_token);

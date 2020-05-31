@@ -101,6 +101,9 @@
                                     <label id="shift_first" ><input type="radio" name="coveredshift" id="shift_first" value="2" />&nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> 1st Half of Shift <span id="shiftFrom_1"></span> </label>
                                      <br/>
                                     <label ><input type="radio" name="coveredshift" id="shift_second" value="3" />&nbsp; &nbsp;<i class="fa fa-hourglass-end"></i> 2nd Half of Shift <span id="shiftFrom_2"></span> </label><br/>
+                                    <label><br/><br/>Forced Leave / Client-mandated?  </label><br/>
+                                     <label style="margin-right: 10px"><input type="radio" name="forced" value="1" /> YES</label>
+                                     <label><input type="radio" name="forced" value="0" checked="checked" /> NO</label>
                                 </div>
                               </div>
 
@@ -256,6 +259,9 @@
             var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
             var leaveTo = coveredshifts.leaveEnd.format('YYYY-MM-D H:mm:ss');
 
+            var forced = $('input[name="forced"]:checked').val();
+
+            console.log('forced: '+forced);
             console.log('leaveFrom:');
             console.log(leaveFrom);
             console.log('leaveTo:');
@@ -323,6 +329,7 @@
                               'leaveTo': leaveTo,
                               'reason_vl': reason_vl,
                               'totalcredits': totalcredits,
+                              'forced':forced,
                               'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
                               'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
                               '_token':_token
@@ -386,6 +393,7 @@
                                                   'leaveTo': leaveTo,
                                                   'reason_vl': reason_vl,
                                                   'totalcredits': totalcredits,
+                                                  'forced': forced,
                                                   'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
                                                   'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
                                                   '_token':_token
@@ -474,6 +482,7 @@
                                               'leaveTo': leaveTo,
                                               'reason_vl': reason_vl,
                                               'totalcredits': totalcredits,
+                                              'forced': 'forced',
                                               'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
                                               'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
                                               '_token':_token

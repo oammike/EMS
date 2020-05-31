@@ -97,6 +97,7 @@
                                                   <th>From</th>
                                                   <th>Until</th>
                                                   <th>Credits</th>
+                                                  <th>Forced?</th>
                                                   <th>Details</th>
                                                   <th></th>
                                                 </tr>
@@ -105,6 +106,7 @@
                                                   <td>{{$details[0]['from']}} </td>
                                                   <td>{{$details[0]['to']}} </td>
                                                   <td>{{$vl->totalCredits}} </td>
+                                                  <td>{{$details[0]['forced']}} </td>
                                                   <td style="width: 20%">{{$details[0]['notes']}} </td>
 
 

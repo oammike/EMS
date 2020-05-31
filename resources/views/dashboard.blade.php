@@ -1505,7 +1505,13 @@ select:-webkit-autofill:focus {
                                             }
 
                                           modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
+
+                                          if(full.deets.forced == '1')
+                                             modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
+                                         
+                                          else
+                                             modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
+
                                          
 
                                          // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
@@ -1546,7 +1552,11 @@ select:-webkit-autofill:focus {
                                             }
 
                                           modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>';
+                                          if(full.deets.forced == '1')
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED SICK LEAVE &nbsp;&nbsp;</strong>';
+                                          else
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>';
+                                          
                                          
 
                                           if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
@@ -1590,7 +1600,12 @@ select:-webkit-autofill:focus {
                                             }
 
                                           modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
+
+                                          if (full.deets.forced == '1')
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
+                                          else
+                                             modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
+                                         
                                          
 
                                          // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
@@ -1885,12 +1900,17 @@ select:-webkit-autofill:focus {
                                          
 
                                           modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
+
+                                          if (full.deets.forced == '1')
+                                            modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>FORCED VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
+                                          else
+                                            modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
                                          
+
 
                                         
                                           modalcode += '<strong>Total hours: </strong><em>'+full.deets.totalHours+'</em><br/>';
-                                           modalcode += '<strong>&nbsp;&nbsp;Notes: </strong><em>'+full.deets.notes+'</em></p>';
+                                          modalcode += '<strong>&nbsp;&nbsp;Notes: </strong><em>'+full.deets.notes+'</em></p>';
                                           modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                           modalcode += '<div class="col-sm-4"><h5 class="text-primary">Production Date: </h5></div>';
                                           modalcode += '<div class="col-sm-4"><h5 class="text-primary">From: </h5></div><div class="col-sm-4"><h5 class="text-primary">Until: </h5></div>';

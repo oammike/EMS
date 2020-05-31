@@ -644,6 +644,7 @@ class UserSLController extends Controller
         $vl->leaveEnd = $request->leaveTo;
         $vl->notes = $request->reason_vl;
         $vl->totalCredits= $request->totalcredits;
+        $vl->forced = $request->forced;
         $vl->halfdayFrom = $request->halfdayFrom;
         $vl->halfdayTo = $request->halfdayTo;
         $attachments = $request->file('attachments');
@@ -888,6 +889,7 @@ class UserSLController extends Controller
 
         $details->push(['from'=>date('M d - D',strtotime($vl->leaveStart)), 'to'=>date('M d - D',strtotime($vl->leaveEnd)),
             'totalCredits'=>$vl->totalCredits,
+            'forced'=> ($vl->forced=='0') ? "No" : "Yes",
             'dateRequested'=>date('M d, Y - D ', strtotime($vl->created_at)),
             'notes'=> $vl->notes ]);
         

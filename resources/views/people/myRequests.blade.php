@@ -349,7 +349,12 @@
                                           } 
 
                                           modalcode += '<p class="text-left"><br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>VACATION LEAVE &nbsp;&nbsp;</strong> <br/><br/>';
+
+                                          if(full.details.forced == '1')
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED VACATION LEAVE &nbsp;&nbsp;</strong> <br/><br/>';
+                                          else
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>VACATION LEAVE &nbsp;&nbsp;</strong> <br/><br/>';
+                                          
                                          
 
                                          // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
@@ -395,7 +400,12 @@
                                           } 
 
                                           modalcode += '<p class="text-left"><br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>' ;  
+
+                                          if (full.details.forced == '1')
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED SICK LEAVE &nbsp;&nbsp;</strong>' ; 
+                                          else
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>' ; 
+
                                           if (full.details.attachments != null)
                                           modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="../user_sl/medCert/'+full.details.id+'" target="_blank">Medical Certificate <br/> &nbsp; &nbsp; &nbsp; &nbsp;attached</a></span>';
                                          
@@ -442,7 +452,11 @@
                                           } 
 
                                           modalcode += '<p class="text-left"><br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>LEAVE WITHOUT PAY &nbsp;&nbsp;</strong> <br/><br/>';
+
+                                          if(full.details.forced == '1')
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED LEAVE WITHOUT PAY &nbsp;&nbsp;</strong> <br/><br/>';
+                                          else
+                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>LEAVE WITHOUT PAY &nbsp;&nbsp;</strong> <br/><br/>';
 
                                           modalcode += '<strong>Reason: </strong><em>'+full.details.notes+'</em></p>';
                                           modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
@@ -684,7 +698,12 @@
                                           
 
                                           modalcode += '<p class="text-left"><br/>';
-                                          modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO  &nbsp;&nbsp;</strong>[ use: '+full.details.deductFrom+' ] <br/><br/>';
+
+                                          if (full.details.forced == '1')
+                                            modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>FORCED VTO  &nbsp;&nbsp;</strong>[ use: '+full.details.deductFrom+' ] <br/><br/>';
+                                          else
+                                            modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO  &nbsp;&nbsp;</strong>[ use: '+full.details.deductFrom+' ] <br/><br/>';
+                                          
                                          
 
                                          // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
