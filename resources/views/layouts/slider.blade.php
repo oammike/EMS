@@ -1,4 +1,38 @@
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-exclamation-triangle"></i> Updated Workplace <br/>Health and Safety Policy  <br/> <span class="text-primary">   for the prevention and <br/>control of COVID-19 <br/>
+                    <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    ATTENTION TO ALL:    <br/><br/>
+
+                    We are reminding everyone to comply with our health and safety protocols such as the requirement to: <br/><br/>
+                    Accomplish the Health Declaration Form prior to going to work.<strong class="text-primary">STAY HOME IF YOU ARE SICK. </strong> <br/><br/>
+                    Wear a face mask and have your temperature taken prior to entering the office premises. <br/><br/>
+                    Practice physical distancing and respiratory etiquette. <br/><br/>
+                    The maximum penalty for non-compliance with the health and safety protocols is termination. <br/><br/> <br/><br/>
+
+                    For guidance, we have outlined scenarios on how our health protocols will generally be implemented: <br/><br/>
+
+                    <strong class="text-primary"> 1. Building Lobby</strong><br/>
+                    If temperature is above 37.5C, you will no longer allowed by the building admin to proceed to the office. If necessary, the nurse will go to the lobby and confirm your temperature/assess before you sending home. <br/><br/>
+
+                    <strong class="text-primary"> 2.  At the office reception prior to entering the production area</strong><br/>
+                    Our guards will check your temperature. If above 37.5C or if you exhibit other symptoms, you will not be allowed to enter the office. The nurse will go to the reception area and assess before sending you home. <br/><br/>
+
+                    <strong class="text-primary"> 3. During work</strong> <br/>
+                    If you feel unwell during your shift, you are required to proceed to the  nearest designated area (isolation room or clinic) from your workstation. The nurse will  assess before sending you home.  <br/><br/>
+
+                    <strong class="text-primary"> 4. Emergency Room Transport, if necessary after Nurse assessment.</strong><br/>
+                    The nurse will explain and set expectations on the need for immediate ER transfer (nearest hospital is Makati Medical Center). You may notify a family member about the situation. No one can join in the elevator except for the nurse. Upon arrival in the ER, the nurse will properly endorse the patient to the hospital ER personnel. <br/><br/>
+                    Thank you.
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DTR Locking in EMS <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -624,29 +658,6 @@
               </div>
 
               
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Attention: <br/> <span class="text-primary">    DSWD's Social Amelioration Program  <br/>
-                   <img src="storage/uploads/dswd.png" width="50%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                      Below are important information provided by the  DSWD and the IATF regarding the Government's Social Amelioration Program ("SAP"):<br/><br/>
-
-                      1. The SAP will be spearheaded by the DSWD in coordination with the Local Government Units and Barangays;<br/><br/>
-                      2. The DSWD's priority will be the low income families and the informal sector;<br/><br/>
-                      3. The  cash aid of Php 5,000 to Php 8,000 will be per Family/Household; and<br/><br/>
-                      4. The DSWD Social Amelioration Cards will be distributed at the barangay level.<br/><br/>
-
-                      For more information, you may visit the DSWD website at <a href="http://www.dswd.gov.ph" target="_blank">www.dswd.gov.ph</a> and DSWD's FB page.<br/><br/>
-
-                      Thank you.<br/><br/><strong>HR Department</strong>
-                    
-
-                    </p>  
-                    
-              </div>
-
              
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
@@ -1163,60 +1174,7 @@
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >DOLE's Php 5,000<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Financial Support<br/>
-                 <br/>
-                    <img src="storage/uploads/DOLE-logo.jpg" width="80%" /> <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-
-                     In Department Order No. 209 dated March 17, 2020, DOLE instituted the COVID-19 Adjustment Measures Program (“CAMP”) aimed at providing Financial Support to all affected workers. The DOLE likewise issued four (4) advisories which sought to clarify and supplement the CAMP guidelines and procedures.<br/><br/>
-
-                      While awaiting DOLE’s FAQs on CAMP implementation, listed below are Q&As that might be of help:<br/><br/>
-
-                      <strong class="text-orange">Q: How much is the DOLE’s financial assistance? </strong>
-
-                      <span class="text-primary"> A: Php5,000. The amount is a one-time financial assistance to affected workers paid lump sum, non-conditional, regardless of employment status.<br/><br/></span>
-
-                      <strong class="text-orange">Q: Who are entitled to the Php 5,000 financial assistance?</strong>
-
-                      <span class="text-primary">A:  Only affected workers. Under DOLE D.O. 209 as supplemented by Labor Advisory 12-20, “affected workers” is defined as those whose employment suffer interruption due to the COVID-19 pandemic such as:<br/><br/></span><br/>
-
-                      i)  Those whose regular wage is reduced due to implementation of flexible work arrangements; and<br/>
-
-                      ii) Those whose employment is temporarily suspended by reason of suspension or closure of business operations.<br/><br/>
-
-                      <strong class="text-orange">Q: Are those who work from home eligible to receive DOLE financial assistance?</strong>
-
-                      <span class="text-primary">A: No. Under DOLE Memorandum COVID No. 01-2020, workers who still receive full wages (e.g. under telecommuting or work from home arrangement) are not entitled to the financial assistance.<br/><br/></span>
-
-                      <strong class="text-orange">Q:  Can leave credits be utilized during the quarantine period?</strong>
-
-                      <span class="text-primary">A: Yes. Under Labor Advisory No. 11-20, the leaves of absence during community quarantine period shall be charged against the workers’ existing leave credits, if any. Remaining unpaid leaves during said period may be covered and be subject to the conditions provided in the DOLE’s CAMP financial support program. Moreover, under DOLE D.O. No. 209, the financial assistance may be used to cover remaining unpaid leaves of affected workers.<br/><br/></span>
-
-                      <strong class="text-orange">Q: Do I have the option not to use any of my leave credits?</strong>
-
-                      <span class="text-primary">A: Apparently, yes. The DOLE Secretary announced in a press conference that employees have the discretion on whether to utilize his/her leave credits.<br/><br/></span>
-
-                      <strong class="text-orange">Q: What is the process in availing the DOLE financial assistance?</strong>
-
-                      <span class="text-primary">A: The Departments involved will initiate the process and apply with DOLE submitting the documentary requirements. The application for financial assistance is subject to approval of the Department of Labor and Employment.<br/><br/></span>
-
-                      <strong class="text-orange">Q: When will DOLE release the Php5,000 financial assistance?</strong>
-
-                      <span class="text-primary">A:  Once approved, the Php 5,000 will be paid by DOLE directly to your bank accounts at the soonest possible time.<br/><br/></span>
-
-                      If there are any further questions, you may send your queries to HR Employee Relations.
-
-                    </p>
-                   
-
-                    
-                </div>
-
-                
+               
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > Supporting our Employees <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> through Enhanced Community <br/>Quarantine Period<br/>
@@ -1772,6 +1730,84 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >DOLE's Php 5,000<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Financial Support<br/>
+                 <br/>
+                    <img src="storage/uploads/DOLE-logo.jpg" width="80%" /> <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                     In Department Order No. 209 dated March 17, 2020, DOLE instituted the COVID-19 Adjustment Measures Program (“CAMP”) aimed at providing Financial Support to all affected workers. The DOLE likewise issued four (4) advisories which sought to clarify and supplement the CAMP guidelines and procedures.<br/><br/>
+
+                      While awaiting DOLE’s FAQs on CAMP implementation, listed below are Q&As that might be of help:<br/><br/>
+
+                      <strong class="text-orange">Q: How much is the DOLE’s financial assistance? </strong>
+
+                      <span class="text-primary"> A: Php5,000. The amount is a one-time financial assistance to affected workers paid lump sum, non-conditional, regardless of employment status.<br/><br/></span>
+
+                      <strong class="text-orange">Q: Who are entitled to the Php 5,000 financial assistance?</strong>
+
+                      <span class="text-primary">A:  Only affected workers. Under DOLE D.O. 209 as supplemented by Labor Advisory 12-20, “affected workers” is defined as those whose employment suffer interruption due to the COVID-19 pandemic such as:<br/><br/></span><br/>
+
+                      i)  Those whose regular wage is reduced due to implementation of flexible work arrangements; and<br/>
+
+                      ii) Those whose employment is temporarily suspended by reason of suspension or closure of business operations.<br/><br/>
+
+                      <strong class="text-orange">Q: Are those who work from home eligible to receive DOLE financial assistance?</strong>
+
+                      <span class="text-primary">A: No. Under DOLE Memorandum COVID No. 01-2020, workers who still receive full wages (e.g. under telecommuting or work from home arrangement) are not entitled to the financial assistance.<br/><br/></span>
+
+                      <strong class="text-orange">Q:  Can leave credits be utilized during the quarantine period?</strong>
+
+                      <span class="text-primary">A: Yes. Under Labor Advisory No. 11-20, the leaves of absence during community quarantine period shall be charged against the workers’ existing leave credits, if any. Remaining unpaid leaves during said period may be covered and be subject to the conditions provided in the DOLE’s CAMP financial support program. Moreover, under DOLE D.O. No. 209, the financial assistance may be used to cover remaining unpaid leaves of affected workers.<br/><br/></span>
+
+                      <strong class="text-orange">Q: Do I have the option not to use any of my leave credits?</strong>
+
+                      <span class="text-primary">A: Apparently, yes. The DOLE Secretary announced in a press conference that employees have the discretion on whether to utilize his/her leave credits.<br/><br/></span>
+
+                      <strong class="text-orange">Q: What is the process in availing the DOLE financial assistance?</strong>
+
+                      <span class="text-primary">A: The Departments involved will initiate the process and apply with DOLE submitting the documentary requirements. The application for financial assistance is subject to approval of the Department of Labor and Employment.<br/><br/></span>
+
+                      <strong class="text-orange">Q: When will DOLE release the Php5,000 financial assistance?</strong>
+
+                      <span class="text-primary">A:  Once approved, the Php 5,000 will be paid by DOLE directly to your bank accounts at the soonest possible time.<br/><br/></span>
+
+                      If there are any further questions, you may send your queries to HR Employee Relations.
+
+                    </p>
+                   
+
+                    
+                </div>
+
+                
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Attention: <br/> <span class="text-primary">    DSWD's Social Amelioration Program  <br/>
+                   <img src="storage/uploads/dswd.png" width="50%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      Below are important information provided by the  DSWD and the IATF regarding the Government's Social Amelioration Program ("SAP"):<br/><br/>
+
+                      1. The SAP will be spearheaded by the DSWD in coordination with the Local Government Units and Barangays;<br/><br/>
+                      2. The DSWD's priority will be the low income families and the informal sector;<br/><br/>
+                      3. The  cash aid of Php 5,000 to Php 8,000 will be per Family/Household; and<br/><br/>
+                      4. The DSWD Social Amelioration Cards will be distributed at the barangay level.<br/><br/>
+
+                      For more information, you may visit the DSWD website at <a href="http://www.dswd.gov.ph" target="_blank">www.dswd.gov.ph</a> and DSWD's FB page.<br/><br/>
+
+                      Thank you.<br/><br/><strong>HR Department</strong>
+                    
+
+                    </p>  
+                    
+              </div>
+
+
 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em">EARLY CUT-OFF DTR: 
                     <br/> <span class="text-primary"> <i class="fa fa-money"></i> &nbsp;&nbsp; MAY 22, 2020 PAYOUT &nbsp;&nbsp; <i class="fa fa-money"></i> <br/>
