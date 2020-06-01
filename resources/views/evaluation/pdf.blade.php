@@ -1616,7 +1616,7 @@
                                               
                                             </tr>
                                          
-                                            <?php $from = ['98.00','90.00','80.00','below 70']; $cf = 0; ?>
+                                            <?php $from = ['98.00','90.00','80.00','70.00', '0.00']; $cf = 0; ?>
                                             @foreach ($ratingScale as $rs)
                                             <tr id="rating-{{$rs->percentage}}" class="ratingTable" data-salaryIncrease="{{$rs->increase}}">
                                               <td>{{$rs->label}}</td>
