@@ -1620,7 +1620,7 @@
                                             @foreach ($ratingScale as $rs)
                                             <tr id="rating-{{$rs->percentage}}" class="ratingTable" data-salaryIncrease="{{$rs->increase}}">
                                               <td>{{$rs->label}}</td>
-                                              <td class="text-center">{{$from[cf]}} - {{$rs->maxRange}}</td>
+                                              <td class="text-center">{{$from[$cf]}} - {{$rs->maxRange}}</td>
                                               <td class="text-center">{{$rs->status}}</td>
                                               
                                             </tr>
