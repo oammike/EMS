@@ -4441,11 +4441,15 @@ trait TimekeepingTraits
             if (count($verifiedDTR) > 0)
               $icons = "<a title=\"Unlock DTR to File this OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\" ><i class=\"fa fa-credit-card\"></i></a>";
             else
-              $icons = "<a  id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+            {
+              if($hasHolidayToday && $isBackoffice)
+                $icons = "<a  id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+              else
+                $icons = "<a  id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
 
-            
-             //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
-            //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
+
+            }
+
             $totalbill = number_format(($endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") ))/60,2);
 
             if ($totalbill > 0.5){
@@ -4455,9 +4459,27 @@ trait TimekeepingTraits
               
             else
             {
-              $billableForOT = $totalbill;
-              $OTattribute = "&nbsp;&nbsp;&nbsp;";
+              if($hasHolidayToday && $isBackoffice)
+              {
+                $billableForOT = $totalbill;
+                $OTattribute = $icons;
+
+              }
+              else
+              {
+                $billableForOT = $totalbill;
+                $OTattribute = "&nbsp;&nbsp;&nbsp;";
+
+              }
+              
             } 
+          }
+          else if($hasHolidayToday && $isBackoffice)
+          {
+            $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+            $totalbill = number_format($wh/60,2);
+            $icons = "<a  id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"   title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+
           }
             
           else
@@ -5009,14 +5031,29 @@ trait TimekeepingTraits
 
                 }
                 else 
-                { 
-                    $workedHours = number_format($wh/60,2); 
-                    //$workedHours = ['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")];
+                {
+                  if($hasHolidayToday && $isBackoffice)
+                  {
+
+                      $workedHours = number_format($wh/60,2); 
+                      $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>"; 
+                      
+                      $billableForOT = number_format($wh/60,2); 
+                      $workedHours .= "<br/> <strong>[* ". $holidayToday->first()->name. " *]</strong>";
+                      $OTattribute = $icons;
+                      $UT=0;
+                  }
+                  else
+                  {
+                    $workedHours = number_format($wh/60,2);
                     $billableForOT=0; 
                       if ($hasHolidayToday)
                       {
                         $workedHours .= "<br/> <strong>[* ". $holidayToday->first()->name. " *]</strong>";
                       }
+
+                  }
+                    
                 }//end else di overworked, sakto lang
 
                   //$UT = '0';
