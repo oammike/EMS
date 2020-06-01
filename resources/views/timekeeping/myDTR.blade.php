@@ -1344,6 +1344,7 @@
                                                             <td class="text-center">
                                                               @if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif 
 
+                                                                
                                                               @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
 
                                                                 {!! $data['billableForOT'] !!} {!! $data['OTattribute'] !!} 

@@ -4846,7 +4846,9 @@ trait TimekeepingTraits
                     if($hasHolidayToday && $isBackoffice)
                     {
                       $UT = 0;
-                      $workedHours = number_format($wh/60,2); ;
+                      if ($wh >= 300) $wh = $wh-60;
+                      $workedHours = number_format($wh/60,2); 
+                      
 
                     }else
                     {
@@ -4862,29 +4864,41 @@ trait TimekeepingTraits
                   if (count($verifiedDTR) > 0)
                     $icons = "<a title=\"Unlock DTR to file an OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
                   else
-                   $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                  {
+                    if($hasHolidayToday && $isBackoffice)
+                      $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                    else
+                      $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                   
+                  }
 
                   //------ override for holiday ng backoffice ---------
-                  if ($hasHolidayToday && $isBackoffice) $icons="";
+                  // if ($hasHolidayToday && $isBackoffice) $icons="";
                   // ---------------------------------------------------
 
                    if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                    {
                     $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
 
-                    $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    if($hasHolidayToday && $isBackoffice)
+                      $totalbill = $workedHours; //number_format($wh/60,2);//number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    else
+                      $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
 
                    }
                     
                   else{ 
                     $t = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->format('H:i:s');
-                    //$totalbill = number_format((Carbon::parse($payday." ".$shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$t,"Asia/Manila") ))/60,2);
-                    $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+
+                    if($hasHolidayToday && $isBackoffice)
+                      $totalbill = $workedHours; //number_format($wh/60,2);  //number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    else
+                      $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
                     //$totalbill = 244.44;
                   }
 
                    //------ override for holiday ng backoffice ---------
-                  if ($hasHolidayToday && $isBackoffice) $totalbill=0.0;
+                  // if ($hasHolidayToday && $isBackoffice) //$totalbill=0.0;
                   // ---------------------------------------------------
 
 
@@ -4895,8 +4909,12 @@ trait TimekeepingTraits
                     $billableForOT = $totalbill;
                     $OTattribute = $icons;
                   }
-                    
-                  else { $billableForOT = 0; /* $totalbill*/; $OTattribute= "&nbsp;&nbsp;&nbsp;";} 
+                  else if ($hasHolidayToday && $isBackoffice)
+                  {
+                    $billableForOT = $totalbill;
+                    $OTattribute = $icons;
+
+                  }else { $billableForOT = 0; /* $totalbill*/; $OTattribute= "&nbsp;&nbsp;&nbsp;";} 
 
                   if ($hasHolidayToday)
                       {
@@ -4904,13 +4922,16 @@ trait TimekeepingTraits
                       }
 
 
-                }else if($wh > 240) 
+                }else if($wh >= 240) 
                 {
                   if ($isPartTimer || $isPartTimerForeign)
                   {
                       ($ptOverride) ? $workedHours ="8.00": $workedHours ="4.00"; $UT = 0;// number_format(240 - $wh,2);
                   }else
                   {
+                    //we need to make sure deduct 1hr break
+                    if ($wh >= 300) $wh = $wh-60;
+                      
                     $workedHours = number_format($wh/60,2); 
 
                     if($hasHolidayToday && $isBackoffice)
@@ -4931,17 +4952,25 @@ trait TimekeepingTraits
                   if (count($verifiedDTR) > 0)
                     $icons = "<a title=\"Unlock DTR to file an OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
                   else
-                   $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                  {
+                    if($hasHolidayToday && $isBackoffice)
+                      $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                    else
+                      $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                  }
+                   
 
                    if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                    {
-                      $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');//->format('Y-m-d H:i:s');
-                    
-                    //$totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
-                      //$totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
+                      $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
                       if ($isPartTimer || $isPartTimerForeign)
                       {
                         ($ptOverride) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill = number_format(($wh - 240)/60,2);
+                      }
+                      else if($hasHolidayToday && $isBackoffice)
+                      {
+                        $totalbill = $workedHours;
+
                       }
                       else $totalbill = number_format(($wh - 480)/60,2);
                     
@@ -4949,9 +4978,10 @@ trait TimekeepingTraits
                     
                   else{ 
                     $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
-                    //$totalbill = 9.99;
-                    //$totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
-                    $totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
+                    if($hasHolidayToday && $isBackoffice)
+                      $totalbill =$workedHours;
+                    else
+                      $totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
                     
                   }
 
@@ -4963,7 +4993,12 @@ trait TimekeepingTraits
                     $billableForOT = $totalbill;
                     $OTattribute = $icons;
                   }
-                    
+                  else  if ($hasHolidayToday && $isBackoffice)
+                  {
+                    $billableForOT = $totalbill;
+                    $OTattribute = $icons;
+
+                  } 
                   else { $billableForOT = 0; /* $totalbill*/; $OTattribute= "&nbsp;&nbsp;&nbsp;";} 
 
                   if ($hasHolidayToday)

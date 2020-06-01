@@ -1,4 +1,23 @@
-              <div class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DTR Locking in EMS <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that we will strictly implement the 24-hour rule in locking your DTR in EMS. This is for the Timekeeping team to regularly upload your approved change work schedule, DTRPs, leaves, and overtime from EMS to Jeonsoft for payroll computation purposes.<br/><br/>
+                    <strong class="text-danger"> DTRs should be locked within 24 hours after your shift</strong>, except on the last working day of the cut-off which should be locked the following day on or before 12PM. The change work schedule, DTRPs, leaves, and overtime should be approved by the immediate head within the same date such filings were applied and filed. Once all the filings are approved and reflected, you may now lock your DTR.  We will then assume that your DTR is correct and reviewed by yourself.<br/><br/>
+
+                    If you have questions, please feel free to email salaryinquiry@openaccessbpo.com via Gmail or salaryinquiry@openaccessbpo.net via Zimbra.<br/><br/>
+
+                    Please be guided accordingly. Thank you.
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   
                   
                   <img src="storage/uploads/mentalhealth.jpg" width="100%" />
