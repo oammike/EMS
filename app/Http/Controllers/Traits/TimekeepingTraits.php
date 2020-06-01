@@ -4944,7 +4944,7 @@ trait TimekeepingTraits
                       }
 
 
-                }else if($wh >= 240) 
+                }else if($wh > 240) 
                 {
                   if ($isPartTimer || $isPartTimerForeign)
                   {
