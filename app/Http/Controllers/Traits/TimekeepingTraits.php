@@ -4944,7 +4944,7 @@ trait TimekeepingTraits
                       }
 
 
-                }else if($wh > 240) 
+                }else if($wh >= 240) 
                 {
                   if ($isPartTimer || $isPartTimerForeign)
                   {
@@ -4952,17 +4952,18 @@ trait TimekeepingTraits
                   }else
                   {
                     //we need to make sure deduct 1hr break
-                    if ($wh >= 300) $wh = $wh-60;
-                      
-                    $workedHours = number_format($wh/60,2); 
+                     
 
                     if($hasHolidayToday && $isBackoffice)
                     {
+                      if ($wh >= 300) $wh = $wh-60;
+                      $workedHours = number_format($wh/60,2);
                       $UT = 0;
 
                     }
                     else
                       {
+                        $workedHours = number_format($wh/60,2);
                         ($is4x11) ? $UT = number_format(10 - $workedHours,2) : $UT = number_format(8 - $workedHours,2);
                       }
 
