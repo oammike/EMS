@@ -5166,10 +5166,12 @@ trait TimekeepingTraits
                   'koll'=>['diffHours'=>$diffHours, 'checkEndShift'=>$checkEndShift,'checkSShift'=>$checkSShift],
                   'billableForOT'=>$billableForOT,
                   'holidayToday'=>$holidayToday, 
+                  'hdToday'=>$holidayToday,
                   'schedForToday'=>$schedForToday,
                   'OTattribute'=>$OTattribute, 
                   //'checkLate'=>"nonComplicated", 
                   //'wh'=>$wh,'comp'=>$comp,
+                  'isBackoffice'=>$isBackoffice,
                   'workedHours'=> $workedHours, //$koll, // $wh,// 
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP, 'VTO'=>$vtimeoff ]);
    

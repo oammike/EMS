@@ -3581,6 +3581,8 @@ class DTRController extends Controller
                                   'usercws'=>$usercws,
                                   'userOT'=>$userOT,
                                   'workedHours'=> $data[0]['workedHours'],
+                                  'hdToday'=>null,
+                                  'backOffice' =>null
                                    
                                    
                                    ]);
@@ -3757,6 +3759,8 @@ class DTRController extends Controller
                                         $billableForOT = $data[0]['billableForOT'];
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
+                                        $backOffice= null;
+                                        $hdToday=null;
                                         
                                         //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
@@ -3766,6 +3770,8 @@ class DTRController extends Controller
                                           $billableForOT = "-";
                                           $OTattribute = "-";
                                           $UT = "-";
+                                          $backOffice=null;
+                                          $hdToday=null;
                                       }
                                       
 
@@ -3776,6 +3782,8 @@ class DTRController extends Controller
                                       $billableForOT = $data[0]['billableForOT'];
                                       $OTattribute = $data[0]['OTattribute'];
                                       $UT = $data[0]['UT'];
+                                      $backOffice = $data[0]['isBackoffice'];
+                                      $hdToday = $data[0]['hdToday'];
                                       
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
@@ -3868,6 +3876,8 @@ class DTRController extends Controller
                                         $UT = $data[0]['UT'];
                                         $VLs = $data[0]['VL'];
                                         $LWOPs = $data[0]['LWOP'];
+                                        $backOffice = $data[0]['isBackoffice'];
+                                        $hdToday = $data[0]['hdToday'];
 
 
                                               
@@ -3884,6 +3894,8 @@ class DTRController extends Controller
                                                     'usercws'=>$usercws,
                                                     'userOT'=>$userOT,
                                                     'hasOT'=>$hasOT,
+                                                    'hdToday' =>null,
+                                                    'backOffice'=>null,
                                                     'isRD'=>0,
                                                     'isFlexitime'=>$isFlexitime,
                                                     'productionDate'=> date('M d, Y', strtotime($payday)),
@@ -3922,6 +3934,7 @@ class DTRController extends Controller
 
                                     $myDTR->push([
                                       'approvedOT' => $approvedOT,
+                                      'backOffice' => $backOffice,
                                       'billableForOT' => $billableForOT,
                                       'biometrics_id'=>$bioForTheDay->id,
                                       'day'=> date('D',strtotime($payday)),
@@ -3938,6 +3951,7 @@ class DTRController extends Controller
                                       'hasLeave' => $hasLeave, //$userLogIN[0]['hasLeave'],
                                       'hasPendingIN' => $userLogIN[0]['hasPendingDTRP'],
                                       'hasPendingOUT' => $userLogOUT[0]['hasPendingDTRP'],
+                                      'hdToday'=>$hdToday,
                                       'isAproblemShift'=>$isAproblemShift,
                                       'isFixedSched'=>$isFixedSched,
                                       'isFlexitime'=>$schedForToday['isFlexitime'],
