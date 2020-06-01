@@ -447,7 +447,7 @@ sidebar-collapse
                                     </table> -->
                                     <br/>
 
-                                    <h6><i><b>The company may in its discretion, grant a salary increase or a bonus equivalent to to 1% to 5% of the employee's monthly salary.  In case the current salary is already maximum pay for the campaign, only a bonus may be given.  A positive review  does not guarantee salary increases or bonus, nor does it imply continued employment</b></i></h6>
+                                    <h6><!-- <i><b>The company may in its discretion, grant a salary increase or a bonus equivalent to to 1% to 5% of the employee's monthly salary.  In case the current salary is already maximum pay for the campaign, only a bonus may be given.  A positive review  does not guarantee salary increases or bonus, nor does it imply continued employment</b></i> --></h6>
                                      <br/>
 
                                       <p>This Evaluation Form has a graduated scale from 5 to 1 with suggested qualitative definitions. Take your time, give thought to each performance factor and choose a numerical rating which best describes the employee's performance for each section (See second tab: Competencies Definition Guide Sheet). The rating range and definitions are as follows:</p>

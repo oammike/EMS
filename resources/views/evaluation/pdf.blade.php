@@ -1610,29 +1610,30 @@
                                           </tr>
                              
                                             <tr>
-                                              <td class="text-center">Scale</td>
+                                              <td class="text-center">Rating</td>
                                               <td class="text-center">%</td>
                                               <td class="text-center">Status</td>
                                               
                                             </tr>
                                          
-                                          
+                                            <?php $from = ['98.00','90.00','80.00','below 70']; $cf = 0; ?>
                                             @foreach ($ratingScale as $rs)
                                             <tr id="rating-{{$rs->percentage}}" class="ratingTable" data-salaryIncrease="{{$rs->increase}}">
                                               <td>{{$rs->label}}</td>
-                                              <td class="text-center">{{$rs->maxRange}}</td>
+                                              <td class="text-center">{{$from[cf]}} - {{$rs->maxRange}}</td>
                                               <td class="text-center">{{$rs->status}}</td>
                                               
                                             </tr>
+                                            <?php $cf++; ?>
                                             @endforeach
 
                                          
-                                        </table><small style="color:#000; font-size:.3em">* NOTE: Increase not applicable with Regularizations</small>
+                                        </table>
 
 
                                       </td>
                                     </tr>
-                                    <tr><td colspan="2"><small style="color:#000; font-size:.3em">* NOTE: Increase not applicable with Regularizations</small></td></tr>
+                                    <tr><td colspan="2"></td></tr>
 
                                   </table>
 
@@ -1823,8 +1824,8 @@
                                 </div>
                               </div>
 
-                                <!- ********* END SUMMARY ********** -->   
-                                <p style="font-size:0.5em; margin-top:-5px"><i><b>The company may in its discretion, grant a salary increase or a bonus equivalent to to 1% to 5% of the employee's monthly salary.  In case the current salary is already maximum pay for the campaign, only a bonus may be given.  A positive review  does not guarantee salary increases or bonus, nor does it imply continued employment</b></i></p>
+                              <!-- ********* END SUMMARY ********** -->   
+                               <!--  <p style="font-size:0.5em; margin-top:-5px"><i><b>The company may in its discretion, grant a salary increase or a bonus equivalent to to 1% to 5% of the employee's monthly salary.  In case the current salary is already maximum pay for the campaign, only a bonus may be given.  A positive review  does not guarantee salary increases or bonus, nor does it imply continued employment</b></i></p> -->
                                  <br/>
 
                                 <h5>Signed by:</h5>   
