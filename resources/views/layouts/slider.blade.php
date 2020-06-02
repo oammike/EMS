@@ -41,7 +41,7 @@
 
                        
 
-                      Please take time to read through our transition strategy attached for your reference. Thank you for your continued commitment.<br/><nr/>
+                      Please take time to read through our <a class="text-success" href="oampi-resources/item/67" target="_blank"><strong> transition strategy </strong></a> uploaded resource document. Thank you for your continued commitment.<br/><br/>
 
                        
 
