@@ -1,6 +1,5 @@
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Transitioning to the New Normal
-<br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Transitioning to the New Normal <br/>
                    
                   
                     <img src="storage/uploads/divider.png" />
@@ -51,6 +50,37 @@
  
                     
               </div>
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Company Shuttle Service for GCQ <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Application Form for onsite workers availing shuttle<br/>
+                 <br/>
+                <img src="storage/uploads/shuttle.png" width="80%" /><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
+                      For those working onsite during GCQ, we will continue to provide a shuttle service. Now that there is more allowable movement, our goal is to get you here easily and more importantly, covid-free.  If you need to work in the office and need a daily ride to work, please complete this<a href="https://www.emailmeform.com/builder/form/628acMekO89" target="_blank"> <strong>application form</strong></a>. This form is for both current and new shuttlers. <br/><br/>
+
+                       
+
+                      We are aware that although some forms of public transportation will now be available, it will be at reduced capacity and it won’t all be back 100%. We expect traffic and public transport to be grueling, problematic, and risky. We want to enable safe access for you so we will continue to provide free transportation during the general community quarantine period.<br/><br/>
+
+                       
+
+                      Please read and understand our terms and conditions of service in the OA Transport Policy, Procedures, and Guidelines before submitting the<a href="https://www.emailmeform.com/builder/form/628acMekO89" target="_blank"> <strong>GCQ Application Form</strong></a>. Make sure you send your request once you have official confirmation of your team returning to the office. Requests are subject to review and approval, and take at least 2 days to process. Once you receive a trip confirmation email, you will be reminded to submit the online Health Declaration Form (link attached in the notification email to be sent).<br/><br/>
+
+                       
+
+                      All shuttle riders will be required to have their COE and company IDs with them for checkpoints and follow our standard health measures and social distancing rules in our vehicles and in our offices. As the company has been doing all to keep us safe and operational, not sparing any expense, our marching orders are to be vigilant and responsible for our own safety at all times. <br/><br/>
+
+
+
+                      Let’s be smart and super careful. Stay healthy!
+                    
+                    
+
+                    
+                </div>
+
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-exclamation-triangle"></i> Updated Workplace <br/>Health and Safety Policy  <br/> <span class="text-primary">   for the prevention and <br/>control of COVID-19 <br/>
@@ -1063,29 +1093,7 @@
 
                     
                 </div>
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" > Message from <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> OpenAccessBPO Transport Support<br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
-
-                      Thank you for your patience while we sorted out our skeletal workforce's daily round-the-clock shuttle rides. <br/><br/>
-
-                      We have created a process for dispatching and coordinating rides more smoothly which provides passenger and driver support more efficiently. We launched <strong>OA Transport Support</strong>, the hub for ride status updates.<br/><br/>
-
-                      For shuttle inquiries, email <a href="mailto:oatransport@openaccessbpo.com">oatransport@openaccessbpo.com</a> and send feedback to
-                      Shuttle Feedback.<br/>
-
-                     
-
-                    </p> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxw3XcddE8m_5gnt5GEz-7Qdd7-9CdoZWWS2PkbjrpQB-4JQ/viewform?usp=sf_link" class="btn btn-primary btn-md text-center" target="_blank">Click Here for Shuttle Feedback</a>
-                    
-                    <img src="storage/uploads/carpool.png" width="100%" />
-
-                    
-                </div>
+                
 
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
