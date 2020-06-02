@@ -1,5 +1,5 @@
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Tranisitioning to the New Normal
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Transitioning to the New Normal
 <br/>
                    
                   
