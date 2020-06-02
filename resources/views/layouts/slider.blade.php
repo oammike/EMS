@@ -113,8 +113,8 @@
                     <img src="storage/uploads/divider.png" />
                     </h4>
 
-                    <img src="storage/uploads/wall_week4.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',11)}}"> Check out our ECQonnection Wall</a>
+                    <img src="storage/uploads/wall_week5.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',12)}}"> Check out our ECQonnection Wall</a>
                     
                     
               </div>
