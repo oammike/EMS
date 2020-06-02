@@ -1721,6 +1721,9 @@ class DTRController extends Controller
       
 
       return $result;
+      /*$jps = $result[0];
+      $sched = $this->getUserWorksched($jps[0]->userID,$jps[0]->productionDate);
+      return response()->json(['sched'=>$sched]);*/
 
     }
 
@@ -1755,7 +1758,9 @@ class DTRController extends Controller
 
       $description = $type." for cutoff: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
 
-      //return $result;
+      /*$jps = $jpsData[0];
+      $sched = $this->getUserWorksched($jps[0]->userID,$jsp[0]->productionDate);
+      return response()->json(['sched'=>$sched]);*/
 
       $correct = Carbon::now('GMT+8'); 
 
@@ -1795,7 +1800,81 @@ class DTRController extends Controller
                               $arr[$c] = $j->accesscode; $c++;
                               $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
-                              $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+
+
+                              //-----we get first employee's schedule from locked DTR
+
+                              $sched = $this->getUserWorksched($j->userID,$j->productionDate);
+                              if(count($sched) > 0)
+                              {
+                                if ($sched[0]->workshift !== '* RD * - * RD *')
+                                {
+                                  $wshift = explode('-',$sched[0]->workshift);
+                                  $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                                  $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(9);
+                                  $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                  $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+                                  $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila');
+                                  
+                                }
+                                else
+                                {
+                                  $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                                  $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila');
+                                  $endDate =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                  $startDate = $s;
+                                  $startTime = $s;
+                                  $endTime = $e;
+                                }
+                                
+
+                              }
+                              else
+                              {
+                                $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                                $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                                $endDate =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                $startDate = $s;
+                                $startTime = $s;
+                                $endTime = $e;
+
+                              }
+
+                              //*** ShiftDate
+                              $arr[$c] = $s->format('m/d/Y'); $c++;
+
+
+
+                              //*** StartDate
+                              $arr[$c] = $startDate->format('m/d/Y'); $c++;
+
+                              //*** StartTime
+                              $arr[$c] = $startTime->format('h:i A'); $c++;
+
+                              //*** EndDate
+                              $arr[$c] = $endDate->format('m/d/Y'); $c++;
+
+                              //*** EndTime
+                              $arr[$c] = $endTime->format('h:i A'); $c++;
+
+                              //*** Status
+                              if($j->isApproved == '1') $stat = "Approved";
+                              else if ($j->isApproved == '0') $stat = "Denied";
+                              else $stat = "Pending Approval";
+
+                              $arr[$c] = $stat; $c++;
+
+                              //*** HoursFiled
+                              $arr[$c] = $j->billable_hours;$c++;
+
+                               //*** HoursApproved
+                              $arr[$c] = $j->filed_hours;$c++;
+
+
+
+
+
+                              /*$s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
 
                               $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila'); //->addHours($j->filed_hours);
                               $endDate =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
@@ -1826,7 +1905,7 @@ class DTRController extends Controller
                               $arr[$c] = $j->billable_hours;$c++;
 
                                //*** HoursApproved
-                              $arr[$c] = $j->filed_hours;$c++;
+                              $arr[$c] = $j->filed_hours;$c++;*/
 
                               $sheet->appendRow($arr);
                               
@@ -1835,27 +1914,64 @@ class DTRController extends Controller
                           }
                           else
                           {
+                            //-----
                             $arr[$i] = $jps[0]->accesscode; $i++;
                             $arr[$i] = $jps[0]->lastname.", ".$jps[0]->firstname; $i++;
 
-                            $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
-                            $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
-                            $endDate =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
+                            //-----we get first employee's schedule from locked DTR
+
+                            $sched = $this->getUserWorksched($jps[0]->userID,$jps[0]->productionDate);
+                            if(count($sched) > 0)
+                            {
+                              if ($sched[0]->workshift !== '* RD * - * RD *')
+                              {
+                                $wshift = explode('-',$sched[0]->workshift);
+                                $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+                                $startDate = Carbon::parse($jps[0]->productionDate." ".$wshift[0],'Asia/Manila')->addHours(9);
+                                $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
+                                $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$jps[0]->timeStart,'Asia/Manila');
+                                $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$jps[0]->timeEnd,'Asia/Manila');
+                                
+                              }
+                              else
+                              {
+                                $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+                                $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                                $endDate =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
+                                $startDate = $s;
+                                $startTime = $s;
+                                $endTime = $e;
+                              }
+                              
+
+                            }
+                            else
+                            {
+                              $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+                              $e =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                              $endDate =  Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
+                              $startDate = $s;
+                              $startTime = $s;
+                              $endTime = $e;
+
+                            }
 
                             //*** ShiftDate
                             $arr[$i] = $s->format('m/d/Y'); $i++;
 
+
+
                             //*** StartDate
-                            $arr[$i] = $s->format('m/d/Y'); $i++;
+                            $arr[$i] = $startDate->format('m/d/Y'); $i++;
 
                             //*** StartTime
-                            $arr[$i] = $s->format('h:i A'); $i++;
+                            $arr[$i] = $startTime->format('h:i A'); $i++;
 
                             //*** EndDate
                             $arr[$i] = $endDate->format('m/d/Y'); $i++;
 
                             //*** EndTime
-                            $arr[$i] = $e->format('h:i A'); $i++;
+                            $arr[$i] = $endTime->format('h:i A'); $i++;
 
                             //*** Status
                             if($jps[0]->isApproved == '1') $stat = "Approved";

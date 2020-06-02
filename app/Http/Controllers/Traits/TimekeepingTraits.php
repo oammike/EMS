@@ -1105,6 +1105,18 @@ trait TimekeepingTraits
 
   }
 
+  public function getUserWorksched($userID,$productionDate)
+  {
+   
+    $allSched = DB::table('user_dtr')->where('user_dtr.user_id',$userID)->where([ 
+                    ['user_dtr.productionDate',$productionDate]
+                    ])->join('users','users.id','=','user_dtr.user_id')->
+                    
+                  select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+    return $allSched;
+
+  }
+
   
 
   public function getComplicatedWorkedHours($user_id, $userLogIN, $userLogOUT, $schedForToday,$shiftEnd,$isRDYest,$payday)
