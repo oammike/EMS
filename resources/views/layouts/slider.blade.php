@@ -1,4 +1,58 @@
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Tranisitioning to the New Normal
+<br/>
+                   
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear Open Access Family,<br/><br/>
+
+ 
+
+                      Since GCQ has been declared (May 16 for Davao and June 1 for Manila), know that we are taking a very prudent stance in transitioning back to our workplace. While the business dictates what programs go back in phases, we will be as careful as we need to be. Employee health and safety are paramount, hence the primary focus of our efforts and basis of our decisions will be to balance these with business needs.
+                     <br/><br/>
+                       
+
+                      We take a guarded approach to continuing operations in Davao and G2 and reopening Jaka/6780.  While we will maintain part of our labor force working remotely and do so as long as we can, we are starting to proceed with the incremental increase of workers returning onsite.  Check with your program and department heads if and when your teams will be transitioning. We want everyone to be absolutely responsible and heedful while doing so.<br/><br/>
+
+                       
+
+                       
+
+                      <strong class="text-primary"> Recap ECQ</strong><br/>
+
+                      <strong>We have done all we can to ensure you were safe and productive during ECQ </strong><br/>
+
+                      While many U.S. companies have needed to reduce their workforces or completely shut down, we are very fortunate many of our clients have remained stable and operational. This put us in a position to be able to support everyone and remaining operational, while on community quarantine. From deploying multiple company assets to enable you to work sheltered from your homes and allowing flexibility with work hours and leaves where needed, to providing free near-site and onsite accommodation, including provisions for free food, free roundtrip door-to-door transportation, as well as quarantine incentives; to adopting new corporate policies and procedures for health and safety, to communication blitzes for education on disease prevention.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> On to the New Normal: GCQ Onward</strong><br/>
+
+                      <strong>Navigate through less restrictions and increased movement in GCQ with even more vigilance</strong><br/>
+
+                      Let us not waste all the efforts in keeping our team safe and healthy over the last three months, by carelessly exposing ourselves to undue risk. Stay home if you’re working from there. Limit movement strictly to essentials as if your life and work depended on doing so.
+                      <br/><br/>
+                       
+
+                      Let’s be grateful for all the company has done by committing to support our drive for personal accountability to protect our lives and our livelihood.  We need you to take responsibility for your own health and safety, be overly cautious and disciplined at all times, in and out of the office.<br/><br/>
+
+                       
+
+                      Please take time to read through our transition strategy attached for your reference. Thank you for your continued commitment.<br/><nr/>
+
+                       
+
+                      In the meantime, be safe, team.  Be responsible. Be smart. Stay healthy<br/><br/>
+                      All the best,<br/>
+                      <strong>Joy</strong>
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-exclamation-triangle"></i> Updated Workplace <br/>Health and Safety Policy  <br/> <span class="text-primary">   for the prevention and <br/>control of COVID-19 <br/>
                     <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
                   
