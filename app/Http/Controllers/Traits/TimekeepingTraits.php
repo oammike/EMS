@@ -4634,7 +4634,7 @@ trait TimekeepingTraits
 
             }//end if has VL
 
-            if ($hasVTO)
+            else if ($hasVTO)
             {
               $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
               $workedHours .= $workedHours1[0]['workedHours'];
