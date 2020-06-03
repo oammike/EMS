@@ -2083,12 +2083,12 @@ class DTRController extends Controller
                                       ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
                                       
-
+                                      $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
 
                                       if($isParttimer)
                                       {
                                         $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
-                                        $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                        
 
                                         if (count($pt) > 0)
                                         {
@@ -2318,12 +2318,12 @@ class DTRController extends Controller
                                     ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
                                     
-
+                                    $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
 
                                     if($isParttimer)
                                     {
                                       $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
-                                      $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                      
                                       
                                       if (count($pt) > 0)
                                       {
