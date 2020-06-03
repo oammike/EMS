@@ -1048,7 +1048,9 @@ class HomeController extends Controller
         {
           if($d['question']=='1')
           {
-            foreach ($symptoms as $s) {
+            if (count((array)$symptoms) > 0)
+            {
+              foreach ($symptoms as $s) {
               $sd = new Symptoms_Declaration;
               $sd->user_id = $this->user->id;
               $sd->symptoms_id = $s;
@@ -1056,6 +1058,19 @@ class HomeController extends Controller
               $sd->created_at = $now->format('Y-m-d H:i:s');
               $sd->save();
             }
+
+            }
+            else
+            {
+              $sd = new Symptoms_Declaration;
+              $sd->user_id = $this->user->id;
+              $sd->symptoms_id = 17;
+              $sd->user_answerID = $symptomsUser->id;
+              $sd->created_at = $now->format('Y-m-d H:i:s');
+              $sd->save();
+
+            }
+            
 
           }
             

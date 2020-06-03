@@ -84,7 +84,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </h1>
                   <ul class="pull-left">
                     @foreach($symptoms as $s)
+                    @if($s->name !== "Didn't Declare")
                     <li><label><input type="checkbox" disabled="disabled" name="symptoms" value="{{$s->id}}" /> {{$s->name}} </label></li>
+                    @endif
                     @endforeach
                   </ul>
                   <div class="clearfix"></div>
