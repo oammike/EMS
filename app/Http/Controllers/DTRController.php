@@ -2025,13 +2025,159 @@ class DTRController extends Controller
                         {
                           $i = 0;
 
-                          if(count($jps['data']) > 1)
+                          if(count($jps['data']) > 1) //maraming instance ng leave
                           {
                             foreach ($jps['data'] as $j) 
                             {
                               $c=0;
                               //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
                               $arr[$c] = $j->accesscode; $c++;
+                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+                              //-------- check if VTO
+                              if($jps['type'] == 'VTO')
+                              {
+                                ($j->deductFrom == "AdvSL") ? $leaveCode = "SL" : $leaveCode = $j->deductFrom; 
+
+                                // kunin mo muna worksched
+                                $sched = $this->getUserWorksched($j->userID,$j->productionDate);
+                                if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                                {
+                                  $wsched = explode('-', $sched[0]->workshift);
+                                  $startShift = Carbon::parse($j->productionDate." ". $wsched[0])->addHours(9);
+
+                                  $s = Carbon::parse($startShift->format('Y-m-d')." ". $j->startTime,'Asia/Manila');
+                                  $e = Carbon::parse($startShift->format('Y-m-d')." ". $j->endTime,'Asia/Manila');
+
+                                }
+                                else //walang locked DTR sched
+                                {
+                                  $s = Carbon::parse($j->productionDate." ". $j->startTime,'Asia/Manila');
+                                  $e = Carbon::parse($j->productionDate." ". $j->endTime,'Asia/Manila');
+
+                                }
+
+                                $qty = number_format((float)$j->totalHours*0.125,2);
+                                
+
+                              }
+                              else //VL | SL | LWOP | ML | SPL | PL
+                              {
+                                //establish leave COde
+                                ($jps['type'] == 'FL') ? $leaveCode = $j->leaveType : $leaveCode = $jps['type'];
+                                $qty = $j->totalCredits;
+
+                                //gawin mo lang kapag halfday leaves
+                                if ($j->totalCredits <= 0.5 )
+                                {
+                                  $sched = $this->getUserWorksched($j->userID,$j->productionDate);
+                                  if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                                  {
+                                    //need to check kung 1st half/2nd half of shift
+                                    $wsched = explode('-', $sched[0]);
+
+                                    if ($j->halfdayFrom == 3)
+                                    {
+                                      //if parttimer
+                                      $u = User::find($j->userID);
+                                      ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+
+                                      
+
+
+                                      if($isParttimer)
+                                      {
+                                        $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
+                                        
+                                        if (count($pt) > 0)
+                                        {
+                                          if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($j->productionDate,'Asia/Manila') )
+                                          {
+                                            $s = Carbon::parse($j->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+
+                                          }
+                                          else
+                                          {
+                                            $s = Carbon::parse($j->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+
+                                          }
+                                        }
+                                        else //partime schedule nga sya for today
+                                        {
+                                           $s = Carbon::parse($j->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+
+                                        }
+                                      }
+                                      
+                                      else
+                                      {
+                                         $s = Carbon::parse($jp->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                         //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+
+                                      }
+
+                                    }
+                                    else //hindi sya start ng 2nd half
+                                    {
+                                      $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                    }
+
+                                  }
+                                  else 
+                                  {
+                                    $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                    $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+                                  }
+
+                                }
+                                else //whole day leaves sya
+                                {
+                                  $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                  $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                }
+
+                                
+                                 
+
+                              }
+
+                             
+
+                              //*** LeaveDate
+                              $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                              //*** LeaveCOde
+                              $arr[$c] = $leaveCode; $c++;
+                              
+
+                              //*** Quantity
+                              $arr[$c] = $qty; $c++;
+                              
+
+                              //*** Status
+                              if($j->isApproved == '1') $stat = "Approved";
+                              else if ($j->isApproved == '0') $stat = "Denied";
+                              else $stat = "Pending Approval";
+
+                              $arr[$c] = $stat; $c++;
+
+                              //*** Comment
+                              $arr[$c] = $j->notes; $c++;
+
+                              //*** Date Files
+                              $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
+
+                              //remarks
+                              $arr[$c] = $stat; $c++;
+
+
+
+
+                              //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
+                              /*$arr[$c] = $j->accesscode; $c++;
                               $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
                               if($jps['type'] == 'VTO')
@@ -2109,7 +2255,7 @@ class DTRController extends Controller
                               $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
 
                               //remarks
-                              $arr[$c] = $stat; $c++;
+                              $arr[$c] = $stat; $c++;*/
 
                               $sheet->appendRow($arr);
                               
@@ -2125,14 +2271,110 @@ class DTRController extends Controller
                             //-------- check if VTO
                             if($jps['type'] == 'VTO')
                             {
-                               $s = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->startTime,'Asia/Manila');
-                               $e = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->endTime,'Asia/Manila');
+                              ($jps['data'][0]->deductFrom == "AdvSL") ? $leaveCode = "SL" : $leaveCode = $jps['data'][0]->deductFrom; 
+
+                              // kunin mo muna worksched
+                              $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->productionDate);
+                              if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                              {
+                                $wsched = explode('-', $sched[0]->workshift);
+                                $startShift = Carbon::parse($jps['data'][0]->productionDate." ". $wsched[0])->addHours(9);
+
+                                $s = Carbon::parse($startShift->format('Y-m-d')." ". $jps['data'][0]->startTime,'Asia/Manila');
+                                $e = Carbon::parse($startShift->format('Y-m-d')." ". $jps['data'][0]->endTime,'Asia/Manila');
+
+                              }
+                              else //walang locked DTR sched
+                              {
+                                $s = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->startTime,'Asia/Manila');
+                                $e = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->endTime,'Asia/Manila');
+
+                              }
+
+                              $qty = number_format((float)$jps['data'][0]->totalHours*0.125,2);
+                              
 
                             }
-                            else
+                            else //VL | SL | LWOP | ML | SPL | PL
                             {
-                               $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
-                               $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+                              //establish leave COde
+                              ($jps['type'] == 'FL') ? $leaveCode = $jps['data'][0]->leaveType : $leaveCode = $jps['type'];
+                              $qty = $jps['data'][0]->totalCredits;
+
+                              //gawin mo lang kapag halfday leaves
+                              if ($jps['data'][0]->totalCredits <= 0.5 )
+                              {
+                                $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->productionDate);
+                                if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                                {
+                                  //need to check kung 1st half/2nd half of shift
+                                  $wsched = explode('-', $sched[0]);
+
+                                  if ($jps['data'][0]->halfdayFrom == 3)
+                                  {
+                                    //if parttimer
+                                    $u = User::find($jps['data'][0]->userID);
+                                    ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+
+                                    
+
+
+                                    if($isParttimer)
+                                    {
+                                      $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
+                                      
+                                      if (count($pt) > 0)
+                                      {
+                                        if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') )
+                                        {
+                                          $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+
+                                        }
+                                        else
+                                        {
+                                          $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+
+                                        }
+                                      }
+                                      else //partime schedule nga sya for today
+                                      {
+                                         $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                       $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                       //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+
+                                    }
+
+                                  }
+                                  else //hindi sya start ng 2nd half
+                                  {
+                                    $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                    $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+
+                                  }
+
+                                }
+                                else 
+                                {
+                                  $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                  $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+                                }
+
+                              }
+                              else //whole day leaves sya
+                              {
+                                $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+
+                              }
+
+                              
+                               
 
                             }
 
@@ -2142,37 +2384,11 @@ class DTRController extends Controller
                             $arr[$i] = $s->format('m/d/Y'); $i++;
 
                             //*** LeaveCOde
-                            if($jps['type'] == 'FL')
-                            {
-                              $arr[$i] = $jps['data'][0]->leaveType; $i++;
-
-                            }
-                            else if ($jps['type'] == 'VTO')
-                            {
-                              if($jps['data'][0]->deductFrom == "AdvSL")
-                              { $arr[$i] = "SL"; $i++; }
-                              else {
-                                $arr[$i] = $jps['data'][0]->deductFrom; $i++;
-                              }
-
-                            }else
-                            {
-                              $arr[$i] = $jps['type']; $i++;
-
-                            }
+                            $arr[$i] = $leaveCode; $i++;
                             
 
                             //*** Quantity
-                            if ($jps['type'] == 'VTO')
-                            {
-                              $arr[$i] = number_format((float)$jps['data'][0]->totalHours*0.125,2); $i++;
-
-                            }
-                            else
-                            {
-                              $arr[$i] = $jps['data'][0]->totalCredits; $i++;
-
-                            }
+                            $arr[$i] = $qty; $i++;
                             
 
                             //*** Status
