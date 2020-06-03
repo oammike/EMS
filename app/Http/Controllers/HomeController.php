@@ -1064,7 +1064,7 @@ class HomeController extends Controller
 
           if($notYet)
           {
-            Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee) 
+            Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee,$now) 
              {
                 $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
                 $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');     
@@ -1084,7 +1084,7 @@ class HomeController extends Controller
               {
                 $tl = User::find($n->user_id);
 
-                Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee) 
+                Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee,$now) 
                  {
                     $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
                     $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');     
