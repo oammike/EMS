@@ -1072,7 +1072,7 @@ class HomeController extends Controller
                 /* -------------- log updates made --------------------- */
                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Email sent to ". $tl->email."\n");
-                        fwrite($file, "\n New HDF alert:  ". $employee->firstname." ".$employee->lastname."\n");
+                        fwrite($file, "\n New HDF alert ".$now->format('M d,Y').":  ". $employee->firstname." ".$employee->lastname."\n");
                         fclose($file);                      
             
 
@@ -1092,7 +1092,7 @@ class HomeController extends Controller
                     /* -------------- log updates made --------------------- */
                          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                             fwrite($file, "-------------------\n Email sent to ". $tl->email."\n");
-                            fwrite($file, "\n New HDF alert:  ". $employee->firstname." ".$employee->lastname."\n");
+                            fwrite($file, "\n New HDF alert ".$now->format('M d,Y').":  ". $employee->firstname." ".$employee->lastname."\n");
                             fclose($file);                      
                 
 
