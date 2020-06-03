@@ -2070,7 +2070,7 @@ class DTRController extends Controller
                                 //gawin mo lang kapag halfday leaves
                                 if ($j->totalCredits <= 0.5 )
                                 {
-                                  $sched = $this->getUserWorksched($j->userID,$j->productionDate);
+                                  $sched = $this->getUserWorksched($j->userID,date('Y-m-d',strtotime($j->leaveStart)));
                                   if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
                                   {
                                     //need to check kung 1st half/2nd half of shift
@@ -2091,27 +2091,27 @@ class DTRController extends Controller
                                         
                                         if (count($pt) > 0)
                                         {
-                                          if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($j->productionDate,'Asia/Manila') )
+                                          if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($j->leaveStart,'Asia/Manila') )
                                           {
-                                            $s = Carbon::parse($j->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                            $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
 
                                           }
                                           else
                                           {
-                                            $s = Carbon::parse($j->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                            $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                           }
                                         }
                                         else //partime schedule nga sya for today
                                         {
-                                           $s = Carbon::parse($j->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                           $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                         }
                                       }
                                       
                                       else
                                       {
-                                         $s = Carbon::parse($jp->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                         $s = Carbon::parse($jp->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
                                          //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                       }
@@ -2304,7 +2304,7 @@ class DTRController extends Controller
                               //gawin mo lang kapag halfday leaves
                               if ($jps['data'][0]->totalCredits <= 0.5 )
                               {
-                                $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->productionDate);
+                                $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->leaveStart);
                                 if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
                                 {
                                   //need to check kung 1st half/2nd half of shift
@@ -2325,27 +2325,27 @@ class DTRController extends Controller
                                       
                                       if (count($pt) > 0)
                                       {
-                                        if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') )
+                                        if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila') )
                                         {
-                                          $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                          $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
 
                                         }
                                         else
                                         {
-                                          $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                          $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                         }
                                       }
                                       else //partime schedule nga sya for today
                                       {
-                                         $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                         $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                       }
                                     }
 
                                     else
                                     {
-                                       $s = Carbon::parse($jps['data'][0]->productionDate." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                       $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
                                        //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                     }
