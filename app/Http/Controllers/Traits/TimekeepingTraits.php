@@ -4617,7 +4617,7 @@ trait TimekeepingTraits
             $timing = Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->format('Y-m-d H:i');
 
             $wh = Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')); //$endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
-            if ($wh >=270) $wh =  Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')->addMinutes(60));//$endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+            if ($wh >=300) $wh =  Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')->addMinutes(60));//$endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
             
           }
 
