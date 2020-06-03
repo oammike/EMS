@@ -2074,7 +2074,7 @@ class DTRController extends Controller
                                   if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
                                   {
                                     //need to check kung 1st half/2nd half of shift
-                                    $wsched = explode('-', $sched[0]);
+                                    $wsched = explode('-', $sched[0]->workshift);
 
                                     if ($j->halfdayFrom == 3)
                                     {
@@ -2308,7 +2308,7 @@ class DTRController extends Controller
                                 if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
                                 {
                                   //need to check kung 1st half/2nd half of shift
-                                  $wsched = explode('-', $sched[0]);
+                                  $wsched = explode('-', $sched[0]->workshift);
 
                                   if ($jps['data'][0]->halfdayFrom == 3)
                                   {
