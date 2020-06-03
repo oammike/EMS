@@ -2088,30 +2088,31 @@ class DTRController extends Controller
                                       if($isParttimer)
                                       {
                                         $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
-                                        
+                                        $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
+
                                         if (count($pt) > 0)
                                         {
-                                          if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($j->leaveStart,'Asia/Manila') )
+                                          if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
                                           {
-                                            $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                            $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
 
                                           }
                                           else
                                           {
-                                            $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                            $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                           }
                                         }
                                         else //partime schedule nga sya for today
                                         {
-                                           $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                           $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                         }
                                       }
                                       
                                       else
                                       {
-                                         $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                         $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
                                          //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                       }
@@ -2322,30 +2323,31 @@ class DTRController extends Controller
                                     if($isParttimer)
                                     {
                                       $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
+                                      $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
                                       
                                       if (count($pt) > 0)
                                       {
-                                        if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila') )
+                                        if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
                                         {
-                                          $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                          $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
 
                                         }
                                         else
                                         {
-                                          $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                          $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                         }
                                       }
                                       else //partime schedule nga sya for today
                                       {
-                                         $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                         $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                       }
                                     }
 
                                     else
                                     {
-                                       $s = Carbon::parse($jps['data'][0]->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                       $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
                                        //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                     }
