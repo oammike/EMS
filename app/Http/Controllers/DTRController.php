@@ -2111,7 +2111,7 @@ class DTRController extends Controller
                                       
                                       else
                                       {
-                                         $s = Carbon::parse($jp->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                         $s = Carbon::parse($j->leaveStart." ".$wsched[0],'Asia/Manila')->addHours(5);
                                          //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                       }
