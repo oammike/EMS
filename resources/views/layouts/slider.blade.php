@@ -1,4 +1,56 @@
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div class="item active text-center" >
+                  
+                  
+                  <img src="storage/uploads/oneforhealth_2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“Whenever I pass through the hallways, I carefully keep my distance from others. There are asymptomatic cases of COVID-19 and the risk of droplet transmission only increases if we do not properly observe physical distancing.<br/><br/>
+
+                    Notices around the office also help remind me to constantly practice physical distancing and to sanitize my hands.”<br/><br/></em>
+
+                    Japanese Content Moderation Analyst Nozawa shares his experience of working in the office during quarantine and how he personally observes protective measures against COVID-19.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
+                  
+                  <img src="storage/uploads/oneforhealth_1.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   Events Manager Jackie talks about the importance of following basic guidelines such as proper wearing of face masks/PPEs, hand sanitation, and respiratory hygiene in protecting ourselves and those around us against COVID-19:<br/><br/>
+
+                  <em>“There’s still very little that we know about this virus so I find it essential to protect myself and those around me at all times. These are the simplest things we can do and contribute to not spread the virus and get sick. That’s why I'm following these measures and always encouraging those around me to do the same, especially when going outside.
+
+                  We had a death of a loved one during this pandemic. Losing someone in a time like this is devastating. We didn’t even get to say our goodbyes. I don't want anyone to experience the same thing so let’s still be cautious even if we’re now on GCQ. We should strictly observe all safety guidelines in and out of our homes."</em><br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Transitioning to the New Normal <br/>
                    
                   
