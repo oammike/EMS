@@ -1817,6 +1817,19 @@ class DTRController extends Controller
                                   $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila');
                                   
                                 }
+                                else if ($sched[0]->workshift === '* RD * - * RD *')
+                                {
+                                  $wshift = explode('-',$sched[0]->workshift);
+                                  $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                                  $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(9);
+                                  $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                  $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+                                  if ($j->filed_hours >= 5.0)
+                                    $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                  else
+                                    $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila');
+                                  
+                                }
                                 else
                                 {
                                   $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
@@ -1931,6 +1944,20 @@ class DTRController extends Controller
                                 $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
                                 $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$jps[0]->timeStart,'Asia/Manila');
                                 $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$jps[0]->timeEnd,'Asia/Manila');
+                                
+                              }
+                              else if ($sched[0]->workshift === '* RD * - * RD *')
+                              {
+                                $wshift = explode('-',$sched[0]->workshift);
+                                $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
+                                $startDate = Carbon::parse($jps[0]->productionDate." ".$wshift[0],'Asia/Manila')->addHours(9);
+                                $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$jps[0]->timeStart,'Asia/Manila')->addHours($jps[0]->filed_hours);
+                                $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$jps[0]->timeStart,'Asia/Manila');
+
+                                if( $jps[0]->filed_hours >= 5.0)
+                                  $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$jps[0]->timeEnd,'Asia/Manila')->addHours(1);
+                                else
+                                  $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$jps[0]->timeEnd,'Asia/Manila');
                                 
                               }
                               else
