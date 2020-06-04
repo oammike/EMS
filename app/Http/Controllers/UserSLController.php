@@ -123,6 +123,7 @@ class UserSLController extends Controller
 
     public function create(Request $request)
     {
+        $foreignPartime = null;
         //check first kung may plotted sched and if approver submitted
         if(is_null($request->for))
             {
