@@ -1,4 +1,47 @@
-              <div class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> MANDATORY <br/>DAILY HEALTH DECLARATION FORM <span class="text-primary"> <br/>No Health Declaration, Strictly No Entry<br/>
+                 <br/>
+                <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                    <strong class="text-primary"> Why</strong><br/>
+                    To ensure real-time and daily employee accountability, transparency, and safety - its completion is a must before entering the company shuttle and office building. This is part of the safety measures we are implementing to attest that workers entering our premises are clear health-wise and are not at risk of any infection. This is to prevent further outbreaks, and this is to protect you, your family, your workmates, our whole company, and the communities we live in.  For your strict compliance, every day.<br/><br/>
+
+                    <strong class="text-primary"> Who</strong><br/>
+                    This is to be filled out by <strong class="text-danger">ALL ONSITE WORKERS</strong> each and every day before entering the shuttle and the office building – shuttlers and non-shuttlers alike.<br/><br/>
+
+                    <strong class="text-primary"> Where to fill out</strong><br/>
+                    On your browser before you leave home<br/><br/>
+                    <strong>For shuttlers:</strong> <br/>Click the Health Declaration link via the Daily Trip Notification email or paste this on your browser right before leaving home.<br/>
+                    <input class="form-control" type="text" id="bundylink" value="https://www.emailmeform.com/builder/form/e0drGbexiXbTw391N" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+
+                    <strong>For non-shuttlers:</strong> <br/>
+                    Online Health Declaration <br/>
+                    <input class="form-control" type="text" id="videolink" value="https://www.emailmeform.com/builder/form/e0drGbexiXbTw391N" />
+                    <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button><br/><br/>
+                     
+                    <strong>Last resort:</strong> Before entering Open Access, via EMS on the allocated device in the security area before the entrance.<br/><br/>
+
+                    <strong class="text-primary"> When to fill out</strong><br/>
+                    <strong>Required completion date </strong><br/>
+                    On the ACTUAL DAY of your shift
+                    Advance and late completion are not allowed.<br/><br/>
+
+                    <strong> Required completion time</strong><br/>
+                    For shuttlers – BEFORE hopping on the service vehicle<br/>
+                    For non-shuttlers – BEFORE entering the office building
+
+                    
+                    
+
+                    
+              </div>
+
+              <div class="item text-center" >
                   
                   
                   <img src="storage/uploads/oneforhealth_2.jpg" width="100%" />
@@ -131,7 +174,7 @@
                     
 
                     
-                </div>
+              </div>
 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
@@ -367,53 +410,7 @@
 
               
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >All you need to know <br/> to get started with Bundy.ph<br/><img src="storage/uploads/divider.png" /><br/>
-
-                   <br/> <span class="text-primary"> <i class="fa fa-book"></i> Bundy.ph Quick Reference Guide,<br/> FAQs, and Question Page</span>
-                   <input class="form-control" type="text" id="guidelink" value="https://rise.articulate.com/share/EhUIcrxCbSRNuoP42zxTUf4RrC8ZyFrD" />
-                   <button class="cp btn btn-xs btn-primary" data-link="guidelink">Copy Link <i class="fa fa-external-link"></i></button>
-                    <br/><br/>
-                   <img src="storage/uploads/bundyguide.png" width="98%" />
-                    
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong> How to pull up the Bundy.ph Quick Reference Guide, FAQs, and Question Page:</strong><br/><br/>
-                   
-
-
-                    If you are using the VPN link to access EMS and Zimbra, copy and paste the  link above on a browser  instead of directly clicking on it from the email or EMS announcement.<br/><br/>
-
-                     
-
-                     
-
-                    <strong class="text-primary"> Other important links:</strong><br/><br/>
-
-                    <strong class="text-success"> Bundy.ph Time Tool</strong><br/>
-                    <input class="form-control" type="text" id="bundylink" value="https://bundy.payroll.ph/web/oampi" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-
-                     <br><br/>
-
-                  
-
-                     <strong class="text-success">Web Bundy Video Guide</strong><br> 
-                     <input class="form-control" type="text" id="videolink" value="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b#/" />
-                     <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button>
-
-                    <br><br/>
-
-
-
-
-
-
-                  </p>
- 
-                    
-              </div>
+            
 
              
 
@@ -1844,6 +1841,53 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >All you need to know <br/> to get started with Bundy.ph<br/><img src="storage/uploads/divider.png" /><br/>
+
+                   <br/> <span class="text-primary"> <i class="fa fa-book"></i> Bundy.ph Quick Reference Guide,<br/> FAQs, and Question Page</span>
+                   <input class="form-control" type="text" id="guidelink" value="https://rise.articulate.com/share/EhUIcrxCbSRNuoP42zxTUf4RrC8ZyFrD" />
+                   <button class="cp btn btn-xs btn-primary" data-link="guidelink">Copy Link <i class="fa fa-external-link"></i></button>
+                    <br/><br/>
+                   <img src="storage/uploads/bundyguide.png" width="98%" />
+                    
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong> How to pull up the Bundy.ph Quick Reference Guide, FAQs, and Question Page:</strong><br/><br/>
+                   
+
+
+                    If you are using the VPN link to access EMS and Zimbra, copy and paste the  link above on a browser  instead of directly clicking on it from the email or EMS announcement.<br/><br/>
+
+                     
+
+                     
+
+                    <strong class="text-primary"> Other important links:</strong><br/><br/>
+
+                    <strong class="text-success"> Bundy.ph Time Tool</strong><br/>
+                    <input class="form-control" type="text" id="bundylink" value="https://bundy.payroll.ph/web/oampi" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                     <br><br/>
+
+                  
+
+                     <strong class="text-success">Web Bundy Video Guide</strong><br> 
+                     <input class="form-control" type="text" id="videolink" value="https://rise.articulate.com/share/wI1ScLEfBkoCJKPJj5b7qaR34W8XPr2b#/" />
+                     <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button>
+
+                    <br><br/>
+
+
+
+
+
+
+                  </p>
+ 
+                    
+              </div>
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >DOLE's Php 5,000<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Financial Support<br/>
                  <br/>
