@@ -1068,8 +1068,51 @@ trait TimekeepingTraits
       }
         
     }
+
+    //*** we now get all those locked DTR with logs for HOLIDAYS
+    //*** and give them 8hr OT
+
+    // $allHolidays = DB::table('holidays')->where('holidays.holidate','>=',$startCutoff)->where('holidays.holidate','<=',$endCutoff)->
+    //                     join('user_dtr','user_dtr.productionDate','=','holidays.holidate')->
+    //                     select('user_dtr.user_id','user_dtr.productionDate','user_dtr.workshift','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked')->
+    //                     where([
+    //                       ['user_dtr.timeIN','!=','<strong class="text-danger"> N / A </strong><a tit'],
+    //                       ['user_dtr.timeIN','!=','<strong class="text-danger">No IN</strong><a title'],
+    //                       ['user_dtr.timeIN','!=','LWOP'],
+    //                       ['user_dtr.timeIN','!=','* RD *'],
+    //                       ['user_dtr.timeIN','!=','SL'],
+    //                       ['user_dtr.timeIN','!=','VL'],
+    //                       ['user_dtr.timeIN','!=','ML'],
+    //                       ['user_dtr.timeIN','!=','PL'],
+    //                       ['user_dtr.timeIN','!=','SPL'],
+    //                       ['user_dtr.timeIN','!=','VTO'],
+    //                       ['user_dtr.timeIN','!=','LWOP for approval'],
+    //                       ['user_dtr.timeIN','!=','LWOP denied'],
+    //                       ['user_dtr.timeIN','!=','SL for approval'],
+    //                       ['user_dtr.timeIN','!=','SL denied'],
+    //                       ['user_dtr.timeIN','!=','VL for approval'],
+    //                       ['user_dtr.timeIN','!=','VL denied'],
+    //                       ['user_dtr.timeIN','!=','ML for approval'],
+    //                       ['user_dtr.timeIN','!=','ML denied'],
+    //                       ['user_dtr.timeIN','!=','PL for approval'],
+    //                       ['user_dtr.timeIN','!=','PL denied'],
+    //                       ['user_dtr.timeIN','!=','SPL for approval'],
+    //                       ['user_dtr.timeIN','!=','SPL denied'],
+    //                       ['user_dtr.timeIN','!=','VTO for approval'],
+    //                       ['user_dtr.timeIN','!=','VTO denied']
+    //                     ])->get();
+
+    
+
+    // $nonOTs = DB::table('campaign')->where('campaign.isBackoffice',null)->where('campaign.hidden',null)->
+    //             join('team','team.campaign_id','=','campaign.id')->
+    //             //join('user_dtr')
+    //             select('team.user_id','campaign.name as program')->get();
+    //             //->join('users','team.user_id','=','team.user_id')
+    //             //->select('users.id as userID','users.lastname','users.firstname','campaign.name as program')->get();
+    
     if ($json)
-      return response()->json(['OTs'=>$allOTs, 'total'=>$total, 'name'=>'Overtime', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+      return response()->json(['OTs'=>$allOTs,  'total'=>$total, 'name'=>'Overtime', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
     else
       return $allOTs;
 
@@ -3597,7 +3640,7 @@ trait TimekeepingTraits
 
                           //*** if RD OT hrs > 5, less 1hr break
 
-                          if ($mindiff > 300) $wh = $logO->diffInMinutes($timeStart->addHour(1));
+                          if ($mindiff >= 300) $wh = $logO->diffInMinutes($timeStart->addHour(1));
                           else  $wh = $logO->diffInMinutes($timeStart); 
                           $workedHours = number_format($wh/60,2);
 
@@ -3685,7 +3728,7 @@ trait TimekeepingTraits
           $workedHours = number_format($lIN->diffInMinutes($lOUT)/60,2);
           $wh=0;//workedHours;
 
-          if ((float)$workedHours > 4.0) $wh = (float)$workedHours-1;
+          if ((float)$workedHours >= 5.0) $wh = (float)$workedHours-1;
           else $wh = $workedHours;
 
           $verifiedDTR = User_DTR::where('productionDate',$payday)->where('user_id',$user_id)->get();
@@ -6187,17 +6230,6 @@ trait TimekeepingTraits
 
 }//end trait
 
-
-
-
-
-
-
-
-
-
-
-                                
 
 
 ?>
