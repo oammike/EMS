@@ -1904,13 +1904,13 @@ class DTRController extends Controller
                                       if ($isParttimer)
                                       {
                                         
-                                        $HoursFiled = $j->billable_hours + 4.0;
+                                        $hoursFiled = $j->billable_hours + 4.0;
                                         $hoursApproved = $j->filed_hours + 4.0;
                                       }
                                       else
                                       {
                                         
-                                        $HoursFiled = $j->billable_hours + 8.0;
+                                        $hoursFiled = $j->billable_hours + 8.0;
                                         $hoursApproved = $j->filed_hours + 8.0;
 
                                       }
@@ -2078,13 +2078,13 @@ class DTRController extends Controller
                                     if ($isParttimer)
                                     {
                                       
-                                      $HoursFiled = $jps[0]->billable_hours + 4.0;
+                                      $hoursFiled = $jps[0]->billable_hours + 4.0;
                                       $hoursApproved = $jps[0]->filed_hours + 4.0;
                                     }
                                     else
                                     {
                                       
-                                      $HoursFiled = $jps[0]->billable_hours + 8.0;
+                                      $hoursFiled = $jps[0]->billable_hours + 8.0;
                                       $hoursApproved = $jps[0]->filed_hours + 8.0;
 
                                     }
