@@ -1874,6 +1874,7 @@ class DTRController extends Controller
                                 $startDate = $s;
                                 $startTime = $s;
                                 $endTime = $e;
+                                $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours;
 
                               }
 
@@ -2047,6 +2048,7 @@ class DTRController extends Controller
                               $startDate = $s;
                               $startTime = $s;
                               $endTime = $e;
+                              $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours;
 
                             }
 
@@ -2066,7 +2068,7 @@ class DTRController extends Controller
                               {
                                 if(count($sched) > 0)
                                 {
-                                  if ($sched[0]->workshift === '* RD * - * RD *') { goto proceedSaving; }
+                                  if ($sched[0]->workshift === '* RD * - * RD *') { $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
                                   else
                                   {
                                     // check muna kung PT or not
