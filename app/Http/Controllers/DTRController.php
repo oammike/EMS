@@ -1893,7 +1893,7 @@ class DTRController extends Controller
                                 {
                                   if(count($sched) > 0)
                                   {
-                                    if ($sched[0]->workshift === '* RD * - * RD *') { goto proceedSaving1; }
+                                    if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
                                     else
                                     {
                                       // check muna kung PT or not
