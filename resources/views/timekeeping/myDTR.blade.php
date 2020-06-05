@@ -308,6 +308,22 @@
 
                                                                   <a style="font-size: larger;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
                                                                   <!-- <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a> -->
+                                                                  <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+
+                                                                  @include('layouts.modals-DTRissue', [
+                                                                          'modelRoute'=>'user_cws.store',
+                                                                          'modelID' => '_'.$data["payday"], 
+                                                                          'modelName'=>"DTR issue ", 
+                                                                          'modalTitle'=>'Report', 
+                                                                          'Dday' =>$data["day"],
+                                                                          'DproductionDate' =>$data["productionDate"],
+                                                                          'biometrics_id'=> $data["biometrics_id"],
+                                                                          'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                          'isRD'=> $data["isRD"],
+                                                                          'timeStart_old'=>$data['shiftStart'],
+                                                                          'timeEnd_old'=>$data['shiftEnd'],
+                                                                          'formID'=>'reportIssue',
+                                                                          'icon'=>'glyphicon-up' ])
 
                                                                   @endif
                                                                
