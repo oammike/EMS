@@ -1813,6 +1813,7 @@ class DTRController extends Controller
                               $sched = $this->getUserWorksched($j->userID,$j->productionDate);
                               if(count($sched) > 0)
                               {
+                                $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours;
                                 if ($sched[0]->workshift !== '* RD * - * RD *')
                                 {
                                   $wshift = explode('-',$sched[0]->workshift);
