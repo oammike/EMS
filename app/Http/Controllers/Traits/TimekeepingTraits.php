@@ -4476,6 +4476,14 @@ trait TimekeepingTraits
             $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2); 
 
         }
+
+        if ($hasVTO)
+            {
+              $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours = $workedHours1[0]['workedHours'];
+              $UT = $workedHours1[0]['UT'];
+
+            }//end if has VTO
         
 
       }
@@ -5717,6 +5725,8 @@ trait TimekeepingTraits
                       $label = " Voluntary Time Off ";
                       $workedHours = round(number_format($wh/60 + $deet->totalHours,2),PHP_ROUND_HALF_DOWN);// 8.0;
 
+                      if ($workedHours > 8) $workedHours = $workedHours--;
+
                     }else
                     {
                       $i = "fa-times";
@@ -5871,12 +5881,16 @@ trait TimekeepingTraits
             {
               $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$l."  ] (for approval) </em></small></strong>".$icons;
               $WHcounter = number_format($wh/60,2);
+
+              if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               $workedHours = $WHcounter;
               $workedHours .= "<br/>".$log;
             }
             else if( !($deet->isApproved) ){
               $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$l."  ] (denied) </em></small></strong>".$icons;
               $WHcounter = number_format($wh/60,2);
+
+              if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               $workedHours = $WHcounter;
               $workedHours .= "<br/>".$log;
 
@@ -5886,10 +5900,14 @@ trait TimekeepingTraits
 
              
               $WHcounter = number_format(round($wh/60 + $deet->totalHours),2);
+
+              if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               $workedHours = $WHcounter;
               $workedHours .= "<br/>".$log;
 
             }
+
+
               
         }
         else
