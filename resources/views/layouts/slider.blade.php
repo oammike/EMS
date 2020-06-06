@@ -68,6 +68,34 @@
               <div class="item text-center" >
                   
                   
+                  <img src="storage/uploads/oneforhealth_3.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“I almost lost my job amidst the pandemic. Our client's operations were hit by the crisis, so our company immediately endorsed me to a new program. I started training and began working with my new team—all while I was in the comfort of my home.<br/><br/>
+
+                    More than anything, the pandemic made me miss my mom so much. I usually visit her on my rest days, but we weren’t even able to celebrate her birthday last March.<br/><br/>
+
+                    For those who are away from their loved ones, I understand how much you long for them. But it’s really important for us to practice physical distancing to protect ourselves and those close to our hearts.” </em><br/><br/>
+
+                    Email Support agent Ann shares about how the pandemic affected her job and how she’s trying to cope despite the distance between her and her loved ones.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
+                  
                   <img src="storage/uploads/oneforhealth_2.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
