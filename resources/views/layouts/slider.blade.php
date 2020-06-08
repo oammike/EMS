@@ -1,4 +1,38 @@
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+               <div class="item active text-center" >
+                  
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                      Thank you to all the employees who shared their favorite songs, movies and series!<br/><br/>
+
+                      Three stood out and won <strong>P500 worth of Grabfood delivery voucher.</strong><br/><br/>
+
+                      <strong class="text-primary">Dom Guzman of NDY</strong><br/>
+                      <em>Myth - Beachhouse covered by Brandon Boyd (Incubus) "What comes after this, Momentary bliss... ...Can't keep hanging on To all that's dead and gone... " ~the nostalgia of what we can never get back... consuming the moment of what we cant let go... the last ecstatic feeling that we will have is the shot that cannot be erased honestly this video just made me miss the beach and its brandon boyd of incubus so :P</em><br/>
+                      <img src="storage/uploads/wall[5]2020_2953_1446147328.JPG" width="95%"><br/><br/>
+
+                      <strong class="text-primary">Lorraine Gel Gallego of AdoreMe</strong><br/>
+                      <em>"I Am Not Alone" by Kari Jobe The song says ," Lord, You fight my every battle. Oh, and I will not fear. I am not alone. I am not alone. You will go before me , You will never leave me. " This Covid-19 Pandemic and ECQ put fear in my head and I was stuck here alone at home with no family. I cannot go somewhere safer. I played my guitar with this song over and over again, I cried and I felt safe and secured. I feel like God is with me all the time as I worship Him in Spirit and truth</em>
+                      <img src="storage/uploads/wall[5]2020_2392_1083735229.jpg" width="95%"><br/><br/><br/>
+
+                      <strong class="text-primary">Umit Ozay of SheerID</strong><br/>
+                      <em>the "san junipero" episode of black mirror on netflix made me think another way about life . and especially see this trailer with this unique cover.. lovely! https://vimeo.com/208471851 </em>
+                       <img src="storage/uploads/wall[5]2020_3540_1587672673.jpg" width="95%"><br/><br/>
+                       <br/><br/>
+                       Until our next challenge!
+                       <br/><br/>
+                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',12)}}"><i class="fa fa-th-large"></i> View Wall</a>
+
+                    </p>    
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminder from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i> DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/>JUNE 10, 2020 PAYOUT & ECQ INCENTIVES<br/>
                   
                     <img src="storage/uploads/divider.png" />
