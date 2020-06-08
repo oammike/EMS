@@ -1458,8 +1458,16 @@
                                                          <!-- **************** UDERTIME **************** -->
 
                                                         @if($data['hasLeave'] || $data['hasLWOP'])
-                                                        <td class="text-center">N/A</td>
-                                                        <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="n/a" />
+                                                        
+                                                          @if($data['hasVTO'])
+                                                          <td class="text-center">{{$data['UT']}}</td>
+                                                          <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['UT']}}" />
+                                                          @else
+                                                          <td class="text-center">N/A</td>
+                                                          <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="n/a" />
+
+                                                          @endif
+                                                        
                                                         @else  
                                                         <td class="text-center">{{$data['UT']}}</td>
                                                         <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['UT']}}" />

@@ -4478,12 +4478,21 @@ trait TimekeepingTraits
         }
 
         if ($hasVTO)
-            {
-              $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
-              $workedHours = $workedHours1[0]['workedHours'];
-              $UT = $workedHours1[0]['UT'];
+        {
+          $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          
+          //$workedHours = $workedHours1[0]['workedHours'];
+          $UT = number_format($minsLate/60,2);
+          $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
+          $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
+          $workedHours .= "<small>( late IN )</small><br/>";
 
-            }//end if has VTO
+          //$UT = $workedHours1[0]['UT'];
+          $actualHrs = $workedHours1[0]['actualHrs'];
+          
+          
+
+        }//end if has VTO
         
 
       }
@@ -4654,6 +4663,7 @@ trait TimekeepingTraits
         $koll=["from"=>"isLateIN"];
         //--- but u need to make sure if nag late out sya
         //    otherwise, super undertime talaga sya
+        $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
 
         if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) // Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
         {
@@ -4697,12 +4707,37 @@ trait TimekeepingTraits
 
             }//end if has VL
 
+            // else if ($hasVTO)
+            // {
+            //   $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            //   $workedHours .= $workedHours1[0]['workedHours'];
+            //   $UT = $workedHours1[0]['UT'];
+           
+            // }//end if has VTO
+
             else if ($hasVTO)
             {
               $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
-              $workedHours .= $workedHours1[0]['workedHours'];
-              $UT = $workedHours1[0]['UT'];
-           
+              
+              //$workedHours = $workedHours1[0]['workedHours'];
+              //------- we need to fix yung over worked hours since  VTO naman --------
+              $UT = number_format($minsLate/60,2);
+
+              $shifthrs = $startOfShift->diffInHours($endOfShift);
+              if ($shifthrs > 4)
+                $workedHours = ($shifthrs-1) - $UT;
+              else
+                $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
+
+              $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
+              //$workedHours .= "<br/>". $shifthrs;
+              $workedHours .= "<small>( late IN )</small><br/>";
+
+              //$UT = $workedHours1[0]['UT'];
+              $actualHrs = $workedHours1[0]['actualHrs'];
+              
+              
+
             }//end if has VTO
              
 
@@ -5571,6 +5606,7 @@ trait TimekeepingTraits
 
   public function processLeaves($leaveType,$withIssue,$wh, $deet,$hasPending,$icons,$ins,$outs,$shiftEnd)//$userLogIN[0]['logs'] || $userLogOUT[0]['logs']
   {
+    $log=null;
     switch ($leaveType) {
       case 'OBT':{$link = action('UserOBTController@show',$deet->id);$lTitle = "OBT request";
                     if($deet->isApproved)
@@ -5745,6 +5781,7 @@ trait TimekeepingTraits
       $icons .= "<a title=\"".$lTitle."\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
       $coll = new Collection;
       $UT = 0;
+      $actualHrs = null;
 
       if ($withIssue){
 
@@ -5884,6 +5921,7 @@ trait TimekeepingTraits
 
               if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               $workedHours = $WHcounter;
+              $actualHrs = $WHcounter;
               $workedHours .= "<br/>".$log;
             }
             else if( !($deet->isApproved) ){
@@ -5892,6 +5930,7 @@ trait TimekeepingTraits
 
               if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               $workedHours = $WHcounter;
+              $actualHrs = $WHcounter;
               $workedHours .= "<br/>".$log;
 
             }else
@@ -5903,6 +5942,7 @@ trait TimekeepingTraits
 
               if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               $workedHours = $WHcounter;
+              $actualHrs = $WHcounter;
               $workedHours .= "<br/>".$log;
 
             }
@@ -6016,7 +6056,7 @@ trait TimekeepingTraits
 
       }//end withIssue
 
-      $coll->push(['workedHours'=>$workedHours,'UT'=>$UT,'withIssue'=>$withIssue]);
+      $coll->push(['workedHours'=>$workedHours,'UT'=>$UT,'withIssue'=>$withIssue,'actualHrs'=>$actualHrs,'logDeets'=>$log]);
       return $coll;
 
 
