@@ -31,6 +31,7 @@
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <img src="storage/uploads/infographic_covid.jpg" width="100%" />
+                    <br/> <a class="btn btn-primary" href="https://www.openaccessbpo.com/blog/infographic-how-open-access-bpo-is-ensuring-continuous-ops-during-covid-19/" target="_blank"> <i class="fa fa-external-link"></i> Read Blog Post</a>
               </div>
 
               <div class="item text-center" >
