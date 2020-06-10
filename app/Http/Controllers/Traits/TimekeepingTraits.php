@@ -177,7 +177,7 @@ trait TimekeepingTraits
                 array_push($alldaysVL, $f_dayS->format('Y-m-d'));
 
 
-              array_push($alldaysVL, $f_dayE->format('Y-m-d'));
+              //array_push($alldaysVL, $f_dayE->format('Y-m-d'));
               
 
           }else
