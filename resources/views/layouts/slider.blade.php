@@ -1,4 +1,44 @@
-               <div class="item active text-center" >
+              <div class="item active text-center" >
+                <img src="storage/uploads/oneforhealth_4.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“As someone who helps ensure that our workplace is safe, I’m happy that I can help others feel secure when they go to work. I hope everyone can find their work-life balance in these uncertain times and stay safe. Eating healthy food, washing up daily, wearing face masks when heading out, and limiting our time outside of home or the office can help minimize any risk of infection.<br/><br/>
+
+                    There are times when I work from home and when I need to supervise my team on-site. Together, we make sure that our workplace safety protocols such as installing table partitions to support physical distancing are being properly implemented. We’ve also significantly reduced overtime work to maintain work-life balance during quarantine.<br/><br/>
+
+                    While it’s difficult for many of us not to see our loved ones, having access to today’s technology makes it possible to spend time with them despite the distance.”<br/><br/>
+
+                    Facilities Manager Ronaldo, fondly called as “Engineer Ronald” by his workmates, talks about his role in ensuring safety within Open Access BPO’s office premises and how he protects himself against COVID-19 in his everyday life.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item  text-center" >
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Infographic:<br/><span class="text-primary">Enabling Continuous Operations <br/>During Covid-19</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/infographic_covid.jpg" width="100%" />
+                    
+                    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   
                   
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
@@ -32,30 +72,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminder from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i> DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/>JUNE 10, 2020 PAYOUT & ECQ INCENTIVES<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that our cut-off for June 10th payout is June 5, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-primary"> on or before 12:00 noon of June 6, 2020.</strong><br/><br/>
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please also be reminded that effective June 1, 2020, <strong>employees are no longer entitled to ECQ incentives</strong> except for At-Home-Worker Allowance which will still be included in employee’s pay.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you<br/><br/>
-
-                   
- 
-                    
-              </div>
-
+              
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> MANDATORY <br/>DAILY HEALTH DECLARATION FORM <span class="text-primary"> <br/>No Health Declaration, Strictly No Entry<br/>
                  <br/>
@@ -112,9 +129,7 @@
               </div>
 
               <div class="item text-center" >
-                  
-                  
-                  <img src="storage/uploads/oneforhealth_3.jpg" width="100%" />
+                <img src="storage/uploads/oneforhealth_3.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
                     <img src="storage/uploads/divider.png" />
@@ -388,32 +403,7 @@
 
              
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 25 Eid'l Fitr <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Kindly see below details on the holiday pay treatment for May 25.<br/><br/></p>
-
-
-                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of May 25, 2020</p>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
-                    <strong class="text-success">WORKED</strong>
-                    <pre>(Basic Pay + Allowance) x 200%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
- 
-                    
-              </div>
-
+             
             
 
               
@@ -1929,6 +1919,56 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 25 Eid'l Fitr <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Kindly see below details on the holiday pay treatment for May 25.<br/><br/></p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of May 25, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+ 
+                    
+              </div>
+
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminder from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i> DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/>JUNE 10, 2020 PAYOUT & ECQ INCENTIVES<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for June 10th payout is June 5, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-primary"> on or before 12:00 noon of June 6, 2020.</strong><br/><br/>
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please also be reminded that effective June 1, 2020, <strong>employees are no longer entitled to ECQ incentives</strong> except for At-Home-Worker Allowance which will still be included in employee’s pay.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you<br/><br/>
+
+                   
+ 
+                    
+              </div>
+
   <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >All you need to know <br/> to get started with Bundy.ph<br/><img src="storage/uploads/divider.png" /><br/>
 
