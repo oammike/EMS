@@ -1,4 +1,4 @@
-              <div class="item active text-center" >
+              <div class="item active text-center">
                 <img src="storage/uploads/oneforhealth_4.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
@@ -11,7 +11,7 @@
 
                     There are times when I work from home and when I need to supervise my team on-site. Together, we make sure that our workplace safety protocols such as installing table partitions to support physical distancing are being properly implemented. We’ve also significantly reduced overtime work to maintain work-life balance during quarantine.<br/><br/>
 
-                    While it’s difficult for many of us not to see our loved ones, having access to today’s technology makes it possible to spend time with them despite the distance.”<br/><br/>
+                    While it’s difficult for many of us not to see our loved ones, having access to today’s technology makes it possible to spend time with them despite the distance.”</em><br/><br/>
 
                     Facilities Manager Ronaldo, fondly called as “Engineer Ronald” by his workmates, talks about his role in ensuring safety within Open Access BPO’s office premises and how he protects himself against COVID-19 in his everyday life.<br/><br/>
                     *******************************<br/><br/>
@@ -24,23 +24,16 @@
                     
               </div>
 
-              <div class="item  text-center" >
+              <div class="item text-center" >
                 
                   <h4 class="text-orange" style="line-height: 1.5em" >Infographic:<br/><span class="text-primary">Enabling Continuous Operations <br/>During Covid-19</span>
                   <br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <img src="storage/uploads/infographic_covid.jpg" width="100%" />
-                    
-                    
- 
- 
-                    
               </div>
 
               <div class="item text-center" >
-                  
-                  
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
                   <br/>
                     <img src="storage/uploads/divider.png" />
