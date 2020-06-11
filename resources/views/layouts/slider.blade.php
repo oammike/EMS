@@ -1,5 +1,24 @@
               <div class="item active text-center">
                 
+                  <h4 class="text-orange" style="line-height: 1.5em" >Celebrating 122nd<br/><span class="text-primary">Philippine Independence Day</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/independence.jpg" width="100%" />
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     Today, we commemorate the 122nd Philippine Independence Day. Let us remember the sacrifices of the determined Filipinos who fought for freedom and independence.<br/><br/>
+
+                      #WeSpeakYourLanguage #OAHolidays
+                     
+
+                  </p>    
+ 
+ 
+                    
+              </div>
+              <div class="item  text-center">
+                
                   <h4 class="text-orange" style="line-height: 1.5em" >Webinar:<br/><span class="text-primary">OAMPI Mental Health Awareness Program 2020</span>
                   <br/>
                     <img src="storage/uploads/divider.png" />
