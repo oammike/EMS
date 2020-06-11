@@ -1,4 +1,64 @@
               <div class="item active text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Webinar:<br/><span class="text-primary">OAMPI Mental Health Awareness Program 2020</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/webinar.jpg" width="100%" />
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     As we approach the new normal in our community brought by the COVID-19 pandemic, coping can sometimes be difficult and new rules can be confusing. But because we value everyone's well being, the clinic has been working on a Mental Health Awareness drive. With this, we would like to invite you to attend a FREE Webinar which will be conducted by an accredited Psychiatrist of Maxicare by June.<br/><br/>
+
+                      Below are the topics to be discussed that will run for about an hour.<br/><br/>
+
+                                    1.Maintaining Psychological Well-being
+                                    2.Managing Stigma and Monitoring Psychiatric signs and symptoms of employee
+                                       2a.Changes in the workplace
+                                       2b.Safety Guidelines
+                                       2c.Phasing of work
+                                    3.Back to work: a holistic approach to returning to the workplace <br/><br/>
+
+                      To join, we will need you to answer a short survey in this link:<br/>
+                      <input class="form-control" type="text" id="bundylink" value=" https://docs.google.com/forms/d/e/1FAIpQLScRW3J_YRxtXT9btY9IykDc818W4-PqCxluqnB4DlV2I1C3Ww/viewform" />
+                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     
+
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   June 12, 2020 Holiday |<br/> Independence Pay <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    June 12, 2020 is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
+
+                    In relation to this, please file your holiday worked hours as overtime in EMS to align with our payroll system requirement.  Otherwise, you will not get paid for the holiday premium.<br/><br/>
+
+                    Below is a guide on how the regular holiday pay is computed.
+                    <br/><br/></p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of June 12, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+ 
+                    
+              </div>
+
+              <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_4.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
