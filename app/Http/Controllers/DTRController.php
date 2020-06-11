@@ -1804,7 +1804,7 @@ class DTRController extends Controller
                               //-----
 
                               $isParttimer=false;
-                              $isHoliday = (count((array)Holiday::where('holidate',$j->productionDate)->get()) > 0) ? true : false;
+                              $isHoliday = (count(Holiday::where('holidate',$j->productionDate)->get()) > 0) ? true : false;
                               $isBackoffice = ( Campaign::find(Team::where('user_id',$j->userID)->first()->campaign_id)->isBackoffice ) ? true : false;
 
 
