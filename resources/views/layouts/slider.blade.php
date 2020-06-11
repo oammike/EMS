@@ -11,11 +11,11 @@
 
                       Below are the topics to be discussed that will run for about an hour.<br/><br/>
 
-                                    1.Maintaining Psychological Well-being
-                                    2.Managing Stigma and Monitoring Psychiatric signs and symptoms of employee
-                                       2a.Changes in the workplace
-                                       2b.Safety Guidelines
-                                       2c.Phasing of work
+                                    1.Maintaining Psychological Well-being<br/><br/>
+                                    2.Managing Stigma and Monitoring Psychiatric signs and symptoms of employee<br/><br/>
+                                       2a.Changes in the workplace<br/>
+                                       2b.Safety Guidelines<br/>
+                                       2c.Phasing of work<br/><br/>
                                     3.Back to work: a holistic approach to returning to the workplace <br/><br/>
 
                       To join, we will need you to answer a short survey in this link:<br/>
