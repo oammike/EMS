@@ -1599,7 +1599,7 @@ class HomeController extends Controller
       $hasForm = DB::table('symptoms_user')->where('user_id',$this->user->id)->where('created_at','>=',$todayS->format('Y-m-d H:i:s'))
                   ->where('created_at','<=',$todayE->format('Y-m-d H:i:s'))->get();
 
-      if(count($hasForm) == 0) return redirect()->route('page.health');
+      //if(count($hasForm) == 0) return redirect()->route('page.health');
 
 
       $coll = new Collection;
