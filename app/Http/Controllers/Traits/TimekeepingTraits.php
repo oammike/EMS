@@ -1180,7 +1180,7 @@ trait TimekeepingTraits
                       ])->orderBy('users.lastname')->
                       join('user_dtr','user_dtr.user_id','=','users.id')->
                       where('user_dtr.productionDate',$p->holidate)->
-                      select('user_dtr.productionDate', 'users.firstname','users.lastname','campaign.name as program','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable')->
+                      select('user_dtr.productionDate', 'users.firstname','users.lastname','campaign.name as program','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved')->
                       get();
 
          
