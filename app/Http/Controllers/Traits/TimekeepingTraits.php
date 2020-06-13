@@ -1154,7 +1154,7 @@ trait TimekeepingTraits
     $startCutoff = $cutoff[0];
     $endCutoff = $cutoff[1];
 
-    $allHolidays = Holiday::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+    $allHolidays = Holiday::where('holidate','>=',$startCutoff)->where('holidate','<=',$endCutoff)->get();
 
     if (count($allHolidays) > 0)
     {
