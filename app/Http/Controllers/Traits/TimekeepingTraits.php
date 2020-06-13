@@ -1169,7 +1169,7 @@ trait TimekeepingTraits
          $allops = DB::table('campaign')->where('campaign.isBackoffice','!=',1)->
                       join('team','team.campaign_id','=','campaign.id')->
                       join('users','team.user_id','=','users.id')->
-                      select('users.firtname','users.lastname','campaign.name as program')->
+                      select('users.firstname','users.lastname','campaign.name as program')->
                       where([
                           ['users.status_id', '!=', 6],
                           ['users.status_id', '!=', 7],
