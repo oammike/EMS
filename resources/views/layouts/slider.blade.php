@@ -107,6 +107,40 @@
               </div>
 
               <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/who_1.png" width="100%" /><br/>
+                    <img src="storage/uploads/who_2.jpg" width="100%" /><br/>
+
+                    
+                    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/who_3.jpg" width="100%" /><br/>
+                    <img src="storage/uploads/who_4.jpg" width="100%" /><br/>
+                   
+                    
+                    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_4.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
