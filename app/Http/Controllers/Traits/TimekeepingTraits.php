@@ -1169,7 +1169,7 @@ trait TimekeepingTraits
          $allops = DB::table('campaign')->where('campaign.isBackoffice',null)->
                       join('team','team.campaign_id','=','campaign.id')->
                       join('users','team.user_id','=','users.id')->
-                      select('users.firstname','users.lastname','campaign.name as program')->
+                      
                       where([
                           ['users.status_id', '!=', 6],
                           ['users.status_id', '!=', 7],
@@ -1180,6 +1180,7 @@ trait TimekeepingTraits
                       ])->orderBy('users.lastname')->
                       join('user_dtr','user_dtr.user_id','=','users.id')->
                       where('user_dtr.productionDate',$p->holidate)->
+                      select('user_dtr.productionDate', 'users.firstname','users.lastname','campaign.name as program','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable')->
                       get();
 
          
