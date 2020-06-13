@@ -1181,7 +1181,7 @@ trait TimekeepingTraits
                       join('user_dtr','user_dtr.user_id','=','users.id')->
                       where('user_dtr.productionDate',$p->holidate)->
                       select('user_dtr.productionDate', 'users.firstname','users.lastname','campaign.name as program','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved')->
-                      where('user_dtr.OT_billable','=','0.00')->
+                      where('user_dtr.OT_approved','=','0.00')->
                       where([
                           ['user_dtr.timeIN','!=','<strong class="text-danger"> N / A </strong><a tit'],
                           ['user_dtr.timeIN','!=','<strong class="text-danger">No IN</strong><a title'],
