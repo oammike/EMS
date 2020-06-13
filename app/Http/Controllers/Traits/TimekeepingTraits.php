@@ -1148,6 +1148,61 @@ trait TimekeepingTraits
 
   }
 
+  public function getAllWorkedHolidays($c,$json)
+  {
+    $cutoff = explode('_', $c); 
+    $startCutoff = $cutoff[0];
+    $endCutoff = $cutoff[1];
+
+    $allHolidays = Holiday::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+
+    if (count($allHolidays) > 0)
+    {
+      $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+      //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
+
+      $allWorkedHolidays = new Collection;
+      $total = 0;
+
+      foreach ($allHolidays as $p) {
+
+         $allops = DB::table('campaign')->where('campaign.isBackoffice','!=',1)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      select('users.firtname','users.lastname','campaign.name as program')->
+                      where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                      ])->orderBy('users.lastname')->get();
+
+         
+        
+          $allWorkedHolidays->push($allops);
+          $total += count($allops);
+        
+          
+      }
+
+  
+      
+      if ($json)
+        return response()->json(['WorkedHDs'=>$allWorkedHolidays,  'total'=>$total, 'name'=>'Worked Holidays', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+      else
+        return $allWorkedHolidays;
+
+    }
+    else
+    {
+
+    }
+    
+
+  }
+
   public function getUserWorksched($userID,$productionDate)
   {
    

@@ -1653,6 +1653,7 @@ class DTRController extends Controller
                               ['id'=>2,'name'=>'Leaves'],
                               ['id'=>3,'name'=>'Change Shift Schedules'],
                               ['id'=>4,'name'=>'Work Schedules'],
+                              ['id'=>5,'name'=>'Ops Worked Holiday(s)'],
 
       ]);
       
@@ -1716,6 +1717,7 @@ class DTRController extends Controller
         case 2: $result = $this->getAllLeaves($request->cutoff,1); break;
         case 3: $result = $this->getAllCWS($request->cutoff,1); break;
         case 4: $result = $this->getAllWorksched($request->cutoff,1); break;
+        case 5: $result = $this->getAllWorkedHolidays($request->cutoff,1); break;
       }
 
       
