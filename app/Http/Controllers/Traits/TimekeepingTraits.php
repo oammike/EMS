@@ -1166,18 +1166,18 @@ trait TimekeepingTraits
 
       foreach ($allHolidays as $p) {
 
-         $allops = DB::table('campaign')->where('campaign.isBackoffice','!=',1)->
-                      // join('team','team.campaign_id','=','campaign.id')->
-                      // join('users','team.user_id','=','users.id')->
-                      // select('users.firstname','users.lastname','campaign.name as program')->
-                      // where([
-                      //     ['users.status_id', '!=', 6],
-                      //     ['users.status_id', '!=', 7],
-                      //     ['users.status_id', '!=', 8],
-                      //     ['users.status_id', '!=', 9],
-                      //     ['users.status_id', '!=', 13],
-                      //     ['users.status_id', '!=', 16],
-                      // ])->orderBy('users.lastname')->
+         $allops = DB::table('campaign')->where('campaign.isBackoffice',null)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      select('users.firstname','users.lastname','campaign.name as program')->
+                      where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                      ])->orderBy('users.lastname')->
                       get();
 
          
