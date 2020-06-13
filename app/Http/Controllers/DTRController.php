@@ -1743,6 +1743,7 @@ class DTRController extends Controller
         case '2': $result = $this->getAllLeaves($cutoff,0); break;
         case '3': $result = $this->getAllCWS($cutoff,0); break;
         case '4': $result = $this->getAllWorksched($cutoff,0); break;
+        case '5': $result = $this->getAllWorkedHolidays($cutoff,0); break;
       }
 
       //return $result[0];
@@ -1755,6 +1756,8 @@ class DTRController extends Controller
         case '2': { $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
         case '3': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="ChangeShiftSchedules"; } break; 
         case '4': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="WorSchedules"; } break; 
+
+        case '5': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
       
       }
 
@@ -2844,6 +2847,310 @@ class DTRController extends Controller
                             }
 
                             $sheet->appendRow($arr);
+
+                          }
+
+                        }//end foreach employee
+
+                        
+                      });//end sheet1
+
+              })->export('xls');return "Download";
+      }
+      else if ($template == '5') // HOLIDAY OPS
+      {
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n JPS_".$type." cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
+        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
+              {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description)
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+
+                        foreach($jpsData as $jps)
+                        {
+                          $i = 0;
+
+                          if(count($jps) > 1)
+                          {
+                            foreach ($jps as $j) 
+                            {
+                              $c=0;
+                              $arr[$c] = $j->accesscode; $c++;
+                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                              //-----
+
+                              $isParttimer=false;
+                              $isHoliday = true; //(count(Holiday::where('holidate',$j->productionDate)->get()) > 0) ? true : false;
+                              $isBackoffice = false; // ( Campaign::find(Team::where('user_id',$j->userID)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+
+                              //-----we get first employee's schedule from locked DTR
+
+                              $sched = $j->workshift;
+                              // if(count($sched) > 0)
+                              // {
+                                $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours;
+                                if ($sched !== '* RD * - * RD *')
+                                {
+                                  $wshift = explode('-',$sched);
+                                  $s = Carbon::parse($j->timeStart,'Asia/Manila');
+
+                                  
+                                    
+                                    ($j->status_id == 12 || $j->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+                                    $startDate = Carbon::parse($j->timeStart,'Asia/Manila');
+
+                                    $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                  
+
+                                  $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                  
+                                  $endTime = Carbon::parse($j->timeEnd,'Asia/Manila');
+                                  
+                                }
+                                
+                                else
+                                {
+
+                                  $s = Carbon::parse($j->timeStart,'Asia/Manila');
+                                  $e =  Carbon::parse($j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                                  $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                  $startDate = $s;
+                                  $startTime = $s;
+                                  $endTime = $e;
+                                  $wshift = array( $j->timeStart,$j->timeEnd );
+                                }
+                                
+
+                              //}
+                              // else
+                              // {
+                              //   $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                              //   $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                              //   $endDate =  Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                              //   $startDate = $s;
+                              //   $startTime = $s;
+                              //   $endTime = $e;
+                              //   $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours;
+
+                              // }
+
+                              //***------- new for HOLIDAY OT------------ ***
+                              // if HOLIDAY TODAY, check if (backoffice) -> nothing changes sa filed OT
+                              // else ops sya
+                              // if sched nya today is * RD * -> nothing changes
+                              // else add 8hrs / 4hrs kung PT
+                              
+
+
+                              if ($isHoliday)
+                              {
+                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                    else
+                                    {
+                                      // check muna kung PT or not
+                                      if ($isParttimer)
+                                      {
+                                        
+                                        $hoursFiled =  4.0;
+                                        $hoursApproved =  4.0;
+                                      }
+                                      else
+                                      {
+                                        
+                                        $hoursFiled = $j->billable_hours + 8.0;
+                                        $hoursApproved = $j->filed_hours + 8.0;
+
+                                      }
+                                    }
+
+                                  
+
+                                
+                              }
+                              
+                              
+                              //***------- end for HOLIDAY OT------------ ***
+
+                              proceedSaving1:
+                                  //*** ShiftDate
+                                  $arr[$c] = $s->format('m/d/Y'); $c++;
+
+
+
+                                  //*** StartDate
+                                  $arr[$c] = $startDate->format('m/d/Y'); $c++;
+
+                                  //*** StartTime
+                                  $arr[$c] = $startTime->format('h:i A'); $c++;
+
+                                  //*** EndDate
+                                  $arr[$c] = $endDate->format('m/d/Y'); $c++;
+
+                                  //*** EndTime
+                                  $arr[$c] = $endTime->format('h:i A'); $c++;
+
+                                  //*** Status
+                                  $stat = "Approved";
+
+                                  $arr[$c] = $stat; $c++;
+
+
+
+
+                                  //*** HoursFiled
+                                  $arr[$c] = $hoursFiled; $c++;
+
+                                   //*** HoursApproved
+                                  $arr[$c] = $hoursApproved; $c++;
+
+                              
+
+                              $sheet->appendRow($arr);
+
+
+                              
+                            }
+
+                          }
+                          else
+                          {
+                            //-----
+                            $arr[$i] = $jps[0]->accesscode; $i++;
+                            $arr[$i] = $jps[0]->lastname.", ".$jps[0]->firstname; $i++;
+
+                            $isParttimer=false;
+                            $isHoliday = true; // (count((array)Holiday::where('holidate',$jps[0]->productionDate)->get()) > 0) ? true : false;
+                            $isBackoffice = false;// ( Campaign::find(Team::where('user_id',$jps[0]->userID)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+                            //-----we get first employee's schedule from locked DTR
+
+                              $sched = $jps[0]->workshift;
+                              // if(count($sched) > 0)
+                              // {
+                                $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours;
+                                if ($sched !== '* RD * - * RD *')
+                                {
+                                  $wshift = explode('-',$sched);
+                                  $s = Carbon::parse($jps[0]->timeStart,'Asia/Manila');
+
+                                  
+                                    
+                                    ($jps[0]->status_id == 12 || $jps[0]->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+                                    $startDate = Carbon::parse($jps[0]->timeStart,'Asia/Manila');
+
+                                    $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                  
+
+                                  $endDate =  Carbon::parse($jps[0]->timeEnd,'Asia/Manila');
+                                  
+                                  $endTime = Carbon::parse($jps[0]->timeEnd,'Asia/Manila');
+                                  
+                                }
+                                
+                                else
+                                {
+
+                                  $s = Carbon::parse($jps[0]->timeStart,'Asia/Manila');
+                                  $e =  Carbon::parse($jps[0]->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                                  $endDate =  Carbon::parse($jps[0]->timeEnd,'Asia/Manila');
+                                  $startDate = $s;
+                                  $startTime = $s;
+                                  $endTime = $e;
+                                  $wshift = array( $jps[0]->timeStart,$jps[0]->timeEnd );
+                                }
+                                
+
+                              
+
+
+                              if ($isHoliday)
+                              {
+                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                    else
+                                    {
+                                      // check muna kung PT or not
+                                      if ($isParttimer)
+                                      {
+                                        
+                                        $hoursFiled =  4.0;
+                                        $hoursApproved =  4.0;
+                                      }
+                                      else
+                                      {
+                                        
+                                        $hoursFiled = $jps[0]->billable_hours + 8.0;
+                                        $hoursApproved = $jps[0]->filed_hours + 8.0;
+
+                                      }
+                                    }
+
+                                  
+
+                                
+                              }
+                              
+                              
+                              //***------- end for HOLIDAY OT------------ ***
+
+                              proceedSaving:
+                                  //*** ShiftDate
+                                  $arr[$i] = $s->format('m/d/Y'); $i++;
+
+
+
+                                  //*** StartDate
+                                  $arr[$i] = $startDate->format('m/d/Y'); $i++;
+
+                                  //*** StartTime
+                                  $arr[$i] = $startTime->format('h:i A'); $i++;
+
+                                  //*** EndDate
+                                  $arr[$i] = $endDate->format('m/d/Y'); $i++;
+
+                                  //*** EndTime
+                                  $arr[$i] = $endTime->format('h:i A'); $i++;
+
+                                  //*** Status
+                                  $stat = "Approved";
+                                  
+
+                                  $arr[$i] = $stat; $i++;
+
+
+
+
+                                  //*** HoursFiled
+                                  $arr[$i] = $hoursFiled; $i++;
+
+                                   //*** HoursApproved
+                                  $arr[$i] = $hoursApproved; $i++;
+
+                              
+
+                              $sheet->appendRow($arr);
+
+
+                            //++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 
                           }
 

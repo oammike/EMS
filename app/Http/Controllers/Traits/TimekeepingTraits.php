@@ -1180,7 +1180,7 @@ trait TimekeepingTraits
                       ])->orderBy('users.lastname')->
                       join('user_dtr','user_dtr.user_id','=','users.id')->
                       where('user_dtr.productionDate',$p->holidate)->
-                      select('user_dtr.productionDate', 'users.firstname','users.lastname','campaign.name as program','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved')->
+                      select('user_dtr.productionDate','user_dtr.OT_approved as filed_hours','user_dtr.OT_billable','user_dtr.timeIN as timeStart','user_dtr.timeOUT as timeEnd','users.employeeCode as accesscode','users.id as userID','users.lastname', 'users.firstname','campaign.name as program','user_dtr.hoursWorked','user_dtr.workshift','users.status_id')->
                       where('user_dtr.OT_approved','=','0.00')->
                       where([
                           ['user_dtr.timeIN','!=','<strong class="text-danger"> N / A </strong><a tit'],
@@ -1227,6 +1227,7 @@ trait TimekeepingTraits
     }
     else
     {
+       return $allHolidays;
 
     }
     
