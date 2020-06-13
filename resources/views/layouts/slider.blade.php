@@ -17,6 +17,64 @@
  
                     
               </div>
+              
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   June 12, 2020 Holiday |<br/> Independence Pay <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    June 12, 2020 is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
+
+                    In relation to this, please file your holiday worked hours as overtime in EMS to align with our payroll system requirement.  Otherwise, you will not get paid for the holiday premium.<br/><br/>
+
+                    Below is a guide on how the regular holiday pay is computed.
+                    <br/><br/></p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of June 12, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+ 
+                    
+              </div>
+
+              <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_5.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“Stay home if there’s nothing important to do outside. By doing so, we're saving lives. My team delivered PCs and routers to many at-home workers as part of Open Access BPO's response to the ECQ. The company provided assistance so we can stay safe when working at home or in the office. It's our responsibility to take care of ourselves and follow safety measures.<br/><br/>
+
+                    I've been working from home since the quarantine started, and this changed my daily routine. I'm always a bit hesitant to go out for groceries because there are a lot of reported COVID-19 cases in our area. I have an 8-month old baby, and I don't want to risk infection.<br/><br/>
+
+                    To avoid this, I make sure to always being alcohol, wear a face mask, and observe physical distancing.”</em><br/><br/>
+
+                    IT Manager Arvie shares his strict precautions to protect himself and his family against COVID-19.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+
               <div class="item  text-center">
                 
                   <h4 class="text-orange" style="line-height: 1.5em" >Webinar:<br/><span class="text-primary">OAMPI Mental Health Awareness Program 2020</span>
@@ -44,35 +102,6 @@
 
                   </p>    
  
- 
-                    
-              </div>
-
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   June 12, 2020 Holiday |<br/> Independence Pay <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    June 12, 2020 is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
-
-                    In relation to this, please file your holiday worked hours as overtime in EMS to align with our payroll system requirement.  Otherwise, you will not get paid for the holiday premium.<br/><br/>
-
-                    Below is a guide on how the regular holiday pay is computed.
-                    <br/><br/></p>
-
-
-                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of June 12, 2020</p>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
-                    <strong class="text-success">WORKED</strong>
-                    <pre>(Basic Pay + Allowance) x 200%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
  
                     
               </div>
