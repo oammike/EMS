@@ -1178,6 +1178,8 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
                       ])->orderBy('users.lastname')->
+                      join('user_dtr','user_dtr.user_id','=','users.id')->
+                      where('user_dtr.productionDate',$p->holidate)->
                       get();
 
          
