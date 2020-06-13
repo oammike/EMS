@@ -2919,10 +2919,17 @@ class DTRController extends Controller
 
                                     $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
                                   
+                                  if ($j->timeEnd == '<strong class="text-danger">No IN</strong><a title') {
+                                    $endDate =  Carbon::parse($wshift[1],'Asia/Manila');
+                                    $endTime = Carbon::parse($wshift[1],'Asia/Manila');
+                                  }
+                                  else {
+                                    $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                    $endTime = Carbon::parse($j->timeEnd,'Asia/Manila');
+                                  }
 
-                                  $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
                                   
-                                  $endTime = Carbon::parse($j->timeEnd,'Asia/Manila');
+                                  
                                   
                                 }
                                 
@@ -3059,9 +3066,15 @@ class DTRController extends Controller
                                     $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
                                   
 
-                                  $endDate =  Carbon::parse($jps[0]->timeEnd,'Asia/Manila');
-                                  
-                                  $endTime = Carbon::parse($jps[0]->timeEnd,'Asia/Manila');
+                                  if ($j->timeEnd == '<strong class="text-danger">No IN</strong><a title') {
+                                    $endDate =  Carbon::parse($wshift[1],'Asia/Manila');
+                                    $endTime = Carbon::parse($wshift[1],'Asia/Manila');
+                                  }
+                                  else {
+                                    $endDate =  Carbon::parse($jps[0]->timeEnd,'Asia/Manila');
+                                    $endTime = Carbon::parse($jps[0]->timeEnd,'Asia/Manila');
+                                  }
+                                
                                   
                                 }
                                 
