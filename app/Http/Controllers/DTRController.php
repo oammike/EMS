@@ -2906,7 +2906,7 @@ class DTRController extends Controller
                               $sched = $j->workshift;
                               // if(count($sched) > 0)
                               // {
-                                $hoursFiled = $j->filed_hours; $hoursApproved =$j->OT_approved;
+                                $hoursFiled = $j->filed_hours; $hoursApproved =$j->filed_hours;
                                 if ($sched !== '* RD * - * RD *')
                                 {
                                   $wshift = explode('-',$sched);
@@ -2962,7 +2962,7 @@ class DTRController extends Controller
 
                               if ($isHoliday)
                               {
-                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $j->filed_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
                                     else
                                     {
                                       // check muna kung PT or not
@@ -2976,7 +2976,7 @@ class DTRController extends Controller
                                       {
                                         
                                         $hoursFiled = $j->filed_hours + 8.0;
-                                        $hoursApproved = $j->OT_approved + 8.0;
+                                        $hoursApproved = $j->filed_hours + 8.0;
 
                                       }
                                     }
@@ -3045,7 +3045,7 @@ class DTRController extends Controller
                               $sched = $jps[0]->workshift;
                               // if(count($sched) > 0)
                               // {
-                                $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours;
+                                $hoursFiled = $jps[0]->filed_hours; $hoursApproved =$jps[0]->filed_hours;
                                 if ($sched !== '* RD * - * RD *')
                                 {
                                   $wshift = explode('-',$sched);
