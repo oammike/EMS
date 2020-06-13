@@ -2906,7 +2906,7 @@ class DTRController extends Controller
                               $sched = $j->workshift;
                               // if(count($sched) > 0)
                               // {
-                                $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours;
+                                $hoursFiled = $j->filed_hours; $hoursApproved =$j->OT_approved;
                                 if ($sched !== '* RD * - * RD *')
                                 {
                                   $wshift = explode('-',$sched);
@@ -2975,8 +2975,8 @@ class DTRController extends Controller
                                       else
                                       {
                                         
-                                        $hoursFiled = $j->billable_hours + 8.0;
-                                        $hoursApproved = $j->filed_hours + 8.0;
+                                        $hoursFiled = $j->filed_hours + 8.0;
+                                        $hoursApproved = $j->OT_approved + 8.0;
 
                                       }
                                     }
@@ -3083,7 +3083,7 @@ class DTRController extends Controller
 
                               if ($isHoliday)
                               {
-                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $jps[0]->filed_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
                                     else
                                     {
                                       // check muna kung PT or not
@@ -3096,7 +3096,7 @@ class DTRController extends Controller
                                       else
                                       {
                                         
-                                        $hoursFiled = $jps[0]->billable_hours + 8.0;
+                                        $hoursFiled = $jps[0]->filed_hours + 8.0;
                                         $hoursApproved = $jps[0]->filed_hours + 8.0;
 
                                       }
