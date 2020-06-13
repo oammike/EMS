@@ -1181,7 +1181,33 @@ trait TimekeepingTraits
                       join('user_dtr','user_dtr.user_id','=','users.id')->
                       where('user_dtr.productionDate',$p->holidate)->
                       select('user_dtr.productionDate', 'users.firstname','users.lastname','campaign.name as program','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved')->
-                      get();
+                      where('user_dtr.OT_billable','=','0.00')->
+                      where([
+                          ['user_dtr.timeIN','!=','<strong class="text-danger"> N / A </strong><a tit'],
+                          ['user_dtr.timeIN','!=','<strong class="text-danger">No IN</strong><a title'],
+                          ['user_dtr.timeIN','!=','LWOP'],
+                          ['user_dtr.timeIN','!=','* RD *'],
+                          ['user_dtr.timeIN','!=','SL'],
+                          ['user_dtr.timeIN','!=','VL'],
+                          ['user_dtr.timeIN','!=','ML'],
+                          ['user_dtr.timeIN','!=','PL'],
+                          ['user_dtr.timeIN','!=','SPL'],
+                          ['user_dtr.timeIN','!=','VTO'],
+                          ['user_dtr.timeIN','!=','LWOP for approval'],
+                          ['user_dtr.timeIN','!=','LWOP denied'],
+                          ['user_dtr.timeIN','!=','SL for approval'],
+                          ['user_dtr.timeIN','!=','SL denied'],
+                          ['user_dtr.timeIN','!=','VL for approval'],
+                          ['user_dtr.timeIN','!=','VL denied'],
+                          ['user_dtr.timeIN','!=','ML for approval'],
+                          ['user_dtr.timeIN','!=','ML denied'],
+                          ['user_dtr.timeIN','!=','PL for approval'],
+                          ['user_dtr.timeIN','!=','PL denied'],
+                          ['user_dtr.timeIN','!=','SPL for approval'],
+                          ['user_dtr.timeIN','!=','SPL denied'],
+                          ['user_dtr.timeIN','!=','VTO for approval'],
+                          ['user_dtr.timeIN','!=','VTO denied']
+                        ])->get();
 
          
         
