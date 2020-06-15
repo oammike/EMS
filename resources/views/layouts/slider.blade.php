@@ -47,6 +47,17 @@
  
                     
               </div>
+              <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/wall_week7.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',14)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+              </div>
 
               <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_5.jpg" width="100%" />
@@ -269,17 +280,7 @@
                     
               </div>
 
-               <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/wall_week6.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',13)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-              </div>
+             
 
               <div class="item text-center" >
                 <img src="storage/uploads/oneforhealth_3.jpg" width="100%" />

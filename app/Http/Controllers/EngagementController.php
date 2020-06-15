@@ -617,7 +617,7 @@ class EngagementController extends Controller
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
             }
-            else if($id == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 ) //OPEN WALL
+            else if($id == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 || $id== 14 ) //OPEN WALL
             {
                 $allPosts = collect($existingEntry)->groupBy('entryID');
                 $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
@@ -734,12 +734,12 @@ class EngagementController extends Controller
             //**** with image attachment
             if($k !== "")
             {
-                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
+                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $k == '25' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
 
                 }
                 else 
                 {
-                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'|| $allitemTypes[$ctr]=='IMG') && $request->file('file') )
+                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'||$k == '25' ||  $allitemTypes[$ctr]=='IMG') && $request->file('file') )
                     {
                         $image_code = '';
                         $image = $request->file('file');
@@ -753,6 +753,7 @@ class EngagementController extends Controller
                             case '11':$filen = "wall[4]2020_"; break;
                             case '12':$filen = "wall[5]2020_"; break;
                             case '13':$filen = "wall[6]2020_"; break;
+                            case '14':$filen = "wall[7]2020_"; break;
                             default: $filen="wall_";break;
                             
                         }
