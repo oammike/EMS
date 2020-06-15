@@ -275,8 +275,8 @@
             <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',13)}}"><i class="fa fa-th-large"></i> Wall [Week 6] </a></li>
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',12)}}"><i class="fa fa-th-large"></i> Wall [Week 5] </a></li>
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',14)}}"><i class="fa fa-th-large"></i> Wall [Week 7] </a></li><li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',13)}}"><i class="fa fa-th-large"></i> Wall [Week 6] </a></li>
+            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',12)}}"><i class="fa fa-th-large"></i> Wall [Week 5] </a></li>
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('EngagementController@wall',11)}}"><i class="fa fa-th-large"></i> Wall [Week 4] </a> </li>
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('EngagementController@wall',10)}}"><i class="fa fa-th-large"></i> Wall [Week 3] </a> </li>
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a  target="_blank"href="{{action('EngagementController@wall',9)}}"><i class="fa fa-th-large"></i> Wall [Week 2] </a> </li>
