@@ -1815,9 +1815,11 @@ class DTRController extends Controller
 
                               //-----we get first employee's schedule from locked DTR
 
+                              $isLocked = false;
                               $sched = $this->getUserWorksched($j->userID,$j->productionDate);
                               if(count($sched) > 0)
                               {
+                                $isLocked = true;
                                 $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours;
                                 if ($sched[0]->workshift !== '* RD * - * RD *')
                                 {
@@ -1943,42 +1945,53 @@ class DTRController extends Controller
                               //***------- end for HOLIDAY OT------------ ***
 
                               proceedSaving1:
-                                  //*** ShiftDate
-                                  $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                                  if ($isLocked)
+                                  {
+                                    //*** ShiftDate
+                                    $arr[$c] = $s->format('m/d/Y'); $c++;
 
 
 
-                                  //*** StartDate
-                                  $arr[$c] = $startDate->format('m/d/Y'); $c++;
+                                    //*** StartDate
+                                    $arr[$c] = $startDate->format('m/d/Y'); $c++;
 
-                                  //*** StartTime
-                                  $arr[$c] = $startTime->format('h:i A'); $c++;
+                                    //*** StartTime
+                                    $arr[$c] = $startTime->format('h:i A'); $c++;
 
-                                  //*** EndDate
-                                  $arr[$c] = $endDate->format('m/d/Y'); $c++;
+                                    //*** EndDate
+                                    $arr[$c] = $endDate->format('m/d/Y'); $c++;
 
-                                  //*** EndTime
-                                  $arr[$c] = $endTime->format('h:i A'); $c++;
+                                    //*** EndTime
+                                    $arr[$c] = $endTime->format('h:i A'); $c++;
 
-                                  //*** Status
-                                  if($j->isApproved == '1') $stat = "Approved";
-                                  else if ($j->isApproved == '0') $stat = "Denied";
-                                  else $stat = "Pending Approval";
+                                    //*** Status
+                                    if($j->isApproved == '1') $stat = "Approved";
+                                    else if ($j->isApproved == '0') $stat = "Denied";
+                                    else $stat = "Pending Approval";
 
-                                  $arr[$c] = $stat; $c++;
-
-
+                                    $arr[$c] = $stat; $c++;
 
 
-                                  //*** HoursFiled
-                                  $arr[$c] = $hoursFiled; $c++;
 
-                                   //*** HoursApproved
-                                  $arr[$c] = $hoursApproved; $c++;
 
-                              
+                                    //*** HoursFiled
+                                    $arr[$c] = $hoursFiled; $c++;
 
-                              $sheet->appendRow($arr);
+                                     //*** HoursApproved
+                                    $arr[$c] = $hoursApproved; $c++;
+
+                                
+
+                                    $sheet->appendRow($arr);
+
+                                  }
+                                  else
+                                     skipSaving:
+                                    //do nothing;
+                                  
+
+                             
 
 
                               
