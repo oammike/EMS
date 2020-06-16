@@ -1829,19 +1829,27 @@ class DTRController extends Controller
                                     ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
                                     $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
 
-                                    if($isBackoffice)
+                                    if($isBackoffice){
                                       $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
-                                    else
-                                      $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                      $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours)->addHours(1);
+                                      $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                    }
+                                    else {
+                                        $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                        $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                        $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                      
+                                    }
+
                                   }
                                   else {
                                     $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(9);
                                     $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+                                    $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                    $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila');
                                   }
 
-                                  $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
                                   
-                                  $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila');
                                   
                                 }
                                 else if ($sched[0]->workshift === '* RD * - * RD *')
@@ -2866,7 +2874,7 @@ class DTRController extends Controller
                 fclose($file);
         } 
 
-        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create($type."_HD-Ops_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
               {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
                       $excel->setCreator('Programming Team')
