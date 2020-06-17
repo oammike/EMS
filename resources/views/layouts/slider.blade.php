@@ -1,6 +1,6 @@
               
 
-               <div class="item active text-center">
+              <div class="item active text-center">
                 <img src="storage/uploads/oneforhealth_6.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
@@ -19,6 +19,20 @@
 
                     Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
                   </p>    
+ 
+ 
+                    
+              </div>
+
+
+               <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Maxicare Member Guidelines:<br/><span class="text-primary">Physician Professional Fees, Screening Tests and Other Charges</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/maxicareGuidelines.jpg" width="100%" />
+                    
  
  
                     
