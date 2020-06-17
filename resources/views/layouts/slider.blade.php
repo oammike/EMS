@@ -1,25 +1,30 @@
-              <div class="item active text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Celebrating 122nd<br/><span class="text-primary">Philippine Independence Day</span>
+              
+
+               <div class="item active text-center">
+                <img src="storage/uploads/oneforhealth_6.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <img src="storage/uploads/independence.jpg" width="100%" />
+                    
                     <p style="padding: 30px;" class="text-left">
                      
-                     Today, we commemorate the 122nd Philippine Independence Day. Let us remember the sacrifices of the determined Filipinos who fought for freedom and independence.<br/><br/>
+                   <em>“During this pandemic, I realized how important my job as an HR Officer is. To ensure the safety of our co-workers here in Davao, we regularly distribute disinfectant supplies and face masks. We also make sure that they wash their hands properly before entering the office and constantly practice physical distancing. We’re also provided with shuttle services and hotel accommodations. I’m thankful that I have my job and that through it, I help protect others.<br/><br/>
 
-                      #WeSpeakYourLanguage #OAHolidays
-                     
+                    My family’s in the province. I’m worried for them so I always call to make sure they’re safe and to remind them to stay home. I encourage everyone to do the same and follow their respective local government’s guidelines to protect themselves and their loved ones.”</em><br/><br/>
 
+                    HR Officer Mary Lord shares how she protects her family and her co-workers through her job during the pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
                   </p>    
  
  
                     
               </div>
-              
 
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   June 12, 2020 Holiday |<br/> Independence Pay <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -2073,6 +2078,26 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+<div class="item active text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Celebrating 122nd<br/><span class="text-primary">Philippine Independence Day</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/independence.jpg" width="100%" />
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     Today, we commemorate the 122nd Philippine Independence Day. Let us remember the sacrifices of the determined Filipinos who fought for freedom and independence.<br/><br/>
+
+                      #WeSpeakYourLanguage #OAHolidays
+                     
+
+                  </p>    
+ 
+ 
+                    
+              </div>
+
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Holiday Pay Treatment <br/>for May 25 Eid'l Fitr <br/>
                   
