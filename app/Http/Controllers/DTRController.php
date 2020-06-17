@@ -1976,7 +1976,7 @@ class DTRController extends Controller
 
 
                                     //*** HoursFiled
-                                    $arr[$c] = $hoursFiled; $c++;
+                                    $arr[$c] = $hoursApproved; $c++; //$hoursFiled;
 
                                      //*** HoursApproved
                                     $arr[$c] = $hoursApproved; $c++;
@@ -2158,7 +2158,7 @@ class DTRController extends Controller
 
 
                                 //*** HoursFiled
-                                $arr[$i] = $hoursFiled; $i++;
+                                $arr[$i] = $hoursApproved; $i++; //$hoursFiled; 
 
                                  //*** HoursApproved
                                 $arr[$i] = $hoursApproved; $i++;
