@@ -17,8 +17,8 @@
 
                       <div class="nav-tabs-custom" style="background: rgba(256, 256, 256, 0.1)">
                         <ul class="nav nav-tabs pull-right"> 
-                          <li id="playbook"><a href="#tab_{{count($groupedForm->keys())+1}}" data-toggle="tab">
-                            <strong class="text-primary "><i class="fa fa-files-o"></i> Playbook<span id="actives"></span> </strong></a></li>
+                          <!-- <li id="playbook"><a href="#tab_{{count($groupedForm->keys())+1}}" data-toggle="tab">
+                            <strong class="text-primary "><i class="fa fa-files-o"></i> Playbook<span id="actives"></span> </strong></a></li> -->
 
                           <?php $ctr=0;?>
                           @foreach($groupedForm->keys() as $form)
@@ -116,7 +116,7 @@
                           <!-- /.tab-pane -->
 
 
-                          <div class="tab-pane" id="tab_{{count($groupedForm->keys())+1}}">
+                          <?php /*<div class="tab-pane" id="tab_{{count($groupedForm->keys())+1}}">
                             
                                   
                                   <div style="position: relative; border: solid 1px #333; width: 100%">
@@ -155,7 +155,7 @@
                                   
 
                                   
-                          </div>
+                          </div>  */ ?>
 
                      
 
