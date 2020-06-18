@@ -417,8 +417,7 @@ class UserVLController extends Controller
 
                     //actually, pwede na basta regular
 
-                    if ($lengthOfService >= 1)
-                    {
+                    
                         if (empty($request->from))
                             $vl_from = Carbon::today();
                         else $vl_from = Carbon::parse($request->from,"Asia/Manila");
@@ -567,7 +566,7 @@ class UserVLController extends Controller
 
                         return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits'));
 
-                    }else return view('access-denied');
+                    
 
                 }
 
