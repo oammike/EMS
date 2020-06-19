@@ -1,6 +1,31 @@
               
 
               <div class="item active text-center">
+                <img src="storage/uploads/oneforhealth_7.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"Protecting yourself is also protecting others. All the policies and reminders won't be effective if we will not be responsible of our own health. Be honest when you know you are not feeling well. Whether you're working in the office or at home, reach out to us. The nurses' priority is your health and we will do our best to help you.<br/><br/>
+
+                    This may sound cliché but prevention is better than cure. Open Access BPO's efforts focuses on preventive measures with great regard to preparedness response. Our team worked on arranging our schedules so we can gradually become available 24/7 for employees reporting on-site. We are also continuously collaborating with other departments to keep our Open Access BPO family safe and healthy during this pandemic.<br/><br/>
+
+                    Personally, the abrupt change brought by this pandemic is a challenge. The shift from reporting on-site to working remotely is new to me. I felt scared at first but I was able to pull myself together. Two of my sisters are also nurses and both of them are on the front lines. Our profession makes our parents worried most of the time, but we do our best to let them know we practice all the precautionary measures needed to stay safe."</em><br/><br/>
+
+                    Nurse Manager Loraine shares her experience as a nurse in the wake of a pandemic and explains how protecting oneself can make a difference to ensure the safety of many.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+              <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_6.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
