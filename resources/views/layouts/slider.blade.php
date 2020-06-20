@@ -1,6 +1,25 @@
               
 
               <div class="item active text-center">
+                <img src="storage/uploads/fathersday2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary"> Father's Day!</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   It's Father's Day!<br/><br/>
+
+                    Sending love to every father and father figure out there. Have a happy and safe weekend to everyone celebrating with their loved ones on this special day.<br/><br/>
+                    #WeSpeakYourLanguage #OAHolidays<br/><br/>
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item  text-center">
                 <img src="storage/uploads/oneforhealth_7.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
