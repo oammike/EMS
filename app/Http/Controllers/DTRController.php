@@ -3021,9 +3021,26 @@ class DTRController extends Controller
                                       }
                                       else
                                       {
+
+                                         if ($sched !== '* RD * - * RD *')
+                                         {
+                                            if (strpos($j->timeStart, 'shift') !== false) {
+                                                $hoursFiled = 4.0;
+                                                $hoursApproved = 4.0;
+                                            }
+                                            else {
+                                                $hoursFiled = $j->filed_hours + 8.0;
+                                                $hoursApproved = $j->filed_hours + 8.0;
+                                            }
+                                          }
+                                          else
+                                          {
+                                            $hoursFiled = $j->filed_hours + 8.0;
+                                            $hoursApproved = $j->filed_hours + 8.0;
+
+                                          }
                                         
-                                        $hoursFiled = $j->filed_hours + 8.0;
-                                        $hoursApproved = $j->filed_hours + 8.0;
+                                        
 
                                       }
                                     }
