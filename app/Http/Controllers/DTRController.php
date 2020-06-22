@@ -2933,13 +2933,14 @@ class DTRController extends Controller
                                   $wshift = explode('-',$sched);
 
                                   if (strpos($j->timeStart, 'shift') !== false) {
+                                      $s = Carbon::parse($wshift[0],'Asia/Manila')->addHours(5);
+                                      $startDate = Carbon::parse($wshift[0],'Asia/Manila');
+                                  }
+                                  else {
                                       $s = Carbon::parse($j->timeStart,'Asia/Manila');
                                       $startDate = Carbon::parse($j->timeStart,'Asia/Manila');
                                   }
-                                  else {
-                                    $s = Carbon::parse($wshift[0],'Asia/Manila')->addHours(5);
-                                    $startDate = Carbon::parse($wshift[0],'Asia/Manila');
-                                  }
+                                    
 
 
                                   /*if (($j->timeStart === "1st shift LWOP") || ($j->timeStart == "1st shift SL") || ($j->timeStart == "1st shift VL")){
