@@ -2935,10 +2935,12 @@ class DTRController extends Controller
                                   if (strpos($j->timeStart, 'shift') !== false) {
                                       $s = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(5);
                                       $startDate = Carbon::parse($j->productionDate,'Asia/Manila');
+                                      $startTime = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(5);
                                   }
                                   else {
                                       $s = Carbon::parse($j->timeStart,'Asia/Manila');
                                       $startDate = Carbon::parse($j->timeStart,'Asia/Manila');
+                                      $startTime = $startDate;
                                   }
                                     
 
@@ -2955,7 +2957,7 @@ class DTRController extends Controller
                                     ($j->status_id == 12 || $j->status_id == 14) ? $isParttimer = true : $isParttimer=false;
                                     
 
-                                    $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                     //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
                                   
                                   if (($j->timeEnd == '<strong class="text-danger">No IN</strong><a title') || (strpos($j->timeEnd, 'shift') !== false)) {
                                     $endDate =  Carbon::parse($wshift[1],'Asia/Manila');
