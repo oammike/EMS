@@ -2932,21 +2932,31 @@ class DTRController extends Controller
                                 {
                                   $wshift = explode('-',$sched);
 
-                                  if (($j->timeStart == "1st shift LWOP") || ($j->timeStart == "1st shift SL") || ($j->timeStart == "1st shift VL")){
+                                  if (strpos($j->timeStart, 'shift') !== false) {
+                                      $s = Carbon::parse($j->timeStart,'Asia/Manila');
+                                      $startDate = Carbon::parse($j->timeStart,'Asia/Manila');
+                                  }
+                                  else {
+                                    $s = Carbon::parse($wshift[0],'Asia/Manila')->addHours(5);
+                                    $startDate = Carbon::parse($wshift[0],'Asia/Manila');
+                                  }
+
+
+                                  /*if (($j->timeStart === "1st shift LWOP") || ($j->timeStart == "1st shift SL") || ($j->timeStart == "1st shift VL")){
                                     $s = Carbon::parse($wshift[0],'Asia/Manila')->addHours(5);
                                     //$s = Carbon::parse($j->timeStart,'Asia/Manila');
                                   }
                                   else
-                                    $s = Carbon::parse($j->timeStart,'Asia/Manila');
+                                    $s = Carbon::parse($j->timeStart,'Asia/Manila');*/
 
                                   
                                     
                                     ($j->status_id == 12 || $j->status_id == 14) ? $isParttimer = true : $isParttimer=false;
-                                    $startDate = Carbon::parse($j->timeStart,'Asia/Manila');
+                                    
 
                                     $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
                                   
-                                  if ($j->timeEnd == '<strong class="text-danger">No IN</strong><a title') {
+                                  if (($j->timeEnd == '<strong class="text-danger">No IN</strong><a title') || (strpos($j->timeEnd, 'shift') !== false)) {
                                     $endDate =  Carbon::parse($wshift[1],'Asia/Manila');
                                     $endTime = Carbon::parse($wshift[1],'Asia/Manila');
                                   }
