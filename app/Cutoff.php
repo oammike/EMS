@@ -121,7 +121,8 @@ class Cutoff extends Model
             $to .= (date('m'))."-";
             $to .= ($this->first);
             
-        } else if (($today > $this->first)&&($today <= ($this->second + $this->paydayInterval)) || $today == ($this->first + $this->paydayInterval) ){
+        } else if (($today > $this->first)&&($today <= ($this->second)) || $today == ($this->first + $this->paydayInterval) ) //+ $this->paydayInterval
+        {
             $from = date('Y')."-";
             $from .= (date('m'))."-";
             $from .= ($this->first+1);
