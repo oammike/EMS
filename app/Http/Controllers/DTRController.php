@@ -2934,7 +2934,8 @@ class DTRController extends Controller
 
                                   if (strpos($j->timeStart, 'shift') !== false) {
                                       $s = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
-                                      $startDate = Carbon::parse($j->productionDate,'Asia/Manila');
+                                      $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(5);
+                                      //Carbon::parse($j->productionDate,'Asia/Manila');
                                       $startTime = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(5);
                                   }
                                   else {
