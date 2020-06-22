@@ -2933,8 +2933,8 @@ class DTRController extends Controller
                                   $wshift = explode('-',$sched);
 
                                   if (strpos($j->timeStart, 'shift') !== false) {
-                                      $s = Carbon::parse($wshift[0],'Asia/Manila')->addHours(5);
-                                      $startDate = Carbon::parse($wshift[0],'Asia/Manila');
+                                      $s = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila')->addHours(5);
+                                      $startDate = Carbon::parse($j->productionDate,'Asia/Manila');
                                   }
                                   else {
                                       $s = Carbon::parse($j->timeStart,'Asia/Manila');
