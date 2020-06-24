@@ -1,18 +1,61 @@
               
 
+
+
               <div class="item active text-center">
-                <img src="storage/uploads/fathersday2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary"> Father's Day!</span>
+                <img src="storage/uploads/oneforhealth_8.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     
                     <p style="padding: 30px;" class="text-left">
                      
-                   It's Father's Day!<br/><br/>
+                   <em>"There’s a constant fear of losing someone to this health crisis. That's why we need to stay healthy and safe for ourselves and our families. We must take our roles seriously to help slow the spread of infections in our communities.<br/><br/>
 
-                    Sending love to every father and father figure out there. Have a happy and safe weekend to everyone celebrating with their loved ones on this special day.<br/><br/>
-                    #WeSpeakYourLanguage #OAHolidays<br/><br/>
+                    I also try to understand how I can cope with stress. What keeps me going during this period is staying in touch with my family and friends.<br/><br/>
+
+                    The same goes as I take charge of my role in the company. My teammates and I provide our co-workers with necessary supplies and remind them to constantly observe the company's safety guidelines to help them stay safe and healthy as they report to work.”</em><br/><br/>
+
+                    Davao Operations Administrative and Accounting Assistant Joash shares about her perspective on the importance of taking preventive measures and coping with stress in the wake of a pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+              <div class="item  text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Message from Clinical Services:<br/><span class="text-primary">Mental Health in the Workplace Webinar</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/webinar.jpg" width="100%" />
+                    <p style="padding: 30px;" class="text-left">
+                     
+                      WHAT:  Mental Health in the Workplace Webinar <br/>
+                      WHEN: July 1, 2020 (6PM-7PM)<br/> <br/><br/>
+
+
+                      In connection to the previous invitation we sent out about our Mental Health Awareness Program 2020, we are finally announcing the official date of our FREE Webinar on July 1, 2020 @ 6:00pm-7:00pm. Our google meet link is: meet.google.com/pbe-wduj-ape
+                      <input class="form-control" type="text" id="bundylink" value="https://meet.google.com/pbe-wduj-ape" />
+                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
+
+                      For those who participated in the survey, Thank you! We have noted your names and reserved a slot for you! Just make sure you have your active gmail accounts, good internet connection and access google meet link as stated above. Moreover, for those who missed it, worry no more, there are slots still available! <br/><br/>
+
+                      For you to join, register with us, by replying with your name and account.   <br/><br/>
+
+                      During this pandemic, having the right information about Mental Health can help many, especially if it involves a loved one or ourselves. Let's take advantage of this webinar and hear from a certified Psychiatrist! <br/><br/> <br/><br/>
+
+                      REMINDER: This will be on live stream. For strict compliance, please be reminded that the webinar session is NOT TO BE RECORDED by anyone or for video duplication. <br/><br/>
+
+                      Hope to see you there!<br/>
+                      
+                     
+
                   </p>    
  
  
@@ -149,36 +192,7 @@
               </div>
 
 
-              <div class="item  text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Webinar:<br/><span class="text-primary">OAMPI Mental Health Awareness Program 2020</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <img src="storage/uploads/webinar.jpg" width="100%" />
-                    <p style="padding: 30px;" class="text-left">
-                     
-                     As we approach the new normal in our community brought by the COVID-19 pandemic, coping can sometimes be difficult and new rules can be confusing. But because we value everyone's well being, the clinic has been working on a Mental Health Awareness drive. With this, we would like to invite you to attend a FREE Webinar which will be conducted by an accredited Psychiatrist of Maxicare by June.<br/><br/>
-
-                      Below are the topics to be discussed that will run for about an hour.<br/><br/>
-
-                                    1.Maintaining Psychological Well-being<br/><br/>
-                                    2.Managing Stigma and Monitoring Psychiatric signs and symptoms of employee<br/><br/>
-                                       2a.Changes in the workplace<br/>
-                                       2b.Safety Guidelines<br/>
-                                       2c.Phasing of work<br/><br/>
-                                    3.Back to work: a holistic approach to returning to the workplace <br/><br/>
-
-                      To join, we will need you to answer a short survey in this link:<br/>
-                      <input class="form-control" type="text" id="bundylink" value=" https://docs.google.com/forms/d/e/1FAIpQLScRW3J_YRxtXT9btY9IykDc818W4-PqCxluqnB4DlV2I1C3Ww/viewform" />
-                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                     
-
-                  </p>    
- 
- 
-                    
-              </div>
+              
 
               <div class="item text-center">
                 
@@ -1801,7 +1815,9 @@ Please note this is an alternative living accommodation option and is not mandat
                               <div class="box box-widget widget-user">
                                 <!-- Add the bg color to the header using any of the bg-* classes -->
                                 <br/><br/>
-                                <h4 class="text-primary"> <i class="fa fa-smile-o fa-2x"></i> <br/><br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
+                                <h4 class="text-primary"> 
+                                  <img src="storage/uploads/banner_anniv.jpg" width="100%" /><br/>
+                                  <i class="fa fa-smile-o fa-2x"></i> <br/><br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
                                   <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
                                 
                                 <div class="widget-user-image">
@@ -2136,6 +2152,24 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+              <div class="item active text-center">
+                <img src="storage/uploads/fathersday2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary"> Father's Day!</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   It's Father's Day!<br/><br/>
+
+                    Sending love to every father and father figure out there. Have a happy and safe weekend to everyone celebrating with their loved ones on this special day.<br/><br/>
+                    #WeSpeakYourLanguage #OAHolidays<br/><br/>
+                  </p>    
+ 
+ 
+                    
+              </div>
 <div class="item active text-center">
                 
                   <h4 class="text-orange" style="line-height: 1.5em" >Celebrating 122nd<br/><span class="text-primary">Philippine Independence Day</span>
