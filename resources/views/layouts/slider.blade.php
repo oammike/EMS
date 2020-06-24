@@ -1,4 +1,4 @@
-              
+
 
 
 
@@ -35,12 +35,14 @@
                     </h4>
                     <img src="storage/uploads/webinar.jpg" width="100%" />
                     <p style="padding: 30px;" class="text-left">
+
+                      <img src="storage/uploads/googlemeet.png" width="30%" align="left" />
                      
-                      WHAT:  Mental Health in the Workplace Webinar <br/>
-                      WHEN: July 1, 2020 (6PM-7PM)<br/> <br/><br/>
+                      <strong>WHAT:  Mental Health in the Workplace Webinar <br/>
+                      WHEN: July 1, 2020 (6PM-7PM)</strong><br/> <br/><br/>
 
 
-                      In connection to the previous invitation we sent out about our Mental Health Awareness Program 2020, we are finally announcing the official date of our FREE Webinar on July 1, 2020 @ 6:00pm-7:00pm. Our google meet link is: meet.google.com/pbe-wduj-ape
+                      In connection to the previous invitation we sent out about our Mental Health Awareness Program 2020, we are finally announcing the official date of our <strong class="text-danger"> FREE Webinar</strong> on <strong class="text-primary"> July 1, 2020 @ 6:00pm-7:00pm. </strong>Our google meet link is: meet.google.com/pbe-wduj-ape
                       <input class="form-control" type="text" id="bundylink" value="https://meet.google.com/pbe-wduj-ape" />
                       <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
 
