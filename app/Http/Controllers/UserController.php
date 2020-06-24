@@ -2996,7 +2996,7 @@ class UserController extends Controller
                                     $dateHired = Carbon::parse($awardee->dateHired,'Asia/Manila');
                                     $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'));
                                     
-                                    $ddth = $dateHired->format('M d, YYYY');
+                                    $ddth = $dateHired->format('M d,Y');
                                  
                                      Mail::send('emails.anniv', ['awardee' => $awardee, 'tenure'=>$tenure,'ddth'=>$ddth], function ($m) use ($awardee, $tenure,$mike) 
                                      {
