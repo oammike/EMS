@@ -2995,7 +2995,7 @@ class UserController extends Controller
 
                                   $awardee = User::find($r);
                                   $mike = User::find(564);
-                                  $tenure = Carbon::parse($r->dateHired,'Asia/Manila')->diffInYears(Carbon::now('GMT+8'));
+                                  $tenure = Carbon::parse($awardee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('GMT+8'));
                                
                                    Mail::send('emails.anniv', ['awardee' => $awardee, 'tenure'=>$tenure], function ($m) use ($awardee, $tenure,$mike) 
                                    {
