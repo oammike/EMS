@@ -2996,9 +2996,12 @@ class UserController extends Controller
 
                                   $awardee = User::find($r);
                                   $mike = User::find(564);
-                                  $tenure = Carbon::parse($awardee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('GMT+8'));
+                                  $dateHired = Carbon::parse($awardee->dateHired,'Asia/Manila');
+                                  $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'));
+                                  $mm = $dateHired->format('MMMM');
+                                  $ddth = $dateHired->format('DDDo');
                                
-                                   Mail::send('emails.anniv', ['awardee' => $awardee, 'tenure'=>$tenure], function ($m) use ($awardee, $tenure,$mike) 
+                                   Mail::send('emails.anniv', ['awardee' => $awardee, 'tenure'=>$tenure,'mm'=>$mm, 'ddth'=>$ddth], function ($m) use ($awardee, $tenure,$mike) 
                                    {
                                       $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
                                       $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('Happy Work Anniversary!');     
