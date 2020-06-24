@@ -36,7 +36,7 @@
                     <img src="storage/uploads/webinar.jpg" width="100%" />
                     <p style="padding: 30px;" class="text-left">
 
-                      <img src="storage/uploads/googlemeet.png" width="30%" align="left" />
+                      <img src="storage/uploads/googlemeet.png" width="30%" align="right" />
                      
                       <strong>WHAT:  Mental Health in the Workplace Webinar <br/>
                       WHEN: July 1, 2020 (6PM-7PM)</strong><br/> <br/><br/>
