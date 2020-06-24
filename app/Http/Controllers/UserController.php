@@ -2989,31 +2989,33 @@ class UserController extends Controller
                                     $coll->push($award);
                                     $collstr .= $r.",";
 
+                                    // NOW, EMAIL the awardee
+
+                                    $awardee = User::find($r);
+                                    $mike = User::find(564);
+                                    $dateHired = Carbon::parse($awardee->dateHired,'Asia/Manila');
+                                    $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'));
+                                    $mm = $dateHired->isoFormat('MMMM');
+                                    $ddth = $dateHired->isoFormat('DDDo');
+                                 
+                                     Mail::send('emails.anniv', ['awardee' => $awardee, 'tenure'=>$tenure,'mm'=>$mm, 'ddth'=>$ddth], function ($m) use ($awardee, $tenure,$mike) 
+                                     {
+                                        $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                        $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('Happy Work Anniversary!');     
+
+                                        /* -------------- log updates made --------------------- */
+                                             $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                                                fwrite($file, "-------------------\n Email sent to ". $mike->email."\n");
+                                                fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
+                                                fclose($file);                      
+                                    
+
+                                    }); //end mail
+
                                   }
 
 
-                                  // NOW, EMAIL the awardee
-
-                                  $awardee = User::find($r);
-                                  $mike = User::find(564);
-                                  $dateHired = Carbon::parse($awardee->dateHired,'Asia/Manila');
-                                  $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'));
-                                  $mm = $dateHired->format('MMMM');
-                                  $ddth = $dateHired->format('DDDo');
-                               
-                                   Mail::send('emails.anniv', ['awardee' => $awardee, 'tenure'=>$tenure,'mm'=>$mm, 'ddth'=>$ddth], function ($m) use ($awardee, $tenure,$mike) 
-                                   {
-                                      $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                                      $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('Happy Work Anniversary!');     
-
-                                      /* -------------- log updates made --------------------- */
-                                           $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                                              fwrite($file, "-------------------\n Email sent to ". $mike->email."\n");
-                                              fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
-                                              fclose($file);                      
                                   
-
-                                  }); //end mail
 
 
                                   
