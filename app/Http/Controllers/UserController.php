@@ -3001,11 +3001,11 @@ class UserController extends Controller
                                      Mail::send('emails.anniv', ['awardee' => $awardee, 'tenure'=>$tenure,'ddth'=>$ddth], function ($m) use ($awardee, $tenure,$mike) 
                                      {
                                         $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                                        $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('Happy Work Anniversary!');     
+                                        $m->to($awardee->email, $awardee->lastname.", ".$awardee->firstname)->subject('Happy Work Anniversary!');     
 
                                         /* -------------- log updates made --------------------- */
                                              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                                                fwrite($file, "-------------------\n Email sent to ". $mike->email."\n");
+                                                fwrite($file, "-------------------\n Email sent to ". $awardee->email."\n");
                                                 fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
                                                 fclose($file);                      
                                     
