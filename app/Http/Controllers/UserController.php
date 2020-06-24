@@ -6,6 +6,7 @@ use Hash;
 use Carbon\Carbon;
 use Excel;
 use \PDF;
+use \Mail;
 use \DB;
 use \App;
 use \Response;
