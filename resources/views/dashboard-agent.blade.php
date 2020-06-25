@@ -107,7 +107,7 @@ select:-webkit-autofill:focus {
               </div>
               
 
-              @endif
+            @endif
 
 
 
@@ -451,7 +451,12 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
     $(window).bind("load", function() {
 
       $('#wait').fadeOut();
-      $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
+
+      @if($enableClock)
+        $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
+      @else
+        $('#btn_breakin, #btn_breakout').fadeIn();
+      @endif
 
        
 

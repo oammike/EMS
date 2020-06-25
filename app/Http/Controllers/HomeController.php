@@ -1398,6 +1398,14 @@ class HomeController extends Controller
       //check if user has already logged in
 
       $startToday = Carbon::now('GMT+8');
+      $enableClock = false;
+
+      //now check kung yung user eh dapat can access clock EXEMPT || TRAINEE
+      $exempt = DB::table('user_clockAccess')->where('user_id',$this->user->id)->get();
+
+      if ( (count($exempt) > 0) || $this->user->status_id == 2) $enableClock = true;
+
+
       // check mo muna kung may biodata na for today:
 
       
@@ -1569,7 +1577,7 @@ class HomeController extends Controller
           $meLeader = $employee->supervisor->first(); 
           //return redirect()->route('user.show',['id'=>$this->user->id]);
 
-          return view('dashboard-agent', compact('startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+          return view('dashboard-agent', compact('enableClock', 'startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
           
       // ----------- endif user has no subordinates -----------
 
@@ -1578,7 +1586,7 @@ class HomeController extends Controller
           //-- Initialize Approvals Dashlet
 
          //return $groupedForm[0];
-          return view('dashboard', compact('startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+          return view('dashboard', compact('enableClock', 'startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
          
 
 
@@ -1849,6 +1857,13 @@ class HomeController extends Controller
 
 
       $alreadyLoggedIN=false;
+      $enableClock = false;
+      
+      //now check kung yung user eh dapat can access clock EXEMPT || TRAINEE
+      $exempt = DB::table('user_clockAccess')->where('user_id',$this->user->id)->get();
+
+      if ( (count($exempt) > 0) || $this->user->status_id == 2) $enableClock = true;
+
       //if (count($loggedIn) > 0) $alreadyLoggedIN=true; else $alreadyLoggedIN=false;//return response()->json(['alreadyLoggedIN'=>$alreadyLoggedIN]);
 
       //-- IDOLS ----
@@ -1983,7 +1998,7 @@ class HomeController extends Controller
           $meLeader = $employee->supervisor->first(); 
           //return redirect()->route('user.show',['id'=>$this->user->id]);
 
-          return view('dashboard-agent', compact('startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+          return view('dashboard-agent', compact('enableClock', 'startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','idols','top3','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
           
       // ----------- endif user has no subordinates -----------
 
@@ -1992,7 +2007,7 @@ class HomeController extends Controller
           //-- Initialize Approvals Dashlet
 
          //return $groupedForm[0];
-          return view('dashboard', compact('startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
+          return view('dashboard', compact('enableClock', 'startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'idols','top3', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','ct1','songs','pics','titles'));
          
 
 

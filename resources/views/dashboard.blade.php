@@ -605,7 +605,12 @@ select:-webkit-autofill:focus {
 
       getNewNotifications();
       $('#wait').fadeOut();
-      $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
+      
+      @if($enableClock)
+        $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
+      @else
+        $('#btn_breakin, #btn_breakout').fadeIn();
+      @endif
       
 
      // ********* temporarily disable memo EES ************** 
