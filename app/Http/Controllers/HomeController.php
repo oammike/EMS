@@ -1164,7 +1164,7 @@ class HomeController extends Controller
       DB::connection()->disableQueryLog();
       $user = $this->user;
       $from = Team::where('user_id',$user->id)->first()->campaign_id;
-      $canView = [10,71,16];
+      $canView = [10,71,16,19]; //nurse, mktg, HR, datamgt
 
       if (!in_array($from, $canView)) return view('access-denied');
       
