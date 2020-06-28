@@ -3,6 +3,26 @@
 
 
               <div class="item active text-center">
+                <img src="storage/uploads/togetherwithpride.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Together<br/><span class="text-primary">with Pride</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>#Pride </em>is bigger than a celebration. It is a protest. Our friends and colleagues from the #LGBTQI+ community continue to be subjected to hate crimes and brutality even in the midst of the COVID-19 crisis. Open Access BPO commits to stand together with Pride for equality and visibility.<br/><br/>
+
+                    Let's #PrideMarchFromHome to support the #LGBTQI+ communities affected by the pandemic. Make your march count, visit https://hubs.ly/H0rZgw90 now!<br/><br/>
+
+                    <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong>.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_8.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
