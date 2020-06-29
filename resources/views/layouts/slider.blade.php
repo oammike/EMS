@@ -3,6 +3,32 @@
 
 
               <div class="item active text-center">
+                <img src="storage/uploads/oneforhealth_9.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"I practiced self-isolation for 14 days to protect myself and others from COVID-19. I felt lonely because I couldn't be with my family and friends, but I did overcome it.<br/><br/>
+
+                    We practice contactless shopping in our community. There are volunteers who help buy our daily necessities and leave the items on the front door for pick up.<br/><br/>
+
+                    For two weeks, I worked at home and doubled my productivity to help as many customers as I can. This was also my way of adjusting to the changes of having to work from home.”</em><br/><br/>
+
+                    Xiamen-based Customer Service Agent Summer shares how she strictly self-isolated and provided quality customer support in the wake of a pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
                 <img src="storage/uploads/togetherwithpride.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Together<br/><span class="text-primary">with Pride</span>
                   <br/>
@@ -21,7 +47,7 @@
  
                     
               </div>
-               <div class="item text-center" >
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
                   
                     <img src="storage/uploads/divider.png" />
