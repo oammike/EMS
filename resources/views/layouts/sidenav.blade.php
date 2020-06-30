@@ -408,6 +408,11 @@
             <li @if (Request::is('userRewards')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards') }}"><i class="fa fa-exchange"></i> Transfer Points </a> </li>
              <li @if (Request::is('awardPoints')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards_award') }}"><i class="fa fa-trophy"></i> Award Points </a> </li>
 
+          @if(Auth::user()->id==491 || Auth::user()->id==83 || Auth::user()->id==564)
+             <li style="padding-left:20px"><a href="{{ url('/manage-vouchers') }}"> Manage Vouchers </a> </li>
+             <li style="padding-left:20px"><a href="{{ url('/manage-voucher-claims') }}"> Manage Voucher Claims </a> </li>
+          @endif
+
           </ul>
         </li>
         @endif

@@ -1350,6 +1350,15 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/print-qr/{employee_id?}', 'RewardsHomeController@print_qr');
     Route::post('/cancel-order/{id?}', 'RewardsHomeController@cancel_order');
 
+
+    Route::get('/manage-vouchers/list/{page?}', 'RewardVoucherController@list_vouchers');
+    Route::resource('/manage-vouchers', 'RewardVoucherController');    
+    Route::post('/claim-voucher/{voucher_id?}', 'RewardsHomeController@claim_voucher');
+
+    Route::get('/manage-voucher-claims', 'RewardVoucherClaimsController@index');
+    Route::get('/manage-voucher-claims/list/{page?}', 'RewardVoucherClaimsController@list_claims');
+    Route::post('/confirm-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@confirm_claim');
+
     
     //----------- USER-based reward actions
 

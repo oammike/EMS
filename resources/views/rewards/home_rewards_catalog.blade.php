@@ -93,105 +93,48 @@
               <p></p><p></p>
               <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/Coffee_making_rewards.jpg')bottom left no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:50px">
 
-               
-                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                    <span class="product-title"><span style="font-size: larger;">Grab food</span> </span>
-                    <span class="product-excerpt">Grab Food</span>
-                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_grabfood.jpg');"></div>
-                    
-                    <div class="row claim">
-                      <div class="col-sm-3 col-xs-6">
-                        <span class="product-points">
-                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                          150.00
-                        </span>
-                      </div>
-                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
-                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
-                      </div>
-                    </div>
-                </div>
+                @forelse($vouchers as $key=>$voucher)
 
+                  <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                      <span class="product-title"><span style="font-size: larger;">{{ $voucher->name }}</span> </span>
+                      <span class="product-excerpt">{{ $voucher->name }}</span>
+                      <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/{{ $voucher->attachment_image }}');"></div>
+                      
+                      <div class="row claim">
+                        <div class="col-sm-3 col-xs-6">
+                          <span class="product-points">
+                            <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                            {{ $voucher->cost }} 
+                          </span>
+                        </div>
 
-                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                    <span class="product-title"><span style="font-size: larger;">Lazada</span> </span>
-                    <span class="product-excerpt">Puregold</span>
-                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_lazada.jpg');"></div>
-                    
-                    <div class="row claim">
-                      <div class="col-sm-3 col-xs-6">
-                        <span class="product-points">
-                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                          350.00
-                        </span>
+                        
+                        @if ($voucher->quantity <= 0)
+                          <div class="col-sm-7 col-xs-6">
+                            <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                          </div>
+                        @else                          
+                          <div class="col-sm-7 col-xs-6 bt_voucher_claimer" data-name="{{ $voucher->name }}" data-reward-id="{{ $voucher->id }}">  
+                            <span class="product-claim"><i class="fa fa-check"></i> Claim</span>                            
+                          </div>
+                        @endif
+                        
                       </div>
-                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
-                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
-                      </div>
-                    </div>
-                </div>
+                  </div>
 
-                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                    <span class="product-title"><span style="font-size: larger;">Puregold</span> </span>
-                    <span class="product-excerpt">Puregold</span>
-                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_puregold.jpg');"></div>
-                    
-                    <div class="row claim">
-                      <div class="col-sm-3 col-xs-6">
-                        <span class="product-points">
-                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                          350.00
-                        </span>
-                      </div>
-                      <div class="col-sm-7 col-xs-6" data-name="Merch_puregold" data-reward-id="merch_puregold" data-category-id="merch">
-                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
-                      </div>
-                    </div>
-                </div>
+                  @if ($key % 3 == 0 && $key!=0)
+                      <div class="clearfix"></div>
+                  @endif
 
+                @empty
                 
+                  <div class="col-xs-12">
+                    <p>Sorry, all Vouchers have been taken. Do check this page from time to time as we replenish our voucher inventories</p>
+                  </div>
+              
+                @endforelse
 
-
-                 
                 <div class="clearfix"></div>
-
-                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                    <span class="product-title"><span style="font-size: larger;">Shoppe</span> </span>
-                    <span class="product-excerpt">Shopee</span>
-                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_shopee.jpg');"></div>
-                    
-                    <div class="row claim">
-                      <div class="col-sm-3 col-xs-6">
-                        <span class="product-points">
-                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                          550.00
-                        </span>
-                      </div>
-                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
-                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
-                      </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                    <span class="product-title"><span style="font-size: larger;">SM</span> </span>
-                    <span class="product-excerpt">SM</span>
-                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_sm.jpg');"></div>
-                    
-                    <div class="row claim">
-                      <div class="col-sm-3 col-xs-6">
-                        <span class="product-points">
-                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                          550.00
-                        </span>
-                      </div>
-                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
-                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
-                      </div>
-                    </div>
-                </div>
-
-                 <div class="clearfix"></div>
              
              </div>
 
@@ -233,6 +176,55 @@
 
 		</div>
   </section>    
+
+
+  <!-- Voucher Modal -->
+  <div class="modal fade" id="modalConfirmVoucher" tabindex="-1" role="dialog" aria-labelledby="modalConfirmVoucherLabel">
+    <form class="form-horizontal" id="claimVoucherForm" action="{{ url('/claim-voucher/') }}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modalConfirmVoucherLabel">Confirm Voucher Redemption</h4>
+          </div>
+          <div class="box modal-body">
+            <div id="voucher_form_elements">
+              <div class="form-group" id="frm_grp_name">
+                <label for="password" class="col-sm-12">Please type your password to continue</label>
+                <div class="col-sm-12">
+                  <input type="password" class="form-control" id="voucher_password" name="password">
+                  <span id="frm_grp_hint_password" class="help-block"></span>
+                </div>
+              </div>
+              <div id="voucher_agree_wrapper">
+                <label><input type="checkbox" name="agree" id="agree" value="1" /> Should I receive gift vouchers from the company amounting to more than P10,000 for the year 2020, I agree to be deducted for taxes purposes in compliance with BIR.</label>
+              </div>
+
+              <p><span id="voucher_error" class="help-block"></span></p>
+
+
+
+              
+              
+            </div>
+            <!-- <input type="hidden" name="debug" value="true" /> -->
+            <div id="voucher_message_wrapper">
+              <p>You have successfully claimed a voucher.</p>
+              <p>You will receive an email on Zimbra within 24 hours with instructions on how to use the voucher.</p>
+            </div>
+
+            <div class="overlay" id="voucher_loader"> 
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="modalConfirmVoucherClose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button id="modalConfirmVoucherYes" type="button" class="btn btn-primary">Claim</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 	
 <!-- Confirm Modal -->
 <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel">
@@ -315,6 +307,19 @@
         defaultTime: '{{ $time }}'
       })
 
+      $('.bt_voucher_claimer').click(function(){
+        $('#voucher_loader').hide();
+        $('#voucher_message_wrapper').hide();
+        
+        $('#modalConfirmVoucherYes').show();
+        $('#voucher_form_elements').show();        
+        var id = $(this).data('reward-id');
+        window.selected_reward_id = id;
+        $('#modalConfirmVoucherClose').text("CANCEL");            
+        $('#modalConfirmVoucher').modal('show');
+        
+      });
+
 			$('.bt_claimer').click(function(){
         $('#owncup').prop('checked',false);
       
@@ -372,6 +377,36 @@
 				});
 				
 			});
+
+      $('#modalConfirmVoucherYes').click(function(event){
+        event.preventDefault();
+        var micro = (Date.now() % 1000) / 1000;
+        $('#voucher_loader').show();
+        var data = $('#claimVoucherForm').serialize();
+        $.ajax({
+          type: "POST",
+          url : "{{ url('/claim-voucher') }}/"+window.selected_reward_id+"?m="+micro,
+          success : function(data){
+            
+            $('#modalConfirmVoucherYes').hide();
+            $('#modalConfirmVoucherClose').text("OK");            
+            $('#voucher_loader').hide();
+            $('#voucher_error').text();
+            $('#voucher_form_elements').hide();
+            window.selected_reward_id = 0;
+            $('#voucher_message_wrapper').show();            
+            $('#points_counter').text("Remaining Points: "+data.points);            
+          },
+          data: $('#claimVoucherForm').serialize(),
+          error: function(data){
+            $('#voucher_loader').hide();
+            console.log(data.responseJSON.message);
+            $('#voucher_error').addClass('text-red');
+            $('#voucher_error').text(data.responseJSON.message);
+            
+          }
+        });
+      });
       
       $(document).on('click','.order-canceller',function(){
         var id = $(this).data('order_id');

@@ -8,6 +8,8 @@
 namespace OAMPI_Eval\Http\Controllers;
 use OAMPI_Eval\ActivityLog;
 use OAMPI_Eval\Reward;
+use OAMPI_Eval\Voucher;
+use OAMPI_Eval\VoucherClaims;
 use OAMPI_Eval\RewardCategoryTier as Tier;
 use OAMPI_Eval\Orders;
 use OAMPI_Eval\Coffeeshop;
@@ -24,6 +26,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Input;
 use DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class HomeController
@@ -136,6 +139,8 @@ class RewardsHomeController extends Controller
           } else $msg="";  
         }
 
+        $vouchers = Voucher::all();
+
         $data = [
 
             'time' => $time,
@@ -147,7 +152,8 @@ class RewardsHomeController extends Controller
             'orders' => $orders,
             'msg' => $msg,
             'shop'=>$shop,
-            'maxedOut'=>$maxedOut
+            'maxedOut'=>$maxedOut,
+            'vouchers' => $vouchers
           ];
 
         if( \Auth::user()->id !== 564 ) 
@@ -746,6 +752,119 @@ class RewardsHomeController extends Controller
           'exception' => $error_message,
           'success' => false,
           'message' => array('invalid reward item.')
+        ], 422);
+      }      
+    }
+
+    public function claim_voucher(Request $request,$reward_id = 0){
+
+      date_default_timezone_set('Asia/Singapore');
+      $now = strtotime('now');
+      $error = false;
+      $error_message = "";
+      $user_id = \Auth::user()->id;
+      $accepted = $request->input('agree',0);
+
+      if($accepted!=1 && $accepted!="1"){
+        return response()->json([
+          'exception' => null,
+          'success' => false,
+          'message' => 'Please agree to the tax deduction agreement.'
+        ], 422);
+      }
+
+      if(!Hash::check($request->input('password',0), \Auth::user()->password)){
+        return response()->json([
+          'password' => \Auth::user()->password,
+          'exception' => null,
+          'success' => false,
+          'message' => 'Invalid password.'
+        ], 422);
+      }
+
+      
+
+      $claims_today = VoucherClaims::where([
+                  ['user_id','=',$user_id],
+                  ['created_at','>=',Carbon::today()]
+                ])->get();
+      if($claims_today->count()>0){
+        return response()->json([
+          'exception' => null,
+          'success' => false,
+          'message' => 'You have already claimed a voucher today. Please come back tomorrow to claim another.'
+        ], 422);
+      }
+      
+      $data = new \stdClass();
+      if(intval($reward_id) > 0){
+        $user = User::with('points','team')->find($user_id);
+        $reward = Voucher::find($reward_id);        
+        if($user->points==null){
+          if($user->points!==0){
+            $record = new Point;
+            $record->idnumber = $user_id;
+            $record->points = $this->initLoad;// 10;
+            $record->save();
+          }
+        }
+
+        $cost = $reward->cost;        
+        if($user->points == null || $cost > $user->points->points ){
+          return response()->json([
+            'success' => false,
+            'message' => 'You do not have enough points to claim this voucher. Your current points: '.$user->points->points.' (required: '.$cost.")"
+          ], 422);
+        }
+
+
+        
+          if($user->points()->decrement('points', $cost)){
+            $record = new ActivityLog;
+            $record->initiator_id       = $user_id;
+            $record->target_id      = $user_id;
+            $record->description = "claimed voucher: ".$reward->name." for ".$cost." points using EMS portal";
+            if($record->save()) {
+              $current_points = $user->points->points - $cost;
+
+              $claim = new VoucherClaims;
+              $claim->user_id = $user_id;
+              $claim->voucher_id = $reward_id;
+              if($claim->save()){
+                return response()->json([
+                  'success' => true,                  
+                  'label' => $reward->name,
+                  'points' => $current_points
+                ], 200);                
+              }else{
+                $record->delete();
+                $user->points()->increment('points',$cost);
+                $error = true;
+                $error_message = "could not write to voucher claims table";
+              }              
+            }else{
+              $user->points()->increment('points',$cost);
+              $error = true;
+              $error_message = "could not log the activity";
+            }
+          }else{
+            $error = true;
+            $error_message = "could not re-allocate points properly";
+          }
+        
+        if($error){
+          return response()->json([
+            'success' => false,
+            'error' => array('Could not write to database. Please try again later.'),
+            'message'   => $error_message
+          ], 422);
+        }
+        
+      } else {
+        return response()->json([
+          'exception' => $error_message,
+          'success' => false,
+          'message' => array('invalid voucher item.')
         ], 422);
       }      
     }
