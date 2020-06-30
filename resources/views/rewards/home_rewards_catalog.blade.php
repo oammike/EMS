@@ -89,37 +89,143 @@
               @endif
               <div class="clearfix"></div> 
 
+              <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-gift"></i> Gift Vouchers &nbsp; </h3> 
+              <p></p><p></p>
+              <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/Coffee_making_rewards.jpg')bottom left no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:50px">
+
+               
+                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                    <span class="product-title"><span style="font-size: larger;">Grab food</span> </span>
+                    <span class="product-excerpt">Grab Food</span>
+                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_grabfood.jpg');"></div>
+                    
+                    <div class="row claim">
+                      <div class="col-sm-3 col-xs-6">
+                        <span class="product-points">
+                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                          150.00
+                        </span>
+                      </div>
+                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
+                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                      </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                    <span class="product-title"><span style="font-size: larger;">Lazada</span> </span>
+                    <span class="product-excerpt">Puregold</span>
+                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_lazada.jpg');"></div>
+                    
+                    <div class="row claim">
+                      <div class="col-sm-3 col-xs-6">
+                        <span class="product-points">
+                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                          350.00
+                        </span>
+                      </div>
+                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
+                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                    <span class="product-title"><span style="font-size: larger;">Puregold</span> </span>
+                    <span class="product-excerpt">Puregold</span>
+                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_puregold.jpg');"></div>
+                    
+                    <div class="row claim">
+                      <div class="col-sm-3 col-xs-6">
+                        <span class="product-points">
+                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                          350.00
+                        </span>
+                      </div>
+                      <div class="col-sm-7 col-xs-6" data-name="Merch_puregold" data-reward-id="merch_puregold" data-category-id="merch">
+                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                      </div>
+                    </div>
+                </div>
+
+                
+
+
+                 
+                <div class="clearfix"></div>
+
+                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                    <span class="product-title"><span style="font-size: larger;">Shoppe</span> </span>
+                    <span class="product-excerpt">Shopee</span>
+                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_shopee.jpg');"></div>
+                    
+                    <div class="row claim">
+                      <div class="col-sm-3 col-xs-6">
+                        <span class="product-points">
+                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                          550.00
+                        </span>
+                      </div>
+                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
+                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                    <span class="product-title"><span style="font-size: larger;">SM</span> </span>
+                    <span class="product-excerpt">SM</span>
+                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/storage/uploads/voucher_sm.jpg');"></div>
+                    
+                    <div class="row claim">
+                      <div class="col-sm-3 col-xs-6">
+                        <span class="product-points">
+                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                          550.00
+                        </span>
+                      </div>
+                      <div class="col-sm-7 col-xs-6" data-name="Merch_lazada" data-reward-id="merch_lazada" data-category-id="merch">
+                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                      </div>
+                    </div>
+                </div>
+
+                 <div class="clearfix"></div>
+             
+             </div>
+
+
+
               <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-trophy"></i> Souvenir Items &nbsp; </h3> 
               <p></p><p></p>
               <div class="box"  style="background:url('<?php echo url("/"); ?>/public/img/Merch_0.jpg')bottom right no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:50px">
 
-              @for($i=1;$i<=11;$i++)
+                @for($i=1;$i<=11;$i++)
 
-              @if( $i != 3 && $i != 8)
-              <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                  <span class="product-title"><span style="font-size: larger;"> Merchandise [ {{$i}} ]</span> </span>
-                  <span class="product-excerpt">Open Access merchandise {{$i}}</span>
-                  <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/img/Merch_{{$i}}.jpg');"></div>
-                  
-                  <div class="row claim">
-                    <div class="col-sm-3 col-xs-6">
-                      <span class="product-points">
-                        <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                        0.00
-                      </span>
-                    </div>
-                    <div class="col-sm-7 col-xs-6" data-name="Merch_{{$i}}" data-reward-id="merch_{{ $i }}" data-category-id="merch">
-                      <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                @if( $i != 3 && $i != 8)
+                <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
+                    <span class="product-title"><span style="font-size: larger;"> Merchandise [ {{$i}} ]</span> </span>
+                    <span class="product-excerpt">Open Access merchandise {{$i}}</span>
+                    <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/img/Merch_{{$i}}.jpg');"></div>
+                    
+                    <div class="row claim">
+                      <div class="col-sm-3 col-xs-6">
+                        <span class="product-points">
+                          <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                          0.00
+                        </span>
+                      </div>
+                      <div class="col-sm-7 col-xs-6" data-name="Merch_{{$i}}" data-reward-id="merch_{{ $i }}" data-category-id="merch">
+                        <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                @endif
-              @endfor
-              <div class="clearfix"></div>
-
-
+                  @endif
+                @endfor
+                <div class="clearfix"></div>
              
-            </div>
+             </div>
           </div>
         </div>
       </div>    
