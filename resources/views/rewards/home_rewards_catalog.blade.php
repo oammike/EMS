@@ -122,7 +122,7 @@
                       </div>
                   </div>
 
-                  @if ($key % 3 == 0 && $key!=0)
+                  @if ( $key+1 % 3 == 0 && $key!=0)
                       <div class="clearfix"></div>
                   @endif
 
