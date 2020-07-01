@@ -3,6 +3,32 @@
 
 
               <div class="item active text-center">
+                <img src="storage/uploads/oneforhealth_10.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"Learning a painful lesson from the 2002 SARS outbreak, my family and I responded immediately to COVID-19. We regularly wear masks even when there are no new cases in our community. The company also provides employees with face masks and disinfectants to make sure we’re safe at work.<br/><br/>
+
+                    Before the pandemic, my teammates and I would spend our lunch break together, eating and chatting. But now, we eat separately and limit face-to-face meetings to practice social distancing. We mostly use Skype to communicate with each other and our TL.<br/><br/>
+
+                    Working in a tourism campaign is especially challenging during the pandemic. Once, there was a customer whose family was stranded in the Philippines asking for the earliest available flight. I couldn’t help them because all our flights were canceled. I researched for an alternative solution and found a charter flight for them.””</em><br/><br/>
+
+                    Taipei-based Customer Service Agent Julia talks about the immediate precautions she’s taken in order to protect herself and her family and her experience being in the customer service industry during a pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_9.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
@@ -28,25 +54,8 @@
                     
               </div>
 
-              <div class="item text-center">
-                <img src="storage/uploads/togetherwithpride.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Together<br/><span class="text-primary">with Pride</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>#Pride </em>is bigger than a celebration. It is a protest. Our friends and colleagues from the #LGBTQI+ community continue to be subjected to hate crimes and brutality even in the midst of the COVID-19 crisis. Open Access BPO commits to stand together with Pride for equality and visibility.<br/><br/>
 
-                    Let's #PrideMarchFromHome to support the #LGBTQI+ communities affected by the pandemic. Make your march count, visit https://hubs.ly/H0rZgw90 now!<br/><br/>
-
-                    <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong>.
-                  </p>    
- 
- 
-                    
-              </div>
+             
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
                   
@@ -184,35 +193,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   June 12, 2020 Holiday |<br/> Independence Pay <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    June 12, 2020 is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
-
-                    In relation to this, please file your holiday worked hours as overtime in EMS to align with our payroll system requirement.  Otherwise, you will not get paid for the holiday premium.<br/><br/>
-
-                    Below is a guide on how the regular holiday pay is computed.
-                    <br/><br/></p>
-
-
-                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of June 12, 2020</p>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
-                    <strong class="text-success">WORKED</strong>
-                    <pre>(Basic Pay + Allowance) x 200%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
- 
-                    
-              </div>
-             
+              
 
               <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_5.jpg" width="100%" />
@@ -623,32 +604,7 @@
                     
               </div>
 
-              <div class="item text-center" >
-                  
-                  
-                  <img src="storage/uploads/mentalhealth.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Mental Health Awareness Month
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   
-                     As Mental Health Awareness Month comes to an end, we’ll leave you with helpful tips to help you look after your mental health during these trying times. Remember: mental health is just as important as physical health! 💛<br/><br/>
-                      - Try out grounding exercises or meditation to reduce anxiety<br/><br/>
-                      - Take breaks when you're feeling unfocused<br/><br/>
-                      - Avoid comparing your feelings and coping mechanisms with those of others<br/><br/>
-                      - Don't let productivity define you<br/><br/>
-                      - Understand there's no correct way to feel during a pandemic<br/><br/>
-                      - Log off social media when your feed becomes too overwhelming<br/><br/>
-                      - Hydrate<br/><br/>
-                      - Check up on each other and stay connected<br/><br/>
-                     <strong>#WeSpeakYourLanguage #OneForHealth #MentalHealthMonth</strong></p>    
- 
- 
-                    
-              </div>
+              
 
               <div class="item text-center" >
                   
@@ -950,28 +906,7 @@
                     
               </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > To all Shuttlers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   Adjusted Ride Waiting Time <br/>
-                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Due to the elevated ECQ restrictions, high volume of ride requests, and driver head count constraints, we have needed to streamline our trip planning to utilize our vehicle pool more efficiently and effectively. Please allow a ride-wait-time of <strong class="text-danger"> no less than 1 to 1.5 hours (even possibly 2-3 hours for farther vicinities)</strong> while you and your co-passengers get picked up.<br/><br/>
-                    <strong>We request for your patience and adaptability for this time. We need to be able to accommodate everyone as mush as is within government ruling as well as our logistical capacity.</strong><br/><br/>
-                    To be able to accommodate more shuttle riders, we have needed to schedule your shared rides in clusters of 1-3 hours ahead of your actual shift start time (possibly longer for those living in farther vicinities) and up to 1 hour from your shift end time. <br/><br/>
-                    This was implemented April 3, 2020.  To reiterate, necessary adjustments in your pickup time have been made and communicated.  Please allot a longer time allowance. Kindly take note of your new ride schedules from the email notification that will be sent and prepare accordingly. 
-                    Let’s all help each other get to and from work on time and safely.
-                    Thank you for your understanding and cooperation.
-
-
-
-                    
-
-                    </p>  
-                    
-                </div>
-
+            
              
 
               <div style="padding:0px" class="item text-center" >
@@ -1272,24 +1207,7 @@
 
              
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary">  Log IN/OUT and DTRP </i><br/> <br/>
-                   <img src="storage/uploads/reminder.jpg" width="80%" /><br/><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     This is a reminder to those working in the office and working from home to LOG IN and LOG OUT using EMS.  As previously announced, EMS will now be the primary system for daily timekeeping.<br/><br/>
-
-                     <strong class="text-primary">Any DTRP concerns will be subject to validation and review. </strong> Non-compliance with the requirement to  LOG IN and LOG OUT in EMS will be dealt with in accordance with our Code of Conduct.<br/><br/>
-
-                      Please be guided accordingly.<br/><br/>
-
-                      Thank you.
-                    
-
-                    </p>  
-                    
-                </div>
+                
 
                
 
@@ -1566,45 +1484,7 @@
                     
                 </div>
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Staying in Temporary Housing<br/>
-                 <br/>
-                    <img src="storage/uploads/wfh.jpg" width="80%" /> <br/><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-
-                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
-                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
-                      had history of exposure, compliance with the procedures is mandatory:</p>
-
-                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-                      <li> The Employee should remain in the temporary housing and immediately notify the Nurse
-                      two hours prior to the scheduled shift. (Nurses’ contact information is found in Section V)<br/><br/></li>
-                      <li>The Nurse will assess the employee’s health via phone call. Depending on the assessment, the Nurse
-                       may require Maxicare Teleconsult or Hospital Consult.<br/><br/></li><br/><br/></li>
-                      <li>If 14-day self-quarantine has been advised, the employee should transfer to and/or maintain single
-                      occupancy of the room. If single occupancy is not possible, the employee will be required to selfquarantine at home.<br/><br/></li>
-                      <li>If hospitalization is recommended, employee is required to be confined.<br/><br/></li>
-                      <li>The employee must provide daily updates to the Nurse
-                       (oamnurse@openaccessbpo.com or call/SMS -09178960634).<br/><br/></li>
-                      <li>After 14 days of quarantine or discharge from hospital, the employee must seek post
-                      quarantine/post-admission medical consult and submit a medical certificate/fit to work certificate.
-                      Consultation may be via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent
-                      to the Nurses. <br/>(note: Teleconsultations provide email reports and may be requested by the patient
-                      before ending the call.)<br/><br/></li>
-                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
-                       and will send the appropriate report. </li>
-
-
-                    </ol>
-
-                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
-
-
-                    
-                </div>
+                
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Using CARPOOL/ SHUTTLE SERVICE FOR WORK<br/>
@@ -1675,10 +1555,7 @@
 
 
                         <a class="btn btn-lg btn-primary text-center" href="https://docs.google.com/forms/d/e/1FAIpQLSd3PxXcHzD2mFl6BOaMAtmA0GGEdupjBoc23Wvpsvp5ilbWig/viewform?usp=sf_link" target="_blank"><i class="fa fa-home"></i> Register Here</a>
-                        <br/><br/>
-
-
-Please note this is an alternative living accommodation option and is not mandatory. 
+                        <br/><br/>Please note this is an alternative living accommodation option and is not mandatory. 
                     </p>
 
                     
@@ -1688,99 +1565,7 @@ Please note this is an alternative living accommodation option and is not mandat
 
                
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Pag-IBIG  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>MULTI-PURPOSE LOAN (MPL) AND <br/> CALAMITY LOAN APPLICATION <br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/calamityloan.jpg" width="90%" /></h4>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;" class="text-left"><br/>
-                      Below is the pertinent information necessary for securing a PAG-IBIG calamity loan and a multi-purpose loan. We hope this will answer crucial questions.<br/><br/>
-
-                      The Pag-IBIG Fund Calamity Loan Program seeks to provide immediate financial aid to affected members in calamity-stricken areas.<br/><br/>
-
-
-
-                      <strong>Home Development Fund (Pag-IBIG)–Calamity Loan Qualifications</strong><br/><br/>
-
-                      Any Pag-IBIG member who -<br/>
-
-                      Has made at least 24 monthly savings<br/>
-                      Has made at least 5 monthly savings in the last 6 months<br/>
-                      Resides in an area under the State of Calamity<br/><br/>
-
-                       <strong class="text-primary">Process and Requirements:</strong><br/><br/>
-
-                      The borrower must submit the following to any Pag-IBIG office:<br/><br/>
-
-                      Calamity Loan Application Form*<br/>
-                      Photocopy of at least 2 valid IDs<br/>
-                      Proof of Income<br/>
-                      Declaration of Being Affected by Calamity* (for formally employed members)<br/>
-                                    <em>[*Documents are available at www.pagibigfund.gov.ph and Pag-IBIG offices]</em><br/><br/>
-
-                      
-                      <strong>Filing:</strong> Loans may be filed within 90 days from the declaration of State of Calamity.<br/><br/>
-
-                      <strong class="text-primary"> Loan Amount</strong><br/><br/>
-
-                      Members can borrow up to 80% of their Total Accumulated Value (TAV) subject to the terms and conditions of the program. Calamity Loan Interest rate is 5.95% per annum. The loan is amortized over 24 months, with a grace period of 3 months. Paying period begins on the 4th month following their check date.<br/><br/>
-
-                      For inquiries and details, see below:<br/><br/>
-
-                      Website:         https://www.pagibigfund.gov.ph/#<br/>
-
-                      Email:              contactus@pagibigfund.gov.ph<br/>
-
-                      Facebook:       https://www.facebook.com/PagIBIGFundOfficialPage/<br/>
-
-                      Pag-IBIG FUND HOTLINE: 8-724-4244 (8-Pag-IBIG) - 24/7 Call Center operation<br/>
-
-                      Virtual Pag-IBIG:  by visiting www.pagibigfund.gov.ph and clicking on the Virtual Pag-IBIG button.<br/><br/>
-
-                       
-
-                      List of valid IDs:<br/><br/>
-
-                      1.       Passport, issued by the Philippine or Foreign Government<br/>
-
-                      2.       Social Security System (SSS) Card<br/>
-
-                      3.       Government Office and GOCC ID (e.g. AFP ID, Pag-IBIG Loyalty Card)<br/>
-
-                      4.       Overseas Workers Welfare Administration (OWWA) ID<br/>
-
-                      5.       Company ID<br/>
-
-                      6.       Senior Citizen Card<br/>
-
-                      7.       Voter’s ID<br/>
-
-                      8.       Professional Regulation Commission (PRC) ID<br/>
-
-                      9.       Integrated Bar of the Philippines (IBP) ID<br/>
-
-                      10.   Driver’s License<br/>
-
-                      11.   Postal ID<br/><br/><br/>
-
-                  
-
-                      For further inquiries, please email Grazelene Anne Hermo, our PAGIBIG FUND Coordinator at ghermo@openaccessbpo.com, employee_relations@openaccessbpo.com and copy salaryinquiry@openaccessbpo.com.<br/><br/>
-
-                      For your information and guidance.<br/><br/>
-
-
-
-                      Sincerely,<br/>
-
-                      HR DEPARTMENT
-                    </p>
-
-                   
-                    
-                </div>
+                
 
                 
 
@@ -2201,6 +1986,252 @@ Please note this is an alternative living accommodation option and is not mandat
 
 
 <?php /*
+  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > To all Shuttlers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   Adjusted Ride Waiting Time <br/>
+                   <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Due to the elevated ECQ restrictions, high volume of ride requests, and driver head count constraints, we have needed to streamline our trip planning to utilize our vehicle pool more efficiently and effectively. Please allow a ride-wait-time of <strong class="text-danger"> no less than 1 to 1.5 hours (even possibly 2-3 hours for farther vicinities)</strong> while you and your co-passengers get picked up.<br/><br/>
+                    <strong>We request for your patience and adaptability for this time. We need to be able to accommodate everyone as mush as is within government ruling as well as our logistical capacity.</strong><br/><br/>
+                    To be able to accommodate more shuttle riders, we have needed to schedule your shared rides in clusters of 1-3 hours ahead of your actual shift start time (possibly longer for those living in farther vicinities) and up to 1 hour from your shift end time. <br/><br/>
+                    This was implemented April 3, 2020.  To reiterate, necessary adjustments in your pickup time have been made and communicated.  Please allot a longer time allowance. Kindly take note of your new ride schedules from the email notification that will be sent and prepare accordingly. 
+                    Let’s all help each other get to and from work on time and safely.
+                    Thank you for your understanding and cooperation.
+
+
+
+                    
+
+                    </p>  
+                    
+                </div>
+
+<div class="item text-center" >
+                  
+                  
+                  <img src="storage/uploads/mentalhealth.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Mental Health Awareness Month
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                     As Mental Health Awareness Month comes to an end, we’ll leave you with helpful tips to help you look after your mental health during these trying times. Remember: mental health is just as important as physical health! 💛<br/><br/>
+                      - Try out grounding exercises or meditation to reduce anxiety<br/><br/>
+                      - Take breaks when you're feeling unfocused<br/><br/>
+                      - Avoid comparing your feelings and coping mechanisms with those of others<br/><br/>
+                      - Don't let productivity define you<br/><br/>
+                      - Understand there's no correct way to feel during a pandemic<br/><br/>
+                      - Log off social media when your feed becomes too overwhelming<br/><br/>
+                      - Hydrate<br/><br/>
+                      - Check up on each other and stay connected<br/><br/>
+                     <strong>#WeSpeakYourLanguage #OneForHealth #MentalHealthMonth</strong></p>    
+ 
+ 
+                    
+              </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" ><i class="fa fa-exclamation-triangle"></i> Reminders: <br/> <span class="text-primary">  Log IN/OUT and DTRP </i><br/> <br/>
+                   <img src="storage/uploads/reminder.jpg" width="80%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     This is a reminder to those working in the office and working from home to LOG IN and LOG OUT using EMS.  As previously announced, EMS will now be the primary system for daily timekeeping.<br/><br/>
+
+                     <strong class="text-primary">Any DTRP concerns will be subject to validation and review. </strong> Non-compliance with the requirement to  LOG IN and LOG OUT in EMS will be dealt with in accordance with our Code of Conduct.<br/><br/>
+
+                      Please be guided accordingly.<br/><br/>
+
+                      Thank you.
+                    
+
+                    </p>  
+                    
+                </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Staying in Temporary Housing<br/>
+                 <br/>
+                    <img src="storage/uploads/wfh.jpg" width="80%" /> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
+                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
+                      had history of exposure, compliance with the procedures is mandatory:</p>
+
+                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                      <li> The Employee should remain in the temporary housing and immediately notify the Nurse
+                      two hours prior to the scheduled shift. (Nurses’ contact information is found in Section V)<br/><br/></li>
+                      <li>The Nurse will assess the employee’s health via phone call. Depending on the assessment, the Nurse
+                       may require Maxicare Teleconsult or Hospital Consult.<br/><br/></li><br/><br/></li>
+                      <li>If 14-day self-quarantine has been advised, the employee should transfer to and/or maintain single
+                      occupancy of the room. If single occupancy is not possible, the employee will be required to selfquarantine at home.<br/><br/></li>
+                      <li>If hospitalization is recommended, employee is required to be confined.<br/><br/></li>
+                      <li>The employee must provide daily updates to the Nurse
+                       (oamnurse@openaccessbpo.com or call/SMS -09178960634).<br/><br/></li>
+                      <li>After 14 days of quarantine or discharge from hospital, the employee must seek post
+                      quarantine/post-admission medical consult and submit a medical certificate/fit to work certificate.
+                      Consultation may be via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent
+                      to the Nurses. <br/>(note: Teleconsultations provide email reports and may be requested by the patient
+                      before ending the call.)<br/><br/></li>
+                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
+                       and will send the appropriate report. </li>
+
+
+                    </ol>
+
+                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
+
+
+                    
+                </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Pag-IBIG  <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>MULTI-PURPOSE LOAN (MPL) AND <br/> CALAMITY LOAN APPLICATION <br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/calamityloan.jpg" width="90%" /></h4>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;" class="text-left"><br/>
+                      Below is the pertinent information necessary for securing a PAG-IBIG calamity loan and a multi-purpose loan. We hope this will answer crucial questions.<br/><br/>
+
+                      The Pag-IBIG Fund Calamity Loan Program seeks to provide immediate financial aid to affected members in calamity-stricken areas.<br/><br/>
+
+
+
+                      <strong>Home Development Fund (Pag-IBIG)–Calamity Loan Qualifications</strong><br/><br/>
+
+                      Any Pag-IBIG member who -<br/>
+
+                      Has made at least 24 monthly savings<br/>
+                      Has made at least 5 monthly savings in the last 6 months<br/>
+                      Resides in an area under the State of Calamity<br/><br/>
+
+                       <strong class="text-primary">Process and Requirements:</strong><br/><br/>
+
+                      The borrower must submit the following to any Pag-IBIG office:<br/><br/>
+
+                      Calamity Loan Application Form*<br/>
+                      Photocopy of at least 2 valid IDs<br/>
+                      Proof of Income<br/>
+                      Declaration of Being Affected by Calamity* (for formally employed members)<br/>
+                                    <em>[*Documents are available at www.pagibigfund.gov.ph and Pag-IBIG offices]</em><br/><br/>
+
+                      
+                      <strong>Filing:</strong> Loans may be filed within 90 days from the declaration of State of Calamity.<br/><br/>
+
+                      <strong class="text-primary"> Loan Amount</strong><br/><br/>
+
+                      Members can borrow up to 80% of their Total Accumulated Value (TAV) subject to the terms and conditions of the program. Calamity Loan Interest rate is 5.95% per annum. The loan is amortized over 24 months, with a grace period of 3 months. Paying period begins on the 4th month following their check date.<br/><br/>
+
+                      For inquiries and details, see below:<br/><br/>
+
+                      Website:         https://www.pagibigfund.gov.ph/#<br/>
+
+                      Email:              contactus@pagibigfund.gov.ph<br/>
+
+                      Facebook:       https://www.facebook.com/PagIBIGFundOfficialPage/<br/>
+
+                      Pag-IBIG FUND HOTLINE: 8-724-4244 (8-Pag-IBIG) - 24/7 Call Center operation<br/>
+
+                      Virtual Pag-IBIG:  by visiting www.pagibigfund.gov.ph and clicking on the Virtual Pag-IBIG button.<br/><br/>
+
+                       
+
+                      List of valid IDs:<br/><br/>
+
+                      1.       Passport, issued by the Philippine or Foreign Government<br/>
+
+                      2.       Social Security System (SSS) Card<br/>
+
+                      3.       Government Office and GOCC ID (e.g. AFP ID, Pag-IBIG Loyalty Card)<br/>
+
+                      4.       Overseas Workers Welfare Administration (OWWA) ID<br/>
+
+                      5.       Company ID<br/>
+
+                      6.       Senior Citizen Card<br/>
+
+                      7.       Voter’s ID<br/>
+
+                      8.       Professional Regulation Commission (PRC) ID<br/>
+
+                      9.       Integrated Bar of the Philippines (IBP) ID<br/>
+
+                      10.   Driver’s License<br/>
+
+                      11.   Postal ID<br/><br/><br/>
+
+                  
+
+                      For further inquiries, please email Grazelene Anne Hermo, our PAGIBIG FUND Coordinator at ghermo@openaccessbpo.com, employee_relations@openaccessbpo.com and copy salaryinquiry@openaccessbpo.com.<br/><br/>
+
+                      For your information and guidance.<br/><br/>
+
+
+
+                      Sincerely,<br/>
+
+                      HR DEPARTMENT
+                    </p>
+
+                   
+                    
+                </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   June 12, 2020 Holiday |<br/> Independence Pay <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    June 12, 2020 is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
+
+                    In relation to this, please file your holiday worked hours as overtime in EMS to align with our payroll system requirement.  Otherwise, you will not get paid for the holiday premium.<br/><br/>
+
+                    Below is a guide on how the regular holiday pay is computed.
+                    <br/><br/></p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of June 12, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+ 
+                    
+              </div>
+
+ <div class="item text-center">
+                <img src="storage/uploads/togetherwithpride.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Together<br/><span class="text-primary">with Pride</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>#Pride </em>is bigger than a celebration. It is a protest. Our friends and colleagues from the #LGBTQI+ community continue to be subjected to hate crimes and brutality even in the midst of the COVID-19 crisis. Open Access BPO commits to stand together with Pride for equality and visibility.<br/><br/>
+
+                    Let's #PrideMarchFromHome to support the #LGBTQI+ communities affected by the pandemic. Make your march count, visit https://hubs.ly/H0rZgw90 now!<br/><br/>
+
+                    <strong>#WeSpeakYourLanguage #OASpeaksWithPride</strong>.
+                  </p>    
+ 
+ 
+                    
+              </div>
               <div class="item active text-center">
                 <img src="storage/uploads/fathersday2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary"> Father's Day!</span>
