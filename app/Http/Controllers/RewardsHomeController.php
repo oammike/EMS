@@ -74,6 +74,67 @@ class RewardsHomeController extends Controller
       ];
       return view('rewards/home_dashboard', $data);
     }
+
+    public function statistics($start = 0, $end = 0){
+      if($start==0 || $end==0){
+        $now = Carbon::now();
+        $now->hour = 0;
+        $now->minute = 0;
+        $now->second = 0;
+
+        $midnight = Carbon::now();
+        $midnight->hour = 23;
+        $midnight->minute = 59;
+        $midnight->second = 59;
+      }else{
+        $now = Carbon::createFromTimestamp($start);
+        $now->hour = 0;
+        $now->minute = 0;
+        $now->second = 0;
+
+        $midnight = Carbon::createFromTimestamp($end);
+        $midnight->hour = 23;
+        $midnight->minute = 59;
+        $midnight->second = 59;
+      }
+
+      $orders = DB::select(DB::raw("
+                  SELECT orders.id, orders.created_at as 'order_date', rewards.name as 'reward_name', users.id as userid, users.employeeNumber as 'employee_number', UPPER(users.lastname) as 'last', UPPER(users.firstname) as 'first', users.nickname as 'nick', campaign.id as 'cid', campaign.name as 'campaign_name'
+                  FROM
+                    orders
+                    LEFT JOIN users on orders.user_id = users.id
+                    LEFT JOIN user_leaders on user_leaders.user_id = users.id
+                    LEFT JOIN immediateHead_Campaigns on user_leaders.immediateHead_Campaigns_id = immediateHead_Campaigns.id
+                    LEFT JOIN campaign on immediateHead_Campaigns.campaign_id = campaign.id                    
+                    LEFT JOIN rewards on orders.reward_id = rewards.id
+                  WHERE orders.created_at BETWEEN '".$now->toDateTimeString()."' AND '".$midnight->toDateTimeString()."'
+                  ORDER BY orders.created_at asc
+                "));
+
+      $data = [
+        'todays_orders' => $orders,
+        'include_rewards_scripts' => FALSE,
+        'contentheader_title' => "Orders History"
+      ];
+
+      if($start==0 || $end==0){
+        return view('rewards/statistics', $data);
+      }else{
+        return response()->json([
+          'orders' => $orders,
+          'query' => "SELECT orders.id, orders.created_at as 'order_date', rewards.name as 'reward_name', users.id as userid, users.employeeNumber as 'employee_number', UPPER(users.lastname) as 'last', UPPER(users.firstname) as 'first', users.nickname as 'nick', campaign.id as 'cid', campaign.name as 'campaign_name'
+                  FROM
+                    orders
+                    LEFT JOIN users on orders.user_id = users.id
+                    LEFT JOIN user_leaders on user_leaders.user_id = users.id
+                    LEFT JOIN immediateHead_Campaigns on user_leaders.immediateHead_Campaigns_id = immediateHead_Campaigns.id
+                    LEFT JOIN campaign on immediateHead_Campaigns.campaign_id = campaign.id                    
+                    LEFT JOIN rewards on orders.reward_id = rewards.id
+                  WHERE orders.created_at BETWEEN '".$now->toDateTimeString()."' AND '".$midnight->toDateTimeString()."'
+                  ORDER BY orders.created_at asc"
+        ], 200);
+      }
+    }
     
     public function rewards_catalog()
     {
@@ -868,6 +929,8 @@ class RewardsHomeController extends Controller
         ], 422);
       }      
     }
+
+
     
     
     //v6pZWpyj
