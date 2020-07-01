@@ -4652,7 +4652,7 @@ trait TimekeepingTraits
             //$koll->push(['1'=> Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->format('Y-m-d H:i:s'), '2'=> $startOfShift->format('Y-m-d H:i:s'),'dh'=>$dh]);
             //(Carbon::parse($payday." ".$noSec->format('H:i'),"Asia/Manila"));//->addHour());
 
-            if ($wh >= 270 ) $wh = $wh-60; 
+            if ($wh >= 300 ) $wh = $wh-60; 
 
 
 
