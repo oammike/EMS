@@ -3,6 +3,32 @@
 
 
               <div class="item active text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">Maxicare's Customer Satisfaction</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/webinar.jpg" width="100%" />
+                    <p style="padding: 30px;" class="text-left"> 
+
+
+                      Our Mental Health in the Workplace Webinar last July 1 was a success because of your participation!  We are more than grateful that you attended and we hope to see you in our future events!<br/><br/>
+
+                      In addition to this,  participants are requested to fill out <strong>Maxicare's Customer Satisfaction Survey Form</strong>. <br/>Please click/copy paste the link below:
+                      <input class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLScJkSEqR275IAuKGV7OoyoyXKIsgfYsVKoo2JSOFqDaGY4N1g/viewform" />
+                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
+
+                      Thank you!<br/>
+                      
+                     
+
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_10.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
@@ -93,42 +119,7 @@
  
                     
               </div>
-              <div class="item  text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Message from Clinical Services:<br/><span class="text-primary">Mental Health in the Workplace Webinar</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <img src="storage/uploads/webinar.jpg" width="100%" />
-                    <p style="padding: 30px;" class="text-left">
-
-                      <img src="storage/uploads/googlemeet.png" width="30%" align="right" />
-                     
-                      <strong>WHAT:  Mental Health in the Workplace Webinar <br/>
-                      WHEN: July 1, 2020 (6PM-7PM)</strong><br/> <br/><br/>
-
-
-                      In connection to the previous invitation we sent out about our Mental Health Awareness Program 2020, we are finally announcing the official date of our <strong class="text-danger"> FREE Webinar</strong> on <strong class="text-primary"> July 1, 2020 @ 6:00pm-7:00pm. </strong>Our google meet link is: meet.google.com/pbe-wduj-ape
-                      <input class="form-control" type="text" id="bundylink" value="https://meet.google.com/pbe-wduj-ape" />
-                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
-
-                      For those who participated in the survey, Thank you! We have noted your names and reserved a slot for you! Just make sure you have your active gmail accounts, good internet connection and access google meet link as stated above. Moreover, for those who missed it, worry no more, there are slots still available! <br/><br/>
-
-                      For you to join, register with us, by replying with your name and account.   <br/><br/>
-
-                      During this pandemic, having the right information about Mental Health can help many, especially if it involves a loved one or ourselves. Let's take advantage of this webinar and hear from a certified Psychiatrist! <br/><br/> <br/><br/>
-
-                      REMINDER: This will be on live stream. For strict compliance, please be reminded that the webinar session is NOT TO BE RECORDED by anyone or for video duplication. <br/><br/>
-
-                      Hope to see you there!<br/>
-                      
-                     
-
-                  </p>    
- 
- 
-                    
-              </div>
+              
 
               <div class="item  text-center">
                 <img src="storage/uploads/oneforhealth_7.jpg" width="100%" />
