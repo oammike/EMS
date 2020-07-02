@@ -120,9 +120,38 @@
                   </tbody>
               </table>
             </div>
-          </div>
+          </div><!-- /.box -->
 
-        </div><!-- /.box -->
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title" id="campaign_title">Campaign Tally</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="campaign_table" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Campaign</th>
+                      <th>Order Count</th>
+                    </tr>
+                  </thead>
+                  <tbody id="campaign_contents">
+                    @forelse($campaigns as $key=>$order)
+                      <tr>
+                        <td>{{ $key }}</td>
+                        <td>{{ $order }}</td>
+                      </tr>
+                    @empty                
+                      <tr>
+                        <td colspan="2">No orders yet.</td>
+                      </tr>
+                    @endforelse
+                  </tbody>
+              </table>
+            </div>
+          </div><!-- /.box -->
+
+        </div>
 
       </div><!-- /.row -->
     </div>
@@ -182,6 +211,11 @@
               $('#count_contents').empty();
               for (const [key, value] of Object.entries(data.count)) {
                 $("<tr><td>"+key+"</td><td>"+value+"</td></tr>").appendTo('#count_contents');                                
+              };
+
+              $('#campaign_contents').empty();
+              for (const [key, value] of Object.entries(data.campaigns)) {
+                $("<tr><td>"+key+"</td><td>"+value+"</td></tr>").appendTo('#campaign_contents');                                
               };
 
             }

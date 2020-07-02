@@ -113,14 +113,21 @@ class RewardsHomeController extends Controller
 
       $order_id = 0;
       $coffee_count = [];
+      $campaigns = [];
 
       foreach ($orders as $key => $order) {
-        if($order_id!=$order->id){          
+        if($order_id!=$order->id){
           $order_id = $order->id;
           if(array_key_exists($order->reward_name,$coffee_count)){
             $coffee_count[$order->reward_name] = $coffee_count[$order->reward_name] + 1;
           }else{
             $coffee_count[$order->reward_name] = 1;
+          }
+
+          if(array_key_exists($order->campaign_name,$campaigns)){
+            $campaigns[$order->campaign_name] = $campaigns[$order->campaign_name] + 1;
+          }else{
+            $campaigns[$order->campaign_name] = 1;
           }
         }
       }
@@ -129,7 +136,8 @@ class RewardsHomeController extends Controller
         'todays_orders' => $orders,
         'include_rewards_scripts' => FALSE,
         'contentheader_title' => "Orders History",
-        'count' => $coffee_count
+        'count' => $coffee_count,
+        'campaigns' => $campaigns
       ];
 
       if($start==0 || $end==0){
@@ -137,7 +145,8 @@ class RewardsHomeController extends Controller
       }else{
         return response()->json([
           'orders' => $orders,
-          'count' => $coffee_count
+          'count' => $coffee_count,
+          'campaigns' => $campaigns
         ], 200);
       }
     }
