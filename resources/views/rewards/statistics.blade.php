@@ -20,7 +20,7 @@
 
 
   <section class="content-header">
-    <h1><i class="fa fa-gift"></i> Coffee Shop Stats <small id="points_counter">Orders Today: {{ count($todays_orders) }}</small></h1>
+    <h1><i class="fa fa-gift"></i> Coffee Shop Stats <small id="points_counter">Orders Today: </small></h1>
 
     <ol class="breadcrumb">
       <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -67,11 +67,13 @@
 
                 @php
                   $previous_index = 0;
+                  $displayed = 0;
                 @endphp
                   @forelse($todays_orders as $key=>$order)
                     @if ($previous_index != $order->id)
                       @php
                         $previous_index = $order->id;
+                        $displayed = $displayed + 1;
                       @endphp  
                       <tr>
                         <td>{{ $order->campaign_name }}</td>
@@ -101,7 +103,10 @@
 
 @section('footer-scripts')
 	<script>		
+    window.displayed = {{ $displayed }};
 		$(function() {
+      $('#points_counter').text("Orders Today: "+ window.displayed );
+
       $('#table_loader').hide();
       $('#reservation').daterangepicker(
         {
@@ -125,6 +130,7 @@
             url : "{{ url('/coffeeshop-stats') }}/"+start.format('X')+"/"+end.format('X'),
             success : function(data){
               $('#table_contents').empty();
+              var displayed = 0;
               
               var current_index = 0;
               data.orders.forEach(function(order,index){
@@ -133,10 +139,13 @@
                   console.log("appending order id: "+order.id);
                   $("<tr><td>"+order.campaign_name+"</td><td>"+order.first+" "+order.last+"</td><td>"+order.reward_name+"</td><td>"+order.order_date+"</td></tr>").appendTo('#table_contents');
                   current_index = order.id;
+                  displayed = displayed + 1;
                 }
               });
               $('#table').show();
               $('#table_loader').hide();
+              $('#points_counter').text("Orders for this period: "+displayed);
+              $('#table_title').text("Orders for " + start.format('MMM DD') + " to " + end.format('MMM DD') );
             }
           });
         }
