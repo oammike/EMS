@@ -111,10 +111,25 @@ class RewardsHomeController extends Controller
                   ORDER BY orders.created_at asc
                 "));
 
+      $order_id = 0;
+      $coffee_count = [];
+
+      foreach ($orders as $key => $order) {
+        if($order_id!=$order->id){          
+          $order_id = $order->id;
+          if(array_key_exists($order->reward_name,$coffee_count)){
+            $coffee_count[$order->reward_name] = $coffee_count[$order->reward_name] + 1;
+          }else{
+            $coffee_count[$order->reward_name] = 1;
+          }
+        }
+      }
+
       $data = [
         'todays_orders' => $orders,
         'include_rewards_scripts' => FALSE,
-        'contentheader_title' => "Orders History"
+        'contentheader_title' => "Orders History",
+        'count' => $coffee_count
       ];
 
       if($start==0 || $end==0){
@@ -122,16 +137,7 @@ class RewardsHomeController extends Controller
       }else{
         return response()->json([
           'orders' => $orders,
-          'query' => "SELECT orders.id, orders.created_at as 'order_date', rewards.name as 'reward_name', users.id as userid, users.employeeNumber as 'employee_number', UPPER(users.lastname) as 'last', UPPER(users.firstname) as 'first', users.nickname as 'nick', campaign.id as 'cid', campaign.name as 'campaign_name'
-                  FROM
-                    orders
-                    LEFT JOIN users on orders.user_id = users.id
-                    LEFT JOIN user_leaders on user_leaders.user_id = users.id
-                    LEFT JOIN immediateHead_Campaigns on user_leaders.immediateHead_Campaigns_id = immediateHead_Campaigns.id
-                    LEFT JOIN campaign on immediateHead_Campaigns.campaign_id = campaign.id                    
-                    LEFT JOIN rewards on orders.reward_id = rewards.id
-                  WHERE orders.created_at BETWEEN '".$now->toDateTimeString()."' AND '".$midnight->toDateTimeString()."'
-                  ORDER BY orders.created_at asc"
+          'count' => $coffee_count
         ], 200);
       }
     }

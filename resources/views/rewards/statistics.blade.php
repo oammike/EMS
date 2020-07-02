@@ -29,9 +29,9 @@
   </section>
 
   <section class="content">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-10 col-md-12">
+        <div class="col-xs-8">
           <div class="box">
               <div class="box-header">
                 <h3 class="box-title" id="table_title">Orders Today</h3>
@@ -64,35 +64,66 @@
                     </tr>
                   </thead>
                   <tbody id="table_contents">
-
-                @php
-                  $previous_index = 0;
-                  $displayed = 0;
-                @endphp
-                  @forelse($todays_orders as $key=>$order)
-                    @if ($previous_index != $order->id)
-                      @php
-                        $previous_index = $order->id;
-                        $displayed = $displayed + 1;
-                      @endphp  
+                  @php
+                    $previous_index = 0;
+                    $displayed = 0;
+                  @endphp
+                    @forelse($todays_orders as $key=>$order)
+                      @if ($previous_index != $order->id)
+                        @php
+                          $previous_index = $order->id;
+                          $displayed = $displayed + 1;
+                        @endphp  
+                        <tr>
+                          <td>{{ $order->campaign_name }}</td>
+                          <td>{{ $order->first }} {{ $order->last }}</td>
+                          <td>{{ $order->reward_name }}</td>
+                          <td>{{ \Carbon\Carbon::parse($order->order_date)->format('h:i:s A') }}</td>
+                        </tr>
+                      @endif
+                    @empty                
                       <tr>
-                        <td>{{ $order->campaign_name }}</td>
-                        <td>{{ $order->first }} {{ $order->last }}</td>
-                        <td>{{ $order->reward_name }}</td>
-                        <td>{{ \Carbon\Carbon::parse($order->order_date)->format('h:i:s A') }}</td>
+                        <td colspan="4">No orders yet.</td>
                       </tr>
-                    @endif
-                  @empty                
-                    <tr>
-                      <td colspan="4">No orders yet.</td>
-                    </tr>
-                  @endforelse
-                </tbody></table>
-              </div>
-              <!-- /.box-body -->
-            </div>
-          <!-- /.box -->
+                    @endforelse
+                  </tbody>
+                </table>
+              </div><!-- /.box-body -->
+            </div><!-- /.box -->
         </div><!-- /.col -->
+
+        <div class="col-xs-4">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title" id="count_title">Order Tally</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="count_table" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Coffee</th>
+                      <th>Order Count</th>
+                    </tr>
+                  </thead>
+                  <tbody id="count_contents">
+                    @forelse($count as $key=>$order)
+                      <tr>
+                        <td>{{ $key }}</td>
+                        <td>{{ $order }}</td>
+                      </tr>
+                    @empty                
+                      <tr>
+                        <td colspan="2">No orders yet.</td>
+                      </tr>
+                    @endforelse
+                  </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div><!-- /.box -->
+
       </div><!-- /.row -->
     </div>
   </section>
@@ -137,7 +168,6 @@
                 
                 if(current_index!=order.id){
                   var time = moment(order.order_date);
-                  console.log("appending order id: "+order.id);
                   $("<tr><td>"+order.campaign_name+"</td><td>"+order.first+" "+order.last+"</td><td>"+order.reward_name+"</td><td>"+time.format('MM/DD h:mm:ss A')+"</td></tr>").appendTo('#table_contents');
                   current_index = order.id;
                   displayed = displayed + 1;
@@ -147,6 +177,13 @@
               $('#table_loader').hide();
               $('#points_counter').text("Orders for this period: "+displayed);
               $('#table_title').text("Orders for " + start.format('MMM DD') + " to " + end.format('MMM DD') );
+
+
+              $('#count_contents').empty();
+              for (const [key, value] of Object.entries(data.count)) {
+                $("<tr><td>"+key+"</td><td>"+value+"</td></tr>").appendTo('#count_contents');                                
+              };
+
             }
           });
         }
