@@ -136,8 +136,9 @@
               data.orders.forEach(function(order,index){
                 
                 if(current_index!=order.id){
+                  var time = moment(order.order_date);
                   console.log("appending order id: "+order.id);
-                  $("<tr><td>"+order.campaign_name+"</td><td>"+order.first+" "+order.last+"</td><td>"+order.reward_name+"</td><td>"+order.order_date+"</td></tr>").appendTo('#table_contents');
+                  $("<tr><td>"+order.campaign_name+"</td><td>"+order.first+" "+order.last+"</td><td>"+order.reward_name+"</td><td>"+time.format('MM/DD h:mm:ss A')+"</td></tr>").appendTo('#table_contents');
                   current_index = order.id;
                   displayed = displayed + 1;
                 }
