@@ -2,7 +2,31 @@
 
 
 
-              <div class="item active text-center">
+               <div class="item active text-center">
+                <img src="storage/uploads/oneforhealth_11.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"With GCQ implemented and its loosened restrictions, my biggest fear is that all our efforts in protecting the health, safety, and livelihood of our employees in the last few months will all be for naught. I ask that each member of our Open Access BPO family restrict movements only for absolute essentials. Be responsible. Stay healthy and remain overly cautious. We will see this through, together.<br/><br/>
+                    Being a single mom, with 3 kids and 3 dogs, facing the changes since ECQ was quite the predicament I had to quickly accept. I needed to deal with these while leading our team to enable our employees to work from home, develop and deploy a shuttle service system, set up office-dwelling, house a subset of our employees in temporary accommodations while ensuring we get our clients to agree with flexible work arrangements and caring for the health, safety, and livelihood of our employees.<br/><br/>
+                    
+                    In between meetings and sometimes during one-on-ones with my team, I find myself multitasking to shop for groceries online or start preparing meals. Four months in, I have managed to and have actually enjoyed integrating work-life balance.”</em><br/><br/>
+
+                    Open Access BPO's Vice President Joy talks about her experience as a mother and a leader during quarantine and how she copes with the changes in her daily life brought by the pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+              <div class="item text-center">
                 
                   <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">Maxicare's Customer Satisfaction</span>
                   <br/>
