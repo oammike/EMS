@@ -5859,6 +5859,7 @@ trait TimekeepingTraits
                       $workedHours = round(number_format($wh/60 + $deet->totalHours,2),PHP_ROUND_HALF_DOWN);// 8.0;
 
                       if ($workedHours > 8) $workedHours = $workedHours--;
+                      //if ($workedHours > 8) $workedHours = 8.0; //$workedHours--;
 
                     }else
                     {
@@ -6037,7 +6038,8 @@ trait TimekeepingTraits
              
               $WHcounter = number_format(round($wh/60 + $deet->totalHours),2);
 
-              if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
+              //if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
+              if ($WHcounter > 8) $WHcounter = 8.00;
               $workedHours = $WHcounter;
               $actualHrs = $WHcounter;
               $workedHours .= "<br/>".$log;
