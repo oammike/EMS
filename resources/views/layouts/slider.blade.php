@@ -32,11 +32,15 @@
                   <br/>
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <img src="storage/uploads/webinar.jpg" width="100%" />
+                    <img src="storage/uploads/maxiwebinar.jpg" width="100%" />
                     <p style="padding: 30px;" class="text-left"> 
 
 
-                      Our Mental Health in the Workplace Webinar last July 1 was a success because of your participation!  We are more than grateful that you attended and we hope to see you in our future events!<br/><br/>
+                      The Open Access BPO Clinic organized our first #OneForHealth Mental Health Awareness Program. The recent event was held to address the stressors arising in employees' daily lives from this pandemic.<br/><br/>
+
+                      Maxicare Healthcare Corporation Primary Care Physician, Dr. Anna Margarita Cruz, led the webinar with Head Company Nurse, Ms. Loraine Lopez, and Maxicare Assistant Manager, Mr. Anthony Joseph Perez, facilitating the event.<br/><br/>
+
+                      Our Clinic and nurses are always available to help you cope with the changes during these trying times. We are one for health.<br/><br/>
 
                       In addition to this,  participants are requested to fill out <strong>Maxicare's Customer Satisfaction Survey Form</strong>. <br/>Please click/copy paste the link below:
                       <input class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLScJkSEqR275IAuKGV7OoyoyXKIsgfYsVKoo2JSOFqDaGY4N1g/viewform" />
