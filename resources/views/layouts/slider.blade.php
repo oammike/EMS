@@ -3,6 +3,25 @@
 
 
                <div class="item active text-center">
+                <img src="storage/uploads/july42020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary">4th of July</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   The true spirit of independence is independence for all. May we never forget the sacrifices of those who fought for equality and liberty so that everyone can celebrate the right to life and happiness.<br/><br/>
+
+                    We hope you have a safe and meaningful #FourthofJuly!<br/><br/>
+
+                    #WeSpeakYourLanguage #OAHolidays
+                  </p>    
+ 
+ 
+                    
+              </div>
+              <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_11.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
                   <br/>
