@@ -111,21 +111,20 @@ trait TimekeepingTraits
   }
 
 
-  // public function checkVLcredits($user)
-  // {
-  //   $avail = $user->availableVL;
-  //   return $avail;
-
-  // }
 
   public function establishLeaves($id,$endShift,$leaveType,$thisPayrollDate,$schedForToday)
   {
     $alldaysVL=[];$hasVL=null;$vlDeet=null;$hasLeave=null;$vl=null;$hasPendingVL=null;
 
+
     /*-------- VACATION LEAVE  -----------*/
+    $eod = Carbon::parse($thisPayrollDate,'Asia/Manila')->endOfDay();
     switch ($leaveType) {
-      case 'VL': $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+      /*case 'VL': $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+                  break;*/
+      case 'VL': $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$eod->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
                   break;
+      
       case 'VTO': $vl1 = User_VTO::where('user_id',$id)->where('productionDate',$thisPayrollDate)->orderBy('created_at','DESC')->get();
                   break;
       case 'SL': $vl1 = User_SL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
@@ -172,7 +171,7 @@ trait TimekeepingTraits
           
           if ($vacay->totalCredits <= 1)
           {
-              if($schedForToday['isRD']){ }
+              if($schedForToday['isRD'] && ($schedForToday['timeStart']==$schedForToday['timeEnd'])) { }
               else
                 array_push($alldaysVL, $f_dayS->format('Y-m-d'));
 
@@ -184,7 +183,7 @@ trait TimekeepingTraits
           {
             $daysSakop = $f_dayE->diffInDays($f_dayS)+1;
 
-            if($schedForToday['isRD']){ }
+            if($schedForToday['isRD'] && ($schedForToday['timeStart']==$schedForToday['timeEnd'])){ }
             else
             {
               while( $cf2 <= $daysSakop) {  // $cf){
@@ -223,9 +222,10 @@ trait TimekeepingTraits
       
     }else 
     {
-      $vl=['X'];$hasVL = false;
+      $vl=['X']; $hasVL = false;
       $vlDeet = null;
     }
+
     /*-------- VACATION LEAVE  -----------*/
 
     $theLeave = new Collection;
@@ -237,9 +237,10 @@ trait TimekeepingTraits
     $theLeave->hasPending = $hasPendingVL;
     $theLeave->daysSakop = $daysSakop;
     $theLeave->schedForToday = $schedForToday;
-    $theLeave->query = ['leaveStart<='=>$endShift->format('Y-m-d H:i:s')];
+    $theLeave->query = ['leaveStart<='=>$endShift->format('Y-m-d H:i:s'),'eod'=>$eod, 'vl1'=>$vl1, 'schedForToday'=>$schedForToday];
 
     return $theLeave;
+    //return $vl1;
 
 
   }
@@ -865,7 +866,7 @@ trait TimekeepingTraits
                   $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
                                             'timeEnd'=> $approvedCWS->first()->timeEnd,
                                             'isFlexitime' => false,
-                                            'isRD'=> $approvedCWS->first()->isRD);
+                                            'isRD'=> false); // $approvedCWS->first()->isRD);
                  }
                  $RDsched1 = $RDsched;
 
@@ -892,7 +893,7 @@ trait TimekeepingTraits
                   $schedForToday = array('timeStart'=>$approvedCWS->first()->timeStart, 
                                             'timeEnd'=> $approvedCWS->first()->timeEnd,
                                             'isFlexitime' => false,
-                                            'isRD'=> $approvedCWS->first()->isRD);
+                                            'isRD'=> false); // $approvedCWS->first()->isRD);
                  }
                  $RDsched1 = $RDsched;
 
@@ -3295,7 +3296,8 @@ trait TimekeepingTraits
                     'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL, 'hasVTO'=>$hasVTO,
                     'hasPendingDTRP' => $hasPendingDTRP,
                     'leave'=>$leaveDetails,
-                    'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    //'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    'leaveStart'=>$beginShift->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
                     'logPalugit'=>$logPalugit,
                     'logs'=>$userLog,'lwop'=>$lwopDetails, 
                     'logTxt'=>$log,
@@ -3327,7 +3329,8 @@ trait TimekeepingTraits
                     'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,'hasVTO'=>$hasVTO,
                     'hasPendingDTRP' => $hasPendingDTRP,
                     'leave'=>$leaveDetails,
-                    'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    //'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    'leaveStart'=>$beginShift->format('Y-m-d H:i:s'),'leaveEnd'=>$endShift->format('Y-m-d H:i:s'),
                     'logPalugit'=>$logPalugit,
                     'logs'=>$userLog,'lwop'=>$lwopDetails, 
                     'logTxt'=>$log,
@@ -3339,7 +3342,7 @@ trait TimekeepingTraits
                     'timing'=>$timing,'UT'=>$UT,
                     'vl'=>$vl,
                     'pal'=>$pal,
-                    'CHECKER'=>$alldaysVL,
+                    'CHECKER'=>$vacationLeave->query, //$alldaysVL,
                     
                     ]);
 

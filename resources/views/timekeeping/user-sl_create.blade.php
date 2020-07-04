@@ -237,7 +237,7 @@
           $('input[name="timestart_old"]').val(response.timeStart);
           $('input[name="timeend_old"]').val(response.timeEnd);
 
-          if (response.timeStart === response.timeEnd || response.isRD == 1)
+          if (response.timeStart === response.timeEnd )//|| response.isRD == 1
           {
             alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
           }
@@ -320,7 +320,7 @@
               success: function(response)
               {
                 console.log(response);
-                if (response.timeStart === response.timeEnd || response.isRD == 1)
+                if (response.timeStart === response.timeEnd )//|| response.isRD == 1
                 {
                   $.notify("No need to file for a sick leave. \nSelected date actually falls on a REST DAY.",{className:"error", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );return false;
                 }
@@ -643,7 +643,7 @@
                   console.log(response);
                   $('input[name="timestart_old"]').val(response.start);
                   $('input[name="timeend_old"]').val(response.end);
-                  if (response.timeStart === response.timeEnd || response.isRD == 1)
+                  if (response.timeStart === response.timeEnd )//|| response.isRD == 1
                   {
                    $.notify("No need to file for a sick leave. \nSelected date actually falls on a REST DAY.",{className:"error", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );return false;
                   }

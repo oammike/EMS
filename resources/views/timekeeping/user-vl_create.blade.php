@@ -222,7 +222,7 @@
                   $('input[name="timestart_old"]').val(response.timeStart);
                   $('input[name="timeend_old"]').val(response.timeEnd);
 
-                  if (response.timeStart === response.timeEnd || response.isRD == 1)
+                  if (response.timeStart === response.timeEnd)// && response.isRD == 1
                   {
                     alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
                   }
@@ -281,7 +281,7 @@
                         success: function(response){
                           console.log('from getWorkSchedForTheDay');
                           console.log(response);
-                          if (response.timeStart === response.timeEnd || response.isRD == 1)
+                          if (response.timeStart === response.timeEnd )//&& response.isRD == 1
                           {
                             alert("\n\nNo need to file for a vacation leave. \nThe selected date falls on a REST DAY."); return false;
                           }
