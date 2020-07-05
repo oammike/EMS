@@ -278,6 +278,8 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
+                          ['floor.id', '!=',10],
+                          ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
 
       }
@@ -305,6 +307,8 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
+                          ['floor.id', '!=',10],
+                          ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
 
       }
@@ -325,6 +329,8 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
+                          ['floor.id', '!=',10],
+                          ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
                       //return $allDTRs;
 
