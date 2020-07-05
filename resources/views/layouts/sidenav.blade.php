@@ -562,6 +562,10 @@
 
             <hr /><!--  --> 
             <li style="padding-left:20px" @if ( Request::is('user_dtr*') ) class="active" @endif ><a href="{{action('DTRController@dtrSheets')}}"><i class="fa fa-download"></i> DTR Sheets</a></li>
+
+            <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@wfm_DTRsummary')}}"><i class="fa fa-file-o"></i>DTR Summary </a></li>
+
+
             <li style="padding-left:20px" @if ( Request::is('allLogs') ) class="active" @endif ><a href="{{action('LogsController@allLogs')}}"><i class="fa fa-clock-o"></i> User Logs</a></li>
 
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('UPLOAD_BIOMETRICS') ){ ?> 

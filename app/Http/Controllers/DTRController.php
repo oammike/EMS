@@ -1715,7 +1715,7 @@ class DTRController extends Controller
       switch ($request->template) {
         case 1: $result = $this->getAllOT($request->cutoff,1); break;
         case 2: $result = $this->getAllLeaves($request->cutoff,1); break;
-        case 3: $result = $this->getAllCWS($request->cutoff,1); break;
+        case 3: ($request->DTRsummary) ? $result = $this->getAllCWS($request->cutoff,1,1) : $result = $this->getAllCWS($request->cutoff,1,null); break;
         case 4: $result = $this->getAllWorksched($request->cutoff,1); break;
         case 5: $result = $this->getAllWorkedHolidays($request->cutoff,1); break;
       }
@@ -1741,7 +1741,7 @@ class DTRController extends Controller
       switch ($request->template) {
         case '1': $result = $this->getAllOT($cutoff,0); break;
         case '2': $result = $this->getAllLeaves($cutoff,0); break;
-        case '3': $result = $this->getAllCWS($cutoff,0); break;
+        case '3': { ($request->DTRsummary) ? $result = $this->getAllCWS($cutoff,0,1) : $result = $this->getAllCWS($cutoff,0,null); } break;
         case '4': $result = $this->getAllWorksched($cutoff,0); break;
         case '5': $result = $this->getAllWorkedHolidays($cutoff,0); break;
       }
@@ -1754,7 +1754,10 @@ class DTRController extends Controller
       switch ($template) {
         case '1': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
         case '2': { $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
-        case '3': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="ChangeShiftSchedules"; } break; 
+        case '3': { 
+                      $type="ChangeShiftSchedules";
+                      ($request->DTRsummary) ? $headers = ['AccessCode', 'EmployeeName','Program', 'ShiftDate','Old Schedule','New Schedule','Status','Approver'] : $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType'];  
+                  } break; 
         case '4': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="WorSchedules"; } break; 
 
         case '5': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
@@ -2629,68 +2632,140 @@ class DTRController extends Controller
 
                           if(count($jps) > 1)
                           {
-                            foreach ($jps as $j) 
+                            if($request->DTRsummary)
                             {
-                              $c=0;
-                              $arr[$c] = $j->accesscode; $c++;
-                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+                              foreach ($jps as $j) //['AccessCode', 'EmployeeName','Program', 'ShiftDate','Old Schedule','New Schedule','Status','Approver']
+                              {
+                                $c=0;
+                                $arr[$c] = $j->accesscode; $c++;
+                                $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
 
-                              $s_old = Carbon::parse($j->productionDate." ".$j->timeStart_old,'Asia/Manila');
-                              $e_old = Carbon::parse($j->productionDate." ".$j->timeEnd_old,'Asia/Manila');
-                              $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
-                              $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila');
+                                $s_old = Carbon::parse($j->productionDate." ".$j->timeStart_old,'Asia/Manila');
+                                $e_old = Carbon::parse($j->productionDate." ".$j->timeEnd_old,'Asia/Manila');
+                                $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                                $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila');
 
-                              //*** ShiftDate
-                              $arr[$c] = $s->format('m/d/Y'); $c++;
+                                 //*** Program
+                                $arr[$c] = $j->program; $c++;
 
-                               //*** Status
-                              if($j->isApproved == '1') $stat = "Approved";
-                              else if ($j->isApproved == '0') $stat = "Denied";
-                              else $stat = "Pending Approval";
+                                //*** ShiftDate
+                                $arr[$c] = $s->format('m/d/Y'); $c++;
 
-                              $arr[$c] = $stat; $c++;
+                                
 
-                              //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
-                             if($j->timeStart_old == "00:00:00" && $j->timeEnd_old == "00:00:00")
-                             {
-                                 $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++;
-                             }
-                             else{
-                               $arr[$c] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $c++;
-                             }
+                                //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
+                               if($j->timeStart_old == "00:00:00" && $j->timeEnd_old == "00:00:00")
+                               {
+                                   $arr[$c] = "RD"; $c++;
+                               }
+                               else{
+                                 $arr[$c] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $c++;
+                               }
 
-                              //*** NewDailySchedule
-                              if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00")
-                             {
-                                 $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
-                             }
-                             else {
-                              $arr[$c] = $s->format('h:i A')." - ".$e->format('h:i A'); $c++;
-                             }
-                              
+                                //*** NewDailySchedule
+                                if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00")
+                               {
+                                   $arr[$c] = "RD";$c++;
+                               }
+                               else {
+                                $arr[$c] = $s->format('h:i A')." - ".$e->format('h:i A'); $c++;
+                               }
 
-                              //*** CurrentDayType
-                              if($j->isRD){
-                                $arr[$c] = "Rest Day"; $c++;
+                                //*** Status
+                                if($j->isApproved == '1') $stat = "Approved";
+                                else if ($j->isApproved == '0') $stat = "Denied";
+                                else $stat = "Pending Approval";
+
+                                $arr[$c] = $stat; $c++;
+
+                                 //*** Approver
+                                if($j->approver)
+                                {
+                                  $app = ImmediateHead::find(ImmediateHead_Campaign::find($j->approver)->immediateHead_id);
+                                  $approver = $app->firstname." ".$app->lastname." on [".date('M d,Y h:i A', strtotime($j->updated_at))."]";
+
+                                }
+                                else
+                                {
+                                  $approver = "WFM team";
+                                }
+
+                                $arr[$c] = $approver; $c++;
+
+
+                                $sheet->appendRow($arr);
+                                
                               }
-                              else{
-                                $arr[$c] = "Regular Day"; $c++;
-                              }
 
-                              //*** NewDayType
-                              if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00"){
-                                $arr[$c] = "Rest Day"; $c++;
-                              }
-                              else{
-                                $arr[$c] = "Regular Day"; $c++;
-                              }
-
-
-
-                              $sheet->appendRow($arr);
-                              
                             }
+                            else
+                            {
+                              foreach ($jps as $j) 
+                              {
+                                $c=0;
+                                $arr[$c] = $j->accesscode; $c++;
+                                $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                                $s_old = Carbon::parse($j->productionDate." ".$j->timeStart_old,'Asia/Manila');
+                                $e_old = Carbon::parse($j->productionDate." ".$j->timeEnd_old,'Asia/Manila');
+                                $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                                $e =  Carbon::parse($j->productionDate." ".$j->timeEnd,'Asia/Manila');
+
+                                //*** ShiftDate
+                                $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                                 //*** Status
+                                if($j->isApproved == '1') $stat = "Approved";
+                                else if ($j->isApproved == '0') $stat = "Denied";
+                                else $stat = "Pending Approval";
+
+                                $arr[$c] = $stat; $c++;
+
+                                //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
+                               if($j->timeStart_old == "00:00:00" && $j->timeEnd_old == "00:00:00")
+                               {
+                                   $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++;
+                               }
+                               else{
+                                 $arr[$c] = $s_old->format('h:i A')." - ".$e_old->format('h:i A'); $c++;
+                               }
+
+                                //*** NewDailySchedule
+                                if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00")
+                               {
+                                   $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                               }
+                               else {
+                                $arr[$c] = $s->format('h:i A')." - ".$e->format('h:i A'); $c++;
+                               }
+                                
+
+                                //*** CurrentDayType
+                                if($j->isRD){
+                                  $arr[$c] = "Rest Day"; $c++;
+                                }
+                                else{
+                                  $arr[$c] = "Regular Day"; $c++;
+                                }
+
+                                //*** NewDayType
+                                if($j->timeStart == "00:00:00" && $j->timeEnd == "00:00:00"){
+                                  $arr[$c] = "Rest Day"; $c++;
+                                }
+                                else{
+                                  $arr[$c] = "Regular Day"; $c++;
+                                }
+
+
+
+                                $sheet->appendRow($arr);
+                                
+                              }
+
+                            }
+                            
 
                           }
                           else
@@ -5066,6 +5141,71 @@ class DTRController extends Controller
       }
 
       
+    }
+
+
+    public function wfm_DTRsummary()
+    {
+      DB::connection()->disableQueryLog();
+
+      $templates = collect([
+                              ['id'=>1,'name'=>'Overtime'],
+                              ['id'=>2,'name'=>'Leaves'],
+                              ['id'=>3,'name'=>'Change Work Schedules'],
+                              //['id'=>4,'name'=>'Work Schedules'],
+                              //['id'=>5,'name'=>'Ops Worked Holiday(s)'],
+
+      ]);
+      
+
+
+      $cutoffData = $this->getCutoffStartEnd();
+      $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
+      $cutoffEnd = $cutoffData['cutoffEnd'];
+
+       //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+      $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
+
+      
+      $allUsers = DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                    ['users.status_id', '!=', 13],
+                    ['users.status_id', '!=', 16],
+                ])->
+        leftJoin('team','team.user_id','=','users.id')->
+        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+        leftJoin('positions','users.position_id','=','positions.id')->
+        leftJoin('floor','team.floor_id','=','floor.id')->
+        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+
+        // $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->
+        //                   where([
+        //                     ['campaign.id', '!=','26'], //wv
+        //                     ['campaign.id', '!=','35'], //ceb
+
+        //                   ])->orderBy('name')->get();//
+        //$byTL = collect($allUsers)->groupBy('tlID');
+        //$allTL = $byTL->keys();
+        //return collect($allUsers)->where('campID',7);
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed WFM_dtrSummary on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+        
+      
+
+      return view('timekeeping.wfm_DTRsummary',compact('payrollPeriod','paycutoffs','templates'));
+
     }
 
 

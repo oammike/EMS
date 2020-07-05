@@ -956,7 +956,7 @@ trait TimekeepingTraits
   }
 
 
-  public function getAllCWS($c, $json)
+  public function getAllCWS($c, $json, $isDTRsummary)
   {
     $cutoff = explode('_', $c); //return $cutoff;
     $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
@@ -968,11 +968,29 @@ trait TimekeepingTraits
     $total = 0;
 
     foreach ($period as $p) {
-       $ot = DB::table('user_cws')->where([ 
+
+       if ($isDTRsummary) 
+       {
+          $ot = DB::table('user_cws')->where([ 
+                    ['user_cws.biometrics_id',$p->id]
+                    ])->join('users','users.id','=','user_cws.user_id')->
+                    join('biometrics','user_cws.biometrics_id','=','biometrics.id')->
+                    join('team','team.user_id','=','user_cws.user_id')->
+                    join('campaign','campaign.id','=','team.campaign_id')->
+                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.accesscode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_cws.approver','user_cws.updated_at')->get();
+
+       }
+        
+       else {
+          $ot = DB::table('user_cws')->where([ 
                     ['user_cws.biometrics_id',$p->id]
                     ])->join('users','users.id','=','user_cws.user_id')->
                     join('biometrics','user_cws.biometrics_id','=','biometrics.id')->
                   select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+
+       }
+        
+
       if (count($ot) > 0) {
         $allOTs->push($ot);
         $total += count($ot);
