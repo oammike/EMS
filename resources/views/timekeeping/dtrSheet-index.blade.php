@@ -298,6 +298,7 @@
        // get validated dtr
       var _token = "{{ csrf_token() }}";
       var cutoff = $('select[name="cutoff"]').find(':selected').val();
+      $('#loader').fadeIn();
 
 
       $.ajax({
@@ -312,6 +313,7 @@
                   console.log(response);
 
                   $('.notes').fadeIn();
+                  $('#loader').fadeOut();
                   $('#submitted').html('('+response.submitted+')');
                   $('#total').html('('+response.total+') team members ');
                   $('#programName').html(response.program);
