@@ -1,8 +1,55 @@
 
 
 
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" > OA OFFICE CAB SERVICE <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>The Additional Solution for Your GCQ Office Transport Needs<br/>
+                 <br/>
+                  <img src="storage/uploads/carpool.png" width="100%" />
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
 
-               <div class="item active text-center">
+                      <strong>For onsite employees looking for a faster and equally safe everyday-transport option to the office:</strong><br/><br/>
+
+                        If we were to launch an OA-accredited exclusive cab service, would you sign up if the rates were cheaper than Grab and the recurring weekly trips were scheduled for you?<br/><br/>
+
+
+
+                        While our current shuttle service is free and has some degree of flexibility, ridesharing with longer lead times may not be for everyone. Before we can operationalize it, we need to find out if there was enough of you who’d want to use this exclusive cab service fleet for your daily office transport for a minimal fixed fare. If we get at least 20 positive responses, we will be able to set this up for you in about 2 weeks.<br/><br/>
+
+
+
+                        Kindly answer the <a style="font-weight: bold;" href="https://www.emailmeform.com/builder/form/Z6bk4fu9HbL1novj6hfbIG" target="_blank"> survey here </a>. It will just take a few minutes.<br/><br/>
+
+                        We will check the results up to <strong> July 12, 2020.</strong> <br/><br/><br/><br/>
+
+
+                         
+
+
+
+                        <strong class="text-success"> Here's how it will work:</strong><br/><br/>
+
+                        To ensure health and safety when traveling to the office, we are planning to set up our very own OA Office Cab Service, a paid transport service from our private driver fleet providing daily prescheduled rides exclusive to OA employees who prefer to travel to work alone (or up to 1-2 carpool mates) and are willing to pay, making daily office trips faster and safer.<br/><br/>
+
+                         
+
+                        This is for those looking for an alternative to our current transport options: company shuttle service, private vehicle, or private carpool. Here then is another safe way for you to get to the office. Our Office Cab Service just might be for you. <br/><br/>
+
+
+
+
+
+                        <a href="https://app.luminpdf.com/viewer/5efee51a20b8fd0013a36741" target="_blank"> Click here</a> for more details. See our affordable rates here: <a href="https://drive.google.com/file/d/1w9FMip-7e0IGPaIbUk2FCQIe30sYPL0m/view" target="_blank"> Fare Table</a>.
+
+                    </p>
+                   
+                   
+
+                    
+              </div>
+               <div class="item text-center">
                 <img src="storage/uploads/july42020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary">4th of July</span>
                   <br/>
