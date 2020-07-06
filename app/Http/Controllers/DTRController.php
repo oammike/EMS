@@ -2611,7 +2611,7 @@ class DTRController extends Controller
                 fclose($file);
         } 
 
-        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description, $request) 
               {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
                       $excel->setCreator('Programming Team')
@@ -2620,7 +2620,7 @@ class DTRController extends Controller
                       // Call them separately
                       $excel->setDescription($description);
 
-                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description)
+                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description,$request)
                       {
                         $sheet->appendRow($headers);      
 
