@@ -977,7 +977,7 @@ trait TimekeepingTraits
                     join('biometrics','user_cws.biometrics_id','=','biometrics.id')->
                     join('team','team.user_id','=','user_cws.user_id')->
                     join('campaign','campaign.id','=','team.campaign_id')->
-                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.accesscode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_cws.approver','user_cws.updated_at')->get();
+                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.accesscode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_cws.approver','user_cws.updated_at','user_cws.notes')->get();
 
        }
         
