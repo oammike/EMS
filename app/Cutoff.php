@@ -103,7 +103,7 @@ class Cutoff extends Model
         $today = date('d');
 
         
-        if ($today < ($this->first + $this->paydayInterval)){
+        if ($today <= ($this->first)){ // + $this->paydayInterval
             if (date('m') === "01"){
                 $from = (date('Y')-1)."-";
 
