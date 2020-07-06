@@ -2,6 +2,45 @@
 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > eLearning for Leaders: <i class="fa fa-users"></i><br/> <span class="text-primary"> ALERT Part 2<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Hello Open Access BPO Leaders,<br/><br/>
+
+                    Part 2 of ALERT, the eLearning course aimed to help you lead your remote teams, is now live on our LMS 
+                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+                      You may self-enroll (walkthrough) now and start learning. <br/><br/> 
+                    <img src="storage/uploads/zeke.png" width="98%" />
+
+                    The focus of this release is communication. Here's a rundown of the lessons: <br/><br/> 
+                    - Creating a Communications Plan <br/><br/> 
+                    - Remote Team Communications <br/><br/> 
+                    - Email for Remote Teams <br/><br/> 
+                    - Connecting Through Imagery and Metaphor <br/><br/> 
+                    - Brainstorming Across Borders <br/><br/> 
+                    - Real-time Conversations Crucial for Collaboration <br/><br/><br/> 
+                    There are two expected outputs from you - a communications plan and a stakeholder analysis. Templates are included in the module. This is <strong>due on July 27 </strong>- add a card and attach your docs in Trello. This ensures that you get to apply the concepts you learned and you get to collaborate with your peers. There's also a Wishlist section where you can surface requests, suggestions, and ideas.  <br/><br/> 
+
+                    Managers you are encouraged to work with your team leads - you can add this as part of their regular development plan. One less task to think about when you sit down for their annual performance review. <br/><br/> 
+
+                    If you  missed Part 1 - we are making it available in the catalog for a limited time as well. You may take this chance to catch up. Let us know if you have questions.<br/>
+                    
+                    <br/><br/> 
+
+                   
+
+                    </p> 
+
+
+ 
+                    
+              </div>
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > OA OFFICE CAB SERVICE <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>The Additional Solution for Your GCQ Office Transport Needs<br/>
                  <br/>
                   <img src="storage/uploads/carpool.png" width="100%" />
