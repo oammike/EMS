@@ -1756,7 +1756,7 @@ class DTRController extends Controller
         case '2': { $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; $type="LeaveFiling";} break;
         case '3': { 
                       $type="ChangeShiftSchedules";
-                      ($request->DTRsummary) ? $headers = ['AccessCode', 'EmployeeName','Program', 'ShiftDate','Old Schedule','New Schedule','Status','Approver'] : $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType'];  
+                      ($request->DTRsummary) ? $headers = ['AccessCode', 'EmployeeName','Program', 'ShiftDate','Old Schedule','New Schedule','Status','Notes','Approver'] : $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType'];  
                   } break; 
         case '4': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="WorSchedules"; } break; 
 
@@ -2634,7 +2634,7 @@ class DTRController extends Controller
                           {
                             if($request->DTRsummary)
                             {
-                              foreach ($jps as $j) //['AccessCode', 'EmployeeName','Program', 'ShiftDate','Old Schedule','New Schedule','Status','Approver']
+                              foreach ($jps as $j) //['AccessCode', 'EmployeeName','Program', 'ShiftDate','Old Schedule','New Schedule','Status', 'Notes', Approver']
                               {
                                 $c=0;
                                 $arr[$c] = $j->accesscode; $c++;
@@ -2678,6 +2678,11 @@ class DTRController extends Controller
                                 else $stat = "Pending Approval";
 
                                 $arr[$c] = $stat; $c++;
+
+
+                                //*** Notes
+
+                                $arr[$c] = $j->notes; $c++;
 
                                  //*** Approver
                                 if($j->approver)
