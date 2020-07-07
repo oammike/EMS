@@ -617,7 +617,7 @@ class EngagementController extends Controller
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
             }
-            else if($id == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 || $id== 14 || $id== 15 ) //OPEN WALL
+            else if($id == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 || $id== 14 || $id== 15 || 16 ) //OPEN WALL
             {
                 $allPosts = collect($existingEntry)->groupBy('entryID');
                 $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
@@ -734,12 +734,12 @@ class EngagementController extends Controller
             //**** with image attachment
             if($k !== "")
             {
-                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $k == '25'  || $k == '27' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
+                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $k == '25'  || $k == '27'|| $k == '29' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
 
                 }
                 else 
                 {
-                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'||$k == '25' || $k == '27'  ||  $allitemTypes[$ctr]=='IMG') && $request->file('file') )
+                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'||$k == '25' || $k == '27' || $k == '29' ||  $allitemTypes[$ctr]=='IMG') && $request->file('file') )
                     {
                         $image_code = '';
                         $image = $request->file('file');

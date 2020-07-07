@@ -1,7 +1,21 @@
 
 
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p>It's Cheer Up the Lonely Day on July 11! <br/><br/>
+                      Share a joke and make someone smile today.<br/> The <strong>(2) funniest entries</strong> and <strong>(1) most liked entry</strong> will receive a <strong class="text-success">Php500 GrabFood voucher</strong>! The (3) winners will be announced on July 13. </p>
+
+                    <img src="storage/uploads/wall_week10.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',16)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > eLearning for Leaders: <i class="fa fa-users"></i><br/> <span class="text-primary"> ALERT Part 2<br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -215,17 +229,7 @@
 
 
              
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/wall_week8.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',15)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-              </div>
+              
 
               <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_8.jpg" width="100%" />
