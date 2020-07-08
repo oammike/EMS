@@ -3406,7 +3406,7 @@ trait TimekeepingTraits
                     'timing'=>$timing,'UT'=>$UT,
                     'vl'=>$vl,
                     'pal'=>$pal,
-                    'CHECKER'=>$userLog, //$alldaysVL,
+                    'CHECKER'=>''//$userLog, //$alldaysVL,
                     
                     ]);
 
@@ -3439,7 +3439,7 @@ trait TimekeepingTraits
                     'timing'=>$timing,'UT'=>$UT,
                     'vl'=>$vl,
                     'pal'=>$pal,
-                    'CHECKER'=> $ulog1 //$vacationLeave->query, //$alldaysVL,
+                    'CHECKER'=> '' //$ulog1 //$vacationLeave->query, //$alldaysVL,
                     
                     ]);
 
