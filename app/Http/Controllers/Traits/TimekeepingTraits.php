@@ -2245,11 +2245,12 @@ trait TimekeepingTraits
     
 
     ($beginShift->format('Y-m-d') == $endShift->format('Y-m-d')) ? $sameDayShift = true : $sameDayShift=false;
-    
+    $bioEnd=null;
 
     if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
     else 
     {
+
 
               //fix for robert's case sa logout
               if ($logType_id== 2)
@@ -2556,6 +2557,7 @@ trait TimekeepingTraits
      //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
 
      //$checker = null; //['userLg'=>$userLog];
+     $ulog1 = $userLog;
      
       if (is_null($userLog) || count($userLog)<1 )
       {  
@@ -2679,7 +2681,8 @@ trait TimekeepingTraits
           {
             // if  12MN < beginShift > 3AM
              //$checker = ['enter'=>"12MN < beginShift > 3AM", 'beginShift'=>$beginShift->format('Y-m-d H:i:s'),'$probTime1'=>$probTime1,'$probTime2'=>$probTime2 ];
-            
+
+            $ulog1 = 'null2';
 
               proceedToLogTomorrow:
 
@@ -2691,7 +2694,11 @@ trait TimekeepingTraits
               else
                 $allowedOT = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(17);
               
+              
               $bioForTom = Biometrics::where('productionDate',$allowedOT->format('Y-m-d'))->get();
+              $bioNow =  Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+              $bioForNow = Biometrics::where('productionDate',$bioNow->format('Y-m-d'))->get();
+              $uLog1 = Logs::where('user_id',$id)->where('biometrics_id',$bioForNow->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
 
               //$checker = ['aOT'=>$allowedOT];
               if (count($bioForTom) > 0)
@@ -2775,7 +2782,16 @@ trait TimekeepingTraits
 
 
                   }//end if pasok sa alloted OT
-                  else goto proceedWithBlank;
+                  else
+                  {
+                    //***** baka ang sched nya ay 3pm-12mn at undertime lang sya
+                    $l = Carbon::parse($bioForNow->first()->productionDate." ".$uLog1->first()->logTime,"Asia/Manila");
+                    if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
+                    {
+                          $userLog = $uLog1;
+                    }else goto proceedWithBlank;
+
+                  } //goto proceedWithBlank;
 
                 } else
                 {
@@ -2784,13 +2800,18 @@ trait TimekeepingTraits
 
                   //$checker = "baka undertime lang";
                   
+                  
+
                   $logsToday = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
 
                   if (count($logsToday) > 0)
                   {
 
+
+
                     $groupedToday = collect($logsToday)->groupBy('logTime');
                     $u=null;
+                    $ulog1 = $groupedToday;// 'NOT NULL $u; waley log kasi RD na nya';
 
                     foreach ($groupedToday as $key) {
 
@@ -2807,9 +2828,23 @@ trait TimekeepingTraits
 
                     }//end foreach
 
-                    if (is_null($u)){$checker="b"; goto proceedWithBlank;} 
+                    if (is_null($u))
+                    {
+
+                      //***** baka ang sched nya ay 3pm-12mn at undertime lang sya AND RD na bukas kaya wala syang Tom logs
+                      $ulog1 = "2nd pass";
+                      $checker="b"; goto proceedWithBlank;
+
+                      
+                     
+
+
+
+                      
+                    } 
                     else
                     {
+
                       
                       $b= Biometrics::find($userLog->biometrics_id);
                           if($isAproblemShift) 
@@ -2840,6 +2875,18 @@ trait TimekeepingTraits
 
 
                 } 
+
+              }
+               //***** baka ang sched nya ay 3pm-12mn at undertime lang sya
+              else if( count($uLog1) > 0 )
+              {
+                  // check if yung log eh pasok pa sa allowed timeframe
+
+                  $l = Carbon::parse($bioForNow->first()->productionDate." ".$uLog1->first()->logTime,"Asia/Manila");
+                  if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
+                  {
+                        $userLog = $uLog1;
+                  }else goto proceedWithBlank;
 
               }else goto proceedWithBlank;
              
@@ -2942,6 +2989,7 @@ trait TimekeepingTraits
 
                         if ($logType_id== 2)
                         {
+
                           if ( empty($userLog->first()->logTime) || is_null($beginShift) || is_null($userLog) ) { $checker = "from proceedWithLogs"; goto proceedWithBlank;}
                           else
                           {  
@@ -2974,6 +3022,7 @@ trait TimekeepingTraits
                             else
                             {
                               $checker="goto non ideal";
+                              
 
                               //********** we now introduce grouped logout checking
                               //********** if there are more than one, then check each set
@@ -3038,6 +3087,7 @@ trait TimekeepingTraits
 
                               }else
                               {
+
                                   //within the day shift pero walang logs, so baka nag OT sya kinabukasan an yung LogOUT
                                   //so we need to get logs from tomorrow within the 8hr period
                                   $tommorow = Carbon::parse($thisPayrollDate)->addDay();
@@ -3053,10 +3103,12 @@ trait TimekeepingTraits
 
                                     if (count($uLog) > 0)
                                     {
+
                                       // check if yung log eh pasok pa sa allowed OT timeframe
                                       $l = Carbon::parse($tommorow->format('Y-m-d')." ".$uLog->first()->logTime,"Asia/Manila");
                                       if ( $l->format('Y-m-d H:i:s') > $beginShift && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
                                       {
+                                            $ulog1="witihin range";
                                             $userLog = $uLog;
                                             //goto proceedWithLogs;
 
@@ -3116,7 +3168,28 @@ trait TimekeepingTraits
                                               goto proceedToLeaves;
 
                                       }//end if pasok sa alloted OT
-                                      else { $checker=['l'=>$l->format('Y-m-d H:i:s'),'bs'=>$beginShift,'aOT'=>$allowedOT->format('Y-m-d H:i:s')]; goto proceedWithBlank;}
+                                      else 
+                                      { 
+                                        
+                                         //***** baka ang sched nya ay 3pm-12mn at undertime lang sya
+                                        $bioNow =  Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+                                        $bioForNow = Biometrics::where('productionDate',$bioNow->format('Y-m-d'))->get();
+                                        $uLog = Logs::where('user_id',$id)->where('biometrics_id',$bioForNow->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
+
+                                        $l = Carbon::parse($bioForNow->first()->productionDate." ".$uLog->first()->logTime,"Asia/Manila");
+
+                                        //$ulog1=$uLog;//"hindi within range";
+                                        
+                                        if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $endShift->format('Y-m-d H:i:s') )
+                                        {
+                                              // $cl = new Collection;
+                                              // $ulog1 = $cl->push(['l >'=>$l->format('Y-m-d H:i:s'),'b'=>$beginShift->format('Y-m-d H:i:s'), '<='=>$endShift->format('Y-m-d H:i:s') ]);
+                                              $userLog = $uLog;
+                                        }else goto proceedWithBlank;
+
+
+                                        // $checker=['l'=>$l->format('Y-m-d H:i:s'),'bs'=>$beginShift,'aOT'=>$allowedOT->format('Y-m-d H:i:s')]; goto proceedWithBlank;
+                                      }
 
                                     } else {  goto proceedWithBlank;} 
 
@@ -3333,7 +3406,7 @@ trait TimekeepingTraits
                     'timing'=>$timing,'UT'=>$UT,
                     'vl'=>$vl,
                     'pal'=>$pal,
-                    'CHECKER'=>$alldaysVL,
+                    'CHECKER'=>$userLog, //$alldaysVL,
                     
                     ]);
 
@@ -3366,7 +3439,7 @@ trait TimekeepingTraits
                     'timing'=>$timing,'UT'=>$UT,
                     'vl'=>$vl,
                     'pal'=>$pal,
-                    'CHECKER'=>$vacationLeave->query, //$alldaysVL,
+                    'CHECKER'=> $ulog1 //$vacationLeave->query, //$alldaysVL,
                     
                     ]);
 
