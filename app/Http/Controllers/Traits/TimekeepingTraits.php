@@ -2785,11 +2785,16 @@ trait TimekeepingTraits
                   else
                   {
                     //***** baka ang sched nya ay 3pm-12mn at undertime lang sya
-                    $l = Carbon::parse($bioForNow->first()->productionDate." ".$uLog1->first()->logTime,"Asia/Manila");
-                    if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
+                    if(count($uLog1) > 0)
                     {
-                          $userLog = $uLog1;
+                      $l = Carbon::parse($bioForNow->first()->productionDate." ".$uLog1->first()->logTime,"Asia/Manila");
+                      if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $allowedOT->format('Y-m-d H:i:s') )
+                      {
+                            $userLog = $uLog1;
+                      }else goto proceedWithBlank;
+
                     }else goto proceedWithBlank;
+                    
 
                   } //goto proceedWithBlank;
 
