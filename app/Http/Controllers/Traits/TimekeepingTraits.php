@@ -3181,16 +3181,22 @@ trait TimekeepingTraits
                                         $bioForNow = Biometrics::where('productionDate',$bioNow->format('Y-m-d'))->get();
                                         $uLog = Logs::where('user_id',$id)->where('biometrics_id',$bioForNow->first()->id)->where('logType_id',$logType_id)->orderBy('created_at','ASC')->get();
 
-                                        $l = Carbon::parse($bioForNow->first()->productionDate." ".$uLog->first()->logTime,"Asia/Manila");
-
-                                        //$ulog1=$uLog;//"hindi within range";
-                                        
-                                        if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $endShift->format('Y-m-d H:i:s') )
+                                        if (count($uLog) > 0)
                                         {
-                                              // $cl = new Collection;
-                                              // $ulog1 = $cl->push(['l >'=>$l->format('Y-m-d H:i:s'),'b'=>$beginShift->format('Y-m-d H:i:s'), '<='=>$endShift->format('Y-m-d H:i:s') ]);
-                                              $userLog = $uLog;
+                                          $l = Carbon::parse($bioForNow->first()->productionDate." ".$uLog->first()->logTime,"Asia/Manila");
+
+                                          //$ulog1=$uLog;//"hindi within range";
+                                          
+                                          if ( $l->format('Y-m-d H:i:s') > $beginShift->format('Y-m-d H:i:s') && $l->format('Y-m-d H:i:s') <= $endShift->format('Y-m-d H:i:s') )
+                                          {
+                                                // $cl = new Collection;
+                                                // $ulog1 = $cl->push(['l >'=>$l->format('Y-m-d H:i:s'),'b'=>$beginShift->format('Y-m-d H:i:s'), '<='=>$endShift->format('Y-m-d H:i:s') ]);
+                                                $userLog = $uLog;
+                                          }else goto proceedWithBlank;
+
                                         }else goto proceedWithBlank;
+
+                                        
 
 
                                         // $checker=['l'=>$l->format('Y-m-d H:i:s'),'bs'=>$beginShift,'aOT'=>$allowedOT->format('Y-m-d H:i:s')]; goto proceedWithBlank;
