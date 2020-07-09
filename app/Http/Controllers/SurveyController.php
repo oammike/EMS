@@ -1142,6 +1142,8 @@ class SurveyController extends Controller
             $survey->lastItem = $request->questionid;
             $survey->save();
 
+            return response()->json(['item'=>$item,'existing'=>null]);
+
 
         }else if ($request->survey_optionsid == 'x'){
 
@@ -1225,7 +1227,8 @@ class SurveyController extends Controller
               $item = new Survey_Response;
               $item->user_id = $this->user->id;
               $item->question_id = $request->questionid;
-              $item->survey_optionsID = $request->survey_optionsid;
+              $so = DB::table('survey_options')->where('id',$request->survey_optionsid)->get();
+              $item->survey_optionsID = $so[0]->options_id;
 
               $hasexisting=null;
 
@@ -1382,7 +1385,7 @@ class SurveyController extends Controller
 
         $us = Survey_User::where('user_id',$this->user->id)->where('survey_id',$id)->get();
 
-
+        
 
         if (count($us) >= 1 && ($id !== '5') ){
             $userSurvey = $us->first();
@@ -1399,6 +1402,7 @@ class SurveyController extends Controller
                             join('survey_questions','survey_responses.question_id','=','survey_questions.id')->
                             select('survey_responses.id','survey_responses.user_id','survey_questions.ordering', 'survey_responses.question_id','survey_responses.survey_optionsID as answer')->
                             orderBy('survey_responses.id','DESC')->get();//  Survey_Response::where('user_id')
+
             if (count($l) > 0) {
                 $latest = $l[0];
                 $userSurvey->lastItem = $latest->ordering;
@@ -1415,10 +1419,10 @@ class SurveyController extends Controller
                     
                     $startFrom = $ess[0]->ordering;
                     $e = array_pluck($ess,'survey_id');
-
+                    //$extraDataNa = $e;
                     if (in_array($id, $e)) //meaning, may essay na nga sya for that survey, check na kung may extradata submitted
                     {
-                        $extraDataNa = 1;
+                        //$extraDataNa = 1;
 
                     } 
 
@@ -1453,7 +1457,7 @@ class SurveyController extends Controller
         }
 
         //$survey = Survey::find($id);
-        //return $userSurvey;
+        //return $e;
 
        
 
@@ -1615,7 +1619,7 @@ class SurveyController extends Controller
                   }
             break;
           
-          default: return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+          default: return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
             break;
         }
 
