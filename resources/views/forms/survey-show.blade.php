@@ -87,7 +87,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                         </div><br/><br/><br/>
 
                           @foreach($options as $o)
-                          <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                          <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->optionID}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
 
