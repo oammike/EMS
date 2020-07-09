@@ -2,6 +2,11 @@
 
 
               <div class="item active text-center" >
+                <img src="storage/uploads/pulsesoon.jpg" width="100%" /><br/>
+                    
+              </div>
+
+              <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -102,25 +107,7 @@
 
                     
               </div>
-               <div class="item text-center">
-                <img src="storage/uploads/july42020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary">4th of July</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   The true spirit of independence is independence for all. May we never forget the sacrifices of those who fought for equality and liberty so that everyone can celebrate the right to life and happiness.<br/><br/>
 
-                    We hope you have a safe and meaningful #FourthofJuly!<br/><br/>
-
-                    #WeSpeakYourLanguage #OAHolidays
-                  </p>    
- 
- 
-                    
-              </div>
               <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_11.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
@@ -439,37 +426,7 @@
                     <br/> <a class="btn btn-primary" href="https://www.openaccessbpo.com/blog/infographic-how-open-access-bpo-is-ensuring-continuous-ops-during-covid-19/" target="_blank"> <i class="fa fa-external-link"></i> Read Blog Post</a>
               </div>
 
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                      Thank you to all the employees who shared their favorite songs, movies and series!<br/><br/>
-
-                      Three stood out and won <strong>P500 worth of Grabfood delivery voucher.</strong><br/><br/>
-
-                      <strong class="text-primary">Dom Guzman of NDY</strong><br/>
-                      <em>Myth - Beachhouse covered by Brandon Boyd (Incubus) "What comes after this, Momentary bliss... ...Can't keep hanging on To all that's dead and gone... " ~the nostalgia of what we can never get back... consuming the moment of what we cant let go... the last ecstatic feeling that we will have is the shot that cannot be erased honestly this video just made me miss the beach and its brandon boyd of incubus so :P</em><br/>
-                      <img src="storage/uploads/wall[5]2020_2953_1446147328.JPG" width="95%"><br/><br/>
-
-                      <strong class="text-primary">Lorraine Gel Gallego of AdoreMe</strong><br/>
-                      <em>"I Am Not Alone" by Kari Jobe The song says ," Lord, You fight my every battle. Oh, and I will not fear. I am not alone. I am not alone. You will go before me , You will never leave me. " This Covid-19 Pandemic and ECQ put fear in my head and I was stuck here alone at home with no family. I cannot go somewhere safer. I played my guitar with this song over and over again, I cried and I felt safe and secured. I feel like God is with me all the time as I worship Him in Spirit and truth</em>
-                      <img src="storage/uploads/wall[5]2020_2392_1083735229.jpg" width="95%"><br/><br/><br/>
-
-                      <strong class="text-primary">Umit Ozay of SheerID</strong><br/>
-                      <em>the "san junipero" episode of black mirror on netflix made me think another way about life . and especially see this trailer with this unique cover.. lovely! https://vimeo.com/208471851 </em>
-                       <img src="storage/uploads/wall[5]2020_3540_1587672673.jpg" width="95%"><br/><br/>
-                       <br/><br/>
-                       Until our next challenge!
-                       <br/><br/>
-                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',12)}}"><i class="fa fa-th-large"></i> View Wall</a>
-
-                    </p>    
- 
-                    
-              </div>
+             
 
               
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
@@ -647,36 +604,7 @@
  
                     
               </div>
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Company Shuttle Service for GCQ <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Application Form for onsite workers availing shuttle<br/>
-                 <br/>
-                <img src="storage/uploads/shuttle.png" width="80%" /><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
-                      For those working onsite during GCQ, we will continue to provide a shuttle service. Now that there is more allowable movement, our goal is to get you here easily and more importantly, covid-free.  If you need to work in the office and need a daily ride to work, please complete this<a href="https://www.emailmeform.com/builder/form/628acMekO89" target="_blank"> <strong>application form</strong></a>. This form is for both current and new shuttlers. <br/><br/>
-
-                       
-
-                      We are aware that although some forms of public transportation will now be available, it will be at reduced capacity and it won’t all be back 100%. We expect traffic and public transport to be grueling, problematic, and risky. We want to enable safe access for you so we will continue to provide free transportation during the general community quarantine period.<br/><br/>
-
-                       
-
-                      Please read and understand our terms and conditions of service in the OA Transport Policy, Procedures, and Guidelines before submitting the<a href="https://www.emailmeform.com/builder/form/628acMekO89" target="_blank"> <strong>GCQ Application Form</strong></a>. Make sure you send your request once you have official confirmation of your team returning to the office. Requests are subject to review and approval, and take at least 2 days to process. Once you receive a trip confirmation email, you will be reminded to submit the online Health Declaration Form (link attached in the notification email to be sent).<br/><br/>
-
-                       
-
-                      All shuttle riders will be required to have their COE and company IDs with them for checkpoints and follow our standard health measures and social distancing rules in our vehicles and in our offices. As the company has been doing all to keep us safe and operational, not sparing any expense, our marching orders are to be vigilant and responsible for our own safety at all times. <br/><br/>
-
-
-
-                      Let’s be smart and super careful. Stay healthy!
-                    
-                    
-
-                    
-              </div>
+              
 
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
@@ -734,35 +662,7 @@
 
               
 
-              <div class="item text-center" >
-                  
-                  
-                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                      Thank you to all the employees who posted their beautiful photos! <br/><br/>
-
-                      Three stood out and won <strong>P500 worth of Grabfood delivery voucher.</strong><br/><br/>
-
-                      <strong class="text-primary"> Cherry Fuentes of Glassdoor</strong><br/>
-                      <img src="storage/uploads/wall[3]2020_1802_1113508890.jpg" width="95%"><br/><br/>
-
-                      <strong class="text-primary">Rio Dormitorio of NDY</strong>
-                      <img src="storage/uploads/wall[3]2020_3345_2028493235.jpg" width="95%"><br/><br/>
-
-                      <strong class="text-primary">Audrey Reyes of Marketing</strong>
-                       <img src="storage/uploads/wall[3]2020_879_1541706714.jpg" width="95%"><br/><br/>
-                       <br/><br/>
-                       Until our next challenge!
-
-                    </p>    
- 
-                    
-              </div>
-
+             
               
 
              
@@ -1080,136 +980,7 @@
 
              
 
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/safehome_1.jpg" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                     Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
-                    
-
-                    </p>  
-                    
-              </div>
-
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/safehome_2.jpg" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                     <strong class="text-primary"> DISINFECTING PRACTICES</strong><br/>
-                      - Remove and disinfect your footwear before entering your home<br/><br/>
-                      - Segregate your used faced masks and gloves from the rest of your trash<br/><br/>
-                      - Put the items you used outside (such as bags, phone, glasses, spare change, and keys) in a separate container and disinfect each)<br/><br/>
-                    
-
-                    </p>  
-                    
-              </div>
-
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/safehome_3.jpg" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                     <strong class="text-primary">HYGIENE & LAUNDRY ROUTINE</strong><br/>
-                      - Avoid touching surfaces and sitting on chairs or beds if you haven’t washed up<br/><br/>
-                      - Soak your used clothes in soapy water or wash them with bleach or disinfectant<br/><br/>
-                      - Shower and change your clothes immediately<br/><br/>
-                    
-
-                    </p>  
-                    
-              </div>
-
-
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/safehome_4.jpg" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                     <strong class="text-primary">CLEAN UP DRILLS</strong><br/>
-                      - Use bleach solution or disinfectant to mop floors, clean frequently touched spots, and wipe toilet areas<br/><br/>
-                      - Open windows to ventilate your home during clean-ups and whenever possible<br/><br/>
-                      - Continue practiciing frequent hand washing<br/><br/>
-                    
-
-                    </p>  
-                    
-              </div>
-
               
-
-                <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_1.png" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                     Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
-                    
-
-                    </p>  
-                    
-              </div>
-
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_2.png" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong class="text-primary"> BEFORE SHOPPING</strong><br/>
-                      - Take stock of what you already have and plan your daily meals around that<br/><br/>
-                      - Make a grocery list of what you’ll need in the next two or three weeks so you don’t have to go out frequently<br/><br/>
-                      - Avoid going out if you have respiratory or flu-like symptoms<br/><br/>
-                    
-
-                    </p>  
-                    
-              </div>
-
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_3.png" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong class="text-primary"> WHILE SHOPPING</strong><br/>
-                      - Wear a face mask and gloves<br/><br/>
-                      - Always observe social distancing<br/><br/>
-                      - Wipe down your shopping cart handle<br/><br/>
-                      - Avoid putting back items you’ve already touched<br/><br/>
-                    
-
-                    </p>  
-                    
-              </div>
-
-
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                   <img src="storage/uploads/grocery_4.png" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong class="text-primary"> AFTER SHOPPING</strong><br/>
-                      - Dispose of your used face mask and gloves before entering your home<br/><br/>
-                      - Disinfect all surfaces that may have come in contact with your groceries<br/><br/>
-                      - Remove unnecessary external packaging and move the items to storage containers<br/><br/>
-                      - Wash all fruits and vegetables before storing them
-                      - Heat food before eating whenever possible<br/><br/>
-                    
-
-                    </p>  
-                    
-              </div>
 
               
              
@@ -1335,83 +1106,9 @@
 
              
 
+      
+
                 
-
-               
-
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Message from our Execs: <br/> <span class="text-primary"> <i class="fa fa-thumbs-up"></i> Amazing job, IT Team!</i><br/> <br/>
-                   
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left"><img src="storage/uploads/teamIT.jpg" width="110%" /><br/><br/>Dear Open Access BPO Family,<br/><br/>
-                     Amazing job by our IT team and everyone else involved. In record time we have transferred over 700 people working out of their homes with 50 to 100 more people in progress which is almost 80% of our workforce. <strong>A huge THANK YOU!!!</strong><br/><br/>
-                     Outstanding effort. We appreciate you and everything you have sacrificed to get this done. <br/><br/>
-
-                     <strong>Ben &amp; Henry</strong>
-                    
-
-                    </p>
-
-                    
-                    
-
-
-
-                   
-                    
-                </div>
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>Davao Employees<br/> <br/>
-                   
-                   
-                    <img src="storage/uploads/divider.png" /><br/>
-                    </h4>
-
-                    <p class="text-center"><a href="oampi-resources#resource_2" class="btn btn-sm btn-primary" target="_blank"><i class="fa fa-book"></i> ECQ Health &amp; Safety Protocols Davao</a></p>
-
-                    <h5>Davao HR Hotline <i class="fa fa-phone"></i> : <br/><span style="font-size: large;" class="text-danger"> 0917-859-2539 </span><br/></h5>
-
-                    <table class="table" width="80%">
-                      <tr>
-                        <th class="text-center text-primary">Point Persons:</th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a target="_blank" href="user/3086"><img src="./public/img/employees/3086.jpg" class="img-circle" width="80" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Joash Elisha Arado <br/><small>(jarado@openaccessbpo.net)</small></h4></a>
-                        </td>
-                        
-                      </tr>
-                      <tr>
-                        <td>
-                          <a target="_blank" href="user/2096"><img src="./public/img/employees/2096.jpg" class="img-circle" width="100" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Mary Lord Maulingan<br/><small>(mmaulingan@openaccessbpo.net)</small></h4></a>
-                        </td>
-                      </tr>
-                      
-                    </table>
-
-                     <h5>Davao Nurse Hotline <i class="fa fa-phone"></i> : <br/><span style="font-size: large;" class="text-danger"> 0917-818-7146 </span><br/></h5>
-
-                    <table class="table">
-                      <tr>
-                        <thclass="text-center text-primary">Point Person:</th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a target="_blank" href="user/3737"><img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="50" class="img-circle" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Dianna Mariss Ba <br/><small>(dba@openaccessbpo.net)</small></h4></a>
-                        </td>
-                        
-                      </tr>
-                      
-                    </table>
-                    
-
-
-
-                   
-                    
-                </div>
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>All Shuttle/Carpool Riders<br/> <br/>
@@ -1695,23 +1392,6 @@
 
                 
 
-                
-
-
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >  Company Carpool Shuttle Scheme <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Policy and Guidelines<br/><br/>
-                  <span style="font-size: smaller;"> Reimbursements and Incentives <br/>for Business Continuity for ECQ</span>
- <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/carpool.png" width="100%" /></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
-
-                        This policy outlines the rules and procedures for drivers carpooling to work as part of our Company Shuttle Scheme for our skeletal workforce onsite during ECQ. This includes submission and payout procedures for reimbursement and incentive claims for office parking, toll fees, and carpooling. This is in response to the industry exemptions from suspended public transportation operations due to the Enhanced Community Quarantine for Luzon and in support of our employees who can drive to work during this period.
-</p>
-                    <a class="btn-success btn btn-md" href="oampi-resources#resource_2" target="_blank"><i class="fa fa-car"></i> Read the Guidelines</a>
-                </div>
 
                 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > Reminder to Practice: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>SOCIAL DISTANCING <br/>
@@ -1981,20 +1661,6 @@
 
           
 
-                   
-
-                    
-
-                  
-
-                  
-                   
-
-                       
-
-                    
-
-                  
 
 
                       <div class="item  text-center" >
@@ -2094,6 +1760,137 @@
 
                       </div>
 
+                      <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_1.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                           Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_2.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                           <strong class="text-primary"> DISINFECTING PRACTICES</strong><br/>
+                            - Remove and disinfect your footwear before entering your home<br/><br/>
+                            - Segregate your used faced masks and gloves from the rest of your trash<br/><br/>
+                            - Put the items you used outside (such as bags, phone, glasses, spare change, and keys) in a separate container and disinfect each)<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_3.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                           <strong class="text-primary">HYGIENE & LAUNDRY ROUTINE</strong><br/>
+                            - Avoid touching surfaces and sitting on chairs or beds if you haven’t washed up<br/><br/>
+                            - Soak your used clothes in soapy water or wash them with bleach or disinfectant<br/><br/>
+                            - Shower and change your clothes immediately<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_4.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                           <strong class="text-primary">CLEAN UP DRILLS</strong><br/>
+                            - Use bleach solution or disinfectant to mop floors, clean frequently touched spots, and wipe toilet areas<br/><br/>
+                            - Open windows to ventilate your home during clean-ups and whenever possible<br/><br/>
+                            - Continue practiciing frequent hand washing<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    
+
+                      <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_1.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                           Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_2.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                          <strong class="text-primary"> BEFORE SHOPPING</strong><br/>
+                            - Take stock of what you already have and plan your daily meals around that<br/><br/>
+                            - Make a grocery list of what you’ll need in the next two or three weeks so you don’t have to go out frequently<br/><br/>
+                            - Avoid going out if you have respiratory or flu-like symptoms<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_3.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                          <strong class="text-primary"> WHILE SHOPPING</strong><br/>
+                            - Wear a face mask and gloves<br/><br/>
+                            - Always observe social distancing<br/><br/>
+                            - Wipe down your shopping cart handle<br/><br/>
+                            - Avoid putting back items you’ve already touched<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_4.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                          <strong class="text-primary"> AFTER SHOPPING</strong><br/>
+                            - Dispose of your used face mask and gloves before entering your home<br/><br/>
+                            - Disinfect all surfaces that may have come in contact with your groceries<br/><br/>
+                            - Remove unnecessary external packaging and move the items to storage containers<br/><br/>
+                            - Wash all fruits and vegetables before storing them
+                            - Heat food before eating whenever possible<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
 
                      
                       
@@ -2114,6 +1911,209 @@
 
 
 <?php /*
+ <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                      Thank you to all the employees who shared their favorite songs, movies and series!<br/><br/>
+
+                      Three stood out and won <strong>P500 worth of Grabfood delivery voucher.</strong><br/><br/>
+
+                      <strong class="text-primary">Dom Guzman of NDY</strong><br/>
+                      <em>Myth - Beachhouse covered by Brandon Boyd (Incubus) "What comes after this, Momentary bliss... ...Can't keep hanging on To all that's dead and gone... " ~the nostalgia of what we can never get back... consuming the moment of what we cant let go... the last ecstatic feeling that we will have is the shot that cannot be erased honestly this video just made me miss the beach and its brandon boyd of incubus so :P</em><br/>
+                      <img src="storage/uploads/wall[5]2020_2953_1446147328.JPG" width="95%"><br/><br/>
+
+                      <strong class="text-primary">Lorraine Gel Gallego of AdoreMe</strong><br/>
+                      <em>"I Am Not Alone" by Kari Jobe The song says ," Lord, You fight my every battle. Oh, and I will not fear. I am not alone. I am not alone. You will go before me , You will never leave me. " This Covid-19 Pandemic and ECQ put fear in my head and I was stuck here alone at home with no family. I cannot go somewhere safer. I played my guitar with this song over and over again, I cried and I felt safe and secured. I feel like God is with me all the time as I worship Him in Spirit and truth</em>
+                      <img src="storage/uploads/wall[5]2020_2392_1083735229.jpg" width="95%"><br/><br/><br/>
+
+                      <strong class="text-primary">Umit Ozay of SheerID</strong><br/>
+                      <em>the "san junipero" episode of black mirror on netflix made me think another way about life . and especially see this trailer with this unique cover.. lovely! https://vimeo.com/208471851 </em>
+                       <img src="storage/uploads/wall[5]2020_3540_1587672673.jpg" width="95%"><br/><br/>
+                       <br/><br/>
+                       Until our next challenge!
+                       <br/><br/>
+                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',12)}}"><i class="fa fa-th-large"></i> View Wall</a>
+
+                    </p>    
+ 
+                    
+              </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Company Shuttle Service for GCQ <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Application Form for onsite workers availing shuttle<br/>
+                 <br/>
+                <img src="storage/uploads/shuttle.png" width="80%" /><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">Dear Open Access Family,<br/><br/>
+                      For those working onsite during GCQ, we will continue to provide a shuttle service. Now that there is more allowable movement, our goal is to get you here easily and more importantly, covid-free.  If you need to work in the office and need a daily ride to work, please complete this<a href="https://www.emailmeform.com/builder/form/628acMekO89" target="_blank"> <strong>application form</strong></a>. This form is for both current and new shuttlers. <br/><br/>
+
+                       
+
+                      We are aware that although some forms of public transportation will now be available, it will be at reduced capacity and it won’t all be back 100%. We expect traffic and public transport to be grueling, problematic, and risky. We want to enable safe access for you so we will continue to provide free transportation during the general community quarantine period.<br/><br/>
+
+                       
+
+                      Please read and understand our terms and conditions of service in the OA Transport Policy, Procedures, and Guidelines before submitting the<a href="https://www.emailmeform.com/builder/form/628acMekO89" target="_blank"> <strong>GCQ Application Form</strong></a>. Make sure you send your request once you have official confirmation of your team returning to the office. Requests are subject to review and approval, and take at least 2 days to process. Once you receive a trip confirmation email, you will be reminded to submit the online Health Declaration Form (link attached in the notification email to be sent).<br/><br/>
+
+                       
+
+                      All shuttle riders will be required to have their COE and company IDs with them for checkpoints and follow our standard health measures and social distancing rules in our vehicles and in our offices. As the company has been doing all to keep us safe and operational, not sparing any expense, our marching orders are to be vigilant and responsible for our own safety at all times. <br/><br/>
+
+
+
+                      Let’s be smart and super careful. Stay healthy!
+                    
+                    
+
+                    
+              </div>
+           <div class="item text-center" >
+                  
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                      Thank you to all the employees who posted their beautiful photos! <br/><br/>
+
+                      Three stood out and won <strong>P500 worth of Grabfood delivery voucher.</strong><br/><br/>
+
+                      <strong class="text-primary"> Cherry Fuentes of Glassdoor</strong><br/>
+                      <img src="storage/uploads/wall[3]2020_1802_1113508890.jpg" width="95%"><br/><br/>
+
+                      <strong class="text-primary">Rio Dormitorio of NDY</strong>
+                      <img src="storage/uploads/wall[3]2020_3345_2028493235.jpg" width="95%"><br/><br/>
+
+                      <strong class="text-primary">Audrey Reyes of Marketing</strong>
+                       <img src="storage/uploads/wall[3]2020_879_1541706714.jpg" width="95%"><br/><br/>
+                       <br/><br/>
+                       Until our next challenge!
+
+                    </p>    
+ 
+                    
+              </div>
+
+
+               
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Message from our Execs: <br/> <span class="text-primary"> <i class="fa fa-thumbs-up"></i> Amazing job, IT Team!</i><br/> <br/>
+                   
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left"><img src="storage/uploads/teamIT.jpg" width="110%" /><br/><br/>Dear Open Access BPO Family,<br/><br/>
+                     Amazing job by our IT team and everyone else involved. In record time we have transferred over 700 people working out of their homes with 50 to 100 more people in progress which is almost 80% of our workforce. <strong>A huge THANK YOU!!!</strong><br/><br/>
+                     Outstanding effort. We appreciate you and everything you have sacrificed to get this done. <br/><br/>
+
+                     <strong>Ben &amp; Henry</strong>
+                    
+
+                    </p>
+
+                    
+                    
+
+
+
+                   
+                    
+                </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>Davao Employees<br/> <br/>
+                   
+                   
+                    <img src="storage/uploads/divider.png" /><br/>
+                    </h4>
+
+                    <p class="text-center"><a href="oampi-resources#resource_2" class="btn btn-sm btn-primary" target="_blank"><i class="fa fa-book"></i> ECQ Health &amp; Safety Protocols Davao</a></p>
+
+                    <h5>Davao HR Hotline <i class="fa fa-phone"></i> : <br/><span style="font-size: large;" class="text-danger"> 0917-859-2539 </span><br/></h5>
+
+                    <table class="table" width="80%">
+                      <tr>
+                        <th class="text-center text-primary">Point Persons:</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a target="_blank" href="user/3086"><img src="./public/img/employees/3086.jpg" class="img-circle" width="80" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Joash Elisha Arado <br/><small>(jarado@openaccessbpo.net)</small></h4></a>
+                        </td>
+                        
+                      </tr>
+                      <tr>
+                        <td>
+                          <a target="_blank" href="user/2096"><img src="./public/img/employees/2096.jpg" class="img-circle" width="100" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Mary Lord Maulingan<br/><small>(mmaulingan@openaccessbpo.net)</small></h4></a>
+                        </td>
+                      </tr>
+                      
+                    </table>
+
+                     <h5>Davao Nurse Hotline <i class="fa fa-phone"></i> : <br/><span style="font-size: large;" class="text-danger"> 0917-818-7146 </span><br/></h5>
+
+                    <table class="table">
+                      <tr>
+                        <thclass="text-center text-primary">Point Person:</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a target="_blank" href="user/3737"><img src="./public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="50" class="img-circle" style="margin-left: 5px" /><br/><h4 style="font-size: small;">Dianna Mariss Ba <br/><small>(dba@openaccessbpo.net)</small></h4></a>
+                        </td>
+                        
+                      </tr>
+                      
+                    </table>
+                    
+
+
+
+                   
+                    
+                </div>
+
+                
+
+
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >  Company Carpool Shuttle Scheme <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> Policy and Guidelines<br/><br/>
+                  <span style="font-size: smaller;"> Reimbursements and Incentives <br/>for Business Continuity for ECQ</span>
+ <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/carpool.png" width="100%" /></h4>
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                        This policy outlines the rules and procedures for drivers carpooling to work as part of our Company Shuttle Scheme for our skeletal workforce onsite during ECQ. This includes submission and payout procedures for reimbursement and incentive claims for office parking, toll fees, and carpooling. This is in response to the industry exemptions from suspended public transportation operations due to the Enhanced Community Quarantine for Luzon and in support of our employees who can drive to work during this period.
+</p>
+                    <a class="btn-success btn btn-md" href="oampi-resources#resource_2" target="_blank"><i class="fa fa-car"></i> Read the Guidelines</a>
+                </div>
+
+               <div class="item text-center">
+                <img src="storage/uploads/july42020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy<br/><span class="text-primary">4th of July</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   The true spirit of independence is independence for all. May we never forget the sacrifices of those who fought for equality and liberty so that everyone can celebrate the right to life and happiness.<br/><br/>
+
+                    We hope you have a safe and meaningful #FourthofJuly!<br/><br/>
+
+                    #WeSpeakYourLanguage #OAHolidays
+                  </p>    
+ 
+ 
+                    
+              </div>
   <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > To all Shuttlers: <br/> <span class="text-primary"><i class="fa fa-car"></i>   Adjusted Ride Waiting Time <br/>
                    <img src="storage/uploads/shuttle.png" width="80%" /><br/><br/>
