@@ -9,6 +9,9 @@
 	<!-- <link href="https://fonts.googleapis.com/css?family=Gochi+Hand|Montserrat&display=swap" rel="stylesheet"> -->
 	<link rel="stylesheet" type="text/css" href="../../public/css/wall/assets/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="../../public/css/wall/assets/css/style.css">
+	<style type="text/css">
+		.message p{ white-space: pre-line; }
+	</style>
 
 	<!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 	<link href="{{asset('public'.elixir('css/all.css'))}}" rel="stylesheet" />-->
@@ -88,9 +91,7 @@
 										
 									</div>
 									<p style="display: none;">
-										<?php
-											echo $posts[$i]['message'];
-										?>
+										{!! $posts[$i]['message']; !!}
 										
 										<span class="text-primary">From: <?php echo $posts[$i]['from']; ?>
 											<br/>
@@ -216,9 +217,8 @@
 									
 								</div>
 								<p style="display: none;">
-									<?php
-										echo $post['message'];
-									?>
+									{!! $post['message']; !!}
+
 									<span class="text-primary">From: <?php echo $post['from']; ?>
 										<br/>
 										<small style="font-size: x-small;">Posted: {{date('M d h:i A',strtotime($post['datePosted'])) }} </small>
