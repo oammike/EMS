@@ -49,7 +49,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                             <div class="progress-bar" style="width:{{ ($startFrom/$totalItems)*100 }} %"></div>
                           </div>
                           <span class="progress-description" style="color:#73e9ff">
-                               {{ ($startFrom/$totalItems)*100 }}%
+                               {{ number_format(($startFrom/$totalItems)*100,2) }}%
                               </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -381,7 +381,8 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
       //console.log(survey_optionsid);
 
       //get if may existing comment
-      var comment = $('#notes_q'+questionid).val();
+      var comment = $('#notes_q'+curr).val();
+      //alert(comment);
      
       $.ajax({
                 url: "{{action('SurveyController@saveItem')}}",
@@ -389,6 +390,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                 data:{ 
                   'questionid': questionid,
                   'survey_optionsid': survey_optionsid,
+                  'survey_id':'{{$survey->id}}',
                   'comment': comment,
                   '_token':_token
                 },

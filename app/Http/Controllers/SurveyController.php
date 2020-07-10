@@ -1015,7 +1015,12 @@ class SurveyController extends Controller
                   $promoters = collect($npsData)->whereIn('roundedNPS',['4','5']);
                   $passives = collect($npsData)->whereIn('roundedNPS',['3']);
                   $detractors = collect($npsData)->whereIn('roundedNPS',['1','2']);
-                  $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>number_format($eeCommittee/count($promoters)*100,2), 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=> number_format($forGD/count($detractors)*100,2)];
+
+                  ( count($promoters) > 0) ? $eePercent = number_format($eeCommittee/count($promoters)*100,2) : $eePercent=0;
+                  ( count($detractors) > 0 ) ? $gdP =  number_format($forGD/count($detractors)*100,2) : $gdP=0;
+
+
+                  $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>$eePercent, 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=>$gdP];
 
                   $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
                  
@@ -1090,8 +1095,8 @@ class SurveyController extends Controller
 
 
                     if($this->user->id !== 564 ) {
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed Survey Report by [". $this->user->id."] ".$this->user->lastname."\n");
+                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Viewed Survey[".$id."] by [". $this->user->id."] ".$this->user->lastname."\n");
                         fclose($file);
                     }
 
@@ -1391,7 +1396,7 @@ class SurveyController extends Controller
         (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
-        if (!$canViewAll && $id !== 6) return view('access-denied');
+        if (!$canViewAll && $id == 6) return view('access-denied');
 
 
         $us = Survey_User::where('user_id',$this->user->id)->where('survey_id',$id)->get();
@@ -1459,7 +1464,11 @@ class SurveyController extends Controller
               $userSurvey->user_id = $this->user->id;
               $userSurvey->survey_id = $id;
               $userSurvey->startDate = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
-              $userSurvey->lastItem = 144;
+
+              if ($id == 1) $userSurvey->lastItem = 1;
+              else if ($id == 6)  $userSurvey->lastItem = 144;
+              else  $userSurvey->lastItem = null;
+
               $userSurvey->save();
               $latest=null;
               $startFrom = 1;
