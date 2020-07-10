@@ -87,11 +87,11 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                         </div><br/><br/><br/>
 
                           @foreach($options as $o)
-                          <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->optionID}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
+                          <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
 
-                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->id}}" placeholder="Notes / Comments"></textarea>
+                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->ordering}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
@@ -124,7 +124,8 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                         @else
 
                           <textarea class="form-control" name="essay" id="essay" placeholder="type in your answer"></textarea>
-
+                         
+                          
                         @endif
                             <div class="clearfix"><br/></div>
 
@@ -154,11 +155,14 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                               <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}" id="answer{{$ctr}}_{{$o->ordering}}" /> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                               @endforeach
-                               <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->id}}" placeholder="Notes / Comments"></textarea>
+                               <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$q->ordering}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
-                          <textarea name="essay" id="essay"></textarea>
+                          <textarea class="form-control" name="essay" id="essay"  placeholder="type in your answer"></textarea>
+                          <div class="clearfix"><br/></div>
+                            <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="nextEssay btn btn-lg btn-primary" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
+                          
 
                         @endif
                            <div class="clearfix"><br/></div>
@@ -173,7 +177,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                     @endforeach
 
 
-                    <img class="extra" src="../storage/uploads/cs_6.jpg" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; display:none; top:0px; left:0px;" width="100%" />
+                    <img class="extra" src="../storage/uploads/pulse2020.jpg" style="filter: alpha(opacity=60); opacity: 0.4; position: relative; display:none; top:0px; left:0px;" width="100%" />
                     <div class="extra" style="background: rgba(255, 255, 255, 0.8); padding:30px; min-height: 287px; position: absolute; top:15%;left:25px; width: 95%; display: none">
                             <h4 class="extra text-center" style="width: 100%; text-align: center;" >Help us improve our employee engagement activities by filling out the form below: </h4>
                             <br/>
@@ -402,6 +406,82 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
    });
 
+   $('.nextEssay').on('click',function(){
+      var item = $(this).attr('data-item');
+      var curr = item-1;
+      var perc = ((item/{{$totalItems}})*100).toFixed(0);
+     
+      var openended = $(this).siblings('textarea');
+      var totalItems = '{{$totalItems}}';
+      
+
+      $('#currItem').html(item);
+      $('#currItem').attr('data-val',item);
+
+      console.log("length:");
+      console.log(openended.val().length);
+
+
+      if (openended.val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+      else 
+      {
+         // we now save his answer
+        var _token = "{{ csrf_token() }}";
+        var questionid = $(this).attr('data-questionid');
+        var survey_optionsid = $('input[name="answer'+questionid+'"]:checked').val();
+        console.log("questionid: " + questionid);
+        //console.log(survey_optionsid);
+
+        //get if may existing comment
+        var comment = $('#notes_q'+questionid).val();
+       
+         $.ajax({
+                url: "{{action('SurveyController@saveItem')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': questionid,
+                  'survey_optionsid': 'e',
+                  'survey_id': '{{$id}}',
+                  'answer': openended.val(),
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+
+                  if(curr < totalItems)
+                  {
+                    $('.question'+curr).hide();
+                    $('.question'+item).fadeIn();//css("display","block");
+                    $('.question'+item).css("display","block");
+                    $('.progress-description').html(perc+" %");
+                    $('.progress-bar').css('width',perc+"%");
+                  }
+                  else
+                  {
+                    $('.question'+curr).hide();
+                    $('.extra').fadeIn();//css("display","block");
+                    $('#instructions').fadeOut();
+                    $('.info-box').fadeOut();
+
+                  }
+                  
+
+                  
+                 
+
+                }
+              });
+
+
+      }
+
+
+
+     
+      
+
+   });
+
 
 
 
@@ -411,12 +491,16 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
     var questionid = $(this).attr('data-questionid');
     var item = $(this).attr('data-item');
     var curr = item-1;
+    var openended = $(this).siblings('textarea');
 
     console.log($('#essay').val().length);
 
 
-    if ($('#essay').val() == '' || $('#essay').val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-    else {
+    
+    if (openended.val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+    else 
+    {
+
       $(this).fadeOut();
       var _token = "{{ csrf_token() }}";
 

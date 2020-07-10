@@ -36,7 +36,7 @@
               </div> -->
 
               <h1 class="text-primary"><br/><br/>Thank you</h1>
-                   <h3 style="font-weight: lighter;"> for completing the Employee Experience Survey and sharing your thoughts and insights - we value them. <br/><br/>
+                   <h3 style="font-weight: lighter;"> for completing the {{$survey->name}} and sharing your thoughts and insights - we value them. <br/><br/>
 
                   <span style="font-weight:100; color: #5e6c7b; font-size: 0.8em;">Your answers will help us understand what's working, what's not, and where we can improve. 
                   Your feedback will help us boost your experience and happiness at Open Access for years to come. </span><br/><br/></h3>
@@ -85,7 +85,7 @@
                   <div class="progress-bar" style="width: {{$percentage}}%"></div>
                 </div>
                 <span class="progress-description">
-                      {{$completed}} <small>out of</small> {{$actives}} Open Access Employees ( Makati | Davao ) have completed the Employee Experience Survey
+                      {{$completed}} <small>out of</small> {{$actives}} Open Access Employees ( Makati | Davao ) have completed the {{$survey->name}}
                     </span>
               </div>
               <!-- /.info-box-content -->
