@@ -435,26 +435,6 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
         //get if may existing comment
         var comment = $('#notes_q'+questionid).val();
        
-        // $.ajax({
-        //           url: "{{action('SurveyController@saveItem')}}",
-        //           type:'POST',
-        //           data:{ 
-        //             'questionid': questionid,
-        //             'survey_optionsid': 'e',
-        //             'comment': comment,
-        //             '_token':_token
-        //           },
-        //           success: function(response){
-        //             console.log(response);
-
-        //             $('.question'+curr).hide();
-        //             $('.question'+item).fadeIn();//css("display","block");
-        //             $('.question'+item).css("display","block");
-        //             $('.progress-description').html(perc+" %");
-        //             $('.progress-bar').css('width',perc+"%");
-        //           }
-        //         });
-
          $.ajax({
                 url: "{{action('SurveyController@saveItem')}}",
                 type:'POST',
@@ -511,12 +491,16 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
     var questionid = $(this).attr('data-questionid');
     var item = $(this).attr('data-item');
     var curr = item-1;
+    var openended = $(this).siblings('textarea');
 
     console.log($('#essay').val().length);
 
 
-    if ($('#essay').val() == '' || $('#essay').val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
-    else {
+    
+    if (openended.val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+    else 
+    {
+
       $(this).fadeOut();
       var _token = "{{ csrf_token() }}";
 

@@ -1048,7 +1048,7 @@ class SurveyController extends Controller
 
                   //****** ALL SUBMITTED ESSAYS
                   // the last question
-                  $allEssays = DB::table('survey_questions')->where('survey_questions.id',157)->
+                  $allEssays = DB::table('survey_questions')->where('survey_questions.id',158)->
                                     join('survey_essays','survey_essays.question_id','=','survey_questions.id')->
                                     join('users','survey_essays.user_id','=','users.id')->
                                     join('team','team.user_id','=','users.id')->
@@ -1383,8 +1383,20 @@ class SurveyController extends Controller
         $survey = Survey::find($id);
         if (empty($survey)) return view('empty');
 
+
+        //******* show memo for test people only 
+        //                jill,paz,ems,joy,raf,jaja, ben, henry 
+        $testgroup = [564,508,1644,1611,1784,491,1,184];
+        $keyGroup =  [564,508,1644,1611,1784,491,1,184];
+        (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+        (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
+
+        if (!$canViewAll && $id !== 6) return view('access-denied');
+
+
         $us = Survey_User::where('user_id',$this->user->id)->where('survey_id',$id)->get();
 
+        //return $us;
         
 
         if (count($us) >= 1 && ($id !== '5') ){
@@ -1397,12 +1409,14 @@ class SurveyController extends Controller
 
             //now, update his latest submitted response
             $l = DB::table('survey_responses')->where('survey_responses.user_id',$this->user->id)->
+                            where('survey_responses.survey_id',$id)->
                             join('survey_options','survey_responses.survey_optionsID','=','survey_options.id')->
                             leftJoin('surveys','survey_options.survey_id','=','surveys.id')->
                             join('survey_questions','survey_responses.question_id','=','survey_questions.id')->
                             select('survey_responses.id','survey_responses.user_id','survey_questions.ordering', 'survey_responses.question_id','survey_responses.survey_optionsID as answer')->
                             orderBy('survey_responses.id','DESC')->get();//  Survey_Response::where('user_id')
 
+            
             if (count($l) > 0) {
                 $latest = $l[0];
                 $userSurvey->lastItem = $latest->ordering;
@@ -1431,7 +1445,7 @@ class SurveyController extends Controller
             }
             else {
                 $latest = null;
-                $startFrom = 1;
+                $startFrom = Survey_Question::find($us->first()->lastItem)->ordering;
             }
             
             //return response()->json($latest);
@@ -1811,7 +1825,7 @@ class SurveyController extends Controller
 
                     //return count($actives);
                                 //);
-                    $completed = count(Survey_User::where('isDone',true)->get());
+                    $completed = count(Survey_User::where('isDone',true)->where('survey_id',$survey->id)->get());
                     $percentage = number_format(($completed / $actives)*100,2);
 
 
@@ -1863,7 +1877,67 @@ class SurveyController extends Controller
 
                   }break;
           
-          default:
+          case 6: // EES 2020
+                  {
+
+
+                    $e = Survey_Extradata::where('user_id',$this->user->id)->where('survey_id',$survey->id)->get();
+                    if (count($e) > 0) $extraData = $e->first()->beEEC;
+                    else $extraData=null;
+
+                    //$actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+                    //                select('users.status_id')->get());
+
+                    //exclude Taipei and Xiamen
+                    $actives = count(DB::table('users')->where('status_id','!=',7)->
+                                    where('status_id','!=',8)->
+                                    where('status_id','!=',9)->
+                                    where('status_id','!=',13)->
+                                    leftJoin('team','team.user_id','=','users.id')->
+                                    select('users.id','users.lastname','team.floor_id','team.campaign_id')->
+                                    where('team.floor_id','!=',10)->
+                                    where('team.floor_id','!=',11)->get());//;return $actives;
+                    
+                    // $actives = count(DB::table('users')->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->
+                    //                 leftJoin('team','team.user_id','=','users.id')->
+                    //                 select('users.id','team.floor_id')->
+                    //                 where('team.floor_id','!=',10)->
+                    //                 where('team.floor_id','!=',11)->get());
+
+                    //return count($actives);
+                                //);
+                    $completed = count(Survey_User::where('isDone',true)->where('survey_id',$survey->id)->get());
+                    $percentage = number_format(($completed / $actives)*100,2);
+
+
+                    // NPS questions: 156
+                    $npsQuestions = DB::table('surveys')->where('surveys.id',$id)->
+                                        join('survey_questions','survey_questions.survey_id','=','surveys.id')->
+                                        join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+                                        select('survey_questions.id as question','survey_responses.survey_optionsID as answer','survey_responses.user_id')->
+                                        get();
+                    $my = collect($npsQuestions);
+                    $m = $my->where('user_id',$this->user->id);
+                    $m2 = collect($m);
+                    $n = $m2->whereIn('question',[156]);
+                    $nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
+                    $promoter=false;
+                    $detractor=false;
+
+                    if ($nps >= 4.0) {$color = "#3c8dbc"; $promoter=true; } //blue;
+                    //else if ($nps > 3.6 && $nps <= 4.5 ) $color="#8ccb2c"; //green
+                    else if ($nps >= 2.1 && $nps <= 3.9 ) $color="#ffe417"; //yellow
+                    //else if ($nps >= 1.6 && $nps <= 2.1 ) $color="#f36b19"; //orange
+                    else { $color="#fd1e1e"; $detractor=true; } //red
+
+                   //return response()->json(['completed'=>$completed, 'actives'=>$actives]);
+
+                    return view('forms.survey-results',compact('survey','extraData','actives','completed','percentage','nps','color','promoter','detractor'));
+
+                  }
+            break;
+
+            default:
             # code...
             break;
         }
