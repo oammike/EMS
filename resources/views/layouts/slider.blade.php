@@ -2,7 +2,21 @@
 
 
               <div class="item active text-center" >
-                <img src="storage/uploads/pulsesoon.jpg" width="100%" /><br/>
+               
+                <h4 class="text-orange" style="line-height: 1.5em" >Employee Pulse Check 2020:<br/><span class="text-primary">Your Voice Matters<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/pulse2020_2.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p>It's that time of the year. We'd love to hear how your Open Access experience has been so far.<br/><br/>
+                      So we can continually improve it, we need your help.<br/><br/>
+                      Let us know by completing the upcoming short survey..<br/><br/>
+                      Let's work together at making life at Open Access better and safer!.<br/><br/>
+
+                      <strong>July 15, 2020 Wednesday</strong>
+
+                   
                     
               </div>
 
