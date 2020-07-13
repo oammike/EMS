@@ -1103,8 +1103,8 @@ class SurveyController extends Controller
                     //return $programData;
 
                     //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan,reese
-                    $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344,307];
-                    $keyGroup = [564,1611,1784,1,184,344,491];
+                    $testgroup = [564,508,1644,1611,1784,491,1,184,887];
+                    $keyGroup =  [564,508,1644,1611,1784,491,1,184,887];
                     (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
                     (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
@@ -1131,6 +1131,8 @@ class SurveyController extends Controller
 
     public function saveItem(Request $request)
     {
+        $latestSurvey = Survey::orderBy('created_at','DESC')->get();
+
         if ($request->survey_optionsid == 'e'){
             // essay
             $item = new Survey_Essay;
@@ -1385,14 +1387,15 @@ class SurveyController extends Controller
 
         DB::connection()->disableQueryLog(); 
 
+
         $survey = Survey::find($id);
         if (empty($survey)) return view('empty');
 
 
         //******* show memo for test people only 
         //                jill,paz,ems,joy,raf,jaja, ben, henry 
-        $testgroup = [564,508,1644,1611,1784,491,1,184];
-        $keyGroup =  [564,508,1644,1611,1784,491,1,184];
+        $testgroup = [564,508,1644,1611,1784,491,1,184,887];
+        $keyGroup =  [564,508,1644,1611,1784,491,1,184,887];
         (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
@@ -1408,7 +1411,7 @@ class SurveyController extends Controller
             $userSurvey = $us->first();
             //return $userSurvey;
 
-            if ($userSurvey->isDone & $id=='1') return redirect('/surveyResults/'.$id);
+            if ($userSurvey->isDone) return redirect('/surveyResults/'.$id);
 
             $extraDataNa=false;
 

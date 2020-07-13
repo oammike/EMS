@@ -1,7 +1,54 @@
 
 
 
-              <div class="item active text-center" >
+               <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                      Thank you to all those who participated in our ECQonnection Wall Challenge last week - Cheer Up The Lonely Day.<br/><br/>
+                      The jokes you've posted definitely made someone smile, and we definitely need that these days!<br/><br/>
+
+                      Congratulations to our  <strong>Top 3 Entries:</strong><br/><br/>
+
+                      <strong class="text-primary">Crissy Tuazon-Angeles</strong><br/>
+                      <img src="storage/uploads/joke_crizzy.jpg" width="52%" class="pull-right" style="padding-left: 10px" /><br/>
+                      <em>Knock, knock.<br/><br/>
+                      Who's there?<br/><br/>
+                      "Hatch". <br/><br/>
+                      "Hatch" who?
+                      <br/><br/>Bless you!</em><br/>
+                      
+                      <br/><br/>
+
+                      <strong class="text-primary">Lothar Mckenzie</strong><br/>
+                      <img src="storage/uploads/joke_lothar.jpg" width="52%" class="pull-right" style="padding-left: 10px"/><br/>
+                      <em>Student: Teacher, what is the abbreviation (short spelling) for "FOLLOW"?<br/><br/>
+
+                          Teacher: "ff"<br/><br/>
+                          Student: HOORAY!!! (Immediately shouted right after the teacher answered)</em>
+                     <br/>
+                     <br/><br/>
+
+                      <strong class="text-primary">Camilo Villanueva</strong><br/>
+                      <img src="storage/uploads/joke_camilo.jpg" width="52%" class="pull-right" style="padding-left: 10px" /><br/>
+                      <em>A guy tells his doctor, "Doc, help me. I'm addicted to Tiktok, Instagram, and Facebook."<br/><br/>
+                      The doctor replies, "Sorry, I don't follow you."</em>
+                      <br/>
+                      
+                       <br/><br/>
+                       Until our next challenge!
+                       <br/><br/>
+                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',16)}}"><i class="fa fa-th-large"></i> View Wall</a>
+
+                    </p>    
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                
                 <h4 class="text-orange" style="line-height: 1.5em" >Employee Pulse Check 2020:<br/><span class="text-primary">Your Voice Matters<br/> 
                   <img src="storage/uploads/divider.png" /> 
@@ -19,6 +66,8 @@
                    
                     
               </div>
+
+             
 
               <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
