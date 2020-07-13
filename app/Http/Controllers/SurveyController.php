@@ -1393,13 +1393,13 @@ class SurveyController extends Controller
 
 
         //******* show memo for test people only 
-        //                jill,paz,ems,joy,raf,jaja, ben, henry 
-        $testgroup = [564,508,1644,1611,1784,491,1,184,887];
-        $keyGroup =  [564,508,1644,1611,1784,491,1,184,887];
+        //                jill,paz,ems, joy,jaja ben,henry,reese,bobby,lagran,qhaye,joreen
+        $testgroup = [564,508,1644,1611,1784,491,1,184,307,2502,887,163,3085];
+        $keyGroup =  [564,508,1644,1611,1784,491,1,184];
         (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
-        if (!$canViewAll && $id == 6) return view('access-denied');
+        if (!$canAccess && $id == 6) return view('access-denied');
 
 
         $us = Survey_User::where('user_id',$this->user->id)->where('survey_id',$id)->get();
@@ -1444,7 +1444,7 @@ class SurveyController extends Controller
                     //$extraDataNa = $e;
                     if (in_array($id, $e)) //meaning, may essay na nga sya for that survey, check na kung may extradata submitted
                     {
-                        //$extraDataNa = 1;
+                        if(count($ess) > 1) $extraDataNa = 1;
 
                     } 
 
@@ -1502,7 +1502,7 @@ class SurveyController extends Controller
                          select('survey_options.id', 'options.label','options.value','options.ordering','survey_options.options_id as optionID')->
                          orderBy('options.ordering','ASC')->get();
 
-        $extradata = ['travel time to and from office','hobbies and interest'];
+        $extradata = ['travel time to and from office','hobbies and interest'];//
 
         $totalItems = count($questions);
 
@@ -1510,10 +1510,10 @@ class SurveyController extends Controller
 
 
         //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan
-                    $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
-                    $keyGroup = [564,1611,1784,1,184,344,491];
-                    (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
-                    (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
+                    // $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
+                    // $keyGroup = [564,1611,1784,1,184,344,491,307];
+                    // (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+                    // (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
        // return $us;
 
@@ -1645,7 +1645,10 @@ class SurveyController extends Controller
                   }
             break;
           
-          default: return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+          default: {
+                      //return response()->json(['startFrom'=>$startFrom, 'extraDataNa'=>$extraDataNa]);
+                      return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+                   }
             break;
         }
 

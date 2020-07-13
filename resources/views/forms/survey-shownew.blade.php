@@ -208,6 +208,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                                 <input required="required" type="text" class="form-control" name="city" id="city" placeholder="indicate current city,town or province" style="width: 80%"  />
                                 <br/>
                                 <label>Daily Commute Time (to and from the office)</label><br/>
+                                <label  class="pull-left"><input type="checkbox" name="wfh" id="wfh"> N/A (work from home)</label><div class="clearfix"></div>
                                 <label class="pull-left" style="width:120px"><input type="text" class="form-control" name="hrs" id="hrs" placeholder="00" style="width:40%"  />hour(s)</label>
                                 <label class="pull-left" style="margin-left:-60px"><input type="text" class="form-control" name="mins" id="mins" placeholder="00" style="width:40%"  />minutes</label>
                                
@@ -557,9 +558,14 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
 
     //check first required values
+    var wfh = $('#wfh').prop("checked");
+    console.log('wfh val:'+wfh);
+
     if ( ($('input[name="gender"]:checked').length > 0) && 
 
-         ($('input[name="education"]:checked').length > 0) && ($('#hobbies').val().length > 0) && ( $('#hrs').val().length > 0 || $('#mins').val().length > 0 ) && $('#city').val().length > 0 )
+         ($('input[name="education"]:checked').length > 0) && ($('#hobbies').val().length > 0) && 
+         (( (wfh==false) && ($('#hrs').val().length > 0 || $('#mins').val().length > 0) ) || (wfh==true))  && $('#city').val().length > 0 )
+      
     {
       //console.log($('#hobbies').val() );
       var _token = "{{ csrf_token() }}";
@@ -573,8 +579,19 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
       else { var course = $('input[name="course"]').val();}
 
       var currentlocation = $('input[name="city"]').val();
-      var hr = $('input[name="hrs"]').val();
-      var mins = $('input[name="mins"]').val();
+
+      
+
+      if (wfh==true){
+          var hr = 0; var mins = 0;
+          //alert("wfh is" + wfh);
+
+      }else{
+          var hr = $('input[name="hrs"]').val();
+          var mins = $('input[name="mins"]').val();
+
+      }
+      
 
       $.ajax({
                 url: "{{action('SurveyController@saveItem')}}",
