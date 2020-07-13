@@ -9,7 +9,7 @@
                   
                    
                     </h4>
-                    <p>It's that time of the year. We'd love to hear how your Open Access experience has been so far.<br/><br/>
+                    <p style="padding: 30px;" class="text-left">It's that time of the year. We'd love to hear how your Open Access experience has been so far.<br/><br/>
                       So we can continually improve it, we need your help.<br/><br/>
                       Let us know by completing the upcoming short survey..<br/><br/>
                       Let's work together at making life at Open Access better and safer!.<br/><br/>
@@ -25,11 +25,10 @@
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p>It's Cheer Up the Lonely Day on July 11! <br/><br/>
-                      Share a joke and make someone smile today.<br/> The <strong>(2) funniest entries</strong> and <strong>(1) most liked entry</strong> will receive a <strong class="text-success">Php500 GrabFood voucher</strong>! The (3) winners will be announced on July 13. </p>
+                    <p  style="padding: 30px;" class="text-left">We are in the <strong class="text-primary"> NEW NORMAL</strong> and it requires us to wear our face masks whenever we go out! Show your new normal look with your go-to face mask! Let's show that we are #OneForHealth </p>
 
-                    <img src="storage/uploads/wall_week10.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',16)}}"> Check out our ECQonnection Wall</a>
+                    <img src="storage/uploads/wall_week11.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',17)}}"> Check out our ECQonnection Wall</a>
                     
                     
               </div>

@@ -262,7 +262,8 @@
             <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-           <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',16)}}"><i class="fa fa-th-large"></i> Cheer Up Day Wall </a></li>
+           <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',17)}}"><i class="fa fa-th-large"></i> The "New Normal" </a></li>
+           <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',16)}}"><i class="fa fa-th-large"></i> Cheer Up Day Wall </a></li>
            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',15)}}"><i class="fa fa-th-large"></i> Gratitude Wall </a></li>
            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',14)}}"><i class="fa fa-th-large"></i> Pride Month Wall </a></li>
            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',13)}}"><i class="fa fa-th-large"></i> PH Independence Day </a></li>
