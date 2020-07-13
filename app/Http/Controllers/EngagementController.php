@@ -451,7 +451,7 @@ class EngagementController extends Controller
                  return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
 
             }
-             
+            else return Redirect::action('EngagementController@wall',$id);
 
             $votes = DB::table('engagement')->where('engagement.id',$id)->
                     join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
