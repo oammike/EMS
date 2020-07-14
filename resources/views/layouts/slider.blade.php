@@ -1,7 +1,31 @@
 
 
 
-               <div class="item active text-center" >
+              <div class="item active text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" >...And we are <span class="text-primary">LIVE!!!<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/pulse2020_live.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-center"><strong class="text-primary">Employee Pulse Check 2020</strong> is designed to help us understand our specific strengths and identify our areas for improvement during these last two quarters.<br/>We'd love to hear from you!<br/><br/>
+                      Your feedback will show us where our opportunities are for improving employee experience.<br/><br/>
+                      This survey is conducted twice a year so we can best track our progress and measure our results.<br/><br/>
+                      Please answer each question honestly. It will not take too much of your time.<br/>
+                      Your responses will be kept confidential and will not affect your standing at work.<br/><br/>
+                      Let's all continue to work together to make life at Open Access better!<br/><br/>
+
+                      <a class="btn btn-lg btn-success" href="{{action('SurveyController@intro',6)}}">Take the Survey <i class="fa fa-arrow-right"></i> </a>
+                      <br/><br/>
+
+                      <strong class="text-danger">Completion deadline: July 30, 2020 Thursday</strong>
+
+                   
+                    
+              </div>
+
+              <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
                   <br/>
                     <img src="storage/uploads/divider.png" />
@@ -48,24 +72,7 @@
                     
               </div>
 
-              <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" >Employee Pulse Check 2020:<br/><span class="text-primary">Your Voice Matters<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  <img src="storage/uploads/pulse2020_2.jpg" width="100%" /><br/>
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">It's that time of the year. We'd love to hear how your Open Access experience has been so far.<br/><br/>
-                      So we can continually improve it, we need your help.<br/><br/>
-                      Let us know by completing the upcoming short survey..<br/><br/>
-                      Let's work together at making life at Open Access better and safer!.<br/><br/>
-
-                      <strong>July 15, 2020 Wednesday</strong>
-
-                   
-                    
-              </div>
+              
 
              
 
