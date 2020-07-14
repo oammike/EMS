@@ -1287,7 +1287,11 @@ class SurveyController extends Controller
 
                   $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>$eePercent, 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=>$gdP];
 
-                  $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
+                  if (count($surveyData) > 0)
+                  {
+                    $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
+                  }
+                  else $eNPS=0;
 
                   //return response()->json(['nspResponses'=>$groupedNPS, 'eNPS'=>$eNPS, 'promoters'=>$promoters, 'surveyData'=>$surveyData, 'detractors'=>$detractors]);
                  
@@ -1726,28 +1730,41 @@ class SurveyController extends Controller
             
             if (count($l) > 0) {
                 $latest = $l[0];
-                $userSurvey->lastItem = $latest->ordering;
-                $userSurvey->isDraft = true;
-                $userSurvey->push();
+                
 
                 //now, check kung may answer na sya from essay
                 $ess =  DB::table('survey_essays')->where('survey_essays.user_id',$this->user->id)->
+                            where('survey_essays.survey_id',$id)->
                             join('survey_questions','survey_essays.question_id','=','survey_questions.id')->
-                            select('survey_questions.survey_id','survey_questions.ordering')->get();
+                            select('survey_questions.survey_id','survey_questions.ordering','survey_essays.question_id')->get();
 
                 if (count($ess) > 0){
 
-                    
+                     //return response()->json($ess);
                     $startFrom = $ess[0]->ordering;
-                    $e = array_pluck($ess,'survey_id');
+                    //---- new check
+                    if (count($ess) == 2 && $id=='6')
+                    {
+                      $extraDataNa = 1;
+                      $startFrom = $latest->ordering;  
+                    }
+                    else{
+                      $startFrom = $ess[0]->question_id;
+                    }
+
+                    //$e = array_pluck($ess,'survey_id');
                     //$extraDataNa = $e;
-                    if (in_array($id, $e)) //meaning, may essay na nga sya for that survey, check na kung may extradata submitted
+                    /*if (in_array($id, $e)) //meaning, may essay na nga sya for that survey, check na kung may extradata submitted
                     {
                         if(count($ess) > 1) $extraDataNa = 1;
 
-                    } 
+                    } */
 
-                }else  $startFrom = $latest->ordering;    
+                }else  $startFrom = $latest->ordering; 
+
+                $userSurvey->lastItem = $startFrom;
+                $userSurvey->isDraft = true;
+                $userSurvey->push();   
 
             }
             else {
@@ -1755,7 +1772,7 @@ class SurveyController extends Controller
                 $startFrom = Survey_Question::find($us->first()->lastItem)->ordering;
             }
             
-            //return response()->json($latest);
+           
 
         }else {
 
