@@ -1271,7 +1271,7 @@ class SurveyController extends Controller
                      foreach ($groupedNPS as $n) {
                           $nps = number_format(($n->pluck('rating')->sum())/count($n),2);
 
-                          if ($n[0]->beEEC) $eeCommittee++;
+                          if ($n[0]->beEEC && ($n[0]->rating !== 3) ) $eeCommittee++;
                           if ($n[0]->forGD) $forGD++;
                           $npsData->push(['respondentID'=>$n[0]->userID,'program'=>$n[0]->program, 'respondent'=>$n[0]->lastname." , ". $n[0]->firstname, 'nps'=>$nps,'roundedNPS'=>(string)round($nps),'eeCommittee'=>$n[0]->beEEC, 'forGD'=>$n[0]->forGD, 'backOffice'=> ($n[0]->backOffice==1) ? 1:0 ]);
 
@@ -1285,7 +1285,7 @@ class SurveyController extends Controller
                   ( count($detractors) > 0 ) ? $gdP =  number_format($forGD/count($detractors)*100,2) : $gdP=0;
 
 
-                  $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>$eePercent, 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=>$gdP];
+                  $participants = ['eeCommittee'=>$eeCommittee,'groupedNPS'=>$groupedNPS, 'totalPromoters'=> count($promoters),'eePercent'=>$eePercent, 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=>$gdP];
 
                   if (count($surveyData) > 0)
                   {
@@ -1293,7 +1293,7 @@ class SurveyController extends Controller
                   }
                   else $eNPS=0;
 
-                  //return response()->json(['nspResponses'=>$groupedNPS, 'eNPS'=>$eNPS, 'promoters'=>$promoters, 'surveyData'=>$surveyData, 'detractors'=>$detractors]);
+                  //return response()->json(['participants'=>$participants, 'eNPS'=>$eNPS, 'promoters'=>$promoters, 'surveyData'=>$surveyData, 'detractors'=>$detractors]);
                  
 
                   //****** ALL CAMPAIGN RELATED DATA
@@ -1963,10 +1963,18 @@ class SurveyController extends Controller
 
                   }
             break;
+
+          case 6: {
+                    $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Show survey[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                    fclose($file);
+                    return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','mayEssayna'));
+
+          }break;
           
           default: {
                       //return response()->json(['startFrom'=>$startFrom, 'extraDataNa'=>$extraDataNa]);
-                      return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','mayEssayna'));
+                      return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
                    }
             break;
         }
