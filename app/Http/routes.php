@@ -1268,6 +1268,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'survey.downloadRaw',
       'uses'=>'SurveyController@downloadRaw') );
 
+    Route::get('/survey/intro/{id}', array(
+      'as'=> 'survey.intro',
+      'uses'=>'SurveyController@intro') );
+
     Route::get('/survey/report/{id}', array(
       'as'=> 'survey.report',
       'uses'=>'SurveyController@report') );
@@ -1291,6 +1295,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/saveItem', array(
       'as'=> 'survey.saveItem',
       'uses'=>'SurveyController@saveItem') );
+
+    Route::post('/getPrevious', array(
+      'as'=> 'survey.getPrevious',
+      'uses'=>'SurveyController@getPrevious') );
 
 
 

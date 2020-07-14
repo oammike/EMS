@@ -500,7 +500,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li  @if (Request::is('survey*')) class="active" @endif  style="padding-left:20px"><a href="{{action('SurveyController@show',1)}} "><i class="fa fa-question-circle"></i> EES (Survey)</a></li>
+           
           <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('VIEW_ALL_EVALS') ){ ?> 
             <li style="padding-left:20px"><a href="{{action('EvalFormController@downloadReport')}} "><i class="fa fa-download"></i> Download Summary</a></li>
             <li  @if (Request::is('evalForm')) class="active" @endif  style="padding-left:20px"><a href="{{action('EvalFormController@index')}} "><i class="fa fa-file-o"></i> View All</a></li>
@@ -606,7 +606,7 @@
           <ul class="treeview-menu">
 
             
-              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@show',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
+              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@intro',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
 
              <!--  <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',5)}}"><i class="fa fa-file-o"></i>360° Survey </a> </li>
             <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>2019 Year End Party Artists</a> </li>

@@ -32,9 +32,16 @@
               <table class="table" style="margin-top: 20px; width: 100%">
                 
                 <tr>
-                  <td class="text-center" style="overflow: hidden; background-color: #000; position: absolute; height: 670px; width: 100%">
-                    <div id="instructions" style="background: rgba(0, 0, 0, 0.4); position: absolute;bottom:45px; font-size: 0.95em;color:#fff; z-index: 100;padding: 5px; text-align: left;" ><i class="fa fa-info"></i> <em>The items above describe statements about different aspects of our work here at Open Access.<br/>
-Indicate your range of agreement or disagreement by <span class="text-orange" style="font-weight: bolder;">clicking the appropriate radio button</span> OR <span class="text-orange" style="font-weight: bolder;">pressing keys 1-5 on your keyboard</span>. <br/>(Ranging from <strong>5 </strong> for when it's so awesome, all the way down to<strong> 1 </strong> when it's so horrible.) </em></div>
+                  <td class="text-center" style="overflow: hidden; background-color: #000; position: absolute; height: 780px; width: 100%">
+                    <div id="instructions" style="background: rgba(0, 0, 0, 0.4); position: absolute;bottom:45px; font-size: 0.95em;color:#fff; z-index: 100;padding: 5px; text-align: left;" ><i class="fa fa-info"></i> <em>
+
+Evaluation Period: January - June 2020<br/>
+Survey Period:  July 15-30, 2020<br/><br/>
+
+Please answer the following questions in light of the events of the first six months of this year, whether as an onsite worker or at-home worker:<br/><br/>
+
+The items above describe statements about different aspects of our work here at Open Access.<br/>
+Indicate your range of agreement or disagreement by <span class="text-orange" style="font-weight: bolder;">clicking the appropriate radio button</span> OR <span class="text-orange" style="font-weight: bolder;">pressing keys 1-5 on your keyboard</span>. <br/>(Ranging from <strong>5 </strong> for when it's so awesome, all the way down to<strong> 1 </strong> when it's so horrible.) <br/><br/>For the last two items, we'd love to hear what you think. Feel free to let us know by writing your response on the space provided</em></div>
                      
                      <!-- /.info-box -->
                      <div style="position: absolute;top: 50px;left:25px; width: 95%">
@@ -57,6 +64,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                      </div>
                     
                     <!-- /.info-box -->
+                    <input type="hidden" id="backcheck" value="0" />
                     <h5 id="currItem" data-val="{{$startFrom}}" style="position: absolute;top:0px">{{$startFrom}}</h5>
                     <?php $ctr=1; ?>
                     @foreach($questions as $q)
@@ -99,6 +107,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
                         @endif
                            <div class="clearfix"><br/></div>
+                           <a id="prev{{$ctr-1}}" data-questionid="{{$q->id}}" class="prev btn btn-lg btn-primary" data-item="{{$ctr}}"> <i class="fa fa-arrow-left"></i> Previous</a>
                             <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
                         </div>
 
@@ -123,13 +132,18 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
                         @else
 
+                          <?php $placeholder = collect($mayEssayna)->where('question_id',$q->id); ?>
+                          @if(count($placeholder) > 0)
+                          <textarea class="form-control" name="essay" id="essay" placeholder="{{$placeholder->first()->answer}}">{{$placeholder->first()->answer}}</textarea>
+                          @else
                           <textarea class="form-control" name="essay" id="essay" placeholder="type in your answer"></textarea>
+                          @endif
                          
                           
                         @endif
                             <div class="clearfix"><br/></div>
 
-                          
+                            <a id="prev{{$ctr}}" data-questionid="{{$q->id}}" class="prevEssay btn btn-lg btn-primary" data-item="{{$ctr}}"> <i class="fa fa-arrow-left"></i> Previous</a>
                              <a id="submit1" class="btn btn-lg btn-primary" data-questionid="{{$q->id}}" data-item="{{$ctr+1}}">One more to go... <i class="fa fa-arrow-right"></i></a>
 
                           
@@ -159,13 +173,23 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
                         @else
 
-                          <textarea class="form-control" name="essay" id="essay"  placeholder="type in your answer"></textarea>
-                          <div class="clearfix"><br/></div>
+                          <?php $placeholder = collect($mayEssayna)->where('question_id',$q->id); ?>
+                          @if(count($placeholder) > 0)
+                          <textarea class="form-control" name="essay" id="essay" placeholder="{{$placeholder->first()->answer}}">{{$placeholder->first()->answer}}</textarea>
+                          @else
+                          <textarea class="form-control" name="essay" id="essay" placeholder="type in your answer"></textarea>
+                          @endif
+
+
+                          <div class="clearfix"><br/></div><input type="hidden" name="doneEssay" id="doneEssay" value="0" />
+
+                            <a id="prev{{$ctr}}" data-questionid="{{$q->id}}" class="prevEssay btn btn-lg btn-primary" data-item="{{$ctr}}"> <i class="fa fa-arrow-left"></i> Previous</a>
                             <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="nextEssay btn btn-lg btn-primary" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
                           
 
                         @endif
-                           <div class="clearfix"><br/></div>
+                           <div class="clearfix"><br/></div><input type="hidden" name="doneEssay" id="doneEssay" value="0" />
+                           <a id="prev{{$ctr}}" data-questionid="{{$q->id}}" class="prev btn btn-lg btn-primary" data-item="{{$ctr}}"> <i class="fa fa-arrow-left"></i> Previous</a>
                             <a id="next{{$ctr}}" data-questionid="{{$q->id}}" class="next btn btn-lg btn-primary" data-item="{{$ctr+1}}">Next <i class="fa fa-arrow-right"></i></a>
 
                           
@@ -286,7 +310,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
    
 
 
-   $('.next').fadeOut();//css('display','none');
+   $('.next, .prev').fadeOut();//css('display','none');
    $('textarea[name="notes"]').fadeOut();
    $('.course').fadeOut();
    $('.genderdesc').fadeOut();
@@ -323,16 +347,36 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
    $('input:radio').on('click',function(){
 
       var rtype = $(this).attr('data-rtype');
+      var bc = $('#backcheck').val();
 
       if (rtype == 's') //rbutton for Surveys
       {
-        var val=$('#currItem').attr('data-val');
+        
+
+        if (bc == '1') { 
+          var val= parseInt($('#currItem').attr('data-val'))-1;
+          $('#backcheck').val(0);
+          console.log('new backcheck:' + $('#backcheck').val() );
+          //var bval = parseInt(val)-1;
+        }
+        else{
+          var val=$('#currItem').attr('data-val');
+          
+        }
+
         var bval = val;
+
         if (val >= 27) val = parseInt(val)+2;
 
 
         $('#next'+bval).fadeIn(); //css('display','block')
-        console.log(val);
+        $('#prev'+bval).fadeIn();
+
+        //check mo kung first sya, disable pag 1st item
+        var f = $('#prev'+bval).attr('data-item');
+        if (f == '1') $('#prev'+bval).fadeOut();
+        //console.log('f val: '+ f);
+        console.log("bval: "+val);
 
         
         var r = $(this).val();
@@ -409,6 +453,169 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
    });
 
+   $('.prev').on('click',function(){
+      var item = $(this).attr('data-item');
+      var curr = parseInt(item)+1;
+      var perc = ( ((curr-2)/parseInt( '{{$totalItems}}' ) )*100 ).toFixed(0);
+      $('#backcheck').val('1');
+
+      var bc = $('#backcheck').val();
+      console.log("backcheck: "+ bc);
+      //alert("Next: "+curr);
+      
+
+      $('#currItem').html(item);
+      $('#currItem').attr('data-val',item);
+
+
+
+      // we now save his answer
+      var _token = "{{ csrf_token() }}";
+      var questionid = $(this).attr('data-questionid')-1;
+      var survey_optionsid = $('input[name="answer'+questionid+'"]:checked').val();
+
+      console.log("curr: " + curr);
+      console.log('perc: ' + perc);
+      console.log("questionid: " + questionid);
+      console.log("item: " + item);
+      //console.log(survey_optionsid);
+
+      //get if may existing comment
+      var comment = $('#notes_q'+curr).val();
+      
+
+      
+     
+      $.ajax({
+                url: "{{action('SurveyController@getPrevious')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': questionid,
+                  'survey_optionsid': survey_optionsid,
+                  'survey_id':'{{$survey->id}}',
+                  'comment': comment,
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log("fromGetPrevious");
+                  console.log(response);
+
+                  // $('.question'+curr).hide();
+                  // $('.question'+item).fadeIn();//css("display","block");
+                  // $('.question'+item).css("display","block");
+                  // $('.progress-description').html(perc+" %");
+                  // $('.progress-bar').css('width',perc+"%");
+
+                  $('.question'+(curr-1)).hide();
+                  $('.question'+(curr-2)).fadeIn();//css("display","block");
+                  $('.question'+(curr-2)).css("display","block");
+                  $('.progress-description').html(perc+" %");
+                  $('.progress-bar').css('width',perc+"%");
+
+                  //set prev ansswers
+                  var i = parseInt(item)-1;
+                  var par1 = i+"_"+response.previousResponse.survey_optionsID;
+                  console.log('survey_optionsid: '+ response.previousResponse.survey_optionsID);
+                  $('#answer'+par1).prop('checked',true);
+
+                  if(response.hasNotes == '1')
+                    $('#notes_q'+i).prop('placeholder',response.notes.comments);
+                    $('#notes_q'+i).text(response.notes.comments);
+
+                }
+              });
+      
+
+   });
+
+   $('.prevEssay').on('click',function(){
+      var item = $(this).attr('data-item');
+      var curr = parseInt(item)+1;
+      var perc = ( ((curr-2)/parseInt( '{{$totalItems}}' ) )*100 ).toFixed(0);
+      $('#backcheck').val('1');
+      var checkEssay = $('#doneEssay').val();
+
+      var bc = $('#backcheck').val();
+      console.log("backcheck: "+ bc);
+      //alert("Next: "+curr);
+      
+
+      $('#currItem').html(item);
+      $('#currItem').attr('data-val',item);
+
+
+
+      // we now save his answer
+      var _token = "{{ csrf_token() }}";
+      var questionid = $(this).attr('data-questionid')-1;
+      var survey_optionsid = $('input[name="answer'+questionid+'"]:checked').val();
+
+      console.log("curr: " + curr);
+      console.log('perc: ' + perc);
+      console.log("questionid: " + questionid);
+      console.log("item: " + item);
+      //console.log(survey_optionsid);
+
+      //get if may existing comment
+      var comment = $('#notes_q'+curr).val();
+      var openended = $(this).siblings('textarea');
+
+      $.ajax({
+                url: "{{action('SurveyController@getPrevious')}}",
+                type:'POST',
+                data:{ 
+                  'questionid': questionid,
+                  'anEssay': 1,
+                  'survey_id':'{{$survey->id}}',
+                  
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log("fromGetPrevious");
+                  console.log(response);
+
+                  // $('.question'+curr).hide();
+                  // $('.question'+item).fadeIn();//css("display","block");
+                  // $('.question'+item).css("display","block");
+                  // $('.progress-description').html(perc+" %");
+                  // $('.progress-bar').css('width',perc+"%");
+
+                  $('.question'+(curr-1)).hide();
+                  $('.question'+(curr-2)).fadeIn();//css("display","block");
+                  $('.question'+(curr-2)).css("display","block");
+                  $('.progress-description').html(perc+" %");
+                  $('.progress-bar').css('width',perc+"%");
+
+                  //set prev ansswers
+                  if(checkEssay == '2')
+                  {
+                     $('#doneEssay').val('1');
+                     var i = parseInt(item)-1;
+                     var par1 = i+"_"+response.previousResponse.survey_optionsID;
+                     console.log('survey_optionsid: '+ response.previousResponse.survey_optionsID);
+                     openended.text(response.notes.answer);
+
+
+                  }else
+                  {
+                    var i = parseInt(item)-1;
+                    var par1 = i+"_"+response.previousResponse.survey_optionsID;
+                    console.log('survey_optionsid: '+ response.previousResponse.survey_optionsID);
+                    $('#answer'+par1).prop('checked',true);
+
+                    if(response.hasNotes == '1')
+                      $('#notes_q'+i).prop('placeholder',response.notes.comments);
+                      $('#notes_q'+i).text(response.notes.comments);
+
+                  }
+                  
+
+                }
+              });
+      
+
+   });
+
    $('.nextEssay').on('click',function(){
       var item = $(this).attr('data-item');
       var curr = item-1;
@@ -416,6 +623,9 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
      
       var openended = $(this).siblings('textarea');
       var totalItems = '{{$totalItems}}';
+      var checkEssay = $('#doneEssay').val();
+
+
       
 
       $('#currItem').html(item);
@@ -437,6 +647,8 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
         //get if may existing comment
         var comment = $('#notes_q'+questionid).val();
+        if(checkEssay == '0') $('#doneEssay').val('1');
+        else if(checkEssay == '1') $('#doneEssay').val('2');
        
          $.ajax({
                 url: "{{action('SurveyController@saveItem')}}",

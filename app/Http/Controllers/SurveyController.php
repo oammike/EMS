@@ -117,9 +117,9 @@ class SurveyController extends Controller
     {
       $survey = Survey::find($id); 
 
-      //******* show memo for test people only jill,paz,ems,joy,jaja, ben, henry
+      //******* show memo for test people only ,ems,joy,jaja, ben, henry,ella,juls
       $testgroup = [564,508,1644,1611,1784,491,1,184,887];
-      $keyGroup =  [564,508,1644,1611,1784,491,1,184];
+      $keyGroup =  [564,1611,491,1,184,1099,628];
       //(in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
       (in_array($this->user->id, $keyGroup)) ? $canDL=true : $canDL=false;
 
@@ -619,6 +619,57 @@ class SurveyController extends Controller
 
         
        
+    }
+
+    public function getPrevious(Request $request)
+    {
+      if($request->anEssay)
+      {
+        $previousResponse = DB::table('survey_essays')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->get();
+
+      }else 
+        $previousResponse = DB::table('survey_responses')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->get();
+
+      if (count($previousResponse) > 0)
+      {
+        //check mo kung may notes sya dun
+        if($request->anEssay)
+        {
+          return response()->json(['hasResponse'=>1,'hasNotes'=>1, 'previousResponse'=>$previousResponse[0],'notes'=>$previousResponse[0]]);
+
+        }
+        else
+        {
+          $previousNotes = DB::table('survey_notes')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->get();
+          if (count($previousNotes) > 0)
+          {
+            return response()->json(['hasResponse'=>1,'hasNotes'=>1, 'previousResponse'=>$previousResponse[0],'notes'=>$previousNotes[0]]);
+
+          }
+          else
+          {
+            return response()->json(['hasResponse'=>1,'hasNotes'=>0, 'previousResponse'=>$previousResponse[0],'notes'=>$previousNotes]);
+
+          }
+
+        }
+        
+      }else
+      return response()->json(['hasResponse'=>0,'hasNotes'=>0, 'previousResponse'=>$previousResponse, 'notes'=>null]);
+
+    }
+
+    public function intro($id)
+    {
+      //check mo kung done na sya sa survey
+      $survey = Survey::find($id);
+      $doneNa = DB::table('survey_user')->where('user_id',$this->user->id)->where('survey_id',$id)->where('isDone',1)->get();
+
+      if (count($doneNa) > 0)
+        return redirect()->action('SurveyController@show',$id);
+      else
+        return view('forms.survey-intro',compact('survey'));
+
     }
 
     public function participants($id)
@@ -1322,9 +1373,11 @@ class SurveyController extends Controller
 
                     //return $programData;
 
-                    //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan,reese
-                    $testgroup = [564,508,1644,1611,1784,491,1,184,887];
-                    $keyGroup =  [564,508,1644,1611,1784,491,1,184,887];
+                    //******* show memo for test people only 
+                    $testgroup = [564,508,1644,1611,1784,491,1,184,307,2502,887,163,3085];
+                    $keyGroup =  [564,508,1644,1611,1784,491,1,184];
+
+                    
                     (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
                     (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
@@ -1359,6 +1412,13 @@ class SurveyController extends Controller
 
         if ($request->survey_optionsid == 'e'){
             // essay
+
+            //check mo muna kung may existing na
+            $meronNaEssay = DB::table('survey_essays')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->get();
+            if (count($meronNaEssay) > 0){
+              DB::table('survey_essays')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->delete();
+            }
+
             $item = new Survey_Essay;
             $item->user_id = $this->user->id;
             $item->question_id = $request->questionid;
@@ -1373,7 +1433,7 @@ class SurveyController extends Controller
             $survey->lastItem = $request->questionid;
             $survey->save();
 
-            return response()->json(['item'=>$item,'existing'=>null]);
+            return response()->json(['item'=>$item,'existing'=>null,'meronNaEssay'=>$meronNaEssay]);
 
 
         }else if ($request->survey_optionsid == 'x'){
@@ -1455,6 +1515,20 @@ class SurveyController extends Controller
 
             }else 
             {
+
+              //check mo muna kung may existing response na
+              $meronNa = DB::table('survey_responses')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->get();
+
+              if (count($meronNa) > 0)
+              {
+                //baka may notes na, delete mo muna
+                $meronNotes =  DB::table('survey_notes')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->get();
+                if (count($meronNotes) > 0) DB::table('survey_notes')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->delete();
+
+                DB::table('survey_responses')->where('user_id',$this->user->id)->where('question_id',$request->questionid)->delete();
+
+              } 
+
               $item = new Survey_Response;
               $item->user_id = $this->user->id;
               $item->question_id = $request->questionid;
@@ -1613,6 +1687,7 @@ class SurveyController extends Controller
 
 
         $survey = Survey::find($id);
+        $user = $this->user;
         if (empty($survey)) return view('empty');
 
 
@@ -1620,7 +1695,7 @@ class SurveyController extends Controller
         //                jill,paz,ems, joy,jaja ben,henry,reese,bobby,lagran,qhaye,joreen
         $testgroup = [564,508,1644,1611,1784,491,1,184,307,2502,887,163,3085];
         $keyGroup =  [564,508,1644,1611,1784,491,1,184];
-        (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+        (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=true;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
         if (!$canAccess && $id == 6) return view('access-denied');
@@ -1729,6 +1804,8 @@ class SurveyController extends Controller
         $extradata = ['travel time to and from office','hobbies and interest'];//
 
         $totalItems = count($questions);
+
+        $mayEssayna = DB::table('survey_essays')->where('user_id',$this->user->id)->where('survey_id',$id)->get();
 
         //return response()->json(['startFrom'=>$startFrom, 'totalItems'=>count($questions)]);
 
@@ -1872,7 +1949,7 @@ class SurveyController extends Controller
           
           default: {
                       //return response()->json(['startFrom'=>$startFrom, 'extraDataNa'=>$extraDataNa]);
-                      return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+                      return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','mayEssayna'));
                    }
             break;
         }
