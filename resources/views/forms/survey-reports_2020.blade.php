@@ -71,7 +71,7 @@
                         <div class="progress-bar" style="width: {{$percentage}}%"></div>
                       </div>
                       <span class="progress-description">
-                            {{ count($surveyData)}} <small>out of</small> {{$actives}} Open Access Employees ( Makati | Davao ) <br/>
+                            {{ $completed }} <small>out of</small> {{$actives}} Open Access Employees ( Makati | Davao ) <br/>
                             <span style="font-size: x-small;">have completed the Employee Experience Survey</span>
                           </span>
                     </div>

@@ -1248,6 +1248,8 @@ class SurveyController extends Controller
                   $groupedNPS = collect($nspResponses)->groupBy('userID'); 
                   $groupedCat = collect($allResp)->groupBy('categoryID');
 
+                  $completed = count(Survey_User::where('isDone',true)->where('survey_id',$id)->get());
+
                   //return $groupedResp->take(100);
 
                   //****** ALL SURVEY DATA
@@ -1397,7 +1399,7 @@ class SurveyController extends Controller
                     if ($canAccess){
                     
 
-                        return view('forms.survey-reports_2020',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+                        return view('forms.survey-reports_2020',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf','completed'));
 
                     }else
                         return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
