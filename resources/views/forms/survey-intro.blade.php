@@ -48,12 +48,12 @@
                <strong  style="font-size: large;" >Joy</strong><br/><br/>
 
                <div style="background: rgba(0, 0, 0, 0.15); color: #333; padding:20px" >
-                <h4>Privacy Notice</h4><br/><br/>
+                <h4><i class="fa fa-lock"></i> Privacy Notice</h4><br/><br/>
                  
-                <h5>What information is collected</h5>
-                <p>We will collect feedback you provide through our EMS tool in which the employee master list is configured. Any access to information related to your employment records are for data processing: employee name, email address, IP address, gender, tenure, department, education level, nationality, and employment status. All collected data is strictly confidential. None of the information you provide will be disclosed or shared to any third party.</p>
+                <h5><i class="fa fa-info-circle"></i> What information is collected</h5>
+                <p>We will collect feedback you provide through our EMS tool in which the employee master list is configured. Any access to information related to your employment records are for data processing: employee name, email address, IP address, gender, tenure, department, education level, nationality, and employment status. All collected data is strictly confidential. None of the information you provide will be disclosed or shared to any third party.</p><br/>
 
-                <h5>Consent</h5>
+                <h5><i class="fa fa-info-circle"></i> Consent</h5>
 
                 <p>By clicking on “Start Survey”, I confirm that I have read the privacy statement above, and express my consent for Open Access BPO to collect, record, organize my personal information and feedback as part of the Employee Experience Survey; and affirm my right to privacy and my right to transparency pursuant to the provisions of the Republic Act No. 10173 of the Philippines, Data Privacy Act of 2012 and its corresponding Implementing Rules and Regulations. </p>
 
