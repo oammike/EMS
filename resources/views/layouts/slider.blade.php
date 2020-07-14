@@ -82,6 +82,23 @@
                     
               </div>
 
+              <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/newnormal_home.jpg" width="100%" /><br/>
+                    <img src="storage/uploads/newnormal_office.jpg" width="100%" /><br/>
+
+                    
+                    
+ 
+ 
+                    
+              </div>
+
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > eLearning for Leaders: <i class="fa fa-users"></i><br/> <span class="text-primary"> ALERT Part 2<br/>
                   
