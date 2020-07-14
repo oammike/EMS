@@ -1250,6 +1250,7 @@ class SurveyController extends Controller
 
                   $completed = count(Survey_User::where('isDone',true)->where('survey_id',$id)->get());
 
+
                   //return $groupedResp->take(100);
 
                   //****** ALL SURVEY DATA
@@ -1259,6 +1260,8 @@ class SurveyController extends Controller
                     $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
                     
                   }
+
+                  //if (count($completed) == 0 ) return view('empty');
 
                   $totalBackoffice = count(collect($surveyData)->where('backOffice',1));
                   $totalOps = count(collect($surveyData)->where('backOffice',0));

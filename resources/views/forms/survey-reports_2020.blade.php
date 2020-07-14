@@ -86,55 +86,62 @@
                     <strong>Survey Respondents</strong>
                   </p>
 
-                  <div class="progress-group">
-                    <span class="progress-text">Back Office ({{ number_format( ( $totalBackoffice/count($surveyData) )*100 ,1)}}%) </span>
-                    <span class="progress-number"><b>{{$totalBackoffice}} </b>/ {{count($surveyData)}} </span>
+                  @if(count($surveyData) > 0)
 
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-pink" style="width: {{( $totalBackoffice/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Operations  ({{ number_format( ( $totalOps/count($surveyData) )*100 ,1)}}%) </span>
-                    <span class="progress-number"><b>{{$totalOps}} </b>/{{count($surveyData)}}</span>
+                      <div class="progress-group">
+                        
+                        <span class="progress-text">Back Office ({{ number_format( ( $totalBackoffice/count($surveyData) )*100 ,1)}}%) </span>
+                        <span class="progress-number"><b>{{$totalBackoffice}} </b>/ {{count($surveyData)}} </span>
 
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-pink" style="width: {{( $totalOps/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <p><br/></p>
-                  <h4><i class="fa fa-users"></i> Respondent Type<br/><br/></h4>
-                  <div class="progress-group">
-                    <span class="progress-text">Promoters <span class="text-primary">( {{number_format(  round(( count($promoters)/count($surveyData) )*100 ,1)) }}% ) </span></span>
-                    <span class="progress-number"><b>{{ count($promoters) }} </b>/ {{count($surveyData)}} </span>
+                        
 
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-aqua" style="width: {{( count($promoters)/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
+                        <div class="progress sm">
+                          <div class="progress-bar progress-bar-pink" style="width: {{( $totalBackoffice/count($surveyData) )*100 }}%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        <span class="progress-text">Operations  ({{ number_format( ( $totalOps/count($surveyData) )*100 ,1)}}%) </span>
+                        <span class="progress-number"><b>{{$totalOps}} </b>/{{count($surveyData)}}</span>
 
-                  <div class="progress-group">
-                    <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1)) }}% ) </span></span>
-                    <span class="progress-number"><b>{{ count($passives) }}</b>/ {{count($surveyData)}}</span>
+                        <div class="progress sm">
+                          <div class="progress-bar progress-bar-pink" style="width: {{( $totalOps/count($surveyData) )*100 }}%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                      <p><br/></p>
+                      <h4><i class="fa fa-users"></i> Respondent Type<br/><br/></h4>
+                      <div class="progress-group">
+                        <span class="progress-text">Promoters <span class="text-primary">( {{number_format(  round(( count($promoters)/count($surveyData) )*100 ,1)) }}% ) </span></span>
+                        <span class="progress-number"><b>{{ count($promoters) }} </b>/ {{count($surveyData)}} </span>
 
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-green" style="width: {{( count($passives)/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
-                  <div class="progress-group">
-                    <span class="progress-text">Detractors <span class="text-primary">( {{number_format(  round(( count($detractors)/count($surveyData) )*100 ,1)) }}% ) </span></span>
-                    <span class="progress-number"><b>{{ count($detractors) }}</b>/ {{count($surveyData)}}</span>
+                        <div class="progress sm">
+                          <div class="progress-bar progress-bar-aqua" style="width: {{( count($promoters)/count($surveyData) )*100 }}%"></div>
+                        </div>
+                      </div>
 
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-red" style="width: {{( count($detractors)/count($surveyData) )*100 }}%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
+                      <div class="progress-group">
+                        <span class="progress-text">Passives <span class="text-primary">( {{number_format(  round(( count($passives)/count($surveyData) )*100 ,1)) }}% ) </span></span>
+                        <span class="progress-number"><b>{{ count($passives) }}</b>/ {{count($surveyData)}}</span>
 
-                  <h1 style="margin-top: 55px; padding:25px; background:rgba(154,245,38,0.5); color:#666" class="text-center">eNPS : <strong style="color: #000">{{ number_format(  round(( count($promoters)/count($surveyData) )*100 ,1)) - (number_format(  round(( count($detractors)/count($surveyData) )*100 ,1)) )}} </strong><span style="font-size: 0.5em;"></span> </h1>
+                        <div class="progress sm">
+                          <div class="progress-bar progress-bar-green" style="width: {{( count($passives)/count($surveyData) )*100 }}%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        <span class="progress-text">Detractors <span class="text-primary">( {{number_format(  round(( count($detractors)/count($surveyData) )*100 ,1)) }}% ) </span></span>
+                        <span class="progress-number"><b>{{ count($detractors) }}</b>/ {{count($surveyData)}}</span>
+
+                        <div class="progress sm">
+                          <div class="progress-bar progress-bar-red" style="width: {{( count($detractors)/count($surveyData) )*100 }}%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+
+                      <h1 style="margin-top: 55px; padding:25px; background:rgba(154,245,38,0.5); color:#666" class="text-center">eNPS : <strong style="color: #000">{{ number_format(  round(( count($promoters)/count($surveyData) )*100 ,1)) - (number_format(  round(( count($detractors)/count($surveyData) )*100 ,1)) )}} </strong><span style="font-size: 0.5em;"></span> </h1>
+                      
+                  @endif
                 </div>
                 <!-- /.col -->
               </div>
