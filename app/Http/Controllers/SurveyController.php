@@ -115,7 +115,13 @@ class SurveyController extends Controller
 
     public function downloadRaw($id)
     {
-      $survey = Survey::find($id);
+      $survey = Survey::find($id); 
+
+      //******* show memo for test people only jill,paz,ems,joy,jaja, ben, henry
+      $testgroup = [564,508,1644,1611,1784,491,1,184,887];
+      $keyGroup =  [564,508,1644,1611,1784,491,1,184];
+      //(in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
+      (in_array($this->user->id, $keyGroup)) ? $canDL=true : $canDL=false;
 
       switch ($id) {
         case 1:
@@ -388,6 +394,195 @@ class SurveyController extends Controller
               return "Download";
 
         }break;
+
+        case 6:
+        {
+          // Pulse 2020
+          $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',$survey->id)->
+                       
+                        join('users','users.id','=','survey_user.user_id')->
+                        where([
+                              ['users.status_id', '!=', 6],
+                              ['users.status_id', '!=', 16],
+                              ['users.status_id', '!=', 7],
+                              ['users.status_id', '!=', 8],
+                              ['users.status_id', '!=', 9],
+                                      ])->
+                        
+                        join('team','team.user_id','=','survey_user.user_id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
+                        leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
+                        //where('survey_essays.survey_id','=','survey_user.survey_id')->
+                       
+                        select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay','survey_essays.question_id')->
+                        
+                        where('team.floor_id','!=',10)->
+                        where('team.floor_id','!=',11)->
+                        where('survey_essays.survey_id','=',$survey->id)->
+                        orderBy('users.lastname')->get();
+                        /*where('survey_user.isDone',1)->
+                        
+                        // where('users.status_id',"!=",7)->
+                        // where('users.status_id',"!=",8)->
+                        // where('users.status_id',"!=",9)->
+                        // where('users.status_id',"!=",13)->
+                        // where('users.status_id',"!=",16)->
+                        where('campaign.id','=',$id)->
+                        ; //)->take(30); return response()->json($allEmployees);
+                        //return $allEmployees;*/
+
+          //return $allEmployees;
+
+          $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
+                        join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+
+                        join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                        //join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
+                        join('users','users.id','=','survey_user.user_id')->
+                        //------leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
+                        //join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
+                        join('team','team.user_id','=','survey_user.user_id')->
+                        //join('campaign','team.campaign_id','=','campaign.id')->
+                       
+
+                        //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
+                        //'survey_essays.answer as essay', 'survey_extradata.course','survey_extradata.currentlocation', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice',
+
+                        select('survey_responses.user_id as userID', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','team.floor_id')->
+                        where('survey_user.isDone',1)->
+                        where('team.floor_id','!=',10)->
+                        where('team.floor_id','!=',11)->
+                        where('users.status_id',"!=",7)->
+                        where('users.status_id',"!=",8)->
+                        where('users.status_id',"!=",9)->
+                        where('users.status_id',"!=",13)->
+                        where('users.status_id',"!=",16)->get();
+
+
+          $allNotes = DB::table('survey_user')->where('survey_user.survey_id',$id)->
+                          join('users','survey_user.user_id','=','users.id')->
+                          join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
+                          select('survey_user.user_id as userID','users.lastname','users.firstname', 'survey_notes.question_id','survey_notes.comments')->
+                          
+                          where('survey_notes.survey_id','=',$id)->where('survey_notes.comments','!=',null)->
+                          orderBy('users.lastname')->get();
+          $allQuestions = DB::table('survey_questions')->where('survey_id',$id)->select('survey_questions.value as question','survey_questions.id')->get();
+
+          $description = $survey->description;
+          $headers = ['Lastname','Firstname', 'Program','Tenure','Gender','Education','Course','Current Location','Hobbies/Interests','Commute Time (mins)'];
+          $c =10;
+          $q = 1;
+          foreach ($allQuestions as $key) {
+            $headers[$c] = "Q".$q.": ".$key->question; $c++;$q++;
+            $headers[$c] = "Notes/Comments";$c++;
+          }
+          
+          //return response()->json(['allEmployees'=>$allEmployees, 'allQuestions'=>$allQuestions,'allNotes'=>$allNotes,'allResp'=>$allResp]);
+
+          if($canDL)
+          {
+            //return response()->json(['allEmployees'=>$allEmployees, 'allQuestions'=>$allQuestions,'allNotes'=>$allNotes,'allResp'=>$allResp]);
+            
+                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                  fwrite($file, "-------------------\n DL survey[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                  fclose($file);
+            
+
+
+            Excel::create($survey->name,function($excel) use($id,$allEmployees,$allQuestions,$allNotes,$allResp, $survey, $headers,$description) 
+               {
+                      $excel->setTitle($survey->name.' Raw Data');
+
+                      // Chain the setters
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccess');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+                      $excel->sheet("Sheet 1", function($sheet) use ($id,$allEmployees,$allQuestions,$allNotes,$allResp, $headers)
+                      {
+                        $sheet->appendRow($headers);
+
+                        
+                        $arr = [];
+
+                        foreach($allEmployees as $employee)//collect($allEmployees)->where('programID',16)
+                        {
+                          $i = 0;
+
+                          $arr[$i] = $employee->lastname; $i++;
+                          $arr[$i] = $employee->firstname; $i++;
+                          $arr[$i] = $employee->program; $i++;
+
+                          //TENURE
+                          $tenure = Carbon::parse($employee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('Asia/Manila'));
+                          if ($tenure == 0) {$arr[$i] = "< a yr";}
+                          else if($tenure == 1) {$arr[$i] = "1 year";}
+                          else $arr[$i] = $tenure . " year(s)";  
+
+                          $i++;
+
+                          $arr[$i] = $employee->gender; $i++;
+                          $arr[$i] = $employee->education; $i++;
+                          $arr[$i] = $employee->course; $i++;
+                          $arr[$i] = $employee->currentlocation; $i++;
+                          $arr[$i] = $employee->hobbiesinterest; $i++;
+                          $arr[$i] = $employee->commuteTime; $i++;
+
+
+                          $qCounter=1;
+                          foreach ($allQuestions as $q) {
+
+                            if($qCounter == count($allQuestions)){
+                              $arr[$i]= $employee->essay;
+                              //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
+                            } else
+                            {
+
+                              //---- RATING
+                              $r = collect($allResp)->where('userID',$employee->id)->where('question',$q->id);
+                              if (count($r) > 0)
+                                $rating = $r->first()->rating;
+                              else
+                                $rating = null;
+
+                              $arr[$i]= $rating; $i++;
+                              
+                              //---- NOTE
+                              $n = collect($allNotes)->where('userID',$employee->id)->where('question_id',$q->id);
+                              if (count($n)>0) $note = $n->first()->comments;
+                              else $note=null;
+
+                              $arr[$i]= $note; $i++;
+
+                            }
+
+                            $qCounter++;
+
+                          }//end foreach questions
+
+
+
+                            $sheet->appendRow($arr);
+
+                        }//end foreach employee
+
+
+                        
+                     });//end sheet1
+
+
+
+              })->export('xls');
+
+              return "Download";
+
+          } else return view('access-denied');
+
+          
+
+        }break;
         
         default: return view('access-denied');
           # code...
@@ -529,6 +724,8 @@ class SurveyController extends Controller
       $programData = new Collection;
       $categoryData = new Collection;
 
+
+
       switch ($id) {
         case 1: //EES 2019
                 {
@@ -549,7 +746,15 @@ class SurveyController extends Controller
                     select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_essays.answer as essay', 'survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
-                    where('team.floor_id','!=',11)->get();
+                    where('team.floor_id','!=',11)->
+                    where([
+                    ['users.status_id', '!=', 6],
+                    ['users.status_id', '!=', 13],
+                    ['users.status_id', '!=', 16],
+                    ['users.status_id', '!=', 7],
+                    ['users.status_id', '!=', 8],
+                    ['users.status_id', '!=', 9],
+                            ])->get();
                   $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
                  
                   $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
@@ -975,7 +1180,15 @@ class SurveyController extends Controller
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
                     where('team.floor_id','!=',11)->
-                    where('survey_essays.survey_id',$id)->get();
+                    where('survey_essays.survey_id',$id)->
+                    where([
+                    ['users.status_id', '!=', 6],
+                    ['users.status_id', '!=', 13],
+                    ['users.status_id', '!=', 16],
+                    ['users.status_id', '!=', 7],
+                    ['users.status_id', '!=', 8],
+                    ['users.status_id', '!=', 9],
+                            ])->get();
                   $nspResponses = collect($allResp)->whereIn('question',[156]);
                  
                   $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
@@ -1089,6 +1302,7 @@ class SurveyController extends Controller
                                     where('status_id','!=',8)->
                                     where('status_id','!=',9)->
                                     where('status_id','!=',13)->
+                                    where('status_id','!=',16)->
                                     leftJoin('team','team.user_id','=','users.id')->
                                     select('users.id','users.lastname','team.floor_id','team.campaign_id')->
                                     where('team.floor_id','!=',10)->
@@ -1113,6 +1327,10 @@ class SurveyController extends Controller
                     $keyGroup =  [564,508,1644,1611,1784,491,1,184,887];
                     (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
                     (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
+
+                    $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Report survey[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                    fclose($file);
 
                     if ($canAccess){
                     
@@ -1579,6 +1797,7 @@ class SurveyController extends Controller
                                       where('users.status_id','!=',8)->
                                       where('users.status_id','!=',9)->
                                       where('users.status_id','!=',13)->
+                                      where('users.status_id','!=',16)->
                                       orderBy('users.lastname')->get();
 
                                       //return $allcamp;

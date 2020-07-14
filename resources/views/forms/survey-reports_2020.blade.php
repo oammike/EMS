@@ -29,7 +29,7 @@
 
 
               <div class="box-tools pull-right">
-                <a class="btn btn-xs btn-default" style="margin-right: 35px"><i class="fa fa-download"></i> Download Raw Data</a>
+                <a class="btn btn-xs btn-default" style="margin-right: 35px" href="{{action('SurveyController@downloadRaw',$survey->id)}} "><i class="fa fa-download"></i> Download Raw Data</a>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <div class="btn-group">
@@ -219,9 +219,9 @@
                             <!-- Message. Default to the left -->
                             <div class="direct-chat-msg">
                                <img class="direct-chat-img" src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" alt="Message User Image"><!-- /.direct-chat-img -->
+                              &nbsp;&nbsp;<em style="font-size: x-small;">{{$ge[$i]->theQ}} </em><br/>
                               <div class="direct-chat-text">
-                                <em>{{$ge[$i]->theQ}} </em><br/><br/>
-                                <strong>{{$ge[$i]->answer}}</strong>
+                                <em>{{$ge[$i]->answer}}</em>
                               </div>
                               <!-- /.direct-chat-text -->
                               <div class="direct-chat-info clearfix">
@@ -238,9 +238,10 @@
                             <!-- Message to the right -->
                             <div class="direct-chat-msg right">
                               <img class="direct-chat-img" src="../../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" alt="Message User Image"><!-- /.direct-chat-img -->
+                               &nbsp;&nbsp;<em style="font-size: x-small;">{{$ge[$i]->theQ}} </em><br/>
                               <div class="direct-chat-text">
-                                  <em>{{$ge[$i]->theQ}} </em><br/><br/>
-                                <strong>{{$ge[$i]->answer}}</strong>
+                                 
+                                <em>{{$ge[$i]->answer}}</em>
                               </div>
                               <!-- /.direct-chat-text -->
 
