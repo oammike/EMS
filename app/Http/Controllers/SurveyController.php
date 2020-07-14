@@ -971,10 +971,11 @@ class SurveyController extends Controller
                     join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
 
                     //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_essays.answer as essay', 'survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
+                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions.survey_id as surveyID', 'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_essays.answer as essay', 'survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
-                    where('team.floor_id','!=',11)->get();
+                    where('team.floor_id','!=',11)->
+                    where('survey_essays.survey_id',$id)->get();
                   $nspResponses = collect($allResp)->whereIn('question',[156]);
                  
                   $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
@@ -1023,6 +1024,8 @@ class SurveyController extends Controller
                   $participants = ['eeCommittee'=>$eeCommittee,'totalPromoters'=> count($promoters),'eePercent'=>$eePercent, 'forGD'=>$forGD, 'totalDetractors'=>count($detractors), 'gdPercent'=>$gdP];
 
                   $eNPS = round((count($promoters)/count($surveyData))*100) - round((count($detractors)/count($surveyData))*100);
+
+                  //return response()->json(['nspResponses'=>$groupedNPS, 'eNPS'=>$eNPS, 'promoters'=>$promoters, 'surveyData'=>$surveyData, 'detractors'=>$detractors]);
                  
 
                   //****** ALL CAMPAIGN RELATED DATA
@@ -1935,7 +1938,11 @@ class SurveyController extends Controller
                     $m = $my->where('user_id',$this->user->id);
                     $m2 = collect($m);
                     $n = $m2->whereIn('question',[156]);
-                    $nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
+
+                    if (count($n->pluck('answer')) > 0)
+                      $nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
+                    else $nps = 0;
+                    //
                     $promoter=false;
                     $detractor=false;
 

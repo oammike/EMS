@@ -175,7 +175,7 @@
               </div>
               <!-- /.row -->
 
-              @if ($essayQ !== null)
+              @if ($essayQ !== null) 
               <div class="row">
                 <div class="col-sm-12"><h4 class="text-center"><br/><br/>Q: {{$essayQ->value}} <br/><br/></h4>
 

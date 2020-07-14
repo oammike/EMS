@@ -119,7 +119,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                           <label><input type="radio" data-rtype="s" name="answer{{$q->id}}" value="{{$o->id}}"  id="answer{{$ctr}}_{{$o->ordering}}"/> [{{$o->value}}] {{$o->label}}  </label>&nbsp;&nbsp;&nbsp;
 
                           @endforeach
-                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$ctr}}" placeholder="Notes / Comments"></textarea>
+                           <textarea class="form-control" style="width: 70%; margin:0 auto;" name="notes" id="notes_q{{$ordering}}" placeholder="Notes / Comments"></textarea>
 
                         @else
 
@@ -500,7 +500,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
 
     
-    if (openended.val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
+    if (openended.val().length <= 3 ) $.notify("We would like to hear from you. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
     else 
     {
 
@@ -514,7 +514,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
                   'questionid': questionid,
                   'survey_optionsid': 'e',
                   'survey_id': '{{$id}}',
-                  'answer': $('#essay').val(),
+                  'answer':  openended.val(),
                   '_token':_token
                 },
                 success: function(response){
@@ -544,13 +544,13 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
     {
       if ($('#genderdesc').val() == ''){
 
-        $.notify("All fields are required. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );return false;
+        $.notify("All fields are required. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
       }
       
     } else if ($('input[name="education"]:checked').val() != 'High School'){
 
       if($('#course').val() == ''){
-         $.notify("All fields are required. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );return false;
+         $.notify("All fields are required. \nFilling out the form will help us gather needed data to make every employee's experience more awesome at Open Access.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
       }
 
     }
