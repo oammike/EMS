@@ -1056,18 +1056,21 @@ class SurveyController extends Controller
 
                   //****** ALL SUBMITTED ESSAYS
                   // the last question
-                  $allEssays = DB::table('survey_questions')->where('survey_questions.id',158)->
-                                    join('survey_essays','survey_essays.question_id','=','survey_questions.id')->
+                  $allEssays =  DB::table('survey_essays')->where('survey_essays.survey_id', $id)->
+                  //DB::table('survey_questions')->where('survey_questions.id',158)->
+                  //                  join('survey_essays','survey_essays.question_id','=','survey_questions.id')->
                                     join('users','survey_essays.user_id','=','users.id')->
                                     join('team','team.user_id','=','users.id')->
                                     join('campaign','team.campaign_id','=','campaign.id')->
-                                    select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at')->orderBy('survey_essays.created_at','DESC')->get();
+                                    join('survey_questions','survey_questions.id','=','survey_essays.question_id')->
+                                    select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at','survey_questions.id as questionID','survey_questions.value as theQ')->orderBy('survey_essays.created_at','DESC')->get();
 
                   $groupedEssays = collect($allEssays)->sortBy('program')->groupBy('program');
 
-                  $eq = DB::table('survey_questions')->where('responseType',2)->get();
-                  (count($eq)>0) ? $essayQ = $eq[0] : $essayQ = null;
+                  $eq = DB::table('survey_questions')->where('survey_id',$id)->where('responseType',2)->get();
+                  (count($eq)>0) ? $essayQ = $eq : $essayQ = null;
 
+                 
                   
 
 
@@ -1114,7 +1117,7 @@ class SurveyController extends Controller
                     if ($canAccess){
                     
 
-                        return view('forms.survey-reports',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+                        return view('forms.survey-reports_2020',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
 
                     }else
                         return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));

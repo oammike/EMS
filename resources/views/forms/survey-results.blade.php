@@ -191,7 +191,7 @@
                 },
                 success: function(response){
                   console.log(response);
-                   $.notify(msg,{className:cname,globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                   $.notify(msg,{className:cname,globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                    
 
                 }
