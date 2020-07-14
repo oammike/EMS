@@ -421,6 +421,22 @@
         </li>
         @endif
 
+        <li class="treeview @if ( Request::is('survey*') ) active @endif">
+          <a href="#"  class="text-yellow"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span> <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span><i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+
+            
+              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a class="text-yellow" id="photobooth" href="{{action('SurveyController@intro',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
+
+             <!--  <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',5)}}"><i class="fa fa-file-o"></i>360° Survey </a> </li>
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>2019 Year End Party Artists</a> </li>
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> 2019 Year End Party Theme </a></li> -->
+            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@report',1)}} "><i class="fa fa-question-circle"></i> <span> EES 2019 </span> </a> </li>
+            
+           
+          </ul>
+        </li>
+
       
 
         
@@ -601,21 +617,7 @@
         <li @if (Request::is('oampi-resources')) class="active" @endif><a href="{{action('ResourceController@index')}}" ><i class="fa fa-book"></i> <span>Resources</span></a></li>
         <?php  //endif ?>
 
-         <li class="treeview @if ( Request::is('survey*') ) active @endif">
-          <a href="#"><i class="fa fa-question-circle"></i>&nbsp;<span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
-
-            
-              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@intro',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
-
-             <!--  <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',5)}}"><i class="fa fa-file-o"></i>360° Survey </a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>2019 Year End Party Artists</a> </li>
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> 2019 Year End Party Theme </a></li> -->
-            <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@report',1)}} "><i class="fa fa-question-circle"></i> <span> EES 2019 </span> </a> </li>
-            
-           
-          </ul>
-        </li>
+         
 
        <!--  <li @if (Request::is('oampi-resources')) class="active" @endif><a href="{{action('FormBuilderController@index')}}"><i class="fa fa-list"></i> <span>Reports</span></a></li> -->
        
