@@ -1234,11 +1234,13 @@ class SurveyController extends Controller
                     where('survey_essays.survey_id',$id)->
                     where([
                     ['users.status_id', '!=', 6],
-                    ['users.status_id', '!=', 13],
-                    ['users.status_id', '!=', 16],
                     ['users.status_id', '!=', 7],
                     ['users.status_id', '!=', 8],
                     ['users.status_id', '!=', 9],
+                    ['users.status_id', '!=', 13],
+                    ['users.status_id', '!=', 16],
+                    
+                    
                             ])->get();
                   $nspResponses = collect($allResp)->whereIn('question',[156]);
                  
@@ -1301,10 +1303,12 @@ class SurveyController extends Controller
                       $totalData = DB::table('team')->where('campaign_id',$p[0]['programID'])->
                                     join('users','users.id','=','team.user_id')->
                                     select('users.status_id','users.firstname','users.lastname','users.id')->
+                                    where('users.status_id',"!=",6)->
                                     where('users.status_id',"!=",7)->
                                     where('users.status_id',"!=",8)->
                                     where('users.status_id',"!=",9)->
                                     where('users.status_id',"!=",13)->
+                                    where('users.status_id',"!=",16)->
                                     where('team.floor_id','!=',10)->
                                     where('team.floor_id','!=',11)->get();
                       $total = count($totalData); //count(Team::where('campaign_id',$p[0]['programID'])->get());
@@ -1353,7 +1357,8 @@ class SurveyController extends Controller
 
                  
                     //exclude Taipei and Xiamen
-                    $actives = count(DB::table('users')->where('status_id','!=',7)->
+                    $actives = count(DB::table('users')->where('status_id','!=',6)->
+                                    where('status_id','!=',7)->
                                     where('status_id','!=',8)->
                                     where('status_id','!=',9)->
                                     where('status_id','!=',13)->
@@ -2231,10 +2236,12 @@ class SurveyController extends Controller
                     //                select('users.status_id')->get());
 
                     //exclude Taipei and Xiamen
-                    $actives = count(DB::table('users')->where('status_id','!=',7)->
+                    $actives = count(DB::table('users')->where('status_id','!=',6)->
+                                    where('status_id','!=',7)->
                                     where('status_id','!=',8)->
                                     where('status_id','!=',9)->
                                     where('status_id','!=',13)->
+                                    where('status_id','!=',16)->
                                     leftJoin('team','team.user_id','=','users.id')->
                                     select('users.id','users.lastname','team.floor_id','team.campaign_id')->
                                     where('team.floor_id','!=',10)->
