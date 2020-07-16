@@ -1230,10 +1230,25 @@ class HomeController extends Controller
 
             ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false; 
             ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
-            ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
+            
+            if ($myCampaign->contains($prg)) {
+
+              //check mo kung disabled na si TL from postmates:
+              $disablePM =  $leadershipcheck->myCampaigns->where('campaign_id',$prg)->first()->disabled;
+              {
+                 ($disablePM) ? $fromPostmate=false : $fromPostmate=true; 
+                 
+              } 
+
+              //$fromPostmate=true : $fromPostmate=false; 
+
+            } else $fromPostmate=false; 
 
 
       }
+
+     
+
 
       //******************* TASK TRACKER : NDY *************************
       /*if ($fromNDY)
@@ -1652,7 +1667,19 @@ class HomeController extends Controller
 
             ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false; 
             ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
-            ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false; 
+            //($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false;
+            if ($myCampaign->contains($prg)) {
+
+              //check mo kung disabled na si TL from postmates:
+              $disablePM =  $leadershipcheck->myCampaigns->where('campaign_id',$prg)->first()->disabled;
+              {
+                 ($disablePM) ? $fromPostmate=false : $fromPostmate=true; 
+                 
+              } 
+
+              //$fromPostmate=true : $fromPostmate=false; 
+
+            } else $fromPostmate=false;  
 
 
       }
