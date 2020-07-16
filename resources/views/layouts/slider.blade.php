@@ -1,7 +1,7 @@
 
 
 
-              <div class="item active text-center" >
+             <!--  <div class="item active text-center" >
                
                 <h4 class="text-orange" style="line-height: 1.5em" > Free <span class="text-primary">Coffee!!!<br/> 
                   <img src="storage/uploads/divider.png" /> 
@@ -24,9 +24,9 @@
 
                    
                     
-              </div>
+              </div> -->
 
-              <div class="item  text-center" >
+              <div class="item active  text-center" >
                
                 <h4 class="text-orange" style="line-height: 1.5em" >...And we are <span class="text-primary">LIVE!!!<br/> 
                   <img src="storage/uploads/divider.png" /> 
