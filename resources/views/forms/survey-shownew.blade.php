@@ -41,7 +41,7 @@ Survey Period:  July 15-30, 2020<br/><br/>
 Please answer the following questions in light of the events of the first six months of this year, whether as an onsite worker or at-home worker:<br/><br/>
 
 The items above describe statements about different aspects of our work here at Open Access.<br/>
-Indicate your range of agreement or disagreement by <span class="text-orange" style="font-weight: bolder;">clicking the appropriate radio button</span> OR <span class="text-orange" style="font-weight: bolder;">pressing keys 1-5 on your keyboard</span>. <br/>(Ranging from <strong>5 </strong> for when it's so awesome, all the way down to<strong> 1 </strong> when it's so horrible.) <br/><br/>For the last two items, we'd love to hear what you think. Feel free to let us know by writing your response on the space provided</em></div>
+Indicate your range of agreement or disagreement by <span class="text-orange" style="font-weight: bolder;">clicking the appropriate radio button</span>. <br/>(Ranging from <strong>5 </strong> for when it's so awesome, all the way down to<strong> 1 </strong> when it's so horrible.) <br/><br/>For the last two items, we'd love to hear what you think. Feel free to let us know by writing your response on the space provided</em></div>
                      
                      <!-- /.info-box -->
                      <div style="position: absolute;top: 50px;left:25px; width: 95%">
@@ -841,7 +841,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
 
   });
 
-  $('body').keyup(function (e){
+  /*$('body').keyup(function (e){
 
     var val=$('#currItem').attr('data-val');
     //var con = $("answer"+val+"_1");
@@ -867,7 +867,7 @@ Indicate your range of agreement or disagreement by <span class="text-orange" st
       //$('#answer1_5').attr('checked',true);
      document.getElementById("answer"+val+"_5").click();
    } 
- })
+ })*/
 
    
 

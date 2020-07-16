@@ -29,8 +29,8 @@
 
 
                     <div class="box-tools pull-right">
-                      <a class="btn btn-xs btn-default" style="margin-right: 5px" href="{{action('SurveyController@report','1')}}"><i class="fa fa-arrow-left"></i> Back to Summary</a>
-                      <a class="btn btn-xs btn-default" style="margin-right: 35px"><i class="fa fa-download"></i> Download Raw Data</a>
+                      <a class="btn btn-xs btn-default" style="margin-right: 5px" href="{{action('SurveyController@report',$surveyID)}}"><i class="fa fa-arrow-left"></i> Back to Report Summary</a>
+                      <!-- <a class="btn btn-xs btn-default" style="margin-right: 35px"><i class="fa fa-download"></i> Download Raw Data</a> -->
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
                       <div class="btn-group">
@@ -57,7 +57,10 @@
                           <strong>Survey Rating Responses</strong>
                         </p>
                         <div class="chart">
+
                           <canvas id="barChart" style="height:330px"></canvas>
+                          <p class="text-center"><br/><em>* The color of bars correspond to a specific survey question in this category.<br/>
+                            <i class="fa fa-info-circle"></i><small>Take note of the tagged color at the upper-left portion of each survey questions.</small> </em></p>
                         </div>
 
                         <!-- BAR CHART -->
@@ -92,7 +95,9 @@
                             <a id="prev0" class="prev question{{$counter}} btn btn-default btn-md pull-right" data-totalc='{{count($chartData)}}' data-curr="{{$counter}}" style="z-index: 999; position: absolute;right: 80px; display: none">
                               <i class="fa fa-arrow-left"></i> Prev </a> 
 
-                        <img class="question{{$counter}}" src="../../storage/uploads/{{$cd['bg']}}" style="filter: alpha(opacity=30); opacity: 0.3; position: absolute; top:16px; left:6px;" width="99%" />
+                              <?php $fname = "storage/uploads/".$cd['bg'];?>
+
+                        <img class="question{{$counter}}" src="{{asset($fname)}}" style="filter: alpha(opacity=30); opacity: 0.3; position: absolute; top:16px; left:6px;" width="99%" />
 
                           @else
 
@@ -268,7 +273,7 @@
 <!-- ChartJS -->
 <script src="{{ asset( 'public/js/bower_components/chart.js/Chart.js' ) }}"></script>
 <!-- FastClick -->
-<script src="{{ asset( 'public/js/bower_components//fastclick/lib/fastclick.js' ) }}"></script>
+<script src="{{ asset( 'public/js/bower_components/fastclick/lib/fastclick.js' ) }}"></script>
 
 
 

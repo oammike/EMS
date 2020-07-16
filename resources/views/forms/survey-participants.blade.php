@@ -29,8 +29,8 @@
 
 
               <div class="box-tools pull-right">
-                 <a class="btn btn-xs btn-default" style="margin-right: 5px" href="{{action('SurveyController@report','1')}}"><i class="fa fa-arrow-left"></i> Back to Summary</a>
-                <a class="btn btn-xs btn-default" style="margin-right: 35px"><i class="fa fa-download"></i> Download Raw Data</a>
+                 <a class="btn btn-xs btn-default" style="margin-right: 5px" href="{{action('SurveyController@report',$survey->id)}}"><i class="fa fa-arrow-left"></i> Back to Report Summary</a>
+                <!-- <a class="btn btn-xs btn-default" style="margin-right: 35px"><i class="fa fa-download"></i> Download Raw Data</a> -->
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 

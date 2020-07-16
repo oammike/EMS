@@ -690,24 +690,27 @@ class SurveyController extends Controller
 
                 $survey = Survey::find($id);
 
-                $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
-                            join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
-                            join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
-                            join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
-                            join('users','users.id','=','survey_user.user_id')->
-                            join('team','team.user_id','=','survey_user.user_id')->
-                            join('campaign','team.campaign_id','=','campaign.id')->
-                            join('positions','users.position_id','=','positions.id')->
-                            //join('campaign_logos','campaign_logos.campaign_id','=', 'team.campaign_id')->
-                            join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
-                            join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
-                            //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                            select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','positions.name as jobTitle')->
-                            where('survey_user.isDone',1)->
-                            where('team.floor_id','!=',10)->
-                            where('team.floor_id','!=',11)->get();
+                $allResp = DB::table('survey_user')->where('survey_user.survey_id',$id)->
+                              join('survey_responses','survey_responses.user_id','=','survey_user.user_id')->
+                              where('survey_responses.survey_id',$id)->
+                              where('survey_user.isDone',1)->
+                              join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
+                              where('survey_extradata.survey_id',$id)->
+                              join('users','users.id','=','survey_user.user_id')->
+                              join('team','team.user_id','=','survey_user.user_id')->
+                              join('campaign','team.campaign_id','=','campaign.id')->
+                              join('positions','users.position_id','=','positions.id')->
+                              join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
+                              join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
+                              select('survey_user.user_id as userID','survey_user.survey_id as surveyID','users.firstname','users.lastname' ,'survey_responses.question_id as question','survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel','survey_responses.survey_optionsID as rating','survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','positions.name as jobTitle')->get();
+                
 
-                $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
+                
+                if($id == 6)
+                  $nspResponses = collect($allResp)->whereIn('question',[156]);
+                else
+                  $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
+
                 $groupedNPS = collect($nspResponses)->groupBy('userID'); 
 
                 //****** ALL NSP DATA
@@ -738,13 +741,15 @@ class SurveyController extends Controller
                   $promoters = collect($npsData)->whereIn('roundedNPS',['4','5'])->where('eeCommittee',1)->sortBy('program')->groupBy('program');
                   //$passives = collect($npsData)->whereIn('roundedNPS',['3']);
                   $detractors = collect($npsData)->whereIn('roundedNPS',['1','2'])->where('forGD',1)->sortBy('program')->groupBy('program');
+
+                 
                 
                 switch ($type) {
                     case '1':
                     {
                         $participants = $promoters;
                         $activity = "Interested to be part of <strong>Employee Engagement Committee</strong>";
-                        //return $participants;
+                        
                         return view('forms.survey-participants',compact('participants','survey','activity','type'));
                         // response()->json(['promoters'=>$promoters, 'total'=> count($promoters)]);
                     }
@@ -2018,10 +2023,11 @@ class SurveyController extends Controller
                         //join('users','users.id','=','survey_responses.user_id')->
                         join('campaign','team.campaign_id','=','campaign.id')->
                         //leftJoin('survey_notes','survey_notes.user_id','=','survey_responses.user_id')->
-                        select('categoryTags.label','survey_questions.value as question','survey_questions.id as questionID','survey_questions.img',  'survey_responses.survey_optionsID as answer', 'campaign.name as program', 'survey_responses.user_id', 'survey_user.isDone')->
+                        select('categoryTags.label','survey_questions.value as question','survey_questions.survey_id as surveyID','survey_questions.id as questionID','survey_questions.img',  'survey_responses.survey_optionsID as answer', 'campaign.name as program', 'survey_responses.user_id', 'survey_user.isDone')->
                         where('survey_user.isDone',1)->get();
         $questions = collect($categoryData)->groupBy('questionID');
-
+        $surveyID = $categoryData[0]->surveyID;
+        
         //return $questions;
 
         $chartData = new Collection;
@@ -2071,7 +2077,7 @@ class SurveyController extends Controller
 
 
         //return $chartData->sortBy('questionID');
-        return view('forms.survey-category',compact('category','chartData','asOf','colors'));
+        return view('forms.survey-category',compact('category','chartData','asOf','colors','surveyID'));
 
     }
 

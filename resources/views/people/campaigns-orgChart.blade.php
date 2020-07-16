@@ -29,7 +29,7 @@
                         <img src="{{asset('storage/uploads/newexecs.jpg')}}" width="75%" class="pull-right" />
                         <div style="font-size: smaller; width: 35%;margin:30px 0 0 40px; position: absolute;left:10px; top:95px">
                           <i class="fa fa-info-circle text-primary"></i> Click on an employee node to view and expand the tree. <br/>
-                          <i class="fa fa-info-circle text-primary"></i> Shortcut buttons to MOVEMENT, PROFILE, DTR, and SCHEDULE <br/>appear on the right side of employee node<br/>
+                          <i class="fa fa-info-circle text-primary"></i> Shortcut buttons to MOVEMENT, PROFILE, DTR,  <br/>and SCHEDULEappear on the right side of employee node<br/>
                           <i class="fa fa-info-circle text-primary"></i> Drag around the area to scroll left and right
 
                           <h4 id="loader" style="width:100%;margin-top: 150px">Loading all employees. <br/>Please wait... <img src="public/css/images/loadingspin.gif" /> </h4></div>
