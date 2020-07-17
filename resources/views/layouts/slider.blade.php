@@ -26,7 +26,16 @@
                     
               </div> -->
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+               <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations:<br/> <span class="text-primary">Decode the Emoji Winners!<br/><img src="storage/uploads/divider.png" /> </h4>
+                    <img src="storage/uploads/emojiwinners.jpg" width="100%" /><br/>
+                    <p style="padding: 30px;" class="text-center">
+                  </p>
+
+                   
+                    
+              </div>
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> JULY 24, 2020</strong> PAYOUT <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -47,30 +56,7 @@
                     
               </div>
 
-              <div class="item text-center" >
-               
-                
-                  <img src="storage/uploads/emoji2020.jpg" width="100%" /><br/>
-                  <h4 class="text-orange" style="line-height: 1.5em" >Decode the Emojis: <span class="text-primary">#WorldEmojiDay<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">
-                      Emojis transform our simple chat conversations into fun interactions. Celebrate #WorldEmojiDay with our Open Access BPO emoji quiz!<br/><br/>
-
-                      Answer our emoji quiz for a chance to win a 500 PHP GrabFood voucher. The quiz drops at 3:00 PM PHT today (July 16 2020), so stay tuned!<br/><br/>
-
-                      Contest is open to all employees from Open Access BPO Makati and Davao sites only.<br/><br/>
-
-                      <strong>#WeSpeakYourLanguage #DecodeTheEmOAjis</strong><br/><br/>
-
-                      <a class="btn btn-md btn-primary" href="https://www.facebook.com/openaccessbpolife/" target="_blank">Visit our FB page <i class="fa fa-thumbs-up"></i> </a>
-                      <br/><br/>
-
-                   
-                    
-              </div>
+             
 
               <div class="item   text-center" >
                
