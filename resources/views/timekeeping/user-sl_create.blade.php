@@ -115,7 +115,7 @@
                           
                           <div class="row">
                             <div class="col-lg-12">
-                              <a href="#" class="addDays"><i class="fa fa-plus"></i> Add more days</a><br/><br/>
+                              <a href="#" class="addDays" style="visibility: hidden;"><i class="fa fa-plus"></i> Add more days</a><br/><br/>
                               <div class="moredays">
                                 <div class="row">
                                   <input type="hidden" name="timestart_old2" /><input type="hidden" name="timeend_old2" />
