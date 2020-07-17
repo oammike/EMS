@@ -380,7 +380,7 @@ sidebar-collapse
                                   <h5>Below are the following guidelines for using the performance assessment tool: </h5>
 
 
-                                <table class="table" style="width:400px; margin: 0 auto;">
+                                <!-- <table class="table" style="width:400px; margin: 0 auto;">
                                   <tr>
                                     <td colspan="2" class="text-center"><h4>Salary Increase Metrics</h4></td>
                                   </tr>
@@ -418,9 +418,10 @@ sidebar-collapse
                                     <td class="text-center">none</td>
                                   </tr>
 
-                                </table><br/>
+                                </table> -->
+                                <br/>
 
-                                <h6><i><b>The company may in its discretion, grant a salary increase or a bonus equivalent to to 1% to 5% of the employee's monthly salary.  In case the current salary is already maximum pay for the campaign, only a bonus may be given.  A positive review  does not guarantee salary increases or bonus, nor does it imply continued employment</b></i></h6>
+                                <!-- <h6><i><b>The company may in its discretion, grant a salary increase or a bonus equivalent to to 1% to 5% of the employee's monthly salary.  In case the current salary is already maximum pay for the campaign, only a bonus may be given.  A positive review  does not guarantee salary increases or bonus, nor does it imply continued employment</b></i></h6> -->
                                  <br/>
 
                                   <p>This Evaluation Form has a graduated scale from 5 to 1 with suggested qualitative definitions. Take your time, give thought to each performance factor and choose a numerical rating which best describes the employee's performance for each section (See second tab: Competencies Definition Guide Sheet). The rating range and definitions are as follows:</p>
@@ -607,28 +608,28 @@ var rating = parseFloat($('#overallScore').attr('data-score'));
            /* -- new ratings by Finance -- */
 
           if (rating <= 101 && rating >= 97.5){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
-            $('input#salaryIncrease').attr("value",5);
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
+            //$('input#salaryIncrease').attr("value",5);
 
           } else if ( rating <= 97.49 && rating >= 89.50 ){ 
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
-            $('input#salaryIncrease').attr("value",4);
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
+            //$('input#salaryIncrease').attr("value",4);
 
           } else if ( rating <= 89.49 && rating >= 84.50 ){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
-            $('input#salaryIncrease').attr("value",3);
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
+            //$('input#salaryIncrease').attr("value",3);
 
           } else if ( rating <= 84.49 && rating >= 80 ){
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
-            $('input#salaryIncrease').attr("value",2);
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
+            //$('input#salaryIncrease').attr("value",2);
 
           } else if ( rating <= 79.99 && rating >= 70 ){
-                  $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
-                  $('input#salaryIncrease').attr("value",2);
+                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
+                  //$('input#salaryIncrease').attr("value",2);
 
           } else{
-            $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
-            $('input#salaryIncrease').attr("value",0);
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
+            //$('input#salaryIncrease').attr("value",0);
 
           }
 

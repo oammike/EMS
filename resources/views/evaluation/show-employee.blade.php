@@ -599,27 +599,27 @@ var rating = parseFloat($('#overallScore').attr('data-score'));
 
           if (rating <= 101 && rating >= 97.5){
             // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span><br/>');
-            $('input#salaryIncrease').attr("value",5);
+            //$('input#salaryIncrease').attr("value",5);
 
           } else if ( rating <= 97.49 && rating >= 89.50 ){ 
             // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
-            $('input#salaryIncrease').attr("value",4);
+            //$('input#salaryIncrease').attr("value",4);
 
           } else if ( rating <= 89.49 && rating >= 84.50 ){
             // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span><br/>');
-            $('input#salaryIncrease').attr("value",3);
+           // $('input#salaryIncrease').attr("value",3);
 
           } else if ( rating <= 84.49 && rating >= 80 ){
             // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
-            $('input#salaryIncrease').attr("value",2);
+            //$('input#salaryIncrease').attr("value",2);
 
           } else if ( rating <= 79.99 && rating >= 70 ){
                   // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
-                  $('input#salaryIncrease').attr("value",2);
+                  //$('input#salaryIncrease').attr("value",2);
 
           } else{
             // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
-            $('input#salaryIncrease').attr("value",0);
+            //$('input#salaryIncrease').attr("value",0);
 
           }
 
@@ -631,27 +631,27 @@ var rating = parseFloat($('#overallScore').attr('data-score'));
 
           if (rating <= 101 && rating >= 97.5){
             $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger">');
-            $('input#salaryIncrease').attr("value",5);
+            //$('input#salaryIncrease').attr("value",5);
 
           } else if ( rating <= 97.49 && rating >= 89.50 ){ 
             $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger">');
-            $('input#salaryIncrease').attr("value",4);
+           // $('input#salaryIncrease').attr("value",4);
 
           } else if ( rating <= 89.49 && rating >= 84.50 ){
             $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger">');
-            $('input#salaryIncrease').attr("value",3);
+            //$('input#salaryIncrease').attr("value",3);
 
           } else if ( rating <= 84.49 && rating >= 80 ){
             $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger">');
-            $('input#salaryIncrease').attr("value",2);
+            //$('input#salaryIncrease').attr("value",2);
 
           } else if ( rating <= 79.99 && rating >= 70 ){
                   $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger">');
-                  $('input#salaryIncrease').attr("value",2);
+                 // $('input#salaryIncrease').attr("value",2);
 
           } else{
             $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray">');
-            $('input#salaryIncrease').attr("value",0);
+            //$('input#salaryIncrease').attr("value",0);
 
           }
 
