@@ -57,12 +57,22 @@
             <div id="voucher_form_elements">
               <div class="form-group" id="frm_grp_instructions">
                 
-                <div class="col-sm-12">
-                  <p>Please enter any special instructions to be sent to <span id="voucher_claimant"></span>'s email, on how to redeem their <span id="voucher_name"></span> voucher.                
+                <div class="col-sm-12">                  
+                  <p>
+                    <span id="voucher_claimant"></span>
+                    Submitted Details<br/>
+                    - Email: <span id="vemail"></span><br/>
+                    - Phone: <span id="vphone"></span>
+                  </p>
+
+                  <!--
                   <textarea class="form-control" rows="3" placeholder="Use the following code: 3XCVB98UIT..." name="instructions" id="r_instructions"></textarea>
                   <span id="frm_grp_hint_instructions" class="help-block"></span>
+                  -->
                 </div>
               </div>
+
+              <!--
               <div class="form-group" id="frm_grp_photo">
                 
                 <div class="col-sm-12">
@@ -71,6 +81,7 @@
                   <span id="frm_grp_hint_photo" class="help-block"></span>
                 </div>
               </div>
+            -->
 
               <p><span id="voucher_error" class="help-block"></span></p>
 
@@ -94,7 +105,7 @@
           </div>
           <div class="modal-footer">
             <button id="modalConfirmVoucherClose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button id="modalConfirmVoucherYes" type="submit" class="btn btn-primary">Confirm</button>
+            <button id="modalConfirmVoucherYes" type="submit" class="btn btn-primary">Mark as Claimed</button>
           </div>
         </div>
       </div>
@@ -118,7 +129,9 @@
     });
 
 		$('#rewardlist tbody').on( 'click', '.bt_redeemer', function () {
+
 			var data = table.row( $(this).parents('tr') ).data();
+      console.log(data);
 			window.selected_group_row = table.row($(this).parents('tr'));
 			
       progressbar.attr('aria-valuenow', 0).css('width','0%');
@@ -130,6 +143,8 @@
       $('#redeemer_loader').hide();
 			$('#redeemerModal').modal('show');
 			$('#voucher_claimant').text(data.user.firstname + " " +data.user.lastname);
+      $('#vemail').text(data.email);
+      $('#vphone').text(data.phone);
 			$('#voucher_name').text(data.voucher.name);
       $('#claimVoucherForm').trigger("reset");
 
@@ -159,6 +174,7 @@
         },
         success: function(responseText, statusText, xhr, $form){
           table.ajax.reload();
+          window.selected_group_row.remove();
           $('#modalConfirmVoucherYes').hide();
           $('#modalConfirmVoucherClose').text("OK");
           $('#redeemer_loader').hide();

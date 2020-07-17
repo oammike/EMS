@@ -62,9 +62,17 @@ class RewardVoucherClaimsController extends Controller
 
   public function confirm_claim(Request $request,$reward_id = 0){
     
-    $claim = VoucherClaims::with('user','voucher')->find($reward_id);
+    $claim = VoucherClaims::find($reward_id);
 
     if($claim){
+      $claim->redeemed = true;
+      $claim->save();
+      return response()->json([
+        'success' => true,
+        'message' => "Message Sent"
+      ], 200);
+
+      /*
       $attachment = $request->input('attachment',"");
       Mail::send('emails.voucher',
         [          
@@ -94,7 +102,7 @@ class RewardVoucherClaimsController extends Controller
 
         }
       );
-      
+      */
     }else{
       return response()->json([
         'success' => false,

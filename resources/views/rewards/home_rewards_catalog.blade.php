@@ -189,6 +189,20 @@
           </div>
           <div class="box modal-body">
             <div id="voucher_form_elements">
+              <div class="form-group" id="frm_grp_vemail">
+                <label for="vemail" class="col-sm-12">Email Address</label>
+                <div class="col-sm-12">
+                  <input type="email" class="form-control" id="vemail" name="vemail">
+                  <span id="frm_grp_hint_vemail" class="help-block"></span>
+                </div>
+              </div>
+              <div class="form-group" id="frm_grp_vphone">
+                <label for="vemail" class="col-sm-12">Mobile Number</label>
+                <div class="col-sm-12">
+                  <input type="tel" class="form-control" id="vphone" name="vphone">
+                  <span id="frm_grp_hint_vphone" class="help-block"></span>
+                </div>
+              </div>
               <div class="form-group" id="frm_grp_name">
                 <label for="password" class="col-sm-12">Please type your password to continue</label>
                 <div class="col-sm-12">
@@ -208,9 +222,9 @@
               
             </div>
             <!-- <input type="hidden" name="debug" value="true" /> -->
-            <div id="voucher_message_wrapper">
-              <p>You have successfully claimed a voucher.</p>
-              <p>You will receive an email on Zimbra within 24 hours with instructions on how to use the voucher.</p>
+            <div id="voucher_message_wrapper">               
+              <p>Congratulations on claiming your reward! You will receive your reward on your email/mobile number within 24-48 hours with instructions on how to use the voucher.</p>
+              <p>From your Open Access BPO family, thank you for your hardwork and loyalty!</p>
             </div>
 
             <div class="overlay" id="voucher_loader"> 

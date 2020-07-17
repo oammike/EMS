@@ -840,6 +840,24 @@ class RewardsHomeController extends Controller
       $error_message = "";
       $user_id = \Auth::user()->id;
       $accepted = $request->input('agree',0);
+      $vemail = $request->input('vemail','');
+      $vphone = $request->input('vphone','');
+
+      if (!filter_var($vemail, FILTER_VALIDATE_EMAIL)) {
+        return response()->json([
+          'exception' => null,
+          'success' => false,
+          'message' => 'Please enter a valid email address.'
+        ], 422);
+      }
+
+      if (!preg_match('/^09[0-9]{9}+$/', $vphone)) {
+        return response()->json([
+          'exception' => null,
+          'success' => false,
+          'message' => 'Please enter a valid phone number.'
+        ], 422);
+      }
 
       if($accepted!=1 && $accepted!="1"){
         return response()->json([
@@ -904,6 +922,8 @@ class RewardsHomeController extends Controller
               $current_points = $user->points->points - $cost;
 
               $claim = new VoucherClaims;
+              $claim->email = $request->input('vemail',0);
+              $claim->phone = $request->input('vphone',0);
               $claim->user_id = $user_id;
               $claim->voucher_id = $reward_id;
               if($claim->save()){
