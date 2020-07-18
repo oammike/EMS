@@ -25,8 +25,24 @@
                    
                     
               </div> -->
+              <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > 18<sup>th</sup> of July:<br/><span class="text-primary">Mandela Day<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/mandela2020.jpg" width="100%" /><br/>
+                    <p  style="padding: 30px;" class="text-left">
+                      <strong>#MandelaDay </strong>is celebrated every July 18 to honor South Africa’s first black President and civil rights leader, Nelson Mandela. A powerful voice against the apartheid, he remains a symbol of the power that one individual can make a difference.<br/><br/>
 
-               <div class="item active text-center" >
+                    We also want to take this time to honor his youngest daughter Zindzi Mandela, an activist and South Africa’s ambassador to Denmark as a voice against apartheid, who recently passed away.<br/><br/>
+
+                    May the world continue to reflect on their legacy— take action and strive to make a difference.<br/><br/>
+
+                    #WeSpeakYourLanguage #OACelebratesHeroes</p>
+                    
+                    
+              </div>
+               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations:<br/> <span class="text-primary">Decode the Emoji Winners!<br/><img src="storage/uploads/divider.png" /> </h4>
                     <img src="storage/uploads/emojiwinners.jpg" width="100%" /><br/>
                     <p style="padding: 30px;" class="text-center">
