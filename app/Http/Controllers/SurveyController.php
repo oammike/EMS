@@ -408,19 +408,32 @@ class SurveyController extends Controller
                               ['users.status_id', '!=', 8],
                               ['users.status_id', '!=', 9],
                                       ])->
-                        
+                        join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
+                        where('survey_extradata.survey_id','=',$survey->id)->
                         join('team','team.user_id','=','survey_user.user_id')->
                         join('campaign','team.campaign_id','=','campaign.id')->
-                        join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
                         leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
-                        //where('survey_essays.survey_id','=','survey_user.survey_id')->
-                       
-                        select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay','survey_essays.question_id')->
-                        
+                        where('survey_essays.survey_id','=',$survey->id)->
+                        select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay','survey_essays.question_id','survey_user.survey_id as surveyID')->
                         where('team.floor_id','!=',10)->
                         where('team.floor_id','!=',11)->
-                        where('survey_essays.survey_id','=',$survey->id)->
-                        orderBy('users.lastname')->get();
+                        get(); 
+
+                        //return $allEmployees;
+                        
+                        // join('team','team.user_id','=','survey_user.user_id')->
+                        // join('campaign','team.campaign_id','=','campaign.id')->
+                        // join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
+                        // leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
+                       
+                        // select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay','survey_essays.question_id','survey_user.survey_id as surveyID')->
+                        
+                        // where('team.floor_id','!=',10)->
+                        // where('team.floor_id','!=',11)->
+                        // where('survey_essays.survey_id','=',$survey->id)->
+                        // orderBy('users.lastname')->get();
+
+
                         /*where('survey_user.isDone',1)->
                         
                         // where('users.status_id',"!=",7)->
@@ -432,12 +445,13 @@ class SurveyController extends Controller
                         ; //)->take(30); return response()->json($allEmployees);
                         //return $allEmployees;*/
 
-          //return $allEmployees;
+         
 
           $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
                         join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
 
                         join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                        where('survey_user.survey_id','=',$survey->id)->
                         //join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
                         join('users','users.id','=','survey_user.user_id')->
                         //------leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
@@ -459,14 +473,21 @@ class SurveyController extends Controller
                         where('users.status_id',"!=",13)->
                         where('users.status_id',"!=",16)->get();
 
+                        
+
 
           $allNotes = DB::table('survey_user')->where('survey_user.survey_id',$id)->
                           join('users','survey_user.user_id','=','users.id')->
                           join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
+                          where('survey_notes.survey_id','=',$survey->id)->
                           select('survey_user.user_id as userID','users.lastname','users.firstname', 'survey_notes.question_id','survey_notes.comments')->
                           
-                          where('survey_notes.survey_id','=',$id)->where('survey_notes.comments','!=',null)->
+                          //where('survey_notes.survey_id','=',$id)->
+                          where('survey_notes.comments','!=',null)->
                           orderBy('users.lastname')->get();
+
+                          
+
           $allQuestions = DB::table('survey_questions')->where('survey_id',$id)->select('survey_questions.value as question','survey_questions.id')->get();
 
           $description = $survey->description;
@@ -489,6 +510,7 @@ class SurveyController extends Controller
                   fclose($file);
             
 
+                  //return response()->json(['allEmployees'=>$allEmployees,'allQuestions'=>$allQuestions,'allNotes'=>$allNotes,'allResp'=>$allResp]);
 
             Excel::create($survey->name,function($excel) use($id,$allEmployees,$allQuestions,$allNotes,$allResp, $survey, $headers,$description) 
                {
