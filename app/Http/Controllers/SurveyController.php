@@ -1303,10 +1303,10 @@ class SurveyController extends Controller
                         });
                   
 
-                  $ave1 = $t1->pluck('rating')->avg();
-                  $ave2 = $t2->pluck('rating')->avg();
-                  $ave3 = $t3->pluck('rating')->avg();
-                  $ave4 = $t4->pluck('rating')->avg();
+                  $ave1 = number_format($t1->pluck('rating')->avg(),2);
+                  $ave2 = number_format($t2->pluck('rating')->avg(),2);
+                  $ave3 = number_format($t3->pluck('rating')->avg(),2);
+                  $ave4 = number_format($t4->pluck('rating')->avg(),2);
 
                  
 
