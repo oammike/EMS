@@ -1,7 +1,7 @@
 
 
 
-             <!--  <div class="item active text-center" >
+             <div class="item active text-center" >
                
                 <h4 class="text-orange" style="line-height: 1.5em" > Free <span class="text-primary">Coffee!!!<br/> 
                   <img src="storage/uploads/divider.png" /> 
@@ -24,8 +24,8 @@
 
                    
                     
-              </div> -->
-              <div class="item active text-center" >
+              </div> 
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > 18<sup>th</sup> of July:<br/><span class="text-primary">Mandela Day<br/>
                   
                     <img src="storage/uploads/divider.png" />
