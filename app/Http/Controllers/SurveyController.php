@@ -414,37 +414,12 @@ class SurveyController extends Controller
                         join('campaign','team.campaign_id','=','campaign.id')->
                         leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
                         where('survey_essays.survey_id','=',$survey->id)->
-                        select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay','survey_essays.question_id','survey_user.survey_id as surveyID')->
+                        select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest', 'survey_essays.answer as essay','survey_essays.question_id','survey_user.survey_id as surveyID')->
                         where('team.floor_id','!=',10)->
                         where('team.floor_id','!=',11)->
-                        get(); 
+                        orderBy('users.lastname')->get();
 
-                        //return $allEmployees;
-                        
-                        // join('team','team.user_id','=','survey_user.user_id')->
-                        // join('campaign','team.campaign_id','=','campaign.id')->
-                        // join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
-                        // leftJoin('survey_essays','survey_essays.user_id','=','survey_user.user_id')->
                        
-                        // select('users.id', 'users.firstname','users.lastname','users.dateHired', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id','survey_extradata.gender','survey_extradata.education','survey_extradata.course', 'survey_extradata.currentlocation','survey_extradata.commuteTime','survey_extradata.hobbiesinterest','survey_essays.answer as essay','survey_essays.question_id','survey_user.survey_id as surveyID')->
-                        
-                        // where('team.floor_id','!=',10)->
-                        // where('team.floor_id','!=',11)->
-                        // where('survey_essays.survey_id','=',$survey->id)->
-                        // orderBy('users.lastname')->get();
-
-
-                        /*where('survey_user.isDone',1)->
-                        
-                        // where('users.status_id',"!=",7)->
-                        // where('users.status_id',"!=",8)->
-                        // where('users.status_id',"!=",9)->
-                        // where('users.status_id',"!=",13)->
-                        // where('users.status_id',"!=",16)->
-                        where('campaign.id','=',$id)->
-                        ; //)->take(30); return response()->json($allEmployees);
-                        //return $allEmployees;*/
-
          
 
           $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
@@ -556,10 +531,29 @@ class SurveyController extends Controller
                           $qCounter=1;
                           foreach ($allQuestions as $q) {
 
-                            if($qCounter == count($allQuestions)){
-                              $arr[$i]= $employee->essay;
+                            if($qCounter == 14){
+                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',157);
+
+                              if (count($ans) > 0)
+                                 $arr[$i]= $ans->first()->essay;
+                              else
+                                 $arr[$i]= "--";
+
+                              $i++;
+                              //$arr[$i]= $employee->essay;
                               //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
-                            } else
+                            } else if($qCounter == 15){
+                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',158);
+
+                              if (count($ans) > 0)
+                                 $arr[$i]= $ans->first()->essay;
+                              else
+                                 $arr[$i]= "--";
+
+                              $i++;
+
+                            }
+                            else
                             {
 
                               //---- RATING
