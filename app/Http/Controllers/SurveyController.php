@@ -1248,7 +1248,7 @@ class SurveyController extends Controller
                     join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
 
                     //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
-                    select('survey_responses.user_id as userID','users.firstname','users.lastname' ,'survey_questions.survey_id as surveyID', 'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_essays.answer as essay', 'survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
+                    select('survey_responses.user_id as userID','users.dateHired', 'users.firstname','users.lastname' ,'survey_questions.survey_id as surveyID', 'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_essays.answer as essay', 'survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
                     where('survey_user.isDone',1)->
                     where('team.floor_id','!=',10)->
                     where('team.floor_id','!=',11)->
@@ -1277,12 +1277,47 @@ class SurveyController extends Controller
                   //****** ALL SURVEY DATA
                   foreach ($groupedResp as $key) 
                   {
+                    $tenured = Carbon::now('GMT+8')->diffInMonths(Carbon::parse($key[0]->dateHired));
                     $avg = number_format(collect($key)->pluck('rating')->avg(),2);
-                    $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
+
+                    $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'tenure'=>$tenured, 'dateHired'=>$key[0]->dateHired, 'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
                     
                   }
 
                   //if (count($completed) == 0 ) return view('empty');
+
+                  //$t1 = collect($surveyData)->where('tenure','<',43);
+                  $t1 = collect($surveyData)->filter(function ($item) {
+                            return $item['tenure'] <= 11;
+                        });
+                  $t2 = collect($surveyData)->filter(function ($item) {
+                            return ($item['tenure'] >= 12) && ($item['tenure'] <= 36) ;
+                        });
+
+                  $t3 = collect($surveyData)->filter(function ($item) {
+                            return ($item['tenure'] >= 37) && ($item['tenure'] <= 60) ;
+                        });
+
+                  $t4 = collect($surveyData)->filter(function ($item) {
+                            return ($item['tenure'] >= 61) ;
+                        });
+                  
+
+                  $ave1 = $t1->pluck('rating')->avg();
+                  $ave2 = $t2->pluck('rating')->avg();
+                  $ave3 = $t3->pluck('rating')->avg();
+                  $ave4 = $t4->pluck('rating')->avg();
+
+                 
+
+                  $tenureCat = new Collection;
+                  $tenureCat->push(["desc"=> "< a year", 'rating'=>$ave1]);
+                  $tenureCat->push(["desc"=> "1-3 years", 'rating'=>$ave2]);
+                  $tenureCat->push(["desc"=> "3.1 to 5 years", 'rating'=>$ave3]);
+                  $tenureCat->push(["desc"=> "5++ years", 'rating'=>$ave4]);
+                  
+
+                  //return $surveyData;
 
                   $totalBackoffice = count(collect($surveyData)->where('backOffice',1));
                   $totalOps = count(collect($surveyData)->where('backOffice',0));
@@ -1423,7 +1458,7 @@ class SurveyController extends Controller
                     if ($canAccess){
                     
 
-                        return view('forms.survey-reports_2020',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf','completed'));
+                        return view('forms.survey-reports_2020',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf','completed','tenureCat'));
 
                     }else
                         return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));

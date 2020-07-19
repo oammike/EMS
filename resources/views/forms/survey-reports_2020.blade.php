@@ -182,6 +182,32 @@
               </div>
               <!-- /.row -->
 
+
+              <h4 class="text-center" style="padding:20px">Net Satisfaction Based on Tenure</h4>
+              <div class="row">
+
+
+                @foreach($tenureCat as $ct)
+                <div class="col-sm-3 col-xs-6">
+                  <div class="description-block border-right">
+                    
+                   
+                    <h4 class="description-header text-blue"> {{$ct['desc']}} </h4>
+                    
+                    <span class="description-text">
+                      <span style="font-weight: bold; font-size:1.5em;">
+                        {{$ct['rating']}} &nbsp; 
+                        
+                      </span>
+                    </span>
+                  </div>
+                  <!-- /.description-block -->
+                </div>
+                @endforeach
+                
+              </div>
+              <!-- /.row -->
+
               @if ($essayQ !== null) 
               <div class="row">
                 <div class="col-sm-12"><h4 class="text-center"><br/><br/>Open-ended Closers (Strengths & AFI): <br/><br/></h4>
