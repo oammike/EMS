@@ -3585,7 +3585,17 @@ trait TimekeepingTraits
           $logIN = Carbon::parse($thisPayrollDate." ".$userLogIN->first()->logTime,'Asia/Manila')->format('M d h:i:s A');
           //date('h:i:s A',strtotime($userLogIN->first()->logTime));
           $timeStart = Carbon::parse($payday." ".$userLogIN->first()->logTime,'Asia/Manila');
-          $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+
+          //--------- dito papasok yung overrride
+          // -------- check mo muna baka may manual override eh
+          $manual = User_LogOverride::where('user_id',$user_id)->where('logType_id',2)->where('productionDate',$biometrics->productionDate)->get();
+
+          if (count($manual) > 0) $userLogOUT = $manual;
+          else
+          {
+            $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
+          }
+          
 
           if (count($userLogOUT) > 0) 
           {
