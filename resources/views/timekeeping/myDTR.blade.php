@@ -664,6 +664,17 @@
 
                                                              <input type="hidden" name="cws_id_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['usercws'][0]['id']}}" />
 
+                                                             @include('layouts.modals-RDoverride', [
+                                                                          'modelID' => $data['biometrics_id'],
+                                                                          'modalTitle'=>'Mark as', 
+                                                                          'modelName'=>"Rest Day",
+                                                                          'user_id'=>$user->id,
+                                                                          'modalMessage'=>"You are about to mark this production date as 'REST DAY' and disregard the displayed biometric logs, along with the entitlement of filing this as a RestDay-OT.",
+                                                                          'modelRoute'=>'user_dtr.overrideRD',
+                                                                          'modalTitle2'=>"POST",
+                                                                          'formID'=>'bpass',
+                                                                          'icon'=>'glyphicon-up' ])
+
 
                                                           @else
 
