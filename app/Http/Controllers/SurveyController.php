@@ -1254,6 +1254,7 @@ class SurveyController extends Controller
                     where('team.floor_id','!=',11)->
                     where('survey_essays.survey_id',$id)->
                     where([
+                    ['users.status_id', '!=', 2],
                     ['users.status_id', '!=', 6],
                     ['users.status_id', '!=', 7],
                     ['users.status_id', '!=', 8],
@@ -1364,6 +1365,7 @@ class SurveyController extends Controller
                       $totalData = DB::table('team')->where('campaign_id',$p[0]['programID'])->
                                     join('users','users.id','=','team.user_id')->
                                     select('users.status_id','users.firstname','users.lastname','users.id')->
+                                    where('users.status_id',"!=",2)->
                                     where('users.status_id',"!=",6)->
                                     where('users.status_id',"!=",7)->
                                     where('users.status_id',"!=",8)->
@@ -1418,7 +1420,8 @@ class SurveyController extends Controller
 
                  
                     //exclude Taipei and Xiamen
-                    $actives = count(DB::table('users')->where('status_id','!=',6)->
+                    $actives = count(DB::table('users')->where('status_id','!=',2)->
+                                    where('status_id','!=',6)->
                                     where('status_id','!=',7)->
                                     where('status_id','!=',8)->
                                     where('status_id','!=',9)->
@@ -1767,6 +1770,8 @@ class SurveyController extends Controller
         $keyGroup =  [564,508,1644,1611,1784,491,1,184];
         (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=true;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
+
+        if ($this->user->status_id == 2) $canAccess=false;
 
         if (!$canAccess && $id == 6) return view('access-denied');
 
@@ -2298,7 +2303,8 @@ class SurveyController extends Controller
                     //                select('users.status_id')->get());
 
                     //exclude Taipei and Xiamen
-                    $actives = count(DB::table('users')->where('status_id','!=',6)->
+                    $actives = count(DB::table('users')->where('status_id','!=',2)->
+                                    where('status_id','!=',6)->
                                     where('status_id','!=',7)->
                                     where('status_id','!=',8)->
                                     where('status_id','!=',9)->
