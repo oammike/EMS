@@ -118,10 +118,10 @@
                                     <div id="vl_more">
                                       <label ><input type="radio" name="coveredshift2" id="shift2_whole" value="1" /> &nbsp; &nbsp;<i class="fa fa-hourglass"></i> Whole Day</label><br/>
                                      <!--  <label ><input type="radio" name="coveredshift2" id="shift2_first" value="2" /> &nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> Half Day</label> <br/><br/> -->
-                                      <label><i class="fa fa-file-text-o fa-2x"></i> Attach Requirements:<br/><br/>
+                                      <label><i class="fa fa-file-text-o fa-2x"></i> Attach Proof of Approval:<br/><br/>
                                         <input type="file" name="attachments" id="attachments" required="required" /> </label><br/>
-                                      <p style="font-size: smaller">Kindly submit all requirements needed for your leave to be approved. Save them all in a single Word document or PDF file and attach it here along with your request<br/> <br/>
-                                        <strong>Submit a copy of the following documents:</strong> </p>
+                                      <p style="font-size: smaller">For EMS filing, simply attach a screenshot of any proof from immediate head confirming approval of this leave.<br/><br/>Make sure though to submit  the requirements needed to Finance department for your leave to be processed and properly credited.  <br/>
+                                        <strong>Submit a copy of the following documents to Finance department:</strong> </p>
                                         <ol type="a"style="font-size: smaller">
                                           <li>NSO certified birth certificate(s) of your dependent(s)</li>
                                           <li>NSO certified marriage contract (for ML | PL)</li>
