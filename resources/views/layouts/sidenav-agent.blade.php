@@ -364,7 +364,7 @@
 
          <li @if (Request::is('myEvals')) class="active" @endif><a href="{{action('UserController@myEvals')}}" ><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Evals</span></a></li>
 
-         @if($floor !== 9)
+         
         <li class="treeview @if (Request::is('userRewards*') || Request::is('reward*') || Request::is('award*')) active @endif">
           <a href="#" ><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards </span>
             
@@ -379,7 +379,7 @@
 
           </ul>
         </li>
-        @endif
+       
 
          <li class="treeview @if ( Request::is('survey*') ) active @endif">
           <a href="#"  class="text-yellow"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span> <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span><i class="fa fa-angle-left pull-right"></i></a>

@@ -159,6 +159,8 @@ class RewardsHomeController extends Controller
 
       $noaccess = [6,7,8,9];
 
+      ($floor == 9 || in_array(\Auth::user()->status_id, $noaccess)) ? $noCoffee = true : $noCoffee=false;
+
       // if ($floor == 9 || in_array(\Auth::user()->status_id, $noaccess))
       //   return view('access-denied');
       // else
@@ -229,7 +231,8 @@ class RewardsHomeController extends Controller
             'msg' => $msg,
             'shop'=>$shop,
             'maxedOut'=>$maxedOut,
-            'vouchers' => $vouchers
+            'vouchers' => $vouchers,
+            'noCoffee' => $noCoffee
           ];
 
         if( \Auth::user()->id !== 564 ) 

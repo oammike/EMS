@@ -31,7 +31,7 @@
 
               
 
-              @if($shop->status !== "OPEN")
+              @if($shop->status !== "OPEN" || $noCoffee)
               <h3 class="text-right" style="padding: 10px;background-color: #666; color:#fff"><i class="fa fa-coffee"></i> Coffee Drinks &nbsp;</h3> 
               <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/COFFEE_prm.jpg')top center no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 500px;padding:50px">
                 <div class="box-heading"></div>
