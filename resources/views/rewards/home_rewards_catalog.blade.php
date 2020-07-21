@@ -109,7 +109,7 @@
                         </div>
 
                         
-                        @if ($voucher->quantity <= 0 || (Auth::user()->id!=491 && Auth::user()->id!=83 && Auth::user()->id!=564) )
+                        @if ($voucher->quantity <= 0 )
                           <div class="col-sm-7 col-xs-6">
                             <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
                           </div>

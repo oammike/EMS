@@ -159,10 +159,10 @@ class RewardsHomeController extends Controller
 
       $noaccess = [6,7,8,9];
 
-      if ($floor == 9 || in_array(\Auth::user()->status_id, $noaccess))
-        return view('access-denied');
-      else
-      {
+      // if ($floor == 9 || in_array(\Auth::user()->status_id, $noaccess))
+      //   return view('access-denied');
+      // else
+      //{
         //check shop if OPEN
         $shop = Coffeeshop::orderBy('id','DESC')->first();
         
@@ -243,7 +243,7 @@ class RewardsHomeController extends Controller
         return view('rewards/home_rewards_catalog', $data);
 
         
-      }
+      //}
       
     }
     
