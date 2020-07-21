@@ -113,6 +113,11 @@
                           <div class="col-sm-7 col-xs-6">
                             <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
                           </div>
+                        @elseif ($voucher->cost > $remaining_points )
+                          <div class="col-sm-7 col-xs-6">
+                            <span class="btn-default btn btn-sm">Insufficient Points <i class="fa fa-exclamation-circle"></i> </span>
+                          </div>
+                        
                         @else                          
                           <div class="col-sm-7 col-xs-6 bt_voucher_claimer" data-name="{{ $voucher->name }}" data-reward-id="{{ $voucher->id }}">  
                             <span class="product-claim"><i class="fa fa-check"></i> Claim</span>                            
