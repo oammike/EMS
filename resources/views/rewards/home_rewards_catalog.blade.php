@@ -195,6 +195,7 @@
           <div class="box modal-body">
             <div id="voucher_form_elements">
               <div class="form-group" id="frm_grp_vemail">
+                <p>&nbsp;&nbsp;&nbsp;<small>Voucher will be sent via your indicated preferred email address <strong>(not via Zimbra internal email )</strong></small></p>
                 <label for="vemail" class="col-sm-12">Email Address</label>
                 <div class="col-sm-12">
                   <input type="email" class="form-control" id="vemail" name="vemail">
@@ -209,7 +210,7 @@
                 </div>
               </div>
               <div class="form-group" id="frm_grp_name">
-                <label for="password" class="col-sm-12">Please type your password to continue</label>
+                <label for="password" class="col-sm-12"><i class="fa fa-exclamation-triangle"></i> Type in your EMS password to confirm</label>
                 <div class="col-sm-12">
                   <input type="password" class="form-control" id="voucher_password" name="password">
                   <span id="frm_grp_hint_password" class="help-block"></span>
