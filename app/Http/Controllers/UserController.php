@@ -2460,8 +2460,8 @@ class UserController extends Controller
       $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
       $noaccess = [6,7,8,9];
 
-      if ($floor == 9 || in_array($this->user->status_id, $noaccess))
-        return view('access-denied');
+      if (in_array($this->user->status_id, $noaccess))//$floor == 9 || 
+         return view('access-denied');
       else
       {
         $today = Carbon::now('GMT+8')->startOfDay();
@@ -2524,9 +2524,11 @@ class UserController extends Controller
     public function rewards_about()
     {
       // check first if from Davao
+      
       $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
+      $noaccess = [6,7,8,9];
 
-      if ($floor == 9)
+      if (in_array($this->user->status_id, $noaccess))//$floor == 9 || 
         return view('access-denied');
       else
       {
@@ -2592,7 +2594,10 @@ class UserController extends Controller
       // check first if from Davao
       $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
 
-      if ($floor == 9)
+
+      $noaccess = [6,7,8,9];
+
+      if (in_array($this->user->status_id, $noaccess))//$floor == 9 || 
         return view('access-denied');
       else
       {
@@ -3171,11 +3176,15 @@ class UserController extends Controller
     public function rewards_transactions()
     {
       // check first if from Davao
-      $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
+      
       $user = User::find($this->user->id);
+      
+
+      //if ($floor == 9 || in_array($this->user->status_id, $noaccess))
+      $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
       $noaccess = [6,7,8,9];
 
-      if ($floor == 9 || in_array($this->user->status_id, $noaccess))
+      if (in_array($this->user->status_id, $noaccess))//$floor == 9 || 
         return view('access-denied');
       else
       {
