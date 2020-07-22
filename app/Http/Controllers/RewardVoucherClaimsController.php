@@ -4,6 +4,7 @@ namespace OAMPI_Eval\Http\Controllers;
 
 use Illuminate\Http\Request;
 use OAMPI_Eval\Http\Requests;
+use OAMPI_Eval\ActivityLog;
 use OAMPI_Eval\Voucher;
 use OAMPI_Eval\VoucherClaims;
 use OAMPI_Eval\User;
@@ -43,7 +44,7 @@ class RewardVoucherClaimsController extends Controller
       
       $fetch_all = $request->input('fetch_all', FALSE);
       $data = new \stdClass();      
-      $query = VoucherClaims::with('user','voucher')->where('redeemed','=',0);
+      $query = VoucherClaims::with('user','voucher')->where('redeemed','=',0)->where('denied','=',0);
       
       $order = $request->input('order.0.column',0);
       if( $order != 0 ){
@@ -58,6 +59,70 @@ class RewardVoucherClaimsController extends Controller
       $data->recordsFiltered = $data->iTotalRecords;
       
       return response()->json( $data );
+
+
+      /*
+      $orders = DB::select(DB::raw("
+                  SELECT
+                    voucher_claims.id as 'vid', voucher_claims.email as 'vemail', voucher_claims.phone as 'vphone',
+                    users.id as userid, users.employeeNumber as 'employee_number', UPPER(users.lastname) as 'last', UPPER(users.firstname) as 'first', users.nickname as 'nick',
+                    campaign.id as 'cid', campaign.name as 'campaign_name',
+                    vouchers.name as 'vname', vouchers.attachment_image as 'attachment_image'
+                  FROM
+                    voucher_claims
+                    LEFT JOIN users on voucher_claims.user_id = users.id
+                    LEFT JOIN user_leaders on user_leaders.user_id = users.id
+                    LEFT JOIN immediateHead_Campaigns on user_leaders.immediateHead_Campaigns_id = immediateHead_Campaigns.id
+                    LEFT JOIN campaign on immediateHead_Campaigns.campaign_id = campaign.id                    
+                    LEFT JOIN vouchers on voucher_claims.voucher_id = vouchers.id
+                  WHERE voucher_claims.redeemed = 0
+                  ORDER BY voucher_claims.created_at asc
+                  GROUP BY vid
+                "));
+      */
+  }
+
+  public function deny_claim(Request $request, $reward_id = 0){
+    $error = false;
+    $user_id = \Auth::user()->id;
+    $user = User::with('points')->find($user_id);
+    $claim = VoucherClaims::with('voucher')->find($reward_id);
+    $cost = $claim->voucher->cost;
+    if($user->points()->increment('points', $cost)){
+      $record = new ActivityLog;
+      $record->initiator_id = $user_id;
+      $record->target_id = $user_id;
+      $record->description = "Refunded points because the voucher: ".$claim->voucher->name." you tried to claim was denied";
+      if($record->save()) {
+        $claim = VoucherClaims::find($reward_id);        
+        $claim->denied = 1;
+        if($claim->save()){
+          $error = false;
+        }else{
+          $record->delete();
+          $user->points()->decrement('points',$cost);
+          $error = true;
+        }
+      }else{
+        $user->points()->decrement('points',$cost);
+        $error = true;
+      }
+    }else{
+      $error = true;
+    }
+
+    if($error){
+      return response()->json([
+        'success' => false,                  
+        'message' => "could not refund points for " . $user->firstname . " " . $user->lastname
+      ], 422);
+    }else{
+      return response()->json([
+        'success' => true,                  
+        'message' => "Voucher claim succesfully denied. ".$user->firstname . " " . $user->lastname. " has been refunded " . $cost . " points"
+      ], 200);    
+    }
+    
   }
 
   public function confirm_claim(Request $request,$reward_id = 0){

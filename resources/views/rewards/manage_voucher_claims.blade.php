@@ -44,6 +44,33 @@
   </div>
 </section>
 
+  
+    <div class="modal" id="confirmModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confirm Voucher Denial</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to deny <span id="deny_name"></span>'s voucher request: <span id="deny_vname"></span>.<br/> Note: <span id="deny_points"></span> will be refunded.</p>
+
+          </div>
+          <div class="modal-footer">
+            
+            <p><span id="deny_error" class="help-block"></span></p>
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary" id="deny_confirm">Yes</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  
+
   <!-- Redemption Modal -->
   <div class="modal fade" id="redeemerModal" tabindex="-1" role="dialog" aria-labelledby="modalConfirmVoucherLabel">
     <form class="form-horizontal" id="claimVoucherForm" action="{{ url('/confirm-voucher-claim/') }}">
@@ -126,6 +153,46 @@
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
+    });
+
+    $('#deny_confirm').on( 'click', function () {
+      //$('#deny_loader').show();
+      var micro = (Date.now() % 1000) / 1000;
+      $.ajax({
+        type: "POST",
+        url: "{{ url('/deny-voucher-claim') }}/"+window.selected_reward_id+"?m="+micro,
+        success : function(data){
+          table.ajax.reload();
+          window.selected_group_row.remove();
+          $('#confirmModal').modal('hide');
+          //$('#deny_loader').hide();
+        },
+        error: function(data){
+          //$('#deny_loader').hide();
+          $('#deny_error').addClass('text-red');
+          $('#deny_error').text(data.responseJSON.message);
+          
+        }
+      });
+
+    });
+
+    $('#rewardlist tbody').on( 'click', '.bt_denier', function () {     
+
+      var data = table.row( $(this).parents('tr') ).data();      
+      window.selected_group_row = table.row($(this).parents('tr'));
+      window.selected_reward_id = data.id;
+
+      $('#deny_error').removeClass('text-red');
+      $('#deny_error').text("");
+      //$('#deny_loader').hide();
+
+      $('#deny_name').text(data.user.firstname + " " + data.user.lastname);
+      $('#deny_vname').text(data.voucher.name);
+      $('#deny_points').text(data.voucher.cost);
+
+      $('#confirmModal').modal('show');
+
     });
 
 		$('#rewardlist tbody').on( 'click', '.bt_redeemer', function () {
@@ -230,10 +297,10 @@
 					"data" : null,
           "render": function ( data, type, full, meta ) {
             if(!data.redeemed){
-              return "<a class='btn btn-small btn-primary bt_redeemer'><span class='fa fa-edit' aria-hidden='true'></span></a>"
+              return "<a class='btn btn-small btn-primary bt_redeemer'><span class='fa fa-edit' aria-hidden='true'></span></a>&nbsp;&nbsp;<a class='btn btn-small btn-danger bt_denier'><span class='fa fa-thumbs-down' aria-hidden='true'></span></a>"
             }else{
               return "INSTRUCTIONS SENT";
-            }            
+            }
           }					
 				}
 			]
