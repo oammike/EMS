@@ -162,7 +162,7 @@
         type: "POST",
         url: "{{ url('/deny-voucher-claim') }}/"+window.selected_reward_id+"?m="+micro,
         success : function(data){
-          table.ajax.reload();
+          window.table.ajax.reload();
           window.selected_group_row.remove();
           $('#confirmModal').modal('hide');
           //$('#deny_loader').hide();
@@ -179,8 +179,8 @@
 
     $('#rewardlist tbody').on( 'click', '.bt_denier', function () {     
 
-      var data = table.row( $(this).parents('tr') ).data();      
-      window.selected_group_row = table.row($(this).parents('tr'));
+      var data = window.table.row( $(this).parents('tr') ).data();      
+      window.selected_group_row = window.table.row($(this).parents('tr'));
       window.selected_reward_id = data.id;
 
       $('#deny_error').removeClass('text-red');
@@ -197,9 +197,9 @@
 
 		$('#rewardlist tbody').on( 'click', '.bt_redeemer', function () {
 
-			var data = table.row( $(this).parents('tr') ).data();
+			var data = window.table.row( $(this).parents('tr') ).data();
       console.log(data);
-			window.selected_group_row = table.row($(this).parents('tr'));
+			window.selected_group_row = window.table.row($(this).parents('tr'));
 			
       progressbar.attr('aria-valuenow', 0).css('width','0%');
       $('#frm_grp_photo').removeClass('has-error');
@@ -240,7 +240,7 @@
           
         },
         success: function(responseText, statusText, xhr, $form){
-          table.ajax.reload();
+          window.table.ajax.reload();
           window.selected_group_row.remove();
           $('#modalConfirmVoucherYes').hide();
           $('#modalConfirmVoucherClose').text("OK");
@@ -262,7 +262,7 @@
       });
 		});
 
-		var table = $('#rewardlist').DataTable({
+		window.table = $('#rewardlist').DataTable({
 			"pageLength": {{ $items_per_page }},
 			"paging": true,
 			"pagingType": "simple_numbers",
