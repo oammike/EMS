@@ -522,6 +522,21 @@
 
    $(document).ready(function() { 
     $('button[name="minimize"]').click();
+    console.log('programs:');
+
+    var allP = [];
+    var p = 0;
+
+    @foreach($programData as $p)
+      
+      allP[p] = {
+                 name : "{{$p['name']}}",
+                 respondents: "{{$p['respondents']}}",
+                 total : "{{$p['total']}}" };
+      p++;
+    @endforeach
+    
+    console.log(allP);
   });
    
 
