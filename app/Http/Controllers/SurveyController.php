@@ -1282,6 +1282,7 @@ class SurveyController extends Controller
                     $tenured = Carbon::now('GMT+8')->diffInMonths(Carbon::parse($key[0]->dateHired));
                     $avg = number_format(collect($key)->pluck('rating')->avg(),2);
 
+                    if ($key[0]->floor_id !== 10 && $key[0]->floor_id !== 11 )
                     $surveyData->push(['respondentID'=>$key[0]->userID,'program'=>$key[0]->program,'programID'=>$key[0]->programID,'tenure'=>$tenured, 'dateHired'=>$key[0]->dateHired, 'respondent'=>$key[0]->lastname." , ". $key[0]->firstname, 'rating'=>$avg, 'rounded'=>(string)round($avg), 'backOffice'=> ($key[0]->backOffice==1) ? 1:0 ]);
                     
                   }
