@@ -119,7 +119,7 @@
             </div>
             <!-- <input type="hidden" name="debug" value="true" /> -->
             <div id="voucher_message_wrapper">
-              <p>The voucher instructions has been sent succesfully.</p>
+              <p>The voucher claim has been marked as redeemed.</p>
             </div>
 
             <div class="overlay" id="redeemer_loader"> 
