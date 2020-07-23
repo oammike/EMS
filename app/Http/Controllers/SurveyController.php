@@ -1243,6 +1243,8 @@ class SurveyController extends Controller
                     join('users','users.id','=','survey_user.user_id')->
                     leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
                     join('team','team.user_id','=','survey_user.user_id')->
+                    where('team.floor_id','!=',10)->
+                    where('team.floor_id','!=',11)->
                     join('campaign','team.campaign_id','=','campaign.id')->
                     join('survey_questions_category','survey_questions_category.survey_questionID','=','survey_responses.question_id')->
                     join('categoryTags','categoryTags.id','=','survey_questions_category.categoryTag_id')->
@@ -1250,8 +1252,7 @@ class SurveyController extends Controller
                     //join('campaign_logos','campaign_logos.campaign_id','=','campaign.id')->
                     select('survey_responses.user_id as userID','users.dateHired', 'users.firstname','users.lastname' ,'survey_questions.survey_id as surveyID', 'survey_questions_category.categoryTag_id as categoryID','categoryTags.label as categoryLabel', 'survey_responses.question_id as question', 'survey_responses.survey_optionsID as rating','survey_essays.answer as essay', 'survey_extradata.beEEC','survey_extradata.forGD', 'campaign.name as program','campaign.id as programID','campaign.isBackoffice as backOffice','team.floor_id')->
                     where('survey_user.isDone',1)->
-                    where('team.floor_id','!=',10)->
-                    where('team.floor_id','!=',11)->
+                    
                     where('survey_essays.survey_id',$id)->
                     where([
                     ['users.status_id', '!=', 2],
