@@ -378,7 +378,10 @@
 
               @foreach($programData->sortBy('name') as $p)
 
-              @if ($p['respondents'] !== 0 && $p['total'] !== 0 )
+              <?php $finished = count(collect($allEssays)->where('programID',$p['id'])); 
+                    if ($finished > 0) $completeP = $finished/2; else $completeP = 0; ?>
+
+              @if ( $completeP !== 0 && $p['total'] !== 0 ) <!-- $p['respondents'] -->
 
               @if ($p['logo'] == "white_logo_small.png")
 
@@ -399,7 +402,7 @@
                 @endif 
 
                 
-              @if ($p['respondents'] ==  $p['total'])
+              @if ( $completeP ==  $p['total']) <!-- $p['respondents']  -->
               <div class="info-box pull-left" style="width: 25%; margin-right: 10px; background-color: #75838c;">
               @else
               <div class="info-box bg-blue pull-left" style="width: 25%; margin-right: 10px;">
@@ -408,28 +411,28 @@
 
                   <div class="info-box-content" style="margin-left: 0px;">
                    
-                  @if ($p['respondents'] ==  $p['total'])
+                  @if ($completeP ==  $p['total']) <!-- $p['respondents'] -->
                     <span class="info-box-number" style="color:#fff">
-                      @if (number_format($p['respondents']/$p['total']*100 ,1) >= 100)
+                      @if (number_format($completeP/$p['total']*100 ,1) >= 100) <!-- $p['respondents'] -->
                        100% <span style="font-size: x-small;"> complete</span></span>
 
                       @else
 
                       @endif 
-                            {{number_format($p['respondents']/$p['total']*100 ,1)}} % <span style="font-size: x-small;"> complete</span></span>
+                            {{number_format($completeP/$p['total']*100 ,1)}} % <span style="font-size: x-small;"> complete</span></span><!-- $p['respondents'] -->
                   @else
                   <span class="info-box-number" style="color:#ffda46">
-                    @if ( number_format($p['respondents']/$p['total']*100 ,1) >= 100)
+                    @if ( number_format($completeP/$p['total']*100 ,1) >= 100)<!-- $p['respondents'] -->
                           100% <span style="font-size: x-small;"> complete</span></span>
                     @else
-                     {{ number_format($p['respondents']/$p['total']*100 ,1)}} % <span style="font-size: x-small;"> complete</span></span>
+                     {{ number_format($completeP/$p['total']*100 ,1)}} % <span style="font-size: x-small;"> complete</span></span><!-- $p['respondents'] -->
                      @endif
                      
 
-                  @endif
-                    <span class="progress-description">{{$p['respondents']}} / {{$p['total']}} <em style="font-size: smaller;">employee respondents</em> </span>
+                  @endif<!-- $p['respondents'] -->
+                    <span class="progress-description">{{$completeP}} / {{$p['total']}} <em style="font-size: smaller;">employee respondents</em> </span>
                     <div class="progress">
-                      <div class="progress-bar" style="width: {{$p['respondents']/$p['total']*100 }}%"></div>
+                      <div class="progress-bar" style="width: {{$completeP/$p['total']*100 }}%"></div><!-- $p['respondents'] -->
                     </div>
 
                     
@@ -528,11 +531,14 @@
     var p = 0;
 
     @foreach($programData as $p)
+    <?php $fin = count(collect($allEssays)->where('programID',$p['id']));
+          if ($fin > 0) $comp = $fin/2; else $comp = 0; ?>
       
       allP[p] = {
                  name : "{{$p['name']}}",
                  respondents: "{{$p['respondents']}}",
-                 total : "{{$p['total']}}" };
+                 total : "{{$p['total']}}",
+                 finished : "{{ $comp }} " };
       p++;
     @endforeach
     

@@ -1272,6 +1272,9 @@ class SurveyController extends Controller
                   $groupedCat = collect($allResp)->groupBy('categoryID');
 
                   $completed = count(Survey_User::where('isDone',true)->where('survey_id',$id)->get());
+                  // $finished = DB::table('survey_user')->where('survey_user.survey_id',$id)->where('survey_user.isDone',true)->
+                  //                 join('users','users.id','=','survey_user.user_id')->
+                  //                 join()get());
 
 
                   //return $groupedResp->take(100);
@@ -1400,9 +1403,11 @@ class SurveyController extends Controller
                                     join('team','team.user_id','=','users.id')->
                                     join('campaign','team.campaign_id','=','campaign.id')->
                                     join('survey_questions','survey_questions.id','=','survey_essays.question_id')->
-                                    select('users.id','users.firstname','users.lastname','campaign.name as program','users.dateHired', 'survey_essays.answer','survey_essays.created_at','survey_questions.id as questionID','survey_questions.value as theQ')->orderBy('survey_essays.created_at','DESC')->get();
+                                    select('users.id','users.firstname','users.lastname','campaign.name as program','campaign.id as programID', 'users.dateHired', 'survey_essays.answer','survey_essays.created_at','survey_questions.id as questionID','survey_questions.value as theQ')->orderBy('survey_essays.created_at','DESC')->get();
 
                   $groupedEssays = collect($allEssays)->sortBy('program')->groupBy('program');
+
+
 
                   $eq = DB::table('survey_questions')->where('survey_id',$id)->where('responseType',2)->get();
                   (count($eq)>0) ? $essayQ = $eq : $essayQ = null;
@@ -1463,10 +1468,10 @@ class SurveyController extends Controller
                     if ($canAccess){
                     
 
-                        return view('forms.survey-reports_2020',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf','completed','tenureCat'));
+                        return view('forms.survey-reports_2020',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays', 'categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf','completed','tenureCat','allEssays'));
 
                     }else
-                        return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf'));
+                        return view('forms.survey-reports2',compact('survey','participants', 'essayQ','canAccess','canViewAll', 'groupedEssays','categoryData', 'surveyData','npsData','groupedRatings','totalOps','totalBackoffice','promoters','passives','detractors','programData','eNPS','actives','percentage','asOf','allEssays'));
 
                 }break;
         
