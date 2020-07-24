@@ -64,7 +64,7 @@ class RewardVoucherClaimsController extends Controller
     $callback = function() use ($orders) {
         $file = fopen('php://output', 'w');
         
-        $columns = ["Lastname","Firstname","Nickname","Campaign","Voucher","Claimed","Denied","Date Requested","Date Processed"];
+        $columns = ["Lastname","Firstname","Nickname","Campaign","Voucher","Email","Phone","Claimed","Denied","Date Requested","Date Processed"];
         fputcsv($file, $columns);
         foreach($orders as $order){
           $csvLine = [];
@@ -73,6 +73,8 @@ class RewardVoucherClaimsController extends Controller
           $csvLine[] = $order->nick; 
           $csvLine[] = $order->campaign_name;
           $csvLine[] = $order->vname;
+          $csvLine[] = $order->vemail;
+          $csvLine[] = $order->vphone;
           $csvLine[] = ($order->redeemed==1) ? "YES" : "NO" ;
           $csvLine[] = ($order->denied==1) ? "YES" : "NO" ;
           $csvLine[] = $order->date_requested;
