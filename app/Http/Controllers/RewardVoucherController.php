@@ -7,6 +7,7 @@ use OAMPI_Eval\Http\Requests;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use OAMPI_Eval\Voucher;
+use OAMPI_Eval\ActivityLog;
 
 class RewardVoucherController extends Controller
 {
@@ -130,13 +131,13 @@ class RewardVoucherController extends Controller
         $old_cost = $voucher->cost;
         $voucher->quantity       = Input::get('quantity');
         $voucher->cost       = Input::get('cost');
-        if($reward->save()) {
+        if($voucher->save()) {
           if($old_quantity!=$voucher->quantity || $old_cost!=$voucher->cost){
             $user_id = \Auth::user()->id;
             $record = new ActivityLog;
             $record->initiator_id       = $user_id;
             $record->target_id      = $user_id;
-            $record->description = "changed ".$voucher->name."'s quantity to ".$voucher->quantity.", cost to: "+$voucher->cost;            
+            $record->description = "changed ".$voucher->name."'s quantity to ".$voucher->quantity.", cost to: ".$voucher->cost;            
             $record->save(); 
           }
           return response()->json([

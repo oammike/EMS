@@ -130,9 +130,9 @@
 									</div>
 								</div>
 								<div class="form-group" id="frm_grp_prep">
-									<label for="reward_editor_cost" class="col-sm-3 control-label">Quantity</label>
+									<label for="reward_editor_qty" class="col-sm-3 control-label">Quantity</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" id="reward_editor_prep" name="quantity" placeholder="10">
+										<input type="text" class="form-control" id="reward_editor_qty" name="quantity" placeholder="10">
 										<span id="frm_grp_hint_prep" class="help-block"></span>
 									</div>
 								</div>
@@ -221,10 +221,11 @@
 			if ($.isNumeric( $('#reward_editor_cost').val() )) {
 				$.ajax({
 					type: "PUT",
-					url : "{{ url('/manage-rewards') }}"+"/"+window.selected_editing_id,
+					url : "{{ url('/manage-vouchers') }}"+"/"+window.selected_editing_id,
 					success : function(data){
 						$('#editor_loader').hide();
 						$('#rewardEditorModal').modal('hide') 
+            window.table.ajax.reload();
 					},
 					data: $('#rewardEditorForm').serialize(),
 					error: function(data){
@@ -280,7 +281,7 @@
 					
 				},
 				success: function(responseText, statusText, xhr, $form){
-					table.ajax.reload();
+					window.table.ajax.reload();
 					$('#rewardManagerModal').modal('hide');
 				},
 				beforeSend: function() {
@@ -300,12 +301,12 @@
 		});
 		
 		$('#rewardlist tbody').on( 'click', '.bt_editor', function () {
-			var data = table.row( $(this).parents('tr') ).data();
-			window.selected_group_row = table.row($(this).parents('tr'));
+			var data = window.table.row( $(this).parents('tr') ).data();
+			window.selected_group_row = window.table.row($(this).parents('tr'));
 			console.log(data);
 			$('#editor_loader').hide();
 			$('#rewardEditorModal').modal('show');
-			$('#reward_editor_quantity').val(data.quantity);
+			$('#reward_editor_qty').val(data.quantity);
 			$('#reward_editor_cost').val(data.cost);
 			$('#reward_editor_id').val(data.id);
 			$('#reward_editor_name').text("Edit details for: "+data.name);
@@ -332,14 +333,14 @@
 		});
 		
 		$('#rewardlist tbody').on( 'click', '.img_zoomer', function () {
-			var data = table.row( $(this).parents('tr') ).data();
+			var data = window.table.row( $(this).parents('tr') ).data();
 			$('#photoZoomTitle').text('Zoom');
 			$('#photoZoomCaption').text(data.name + " (" + data.cost+ " credits) "+ " - "+ data.description);
 			$('#photoZoomSrc').attr('src',window.media_directory+data.attachment_image);
 			$('#photoZoomModal').modal('show');
 		});
 		
-		var table = $('#rewardlist').DataTable({
+		window.table = $('#rewardlist').DataTable({
 			"pageLength": {{ $items_per_page }},
 			"paging": true,
 			"pagingType": "simple_numbers",
