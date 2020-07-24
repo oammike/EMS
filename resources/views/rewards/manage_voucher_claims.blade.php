@@ -20,8 +20,15 @@
     <div class="row">
       <div class="col-xs-10 col-md-12">
         <div class="box">
+          <div class="box-header">
+            <div class="box-tools">
+              <!--  <button class="btn btn-sm btn-default" id="bt_filter_toggle">Show Redeemed</button> -->
+              <a href="{{ url('/export-voucher-claims') }}" target="_blank"><button class="btn btn-sm btn-default" id="bt_export"><i class="fa fa-download"></i> Export</button></a>
+            </div>
+            <br/>
+          </div>
             
-            <div class="box-body">
+            <div class="box-body ">
               <table id="rewardlist" class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -37,7 +44,7 @@
                   </tr>
                 </tbody>
               </table>
-          </div><!-- /.box-body -->
+            </div><!-- /.box-body -->
         </div><!-- /.box -->
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -138,6 +145,7 @@
       </div>
     </form>
   </div>
+
 	
 	
 	
@@ -147,6 +155,7 @@
 <!-- page script -->
 <script>
   window.selected_reward_id = 0;
+  window.show_redeemed = false;
   $(function () {		
     var progressbar = $('#uploader_progress');
     $.ajaxSetup({
@@ -154,6 +163,21 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+
+    /*
+    $('#bt_filter_toggle').on('click',function(){
+      window.show_redeemed = !window.show_redeemed;
+      
+      window.table.ajax.data(function(d){d.show_redeemed=window.show_redeemed}).reload();
+      if(window.show_redeemed){
+        $('#bt_filter_toggle').text("Show Un-processed Claims");
+      }else{
+        $('#bt_filter_toggle').text("Show Processed Claims");
+      }
+
+    });
+    */
+
 
     $('#deny_confirm').on( 'click', function () {
       //$('#deny_loader').show();
@@ -266,14 +290,14 @@
 			"pageLength": {{ $items_per_page }},
 			"paging": true,
 			"pagingType": "simple_numbers",
-			"lengthChange": true,
-			"searching": true,
+			"lengthChange": false,
+			"searching": false,
 			"ordering": true,
 			"info": true,
 			"autoWidth": true,
 			"processing": true,
 			"serverSide": true,
-			"ajax": "{{ url('/manage-voucher-claims/list') }}",
+			"ajax": "{{ url('/manage-voucher-claims/list') }}" + "/"+window.show_redeemed,
 			"columns": [
 				{
 					"data" : null,
@@ -303,7 +327,15 @@
             }
           }					
 				}
-			]
+			],
+      "buttons": [
+          {
+              "text": 'Show Redeemed',
+              "action": function ( e, dt, node, config ) {
+                  alert( 'Button activated' );
+              }
+          }
+      ]
 		});	
 	
 	/*

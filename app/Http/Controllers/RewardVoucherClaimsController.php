@@ -9,6 +9,7 @@ use OAMPI_Eval\Voucher;
 use OAMPI_Eval\VoucherClaims;
 use OAMPI_Eval\User;
 use \Mail;
+use \Response;
 
 class RewardVoucherClaimsController extends Controller
 {
@@ -35,7 +36,56 @@ class RewardVoucherClaimsController extends Controller
     return view('rewards/manage_voucher_claims', $data);
   }
 
-  public function list_claims(Request $request,$page = 0)
+  public function export_claims(Request $request){
+    $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=export.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+      );
+    $orders = \DB::select(\DB::raw("
+          SELECT
+            voucher_claims.id as 'vid', voucher_claims.email as 'vemail', voucher_claims.phone as 'vphone',voucher_claims.redeemed, voucher_claims.denied,
+            users.id as userid, users.employeeNumber as 'employee_number', UPPER(users.lastname) as 'last', UPPER(users.firstname) as 'first', users.nickname as 'nick',
+            campaign.id as 'cid', campaign.name as 'campaign_name',
+            vouchers.name as 'vname', voucher_claims.created_at as 'date_requested', voucher_claims.updated_at as 'date_processed'
+          FROM
+            voucher_claims
+            LEFT JOIN users on voucher_claims.user_id = users.id
+            LEFT JOIN user_leaders on user_leaders.user_id = users.id
+            LEFT JOIN immediateHead_Campaigns on user_leaders.immediateHead_Campaigns_id = immediateHead_Campaigns.id
+            LEFT JOIN campaign on immediateHead_Campaigns.campaign_id = campaign.id                    
+            LEFT JOIN vouchers on voucher_claims.voucher_id = vouchers.id
+          GROUP BY vid
+          ORDER BY voucher_claims.created_at asc
+                    
+        "));
+    $callback = function() use ($orders) {
+        $file = fopen('php://output', 'w');
+        
+        $columns = ["Lastname","Firstname","Nickname","Campaign","Voucher","Claimed","Denied","Date Requested","Date Processed"];
+        fputcsv($file, $columns);
+        foreach($orders as $order){
+          $csvLine = [];
+          $csvLine[] = $order->last; 
+          $csvLine[] = $order->first; 
+          $csvLine[] = $order->nick; 
+          $csvLine[] = $order->campaign_name;
+          $csvLine[] = $order->vname;
+          $csvLine[] = ($order->redeemed==1) ? "YES" : "NO" ;
+          $csvLine[] = ($order->denied==1) ? "YES" : "NO" ;
+          $csvLine[] = $order->date_requested;
+          $csvLine[] = $order->date_processed;
+          fputcsv($file, $csvLine);          
+        }        
+        fclose($file);
+      };   
+
+    return Response::stream($callback, 200, $headers);
+  }
+
+  public function list_claims(Request $request,$show_redeemed = FALSE)
   {
       $columns = array('','name','quantity','cost');
     
@@ -44,7 +94,12 @@ class RewardVoucherClaimsController extends Controller
       
       $fetch_all = $request->input('fetch_all', FALSE);
       $data = new \stdClass();      
-      $query = VoucherClaims::with('user','voucher')->where('redeemed','=',0)->where('denied','=',0);
+      
+      //if($show_redeemed ==TRUE){
+        //$query = VoucherClaims::with('user','voucher')->where('redeemed','=','1')->orWhere('denied','=','1');
+      //}else{
+        $query = VoucherClaims::with('user','voucher')->where('redeemed','=',0)->where('denied','=',0);
+      //}
       
       $order = $request->input('order.0.column',0);
       if( $order != 0 ){
@@ -57,6 +112,8 @@ class RewardVoucherClaimsController extends Controller
       $data->data = $query->get();
       $data->iTotalRecords =  VoucherClaims::count();
       $data->recordsFiltered = $data->iTotalRecords;
+      
+    
       
       return response()->json( $data );
 

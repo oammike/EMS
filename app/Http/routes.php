@@ -1370,7 +1370,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/claim-voucher/{voucher_id?}', 'RewardsHomeController@claim_voucher');
 
     Route::get('/manage-voucher-claims', 'RewardVoucherClaimsController@index');
-    Route::get('/manage-voucher-claims/list/{page?}', 'RewardVoucherClaimsController@list_claims');
+    Route::get('/manage-voucher-claims/list/{show_redeemed}', 'RewardVoucherClaimsController@list_claims');
+    Route::get('/export-voucher-claims', 'RewardVoucherClaimsController@export_claims');
     Route::post('/confirm-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@confirm_claim');
     Route::post('/deny-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@deny_claim');
 
