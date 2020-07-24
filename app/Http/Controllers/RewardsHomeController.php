@@ -896,7 +896,13 @@ class RewardsHomeController extends Controller
       $data = new \stdClass();
       if(intval($reward_id) > 0){
         $user = User::with('points','team')->find($user_id);
-        $reward = Voucher::find($reward_id);        
+        $reward = Voucher::find($reward_id);
+        if($reward->quantity <= 0){
+          return response()->json([
+            'success' => false,
+            'message' => 'Sorry, all vouchers for ' . $reward->name . ' has already been claimed'
+          ], 422);
+        }
         if($user->points==null){
           if($user->points!==0){
             $record = new Point;
@@ -915,7 +921,7 @@ class RewardsHomeController extends Controller
         }
 
 
-        
+          $reward->decrement('quantity',1);
           if($user->points()->decrement('points', $cost)){
             $record = new ActivityLog;
             $record->initiator_id       = $user_id;
@@ -947,6 +953,7 @@ class RewardsHomeController extends Controller
               $error_message = "could not log the activity";
             }
           }else{
+            $reward->increment('quantity',1);
             $error = true;
             $error_message = "could not re-allocate points properly";
           }
