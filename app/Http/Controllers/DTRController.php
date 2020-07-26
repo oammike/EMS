@@ -258,7 +258,10 @@ class DTRController extends Controller
                         join('ecq_statuses','eqc_workstatus.workStatus','=','ecq_statuses.id')->
                         join('users','eqc_workstatus.user_id','=','users.id')->
                         select('eqc_workstatus.id as ecqID','eqc_workstatus.biometrics_id','biometrics.productionDate','ecq_statuses.name as ecqStatus','users.id as userID')->get();
-                        //return $ecqStats;
+        
+        //return $allDTR;
+
+        
 
         Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
@@ -419,12 +422,12 @@ class DTRController extends Controller
                                   {
                                      $wh = strip_tags($key->hoursWorked);
 
-                                     if( strpos("[", $wh))
+                                     if( strpos($wh,"[") !== false)
                                      {
                                         $cleanWH = explode("[", $wh);
                                         $arr[$i] =  $cleanWH[0]; $i++;
 
-                                     }else if ( strpos("(", $wh) )
+                                     }else if ( strpos($wh, "(")!==false )
                                      {
                                         $cleanWH = explode("(", $wh);
                                         $arr[$i] =  $cleanWH[0]; $i++;
