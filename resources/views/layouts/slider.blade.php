@@ -20,190 +20,7 @@
                     
               </div>
 
-
-            <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" > Free <span class="text-primary">Coffee!!!<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  <img src="storage/uploads/freecoffee.jpg" width="100%" /><br/>
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-center"><strong class="text-primary">1 cup/day</strong>
-
-                      For all onsite workers<br/><br/>
-
-                      Swing by the cafeteria for your daily free brew.<br/><br/>
-
-                      Until supplies last.<br/><br/>
-
-                      *BYOT is a good idea too.<br/><br/>
-
-                      <br/>
-                      <em>*Bring your own tumbler or mug. Greener is better. Plus, it keeps your coffee warmer longer.  Enjoy!</em>
-
-                   
-                    
-              </div>  
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> JULY 24, 2020</strong> PAYOUT <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that our cut-off for July 24th payout is July 20, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before 12:00 noon of July 21, 2020</strong>.<br/><br/>
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/>
-
- 
-                    
-              </div>
-
-              
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > 18<sup>th</sup> of July:<br/><span class="text-primary">Mandela Day<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <img src="storage/uploads/mandela2020.jpg" width="100%" /><br/>
-                    <p  style="padding: 30px;" class="text-left">
-                      <strong>#MandelaDay </strong>is celebrated every July 18 to honor South Africa’s first black President and civil rights leader, Nelson Mandela. A powerful voice against the apartheid, he remains a symbol of the power that one individual can make a difference.<br/><br/>
-
-                    We also want to take this time to honor his youngest daughter Zindzi Mandela, an activist and South Africa’s ambassador to Denmark as a voice against apartheid, who recently passed away.<br/><br/>
-
-                    May the world continue to reflect on their legacy— take action and strive to make a difference.<br/><br/>
-
-                    #WeSpeakYourLanguage #OACelebratesHeroes</p>
-                    
-                    
-              </div>
-               <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations:<br/> <span class="text-primary">Decode the Emoji Winners!<br/><img src="storage/uploads/divider.png" /> </h4>
-                    <img src="storage/uploads/emojiwinners.jpg" width="100%" /><br/>
-                    <p style="padding: 30px;" class="text-center">
-                  </p>
-
-                   
-                    
-              </div>
-              
-
-             
-
-              <div class="item   text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" >...And we are <span class="text-primary">LIVE!!!<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  <img src="storage/uploads/pulse2020_live.jpg" width="100%" /><br/>
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-center"><strong class="text-primary">Employee Pulse Check 2020</strong> is designed to help us understand our specific strengths and identify our areas for improvement during these last two quarters.<br/>We'd love to hear from you!<br/><br/>
-                      Your feedback will show us where our opportunities are for improving employee experience.<br/><br/>
-                      This survey is conducted twice a year so we can best track our progress and measure our results.<br/><br/>
-                      Please answer each question honestly. It will not take too much of your time.<br/>
-                      Your responses will be kept confidential and will not affect your standing at work.<br/><br/>
-                      Let's all continue to work together to make life at Open Access better!<br/><br/>
-
-                      <a class="btn btn-lg btn-success" href="{{action('SurveyController@intro',6)}}">Take the Survey <i class="fa fa-arrow-right"></i> </a>
-                      <br/><br/>
-
-                      <strong class="text-danger">Completion deadline: July 30, 2020 Thursday</strong>
-
-                   
-                    
-              </div>
-
-              <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                      Thank you to all those who participated in our ECQonnection Wall Challenge last week - Cheer Up The Lonely Day.<br/><br/>
-                      The jokes you've posted definitely made someone smile, and we definitely need that these days!<br/><br/>
-
-                      Congratulations to our  <strong>Top 3 Entries:</strong><br/><br/>
-
-                      <strong class="text-primary">Crissy Tuazon-Angeles</strong><br/>
-                      <img src="storage/uploads/joke_crizzy.jpg" width="52%" class="pull-right" style="padding-left: 10px" /><br/>
-                      <em>Knock, knock.<br/><br/>
-                      Who's there?<br/><br/>
-                      "Hatch". <br/><br/>
-                      "Hatch" who?
-                      <br/><br/>Bless you!</em><br/>
-                      
-                      <br/><br/>
-
-                      <strong class="text-primary">Lothar Mckenzie</strong><br/>
-                      <img src="storage/uploads/joke_lothar.jpg" width="52%" class="pull-right" style="padding-left: 10px"/><br/>
-                      <em>Student: Teacher, what is the abbreviation (short spelling) for "FOLLOW"?<br/><br/>
-
-                          Teacher: "ff"<br/><br/>
-                          Student: HOORAY!!! (Immediately shouted right after the teacher answered)</em>
-                     <br/>
-                     <br/><br/>
-
-                      <strong class="text-primary">Camilo Villanueva</strong><br/>
-                      <img src="storage/uploads/joke_camilo.jpg" width="52%" class="pull-right" style="padding-left: 10px" /><br/>
-                      <em>A guy tells his doctor, "Doc, help me. I'm addicted to Tiktok, Instagram, and Facebook."<br/><br/>
-                      The doctor replies, "Sorry, I don't follow you."</em>
-                      <br/>
-                      
-                       <br/><br/>
-                       Until our next challenge!
-                       <br/><br/>
-                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',16)}}"><i class="fa fa-th-large"></i> View Wall</a>
-
-                    </p>    
- 
-                    
-              </div>
-
-              
-
-             
-
-              <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-left">We are in the <strong class="text-primary"> NEW NORMAL</strong> and it requires us to wear our face masks whenever we go out! Show your new normal look with your go-to face mask! Let's show that we are #OneForHealth </p>
-
-                    <img src="storage/uploads/wall_week11.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',17)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-              </div>
-
-              <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/newnormal_home.jpg" width="100%" /><br/>
-                    <img src="storage/uploads/newnormal_office.jpg" width="100%" /><br/>
-
-                    
-                    
- 
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > eLearning for Leaders: <i class="fa fa-users"></i><br/> <span class="text-primary"> ALERT Part 2<br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -242,6 +59,100 @@
  
                     
               </div>
+
+
+            <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" > Free <span class="text-primary">Coffee!!!<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/freecoffee.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-center"><strong class="text-primary">1 cup/day</strong>
+
+                      For all onsite workers<br/><br/>
+
+                      Swing by the cafeteria for your daily free brew.<br/><br/>
+
+                      Until supplies last.<br/><br/>
+
+                      *BYOT is a good idea too.<br/><br/>
+
+                      <br/>
+                      <em>*Bring your own tumbler or mug. Greener is better. Plus, it keeps your coffee warmer longer.  Enjoy!</em>
+
+                   
+                    
+              </div>  
+
+             
+              
+              
+              
+
+             
+
+              <div class="item   text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" >Don't forget to  <span class="text-primary">complete the survey!<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/pulse2020_live.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-center"><strong class="text-primary">Employee Pulse Check 2020</strong> is designed to help us understand our specific strengths and identify our areas for improvement during these last two quarters.<br/>We'd love to hear from you!<br/><br/>
+                      Your feedback will show us where our opportunities are for improving employee experience.<br/><br/>
+                      This survey is conducted twice a year so we can best track our progress and measure our results.<br/><br/>
+                      Please answer each question honestly. It will not take too much of your time.<br/>
+                      Your responses will be kept confidential and will not affect your standing at work.<br/><br/>
+                      Let's all continue to work together to make life at Open Access better!<br/><br/>
+
+                      <a class="btn btn-lg btn-success" href="{{action('SurveyController@intro',6)}}">Take the Survey <i class="fa fa-arrow-right"></i> </a>
+                      <br/><br/>
+
+                      <strong class="text-danger">Completion deadline: July 30, 2020 Thursday</strong>
+
+                   
+                    
+              </div>
+
+            
+              
+
+             
+
+              <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-left">We are in the <strong class="text-primary"> NEW NORMAL</strong> and it requires us to wear our face masks whenever we go out! Show your new normal look with your go-to face mask! Let's show that we are #OneForHealth </p>
+
+                    <img src="storage/uploads/wall_week11.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',17)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+              </div>
+
+              <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/newnormal_home.jpg" width="100%" /><br/>
+                    <img src="storage/uploads/newnormal_office.jpg" width="100%" /><br/>
+
+                    
+                    
+ 
+ 
+                    
+              </div>
+
+              
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > OA OFFICE CAB SERVICE <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>The Additional Solution for Your GCQ Office Transport Needs<br/>
                  <br/>
@@ -2094,6 +2005,100 @@
 
 
 <?php /*
+  <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                      Thank you to all those who participated in our ECQonnection Wall Challenge last week - Cheer Up The Lonely Day.<br/><br/>
+                      The jokes you've posted definitely made someone smile, and we definitely need that these days!<br/><br/>
+
+                      Congratulations to our  <strong>Top 3 Entries:</strong><br/><br/>
+
+                      <strong class="text-primary">Crissy Tuazon-Angeles</strong><br/>
+                      <img src="storage/uploads/joke_crizzy.jpg" width="52%" class="pull-right" style="padding-left: 10px" /><br/>
+                      <em>Knock, knock.<br/><br/>
+                      Who's there?<br/><br/>
+                      "Hatch". <br/><br/>
+                      "Hatch" who?
+                      <br/><br/>Bless you!</em><br/>
+                      
+                      <br/><br/>
+
+                      <strong class="text-primary">Lothar Mckenzie</strong><br/>
+                      <img src="storage/uploads/joke_lothar.jpg" width="52%" class="pull-right" style="padding-left: 10px"/><br/>
+                      <em>Student: Teacher, what is the abbreviation (short spelling) for "FOLLOW"?<br/><br/>
+
+                          Teacher: "ff"<br/><br/>
+                          Student: HOORAY!!! (Immediately shouted right after the teacher answered)</em>
+                     <br/>
+                     <br/><br/>
+
+                      <strong class="text-primary">Camilo Villanueva</strong><br/>
+                      <img src="storage/uploads/joke_camilo.jpg" width="52%" class="pull-right" style="padding-left: 10px" /><br/>
+                      <em>A guy tells his doctor, "Doc, help me. I'm addicted to Tiktok, Instagram, and Facebook."<br/><br/>
+                      The doctor replies, "Sorry, I don't follow you."</em>
+                      <br/>
+                      
+                       <br/><br/>
+                       Until our next challenge!
+                       <br/><br/>
+                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',16)}}"><i class="fa fa-th-large"></i> View Wall</a>
+
+                    </p>    
+ 
+                    
+              </div>
+
+<div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > 18<sup>th</sup> of July:<br/><span class="text-primary">Mandela Day<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/mandela2020.jpg" width="100%" /><br/>
+                    <p  style="padding: 30px;" class="text-left">
+                      <strong>#MandelaDay </strong>is celebrated every July 18 to honor South Africa’s first black President and civil rights leader, Nelson Mandela. A powerful voice against the apartheid, he remains a symbol of the power that one individual can make a difference.<br/><br/>
+
+                    We also want to take this time to honor his youngest daughter Zindzi Mandela, an activist and South Africa’s ambassador to Denmark as a voice against apartheid, who recently passed away.<br/><br/>
+
+                    May the world continue to reflect on their legacy— take action and strive to make a difference.<br/><br/>
+
+                    #WeSpeakYourLanguage #OACelebratesHeroes</p>
+                    
+                    
+              </div>
+               <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations:<br/> <span class="text-primary">Decode the Emoji Winners!<br/><img src="storage/uploads/divider.png" /> </h4>
+                    <img src="storage/uploads/emojiwinners.jpg" width="100%" /><br/>
+                    <p style="padding: 30px;" class="text-center">
+                  </p>
+
+                   
+                    
+              </div>
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> JULY 24, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for July 24th payout is July 20, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before 12:00 noon of July 21, 2020</strong>.<br/><br/>
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
  <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
                   <br/>
