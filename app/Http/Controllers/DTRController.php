@@ -433,7 +433,12 @@ class DTRController extends Controller
                                         $arr[$i] =  $cleanWH[0]; $i++;
 
                                      }else
-                                      $arr[$i] = $wh; $i++;
+                                     {
+                                        $cleanWH = explode(" ", $wh);
+                                        $arr[$i] =  $cleanWH[0]; $i++;
+
+                                     }
+                                      //$arr[$i] = $wh; $i++;
 
                                   }else
                                   $arr[$i] = strip_tags($key->hoursWorked); $i++;
