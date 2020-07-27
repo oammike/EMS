@@ -1,24 +1,55 @@
 
 
 
-             <div class="item active text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" > New <span class="text-primary">Reward Items!!!<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  <img src="storage/uploads/newVouchers.jpg" width="100%" /><br/>
+            <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day <br/><small>Thursday, July 30</small><br/>
                   
-                   
+                    <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-center">As we continue to celebrate YOU and the awesome work you do
-                      especially during the community quarantine, here are the new items available on our Rewards Catalog!<br/><br/>
+                    <p  style="padding: 30px;" class="text-center">No man is an island, especially in the office!<br/><br/>
 
-                      You may redeem <strong class="text-danger">1 voucher per day</strong>. <br/>What are you waiting for?<br/>
-                    Check out our Rewards page to select the voucher you want to redeem!</p>
+                      In celebration of the International Friendship Day, share your favorite photo with your office best friend to win <strong>300 points for you</strong> and <strong>200 points for your friend</strong>!. The top 3 posts with the most likes win. All participating posts will also earn <strong>10 points</strong> </p>
 
-
-                   
+                    <img src="storage/uploads/wall_week12.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',18)}}"> Check out our ECQonnection Wall</a>
                     
-              </div>
+                    
+            </div>
+
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Annual <span class="text-primary">  <i class="fa fa-lock"></i> InfoSec Training<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      <img src="storage/uploads/infosec_training.png" width="98%" /><br/><br/>
+                    Hello everyone,<br/><br/>
+
+                    Our Information Security Awareness module is now live on our <a href="https://open-access.training-online.eu/" target="_blank"> LMS</a>! This is foundational to Open Access BPO strengthening system security and standardizing Information Security practices.  This is a <strong><a href="https://open-access.training-online.eu/" target="_blank"> required training</a></strong> and needs to be <strong>completed by August 27, 2020.</strong>
+                    <br/><br/>
+
+                    This is fielded once a year to ensure we’re all up to speed with the latest policies and protocols. This year, we are running it from July 27, 2020 to August 27, 2020. The knowledge check is short (15 questions) and would take only about 30 minutes or less to complete, and may be taken at any time which suits you during your shift. The number of days allocated for module completion is more than adequate, please finish it before the 30-day period expires.<br/><br/>
+
+                    Click here for the <strong><a href="https://drive.google.com/file/d/1-xTeTWZ6VvB7zINVoX3JaVZM857dftuh/view" target="_blank"> Module Guidelines and Instructions</a></strong><br/><br/>
+                    Click here for the <strong><a href="{{action('ResourceController@index')}}" target="_blank">
+                    Information Security Policy</a></strong><br/><br/>
+                     
+                    We all have a responsibility to safeguard assets entrusted to us and ensure compliance with global regulations. This mandatory training program will fortify us against security risks and threats. Let’s adopt these behaviours together because they protect our business, our customers, our community, and each of us here at Open Access.<br/><br/>
+
+                    If you have any questions, feel free to email us at  corporate_compliance@openaccessbpo.com.<br/><br/>
+
+                    Thank you!  
+                    <br/><br/> 
+                   
+
+                  
+
+                    </p> 
+
+
+ 
+                    
+            </div>
 
             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > eLearning for Leaders: <i class="fa fa-users"></i><br/> <span class="text-primary"> ALERT Part 2<br/>
@@ -58,7 +89,30 @@
 
  
                     
-              </div>
+            </div>
+
+            <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" > New <span class="text-primary">Reward Items!!!<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/newVouchers.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">As we continue to celebrate YOU and the awesome work you do
+                      especially during the community quarantine, here are the new items available on our Rewards Catalog!<br/><br/>
+
+                      You may redeem <strong class="text-danger">1 voucher per day</strong>. <br/>What are you waiting for?<br/>
+                    Check out our Rewards page to select the voucher you want to redeem!</p>
+
+
+                   
+                    
+            </div>
+
+            
+
+            
 
 
             <div class="item text-center" >
@@ -122,18 +176,7 @@
 
              
 
-              <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Stay Connected:<br/><span class="text-primary">ECQonnection Wall<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-left">We are in the <strong class="text-primary"> NEW NORMAL</strong> and it requires us to wear our face masks whenever we go out! Show your new normal look with your go-to face mask! Let's show that we are #OneForHealth </p>
-
-                    <img src="storage/uploads/wall_week11.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',17)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-              </div>
+             
 
               <div class="item text-center">
                 
