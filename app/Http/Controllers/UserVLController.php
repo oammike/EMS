@@ -296,13 +296,17 @@ class UserVLController extends Controller
 
                                 $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
 
-                                 if ($this->user->id == 3323)
-                                    return response()->json(['isRD'=>$schedForTheDay]);
+                                 // if ($this->user->id == 3323)
+                                 //    return response()->json(['isRD'=>$schedForTheDay]);
 
                                 //if 4HRs lang work nya, part timer sya or foreign na part timer
                                 //dapat half lang credit nila
 
-                                if (!$schedForTheDay->isRD)
+                                if ($schedForTheDay->isRD)
+                                {
+                                    $foreignPartime = 0;
+
+                                }else
                                 {
                                     if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila')) > 4)
                                         $foreignPartime = 0;
@@ -310,8 +314,8 @@ class UserVLController extends Controller
                                     else
                                         $foreignPartime = 1; // 0.5;
 
-                                }else
-                                    $foreignPartime = 0;
+                                }
+                                    
                                 
 
 
