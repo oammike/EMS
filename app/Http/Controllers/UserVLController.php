@@ -297,7 +297,7 @@ class UserVLController extends Controller
                                 $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
 
                                  if ($this->user->id == 3323)
-                                    return response()->json(['isRD'=>$schedForTheDay);
+                                    return response()->json(['isRD'=>$schedForTheDay]);
 
                                 //if 4HRs lang work nya, part timer sya or foreign na part timer
                                 //dapat half lang credit nila
