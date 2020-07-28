@@ -216,8 +216,15 @@ select:-webkit-autofill:focus {
                                 <option value="0"> --  Select One -- </option>
                                 
                                 @foreach ($evalTypes as $evalType)
+
+                                  @if($evalType->id == 1 || $evalType->id == 2 ||$evalType->id == 5  )
+
+                                  @else
+                                     <option value="{{$evalType->id}}"><?php if ($evalType->id==1 ) echo date('Y'); else if($evalType->id==2){ if( date('m')>=7 && date('m')<=12 )echo date('Y'); else echo date('Y')-1;  } ?> {{$evalType->name}}</option>
+
+                                  @endif
                                
-                                 <option value="{{$evalType->id}}"><?php if ($evalType->id==1 ) echo date('Y'); else if($evalType->id==2){ if( date('m')>=7 && date('m')<=12 )echo date('Y'); else echo date('Y')-1;  } ?> {{$evalType->name}}</option>
+                                
                                 @endforeach
                               </select>
                         
