@@ -5676,7 +5676,7 @@ trait TimekeepingTraits
       if (count($bio)>0)
       {
         $b = $bio->first(); 
-        $cws = User_CWS::where('biometrics_id',$b->id)->where('user_id',$sched->user_id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
+        $cws = User_CWS::where('biometrics_id',$b->id)->where('user_id',$user->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
         //return (['cws'=>$cws]);
           if (count($cws)> 0)
           {
