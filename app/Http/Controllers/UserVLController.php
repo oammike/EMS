@@ -302,7 +302,7 @@ class UserVLController extends Controller
                                 //if 4HRs lang work nya, part timer sya or foreign na part timer
                                 //dapat half lang credit nila
 
-                                if (property_exists($schedForTheDay, 'isRD'))
+                               /* if (property_exists($schedForTheDay, 'isRD'))
                                 {
                                     $foreignPartime = 0;
 
@@ -314,7 +314,9 @@ class UserVLController extends Controller
                                     else
                                         $foreignPartime = 1; // 0.5;
 
-                                }
+                                }*/
+
+                                $foreignPartime = 0;
                                     
                                 
 
