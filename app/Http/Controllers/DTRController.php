@@ -3854,7 +3854,7 @@ class DTRController extends Controller
 
           $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
-                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('vlupdate.period','DESC')->get(); 
           $totalVLearned = collect($vlEarnings)->sum('credits');
 
           $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
@@ -5019,7 +5019,7 @@ class DTRController extends Controller
            $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
                 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice','vlEarnings'));
 
 
         } else return view('access-denied');

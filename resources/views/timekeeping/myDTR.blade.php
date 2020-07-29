@@ -146,7 +146,8 @@
                                                       <th class="text-center"style="background: rgba(234, 0, 0, 0.4);font-size: smaller;"><i class="fa fa-stethoscope"></i> SL Credits</th>
                                                     </tr>
                                                     <tr>
-                                                      <td style="background: rgba(72, 178, 219, 0.4); font-size: smaller;color:#000; font-weight: bolder;" >{{$currentVLbalance}} </td>
+                                                      <td style="background: rgba(72, 178, 219, 0.1); font-size: smaller;color:#000; font-weight: bolder;" >
+                                                        <a href="{{action('UserVLController@showCredits',$user->id)}} "> <span class="text-black">{{$currentVLbalance}}</span> <i class="fa fa-external-link"></i>  <br/><em style="font-size: xx-small;">as of {{date('M d', strtotime($vlEarnings[0]->period))}}  earnings</em></small></td>
                                                       <td style="background: rgba(234, 0, 0, 0.4); font-size: smaller;color:#000;font-weight: bolder;" >{{$currentSLbalance}} </td>
                                                     </tr>
                                                     
