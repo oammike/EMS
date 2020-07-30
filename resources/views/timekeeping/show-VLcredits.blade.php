@@ -416,7 +416,7 @@
                             <!-- ************ SICK LEAVE *************-->
                             
                             <tr>
-                              <td><h4><i class="fa fa-stethoscope"></i> Sick Leave</h4> <br/> <a class="btn btn-default btn-xs" href="{{action('UserSLController@create')}}"><i class="fa fa-upload"></i> File New SL</a> </td>
+                              <td><h4 id="slpage"><i class="fa fa-stethoscope"></i> Sick Leave</h4> <br/> <a class="btn btn-default btn-xs" href="{{action('UserSLController@create')}}"><i class="fa fa-upload"></i> File New SL</a> </td>
                               <td colspan="2">
                               <table id="vl" class="table">
                                 <thead>

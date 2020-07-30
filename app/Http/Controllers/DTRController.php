@@ -3859,7 +3859,8 @@ class DTRController extends Controller
 
           $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
                               join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
-                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('slupdate.period','DESC')->get();
+
           $totalSLearned = collect($slEarnings)->sum('credits');
 
           $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
@@ -5019,7 +5020,7 @@ class DTRController extends Controller
            $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
                 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice','vlEarnings'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice','vlEarnings','slEarnings'));
 
 
         } else return view('access-denied');
