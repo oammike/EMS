@@ -2,6 +2,19 @@
 
 
             <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >July 31 Friday: <br/><span class="text-primary"><i class="fa fa-calendar"></i> Eid'l Adha <br/><small>Feast of Sacrifice</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+
+                    <img src="storage/uploads/eidladha2020.jpg" width="100%" /><br/>
+                    
+                    
+                    
+            </div>
+
+            <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day <br/><small>Thursday, July 30</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
