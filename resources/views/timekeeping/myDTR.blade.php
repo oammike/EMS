@@ -597,7 +597,7 @@
                                                         @else 
 
                                                         <td class="text-left">
-                                                           <a  title="No ECQ status (click to update)" data-toggle="modal" data-target="#noECQ_{{$data['biometrics_id']}}" class="setECQ pull-left btn btn-xs btn-default" data-bioID="{{$data['biometrics_id']}}" data-placehold="{{ date('m/d/Y',strtotime($data['productionDate'])) }}" href="#" >{{ date('D',strtotime($data['productionDate'])) }} </a>
+                                                           <a  title="No GCQ status (click to update)" data-toggle="modal" data-target="#noECQ_{{$data['biometrics_id']}}" class="setECQ pull-left btn btn-xs btn-default" data-bioID="{{$data['biometrics_id']}}" data-placehold="{{ date('m/d/Y',strtotime($data['productionDate'])) }}" href="#" > <i class="fa fa-exclamation-triangle" style="font-size: x-small;"></i> &nbsp; {{ date('D',strtotime($data['productionDate'])) }}  </a>
 
                                                             <!-- MODAL FOR NO ECQ SET -->
                                                                 <div class="modal fade text-left" id="noECQ_{{$data['biometrics_id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -606,12 +606,12 @@
                                                                       <div class="modal-header">
                                                                         
                                                                           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                                          <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> No ECQ status defined.</h4>
+                                                                          <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> No Community Quarantine work status defined.</h4>
                                                                         
                                                                       </div>
                                                                       <div class="modal-body">
                                                                       
-                                                                       Please select ECQ status, specify inclusive dates, and click 'Save' button. <br/><br/>
+                                                                       Please select GCQ work status, specify inclusive dates, and click 'Save' button. <br/><br/>
                                                                        @foreach($allECQ as $e)
 
                                                                     <?php switch($e->id){ 
@@ -627,7 +627,11 @@
 
 
                                                                           <label>
-                                                                            <input type="radio" value="{{$e->id}}" name="ecqstat_{{$data['biometrics_id']}}" />&nbsp; <i class="fa {{$fa}}"> </i> {{$e->name}} 
+                                                                            <input type="radio" value="{{$e->id}}" name="ecqstat_{{$data['biometrics_id']}}" />&nbsp; <i class="fa {{$fa}}"> </i> 
+                                                                            {{$e->name}} @if ($e->id=='1') <em>(at home worker)</em> @endif
+                                                                              
+                                                                           
+
                                                                           </label><br/>
 
                                                                        @endforeach
@@ -643,7 +647,7 @@
                                                                       </div>
                                                                       <div class="modal-footer no-border">
                                                                         <button type="button" class="btn btn-default btn-md pull-right " data-dismiss="modal"> <i class="fa fa-times"></i> Cancel</button>
-                                                                        <button type="submit" class="updateECQ btn btn-success btn-md pull-right" data-bioID="{{$data['biometrics_id']}}" style="margin-right:5px" > <i class="fa fa-save" ></i> Save ECQ Status </button>
+                                                                        <button type="submit" class="updateECQ btn btn-success btn-md pull-right" data-bioID="{{$data['biometrics_id']}}" style="margin-right:5px" > <i class="fa fa-save" ></i> Save GCQ Status </button>
                                                                         
                                                                       </div>
                                                                     </div>
@@ -2272,7 +2276,7 @@ $('select.end.form-control').on('change',function(){
                   {
                     console.log(res);
                     if(res.success=='1')
-                      $.notify("ECQ status updated successfully.",{className:"success", globalPosition:'left',autoHideDelay:7000, clickToHide:true} );
+                      $.notify("GCQ work status updated successfully.",{className:"success", globalPosition:'left',autoHideDelay:7000, clickToHide:true} );
                     else {
                       $.notify(res.message,{className:"error", globalPosition:'left',autoHideDelay:7000, clickToHide:true} );
                       item.fadeIn();
@@ -2289,7 +2293,7 @@ $('select.end.form-control').on('change',function(){
 
         });
       
-    } else alert('Please specify ECQ status.');
+    } else alert('Please specify Community Quarantine work status.');
    
 
  });

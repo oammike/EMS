@@ -284,7 +284,7 @@
                                                         <td class="text-left"><a title="Work From Home" class="btn btn-xs btn-success" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"><i class="fa fa-home"></i>  </a> {{ date('D',strtotime($data->productionDate)) }} </td>
                                                         @else
 
-                                                        <td class="text-left"><a title="No ECQ Status" class="btn btn-xs btn-default" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}#{{$data['biometrics_id']}}" target="_blank"> {{ date('D',strtotime($data->productionDate)) }} </a></td>
+                                                        <td class="text-left"><a title="No GCQ work Status" class="btn btn-xs btn-default" href="#" onClick="(function(){ alert('\n\n Click the Request Unlock button to update GCQ work status'); return false; })(); return false;" target="_blank">  <i class="fa fa-exclamation-triangle" style="font-size: x-small;"></i> &nbsp; {{ date('D',strtotime($data->productionDate)) }} </a></td>
                                                         @endif
 
 
