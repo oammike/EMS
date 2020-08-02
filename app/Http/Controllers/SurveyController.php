@@ -116,6 +116,7 @@ class SurveyController extends Controller
     public function downloadRaw($id)
     {
       $survey = Survey::find($id); 
+      $tenure3mos = Carbon::now('GMT+8')->addMonths(-3);
 
       //******* show memo for test people only ,ems,joy,jaja, ben, henry,ella,juls
       $testgroup = [564,508,1644,1611,1784,491,1,184,887];
@@ -132,7 +133,7 @@ class SurveyController extends Controller
           $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',1)->
                        
                         join('users','users.id','=','survey_user.user_id')->
-                        
+                        where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                         join('team','team.user_id','=','survey_user.user_id')->
                         join('campaign','team.campaign_id','=','campaign.id')->
                         join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
@@ -152,6 +153,7 @@ class SurveyController extends Controller
                         join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
                         //join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
                         join('users','users.id','=','survey_user.user_id')->
+                        where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                         //------leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
                         //join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
                         join('team','team.user_id','=','survey_user.user_id')->
@@ -169,6 +171,7 @@ class SurveyController extends Controller
 
           $allNotes = DB::table('survey_user')->where('survey_user.survey_id',1)->
                           join('users','survey_user.user_id','=','users.id')->
+                          where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                           join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
                           select('survey_user.user_id as userID','users.lastname','users.firstname', 'survey_notes.question_id','survey_notes.comments')->
                           where('survey_notes.comments','!=',null)->
@@ -401,6 +404,7 @@ class SurveyController extends Controller
           $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',$survey->id)->
                        
                         join('users','users.id','=','survey_user.user_id')->
+                        where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                         where([
                               ['users.status_id', '!=', 6],
                               ['users.status_id', '!=', 16],
@@ -429,6 +433,7 @@ class SurveyController extends Controller
                         where('survey_user.survey_id','=',$survey->id)->
                         //join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
                         join('users','users.id','=','survey_user.user_id')->
+                        where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                         //------leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
                         //join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
                         join('team','team.user_id','=','survey_user.user_id')->
@@ -453,6 +458,7 @@ class SurveyController extends Controller
 
           $allNotes = DB::table('survey_user')->where('survey_user.survey_id',$id)->
                           join('users','survey_user.user_id','=','users.id')->
+                          where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                           join('survey_notes','survey_notes.user_id','=','survey_user.user_id')->
                           where('survey_notes.survey_id','=',$survey->id)->
                           select('survey_user.user_id as userID','users.lastname','users.firstname', 'survey_notes.question_id','survey_notes.comments')->
