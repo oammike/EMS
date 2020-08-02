@@ -795,6 +795,8 @@ class SurveyController extends Controller
       $npsData = new Collection;
       $programData = new Collection;
       $categoryData = new Collection;
+      $ngayon = Carbon::now('GMT+8');
+      $tenure3mos = Carbon::now('GMT+8')->addMonths(-3);
 
 
 
@@ -1241,6 +1243,7 @@ class SurveyController extends Controller
                     join('survey_user','survey_user.user_id','=','survey_responses.user_id')->
                     join('survey_extradata','survey_extradata.user_id','=','survey_responses.user_id')->
                     join('users','users.id','=','survey_user.user_id')->
+                    where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                     leftJoin('survey_essays','survey_essays.user_id','=','users.id')->
                     join('team','team.user_id','=','survey_user.user_id')->
                     where('team.floor_id','!=',10)->
@@ -1264,14 +1267,18 @@ class SurveyController extends Controller
                     ['users.status_id', '!=', 16],
                     
                     
-                            ])->get();
+                            ])->get(); 
                   $nspResponses = collect($allResp)->whereIn('question',[156]);
                  
                   $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
                   $groupedNPS = collect($nspResponses)->groupBy('userID'); 
                   $groupedCat = collect($allResp)->groupBy('categoryID');
 
-                  $completed = count(Survey_User::where('isDone',true)->where('survey_id',$id)->get());
+                  //$completed = count(Survey_User::where('isDone',true)->where('survey_id',$id)->get());
+                  $completed = count(DB::table('survey_user')->where('survey_user.isDone',true)->where('survey_user.survey_id',$id)->
+                                join('users','survey_user.user_id','=','users.id')->
+                                select('users.id','users.dateHired')->where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->get());
+                                
                   // $finished = DB::table('survey_user')->where('survey_user.survey_id',$id)->where('survey_user.isDone',true)->
                   //                 join('users','users.id','=','survey_user.user_id')->
                   //                 join()get());
@@ -1369,6 +1376,7 @@ class SurveyController extends Controller
                   foreach ($programs->sort() as $p) {
                       $totalData = DB::table('team')->where('campaign_id',$p[0]['programID'])->
                                     join('users','users.id','=','team.user_id')->
+                                    where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                                     select('users.status_id','users.firstname','users.lastname','users.id')->
                                     where('users.status_id',"!=",2)->
                                     where('users.status_id',"!=",6)->
@@ -1400,6 +1408,7 @@ class SurveyController extends Controller
                   //DB::table('survey_questions')->where('survey_questions.id',158)->
                   //                  join('survey_essays','survey_essays.question_id','=','survey_questions.id')->
                                     join('users','survey_essays.user_id','=','users.id')->
+                                    where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                                     join('team','team.user_id','=','users.id')->
                                     join('campaign','team.campaign_id','=','campaign.id')->
                                     join('survey_questions','survey_questions.id','=','survey_essays.question_id')->
@@ -1428,6 +1437,7 @@ class SurveyController extends Controller
                  
                     //exclude Taipei and Xiamen
                     $actives = count(DB::table('users')->where('status_id','!=',2)->
+                                    where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                                     where('status_id','!=',6)->
                                     where('status_id','!=',7)->
                                     where('status_id','!=',8)->
