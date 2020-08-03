@@ -257,26 +257,29 @@
         
 
 
+         <!-- ******** OPEN WALL ****** -->
+        <?php $walls = OAMPI_Eval\Engagement::where('id','>',8)->orderBy('id','DESC')->get(); ?>
+
         <li class="treeview @if (Request::is('employeeEngagement*')) active @endif">
-          <a href="#" class="text-yellow"><i class="fa fa-2x fa-smile-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Activities </span>
+         <a href="#" class="text-yellow"><i class="fa fa-2x fa-smile-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Activities </span>
             <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-           <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',18)}}"><i class="fa fa-th-large"></i> Int'l Friendship Day </a></li>
-           <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',17)}}"><i class="fa fa-th-large"></i> The "New Normal" </a></li>
-           <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',16)}}"><i class="fa fa-th-large"></i> Cheer Up Day Wall </a></li>
-           <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',15)}}"><i class="fa fa-th-large"></i> Gratitude Wall </a></li>
-           <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',14)}}"><i class="fa fa-th-large"></i> Pride Month Wall </a></li>
-           <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',13)}}"><i class="fa fa-th-large"></i> PH Independence Day </a></li>
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@wall',12)}}"><i class="fa fa-th-large"></i>Movies/Songs/Series wall</a></li>
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('EngagementController@wall',11)}}"><i class="fa fa-th-large"></i> New Dishes/Recipe wall </a> </li>
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('EngagementController@wall',10)}}"><i class="fa fa-th-large"></i>Throwback Vacay Photo wall </a> </li>
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a  target="_blank"href="{{action('EngagementController@wall',9)}}"><i class="fa fa-th-large"></i> Mental Health Awareness </a> </li>
+        
+
+            @foreach($walls as $w)
+
+              @if($w->active) 
+              <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',$w->id)}}"><i class="fa fa-th-large"></i> {{$w->name}} </a></li>
+
+              @else
+              <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a  target="_blank"href="{{action('EngagementController@wall',$w->id)}}"><i class="fa fa-th-large"></i> {{$w->name}} </a> </li>
+
+              @endif
+
+            @endforeach
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a  target="_blank"href="{{action('EngagementController@wall',5)}}"><i class="fa fa-th-large"></i> WFH/Onsite Photo Wall </a> </li>
-            <!-- <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',6)}}"><i class="fa fa-child"></i> Zumba </a> </li>
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',7)}}"><i class="fa fa-child"></i> Aero Kickboxing </a> </li>
-            <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',8)}}"><i class="fa fa-child"></i> Yoga </a> </li> -->
-            
+           
 
           </ul>
         </li>
