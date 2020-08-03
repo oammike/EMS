@@ -161,37 +161,7 @@
             
 
 
-            <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" > Free <span class="text-primary">Coffee!!!<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  <img src="storage/uploads/freecoffee.jpg" width="100%" /><br/>
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-center"><strong class="text-primary">1 cup/day</strong>
-
-                      For all onsite workers<br/><br/>
-
-                      Swing by the cafeteria for your daily free brew.<br/><br/>
-
-                      Until supplies last.<br/><br/>
-
-                      *BYOT is a good idea too.<br/><br/>
-
-                      <br/>
-                      <em>*Bring your own tumbler or mug. Greener is better. Plus, it keeps your coffee warmer longer.  Enjoy!</em>
-
-                   
-                    
-              </div>  
-
-             
-              
-              
-              
-
-             
+          
 
               <div class="item   text-center" >
                
@@ -2094,6 +2064,37 @@
 
 
 <?php /*
+  <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" > Free <span class="text-primary">Coffee!!!<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/freecoffee.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-center"><strong class="text-primary">1 cup/day</strong>
+
+                      For all onsite workers<br/><br/>
+
+                      Swing by the cafeteria for your daily free brew.<br/><br/>
+
+                      Until supplies last.<br/><br/>
+
+                      *BYOT is a good idea too.<br/><br/>
+
+                      <br/>
+                      <em>*Bring your own tumbler or mug. Greener is better. Plus, it keeps your coffee warmer longer.  Enjoy!</em>
+
+                   
+                    
+              </div>  
+
+             
+              
+              
+              
+
+             
   <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations!
                   <br/>
