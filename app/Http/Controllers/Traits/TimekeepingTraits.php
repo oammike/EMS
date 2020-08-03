@@ -3493,7 +3493,7 @@ trait TimekeepingTraits
       $hasPendingIN = null;
       $pendingDTRPin = null;
       $hasPendingOUT = null;
-      $pendingDTRPout = null;$userLogOUT=null;$logOUT=null;
+      $pendingDTRPout = null;$userLogOUT=null;$logOUT=null;$fromOverride=false;
 
       $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
       $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
@@ -3590,7 +3590,7 @@ trait TimekeepingTraits
           // -------- check mo muna baka may manual override eh
           $manual = User_LogOverride::where('user_id',$user_id)->where('logType_id',2)->where('productionDate',$biometrics->productionDate)->get();
 
-          if (count($manual) > 0) $userLogOUT = $manual;
+          if (count($manual) > 0) {$userLogOUT = $manual; $fromOverride=true;}
           else
           {
             $userLogOUT = Logs::where('user_id',$user_id)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('biometrics_id','ASC')->get();
@@ -3616,7 +3616,9 @@ trait TimekeepingTraits
               {
                 goto proceedToRDOT;
 
-              }else
+              }else goto mayDTRPOUT;
+              
+              /*
               {
                 $logOUT = "No RD-OT Out <br/><small>Verify with Immediate Head</small>";
                 $workedHours="N/A"; 
@@ -3665,12 +3667,14 @@ trait TimekeepingTraits
                          
 
 
-              }
+              }*/
 
 
             }else
             {
               //Check mo muna kung may approved DTRPout
+              mayDTRPOUT:
+
               $hasApprovedDTRPout = User_DTRP::where('user_id',$user_id)->where('isApproved',true)->where('biometrics_id',$biometrics->id)->where('logType_id',2)->orderBy('updated_at','DESC')->get();
 
               if (count($hasApprovedDTRPout) > 0) { $userLogOUT = $hasApprovedDTRPout;} 
@@ -3806,16 +3810,27 @@ trait TimekeepingTraits
                           //*** pero check mo muna kung may existing userlogs talaga
                           if(count($userLogIN) > 0){
                             
-                            if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
-                            $bio =Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                            else
-                            {
-                              $nextDay = Carbon::parse($payday)->addDay();
-                              $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
-                              if (count($b) > 0)
-                                $bio = $b->first()->productionDate;
-                              else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
-                            }
+                           
+                              if( $userLogOUT->first()->logTime > $userLogIN->first()->logTime)
+                              {
+                                ($fromOverride) ? $bio = Biometrics::find($userLogOUT->first()->affectedBio)->productionDate : $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate; //->productionDate;
+                              }
+                              
+
+                              else
+                              {
+                                $nextDay = Carbon::parse($payday)->addDay();
+                                $b = Biometrics::where('productionDate',$nextDay->format('Y-m-d'))->get();
+                                if (count($b) > 0)
+                                  $bio = $b->first()->productionDate;
+                                else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
+                              }
+
+                              
+
+                           
+                            
+                            
 
                           }else{
 
@@ -3829,6 +3844,8 @@ trait TimekeepingTraits
                                 $bio = $b->first()->productionDate;
                               else $bio = Biometrics::find($userLogOUT->first()->biometrics_id)->productionDate;
                             }
+
+
 
                           }
                           
