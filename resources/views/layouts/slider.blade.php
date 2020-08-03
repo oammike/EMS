@@ -1,7 +1,23 @@
 
 
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center active" >
+            <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day <br/><small>Sunday, Aug 09</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">This week is <strong class="text-primary"></strong><i class="fa fa-book"></i> Book Lovers Day!<br/><br/>
+
+                    To all bookworms out there, what is your favorite book? How about a book that’s on your to-read list or maybe a book that helped you in these challenging times? Share it on our wall and meet other fellow book lovers!<br/><br/>
+                     Each post also gives you a raffle entry (maximum of 3 posts) for a chance to <strong class="text-danger"> win Fully Booked vouchers worth P500</strong>! 2 winners will be electronically drawn and announced on August 10, 2020. </p>
+
+                    <img src="storage/uploads/wall_week13.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',19)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   July 31, 2020 Holiday |<br/> Eid'l Adha Pay <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -27,6 +43,10 @@
                     
               </div>
 
+              
+
+
+
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >July 31 Friday: <br/><span class="text-primary"><i class="fa fa-calendar"></i> Eid'l Adha <br/><small>Feast of Sacrifice</small><br/>
                   
@@ -40,20 +60,7 @@
                     
             </div>
 
-            <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day <br/><small>Thursday, July 30</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">No man is an island, especially in the office!<br/><br/>
-
-                      In celebration of the International Friendship Day, share your favorite photo with your office best friend to win <strong>300 points for you</strong> and <strong>200 points for your friend</strong>!. The top 3 posts with the most likes win. All participating posts will also earn <strong>10 points</strong> </p>
-
-                    <img src="storage/uploads/wall_week12.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',18)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
+            
 
              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Annual <span class="text-primary">  <i class="fa fa-lock"></i> InfoSec Training<br/>

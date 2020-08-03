@@ -735,12 +735,12 @@ class EngagementController extends Controller
             //**** with image attachment
             if($k !== "")
             {
-                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $k == '25'  || $k == '27'|| $k == '29' || $k == '31' || $k == '33' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
+                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $k == '25'  || $k == '27'|| $k == '29' || $k == '31' || $k == '33' || $k == '35' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
 
                 }
                 else 
                 {
-                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'||$k == '25' || $k == '27' || $k == '29' || $k == '31' || $k == '33' ||  $allitemTypes[$ctr]=='IMG') && $request->file('file') )
+                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'||$k == '25' || $k == '27' || $k == '29' || $k == '31' || $k == '33' ||$k == '35' ||  $allitemTypes[$ctr]=='IMG') && $request->file('file') )
                     {
                         $image_code = '';
                         $image = $request->file('file');
@@ -756,6 +756,7 @@ class EngagementController extends Controller
                             case '13':$filen = "wall[6]2020_"; break;
                             case '14':$filen = "wall[7]2020_"; break;
                             case '15':$filen = "wall[8]2020_"; break;
+                            case '19':$filen = "wall[13]2020_"; break;
                             default: $filen="wall_";break;
                             
                         }

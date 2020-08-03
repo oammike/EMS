@@ -29,7 +29,7 @@
 
 
               <div class="box-tools pull-right">
-                <a class="btn btn-xs btn-default" style="margin-right: 35px" href="{{action('SurveyController@downloadRaw',$survey->id)}} "><i class="fa fa-download"></i> Download Raw Data</a>
+                <a id="rawdata" class="btn btn-xs btn-default" style="margin-right: 35px" href="{{action('SurveyController@downloadRaw',$survey->id)}} "><i class="fa fa-download"></i> Download Raw Data</a>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <div class="btn-group">
@@ -522,6 +522,12 @@
 
     
    'use strict';
+
+   $('#rawdata').on('click',function(){
+      //$('input[name="dltype"]').val(2);
+       $.notify("Processing spreadsheet for download. \nThis could take a while processing all survey responses. \n\nPlease wait...",{className:"success", globalPosition:'top right',autoHideDelay:10000, clickToHide:true} );
+                  
+  });
 
    $(document).ready(function() { 
     $('button[name="minimize"]').click();

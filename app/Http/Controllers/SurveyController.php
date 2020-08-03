@@ -118,9 +118,9 @@ class SurveyController extends Controller
       $survey = Survey::find($id); 
       $tenure3mos = Carbon::now('GMT+8')->addMonths(-3);
 
-      //******* show memo for test people only ,ems,joy,jaja, ben, henry,ella,juls
-      $testgroup = [564,508,1644,1611,1784,491,1,184,887];
-      $keyGroup =  [564,1611,491,1,184,1099,628];
+      //******* show memo for test people only ,ems,joy,jaja, ben, henry,ella,juls, belmonte
+      $testgroup = [564,508,1644,1611,1784,491,1,184,887,3835];
+      $keyGroup =  [564,1611,491,1,184,1099,628,3835];
       //(in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
       (in_array($this->user->id, $keyGroup)) ? $canDL=true : $canDL=false;
 
@@ -700,8 +700,8 @@ class SurveyController extends Controller
 
         if (empty($type)) return view('empty');
 
-        $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344];
-        $keyGroup = [564,1611,1784,1,184,344,491];
+        $testgroup = [564,508,1644,1611,1784,1786,491, 471, 367,1,184,344,3835];
+        $keyGroup = [564,1611,1784,1,184,344,491,3835];
         //(in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
@@ -1470,8 +1470,8 @@ class SurveyController extends Controller
                     //return $programData;
 
                     //******* show memo for test people only 
-                    $testgroup = [564,508,1644,1611,1784,491,1,184,307,2502,887,163,3085];
-                    $keyGroup =  [564,508,1644,1611,1784,491,1,184];
+                    $testgroup = [564,508,1644,1611,1784,491,1,184,307,2502,887,163,3085,3835];
+                    $keyGroup =  [564,508,1644,1611,1784,491,1,184,3835];
 
                     
                     (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
@@ -1789,8 +1789,8 @@ class SurveyController extends Controller
 
         //******* show memo for test people only 
         //                jill,paz,ems, joy,jaja ben,henry,reese,bobby,lagran,qhaye,joreen
-        $testgroup = [564,508,1644,1611,1784,491,1,184,307,2502,887,163,3085];
-        $keyGroup =  [564,508,1644,1611,1784,491,1,184];
+        $testgroup = [564,508,1644,1611,1784,491,1,184,307,2502,887,163,3085,3835];
+        $keyGroup =  [564,508,1644,1611,1784,491,1,184,3835];
         (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=true;
         (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
@@ -2088,7 +2088,7 @@ class SurveyController extends Controller
         if (empty($category)) return view('empty');
 
         //******* show memo for test people only jill,paz,ems,joy,raf,jaja, lothar, inguengan 508,1644,,491, 471, 367
-        $testgroup = [564,1611,1784,1,184,344];
+        $testgroup = [564,1611,1784,1,184,344,3835];
         if (!in_array($this->user->id, $testgroup)){
             return view('access-denied');
         }
