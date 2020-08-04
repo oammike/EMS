@@ -2,6 +2,19 @@
 
 
             <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day Winners! <br/><small>Aug 03, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+
+                    <img src="storage/uploads/friendshipWinners.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@wall',18)}}"> Check out the Wall posts</a>
+                    
+                    
+            </div>
+
+            <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day <br/><small>Sunday, Aug 09</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -16,6 +29,11 @@
                     
                     
             </div>
+
+            
+
+
+
 
             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   July 31, 2020 Holiday |<br/> Eid'l Adha Pay <br/>
