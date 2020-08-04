@@ -99,9 +99,16 @@ span.to-input {
   <section class="content" id='holder'>
     <div class="row">
       <div class="col-xs-12">
-        <div class="box"  style="background: rgba(256, 256, 256, 0.4);background-size:cover;   min-height: 2200px">
-          <div class="box-heading"></div>
+        <div id="main_orig_wrapper" class="box"  style="background: rgba(256, 256, 256, 0.4);background-size:cover;   min-height: 2200px">
+          <div class="box-heading">
+            
+          </div>
           <div class="box-body">
+            <div class="box-tools pull-right">
+              <div class="has-feedback">
+                <a id="bt_history" class="btn btn-primary btn-xs" data-skin="skin-blue" href="#"><i class="fa fa-list-alt"></i> View Award History</a>
+              </div>
+            </div>
             <div class="row">
               <div class="col-lg-12">
                 
@@ -400,6 +407,38 @@ span.to-input {
              
              
             </div>
+
+            <!-- history wrapper -->
+            <div id="history_table_wrapper" class="box"  style="background: rgba(256, 256, 256, 0.4);background-size:cover;   min-height: 2200px">
+              <div class="box-heading"></div>
+              <div class="box-body">
+                <div class="box-tools pull-right">
+                  <div class="has-feedback">
+                    <a id="bt_orig" class="btn btn-primary btn-xs" data-skin="skin-blue" href="#"><i class="fa fa-list-alt"></i> Hide Award History</a>
+                  </div>
+                </div>
+
+                <table id="awardlist" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Points</th>
+                      <th>Date</th>
+                      <th>Award Category</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="5">Loading...</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+            <!-- end history wrapper -->
+
           </div>
         </div>
       </div>    
@@ -419,7 +458,50 @@ span.to-input {
 
   <script>
     window.selected_reward_id = 0;
+    window.table = $('#awardlist').DataTable({
+      "pageLength": {{ $items_per_page }},
+      "paging": true,
+      "pagingType": "simple_numbers",
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      "processing": true,
+      "serverSide": true,
+      "ajax": "{{ url('/awardHistory') }}",
+      "columns": [
+        {
+          "data" : "firstname",
+        },
+        {
+          "data": "points"
+        },
+        {
+          "data": "created_at"
+        },
+        {
+          "data" : "way_title" 
+        },
+        {
+          "data" : "notes" 
+        }
+      ]
+    }); 
+
     $(function() {
+      $('#history_table_wrapper').hide();
+      $('#bt_history').on('click',function(){
+        $('#main_orig_wrapper').hide();
+        $('#history_table_wrapper').show();
+      });
+      $('#bt_orig').on('click',function(){
+        $('#history_table_wrapper').hide();
+        $('#main_orig_wrapper').show();        
+      });
+
+     
+
       $('#specified').hide();
 
       var all_celebrator = [];

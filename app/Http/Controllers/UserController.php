@@ -2499,6 +2499,7 @@ class UserController extends Controller
 
         $data = [
           'include_rewards_scripts' => TRUE,
+          'include_datatables' => TRUE,
           'contentheader_title' => "Rewards Catalog",
           'items_per_page' => $this->pagination_items,
           'rewards' => $rewards,
@@ -2654,7 +2655,8 @@ class UserController extends Controller
 
           $data = [
             'include_rewards_scripts' => TRUE,
-            'contentheader_title' => "Rewards Catalog",
+            'include_datatables' => TRUE,
+            'contentheader_title' => "Rewards Award History",
             'items_per_page' => $this->pagination_items,
             'rewards' => $rewards,
             'remaining_points' => is_null($user->points) ? 100 : $user->points->points,
@@ -2685,6 +2687,45 @@ class UserController extends Controller
       
       
 
+    }
+
+    public function rewards_award_history(Request $request){
+      $data = new \stdClass();
+      $data->success = false;
+      $floor = Team::where('user_id',$this->user->id)->first()->floor_id;
+      $noaccess = [6,7,8,9];
+      if (in_array($this->user->status_id, $noaccess)) {
+        $data->success = false;
+        $data->message = "access denied";
+      } else {
+        $creditor = DB::table('reward_creditor')->where('reward_creditor.user_id',$this->user->id)->
+                        join('reward_waysto','reward_creditor.waysto_id','=','reward_waysto.id')->get();
+        if (count($creditor) <= 0) {
+          $data->success = false;
+          $data->message = "access denied";
+        } else {
+          $skip = $request->input('start');
+          $take = $request->input('length', $this->pagination_items);
+          $user_id = \Auth::user()->id;
+          $awards = \DB::select(\DB::raw("            
+                      SELECT reward_award.points, reward_award.notes, reward_award.created_at,
+                        users.firstname, users.lastname,
+                        reward_waysto.name as way_title
+                      FROM reward_award 
+                      LEFT JOIN users ON reward_award.user_id = users.id
+                      LEFT JOIN reward_waysto ON reward_award.waysto_id = reward_waysto.id
+                      WHERE reward_award.awardedBy = $user_id
+                      ORDER BY reward_award.created_at DESC
+                      LIMIT $skip, $take
+          "));
+          $data->success = true;
+          $data->data = $awards;
+          $data->message = "";
+          $data->iTotalRecords =  count($awards);
+          $data->recordsFiltered = $data->iTotalRecords;
+        }
+      }
+      return response()->json($data);
     }
 
     public function rewards_barista()
