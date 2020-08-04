@@ -1401,6 +1401,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/awardPoints', array(
       'as'=> 'awardPoints',
       'uses'=>'UserController@rewards_award') );
+    
+    Route::get('/awardHistory', array(
+      'as'=> 'awardHistory',
+      'uses'=>'UserController@rewards_award_history') );
+    
 
     Route::get('/awardTenure', array(
       'as'=> 'awardTenure',
