@@ -1,7 +1,28 @@
 
 
 
-            <div class="item active text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> AUGUST 10, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for August 10 payout is August 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before THURSDAY 12:00 noon of August 06, 2020</strong>.<br/><br/>
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day Winners! <br/><small>Aug 03, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
