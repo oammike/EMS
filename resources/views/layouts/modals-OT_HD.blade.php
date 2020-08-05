@@ -97,10 +97,10 @@
                         </select>
 
                         <br/><br/>
-                         <label ><input type="radio" name="billedtype" id="shift_whole" value="1" checked="checked" />&nbsp; &nbsp;<i class="fa fa-hourglass"></i> Billed</label>
+                         <label ><input type="radio" name="billedtype" id="shift_whole" value="1" checked="checked" />&nbsp; &nbsp;<i class="fa fa-hourglass"></i> Billed to Client</label>
                        
                         <br/>
-                        <label id="shift_first" ><input type="radio" name="billedtype" id="shift_first" value="2" />&nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> Non-Billed <span id="shiftFrom_1"></span> </label>
+                        <label id="shift_first" ><input type="radio" name="billedtype" id="shift_first" value="2" />&nbsp; &nbsp;<i class="fa fa-hourglass-start"></i> Non-Billed  <em style="font-size: x-small; font-weight: normal;">(billed to Open Access BPO)</em><span id="shiftFrom_1"></span> </label>
                          <br/>
                         <label ><input type="radio" name="billedtype" id="shift_second" value="3" />&nbsp; &nbsp;<i class="fa fa-hourglass-end"></i> Patch <span id="shiftFrom_2"></span> </label><br/>
 
