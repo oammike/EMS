@@ -3367,8 +3367,24 @@ class DTRController extends Controller
                                 {
 
                                   $s = Carbon::parse($j->timeStart,'Asia/Manila');
-                                  $e =  Carbon::parse($j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
-                                  $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+
+                                  if ( strpos($j->timeEnd,'No') !== false  || (strpos($j->timeEnd, 'shift') !== false)) {
+                                    
+                                    $e =  Carbon::parse($j->timeStart,'Asia/Manila'); //no legit out, so same in nlang
+                                    $endDate =   Carbon::parse($j->timeStart,'Asia/Manila');
+
+
+                                  }
+                                  else {
+                                    //$endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                    //$endTime = Carbon::parse($j->timeEnd,'Asia/Manila');
+
+                                    $e =  Carbon::parse($j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                                    $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                  }
+
+
+                                  
                                   $startDate = $s;
                                   $startTime = $s;
                                   $endTime = $e;
