@@ -299,7 +299,7 @@ class UserController extends Controller
                 $hisPOsition = User::where('employeeNumber', $tl->employeeNumber)->first();
 
                 //check for multiple campaign handle
-                if (count($tl->campaign) > 1) 
+                if (count((array)$tl->campaign) > 1) 
                 {
                   if($tl->status_id != 7 && $tl->status_id != 8 && $tl->status_id != 9   ){
 
@@ -343,7 +343,7 @@ class UserController extends Controller
             }
 
                // return $campaigns;
-                return view('people.employee-new', compact('users','userTypes','floors', 'leaders',  'hrPersonnels', 'myCampaign', 'campaigns', 'personnel','statuses','changes', 'positions'));
+                return view('people.employee-new', compact('users','userTypes','floors', 'leaders',  'hrPersonnels', 'myCampaign', 'campaigns', 'personnel','statuses', 'positions'));
             } else return view("access-denied");
     }
 
@@ -812,8 +812,9 @@ class UserController extends Controller
                     leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
                     leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
                     leftJoin('positions','users.position_id','=','positions.id')->
+                    leftJoin('statuses','users.status_id','=','statuses.id')->
                     leftJoin('floor','team.floor_id','=','floor.id')->
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.isWFH as isWFH', 'users.claimedCard')->orderBy('users.lastname')->get();
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.isWFH as isWFH', 'users.claimedCard')->orderBy('users.lastname')->get();
 
         } else {
 
@@ -3870,7 +3871,7 @@ class UserController extends Controller
         
         
         if($this->user->id !== 564 ) {
-          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n Viewed Profile of user: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         }
@@ -3905,7 +3906,8 @@ class UserController extends Controller
 
             $shifts = $this->generateShifts('12H','full');
             $partTimes = $this->generateShifts('12H','part');
-            //return $partTimes;
+            
+            //return $user;
             
             return view('people.show', compact('isWorkforce','isBackoffice', 'theOwner', 'canViewAllEvals','anApprover', 'approvers', 'user', 'greeting', 'immediateHead','canCWS', 'canChangeSched', 'canMoveEmployees', 'canEditEmployees', 'camps','workSchedule', 'userEvals','shifts','partTimes', 'hasNewPhoto','isHR'));
 
@@ -3928,6 +3930,7 @@ class UserController extends Controller
         $employee->gender = $request->gender;
         $employee->employeeNumber = $request->employeeNumber;
         $employee->accesscode = $request->accesscode;
+        $employee->employeeCode = $request->employeeCode;
         $employee->email = preg_replace('/\s+/', '', $request->email);
         $employee->password =  Hash::make($request->password);
         $employee->updatedPass = false;
@@ -4036,6 +4039,7 @@ class UserController extends Controller
         $employee->lastname = Input::get('lastname');
         $employee->gender = Input::get('gender');
         $employee->accesscode = Input::get('accesscode');
+        $employee->employeeCode = Input::get('employeeCode');
         $employee->employeeNumber = Input::get('employeeNumber');
         $employee->email = preg_replace('/\s+/', '', Input::get('email'));
 
