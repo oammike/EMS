@@ -814,7 +814,8 @@ class UserController extends Controller
                     leftJoin('positions','users.position_id','=','positions.id')->
                     leftJoin('statuses','users.status_id','=','statuses.id')->
                     leftJoin('floor','team.floor_id','=','floor.id')->
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.isWFH as isWFH', 'users.claimedCard')->orderBy('users.lastname')->get();
+                    leftJoin('userType','userType.id','=','users.userType_id')->
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard')->orderBy('users.lastname')->get();
 
         } else {
 

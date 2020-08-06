@@ -291,6 +291,9 @@
                              { title: "Status", defaultContent: " ", data:'status',width:'50', render:function(data,type,full,meta){
                               return data;
                             }}, // 1
+                             { title: "UserType", defaultContent: " ", data:'userType',width:'50', render:function(data,type,full,meta){
+                              return data;
+                            }}, // 1
                             
                             { title: "Immediate Head", defaultContent: " ", data:'leaderFname',width:'90', render:function(data,type,full,meta){
                                return '<small>'+data+" "+full.leaderLname+'</small>';
