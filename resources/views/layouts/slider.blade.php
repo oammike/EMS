@@ -1,28 +1,9 @@
 
 
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> AUGUST 10, 2020</strong> PAYOUT <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that our cut-off for August 10 payout is August 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before THURSDAY 12:00 noon of August 06, 2020</strong>.<br/><br/>
+           
 
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/>
-
- 
-                    
-              </div>
-
-              <div class="item text-center" >
+              <div class="item active text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day Winners! <br/><small>Aug 03, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -84,20 +65,6 @@
 
               
 
-
-
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >July 31 Friday: <br/><span class="text-primary"><i class="fa fa-calendar"></i> Eid'l Adha <br/><small>Feast of Sacrifice</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-
-                    <img src="storage/uploads/eidladha2020.jpg" width="100%" /><br/>
-                    
-                    
-                    
-            </div>
 
             
 
@@ -247,36 +214,7 @@
  
                     
               </div>
-              <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">Maxicare's Customer Satisfaction</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <img src="storage/uploads/maxiwebinar.jpg" width="100%" />
-                    <p style="padding: 30px;" class="text-left"> 
-
-
-                      The Open Access BPO Clinic organized our first #OneForHealth Mental Health Awareness Program. The recent event was held to address the stressors arising in employees' daily lives from this pandemic.<br/><br/>
-
-                      Maxicare Healthcare Corporation Primary Care Physician, Dr. Anna Margarita Cruz, led the webinar with Head Company Nurse, Ms. Loraine Lopez, and Maxicare Assistant Manager, Mr. Anthony Joseph Perez, facilitating the event.<br/><br/>
-
-                      Our Clinic and nurses are always available to help you cope with the changes during these trying times. We are one for health.<br/><br/>
-
-                      In addition to this,  participants are requested to fill out <strong>Maxicare's Customer Satisfaction Survey Form</strong>. <br/>Please click/copy paste the link below:
-                      <input class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLScJkSEqR275IAuKGV7OoyoyXKIsgfYsVKoo2JSOFqDaGY4N1g/viewform" />
-                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
-
-                      Thank you!<br/>
-                      
-                     
-
-                  </p>    
- 
- 
-                    
-              </div>
-
+             
               <div class="item text-center">
                 <img src="storage/uploads/oneforhealth_10.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
@@ -2026,6 +1964,70 @@
 
 
 <?php /*
+ <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">Maxicare's Customer Satisfaction</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/maxiwebinar.jpg" width="100%" />
+                    <p style="padding: 30px;" class="text-left"> 
+
+
+                      The Open Access BPO Clinic organized our first #OneForHealth Mental Health Awareness Program. The recent event was held to address the stressors arising in employees' daily lives from this pandemic.<br/><br/>
+
+                      Maxicare Healthcare Corporation Primary Care Physician, Dr. Anna Margarita Cruz, led the webinar with Head Company Nurse, Ms. Loraine Lopez, and Maxicare Assistant Manager, Mr. Anthony Joseph Perez, facilitating the event.<br/><br/>
+
+                      Our Clinic and nurses are always available to help you cope with the changes during these trying times. We are one for health.<br/><br/>
+
+                      In addition to this,  participants are requested to fill out <strong>Maxicare's Customer Satisfaction Survey Form</strong>. <br/>Please click/copy paste the link below:
+                      <input class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLScJkSEqR275IAuKGV7OoyoyXKIsgfYsVKoo2JSOFqDaGY4N1g/viewform" />
+                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
+
+                      Thank you!<br/>
+                      
+                     
+
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+
+
+              <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >July 31 Friday: <br/><span class="text-primary"><i class="fa fa-calendar"></i> Eid'l Adha <br/><small>Feast of Sacrifice</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+
+                    <img src="storage/uploads/eidladha2020.jpg" width="100%" /><br/>
+                    
+                    
+                    
+            </div>
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> AUGUST 10, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for August 10 payout is August 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before THURSDAY 12:00 noon of August 06, 2020</strong>.<br/><br/>
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
    
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" > OA OFFICE CAB SERVICE <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>The Additional Solution for Your GCQ Office Transport Needs<br/>
