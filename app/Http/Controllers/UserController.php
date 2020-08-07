@@ -2707,6 +2707,12 @@ class UserController extends Controller
           $skip = $request->input('start');
           $take = $request->input('length', $this->pagination_items);
           $user_id = \Auth::user()->id;
+          $search = "";
+          $keyword = $request->input('search.value');
+          if($keyword!=""){
+            $search = " AND (users.firstname LIKE '%$keyword%' OR users.lastname LIKE '%$keyword%')";
+          }
+
           $awards = \DB::select(\DB::raw("            
                       SELECT reward_award.points, reward_award.notes, reward_award.created_at,
                         users.firstname, users.lastname,
@@ -2714,15 +2720,18 @@ class UserController extends Controller
                       FROM reward_award 
                       LEFT JOIN users ON reward_award.user_id = users.id
                       LEFT JOIN reward_waysto ON reward_award.waysto_id = reward_waysto.id
-                      WHERE reward_award.awardedBy = $user_id
-                      ORDER BY reward_award.created_at DESC
+                      WHERE reward_award.awardedBy = $user_id " .
+                        $search
+                      . " ORDER BY reward_award.created_at DESC
                       LIMIT $skip, $take
           "));
+          $total = count(\DB::table('reward_award')->where('awardedBy', '=', $user_id)->get());
           $data->success = true;
           $data->data = $awards;
           $data->message = "";
-          $data->iTotalRecords =  count($awards);
-          $data->recordsFiltered = $data->iTotalRecords;
+          $data->iTotalRecords = $total;
+          $data->keyword = $keyword;
+          $data->recordsFiltered = $total;
         }
       }
       return response()->json($data);
