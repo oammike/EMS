@@ -260,6 +260,275 @@ class DTRController extends Controller
                         select('eqc_workstatus.id as ecqID','eqc_workstatus.biometrics_id','biometrics.productionDate','ecq_statuses.name as ecqStatus','users.id as userID')->get();
         
         //return $allDTR;
+        /*
+        $sheet = new Collection;
+        $keys = new Collection;
+        $allOT=null;
+
+        foreach($allDTR as $employeeDTR)
+                            {
+                              $i = 0;
+                              //$dData = collect($employeeDTR)->sortBy('productionDate')->where('productionDate',$payday->format('Y-m-d'));
+                              $dData = collect($allDTRs)->where('id',$employeeDTR->first()->id)->sortBy('productionDate');
+
+                              if (count($dData) > 0)
+                              {
+
+                                //'Employee Code'::'Formal Name'::'Date'::'Day'::
+                                // Time IN'::'Time OUT'::'Hours':: 'OT billable'::'OT Approved'::'OT Start'::'OT End'::'OT hours'::'OT Reason'
+
+                                foreach ($dData as $key) 
+                                {
+                                  // -------- ACCESS CODE -------------
+                                  $arr[$i] = strtoupper($key->employeeCode); $i++;
+
+                                  // -------- FORMAL NAME -------------
+                                  $arr[$i] = strtoupper($key->lastname).", ".strtoupper($key->firstname)." ".strtoupper($key->middlename); $i++;
+                                  
+
+                                  // -------- DATE -------------
+                                  // ** Production Date
+                                  // check if there's holiday
+                                  $holiday = Holiday::where('holidate',$key->productionDate)->get();
+
+                                  (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
+
+                                  //$arr[$i] = $payday->format('M d D')." ". $hday; $i++;
+                                  $arr[$i] = date('m/d/y',strtotime($key->productionDate)); $i++; //; $payday->format('m/d/y')." ". $hday; $i++;
+
+                                  // -------- DAY -------------
+                                  $arr[$i] = date('D',strtotime($key->productionDate))." ". $hday; $i++;
+
+
+                                  // -------- TIME IN -------------
+                                  $tin = strip_tags($key->timeIN);
+
+                                  if ( strpos($tin, "SL") !== false || strpos($tin, "VL") !== false || strpos($tin, "VTO") !== false || strpos($tin, "RD") !== false || strpos($tin, "LWOP") !== false || strpos($tin, "OBT") !== false || strpos($tin, "ML") !== false || strpos($tin, "PL") !== false || strpos($tin, "No IN") !== false || strpos($tin, "No OUT") !== false || strpos($tin, "N / A") !== false || strpos($tin, "N/A") !== false )
+                                  {
+                                    $arr[$i] = $tin; $i++;
+                                  }
+                                  else
+                                  {
+                                    $arr[$i] = Carbon::parse($tin,'Asia/Manila')->format('h:i:s A'); $i++;
+                                  }
+                                  
+
+
+
+                                  // -------- TIME OUT -------------
+                                   $tout = strip_tags($key->timeOUT);
+
+                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tin, "VTO") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false  || strpos($tin, "N / A") !== false || strpos($tin, "N/A") !== false)
+                                  {
+                                    $arr[$i] = $tout; $i++;
+                                  }
+                                  else
+                                  {
+                                    $arr[$i] = Carbon::parse($tout,'Asia/Manila')->format('h:i:s A'); $i++;
+                                  }
+
+                                  
+
+
+                                  // -------- WORKED HOURS  -------------
+                                  if (strlen($key->hoursWorked) > 5)
+                                  {
+                                     $wh = strip_tags($key->hoursWorked);
+
+                                     if( strpos($wh,"[") !== false)
+                                     {
+                                        $cleanWH = explode("[", $wh);
+                                        $arr[$i] =  $cleanWH[0]; $i++;
+
+                                     }else if ( strpos($wh, "(")!==false )
+                                     {
+                                        $cleanWH = explode("(", $wh);
+                                        $arr[$i] =  $cleanWH[0]; $i++;
+
+                                     }else
+                                     {
+                                        $cleanWH = explode(" ", $wh);
+                                        $arr[$i] =  $cleanWH[0]; $i++;
+
+                                     }
+                                      //$arr[$i] = $wh; $i++;
+
+                                  }else
+                                  {$arr[$i] = strip_tags($key->hoursWorked); $i++;}
+
+                                  
+
+                                  // -------- OT BILLABLE HOURS  -------------
+                                  $arr[$i] = strip_tags($key->OT_billable); $i++;
+
+
+                                  // -------- OT approved HOURS  -------------
+                                  $arr[$i] = strip_tags($key->OT_approved); $i++;
+
+
+                                  //--------- OT notes ----------------------
+                                  if ($key->OT_id)
+                                  {
+
+                                    $allOT = User_OT::where('user_id',$key->id)->where('biometrics_id',$key->biometrics_id)->get();
+
+                                    if (count($allOT) > 1)
+                                    {
+                                      $s = ""; $e =""; $fh=""; $r=""; $c=1;
+                                      foreach ($allOT as $o) 
+                                      {
+                                        $s .= "[".$c."] ".$o->timeStart." | ";
+                                        $e .= "[".$c."] ".$o->timeEnd." | ";
+
+                                        switch ($o->billedType) {
+                                          case '1': $otType = "billed"; break;
+                                          case '2': $otType = "non-billed"; break;
+                                          case '3': $otType = "patch"; break;
+                                          default: $otType = "billed"; break;
+                                        }
+
+                                        if ($o->isApproved)
+                                        {
+                                          $fh .= "[".$c."] ".$o->filed_hours." (".$otType.") | ";
+                                          
+
+                                        }else{
+                                          
+                                          $fh .= "**[".$c."] ".$o->filed_hours." ( DENIED ) | ";
+                                          
+
+                                        }
+                                        $r .= $c.".) ".$o->reason."  | "; $c++;
+
+
+                                      }
+
+
+                                      // ------ 'OT Start'::'OT End'::'OT hours'::'OT Reason'
+                                      $arr[$i] = $s; $i++;
+                                      $arr[$i] = $e; $i++;
+
+                                      $arr[$i] = $fh; $i++;
+
+                                      if( strpos($tout,"RD") !== false ){ $arr[$i] = "0"; $i++; }
+                                      else { $arr[$i] = $r; $i++; }
+                                      
+                                      
+                                      
+
+
+                                    }else
+                                    {
+
+                                      $deets = User_OT::find($key->OT_id);
+                                      if (is_object($deets))
+                                      {
+
+                                        // ------ 'OT Start'::'OT End'
+
+                                        $arr[$i] = $deets->timeStart; $i++;
+                                        $arr[$i] = $deets->timeEnd; $i++;
+
+                                        // switch ($deets->billedType) {
+                                        //   case '1': $otType = "billed"; break;
+                                        //   case '2': $otType = "non-billed"; break;
+                                        //   case '3': $otType = "patch"; break;
+                                        //   default: $otType = "billed"; break;
+                                        // }
+
+
+                                        // ---- ::'OT hours'::'OT Reason'
+
+                                        if ($deets->isApproved)
+                                        {
+                                          $arr[$i] = $deets->filed_hours; $i++;// ( ".$otType." )";
+                                          //$arr[$i] = "ap";//$deets->reason; $i++;
+
+                                        }else{
+                                          $arr[$i] = "DENIED";$i++; // "** ".$deets->filed_hours." ( DENIED )"; 
+                                          //$arr[$i] = "den"; //$deets->reason; $i++;
+
+                                        }
+
+                                        $tout2 = strip_tags($key->timeOUT);
+
+                                        if( strpos($tout2, "RD") !== false ){ $arr[$i] = "0"; $i++; }
+                                        else { $arr[$i] = $deets->reason; $i++; }//  $i++; }$key->OT_id."_OTID_from_isObject(deets)&allOTcount<1"
+
+                                      }
+                                      else
+                                      {
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = " "; $i++;
+
+                                        
+
+                                      }
+
+                                      
+
+                                    }
+
+                                    
+                                    
+
+                                  }else{
+                                    $arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;//waley blank lahat: ".$key->OT_id
+                                    $arr[$i] = " "; $i++;
+
+                                    
+                                  }
+
+                                  //$arr[$i] = "-"; $i++;
+
+                                  //reset
+                                  $sheet->push(['arr'=>$arr,'key'=>$key,'allOT'=>$allOT]);
+
+                                 
+                                  
+                                  $i=0;
+                                }
+
+                              }else{
+                                
+
+                                $arr[$i] = " - "; $i++;
+                                $arr[$i] = " - "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++; // ** get the sched here
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                $arr[$i] = " <unverified> "; $i++;
+                                //$arr[$i] = " <unverified> "; $i++;
+                                
+                               
+
+                                $sheet->push($arr);
+
+                              }
+
+                              
+
+                              
+                            
+
+                              
+
+                            }//end foreach employee
+        return $sheet;
+        */
 
         
 
@@ -364,6 +633,9 @@ class DTRController extends Controller
                               if (count($dData) > 0)
                               {
 
+                                //'Employee Code'::'Formal Name'::'Date'::'Day'::
+                                // Time IN'::'Time OUT'::'Hours':: 'OT billable'::'OT Approved'::'OT Start'::'OT End'::'OT hours'::'OT Reason'
+
                                 foreach ($dData as $key) 
                                 {
                                   // -------- ACCESS CODE -------------
@@ -390,7 +662,7 @@ class DTRController extends Controller
                                   // -------- TIME IN -------------
                                   $tin = strip_tags($key->timeIN);
 
-                                  if ( strpos($tin, "SL") !== false || strpos($tin, "VL") !== false || strpos($tin, "VTO") !== false || strpos($tin, "RD") !== false || strpos($tin, "LWOP") !== false || strpos($tin, "OBT") !== false || strpos($tin, "ML") !== false || strpos($tin, "PL") !== false || strpos($tin, "No IN") !== false || strpos($tin, "No OUT") !== false || strpos($tin, "N / A") !== false || strpos($tin, "N/A") !== false )
+                                  if ( strpos($tin, "SL") !== false || strpos($tin, "VL") !== false || strpos($tin, "VTO") !== false || strpos($tin, "RD") !== false || strpos($tin, "LWOP") !== false || strpos($tin, "OBT") !== false || strpos($tin, "ML") !== false || strpos($tin, "PL") !== false || strpos($tin, "No IN") !== false || strpos($tin, "No OUT") !== false || strpos($tin, " N / A ") !== false || strpos($tin, "N / A") !== false || strpos($tin, "N/A") !== false )
                                   {
                                     $arr[$i] = $tin; $i++;
                                   }
@@ -405,7 +677,7 @@ class DTRController extends Controller
                                   // -------- TIME OUT -------------
                                    $tout = strip_tags($key->timeOUT);
 
-                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tin, "VTO") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false  || strpos($tin, "N / A") !== false || strpos($tin, "N/A") !== false)
+                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tout, "VTO") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false || strpos($tout, " N / A ") !== false  || strpos($tout, "N / A") !== false || strpos($tout, "N/A") !== false)
                                   {
                                     $arr[$i] = $tout; $i++;
                                   }
@@ -440,8 +712,9 @@ class DTRController extends Controller
                                      }
                                       //$arr[$i] = $wh; $i++;
 
-                                  }else
-                                  $arr[$i] = strip_tags($key->hoursWorked); $i++;
+                                  }else{ 
+                                    $arr[$i] = strip_tags($key->hoursWorked); $i++;
+                                  }
 
 
                                   /*
@@ -507,6 +780,7 @@ class DTRController extends Controller
                                       }
 
 
+                                      // ------ 'OT Start'::'OT End'::'OT hours'::'OT Reason'
                                       $arr[$i] = $s; $i++;
                                       $arr[$i] = $e; $i++;
 
@@ -522,36 +796,45 @@ class DTRController extends Controller
                                       $deets = User_OT::find($key->OT_id);
                                       if (is_object($deets))
                                       {
+
+                                        // ------ 'OT Start'::'OT End'
+
                                         $arr[$i] = $deets->timeStart; $i++;
                                         $arr[$i] = $deets->timeEnd; $i++;
+
                                         switch ($deets->billedType) {
                                           case '1': $otType = "billed"; break;
                                           case '2': $otType = "non-billed"; break;
                                           case '3': $otType = "patch"; break;
                                           default: $otType = "billed"; break;
                                         }
+
+
+                                        // ---- ::'OT hours'::'OT Reason'
                                         if ($deets->isApproved)
                                         {
-                                          $arr[$i] = $deets->filed_hours." ( ".$otType." )"; $i++;
-                                          $arr[$i] = $deets->reason; $i++;
+                                          $arr[$i] = $deets->filed_hours; $i++;// ( ".$otType." )";
+                                          //$arr[$i] = "ap";//$deets->reason; $i++;
 
                                         }else{
-                                          $arr[$i] = "** ".$deets->filed_hours." ( DENIED )"; $i++;
-                                          $arr[$i] = $deets->reason; $i++;
+                                          $arr[$i] = "DENIED";$i++; // "** ".$deets->filed_hours." ( DENIED )"; 
+                                          //$arr[$i] = "den"; //$deets->reason; $i++;
 
                                         }
+
+                                        $tout2 = strip_tags($key->timeOUT);
+
+                                        if( strpos($tout2, "RD") !== false ){ $arr[$i] = "0"; $i++; }
+                                        else { $arr[$i] = $deets->reason; $i++; }//  $i++; }$key->OT_id."_OTID_from_isObject(deets)&allOTcount<1"
 
                                       }
                                       else
                                       {
                                         $arr[$i] = "n/a"; $i++;
                                         $arr[$i] = "n/a"; $i++;
-                                        
-                                        
-                                          $arr[$i] = "n/a"; $i++;
-                                          $arr[$i] = "n/a"; $i++;
-
-                                        
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = "n/a"; $i++;
+                                        $arr[$i] = " "; $i++;
 
                                       }
 
@@ -566,8 +849,11 @@ class DTRController extends Controller
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;
-                                    $arr[$i] = "-"; $i++;
-                                    //$arr[$i] = "-"; $i++;
+                                    $arr[$i] = "-"; $i++;//waley blank lahat: ".$key->OT_id
+                                    $arr[$i] = " "; $i++;
+
+
+                                   
 
                                     
                                   }
@@ -3081,8 +3367,24 @@ class DTRController extends Controller
                                 {
 
                                   $s = Carbon::parse($j->timeStart,'Asia/Manila');
-                                  $e =  Carbon::parse($j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
-                                  $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+
+                                  if ( strpos($j->timeEnd,'No') !== false  || (strpos($j->timeEnd, 'shift') !== false)) {
+                                    
+                                    $e =  Carbon::parse($j->timeStart,'Asia/Manila'); //no legit out, so same in nlang
+                                    $endDate =   Carbon::parse($j->timeStart,'Asia/Manila');
+
+
+                                  }
+                                  else {
+                                    //$endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                    //$endTime = Carbon::parse($j->timeEnd,'Asia/Manila');
+
+                                    $e =  Carbon::parse($j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                                    $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                  }
+
+
+                                  
                                   $startDate = $s;
                                   $startTime = $s;
                                   $endTime = $e;

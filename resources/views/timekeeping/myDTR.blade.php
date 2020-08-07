@@ -597,7 +597,7 @@
                                                         @else 
 
                                                         <td class="text-left">
-                                                           <a  title="No GCQ status (click to update)" data-toggle="modal" data-target="#noECQ_{{$data['biometrics_id']}}" class="setECQ pull-left btn btn-xs btn-default" data-bioID="{{$data['biometrics_id']}}" data-placehold="{{ date('m/d/Y',strtotime($data['productionDate'])) }}" href="#" > <i class="fa fa-exclamation-triangle" style="font-size: x-small;"></i> &nbsp; {{ date('D',strtotime($data['productionDate'])) }}  </a>
+                                                           <a  title="No GCQ status (click to update)" data-toggle="modal" data-target="#noECQ_{{$data['biometrics_id']}}" class="setECQ pull-left btn btn-xs btn-default" data-bioID="{{$data['biometrics_id']}}" data-placehold="{{ date('m/d/Y',strtotime($data['productionDate'])) }}" href="#" > <i class="text-danger fa fa-exclamation-triangle" style="font-size: x-small;"></i> &nbsp; {{ date('D',strtotime($data['productionDate'])) }}  </a>
 
                                                             <!-- MODAL FOR NO ECQ SET -->
                                                                 <div class="modal fade text-left" id="noECQ_{{$data['biometrics_id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

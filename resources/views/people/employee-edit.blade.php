@@ -237,6 +237,9 @@ input.cropit-image-zoom-input {
                                      <label>Biometrics Access Code: </label> <input tabindex="4" type="text" class="form-control required" name="accesscode" required id="accesscode" value="{{$personnel->accesscode}}" /> 
                                      <div id="alert-accesscode" style="margin-top:10px"></div>
 
+                                     <label>Jeonsoft EmployeeCode: </label> <input tabindex="4" type="text" class="form-control" name="employeeCode"  id="employeeCode" value="{{$personnel->employeeCode}}" /> 
+                                    <br/>
+
 
                                      <label class="pull-left">OAMPI E-mail: &nbsp;&nbsp; </label> <input type="text" style="width:200px;" class="form-control required pull-left" name="oampi" id="oampi" value="{{$personnel->email}}" />
                                      <div id="alert-email" style="margin-top:10px"></div>
@@ -287,7 +290,7 @@ input.cropit-image-zoom-input {
 
                                   </td>
                                   <td>
-                                    <label>Date Hired: </label> <input required type="text" class="form-control datepicker" style="width:50%" name="dateHired" id="dateHired" value="{{date('m/d/Y',strtotime($personnel->dateHired) ) }} " />
+                                    <label>Date Hired: </label> <input type="text" class="form-control datepicker" style="width:50%" name="dateHired" id="dateHired" value="{{date('m/d/Y',strtotime($personnel->dateHired) ) }} " />
                                    <div id="alert-dateHired" style="margin-top:10px"></div>
 
                                     <label>Date Regularized: </label> <input type="text" class="form-control datepicker" style="width:50%" name="dateRegularized" id="dateRegularized" <?php  if ( $personnel->dateRegularized !== null ) { ?> value="{{date('m/d/Y',strtotime($personnel->dateRegularized) ) }}" <?php } else {?> placeholder="specify date" <?php }; ?>   /> 
@@ -737,51 +740,51 @@ input.cropit-image-zoom-input {
 
    $('#grantaccess').on('click',function(){
 
-    var selval = $('input[name="directoryaccess"]:checked');
-    var selval2 = $('input[name="inactiveAccess"]:checked');
-    var selval3 = $('input[name="floatingAccess"]:checked');
-    var startDate = $('#accessfrom').val();
-    var endDate = $('#accessto').val();
-    var _token = "{{ csrf_token() }}";
+      var selval = $('input[name="directoryaccess"]:checked');
+      var selval2 = $('input[name="inactiveAccess"]:checked');
+      var selval3 = $('input[name="floatingAccess"]:checked');
+      var startDate = $('#accessfrom').val();
+      var endDate = $('#accessto').val();
+      var _token = "{{ csrf_token() }}";
 
-    if (selval.length < 1) { alert("Kindly indicate type of user access.");return false;}
-    else if(selval.val() == '2' && (startDate == "" || endDate=="" )){
-      alert("Kindly indicate start and end dates.");return false;
+      if (selval.length < 1) { alert("Kindly indicate type of user access.");return false;}
+      else if(selval.val() == '2' && (startDate == "" || endDate=="" )){
+        alert("Kindly indicate start and end dates.");return false;
 
-    }else{
-      $.ajax({
+      }else{
+        $.ajax({
 
-          url: "{{action('UserController@grantAccess')}}",
-          type: 'POST',
-          data: {
-              user: "{{$personnel->id}}",
-              directoryaccess: selval.val(),
-              inactiveAccess: selval2.val(),
-              floatingAccess: selval3.val(),
-              role_id: "{{$role_id}}",
-              startDate: startDate,
-              endDate: endDate,
-              _token: _token
-          },
-          error: function(response){
+            url: "{{action('UserController@grantAccess')}}",
+            type: 'POST',
+            data: {
+                user: "{{$personnel->id}}",
+                directoryaccess: selval.val(),
+                inactiveAccess: selval2.val(),
+                floatingAccess: selval3.val(),
+                role_id: "{{$role_id}}",
+                startDate: startDate,
+                endDate: endDate,
+                _token: _token
+            },
+            error: function(response){
 
-          },
-          success: function(response){
+            },
+            success: function(response){
 
-                  console.log(response);
+                    console.log(response);
 
-                  $.notify("User access for "+response['user'].firstname+" "+response['user'].lastname+" updated successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                  setTimeout(function(){
-                     window.location.reload(1);
-                  }, 5000);
+                    $.notify("User access for "+response['user'].firstname+" "+response['user'].lastname+" updated successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                    setTimeout(function(){
+                       window.location.reload(1);
+                    }, 5000);
 
-                  
+                    
 
-          }
+            }
 
-      });
-    }
-    //console.log(selval);
+        });
+      }
+      //console.log(selval);
 
    });
 
@@ -856,6 +859,7 @@ $('input[name="dateHired"]').on('focusout',function(){
       var username = "{{$personnel->name}}";
       var employeeNumber = $('#employeeNumber').val();
       var accesscode = $('#accesscode').val();
+      var employeeCode = $('#employeeCode').val();
       var campaign_id = $('select[name="campaign_id"]').find(':selected').val();
       var floor_id = $('select[name="floor_id"]').find(':selected').val();
      
@@ -928,7 +932,7 @@ $('input[name="dateHired"]').on('focusout',function(){
                                     //save employee
                                     console.log("Save employee then");
                                     
-                                    saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,leadOverride,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
+                                    //saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,leadOverride,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
 
                                   }
 
@@ -943,14 +947,14 @@ $('input[name="dateHired"]').on('focusout',function(){
 
       } else {
 
-           if( !validateRequired(dateHired,alertDateHired,"") || !validateRequired(status_id,alertStatus,"") || !validateRequired(userType_id,alertUserType,""))
+           if( !validateRequired(status_id,alertStatus,"") || !validateRequired(userType_id,alertUserType,""))
            {
              e.preventDefault(); e.stopPropagation(); return false; 
            } else {
            
             
-
-            setTimeout(saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token ),1);
+            //console.log("update Jeonsoft: "+ employeeCode);
+            setTimeout(saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token ),1);
             
             
          }
@@ -972,10 +976,11 @@ $('input[name="dateHired"]').on('focusout',function(){
 });
 
 
-function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
+function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
 
    //save movement
    console.log("Enter function");
+   console.log(employeeCode);
 
    $.ajax({
             url:"{{action('UserController@update', $personnel->id)}}",
@@ -990,6 +995,7 @@ function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,emp
               'birthday':birthday,
               'employeeNumber': employeeNumber,
               'accesscode':accesscode,
+              'employeeCode':employeeCode,
               'email': email,
               'dateHired': dateHired,
               'dateRegularized': dateRegularized,
@@ -1018,7 +1024,7 @@ function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,emp
 
             }
           });
-
+    
 return false;
 
 

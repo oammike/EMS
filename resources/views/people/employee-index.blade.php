@@ -277,11 +277,23 @@
                             { title: "Position : Program", defaultContent: " ", data:'jobTitle',width:'200', render:function(data, type, full, meta ){
                               return'<small>'+data+'</small><br/><strong>'+full.program+' &nbsp;<a target="_blank" class="text-black" href="./campaign/'+full.campID+'"><i class="fa fa-external-link"></i></a></strong>';
                             } }, // 1
+
                              { title: "Date Hired " ,defaultContent: "<i>empty</i>", data:'dateHired',width:'80', render:function(data,type,full,meta){
 
                               var m = moment(data).format('YYYY-MM-DD');
-                              return m;
+                              if (m == "1970-01-01")
+                                return "N/A";
+                              else 
+                                return m;
+                              
                              } }, // 2
+
+                             { title: "Status", defaultContent: " ", data:'status',width:'50', render:function(data,type,full,meta){
+                              return data;
+                            }}, // 1
+                             { title: "UserType", defaultContent: " ", data:'userType',width:'50', render:function(data,type,full,meta){
+                              return data;
+                            }}, // 1
                             
                             { title: "Immediate Head", defaultContent: " ", data:'leaderFname',width:'90', render:function(data,type,full,meta){
                                return '<small>'+data+" "+full.leaderLname+'</small>';
@@ -431,7 +443,10 @@
                              { title: "Date Hired " ,defaultContent: "<i>empty</i>", data:'dateHired',width:'80', render:function(data,type,full,meta){
 
                               var m = moment(data).format('YYYY-MM-DD');
-                              return m;
+                              if (m == "1970-01-01")
+                                return "N/A";
+                              else 
+                                return m;
                              } }, // 2
                             
                             { title: "Immediate Head", defaultContent: " ", data:'leaderFname',width:'90', render:function(data,type,full,meta){

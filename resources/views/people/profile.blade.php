@@ -151,7 +151,14 @@
 
                                                            <div class="text-left col-xs-12" style="border-bottom: solid 1px #eee; padding-bottom:15px;">
                                                           <strong><i class="fa fa-calendar margin-r-5"></i> Date Hired : </strong>
-                                                           {{date("M d, Y", strtotime($user->dateHired)) }}</div>
+                                                           
+                                                            @if (date("Y-m-d", strtotime($user->dateHired)) == "1970-01-01")
+                                                            <em>N/A</em>
+                                                            @else
+                                                            {{date("M d, Y", strtotime($user->dateHired)) }}
+                                                            @endif
+
+                                                         </div>
 
 
 
