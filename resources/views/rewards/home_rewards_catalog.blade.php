@@ -2,6 +2,9 @@
 
 @section('metatags')
   <title>Rewards Catalog</title>
+  <style type="text/css">
+    #terms ul li {text-shadow: 1px 1px #fff; font-weight: bold;};
+  </style>
 @stop
 
 
@@ -30,7 +33,8 @@
             <div class="row no_margin catalog">
 
               
-
+              <?php 
+              /*
               @if($shop->status !== "OPEN" || $noCoffee)
               <h3 class="text-right" style="padding: 10px;background-color: #666; color:#fff"><i class="fa fa-coffee"></i> Coffee Drinks &nbsp;</h3> 
               <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/COFFEE_prm.jpg')top center no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 500px;padding:50px">
@@ -87,57 +91,71 @@
               </div>
 
               @endif
+
+              */ ?>
+
               <div class="clearfix"></div> 
 
               <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-gift"></i> Gift Vouchers &nbsp; </h3> 
               <p></p><p></p>
-              <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/Coffee_making_rewards.jpg')bottom left no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:50px">
+              <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/Coffee_making_rewards.jpg')bottom left no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:25px">
 
-                @forelse($vouchers as $key=>$voucher)
+                <div class="row">
+                  <div class="col-lg-12">
+                    <?php $ct=1;?>
+                    @forelse($vouchers as $key=>$voucher)
 
-                  <div class="col-sm-5 col-md-3 product" style="min-height: 370px;">
-                      <span class="product-title"><span style="font-size: larger;">{{ $voucher->name }}</span> </span>
-                      <span class="product-excerpt">{{ $voucher->name }}</span>
-                      <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/{{ $voucher->attachment_image }}');"></div>
-                      
-                      <div class="row claim">
-                        <div class="col-sm-3 col-xs-6">
-                          <span class="product-points">
-                            <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                            {{ $voucher->cost }} 
-                          </span>
-                        </div>
+                      <div class="col-lg-5 product" style="min-height: 370px;">
+                          <span class="product-title"><span style="font-size: larger;">{{ $voucher->name }}</span> </span>
+                          <span class="product-excerpt">{{ $voucher->name }}</span>
+                          <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/{{ $voucher->attachment_image }}');"></div>
+                          
+                          <div class="row claim">
+                            <div class="col-sm-3 col-xs-6">
+                              <span class="product-points" style="font-weight: bolder; font-size: xx-large;">
+                                <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                                {{ $voucher->cost }} 
+                              </span>
+                            </div>
 
-                        
-                        @if ($voucher->quantity <= 0 )
-                          <div class="col-sm-7 col-xs-6">
-                            <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                            
+                            @if ($voucher->quantity <= 0 )
+                              <div class="col-sm-7 col-xs-6">
+                                <span class="btn-default btn btn-sm">Available Soon! <i class="fa fa-exclamation-circle"></i> </span>
+                              </div>
+                            @elseif ($voucher->cost > $remaining_points )
+                              <div class="col-sm-7 col-xs-6">
+                                <span class="btn-default btn btn-sm">Insufficient Points <i class="fa fa-exclamation-circle"></i> </span>
+                              </div>
+                            
+                            @else                          
+                              <div class="col-sm-7 col-xs-6 bt_voucher_claimer" data-name="{{ $voucher->name }}" data-reward-id="{{ $voucher->id }}">  
+                                <span class="product-claim"><i class="fa fa-check"></i> Claim</span>                            
+                              </div>
+                            @endif
+                            
                           </div>
-                        @elseif ($voucher->cost > $remaining_points )
-                          <div class="col-sm-7 col-xs-6">
-                            <span class="btn-default btn btn-sm">Insufficient Points <i class="fa fa-exclamation-circle"></i> </span>
-                          </div>
-                        
-                        @else                          
-                          <div class="col-sm-7 col-xs-6 bt_voucher_claimer" data-name="{{ $voucher->name }}" data-reward-id="{{ $voucher->id }}">  
-                            <span class="product-claim"><i class="fa fa-check"></i> Claim</span>                            
-                          </div>
-                        @endif
-                        
+                           <h5 class="text-success"><strong>Terms &amp; Conditions</strong></h5>
+                            {!! $voucher->terms !!}
                       </div>
+
+                     <!--  @if ( $key!=0)
+                          <div class="clearfix"><br/><br/></div>
+                      @endif -->
+
+                    @empty
+                    
+                      <div class="col-xs-12">
+                        <p>Sorry, all Vouchers have been taken. Do check this page from time to time as we replenish our voucher inventories</p>
+                      </div>
+
+                      <?php $ct++;?>
+                  
+                    @endforelse
                   </div>
-
-                  @if ( $key+1 % 3 == 0 && $key!=0)
-                      <div class="clearfix"></div>
-                  @endif
-
-                @empty
+                 
+                </div> 
                 
-                  <div class="col-xs-12">
-                    <p>Sorry, all Vouchers have been taken. Do check this page from time to time as we replenish our voucher inventories</p>
-                  </div>
-              
-                @endforelse
 
                 <div class="clearfix"></div>
              
