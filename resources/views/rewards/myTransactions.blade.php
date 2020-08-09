@@ -130,7 +130,7 @@
                  <!-- ******** collapsible box ********** -->
                   <div class="box box-default collapsed-box">
                     <div class="box-header with-border">
-                      <h3 class="box-title text-primary">My Redeemed Items <span style="font-weight: bold;font-size: small;" class="text-orange">({{count($myTransactions)}}) </span></h3>
+                      <h3 class="box-title text-primary">My Redeemed Items <span style="font-weight: bold;font-size: small;" class="text-orange">({{$allredeemed}}) </span></h3>
                       <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                         </button>
@@ -154,6 +154,14 @@
                           <tr>
                             <td>{{date('Y-m-d h:i A', strtotime($myOrder->created_at))}} </td>
                             <td>{{$myOrder->name}} </td>
+                            <td>{{$myOrder->cost}} </td>
+                            
+                          </tr>
+                          @endforeach
+                          @foreach($vouchers as $myOrder)
+                          <tr>
+                            <td>{{date('Y-m-d h:i A', strtotime($myOrder->created_at))}} </td>
+                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-credit-card"></i> </td>
                             <td>{{$myOrder->cost}} </td>
                             
                           </tr>

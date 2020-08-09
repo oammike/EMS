@@ -3252,6 +3252,10 @@ class UserController extends Controller
                               select('points.points','rewards.name','rewards.cost', 'orders.created_at')->get();
 
        
+        $vouchers = DB::table('voucher_claims')->where('voucher_claims.user_id',$this->user->id)->
+                    join('vouchers','voucher_claims.voucher_id','=','vouchers.id')->get();
+
+
 
 
         // we now get any transfers made within the day
@@ -3305,6 +3309,7 @@ class UserController extends Controller
         }
 
         $totalEarnings = $allReceived + $allAwards;
+        $allredeemed = count($vouchers) + count($myTransactions);
        
 
         $data = [
@@ -3318,7 +3323,9 @@ class UserController extends Controller
           'myTransactions'=>$myTransactions,
           'transfersMade'=>$transfersMade,
           'pointsReceived'=>$pointsReceived,
-          'awardsReceived'=>$awardsReceived
+          'awardsReceived'=>$awardsReceived,
+          'vouchers'=>$vouchers,
+          'allredeemed'=>$allredeemed
 
         ]; 
 
