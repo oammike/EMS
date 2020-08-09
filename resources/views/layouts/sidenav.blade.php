@@ -431,7 +431,7 @@
           <ul class="treeview-menu">
 
             
-              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@preport',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
+              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@report',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
               <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@report',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020 Report</span> </a> </li>
 
              <!--  <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',5)}}"><i class="fa fa-file-o"></i>360° Survey </a> </li>
