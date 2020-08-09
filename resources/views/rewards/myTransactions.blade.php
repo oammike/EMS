@@ -161,7 +161,14 @@
                           @foreach($vouchers as $myOrder)
                           <tr>
                             <td>{{date('Y-m-d h:i A', strtotime($myOrder->created_at))}} </td>
-                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-credit-card"></i> </td>
+                            @if ($myOrder->redeemed)
+                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-credit-card"></i> <em class="text-success">(redeemed) <i class="fa fa-check"></i></em> </td>
+
+                            @else
+                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-credit-card"></i> <em class="text-success">(processing...)</em> </td>
+
+                            @endif
+                            
                             <td>{{$myOrder->cost}} </td>
                             
                           </tr>
