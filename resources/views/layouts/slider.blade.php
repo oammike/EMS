@@ -1,7 +1,23 @@
 
 
 
-           <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+            <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations of our<br/>
+                    <span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day Raffle Winners! <br/><small>Aug 10, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+
+                   
+                    <video id="teaser1" src="storage/uploads/winners_raffle.mov" width="100%" loop controls></video>
+                    <br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@wall',19)}}"> Check out the Wall posts</a>
+                    
+                    
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"> Your Payroll Help Desk is Here! <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -30,20 +46,9 @@
                     
             </div>
 
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" ><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day Winners! <br/><small>Aug 03, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
+           
 
-                    <img src="storage/uploads/friendshipWinners.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@wall',18)}}"> Check out the Wall posts</a>
-                    
-                    
-            </div>
-
-            <div class="item  text-center" >
+           <!--  <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day <br/><small>Sunday, Aug 09</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -59,7 +64,7 @@
                     
             </div>
 
-            
+             -->
 
 
 
