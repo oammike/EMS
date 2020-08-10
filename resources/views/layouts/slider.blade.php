@@ -2,7 +2,7 @@
 
 
             <div class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations of our<br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations to our<br/>
                     <span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day Raffle Winners! <br/><small>Aug 10, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
