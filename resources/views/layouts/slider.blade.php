@@ -1,9 +1,36 @@
 
 
 
-           
+           <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"> Your Payroll Help Desk is Here! <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/payrollHelpdesk.jpg" width="98%" />
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Hello everyone,<br/><br/>
 
-              <div class="item active text-center" >
+                    We are officially introducing Payroll Help Desk today. Getting assistance on your payroll-related inquiries is now more convenient and systematic.<br/><br/>
+
+                    Please access the user guide here to find out how to use it:
+                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value=" https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+                     
+                    
+
+                   
+
+                   
+
+                    </p> 
+
+
+ 
+                    
+            </div>
+
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><span class="text-primary"><i class="fa fa-smile-o"></i> International Friendship Day Winners! <br/><small>Aug 03, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
