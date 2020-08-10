@@ -2,16 +2,19 @@
 
 
             <div class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations to our<br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" ><br/>
                     <span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day Raffle Winners! <br/><small>Aug 10, 2020</small><br/>
-                  
                     <img src="storage/uploads/divider.png" />
+                    <img src="storage/uploads/booklovers.jpg" width="100%" /><br/>
+                    
                     </h4>
                    
 
                    
                     <video id="teaser1" src="storage/uploads/winners_raffle.mov" width="100%" loop controls></video>
+
                     <br/>
+
                     <a class="btn btn-success btn-md" href="{{action('EngagementController@wall',19)}}"> Check out the Wall posts</a>
                     
                     
