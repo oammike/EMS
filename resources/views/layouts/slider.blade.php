@@ -17,6 +17,28 @@
                     
             </div>
 
+            <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-globe"></i> World Youth Day <br/><small>Wednesday, Aug. 12</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">This week is <strong class="text-primary"></strong><i class="fa fa-children"></i> World Youth Day!<br/><br/>
+
+                    It’s World Youth Day on August 12!
+                    Let’s take a walk down memory lane and answer this question:<br/><br/>
+                    <strong class="text-primary"> What’s your best memory as a child / teenager?</strong><br/><br/>
+                    Share a photo of yourself from your childhood or teenage days.
+                    All participants will get 20 points. </p>
+
+                    <img src="storage/uploads/wall_week14.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',20)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+            </div>
+
+            
+
+
             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"> Your Payroll Help Desk is Here! <br/>
                   
@@ -48,24 +70,7 @@
 
            
 
-           <!--  <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day <br/><small>Sunday, Aug 09</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">This week is <strong class="text-primary"></strong><i class="fa fa-book"></i> Book Lovers Day!<br/><br/>
-
-                    To all bookworms out there, what is your favorite book? How about a book that’s on your to-read list or maybe a book that helped you in these challenging times? Share it on our wall and meet other fellow book lovers!<br/><br/>
-                     Each post also gives you a raffle entry (maximum of 3 posts) for a chance to <strong class="text-danger"> win Fully Booked vouchers worth P500</strong>! 2 winners will be electronically drawn and announced on August 10, 2020. </p>
-
-                    <img src="storage/uploads/wall_week13.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',19)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
-
-             -->
-
+            
 
 
 
