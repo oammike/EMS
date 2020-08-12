@@ -1,26 +1,9 @@
 
 
 
-            <div class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" ><br/>
-                    <span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day Raffle Winners! <br/><small>Aug 10, 2020</small><br/>
-                    <img src="storage/uploads/divider.png" />
-                    <img src="storage/uploads/booklovers.jpg" width="100%" /><br/>
-                    
-                    </h4>
-                   
+            
 
-                   
-                    <video id="teaser1" src="storage/uploads/winners_raffle.mov" width="100%" loop controls></video>
-
-                    <br/>
-
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@wall',19)}}"> Check out the Wall posts</a>
-                    
-                    
-            </div>
-
-            <div class="item  text-center" >
+            <div class="item active  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-globe"></i> World Youth Day <br/><small>Wednesday, Aug. 12</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -71,40 +54,126 @@
                     
             </div>
 
+            <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><br/>
+                    <span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day Raffle Winners! <br/><small>Aug 10, 2020</small><br/>
+                    <img src="storage/uploads/divider.png" />
+                    <img src="storage/uploads/booklovers.jpg" width="100%" /><br/>
+                    
+                    </h4>
+                   
+
+                   
+                    <video id="teaser1" src="storage/uploads/winners_raffle.mov" width="100%" loop controls></video>
+
+                    <br/>
+
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@wall',19)}}"> Check out the Wall posts</a>
+                    
+                    
+            </div>
+
+
+              @if(count($firstYears) >= 1)
+                            <!-- ******** FIRST YEAR ANNIV ******* -->
+                            <div class="item  text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                <br/><br/>
+                                <h4 class="text-primary"> 
+                                  <img src="storage/uploads/banner_anniv.jpg" width="100%" /><br/>
+                                  <i class="fa fa-smile-o fa-2x"></i> <br/><br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
+                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
+                                
+                                <div class="widget-user-image">
+                                   
+
+                                 
+
+                                </div>
+                                <div class="box-footer">
+                                </div>
+                              </div>
+                            </div>
+                            @foreach($firstYears as $n)
+                            <div class="item text-center">
+                              <div class="box box-widget widget-user">
+                                <!-- Add the bg color to the header using any of the bg-* classes --><br/>
+                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span><br/></h4>
+                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
+
+                                @if (is_null($n->hascoverphoto) )  
+                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
+                                
+                                @else
+                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
+                               @endif
+                                  
+                                  
+                                </div>
+                                
+                                   
+
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
+                                  <div class="widget-user-image" style="left: 40%">
+                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="100" style="width: 170px" alt="User Avatar">
+                                  @else
+                                  <div class="widget-user-image">
+                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
+                                  @endif
+
+                                </div>
+                                
+                                <div class="box-footer">
+                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )<br/><br/><br/>
+                                  @endif
+                                  @if (empty($n->nickname) || $n->nickname==" ")
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @else
+                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
+                                 @endif
+
+                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
+
+                                  @if ($n->filename == null) 
+                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
+                                  @else
+                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
+                                  
+                                  @endif
+                                  <br/>
+                                </div>
+                              </div>
+                            </div>
+
+                            @endforeach
+
+                   @endif 
+
+                 
+
+                
+                  
+
+
+
+                 
+                
+               
+
+
+            
+
+            
+
+
            
 
             
 
 
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   July 31, 2020 Holiday |<br/> Eid'l Adha Pay <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong>June 31, 2020</strong> is a regular holiday as per Proclamation No. 985 by the President of the Philippines.<br/><br/>
-
-                    Please see attached Proclamation for your reference.  Below is a guide on how the regular holiday pay is computed.</p>
-
-
-                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of June 31, 2020</p>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
-                    <strong class="text-success">WORKED</strong>
-                    <pre>(Basic Pay + Allowance) x 200%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
- 
-                    
-              </div>
-
-              
-
+           
 
             
 
@@ -202,10 +271,7 @@
                     
             </div>
 
-            
-
-            
-
+           
 
          
 
@@ -1544,93 +1610,7 @@
                 
 
 
-                   @if(count($firstYears) >= 1)
-                            <!-- ******** FIRST YEAR ANNIV ******* -->
-                            <div class="item  text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes -->
-                                <br/><br/>
-                                <h4 class="text-primary"> 
-                                  <img src="storage/uploads/banner_anniv.jpg" width="100%" /><br/>
-                                  <i class="fa fa-smile-o fa-2x"></i> <br/><br/>Happy  <span style="color:#f59c0f">1st Year Anniversary</span> <br/><span style="color:#9c9fa0">to the following employees:</span>
-                                  <br/><br/><span style="font-size:smaller">Cheers!</span></h4>
-                                
-                                <div class="widget-user-image">
-                                   
-
-                                 
-
-                                </div>
-                                <div class="box-footer">
-                                </div>
-                              </div>
-                            </div>
-                            @foreach($firstYears as $n)
-                            <div class="item text-center">
-                              <div class="box box-widget widget-user">
-                                <!-- Add the bg color to the header using any of the bg-* classes --><br/>
-                                <h4 class="text-default">Happy 1st Year<span class="text-primary"> @ Open Access!</span><br/></h4>
-                                <?php $cover = URL::to('/') . "/storage/uploads/cover-".$n->id."_".$n->hascoverphoto.".png"; ?>
-
-                                @if (is_null($n->hascoverphoto) )  
-                                 <div class="widget-user-header bg-black" style="background: url('{{ asset('public/img/makati.jpg')}}') center center;">
-                                
-                                @else
-                                <div class="widget-user-header bg-black" style="background: url('{{$cover}}') center center;">
-                               @endif
-                                  
-                                  
-                                </div>
-                                
-                                   
-
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )
-                                  <div class="widget-user-image" style="left: 40%">
-                                  <img class="img-circle" src="{{ asset('public/img/employees/'.$n->id.'.jpg')}}" width="100" style="width: 170px" alt="User Avatar">
-                                  @else
-                                  <div class="widget-user-image">
-                                  <img class="img-circle" src="{{asset('public/img/useravatar.png')}}" width="80" alt="User Avatar">
-                                  @endif
-
-                                </div>
-                                
-                                <div class="box-footer">
-                                  @if ( file_exists('public/img/employees/'.$n->id.'.jpg') )<br/><br/><br/>
-                                  @endif
-                                  @if (empty($n->nickname) || $n->nickname==" ")
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->firstname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @else
-                                     <h3 class="widget-user-username"><a href="{{action('UserController@show',$n->id)}}"><small>{{$n->nickname}} {{$n->lastname}} </small></a></h3><small><em>Work Anniversary: {{date('M d, Y', strtotime($n->dateHired))}} </em></small>
-                                 @endif
-
-                                 <h5 class="widget-user-desc"><small> {{$n->name}} </small><br/>
-
-                                  @if ($n->filename == null) 
-                                   <span class="text-primary"> {{ OAMPI_Eval\Campaign::find($n->campaign_id)->name}} </span> </h5>
-                                  @else
-                                 <img src="{{ asset('public/img/'.$n->filename) }}" height="30" /> </h5>
-                                  
-                                  @endif
-                                  <br/>
-                                </div>
-                              </div>
-                            </div>
-
-                            @endforeach
-
-                   @endif 
-
-                 
-
-                
                   
-
-
-
-                 
-                
-               
-
                 
 
                  
@@ -2004,6 +1984,34 @@
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   July 31, 2020 Holiday |<br/> Eid'l Adha Pay <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>June 31, 2020</strong> is a regular holiday as per Proclamation No. 985 by the President of the Philippines.<br/><br/>
+
+                    Please see attached Proclamation for your reference.  Below is a guide on how the regular holiday pay is computed.</p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of June 31, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+ 
+                    
+              </div>
+
+              
+
  <div class="item text-center">
                 
                   <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">Maxicare's Customer Satisfaction</span>
