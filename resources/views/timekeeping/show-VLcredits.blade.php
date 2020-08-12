@@ -569,9 +569,21 @@
                                           
                                           <?php $earnSL=0; $deets=""; 
                                                 foreach ($allEarnings_SL as $e){ 
-                                                  if(strpos($e->period, (string)$v->creditYear) !== false){ 
-                                                          $deets .= date('M d',strtotime($e->period)).' : ' . $e->credits.'<br/>';
-                                                          $earnSL += $e->credits; }
+                                                  if(strpos($e->period, (string)$v->creditYear) !== false)
+                                                  { 
+                                                     if($canUpdateLeaves)
+                                                     {
+                                                      $deets .= date('M d',strtotime($e->period)).' : ' . $e->credits.'&nbsp; <a data-earnid="'.$e->id.'" class="delEarning btn btn-xs btn-default"> <i class="fa fa-trash"></i></a> <br/><br/>';
+
+                                                     }
+                                                     else
+                                                     {
+                                                      $deets .= date('M d',strtotime($e->period)).' : ' . $e->credits.'<br/>';
+
+                                                     }
+                                                      
+                                                      $earnSL += $e->credits; 
+                                                  }
                                                 } ?>
                                           @if ($earnSL == 0) {{$earnSL}} @else
 
@@ -736,11 +748,18 @@
                                       <?php $ctr++; ?>
                                       @endforeach
                                   @endif
-                                  <tr><td colspan="6">
+                                  <tr><td colspan="8">
+
+                                   
 
                                     @if (count($personnel->slCredits) <= (date('Y')-2008) && $canUpdateLeaves )
                                     <a data-toggle="modal" style="margin-top: 10px" data-target="#myModal_addSL{{$personnel->id}}" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add SL Credits</a>
                                     <!-- <a data-toggle="modal" style="margin-top: 10px" data-target="#underConstruction" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a> -->
+
+                                     @if($canUpdateLeaves)
+                                     <a data-toggle="modal" style="margin-top: 10px; margin-right: 5px" data-target="#myModal_addSLearning{{$personnel->id}}" href="#" class="btn btn-xs btn-success pull-right"><i class="fa fa-plus-circle"></i> Add SL Earnings</a>
+
+                                    @endif
 
                                   </td>
                                     @endif</tr>
@@ -792,6 +811,16 @@
                     'modelName'=>"SL Credit ", 
                     'modalTitle'=>'Add New', 
                     'formID'=>'submitSL',
+                    'icon'=>'glyphicon-up' ])
+
+
+            @include('layouts.modals-addSLearnings', [
+                    'modelRoute'=>'user_sl.addSLearnings',
+                    'modelID' => $personnel->id, 
+                    'modalMessage'=> " ",
+                    'modelName'=>"SL Earnings ", 
+                    'modalTitle'=>'Add New', 
+                    'formID'=>'submitSLearn',
                     'icon'=>'glyphicon-up' ])
 
 
@@ -849,7 +878,50 @@
   
   $(function () {
    'use strict';
+
+   $('.delEarning').on('click',function(){
+
+      var del = $(this).attr('data-earnid');
+      var ans = confirm("Are you sure you want to delete SL earning with ID: "+ del);
+      
+      if(ans)
+      {
+          var _token = "{{ csrf_token() }}";
+          $.ajax({
+                url: "{{ env('APP_URL') }}user_sl/deleteEarning/"+del,
+                type:'POST',
+                data:{ 
+                 'id': del, 
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+                  location.reload();
+                  
+                    
+                  
+                }
+              });
+      }
+      console.log("clicked: "+ ans);
+
+   });
    $( ".datepicker" ).datepicker();
+
+   $('#periodSLearn').on('change',function(){
+    var selval = $(this).val();
+
+    if(selval==0){
+      $('#periods label').fadeOut();
+    }else{
+      $('#periods label').fadeOut();
+      $('.p_'+selval).fadeIn();
+    }
+
+    
+    //alert("selected:" +selval);
+
+   });
 
        
 

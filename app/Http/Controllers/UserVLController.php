@@ -1513,8 +1513,13 @@ class UserVLController extends Controller
 
         $allEarnings_SL = DB::table('user_slearnings')->where('user_slearnings.user_id',$id)->
                             join('slupdate','slupdate.id','=','user_slearnings.slupdate_id')->
-                            select('slupdate.period','slupdate.credits','slupdate.created_at')->
+                            select('user_slearnings.id', 'slupdate.period','slupdate.credits','slupdate.created_at')->
                             orderBy('slupdate.period','DESC')->get(); 
+
+        $slUpdates = DB::table('slupdate')->orderBy('period','DESC')->get(); 
+        $slUpdates_periods = collect($slUpdates)->pluck('period')->unique();
+
+        //return $slUpdates_periods;
                             
         $allAdvancedSL = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$id)->
                             select('user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
@@ -1535,10 +1540,10 @@ class UserVLController extends Controller
             fclose($file);
         } 
 
-       
+       //return $allEarnings_SL;
 
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL','allVTOs'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL','allVTOs','slUpdates_periods','slUpdates'));
         else return view('access-denied');
 
 

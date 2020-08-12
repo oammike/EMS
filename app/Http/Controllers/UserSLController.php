@@ -51,6 +51,7 @@ use OAMPI_Eval\VLupdate;
 use OAMPI_Eval\SLupdate;
 use OAMPI_Eval\Notification;
 use OAMPI_Eval\User_Notification;
+use OAMPI_Eval\User_SLearnings;
 
 class UserSLController extends Controller
 {
@@ -83,6 +84,17 @@ class UserSLController extends Controller
         $sl->used = $request->used;
         $sl->paid = $request->paid;
         $sl->user_id =$request->user_id;
+        $sl->save();
+
+        return back();
+        
+    }
+
+    public function addSLearnings(Request $request)
+    {
+        $sl = new User_SLearnings;
+        $sl->user_id = $request->user_id;
+        $sl->slupdate_id = $request->slupdate_id;
         $sl->save();
 
         return back();
@@ -298,6 +310,13 @@ class UserSLController extends Controller
         $sl->delete();
 
         return back();
+
+    }
+
+    public function deleteSLearning( $id )
+    {
+        User_SLearnings::find($id)->delete();
+        return response()->json(['success'=>1]); 
 
     }
 
