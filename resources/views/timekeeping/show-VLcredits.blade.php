@@ -888,7 +888,7 @@
       {
           var _token = "{{ csrf_token() }}";
           $.ajax({
-                url: "{{ env('APP_URL') }}user_sl/deleteEarning/"+del,
+                url: "{{ url('/') }}/user_sl/deleteEarning/"+del,
                 type:'POST',
                 data:{ 
                  'id': del, 
