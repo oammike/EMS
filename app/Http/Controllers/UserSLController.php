@@ -304,6 +304,14 @@ class UserSLController extends Controller
         
     }
 
+    public function deleteAdvSL( $id )
+    {
+        //User_SLearnings::find($id)->delete();
+        DB::table('user_advancedSL')->where('id',$id)->delete();
+        return response()->json(['success'=>1]); 
+
+    }
+
     public function deleteCredit( $id )
     {
         $sl = User_SLcredits::find($id);
@@ -315,7 +323,8 @@ class UserSLController extends Controller
 
     public function deleteSLearning( $id )
     {
-        User_SLearnings::find($id)->delete();
+        //User_SLearnings::find($id)->delete();
+        DB::table('user_slearnings')->where('id',$id)->delete();
         return response()->json(['success'=>1]); 
 
     }

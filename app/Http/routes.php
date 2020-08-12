@@ -620,6 +620,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_sl.checkExisting',
         'uses'=>'UserSLController@checkExisting') );
 
+        Route::post('/user_sl/deleteAdvSL/{id}', array(
+        'as'=> 'user_sl.deleteAdvSL',
+        'uses'=>'UserSLController@deleteAdvSL') );
+
         Route::post('/user_sl/deleteCredit/{id}', array(
         'as'=> 'user_sl.deleteCredit',
         'uses'=>'UserSLController@deleteCredit') );

@@ -1522,7 +1522,7 @@ class UserVLController extends Controller
         //return $slUpdates_periods;
                             
         $allAdvancedSL = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$id)->
-                            select('user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
+                            select('user_advancedSL.id','user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
                             orderBy('user_advancedSL.periodEnd','DESC')->get(); //
 
         $allVTOs = DB::table('user_vto')->where('user_vto.user_id',$id)->where('user_vto.isApproved',1)->

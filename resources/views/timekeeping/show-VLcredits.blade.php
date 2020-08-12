@@ -616,9 +616,24 @@
                                         @if (count($allAdvancedSL) > 0 && (date('Y') == $v->creditYear) )
                                         <?php $advSL=0; $deetsadv=""; 
                                                 foreach ($allAdvancedSL as $e){ 
+
+                                                  if($canUpdateLeaves)
+                                                     {
+                                                      
+
+                                                      $deetsadv .= date('M d',strtotime($e->periodStart)).' - '.date('M d',strtotime($e->periodEnd)).': <strong>' . $e->total.'&nbsp; </strong><a data-earnid="'.$e->id.'" class="delAdvSL btn btn-xs btn-default"> <i class="fa fa-trash"></i></a> <br/><br/>';
+
+                                                     }
+                                                     else
+                                                     {
+                                                      
+                                                      $deetsadv .= date('M d',strtotime($e->periodStart)).' - '.date('M d',strtotime($e->periodEnd)).': <strong>' . $e->total.'</strong><br/>';
+
+                                                     }
                                                   
-                                                          $deetsadv .= date('M d',strtotime($e->periodStart)).' - '.date('M d',strtotime($e->periodEnd)).': <strong>' . $e->total.'</strong><br/>';
-                                                          $advSL += $e->total; }
+                                                          
+                                                          $advSL += $e->total; 
+                                                        }
                                                  ?>
                                         <td  class="text-center">
 
@@ -906,6 +921,36 @@
       console.log("clicked: "+ ans);
 
    });
+
+   $('.delAdvSL').on('click',function(){
+
+      var del = $(this).attr('data-earnid');
+      var ans = confirm("Are you sure you want to delete Advanced SL with ID: "+ del);
+      
+      if(ans)
+      {
+          var _token = "{{ csrf_token() }}";
+          $.ajax({
+                url: "{{ url('/') }}/user_sl/deleteAdvSL/"+del,
+                type:'POST',
+                data:{ 
+                 'id': del, 
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+                  location.reload();
+                  
+                    
+                  
+                }
+              });
+      }
+      console.log("clicked: "+ ans);
+
+   });
+
+
    $( ".datepicker" ).datepicker();
 
    $('#periodSLearn').on('change',function(){
