@@ -2549,6 +2549,7 @@ class DTRController extends Controller
                                 }
 
                                 $qty = number_format((float)$j->totalHours*0.125,2);
+                                $pd =  date('m/d/Y',strtotime($j->productionDate));
                                 
 
                               }
@@ -2631,6 +2632,8 @@ class DTRController extends Controller
 
                                 }
 
+                                $pd = $s->format('m/d/Y');
+
                                 
                                  
 
@@ -2639,7 +2642,7 @@ class DTRController extends Controller
                              
 
                               //*** LeaveDate
-                              $arr[$c] = $s->format('m/d/Y'); $c++;
+                              $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
 
                               //*** LeaveCOde
                               $arr[$c] = $leaveCode; $c++;
@@ -2784,12 +2787,14 @@ class DTRController extends Controller
                               }
 
                               $qty = number_format((float)$jps['data'][0]->totalHours*0.125,2);
+                              $pd = date('m/d/Y',strtotime($jps['data'][0]->productionDate));
                               
 
                             }
                             else //VL | SL | LWOP | ML | SPL | PL
                             {
                               //establish leave COde
+
                               ($jps['type'] == 'FL') ? $leaveCode = $jps['data'][0]->leaveType : $leaveCode = $jps['type'];
                               $qty = $jps['data'][0]->totalCredits;
 
@@ -2867,14 +2872,14 @@ class DTRController extends Controller
                               }
 
                               
-                               
+                              $pd = $s->format('m/d/Y');
 
                             }
 
                            
 
                             //*** LeaveDate
-                            $arr[$i] = $s->format('m/d/Y'); $i++;
+                            $arr[$i] = $pd; $i++; // $s->format('m/d/Y'); $i++;
 
                             //*** LeaveCOde
                             $arr[$i] = $leaveCode; $i++;
