@@ -21,6 +21,8 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
+          
+          <li style="color:#fff791; font-size: x-small; margin-top:5px;padding-right: 50px; font-weight: bold; ">Got payroll issues and/or concerns? <br/><strong style="font-size: 1.5em"> <a class="btn btn-warning btn-xs" target="_blank" href="http://ticketing.openaccess.bpo/"><i class="fa fa-fax"></i> Launch Payroll Help Desk</a> </strong></li>
           <li style="color:#fff; font-size: x-small; margin-top:5px;padding-right: 20px">Employee Hotline: <br/><strong style="font-size: 1.5em"> <i class="fa fa-phone-square"></i> 0917-896-0634</strong></li>
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
