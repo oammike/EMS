@@ -3160,12 +3160,29 @@ trait TimekeepingTraits
                                                 
                                               else if ($logType_id == 2)
                                               {
-                                                $parseThis = $schedForToday['timeEnd'];
+
+                                                /*$parseThis = $schedForToday['timeEnd'];
                                                 if (Carbon::parse($parseThis,"Asia/Manila") > $timing ) //&& !$problemArea[0]['problemShift']--- meaning early out sya
                                                   {
                                                     $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
 
+                                                  } else $UT=$undertime;*/
+
+
+                                                
+
+                                                /* emelda fix */
+                                                if (strlen($schedForToday['timeEnd']) > 9)
+                                                  $parseThis = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila");
+                                                else
+                                                  $parseThis = Carbon::parse($thisPayrollDate.' '.$schedForToday['timeEnd'],"Asia/Manila");
+
+                                                if ($parseThis > $timing ) //&& !$problemArea[0]['problemShift']--- meaning early out sya
+                                                  {
+                                                    $UT  = $undertime + number_format(($parseThis->diffInMinutes($timing))/60,2);
+
                                                   } else $UT=$undertime;
+                                                 
 
                                               }
                                               
