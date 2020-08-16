@@ -1913,6 +1913,8 @@ class UserController extends Controller
 
       $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
 
+      if(!$isAdmin) return view('access-denied');
+
       (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addMonths(-1)->format('m/d/Y');
       (Input::get('to')) ? $to = Input::get('to') : $to = date('m/d/Y');
 
