@@ -449,6 +449,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     //---- end WFH AND LOGS
 
+
+    //---- LEAVE MANAGEMENT -------------
+      Route::get('/leave_management', array(
+      'as'=> 'leaveMgt',
+      'uses'=>'UserController@leaveMgt') );
+
     
 
     //--- NOTIFS

@@ -1907,6 +1907,36 @@ class UserController extends Controller
     }
 
 
+    public function leaveMgt()
+    {
+      $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+
+      $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
+
+      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addMonths(-1)->format('m/d/Y');
+      (Input::get('to')) ? $to = Input::get('to') : $to = date('m/d/Y');
+
+      (Input::get('type')) ? $type = Input::get('type') : $type = 'VL';
+
+      $allLeave = $this->getLeaves($from,$to,$type);
+
+      switch ($type) {
+        case 'VL':{  $label = "Vacation Leave" ;} break;
+        case 'SL':{ $label = "Sick Leave" ;} break;
+        case 'LWOP':{ $label = "Leave Without Pay" ;} break;
+        case 'FL':{ $label = "Family Leave" ;} break;
+        default: { $label = "Vacation Leave";} break;
+      }
+
+
+      
+
+
+      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label'));
+
+    }
+
+
     public function listAllActive(){
 
         DB::connection()->disableQueryLog();
