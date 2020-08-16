@@ -132,19 +132,19 @@
 
                           <thead>
                             <th>Lastname</th>
-                            <th>Firstname</th>
+                            <th width="10%">Firstname</th>
                             <th>Program</th>
-                            <th>Credits</th>
+                            <th width="10%">Credits</th>
                             <th>Period</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th width="28%">Action</th>
                           </thead>
                           <tbody>
                             @foreach($allLeave as $vl)
 
                              <tr @if( is_null($vl->isApproved)) style="background-color:#fcfdc4" @endif >
                                 <td>{{$vl->lastname}}</td>
-                                <td>{{$vl->firstname}}</td>
+                                <td style="font-size: x-small;">{{$vl->firstname}}</td>
                                 <td>{{$vl->program}}</td>
                                 <td>{{$vl->totalCredits}}</td>
                                 <td style="font-size: x-small;">
@@ -175,8 +175,10 @@
                                   @if($vl->leaveStart < $unrevokeable)
                                   <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> View DTR </a>
                                   <a class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Details </a>
+                                  <a class="btn btn-xs btn-default"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
                                   @else
                                   <a class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> Update </a>
+                                  <a class="btn btn-xs btn-default"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
                                   @endif
                                 </td>
                               </tr>
