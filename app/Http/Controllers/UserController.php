@@ -3085,7 +3085,7 @@ class UserController extends Controller
                                     $awardee = User::find($r);
                                     $mike = User::find(564);
                                     $dateHired = Carbon::parse($awardee->dateHired,'Asia/Manila');
-                                    $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'));
+                                    $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'))+1;
                                     
                                     $ddth = $dateHired->format('M d,Y');
                                  

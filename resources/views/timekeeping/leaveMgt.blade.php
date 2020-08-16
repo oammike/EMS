@@ -142,7 +142,7 @@
                           <tbody>
                             @foreach($allLeave as $vl)
 
-                             <tr>
+                             <tr @if( is_null($vl->isApproved)) style="background-color:#fcfdc4" @endif >
                                 <td>{{$vl->lastname}}</td>
                                 <td>{{$vl->firstname}}</td>
                                 <td>{{$vl->program}}</td>
