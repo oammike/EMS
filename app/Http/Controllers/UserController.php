@@ -1918,21 +1918,22 @@ class UserController extends Controller
 
       (Input::get('type')) ? $type = Input::get('type') : $type = 'VL';
 
-      $allLeave = $this->getLeaves($from,$to,$type);
+      $allL = $this->getLeaves($from,$to,$type);
+      $allLeave =$allL['leaves'];
+      $pending_VL = $allL['pending_VL'];
+      $pending_SL = $allL['pending_SL'];
+      $pending_LWOP = $allL['pending_LWOP'];
+      $pending_FL = $allL['pending_FL'];
 
       switch ($type) {
         case 'VL':{  $label = "Vacation Leave" ;} break;
         case 'SL':{ $label = "Sick Leave" ;} break;
         case 'LWOP':{ $label = "Leave Without Pay" ;} break;
-        case 'FL':{ $label = "Family Leave" ;} break;
+        case 'FL':{ $label = "ML / PL / SPL " ;} break;
         default: { $label = "Vacation Leave";} break;
       }
 
-
-      
-
-
-      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label'));
+      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL'));
 
     }
 

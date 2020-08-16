@@ -1143,6 +1143,27 @@ trait TimekeepingTraits
 
   }
 
+  public function getPendings($type,$startCutoff,$endCutoff)
+  {
+
+    switch ($type) {
+      case 'VL': $t = 'user_vl'; break;
+      case 'SL': $t = 'user_sl'; break;
+      case 'LWOP': $t = 'user_lwop'; break;
+      case 'FL': $t = 'user_familyleaves'; break;
+
+    }
+
+    $leaves = DB::table($t)->where([ 
+                  [$t.'.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
+                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                  ])->join('users','users.id','=',$t.'.user_id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select($t.'.leaveStart',$t.'.leaveEnd',$t.'.isApproved',$t.'.totalCredits',$t.'.halfdayFrom',$t.'.halfdayTo', $t.'.created_at', $t.'.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where($t.'.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+    return $leaves;
+
+  }
+
   public function getLeaves($from, $to,$type)
   {
     
@@ -1159,66 +1180,98 @@ trait TimekeepingTraits
                   ['user_vl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_vl.user_id')->
-    
                   leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where('user_vl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
 
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                  
-                select('user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where('user_vl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+         $pending_VL = count(collect($leaves)->where('isApproved',null));
+
+         //get other pendings
+         $psl = $this->getPendings('SL',$startCutoff,$endCutoff);
+         $pending_SL = count(collect($psl)->where('isApproved',null));
+
+         $plwop = $this->getPendings('LWOP',$startCutoff,$endCutoff);
+         $pending_LWOP = count(collect($plwop)->where('isApproved',null));
+
+         $pfl = $this->getPendings('FL',$startCutoff,$endCutoff);
+         $pending_FL = count(collect($pfl)->where('isApproved',null));
 
       }break;
 
       case 'SL':
       {
-         $leaves = DB::table('user_sl')->where([ 
+          $leaves = DB::table('user_sl')->where([ 
                   ['user_sl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_sl.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                  
                   select('user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+        
+
+          $pending_SL = count(collect($leaves)->where('isApproved',null));
+
+         //get other pendings
+         $pvl = $this->getPendings('VL',$startCutoff,$endCutoff);
+         $pending_VL = count(collect($pvl)->where('isApproved',null));
+
+         $plwop = $this->getPendings('LWOP',$startCutoff,$endCutoff);
+         $pending_LWOP = count(collect($plwop)->where('isApproved',null));
+
+         $pfl = $this->getPendings('FL',$startCutoff,$endCutoff);
+         $pending_FL = count(collect($pfl)->where('isApproved',null));
 
       }break;
 
       case 'LWOP':
       {
-         $leaves = DB::table('user_lwop')->where([ 
+        $leaves = DB::table('user_lwop')->where([ 
                   ['user_lwop.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_lwop.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                  
-                  select('user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+
+
+        $pending_LWOP = count(collect($leaves)->where('isApproved',null));
+        //get other pendings
+        $pvl = $this->getPendings('VL',$startCutoff,$endCutoff);
+        $pending_VL = count(collect($pvl)->where('isApproved',null));
+
+        $psl = $this->getPendings('SL',$startCutoff,$endCutoff);
+        $pending_SL = count(collect($psl)->where('isApproved',null));
+
+        $pfl = $this->getPendings('FL',$startCutoff,$endCutoff);
+        $pending_FL = count(collect($pfl)->where('isApproved',null));
+
 
       }break;
 
       case 'FL':
       {
-         $leaves = DB::table('user_familyleaves')->where([ 
+        $leaves = DB::table('user_familyleaves')->where([ 
                   ['user_familyleaves.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_familyleaves.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                  
-                  select('user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_familyleaves.leaveType as FLtype')->where('user_familyleaves.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_familyleaves.leaveType as FLtype')->where('user_familyleaves.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+        $pending_FL = count(collect($leaves)->where('isApproved',null));
+
+        $psl = $this->getPendings('SL',$startCutoff,$endCutoff);
+        $pending_SL = count(collect($psl)->where('isApproved',null));
+
+        $plwop = $this->getPendings('LWOP',$startCutoff,$endCutoff);
+        $pending_LWOP = count(collect($plwop)->where('isApproved',null));
+        
+        $pvl = $this->getPendings('VL',$startCutoff,$endCutoff);
+        $pending_VL = count(collect($pvl)->where('isApproved',null));
 
       }break;
       
-      default:
-        # code...
-        break;
+     
     }
 
    
-   
-
-   
-    
-
-    return $leaves;
+    return ['leaves'=>$leaves,'pending_VL'=>$pending_VL, 'pending_SL'=>$pending_SL,'pending_LWOP'=>$pending_LWOP,'pending_FL'=>$pending_FL];
 
   }
 

@@ -89,7 +89,7 @@
                   <div class="row">
                     <div class="col-lg-5"> <h4> From: <input id="from"  type="text" name="from" placeholder="{{$from}}" value="{{$from}}" class="datepicker form-control" /></h4> </div>
                     <div class="col-lg-5"> <h4> Until: <input id="to" type="text" name="to" placeholder="{{$to}}" value="{{$to}}" class="datepicker form-control" /></h4> </div>
-                    <div class="col-lg-2"><a id="update" style="margin-top: 20px" class="pull-left btn btn-default btn-lg">Update</a> </div>
+                    <div class="col-lg-2"><a id="update" style="margin-top: 20px" class="pull-left btn btn-default btn-lg">Update Table</a> </div>
                   </div>
                  
                  
@@ -106,10 +106,14 @@
                   <ul class="nav nav-tabs">
 
 
-                    <li @if($type =='VL') class="active" @endif ><a <a href="{{action('UserController@leaveMgt',['type'=>'VL','from'=>$from, 'to'=>$to])}}"><strong class="text-primary "><i class="fa fa-2x fa-plane"></i> Vacation Leaves <span id="actives"></span> </strong></a></li>
-                    <li @if($type =='SL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'SL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-stethoscope"></i> Sick Leaves <span id="inactives"></span></strong></a></li>
-                    <li @if($type =='LWOP') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'LWOP','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-meh-o"></i> LWOP <span id="floating"></span></strong></a></li>
-                    <li @if($type =='FL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'FL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-male"></i><i class="fa fa-2x fa-female"></i> ML | PL | SPL <span id="pendings"></span></strong></a></li>
+                    <li @if($type =='VL') class="active" @endif ><a <a href="{{action('UserController@leaveMgt',['type'=>'VL','from'=>$from, 'to'=>$to])}}"><strong class="text-primary "><i class="fa fa-2x fa-plane"></i> Vacation Leaves 
+                      @if($pending_VL)<span class="label label-warning" style="font-size: small;"> ({{$pending_VL}}) </span> @endif </strong></a></li>
+                    <li @if($type =='SL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'SL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-stethoscope"></i> Sick Leaves 
+                      @if($pending_SL)<span class="label label-warning" style="font-size: small;"> ({{$pending_SL}}) </span> @endif</strong></a></li>
+                    <li @if($type =='LWOP') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'LWOP','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-meh-o"></i> LWOP 
+                      @if($pending_LWOP)<span class="label label-warning" style="font-size: small;"> ({{$pending_LWOP}}) </span> @endif</strong></a></li>
+                    <li @if($type =='FL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'FL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-male"></i><i class="fa fa-2x fa-female"></i> ML | PL | SPL 
+                      @if($pending_FL)<span class="label label-warning" style="font-size: small;"> ({{$pending_FL}}) </span> @endif</strong></a></li>
                      @if ($isAdmin) 
                      <!--  <a href="{{action('UserController@create')}} " class="btn btn-sm btn-primary  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
                       -->
@@ -143,7 +147,7 @@
                                 <td>{{$vl->firstname}}</td>
                                 <td>{{$vl->program}}</td>
                                 <td>{{$vl->totalCredits}}</td>
-                                <td>
+                                <td style="font-size: x-small;">
                                   @if($type=='FL')
                                   <?php switch ($vl->FLtype) {
                                     case 'ML': $l="Maternity Leave";break;case 'PL': $l="Paternity Leave";break;case 'SPL': $l="Single Parent Leave";break;
@@ -160,7 +164,7 @@
                                   @if($vl->isApproved)
                                   <strong class="text-primary"><i class="fa fa-thumbs-up"></i> Approved</strong>
                                   @elseif($vl->isApproved=='0')
-                                  <strong class="text-danger"><i class="fa fa-thumbs-down"></i> Denied</strong>
+                                  <strong class="text-default"><i class="fa fa-thumbs-down"></i> Denied</strong>
                                   @else
                                   <strong class="text-orange"><i class="fa fa-exclamation-circle"></i> Pending</strong>
                                   @endif
