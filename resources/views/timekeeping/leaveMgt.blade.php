@@ -173,12 +173,13 @@
                                   <?php $unrevokeable = \Carbon\Carbon::now()->addDays(-14); ?>
 
                                   @if($vl->leaveStart < $unrevokeable)
-                                  <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> View DTR </a>
+                                  <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
                                   <a class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Details </a>
-                                  <a class="btn btn-xs btn-default"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
+                                  <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
                                   @else
                                   <a class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> Update </a>
-                                  <a class="btn btn-xs btn-default"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
+                                  <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
+                                  <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
                                   @endif
                                 </td>
                               </tr>
