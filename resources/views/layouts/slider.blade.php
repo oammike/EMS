@@ -4,20 +4,20 @@
             
 
             <div class="item active  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-globe"></i> World Youth Day <br/><small>Wednesday, Aug. 12</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-camera"></i> World Photography Day <br/><small>Wednesday, Aug. 19</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p  style="padding: 30px;" class="text-center">This week is <strong class="text-primary"></strong><i class="fa fa-children"></i> World Youth Day!<br/><br/>
+                    <p  style="padding: 30px;" class="text-center">This week is <strong class="text-primary"></strong><i class="fa fa-camera"></i> World Photography Day!<br/><br/>
 
-                    It’s World Youth Day on August 12!
-                    Let’s take a walk down memory lane and answer this question:<br/><br/>
-                    <strong class="text-primary"> What’s your best memory as a child / teenager?</strong><br/><br/>
-                    Share a photo of yourself from your childhood or teenage days.
-                    All participants will get 20 points. </p>
+                   It’s World Photo Day on August 19!<br/><br/>
 
-                    <img src="storage/uploads/wall_week14.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',20)}}"> Check out our ECQonnection Wall</a>
+                    It’s always great to focus and capture the beauty around us! Share your favorite photo you have taken in the past 5 months.<br/><br/>
+
+                    All participants will get 20 points.  </p>
+
+                    <img src="storage/uploads/wall_week15.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',21)}}"> Check out our ECQonnection Wall</a>
                     
                     
             </div>
