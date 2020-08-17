@@ -1926,16 +1926,20 @@ class UserController extends Controller
       $pending_SL = $allL['pending_SL'];
       $pending_LWOP = $allL['pending_LWOP'];
       $pending_FL = $allL['pending_FL'];
+      $pending_VTO = $allL['pending_VTO'];
 
       switch ($type) {
         case 'VL':{  $label = "Vacation Leave" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
+        case 'VTO':{  $label = "Voluntary Time Off" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;} break;
         case 'SL':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
         case 'LWOP':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
         case 'FL':{ $label = "ML / PL / SPL " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
         default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
       }
 
-      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','deleteLink','notifType'));
+     
+
+      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType'));
 
     }
 

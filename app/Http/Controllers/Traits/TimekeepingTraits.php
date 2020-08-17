@@ -1148,18 +1148,32 @@ trait TimekeepingTraits
 
     switch ($type) {
       case 'VL': $t = 'user_vl'; break;
+      case 'VTO': $t = 'user_vto'; break;
       case 'SL': $t = 'user_sl'; break;
       case 'LWOP': $t = 'user_lwop'; break;
       case 'FL': $t = 'user_familyleaves'; break;
 
     }
 
-    $leaves = DB::table($t)->where([ 
+    if($type=='VTO')
+    {
+      $leaves = DB::table($t)->where([ 
+                  [$t.'.productionDate','>=', $startCutoff->format('Y-m-d')],
+                  ])->join('users','users.id','=',$t.'.user_id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select($t.'.startTime as leaveStart',$t.'.endTime as leaveEnd',$t.'.isApproved',$t.'.totalHours as totalCredits', $t.'.created_at', $t.'.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where($t.'.productionDate','<=',$endCutoff->format('Y-m-d'))->get();
+
+    }else{
+      $leaves = DB::table($t)->where([ 
                   [$t.'.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=',$t.'.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->select($t.'.leaveStart',$t.'.leaveEnd',$t.'.isApproved',$t.'.totalCredits',$t.'.halfdayFrom',$t.'.halfdayTo', $t.'.created_at', $t.'.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where($t.'.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+
+    }
+
+    
     return $leaves;
 
   }
@@ -1184,6 +1198,35 @@ trait TimekeepingTraits
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vl.id as leaveID', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_vl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_vl.isApproved','ASC')->get();
 
          $pending_VL = count(collect($leaves)->where('isApproved',null));
+
+         $pvt = $this->getPendings('VTO',$startCutoff,$endCutoff);
+         $pending_VTO = count(collect($pvt)->where('isApproved',null));
+
+         //get other pendings
+         $psl = $this->getPendings('SL',$startCutoff,$endCutoff);
+         $pending_SL = count(collect($psl)->where('isApproved',null));
+
+         $plwop = $this->getPendings('LWOP',$startCutoff,$endCutoff);
+         $pending_LWOP = count(collect($plwop)->where('isApproved',null));
+
+         $pfl = $this->getPendings('FL',$startCutoff,$endCutoff);
+         $pending_FL = count(collect($pfl)->where('isApproved',null));
+
+      }break;
+
+      case 'VTO':
+      {
+         $leaves = DB::table('user_vto')->where([ 
+                  ['user_vto.productionDate','>=', $startCutoff->format('Y-m-d')],
+                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                  ])->join('users','users.id','=','user_vto.user_id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vto.id as leaveID','user_vto.productionDate', 'user_vto.startTime as leaveStart','user_vto.endTime as leaveEnd','user_vto.isApproved','user_vto.totalHours as totalCredits', 'user_vto.created_at', 'user_vto.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID','user_vto.deductFrom')->where('user_vto.productionDate','<=',$endCutoff->format('Y-m-d'))->orderBy('user_vto.isApproved','ASC')->get();
+
+         $pending_VTO = count(collect($leaves)->where('isApproved',null));
+
+         $pvl = $this->getPendings('VL',$startCutoff,$endCutoff);
+         $pending_VL = count(collect($pvl)->where('isApproved',null));
 
          //get other pendings
          $psl = $this->getPendings('SL',$startCutoff,$endCutoff);
@@ -1214,6 +1257,10 @@ trait TimekeepingTraits
          $pvl = $this->getPendings('VL',$startCutoff,$endCutoff);
          $pending_VL = count(collect($pvl)->where('isApproved',null));
 
+         //get other pendings
+         $pvt = $this->getPendings('VTO',$startCutoff,$endCutoff);
+         $pending_VTO = count(collect($pvt)->where('isApproved',null));
+
          $plwop = $this->getPendings('LWOP',$startCutoff,$endCutoff);
          $pending_LWOP = count(collect($plwop)->where('isApproved',null));
 
@@ -1236,6 +1283,9 @@ trait TimekeepingTraits
         //get other pendings
         $pvl = $this->getPendings('VL',$startCutoff,$endCutoff);
         $pending_VL = count(collect($pvl)->where('isApproved',null));
+
+        $pvt = $this->getPendings('VTO',$startCutoff,$endCutoff);
+        $pending_VTO = count(collect($pvt)->where('isApproved',null));
 
         $psl = $this->getPendings('SL',$startCutoff,$endCutoff);
         $pending_SL = count(collect($psl)->where('isApproved',null));
@@ -1265,13 +1315,16 @@ trait TimekeepingTraits
         $pvl = $this->getPendings('VL',$startCutoff,$endCutoff);
         $pending_VL = count(collect($pvl)->where('isApproved',null));
 
+        $pvt = $this->getPendings('VTO',$startCutoff,$endCutoff);
+        $pending_VTO = count(collect($pvt)->where('isApproved',null));
+
       }break;
       
      
     }
 
    
-    return ['leaves'=>$leaves,'pending_VL'=>$pending_VL, 'pending_SL'=>$pending_SL,'pending_LWOP'=>$pending_LWOP,'pending_FL'=>$pending_FL];
+    return ['leaves'=>$leaves,'pending_VL'=>$pending_VL, 'pending_SL'=>$pending_SL,'pending_LWOP'=>$pending_LWOP,'pending_FL'=>$pending_FL,'pending_VTO'=>$pending_VTO];
 
   }
 

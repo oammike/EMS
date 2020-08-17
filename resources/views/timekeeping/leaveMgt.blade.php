@@ -112,6 +112,10 @@
                       @if($pending_SL)<span class="label label-warning" style="font-size: small;"> ({{$pending_SL}}) </span> @endif</strong></a></li>
                     <li @if($type =='LWOP') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'LWOP','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-meh-o"></i> LWOP 
                       @if($pending_LWOP)<span class="label label-warning" style="font-size: small;"> ({{$pending_LWOP}}) </span> @endif</strong></a></li>
+
+                     <li @if($type =='VTO') class="active" @endif ><a <a href="{{action('UserController@leaveMgt',['type'=>'VTO','from'=>$from, 'to'=>$to])}}"><strong class="text-primary "><i class="fa fa-2x fa-history"></i> VTO
+                      @if($pending_VTO)<span class="label label-warning" style="font-size: small;"> ({{$pending_VTO}}) </span> @endif </strong></a></li>
+                    
                     <li @if($type =='FL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'FL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-male"></i><i class="fa fa-2x fa-female"></i> ML | PL | SPL 
                       @if($pending_FL)<span class="label label-warning" style="font-size: small;"> ({{$pending_FL}}) </span> @endif</strong></a></li>
                      @if ($isAdmin) 
@@ -146,7 +150,16 @@
                                 <td>{{$vl->lastname}}</td>
                                 <td style="font-size: x-small;">{{$vl->firstname}}</td>
                                 <td>{{$vl->program}}</td>
+
+                                @if($type=='VTO')
+
+                                <td>{{ number_format($vl->totalCredits*0.125,2) }}</td>
+                                @else
                                 <td>{{$vl->totalCredits}}</td>
+
+                                @endif
+
+
                                 <td style="font-size: x-small;">
                                   @if($type=='FL')
                                   <?php switch ($vl->FLtype) {
@@ -156,7 +169,14 @@
                                   {{date('M d h:i A', strtotime($vl->leaveStart))}} - {{date('M d h:i A', strtotime($vl->leaveEnd))}}  
                                   @else
                                   <small>{{$label}} </small><br/>
-                                  <strong>{{date('M d', strtotime($vl->leaveStart))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('M d', strtotime($vl->leaveEnd))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
+
+                                      @if($type=='VTO')
+                                      <strong>{{date('M d', strtotime($vl->productionDate))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('M d', strtotime($vl->productionDate))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
+                                      @else
+                                       <strong>{{date('M d', strtotime($vl->leaveStart))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('M d', strtotime($vl->leaveEnd))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
+
+                                      @endif
+
                                   @endif
 
                                 </td>
@@ -176,7 +196,14 @@
                                   
                                     <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#leaveModal{{$vl->leaveID}}"><i class="fa fa-info-circle"></i> Details </a>
                                     <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
-                                    <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+
+                                    @if($type=='VTO')
+                                      <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from= {{$vl->productionDate}}&to={{$vl->productionDate}}"><i class="fa fa-calendar"></i> DTR </a>
+                                    @else
+                                      <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+
+                                    @endif
+
                                     @if($vl->isApproved != '1')<a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete{{$vl->leaveID}}"><i class="fa fa-trash"></i> </a>@endif
                                   
                                   @else
@@ -189,7 +216,14 @@
                                     @endif
 
                                     <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
-                                    <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+
+                                    @if($type=='VTO')
+                                      <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->productionDate))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+                                    @else
+                                      <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+
+                                    @endif
+
                                     @if($vl->isApproved != '1')
                                     <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete{{$vl->leaveID}}"><i class="fa fa-trash"></i> </a>
                                     @endif
@@ -228,14 +262,32 @@
 
                                                <div class="row">
                                                 
-                                                <div class="col-sm-4 text-center" style="font-size: 12px">{{date('M d, Y [h:i A]',strtotime($vl->leaveStart))}}<br/>TO<br/> {{date('M d, Y [h:i A]',strtotime($vl->leaveEnd))}}</div>
+                                                @if($type=='VTO')
+                                                  <div class="col-sm-4 text-center" style="font-size: 12px">{{date('M d, Y [h:i A]',strtotime($vl->productionDate." ".$vl->leaveStart))}}<br/>TO<br/> {{date('M d, Y [h:i A]',strtotime($vl->productionDate." ".$vl->leaveEnd))}}</div>
 
-                                                <div class="col-sm-2">
-                                                  <p><strong> {{$vl->totalCredits}} </strong></p>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                 <p> {{$vl->notes}} </p>
-                                                </div>
+
+                                                  <div class="col-sm-2">
+                                                    <p><strong> {{ number_format($vl->totalCredits*0.125,2)}} </strong></p>
+                                                  </div>
+                                                  <div class="col-sm-6">
+                                                   <p>Deduct from: <strong>[{{$vl->deductFrom}}]</strong> <br/>{{$vl->notes}} </p>
+                                                  </div>
+
+                                                @else
+                                                  <div class="col-sm-4 text-center" style="font-size: 12px">{{date('M d, Y [h:i A]',strtotime($vl->leaveStart))}}<br/>TO<br/> {{date('M d, Y [h:i A]',strtotime($vl->leaveEnd))}}</div>
+
+
+                                                  <div class="col-sm-2">
+                                                    <p><strong> {{$vl->totalCredits}} </strong></p>
+                                                  </div>
+                                                  <div class="col-sm-6">
+                                                   <p>{{$vl->notes}} </p>
+                                                  </div>
+
+                                                @endif
+
+
+                                                
 
                                                 
                                               
@@ -354,34 +406,7 @@
      </section>
           
   
-<!-- Confirm Modal -->
-<div class="modal fade" id="qrModal" tabindex="-1" role="dialog" aria-labelledby="qrModalLabel">
-  
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="qrModalLabel">Employee QR Tag</h4>
-        </div>
-        <div class="box modal-body">
-          <div id="qr_code_wrapper">
-            <p>QR Code for <span id="qrModalName"></span>:</p>
-              <p><span id="claimer_error" class="help-block"></span></p>
-            <div id="qr-code-container"></div>
-          </div>
-          
-          <div class="overlay" id="qr_loader"> 
-            <i class="fa fa-refresh fa-spin"></i>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button id="modalConfirmClose" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button id="modalConfirmYes" type="button" class="btn btn-primary">Print</button>
-        </div>
-      </div>
-    </div>
-  
-</div>
+
 
 
 @endsection
@@ -419,6 +444,7 @@
 
       switch(t){
         case 'VL':  var processlink = "{{action('UserVLController@process')}}"; break;
+        case 'VTO':  var processlink = "{{action('UserVLController@processVTO')}}"; break;
         case 'SL':  var processlink = "{{action('UserSLController@process')}}";break
         case 'LWOP':  var processlink = "{{action('UserLWOPController@process')}}";break;
         case 'FL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
@@ -443,10 +469,16 @@
 
                     if (isApproved == '1') {
                       $('#row'+dataid).fadeOut();
+                      window.setTimeout(function(){
+                        window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
+                      }, 3000);
                      /*$.notify("Requested "+t+ " marked Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;*/
                     }
                    else {
                     $('#row'+dataid).fadeOut();
+                    window.setTimeout(function(){
+                        window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
+                      }, 3000);
                      // $.notify("Submitted "+requesttype+ " for "+res.firstname+" :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} ); window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
                    }
                    
