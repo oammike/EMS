@@ -142,7 +142,7 @@
                           <tbody>
                             @foreach($allLeave as $vl)
 
-                             <tr @if( is_null($vl->isApproved)) style="background-color:#fcfdc4" @endif >
+                             <tr id="row{{$vl->leaveID}}" @if( is_null($vl->isApproved)) style="background-color:#fcfdc4" @endif >
                                 <td>{{$vl->lastname}}</td>
                                 <td style="font-size: x-small;">{{$vl->firstname}}</td>
                                 <td>{{$vl->program}}</td>
@@ -173,16 +173,142 @@
                                   <?php $unrevokeable = \Carbon\Carbon::now()->addDays(-14); ?>
 
                                   @if($vl->leaveStart < $unrevokeable)
-                                  <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
-                                  <a class="btn btn-xs btn-default"><i class="fa fa-info-circle"></i> Details </a>
-                                  <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
+                                  
+                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#leaveModal{{$vl->leaveID}}"><i class="fa fa-info-circle"></i> Details </a>
+                                    <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
+                                    <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+                                    @if($vl->isApproved != '1')<a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete{{$vl->leaveID}}"><i class="fa fa-trash"></i> </a>@endif
+                                  
                                   @else
-                                  <a class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> Update </a>
-                                  <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
-                                  <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+                                    @if($vl->isApproved == '1')
+                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#leaveModal{{$vl->leaveID}}"><i class="fa fa-info-circle"></i> Details </a>
+
+                                    @else
+                                    <a class="btn btn-xs btn-warning" data-toggle="modal" data-target="#leaveModal{{$vl->leaveID}}"><i class="fa fa-pencil"></i> Update </a>
+                                     
+                                    @endif
+
+                                    <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
+                                    <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+                                    @if($vl->isApproved != '1')
+                                    <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete{{$vl->leaveID}}"><i class="fa fa-trash"></i> </a>
+                                    @endif
                                   @endif
                                 </td>
                               </tr>
+
+                              <!-- MODALS -->
+                              <div class="modal fade" id="leaveModal{{$vl->leaveID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title text-success" id="myModalLabel"><i class="fa fa-calendar"></i> {{$label}} Details </h4>
+                                      
+                                    </div> 
+                                    <div class="modal-body-upload" style="padding:20px;">
+
+                                      <h4 class="pull-right" style="text-align: right;"> <a href="{{action('UserController@show',$vl->userID)}}" target="_blank"><i class="fa fa-2x fa-user"></i></a> {{$vl->lastname}}, {{$vl->firstname}} <em>({{$vl->nickname}} )</em><br/> 
+                                        <strong><a href="{{action('CampaignController@show',$vl->programID)}}" target="_blank">{{$vl->program}}</a> </a></strong> <br/><br/></h4>
+
+                                       <div class="row">
+
+                                           
+                                            <div class="col-sm-12">
+
+                                              <div class="row">
+                                                
+                                                <div class="col-sm-4 text-center"><h5 class="text-primary text-center">Covered Date(s)</h5></div>
+                                                <div class="col-sm-2"><h5 class="text-primary">Credits</h5></div>
+                                                <div class="col-sm-6"><h5 class="text-primary">Notes</h5></div>
+                                                
+                                                
+                                              </div>
+
+                                               <div class="row">
+                                                
+                                                <div class="col-sm-4 text-center" style="font-size: 12px">{{date('M d, Y [h:i A]',strtotime($vl->leaveStart))}}<br/>TO<br/> {{date('M d, Y [h:i A]',strtotime($vl->leaveEnd))}}</div>
+
+                                                <div class="col-sm-2">
+                                                  <p><strong> {{$vl->totalCredits}} </strong></p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                 <p> {{$vl->notes}} </p>
+                                                </div>
+
+                                                
+                                              
+                                              </div>
+
+                                             
+                                            </div>
+
+                                             
+                                             
+                                       </div>
+
+                                       @if($vl->isApproved)
+
+                                       <h4 class="text-success pull-right"><br/><br/><i class="fa fa-thumbs-up"></i> Approved</h4>
+                                       
+                                       
+                                       
+                                      
+                                       @elseif($vl->isApproved=='0')
+                                       <h4 class="text-danger pull-right"><br/><br/><i class="fa fa-thumbs-down"></i> Denied</h4>
+
+                                       @else
+                                      
+                                          <button type="button" class="btn btn-default btn-md pull-right" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-times" ></i> Close </button>
+                                          <?php ($type=='FL') ? $t=$vl->FLtype : $t=$type; ?>
+                                          <a href="#" class="process btn btn-danger btn-md pull-right" data-leaveType="{{$t}}" data-action="0" data-id="{{$vl->leaveID}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-down" ></i> Deny </a>
+                                          <a href="#" class="process btn btn-success btn-md pull-right" data-leaveType="{{$t}}" data-action="1"  data-id="{{$vl->leaveID}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-up" ></i> Approve </a>
+
+                                      @endif
+
+                                   
+                                    </div> 
+                                    <div class="modal-footer no-border">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- END MODALS -->
+
+                              <!-- DELETE MODAL -->
+                              <div class="modal fade" id="delete{{$vl->leaveID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                      </button>
+                                      <h4 class="modal-title" id="myModalLabel">Delete this {{$label}}</h4></div>
+
+                                      <div class="modal-body"><br/><br/>Are you sure you want to delete this {{$type}} request by <strong>{{$vl->firstname}} {{$vl->lastname}} of {{$vl->program}} </strong>?<br/></div>
+                                      <div class="modal-footer no-border">
+
+                                        <form action="{{$deleteLink}}{{$vl->leaveID}}" method="POST" class="btn-outline pull-right" id="deleteReq">
+                                          <?php if ($type=='FL'){
+                                                  switch ($vl->FLtype) {
+                                                    case 'ML': $typeid = 16; break;
+                                                    case 'PL': $typeid = 17; break;
+                                                    case 'SPL': $typeid = 18; break;
+                                                  }
+                                                }else $typeid = $notifType;?>
+                                          <input type="hidden" name="notifType" value="{{$typeid}}" />
+                                          <input type="hidden" name="redirect" value="1" />
+                                          <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> Yes</button>
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          <input type="hidden" name="_token" value="{{ csrf_token() }}" /> 
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              <!-- END DELETE -->
 
                           
 
@@ -278,6 +404,67 @@
    'use strict';
   
   
+    $('.process').on('click',function(){
+      var t = $(this).attr('data-leaveType');
+      var dataid = $(this).attr('data-id');
+      var isApproved = $(this).attr('data-action');
+      var f = $('#from').val();
+      var to = $('#to').val();
+      var _token = "{{ csrf_token() }}";
+
+      if(isApproved=='1')
+        var appr="Approved";
+      else var appr = "Denied";
+     
+
+      switch(t){
+        case 'VL':  var processlink = "{{action('UserVLController@process')}}"; break;
+        case 'SL':  var processlink = "{{action('UserSLController@process')}}";break
+        case 'LWOP':  var processlink = "{{action('UserLWOPController@process')}}";break;
+        case 'FL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
+        case 'ML':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
+        case 'PL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
+        case 'SPL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
+      }
+
+      confirm('You are about to set this '+t +' as: '+appr);
+
+      $.ajax({
+                url: processlink,
+                type:'POST',
+                data:{ 
+                  'id': dataid,
+                  'isApproved': isApproved,
+                  '_token':_token
+                },
+                success: function(res){
+                  console.log(res);
+                  $('#leaveModal'+dataid).modal('hide');
+
+                    if (isApproved == '1') {
+                      $('#row'+dataid).fadeOut();
+                     /*$.notify("Requested "+t+ " marked Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;*/
+                    }
+                   else {
+                    $('#row'+dataid).fadeOut();
+                     // $.notify("Submitted "+requesttype+ " for "+res.firstname+" :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} ); window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
+                   }
+                   
+
+                },
+                error: function(){
+                  console.log(res);
+                  $('#leaveModal'+dataid).modal('hide');
+
+                   $.notify("An error occured. Please try again later.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                    
+                }
+
+
+              });
+
+    });
 
     $("#active").DataTable({
 
@@ -444,48 +631,7 @@
 
    });
 
-   $('table').on('click','.wfh',function(){
-      var id = $(this).attr('data-cardid');
-      var empname = $(this).attr('data-name');
-      var chck = $(this).prop('checked');
-      if (chck == true) {
-        var enableWFH = 1;
-        alert("Enable Work From Home for employee: "+empname);
-      }
-
-      else {
-        var enableWFH = 0;
-        alert("Disable Work From Home for employee: "+empname);
-      }
-
-
-      
-      var _token = "{{ csrf_token() }}";
-
-      $.ajax({
-                      url:"{{action('UserController@wfh')}} ",
-                      type:'POST',
-                      data:{id:id, enableWFH:enableWFH,  _token:_token},
-                      error: function(response)
-                      {
-                          
-                        console.log("Error saving data: ");
-
-                          
-                          return false;
-                      },
-                      success: function(response)
-                      {
-
-                        //chck.attr('disabled',true);
-                        console.log(response);
-
-                          return true;
-                      }
-                  });
-
-
-   });
+   
 
    $('.teamOption, .saveBtn').hide();
 

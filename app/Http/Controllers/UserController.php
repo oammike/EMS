@@ -1915,7 +1915,7 @@ class UserController extends Controller
 
       if(!$isAdmin) return view('access-denied');
 
-      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addMonths(-1)->format('m/d/Y');
+      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-14)->format('m/d/Y'); 
       (Input::get('to')) ? $to = Input::get('to') : $to = date('m/d/Y');
 
       (Input::get('type')) ? $type = Input::get('type') : $type = 'VL';
@@ -1928,14 +1928,14 @@ class UserController extends Controller
       $pending_FL = $allL['pending_FL'];
 
       switch ($type) {
-        case 'VL':{  $label = "Vacation Leave" ;} break;
-        case 'SL':{ $label = "Sick Leave" ;} break;
-        case 'LWOP':{ $label = "Leave Without Pay" ;} break;
-        case 'FL':{ $label = "ML / PL / SPL " ;} break;
-        default: { $label = "Vacation Leave";} break;
+        case 'VL':{  $label = "Vacation Leave" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
+        case 'SL':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
+        case 'LWOP':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
+        case 'FL':{ $label = "ML / PL / SPL " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
+        default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
       }
 
-      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL'));
+      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','deleteLink','notifType'));
 
     }
 
