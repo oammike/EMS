@@ -1910,15 +1910,21 @@ class UserController extends Controller
     public function leaveMgt()
     {
       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
-
-      $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
-
-      if(!$isAdmin) return view('access-denied');
-
       (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-14)->format('m/d/Y'); 
       (Input::get('to')) ? $to = Input::get('to') : $to = date('m/d/Y');
 
       (Input::get('type')) ? $type = Input::get('type') : $type = 'VL';
+      $stamp = Carbon::now('GMT+8');
+
+      $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
+
+      if(!$isAdmin){
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Tried lmgt_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);return view('access-denied');
+      } 
+
+      
 
       $allL = $this->getLeaves($from,$to,$type);
       $allLeave =$allL['leaves'];
@@ -1936,6 +1942,15 @@ class UserController extends Controller
         case 'FL':{ $label = "ML / PL / SPL " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
         default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
       }
+
+      
+
+      //if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n LeaveMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+      //      }
+
 
      
 
