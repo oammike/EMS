@@ -4,6 +4,124 @@
             
 
             <div class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/bdo_1.jpg" width="100%" /><br/>
+                    <p  style="padding: 30px;" class="text-left" >
+                      Good news!<br/><br/>
+
+ 
+
+                      You may now apply for a BDO Installment Card that gives you financial flexibility and accessible cash for your every need. Convert 100% of your credit limit to cash and enjoy light installment payment options of 6, 12, 18, 24 and 36 months. Credit limit automatically gets replenished every time you pay. You can re-avail anytime up to your maximum available credit limit.<br/><br/>
+
+                       
+
+                      <strong>Benefits:</strong><br/><br/>
+
+
+                      1. Accessible Cash<br/>
+                          Avail through our BDO Dela Rosa Rada branch (near our JAKA office). Refer to contact details below.<br/><br/>
+
+                       
+
+                      2. Financial Flexibility<br/>
+
+                          Choose when and how much to avail from your approved credit limit.<br/><br/>
+
+                       
+
+                      3. Easy Payment Terms<br/>
+
+                          Pay in monthly installment terms up to 36 months.<br/><br/>
+
+                       
+
+                      4. Hassle-free application<br/>
+
+                          No need for collateral/co-maker and no application processing fee.<br/><br/>
+
+                       
+
+                      5. Low Monthly Effective Interest Rate<br/><br/>
+
+                       
+
+                      6. Low Membership fee of P1,000 per year.
+                    </p>
+
+                    
+                   
+                    
+                    
+            </div>
+
+             <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/bdo_2.jpg" width="100%" /><br/>
+                   
+                    
+                    
+            </div>
+
+             <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/bdo_3.jpg" width="100%" /><br/>
+
+                    <p  style="padding: 30px;" class="text-left" >
+                      <strong class="text-primary"> HOW TO APPLY FOR A BDO INSTALLMENT CARD?</strong><br/><br/>
+
+   
+                      <strong>Application Requirements/Eligibility Criteria</strong><br/><br/>
+
+                      (1)   Must be 25 years old at time of application but not more than 60 years old upon card expiry,<br/>
+
+                      (2)   Must be a Filipino citizen,<br/>
+
+                      (3)   Must be regular employee,<br/>
+
+                      (4)   Minimum Gross Fixed Income Requirement (Annual): Php260,000.00 for Employed/Salaried,<br/>
+
+                      (5)   Must have a mobile phone and at least one landline phone at either residence or office,<br/>
+
+                      (6)   Residence or office must be within any area where a BDO branch is located.<br/><br/>
+
+                       
+
+                      <strong>Documentary Requirements</strong><br/><br/>
+
+                      (1)   BDO Installment Card application form (e-signature is not accepted),<br/>
+
+                      (2)   Two valid photo-bearing ID (front & bank) – 1 government issued ID and 1 company ID,<br/>
+
+                            (no need to affix signature, may be printed black and white or colored),<br/>
+
+                      (3)   Original Certificate of Employment (COE) with latest 1 month payslips,<br/>
+
+                      (4)   Signed Employment Verification Form.<br/><br/><br/><br/>
+
+                      BDO website: <a href="www.bdo.com.ph" target="_blank">www.bdo.com.ph</a><br/>
+                      IC Application form link: <a href="https://www.bdo.com.ph/personal/credit-cards/mastercard/bdo-installment-card" target="_blank">https://www.bdo.com.ph/personal/credit-cards/mastercard/bdo-installment-card</a><br/><br/>
+
+                       
+
+                      <strong>Note: All applications are subject to credit evaluation.</strong><br/><br/>Submission of accomplished forms along with documentary requirements
+
+                    </p>
+                   
+                    
+                    
+            </div>
+
+            <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-camera"></i> World Photography Day <br/><small>Wednesday, Aug. 19</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
