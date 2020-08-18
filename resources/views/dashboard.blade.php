@@ -96,7 +96,11 @@ select:-webkit-autofill:focus {
               <!-- For approvals -->
                   <div class="box box-info"style="background: rgba(256, 256, 256, 0.5)">
                     <div class="box-header with-border">
-                      <h3 class="box-title pull-left">For Approvals <small>(<span class="text-danger" id="approvalcount"></span>)</small></h3>
+                      <h3 class="box-title pull-left">For Approvals <small>(<span class="text-danger" id="approvalcount"></span>)</small>
+
+                        <a title="Leave Management" style="margin-left: 10px" class="btn btn-xs btn-default" href="{{action('UserController@leaveMgt')}}" target="_blank"><i class="fa fa-users"></i> <strong>Workforce Team</strong>, click HERE</a></h3>
+
+                      
 
                       <div class="box-tools pull-right">
                         <button type="button" id="refresh" title="Refresh Approvals" class="btn btn-box-tool"><i class="fa fa-refresh"></i>

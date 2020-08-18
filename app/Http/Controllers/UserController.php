@@ -1945,11 +1945,11 @@ class UserController extends Controller
 
       
 
-      //if($this->user->id !== 564 ) {
+      if($this->user->id !== 564 ) {
               $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n LeaveMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
-      //      }
+            }
 
 
      
