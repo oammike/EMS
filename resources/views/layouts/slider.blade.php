@@ -20,8 +20,8 @@
                     <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
                     <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
                     <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
  
                     
               </div>
