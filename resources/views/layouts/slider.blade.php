@@ -9,7 +9,7 @@
                      
                     <strong>August 21, 2020</strong> is a special holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
 
-                    Below is a guide on how the regular holiday pay is computed.</p>
+                    Below is a guide on how the special holiday pay is computed.</p>
 
 
                     <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of August 21, 2020</p>
