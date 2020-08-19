@@ -1,9 +1,32 @@
 
 
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   August 21, 2020 Special Holiday |<br/> Ninoy Aquino Day <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>August 21, 2020</strong> is a special holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
 
-            
+                    Below is a guide on how the regular holiday pay is computed.</p>
 
-            <div class="item active  text-center" >
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of August 21, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+ 
+                    
+              </div>
+
+              <div class="item   text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
