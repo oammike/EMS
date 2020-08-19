@@ -50,6 +50,50 @@
                       6. Low Membership fee of P1,000 per year.
                     </p>
 
+                    <table class="table">
+                      <tr>
+                        <td width="50%" class="text-left"><strong>Received application forms:</strong><br/><br/>
+
+                            Monday to Thursday at 10:00AM<br/>
+
+                            For pick-up by BDO representative every Friday</td>
+                        <td style="font-size: small;">JAKA office thru courier<br/><br/>
+
+                            Office Address:<br/>
+
+                            HR Personnel<br/>
+
+                            OAMPI Inc.<br/>
+
+                            PH1, 6780 Ayala Avenue, Makati City  </td>
+                      </tr>
+                      <tr>
+                        <td class="text-left">For employees who are working onsite in G2</td>
+                         <td style="font-size: small;">Look for Jayson at HR office from 7am -4pm, Mondays thru Fridays</td>
+
+                           
+                      </tr>
+                      <tr>
+                        <td class="text-left">For Davao employees</td>
+                         <td style="font-size: small;"> Email the scanned copy of the required documents to Ms. Anna Marie N. Santiago and Kennedy Marco N. Santiago (bh.dela-rosa-rada@bdo.com.ph, foz.kennedymarco@notes.bdo).<br/><br/>
+
+                       
+
+                      Then submit the hard copies of the signed application form along with the required documents to Dang, HR Officer in Davao.</td>
+                      </tr>
+
+
+                      
+
+                       
+
+                       
+
+                       
+
+                     
+                    </table>
+
                     
                    
                     
