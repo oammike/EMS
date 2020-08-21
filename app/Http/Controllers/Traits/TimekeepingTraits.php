@@ -1178,6 +1178,101 @@ trait TimekeepingTraits
 
   }
 
+  public function getLeaveEarnings($from, $to,$type,$emp)
+  {
+    
+    $startCutoff = Carbon::parse($from,'Asia/Manila'); 
+    $endCutoff = Carbon::parse($to,'Asia/Manila');
+
+
+    DB::connection()->disableQueryLog();
+    if($type=='VL'){ 
+      $db = 'user_vlearnings'; $db_update='vlupdate';
+    }
+    else{
+      $db = 'user_slearnings'; $db_update='slupdate';
+    }
+
+    //1 : Regular 0.42
+    //2 : Part time 0.21
+    //3 : New hires
+    //4 : Irregular
+
+    switch ($emp) 
+    {
+      case '1':
+      {
+
+         $earnings = DB::table('users')->where([ 
+                      ['users.status_id', '!=', 2],
+                      ['users.status_id', '!=', 3],
+                      ['users.status_id', '!=', 6],
+                      ['users.status_id', '!=', 7],
+                      ['users.status_id', '!=', 8],
+                      ['users.status_id', '!=', 9],
+                      ['users.status_id', '!=', 10],
+                      ['users.status_id', '!=', 11],
+                      ['users.status_id', '!=', 12],
+                      ['users.status_id', '!=', 13],
+                      ['users.status_id', '!=', 14],
+                      ['users.status_id', '!=', 16],
+                      ['users.status_id', '!=', 17]
+                    ])->
+                    leftJoin($db,$db.'.user_id','=','users.id')->
+                    join('team','team.user_id','=','users.id')->
+                    join('campaign','team.campaign_id','=','campaign.id')->
+                    leftJoin($db_update,$db_update.'.id','=',$db.'.'.$db_update.'_id')->
+                    where($db_update.'.period','>=',$startCutoff->format('Y-m-d'))->
+                    select('campaign.name as program', 'users.id as userID', 'users.lastname','users.firstname',$db.'.id',$db.'.'.$db_update.'_id',$db_update.'.period',$db_update.'.credits')->
+                    where($db_update.'.period','<=',$endCutoff->format('Y-m-d'))->get();
+
+         $people = collect($earnings)->groupBy('userID');
+         $periods = collect($earnings)->pluck('period')->unique();
+
+         $months = [];
+         $month_updates = new Collection;
+
+         //we create a collection for all months along with earnings
+         foreach ($periods as $key) 
+         {
+
+            $m = Carbon::parse($key,'Asia/Manila');
+            
+            if (!in_array($m->format('M Y'), $months))
+            { 
+              array_push($months, $m->format('M Y'));
+              $m1 =Carbon::parse($m,'Asia/Manila')->startOfMonth();
+              $m2 =Carbon::parse($m,'Asia/Manila')->endOfMonth();
+
+              $d = DB::select( DB::raw("SELECT ".$db_update.".id, ".$db_update.".credits,DATE_FORMAT(".$db_update.".period, '%Y-%m-%d')as datePeriod FROM ".$db_update." WHERE MONTH(".$db_update.".period) = :m AND DAY(".$db_update.".period) >= :d AND DAY(".$db_update.".period) <= :dt  ORDER BY ".$db_update.".period ASC"), array(
+                       'm' => $m->format('m'),
+                       'd' => $m1->format('d'),
+                       'dt' =>$m2->format('d')
+                     )); 
+
+              $month_updates->push(['month'=>$m->format('M Y'),'updateIDs'=>$d]);
+              
+            }
+         }
+
+        
+        
+
+      }break;
+
+      
+      
+     
+    }
+
+    //return $people_earns;
+    
+    return (['periods'=>$periods,'months'=>$months, 'month_updates'=>$month_updates, 'people'=>$people, 'type'=>$type]);
+
+   
+
+  }
+
   public function getLeaves($from, $to,$type)
   {
     
@@ -1187,7 +1282,8 @@ trait TimekeepingTraits
 
     DB::connection()->disableQueryLog();
 
-    switch ($type) {
+    switch ($type) 
+    {
       case 'VL':
       {
          $leaves = DB::table('user_vl')->where([ 

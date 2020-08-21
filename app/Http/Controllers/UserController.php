@@ -1958,6 +1958,66 @@ class UserController extends Controller
 
     }
 
+    public function leaveMgt_earnings()
+    {
+      $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-14)->format('m/d/Y'); 
+      (Input::get('to')) ? $to = Input::get('to') : $to = date('m/d/Y');
+
+      if(Input::get('type')) {
+        $type = Input::get('type') ;
+        $emp = Input::get('emp');
+      }else {
+        $type = 'VL';
+        $emp = '1';
+      }
+      $stamp = Carbon::now('GMT+8');
+
+      $isAdmin =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
+
+      if(!$isAdmin){
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Tried Earnings_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);return view('access-denied');
+      } 
+
+      
+
+      $allL = $this->getLeaves($from,$to,$type);
+      $earnings = $this->getLeaveEarnings($from,$to,$type,$emp);
+
+      //return $earnings['people'];
+
+      $allLeave =$allL['leaves'];
+      $pending_VL = $allL['pending_VL'];
+      $pending_SL = $allL['pending_SL'];
+      $pending_LWOP = $allL['pending_LWOP'];
+      $pending_FL = $allL['pending_FL'];
+      $pending_VTO = $allL['pending_VTO'];
+
+      switch ($emp) {
+        case '1':{  $label = " Regular (0.42)" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
+        case '2':{  $label = "Part time (0.21)" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;} break;
+        case '3':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
+        case '4':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
+       default: { $label = "Regular (0.42)";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
+      }
+
+      
+
+      if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n LeaveMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+
+     
+
+      return view('timekeeping.leaveMgt_earnings',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType','emp','earnings'));
+
+    }
+
 
     public function listAllActive(){
 

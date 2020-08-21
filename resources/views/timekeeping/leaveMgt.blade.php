@@ -89,17 +89,22 @@
                   <div class="row">
                     <div class="col-lg-5"> <h4> From: <input id="from"  type="text" name="from" placeholder="{{$from}}" value="{{$from}}" class="datepicker form-control" /></h4> </div>
                     <div class="col-lg-5"> <h4> Until: <input id="to" type="text" name="to" placeholder="{{$to}}" value="{{$to}}" class="datepicker form-control" /></h4> </div>
-                    <div class="col-lg-2"><a id="update" style="margin-top: 20px" class="pull-left btn btn-default btn-lg">Update Table</a> </div>
+                    <div class="col-lg-2"><a id="update" style="margin-top: 20px" class="pull-left btn btn-default btn-sm">Update Table</a> </div>
                   </div>
                  
                  
                  
                 </div>
-                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                  <!-- <a class="btn btn-primary pull-right" style="margin-left: 2px"> Export CSV </a> -->
+                 
+                  
+                </div>
               </div>
 
               <!-- TABLE: LEFT -->
               <div class="box-body">
+
 
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
@@ -125,9 +130,16 @@
 
 
                   </ul>
+
+
                   
 
                   <div class="tab-content">
+                     @if($type =='VL')
+                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'VL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-primary pull-right"><i class="fa fa-calendar-check-o"></i> VL Earnings</a>
+                     @elseif($type =='SL')
+                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'SL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-danger pull-right"><i class="fa fa-calendar-check-o"></i> SL Earnings</a>
+                     @endif
                     <div class="tab-pane active" id="tab_1"> <!-- ACTIVE EMPLOYEES -->
                       <h1 class="pull-right" style="color:#dedede">{{$label}}</h1>
                       <div class="row" style="margin-top:50px">
