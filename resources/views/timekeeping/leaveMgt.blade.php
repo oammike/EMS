@@ -411,6 +411,7 @@
             </div><!--end left -->
 
             <?php ($type=='VL') ? $route="user_vl.addVLupdate" : $route="user_sl.addSLupdate"; ?>
+            @if($type=='VL')
             @include('layouts.modals-addNewEarnings', [
                     'modelRoute'=>$route,
                     'modelID' => '', 
@@ -428,6 +429,8 @@
                     'modalTitle'=>'Give New', 
                     'formID'=>'submitSLearn',
                     'icon'=>'glyphicon-up' ])
+
+            @endif
 
 
            
