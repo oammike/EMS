@@ -735,12 +735,12 @@ class EngagementController extends Controller
             //**** with image attachment
             if($k !== "")
             {
-                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $k == '25'  || $k == '27'|| $k == '29' || $k == '31' || $k == '33' || $k == '35' || $k == '37'|| $k == '39' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
+                if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17'||  $k == '19'||  $k == '21'||  $k == '23' || $k == '25'  || $k == '27'|| $k == '29' || $k == '31' || $k == '33' || $k == '35' || $k == '37'|| $k == '39' || $k == '41' || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
 
                 }
                 else 
                 {
-                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'||$k == '25' || $k == '27' || $k == '29' || $k == '31' || $k == '33' ||$k == '35'|| $k == '37'|| $k == '39'  ||  $allitemTypes[$ctr]=='IMG') && $request->file('file') )
+                    if(($k == '4' || $k == '13'|| $k == '15' ||  $k == '17' ||  $k == '19'||  $k == '21'||  $k == '23'||$k == '25' || $k == '27' || $k == '29' || $k == '31' || $k == '33' ||$k == '35'|| $k == '37'|| $k == '39' ||  $k == '41' || $allitemTypes[$ctr]=='IMG') && $request->file('file') )
                     {
                         $image_code = '';
                         $image = $request->file('file');

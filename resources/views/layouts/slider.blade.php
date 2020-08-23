@@ -1,27 +1,26 @@
 
 
-             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> AUGUST 25, 2020</strong> PAYOUT <br/>
+             
+
+              <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"> Buwan ng Wika <img src="storage/uploads/rpFlag.png" width="8%" /> <br/><small>August 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
+                    <p  style="padding: 30px;" class="text-center">
+                      August is Buwan ng Wika!<br/><br/>
+
+                      <strong>What’s the most beautiful word/phrase in the Filipino language for you? </strong>Any Filipino dialect will also do!<br/><br/>
+
+                      All participants will get 20 points. </p>
+
+                    <img src="storage/uploads/wall_week16.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',22)}}"> Check out our ECQonnection Wall</a>
                     
-                    Please be informed that our cut-off for August 25 payout is August 20, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before FRIDAY 12:00 noon of August 21, 2020</strong>.<br/><br/>
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/>
-
- 
                     
-              </div>
+            </div>
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   August 21, 2020 Special Holiday |<br/> Ninoy Aquino Day <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -209,24 +208,7 @@
                     
             </div>
 
-            <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-camera"></i> World Photography Day <br/><small>Wednesday, Aug. 19</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">This week is <strong class="text-primary"></strong><i class="fa fa-camera"></i> World Photography Day!<br/><br/>
-
-                   It’s World Photo Day on August 19!<br/><br/>
-
-                    It’s always great to focus and capture the beauty around us! Share your favorite photo you have taken in the past 5 months.<br/><br/>
-
-                    All participants will get 20 points.  </p>
-
-                    <img src="storage/uploads/wall_week15.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',21)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
+            
 
             
 
@@ -2190,6 +2172,26 @@
 
 
 <?php /*
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> AUGUST 25, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for August 25 payout is August 20, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before FRIDAY 12:00 noon of August 21, 2020</strong>.<br/><br/>
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   July 31, 2020 Holiday |<br/> Eid'l Adha Pay <br/>
                   
