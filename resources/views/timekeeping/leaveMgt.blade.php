@@ -135,11 +135,17 @@
                   
 
                   <div class="tab-content">
+                    @if($canCredit)
+                     <a  data-toggle="modal" data-target="#myModal_giveNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-line-chart"></i> Give Credits </a>
+
+                    <a  data-toggle="modal" data-target="#myModal_addNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-plus"></i> New </a>
                      @if($type =='VL')
                      <a href="{{action('UserController@leaveMgt_earnings',['type'=>'VL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-primary pull-right"><i class="fa fa-calendar-check-o"></i> VL Earnings</a>
                      @elseif($type =='SL')
                      <a href="{{action('UserController@leaveMgt_earnings',['type'=>'SL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-danger pull-right"><i class="fa fa-calendar-check-o"></i> SL Earnings</a>
                      @endif
+                    @endif
+
                     <div class="tab-pane active" id="tab_1"> <!-- ACTIVE EMPLOYEES -->
                       <h1 class="pull-right" style="color:#dedede">{{$label}}</h1>
                       <div class="row" style="margin-top:50px">
@@ -403,6 +409,25 @@
                 <!-- /.box-footer -->
               <!-- /.box -->
             </div><!--end left -->
+
+            <?php ($type=='VL') ? $route="user_vl.addVLupdate" : $route="user_sl.addSLupdate"; ?>
+            @include('layouts.modals-addNewEarnings', [
+                    'modelRoute'=>$route,
+                    'modelID' => '', 
+                    'modalMessage'=> " ",
+                    'modelName'=>$type." Earnings ", 
+                    'modalTitle'=>'Add New', 
+                    'formID'=>'submitSLearn',
+                    'icon'=>'glyphicon-up' ])
+
+            @include('layouts.modals-giveNewEarnings', [
+                    'modelRoute'=>$route,
+                    'modelID' => '', 
+                    'modalMessage'=> " ",
+                    'modelName'=>$type." Earnings ", 
+                    'modalTitle'=>'Give New', 
+                    'formID'=>'submitSLearn',
+                    'icon'=>'glyphicon-up' ])
 
 
            

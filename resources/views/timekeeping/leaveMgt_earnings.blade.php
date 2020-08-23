@@ -322,7 +322,7 @@
                       "deferRender": true,
                       "processing":true,
                       "stateSave": false,
-                      "order": [ 5, "desc" ],
+                      "order": [ 0, "asc" ],
                       "lengthMenu": [20, 100, 500],
                       "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
                       "scrollX":true,

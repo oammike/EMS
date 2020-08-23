@@ -1917,6 +1917,7 @@ class UserController extends Controller
       $stamp = Carbon::now('GMT+8');
 
       $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
+      $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
 
       if(!$isAdmin){
         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
@@ -1934,16 +1935,16 @@ class UserController extends Controller
       $pending_FL = $allL['pending_FL'];
       $pending_VTO = $allL['pending_VTO'];
 
+      $update_credits=null;$update_periods=null;
+
       switch ($type) {
-        case 'VL':{  $label = "Vacation Leave" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
+        case 'VL':{  $label = "Vacation Leave" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10; $u_c = DB::table('vlupdate')->where('period','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->orderBy('period','DESC')->get();$update_credits = collect($u_c)->groupBy('period'); $update_periods = collect($u_c)->pluck('period')->unique();} break;
         case 'VTO':{  $label = "Voluntary Time Off" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;} break;
         case 'SL':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
         case 'LWOP':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
         case 'FL':{ $label = "ML / PL / SPL " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
         default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
       }
-
-      
 
       if($this->user->id !== 564 ) {
               $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
@@ -1954,7 +1955,7 @@ class UserController extends Controller
 
      
 
-      return view('timekeeping.leaveMgt',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType'));
+      return view('timekeeping.leaveMgt',compact('canCredit', 'isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType','update_periods','update_credits'));
 
     }
 
@@ -1986,7 +1987,6 @@ class UserController extends Controller
       $allL = $this->getLeaves($from,$to,$type);
       $earnings = $this->getLeaveEarnings($from,$to,$type,$emp);
 
-      //return $earnings['people'];
 
       $allLeave =$allL['leaves'];
       $pending_VL = $allL['pending_VL'];

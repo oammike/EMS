@@ -101,6 +101,19 @@ class UserSLController extends Controller
         
     }
 
+    public function addSLupdate(Request $request)
+    {
+        $sl = new SLupdate;
+        $sl->period = Carbon::parse($request->newperiod,'Asia/Manila')->format('Y-m-d');
+        $sl->credits = $request->newearning;
+        $sl->save();
+
+        return back();
+        
+    }
+
+
+
     public function checkExisting(Request $request)
     {
         $existingLeave=0;

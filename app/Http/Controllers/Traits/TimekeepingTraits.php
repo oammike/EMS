@@ -1224,13 +1224,14 @@ trait TimekeepingTraits
                     leftJoin($db_update,$db_update.'.id','=',$db.'.'.$db_update.'_id')->
                     where($db_update.'.period','>=',$startCutoff->format('Y-m-d'))->
                     select('campaign.name as program', 'users.id as userID', 'users.lastname','users.firstname',$db.'.id',$db.'.'.$db_update.'_id',$db_update.'.period',$db_update.'.credits')->
-                    where($db_update.'.period','<=',$endCutoff->format('Y-m-d'))->get();
+                    where($db_update.'.period','<=',$endCutoff->format('Y-m-d'))->orderBy('users.lastname')->get();
 
          $people = collect($earnings)->groupBy('userID');
          $periods = collect($earnings)->pluck('period')->unique();
 
          $months = [];
          $month_updates = new Collection;
+
 
          //we create a collection for all months along with earnings
          foreach ($periods as $key) 
@@ -1249,6 +1250,9 @@ trait TimekeepingTraits
                        'd' => $m1->format('d'),
                        'dt' =>$m2->format('d')
                      )); 
+
+              //$peopleEarns = collect($earnings)->where('vlupdate_id', collect($d)->pluck('id')->flatten()); //collect($earnings)->where('vlupdate_id',,'people_earns'=>$peopleEarns 
+
 
               $month_updates->push(['month'=>$m->format('M Y'),'updateIDs'=>$d]);
               

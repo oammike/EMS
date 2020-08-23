@@ -546,6 +546,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_vl.addCredits',
         'uses'=>'UserVLController@addCredits') );
 
+        Route::post('/user_vl/addVLupdate', array(
+        'as'=> 'user_vl.addVLupdate',
+        'uses'=>'UserVLController@addVLupdate') );
+
         Route::post('/user_vl/checkExisting', array(
         'as'=> 'user_vl.checkExisting',
         'uses'=>'UserVLController@checkExisting') );
@@ -621,6 +625,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         Route::post('/user_sl/addCredits', array(
         'as'=> 'user_sl.addCredits',
         'uses'=>'UserSLController@addCredits') );
+
+        Route::post('/user_sl/addSLupdate', array(
+        'as'=> 'user_sl.addSLupdate',
+        'uses'=>'UserSLController@addSLupdate') );
 
          Route::post('/user_sl/addSLearnings', array(
         'as'=> 'user_sl.addSLearnings',

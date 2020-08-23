@@ -112,6 +112,17 @@ class UserVLController extends Controller
 
     }
 
+    public function addVLupdate(Request $request)
+    {
+        $vl = new VLupdate;
+        $vl->period = Carbon::parse($request->newperiod,'Asia/Manila')->format('Y-m-d');
+        $vl->credits = $request->newearning;
+        $vl->save();
+
+        return back();
+        
+    }
+
     public function checkExisting(Request $request)
     {
         $existingLeave=0;
