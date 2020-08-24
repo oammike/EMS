@@ -161,6 +161,69 @@
              
              </div>
 
+            @if(Auth::user()->id==491 || Auth::user()->id==83 || Auth::user()->id==564 || Auth::user()->id==222 )
+
+              <div class="clearfix"></div>
+
+              <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-gift"></i> Donations &nbsp; </h3> 
+              <p></p><p></p>
+              <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/Coffee_making_rewards.jpg')bottom left no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:25px">
+
+                <div class="row">
+                  <div class="col-lg-12">
+                    <?php $ct=1;?>
+                    @forelse($donations as $key=>$donation)
+
+                      <div class="col-lg-5 product" style="min-height: 370px;">
+                          <span class="product-title"><span style="font-size: larger;">{{ $donation->name }}</span> </span>
+                          
+                          <div class="product-image-container" style="background-image: url('{{ url('/') }}/public/{{ $donation->attachment_image }}');"></div>
+                          
+                          <div class="row claim">
+                            <div class="col-sm-7 col-xs-12">
+                              <span class="product-points" style="font-weight: bolder; font-size: xx-large;">
+                                <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
+                                {{ $donation->point_value }} (minimum)
+                              </span>
+                            </div>
+
+                            @if ($donation->minimum > $remaining_points )
+                              <div class="col-sm-5 col-xs-12">
+                                <span class="btn-default btn btn-sm">Insufficient Points <i class="fa fa-exclamation-circle"></i> </span>
+                              </div>
+                            
+                            @else                          
+                              <div class="col-sm-5 col-xs-12 bt_donate_intent" data-name="{{ $donation->name }}" data-reward-id="{{ $donation->id }}" data-minimum="{{ $donation->minimum }}" data-value="{{ $donation->point_value }}" >  
+                                <span class="product-claim"><i class="fa fa-check"></i> Donate</span>                            
+                              </div>
+                            @endif
+
+                          </div>
+                          <span class="product-excerpt">{{ $donation->description }}</span>
+                      </div>
+
+                     <!--  @if ( $key!=0)
+                          <div class="clearfix"><br/><br/></div>
+                      @endif -->
+
+                    @empty
+                    
+                      <div class="col-xs-12">
+                        <p>We are still working on improving our catalog. Please come back later.</p>
+                      </div>
+
+                      <?php $ct++;?>
+                  
+                    @endforelse
+                  </div>
+                 
+                </div> 
+                
+
+                <div class="clearfix"></div>
+             
+              </div>
+            @endif
 
 
               <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-trophy"></i> Souvenir Items &nbsp; </h3> 
@@ -263,6 +326,47 @@
       </div>
     </form>
   </div>
+
+<!-- Donation Modal -->
+  <div class="modal fade" id="modalConfirmDonation" tabindex="-1" role="dialog" aria-labelledby="modalConfirmDonationLabel">
+    <form class="form-horizontal" id="claimDonationForm" action="{{ url('/donate-reward-points/') }}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modalConfirmDonationLabel">Confirm Donation Intent</h4>
+          </div>
+          <div class="box modal-body">
+            <div id="donation_form_elements">              
+              <div class="form-group" id="frm_grp_damount">
+                <label for="donation_range" class="col-sm-12 col-md-3">Donation Amount</label>
+                <div class="col-sm-12 col-md-9">
+                  <button id="bt_decrease" type="button" class="btn btn-default btn-flat"><i class="fa fa-minus"></i></button>&nbsp;&nbsp;
+                  <span id="range_value_display" >50</span>&nbsp;&nbsp;
+                  <button id="bt_increase" type="button" class="btn btn-default btn-flat"><i class="fa fa-plus"></i></button>
+                </div>
+              </div>            
+              <p><span id="donation_error" class="help-block"></span></p>
+            </div>
+            <!-- <input type="hidden" name="debug" value="true" /> -->
+            <div id="donation_message">
+              <p>Thank you for your kind heart. We assure you that your donation will reach its intended organization.</p>
+              <p>From your Open Access BPO family, I dunno what else to say!</p>
+            </div>
+
+            <div class="overlay" id="donation_loader"> 
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+          </div>
+          <div class="modal-footer">
+
+            <button id="modalConfirmDonationClose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button id="modalConfirmDonationYes" type="button" class="btn btn-primary">Donate</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>  
 	
 <!-- Confirm Modal -->
 <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel">
@@ -333,7 +437,10 @@
 
 @section('footer-scripts')
 	<script>
-
+    window.max = {{ $remaining_points }};
+    window.step = 0;
+    window.value = 0;
+    window.donation_id = 0;
 		window.selected_reward_id = 0;
 		$(function() {
 
@@ -355,6 +462,40 @@
         window.selected_reward_id = id;
         $('#modalConfirmVoucherClose').text("CANCEL");            
         $('#modalConfirmVoucher').modal('show');
+        
+      });
+
+      $('.bt_donate_intent').click(function(){
+        $('#donation_loader').hide();
+        $('#donation_message_wrapper').hide();
+        
+        $('#modalConfirmDonationYes').show();
+        $('#donation_form_elements').show();
+        var id = $(this).data('reward-id');
+        window.donation_id = id;   
+        window.step = $(this).data('minimum');
+        window.value = step;
+
+        $('#bt_decrease').click(function(){
+          if((window.value - window.step) >= window.step){
+            window.value = window.value - window.step;
+          }else{
+            window.value = window.step;
+          }
+          $('#range_value_display').text(window.value);
+        });
+
+        $('#bt_increase').click(function(){
+          if((window.value + window.step) <= window.max){
+            window.value = window.value + window.step;
+          }
+          $('#range_value_display').text(window.value);
+        });
+
+        //$('#donation_range').
+
+        $('#modalConfirmDonationClose').text("Cancel");            
+        $('#modalConfirmDonation').modal('show');
         
       });
 
@@ -416,6 +557,40 @@
 				
 			});
 
+      $('#modalConfirmDonationYes').click(function(event){
+        event.preventDefault();
+        var micro = (Date.now() % 1000) / 1000;
+        $('#donation_loader').show();
+        
+        $.ajax({
+          type: "POST",
+          data: {"value":window.value,"donation_id":window.donation_id},
+          url : "{{ url('/donate-reward-points') }}",
+          success : function(data){
+            window.max = window.max - window.value;
+            window.donation_id = 0;
+            
+            $('#modalConfirmDonationYes').hide();
+            $('#modalConfirmDonationClose').text("OK");
+            $('#donation_loader').hide();
+            $('#donation_error').text();
+            $('#donation_form_elements').hide();
+            
+            $('#donation_message').show();
+            $('#points_counter').text("Remaining Points: "+window.max);
+
+          },
+          
+          error: function(data){
+            $('#donation_loader').hide();
+            console.log(data.responseJSON.message);
+            $('#donation_error').addClass('text-red');
+            $('#donation_error').text(data.responseJSON.message);
+            
+          }
+        });
+      });
+
       $('#modalConfirmVoucherYes').click(function(event){
         event.preventDefault();
         var micro = (Date.now() % 1000) / 1000;
@@ -425,6 +600,7 @@
           type: "POST",
           url : "{{ url('/claim-voucher') }}/"+window.selected_reward_id+"?m="+micro,
           success : function(data){
+            window.max = data.points;
             
             $('#modalConfirmVoucherYes').hide();
             $('#modalConfirmVoucherClose').text("OK");            
@@ -433,7 +609,7 @@
             $('#voucher_form_elements').hide();
             window.selected_reward_id = 0;
             $('#voucher_message_wrapper').show();            
-            $('#points_counter').text("Remaining Points: "+data.points);            
+            $('#points_counter').text("Remaining Points: "+window.max);  
           },
           data: $('#claimVoucherForm').serialize(),
           error: function(data){
@@ -494,7 +670,7 @@
             $('#pending_table').append(appendme);
             
             $('#points_counter').text("Remaining Points: "+data.points);
-						
+						window.max = data.points;
 					},
 					data: $('#claimRewardForm').serialize(),
 					error: function(data){

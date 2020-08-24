@@ -1403,7 +1403,17 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/manage-voucher-claims/list/{show_redeemed}', 'RewardVoucherClaimsController@list_claims');
     Route::get('/export-voucher-claims', 'RewardVoucherClaimsController@export_claims');
     Route::post('/confirm-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@confirm_claim');
-    Route::post('/deny-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@deny_claim');
+    Route::post('/deny-voucher-claim', 'RewardVoucherClaimsController@deny_claim');
+
+    Route::get('/manage-donations/list/{page?}', 'RewardDonationsController@list_donations');
+    Route::resource('/manage-donations', 'RewardDonationsController');
+    Route::post('/donate-reward-points', 'RewardsHomeController@donate_reward_points');
+
+    Route::get('/manage-donation-intents', 'RewardDonationIntentController@index');
+    Route::get('/manage-donation-intents/list', 'RewardDonationIntentController@list_intents');
+    //Route::get('/export-donation-intents', 'RewardVoucherClaimsController@export_claims');
+    Route::post('/confirm-donation-intent', 'RewardDonationIntentController@approve_intent');
+    Route::post('/deny-donation-intent', 'RewardDonationIntentController@deny_intent');
 
     Route::get('/coffeeshop-stats/{start?}/{end?}', 'RewardsHomeController@statistics');
 

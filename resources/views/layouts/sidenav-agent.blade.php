@@ -386,6 +386,8 @@
              <li style="padding-left:20px"><a href="{{ action('RewardsHomeController@statistics') }}"> Order Stats </a> </li>
              <li style="padding-left:20px"><a href="{{ url('/manage-vouchers') }}"> Manage Vouchers </a> </li>
              <li style="padding-left:20px"><a href="{{ url('/manage-voucher-claims') }}"> Manage Voucher Claims </a> </li>
+             <li style="padding-left:20px"><a href="{{ url('/manage-donations') }}"> Donation Categories </a> </li>
+             <li style="padding-left:20px"><a href="{{ url('/manage-donation-intents') }}"> Manage Donation Intents </a> </li>
             @endif
 
           </ul>

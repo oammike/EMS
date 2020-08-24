@@ -8,6 +8,8 @@
 namespace OAMPI_Eval\Http\Controllers;
 use OAMPI_Eval\ActivityLog;
 use OAMPI_Eval\Reward;
+use OAMPI_Eval\Donation;
+use OAMPI_Eval\DonationIntent;
 use OAMPI_Eval\Voucher;
 use OAMPI_Eval\VoucherClaims;
 use OAMPI_Eval\RewardCategoryTier as Tier;
@@ -218,6 +220,7 @@ class RewardsHomeController extends Controller
         }
 
         $vouchers = Voucher::all();
+        $donations = Donation::all();
 
         $data = [
 
@@ -232,6 +235,7 @@ class RewardsHomeController extends Controller
             'shop'=>$shop,
             'maxedOut'=>$maxedOut,
             'vouchers' => $vouchers,
+            'donations' => $donations,
             'noCoffee' => $noCoffee
           ];
 
@@ -833,6 +837,70 @@ class RewardsHomeController extends Controller
           'message' => array('invalid reward item.')
         ], 422);
       }      
+    }
+
+    public function donate_reward_points(Request $request){
+      date_default_timezone_set('Asia/Singapore');
+      $now = strtotime('now');
+      $error = false;
+      $error_message = "";
+      $user_id = \Auth::user()->id;
+      $user = User::with('points','team')->find($user_id);
+      $donation_id = $request->input('donation_id',0);
+      $value = $request->input('value',0);
+      $donation = Donation::find($donation_id);
+      if($donation->minimum > $value){
+        return response()->json([
+          'exception' => null,
+          'success' => false,
+          'message' => 'This donation requires a minimum point value of '.$donation->minimum
+        ], 422);
+      }
+
+      if($user->points == null || $value > $user->points->points ){
+        return response()->json([
+          'success' => false,
+          'message' => 'You do not have enough points to donate to '.$donation->name
+        ], 422);
+      }
+
+      $donation_intent = new DonationIntent;
+      $donation_intent->user_id       = $user_id;
+      $donation_intent->donation_id      = $donation_id;
+      $donation_intent->donated_points      = $value;
+      if($donation_intent->save()) {
+
+        if($user->points()->decrement('points', $value)){
+          $record = new ActivityLog;
+          $record->initiator_id       = $user_id;
+          $record->target_id      = $user_id;
+          $record->description = "donated ".$value." points to : ".$donation->name;
+          if($record->save()) {
+            $message = "Donation successful.";
+          }else{
+            $user->points()->increment('points',$cost);
+            $donation_intent->delete();
+            $error = true;
+            $error_message = "failed to complete your donation. could not log the activity.";
+          }
+        }else{
+          $donation_intent->delete();
+          $error = true;
+          $error_message = "could not re-allocate points properly";
+        }
+
+        return response()->json([
+          'success' => !$error,
+          'message' => $error_message
+        ], $error ? 422 : 200);
+
+      }else{
+        return response()->json([
+          'success' => false,
+          'message' => array('Could not write to database. Please try again later.')
+        ], 422);
+      }
+
     }
 
     public function claim_voucher(Request $request,$reward_id = 0){
