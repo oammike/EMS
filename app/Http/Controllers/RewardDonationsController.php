@@ -58,7 +58,7 @@ class RewardDonationsController extends Controller
       $this->validate($request, [
         'name'       => 'required',
         'description'       => 'required',
-        'point_value' => 'required|numeric',
+        //'point_value' => 'required|numeric',
         'minimum' => 'numeric',
         'attachment_image' => 'required|image'
       ]);      
@@ -67,7 +67,7 @@ class RewardDonationsController extends Controller
       $donation = new Donation;
       $donation->name       = Input::get('name');
       $donation->description      = Input::get('description');
-      $donation->point_value      = Input::get('point_value');
+      //$donation->point_value      = Input::get('point_value');
       $donation->minimum      = Input::get('minimum');
       
       if($donation->save()) {
@@ -125,22 +125,23 @@ class RewardDonationsController extends Controller
     {
         $this->validate($request, [
           'description' => 'required',
-          'point_value' => 'required|numeric',
+          //'point_value' => 'required|numeric',
           'minimum' => 'numeric'
         ]);
         // store
         $donation = Donation::find($id);
-        $old_value = $donation->point_value;
+        //$old_value = $donation->point_value;
         $old_minimum = $donation->minimum;
-        $donation->point_value       = Input::get('point_value');
+        //$donation->point_value       = Input::get('point_value');
         $donation->minimum       = Input::get('minimum');
         if($donation->save()) {
-          if($old_value!=$donation->point_value || $old_minimum!=$donation->minimum){
+          //if($old_value!=$donation->point_value || $old_minimum!=$donation->minimum){
+          if($old_minimum!=$donation->minimum){
             $user_id = \Auth::user()->id;
             $record = new ActivityLog;
             $record->initiator_id       = $user_id;
             $record->target_id      = $user_id;
-            $record->description = "changed ".$donation->name."'s point value to ".$donation->point_value.", minimum to: ".$donation->minimum;            
+            $record->description = "changed ".$donation->name."'s minimum to: ".$donation->minimum;            
             $record->save(); 
           }
           return response()->json([
@@ -180,7 +181,7 @@ class RewardDonationsController extends Controller
 
     public function list_donations(Request $request,$page = 0)
     {
-      $columns = array('','name','point_value','minimum');
+      $columns = array('','name','minimum');
     
       $skip = $request->input('start');
       $take = $request->input('length', $this->pagination_items);

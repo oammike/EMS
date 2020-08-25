@@ -33,14 +33,14 @@
                     <tr>
                       <th>Photo</th>
                       <th>Name</th>
-                      <th>Point Value</th>
+                      <!-- <th>Point Value</th> -->
                       <th>Minimum</th>
                       <th>Options</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td colspan="5">Loading...</td>
+                      <td colspan="4">Loading...</td>
                     </tr>
                   </tbody>
                 </table>
@@ -76,6 +76,7 @@
                     <span id="frm_grp_hint_name" class="help-block"></span>
                   </div>
                 </div>
+                <!--
                 <div class="form-group" id="frm_grp_value">
                   <label for="new_value" class="col-sm-3 control-label">Point Value<br/>(how much points = ₱1.00)</label>
                   <div class="col-sm-9">
@@ -83,6 +84,7 @@
                     <span id="frm_grp_hint_value" class="help-block"></span>
                   </div>
                 </div>
+                -->
                 <div class="form-group" id="frm_grp_minimum">
                   <label for="new_minimum" class="col-sm-3 control-label">Minimum</label>
                   <div class="col-sm-9">
@@ -136,6 +138,7 @@
                     <span id="frm_grp_hint_edescription" class="help-block"></span>
                   </div>
                 </div>
+                <!--
                 <div class="form-group" id="frm_grp_evalue">
                   <label for="edit_value" class="col-sm-3 control-label">Point Value<br/>(how much points = ₱1.00)</label>
                   <div class="col-sm-9">
@@ -143,6 +146,7 @@
                     <span id="frm_grp_hint_evalue" class="help-block"></span>
                   </div>
                 </div>
+                -->
                 <div class="form-group" id="frm_grp_eminimum">
                   <label for="edit_minimum" class="col-sm-3 control-label">Minimum</label>
                   <div class="col-sm-9">
@@ -219,19 +223,19 @@
     function reset_errors(){      
       $('#frm_grp_hint_name').text('');
       $('#frm_grp_hint_description').text('');
-      $('#frm_grp_hint_value').text('');
+      //$('#frm_grp_hint_value').text('');
       $('#frm_grp_hint_minimum').text('');
       $('#frm_grp_hint_photo').text('');
       $('#frm_grp_hint_edescription').text('');
-      $('#frm_grp_hint_evalue').text('');
+      //$('#frm_grp_hint_evalue').text('');
       $('#frm_grp_hint_eminimum').text('');
       $('#frm_grp_name').removeClass('has-error');                
       $('#frm_grp_description').removeClass('has-error');
-      $('#frm_grp_value').removeClass('has-error');
+      //$('#frm_grp_value').removeClass('has-error');
       $('#frm_grp_minimum').removeClass('has-error');
       $('#frm_grp_photo').removeClass('has-error');
       $('#frm_grp_edescription').removeClass('has-error');
-      $('#frm_grp_evalue').removeClass('has-error');
+      //$('#frm_grp_evalue').removeClass('has-error');
       $('#frm_grp_eminimum').removeClass('has-error');
     }
     
@@ -240,10 +244,10 @@
     $('#donateEditorForm').submit(function( event ) {
       event.preventDefault();
       $('#editor_loader').show();
-      if ($.isNumeric( $('#donate_editor_cost').val() )) {
+      if ($.isNumeric( $('#edit_minimum').val() )) {
         $.ajax({
           type: "PUT",
-          url : "{{ url('/manage-donations') }}",
+          url : "{{ url('/manage-donations') }}"+"/"+window.selected_editing_id,
           success : function(data){
             $('#editor_loader').hide();
             $('#donateEditorModal').modal('hide') 
@@ -268,8 +272,8 @@
         });
       } else {
         $('#editor_loader').hide();
-        $('#add_error').addClass('text-red');
-        $('#add_error').text('Please enter only numeric values like 10, 200, 3000...');
+        $('#frm_grp_hint_eminimum').addClass('text-red');
+        $('#frm_grp_hint_eminimum').text('Please enter only numeric values like 10, 200, 3000...');
         
       }
       
@@ -330,7 +334,7 @@
       $('#editor_loader').hide();
       $('#donateEditorModal').modal('show');
       $('#edit_description').val(data.description);
-      $('#edit_value').val(data.point_value);
+      //$('#edit_value').val(data.point_value);
       $('#edit_minimum').val(data.minimum);
       $('#donate_editor_name').text("Edit details for: "+data.name);
       
@@ -386,7 +390,7 @@
           }
         },
         { "data":"name" },
-        { "data":"point_value" },
+        //{ "data":"point_value" },
         { "data":"minimum" },        
         {
           "data" : null,

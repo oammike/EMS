@@ -183,7 +183,7 @@
                             <div class="col-sm-7 col-xs-12">
                               <span class="product-points" style="font-weight: bolder; font-size: xx-large;">
                                 <img src="{{ asset('/public/img/points-icon.png') }}" alt=""/>
-                                {{ $donation->point_value }} (minimum)
+                                {{ $donation->minimum }} (minimum)
                               </span>
                             </div>
 
@@ -193,7 +193,7 @@
                               </div>
                             
                             @else                          
-                              <div class="col-sm-5 col-xs-12 bt_donate_intent" data-name="{{ $donation->name }}" data-reward-id="{{ $donation->id }}" data-minimum="{{ $donation->minimum }}" data-value="{{ $donation->point_value }}" >  
+                              <div class="col-sm-5 col-xs-12 bt_donate_intent" data-name="{{ $donation->name }}" data-reward-id="{{ $donation->id }}" data-minimum="{{ $donation->minimum }}" >  
                                 <span class="product-claim"><i class="fa fa-check"></i> Donate</span>                            
                               </div>
                             @endif
@@ -339,11 +339,10 @@
           <div class="box modal-body">
             <div id="donation_form_elements">              
               <div class="form-group" id="frm_grp_damount">
-                <label for="donation_range" class="col-sm-12 col-md-3">Donation Amount</label>
-                <div class="col-sm-12 col-md-9">
-                  <button id="bt_decrease" type="button" class="btn btn-default btn-flat"><i class="fa fa-minus"></i></button>&nbsp;&nbsp;
-                  <span id="range_value_display" >50</span>&nbsp;&nbsp;
-                  <button id="bt_increase" type="button" class="btn btn-default btn-flat"><i class="fa fa-plus"></i></button>
+                <label for="donation_amount" class="col-sm-12">Donation Amount</label>
+                <div class="col-sm-12">
+                  <input id="donation_amount" type="number" name="donation_amount" value="50" />                  
+                  <p id="frm_grp_hint_amount" class="help-block"></p>
                 </div>
               </div>            
               <p><span id="donation_error" class="help-block"></span></p>
@@ -351,7 +350,6 @@
             <!-- <input type="hidden" name="debug" value="true" /> -->
             <div id="donation_message">
               <p>Thank you for your kind heart. We assure you that your donation will reach its intended organization.</p>
-              <p>From your Open Access BPO family, I dunno what else to say!</p>
             </div>
 
             <div class="overlay" id="donation_loader"> 
@@ -437,6 +435,7 @@
 
 @section('footer-scripts')
 	<script>
+    window.min = 0;
     window.max = {{ $remaining_points }};
     window.step = 0;
     window.value = 0;
@@ -467,7 +466,7 @@
 
       $('.bt_donate_intent').click(function(){
         $('#donation_loader').hide();
-        $('#donation_message_wrapper').hide();
+        $('#donation_message').hide();
         
         $('#modalConfirmDonationYes').show();
         $('#donation_form_elements').show();
@@ -475,7 +474,13 @@
         window.donation_id = id;   
         window.step = $(this).data('minimum');
         window.value = step;
+        window.min = window.step;
+        $('#donation_amount').val(window.value);
 
+        $('#frm_grp_hint_amount').html("Minimum donation amount: "+window.step+"<br/>Your remaining points: "+window.max);
+        /*
+        <input id="donation_amount" name="donation_amount" value="50" />                  
+        <span id="frm_grp_hint_amount" class="help-block"></span>
         $('#bt_decrease').click(function(){
           if((window.value - window.step) >= window.step){
             window.value = window.value - window.step;
@@ -491,6 +496,7 @@
           }
           $('#range_value_display').text(window.value);
         });
+        */
 
         //$('#donation_range').
 
@@ -561,6 +567,17 @@
         event.preventDefault();
         var micro = (Date.now() % 1000) / 1000;
         $('#donation_loader').show();
+        /*
+        <input id="donation_amount" name="donation_amount" value="50" />                  
+        <span id="frm_grp_hint_amount" class="help-block"></span>
+        */
+        window.value = $('#donation_amount').val();
+        if(window.value>window.max || window.value<window.step){
+          $('#frm_grp_hint_amount').addClass("text-red");
+          $('#frm_grp_hint_amount').html("Please enter a number between "+window.step + " and "+window.max);
+          $('#donation_loader').hide();
+          return;
+        }
         
         $.ajax({
           type: "POST",
@@ -578,6 +595,7 @@
             
             $('#donation_message').show();
             $('#points_counter').text("Remaining Points: "+window.max);
+            $('#frm_grp_hint_amount').removeClass("text-red");
 
           },
           
