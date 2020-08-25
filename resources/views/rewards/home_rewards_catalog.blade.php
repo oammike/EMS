@@ -161,7 +161,7 @@
              
              </div>
 
-            @if(Auth::user()->id==491 || Auth::user()->id==83 || Auth::user()->id==564 || Auth::user()->id==222 )
+            
 
               <div class="clearfix"></div>
 
@@ -223,7 +223,7 @@
                 <div class="clearfix"></div>
              
               </div>
-            @endif
+            
 
 
               <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-trophy"></i> Souvenir Items &nbsp; </h3> 
