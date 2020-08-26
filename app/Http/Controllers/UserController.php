@@ -3367,6 +3367,9 @@ class UserController extends Controller
         $vouchers = DB::table('voucher_claims')->where('voucher_claims.user_id',$this->user->id)->
                     join('vouchers','voucher_claims.voucher_id','=','vouchers.id')->get();
 
+        $donations = DB::table('donation_intents')->where('donation_intents.user_id',$this->user->id)->
+                    join('donation_catalog','donation_intents.donation_id','=','donation_catalog.id')->where('donation_intents.status','<>','denied')->get();
+
 
 
 
@@ -3421,7 +3424,7 @@ class UserController extends Controller
         }
 
         $totalEarnings = $allReceived + $allAwards;
-        $allredeemed = count($vouchers) + count($myTransactions);
+        $allredeemed = count($vouchers) + count($myTransactions) + count($donations);
        
 
         $data = [
@@ -3437,6 +3440,7 @@ class UserController extends Controller
           'pointsReceived'=>$pointsReceived,
           'awardsReceived'=>$awardsReceived,
           'vouchers'=>$vouchers,
+          'donations'=>$donations,
           'allredeemed'=>$allredeemed
 
         ]; 

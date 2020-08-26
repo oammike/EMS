@@ -162,10 +162,10 @@
                           <tr>
                             <td>{{date('Y-m-d h:i A', strtotime($myOrder->created_at))}} </td>
                             @if ($myOrder->redeemed)
-                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-credit-card"></i> <em class="text-success">(redeemed) <i class="fa fa-check"></i></em> </td>
+                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-qrcode"></i> <em class="text-success">(redeemed) <i class="fa fa-check"></i></em> </td>
 
                             @else
-                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-credit-card"></i> <em class="text-success">(processing...)</em> </td>
+                            <td>{{$myOrder->name}} Voucher &nbsp; <i class="fa fa-qrcode"></i> <em class="text-success">(processing...)</em> </td>
 
                             @endif
                             
@@ -173,6 +173,27 @@
                             
                           </tr>
                           @endforeach
+
+                          @foreach($donations as $myOrder)
+
+                          @if ($myOrder->status !== "denied")
+                          <tr>
+                            <td>{{date('Y-m-d h:i A', strtotime($myOrder->created_at))}} </td>
+                            @if ($myOrder->status == "approved")
+                            <td>{{$myOrder->name}} Donation &nbsp;  <em class="text-success">(success) <i class="fa fa-check"></i></em> </td>
+
+                            @else
+                            <td>{{$myOrder->name}} Donation &nbsp; <i class="fa fa-credit-card"></i> <em class="text-success">(processing...)</em> </td>
+
+                            @endif
+                            
+                            <td>{{$myOrder->donated_points}} </td>
+                            
+                          </tr>
+                          @endif
+                          @endforeach
+
+
                         </tbody>
                       </table>
                       <div class="clearfix"></div>

@@ -2,7 +2,22 @@
 
              
 
-              <div class="item active text-center" >
+            <div class="item active text-center" >
+                  <img src="storage/uploads/donationposter.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Share Your Points <br/><span class="text-primary"> <small>A little compassion goes a long way</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                     For a minimum of <strong>50 points,</strong>you can help our healthcare providers and frontliners who have been called to serve in the fight against the spread of COVID-19 </p>
+
+                   
+                    <a class="btn btn-success btn-md" href="{{action('RewardsHomeController@rewards_catalog')}}#donatenow"> Donate Now</a>
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"> Buwan ng Wika <img src="storage/uploads/rpFlag.png" width="8%" /> <br/><small>August 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />

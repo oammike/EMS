@@ -165,7 +165,7 @@
 
               <div class="clearfix"></div>
 
-              <h3 class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-gift"></i> Donations &nbsp; </h3> 
+              <h3 id="donatenow" class="text-right" style="padding: 10px;background-color: #333; color:#fff"><i class="fa fa-gift"></i> Donations &nbsp; </h3> 
               <p></p><p></p>
               <div class="box"  style="background:url('<?php echo url("/"); ?>/storage/uploads/Coffee_making_rewards.jpg')bottom left no-repeat rgba(256, 256, 256, 0.4);background-size: cover; min-height: 50%;padding:25px">
 

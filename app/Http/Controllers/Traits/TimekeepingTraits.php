@@ -4704,7 +4704,33 @@ trait TimekeepingTraits
     $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
 
     //$thisPayrollDate = Biometrics::where(find($biometrics->id)->productionDate;
-    $holidayToday = Holiday::where('holidate', $payday)->get();
+    //**** Hack for Davao holiday
+
+    $hol = Holiday::where('holidate', $payday)->get();
+    (Team::where('user_id',$user->id)->first()->floor_id == 9) ? $isDavao=true : $isDavao=false;
+
+    if( count($hol) > 0 )
+    {
+      $h =  $hol->first();
+
+      if ($h->holidayType_id == 4)
+      {
+        if($isDavao)
+          {
+            $holidayToday =Holiday::where('holidate', $payday)->get();
+            $hasHolidayToday = true;
+
+          } 
+          else { $holidayToday=null; }
+      }
+      else {
+        $holidayToday = Holiday::where('holidate', $payday)->get(); $hasHolidayToday = true;
+      }
+
+    }else
+      $holidayToday = Holiday::where('holidate', $payday)->get();
+
+    
 
 
     $theDay = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
@@ -4897,8 +4923,7 @@ trait TimekeepingTraits
 
  
 
-    if (count($holidayToday) > 0) $hasHolidayToday = true;
-
+    
 
     
           
