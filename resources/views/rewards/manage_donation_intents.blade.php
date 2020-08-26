@@ -34,13 +34,14 @@
                   <tr>
                     <th>Donor</th>
                     <th>Donation Category</th>
+                    <th>Donated Points</th>
                     <th>Date</th>
                     <th>Options</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td colspan="4">Loading...</td>
+                    <td colspan="5">Loading...</td>
                   </tr>
                 </tbody>
               </table>
@@ -227,6 +228,12 @@
           "data": null,
           "render": function ( data, type, full, meta ) {          
             return  data.donation.name;
+          }
+        },
+        {
+          "data": null,
+          "render": function ( data, type, full, meta ) {          
+            return  data.donated_points;
           }
         },
         {
