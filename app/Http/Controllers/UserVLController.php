@@ -112,6 +112,17 @@ class UserVLController extends Controller
 
     }
 
+     public function addVLearnings(Request $request)
+    {
+        $sl = new User_VLearnings;
+        $sl->user_id = $request->user_id;
+        $sl->vlupdate_id = $request->vlupdate_id;
+        $sl->save();
+
+        return back();
+        
+    }
+
     public function addVLupdate(Request $request)
     {
         $vl = new VLupdate;
@@ -673,6 +684,14 @@ class UserVLController extends Controller
         $vl->delete();
 
         return back();
+
+    }
+
+    public function deleteVLearning( $id )
+    {
+        //User_SLearnings::find($id)->delete();
+        DB::table('user_vlearnings')->where('id',$id)->delete();
+        return response()->json(['success'=>1]); 
 
     }
 
@@ -1519,7 +1538,7 @@ class UserVLController extends Controller
         $allSLs = User_SL::where('user_id',$id)->where('isApproved','1')->orderBy('created_at','DESC')->get();
         $allEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$id)->
                             join('vlupdate','vlupdate.id','=','user_vlearnings.vlupdate_id')->
-                            select('vlupdate.period','vlupdate.credits','vlupdate.created_at')->
+                            select('user_vlearnings.id','vlupdate.period','vlupdate.credits','vlupdate.created_at')->
                             orderBy('vlupdate.period','DESC')->get(); //return $allEarnings;
 
         $allEarnings_SL = DB::table('user_slearnings')->where('user_slearnings.user_id',$id)->
@@ -1529,6 +1548,9 @@ class UserVLController extends Controller
 
         $slUpdates = DB::table('slupdate')->orderBy('period','DESC')->get(); 
         $slUpdates_periods = collect($slUpdates)->pluck('period')->unique();
+
+        $vlUpdates = DB::table('vlupdate')->orderBy('period','DESC')->get(); 
+        $vlUpdates_periods = collect($vlUpdates)->pluck('period')->unique();
 
         //return $slUpdates_periods;
                             
@@ -1554,7 +1576,7 @@ class UserVLController extends Controller
        //return $allEarnings_SL;
 
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL','allVTOs','slUpdates_periods','slUpdates'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL','allVTOs','slUpdates_periods','slUpdates','vlUpdates_periods','vlUpdates'));
         else return view('access-denied');
 
 

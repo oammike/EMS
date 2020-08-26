@@ -131,6 +131,15 @@
                             <tr>
                               <td><h4><i class="fa fa-plane"></i> Vacation Leave</h4> <br/> <a class="btn btn-default btn-xs" href="{{action('UserVLController@create')}}"><i class="fa fa-upload"></i> File New VL</a> </td>
                               <td colspan="2">
+                                 @if (count($personnel->vlCredits) <= (date('Y')-2008) && $canUpdateLeaves )
+                                    <a data-toggle="modal" style="margin-top: 10px" data-target="#myModal_addVL{{$personnel->id}}" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a>
+                                    <!-- <a data-toggle="modal" style="margin-top: 10px" data-target="#underConstruction" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a> -->
+
+                                    @if($canUpdateLeaves)
+                                     <a data-toggle="modal" style="margin-top: 10px; margin-right: 5px" data-target="#myModal_addVLearning{{$personnel->id}}" href="#" class="btn btn-xs btn-success pull-right"><i class="fa fa-plus-circle"></i> Add VL Earnings</a>
+
+                                    @endif
+
                               <table id="vl" class="table">
                                 <thead>
                                   <th class="text-center">Year</th>
@@ -281,11 +290,26 @@
                                         <td  class="text-center">
                                           
                                           <?php $earn=0; $deets=""; 
+                                                
                                                 foreach ($allEarnings as $e){ 
-                                                  if(strpos($e->period, (string)$v->creditYear) !== false){ 
-                                                          $deets .= date('M d',strtotime($e->period)).' : ' . $e->credits.'<br/>';
-                                                          $earn += $e->credits; }
-                                                } ?>
+                                                  if(strpos($e->period, (string)$v->creditYear) !== false)
+                                                  { 
+                                                     if($canUpdateLeaves)
+                                                     {
+                                                      $deets .= date('M d',strtotime($e->period)).' : ' . $e->credits.'&nbsp; <a data-earnid="'.$e->id.'" class="delVLEarning btn btn-xs btn-default"> <i class="fa fa-trash"></i></a> <br/><br/>';
+
+                                                     }
+                                                     else
+                                                     {
+                                                      $deets .= date('M d',strtotime($e->period)).' : ' . $e->credits.'<br/>';
+
+                                                     }
+                                                      
+                                                      $earn += $e->credits; 
+                                                  }
+                                                }
+
+                                                ?>
                                           @if ($earn == 0) {{$earn}} @else
 
                                           <!-- ******** collapsible box ********** -->
@@ -397,11 +421,16 @@
                                       <?php $ctr++; ?>
                                       @endforeach
                                   @endif
-                                  <tr><td colspan="6">
+                                  <tr><td colspan="7">
 
-                                    @if (count($personnel->vlCredits) <= (date('Y')-2008) && $canUpdateLeaves )
-                                    <a data-toggle="modal" style="margin-top: 10px" data-target="#myModal_addVL{{$personnel->id}}" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a>
+                                    @if (count($personnel->slCredits) <= (date('Y')-2008) && $canUpdateLeaves )
+                                    <a data-toggle="modal" style="margin-top: 10px" data-target="#myModal_addSL{{$personnel->id}}" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add SL Credits</a>
                                     <!-- <a data-toggle="modal" style="margin-top: 10px" data-target="#underConstruction" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a> -->
+
+                                     @if($canUpdateLeaves)
+                                     <a data-toggle="modal" style="margin-top: 10px; margin-right: 5px" data-target="#myModal_addSLearning{{$personnel->id}}" href="#" class="btn btn-xs btn-success pull-right"><i class="fa fa-plus-circle"></i> Add SL Earnings</a>
+
+                                    @endif
 
                                   </td>
                                     @endif</tr>
@@ -416,6 +445,7 @@
                             <!-- ************ SICK LEAVE *************-->
                             
                             <tr>
+
                               <td><h4 id="slpage"><i class="fa fa-stethoscope"></i> Sick Leave</h4> <br/> <a class="btn btn-default btn-xs" href="{{action('UserSLController@create')}}"><i class="fa fa-upload"></i> File New SL</a> </td>
                               <td colspan="2">
                               <table id="vl" class="table">
@@ -767,14 +797,7 @@
 
                                    
 
-                                    @if (count($personnel->slCredits) <= (date('Y')-2008) && $canUpdateLeaves )
-                                    <a data-toggle="modal" style="margin-top: 10px" data-target="#myModal_addSL{{$personnel->id}}" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add SL Credits</a>
-                                    <!-- <a data-toggle="modal" style="margin-top: 10px" data-target="#underConstruction" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a> -->
-
-                                     @if($canUpdateLeaves)
-                                     <a data-toggle="modal" style="margin-top: 10px; margin-right: 5px" data-target="#myModal_addSLearning{{$personnel->id}}" href="#" class="btn btn-xs btn-success pull-right"><i class="fa fa-plus-circle"></i> Add SL Earnings</a>
-
-                                    @endif
+                                   
 
                                   </td>
                                     @endif</tr>
@@ -834,6 +857,15 @@
                     'modelID' => $personnel->id, 
                     'modalMessage'=> " ",
                     'modelName'=>"SL Earnings ", 
+                    'modalTitle'=>'Add New', 
+                    'formID'=>'submitSLearn',
+                    'icon'=>'glyphicon-up' ])
+
+            @include('layouts.modals-addVLearnings', [
+                    'modelRoute'=>'user_vl.addVLearnings',
+                    'modelID' => $personnel->id, 
+                    'modalMessage'=> " ",
+                    'modelName'=>"VL Earnings ", 
                     'modalTitle'=>'Add New', 
                     'formID'=>'submitSLearn',
                     'icon'=>'glyphicon-up' ])
@@ -922,6 +954,34 @@
 
    });
 
+   $('.delVLEarning').on('click',function(){
+
+      var del = $(this).attr('data-earnid');
+      var ans = confirm("Are you sure you want to delete VL earning with ID: "+ del);
+      
+      if(ans)
+      {
+          var _token = "{{ csrf_token() }}";
+          $.ajax({
+                url: "{{ url('/') }}/user_vl/deleteEarning/"+del,
+                type:'POST',
+                data:{ 
+                 'id': del, 
+                  '_token':_token
+                },
+                success: function(response){
+                  console.log(response);
+                  location.reload();
+                  
+                    
+                  
+                }
+              });
+      }
+      console.log("clicked: "+ ans);
+
+   });
+
    $('.delAdvSL').on('click',function(){
 
       var del = $(this).attr('data-earnid');
@@ -954,6 +1014,21 @@
    $( ".datepicker" ).datepicker();
 
    $('#periodSLearn').on('change',function(){
+    var selval = $(this).val();
+
+    if(selval==0){
+      $('#periods label').fadeOut();
+    }else{
+      $('#periods label').fadeOut();
+      $('.p_'+selval).fadeIn();
+    }
+
+    
+    //alert("selected:" +selval);
+
+   });
+
+   $('#periodVLearn').on('change',function(){
     var selval = $(this).val();
 
     if(selval==0){

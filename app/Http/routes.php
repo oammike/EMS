@@ -546,6 +546,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_vl.addCredits',
         'uses'=>'UserVLController@addCredits') );
 
+        Route::post('/user_vl/addVLearnings', array(
+        'as'=> 'user_vl.addVLearnings',
+        'uses'=>'UserVLController@addVLearnings') );
+
+
         Route::post('/user_vl/addVLupdate', array(
         'as'=> 'user_vl.addVLupdate',
         'uses'=>'UserVLController@addVLupdate') );
@@ -558,6 +563,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
          Route::post('/user_vl/deleteCredit/{id}', array(
         'as'=> 'user_vl.deleteCredit',
         'uses'=>'UserVLController@deleteCredit') );
+
+        Route::post('/user_vl/deleteEarning/{id}', array(
+        'as'=> 'user_vl.deleteVLearning',
+        'uses'=>'UserVLController@deleteVLearning') );
 
          Route::post('/user_vl/editCredits/{id}', array(
         'as'=> 'user_vl.editCredits',
