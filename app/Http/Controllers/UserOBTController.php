@@ -85,7 +85,7 @@ class UserOBTController extends Controller
         }
                  
 
-        if (count($user) <1) return view('empty');
+        if (count((array)$user) <1) return view('empty');
         else
         {
             //check mo kung leave for himself or if for others and approver sya

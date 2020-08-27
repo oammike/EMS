@@ -268,8 +268,8 @@
                       {
                           var reply = confirm("Indicated date is actually a holiday. No need to file for a single-day OBT for non-operations personnel.\n\nClick OK to proceed if you're from Operations.");
                           console.log(reply);
-                          if (reply == true)
-                          {
+                          /*if (reply == true)
+                          {*/
                             $.ajax({
                               url: "{{action('UserOBTController@requestOBT')}}",
                               type:'POST',
@@ -298,7 +298,7 @@
                                 }, 4000);
                               }
                             });
-                          }
+                          //}
                       } 
                       else 
                       {
