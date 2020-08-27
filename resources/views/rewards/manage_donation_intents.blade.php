@@ -33,8 +33,9 @@
                 <thead>
                   <tr>
                     <th>Donor</th>
-                    <th>Donation Category</th>
-                    <th>Donated Points</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Details</th>
                     <th>Date</th>
                     <th>Options</th>
                   </tr>
@@ -59,7 +60,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Confirm Voucher Denial</h4>
+            <h4 class="modal-title">Confirm Donation Denial</h4>
           </div>
           <div class="modal-body">
             <p>Are you sure you want to deny <span id="deny_name"></span>'s intent to donate to <span id="deny_vname"></span>.<br/> Note: <span id="deny_points"></span> will be refunded.</p>
@@ -70,6 +71,28 @@
             <p><span id="deny_error" class="help-block"></span></p>
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">No</button>
             <button type="button" class="btn btn-primary" id="deny_confirm">Yes</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal" id="approveModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Donation Successfully Approved</h4>
+          </div>
+          <div class="modal-body">
+            <p><span id="approve_name"></span>'s donation was approved. <br/>Email: <span id="approve_email"></span><br/>Phone: <span id="approve_phone"></span></p>
+
+          </div>
+          <div class="modal-footer">            
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -183,15 +206,19 @@
       loader.insertBefore($(this));
       window.active_button.hide();
 
-      var data = window.table.row( $(this).parents('tr') ).data();      
+      window.info = window.table.row( $(this).parents('tr') ).data();      
       window.selected_group_row = $(this).parents('tr');
-      window.selected_reward_id = data.id;
+      window.selected_reward_id = info.id;
       
       $.ajax({
         data: {"intent_id":window.selected_reward_id},
         type: "POST",
         url : "{{ url('/confirm-donation-intent') }}",
-        success : function(data){          
+        success : function(data){
+          $('#approve_name').text(window.info.user.firstname + " " + window.info.user.lastname);
+          $('#approve_email').text(window.info.email);
+          $('#approve_phone').text(window.info.phone);
+          $('#approveModal').modal('show');
           window.selected_group_row.remove();
         },
         error: function(data){
@@ -234,6 +261,12 @@
           "data": null,
           "render": function ( data, type, full, meta ) {          
             return  data.donated_points;
+          }
+        },
+        {
+          "data": null,
+          "render": function ( data, type, full, meta ) {          
+            return  data.email + " ("+data.phone+")";
           }
         },
         {

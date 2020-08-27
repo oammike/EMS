@@ -344,8 +344,24 @@
                   <input id="donation_amount" type="number" name="donation_amount" value="50" />                  
                   <p id="frm_grp_hint_amount" class="help-block"></p>
                 </div>
-              </div>            
+              </div>
+              <div class="form-group" id="frm_grp_demail">                
+                <label for="demail" class="col-sm-12">Email Address</label>
+                <div class="col-sm-12">
+                  <input type="email" class="form-control" id="demail" name="demail">
+                  <span id="frm_grp_hint_demail" class="help-block"></span>
+                </div>
+              </div>
+              <div class="form-group" id="frm_grp_dphone">
+                <label for="demail" class="col-sm-12">Mobile Number</label>
+                <div class="col-sm-12">
+                  <input type="tel" class="form-control" id="dphone" name="dphone">
+                  <span id="frm_grp_hint_dphone" class="help-block"></span>
+                  <p><small>A confirmation message will be sent to this email &amp; mobile number within 24-48 hours</strong></small></p>
+                </div>
+              </div>
               <p><span id="donation_error" class="help-block"></span></p>
+
             </div>
             <!-- <input type="hidden" name="debug" value="true" /> -->
             <div id="donation_message">
@@ -581,7 +597,7 @@
         
         $.ajax({
           type: "POST",
-          data: {"value":window.value,"donation_id":window.donation_id},
+          data: {"value":window.value,"donation_id":window.donation_id,"email":$('#demail').val(),"phone":$('#dphone').val()},
           url : "{{ url('/donate-reward-points') }}",
           success : function(data){
             window.max = window.max - window.value;

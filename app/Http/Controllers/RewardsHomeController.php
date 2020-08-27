@@ -849,6 +849,27 @@ class RewardsHomeController extends Controller
       $donation_id = $request->input('donation_id',0);
       $value = $request->input('value',0);
       $donation = Donation::find($donation_id);
+
+
+      $email = $request->input('email','');
+      $phone = $request->input('phone','');
+
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return response()->json([
+          'exception' => null,
+          'success' => false,
+          'message' => 'Please enter a valid email address.'
+        ], 422);
+      }
+
+      if (!preg_match('/^09[0-9]{9}+$/', $phone)) {
+        return response()->json([
+          'exception' => null,
+          'success' => false,
+          'message' => 'Please enter a valid phone number.'
+        ], 422);
+      }
+
       if($donation->minimum > $value){
         return response()->json([
           'exception' => null,
@@ -868,6 +889,8 @@ class RewardsHomeController extends Controller
       $donation_intent->user_id       = $user_id;
       $donation_intent->donation_id      = $donation_id;
       $donation_intent->donated_points      = $value;
+      $donation_intent->email      = $email;
+      $donation_intent->phone      = $phone;
       if($donation_intent->save()) {
 
         if($user->points()->decrement('points', $value)){
