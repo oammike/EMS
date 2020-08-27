@@ -58,6 +58,7 @@ use OAMPI_Eval\Reward_Creditor;
 use OAMPI_Eval\Reward_Feedback;
 use OAMPI_Eval\Reward_Waysto;
 use OAMPI_Eval\Orders;
+use OAMPI_Eval\Paycutoff;
 use OAMPI_Eval\Coffeeshop;
 
 class UserController extends Controller
@@ -2015,6 +2016,57 @@ class UserController extends Controller
      
 
       return view('timekeeping.leaveMgt_earnings',compact('isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType','emp','earnings'));
+
+    }
+
+    public function leaveMgt_summary()
+    {
+      $cutoffData = $this->getCutoffStartEnd();
+      $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
+      $cutoffEnd = $cutoffData['cutoffEnd'];
+
+       //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+      $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
+
+      DB::connection()->disableQueryLog();
+      $allUsers = DB::table('users')->where([
+                    ['status_id', '!=', 6],
+                    ['status_id', '!=', 7],
+                    ['status_id', '!=', 8],
+                    ['status_id', '!=', 9],
+                    ['users.status_id', '!=', 13],
+                    ['users.status_id', '!=', 16],
+                ])->
+        leftJoin('team','team.user_id','=','users.id')->
+        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+        leftJoin('positions','users.position_id','=','positions.id')->
+        leftJoin('floor','team.floor_id','=','floor.id')->
+        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+
+        $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->
+                          where([
+                            ['campaign.id', '!=','26'], //wv
+                            ['campaign.id', '!=','35'], //ceb
+
+                          ])->orderBy('name')->get();//
+        $byTL = collect($allUsers)->groupBy('tlID');
+        $allTL = $byTL->keys();
+        //return collect($allUsers)->where('campID',7);
+
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+           if($this->user->id !== 564 ) {
+              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Viewed Finance_DTRsheets on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+        
+      
+
+      return view('timekeeping.leaveMgt_summary',compact('payrollPeriod','paycutoffs','allProgram'));
 
     }
 

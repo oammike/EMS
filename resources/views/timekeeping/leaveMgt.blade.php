@@ -136,6 +136,9 @@
 
                   <div class="tab-content">
                     @if($canCredit)
+                     
+                     <a href="{{action('UserController@leaveMgt_summary')}}" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-download"></i>  Summary </a>
+
                      <a  data-toggle="modal" data-target="#myModal_giveNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-line-chart"></i> Give Credits </a>
 
                     <a  data-toggle="modal" data-target="#myModal_addNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-plus"></i> New </a>

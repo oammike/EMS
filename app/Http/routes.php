@@ -459,6 +459,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'leaveMgt_earnings',
       'uses'=>'UserController@leaveMgt_earnings') );
 
+       Route::get('/leave_management_summary', array(
+      'as'=> 'leaveMgt_summary',
+      'uses'=>'UserController@leaveMgt_summary') );
+
     
 
     //--- NOTIFS

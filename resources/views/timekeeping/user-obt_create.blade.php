@@ -213,10 +213,10 @@
                   $('input[name="timestart_old"]').val(response.timeStart);
                   $('input[name="timeend_old"]').val(response.timeEnd);
 
-                  if (response.timeStart === response.timeEnd )//|| response.isRD == 1
+                  /*if (response.timeStart === response.timeEnd )//|| response.isRD == 1
                   {
                     alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
-                  }
+                  }*/
                   
 
                   
@@ -258,12 +258,12 @@
                   $('input[name="timestart_old"]').val(response.timeStart);
                   $('input[name="timeend_old"]').val(response.timeEnd);
 
-                  if (response.timeStart === response.timeEnd ) //|| response.isRD == 1) || (response.timeStart === response.timeEnd || response.isRD == 1)
+                  /*if (response.timeStart === response.timeEnd ) //|| response.isRD == 1) || (response.timeStart === response.timeEnd || response.isRD == 1)
                   {
                     alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
                   }
                   else
-                  {
+                  {*/
                       if (totalcredits == '0' || totalcredits =='0.00')
                       {
                           var reply = confirm("Indicated date is actually a holiday. No need to file for a single-day OBT for non-operations personnel.\n\nClick OK to proceed if you're from Operations.");
@@ -458,7 +458,7 @@
                               
 
                       }//end if else no need to file
-                  }
+                  /*}*/
 
                 }//end success
             });
@@ -731,19 +731,19 @@ function checkIfRestday(vl_day, reason_vl)
 
                                       //console.log(response.start);
                                       //console.log(response.end);
-                                      if (response.timeStart === response.timeEnd){
+                                     /* if (response.timeStart === response.timeEnd){
                                         //console.log("equal");
                                         console.log('res:');
                                         console.log(response);
                                         alert("Actually, no need to file for leave. Selected date is your REST DAY!"); return false;
-                                      }else {
+                                      }else { */
 
                                         if (reason_vl == ""){  $.notify("Please include a brief reason about your leave for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:4000, clickToHide:true} );return false; }
                                         else {
                                           return true;
                                         } 
 
-                                      }
+                                      /*}*/
                                       
                                     }
                                   });
