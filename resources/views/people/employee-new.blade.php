@@ -461,8 +461,9 @@
                                   var posID = response.id;
                                   console.log("Saved position");
 
-                                  //check the rest of the form
-                                  if( !validateRequired(dateHired,alertDateHired,"") || !validateRequired(status_id,alertStatus,"") || !validateRequired(userType_id,alertUserType,"")){
+                                  //check the rest of the form!validateRequired(dateHired,alertDateHired,"") ||
+                                  if(  !validateRequired(status_id,alertStatus,"") || !validateRequired(userType_id,alertUserType,"") )
+                                  {
                                     e.preventDefault(); e.stopPropagation(); return false; 
 
                                   } else {

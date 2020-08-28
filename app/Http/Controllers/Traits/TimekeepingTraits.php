@@ -133,6 +133,8 @@ trait TimekeepingTraits
                   break;
       case 'LWOP': $vl1 = User_LWOP::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
                   break;
+      case 'OBT': $vl1 = User_OBT::where('user_id',$id)->orderBy('created_at','DESC')->get();
+                  break;//where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->
       
       
     }
@@ -2436,8 +2438,36 @@ trait TimekeepingTraits
     $hasPendingLWOP = $noPay->hasPending;
 
 
+    /*-------- OBT -----------*/
+    $ob = $this->establishLeaves($id,$endShift,'OBT',$thisPayrollDate,$schedForToday);
+    $obt = $ob->leaveType;
+    $alldaysOBT = $ob->allDays;
+    $hasOBT = $ob->hasTheLeave;  
+    $obtDeet = $ob->details;
+    $hasPendingOBT = $ob->hasPending;
 
-    $obt = User_OBT::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+     /*-------- OBT LEAVE  -----------*/
+    // if (count($obt) > 0) 
+    // {
+    //   $hasOBT=true; $hasLeave = true; 
+    //   $obtDeet= $obt->first();
+    //   (!is_null($obtDeet->isApproved)) ? $hasPendingOBT=false : $hasPendingOBT=true;
+
+    // }else{
+
+    //   $hasOBT = false;
+    //   $obtDeet = null;
+
+    // }
+
+
+
+
+
+    // $obt = User_OBT::where('user_id',$id)->where('leaveEnd','<=',$endShift->format('Y-m-d H:i:s'))->where('leaveStart','>=',$beginShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+
+
 
   
     $famL = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
@@ -2503,19 +2533,7 @@ trait TimekeepingTraits
 
 
 
-    /*-------- OBT LEAVE  -----------*/
-    if (count($obt) > 0) 
-    {
-      $hasOBT=true; $hasLeave = true; 
-      $obtDeet= $obt->first();
-      (!is_null($obtDeet->isApproved)) ? $hasPendingOBT=false : $hasPendingOBT=true;
-
-    }else{
-
-      $hasOBT = false;
-      $obtDeet = null;
-
-    }
+   
 
 
 
@@ -3753,7 +3771,7 @@ trait TimekeepingTraits
                     'timing'=>$timing,'UT'=>$UT,
                     'vl'=>$vl,
                     'pal'=>$pal,
-                    'CHECKER'=> '' //$ulog1 //$vacationLeave->query, //$alldaysVL,
+                    'CHECKER'=>$ob //$ulog1 //$vacationLeave->query, //$alldaysVL,
                     
                     ]);
 
