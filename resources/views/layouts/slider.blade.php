@@ -1,6 +1,33 @@
 
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+            <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Survey:<br/><span class="text-primary">Let's Stay Active and Fit!<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                   <!--  <img src="storage/uploads/physicalinvite.jpg" width="100%" /> -->
+                    <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
+                    <p  style="padding: 30px;" class="text-left">Hi Open Access BPO Family,<br/><br/>
+
+                      We've been on community quarantine for months now and we're hoping you've adjusted well to the new normal.<br/><br/>
+
+                      Aside from staying indoors, staying healthy and active is also recommended these days! So how about we do it as one team?<br/><br/>
+
+                      Hope you could find the time to fill out this <strong>quick survey</strong> so we can start with group classes again soon! <strong class="text-primary">Survey ends on September 2, 2020 Wednesday at 12 noon.</strong> 
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSdhiVX-ibDq4bMGEavHpxHkxKhM67l0mX3_IILJZuUBwnFXTQ/viewform" />
+                                          <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                                          <br/><br/>
+
+                      Thank you in advance for your feedback and time!
+
+                      See you soon in our group classes!</p>
+                    
+                   
+                    
+                    
+              </div>
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   August 31, 2020 Holiday |<br/> National Heroes Day <br/>
                   
                     <img src="storage/uploads/divider.png" />
