@@ -3818,6 +3818,8 @@ trait TimekeepingTraits
 
       $thisPayrollDate = Biometrics::find($biometrics->id)->productionDate;
       $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
+      (Team::where('user_id',$user_id)->first()->floor_id == 9) ? $isDavao=true : $isDavao=false;
+
 
       if (count($holidayToday) > 0) $hasHolidayToday = true;
 
@@ -3882,8 +3884,28 @@ trait TimekeepingTraits
 
             if ($hasHolidayToday)
               {
-                $workedHours = "(8.0) <br/><strong> * "; 
-                $workedHours .= $holidayToday->first()->name." *</strong>";
+                
+
+                if($holidayToday->first()->holidayType_id == 4)
+                {
+                  if($isDavao)
+                  {
+                    $workedHours = "(8.0) <br/><strong> * "; 
+                    $workedHours .= $holidayToday->first()->name." *</strong>";
+                  }
+                  else
+                  {
+                    $workedHours="N/A"; 
+                  }
+                  
+                  
+                }else
+                {
+                  $workedHours = "(8.0) <br/><strong> * "; 
+                  $workedHours .= $holidayToday->first()->name." *</strong>";
+                }
+               
+                
 
               } else $workedHours="N/A"; 
 
