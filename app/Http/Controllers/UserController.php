@@ -3350,9 +3350,9 @@ class UserController extends Controller
 
         case '10': {
                         $waysto_id = 9;
-                        $s = Carbon::now('GMT+8')->subYear(10)->startOfYear();
+                        $s = Carbon::now('GMT+8')->subYear(20)->startOfYear();
                         $e = Carbon::now('GMT+8')->subYear(10)->endOfYear();
-                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('status_id','!=',2)->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('dateHired','>=',$s->format('Y-m-d H:i:s'))->where('status_id','!=',2)->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
 
                     }
                     break;            
