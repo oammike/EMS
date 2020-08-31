@@ -3352,7 +3352,7 @@ class UserController extends Controller
                         $waysto_id = 9;
                         $s = Carbon::now('GMT+8')->subYear(10)->startOfYear();
                         $e = Carbon::now('GMT+8')->subYear(10)->endOfYear();
-                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
+                        $tenures = DB::table('users')->where('dateHired','<=',$e->format('Y-m-d H:i:s'))->where('status_id','!=',2)->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',13)->select('users.id',  'users.firstname','users.lastname','users.nickname', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
 
                     }
                     break;            
@@ -3364,7 +3364,7 @@ class UserController extends Controller
                                   
           $already = DB::select(DB::raw("SELECT reward_award.id, reward_award.user_id, reward_award.waysto_id, reward_award.created_at FROM reward_award WHERE reward_award.user_id = :u AND reward_award.waysto_id = :w AND YEAR(reward_award.created_at) = :y AND MONTH(reward_award.created_at) = :m"),array(
              'y' => date('Y'),
-             'm' => date('m'),
+             'm' => $now->format('m'),//date('m'),
              'u' => (int)$r->id,
              'w' => (int)$w->id
            ));
