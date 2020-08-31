@@ -3060,20 +3060,49 @@ class UserController extends Controller
                                     $pt->save();
                                   }
 
+                                  //check kung nabigyan na ng points for that engagement activity:
+                                  if($request->engagement_id){
+                                    $meronNa = DB::table('reward_award')->where('user_id',$r)->where('waysto_id',$request->waysto)->where('engagement_id',$request->engagement_id)->get();
+                                    if (count($meronNa) > 0) { 
+                                      //wag no na bigyan ng points
+                                      $coll2->push($meronNa);
+                                    }else
+                                    {
+                                      $award = new Reward_Award;
+                                      $award->user_id = $r;
+                                      $award->waysto_id = $request->waysto;
+                                      $award->engagement_id = $request->engagement_id;
+                                      $award->beginningBal = $beginningBal;
+                                      $award->points = $request->points;
+                                      $award->notes = $request->notes;
+                                      $award->awardedBy = $this->user->id;
+                                      $award->created_at = $now->format('Y-m-d H:i:s');
+                                      $award->updated_at = $now->format('Y-m-d H:i:s');
+                                      $award->save();
+                                      $coll->push($award);
+                                      $collstr .= $r.",";
+
+                                    }
+                                  }else
+                                  {
+                                    $award = new Reward_Award;
+                                    $award->user_id = $r;
+                                    $award->waysto_id = $request->waysto;
+                                    $award->engagement_id=null;
+                                    $award->beginningBal = $beginningBal;
+                                    $award->points = $request->points;
+                                    $award->notes = $request->notes;
+                                    $award->awardedBy = $this->user->id;
+                                    $award->created_at = $now->format('Y-m-d H:i:s');
+                                    $award->updated_at = $now->format('Y-m-d H:i:s');
+                                    $award->save();
+                                    $coll->push($award);
+                                    $collstr .= $r.",";
+                                  }
+                                  
 
 
-                                  $award = new Reward_Award;
-                                  $award->user_id = $r;
-                                  $award->waysto_id = $request->waysto;
-                                  $award->beginningBal = $beginningBal;
-                                  $award->points = $request->points;
-                                  $award->notes = $request->notes;
-                                  $award->awardedBy = $this->user->id;
-                                  $award->created_at = $now->format('Y-m-d H:i:s');
-                                  $award->updated_at = $now->format('Y-m-d H:i:s');
-                                  $award->save();
-                                  $coll->push($award);
-                                  $collstr .= $r.",";
+                                  
                                 }
 
                                 if( \Auth::user()->id !== 564 ) {

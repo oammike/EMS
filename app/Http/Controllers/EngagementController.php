@@ -326,8 +326,10 @@ class EngagementController extends Controller
         }
 
         $mods = [564,534,879,1717,1611,1398,491];
+        $awarder = [564,491];
 
         in_array($this->user->id, $mods) ? $canModerate=1 : $canModerate=0;
+        in_array($this->user->id, $awarder) ? $canAward=1 : $canAward=0;
 
 
         switch ($id) {
@@ -620,6 +622,7 @@ class EngagementController extends Controller
             }
             else if($id >= 5) // == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 || $id== 14 || $id== 15 || $id ==16 || $id ==17 ) //OPEN WALL
             {
+                $waysto = 11; // rewards_waysto ID for EE
                 $allPosts = collect($existingEntry)->groupBy('entryID');
                 $allEntries = DB::table('engagement_entry')->where('engagement_entry.engagement_id',$id)->
                                 join('engagement','engagement_entry.engagement_id','=','engagement.id')->
@@ -633,6 +636,7 @@ class EngagementController extends Controller
                                 select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get(); 
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
+                $uniqueUsers = collect($allEntries)->sortBy('lastname')->groupBy('user_id')->unique();
 
                 if( \Auth::user()->id !== 564 ) {
                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
@@ -640,7 +644,7 @@ class EngagementController extends Controller
                   fclose($file);
                 }
 
-                return view('people.empEngagement-show_wall',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
+                return view('people.empEngagement-show_wall',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','canAward', 'userEntries','itemTypes','uniqueUsers','waysto'));
 
             }
             else

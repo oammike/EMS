@@ -38,8 +38,13 @@
                     <!-- ******** collapsible box ********** -->
                           <div class="box box-primary collapsed-box" style="margin-top: 20px">
                             <div class="box-header with-border">
-                             <h3 class="text-primary">All Posts <strong class="text-orange">({{count($userEntries)}})</strong> :</h3>
+                             <h3 class="text-primary"> All Posts <strong class="text-orange">({{count($userEntries)}})</strong> :
+                              </h3>
+                             
                               <div class="box-tools pull-right">
+                                @if($canAward)
+                                    <a  data-toggle="modal" data-target="#awardpoints" class="pull-left btn btn-default btn-md" style="margin-right:10px"><i class="fa fa-trophy"></i> Award Points</a>
+                                @endif
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                                 </button>
                               </div>
@@ -454,6 +459,50 @@
               </div><!--end box-primary-->
 
 
+            @if($canAward)
+              <!-- Award Modal -->
+              <div class="modal fade" id="awardpoints" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><img src="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}" width="30" /> &nbsp; Award Reward Points</h4>
+                      
+                    </div>
+                    <div class="modal-body">
+                      
+                      <p id="msg">Give reward points to the <strong>({{count($uniqueUsers)}}) </strong> employees who participated in this engagement activity:</p><ol id="receiver" ><!-- style="max-height:200px; overflow-y: scroll;" -->
+                      
+                        @foreach($uniqueUsers as $u)
+                          <li data-recipient="{{$u->first()->user_id}}">{{$u->first()->lastname}}, {{$u->first()->firstname}} of <strong>{{$u->first()->program}} </strong></li>
+                         
+                        @endforeach
+                      </ul> 
+
+                      <p class="text-right" style="margin-top: 120px">
+                        <label>Points to Award: <input type="text" id="points" class="form-control" name="points" placeholder="10" /> </label><br/>
+                        <textarea class="form-control" id="notes" name="notes" placeholder="Notes/Comments" /></textarea><br/><br/>
+                      Please type-in your EMS password to proceed.</p>
+                      <label class="pull-right">EMS Password: <input type="password" name="pw" id="pw" class="form-control" autocomplete="off" /></label>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer no-border">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        
+                        <input type="hidden" id="waysto" name="waysto" value="{{$waysto}}" />
+                        <button id="proceed" class="btn btn-success" data-dismiss="modal"><i class="fa fa-exchange"></i> Award Reward Points Now </button>
+                      
+                      
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
+
+
              
 
              
@@ -487,93 +536,170 @@
    $(document).ready(function(){
 
 
-    $('.row').on('click','input.flag',function(){
-
-        var d = $(this);
-        var q = null;
+      $('#proceed').on('click',function(){
+        var rec = $('#receiver > li');var recipients = [];
+        $.each(rec,function(){
+          recipients.push($(this).attr('data-recipient'));
+        });
+        
+        var pw = $('#pw').val();
         var _token = "{{ csrf_token() }}";
+        var points = $('#points').val(); 
+        var waysto = $('#waysto').val();
+        var notes = $('#notes').val();
 
-        if (d.is(":checked")) q=1; else q=0;
+        console.log(recipients);
+        console.log(points);
+        console.log(waysto);
+        console.log(notes);
+        
+        if(isNaN(points)) 
+        {
 
-        console.log(q);
-        $.ajax({
+          $.notify("Sorry, you\'ve entered an Invalid Value.\nPlease try again.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+          return false;
 
-                  url:"{{action('EngagementController@disqualify')}}",
-                  type:'POST',
-                  data:{
-
-                    'entry_id': $(this).attr('data-entryid'),
-                    'q': q,
+        }else 
+        {
+          $.ajax({
                     
-                    _token: _token
+                    url : "{{ url('/grantRewardPoints') }}",
+                    data : {
+                              'points' : points,
+                              'awardtype': 'SPECIFIC',
+                              'recipients': recipients,
+                              'waysto':waysto,
+                              'notes':notes,
+                              'pw' : pw,
+                              'engagement_id':'{{$id}}',
+                              '_token' : _token
 
-                  },
-                  error: function(response)
-                  { console.log("Error saving entry: ");
-                    console.log(response);
-                    $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
-                    return false;
-                  },
-                  success: function(response)
-                  {
-                    console.log(response);
-                    if(q)
-                      $.notify("Post tagged as inappropriate.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                    else
-                      $.notify("Post unflagged as inappropriate.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                    
+                    },
+                    type: 'POST',
+                    success : function(data){
+                                              console.log(data);
 
-                  }
+                                              if (data.success == '1')
+                                              {
+                                                 if(data.already)
+                                                          $.notify(points+ " reward points successfully awarded to "+data.total+" employee(s).\nThe other ("+data.already.length+") employees already had existing points for this activity.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                                        else
+                                                          $.notify(points+ " reward points successfully awarded to "+data.total+" employee(s)",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
 
-            });
+                                                
+                                              
+                                                // $('#go').attr('disabled',true);
 
+                                                // $('#sendpts').fadeOut(); $('#makenew').fadeIn();
 
+                                              }else {
+
+                                                $.notify("Unable to award points. Please try again later.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+
+                                              }
+                                              
+
+                                              
+                    },
+                    error: function(data){
+                      
+                                              $.notify("An error occured. Please try again later.",{ className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                      
+                    }
+              });
+        }
 
        
-    });
+        
 
-   
-    $('#allEntries').DataTable();
+      });
 
-    $('.del.btn').on('click',function(){
-      setTimeout(function () {
-        window.location="{{action('EngagementController@show',$id)}}";
-  
-    }, 500);
+
+      $('.row').on('click','input.flag',function(){
+
+          var d = $(this);
+          var q = null;
+          var _token = "{{ csrf_token() }}";
+
+          if (d.is(":checked")) q=1; else q=0;
+
+          console.log(q);
+          $.ajax({
+
+                    url:"{{action('EngagementController@disqualify')}}",
+                    type:'POST',
+                    data:{
+
+                      'entry_id': $(this).attr('data-entryid'),
+                      'q': q,
+                      
+                      _token: _token
+
+                    },
+                    error: function(response)
+                    { console.log("Error saving entry: ");
+                      console.log(response);
+                      $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                      return false;
+                    },
+                    success: function(response)
+                    {
+                      console.log(response);
+                      if(q)
+                        $.notify("Post tagged as inappropriate.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                      else
+                        $.notify("Post unflagged as inappropriate.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                      
+
+                    }
+
+              });
+         
+      });
 
      
-    });
+      $('#allEntries').DataTable();
+
+      $('.del.btn').on('click',function(){
+        setTimeout(function () {
+          window.location="{{action('EngagementController@show',$id)}}";
+    
+      }, 500);
+
+       
+      });
 
 
-    $('form').ajaxForm({
-        beforeSend:function(){
+      $('form').ajaxForm({
+          beforeSend:function(){
 
-            $('#success').empty();
-            $('.progress-bar').text('0%');
-            $('.progress-bar').css('width', '0%');
+              $('#success').empty();
+              $('.progress-bar').text('0%');
+              $('.progress-bar').css('width', '0%');
 
-        },
-        uploadProgress:function(event, position, total, percentComplete){
-            $('.progress-bar').text(percentComplete + '0%');
-            $('.progress-bar').css('width', percentComplete + '0%');
-        },
-        success:function(data)
-        {
-            if(data.success)
-            {
-                console.log(data);
-                $('input[name="upload"]').fadeOut();
-                $('#success').html('<div class="text-success text-center"><br/><a href=\"{{action("EngagementController@show",$id)}}\" class="btn btn-lg btn-success"> Create New Wall Post <i class="fa fa-image" ></i></a>&nbsp;&nbsp;<a href=\"{{action("EngagementController@wall",$id)}}\" target="_blank" class="btn btn-lg btn-danger"> View Wall  <i class="fa fa-th-large" ></i></a></div><br /><br />');
-                //$('#success').append(data.image);
-                $('.progress-bar').text('Message Uploaded!');
-                $('.progress-bar').css('width', '100%');
-               
-            }
-            return false;
+          },
+          uploadProgress:function(event, position, total, percentComplete){
+              $('.progress-bar').text(percentComplete + '0%');
+              $('.progress-bar').css('width', percentComplete + '0%');
+          },
+          success:function(data)
+          {
+              if(data.success)
+              {
+                  console.log(data);
+                  $('input[name="upload"]').fadeOut();
+                  $('#success').html('<div class="text-success text-center"><br/><a href=\"{{action("EngagementController@show",$id)}}\" class="btn btn-lg btn-success"> Create New Wall Post <i class="fa fa-image" ></i></a>&nbsp;&nbsp;<a href=\"{{action("EngagementController@wall",$id)}}\" target="_blank" class="btn btn-lg btn-danger"> View Wall  <i class="fa fa-th-large" ></i></a></div><br /><br />');
+                  //$('#success').append(data.image);
+                  $('.progress-bar').text('Message Uploaded!');
+                  $('.progress-bar').css('width', '100%');
+                 
+              }
+              return false;
 
-        }
-    });
-});
+          }
+      });
+
+  });
 
 
 
