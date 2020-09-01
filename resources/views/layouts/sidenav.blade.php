@@ -721,7 +721,7 @@
       </div>
       <div class="modal-body">
         
-        <p>You are about to launch the <em>demo version</em> of our new <strong>Clearance Form.</strong> <br/>This will launch a new tab to input your EMS login credentials to continue.</p>
+        <p>You are about to launch the <em>demo version</em> of our new <strong>Clearance Form.</strong> <br/>This will launch a new tab where you will input your EMS login credentials to continue.</p>
 
         <br/><br/>
        
