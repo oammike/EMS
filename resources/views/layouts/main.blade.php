@@ -361,69 +361,15 @@ function validateRequired(param, availability, defaultval) {
   $(function () {
    'use strict';
 
-  
 
-   $('#pose360').on('click', function(){
+    $('#hrms').on('click', function(){
     $.ajax({
-                url: "{{action('HomeController@logAction','6')}}",
+                url: "{{action('HomeController@logAction','14')}}",
                 type: "GET",
-                data: {'action': '6'},
+                data: {'action': '14'},
                 success: function(response){
                           console.log(response);
-
-              }
-
-        });
-
-   });
-   $('#photobooth').on('click', function(){
-    $.ajax({
-                url: "{{action('HomeController@logAction','7')}}",
-                type: "GET",
-                data: {'action': '7'},
-                success: function(response){
-                          console.log(response);
-
-              }
-
-        });
-
-   });
-
-   $('#cam1').on('click', function(){
-    $.ajax({
-                url: "{{action('HomeController@logAction','8')}}",
-                type: "GET",
-                data: {'action': '8'},
-                success: function(response){
-                          console.log(response);
-
-              }
-
-        });
-
-   });
-
-   $('#cam2').on('click', function(){
-    $.ajax({
-                url: "{{action('HomeController@logAction','9')}}",
-                type: "GET",
-                data: {'action': '9'},
-                success: function(response){
-                          console.log(response);
-
-              }
-
-        });
-
-
-    $('#phys').on('click', function(){
-    $.ajax({
-                url: "{{action('HomeController@logAction','11')}}",
-                type: "GET",
-                data: {'action': '11'},
-                success: function(response){
-                          console.log(response);
+                          window.open('http://172.17.0.2/HR/hrms/dashboard', '_blank');
 
               }
 

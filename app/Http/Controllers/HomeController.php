@@ -2195,6 +2195,15 @@ class HomeController extends Controller
                     }
                   }break;
 
+        case '14':{
+                    //if($this->user->id !== 564 ) {
+                      
+                      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Launch HRMS by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+                        fclose($file);
+                    //}
+                  }break;
+
          case 'P':{
                     if($this->user->id !== 564 ) {
                       $user = User::find(Input::get('id'));

@@ -435,6 +435,11 @@
 
         <li><a href="http://172.17.0.2/coffeebreak/" target="_blank"><i class="fa fa-coffee" ></i> <img src="{{ asset('public/img/logo_coffeebreak.png')}}" width="100" /> <span></span></a></li>
 
+         <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADMINISTER_CLEARANCE') ){ ?> 
+              <li @if (Request::is('user')) class="active" @endif style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#clearanceModal"><i class="fa fa-file-o"></i> Clearance Forms </a></li>
+             <?php }  ?>
+
+
         
 
 
@@ -485,3 +490,40 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  @if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADMINISTER_CLEARANCE') )
+<div class="modal fade" id="clearanceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel"><img src="{{asset('public/img/oabpo_logo_new.jpg')}}" width="90px" align="center" />Launch HR Clearance Forms</h4>
+        
+      </div>
+      <div class="modal-body">
+        
+        <p>You are about to launch the <em>demo version</em> of our new <strong>Clearance Form.</strong> <br/>This will launch a new tab to input your EMS login credentials to continue.</p>
+
+        <br/><br/>
+       
+      </div>
+      <div class="modal-footer no-border">
+        
+        
+     
+        
+          
+          <button type="button" id="hrms" class="yes btn btn-primary btn-md"  data-dismiss="modal"><i class="fa fa-check-square-o"></i> Proceed </button>
+          <!-- <a href="#" id="no" class="no btn btn-success btn-md "> Proceed anyway </a> -->
+         
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+       
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+@endif
