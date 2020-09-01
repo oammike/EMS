@@ -1,6 +1,24 @@
 
 
-            <div class="item active text-center" >
+             <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-tree"></i> Holiday Season  <br/><small>September 01 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      It’s already September, which means it’s officially the start of <strong>Christmas season in the Philippines!</strong><br/><br/>
+
+                      <strong class="text-primary"> What’s the first thing you do in preparation for the holidays? </strong>Any family traditions you’d like to share?<br/><br/>
+
+                      All participants will get 20 points. </p>
+
+                    <img src="storage/uploads/wall_week17.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',23)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Survey:<br/><span class="text-primary">Let's Stay Active and Fit!<br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -70,24 +88,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"> Buwan ng Wika <img src="storage/uploads/rpFlag.png" width="8%" /> <br/><small>August 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      August is Buwan ng Wika!<br/><br/>
-
-                      <strong>What’s the most beautiful word/phrase in the Filipino language for you? </strong>Any Filipino dialect will also do!<br/><br/>
-
-                      All participants will get 20 points. </p>
-
-                    <img src="storage/uploads/wall_week16.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',22)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
-
+           
             
 
             <div class="item   text-center" >
