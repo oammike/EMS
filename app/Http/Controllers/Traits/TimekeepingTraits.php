@@ -4221,17 +4221,69 @@ trait TimekeepingTraits
                           (count($verifiedDTR) > 0) ? $isLocked=true : $isLocked=false;
 
                          
+                          if ($hasHolidayToday)
+                          {
+                            
 
+                            if($holidayToday->first()->holidayType_id == 4)
+                            {
+                              if($isDavao)
+                              {
+                                $workedHours = "(8.0) <br/><strong> * "; 
+                                $workedHours .= $holidayToday->first()->name." *</strong>";
+                              }
+                              else
+                              {
+                                $workedHours="N/A"; 
+                              }
+                              
+                              
+                            }else
+                            {
+                              $workedHours = "(8.0) <br/><strong> * "; 
+                              $workedHours .= $holidayToday->first()->name." *</strong>";
+                            }
+                           
+                            
+
+                          } else $workedHours="N/A"; 
 
                            if ($hasHolidayToday)
                            {
-                              //check first if Locked na DTR for that production date
-                              $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
-                              if($isLocked)
-                                $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
-                              else
-                               $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                              if($holidayToday->first()->holidayType_id == 4)
+                              {
+                                if($isDavao)
+                                {
+                                  $workedHours = "(8.0) <br/><strong> * "; 
+                                  $workedHours .= $holidayToday->first()->name." *</strong>";
+                                  if($isLocked)
+                                  $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                                  else
+                                   $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                                }
+                                else
+                                {
+                                  $workedHours="N/A"; 
+                                  $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal_bypass_".$biometrics->id."\"   title='Mark as REST DAY' class='actualRD btn btn-xs btn-danger'><i class='fa fa-bed'></i> </a>";
+                                $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
 
+                                }
+                                
+                                
+                              }else
+                              {
+                                //check first if Locked na DTR for that production date
+                                $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+                                 if($isLocked)
+                                  $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
+                                  else
+                                   $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                                
+
+
+                              }
+
+                                
                            
                            }
                            
