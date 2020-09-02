@@ -56,7 +56,7 @@
 
                       Aside from staying indoors, staying healthy and active is also recommended these days! So how about we do it as one team?<br/><br/>
 
-                      Hope you could find the time to fill out this <strong>quick survey</strong> so we can start with group classes again soon! <strong class="text-primary">Survey ends on September 2, 2020 Wednesday at 12 noon.</strong> 
+                      Hope you could find the time to fill out this <strong>quick survey</strong> so we can start with group classes again soon! <strong class="text-primary">Survey ends on September 4, 2020 Friday at 12 noon.</strong> 
                        <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSdhiVX-ibDq4bMGEavHpxHkxKhM67l0mX3_IILJZuUBwnFXTQ/viewform" />
                                           <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
                                           <br/><br/>
