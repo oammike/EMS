@@ -1,6 +1,30 @@
 
 
-             <div class="item active text-center" >
+              <div class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-stethoscope"></i> Message from Clinic: <br/><span class="text-primary"> Maintaining Mental Health Resilience<br/> amidst COVID-19 Pandemic <br/><small> Sep. 02, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/mentalhealth2.jpg" width="100%" /><br/>
+                    <p  style="padding: 30px;" class="text-left" >
+                      The CoronaVirus Pandemic has caused exceptionally challenging and worrying time for each and every one of us. The effects of social distancing, lockdown, the loss of loved ones to the virus and the over-consumption of stress-inducing media reports is taking a huge toll on our mental health and wellbeing.<br/><br/>
+
+
+                      According to,Nina Rifkind, LCSW, ACWS, who specializes in treating Anxiety Disorders and OCD, "Individuals who fight every day to manage symptoms, and those who love and support them, we can work to slowly turn the tide.  By sharing with people, we trust. And thoughtfully educating our family and friends, we can make those around us more sensitive, and aware, all year round, of the importance of how we all talk about mental health, and how critical it is to our health in general, mind, body and spirit."<br/><br/>
+
+                      The OAMPI Clinic is also here if you need assistance in relation to Mental Health. Please do not hesitate to reach us. However, the government has provided us as well with hotline support in case you prefer to seek direct  professional help. <br/><br/>
+                      Below are their numbers:<br/><br/>
+                      National Center for Mental Health Crisis Hotline at <strong>0917-899-8727 (0917-899-USAP)</strong> and <strong>(02) 7-989-8727 ((02)-7-989-USAP)</strong><br/><br/></p>
+
+ 
+
+
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-tree"></i> Holiday Season  <br/><small>September 01 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
