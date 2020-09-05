@@ -1,6 +1,49 @@
 
 
-              <div class="item active  text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> SEPT. 10, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for September 10 payout is Sept 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SUNDAY 12:00 noon of Sept. 06, 2020</strong>.<br/><br/>
+
+                    Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
+                    <table class="table">
+                      <tr>
+                        <th>Date of Holiday</th>
+                        <th class="text-center">File Holiday OT for</th>
+                      </tr>
+                      <tr>
+                        <td>Aug. 21</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 24</td>
+                        <td><strong>Davao</strong> Admin and Support Group only</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 31</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                    </table>
+
+
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
+
+              <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-stethoscope"></i> Message from Clinic: <br/><span class="text-primary"> Maintaining Mental Health Resilience<br/> amidst COVID-19 Pandemic <br/><small> Sep. 02, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -42,33 +85,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Survey:<br/><span class="text-primary">Let's Stay Active and Fit!<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                   <!--  <img src="storage/uploads/physicalinvite.jpg" width="100%" /> -->
-                    <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
-                    <p  style="padding: 30px;" class="text-left">Hi Open Access BPO Family,<br/><br/>
-
-                      We've been on community quarantine for months now and we're hoping you've adjusted well to the new normal.<br/><br/>
-
-                      Aside from staying indoors, staying healthy and active is also recommended these days! So how about we do it as one team?<br/><br/>
-
-                      Hope you could find the time to fill out this <strong>quick survey</strong> so we can start with group classes again soon! <strong class="text-primary">Survey ends on September 4, 2020 Friday at 12 noon.</strong> 
-                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSdhiVX-ibDq4bMGEavHpxHkxKhM67l0mX3_IILJZuUBwnFXTQ/viewform" />
-                                          <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                                          <br/><br/>
-
-                      Thank you in advance for your feedback and time!
-
-                      See you soon in our group classes!</p>
-                    
-                   
-                    
-                    
-              </div>
+         
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   August 31, 2020 Holiday |<br/> National Heroes Day <br/>
                   
@@ -2224,6 +2241,33 @@
 
 
 <?php /*
+   <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Survey:<br/><span class="text-primary">Let's Stay Active and Fit!<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                   <!--  <img src="storage/uploads/physicalinvite.jpg" width="100%" /> -->
+                    <img src="./storage/uploads/letsgetphysical-banner.jpg" style="z-index: 2" /><br/>
+                    <p  style="padding: 30px;" class="text-left">Hi Open Access BPO Family,<br/><br/>
+
+                      We've been on community quarantine for months now and we're hoping you've adjusted well to the new normal.<br/><br/>
+
+                      Aside from staying indoors, staying healthy and active is also recommended these days! So how about we do it as one team?<br/><br/>
+
+                      Hope you could find the time to fill out this <strong>quick survey</strong> so we can start with group classes again soon! <strong class="text-primary">Survey ends on September 4, 2020 Friday at 12 noon.</strong> 
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSdhiVX-ibDq4bMGEavHpxHkxKhM67l0mX3_IILJZuUBwnFXTQ/viewform" />
+                                          <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                                          <br/><br/>
+
+                      Thank you in advance for your feedback and time!
+
+                      See you soon in our group classes!</p>
+                    
+                   
+                    
+                    
+              </div>
  <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><br/>
                     <span class="text-primary"><i class="fa fa-book"></i> National Book Lovers Day Raffle Winners! <br/><small>Aug 10, 2020</small><br/>
