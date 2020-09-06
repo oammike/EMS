@@ -131,9 +131,11 @@
                             <tr>
                               <td><h4><i class="fa fa-plane"></i> Vacation Leave</h4> <br/> <a class="btn btn-default btn-xs" href="{{action('UserVLController@create')}}"><i class="fa fa-upload"></i> File New VL</a> </td>
                               <td colspan="2">
-                                 @if (count($personnel->vlCredits) <= (date('Y')-2008) && $canUpdateLeaves )
+                                 @if (count($personnel->vlCredits) <= (date('Y')-2008) )
+                                    @if($canUpdateLeaves)
                                     <a data-toggle="modal" style="margin-top: 10px" data-target="#myModal_addVL{{$personnel->id}}" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a>
                                     <!-- <a data-toggle="modal" style="margin-top: 10px" data-target="#underConstruction" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus-circle"></i> Add VL Credits</a> -->
+                                    @endif
 
                                     @if($canUpdateLeaves)
                                      <a data-toggle="modal" style="margin-top: 10px; margin-right: 5px" data-target="#myModal_addVLearning{{$personnel->id}}" href="#" class="btn btn-xs btn-success pull-right"><i class="fa fa-plus-circle"></i> Add VL Earnings</a>
