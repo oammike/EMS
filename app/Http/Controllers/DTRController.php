@@ -3355,12 +3355,12 @@ class DTRController extends Controller
                                      //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
                                   
                                   if (($j->timeEnd == '<strong class="text-danger">No IN</strong><a title') || (strpos($j->timeEnd, 'shift') !== false)) {
-                                    $endDate =  Carbon::parse($wshift[1],'Asia/Manila');
-                                    $endTime = Carbon::parse($wshift[1],'Asia/Manila');
+                                    $endDate =  Carbon::parse(strip_tags($wshift[1]),'Asia/Manila');
+                                    $endTime = Carbon::parse(strip_tags($wshift[1]),'Asia/Manila');
                                   }
                                   else {
-                                    $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
-                                    $endTime = Carbon::parse($j->timeEnd,'Asia/Manila');
+                                    $endDate =  Carbon::parse(strip_tags($j->timeEnd),'Asia/Manila');
+                                    $endTime = Carbon::parse(strip_tags($j->timeEnd),'Asia/Manila');
                                   }
 
                                   
@@ -3384,8 +3384,8 @@ class DTRController extends Controller
                                     //$endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
                                     //$endTime = Carbon::parse($j->timeEnd,'Asia/Manila');
 
-                                    $e =  Carbon::parse($j->timeEnd,'Asia/Manila');//->addHours($jps[0]->filed_hours);
-                                    $endDate =  Carbon::parse($j->timeEnd,'Asia/Manila');
+                                    $e =  Carbon::parse(strip_tags($j->timeEnd),'Asia/Manila');//->addHours($jps[0]->filed_hours);
+                                    $endDate =  Carbon::parse(strip_tags($j->timeEnd),'Asia/Manila');
                                   }
 
 
