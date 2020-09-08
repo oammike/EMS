@@ -22,13 +22,13 @@
 
 
           <div class="row">
-            <form id="dtrform" action="{{action('DTRController@downloadDTRsheet')}}" method="POST">
+            <form id="dtrform" action="{{action('DTRController@downloadLeaveSummary')}}" method="POST">
 
             <div class="col-lg-1"></div>
             <div class="col-lg-10" style="background: rgba(255, 255, 255, 0.4);"><BR/><BR/>
               <h3 class="text-primary">1. <span style="font-size: smaller;"> Select leave period :</span></h3>
 
-              From: <input style="width: 30%" type="text" class="form-control datepicker" name="from" /> To: <input style="width: 30%" type="text" class="form-control datepicker" name="to" /> 
+              From: <input style="width: 30%" type="text" class="form-control datepicker" name="cutoffStart" /> To: <input style="width: 30%" type="text" class="form-control datepicker" name="cutoffEnd" /> 
               
               <h3 class="text-primary">2. <span style="font-size: smaller;"> Select department/program :</span></h3>
               <select class="form-control" name="program">
@@ -41,9 +41,6 @@
 
               
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="cutoffstart" />
-                <input type="hidden" name="cutoffend" />
-                <input type="hidden" name="reportType" id="reportType" value="dailyLogs" />
                 
                 <!-- <input type="hidden" name="dtr" /> -->
 

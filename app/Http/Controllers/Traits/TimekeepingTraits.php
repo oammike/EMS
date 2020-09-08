@@ -247,6 +247,14 @@ trait TimekeepingTraits
 
   }
 
+  public function fetchLeaveCreditSummary()
+  {
+
+
+  }
+
+  
+
   public function fetchLockedDTRs($c, $p, $reportType)
   {
       $cutoff = explode('_', $c);
@@ -348,6 +356,8 @@ trait TimekeepingTraits
 
       return $coll;
   }
+
+
 
 
   public function generateShifts($timeFormat, $shiftType)
