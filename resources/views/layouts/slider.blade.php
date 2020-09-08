@@ -1,47 +1,25 @@
 
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> SEPT. 10, 2020</strong> PAYOUT <br/>
+               <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Famous People  <br/><small>September 08 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
+                    <p  style="padding: 30px;" class="text-center">
+                      Let's do something fun! <br/><br/>
+
+                      <strong class="text-primary">Share a photo that you have with a famous person!</strong><br/>
+                      It could be a celebrity, athlete, artist, singer, vlogger, writer, etc!<br/><br/>
+
+                      All participants will get 20 points. </p>
+
+                    <img src="storage/uploads/wall_week18.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',24)}}"> Check out our ECQonnection Wall</a>
                     
-                    Please be informed that our cut-off for September 10 payout is Sept 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SUNDAY 12:00 noon of Sept. 06, 2020</strong>.<br/><br/>
-
-                    Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
-                    <table class="table">
-                      <tr>
-                        <th>Date of Holiday</th>
-                        <th class="text-center">File Holiday OT for</th>
-                      </tr>
-                      <tr>
-                        <td>Aug. 21</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 24</td>
-                        <td><strong>Davao</strong> Admin and Support Group only</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 31</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                    </table>
-
-
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/></p>
-
- 
                     
-              </div>
+            </div>
+
+
 
               <div class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-stethoscope"></i> Message from Clinic: <br/><span class="text-primary"> Maintaining Mental Health Resilience<br/> amidst COVID-19 Pandemic <br/><small> Sep. 02, 2020</small><br/>
@@ -67,23 +45,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-tree"></i> Holiday Season  <br/><small>September 01 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      It’s already September, which means it’s officially the start of <strong>Christmas season in the Philippines!</strong><br/><br/>
-
-                      <strong class="text-primary"> What’s the first thing you do in preparation for the holidays? </strong>Any family traditions you’d like to share?<br/><br/>
-
-                      All participants will get 20 points. </p>
-
-                    <img src="storage/uploads/wall_week17.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',23)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
+           
 
          
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
@@ -2241,6 +2203,48 @@
 
 
 <?php /*
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> SEPT. 10, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for September 10 payout is Sept 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SUNDAY 12:00 noon of Sept. 06, 2020</strong>.<br/><br/>
+
+                    Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
+                    <table class="table">
+                      <tr>
+                        <th>Date of Holiday</th>
+                        <th class="text-center">File Holiday OT for</th>
+                      </tr>
+                      <tr>
+                        <td>Aug. 21</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 24</td>
+                        <td><strong>Davao</strong> Admin and Support Group only</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 31</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                    </table>
+
+
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
    <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Survey:<br/><span class="text-primary">Let's Stay Active and Fit!<br/>
                   
