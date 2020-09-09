@@ -5062,8 +5062,22 @@ trait TimekeepingTraits
       //$koll->push(['userLogIN'=>$inTime->format('Y-m-d H:i'), 'scheduleStart'=>$scheduleStart->format('Y-m-d H:i')]);
 
       // ------- new check override kung holiday at backoffice
-      if ($hasHolidayToday && $isBackoffice ) {
-        $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+      if ($hasHolidayToday && $isBackoffice ) 
+      {
+        // hindi na from timeIN kundi start ng worksched
+        // check mo muna kung nacomplete ba nya yung shift nya ng holiday
+        //     if (earlier than shift) startOT from startng Shift
+        //     else startOT from timeiN
+
+        if( Carbon::parse($userLogIN[0]['timing'],'Asia/Manila') < $scheduleStart->format('Y-m-d H:i'))
+        {
+          $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($scheduleStart);
+
+        }else
+        {
+          $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+        }
+        
         goto proceedWithNormal;
       }
 
