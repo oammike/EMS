@@ -378,7 +378,7 @@
                                         </td>
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
                                           {{ number_format( (($v->beginBalance - $v->used)-$v->paid)+ $earn - $earnVTO, 2) }}
-                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings[0]->period))}}) </small>@endif
+                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings[0]->period))}}) <br/>leave earnings </small>@endif
                                         </td>
                                         <td class="text-center">
                                          
@@ -744,7 +744,7 @@
 
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
                                           {{ number_format( ((($v->beginBalance - $v->used)-$v->paid)+ $earnSL - $advSL) - $earnVTO, 2) }}
-                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) </small>@endif
+                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) <br/>leave earnings </small>@endif
                                         </td>
                                         <td class="text-center">
                                          
