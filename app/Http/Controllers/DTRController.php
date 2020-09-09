@@ -3557,8 +3557,13 @@ class DTRController extends Controller
                               //-----
 
                               $isParttimer=false;
-                              $isHoliday = (count(Holiday::where('holidate',$j->productionDate)->get()) > 0) ? true : false;
+                              
+                              $theHoliday = Holiday::where('holidate',$j->productionDate)->get();
+                              $isHoliday = (count($theHoliday) > 0) ? true : false;
+
                               $isBackoffice = ( Campaign::find(Team::where('user_id',$j->userID)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+                              $isDavao = ( Team::where('user_id',$j->userID)->first()->floor_id == 9) ? true : false;
 
 
                               //-----we get first employee's schedule from locked DTR
@@ -3573,23 +3578,56 @@ class DTRController extends Controller
                                 {
                                   $wshift = explode('-',$sched[0]->workshift);
                                   $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
+                                  $u = User::find($j->userID);
+                                  ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
-                                  if($isHoliday) {
-                                    $u = User::find($j->userID);
-                                    ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
-                                    $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
+                                  if($isHoliday) 
+                                  {
+                                    //****** we first check if holiday is exclusive for Davao
+                                    if($theHoliday->first()->holidayType_id == 4)
+                                    {
+                                      if ($isDavao)
+                                      {
+                                        $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
 
-                                    if($isBackoffice){
-                                      $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
-                                      $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours)->addHours(1);
-                                      $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                        if($isBackoffice){
+                                          $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+                                          $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours)->addHours(1);
+                                          $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                        }
+                                        else {
+                                            $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                            $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                            $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                          
+                                        }
+
+                                      }
+                                      else //hindi taga davao, so wala dapat syang holiday
+                                      {
+
+                                      }
+
                                     }
-                                    else {
-                                        $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
-                                        $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                    else //regular holiday
+                                    {
+                                      $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
+
+                                      if($isBackoffice){
+                                        $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+                                        $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours)->addHours(1);
                                         $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
-                                      
+                                      }
+                                      else {
+                                          $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                          $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                          $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                        
+                                      }
+
                                     }
+                                    
+                                    
 
                                   }
                                   else {
@@ -3652,37 +3690,89 @@ class DTRController extends Controller
 
                               if ($isHoliday)
                               {
-                                
-                                if ($isBackoffice){ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
-                                else
-                                {
-                                  if(count($sched) > 0)
-                                  {
-                                    if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
-                                    else
+                                //****** we first check if holiday is exclusive for Davao
+                                    if($theHoliday->first()->holidayType_id == 4)
                                     {
-                                      // check muna kung PT or not
-                                      
-
-                                      if ($isParttimer)
+                                      if ($isDavao)
                                       {
+                                        if ($isBackoffice){ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                        else
+                                        {
+                                          if(count($sched) > 0)
+                                          {
+                                            if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                            else
+                                            {
+                                              // check muna kung PT or not
+                                              
+
+                                              if ($isParttimer)
+                                              {
+                                                
+                                                $hoursFiled = $j->billable_hours + 4.0;
+                                                $hoursApproved = $j->filed_hours + 4.0;
+                                              }
+                                              else
+                                              {
+                                                
+                                                $hoursFiled = $j->billable_hours + 8.0;
+                                                $hoursApproved = $j->filed_hours + 8.0;
+
+                                              }
+                                            }
+
+                                          }
+                                          else{ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1;}
+
+                                        }
                                         
-                                        $hoursFiled = $j->billable_hours + 4.0;
-                                        $hoursApproved = $j->filed_hours + 4.0;
+
+                                        
                                       }
+                                      else //hindi taga davao, so wala dapat syang holiday
+                                      {
+                                        $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1;
+
+                                      }
+
+                                    }
+                                    else //regular holiday lang
+                                    {
+                                      if ($isBackoffice){ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
                                       else
                                       {
-                                        
-                                        $hoursFiled = $j->billable_hours + 8.0;
-                                        $hoursApproved = $j->filed_hours + 8.0;
+                                        if(count($sched) > 0)
+                                        {
+                                          if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                          else
+                                          {
+                                            // check muna kung PT or not
+                                            
+
+                                            if ($isParttimer)
+                                            {
+                                              
+                                              $hoursFiled = $j->billable_hours + 4.0;
+                                              $hoursApproved = $j->filed_hours + 4.0;
+                                            }
+                                            else
+                                            {
+                                              
+                                              $hoursFiled = $j->billable_hours + 8.0;
+                                              $hoursApproved = $j->filed_hours + 8.0;
+
+                                            }
+                                          }
+
+                                        }
+                                        else{ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1;}
 
                                       }
+
                                     }
 
-                                  }
-                                  else{ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1;}
-
-                                }
+                                
+                                
                               }
                               else
                               {
@@ -3753,8 +3843,12 @@ class DTRController extends Controller
                             $arr[$i] = $jps[0]->lastname.", ".$jps[0]->firstname; $i++;
 
                             $isParttimer=false;
-                            $isHoliday = (count((array)Holiday::where('holidate',$jps[0]->productionDate)->get()) > 0) ? true : false;
+                            
+
+                            $theHoliday = Holiday::where('holidate',$jps[0]->productionDate)->get();
+                            $isHoliday = (count($theHoliday) > 0) ? true : false;
                             $isBackoffice = ( Campaign::find(Team::where('user_id',$jps[0]->userID)->first()->campaign_id)->isBackoffice ) ? true : false;
+                            $isDavao = ( Team::where('user_id',$jps[0]->userID)->first()->floor_id == 9) ? true : false;
 
 
                             //-----we get first employee's schedule from locked DTR
@@ -3835,40 +3929,93 @@ class DTRController extends Controller
                             
 
 
+                         
+
                             if ($isHoliday)
                             {
-                              
-                              if ($isBackoffice){ $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
-                              else
-                              {
-                                if(count($sched) > 0)
-                                {
-                                  if ($sched[0]->workshift === '* RD * - * RD *') { $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
-                                  else
+                              //****** we first check if holiday is exclusive for Davao
+                                  if($theHoliday->first()->holidayType_id == 4)
                                   {
-                                    // check muna kung PT or not
-                                    
-
-                                    if ($isParttimer)
+                                    if ($isDavao)
                                     {
+                                      if ($isBackoffice){ $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                      else
+                                      {
+                                        if(count($sched) > 0)
+                                        {
+                                          if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled =$jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                          else
+                                          {
+                                            // check muna kung PT or not
+                                            
+
+                                             if ($isParttimer)
+                                              {
+                                                
+                                                $hoursFiled = $jps[0]->billable_hours + 4.0;
+                                                $hoursApproved = $jps[0]->filed_hours + 4.0;
+                                              }
+                                              else
+                                              {
+                                                
+                                                $hoursFiled = $jps[0]->billable_hours + 8.0;
+                                                $hoursApproved = $jps[0]->filed_hours + 8.0;
+
+                                              }
+                                          }
+
+                                        }
+                                        else{ $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;}
+
+                                      }
                                       
-                                      $hoursFiled = $jps[0]->billable_hours + 4.0;
-                                      $hoursApproved = $jps[0]->filed_hours + 4.0;
+
+                                      
                                     }
+                                    else //hindi taga davao, so wala dapat syang holiday
+                                    {
+                                      $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;}
+
+                                    }
+
+                                  }
+                                  else //regular holiday lang
+                                  {
+                                    if ($isBackoffice){ $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
                                     else
                                     {
-                                      
-                                      $hoursFiled = $jps[0]->billable_hours + 8.0;
-                                      $hoursApproved = $jps[0]->filed_hours + 8.0;
+                                      if(count($sched) > 0)
+                                      {
+                                        if ($sched[0]->workshift === '* RD * - * RD *') { $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                        else
+                                        {
+                                          // check muna kung PT or not
+                                          
+
+                                          if ($isParttimer)
+                                          {
+                                            
+                                            $hoursFiled = $jps[0]->billable_hours + 4.0;
+                                            $hoursApproved = $jps[0]->filed_hours + 4.0;
+                                          }
+                                          else
+                                          {
+                                            
+                                            $hoursFiled = $jps[0]->billable_hours + 8.0;
+                                            $hoursApproved = $jps[0]->filed_hours + 8.0;
+
+                                          }
+                                        }
+
+                                      }
+                                      else{ $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;}
 
                                     }
+
                                   }
-
-                                }
-                                else{ $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;}
-
-                              }
                             }
+
+
                             else
                             {
                               $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;
