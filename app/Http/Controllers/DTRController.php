@@ -3926,10 +3926,6 @@ class DTRController extends Controller
                             // else ops sya
                             // if sched nya today is * RD * -> nothing changes
                             // else add 8hrs / 4hrs kung PT
-                            
-
-
-                         
 
                             if ($isHoliday)
                             {
@@ -3974,7 +3970,7 @@ class DTRController extends Controller
                                     }
                                     else //hindi taga davao, so wala dapat syang holiday
                                     {
-                                      $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;}
+                                      $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;
 
                                     }
 
@@ -4014,8 +4010,6 @@ class DTRController extends Controller
 
                                   }
                             }
-
-
                             else
                             {
                               $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving;
