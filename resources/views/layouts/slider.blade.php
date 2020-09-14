@@ -1,6 +1,23 @@
 
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+            <div class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-paw"></i> Pets &amp; Plants  <i class="fa fa-pagelines"></i><br/><small>September 14, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      2020 made most of us stay home, which means more time for our <strong>pets and plants</strong>! <br/><br/>
+
+                      <strong class="text-primary">Any fur parents or plantitos/plantitas out there?</strong><br/>
+                      Share photos with your babies and get 20 points. </p>
+
+                    <img src="storage/uploads/wall_week19.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',25)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > <i class="fa fa-users"></i> Talent Development: <br/> <span class="text-primary"> Microlearning Modules <br/><small>(Accessible until September 14)</small> <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -61,24 +78,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Famous People  <br/><small>September 08 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      Let's do something fun! <br/><br/>
-
-                      <strong class="text-primary">Share a photo that you have with a famous person!</strong><br/>
-                      It could be a celebrity, athlete, artist, singer, vlogger, writer, etc!<br/><br/>
-
-                      All participants will get 20 points. </p>
-
-                    <img src="storage/uploads/wall_week18.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',24)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
+            
 
 
 
@@ -109,33 +109,7 @@
            
 
          
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   August 31, 2020 Holiday |<br/> National Heroes Day <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong>August 31, 2020</strong> is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
-
-                    <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
-
-                    Below is a guide on how the special holiday pay is computed.</p>
-
-
-                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of August 31, 2020</p>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
-                    <strong class="text-success">WORKED</strong>
-                    <pre>(Basic Pay + Allowance) x 200%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
-                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
- 
-                    
-            </div>
+              
 
             <div class="item text-center" >
                   <img src="storage/uploads/donationposter.jpg" width="100%" />
@@ -432,68 +406,7 @@
 
                  
 
-                
-                  
-
-
-
-                 
-                
-               
-
-
-            
-
-            
-
-
-           
-
-            
-
-
-
-           
-
-            
-
-             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Annual <span class="text-primary">  <i class="fa fa-lock"></i> InfoSec Training<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                      <img src="storage/uploads/infosec_training.png" width="98%" /><br/><br/>
-                    Hello everyone,<br/><br/>
-
-                    Our Information Security Awareness module is now live on our <a href="https://open-access.training-online.eu/" target="_blank"> LMS</a>! This is foundational to Open Access BPO strengthening system security and standardizing Information Security practices.  This is a <strong><a href="https://open-access.training-online.eu/" target="_blank"> required training</a></strong> and needs to be <strong>completed by August 27, 2020.</strong>
-                    <br/><br/>
-
-                    This is fielded once a year to ensure we’re all up to speed with the latest policies and protocols. This year, we are running it from July 27, 2020 to August 27, 2020. The knowledge check is short (15 questions) and would take only about 30 minutes or less to complete, and may be taken at any time which suits you during your shift. The number of days allocated for module completion is more than adequate, please finish it before the 30-day period expires.<br/><br/>
-
-                    Click here for the <strong><a href="https://drive.google.com/file/d/1-xTeTWZ6VvB7zINVoX3JaVZM857dftuh/view" target="_blank"> Module Guidelines and Instructions</a></strong><br/><br/>
-                    Click here for the <strong><a href="{{action('ResourceController@index')}}" target="_blank">
-                    Information Security Policy</a></strong><br/><br/>
-                     
-                    We all have a responsibility to safeguard assets entrusted to us and ensure compliance with global regulations. This mandatory training program will fortify us against security risks and threats. Let’s adopt these behaviours together because they protect our business, our customers, our community, and each of us here at Open Access.<br/><br/>
-
-                    If you have any questions, feel free to email us at  corporate_compliance@openaccessbpo.com.<br/><br/>
-
-                    Thank you!  
-                    <br/><br/> 
-                   
-
-                  
-
-                    </p> 
-
-
- 
-                    
-            </div>
-
-            
-
+          
             <div class="item text-center" >
                
                 <h4 class="text-orange" style="line-height: 1.5em" > New <span class="text-primary">Reward Items!!!<br/> 
@@ -2226,6 +2139,67 @@
 
 
 <?php /*
+      <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Annual <span class="text-primary">  <i class="fa fa-lock"></i> InfoSec Training<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      <img src="storage/uploads/infosec_training.png" width="98%" /><br/><br/>
+                    Hello everyone,<br/><br/>
+
+                    Our Information Security Awareness module is now live on our <a href="https://open-access.training-online.eu/" target="_blank"> LMS</a>! This is foundational to Open Access BPO strengthening system security and standardizing Information Security practices.  This is a <strong><a href="https://open-access.training-online.eu/" target="_blank"> required training</a></strong> and needs to be <strong>completed by August 27, 2020.</strong>
+                    <br/><br/>
+
+                    This is fielded once a year to ensure we’re all up to speed with the latest policies and protocols. This year, we are running it from July 27, 2020 to August 27, 2020. The knowledge check is short (15 questions) and would take only about 30 minutes or less to complete, and may be taken at any time which suits you during your shift. The number of days allocated for module completion is more than adequate, please finish it before the 30-day period expires.<br/><br/>
+
+                    Click here for the <strong><a href="https://drive.google.com/file/d/1-xTeTWZ6VvB7zINVoX3JaVZM857dftuh/view" target="_blank"> Module Guidelines and Instructions</a></strong><br/><br/>
+                    Click here for the <strong><a href="{{action('ResourceController@index')}}" target="_blank">
+                    Information Security Policy</a></strong><br/><br/>
+                     
+                    We all have a responsibility to safeguard assets entrusted to us and ensure compliance with global regulations. This mandatory training program will fortify us against security risks and threats. Let’s adopt these behaviours together because they protect our business, our customers, our community, and each of us here at Open Access.<br/><br/>
+
+                    If you have any questions, feel free to email us at  corporate_compliance@openaccessbpo.com.<br/><br/>
+
+                    Thank you!  
+                    <br/><br/> 
+                   
+
+                  
+
+                    </p> 
+
+
+ 
+                    
+            </div>
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   August 31, 2020 Holiday |<br/> National Heroes Day <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>August 31, 2020</strong> is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
+
+                    <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
+
+                    Below is a guide on how the special holiday pay is computed.</p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of August 31, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
+ 
+                    
+            </div>
 <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> SEPT. 10, 2020</strong> PAYOUT <br/>
                   
