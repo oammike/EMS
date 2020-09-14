@@ -17,69 +17,7 @@
                     
             </div>
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > <i class="fa fa-users"></i> Talent Development: <br/> <span class="text-primary"> Microlearning Modules <br/><small>(Accessible until September 14)</small> <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <em>“Learning and innovation go hand in hand. The arrogance of success is to think that what you did yesterday will be sufficient for tomorrow.” </em>- William Pollard <br/><br/>
-
-
-                    <strong class="text-primary"> UNCONSCIOUS BIAS</strong><br/>
-
-                    Are you aware of your biases? Take the quiz to find out. <br/>
-                    <a href="https://www.clocktimizer.com/clocktimizer-implicit-bias-test/" target="_blank">(https://www.clocktimizer.com/clocktimizer-implicit-bias-test/)</a><br/><br/>
-
-                    The microlearning module: Unconscious Bias is available for a limited time in our LMS Catalog. All it takes is 20 minutes to:<br/><br/>
-
-                    ·         Develop awareness of your own unconscious biases<br/>
-
-                    ·         Overcome stereotypes and prejudice in the workplace<br/><br/>
-
-
-
-                    <strong class="text-primary"> COMMUNICATING EFFECTIVELY</strong><br/>
-
-                    How many times have your team members and/or coworkers misunderstood your message in the last three months? It’s frustrating when this happens. Not only do you have to repeat yourself, but you also lose precious time in the process, time you could have spent on doing something even more important and productive.<br/><br/>
-
-                    Are you confident that you are communicating effectively? Learning how to communicate effectively is an essential skill for the workplace. Whether you’re working remotely or on-site – you can’t deny that you need to get your message across accurately.<br/><br/>
-
-                    If you want to improve your communication skills, the microlearning module: Communicating Effectively is also available for a limited time in our LMS catalog. With a 30-minute seat time, here are the module objectives:<br/><br/>
-
-                    ·         Build relationships with others by understanding how body language works<br/>
-
-                    ·         Listen closely to others and ask questions that engage the other person<br/>
-
-                    ·         Write professional emails that communicate ideas clearly<br/><br/>
-
-
-
-                    <strong class="text-primary"> TIME MANAGEMENT</strong><br/>
-
-                    That’s 50 minutes to learn about two topics. If you feel like you don’t have the time due to your workload, then we recommend you start your learning path with the module: Productivity & Time Management – also available in our LMS catalog.<br/><br/>
-
-                    Here’s a quote from the module: “Time equals life. Therefore, waste your time and you waste your life, or master your time and master your life.” – Alan Lakein<br/><br/>
-
-                    If you need help about our LMS, please refer to this resource: <br/>
-                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://rise.articulate.com/share/iWjCCl9P31A6KhU49B-KrH3jE8e4pbEO" />
-                                        <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                                         <br/><br/>
-                    <br/><br/>
-
-                                     
-                   
-
-                    </p> 
-
-
- 
-                    
-            </div>
-
-            
-
+           
 
 
               <div class="item  text-center" >
@@ -1845,19 +1783,6 @@
 
                   
 
-      
-
-
-
-
-
-               
-                
-
-                
-              
-
-               
 
                
               
@@ -2139,6 +2064,69 @@
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > <i class="fa fa-users"></i> Talent Development: <br/> <span class="text-primary"> Microlearning Modules <br/><small>(Accessible until September 14)</small> <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <em>“Learning and innovation go hand in hand. The arrogance of success is to think that what you did yesterday will be sufficient for tomorrow.” </em>- William Pollard <br/><br/>
+
+
+                    <strong class="text-primary"> UNCONSCIOUS BIAS</strong><br/>
+
+                    Are you aware of your biases? Take the quiz to find out. <br/>
+                    <a href="https://www.clocktimizer.com/clocktimizer-implicit-bias-test/" target="_blank">(https://www.clocktimizer.com/clocktimizer-implicit-bias-test/)</a><br/><br/>
+
+                    The microlearning module: Unconscious Bias is available for a limited time in our LMS Catalog. All it takes is 20 minutes to:<br/><br/>
+
+                    ·         Develop awareness of your own unconscious biases<br/>
+
+                    ·         Overcome stereotypes and prejudice in the workplace<br/><br/>
+
+
+
+                    <strong class="text-primary"> COMMUNICATING EFFECTIVELY</strong><br/>
+
+                    How many times have your team members and/or coworkers misunderstood your message in the last three months? It’s frustrating when this happens. Not only do you have to repeat yourself, but you also lose precious time in the process, time you could have spent on doing something even more important and productive.<br/><br/>
+
+                    Are you confident that you are communicating effectively? Learning how to communicate effectively is an essential skill for the workplace. Whether you’re working remotely or on-site – you can’t deny that you need to get your message across accurately.<br/><br/>
+
+                    If you want to improve your communication skills, the microlearning module: Communicating Effectively is also available for a limited time in our LMS catalog. With a 30-minute seat time, here are the module objectives:<br/><br/>
+
+                    ·         Build relationships with others by understanding how body language works<br/>
+
+                    ·         Listen closely to others and ask questions that engage the other person<br/>
+
+                    ·         Write professional emails that communicate ideas clearly<br/><br/>
+
+
+
+                    <strong class="text-primary"> TIME MANAGEMENT</strong><br/>
+
+                    That’s 50 minutes to learn about two topics. If you feel like you don’t have the time due to your workload, then we recommend you start your learning path with the module: Productivity & Time Management – also available in our LMS catalog.<br/><br/>
+
+                    Here’s a quote from the module: “Time equals life. Therefore, waste your time and you waste your life, or master your time and master your life.” – Alan Lakein<br/><br/>
+
+                    If you need help about our LMS, please refer to this resource: <br/>
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://rise.articulate.com/share/iWjCCl9P31A6KhU49B-KrH3jE8e4pbEO" />
+                                        <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                                         <br/><br/>
+                    <br/><br/>
+
+                                     
+                   
+
+                    </p> 
+
+
+ 
+                    
+            </div>
+
+            
+
       <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Annual <span class="text-primary">  <i class="fa fa-lock"></i> InfoSec Training<br/>
                   
