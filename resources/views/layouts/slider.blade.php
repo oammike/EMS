@@ -29,6 +29,38 @@ Here is a summary of what the data shows us, please see attached. Your leaders w
                     
               </div>
 
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> REMINDER TO ALL  <br/> <span class="text-primary">ONSITE EMPLOYEES: <br/>
+                    <small>Sep.16, 2020</small><br/><br/>
+                <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                    
+
+                    Employees reporting to the office must follow the following protocols:<br/><br/>
+
+                    <strong class="text-primary"> Prior to entering the office premises: </strong><br/>
+                    <strong>1. Health Declaration Form - </strong> To be accomplished daily.  If you're sick, stay home. <br/>
+                    <strong>2. Thermal Scan -</strong> If temperature is more than 37.5C, you'll be sent home.<br/>
+                    <strong>3.  No Face Mask and Face Shield, No Entry.  - </strong>Face masks and face shields must be worn at all times except when eating/drinking.  Face masks and face shields are required to be worn while inside the shuttle service.<br/><br/>
+
+                    <strong class="text-primary"> While In the office:</strong><br/>
+                    <strong>1. Social Distancing - </strong>keep at least one (1) meter physical distance.<br/>
+                    <strong>2. Respiratory Etiquette -</strong> any act or behavior that may spread the virus or cause anxiety/concern related to COVID-19 is prohibited.<br/>
+                    <strong>3. Personal Hygiene - </strong> frequent handwashing/use of hand sanitizer is encouraged. <br/><br/>
+                    <br/>
+
+                    For strict compliance.
+                  </p>
+
+                    
+                    
+
+                    
+              </div>
+
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-paw"></i> Pets &amp; Plants  <i class="fa fa-pagelines"></i><br/><small>September 14, 2020</small><br/>
                   
@@ -710,48 +742,7 @@ Here is a summary of what the data shows us, please see attached. Your leaders w
              
 
               
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> MANDATORY <br/>DAILY HEALTH DECLARATION FORM <span class="text-primary"> <br/>No Health Declaration, Strictly No Entry<br/>
-                 <br/>
-                <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-                    <strong class="text-primary"> Why</strong><br/>
-                    To ensure real-time and daily employee accountability, transparency, and safety - its completion is a must before entering the company shuttle and office building. This is part of the safety measures we are implementing to attest that workers entering our premises are clear health-wise and are not at risk of any infection. This is to prevent further outbreaks, and this is to protect you, your family, your workmates, our whole company, and the communities we live in.  For your strict compliance, every day.<br/><br/>
-
-                    <strong class="text-primary"> Who</strong><br/>
-                    This is to be filled out by <strong class="text-danger">ALL ONSITE WORKERS</strong> each and every day before entering the shuttle and the office building – shuttlers and non-shuttlers alike.<br/><br/>
-
-                    <strong class="text-primary"> Where to fill out</strong><br/>
-                    On your browser before you leave home<br/><br/>
-                    <strong>For shuttlers:</strong> <br/>Click the Health Declaration link via the Daily Trip Notification email or paste this on your browser right before leaving home.<br/>
-                    <input class="form-control" type="text" id="bundylink" value="https://www.emailmeform.com/builder/form/e0drGbexiXbTw391N" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                     <br/><br/>
-
-                    <strong>For non-shuttlers:</strong> <br/>
-                    Online Health Declaration <br/>
-                    <input class="form-control" type="text" id="videolink" value="https://www.emailmeform.com/builder/form/e0drGbexiXbTw391N" />
-                    <button class="cp btn btn-xs btn-primary" data-link="videolink">Copy Link <i class="fa fa-external-link"></i></button><br/><br/>
-                     
-                    <strong>Last resort:</strong> Before entering Open Access, via EMS on the allocated device in the security area before the entrance.<br/><br/>
-
-                    <strong class="text-primary"> When to fill out</strong><br/>
-                    <strong>Required completion date </strong><br/>
-                    On the ACTUAL DAY of your shift
-                    Advance and late completion are not allowed.<br/><br/>
-
-                    <strong> Required completion time</strong><br/>
-                    For shuttlers – BEFORE hopping on the service vehicle<br/>
-                    For non-shuttlers – BEFORE entering the office building
-
-                    
-                    
-
-                    
-              </div>
+             
 
              
 
