@@ -1,6 +1,35 @@
 
 
-            <div class="item active text-center" >
+             <div class="item active text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" >Thank You For Participating <br/><span class="text-primary">Pulse Check 2020<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/pulse2020.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      We want to thank you for taking the time to take our Pulse Check 2020 survey and for sharing your feedback openly.  Your response has been valuable in helping us evaluate our work culture as well as our performance as a company for the first half of 2020. This shows us how we did at program and department levels, and helps us identify areas to improve and implement solutions for making your experience better.<br/><br/>
+
+ 
+
+Your experience is important to assess because the more satisfied you are, the more of yourselves you'll invest in our company's mission and goals. High engagement often leads to better service and more efficiency in the workplace which, of course, leads to favorable business outcomes. If you are engaged, you are enthusiastic about your work and our company, and that enthusiasm rubs off on your team and customers, and on the Open Access culture as a whole. And that is important to all of us.<br/><br/>
+
+ 
+
+Here is a summary of what the data shows us, please see attached. Your leaders will be communicating with you soon to share program- and department-specific findings and action plans. Again thanks, team!
+<br/><br/>
+
+                      <a class="btn btn-xs btn-success" href="{{action('ResourceController@item',72)}}">Read More<i class="fa fa-arrow-right"></i> </a>
+                      <br/><br/>
+
+                     
+
+                   
+                    
+              </div>
+
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-paw"></i> Pets &amp; Plants  <i class="fa fa-pagelines"></i><br/><small>September 14, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
