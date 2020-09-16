@@ -181,7 +181,7 @@
 
 <!-- Page script <small> '+full.employeeNumber+'</small> -->
 
- <?php if($hasUserAccess) { ?> 
+ <?php if($hasUserAccess && $isHR) { ?> 
  <script type="text/javascript">
 
  $(function () {
@@ -316,12 +316,26 @@
                             { title: "Immediate Head", defaultContent: " ", data:'leaderFname',width:'90', render:function(data,type,full,meta){
                                return '<small>'+data+" "+full.leaderLname+'</small>';
                             }}, // 1
-                            
-                             { title: "Status " ,defaultContent: "<i>empty</i>", data:'employeeStatus',width:'80', render:function(data,type,full,meta){
+
+                            @if($hasSpecialAccess)
+                              { title: "Actions " ,defaultContent: "<i>empty</i>", data:'id',width:'80', render:function(data,type,full,meta){
+
+                              
+                               return '<a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-calendar"></i> View DTR </a><a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-file-o"></i> DTR Requests</a> '; //data;
+                             } }, // 2
+
+                            @else
+
+                              { title: "Status " ,defaultContent: "<i>empty</i>", data:'employeeStatus',width:'80', render:function(data,type,full,meta){
 
                               
                               return "* Access Denied *"; //data;
                              } }, // 2
+
+
+                            @endif
+                            
+                             
                             
                             
                             

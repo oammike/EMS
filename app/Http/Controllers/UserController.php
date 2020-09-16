@@ -181,6 +181,7 @@ class UserController extends Controller
       $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
       $canAccess = Role::where('label','ACCESS_INACTIVES')->first();
       $specialAccess = User_SpecialAccess::where('user_id',$this->user->id)->where('role_id',$canAccess->id)->get();
+      $hasSpecialAccess = false;
 
       $hr = Campaign::where('name','HR')->first();
 
@@ -189,11 +190,13 @@ class UserController extends Controller
 
       if (!$isHR ){
 
-        if (count($specialAccess) <= 0) return view('access-denied');
-      } 
+        if (count($specialAccess) <= 0){
+          return view('access-denied');
+        } else $hasSpecialAccess=true;
+      } else $hasSpecialAccess=true;
 
       if (count($canDoThis)> 0 ) $hasUserAccess=1; else $hasUserAccess=0;
-      return view('people.employee-inactive', compact( 'hasUserAccess'));
+      return view('people.employee-inactive', compact( 'hasUserAccess', 'hasSpecialAccess','isHR'));
     }
 
 
@@ -4217,19 +4220,20 @@ class UserController extends Controller
         /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
         $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
         $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+        $viewOthers =  ($roles->contains('VIEW_OTHER_DTR')) ? '1':'0';
 
 
          $correct = Carbon::now('GMT+8');
         //log access
         if($this->user->id !== 564 ) {
                       
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                     } 
 
 
-        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice))
+        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice) || $viewOthers)
           return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
         else
           return view('access-denied');
