@@ -113,6 +113,10 @@ class MovementController extends Controller
             DB::connection()->disableQueryLog();
             $notYetDone = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->where('personnelChange_id',1)->where('isDone',0)->orderBy('id','DESC')->get();
 
+            $notYetDone2 = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->where('personnelChange_id',2)->where('isDone',0)->orderBy('id','DESC')->get();
+
+            $notYetDone3 = Movement::where('effectivity','>=',$sixMonths->format('Y-m-d'))->where('personnelChange_id',3)->where('isDone',0)->orderBy('id','DESC')->get();
+
             foreach ($notYetDone as $n) {
                 
                 $moveIt = Movement_ImmediateHead::where('movement_id',$n->id)->first();
@@ -137,10 +141,28 @@ class MovementController extends Controller
 
                 $updateTeam->save();$n->isDone = 1; $n->save();
             }
+
+            // Positions
+            foreach ($notYetDone2 as $n) {
+                
+                $moveIt = Movement_Positions::where('movement_id',$n->id)->first();
+                $updateTeam = User::find($n->user_id);
+                $updateTeam->position_id = $moveIt->position_id_new;
+                $updateTeam->save();$n->isDone = 1; $n->save();
+            }
+
+            // EmpStatus
+            foreach ($notYetDone3 as $n) {
+                
+                $moveIt = Movement_Status::where('movement_id',$n->id)->first();
+                $updateTeam = User::find($n->user_id);
+                $updateTeam->status_id = $moveIt->status_id_new;
+                $updateTeam->save();$n->isDone = 1; $n->save();
+            }
             
 
              if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Viewed MVT_idx[".$typeID."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
                 fclose($file);
             }
