@@ -1807,6 +1807,10 @@ class UserController extends Controller
         $newAccess->role_id = $access2->id;
         $newAccess->save();
 
+      }else
+      {
+        $todelete = User_SpecialAccess::where('user_id',$user->id)->where('role_id',$access2->id)->delete();
+
       }
 
       if($floatingAccess=='1')
@@ -1816,6 +1820,9 @@ class UserController extends Controller
         $newAccess->role_id = $access3->id;
         $newAccess->save();
 
+      }else
+      {
+        $todelete = User_SpecialAccess::where('user_id',$user->id)->where('role_id',$access3->id)->delete();
       }
 
 
