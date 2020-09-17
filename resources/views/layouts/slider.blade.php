@@ -2,6 +2,56 @@
 
              <div class="item active text-center" >
                
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_1.jpg" width="100%" /><br/>
+                  September is <br/><span class="text-primary">Self-Care Awareness Month!<br/> <br/>
+                  <img src="storage/uploads/divider.png" /> 
+                  
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      When was the last time you took care of YOU? Taking care of yourself should be a guilt-free habit. When you refocus your energy towards nurturing yourself, you make way for holistic wellness. <br/><br/>
+                      Catch our self-care tips that you can incorporate in your daily routine throughout September.<br/><br/>
+
+                      Share your own tips on social media with these hashtags: #SelfCareAwarenessMonth #SelfCareSeptember. Tag Open Access BPO and your friends to turn self-care into a year-round habit for everyone!<br/><br/>
+                      #WeSpeakYourLanguage
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_2.jpg" width="100%" /><br/><br/>
+
+                 Try out grounding exercises or meditation <br/><span class="text-primary"> to help reduce anxiety<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      The 5-4-3-2-1 technique grounds you in the present moment. Notice 5 things you can see around you, 4 things you can feel, 3 things you can hear, 2 that you can smell, and 1 that you can taste. Take deep, slow breaths and sip cold water as well<br/><br/>
+
+                      Adapting to new situations can be difficult, especially during a pandemic. Make time for grounding exercises or meditation to help reduce anxiety and concentrate better throughout the day.<br/><br/>
+                      #WeSpeakYourLanguage
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+
+              <div class="item text-center" >
+               
                 <h4 class="text-orange" style="line-height: 1.5em" >Thank You For Participating <br/><span class="text-primary">Pulse Check 2020<br/> 
                   <img src="storage/uploads/divider.png" /> 
                   <img src="storage/uploads/pulse2020.jpg" width="100%" /><br/>
@@ -13,12 +63,12 @@
 
  
 
-Your experience is important to assess because the more satisfied you are, the more of yourselves you'll invest in our company's mission and goals. High engagement often leads to better service and more efficiency in the workplace which, of course, leads to favorable business outcomes. If you are engaged, you are enthusiastic about your work and our company, and that enthusiasm rubs off on your team and customers, and on the Open Access culture as a whole. And that is important to all of us.<br/><br/>
+                      Your experience is important to assess because the more satisfied you are, the more of yourselves you'll invest in our company's mission and goals. High engagement often leads to better service and more efficiency in the workplace which, of course, leads to favorable business outcomes. If you are engaged, you are enthusiastic about your work and our company, and that enthusiasm rubs off on your team and customers, and on the Open Access culture as a whole. And that is important to all of us.<br/><br/>
 
- 
+                       
 
-Here is a summary of what the data shows us, please see attached. Your leaders will be communicating with you soon to share program- and department-specific findings and action plans. Again thanks, team!
-<br/><br/>
+                      Here is a summary of what the data shows us, please see attached. Your leaders will be communicating with you soon to share program- and department-specific findings and action plans. Again thanks, team!
+                      <br/><br/>
 
                       <a class="btn btn-xs btn-success" href="{{action('ResourceController@item',72)}}">Read More<i class="fa fa-arrow-right"></i> </a>
                       <br/><br/>
