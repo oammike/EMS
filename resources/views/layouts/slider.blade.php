@@ -2,6 +2,22 @@
 
              <div class="item active text-center" >
                
+                    <img src="storage/uploads/linkedinoam_1.jpg" width="100%" />
+                    <p style="padding: 30px;" class="text-left">
+                      Let's connect on LinkedIn!<br/><br/>
+                      List Open Access BPO under your Experience and follow our page <a href="https://www.linkedin.com/company/open-access-bpo" target="_blank"><strong>(https://www.linkedin.com/company/open-access-bpo)</strong></a> to stay updated with the latest company news, features, industry insights, and career guides - all in one place. Like, share, and comment on our posts to find like-minded people who you can exchange valuable conversations with!
+                                           
+
+                     </p>
+                     <img src="storage/uploads/linkedinoam_2.jpg" width="100%" />
+
+                     
+
+                   
+                    
+              </div>
+              <div class="item text-center" >
+               
                 <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_1.jpg" width="100%" /><br/>
                   September is <br/><span class="text-primary">Self-Care Awareness Month!<br/> <br/>
                   <img src="storage/uploads/divider.png" /> 
@@ -24,6 +40,8 @@
                    
                     
               </div>
+
+              
 
               <div class="item text-center" >
                
