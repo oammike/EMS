@@ -50,15 +50,15 @@
 
                           if ( strpos($data['shiftEnd'], "RD") )
                           {
-                              for( $d=$distOT; $d >0; $d=$d-0.25)
-                              {
-                                $num = $d;// round($d,1,PHP_ROUND_HALF_DOWN);
+                              //for( $d=$distOT; $d >0; $d=$d-0.25)
+                              //{
+                                //$num = $d;// round($d,1,PHP_ROUND_HALF_DOWN);
 
-                                $whole = floor($num);
+                                /*$whole = floor($num);
                                 $fraction = $num - $whole;
-                                array_push($fractions, $fraction);
+                                array_push($fractions, $fraction);*/
 
-                                if($fraction <= 0.9 && $fraction >= 0.7)
+                                /*if($fraction <= 0.9 && $fraction >= 0.7)
                                   $num = $whole + 0.75;
                                 else if($fraction < 0.7 && $fraction >= 0.5)
                                   $num = $whole + 0.50;
@@ -66,33 +66,49 @@
                                   $num = $whole + 0.25;
                                 else
                                   $num = number_format($whole,1); // - $fraction;
+                                  */
 
-                                if (in_array($num, $preventDupes)){ }
-                                else
-                                {
-                                  array_push($preventDupes, $num);
-                                  if ( strpos($data['shiftEnd'], "RD") )
-                                  {
-                                    $start = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
-                                    $t1 = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
-                                    $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num*60); 
-                                  } 
-                                  else 
-                                  {
-                                    $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila'); 
-                                    $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
-                                    $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes($num*60); 
-                                  } 
-                                  ?>
+                                // if (in_array($num, $preventDupes)){ }
+                                // else
+                                // {
+                                //   array_push($preventDupes, $num);
+                                //   if ( strpos($data['shiftEnd'], "RD") )
+                                //   {
+                                //     $start = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                //     $t1 = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                //     $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num*60); 
+                                //   } 
+                                //   else 
+                                //   {
+                                //     $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila'); 
+                                //     $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+                                //     $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes($num*60); 
+                                //   } 
+                                  
 
-                                  @if ( $num < (float)$data['billableForOT'] && $num != '0')  
-                                  <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
-                                  @endif
-                          <?php }      
+                                  $num = 15;?>
 
-                              } //end for 
-                           } 
-                           else {
+                                  @while ( ($num/60) <= (float)$data['billableForOT'])
+
+                                   <?php if ( strpos($data['shiftEnd'], "RD") ){
+                                            $start = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                            $endOT = \Carbon\Carbon::parse($start->format('H:i'),'Asia/Manila')->addMinutes($num); 
+                                  } ?>
+
+                                 
+
+                                  
+                                  <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num/60}}"> &nbsp;&nbsp;{{number_format($num/60,2)}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
+
+                                  <?php $num += 15; ?>
+                                  @endwhile
+                               
+
+                             
+
+
+                         <?php }
+                           else { 
                                     $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila'); 
                                     $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
 
