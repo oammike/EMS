@@ -58,7 +58,7 @@
                
                 <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_3.jpg" width="100%" /><br/><br/>
 
-                 Take breaks when you're <span class="text-primary">feeling unfocused</span>
+                 Take breaks when you're <span class="text-primary">feeling unfocused</span><br/>
                   <img src="storage/uploads/divider.png" /> 
                   
                   
