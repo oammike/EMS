@@ -1,52 +1,6 @@
 
 
-             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> SEPT. 25, 2020</strong> PAYOUT <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that our cut-off for September 25 payout is Sept 20, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before MONDAY 12:00 noon of Sept. 21, 2020</strong>.<br/><br/>
-                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
-
-In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
-
-                    <!-- Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
-                    <table class="table">
-                      <tr>
-                        <th>Date of Holiday</th>
-                        <th class="text-center">File Holiday OT for</th>
-                      </tr>
-                      <tr>
-                        <td>Aug. 21</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 24</td>
-                        <td><strong>Davao</strong> Admin and Support Group only</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 31</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                    </table>
-
- -->
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/></p>
-
- 
-                    
-              </div>
-
-              <div class="item text-center" >
+            <div class="item active text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-globe"></i> World Tourism Day  <br/><small>September 27, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -80,12 +34,9 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
               </div>
               <div class="item text-center" >
                
-                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_1.jpg" width="100%" /><br/>
-                  September is <br/><span class="text-primary">Self-Care Awareness Month!<br/> <br/>
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_1.jpg" width="100%" /><br/><br/>
+                  September is <br/><span class="text-primary">Self-Care Awareness Month!<br/> 
                   <img src="storage/uploads/divider.png" /> 
-                  
-                  
-                   
                     </h4>
                     <p style="padding: 30px;" class="text-left">
                       When was the last time you took care of YOU? Taking care of yourself should be a guilt-free habit. When you refocus your energy towards nurturing yourself, you make way for holistic wellness. <br/><br/>
@@ -93,6 +44,31 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
 
                       Share your own tips on social media with these hashtags: #SelfCareAwarenessMonth #SelfCareSeptember. Tag Open Access BPO and your friends to turn self-care into a year-round habit for everyone!<br/><br/>
                       #WeSpeakYourLanguage
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_3.jpg" width="100%" /><br/><br/>
+
+                 Take breaks when you're <span class="text-primary">feeling unfocused</span>
+                  <img src="storage/uploads/divider.png" /> 
+                  
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      Forcing yourself to keep churning when you're running low affects productivity and self-worth. <br/><br/>
+
+                     Stretch, grab a snack, exercise, or do what works best for you.<br/><br/>
+                      #WeSpeakYourLanguage #SelfCareSeptember #SelfCareAwarenessMonth
                                             <br/><br/>
 
                      </p>
@@ -129,6 +105,7 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                    
                     
               </div>
+
 
               <div class="item text-center" >
                
@@ -208,13 +185,7 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
 
                       The OAMPI Clinic is also here if you need assistance in relation to Mental Health. Please do not hesitate to reach us. However, the government has provided us as well with hotline support in case you prefer to seek direct  professional help. <br/><br/>
                       Below are their numbers:<br/><br/>
-                      National Center for Mental Health Crisis Hotline at <strong>0917-899-8727 (0917-899-USAP)</strong> and <strong>(02) 7-989-8727 ((02)-7-989-USAP)</strong><br/><br/></p>
-
- 
-
-
-                    
-                   
+                      National Center for Mental Health Crisis Hotline at <strong>0917-899-8727 (0917-899-USAP)</strong> and <strong>(02) 7-989-8727 ((02)-7-989-USAP)</strong><br/><br/></p>      
                     
                     
             </div>
@@ -2198,6 +2169,51 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
 
 
 <?php /*
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> SEPT. 25, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for September 25 payout is Sept 20, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before MONDAY 12:00 noon of Sept. 21, 2020</strong>.<br/><br/>
+                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
+
+                    <!-- Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
+                    <table class="table">
+                      <tr>
+                        <th>Date of Holiday</th>
+                        <th class="text-center">File Holiday OT for</th>
+                      </tr>
+                      <tr>
+                        <td>Aug. 21</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 24</td>
+                        <td><strong>Davao</strong> Admin and Support Group only</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 31</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                    </table>
+
+ -->
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > <i class="fa fa-users"></i> Talent Development: <br/> <span class="text-primary"> Microlearning Modules <br/><small>(Accessible until September 14)</small> <br/>
                   
