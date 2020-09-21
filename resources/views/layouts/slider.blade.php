@@ -47,6 +47,22 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
               </div>
 
               <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-globe"></i> World Tourism Day  <br/><small>September 27, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      September 27 is World Tourism Day. <br/>
+                      With travel on pause right now, <br/><strong>where would you go first once things are back to normal?</strong> <br/>Post your entry and get 20 points!</p>
+
+                    <img src="storage/uploads/wall_week20.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',26)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+            </div>
+
+
+              <div class="item text-center" >
                
                     <img src="storage/uploads/linkedinoam_1.jpg" width="100%" />
                     <p style="padding: 30px;" class="text-left">
@@ -175,23 +191,7 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     
               </div>
 
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-paw"></i> Pets &amp; Plants  <i class="fa fa-pagelines"></i><br/><small>September 14, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      2020 made most of us stay home, which means more time for our <strong>pets and plants</strong>! <br/><br/>
-
-                      <strong class="text-primary">Any fur parents or plantitos/plantitas out there?</strong><br/>
-                      Share photos with your babies and get 20 points. </p>
-
-                    <img src="storage/uploads/wall_week19.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',25)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
-
+              
            
 
 
