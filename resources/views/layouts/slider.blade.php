@@ -1,16 +1,16 @@
 
 
             <div class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-globe"></i> World Tourism Day  <br/><small>September 27, 2020</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> World Smile Day <i class="fa fa-smile-o"></i> <br/><small>October 02, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
                     <p  style="padding: 30px;" class="text-center">
-                      September 27 is World Tourism Day. <br/>
-                      With travel on pause right now, <br/><strong>where would you go first once things are back to normal?</strong> <br/>Post your entry and get 20 points!</p>
+                      They say smiles are contagious, so be a carrier!<br/><br/>
+                      October 2 is World Smile Day. <strong class="text-primary">Share any photo of you or your loved ones with the best smiles!</strong><br/><br/>In return, we’ll make you smile with 20 reward points!   </p>
 
-                    <img src="storage/uploads/wall_week20.jpg" width="100%" /><br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',26)}}"> Check out our ECQonnection Wall</a>
+                    <img src="storage/uploads/wall_week21.jpg" width="100%" /><br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',27)}}"> Check out our ECQonnection Wall</a>
                     
                     
             </div>
@@ -53,6 +53,32 @@
                    
                     
               </div>
+
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_4.jpg" width="100%" /><br/><br/>
+
+                 Log off social media when your feed <br/><span class="text-primary"> becomes too overwhelming</span><br/>
+                  <img src="storage/uploads/divider.png" /> 
+                  
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      Doom scrolling is our tendency to keep looking at and reading posts or news that are negatively affecting us. <br/><br/>
+
+                     Quit it! There are ways to stay informed without having to absorb everything you see on your timelines.<br/><br/>
+                      #WeSpeakYourLanguage #SelfCareSeptember #SelfCareAwarenessMonth
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+
 
               <div class="item text-center" >
                
