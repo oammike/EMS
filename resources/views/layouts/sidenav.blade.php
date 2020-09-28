@@ -304,6 +304,8 @@
 
             <li @if (Request::is('videogallery')) class="active" @endif style="padding-left:20px"><a href="{{action('HomeController@videogallery')}}"><i class="fa fa-video-camera"></i>All Videos</a> </li>
 
+            <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>25]) }}"><i class="fa fa-picture-o"></i> Background Images </a> </li>
+
             <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>21]) }}"><i class="fa fa-beer"></i> 2019 Monochrome Party </a> </li>
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>24]) }}"><i class="fa fa-beer"></i> 2019 Monochrome Party <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Official cam) </a> </li>
