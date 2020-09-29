@@ -3086,9 +3086,9 @@ trait TimekeepingTraits
                             
                           else if ($logType_id == 2)
                             $parseThis = $schedForToday['timeEnd'];
-                            if (Carbon::parse($parseThis,"Asia/Manila") > $timing ) //&& !$problemArea[0]['problemShift']--- meaning early out sya
+                            if (Carbon::parse($bioForTom->first()->productionDate.' '.$parseThis,"Asia/Manila") > $timing ) //&& !$problemArea[0]['problemShift']--- meaning early out sya
                               {
-                                $UT  = $undertime + number_format((Carbon::parse($parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);
+                                $UT  = $undertime + number_format((Carbon::parse($bioForTom->first()->productionDate.' '.$parseThis,"Asia/Manila")->diffInMinutes($timing))/60,2);//$undertime + 
 
                               } else $UT=$undertime;
 
