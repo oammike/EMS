@@ -19,6 +19,7 @@
             </div>
 
             <div class="item text-center" >
+                  <img src="storage/uploads/wall_week21.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> World Smile Day <i class="fa fa-smile-o"></i> <br/><small>October 02, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -27,7 +28,7 @@
                       They say smiles are contagious, so be a carrier!<br/><br/>
                       October 2 is World Smile Day. <strong class="text-primary">Share any photo of you or your loved ones with the best smiles!</strong><br/><br/>In return, we’ll make you smile with 20 reward points!   </p>
 
-                    <img src="storage/uploads/wall_week21.jpg" width="100%" /><br/>
+                    <br/>
                     <a class="btn btn-success btn-md" href="{{action('EngagementController@show',27)}}"> Check out our ECQonnection Wall</a>
                     
                     
