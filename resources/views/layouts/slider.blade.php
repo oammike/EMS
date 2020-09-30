@@ -1,6 +1,24 @@
 
 
             <div class="item active text-center" >
+                  <img src="storage/uploads/digitalbday.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >The Open Access BPO <br/><span class="text-primary"><i class="fa fa-smile-o"></i> Birthday Incentives <i class="fa fa-smile-o"></i> <br/><small>Sep.30, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      We’re all special in our own ways, but we feel extra special once a year – on our birthday! <br/><br/>
+                      Open Access BPO wants to celebrate with you, so we've given our Birthday Incentives a digital upgrade!<br/><br/>
+                      All birthday celebrators from April 2020 onwards will receive an <strong>SM Gift Pass e-voucher worth Php 500</strong>. This will be sent to your respective Open Access BPO Gmail addresses. To the campaigns who only have access to Zimbra, the rewards will be sent to your Zimbra email addresses.<br/><br/>
+
+                      For celebrators from April-September 2020, kindly expect your rewards to be sent within the day. October-December celebrators should receive theirs by the beginning of their respective months. You may send an email to <a href="mailto:"oambdaygift@openaccessbpo.com">oambdaygift@openaccessbpo.com</a> for any inquiries.<br/><br/>Thank you for being part of our family, stay safe and healthy always! </p>
+
+                
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> World Smile Day <i class="fa fa-smile-o"></i> <br/><small>October 02, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
