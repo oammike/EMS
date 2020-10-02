@@ -1,6 +1,33 @@
 
 
             <div class="item active text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >Internal Customer Service: <br/><span class="text-primary">Microlearning Modules <br/><small>Oct.02, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                     Ever heard of WACTEO? It stands for: <br/><strong>We Are Customers To Each Other</strong><br/><br/>
+
+                      Most of us are aware of our external customers - it's worth noting that we have internal customers too - our colleagues.<br/><br/>
+
+                      "When we talk and respond to fellow employees as we would to external customers, we help to change the culture of the organization to a customer centric one.  Every request between internal team members is one driven by a customer need and, thus, rather than being treated as a nuisance, the request should always be treated from a customer service perspective… it’s a shift in mindset to ‘I am responding to you as I would to an external customer’.” - Eva Nye<br/><br/>
+
+                      Available for self enrolment for all employees until October 10 - Internal Customer Service Course. Composed of 8 modules with a total of 63 minutes seat time. <br/><br/>
+                      <img src="storage/uploads/wacteo.png" width="100%" /><br/><br/>
+
+                      If you need help about our LMS, please refer to this resource:<br/></p>
+
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://rise.articulate.com/share/iWjCCl9P31A6KhU49B-KrH3jE8e4pbEO" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+
+                
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/digitalbday.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >The Open Access BPO <br/><span class="text-primary"><i class="fa fa-smile-o"></i> Birthday Incentives <i class="fa fa-smile-o"></i> <br/><small>Sep.30, 2020</small><br/>
                   
