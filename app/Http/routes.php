@@ -22,13 +22,13 @@ Route::get('/check_rewards_points/{code?}', 'RewardsHomeController@check_points'
 Route::get('/fetch_coffees', 'RewardsHomeController@fetch_coffees');
 Route::post('/create-order', 'RewardsHomeController@create_order');
 
-Route::group( [ 'middleware' => ['auth'] ], function () 
-  { 
+Route::group( [ 'middleware' => ['auth'] ], function ()
+  {
     Route::get('/', 'HomeController@index');
     Route::get('/home', 'HomeController@home');
 
 
-    
+
     Route::resource('immediateHead', 'ImmediateHeadController');
     Route::resource('immediateHeadCampaign', 'ImmediateHeadCampaignController');
     Route::resource('evalForm', 'EvalFormController');
@@ -43,7 +43,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('position','PositionController');
     Route::resource('role','RoleController');
     Route::resource('notification','NotificationController');
-    
+
     Route::resource('schedule','ScheduleController');
     Route::resource('cutoffs','CutoffsController');
     Route::resource('biometrics','BiometricsController');
@@ -75,7 +75,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     Route::resource('task','TaskController');
 
-    
+
 
     Route::get('/logout', 'HomeController@logout');
 
@@ -89,7 +89,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=>'page.healthForm_getAll',
       'uses'=>'HomeController@healthForm_getAll') );
 
-  
+
     Route::get('/healthForm_download', array(
         'as'=> 'page.healthForm_download',
         'uses'=>'HomeController@healthForm_download') );
@@ -133,7 +133,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     /********** ------------ END NEW PA ------------  **************/
 
-    
+
 
     //********************** NDY TASK TRACKER ***********************
 
@@ -412,7 +412,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::post('/deleteBio/{id}', array(
         'as'=> 'logs.deleteBio',
         'uses'=>'LogsController@deleteBio') );
-      
+
 
       Route::get('/view-raw-biometrics-data/{id}', array(
         'as'=> 'logs.saveDailyUserLogs',
@@ -445,7 +445,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::get('/wfh_download', array(
         'as'=> 'logs.wfh_download',
         'uses'=>'LogsController@wfh_download') );
-        
+
 
     //---- end WFH AND LOGS
 
@@ -463,7 +463,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'leaveMgt_summary',
       'uses'=>'UserController@leaveMgt_summary') );
 
-    
+
 
     //--- NOTIFS
       Route::post('/user_cws/process', array(
@@ -698,12 +698,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       //---- end SL
 
 
-     
+
       /*********** LWOP **********/
 
         Route::post('/user_lwop/checkExisting', array(
         'as'=> 'user_lwop.checkExisting',
-        'uses'=>'UserLWOPController@checkExisting') ); 
+        'uses'=>'UserLWOPController@checkExisting') );
 
          Route::post('/user_lwop/getCredits', array(
         'as'=> 'user_lwop.getCredits',
@@ -744,7 +744,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
         Route::post('/user_obt/checkExisting', array(
         'as'=> 'user_obt.checkExisting',
-        'uses'=>'UserOBTController@checkExisting') ); 
+        'uses'=>'UserOBTController@checkExisting') );
 
         Route::post('/user_obt/requestVL', array(
         'as'=> 'user_obt.requestVL',
@@ -830,7 +830,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       //--- END FAMILY
 
 
-    
+
     /*********** DTR ROUTES ************/
 
       Route::post('/doUnlock/{id}', array(
@@ -908,10 +908,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::post('/zendesk', array(
       'as'=> 'user_dtr.zendesk',
       'uses'=>'DTRController@zendesk') );
-    // --------- end DTR 
+    // --------- end DTR
 
 
-    
+
      /*********** BIOMETRICS ROUTES ************/
 
         Route::post('/tempUpload/purge', array(
@@ -959,12 +959,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         Route::get('/setupBiometricUserLogs', array(
         'as'=> 'biometrics.setupBiometricUserLogs',
         'uses'=>'BiometricsController@setupBiometricUserLogs') );
-    
+
     //--- END BIOMETRICS
 
 
 
-    
+
 
 
     /*********** EVAL FORM ROUTES ************/
@@ -1050,7 +1050,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'immediateHeadCampaign.editTier',
       'uses'=>'ImmediateHeadCampaignController@editTier') );
 
-    
+
 
      Route::get('/getOtherTeams', array(
           'as'=> 'getOtherTeams',
@@ -1068,7 +1068,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
           'as'=> 'updateMovement',
           'uses'=>'MovementController@updateMovement') );
 
-     
+
     Route::get('/movement/createNew/{id}', array(
           'as'=> 'createNew',
           'uses'=>'MovementController@createNew') );
@@ -1365,17 +1365,17 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/campaignStats/{id}', 'CampaignController@showStats');
     Route::post('/getStats', 'CampaignController@getStats');
     Route::post('/getScheds', 'CampaignController@getScheds');
-    
+
     Route::get('/agentStats/{id}', 'CampaignController@showAgentStats');
     Route::post('/getAgentStats', 'CampaignController@getAgentStats');
     Route::post('/getAgentScheds', 'CampaignController@getAgentScheds');
 
     Route::post('/getIndividualStat', 'CampaignController@getIndividualStat');
     Route::post('/exportAgentActivity', 'CampaignController@exportAgentActivity');
-    
-    
+
+
     /* ---------- ID PRINTING ---------------*/
-    
+
     Route::get('/camera/', 'IDController@index');
     Route::get('/trainee/', 'IDController@trainee');
     Route::get('/camera_back/', 'IDController@camera_back');
@@ -1390,30 +1390,42 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/upload_signature', 'IDController@upload_signature');
     Route::post('/rename_id','IDController@rename_id');
     Route::post('/save_portrait','IDController@save_portrait');
-    
-    
+
+
     /* ---------- REWARDS SYSTEM ---------------*/
+    Route::get('/manage-rewards-exclusives', 'RewardController@manage_exclusives');
+    Route::get('/manage-rewards-exclusives/list/{page?}', 'RewardController@list_exclusives');
+    Route::post('/add-rewards-exclusive', 'RewardController@add_exclusive');
+    Route::post('/edit-rewards-exclusive', 'RewardController@edit_exclusive');
+    Route::post('/claim-exclusive/{reward_id?}', 'RewardsHomeController@claim_exclusive');
+    Route::get('/manage-exclusive-claims', 'RewardExclusiveClaimsController@index');
+    Route::get('/manage-exclusive-claims/list/{show_redeemed?}', 'RewardExclusiveClaimsController@list_claims');
+    Route::post('/approve-exclusive-claim/{claim_id?}', 'RewardExclusiveClaimsController@approve_claim');
+    Route::post('/deny-exclusive-claim', 'RewardExclusiveClaimsController@deny_claim');
+
 
     Route::get('/manage-rewards/list/{page?}', 'RewardController@list_rewards');
-    Route::resource('/manage-rewards', 'RewardController');    
+    Route::resource('/manage-rewards', 'RewardController');
     Route::get('/manage-categories/list/{page?}', 'RewardsCategoryController@list_categories');
     Route::get('/manage-categories/fetch_tiers/{id}', 'RewardsCategoryController@list_category_tiers');
     Route::resource('/manage-categories', 'RewardsCategoryController');
     Route::get('/rewards-catalog', 'RewardsHomeController@rewards_catalog');
-    Route::get('/rewards-catalog/list/{page?}', 'RewardsHomeController@rewards_catalog_list');  
+    Route::get('/rewards-catalog/list/{page?}', 'RewardsHomeController@rewards_catalog_list');
     Route::post('/claim-reward/{reward_id?}', 'RewardsHomeController@claim_reward');
-    
+
+
+
     Route::get('/get_qr/{user_id?}', 'RewardsHomeController@get_qr');
 
     Route::resource('/orders', 'OrdersController');
-    
+
     Route::get('/print-order/{code?}', 'RewardsHomeController@print_order');
     Route::get('/print-qr/{employee_id?}', 'RewardsHomeController@print_qr');
     Route::post('/cancel-order/{id?}', 'RewardsHomeController@cancel_order');
 
 
     Route::get('/manage-vouchers/list/{page?}', 'RewardVoucherController@list_vouchers');
-    Route::resource('/manage-vouchers', 'RewardVoucherController');    
+    Route::resource('/manage-vouchers', 'RewardVoucherController');
     Route::post('/claim-voucher/{voucher_id?}', 'RewardsHomeController@claim_voucher');
 
     Route::get('/manage-voucher-claims', 'RewardVoucherClaimsController@index');
@@ -1434,7 +1446,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     Route::get('/coffeeshop-stats/{start?}/{end?}', 'RewardsHomeController@statistics');
 
-    
+
     //----------- USER-based reward actions
 
     Route::get('/initializeRewards/{floor_id}', array(
@@ -1458,11 +1470,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/awardPoints', array(
       'as'=> 'awardPoints',
       'uses'=>'UserController@rewards_award') );
-    
+
     Route::get('/awardHistory', array(
       'as'=> 'awardHistory',
       'uses'=>'UserController@rewards_award_history') );
-    
+
 
     Route::get('/awardTenure', array(
       'as'=> 'awardTenure',
@@ -1489,7 +1501,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/userRewards/barista', array(
       'as'=> 'rewards_barista',
       'uses'=>'UserController@rewards_barista') );
-    
+
 
   });
 

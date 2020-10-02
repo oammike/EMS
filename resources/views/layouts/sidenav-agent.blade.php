@@ -1,5 +1,5 @@
-<?php $u = OAMPI_Eval\User::find(Auth::user()->id); 
-            
+<?php $u = OAMPI_Eval\User::find(Auth::user()->id);
+
             $lengthOfservice = \Carbon\Carbon::parse($u->dateHired,"Asia/Manila")->diffInMonths();
             $leave1 = \Carbon\Carbon::parse('first day of January '. date('Y'),"Asia/Manila")->format('Y-m-d');
             $leave2 = \Carbon\Carbon::parse('last day of December '.date('Y'),"Asia/Manila")->format('Y-m-d');
@@ -48,7 +48,7 @@
                   }
                   else{
                     $currentVLbalance = "N/A";
-                    
+
                     /*if (count($approvedVLs)>0)
                     {
                       $bal = 0.0;
@@ -63,12 +63,12 @@
                       $currentVLbalance = (0.84 * $today);
                     }*/
 
-                  } 
+                  }
 
 
 
                 }else {
-                  
+
 
                   /*if (count($approvedVLs)>0){
                     $bal = 0.0;
@@ -83,7 +83,7 @@
                     $currentVLbalance = (0.84 * $today);
                   }*/
                   $currentVLbalance = "N/A";
-                  
+
                 }
 
 
@@ -105,10 +105,10 @@
                     }
 
                      $currentSLbalance= (($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
-                    
+
                   }
                   else{
-                    
+
                    /* if (count($approvedSLs)>0)
                     {
                       $bal = 0.0;
@@ -125,7 +125,7 @@
                     $currentSLbalance="N/A";
 
                   }
-                }else 
+                }else
                 {
                   $currentSLbalance="N/A";
                   /*if (count($approvedSLs)>0){
@@ -140,18 +140,18 @@
 
                     $currentSLbalance = (0.84 * $today);
                   }*/
-                  
+
                 }
 
             //}
-            
+
                 //$avail = $this->user->availableVL;
 
             //check for updated credits:
             $updatedVLcredits = OAMPI_Eval\VLupdate::orderBy('period','DESC')->get();
             $updatedSLcredits = OAMPI_Eval\SLupdate::orderBy('period','DESC')->get();
-            
-                
+
+
             ?>
 <aside class="main-sidebar">
 
@@ -170,7 +170,7 @@
                 @endif
               </a>
 
-         
+
         </div>
         <div class="pull-left info">
          @if (is_null(Auth::user()->nickname))
@@ -180,11 +180,11 @@
           <small><strong>{{ Auth::user()->nickname }} {{ Auth::user()->lastname }}</strong></small><br/>
           @endif
           <!-- Status -->
-          
-            
-              <small class="text-success"><i class="fa fa-circle text-success"></i> Online</small> 
-            
-          
+
+
+              <small class="text-success"><i class="fa fa-circle text-success"></i> Online</small>
+
+
         </div>
       </div>
 
@@ -201,11 +201,11 @@
         <div class="col-lg-1 col-sm-12"></div>
         <div class="col-lg-4 col-sm-12 text-center">
           <!-- <a id="askVL" class="btn btn-xs" title="Ask Finance for your leave credits to-date" onclick="javascript:alertAsk();"> <i class="fa fa-exclamation-triangle text-yellow"></i></a> -->
-          
+
           <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"><i class="fa fa-plane"></i></span><span class="label label-primary">
              {{$currentVLbalance}} </span></a></div>
 
-            
+
         <div class="col-lg-4 col-sm-12 text-center">
           <!-- <a id="askSL" class="btn btn-xs" title="Ask Finance for your leave credits to-date"  onclick="javascript:alertAsk();"> <i class="fa fa-exclamation-triangle text-yellow"></i></a> -->
          <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><span class="label"> <i class="fa fa-stethoscope"></i></span><span class="label label-danger">{{$currentSLbalance}}</span></a></div>
@@ -213,14 +213,14 @@
       </div>
       <div class="row">
         <div class="col-lg-1 col-sm-12"></div>
-        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> VL credit(s) 
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> VL credit(s)
           @if (!$updatedVL)
           <a href="{{action('UserVLController@showCredits',Auth::user()->id)}}" title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
 
           @endif
           </span>
         </div>
-        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> SL credit(s) 
+        <div class="col-lg-4 col-sm-12 text-center"><span class="label"> SL credit(s)
           @if (!$updatedSL)
           <a title="Request Immediate head or Finance to update your leave credits"> <i class="fa fa-exclamation-triangle text-yellow"></i></a></span>
 
@@ -233,8 +233,8 @@
       <!-- ******************** LEAVE CREDIT COUNTER ***************-->
 
 
-            
-     
+
+
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
@@ -243,7 +243,7 @@
         <!-- <li class="@if (Request::is('page')) active @endif"><a href="{{ action('HomeController@index') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li> -->
         <li class="@if (Request::is('home')) active @endif"><a href="{{ action('HomeController@home') }}"><i class="fa fa-2x fa-dashboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Dashboard</span></a></li>
 
-        
+
       <!--  <li class="treeview @if ( Request::is('employeeEngagement*') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-trophy"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Contests</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
@@ -253,8 +253,8 @@
  -->
         <?php //9 == Davao
               $floor = DB::table('team')->where('team.user_id', Auth::user()->id)->first()->floor_id; ?>
-        
-        
+
+
 
 
          <!-- ******** OPEN WALL ****** -->
@@ -265,11 +265,11 @@
             <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
-        
+
 
             @foreach($walls as $w)
 
-              @if($w->active) 
+              @if($w->active)
               <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',$w->id)}}"><i class="fa fa-th-large"></i> {{$w->name}} </a></li>
 
               @else
@@ -279,7 +279,7 @@
 
             @endforeach
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a  target="_blank"href="{{action('EngagementController@wall',5)}}"><i class="fa fa-th-large"></i> WFH/Onsite Photo Wall </a> </li>
-           
+
 
           </ul>
         </li>
@@ -301,9 +301,9 @@
 
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>23]) }}"><i class="fa fa-beer"></i> 2019 Monochrome <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photo Booth2 </a> </li>
 
-           
 
-            
+
+
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-beer"></i> Back to the 90s </a> </li>
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>10]) }}"><i class="fa fa-camera"></i> BTS: We Speak Your<br/> Language <!--  <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> --></a> </li>
@@ -312,7 +312,7 @@
 
              <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>9]) }}"><i class="fa fa-beer"></i> Cinco De Mayo </a> </li>
 
-             
+
 
              <li @if (Request::is('usergallery')) class="active" @endif style="padding-left:20px"><a href="{{action('GalleryController@show',1)}}"><i class="fa fa-picture-o"></i>CS WEEK 2019</a> </li>
 
@@ -350,15 +350,15 @@
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery',['a'=>8]) }}"><i class="fa fa-grav"></i> Wear Your Pajama To Work <!-- <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> --></a> </li>
 
               <li @if (Request::is('gallery')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@gallery') }}"><i class="fa fa-picture-o"></i> Past Events </a></li>
-           
+
           </ul>
         </li>
 
 
-         
+
 
         <li><a href="{{action('HomeController@healthForm')}}" ><i class="fa fa-2x fa-medkit"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Health Form</span></a></li>
-        
+
         <li @if (Request::is('user/'.Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" > <i class="fa fa-2x fa-address-card-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My Profile</span></a></li>
 
         <li  data-step="3" data-intro="Or head over to your <br/><span style='font-weight:bold' class='text-danger'>'DTR Sheet'</span> and click on the push-pin icons to file a DTRP for that specific production date.<br/> <img src='public/img/dtr.jpg' /><br/><em> (assuming TL or WFM has already plotted your work schedule) </em><br/><br/><strong class='text-orange'><i class='fa fa-exclamation-triangle'></i> Reminder:</strong> If you're from Operations, coordinate with your immediate head and/or Workforce Management for leave application process." data-position='right' @if ( Request::is('user_dtr*') ) class="active" @endif ><a  @if ( Request::is('user_dtr*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-2x fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My DTR</a></li>
@@ -370,10 +370,10 @@
 
          <li @if (Request::is('myEvals')) class="active" @endif><a href="{{action('UserController@myEvals')}}" ><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>My Evals</span></a></li>
 
-         
+
         <li class="treeview @if (Request::is('userRewards*') || Request::is('reward*') || Request::is('award*')) active @endif">
           <a href="#" ><i class="fa fa-2x fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Rewards </span>
-            
+
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_about')}}"><i class="fa fa-info-circle"></i> About </a> </li>
@@ -381,26 +381,30 @@
             <li @if (Request::is('rewards*')) class="active" @endif style="padding-left:20px"><a href="{{action('RewardsHomeController@rewards_catalog')}}"><i class="fa fa-book"></i> Catalog </a> </li>
             <li @if (Request::is('rewardTransactions')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@rewards_transactions')}}"><i class="fa fa-cart-arrow-down"></i> My Transactions </a> </li>
             <li @if (Request::is('userRewards')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards') }}"><i class="fa fa-exchange"></i> Transfer Points </a> </li>
-             <li @if (Request::is('awardPoints')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards_award') }}"><i class="fa fa-trophy"></i> Award Points </a> </li>
+            <li @if (Request::is('awardPoints')) class="active" @endif style="padding-left:20px"><a href="{{ action('UserController@rewards_award') }}"><i class="fa fa-trophy"></i> Award Points </a> </li>
 
-              @if(Auth::user()->id==491 || Auth::user()->id==83 || Auth::user()->id==564 || Auth::user()->id==222 )
-              <hr/>
-             <li style="padding-left:20px"><a href="{{ action('RewardsHomeController@statistics') }}"> Order Stats </a> </li>
-             <li style="padding-left:20px"><a href="{{ url('/manage-vouchers') }}"> Manage Vouchers </a> </li>
-             <li style="padding-left:20px"><a href="{{ url('/manage-voucher-claims') }}"> Manage Voucher Claims </a> </li>
-             <li style="padding-left:20px"><a href="{{ url('/manage-donations') }}"> Donation Categories </a> </li>
-             <li style="padding-left:20px"><a href="{{ url('/manage-donation-intents') }}"> Manage Donation Intents </a> </li>
-            @endif
+          @if(Auth::user()->id==491 || Auth::user()->id==83 || Auth::user()->id==564 || Auth::user()->id==222 )
+            <hr/>
+              <li style="padding-left:20px"><a href="{{ url('/manage-rewards-exclusives') }}"> Manage Exclusive Rewards </a> </li>
+              <li style="padding-left:20px"><a href="{{ url('/manage-exclusive-claims') }}"> Manage Exclusive Claims </a> </li>
+
+            <hr/>
+              <li style="padding-left:20px"><a href="{{ action('RewardsHomeController@statistics') }}"> Order Stats </a> </li>
+              <li style="padding-left:20px"><a href="{{ url('/manage-vouchers') }}"> Manage Vouchers </a> </li>
+              <li style="padding-left:20px"><a href="{{ url('/manage-voucher-claims') }}"> Manage Voucher Claims </a> </li>
+              <li style="padding-left:20px"><a href="{{ url('/manage-donations') }}"> Donation Categories </a> </li>
+              <li style="padding-left:20px"><a href="{{ url('/manage-donation-intents') }}"> Manage Donation Intents </a> </li>
+          @endif
 
           </ul>
         </li>
-       
+
 
          <li class="treeview @if ( Request::is('survey*') ) active @endif">
           <a href="#"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
 
-            
+
               <!-- <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px">
                 <a id="photobooth" href="{{action('SurveyController@intro',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li> -->
               <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@report',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020 Report</span> </a> </li>
@@ -410,14 +414,14 @@
             <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>2019 Year End Party Artists</a> </li>
             <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> 2019 Year End Party Theme </a></li> -->
             <!-- <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@report',1)}} "><i class="fa fa-question-circle"></i> <span> EES 2019 </span> </a> </li> -->
-            
-           
+
+
           </ul>
         </li>
 
-          
-        
-     
+
+
+
 
         <li class="header">OAMPI SYSTEM</li>
 
@@ -425,24 +429,24 @@
             <a href="#"><i class="fa fa-user-md"></i>&nbsp;<span>Clinical Services</span><i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
 
-              
+
               <li @if (Request::is('health*')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@healthForm')}}"><i class="fa fa-medkit"></i> Fill Out Health Form</a> </li>
               <li @if (Request::is('health*')) class="active" @endif style="padding-left:20px"><a href="{{ action('HomeController@healthForm_report')}}"><i class="fa fa-file-o"></i> View All Responses</a> </li>
 
-              
-              
-             
+
+
+
             </ul>
         </li>
 
         <li><a href="http://172.17.0.2/coffeebreak/" target="_blank"><i class="fa fa-coffee" ></i> <img src="{{ asset('public/img/logo_coffeebreak.png')}}" width="100" /> <span></span></a></li>
 
-         <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADMINISTER_CLEARANCE') ){ ?> 
+         <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADMINISTER_CLEARANCE') ){ ?>
               <li @if (Request::is('user')) class="active" @endif style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#clearanceModal"><i class="fa fa-file-o"></i> Clearance Forms </a></li>
              <?php }  ?>
 
 
-        
+
 
 
           <li class="treeview @if (Request::is('user_dtr')) active @endif">
@@ -451,7 +455,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-         
+
             <li style="padding-left:20px" @if ( Request::is('user_*') ) class="active" @endif ><a  @if ( Request::is('user_*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-calendar"></i> My DTR</a></li>
            <!--  <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-bed"></i> Leaves</a></li>
             <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-tachometer"></i> OT / UT</a></li>
@@ -459,7 +463,7 @@
              <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><i class="fa fa-bar-chart"></i> Leave Credits</a></li>
           </ul>
         </li>
-        
+
 
 
 
@@ -469,24 +473,24 @@
             <a href="#"><i class="fa fa-question-circle"></i>&nbsp;<span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
 
-              
+
               <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',4)}}"><i class="fa fa-microphone"></i>Year End Party Artists <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
               <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',3)}}"><i class="fa fa-beer"></i> Year End Theme <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span></a> </li>
                <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@intro',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
               <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a id="photobooth" href="{{action('SurveyController@report',1)}} "><i class="fa fa-question-circle"></i> <span>EES 2019</span> </a> </li>
-              
-             
+
+
             </ul>
           </li>
  -->
-         
-       
-         
-       <!-- 
+
+
+
+       <!--
         <li><a href="http://172.17.0.51/accessone/login" target="_blank"><i class="fa fa-file"></i> <span>HRIS</span></a></li>
         <li><a href="http://oampayroll.openaccessbpo.com/" target="_blank"><i class="fa fa-usd"></i> <span>Payroll</span></a></li> -->
 
-        
+
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -498,29 +502,29 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        
+
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <h4 class="modal-title" id="myModalLabel"><img src="{{asset('public/img/oabpo_logo_new.jpg')}}" width="90px" align="center" />Launch HR Clearance Forms</h4>
-        
+
       </div>
       <div class="modal-body">
-        
+
         <p>You are about to launch the <em>demo version</em> of our new <strong>Clearance Form.</strong> <br/>This will launch a new tab where you will input your EMS login credentials to continue.</p>
 
         <br/><br/>
-       
+
       </div>
       <div class="modal-footer no-border">
-        
-        
-     
-        
-          
+
+
+
+
+
           <button type="button" id="hrms" class="yes btn btn-primary btn-md"  data-dismiss="modal"><i class="fa fa-check-square-o"></i> Proceed </button>
           <!-- <a href="#" id="no" class="no btn btn-success btn-md "> Proceed anyway </a> -->
-         
+
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
-       
+
 
 
       </div>
