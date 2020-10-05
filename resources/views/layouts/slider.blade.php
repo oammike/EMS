@@ -1,7 +1,5 @@
 
 
-           
-
             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> OCT. 09, 2020</strong> PAYOUT <br/>
                   
@@ -47,6 +45,48 @@
  
                     
               </div>
+              <div class="item text-center" >
+                  <img src="storage/uploads/csweek_2020_poster2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary"><i class="fa fa-calendar-o"></i> Calendar of Activities <i class="fa fa-calendar-o"></i> <br/><small>Sep.30, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      <strong class="text-primary">Oct.5, 2020 (Mon)</strong><br>
+                      <strong class="text-orange">WELCOME REMARKS</strong><br/>
+                      Special message from our execs to welcome the fun-filled week ahead<br/><br/>
+
+                      <strong class="text-primary">Oct.6-8, 2020 (Tue-Thu)</strong><br>
+                      <strong class="text-orange">DAILY PUZZLES AND TEAM ACTIVITIES</strong><br/>
+                      Daily puzzles to be sent to all which will also entitle the participant to a raffle entry. Team activities will also be sent on these days.<br/><br/>
+
+                      <strong class="text-primary">Oct.9, 2020 (Fri)</strong><br>
+                      <strong class="text-orange">CS WEEK ePARTY</strong><br/>
+                      Ending the week with a live e-party!<br/>A program that will be filled with raffle, prizes, and surprises! </p>
+
+                
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+                  <img src="storage/uploads/wall_week22.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> CS WEEK 2020 <i class="fa fa-smile-o"></i> <br/><small>October 05-09, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      Complete this sentence: <br/><strong class="text-primary"> We are a DREAM TEAM because _________</strong><br/><br/>
+
+                      and post a creative photo of your team (zoom,google meet, etc.) on or before <strong>Thursday, October 8 at 6:00pm.</strong> The winning team will receive Grab Food and Mystery Manila vouchers for the entire team!<br/><br/>
+
+                      Announcement is on October 9,2020 during the eParty.</p>
+
+                    <br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',28)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+            </div>
 
              <div class="item text-center" >
                   
@@ -93,21 +133,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/wall_week21.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> World Smile Day <i class="fa fa-smile-o"></i> <br/><small>October 02, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      They say smiles are contagious, so be a carrier!<br/><br/>
-                      October 2 is World Smile Day. <strong class="text-primary">Share any photo of you or your loved ones with the best smiles!</strong><br/><br/>In return, we’ll make you smile with 20 reward points!   </p>
-
-                    <br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',27)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
+            
 
 
               <div class="item text-center" >
