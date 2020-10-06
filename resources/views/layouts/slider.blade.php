@@ -46,8 +46,23 @@
                     
               </div>
               <div class="item text-center" >
+                  <img src="storage/uploads/puzzle1.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Find A Word Puzzle <br/><small>Oct.06, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/puzzle1b.jpg" width="100%" />
+                    <p  style="padding: 30px;" class="text-center">
+                      
+                      Answer the puzzle and earn a raffle entry! Send your answers to <strong>events@openaccessbpo.net</strong> with your answers. Raffle draw is on Friday during our virtual party where 20 winners will win P500 worth of e-vouchers! Happy CS Week </p>
+
+                
+                    
+                    
+            </div>
+            <div class="item text-center" >
                   <img src="storage/uploads/csweek_2020_poster2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary"><i class="fa fa-calendar-o"></i> Calendar of Activities <i class="fa fa-calendar-o"></i> <br/><small>Sep.30, 2020</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary"><i class="fa fa-calendar-o"></i> Calendar of Activities <i class="fa fa-calendar-o"></i> <br/><small>Oct.05-09, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
