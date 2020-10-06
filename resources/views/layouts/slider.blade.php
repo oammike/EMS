@@ -1,51 +1,7 @@
 
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> OCT. 09, 2020</strong> PAYOUT <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that our cut-off for October 09 payout is on Oct. 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before TUESDAY 12:00 noon of Oct. 06, 2020</strong>.<br/><br/>
-                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
-
-                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
-
-                    <!-- Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
-                    <table class="table">
-                      <tr>
-                        <th>Date of Holiday</th>
-                        <th class="text-center">File Holiday OT for</th>
-                      </tr>
-                      <tr>
-                        <td>Aug. 21</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 24</td>
-                        <td><strong>Davao</strong> Admin and Support Group only</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 31</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                    </table>
-
- -->
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/></p>
-
- 
-                    
-              </div>
-              <div class="item text-center" >
+            
+              <div class="item active text-center" >
                   <img src="storage/uploads/puzzle1.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Find A Word Puzzle <br/><small>Oct.06, 2020</small><br/>
                   
@@ -130,24 +86,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/digitalbday.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >The Open Access BPO <br/><span class="text-primary"><i class="fa fa-smile-o"></i> Birthday Incentives <i class="fa fa-smile-o"></i> <br/><small>Sep.30, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      We’re all special in our own ways, but we feel extra special once a year – on our birthday! <br/><br/>
-                      Open Access BPO wants to celebrate with you, so we've given our Birthday Incentives a digital upgrade!<br/><br/>
-                      All birthday celebrators from April 2020 onwards will receive an <strong>SM Gift Pass e-voucher worth Php 500</strong>. This will be sent to your respective Open Access BPO Gmail addresses. To the campaigns who only have access to Zimbra, the rewards will be sent to your Zimbra email addresses.<br/><br/>
-
-                      For celebrators from April-September 2020, kindly expect your rewards to be sent within the day. October-December celebrators should receive theirs by the beginning of their respective months. You may send an email to <a href="mailto:"oambdaygift@openaccessbpo.com">oambdaygift@openaccessbpo.com</a> for any inquiries.<br/><br/>Thank you for being part of our family, stay safe and healthy always! </p>
-
-                
-                    
-                    
-            </div>
-
+         
             
 
 
@@ -167,135 +106,8 @@
                    
                     
               </div>
-              <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_1.jpg" width="100%" /><br/><br/>
-                  September is <br/><span class="text-primary">Self-Care Awareness Month!<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                      When was the last time you took care of YOU? Taking care of yourself should be a guilt-free habit. When you refocus your energy towards nurturing yourself, you make way for holistic wellness. <br/><br/>
-                      Catch our self-care tips that you can incorporate in your daily routine throughout September.<br/><br/>
+             
 
-                      Share your own tips on social media with these hashtags: #SelfCareAwarenessMonth #SelfCareSeptember. Tag Open Access BPO and your friends to turn self-care into a year-round habit for everyone!<br/><br/>
-                      #WeSpeakYourLanguage
-                                            <br/><br/>
-
-                     </p>
-
-                     
-
-                   
-                    
-              </div>
-
-              <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_4.jpg" width="100%" /><br/><br/>
-
-                 Log off social media when your feed <br/><span class="text-primary"> becomes too overwhelming</span><br/>
-                  <img src="storage/uploads/divider.png" /> 
-                  
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                      Doom scrolling is our tendency to keep looking at and reading posts or news that are negatively affecting us. <br/><br/>
-
-                     Quit it! There are ways to stay informed without having to absorb everything you see on your timelines.<br/><br/>
-                      #WeSpeakYourLanguage #SelfCareSeptember #SelfCareAwarenessMonth
-                                            <br/><br/>
-
-                     </p>
-
-                     
-
-                   
-                    
-              </div>
-
-
-              <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_3.jpg" width="100%" /><br/><br/>
-
-                 Take breaks when you're <span class="text-primary">feeling unfocused</span><br/>
-                  <img src="storage/uploads/divider.png" /> 
-                  
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                      Forcing yourself to keep churning when you're running low affects productivity and self-worth. <br/><br/>
-
-                     Stretch, grab a snack, exercise, or do what works best for you.<br/><br/>
-                      #WeSpeakYourLanguage #SelfCareSeptember #SelfCareAwarenessMonth
-                                            <br/><br/>
-
-                     </p>
-
-                     
-
-                   
-                    
-              </div>
-
-              
-
-              <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_2.jpg" width="100%" /><br/><br/>
-
-                 Try out grounding exercises or meditation <br/><span class="text-primary"> to help reduce anxiety<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                      The 5-4-3-2-1 technique grounds you in the present moment. Notice 5 things you can see around you, 4 things you can feel, 3 things you can hear, 2 that you can smell, and 1 that you can taste. Take deep, slow breaths and sip cold water as well<br/><br/>
-
-                      Adapting to new situations can be difficult, especially during a pandemic. Make time for grounding exercises or meditation to help reduce anxiety and concentrate better throughout the day.<br/><br/>
-                      #WeSpeakYourLanguage
-                                            <br/><br/>
-
-                     </p>
-
-                     
-
-                   
-                    
-              </div>
-
-
-              <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" >Thank You For Participating <br/><span class="text-primary">Pulse Check 2020<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  <img src="storage/uploads/pulse2020.jpg" width="100%" /><br/>
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                      We want to thank you for taking the time to take our Pulse Check 2020 survey and for sharing your feedback openly.  Your response has been valuable in helping us evaluate our work culture as well as our performance as a company for the first half of 2020. This shows us how we did at program and department levels, and helps us identify areas to improve and implement solutions for making your experience better.<br/><br/>
-
- 
-
-                      Your experience is important to assess because the more satisfied you are, the more of yourselves you'll invest in our company's mission and goals. High engagement often leads to better service and more efficiency in the workplace which, of course, leads to favorable business outcomes. If you are engaged, you are enthusiastic about your work and our company, and that enthusiasm rubs off on your team and customers, and on the Open Access culture as a whole. And that is important to all of us.<br/><br/>
-
-                       
-
-                      Here is a summary of what the data shows us, please see attached. Your leaders will be communicating with you soon to share program- and department-specific findings and action plans. Again thanks, team!
-                      <br/><br/>
-
-                      <a class="btn btn-xs btn-success" href="{{action('ResourceController@item',72)}}">Read More<i class="fa fa-arrow-right"></i> </a>
-                      <br/><br/>
-
-                     
-
-                   
-                    
-              </div>
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> REMINDER TO ALL  <br/> <span class="text-primary">ONSITE EMPLOYEES: <br/>
@@ -330,27 +142,6 @@
               </div>
 
               
-           
-
-
-              <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-stethoscope"></i> Message from Clinic: <br/><span class="text-primary"> Maintaining Mental Health Resilience<br/> amidst COVID-19 Pandemic <br/><small> Sep. 02, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4><img src="storage/uploads/mentalhealth2.jpg" width="100%" /><br/>
-                    <p  style="padding: 30px;" class="text-left" >
-                      The CoronaVirus Pandemic has caused exceptionally challenging and worrying time for each and every one of us. The effects of social distancing, lockdown, the loss of loved ones to the virus and the over-consumption of stress-inducing media reports is taking a huge toll on our mental health and wellbeing.<br/><br/>
-
-
-                      According to,Nina Rifkind, LCSW, ACWS, who specializes in treating Anxiety Disorders and OCD, "Individuals who fight every day to manage symptoms, and those who love and support them, we can work to slowly turn the tide.  By sharing with people, we trust. And thoughtfully educating our family and friends, we can make those around us more sensitive, and aware, all year round, of the importance of how we all talk about mental health, and how critical it is to our health in general, mind, body and spirit."<br/><br/>
-
-                      The OAMPI Clinic is also here if you need assistance in relation to Mental Health. Please do not hesitate to reach us. However, the government has provided us as well with hotline support in case you prefer to seek direct  professional help. <br/><br/>
-                      Below are their numbers:<br/><br/>
-                      National Center for Mental Health Crisis Hotline at <strong>0917-899-8727 (0917-899-USAP)</strong> and <strong>(02) 7-989-8727 ((02)-7-989-USAP)</strong><br/><br/></p>      
-                    
-                    
-            </div>
-
            
 
          
@@ -2330,6 +2121,222 @@
 
 
 <?php /*
+
+
+
+              <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-stethoscope"></i> Message from Clinic: <br/><span class="text-primary"> Maintaining Mental Health Resilience<br/> amidst COVID-19 Pandemic <br/><small> Sep. 02, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/mentalhealth2.jpg" width="100%" /><br/>
+                    <p  style="padding: 30px;" class="text-left" >
+                      The CoronaVirus Pandemic has caused exceptionally challenging and worrying time for each and every one of us. The effects of social distancing, lockdown, the loss of loved ones to the virus and the over-consumption of stress-inducing media reports is taking a huge toll on our mental health and wellbeing.<br/><br/>
+
+
+                      According to,Nina Rifkind, LCSW, ACWS, who specializes in treating Anxiety Disorders and OCD, "Individuals who fight every day to manage symptoms, and those who love and support them, we can work to slowly turn the tide.  By sharing with people, we trust. And thoughtfully educating our family and friends, we can make those around us more sensitive, and aware, all year round, of the importance of how we all talk about mental health, and how critical it is to our health in general, mind, body and spirit."<br/><br/>
+
+                      The OAMPI Clinic is also here if you need assistance in relation to Mental Health. Please do not hesitate to reach us. However, the government has provided us as well with hotline support in case you prefer to seek direct  professional help. <br/><br/>
+                      Below are their numbers:<br/><br/>
+                      National Center for Mental Health Crisis Hotline at <strong>0917-899-8727 (0917-899-USAP)</strong> and <strong>(02) 7-989-8727 ((02)-7-989-USAP)</strong><br/><br/></p>      
+                    
+                    
+            </div>
+
+           
+
+
+
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" >Thank You For Participating <br/><span class="text-primary">Pulse Check 2020<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/pulse2020.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      We want to thank you for taking the time to take our Pulse Check 2020 survey and for sharing your feedback openly.  Your response has been valuable in helping us evaluate our work culture as well as our performance as a company for the first half of 2020. This shows us how we did at program and department levels, and helps us identify areas to improve and implement solutions for making your experience better.<br/><br/>
+
+ 
+
+                      Your experience is important to assess because the more satisfied you are, the more of yourselves you'll invest in our company's mission and goals. High engagement often leads to better service and more efficiency in the workplace which, of course, leads to favorable business outcomes. If you are engaged, you are enthusiastic about your work and our company, and that enthusiasm rubs off on your team and customers, and on the Open Access culture as a whole. And that is important to all of us.<br/><br/>
+
+                       
+
+                      Here is a summary of what the data shows us, please see attached. Your leaders will be communicating with you soon to share program- and department-specific findings and action plans. Again thanks, team!
+                      <br/><br/>
+
+                      <a class="btn btn-xs btn-success" href="{{action('ResourceController@item',72)}}">Read More<i class="fa fa-arrow-right"></i> </a>
+                      <br/><br/>
+
+                     
+
+                   
+                    
+              </div>
+
+ <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_1.jpg" width="100%" /><br/><br/>
+                  September is <br/><span class="text-primary">Self-Care Awareness Month!<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      When was the last time you took care of YOU? Taking care of yourself should be a guilt-free habit. When you refocus your energy towards nurturing yourself, you make way for holistic wellness. <br/><br/>
+                      Catch our self-care tips that you can incorporate in your daily routine throughout September.<br/><br/>
+
+                      Share your own tips on social media with these hashtags: #SelfCareAwarenessMonth #SelfCareSeptember. Tag Open Access BPO and your friends to turn self-care into a year-round habit for everyone!<br/><br/>
+                      #WeSpeakYourLanguage
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_4.jpg" width="100%" /><br/><br/>
+
+                 Log off social media when your feed <br/><span class="text-primary"> becomes too overwhelming</span><br/>
+                  <img src="storage/uploads/divider.png" /> 
+                  
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      Doom scrolling is our tendency to keep looking at and reading posts or news that are negatively affecting us. <br/><br/>
+
+                     Quit it! There are ways to stay informed without having to absorb everything you see on your timelines.<br/><br/>
+                      #WeSpeakYourLanguage #SelfCareSeptember #SelfCareAwarenessMonth
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+
+
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_3.jpg" width="100%" /><br/><br/>
+
+                 Take breaks when you're <span class="text-primary">feeling unfocused</span><br/>
+                  <img src="storage/uploads/divider.png" /> 
+                  
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      Forcing yourself to keep churning when you're running low affects productivity and self-worth. <br/><br/>
+
+                     Stretch, grab a snack, exercise, or do what works best for you.<br/><br/>
+                      #WeSpeakYourLanguage #SelfCareSeptember #SelfCareAwarenessMonth
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+
+              
+
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" ><img src="storage/uploads/selfcare_2.jpg" width="100%" /><br/><br/>
+
+                 Try out grounding exercises or meditation <br/><span class="text-primary"> to help reduce anxiety<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                      The 5-4-3-2-1 technique grounds you in the present moment. Notice 5 things you can see around you, 4 things you can feel, 3 things you can hear, 2 that you can smell, and 1 that you can taste. Take deep, slow breaths and sip cold water as well<br/><br/>
+
+                      Adapting to new situations can be difficult, especially during a pandemic. Make time for grounding exercises or meditation to help reduce anxiety and concentrate better throughout the day.<br/><br/>
+                      #WeSpeakYourLanguage
+                                            <br/><br/>
+
+                     </p>
+
+                     
+
+                   
+                    
+              </div>
+   <div class="item text-center" >
+                  <img src="storage/uploads/digitalbday.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >The Open Access BPO <br/><span class="text-primary"><i class="fa fa-smile-o"></i> Birthday Incentives <i class="fa fa-smile-o"></i> <br/><small>Sep.30, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      We’re all special in our own ways, but we feel extra special once a year – on our birthday! <br/><br/>
+                      Open Access BPO wants to celebrate with you, so we've given our Birthday Incentives a digital upgrade!<br/><br/>
+                      All birthday celebrators from April 2020 onwards will receive an <strong>SM Gift Pass e-voucher worth Php 500</strong>. This will be sent to your respective Open Access BPO Gmail addresses. To the campaigns who only have access to Zimbra, the rewards will be sent to your Zimbra email addresses.<br/><br/>
+
+                      For celebrators from April-September 2020, kindly expect your rewards to be sent within the day. October-December celebrators should receive theirs by the beginning of their respective months. You may send an email to <a href="mailto:"oambdaygift@openaccessbpo.com">oambdaygift@openaccessbpo.com</a> for any inquiries.<br/><br/>Thank you for being part of our family, stay safe and healthy always! </p>
+
+                
+                    
+                    
+            </div>
+
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> OCT. 09, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for October 09 payout is on Oct. 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before TUESDAY 12:00 noon of Oct. 06, 2020</strong>.<br/><br/>
+                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
+
+                    <!-- Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
+                    <table class="table">
+                      <tr>
+                        <th>Date of Holiday</th>
+                        <th class="text-center">File Holiday OT for</th>
+                      </tr>
+                      <tr>
+                        <td>Aug. 21</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 24</td>
+                        <td><strong>Davao</strong> Admin and Support Group only</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 31</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                    </table>
+
+ -->
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> SEPT. 25, 2020</strong> PAYOUT <br/>
                   
