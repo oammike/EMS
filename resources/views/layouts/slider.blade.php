@@ -14,7 +14,7 @@
                       ZOOM Meeting ID: <strong>892 5944 0685</strong><br/>
                       Passcode: <strong>430325</strong><br/>
                       Link: <br/>
-                      <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://us02web.zoom.us/j/89259440685?pwd=NCtPcTdZQitBL3Y0OWVoelpxa1RiZz09" />
+                      <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://us02web.zoom.us/j/84385833490?pwd=V1FERnBzOVE3OWhseTM4bmkzVWJ0QT09" />
                     <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
                       
                       <br/><br/> See you all later!</p>
