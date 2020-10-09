@@ -2,7 +2,7 @@
 
             
             <div class="item active text-center" >
-                  <img src="storage/uploads/puzzle4.jpg" width="100%" />
+                  
                   <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  ZOOM Virtual Program <br/><small>Oct.09, 2020 4:00 PM (Manila)</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -20,7 +20,7 @@
                       <br/><br/> See you all later!</p>
                       
 
-                
+                <img src="storage/uploads/puzzle4.jpg" width="100%" />
                     
                     
             </div>
