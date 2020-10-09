@@ -1,106 +1,6 @@
 
-
-            
+           
             <div class="item active text-center" >
-                  
-                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  ZOOM Virtual Program <br/><small>Oct.09, 2020 4:00 PM (Manila)</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p  style="padding: 30px;" class="text-center">
-
-                      <img src="storage/uploads/zoom.png" /><br/>
-                      ZOOM Meeting ID: <strong>892 5944 0685</strong><br/>
-                      Passcode: <strong>430325</strong><br/>
-                      Link: <br/>
-                      <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://us02web.zoom.us/j/84385833490?pwd=V1FERnBzOVE3OWhseTM4bmkzVWJ0QT09" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                      
-                      <br/><br/> See you all later!</p>
-                      
-
-                <img src="storage/uploads/puzzle4.jpg" width="100%" />
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
-                  <img src="storage/uploads/puzzle3.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Rhyme Time <br/><small>Oct.08, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p  style="padding: 30px;" class="text-center">
-                      
-                      In this rhyming challenge, you must solve each clue with a six-letter word that rhymes with the last word of the clue. Send your answers to <strong>events@openaccessbpo.net</strong> with your answers attached. Raffle draw is on Friday during our virtual party where 20 winners will win P500 worth of e-vouchers! Happy CS Week </p>
-                      <img src="storage/uploads/puzzle3.gif" width="100%" />
-
-                
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
-                  <img src="storage/uploads/puzzle2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Crossword Puzzle <br/><small>Oct.07, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p  style="padding: 30px;" class="text-center">
-                      
-                      Answer the puzzle and earn a raffle entry! Send your answers to <strong>events@openaccessbpo.net</strong> with your answers attached. Raffle draw is on Friday during our virtual party where 20 winners will win P500 worth of e-vouchers! Happy CS Week </p>
-                      <img src="storage/uploads/puzzle2.gif" width="100%" />
-
-                
-                    
-                    
-            </div>
-
-             <div class="item text-center" >
-                  <img src="storage/uploads/puzzle1.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Find A Word Puzzle <br/><small>Oct.06, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <img src="storage/uploads/puzzle1b.jpg" width="100%" />
-                    <p  style="padding: 30px;" class="text-center">
-                      
-                      Answer the puzzle and earn a raffle entry! Send your answers to <strong>events@openaccessbpo.net</strong> with your answers. Raffle draw is on Friday during our virtual party where 20 winners will win P500 worth of e-vouchers! Happy CS Week </p>
-
-                
-                    
-                    
-            </div>
-
-
-            <div class="item text-center" >
-                  <img src="storage/uploads/csweek_2020_poster2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary"><i class="fa fa-calendar-o"></i> Calendar of Activities <i class="fa fa-calendar-o"></i> <br/><small>Oct.05-09, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      <strong class="text-primary">Oct.5, 2020 (Mon)</strong><br>
-                      <strong class="text-orange">WELCOME REMARKS</strong><br/>
-                      Special message from our execs to welcome the fun-filled week ahead<br/><br/>
-
-                      <strong class="text-primary">Oct.6-8, 2020 (Tue-Thu)</strong><br>
-                      <strong class="text-orange">DAILY PUZZLES AND TEAM ACTIVITIES</strong><br/>
-                      Daily puzzles to be sent to all which will also entitle the participant to a raffle entry. Team activities will also be sent on these days.<br/><br/>
-
-                      <strong class="text-primary">Oct.9, 2020 (Fri)</strong><br>
-                      <strong class="text-orange">CS WEEK ePARTY</strong><br/>
-                      Ending the week with a live e-party!<br/>A program that will be filled with raffle, prizes, and surprises! </p>
-
-                
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
                   <img src="storage/uploads/wall_week22.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> CS WEEK 2020 <i class="fa fa-smile-o"></i> <br/><small>October 05-09, 2020</small><br/>
                   
@@ -2181,6 +2081,104 @@
 
 
 <?php /*
+<div class="item active text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  ZOOM Virtual Program <br/><small>Oct.09, 2020 4:00 PM (Manila)</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p  style="padding: 30px;" class="text-center">
+
+                      <img src="storage/uploads/zoom.png" /><br/>
+                      ZOOM Meeting ID: <strong>892 5944 0685</strong><br/>
+                      Passcode: <strong>430325</strong><br/>
+                      Link: <br/>
+                      <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://us02web.zoom.us/j/84385833490?pwd=V1FERnBzOVE3OWhseTM4bmkzVWJ0QT09" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                      
+                      <br/><br/> See you all later!</p>
+                      
+
+                <img src="storage/uploads/puzzle4.jpg" width="100%" />
+                    
+                    
+            </div>
+ <div class="item text-center" >
+                  <img src="storage/uploads/puzzle3.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Rhyme Time <br/><small>Oct.08, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p  style="padding: 30px;" class="text-center">
+                      
+                      In this rhyming challenge, you must solve each clue with a six-letter word that rhymes with the last word of the clue. Send your answers to <strong>events@openaccessbpo.net</strong> with your answers attached. Raffle draw is on Friday during our virtual party where 20 winners will win P500 worth of e-vouchers! Happy CS Week </p>
+                      <img src="storage/uploads/puzzle3.gif" width="100%" />
+
+                
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+                  <img src="storage/uploads/puzzle2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Crossword Puzzle <br/><small>Oct.07, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p  style="padding: 30px;" class="text-center">
+                      
+                      Answer the puzzle and earn a raffle entry! Send your answers to <strong>events@openaccessbpo.net</strong> with your answers attached. Raffle draw is on Friday during our virtual party where 20 winners will win P500 worth of e-vouchers! Happy CS Week </p>
+                      <img src="storage/uploads/puzzle2.gif" width="100%" />
+
+                
+                    
+                    
+            </div>
+
+             <div class="item text-center" >
+                  <img src="storage/uploads/puzzle1.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Find A Word Puzzle <br/><small>Oct.06, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/puzzle1b.jpg" width="100%" />
+                    <p  style="padding: 30px;" class="text-center">
+                      
+                      Answer the puzzle and earn a raffle entry! Send your answers to <strong>events@openaccessbpo.net</strong> with your answers. Raffle draw is on Friday during our virtual party where 20 winners will win P500 worth of e-vouchers! Happy CS Week </p>
+
+                
+                    
+                    
+            </div>
+
+
+            <div class="item text-center" >
+                  <img src="storage/uploads/csweek_2020_poster2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary"><i class="fa fa-calendar-o"></i> Calendar of Activities <i class="fa fa-calendar-o"></i> <br/><small>Oct.05-09, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      <strong class="text-primary">Oct.5, 2020 (Mon)</strong><br>
+                      <strong class="text-orange">WELCOME REMARKS</strong><br/>
+                      Special message from our execs to welcome the fun-filled week ahead<br/><br/>
+
+                      <strong class="text-primary">Oct.6-8, 2020 (Tue-Thu)</strong><br>
+                      <strong class="text-orange">DAILY PUZZLES AND TEAM ACTIVITIES</strong><br/>
+                      Daily puzzles to be sent to all which will also entitle the participant to a raffle entry. Team activities will also be sent on these days.<br/><br/>
+
+                      <strong class="text-primary">Oct.9, 2020 (Fri)</strong><br>
+                      <strong class="text-orange">CS WEEK ePARTY</strong><br/>
+                      Ending the week with a live e-party!<br/>A program that will be filled with raffle, prizes, and surprises! </p>
+
+                
+                    
+                    
+            </div>
+
 
 
 
