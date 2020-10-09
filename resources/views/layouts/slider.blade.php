@@ -2,6 +2,30 @@
 
             
             <div class="item active text-center" >
+                  <img src="storage/uploads/puzzle4.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  ZOOM Virtual Program <br/><small>Oct.09, 2020 4:00 PM (Manila)</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p  style="padding: 30px;" class="text-center">
+
+                      <img src="storage/uploads/zoom.png" /><br/>
+                      ZOOM Meeting ID: <strong>892 5944 0685</strong><br/>
+                      Passcode: <strong>430325</strong><br/>
+                      Link: <br/>
+                      <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://us02web.zoom.us/j/89259440685?pwd=NCtPcTdZQitBL3Y0OWVoelpxa1RiZz09" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                      
+                      <br/><br/> See you all later!</p>
+                      
+
+                
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/puzzle3.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >CS Week 2020 <br/><span class="text-primary">  Rhyme Time <br/><small>Oct.08, 2020</small><br/>
                   
