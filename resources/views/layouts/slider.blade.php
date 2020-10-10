@@ -18,6 +18,37 @@
                     
                     
             </div>
+            <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">OAMPI Mental Health Awareness Program 2020</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left"> 
+
+
+                     How have you been for the past 7 months? Have you coped well with the New Normal that the world is now facing,or still adjusting?  With this, the OAMPI Clinic is inviting you again to participate in our <strong> Mental Health Awareness Program 2020 Part II</strong> with a  target date this October, preferably on the 3rd-4th week of the month.<br/><br/>
+ 
+                      The topics to be discussed are outlined as below:<br/><br/>
+                      Effectively Working from Home (How to work   alongside with your partner and kids)<br/><br/>
+                       Mental First aid<br/><br/>
+                       Finding out different reactions and coping<br/><br/>
+                       Mental Resilience  <br/><br/><br/>
+                      
+                      <strong>To join, we will need you to answer a short survey:</strong><br/>
+                      <input class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/u/1/d/e/1FAIpQLScsu6PXnCgSfuoa3nD9y6TBZfRx3bbB57nm85QSV1m44MdsGQ/viewform?usp=pp_url" />
+                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
+
+                      Thank you!<br/>
+                      
+                     
+
+                  </p>    
+ 
+ 
+                    
+              </div>
 
             <div class="item text-center" >
                   <img src="storage/uploads/wall_week22.jpg" width="100%" />
