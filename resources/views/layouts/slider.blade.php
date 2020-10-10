@@ -1,6 +1,25 @@
 
            
             <div class="item active text-center" >
+                  <img src="storage/uploads/worldmental.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-globe"></i> World <span class="text-primary"> Mental Health Day 2020<br/><small>October 10, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                     One in every four persons worldwide experiences a mental disorder in their lives. The current pandemic also increased the number of individuals needing mental health services, but may not find any accessible care.<br/><br/>
+
+                      Between 76% to 86% of people in low- and middle-income nations don’t receive proper care for their disorders. Accessible, quality mental health care is a human right. Make mental health for all the norm.<br/><br/>
+
+                      #WeSpeakYourLanguage #OAonMentalHealth #WMHD2020</p>
+
+                    <br/>
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/wall_week22.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> CS WEEK 2020 <i class="fa fa-smile-o"></i> <br/><small>October 05-09, 2020</small><br/>
                   
