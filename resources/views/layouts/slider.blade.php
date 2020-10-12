@@ -1,6 +1,26 @@
 
            
+           
             <div class="item active text-center" >
+                  <img src="storage/uploads/breastcancerposter.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >October is <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness Month<br/><small>October 13, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      * 1 out of 13 Filipino women are expected to develop it in their lifetime<br/><br/>
+                    * Just 2 in 5 are confident they know the early signs of breast cancer<br/><br/>
+                    * Known risk factors include diet, alcohol consumption, and physical inactivity</p>
+                    <br/>
+                  <a class="btn btn-default btn-sm" href="https://youtu.be/2ba4L_wTjXI" target="_blank"><i class="fa fa-play"></i> Watch Video and do a self examination today</a>
+                    <br/>
+                    <input class="form-control text-center" type="text" id="bundylink" value=" https://youtu.be/2ba4L_wTjXI" />
+                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy YouTube Link <i class="fa fa-external-link"></i></button> <br/><br/>
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/breastcancer.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness Month<br/><small>October 12, 2020</small><br/>
                   
