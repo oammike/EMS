@@ -1,6 +1,25 @@
 
            
             <div class="item active text-center" >
+                  <img src="storage/uploads/breastcancer.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness Month<br/><small>October 12, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      In October, <strong style="color: #f373e9">we wear pink!</strong><br/><br/>
+
+                      In honor of Breast Cancer Awareness Month, let’s show our support and post a photo of yourself wearing anything pink.<br/><br/>
+
+                      Post your entry and get 20 points!</p>
+
+                    <br/>
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',29)}}"> Check out our ECQonnection Wall</a>
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/worldmental.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-globe"></i> World <span class="text-primary"> Mental Health Day 2020<br/><small>October 10, 2020</small><br/>
                   
@@ -50,52 +69,8 @@
                     
               </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/wall_week22.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-smile-o"></i> CS WEEK 2020 <i class="fa fa-smile-o"></i> <br/><small>October 05-09, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      Complete this sentence: <br/><strong class="text-primary"> We are a DREAM TEAM because _________</strong><br/><br/>
-
-                      and post a creative photo of your team (zoom,google meet, etc.) on or before <strong>Thursday, October 8 at 6:00pm.</strong> The winning team will receive Grab Food and Mystery Manila vouchers for the entire team!<br/><br/>
-
-                      Announcement is on October 9,2020 during the eParty.</p>
-
-                    <br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',28)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
-
-             <div class="item text-center" >
-                  
-                  <h4 class="text-orange" style="line-height: 1.5em" >Internal Customer Service: <br/><span class="text-primary">Microlearning Modules <br/><small>Oct.02, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                     Ever heard of WACTEO? It stands for: <br/><strong>We Are Customers To Each Other</strong><br/><br/>
-
-                      Most of us are aware of our external customers - it's worth noting that we have internal customers too - our colleagues.<br/><br/>
-
-                      "When we talk and respond to fellow employees as we would to external customers, we help to change the culture of the organization to a customer centric one.  Every request between internal team members is one driven by a customer need and, thus, rather than being treated as a nuisance, the request should always be treated from a customer service perspective… it’s a shift in mindset to ‘I am responding to you as I would to an external customer’.” - Eva Nye<br/><br/>
-
-                      Available for self enrolment for all employees until October 10 - Internal Customer Service Course. Composed of 8 modules with a total of 63 minutes seat time. <br/><br/>
-                      <img src="storage/uploads/wacteo.png" width="100%" /><br/><br/>
-
-                      If you need help about our LMS, please refer to this resource:<br/></p>
-
-                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://rise.articulate.com/share/iWjCCl9P31A6KhU49B-KrH3jE8e4pbEO" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                     <br/><br/>
-
-                
-                    
-                    
-            </div>
-
+            
+            
          
             
 
@@ -175,168 +150,7 @@
            
             
 
-            <div class="item   text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4><img src="storage/uploads/bdo_1.jpg" width="100%" /><br/>
-                    <p  style="padding: 30px;" class="text-left" >
-                      Good news!<br/><br/>
-
- 
-
-                      You may now apply for a BDO Installment Card that gives you financial flexibility and accessible cash for your every need. Convert 100% of your credit limit to cash and enjoy light installment payment options of 6, 12, 18, 24 and 36 months. Credit limit automatically gets replenished every time you pay. You can re-avail anytime up to your maximum available credit limit.<br/><br/>
-
-                       
-
-                      <strong>Benefits:</strong><br/><br/>
-
-
-                      1. Accessible Cash<br/>
-                          Avail through our BDO Dela Rosa Rada branch (near our JAKA office). Refer to contact details below.<br/><br/>
-
-                       
-
-                      2. Financial Flexibility<br/>
-
-                          Choose when and how much to avail from your approved credit limit.<br/><br/>
-
-                       
-
-                      3. Easy Payment Terms<br/>
-
-                          Pay in monthly installment terms up to 36 months.<br/><br/>
-
-                       
-
-                      4. Hassle-free application<br/>
-
-                          No need for collateral/co-maker and no application processing fee.<br/><br/>
-
-                       
-
-                      5. Low Monthly Effective Interest Rate<br/><br/>
-
-                       
-
-                      6. Low Membership fee of P1,000 per year.
-                    </p>
-
-                    <table class="table">
-                      <tr>
-                        <td width="50%" class="text-left"><strong>Received application forms:</strong><br/><br/>
-
-                            Monday to Thursday at 10:00AM<br/>
-
-                            For pick-up by BDO representative every Friday</td>
-                        <td style="font-size: small;">JAKA office thru courier<br/><br/>
-
-                            Office Address:<br/>
-
-                            HR Personnel<br/>
-
-                            OAMPI Inc.<br/>
-
-                            PH1, 6780 Ayala Avenue, Makati City  </td>
-                      </tr>
-                      <tr>
-                        <td class="text-left">For employees who are working onsite in G2</td>
-                         <td style="font-size: small;">Look for Jayson at HR office from 7am -4pm, Mondays thru Fridays</td>
-
-                           
-                      </tr>
-                      <tr>
-                        <td class="text-left">For Davao employees</td>
-                         <td style="font-size: small;"> Email the scanned copy of the required documents to Ms. Anna Marie N. Santiago and Kennedy Marco N. Santiago (bh.dela-rosa-rada@bdo.com.ph, foz.kennedymarco@notes.bdo).<br/><br/>
-
-                       
-
-                      Then submit the hard copies of the signed application form along with the required documents to Dang, HR Officer in Davao.</td>
-                      </tr>
-
-
-                      
-
-                       
-
-                       
-
-                       
-
-                     
-                    </table>
-
-                    
-                   
-                    
-                    
-            </div>
-
-             <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/bdo_2.jpg" width="100%" /><br/>
-                   
-                    
-                    
-            </div>
-
-             <div class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/bdo_3.jpg" width="100%" /><br/>
-
-                    <p  style="padding: 30px;" class="text-left" >
-                      <strong class="text-primary"> HOW TO APPLY FOR A BDO INSTALLMENT CARD?</strong><br/><br/>
-
-   
-                      <strong>Application Requirements/Eligibility Criteria</strong><br/><br/>
-
-                      (1)   Must be 25 years old at time of application but not more than 60 years old upon card expiry,<br/>
-
-                      (2)   Must be a Filipino citizen,<br/>
-
-                      (3)   Must be regular employee,<br/>
-
-                      (4)   Minimum Gross Fixed Income Requirement (Annual): Php260,000.00 for Employed/Salaried,<br/>
-
-                      (5)   Must have a mobile phone and at least one landline phone at either residence or office,<br/>
-
-                      (6)   Residence or office must be within any area where a BDO branch is located.<br/><br/>
-
-                       
-
-                      <strong>Documentary Requirements</strong><br/><br/>
-
-                      (1)   BDO Installment Card application form (e-signature is not accepted),<br/>
-
-                      (2)   Two valid photo-bearing ID (front & bank) – 1 government issued ID and 1 company ID,<br/>
-
-                            (no need to affix signature, may be printed black and white or colored),<br/>
-
-                      (3)   Original Certificate of Employment (COE) with latest 1 month payslips,<br/>
-
-                      (4)   Signed Employment Verification Form.<br/><br/><br/><br/>
-
-                      BDO website: <a href="www.bdo.com.ph" target="_blank">www.bdo.com.ph</a><br/>
-                      IC Application form link: <a href="https://www.bdo.com.ph/personal/credit-cards/mastercard/bdo-installment-card" target="_blank">https://www.bdo.com.ph/personal/credit-cards/mastercard/bdo-installment-card</a><br/><br/>
-
-                       
-
-                      <strong>Note: All applications are subject to credit evaluation.</strong><br/><br/>Submission of accomplished forms along with documentary requirements
-
-                    </p>
-                   
-                    
-                    
-            </div>
-
+           
             
 
             
@@ -453,25 +267,7 @@
                  
 
           
-            <div class="item text-center" >
-               
-                <h4 class="text-orange" style="line-height: 1.5em" > New <span class="text-primary">Reward Items!!!<br/> 
-                  <img src="storage/uploads/divider.png" /> 
-                  <img src="storage/uploads/newVouchers.jpg" width="100%" /><br/>
-                  
-                   
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">As we continue to celebrate YOU and the awesome work you do
-                      especially during the community quarantine, here are the new items available on our Rewards Catalog!<br/><br/>
-
-                      You may redeem <strong class="text-danger">1 voucher per day</strong>. <br/>What are you waiting for?<br/>
-                    Check out our Rewards page to select the voucher you want to redeem!</p>
-
-
-                   
-                    
-            </div>
-
+          
            
 
          
@@ -9173,6 +8969,214 @@ For interested participants and for any questions, please email us at our gmail 
 
 
                             </div>  
+                            <div class="item text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >Internal Customer Service: <br/><span class="text-primary">Microlearning Modules <br/><small>Oct.02, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                     Ever heard of WACTEO? It stands for: <br/><strong>We Are Customers To Each Other</strong><br/><br/>
+
+                      Most of us are aware of our external customers - it's worth noting that we have internal customers too - our colleagues.<br/><br/>
+
+                      "When we talk and respond to fellow employees as we would to external customers, we help to change the culture of the organization to a customer centric one.  Every request between internal team members is one driven by a customer need and, thus, rather than being treated as a nuisance, the request should always be treated from a customer service perspective… it’s a shift in mindset to ‘I am responding to you as I would to an external customer’.” - Eva Nye<br/><br/>
+
+                      Available for self enrolment for all employees until October 10 - Internal Customer Service Course. Composed of 8 modules with a total of 63 minutes seat time. <br/><br/>
+                      <img src="storage/uploads/wacteo.png" width="100%" /><br/><br/>
+
+                      If you need help about our LMS, please refer to this resource:<br/></p>
+
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://rise.articulate.com/share/iWjCCl9P31A6KhU49B-KrH3jE8e4pbEO" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+
+                
+                    
+                    
+            </div>
+             <div class="item   text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/bdo_1.jpg" width="100%" /><br/>
+                    <p  style="padding: 30px;" class="text-left" >
+                      Good news!<br/><br/>
+
+ 
+
+                      You may now apply for a BDO Installment Card that gives you financial flexibility and accessible cash for your every need. Convert 100% of your credit limit to cash and enjoy light installment payment options of 6, 12, 18, 24 and 36 months. Credit limit automatically gets replenished every time you pay. You can re-avail anytime up to your maximum available credit limit.<br/><br/>
+
+                       
+
+                      <strong>Benefits:</strong><br/><br/>
+
+
+                      1. Accessible Cash<br/>
+                          Avail through our BDO Dela Rosa Rada branch (near our JAKA office). Refer to contact details below.<br/><br/>
+
+                       
+
+                      2. Financial Flexibility<br/>
+
+                          Choose when and how much to avail from your approved credit limit.<br/><br/>
+
+                       
+
+                      3. Easy Payment Terms<br/>
+
+                          Pay in monthly installment terms up to 36 months.<br/><br/>
+
+                       
+
+                      4. Hassle-free application<br/>
+
+                          No need for collateral/co-maker and no application processing fee.<br/><br/>
+
+                       
+
+                      5. Low Monthly Effective Interest Rate<br/><br/>
+
+                       
+
+                      6. Low Membership fee of P1,000 per year.
+                    </p>
+
+                    <table class="table">
+                      <tr>
+                        <td width="50%" class="text-left"><strong>Received application forms:</strong><br/><br/>
+
+                            Monday to Thursday at 10:00AM<br/>
+
+                            For pick-up by BDO representative every Friday</td>
+                        <td style="font-size: small;">JAKA office thru courier<br/><br/>
+
+                            Office Address:<br/>
+
+                            HR Personnel<br/>
+
+                            OAMPI Inc.<br/>
+
+                            PH1, 6780 Ayala Avenue, Makati City  </td>
+                      </tr>
+                      <tr>
+                        <td class="text-left">For employees who are working onsite in G2</td>
+                         <td style="font-size: small;">Look for Jayson at HR office from 7am -4pm, Mondays thru Fridays</td>
+
+                           
+                      </tr>
+                      <tr>
+                        <td class="text-left">For Davao employees</td>
+                         <td style="font-size: small;"> Email the scanned copy of the required documents to Ms. Anna Marie N. Santiago and Kennedy Marco N. Santiago (bh.dela-rosa-rada@bdo.com.ph, foz.kennedymarco@notes.bdo).<br/><br/>
+
+                       
+
+                      Then submit the hard copies of the signed application form along with the required documents to Dang, HR Officer in Davao.</td>
+                      </tr>
+
+
+                      
+
+                       
+
+                       
+
+                       
+
+                     
+                    </table>
+
+                    
+                   
+                    
+                    
+            </div>
+
+             <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/bdo_2.jpg" width="100%" /><br/>
+                   
+                    
+                    
+            </div>
+
+             <div class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Announcement: <br/><span class="text-primary"><i class="fa fa-card"></i> BDO Installment Card  <br/><small> Aug. 18, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/bdo_3.jpg" width="100%" /><br/>
+
+                    <p  style="padding: 30px;" class="text-left" >
+                      <strong class="text-primary"> HOW TO APPLY FOR A BDO INSTALLMENT CARD?</strong><br/><br/>
+
+   
+                      <strong>Application Requirements/Eligibility Criteria</strong><br/><br/>
+
+                      (1)   Must be 25 years old at time of application but not more than 60 years old upon card expiry,<br/>
+
+                      (2)   Must be a Filipino citizen,<br/>
+
+                      (3)   Must be regular employee,<br/>
+
+                      (4)   Minimum Gross Fixed Income Requirement (Annual): Php260,000.00 for Employed/Salaried,<br/>
+
+                      (5)   Must have a mobile phone and at least one landline phone at either residence or office,<br/>
+
+                      (6)   Residence or office must be within any area where a BDO branch is located.<br/><br/>
+
+                       
+
+                      <strong>Documentary Requirements</strong><br/><br/>
+
+                      (1)   BDO Installment Card application form (e-signature is not accepted),<br/>
+
+                      (2)   Two valid photo-bearing ID (front & bank) – 1 government issued ID and 1 company ID,<br/>
+
+                            (no need to affix signature, may be printed black and white or colored),<br/>
+
+                      (3)   Original Certificate of Employment (COE) with latest 1 month payslips,<br/>
+
+                      (4)   Signed Employment Verification Form.<br/><br/><br/><br/>
+
+                      BDO website: <a href="www.bdo.com.ph" target="_blank">www.bdo.com.ph</a><br/>
+                      IC Application form link: <a href="https://www.bdo.com.ph/personal/credit-cards/mastercard/bdo-installment-card" target="_blank">https://www.bdo.com.ph/personal/credit-cards/mastercard/bdo-installment-card</a><br/><br/>
+
+                       
+
+                      <strong>Note: All applications are subject to credit evaluation.</strong><br/><br/>Submission of accomplished forms along with documentary requirements
+
+                    </p>
+                   
+                    
+                    
+            </div>
+              <div class="item text-center" >
+               
+                <h4 class="text-orange" style="line-height: 1.5em" > New <span class="text-primary">Reward Items!!!<br/> 
+                  <img src="storage/uploads/divider.png" /> 
+                  <img src="storage/uploads/newVouchers.jpg" width="100%" /><br/>
+                  
+                   
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">As we continue to celebrate YOU and the awesome work you do
+                      especially during the community quarantine, here are the new items available on our Rewards Catalog!<br/><br/>
+
+                      You may redeem <strong class="text-danger">1 voucher per day</strong>. <br/>What are you waiting for?<br/>
+                    Check out our Rewards page to select the voucher you want to redeem!</p>
+
+
+                   
+                    
+            </div>
+
+
+
 
 
                           -->
