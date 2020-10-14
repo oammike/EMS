@@ -3711,7 +3711,7 @@ trait TimekeepingTraits
 
 
       // --------- here we check for the new LOG OVERRIDE ---------
-      $hasLogOverride = User_LogOverride::where('user_id',$id)->where('productionDate',$thisPayrollDate)->where('logType_id',$logType_id)->get();
+      $hasLogOverride = User_LogOverride::where('user_id',$id)->where('productionDate',$thisPayrollDate)->where('logType_id',$logType_id)->orderBy('created_at','DESC')->get();
 
       if(count($hasLogOverride) > 0)
       {
@@ -4332,8 +4332,8 @@ trait TimekeepingTraits
        pushData:
 
        $logOverrideIN=null; $logOverrideOUT=null;
-       $hasLogOverrideIN = User_LogOverride::where('user_id',$user_id)->where('productionDate',$thisPayrollDate)->where('logType_id',1)->get();
-       $hasLogOverrideOUT = User_LogOverride::where('user_id',$user_id)->where('productionDate',$thisPayrollDate)->where('logType_id',2)->get();
+       $hasLogOverrideIN = User_LogOverride::where('user_id',$user_id)->where('productionDate',$thisPayrollDate)->where('logType_id',1)->orderBy('created_at','DESC')->get();
+       $hasLogOverrideOUT = User_LogOverride::where('user_id',$user_id)->where('productionDate',$thisPayrollDate)->where('logType_id',2)->orderBy('created_at','DESC')->get();
        // $hasLogOverrideIN = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',1)->get();
        // $hasLogOverrideOUT = User_LogOverride::where('user_id',$user_id)->where('affectedBio',$biometrics->id)->where('logType_id',2)->get();
 
