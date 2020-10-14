@@ -1,7 +1,24 @@
 
            
            
-            <div class="item active text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DTR Locking in EMS <br/><small class="text-danger">(Oct.23 Early Payout)</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    In preparation for our <strong>early payout on October 23, 2020,</strong> we strongly require the DTR filings, approval, and locking of your DTR on a daily basis during this cut-off, October 6-20, 2020. <br/><br/>
+
+                    Please check your Daily Time Record in EMS daily.  This is a reminder to ensure that any possible attendance issues that may affect your pay will be prevented. <br/><br/>
+
+                    Please be guided accordingly. Thank you.</p>
+ 
+                    
+              </div>
+              <div class="item text-center" >
                   <img src="storage/uploads/breastcancerposter.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >October is <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness Month<br/><small>October 13, 2020</small><br/>
                   
