@@ -4855,28 +4855,62 @@ trait TimekeepingTraits
     ($diffHours <= 4 && $employee->status_id == 15 ) ? $isPartTimerForeign = true :  $isPartTimerForeign =false; 
     
 
-    $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
-    $ptOverride = null;
-    if ($isPartTimer) {
+    // ------- 10-15-2020 update: Check if there's user_preshift override
 
-      // ----- we now have to check kung may PT-override
-      $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
+    $preshiftOverride = DB::table('user_preshiftOverride')->where('user_id',$user->id)->where('productionDate',$payday)->get();
 
-      if (count($hasPToverride) > 0)
-      {
-        $ptOverride=true;
-        $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+    if(count($preshiftOverride) > 0)
+    {
+      $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addDays(-1);
+      $ptOverride = null;
+      if ($isPartTimer) {
+
+        // ----- we now have to check kung may PT-override
+        $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
+
+        if (count($hasPToverride) > 0)
+        {
+          $ptOverride=true;
+          $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addDays(-1)->addHour(9);
+        }
+        else
+        {
+          $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addDays(-1)->addHour(4);
+
+        }
+        
       }
-      else
-      {
-        $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
-
+      else {
+        ($is4x11) ? $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addDays(-1)->addHour(11) : $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addDays(-1)->addHour(9);
       }
-      
+
+    }else
+    {
+      $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
+      $ptOverride = null;
+      if ($isPartTimer) {
+
+        // ----- we now have to check kung may PT-override
+        $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
+
+        if (count($hasPToverride) > 0)
+        {
+          $ptOverride=true;
+          $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+        }
+        else
+        {
+          $endOfShift =  Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
+
+        }
+        
+      }
+      else {
+        ($is4x11) ? $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(11) : $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+      }
+
     }
-    else {
-      ($is4x11) ? $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(11) : $endOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
-    }
+    
 
 
 
@@ -5054,7 +5088,7 @@ trait TimekeepingTraits
       $t =$userLogIN[0]['timing']->format('H:i:s');
       $t2 =$userLogOUT[0]['timing']->format('H:i:s');
 
-      $scheduleStart = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
+      $scheduleStart = $startOfShift; // Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
       //$scheduleEnd = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
 
      
@@ -5950,7 +5984,7 @@ trait TimekeepingTraits
                   //'checkLate'=>"nonComplicated", 
                   //'wh'=>$wh,'comp'=>$comp,
                   'isBackoffice'=>$isBackoffice,
-                  'workedHours'=> $workedHours, //$koll, // $wh,// 
+                  'workedHours'=>$workedHours, //$koll, // $wh,// 
                   'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP, 'VTO'=>$vtimeoff ]);
    
 
