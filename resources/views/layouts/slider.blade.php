@@ -18,6 +18,24 @@
  
                     
               </div>
+
+              <div class="item text-center" >
+                  <img src="storage/uploads/wall_week24.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Diversity Awareness Month<br/><small>October 19, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      In Open Access BPO, we CELEBRATE DIVERSITY!<br/><br/>
+                      <strong class="text-primary">Share a unique tradition/custom from your country</strong>, family or peers that you’d like to share for Diversity Awareness Month.<br/><br/>
+
+                      Post your entry and get 20 points!</p>
+
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',30)}}"> Check out our ECQonnection Wall</a><br/>
+                    
+                    
+            </div>
               <div class="item text-center" >
                   <img src="storage/uploads/breastcancerposter.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >October is <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness Month<br/><small>October 13, 2020</small><br/>
@@ -37,24 +55,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/breastcancer.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness Month<br/><small>October 12, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      In October, <strong style="color: #f373e9">we wear pink!</strong><br/><br/>
-
-                      In honor of Breast Cancer Awareness Month, let’s show our support and post a photo of yourself wearing anything pink.<br/><br/>
-
-                      Post your entry and get 20 points!</p>
-
-                    <br/>
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',29)}}"> Check out our ECQonnection Wall</a>
-                    
-                    
-            </div>
+           
 
             <div class="item text-center" >
                   <img src="storage/uploads/worldmental.jpg" width="100%" />
