@@ -431,108 +431,115 @@ class EngagementController extends Controller
         //if tapos na ung contest
         if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate && !$canModerate)
         {
-            if($id == 3) //painting
-            {
-                if( \Auth::user()->id !== 564 ) {
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n PaintingEntries on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                  fclose($file);
-                }
-                return view('people.empEngagement-show_paintingEntries',compact( 'engagement'));
-
-
+            if ($id != 1){
+                return Redirect::action('EngagementController@wall',$id);
             }
-            if($id == 2) //VALENTINES
+            else
             {
-                if($this->user->id !== 564 ) 
-                 {
+                if($id == 3) //painting
+                {
+                    if( \Auth::user()->id !== 564 ) {
                     $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                    fwrite($file, "-------------------\n Reminisce Valentine [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                 }
+                      fwrite($file, "-------------------\n PaintingEntries on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                      fclose($file);
+                    }
+                    return view('people.empEngagement-show_paintingEntries',compact( 'engagement'));
 
-                 return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
 
-            }
-            else return Redirect::action('EngagementController@wall',$id);
+                }
+                if($id == 2) //VALENTINES
+                {
+                    if($this->user->id !== 564 ) 
+                     {
+                        $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Reminisce Valentine [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                     }
 
-            $votes = DB::table('engagement')->where('engagement.id',$id)->
-                    join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
-                    join('engagement_vote','engagement_vote.engagement_entryID','=','engagement_entry.id')->
-                    //join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
-                    join('users','engagement_vote.user_id','=','users.id')->
-                    join('positions','users.position_id','=','positions.id')->
-                    join('team','team.user_id','=','engagement_vote.user_id')->
-                    join('campaign','campaign.id','=','team.campaign_id')->
-                    select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->
-                    where('engagement_entry.disqualified',NULL)->get();
+                     return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
 
-            $ranking = new Collection;
-            $rankByProgram = new Collection;
-            $votesByCampaign = collect($votes)->groupBy('program'); 
+                }
+                 
 
-            $allEntries = DB::table('engagement')->where('engagement.id',$id)->
-                            join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                $votes = DB::table('engagement')->where('engagement.id',$id)->
+                        join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                        join('engagement_vote','engagement_vote.engagement_entryID','=','engagement_entry.id')->
+                        //join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                        join('users','engagement_vote.user_id','=','users.id')->
+                        join('positions','users.position_id','=','positions.id')->
+                        join('team','team.user_id','=','engagement_vote.user_id')->
+                        join('campaign','campaign.id','=','team.campaign_id')->
+                        select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->
+                        where('engagement_entry.disqualified',NULL)->get();
 
-                            join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
-                            join('engagement_entryItems','engagement_entryItems.id','=','engagement_entryDetails.entry_itemID')->
-                            join('users','engagement_entry.user_id','=','users.id')->
-                            join('positions','users.position_id','=','positions.id')->
-                            join('team','team.user_id','=','engagement_entry.user_id')->
-                            join('campaign','campaign.id','=','team.campaign_id')->
-                            select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value','engagement_entry.disqualified')->get();
-                            //where('engagement_entry.disqualified',NULL)->get();
-                            
-            
-            foreach ($votesByCampaign as $camp) {
+                $ranking = new Collection;
+                $rankByProgram = new Collection;
+                $votesByCampaign = collect($votes)->groupBy('program'); 
+
+                $allEntries = DB::table('engagement')->where('engagement.id',$id)->
+                                join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+
+                                join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                                join('engagement_entryItems','engagement_entryItems.id','=','engagement_entryDetails.entry_itemID')->
+                                join('users','engagement_entry.user_id','=','users.id')->
+                                join('positions','users.position_id','=','positions.id')->
+                                join('team','team.user_id','=','engagement_entry.user_id')->
+                                join('campaign','campaign.id','=','team.campaign_id')->
+                                select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value','engagement_entry.disqualified')->get();
+                                //where('engagement_entry.disqualified',NULL)->get();
+                                
                 
-                $entries = collect($camp)->groupBy('entryID');
+                foreach ($votesByCampaign as $camp) {
+                    
+                    $entries = collect($camp)->groupBy('entryID');
 
-                foreach ($entries as $key) {
-                    $voters = collect($votes)->where('program',$camp[0]->program);
-                    $percentage = (count($key)/count($voters));
-                    $pointsEarned = number_format( (count(collect($allEntries)->groupBy('user_id')) * $percentage),2);
-                    $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count(collect($allEntries)->groupBy('user_id')), 'camp'=>$camp[0]->program]);
+                    foreach ($entries as $key) {
+                        $voters = collect($votes)->where('program',$camp[0]->program);
+                        $percentage = (count($key)/count($voters));
+                        $pointsEarned = number_format( (count(collect($allEntries)->groupBy('user_id')) * $percentage),2);
+                        $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count(collect($allEntries)->groupBy('user_id')), 'camp'=>$camp[0]->program]);
+                    }
+                } //return $rankByProgram;
+
+
+                //$submissions = collect($allEntries)->groupBy('id');return $submissions;
+                $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp'); //return $tallyProg;
+                $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry');
+                $finalTally = new Collection;
+
+                
+
+                foreach ($tallyEntry->reverse() as $key) {
+
+                    $vote=0; $actualVotes=0;
+                    foreach ($key as $v) {
+                        $vote += (float)$v['points'];
+                        $actualVotes += (float)$v['votes']; 
+                    }
+
+                    $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
+                    $e = $theEntry->where('label',"Title")->first()->value;
+                    $max = count(collect($allEntries)->groupBy('user_id')) * count($tallyProg);
+
+                    $submission = collect($allEntries)->where('id',$key[0]['entry'])->first();
+
+                    $finalTally->push(['activity'=> $votes[0]->activity,'entryID'=>$key[0]['entry'],'user_id'=>$submission->user_id, 'firstname'=>$submission->firstname,'nickname'=>$submission->nickname,'lastname'=>$submission->lastname,'jobTitle'=>$submission->jobTitle, 'program'=>$submission->program,'title'=>$e,'actualVotes'=>$actualVotes, 'totalPoints'=>$vote,'maxpoints'=>$max, 'grandTotal'=>number_format(100*($vote / $max ),2) ]);
+
                 }
-            } //return $rankByProgram;
+
+               //return $finalTally;
 
 
-            //$submissions = collect($allEntries)->groupBy('id');return $submissions;
-            $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp'); //return $tallyProg;
-            $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry');
-            $finalTally = new Collection;
 
-            
+               if($this->user->id !== 564 ) 
+                 {
+                    $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n View Frightful Winners by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                 } 
 
-            foreach ($tallyEntry->reverse() as $key) {
-
-                $vote=0; $actualVotes=0;
-                foreach ($key as $v) {
-                    $vote += (float)$v['points'];
-                    $actualVotes += (float)$v['votes']; 
-                }
-
-                $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
-                $e = $theEntry->where('label',"Title")->first()->value;
-                $max = count(collect($allEntries)->groupBy('user_id')) * count($tallyProg);
-
-                $submission = collect($allEntries)->where('id',$key[0]['entry'])->first();
-
-                $finalTally->push(['activity'=> $votes[0]->activity,'entryID'=>$key[0]['entry'],'user_id'=>$submission->user_id, 'firstname'=>$submission->firstname,'nickname'=>$submission->nickname,'lastname'=>$submission->lastname,'jobTitle'=>$submission->jobTitle, 'program'=>$submission->program,'title'=>$e,'actualVotes'=>$actualVotes, 'totalPoints'=>$vote,'maxpoints'=>$max, 'grandTotal'=>number_format(100*($vote / $max ),2) ]);
+                return view('people.empEngagement-showWinner',compact('tallyEntry','finalTally', 'engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
 
             }
-
-           //return $finalTally;
-
-
-
-           if($this->user->id !== 564 ) 
-             {
-                $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n View Frightful Winners by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-             } 
-
-            return view('people.empEngagement-showWinner',compact('tallyEntry','finalTally', 'engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
-
+            
 
         }else
         {
