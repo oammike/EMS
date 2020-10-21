@@ -1511,7 +1511,7 @@ class HomeController extends Controller
       //-- SHOUT OUT --
         $bago = Carbon::today()->subWeeks(1);
         $annivs = Carbon::today()->subWeeks(1)->subYear(1);
-        $annivs2 = Carbon::today()->subYear(1);
+        $annivs2 = Carbon::tomorrow()->subYear(1);
         $anniv10s = Carbon::today()->subYear(10)->startOfYear();
         $anniv10e = Carbon::today()->subYear(10)->endOfYear();
         $anniv5s = Carbon::today()->subYear(5)->startOfYear();
