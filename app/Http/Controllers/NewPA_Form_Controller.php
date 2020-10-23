@@ -87,8 +87,8 @@ class NewPA_Form_Controller extends Controller
 
     public function create()
     {
-        // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy, faith,jill
-        $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508];
+        // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy, faith,jill,511
+        $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508, 511];
         $objectiveCodes = ["Reliable Service Delivery","Effective Client Partnerships","Cost Optimization","Employee Development &amp; Engagement","Compliance &amp; Commitment","Social Responsibility"];
 
         if (!in_array($this->user->id, $allowed)) return view('access-denied');
