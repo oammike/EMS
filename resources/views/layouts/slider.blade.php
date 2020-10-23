@@ -1,25 +1,28 @@
 
            
            
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DTR Locking in EMS <br/><small class="text-danger">(Oct.23 Early Payout)</small><br/>
+            
+
+              <div class="item active text-center" >
+                  <img src="storage/uploads/diverse.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Global Diversity <br/><span class="text-primary"><i class="fa fa-users"></i> Awareness Month<br/><small>October 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
+                    <p  style="padding: 30px;" class="text-center">
+                     How can you cultivate #inclusivity in a diverse workplace—or any workplace, for that matter? Listen, then learn.<br/><br/>
+
+                      When we practice active open-mindedness, we can find common ground despite our differing cultures, languages, ages, races, genders and abilities. We learn to overcome the unconscious bias often deep-rooted in our values and transform these differences into strengths.<br/><br/>
+
+                      We spend a third of our lives at work. So, let's work together to create better #workplace environments for all—until everyone feels recognized and accepted.<br/><br/>
+
+                      #WeSpeakYourLanguage #OACelebratesDiversity #GlobalDiversityAwarenessMonth </p>
                     
-                    In preparation for our <strong>early payout on October 23, 2020,</strong> we strongly require the DTR filings, approval, and locking of your DTR on a daily basis during this cut-off, October 6-20, 2020. <br/><br/>
-
-                    Please check your Daily Time Record in EMS daily.  This is a reminder to ensure that any possible attendance issues that may affect your pay will be prevented. <br/><br/>
-
-                    Please be guided accordingly. Thank you.</p>
- 
                     
-              </div>
+            </div>
 
-              <div class="item text-center" >
+
+            <div class="item text-center" >
                   <img src="storage/uploads/wall_week24.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Diversity Awareness Month<br/><small>October 19, 2020</small><br/>
                   
@@ -36,79 +39,10 @@
                     
                     
             </div>
-              <div class="item text-center" >
-                  <img src="storage/uploads/breastcancerposter.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >October is <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness Month<br/><small>October 13, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      * 1 out of 13 Filipino women are expected to develop it in their lifetime<br/><br/>
-                    * Just 2 in 5 are confident they know the early signs of breast cancer<br/><br/>
-                    * Known risk factors include diet, alcohol consumption, and physical inactivity</p>
-                    <br/>
-                  <a class="btn btn-default btn-sm" href="https://youtu.be/2ba4L_wTjXI" target="_blank"><i class="fa fa-play"></i> Watch Video and do a self examination today</a>
-                    <br/>
-                    <input class="form-control text-center" type="text" id="bundylink" value=" https://youtu.be/2ba4L_wTjXI" />
-                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy YouTube Link <i class="fa fa-external-link"></i></button> <br/><br/>
-                    
-                    
-            </div>
-
+            
            
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/worldmental.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-globe"></i> World <span class="text-primary"> Mental Health Day 2020<br/><small>October 10, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                     One in every four persons worldwide experiences a mental disorder in their lives. The current pandemic also increased the number of individuals needing mental health services, but may not find any accessible care.<br/><br/>
-
-                      Between 76% to 86% of people in low- and middle-income nations don’t receive proper care for their disorders. Accessible, quality mental health care is a human right. Make mental health for all the norm.<br/><br/>
-
-                      #WeSpeakYourLanguage #OAonMentalHealth #WMHD2020</p>
-
-                    <br/>
-                   
-                    
-                    
-            </div>
-            <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">OAMPI Mental Health Awareness Program 2020</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left"> 
-
-
-                     How have you been for the past 7 months? Have you coped well with the New Normal that the world is now facing,or still adjusting?  With this, the OAMPI Clinic is inviting you again to participate in our <strong> Mental Health Awareness Program 2020 Part II</strong> with a  target date this October, preferably on the 3rd-4th week of the month.<br/><br/>
- 
-                      The topics to be discussed are outlined as below:<br/><br/>
-                      Effectively Working from Home (How to work   alongside with your partner and kids)<br/><br/>
-                       Mental First aid<br/><br/>
-                       Finding out different reactions and coping<br/><br/>
-                       Mental Resilience  <br/><br/><br/>
-                      
-                      <strong>To join, we will need you to answer a short survey:</strong><br/>
-                      <input class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/u/1/d/e/1FAIpQLScsu6PXnCgSfuoa3nD9y6TBZfRx3bbB57nm85QSV1m44MdsGQ/viewform?usp=pp_url" />
-                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
-
-                      Thank you!<br/>
-                      
-                     
-
-                  </p>    
- 
- 
-                    
-              </div>
-
-            
-            
+          
          
             
 
@@ -9213,7 +9147,76 @@ For interested participants and for any questions, please email us at our gmail 
                     
             </div>
 
+<div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DTR Locking in EMS <br/><small class="text-danger">(Oct.23 Early Payout)</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    In preparation for our <strong>early payout on October 23, 2020,</strong> we strongly require the DTR filings, approval, and locking of your DTR on a daily basis during this cut-off, October 6-20, 2020. <br/><br/>
 
+                    Please check your Daily Time Record in EMS daily.  This is a reminder to ensure that any possible attendance issues that may affect your pay will be prevented. <br/><br/>
+
+                    Please be guided accordingly. Thank you.</p>
+ 
+                    
+              </div>
+
+                <div class="item text-center" >
+                  <img src="storage/uploads/worldmental.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-globe"></i> World <span class="text-primary"> Mental Health Day 2020<br/><small>October 10, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                     One in every four persons worldwide experiences a mental disorder in their lives. The current pandemic also increased the number of individuals needing mental health services, but may not find any accessible care.<br/><br/>
+
+                      Between 76% to 86% of people in low- and middle-income nations don’t receive proper care for their disorders. Accessible, quality mental health care is a human right. Make mental health for all the norm.<br/><br/>
+
+                      #WeSpeakYourLanguage #OAonMentalHealth #WMHD2020</p>
+
+                    <br/>
+                   
+                    
+                    
+            </div>
+            <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Survey Form:<br/><span class="text-primary">OAMPI Mental Health Awareness Program 2020</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left"> 
+
+
+                     How have you been for the past 7 months? Have you coped well with the New Normal that the world is now facing,or still adjusting?  With this, the OAMPI Clinic is inviting you again to participate in our <strong> Mental Health Awareness Program 2020 Part II</strong> with a  target date this October, preferably on the 3rd-4th week of the month.<br/><br/>
+ 
+                      The topics to be discussed are outlined as below:<br/><br/>
+                      Effectively Working from Home (How to work   alongside with your partner and kids)<br/><br/>
+                       Mental First aid<br/><br/>
+                       Finding out different reactions and coping<br/><br/>
+                       Mental Resilience  <br/><br/><br/>
+                      
+                      <strong>To join, we will need you to answer a short survey:</strong><br/>
+                      <input class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/u/1/d/e/1FAIpQLScsu6PXnCgSfuoa3nD9y6TBZfRx3bbB57nm85QSV1m44MdsGQ/viewform?usp=pp_url" />
+                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button> <br/><br/>
+
+                      Thank you!<br/>
+                      
+                     
+
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+            
+            
 
 
 
