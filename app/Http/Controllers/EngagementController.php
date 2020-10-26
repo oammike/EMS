@@ -874,8 +874,8 @@ class EngagementController extends Controller
                     join('team','team.user_id','=','engagement_vote.user_id')->
                     join('campaign','campaign.id','=','team.campaign_id')->
                     select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->
-                    where('engagement_entry.disqualified',NULL)->get();
-
+                    where('engagement_entry.disqualified',0)->get();
+                    
         $ranking = new Collection;
         $rankByProgram = new Collection;
         $votesByCampaign = collect($votes)->groupBy('program'); 
@@ -890,7 +890,7 @@ class EngagementController extends Controller
                         join('team','team.user_id','=','engagement_entry.user_id')->
                         join('campaign','campaign.id','=','team.campaign_id')->
                         select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->
-                        where('engagement_entry.disqualified',NULL)->get();
+                        where('engagement_entry.disqualified',0)->get();
                         
         
         foreach ($votesByCampaign as $camp) {
@@ -903,13 +903,15 @@ class EngagementController extends Controller
                 $pointsEarned = number_format( (count(collect($allEntries)->groupBy('user_id')) * $percentage),2);
                 $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count(collect($allEntries)->groupBy('user_id')), 'camp'=>$camp[0]->program]);
             }
-        } //return $rankByProgram;
+        } 
 
+       
 
         //$submissions = collect($allEntries)->groupBy('id');return $submissions;
         $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp'); //return $tallyProg;
         $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry');
         $finalTally = new Collection;
+
 
         
 
