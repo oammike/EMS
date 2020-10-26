@@ -70,7 +70,7 @@ class EngagementController extends Controller
 
          $correct = Carbon::now('GMT+8'); 
          if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Castvote Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
         return redirect()->back();
@@ -102,7 +102,7 @@ class EngagementController extends Controller
             $comment->delete();
             $correct = Carbon::now('GMT+8');
             if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n DelComment by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
             return redirect()->back();
@@ -119,7 +119,7 @@ class EngagementController extends Controller
             $comment->delete();
             $correct = Carbon::now('GMT+8');
             if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n DelComment by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
             return redirect()->back();
@@ -133,7 +133,7 @@ class EngagementController extends Controller
     {
         $vote = Engagement_Entry::find($id);
         if( \Auth::user()->id !== 564 ) {
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                   fwrite($file, "-------------------\n Delete Entry on [".$vote->engagement_id."] ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
               }
@@ -151,7 +151,7 @@ class EngagementController extends Controller
 
          $correct = Carbon::now('GMT+8'); 
          if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n DelReply by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
@@ -242,7 +242,7 @@ class EngagementController extends Controller
         $comment->save();
 
         if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Comment on [".$id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
         return response()->json($comment); 
@@ -281,7 +281,7 @@ class EngagementController extends Controller
         $comment->save();
 
         if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Reply on [".$request->comment_id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
         return response()->json($comment); 
@@ -320,7 +320,7 @@ class EngagementController extends Controller
 
         if (Engagement::find($id)->active != '1'){
             if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Votenow Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");}
             return view('access-denied');
         }
@@ -532,7 +532,7 @@ class EngagementController extends Controller
 
                if($this->user->id !== 564 ) 
                  {
-                    $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                     fwrite($file, "-------------------\n View Frightful Winners by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                  } 
 
@@ -646,7 +646,7 @@ class EngagementController extends Controller
                 $uniqueUsers = collect($allEntries)->sortBy('lastname')->groupBy('user_id')->unique();
 
                 if( \Auth::user()->id !== 564 ) {
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 ($id == 5) ? fwrite($file, "-------------------\n Check openWall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n") : fwrite($file, "-------------------\n Check openWall[2] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
                 }
@@ -658,7 +658,7 @@ class EngagementController extends Controller
             {
                 if($this->user->id !== 564 ) 
                  {
-                    $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                    $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                     fwrite($file, "-------------------\n View Frightful2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                  }
 
@@ -722,7 +722,7 @@ class EngagementController extends Controller
 
          $correct = Carbon::now('GMT+8'); 
          if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Submitted EE entry by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
@@ -934,7 +934,7 @@ class EngagementController extends Controller
         $correct = Carbon::now('GMT+8'); 
 
         if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n View Tally (".$id.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
@@ -950,7 +950,7 @@ class EngagementController extends Controller
 
          $correct = Carbon::now('GMT+8'); 
          if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Uncastvote Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
@@ -970,7 +970,7 @@ class EngagementController extends Controller
                                 $c = Engagement_CommentLikes::where('user_id',$this->user->id)->where('comment_id',$request->commentid)->first();
                                 $c->delete();
                                 if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Unlike (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
@@ -991,7 +991,7 @@ class EngagementController extends Controller
                             $c = Engagement_ReplyLikes::where('user_id',$this->user->id)->where('reply_id',$request->commentid)->first();
                                 $c->delete();
                                 if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Unlike reply (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 } 
 
