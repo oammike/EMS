@@ -424,7 +424,7 @@ class EngagementController extends Controller
         $voted = DB::table('engagement_vote')->where('engagement_vote.engagement_id',$id)->
                         join('engagement_entry','engagement_vote.engagement_entryID','=','engagement_entry.id')->
                         where('engagement_vote.user_id',$this->user->id)->
-                        where('engagement_entry.disqualified',NULL)->get();
+                        where('engagement_entry.disqualified',0)->get();
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
 
 
@@ -469,7 +469,7 @@ class EngagementController extends Controller
                         join('team','team.user_id','=','engagement_vote.user_id')->
                         join('campaign','campaign.id','=','team.campaign_id')->
                         select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->
-                        where('engagement_entry.disqualified',NULL)->get();
+                        where('engagement_entry.disqualified',0)->get();
 
                 $ranking = new Collection;
                 $rankByProgram = new Collection;
