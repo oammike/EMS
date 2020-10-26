@@ -1052,7 +1052,7 @@ class EngagementController extends Controller
         $voted = DB::table('engagement_vote')->where('engagement_vote.engagement_id',$id)->
                     join('engagement_entry','engagement_vote.engagement_entryID','=','engagement_entry.id')->
                     where('engagement_vote.user_id',$this->user->id)->
-                    where('engagement_entry.disqualified',NULL)->get();
+                    where('engagement_entry.disqualified',0)->get();
                                         
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
 
@@ -1091,6 +1091,7 @@ class EngagementController extends Controller
        
                                  
         //return collect($triggers)->where('entryID',7);
+        //return $alreadyVoted;
         return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers','comments','replies','commentLikes','replyLikes','owner','correct'));
     }
 
