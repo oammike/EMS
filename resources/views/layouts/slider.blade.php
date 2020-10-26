@@ -3,7 +3,23 @@
            
             
 
-              <div class="item active text-center" >
+            <div class="item active text-center" >
+                  <img src="storage/uploads/frightful2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Halloween Story Contest<br/><small>October 26-30, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      While the true horrors live in the real world, Frightful Tales is all about what your imagination and spooked memories can conjure.</p>
+
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',31)}}"> Check out Frightful Tales 2020</a><br/>
+                    
+                    
+            </div>
+            
+           
+           <div class="item text-center" >
                   <img src="storage/uploads/diverse.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Global Diversity <br/><span class="text-primary"><i class="fa fa-users"></i> Awareness Month<br/><small>October 2020</small><br/>
                   
@@ -22,28 +38,6 @@
             </div>
 
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/wall_week24.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Diversity Awareness Month<br/><small>October 19, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      In Open Access BPO, we CELEBRATE DIVERSITY!<br/><br/>
-                      <strong class="text-primary">Share a unique tradition/custom from your country</strong>, family or peers that you’d like to share for Diversity Awareness Month.<br/><br/>
-
-                      Post your entry and get 20 points!</p>
-
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',30)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
-            
-           
-
-          
-         
             
 
 
