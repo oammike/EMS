@@ -377,7 +377,7 @@ class EngagementController extends Controller
                                 join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
                                 join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
                                 //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
+                                select('engagement.id','engagement.isContest', 'engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
 
                                 get(); 
                     }break;
@@ -385,7 +385,7 @@ class EngagementController extends Controller
         
 
         
-        //return $engagement;
+        //return $engagement[0]->isContest;
         $triggers = Engagement_Trigger::where('engagement_id',$id)->orderBy('name','ASC')->get(); 
         $itemIDs1 = collect($engagement)->pluck('itemID')->flatten();
         $itemType = collect($engagement)->pluck('dataType')->flatten();
@@ -627,7 +627,7 @@ class EngagementController extends Controller
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
             }
-            else if($id >= 5) // == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 || $id== 14 || $id== 15 || $id ==16 || $id ==17 ) //OPEN WALL
+            else if($id >= 5 && !$engagement[0]->isContest) // == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 || $id== 14 || $id== 15 || $id ==16 || $id ==17 ) //OPEN WALL
             {
                 $waysto = 11; // rewards_waysto ID for EE
                 $allPosts = collect($existingEntry)->groupBy('entryID');
@@ -659,9 +659,15 @@ class EngagementController extends Controller
                 if($this->user->id !== 564 ) 
                  {
                     $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                    fwrite($file, "-------------------\n View Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                    fwrite($file, "-------------------\n View Frightful2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                  }
-                 return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
+
+                 //return $engagement;
+
+                 if ($engagement[0]->isContest)
+                    return view('people.empEngagement-showContest',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
+
+                 else return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
 
             }
 
@@ -1031,7 +1037,8 @@ class EngagementController extends Controller
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
                                 select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->
-                                where('engagement_entry.disqualified',NULL)->get();
+                                where('engagement_entry.disqualified',0)->get();
+                                
         $userEntries = collect($allEntries)->groupBy('entryID');
 
         $triggers = DB::table('engagement')->where('engagement.id',$id)->
@@ -1080,8 +1087,7 @@ class EngagementController extends Controller
                         join('positions','users.position_id','=','positions.id')->
                         select('engagement_reply.id', 'engagement_reply.comment_id as commentID','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_reply.created_at','engagement_reply.updated_at','engagement_reply.body')->orderBy('engagement_reply.created_at','ASC')->get();
         
-        //return $userEntries;
-        
+       
                                  
         //return collect($triggers)->where('entryID',7);
         return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers','comments','replies','commentLikes','replyLikes','owner','correct'));
