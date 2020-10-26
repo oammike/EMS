@@ -689,6 +689,7 @@ class EngagementController extends Controller
         $correct = Carbon::now('GMT+8');
         $entry = new Engagement_Entry;
         $entry->user_id = $this->user->id;
+        $entry->disqualified = 0;
         $entry->engagement_id = $request->engagement_id;
         $entry->created_at = $correct->format('Y-m-d H:i:s');
         $entry->updated_at = $correct->format('Y-m-d H:i:s');
