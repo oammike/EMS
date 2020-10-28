@@ -1,9 +1,33 @@
 
-           
-           
-            
 
-            <div class="item active text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Nov.01-02 2020 Holiday |<br/> All Saints' Day &amp; All Souls Day <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>November 1 and 2, 2020 </strong> are special non-working holidays as per Proclamation No. 845 by the President of the Philippines in the observance of All Saints Day and All Souls Day.<br/><br/>
+
+                    <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
+                    Employees who are required to work during those holidays are eligible for the corresponding premium.<br/><br/>
+                    Below is a guide on how the special holiday pay is computed.</p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or on leave with pay on the workday prior to the start of November 1, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
+ 
+                    
+            </div>
+            <div class="item text-center" >
                   <img src="storage/uploads/frightful2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Halloween Story Contest<br/><small>October 26-30, 2020</small><br/>
                   
