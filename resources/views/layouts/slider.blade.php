@@ -28,8 +28,8 @@
                     
             </div>
             <div class="item text-center" >
-                  <img src="storage/uploads/frightful2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Halloween Story Contest<br/><small>October 26-30, 2020</small><br/>
+                  <img src="storage/uploads/fright-extend.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Halloween Story Contest<br/><small>October 26 - November 5, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
