@@ -5155,7 +5155,7 @@ trait TimekeepingTraits
         $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
         $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
 
-        if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh -1;
+        if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
         
         //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
         ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
