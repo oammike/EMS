@@ -1,18 +1,7 @@
 
 
-            <div class="item active text-center" >
-                  <img src="storage/uploads/allsouls.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" ><span class="text-primary"><i class="fa fa-heartbeat"></i> All Souls' Day <i class="fa fa-heartbeat"></i><br/><small>November 2, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      Today is All Souls’ Day. Let us remember our loved ones who have departed from this world with peace and light. <br/>
-                    #WeSpeakYourLanguage #OAonAllSoulsDay</p>
-                    
-                    
-            </div>
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+            
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Nov.01-02 2020 Holiday |<br/> All Saints' Day &amp; All Souls Day <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -9244,6 +9233,19 @@ For interested participants and for any questions, please email us at our gmail 
  
                     
               </div>
+
+              <div class="item active text-center" >
+                  <img src="storage/uploads/allsouls.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><span class="text-primary"><i class="fa fa-heartbeat"></i> All Souls' Day <i class="fa fa-heartbeat"></i><br/><small>November 2, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      Today is All Souls’ Day. Let us remember our loved ones who have departed from this world with peace and light. <br/>
+                    #WeSpeakYourLanguage #OAonAllSoulsDay</p>
+                    
+                    
+            </div>
 
             
             
