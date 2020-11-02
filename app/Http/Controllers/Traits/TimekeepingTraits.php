@@ -5154,11 +5154,12 @@ trait TimekeepingTraits
 
         $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
         $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+        $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
 
-        if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+        //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
         
         //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
-        ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
+        ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
 
         //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
         $billableForOT=0; //$userLogIN[0]['timing']/60;
@@ -5173,9 +5174,9 @@ trait TimekeepingTraits
         }
         else {
           if ($is4x11)
-            $UT = number_format((600.0 - (($wh-60) - $minsLate) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+            $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
           else
-            $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2); 
+            $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
 
         }
 
