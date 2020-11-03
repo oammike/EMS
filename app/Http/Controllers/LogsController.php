@@ -265,7 +265,7 @@ class LogsController extends Controller
                                      $a,
                                      $item->notes,
                                      $t->format('M d, H:i:s'),
-                                     $t->format('M d, H:i:s'),
+                                     $t2->format('M d, H:i:s'),
                                      
 
                                      );
