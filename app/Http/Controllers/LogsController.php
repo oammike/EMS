@@ -162,7 +162,7 @@ class LogsController extends Controller
                         leftJoin('users','user_dtrp.user_id','=','users.id')->
                         leftJoin('team','users.id','=','team.user_id')->
                         leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                        select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'user_dtrp.logTime','logType.name as logType','user_dtrp.isApproved','user_dtrp.notes', 'user_dtrp.created_at as submitted' )->
+                        select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'user_dtrp.logTime','logType.name as logType','user_dtrp.isApproved','user_dtrp.notes', 'user_dtrp.created_at as submitted','user_dtrp.updated_at as updated' )->
                         orderBy('users.lastname')->get();
         
             $allUnlocks = DB::table('user_unlocks')->where('user_unlocks.productionDate',$bio->first()->productionDate)-> 
@@ -175,7 +175,7 @@ class LogsController extends Controller
 
         
             $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
-            $headers2 = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted");
+            $headers2 = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted","Updated");
             $headers3 = array("AccessCode", "Last Name","First Name","Program","Requested");
             $headers4 = array("AccessCode", "Last Name","First Name","Program");
             $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
@@ -248,6 +248,7 @@ class LogsController extends Controller
                     foreach($allDTRPs as $item)
                     {
                         $t = Carbon::parse($item->submitted);
+                        $t2 = Carbon::parse($item->updated);
 
                        if($item->isApproved == null)
                             $a="Pending Approval";
@@ -263,7 +264,8 @@ class LogsController extends Controller
                                      $item->logType,
                                      $a,
                                      $item->notes,
-                                     $t->format('H:i:s'),
+                                     $t->format('M d, H:i:s'),
+                                     $t->format('M d, H:i:s'),
                                      
 
                                      );
