@@ -87,8 +87,8 @@ class NewPA_Form_Controller extends Controller
 
     public function create()
     {
-        // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy, faith,jill,511
-        $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508, 511];
+        // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy, faith,jill,511, marj
+        $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508, 511, 586];
         $objectiveCodes = ["Reliable Service Delivery","Effective Client Partnerships","Cost Optimization","Employee Development &amp; Engagement","Compliance &amp; Commitment","Social Responsibility"];
 
         if (!in_array($this->user->id, $allowed)) return view('access-denied');
@@ -307,8 +307,8 @@ class NewPA_Form_Controller extends Controller
         }
 
         if($this->user->id !== 564 ) {
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed My Team on ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                        fwrite($file, "-------------------\n Create NewPA ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                         fclose($file);
                     }
         //return $hasExistingForms;
