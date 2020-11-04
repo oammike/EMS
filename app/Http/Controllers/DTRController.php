@@ -192,7 +192,7 @@ class DTRController extends Controller
 
                       //join('user_dtr','user_dtr.user_id','=','users.id')->
                       // select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.workshift','user_dtr.isCWS_id', 'user_dtr.timeIN','user_dtr.timeOUT','user_dtr.isDTRP_in','user_dtr.isDTRP_out', 'user_dtr.hoursWorked','user_dtr.leaveType','user_dtr.leave_id', 'user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.biometrics_id','user_dtr.updated_at')->
-                       select('users.accesscode','users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at')->
+                       select('users.accesscode','users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
@@ -223,7 +223,7 @@ class DTRController extends Controller
       //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
       
       if($request->reportType == 'dailyLogs') {
-        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason'];
+        $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason','Locked Timestamp'];
         $reportType = 'dailyLogs';
       }
       else {
@@ -554,10 +554,10 @@ class DTRController extends Controller
                           {
 
                             //12 headers
-                            $header1 = ['Open Access BPO','','','','','','','','','','','',''];
-                            $header1b = ['Daily Time Record','','','','','','','','','','','',''];
-                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','','','',''];
-                            $header2b = ['','','','','','','','','','','','',''];
+                            $header1 = ['Open Access BPO','','','','','','','','','','','','',''];
+                            $header1b = ['Daily Time Record','','','','','','','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Program: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+                            $header2b = ['','','','','','','','','','','','','',''];
 
                             
                             // Set width for a single column
@@ -786,6 +786,7 @@ class DTRController extends Controller
 
                                       $arr[$i] = $fh; $i++;
                                       $arr[$i] = $r; $i++;
+                                      $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
                                       
                                       
 
@@ -827,6 +828,8 @@ class DTRController extends Controller
                                         if( strpos($tout2, "RD") !== false ){ $arr[$i] = "0"; $i++; }
                                         else { $arr[$i] = $deets->reason; $i++; }//  $i++; }$key->OT_id."_OTID_from_isObject(deets)&allOTcount<1"
 
+                                        $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
+
                                       }
                                       else
                                       {
@@ -835,6 +838,7 @@ class DTRController extends Controller
                                         $arr[$i] = "n/a"; $i++;
                                         $arr[$i] = "n/a"; $i++;
                                         $arr[$i] = " "; $i++;
+                                        $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
 
                                       }
 
@@ -851,6 +855,7 @@ class DTRController extends Controller
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;//waley blank lahat: ".$key->OT_id
                                     $arr[$i] = " "; $i++;
+                                    $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
 
 
                                    
