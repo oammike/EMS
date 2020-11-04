@@ -825,10 +825,10 @@ class DTRController extends Controller
 
                                         $tout2 = strip_tags($key->timeOUT);
 
-                                        if( strpos($tout2, "RD") !== false ){ $arr[$i] = "0"; $i++; }
-                                        else { $arr[$i] = $deets->reason; $i++; }//  $i++; }$key->OT_id."_OTID_from_isObject(deets)&allOTcount<1"
+                                        if( strpos($tout2, "RD") !== false ){ $arr[$i] = "0"; $i++; $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++; }
+                                        else { $arr[$i] = $deets->reason; $i++; $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++; }//  $i++; }$key->OT_id."_OTID_from_isObject(deets)&allOTcount<1"
 
-                                        $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
+                                        
 
                                       }
                                       else
@@ -854,7 +854,7 @@ class DTRController extends Controller
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;//waley blank lahat: ".$key->OT_id
-                                    $arr[$i] = " "; $i++;
+                                    //$arr[$i] = " "; $i++;
                                     $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
 
 
