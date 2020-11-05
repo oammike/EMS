@@ -68,11 +68,11 @@ class EngagementController extends Controller
         $vote->engagement_entryID = $id;
         $vote->save();
 
-         $correct = Carbon::now('GMT+8'); 
+         $correct = Carbon::now('GMT+8');
          if($this->user->id !== 564 ) {
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Castvote Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
         return redirect()->back();
 
     }
@@ -108,14 +108,14 @@ class EngagementController extends Controller
             return redirect()->back();
 
         }
-        
+
 
     }
      public function deleteEntryComment(Request $request)
     {
         $comment = Engagement_EntryComments::find($request->commentID);
 
-        
+
             $comment->delete();
             $correct = Carbon::now('GMT+8');
             if($this->user->id !== 564 ) {
@@ -124,8 +124,8 @@ class EngagementController extends Controller
                                 }
             return redirect()->back();
 
-        
-        
+
+
 
     }
 
@@ -138,7 +138,7 @@ class EngagementController extends Controller
                   fclose($file);
               }
         $vote->delete();
-         
+
         return redirect()->action('EngagementController@show',2);
         //return $vote;
 
@@ -149,11 +149,11 @@ class EngagementController extends Controller
         $reply = Engagement_Reply::find($id);
         $reply->delete();
 
-         $correct = Carbon::now('GMT+8'); 
+         $correct = Carbon::now('GMT+8');
          if($this->user->id !== 564 ) {
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n DelReply by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
 
         return redirect()->back();
 
@@ -191,7 +191,7 @@ class EngagementController extends Controller
     public function like(Request $request)
     {
 
-        switch ($request->type) 
+        switch ($request->type)
         {
             case 'comment':
                             {
@@ -221,18 +221,18 @@ class EngagementController extends Controller
 
                             }break;
 
-            
-           
+
+
         }
 
         return response()->json($c);
     }
 
-    
+
 
     public function postComment(Request $request,$id)
     {
-        $correct = Carbon::now('GMT+8'); 
+        $correct = Carbon::now('GMT+8');
         $comment = new Engagement_Comment;
         $comment->user_id = $this->user->id;
         $comment->engagement_id = $id;
@@ -245,12 +245,12 @@ class EngagementController extends Controller
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Comment on [".$id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
-        return response()->json($comment); 
+        return response()->json($comment);
     }
 
     public function postEntryComment(Request $request)
     {
-        $correct = Carbon::now('GMT+8'); 
+        $correct = Carbon::now('GMT+8');
         $comment = new Engagement_EntryComments;
         $comment->user_id = $this->user->id;
         $comment->entryID = $request->entryID;
@@ -264,13 +264,13 @@ class EngagementController extends Controller
                                   $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n EntryComment on [".$request->entryID."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
-        return response()->json($comment); 
+        return response()->json($comment);
     }
 
 
     public function postReply(Request $request,$id)
     {
-        $correct = Carbon::now('GMT+8'); 
+        $correct = Carbon::now('GMT+8');
         $comment = new Engagement_Reply;
         $comment->user_id = $this->user->id;
         $comment->engagement_id = $id;
@@ -284,7 +284,7 @@ class EngagementController extends Controller
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Reply on [".$request->comment_id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                                 }
-        return response()->json($comment); 
+        return response()->json($comment);
     }
 
     public function reportEntry(Request $request)
@@ -313,8 +313,8 @@ class EngagementController extends Controller
     public function show($id)
     {
 
-        DB::connection()->disableQueryLog(); 
-        $correct = Carbon::now('GMT+8'); 
+        DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
 
         if(is_null(Engagement::find($id))) return view('empty');
 
@@ -335,9 +335,9 @@ class EngagementController extends Controller
         switch ($id) {
             case 6: {
                         $engagement = DB::table('engagement')->where('engagement.id',$id)->
-                                
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get(); 
-                        if($this->user->id !== 564 ) 
+
+                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
+                        if($this->user->id !== 564 )
                              {
                                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                                 fwrite($file, "-------------------\n Check_Zumba [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -348,9 +348,9 @@ class EngagementController extends Controller
 
             case 7: {
                         $engagement = DB::table('engagement')->where('engagement.id',$id)->
-                                
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get(); 
-                        if($this->user->id !== 564 ) 
+
+                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
+                        if($this->user->id !== 564 )
                              {
                                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                                 fwrite($file, "-------------------\n Check_Aero [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -361,9 +361,9 @@ class EngagementController extends Controller
 
             case 8: {
                         $engagement = DB::table('engagement')->where('engagement.id',$id)->
-                                
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get(); 
-                        if($this->user->id !== 564 ) 
+
+                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
+                        if($this->user->id !== 564 )
                              {
                                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                                 fwrite($file, "-------------------\n Check_Yoga [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -371,7 +371,7 @@ class EngagementController extends Controller
                         return view('people.empEngagement-show_plain',compact('engagement','id'));
 
             } break;
-            
+
             default:{
                         $engagement = DB::table('engagement')->where('engagement.id',$id)->
                                 join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
@@ -379,14 +379,14 @@ class EngagementController extends Controller
                                 //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
                                 select('engagement.id','engagement.isContest', 'engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
 
-                                get(); 
+                                get();
                     }break;
         }
-        
 
-        
+
+
         //return $engagement[0]->isContest;
-        $triggers = Engagement_Trigger::where('engagement_id',$id)->orderBy('name','ASC')->get(); 
+        $triggers = Engagement_Trigger::where('engagement_id',$id)->orderBy('name','ASC')->get();
         $itemIDs1 = collect($engagement)->pluck('itemID')->flatten();
         $itemType = collect($engagement)->pluck('dataType')->flatten();
         $itemIDs ="";
@@ -405,9 +405,9 @@ class EngagementController extends Controller
                                 join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->
                                 join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
                                 select('engagement_entry.id as entryID', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryDetails.id as itemID', 'engagement_entryItems.label','engagement_entry.user_id','engagement_entry.created_at','engagement_entry.disqualified','engagement_entry.anonymous')->get();
-        
+
                                 //select('id')->get();
-        if (count($existingEntry) > 0) 
+        if (count($existingEntry) > 0)
         {
             $hasEntry=true;
             $myTriggers = DB::table('engagement')->where('engagement.id',$id)->
@@ -426,6 +426,7 @@ class EngagementController extends Controller
                         where('engagement_vote.user_id',$this->user->id)->
                         where('engagement_entry.disqualified',0)->get();
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
+
 
 
         //if tapos na ung contest
@@ -449,7 +450,7 @@ class EngagementController extends Controller
                 }
                 if($id == 2) //VALENTINES
                 {
-                    if($this->user->id !== 564 ) 
+                    if($this->user->id !== 564 )
                      {
                         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Reminisce Valentine [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
@@ -458,7 +459,7 @@ class EngagementController extends Controller
                      return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
 
                 }
-                 
+
 
                 $votes = DB::table('engagement')->where('engagement.id',$id)->
                         join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
@@ -473,7 +474,7 @@ class EngagementController extends Controller
 
                 $ranking = new Collection;
                 $rankByProgram = new Collection;
-                $votesByCampaign = collect($votes)->groupBy('program'); 
+                $votesByCampaign = collect($votes)->groupBy('program');
 
                 $allEntries = DB::table('engagement')->where('engagement.id',$id)->
                                 join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
@@ -486,10 +487,10 @@ class EngagementController extends Controller
                                 join('campaign','campaign.id','=','team.campaign_id')->
                                 select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value','engagement_entry.disqualified')->get();
                                 //where('engagement_entry.disqualified',NULL)->get();
-                                
-                
+
+
                 foreach ($votesByCampaign as $camp) {
-                    
+
                     $entries = collect($camp)->groupBy('entryID');
 
                     foreach ($entries as $key) {
@@ -506,14 +507,14 @@ class EngagementController extends Controller
                 $tallyEntry = collect($rankByProgram)->sortByDesc('entry')->groupBy('entry');
                 $finalTally = new Collection;
 
-                
+
 
                 foreach ($tallyEntry->reverse() as $key) {
 
                     $vote=0; $actualVotes=0;
                     foreach ($key as $v) {
                         $vote += (float)$v['points'];
-                        $actualVotes += (float)$v['votes']; 
+                        $actualVotes += (float)$v['votes'];
                     }
 
                     $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
@@ -530,20 +531,20 @@ class EngagementController extends Controller
 
 
 
-               if($this->user->id !== 564 ) 
+               if($this->user->id !== 564 )
                  {
                     $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                     fwrite($file, "-------------------\n View Frightful Winners by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                 } 
+                 }
 
                 return view('people.empEngagement-showWinner',compact('tallyEntry','finalTally', 'engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
 
             }
-            
+
 
         }else
         {
-            
+
             if($id == 2) //VALENTINES
             {
                 $allPosts = collect($existingEntry)->groupBy('entryID');
@@ -556,7 +557,7 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get(); 
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get();
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
 
@@ -587,7 +588,7 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get(); 
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get();
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
 
@@ -618,11 +619,11 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at','engagement.multipleEntry')->get(); 
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at','engagement.multipleEntry')->get();
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
 
-                
+
                 //return $engagement;
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
@@ -640,7 +641,7 @@ class EngagementController extends Controller
                                 join('team','team.user_id','=','users.id')->
                                 join('campaign','team.campaign_id','=','campaign.id')->
                                 join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get(); 
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get();
                                 //where('engagement_entry.disqualified',NULL)->get();
                 $userEntries = collect($allEntries)->groupBy('entryID');
                 $uniqueUsers = collect($allEntries)->sortBy('lastname')->groupBy('user_id')->unique();
@@ -656,30 +657,31 @@ class EngagementController extends Controller
             }
             else
             {
-                if($this->user->id !== 564 ) 
+                if($this->user->id !== 564 )
                  {
                     $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                     fwrite($file, "-------------------\n View Frightful2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                  }
 
                  //return $engagement;
+                 $deadline = $engagement[0]->entriesDeadline!=NULL && $correct->format('Y-m-d H:i:s') > $engagement[0]->entriesDeadline;
 
                  if ($engagement[0]->isContest)
-                    return view('people.empEngagement-showContest',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
+                    return view('people.empEngagement-showContest',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray', 'deadline'));
 
-                 else return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
+                 else return view('people.empEngagement-show',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray', 'deadline'));
 
             }
 
 
-             
+
 
 
         }
-        
 
 
-        
+
+
         //return $engagement;
     }
 
@@ -704,7 +706,7 @@ class EngagementController extends Controller
             $userEntry->created_at = $correct->format('Y-m-d H:i:s');
             $userEntry->updated_at = $correct->format('Y-m-d H:i:s');
             $userEntry->save();
-            
+
             $ctr++;
         }
 
@@ -718,13 +720,13 @@ class EngagementController extends Controller
             }
 
         }
-            
 
-         $correct = Carbon::now('GMT+8'); 
+
+         $correct = Carbon::now('GMT+8');
          if($this->user->id !== 564 ) {
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Submitted EE entry by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
 
         return response()->json(['success'=>1, 'entry'=>$entry]);
     }
@@ -732,8 +734,8 @@ class EngagementController extends Controller
     public function saveEntry2(Request $request)
     {
         $correct = Carbon::now('GMT+8');
-        
-        
+
+
         $entry = new Engagement_Entry;
         $entry->user_id = $this->user->id;
         $entry->engagement_id = $request->engagement_id;
@@ -758,7 +760,7 @@ class EngagementController extends Controller
                 if(($k == '4' || $k == '13'|| $anImg || $allitemTypes[$ctr]=='IMG') && $request->file('file') == null ){
 
                 }
-                else 
+                else
                 {
                     if(($k == '4' || $k == '13'|| $anImg || $allitemTypes[$ctr]=='IMG') && $request->file('file') )
                     {
@@ -778,17 +780,17 @@ class EngagementController extends Controller
                             case '15':$filen = "wall[8]2020_"; break;
                             case '19':$filen = "wall[13]2020_"; break;
                             default: $filen="wall_";break;
-                            
+
                         }
 
                         $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
                         $destinationPath = storage_path() . '/uploads/';
                         $image->move($destinationPath, $new_name);
 
-                      
+
 
                         $theItem = $new_name;
-                         
+
 
                     } else {
                         $varname = "item_".$k;
@@ -806,11 +808,11 @@ class EngagementController extends Controller
                 }
             }
 
-            
+
             $ctr++;
         }
 
-        $correct = Carbon::now('GMT+8'); 
+        $correct = Carbon::now('GMT+8');
         if( ($request->engagement_id == 2) && ($this->user->id !== 564 ) ) //VALENTINES
         {
             $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
@@ -857,7 +859,7 @@ class EngagementController extends Controller
             }
 
         }
-        
+
         return response()->json($entry);
 
     }
@@ -875,10 +877,10 @@ class EngagementController extends Controller
                     join('campaign','campaign.id','=','team.campaign_id')->
                     select('engagement.name as activity','engagement_entry.user_id as entryBy','engagement_entry.id as entryID','engagement_vote.user_id as voterID','users.firstname as voter_firstname','users.lastname as voter_lastname','positions.name as voter_jobTitle','campaign.name as program')->
                     where('engagement_entry.disqualified',0)->get();
-                    
+
         $ranking = new Collection;
         $rankByProgram = new Collection;
-        $votesByCampaign = collect($votes)->groupBy('program'); 
+        $votesByCampaign = collect($votes)->groupBy('program');
 
         $allEntries = DB::table('engagement')->where('engagement.id',$id)->
                         join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
@@ -891,10 +893,10 @@ class EngagementController extends Controller
                         join('campaign','campaign.id','=','team.campaign_id')->
                         select('engagement.name as activity', 'engagement_entry.id', 'engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','campaign.name as program', 'engagement_entryItems.label','engagement_entryDetails.value')->
                         where('engagement_entry.disqualified',0)->get();
-                        
-        
+
+
         foreach ($votesByCampaign as $camp) {
-            
+
             $entries = collect($camp)->groupBy('entryID');
 
             foreach ($entries as $key) {
@@ -903,9 +905,9 @@ class EngagementController extends Controller
                 $pointsEarned = number_format( (count(collect($allEntries)->groupBy('user_id')) * $percentage),2);
                 $rankByProgram->push(['entry'=>collect($key)->pluck('entryID')->first(), 'votes'=>count($key),'totalVoters'=>count($voters), 'percentage'=>$percentage, 'points'=>$pointsEarned, 'entries'=>count(collect($allEntries)->groupBy('user_id')), 'camp'=>$camp[0]->program]);
             }
-        } 
+        }
 
-       
+
 
         //$submissions = collect($allEntries)->groupBy('id');return $submissions;
         $tallyProg = collect($rankByProgram)->sortByDesc('votes')->groupBy('camp'); //return $tallyProg;
@@ -913,14 +915,14 @@ class EngagementController extends Controller
         $finalTally = new Collection;
 
 
-        
+
 
         foreach ($tallyEntry->reverse() as $key) {
 
             $vote=0; $actualVotes=0;
             foreach ($key as $v) {
                 $vote += (float)$v['points'];
-                $actualVotes += (float)$v['votes']; 
+                $actualVotes += (float)$v['votes'];
             }
 
             $theEntry = collect($allEntries)->where('id',$key[0]['entry']);
@@ -933,15 +935,15 @@ class EngagementController extends Controller
         }
         //return $finalTally;
 
-        $correct = Carbon::now('GMT+8'); 
+        $correct = Carbon::now('GMT+8');
 
         if($this->user->id !== 564 ) {
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n View Tally (".$id.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
 
         return view('people.empEngagement-results',compact('id','finalTally','tallyProg','tallyEntry'));
-        
+
     }
 
     public function uncastvote($id)
@@ -950,11 +952,11 @@ class EngagementController extends Controller
         $vote = Engagement_Vote::where('engagement_entryID',$id)->where('user_id',$this->user->id)->first();
         $vote->delete();
 
-         $correct = Carbon::now('GMT+8'); 
+         $correct = Carbon::now('GMT+8');
          if($this->user->id !== 564 ) {
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Uncastvote Frightful by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
 
         return redirect()->back();
         //return $vote;
@@ -964,8 +966,8 @@ class EngagementController extends Controller
     public function unlike(Request $request)
     {
 
-        $correct = Carbon::now('GMT+8'); 
-        switch ($request->type) 
+        $correct = Carbon::now('GMT+8');
+        switch ($request->type)
         {
             case 'comment':
                             {
@@ -974,33 +976,33 @@ class EngagementController extends Controller
                                 if($this->user->id !== 564 ) {
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Unlike (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
 
-        
+
 
                             }break;
-            case 'post':{ 
+            case 'post':{
                             $c = Engagement_EntryLikes::where('user_id',$this->user->id)->where('entryID',$request->entryID)->first();
                                 $c->delete();
                                 if($this->user->id !== 564 ) {
                                   $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Unlike post (".$request->entryID.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
 
                         }break;
 
-            case 'reply':{ 
+            case 'reply':{
                             $c = Engagement_ReplyLikes::where('user_id',$this->user->id)->where('reply_id',$request->commentid)->first();
                                 $c->delete();
                                 if($this->user->id !== 564 ) {
                                   $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Unlike reply (".$request->commentid.") by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
-                                } 
+                                }
 
                         }break;
 
-            
-           
+
+
         }
         return redirect()->back();
         //return response()->json($c);
@@ -1022,7 +1024,7 @@ class EngagementController extends Controller
 
 
         $owner = $this->user;$correct=Carbon::now();
-        DB::connection()->disableQueryLog(); 
+        DB::connection()->disableQueryLog();
         $engagement = DB::table('engagement')->where('engagement.id',$id)->
                             join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
                             join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
@@ -1041,7 +1043,7 @@ class EngagementController extends Controller
                                 join('positions','users.position_id','=','positions.id')->
                                 select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at')->
                                 where('engagement_entry.disqualified',0)->get();
-                                
+
         $userEntries = collect($allEntries)->groupBy('entryID');
 
         $triggers = DB::table('engagement')->where('engagement.id',$id)->
@@ -1049,13 +1051,13 @@ class EngagementController extends Controller
                             join('engagement_entryTrigger','engagement_entry.id','=','engagement_entryTrigger.entryID')->
                             join('engagement_trigger','engagement_entryTrigger.triggerID','=','engagement_trigger.id')->
                             select('engagement_entry.id as entryID','engagement_trigger.name as trigger')->get();
-        
+
         //$voted = DB::table('engagement_vote')->where('engagement_id',$id)->where('user_id',$this->user->id)->get();
         $voted = DB::table('engagement_vote')->where('engagement_vote.engagement_id',$id)->
                     join('engagement_entry','engagement_vote.engagement_entryID','=','engagement_entry.id')->
                     where('engagement_vote.user_id',$this->user->id)->
                     where('engagement_entry.disqualified',0)->get();
-                                        
+
         ( count($voted) > 0 ) ? $alreadyVoted=1 : $alreadyVoted=0;
 
 
@@ -1064,7 +1066,7 @@ class EngagementController extends Controller
                         join('team','team.user_id','=','users.id')->
                         join('campaign','team.campaign_id','=','campaign.id')->
                         join('positions','users.position_id','=','positions.id')->
-                        select('engagement_comment.id', 'engagement_comment.engagement_id','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_comment.created_at','engagement_comment.updated_at','engagement_comment.body')->orderBy('engagement_comment.updated_at','DESC')->get(); 
+                        select('engagement_comment.id', 'engagement_comment.engagement_id','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_comment.created_at','engagement_comment.updated_at','engagement_comment.body')->orderBy('engagement_comment.updated_at','DESC')->get();
         $commentLikes = DB::table('engagement_comment')->where('engagement_id',$id)->
                             join('engagement_commentLikes','engagement_commentLikes.comment_id','=','engagement_comment.id')->
                             join('users','engagement_commentLikes.user_id','=','users.id')->
@@ -1083,15 +1085,15 @@ class EngagementController extends Controller
         //return response()->json(['commentLikes'=>$commentLikes,'replyLikes'=>$replyLikes]);
 
         $replies = DB::table('engagement_reply')->where('engagement_reply.engagement_id',$id)->
-                        
+
                         join('users','engagement_reply.user_id','=','users.id')->
                         join('team','team.user_id','=','users.id')->
                         join('campaign','team.campaign_id','=','campaign.id')->
                         join('positions','users.position_id','=','positions.id')->
                         select('engagement_reply.id', 'engagement_reply.comment_id as commentID','users.id as userID', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','engagement_reply.created_at','engagement_reply.updated_at','engagement_reply.body')->orderBy('engagement_reply.created_at','ASC')->get();
-        
-       
-                                 
+
+
+
         //return collect($triggers)->where('entryID',7);
         //return $alreadyVoted;
         return view('people.empEngagement-vote',compact('engagement','allEntries','id','userEntries','alreadyVoted','voted','triggers','comments','replies','commentLikes','replyLikes','owner','correct'));
@@ -1101,40 +1103,40 @@ class EngagementController extends Controller
     public function wall($id)
     {
         //return Redirect::to('http://172.17.0.2/project/freedomwall/wall/index.php');
-        DB::connection()->disableQueryLog(); 
+        DB::connection()->disableQueryLog();
         $post = DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     leftJoin('users','users.id','=','engagement_entry.user_id')->
-                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','ASC')->get(); 
-                    
+                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','ASC')->get();
+
 
         $allComments =  DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     join('engagement_entryComments','engagement_entry.id','=','engagement_entryComments.entryID')->
                     leftJoin('users','users.id','=','engagement_entryComments.user_id')->
                     leftJoin('team','team.user_id','=','engagement_entryComments.user_id')->
                     leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    select('engagement_entry.id as entryID','engagement_entryComments.id as commentID', 'engagement_entryComments.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program','campaign.id as programID', 'engagement_entryComments.created_at','engagement_entryComments.body as comment','engagement_entryComments.anonymous', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entryComments.created_at','DESC')->get(); 
+                    select('engagement_entry.id as entryID','engagement_entryComments.id as commentID', 'engagement_entryComments.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program','campaign.id as programID', 'engagement_entryComments.created_at','engagement_entryComments.body as comment','engagement_entryComments.anonymous', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entryComments.created_at','DESC')->get();
 
         $allLikes =  DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     join('engagement_entryLikes','engagement_entry.id','=','engagement_entryLikes.entryID')->
                     leftJoin('users','users.id','=','engagement_entryLikes.user_id')->
                     leftJoin('team','team.user_id','=','engagement_entryLikes.user_id')->
                     leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    select('engagement_entry.id as entryID','engagement_entryLikes.id as likeID', 'engagement_entryLikes.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program', 'engagement_entryLikes.created_at', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entryLikes.created_at','DESC')->get(); 
-       
+                    select('engagement_entry.id as entryID','engagement_entryLikes.id as likeID', 'engagement_entryLikes.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program', 'engagement_entryLikes.created_at', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entryLikes.created_at','DESC')->get();
+
 
         if (count($post) <= 0) return view('empty');
-        
+
         $allPosts = collect($post)->groupBy('entryID');
         $posts = new Collection;
         $idArray = [];
         foreach ($allPosts as $p) {
 
             (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
-            
+
             if ($p[0]->anonymous){
-                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 
+                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified,
                                 'from'=>"anonymous",'img'=>$img,'message'=>$p[0]->value,
                                 'datePosted'=>$p[0]->created_at]);
 
@@ -1142,14 +1144,14 @@ class EngagementController extends Controller
             {
                 ($p[0]->nickname) ? $from = $p[0]->nickname." ".$p[0]->lastname : $p[0]->firstname." ".$p[0]->lastname;
 
-                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified, 
+                $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified,
                             'from'=>$from,'img'=>$img,'message'=>$p[0]->value,
                             'datePosted'=>$p[0]->created_at]);
 
             }
             array_push($idArray, $p[0]->entryID);
         }
-   
+
         //return response()->json(["posts"=>$posts[count($posts)-1],'idArray'=>$idArray]); //
         if( \Auth::user()->id !== 564 ) {
                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
@@ -1164,7 +1166,7 @@ class EngagementController extends Controller
         $lastPost = $posts[0];
         $user_id = $this->user->id;
         //return $posts;
-        
+
 
         return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
 
@@ -1172,7 +1174,7 @@ class EngagementController extends Controller
 
     public function next(Request $request)
     {
-        
+
         if (isset($request->firstPost) && isset($request->lastPost)) {
         $fp = $request->firstPost;
         $lp = $request->lastPost;

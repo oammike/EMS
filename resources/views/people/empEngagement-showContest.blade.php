@@ -24,11 +24,11 @@
 
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4);padding:30px">
 
-                
-                 {!! $engagement[0]->content!!} 
-                 
- 
-                
+
+                 {!! $engagement[0]->content!!}
+
+
+
 
 
 
@@ -44,20 +44,22 @@
                     <a class="btn btn-lg btn-success" data-toggle="modal" data-target="#warning">View all entries</a>
                     @else
                     <a class="btn btn-lg btn-success" data-toggle="modal" data-target="#warning">Vote for your favorite entry</a>
-                    
+
                     @endif
                   </div>
-                  
+
                   <div id="entry" class="col-sm-6" style="background: rgba(256, 256, 256, 0.7);padding:30px" >
                     @if ($hasEntry)
 
-                      <!-- <h3 class="text-primary">Submission and editing of entries is now CLOSED.</h3>
-                      <p>Thank you all for participating. Go and check out all the entries and don't forget to vote for your favorite story!</p> -->
+                      @if( $deadline )
 
-                      <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#delModal{{$existingEntry[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
-                      <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
+                        <h3 class="text-primary">Submission and editing of entries is now CLOSED.</h3>
+                        <p>Thank you all for participating. Go and check out all the entries and don't forget to vote for your favorite story!</p>
 
-                       
+                      @else
+
+                        <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#delModal{{$existingEntry[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a>
+                        <h3 class="text-primary" style="padding-bottom: 30px">Your Submitted Entry:</h3>
 
                          <h4>Triggers:</h4>
 
@@ -67,7 +69,7 @@
                          <a id="editTrigger" class="btn btn-xs btn-default pull-right"><i class="fa fa-plus"></i> Add Triggers </a>
                          @endif
 
-                         <a id="saveTrigger" class="btn btn-xs btn-success pull-right"><i class="fa fa-save"></i> Save </a> 
+                         <a id="saveTrigger" class="btn btn-xs btn-success pull-right"><i class="fa fa-save"></i> Save </a>
                          <div id="triggers" style="font-size: smaller;">
 
                              @if (count($myTrigger)>0)
@@ -81,53 +83,57 @@
                              <div class="clearfix"></div>
 
                          </div>
-                       
-
-                    
 
                         @foreach($existingEntry as $e)
-                        
+
 
                           @if($e->elemType === 'PAR')
-                              <h4 style="padding-top: 20px" class="edit">{{$e->label}} :<a class="btn btn-xs btn-default pull-right" data-itemID="{{$e->itemID}}" data-itemType="{{$e->elemType}}" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a><div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e->value !!}</div></h4>  
+                              <h4 style="padding-top: 20px" class="edit">{{$e->label}} :<a class="btn btn-xs btn-default pull-right" data-itemID="{{$e->itemID}}" data-itemType="{{$e->elemType}}" style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a><div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e->value !!}</div></h4>
                           @else
-                               <h4 style="padding-top: 20px" class="edit">{{$e->label}} : <a class="btn btn-xs btn-default pull-right" data-itemID="{{$e->itemID}}" data-itemType="{{$e->elemType}}"   style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a> <span style="font-weight: 100" class="editable"> {!! $e->value !!}</span></h4> 
+                               <h4 style="padding-top: 20px" class="edit">{{$e->label}} : <a class="btn btn-xs btn-default pull-right" data-itemID="{{$e->itemID}}" data-itemType="{{$e->elemType}}"   style="margin-right: 5px"><i class="fa fa-pencil"></i> Edit </a> <span style="font-weight: 100" class="editable"> {!! $e->value !!}</span></h4>
 
                           @endif
 
                         @endforeach
 
-
                         <div class="modal fade" id="delModal{{$existingEntry[0]->entryID}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                
+
                                   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                   <h4 class="modal-title" id="myModalLabel">Delete my Entry</h4>
-                                
+
                               </div>
                               <div class="modal-body">
                                 Are you sure you want to cancel your entry for  <strong>{{$engagement[0]->activity}}</strong>?
                               </div>
                               <div class="modal-footer no-border">
-                                {{ Form::open(['route' => ['employeeEngagement.cancelEntry',$existingEntry[0]->entryID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $existingEntry[0]->entryID ]) }} 
+                                {{ Form::open(['route' => ['employeeEngagement.cancelEntry',$existingEntry[0]->entryID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $existingEntry[0]->entryID ]) }}
 
                                   <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i> Yes </button>
-                                
+
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>{{ Form::close() }}
                               </div>
                             </div>
                           </div>
                         </div>
 
+                      @endif
+
 
 
 
 
                     @else
-                   <!--  <h3 class="text-primary">Submission of entries is now CLOSED.</h3>
-                    <p>Thank you all for participating. Go and check out all the entries and don't forget to vote for your favorite story!</p> -->
+
+                      @if( $deadline )
+
+                        <h3 class="text-primary">Submission of entries is now CLOSED.</h3>
+                        <p>Thank you all for participating. Go and check out all the entries and don't forget to vote for your favorite story!</p>
+
+                      @else
+
                         <h3 class="text-primary">Submit Your Entry:</h3>
                         <?php $ctr=0; ?>
                         @foreach($engagement as $element)<br/>
@@ -154,13 +160,13 @@
                             @if( $element->dataType == 'PAR' )
                             <textarea name="item_{{$element->itemID}}" data-itemID="{{$element->itemID}}" class="form-control"></textarea>
                             @endif
-
-
-
                         @endforeach
+
+                      @endif
+
                     @endif
 
-                    
+
 
                     @if ($hasEntry)
 
@@ -168,7 +174,7 @@
                     <a id="submit" class="btn btn-lg btn-success pull-right" style="margin-top: 20px"> Submit</a>
 
                     @endif
-                    
+
                   </div>
                 </div>
 
@@ -180,9 +186,9 @@
               </div><!--end box-primary-->
 
 
-             
 
-             
+
+
 
           </div><!--end main row-->
       </section>
@@ -191,31 +197,31 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              
+
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title text-danger" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> Disclaimer</h4>
-              
+
             </div>
             <div class="modal-body">
               <p>Understand that some of these stories may contain sensitive topics and themes that some people may find triggering.</p>
               <p>Proceeding means that you understand the potential risks. Each story includes a trigger warning to give you caution before you start reading.</p>
             </div>
             <div class="modal-footer no-border">
-              {{ Form::open(['route' => ['employeeEngagement.voteNow',$id], 'method'=>'GET','class'=>'btn-outline pull-right', 'id'=> "show" ]) }} 
+              {{ Form::open(['route' => ['employeeEngagement.voteNow',$id], 'method'=>'GET','class'=>'btn-outline pull-right', 'id'=> "show" ]) }}
 
                 <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Proceed </button>
-              
+
               <button type="button" class="btn btn-default" data-dismiss="modal">No, thank you.</button>{{ Form::close() }}
             </div>
           </div>
         </div>
       </div>
-      
 
-      
- 
 
-    
+
+
+
+
 
 
 
@@ -232,7 +238,7 @@
 
 <!-- Page script -->
 <script>
- 
+
   $(function () {
    'use strict';
 
@@ -262,7 +268,7 @@
                   error: function(response)
                   { console.log("Error saving entry: ");
                     console.log(response);
-                    $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                    $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                     return false;
                   },
                   success: function(response)
@@ -276,7 +282,7 @@
                   }
 
             });
-      
+
 
     });
 
@@ -285,20 +291,20 @@
       $('#editTrigger').fadeOut(); $('#saveTrigger').fadeIn();
 
       var htmlcode = "<br/>";
-      
+
       @foreach($triggers as $trigger)
 
         @if( in_array($trigger->id,$myTriggerArray) )
 
           htmlcode += "<label style=\"font-size: x-small; margin-left: 10px\"><input checked=\"checked\" type=\"checkbox\" name=\"triggers[]\" value=\"{{$trigger->id}}\" />&nbsp; {{$trigger->name}} </label>";
 
-        @else 
+        @else
 
           htmlcode += "<label style=\"font-size: x-small; margin-left: 10px\"><input type=\"checkbox\" name=\"triggers[]\" value=\"{{$trigger->id}}\" />&nbsp; {{$trigger->name}} </label>";
 
         @endif
 
-        
+
       @endforeach
 
       $('#triggers').html(htmlcode);
@@ -347,25 +353,25 @@
                   error: function(response)
                   { console.log("Error saving entry: ");
                     console.log(response);
-                    $.notify("Error saving entry.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                    $.notify("Error saving entry.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                     return false;
                   },
                   success: function(response)
                   {
                     console.log(response);
                     $.notify("Entry updated. \nThank you for participating.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                    btn.fadeIn();window.location.reload(true); 
-                   
+                    btn.fadeIn();window.location.reload(true);
+
 
                   }
 
             });
 
 
-          
+
           //
       });
-      
+
 
       //console.log($(this).attr('data-itemID'));
 
@@ -391,7 +397,7 @@
 
       var _token = "{{ csrf_token() }}";
 
-      
+
       //console.log(triggers);
 
       if (items[0] === "" || items[1] === "")
@@ -408,14 +414,14 @@
                     'items': items,
                     'itemIDs': itemIDs,
                     'triggers':triggers,
-                    
+
                     _token: _token
 
                   },
                   error: function(response)
                   { console.log("Error saving entry: ");
                     console.log(response);
-                    $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                    $.notify("Error processing request. Please check all submitted fields and try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                     return false;
                   },
                   success: function(response)
@@ -429,25 +435,25 @@
             });
 
       }
-      
+
 
       /**/
       });
 
    @endif
 
-   
 
-  
 
-  
-       
-        
-      
-      
+
+
+
+
+
+
+
    });
 
-   
+
 
 </script>
 <!-- end Page script -->
