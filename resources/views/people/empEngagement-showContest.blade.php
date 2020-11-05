@@ -171,7 +171,7 @@
                     @if ($hasEntry)
 
                     @else
-                    @if( $deadline )
+                    @if( !$deadline )
                     <a id="submit" class="btn btn-lg btn-success pull-right" style="margin-top: 20px"> Submit</a>
                     @endif
                     @endif
