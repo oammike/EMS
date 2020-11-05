@@ -332,11 +332,13 @@ class EngagementController extends Controller
         in_array($this->user->id, $awarder) ? $canAward=1 : $canAward=0;
 
 
+
+
         switch ($id) {
             case 6: {
                         $engagement = DB::table('engagement')->where('engagement.id',$id)->
 
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
+                                select('engagement.id','engagement.entriesDeadline','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
                         if($this->user->id !== 564 )
                              {
                                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
@@ -349,7 +351,7 @@ class EngagementController extends Controller
             case 7: {
                         $engagement = DB::table('engagement')->where('engagement.id',$id)->
 
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
+                                select('engagement.id','engagement.entriesDeadline','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
                         if($this->user->id !== 564 )
                              {
                                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
@@ -362,7 +364,7 @@ class EngagementController extends Controller
             case 8: {
                         $engagement = DB::table('engagement')->where('engagement.id',$id)->
 
-                                select('engagement.id','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
+                                select('engagement.id','engagement.entriesDeadline','engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement.multipleEntry')->get();
                         if($this->user->id !== 564 )
                              {
                                 $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
@@ -377,7 +379,7 @@ class EngagementController extends Controller
                                 join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
                                 join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
                                 //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
-                                select('engagement.id','engagement.isContest', 'engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
+                                select('engagement.id','engagement.entriesDeadline','engagement.isContest', 'engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
 
                                 get();
                     }break;
