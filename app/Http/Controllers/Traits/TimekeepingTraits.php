@@ -3844,7 +3844,7 @@ trait TimekeepingTraits
         $shiftEnd = "* RD *";
         $logIN = "* RD *";  //--- di nga sya pumasok
         $logOUT = "* RD *";
-        $workedHours = "N/A";
+        
         $billableForOT = 0;
         $OTattribute = null;
         $UT = 0;
@@ -3854,6 +3854,13 @@ trait TimekeepingTraits
         $hasPendingOUT = null;
         $pendingDTRPout = null;
         $userLogIN=null; $userLogOUT=null;
+
+        if($hasHolidayToday) {
+          $workedHours = "N/A";
+          $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+
+        }else
+          $workedHours = "N/A";
 
         goto pushData;
       }
@@ -4284,10 +4291,15 @@ trait TimekeepingTraits
                               {
                                 //check first if Locked na DTR for that production date
                                 $workedHours .= "<br /><strong>* " . $holidayToday->first()->name . " * </strong>";
+                                $workedHours .= "<br /><small> [* RD-OT *] </small> &nbsp;&nbsp;<a data-toggle=\"modal\" data-target=\"#myModal_bypass_".$biometrics->id."\"   title='Mark as REST DAY' class='actualRD btn btn-xs btn-danger'><i class='fa fa-bed'></i> </a>";
+                                
+
                                  if($isLocked)
                                   $icons = "<a title=\"Unlock DTR to file this HD-OT\" class=\"pull-right text-gray\" style=\"font-size:1.2em;\"><i class=\"fa fa-credit-card\"></i></a>";
-                                  else
-                                   $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                                  else{
+                                    $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday RD-OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                                    // $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
+                                  }
                                 
 
 
