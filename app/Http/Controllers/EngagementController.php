@@ -434,7 +434,7 @@ class EngagementController extends Controller
         //if tapos na ung contest
         if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate && !$canModerate)
         {
-            if ($id != 1){
+            if ($id != 1 && !$engagement[0]->isContest){
                 return Redirect::action('EngagementController@wall',$id);
             }
             else
@@ -539,7 +539,10 @@ class EngagementController extends Controller
                     fwrite($file, "-------------------\n View Frightful Winners by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                  }
 
-                return view('people.empEngagement-showWinner',compact('tallyEntry','finalTally', 'engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
+                $deadline = $engagement[0]->entriesDeadline!=NULL && $correct->format('Y-m-d H:i:s') > $engagement[0]->entriesDeadline;
+
+                return view('people.empEngagement-showContest',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray', 'deadline'));
+                //return view('people.empEngagement-showWinner',compact('tallyEntry','finalTally', 'engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
 
             }
 
