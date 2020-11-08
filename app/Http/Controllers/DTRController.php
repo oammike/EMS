@@ -3619,7 +3619,15 @@ class DTRController extends Controller
                                       $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
 
                                       if($isBackoffice){
-                                        $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+
+                                        // check mo muna kung logIN is before workshift, if yes : disregard early log but get StartShift
+                                        // if not, meaning late sya for holiday full pay
+                                        if(Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->format('Y-m-d H:i') < $startDate->format('Y-m-d H:i') )
+                                          $startTime = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
+                                        else
+                                          $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+
+                                        
                                         $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours)->addHours(1);
                                         $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
                                       }
