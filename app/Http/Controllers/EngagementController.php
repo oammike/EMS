@@ -431,7 +431,7 @@ class EngagementController extends Controller
 
 
 
-        //if tapos na ung contest
+        //if tapos na ung contest/activity
         if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate)// && !$canModerate
         {
             if ($id != 1 && !$engagement[0]->isContest){
@@ -654,7 +654,7 @@ class EngagementController extends Controller
 
                 if( \Auth::user()->id !== 564 ) {
                 $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                ($id == 5) ? fwrite($file, "-------------------\n Check openWall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n") : fwrite($file, "-------------------\n Check openWall[2] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                ($id == 5) ? fwrite($file, "-------------------\n Check openWall on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n") : fwrite($file, "-------------------\n Check openWall[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
                 }
 
