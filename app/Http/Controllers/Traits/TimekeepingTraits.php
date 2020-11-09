@@ -406,6 +406,7 @@ trait TimekeepingTraits
     $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
 
     
+    $check_fixed_RD=null;$check_monthly_RD=null;$check_monthly_WS=null;$mc=null;$fc=null;
 
     if ($hybridSched)
     {
@@ -635,7 +636,7 @@ trait TimekeepingTraits
           $check_fixed_RD = $this->getLatestFixedSchedGrouped($hybridSched_RD_fixed,$payday,$dayToday);
 
           //if (count($check_fixed_RD) > 0) //if may fixed RD, check mo kung ano mas updated vs monthly sched
-          if ($check_fixed_RD['workday'] !== null)
+          if ( $check_fixed_RD['isRD'] )//$check_fixed_RD['workday'] == null || 
           {
             $stat =  "if may fixed RD, check mo kung ano mas updated vs monthly sched";
 
@@ -682,8 +683,11 @@ trait TimekeepingTraits
 
               if (count($check_monthly_WS) > 0)
               {
-                if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )
+                /*if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )*/
+                if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )
                 {
+                  // $mc = Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s');
+                  // $fc = Carbon::parse($check_fixed_RD->created_at,'Asia/Manila')->format('Y-m-d H:i:s');
                   $workSched = $hybridSched_WS_monthly;
                   $RDsched = $hybridSched_RD_monthly;
                   $isFixedSched = false;
@@ -961,6 +965,12 @@ trait TimekeepingTraits
     $c->RDsched = $RDsched1;
     $c->isFixedSched = $isFixedSched;
     $c->allRD = $RDsched;
+
+    // $c->check_fixed_WS = $check_fixed_WS;
+    // $c->check_fixed_RD = $check_fixed_RD;
+    // $c->check_monthly_RD = $check_monthly_RD;
+    // $c->check_monthly_WS = $check_monthly_WS;
+    // $c->mc = $mc;$c->fc=$fc;
    
     return $c;
 

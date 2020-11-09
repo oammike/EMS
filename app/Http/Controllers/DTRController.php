@@ -6213,6 +6213,7 @@ class DTRController extends Controller
                   $actualSchedToday = $this->getActualSchedForToday($user,$id,$payday,$bioForTheDay, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
 
                   $isRDToday = $actualSchedToday->isRDToday;
+                  $actualSchedToday1 = $actualSchedToday;
                   $schedForToday =  $actualSchedToday->schedForToday;
                   (count($schedForToday) > 0) ? $noWorkSched=false : $noWorkSched=true;
                   $RDsched = $actualSchedToday->RDsched;
@@ -6808,6 +6809,16 @@ class DTRController extends Controller
 
                                     $myDTR->push([
                                       'approvedOT' => $approvedOT,
+                                      // 'actualSchedToday1'=>$actualSchedToday1->schedForToday,
+                                      // 'check_fixed_WS'=>$actualSchedToday1->check_fixed_WS,
+                                      // 'check_fixed_RD'=> $actualSchedToday1->check_fixed_RD,
+                                      // 'check_monthly_RD'=>$actualSchedToday1->check_monthly_RD,
+                                      // 'check_monthly_WS'=>$actualSchedToday1->check_monthly_WS,
+                                      // 'mc'=>$actualSchedToday1->mc,'fc'=> $actualSchedToday1->fc,
+                                      // //'hybridSched_WS_fixed'=>$actualSchedToday1->hybridSched_WS_fixed,
+                                      // 'RDsched'=>$actualSchedToday1->RDsched,
+                                      // 'isFixedSched'=>$actualSchedToday1->isFixedSched,
+
                                       'backOffice' => $backOffice,
                                       'billableForOT' => $billableForOT,
                                       'biometrics_id'=>$bioForTheDay->id,
@@ -6826,6 +6837,7 @@ class DTRController extends Controller
                                       'hasPendingIN' => $userLogIN[0]['hasPendingDTRP'],
                                       'hasPendingOUT' => $userLogOUT[0]['hasPendingDTRP'],
                                       'hdToday'=>$hdToday,
+
                                       'isAproblemShift'=>$isAproblemShift,
                                       'isFixedSched'=>$isFixedSched,
                                       'isFlexitime'=>$schedForToday['isFlexitime'],
@@ -6884,7 +6896,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Oct 09, 2020');
+            //return $myDTR->where('productionDate','Nov 07, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
