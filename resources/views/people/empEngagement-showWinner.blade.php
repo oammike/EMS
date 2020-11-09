@@ -25,8 +25,8 @@
               <div class="box box-primary"  style="background: rgba(256, 256, 256, 0.4);padding:30px">
                 
                 <h1>Congratulations to all the Winners!!!</h1>
-                <p>The Open Access BPO Halloween Story Contest</p>
-                <div class="item text-center" style="background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('../storage/uploads/frightful.jpg'); background-color: #000" >
+                <p>{{$engagement[0]->activity}} : {{$engagement[0]->description}}</p>
+                <div class="item text-center" style="background-size:98%;background-position: top center; background-repeat: no-repeat; background-image: url('../storage/uploads/frightful2020.jpg'); background-color: #000" >
                                    
                      <p style="padding: 5px 30px; margin-bottom: 0px; color:#fff"><div style="margin-top: 95%"></div> 
                      

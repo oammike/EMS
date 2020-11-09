@@ -109,6 +109,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('newPA_formGoal','NewPA_Form_Goal_Controller');
     Route::resource('newPA_form_user','NewPA_Form_User_Controller');
 
+    Route::get('/newPA/allForms', array(
+      'as'=>'performance.allForms',
+      'uses'=>'NewPA_Form_Controller@allForms') );
+
+
     Route::get('/newPA/getFormTypeSettings', array(
       'as'=>'performance.getFormTypeSettings',
       'uses'=>'NewPA_Form_Controller@getFormTypeSettings') );

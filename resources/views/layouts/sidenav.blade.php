@@ -390,6 +390,7 @@
           <a href="#"><i class="fa fa-2x fa-thumbs-up"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Performance</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
             <li @if (Request::is('performance*')) class="active" @endif style="padding-left:20px"><a href="{{action('NewPA_Form_Controller@index')}}"><i class="fa fa-clipboard"></i> View All Forms</a> </li>
+            <li @if (Request::is('performance*')) class="active" @endif style="padding-left:20px"><a href="{{action('NewPA_Form_Controller@allForms')}}"><i class="fa fa-clipboard"></i> Admin View</a> </li>
 
 
           </ul>

@@ -85,6 +85,31 @@ class NewPA_Form_Controller extends Controller
 
     }
 
+    public function allForms()
+    {
+      $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508, 511, 586];
+      if (!in_array($this->user->id, $allowed)) return view('access-denied');
+
+
+      $forms = DB::table('newPA_form')->
+                    join('newPA_type','newPA_form.typeID','=','newPA_type.id')->
+                    select('newPA_form.id','newPA_form.user_id as userID', 'newPA_type.id as typeID', 'newPA_form.name','newPA_form.description','newPA_type.name as type')->get(); 
+                    //NewPA_Form::where('user_id',$this->user->id)->get();
+      $hasExistingForms = DB::table('newPA_form')->
+                          join('newPA_form_user','newPA_form_user.formID','=','newPA_form.id')->
+                          join('users','newPA_form_user.user_id','=','users.id')->
+                          join('positions','users.position_id','=','positions.id')->
+                          select('newPA_form_user.id','newPA_form_user.user_id', 'newPA_form.id as formID','users.firstname','users.lastname','positions.name as jobTitle')->get();
+      $evals = DB::table('newPA_form')->
+                          join('newPA_evals','newPA_evals.form_id','=','newPA_form.id')->
+                          select('newPA_evals.user_id','newPA_evals.id','newPA_evals.finalRating')->get();
+      $evaluatedAlready = collect($evals)->pluck('user_id')->toArray();
+
+      return response()->json(['forms'=>$forms,'hasExistingForms'=>$hasExistingForms,'evals'=>$evals,'evaluatedAlready'=>$evaluatedAlready]);
+
+
+    }
+
     public function create()
     {
         // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy, faith,jill,511, marj

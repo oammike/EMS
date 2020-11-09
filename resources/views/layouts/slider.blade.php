@@ -1,33 +1,20 @@
 
-
-            
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> NOV.10, 2020</strong> PAYOUT <br/>
+            <div class="item active text-center" >
+                  <img src="storage/uploads/howStarted.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-picture-o"></i> How It Started - How It's Going<br/><small>November 09-15, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
+                    <p  style="padding: 30px;" class="text-center">
+                      What’s your <br/><strong>HOW IT STARTED and HOW IT’S GOING</strong> story?<br/><br/>It could be about anything as long as it happened this 2020.</p>
+
                     
-                    Please be informed that our cut-off for Nov. 10 payout is on Nov. 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before FRIDAY 12:00 noon of Nov. 06, 2020</strong>.<br/><br/>
-                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
-
-                   <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
-
-                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.<br/><br/>
-
-                 
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/></p>
-
- 
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',32)}}"> Check out our ECQonnection Wall</a><br/>
                     
-              </div>
+                    
+            </div>
+
+           
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Nov.01-02 2020 Holiday |<br/> All Saints' Day &amp; All Souls Day <br/>
@@ -9278,7 +9265,33 @@ For interested participants and for any questions, please email us at our gmail 
             
             
 
+ <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> NOV.10, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for Nov. 10 payout is on Nov. 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before FRIDAY 12:00 noon of Nov. 06, 2020</strong>.<br/><br/>
+                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
 
+                   <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.<br/><br/>
+
+                 
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
 
                           -->
 

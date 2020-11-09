@@ -379,7 +379,7 @@ class EngagementController extends Controller
                                 join('engagement_entryItems','engagement.id','=','engagement_entryItems.engagement_id')->
                                 join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
                                 //join('engagement_trigger','engagement_trigger.engagement_id','=','engagement.id')->'engagement_trigger.name as triggers'
-                                select('engagement.id','engagement.entriesDeadline','engagement.isContest', 'engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
+                                select('engagement.id','engagement.entriesDeadline','engagement.isContest', 'engagement.name as activity','engagement.startDate','engagement.endDate','engagement.body as content','engagement.description', 'engagement.withVoting','engagement.fairVoting','engagement_entryItems.label','engagement_elements.label as dataType','engagement_entryItems.ordering','engagement_entryItems.id as itemID','engagement.multipleEntry')->
 
                                 get();
                     }break;
@@ -432,7 +432,7 @@ class EngagementController extends Controller
 
 
         //if tapos na ung contest
-        if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate && !$canModerate)
+        if ( $correct->format('Y-m-d H:i:s') >$engagement[0]->endDate)// && !$canModerate
         {
             if ($id != 1 && !$engagement[0]->isContest){
                 return Redirect::action('EngagementController@wall',$id);
@@ -542,6 +542,7 @@ class EngagementController extends Controller
                 $deadline = $engagement[0]->entriesDeadline!=NULL && $correct->format('Y-m-d H:i:s') > $engagement[0]->entriesDeadline;
 
                 return view('people.empEngagement-showContest',compact('engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray', 'deadline'));
+
                 //return view('people.empEngagement-showWinner',compact('tallyEntry','finalTally', 'engagement','id','hasEntry','existingEntry','alreadyVoted','triggers','myTrigger','myTriggerArray'));
 
             }
