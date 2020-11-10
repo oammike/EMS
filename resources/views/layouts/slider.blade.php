@@ -1,5 +1,37 @@
 
-             <div class="item active text-center" >
+             
+
+          <div class="item active text-center" >
+                  <img src="storage/uploads/calamityloan.jpg" width="90%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Message from HR: <br/><span class="text-primary"><i class="fa fa-file-o"></i> Pag-IBIG Calamity Loan Program<br/><small>November 10, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                      We would like to inform you that Pag-IBIG has an ongoing calamity loan program <strong>( with only 5.95 % interest rate).</strong>
+                      <br/><br/>
+                      Pag-IBIG members residing in the following calamity stricken areas may avail the said program:<br/><br/>
+
+                       
+
+                      * Entire Municipality of <strong>Pagalungan, Maguindanao</strong> -Flooding<br/><br/>
+                      * <strong>Lopez, Quezon</strong> – Typhoon Pepito<br/><br/>
+                      * Province of <strong>Albay</strong> – Typhoon Quinta<br/><br/>
+                      * Province of <strong>Oriental Mindoro</strong> – Typhoon Quinta<br/><br/>
+                      * Province of <strong>Cavite</strong> – Typhoon Rolly<br/><br/>
+                      * Province of <strong>Camarines Sur</strong> – Typhoon Rolly<br/><br/>
+                      * Province of <strong>Catanduanes</strong> – Typhoon Rolly<br/><br/><br/>
+
+                      Head over to our <strong class="text-primary">Resources page >> HR Documents</strong> to view and download loan application form:
+                     </p><a class="btn btn-success btn-md" target="_blank" href="{{action('ResourceController@index')}}#resource_2"> View Application Form</a><br/>
+
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/breast_webinar.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>THU November 12, 2020 6-7PM</small><br/>
                   
