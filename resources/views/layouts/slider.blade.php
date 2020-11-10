@@ -1,5 +1,23 @@
 
              <div class="item active text-center" >
+                  <img src="storage/uploads/breast_webinar.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>THU November 12, 2020 6-7PM</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                      You're all invited to join the webinar<br/>
+                      on EARLY DETECTION, SIGNS & SYMPTOMS, MANAGEMENT <BR/>
+                      OF BREAST CANCER
+                     </p><a class="btn btn-success btn-md" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScKoBlN-DvyRVmZn_MgcPKOTh6TIICwNmQj3jhenWYrfpbK2A/viewform?gxids=7628"> Register Now</a><br/>
+
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item  text-center" >
                   <img src="storage/uploads/winnersFrightful.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Congratulations to our Winners!<br/><small>November 09, 2020</small><br/>
                   
