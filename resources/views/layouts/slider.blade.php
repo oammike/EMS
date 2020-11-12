@@ -33,7 +33,7 @@
 
             <div class="item text-center" >
                   <img src="storage/uploads/breast_webinar.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>THU November 12, 2020 6-7PM</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" > <span class="text-danger">[POSTPONED] </span><br/>Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small></small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4> 
