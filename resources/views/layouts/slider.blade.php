@@ -1,25 +1,6 @@
+   
 
-             
-
-          <div class="item active text-center" >
-                  <img src="storage/uploads/breastcancer-awareness.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>FRIDAY Nov.13,2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> 
-                    <p  style="padding: 30px;" class="text-center">
-                      Open Access BPO and Maxicare Healthcare Corporation are going live tonight for a breast cancer awareness webinar.<br/><br/>
-
-                      Join our lecturer Dr. Roel Tolentino with breast cancer survivors Cheche Reyes and Heidi Hocson at 6:00 PM over at <strong>https://meet.google.com/esj-iyoa-kkj</strong> as they talk about early detection, signs and symptoms and management of breast cancer.
-                     </p><a class="btn btn-success btn-md" target="_blank" href="https://meet.google.com/esj-iyoa-kkj"><i class="fa fa-video-camera"></i> Join via Google Meet</a><br/>
-
-                    
-                   
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
+            <div class="item active text-center" >
                   <img src="storage/uploads/calamityloan.jpg" width="90%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Message from HR: <br/><span class="text-primary"><i class="fa fa-file-o"></i> Pag-IBIG Calamity Loan Program<br/><small>November 10, 2020</small><br/>
                   
@@ -51,20 +32,7 @@
 
             
 
-            <div class="item  text-center" >
-                  <img src="storage/uploads/winnersFrightful.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Congratulations to our Winners!<br/><small>November 09, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> <a class="btn btn-success btn-md" href="{{action('EngagementController@show',31)}}"> Check out Frightful Tales 2020</a><br/>
-                    <p  style="padding: 30px;" class="text-center">
-                     </p>
-
-                    
-                   
-                    
-                    
-            </div>
+           
             
 
             <div class="item text-center" >
@@ -84,10 +52,6 @@
 
            
 
-           
-           
-         
-
 
               <div class="item text-center" >
                
@@ -105,7 +69,21 @@
                    
                     
               </div>
-             
+
+              <div class="item  text-center" >
+                  <img src="storage/uploads/winnersFrightful.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Congratulations to our Winners!<br/><small>November 09, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> <a class="btn btn-success btn-md" href="{{action('EngagementController@show',31)}}"> Check out Frightful Tales 2020</a><br/>
+                    <p  style="padding: 30px;" class="text-center">
+                     </p>
+
+                    
+                   
+                    
+                    
+            </div>
 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
@@ -9347,7 +9325,23 @@ For interested participants and for any questions, please email us at our gmail 
                     
             </div>
 
+<div class="item active text-center" >
+                  <img src="storage/uploads/breastcancer-awareness.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>FRIDAY Nov.13,2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                      Open Access BPO and Maxicare Healthcare Corporation are going live tonight for a breast cancer awareness webinar.<br/><br/>
 
+                      Join our lecturer Dr. Roel Tolentino with breast cancer survivors Cheche Reyes and Heidi Hocson at 6:00 PM over at <strong>https://meet.google.com/esj-iyoa-kkj</strong> as they talk about early detection, signs and symptoms and management of breast cancer.
+                     </p><a class="btn btn-success btn-md" target="_blank" href="https://meet.google.com/esj-iyoa-kkj"><i class="fa fa-video-camera"></i> Join via Google Meet</a><br/>
+
+                    
+                   
+                    
+                    
+            </div>
             
 
                           -->
