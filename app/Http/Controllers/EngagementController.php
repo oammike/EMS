@@ -1148,7 +1148,7 @@ class EngagementController extends Controller
 
             }else
             {
-                ($p[0]->nickname) ? $from = $p[0]->nickname." ".$p[0]->lastname : $p[0]->firstname." ".$p[0]->lastname;
+                ($p[0]->nickname) ? $from = $p[0]->nickname." ".$p[0]->lastname : $from = $p[0]->firstname." ".$p[0]->lastname;
 
                 $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified,
                             'from'=>$from,'img'=>$img,'message'=>$p[0]->value,
