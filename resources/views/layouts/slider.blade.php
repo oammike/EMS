@@ -1,6 +1,22 @@
    
 
             <div class="item active text-center" >
+                  <img src="storage/uploads/students.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-picture-o"></i> International Students Day<br/><small>November 17, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      What’s one thing you wish you knew as a student back then?<br/><br/>Post a throwback photo of your student days with your answer as we celebrate International Students Day this week.</p>
+
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',33)}}"> Check out our ECQonnection Wall</a><br/>
+                    
+                    
+            </div>
+
+
+          <div class="item text-center" >
                   <img src="storage/uploads/calamityloan.jpg" width="90%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Message from HR: <br/><span class="text-primary"><i class="fa fa-file-o"></i> Pag-IBIG Calamity Loan Program<br/><small>November 10, 2020</small><br/>
                   
@@ -32,24 +48,7 @@
 
             
 
-           
-            
-
-            <div class="item text-center" >
-                  <img src="storage/uploads/howStarted.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-picture-o"></i> How It Started - How It's Going<br/><small>November 09-15, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      What’s your <br/><strong>HOW IT STARTED and HOW IT’S GOING</strong> story?<br/><br/>It could be about anything as long as it happened this 2020.</p>
-
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',32)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
-
+       
            
 
 
