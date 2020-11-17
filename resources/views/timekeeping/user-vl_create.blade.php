@@ -338,6 +338,7 @@
                                                   'halfdayFrom': $('input[name="coveredshift"]:checked').val(),
                                                   'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
                                                   'forced': forced,
+                                                  'productionDate': mfrom,
                                                   '_token':_token
                                                 },
                                                 success: function(response1){
@@ -826,7 +827,8 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
               case '3': { //2nd half
                             var leaveStart =moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s").add(5,'hours');
                             // moment(leave_from+" "+timestart_old,"MM/D/YYYY h:m A").add(5,'hours');
-                            var leaveEnd = moment(leave_to+" "+timeend_old,"YYYY-MM-D H:m:s");
+                            var leaveEnd = moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s").add(9,'hours'); 
+                            //moment(leave_to+" "+timeend_old,"YYYY-MM-D H:m:s");
 
                             
 

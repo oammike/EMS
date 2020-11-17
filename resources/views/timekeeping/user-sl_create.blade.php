@@ -380,6 +380,7 @@
                                 data.append('forced',forced);
                                 data.append('halfdayFrom',$('input[name="coveredshift"]:checked').val());
                                 data.append('halfdayTo',$('input[name="coveredshift2"]:checked').val());
+                                data.append('productionDate',mfrom);
                                 data.append('_token',_token);
                                 console.log(data);
 

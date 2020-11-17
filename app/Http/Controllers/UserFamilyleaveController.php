@@ -559,6 +559,7 @@ class UserFamilyleaveController extends Controller
        $vl = new User_Familyleave;
        $vl->user_id = $request->userid;
        $vl->leaveType = $request->type;
+        $vl->productionDate = $request->productionDate;
         $vl->leaveStart =  $request->leaveFrom;
         $vl->leaveEnd = $request->leaveTo;
         $vl->notes = $request->reason_vl;

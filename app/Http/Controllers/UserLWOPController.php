@@ -509,6 +509,7 @@ class UserLWOPController extends Controller
        $vl->user_id = $request->id;
        $vl->leaveStart =  $request->leaveFrom;
        $vl->forced = $request->forced;
+       $vl->productionDate = $request->productionDate;
 
         //----- pag blank yung TO:, meaning wholeday sya. So add 9Hours sa FROM
         if($request->leaveTo == '0000-00-00 00:00:00' || is_null($request->leaveTo)){

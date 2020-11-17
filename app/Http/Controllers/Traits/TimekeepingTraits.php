@@ -122,12 +122,23 @@ trait TimekeepingTraits
     switch ($leaveType) {
       /*case 'VL': $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
                   break;*/
-      case 'VL': $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$eod->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+      case 'VL': {
+                  $vl2 =User_VL::where('user_id',$id)->where('productionDate',$thisPayrollDate)->orderBy('created_at','DESC')->get();
+                  if(count($vl2) > 0) $vl1 = $vl2;
+                  else
+                      $vl1 = User_VL::where('user_id',$id)->where('leaveStart','<=',$eod->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+                 }
                   break;
       
       case 'VTO': $vl1 = User_VTO::where('user_id',$id)->where('productionDate',$thisPayrollDate)->orderBy('created_at','DESC')->get();
                   break;
-      case 'SL': $vl1 = User_SL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+      case 'SL': {
+                    $vl2 = User_SL::where('user_id',$id)->where('productionDate',$thisPayrollDate)->orderBy('created_at','DESC')->get();
+
+                    if(count($vl2) > 0) $vl1 = $vl2;
+                    else
+                      $vl1 = User_SL::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
+                  }
                   break;
       case 'FL': $vl1 = User_Familyleave::where('user_id',$id)->where('leaveStart','<=',$endShift->format('Y-m-d H:i:s'))->orderBy('created_at','DESC')->get();
                   break;
@@ -163,7 +174,10 @@ trait TimekeepingTraits
         }
         else
         {
-          $f_dayS = Carbon::parse($vacay->leaveStart,'Asia/Manila');
+
+          if ($vacay->productionDate !== null) $f_dayS = Carbon::parse($vacay->productionDate,'Asia/Manila');
+          else $f_dayS = Carbon::parse($vacay->leaveStart,'Asia/Manila');
+          
           $f_dayE = Carbon::parse($vacay->leaveEnd,'Asia/Manila');
           $full_leave = Carbon::parse($vacay->leaveEnd,'Asia/Manila')->addDays($vacay->totalCredits)->addDays(-1);
           $cf = $vacay->totalCredits;
@@ -1047,13 +1061,13 @@ trait TimekeepingTraits
                   ['user_vl.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_vl.user_id')->
                   
-                select('user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_vl.productionDate','user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
     $SL = DB::table('user_sl')->where([ 
                   ['user_sl.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_sl.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_sl.user_id')->
                   
-                select('user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_sl.productionDate','user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     $all_vto = DB::table('user_vto')->where([ 
                   ['user_vto.productionDate','>=', $startCutoff],
@@ -1066,14 +1080,14 @@ trait TimekeepingTraits
                   ['user_lwop.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_lwop.user_id')->
                   
-                select('user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_lwop.productionDate','user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     $FL = DB::table('user_familyleaves')->where([ 
                   ['user_familyleaves.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_familyleaves.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_familyleaves.user_id')->
                   
-                select('user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_familyleaves.productionDate', 'user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     
     $total = count($VL) + count($SL) + count($LWOP) + count($FL);

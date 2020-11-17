@@ -277,6 +277,7 @@
                   '_token':_token
                 },
                 success: function(response){
+                  console.log("RESP 1");
                   console.log(response);
                   $('input[name="timestart_old"]').val(response.timeStart);
                   $('input[name="timeend_old"]').val(response.timeEnd);
@@ -287,27 +288,7 @@
                   }
                   else
                   {
-
-                    $.ajax({
-                url: "{{action('UserController@getWorkSchedForTheDay',$user->id)}}",
-                type:'POST',
-                async:false,
-                data:{ 
-                 'vl_day': vl_from, 
-                 'isStylized':false,
-                  '_token':_token
-                },
-                success: function(response){
-                  console.log(response);
-                  if (response.timeStart === response.timeEnd )//|| response.isRD == 1
-                  {
-                    alert("\n\nNo need to file for a leave without pay. \nThe selected date falls on a REST DAY."); return false;
-                  }
-                  else
-                  {
-                    
-
-                     if (totalcredits == '0' || totalcredits =='0.00')
+                    if (totalcredits == '0' || totalcredits =='0.00')
                      {
                         var reply = confirm("Indicated date is actually a holiday. No need to file for a single-day LWOP for non-operations personnel.\n\nClick OK to proceed if you're from Operations.");
                         console.log(reply);
@@ -351,7 +332,7 @@
                           });
                         }
                      } 
-                    else 
+                    else //else1
                     {
 
                       if (vl_to == "" || vl_to == vl_from) //one-day leave lang sya
@@ -359,8 +340,12 @@
                                 //check kung anong covered shift
                                   //var mto = moment(vl_to,"MM/D/YYYY").format('YYYY-MM-D');
                                   var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D')
-                                
+                                  var timestart_old1 = $('input[name="timestart_old"]').val();
+                                  var timeend_old1 =  $('input[name="timeend_old"]').val();
+                                  console.log("mfrom: "+mfrom+' | timestart_old1:'+ timestart_old1);
                                   var coveredshifts = getCoveredShifts(coveredshift, mfrom,mfrom, timestart_old1, timeend_old1);
+                                  console.log('coveredshifts:');
+                                  console.log(coveredshifts);
                                   var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
                                   var leaveTo = coveredshifts.leaveEnd.format('YYYY-MM-D H:mm:ss');
                                   console.log("Start: " + leaveFrom);
@@ -382,6 +367,7 @@
                                     {
 
                                       $('input[name="leaveFrom"]').val(leaveFrom);$('input[name="leaveTo"]').val(leaveTo);
+                                      //var vl_from = $('input[name="vl_from"]').val();
                                       console.log("Do ajax");
                         
                                           $.ajax({
@@ -389,6 +375,7 @@
                                                 type:'POST',
                                                 data:{ 
                                                   'id': user_id,
+                                                  'productionDate': mfrom,
                                                   'leaveFrom': leaveFrom,
                                                   'leaveTo': leaveTo,
                                                   'reason_vl': reason_vl,
@@ -408,9 +395,9 @@
                                                       $.notify("LWOP submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                                   
                                                   console.log(response1);
-                                                  window.setTimeout(function(){
-                                                    window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                                  }, 4000);
+                                                  // window.setTimeout(function(){
+                                                  //   window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                                  // }, 4000);
                                                 }
                                               });
                                               
@@ -424,23 +411,20 @@
                                   
                                 
                       } 
-                      else
+                      else //checkIfRestday
                       {
-
                           var mto = moment(vl_to,"MM/D/YYYY").format('YYYY-MM-D');
                           var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D')
                           if ( moment(vl_to,"MM/D/YYYY").isBefore( moment(vl_from,"MM/D/YYYY")) )
                           {
                             
                              $.notify("Invalid 'Until' date. Selected date is past your 'From' date.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-
-
-                            console.log("mto: ");
-                            console.log(mto);
-                            console.log("mfrom: ");
-                            console.log(mfrom); //return false;
+                             console.log("mto: ");
+                             console.log(mto);
+                             console.log("mfrom: ");
+                             console.log(mfrom); //return false;
                           }
-                          else
+                          else //invaid moment
                           {
                             var coveredshifts = getCoveredShifts(coveredshift, mfrom,mto, timestart_old1, timeend_old1);
                             var leaveFrom = coveredshifts.leaveStart.format('YYYY-MM-D H:mm:ss');
@@ -487,57 +471,42 @@
                                               'halfdayTo': $('input[name="coveredshift2"]:checked').val(),
                                               '_token':_token
                                             },
-                                            success: function(response){
+                                            success: function(response)
+                                            {
                                               
-                                             $('#save').fadeOut();
-
-                                              if (response.success == '1')
-                                                        $.notify("LWOP saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                                                        else
-                                                          $.notify("LWOP submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
-                                                      
-                                                      console.log(response);
-                                                      window.setTimeout(function(){
-                                                        window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                                      }, 4000);
-                                                    }
-                                                  });
+                                               $('#save').fadeOut();
+                                               if (response.success == '1')
+                                                          $.notify("LWOP saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                                          else
+                                                            $.notify("LWOP submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
+                                                        
+                                                console.log(response);
+                                                window.setTimeout(function(){
+                                                  window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                                }, 4000);
+                                            }
+                                          });
                           
                                            
                                                 
 
-                                      }
+                              }
 
 
-                                    }//end if else may existing
+                             }//end if else may existing
 
-
-
-
-                                    
-
-                                  }//end if else invalid moment
+                           }//end if else invalid moment
                                   
 
-                              }//end else checkIfRestday
+                      }//end else checkIfRestday       
 
-                              
+                    } //else1
 
-                            }
-                              
-                           
-                          }//end if else no need to file
-                          
+                    
+                  }//end else
 
-                          
-                        }
-                      });//end getworksched for
 
-                  }//end ifelse Resday
-                  
-
-                  
-                }//end success
+                  }
               });
 
             
@@ -883,7 +852,8 @@ function getCoveredShifts(coveredshift, leave_from,leave_to, timestart_old, time
               case '3': { //2nd half
                             var leaveStart =moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s").add(5,'hours');
                             // moment(leave_from+" "+timestart_old,"MM/D/YYYY h:m A").add(5,'hours');
-                            var leaveEnd = moment(leave_to+" "+timeend_old,"YYYY-MM-D H:m:s");
+                            var leaveEnd = moment(leave_from+" "+timestart_old,"YYYY-MM-D H:m:s").add(9,'hours');
+                            //moment(leave_to+" "+timeend_old,"YYYY-MM-D H:m:s");
 
                             
 

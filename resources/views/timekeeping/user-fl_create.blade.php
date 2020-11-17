@@ -315,6 +315,7 @@
                               data.append('attachments',attachments);
                               data.append('userid',userid);
                               data.append('type',"{{$type}}");
+                              data.append('productionDate',mfrom);
                               data.append('leaveFrom',leaveFrom);
                               data.append('leaveTo',leaveTo);
                               data.append('reason_vl',reason_vl);
@@ -417,6 +418,7 @@
                                       data.append('attachments',attachments);
                                       data.append('userid',userid);
                                       data.append('type',"{{$type}}");
+                                      data.append('productionDate',mfrom);
                                       data.append('leaveFrom',leaveFrom);
                                       data.append('leaveTo',leaveTo);
                                       data.append('reason_vl',reason_vl);

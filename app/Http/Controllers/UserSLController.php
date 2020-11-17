@@ -680,8 +680,9 @@ class UserSLController extends Controller
     {
 
         
-       $vl = new User_SL;
-       $vl->user_id = $request->userid;
+        $vl = new User_SL;
+        $vl->user_id = $request->userid;
+        $vl->productionDate = $request->productionDate;
         $vl->leaveStart =  $request->leaveFrom;
         $vl->leaveEnd = $request->leaveTo;
         $vl->notes = $request->reason_vl;

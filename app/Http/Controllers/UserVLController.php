@@ -731,26 +731,36 @@ class UserVLController extends Controller
 
         //$mayExisting = User_VL::where('user_id',$user->id)->where('leaveStart','>=',$vf->startOfDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))->where('leaveStart','<',$vf->addDay()->format('Y-m-d H:i:s'))get();
 
-        $mayExisting = User_VL::where('user_id',$user->id)->where('leaveEnd','>',$vf->format('Y-m-d H:i:s'))->get();
-        $interval = new \DateInterval("P1D");
-        foreach ($mayExisting as $key) {
-                $period = new \DatePeriod(new \DateTime(Carbon::parse($key->leaveStart,'Asia/Manila')->format('Y-m-d')),$interval, new \DateTime(Carbon::parse($key->leaveEnd,'Asia/Manila')->addDays(1)->format('Y-m-d')));
-                //** we need to add 1 more day kasi di incuded sa loop ung leaveEnd
+        $mayExisting1 = User_VL::where('user_id',$user->id)->where('productionDate',$vl_from->format('Y-m-d'))->get();
 
-                foreach ($period as $p) {
+        if (count($mayExisting1) > 0){
+            $mayExisting = $mayExisting1; 
+            $hasVLalready=true;
+        }
+        else{
+            $mayExisting = User_VL::where('user_id',$user->id)->where('leaveEnd','>',$vf->format('Y-m-d H:i:s'))->get();
+            $interval = new \DateInterval("P1D");
+            foreach ($mayExisting as $key) {
+                    $period = new \DatePeriod(new \DateTime(Carbon::parse($key->leaveStart,'Asia/Manila')->format('Y-m-d')),$interval, new \DateTime(Carbon::parse($key->leaveEnd,'Asia/Manila')->addDays(1)->format('Y-m-d')));
+                    //** we need to add 1 more day kasi di incuded sa loop ung leaveEnd
 
-                    //$coll->push(['p'=>$p]);
-                    if($p->format('M d, Y') == $vf->format('M d, Y') ){
-                        $hasVLalready=true;
-                        $coll->push($p->format('M d, Y'));
+                    foreach ($period as $p) {
 
-                        goto mayExistingReturn;
-                        //break 2;
+                        //$coll->push(['p'=>$p]);
+                        if($p->format('M d, Y') == $vf->format('M d, Y') ){
+                            $hasVLalready=true;
+                            $coll->push($p->format('M d, Y'));
+
+                            goto mayExistingReturn;
+                            //break 2;
+                        }
                     }
-                }
-                
+                    
+            }
+
         }
 
+        
 
             //*** if date range is submitted [from-to]
 
@@ -934,6 +944,10 @@ class UserVLController extends Controller
         /*}//end may existing nang VL application*/
 
         mayExistingReturn:
+        //**** we now check if VL is filed 2wk prior to day of leave
+            $prior = Carbon::now('GMT+8')->addDays(14);
+            if ($vl_from < $prior) $notAllowed='1'; else $notAllowed='0';
+
         return response()->json(['notAllowed'=>$notAllowed, 'hasVLalready'=>$hasVLalready,'twoWeeks'=>$prior->format('M d, Y'), 'existingVL'=>$coll, 'creditsToEarn'=>0, 'forLWOP'=>0, 'creditsleft'=>0, 'credits'=> 0 , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>null]);
 
 
@@ -944,7 +958,7 @@ class UserVLController extends Controller
     {
 
         /* -------------- log updates made --------------------- */
-        $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
         fwrite($file, "-------------------\n [". $request->id."] VL REQUEST \n");
         fclose($file);
 
@@ -1057,8 +1071,9 @@ class UserVLController extends Controller
     {
 
         
-       $vl = new User_VL;
-       $vl->user_id = $request->id;
+        $vl = new User_VL;
+        $vl->user_id = $request->id;
+        $vl->productionDate = $request->productionDate;
         $vl->leaveStart =  $request->leaveFrom;
         $vl->leaveEnd = $request->leaveTo;
         $vl->notes = $request->reason_vl;

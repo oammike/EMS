@@ -3496,7 +3496,8 @@ class DTRController extends Controller
         case '5': $result = $this->getAllWorkedHolidays($cutoff,0); break;
       }
 
-      //return $result[0];
+      
+      //return $result;
 
       $jpsData = $result;
       $template = $request->template;
@@ -4082,7 +4083,7 @@ class DTRController extends Controller
       {
 
         if($this->user->id !== 564 ) {
-              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n JPS_".$type." cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
@@ -4165,7 +4166,7 @@ class DTRController extends Controller
                                       ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
                                       
-                                      $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      ($j->productionDate) ? $lstart = Carbon::parse($j->productionDate,'Asia/Manila') : $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
 
                                       if($isParttimer)
                                       {
@@ -4202,7 +4203,8 @@ class DTRController extends Controller
                                     }
                                     else //hindi sya start ng 2nd half
                                     {
-                                      $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      
                                       $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
 
                                     }
@@ -4210,7 +4212,8 @@ class DTRController extends Controller
                                   }
                                   else 
                                   {
-                                    $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                    ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                    
                                     $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
                                   }
 
@@ -4404,7 +4407,7 @@ class DTRController extends Controller
                                     ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
                                     
-                                    $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                    ($jps['data'][0]->productionDate) ? $lstart =Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
 
                                     if($isParttimer)
                                     {
@@ -4441,7 +4444,7 @@ class DTRController extends Controller
                                   }
                                   else //hindi sya start ng 2nd half
                                   {
-                                    $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                    ($jps['data'][0]->productionDate) ? $s = Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
                                     $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                   }
@@ -4449,7 +4452,8 @@ class DTRController extends Controller
                                 }
                                 else 
                                 {
-                                  $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                  ($jps['data'][0]->productionDate) ? $s = Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                  
                                   $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
                                 }
 
@@ -6896,7 +6900,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Nov 07, 2020');
+            //return $myDTR->where('productionDate','Nov 17, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
