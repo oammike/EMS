@@ -1,7 +1,7 @@
    
 
             <div class="item active text-center" >
-                  <img src="storage/uploads/donate.png" style="margin:0 auto;" width="60%" />
+                  <img src="storage/uploads/donation.png" style="margin:0 auto;" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-heart"></i> Typhoon <span class="text-primary">Donation Drive <i class="fa fa-heart"></i> <br/><small>November 18, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
