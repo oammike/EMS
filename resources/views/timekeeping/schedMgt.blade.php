@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Leave Management | EMS</title>
+<title>Schedule Management | EMS</title>
 
 <style type="text/css">
     /* Sortable items */
@@ -65,7 +65,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Leave Management
+        Schedule Management
         
       </h1>
       <ol class="breadcrumb">
@@ -108,22 +108,15 @@
 
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
-                  <a class="pull-right btn btn-primary btn-md" href="{{action('UserController@schedMgt',['type'=>'CWS','from'=>$from, 'to'=>$to])}}"><i class="fa fa-history"></i> Schedule Management</a>
+                  <a class="pull-right btn btn-primary btn-md" href="{{action('UserController@leaveMgt',['type'=>'VL','from'=>$from, 'to'=>$to])}}"><i class="fa fa-calendar"></i> Leave Management</a>
                   <ul class="nav nav-tabs">
 
 
-                    <li @if($type =='VL') class="active" @endif ><a <a href="{{action('UserController@leaveMgt',['type'=>'VL','from'=>$from, 'to'=>$to])}}"><strong class="text-primary "><i class="fa fa-2x fa-plane"></i> Vacation Leaves 
-                      @if($pending_VL)<span class="label label-warning" style="font-size: small;"> ({{$pending_VL}}) </span> @endif </strong></a></li>
-                    <li @if($type =='SL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'SL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-stethoscope"></i> Sick Leaves 
-                      @if($pending_SL)<span class="label label-warning" style="font-size: small;"> ({{$pending_SL}}) </span> @endif</strong></a></li>
-                    <li @if($type =='LWOP') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'LWOP','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-meh-o"></i> LWOP 
-                      @if($pending_LWOP)<span class="label label-warning" style="font-size: small;"> ({{$pending_LWOP}}) </span> @endif</strong></a></li>
-
-                     <li @if($type =='VTO') class="active" @endif ><a <a href="{{action('UserController@leaveMgt',['type'=>'VTO','from'=>$from, 'to'=>$to])}}"><strong class="text-primary "><i class="fa fa-2x fa-history"></i> VTO
-                      @if($pending_VTO)<span class="label label-warning" style="font-size: small;"> ({{$pending_VTO}}) </span> @endif </strong></a></li>
+                    <li @if($type =='CWS') class="active" @endif ><a <a href="{{action('UserController@schedMgt',['type'=>'CWS','from'=>$from, 'to'=>$to])}}"><strong class="text-primary "><i class="fa fa-2x fa-calendar"></i> CWS 
+                      @if($pending_CWS)<span class="label label-warning" style="font-size: small;"> ({{count($pending_CWS)}}) </span> @endif </strong></a></li>
+                    <li @if($type =='DTRP') class="active" @endif ><a href="#" ><strong class="text-primary"><i class="fa fa-2x fa-history"></i> DTRP In | DTRP Out 
+                      @if($pending_DTRP)<span class="label label-warning" style="font-size: small;"> ({{$pending_DTRP}}) </span> @endif</strong></a></li>
                     
-                    <li @if($type =='FL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'FL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-male"></i><i class="fa fa-2x fa-female"></i> ML | PL | SPL 
-                      @if($pending_FL)<span class="label label-warning" style="font-size: small;"> ({{$pending_FL}}) </span> @endif</strong></a></li>
                      @if ($isAdmin) 
                      <!--  <a href="{{action('UserController@create')}} " class="btn btn-sm btn-primary  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
                       -->
@@ -138,16 +131,9 @@
                   <div class="tab-content">
                     @if($canCredit)
                      
-                     <a href="{{action('UserController@leaveMgt_summary')}}" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-download"></i>  Summary </a>
+                    <!--  <a href="{{action('UserController@leaveMgt_summary')}}" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-download"></i>  Summary </a> -->
 
-                     <a  data-toggle="modal" data-target="#myModal_giveNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-line-chart"></i> Give Credits </a>
-
-                    <a  data-toggle="modal" data-target="#myModal_addNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-plus"></i> New </a>
-                     @if($type =='VL')
-                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'VL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-primary pull-right"><i class="fa fa-calendar-check-o"></i> VL Earnings</a>
-                     @elseif($type =='SL')
-                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'SL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-danger pull-right"><i class="fa fa-calendar-check-o"></i> SL Earnings</a>
-                     @endif
+                     
                     @endif
 
                     <div class="tab-pane active" id="tab_1"> <!-- ACTIVE EMPLOYEES -->
@@ -160,10 +146,12 @@
                             <th>Lastname</th>
                             <th width="10%">Firstname</th>
                             <th>Program</th>
-                            <th width="10%">Credits</th>
-                            <th>Period</th>
+                            
+                            <th>Production Date</th>
+                            <th>Old Work Shift</th>
+                            <th>New Work Shift</th>
                             <th>Status</th>
-                            <th width="28%">Action</th>
+                            <th width="18%">Action</th>
                           </thead>
                           <tbody>
                             @foreach($allLeave as $vl)
@@ -172,36 +160,39 @@
                                 <td>{{$vl->lastname}}</td>
                                 <td style="font-size: x-small;">{{$vl->firstname}}</td>
                                 <td>{{$vl->program}}</td>
+                                <td>{{date('Y-m-d', strtotime($vl->productionDate))}}</td>
 
-                                @if($type=='VTO')
-
-                                <td>{{ number_format($vl->totalCredits*0.125,2) }}</td>
-                                @else
-                                <td>{{$vl->totalCredits}}</td>
-
-                                @endif
+                               
 
 
-                                <td style="font-size: x-small;">
-                                  @if($type=='FL')
-                                  <?php switch ($vl->FLtype) {
-                                    case 'ML': $l="Maternity Leave";break;case 'PL': $l="Paternity Leave";break;case 'SPL': $l="Single Parent Leave";break;
-                                  } ?>
-                                  <strong>{{$l}} </strong><br/>
-                                  {{date('M d h:i A', strtotime($vl->leaveStart))}} - {{date('M d h:i A', strtotime($vl->leaveEnd))}}  
+                                <td style="font-size:smaller;">
+                                  
+                                 
+
+                                  @if($vl->isRD)
+                                   <strong class="text-default"> Rest Day</strong><br/><br/>
                                   @else
-                                  <small>{{$label}} </small><br/>
-
-                                      @if($type=='VTO')
-                                      <strong>{{date('M d', strtotime($vl->productionDate))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('M d', strtotime($vl->productionDate))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
-                                      @else
-                                       <strong>{{date('M d', strtotime($vl->leaveStart))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('M d', strtotime($vl->leaveEnd))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
-
-                                      @endif
-
+                                  <strong class="text-default"> {{date('h:i A', strtotime($vl->timeStart_old))}} - {{date('h:i A', strtotime($vl->timeEnd_old))}}</strong>
                                   @endif
 
+                                 
+                               
+
                                 </td>
+                                <td style="font-size:smaller;">
+
+                                  @if($vl->timeStart == $vl->timeEnd)
+                                    <strong class="text-success">Rest Day</strong><br/><br/>
+                                  @else
+
+                                    <strong class="text-success">{{date('h:i A', strtotime($vl->timeStart))}} - {{date('h:i A', strtotime($vl->timeEnd))}}</strong>
+
+                                  @endif
+                               
+
+                                </td>
+
+
                                 <td>
                                   @if($vl->isApproved)
                                   <strong class="text-primary"><i class="fa fa-thumbs-up"></i> Approved</strong>
@@ -214,23 +205,21 @@
                                 <td>
                                   <?php $unrevokeable = \Carbon\Carbon::now()->addDays(-14); ?>
 
-                                  @if($vl->leaveStart < $unrevokeable)
+                                  @if($vl->timeStart < $unrevokeable)
                                   
                                     <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#leaveModal{{$vl->leaveID}}"><i class="fa fa-info-circle"></i> Details </a>
-                                    <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
+                                    
 
-                                    @if($type=='VTO')
-                                      <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from= {{$vl->productionDate}}&to={{$vl->productionDate}}"><i class="fa fa-calendar"></i> DTR </a>
-                                    @else
+                                   
                                       @if($vl->productionDate !== null)
                                           <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->productionDate))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
                                       @else
-                                          <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+                                          <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->timeStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
 
                                       @endif
                                       
 
-                                    @endif
+                                  
 
                                     @if($vl->isApproved != '1')<a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete{{$vl->leaveID}}"><i class="fa fa-trash"></i> </a>@endif
                                   
@@ -243,21 +232,15 @@
                                      
                                     @endif
 
-                                    <a class="btn btn-xs btn-default" href="{{action('UserVLController@showCredits',$vl->userID)}}" target="_blank"><i class="fa fa-calendar-check-o"></i> Leave Credits </a>
-
-                                    @if($type=='VTO')
-                                      <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->productionDate))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
-                                    @else
+                                   
 
                                       @if($vl->productionDate !== null)
                                         <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->productionDate))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
                                       @else
-                                        <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->leaveStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
+                                        <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/{{$vl->userID}}?from={{date('Y-m-d',strtotime($vl->timeStart))}}&to={{date('Y-m-d',strtotime($to))}}"><i class="fa fa-calendar"></i> DTR </a>
 
                                       @endif
                                       
-
-                                    @endif
 
                                     @if($vl->isApproved != '1')
                                     <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete{{$vl->leaveID}}"><i class="fa fa-trash"></i> </a>
@@ -288,8 +271,9 @@
 
                                               <div class="row">
                                                 
-                                                <div class="col-sm-4 text-center"><h5 class="text-primary text-center">Covered Date(s)</h5></div>
-                                                <div class="col-sm-2"><h5 class="text-primary">Credits</h5></div>
+                                                
+                                                <div class="col-sm-2"><h5 class="text-primary"></h5></div>
+                                                <div class="col-sm-4 text-center"><h5 class="text-primary text-center">Work Shift</h5></div>
                                                 <div class="col-sm-6"><h5 class="text-primary">Notes</h5></div>
                                                 
                                                 
@@ -297,30 +281,38 @@
 
                                                <div class="row">
                                                 
-                                                @if($type=='VTO')
-                                                  <div class="col-sm-4 text-center" style="font-size: 12px">{{date('M d, Y [h:i A]',strtotime($vl->productionDate." ".$vl->leaveStart))}}<br/>TO<br/> {{date('M d, Y [h:i A]',strtotime($vl->productionDate." ".$vl->leaveEnd))}}</div>
-
-
+                                                
                                                   <div class="col-sm-2">
-                                                    <p><strong> {{ number_format($vl->totalCredits*0.125,2)}} </strong></p>
-                                                  </div>
-                                                  <div class="col-sm-6">
-                                                   <p>Deduct from: <strong>[{{$vl->deductFrom}}]</strong> <br/>{{$vl->notes}} </p>
+                                                    <p><strong>{{date('M d, Y', strtotime($vl->productionDate))}}  </strong></p>
                                                   </div>
 
-                                                @else
-                                                  <div class="col-sm-4 text-center" style="font-size: 12px">{{date('M d, Y [h:i A]',strtotime($vl->leaveStart))}}<br/>TO<br/> {{date('M d, Y [h:i A]',strtotime($vl->leaveEnd))}}</div>
+                                                  <div class="col-sm-5 text-left" style="font-size: 12px">
+                                                    OLD: 
+                                                    @if($vl->isRD)
+                                                       <strong class="text-default"> Rest Day</strong>
+                                                      @else
+                                                      {{date('h:i A',strtotime($vl->timeStart_old))}} - {{date('h:i A',strtotime($vl->timeEnd_old))}}
+                                                    @endif
+                                                     
+
+                                                    <br/><br/>
+                                                    NEW: 
+                                                     @if($vl->timeStart == $vl->timeEnd)
+                                                        <strong class="text-success">Rest Day</strong><br/><br/>
+                                                      @else
+                                                      {{date('h:i A',strtotime($vl->timeStart))}} - {{date('h:i A',strtotime($vl->timeEnd))}}
+                                                     @endif
+                                                     
+
+                                                    </div>
 
 
-                                                  <div class="col-sm-2">
-                                                    <p><strong> {{$vl->totalCredits}} </strong></p>
-                                                  </div>
-                                                  <div class="col-sm-6">
+                                                  
+                                                  <div class="col-sm-5">
                                                    <p>{{$vl->notes}} </p>
                                                   </div>
 
-                                                @endif
-
+                                               
 
                                                 
 
@@ -378,13 +370,7 @@
                                       <div class="modal-footer no-border">
 
                                         <form action="{{$deleteLink}}{{$vl->leaveID}}" method="POST" class="btn-outline pull-right" id="deleteReq">
-                                          <?php if ($type=='FL'){
-                                                  switch ($vl->FLtype) {
-                                                    case 'ML': $typeid = 16; break;
-                                                    case 'PL': $typeid = 17; break;
-                                                    case 'SPL': $typeid = 18; break;
-                                                  }
-                                                }else $typeid = $notifType;?>
+                                          <?php $typeid = $notifType;?>
                                           <input type="hidden" name="notifType" value="{{$typeid}}" />
                                           <input type="hidden" name="redirect" value="1" />
                                           <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> Yes</button>
@@ -427,27 +413,7 @@
               <!-- /.box -->
             </div><!--end left -->
 
-            <?php ($type=='VL') ? $route="user_vl.addVLupdate" : $route="user_sl.addSLupdate"; ?>
-            @if($type=='VL')
-            @include('layouts.modals-addNewEarnings', [
-                    'modelRoute'=>$route,
-                    'modelID' => '', 
-                    'modalMessage'=> " ",
-                    'modelName'=>$type." Earnings ", 
-                    'modalTitle'=>'Add New', 
-                    'formID'=>'submitSLearn',
-                    'icon'=>'glyphicon-up' ])
-
-            @include('layouts.modals-giveNewEarnings', [
-                    'modelRoute'=>$route,
-                    'modelID' => '', 
-                    'modalMessage'=> " ",
-                    'modelName'=>$type." Earnings ", 
-                    'modalTitle'=>'Give New', 
-                    'formID'=>'submitSLearn',
-                    'icon'=>'glyphicon-up' ])
-
-            @endif
+           
 
 
            
@@ -500,14 +466,8 @@
      
 
       switch(t){
-        case 'VL':  var processlink = "{{action('UserVLController@process')}}"; break;
-        case 'VTO':  var processlink = "{{action('UserVLController@processVTO')}}"; break;
-        case 'SL':  var processlink = "{{action('UserSLController@process')}}";break
-        case 'LWOP':  var processlink = "{{action('UserLWOPController@process')}}";break;
-        case 'FL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
-        case 'ML':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
-        case 'PL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
-        case 'SPL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
+        case 'CWS':  var processlink = "{{action('UserCWSController@process')}}"; break;
+        case 'DTRP':  var processlink = "{{action('UserVLController@processVTO')}}"; break;
       }
 
       confirm('You are about to set this '+t +' as: '+appr);
@@ -527,14 +487,14 @@
                     if (isApproved == '1') {
                       $('#row'+dataid).fadeOut();
                       window.setTimeout(function(){
-                        window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
+                        window.location.href = "{{url('/')}}/schedule_management?type={{$type}}&from="+f+"&to="+to;
                       }, 3000);
                      /*$.notify("Requested "+t+ " marked Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;*/
                     }
                    else {
                     $('#row'+dataid).fadeOut();
                     window.setTimeout(function(){
-                        window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
+                        window.location.href = "{{url('/')}}/schedule_management?type={{$type}}&from="+f+"&to="+to;
                       }, 3000);
                      // $.notify("Submitted "+requesttype+ " for "+res.firstname+" :  Denied.",{className:"error",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} ); window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
                    }
@@ -561,7 +521,7 @@
                       "deferRender": true,
                       "processing":true,
                       "stateSave": false,
-                      "order": [ 5, "desc" ],
+                      "order": [ 6, "desc" ],
                       "lengthMenu": [20, 100, 500],
                       "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
                       
@@ -683,42 +643,11 @@
       console.log(f);
       console.log(t);
 
-      window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+t;
+      window.location.href = "{{url('/')}}/schedule_management?type={{$type}}&from="+f+"&to="+t;
 
    });
   
 
-   $('table').on('click','.claimedcard',function(){
-      var cardid = $(this).attr('data-cardid');
-      var empname = $(this).attr('data-name');
-      var chck = $(this);
-      alert("Claim reward card for employee: "+empname);
-      var _token = "{{ csrf_token() }}";
-
-      $.ajax({
-                      url:"{{action('UserController@claimedcard')}} ",
-                      type:'POST',
-                      data:{id:cardid, _token:_token},
-                      error: function(response)
-                      {
-                          
-                        console.log("Error saving data: ");
-
-                          
-                          return false;
-                      },
-                      success: function(response)
-                      {
-
-                        chck.attr('disabled',true);
-                        console.log(response);
-
-                          return true;
-                      }
-                  });
-
-
-   });
 
    
 

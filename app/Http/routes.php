@@ -469,6 +469,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserController@leaveMgt_summary') );
 
 
+     //---- SCHED MANAGEMENT -------------
+      Route::get('/schedule_management', array(
+      'as'=> 'schedMgt',
+      'uses'=>'UserController@schedMgt') );
+
+
 
     //--- NOTIFS
       Route::post('/user_cws/process', array(

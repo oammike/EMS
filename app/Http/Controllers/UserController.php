@@ -1918,6 +1918,53 @@ class UserController extends Controller
     }
 
 
+    public function schedMgt()
+    {
+      $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-14)->format('m/d/Y'); 
+      (Input::get('to')) ? $to = Input::get('to') : $to = date('m/d/Y');
+
+      (Input::get('type')) ? $type = Input::get('type') : $type = 'CWS';
+      $stamp = Carbon::now('GMT+8');
+
+      $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
+      $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
+
+      if(!$isAdmin){
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n tried SchedMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);return view('access-denied');
+      }
+
+      
+
+     
+
+      $update_credits=null;$update_periods=null;$pending_DTRP=null;
+
+      switch ($type) {
+        case 'CWS':{  $allLeave = $this->getCWS($from,$to,$type);
+                      $pending_CWS = collect($allLeave)->where('isApproved',null);
+                      $label = "Change Work Schedule" ;  $deleteLink = url('/')."/user_cws/deleteThisCWS/"; $notifType = 6;} break;
+        case 'DTRP':{  $label = "DTRP In|Out" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;
+                        } break;
+        
+        default: { $label = "Change Work Schedule";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
+      }
+
+      if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n SchedMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+      //return response()->json(['pendings'=>$pending_CWS, 'all'=>$allLeave]);
+
+      return view('timekeeping.schedMgt',compact('canCredit', 'isAdmin','from','to','allLeave','type','label','pending_CWS','pending_DTRP','deleteLink','notifType')); 
+
+    }
+
+
     public function leaveMgt()
     {
       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 

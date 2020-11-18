@@ -460,7 +460,7 @@ class UserCWSController extends Controller
 
             /* -------------- log updates made --------------------- */
 
-             $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+             $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n [". $cws->id."] CWS update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
                 fclose($file);
 
@@ -504,7 +504,7 @@ class UserCWSController extends Controller
             $cws->push();
 
           /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n [". $cws->id."] CWS update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
             fclose($file);
 

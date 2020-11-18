@@ -1313,6 +1313,35 @@ trait TimekeepingTraits
 
   }
 
+  public function getCWS($from, $to,$type)
+  {
+    
+    $startCutoff = Carbon::parse($from,'Asia/Manila'); 
+    $endCutoff = Carbon::parse($to,'Asia/Manila');
+
+    $startCutoffb = Biometrics::where('productionDate',$startCutoff->format('Y-m-d'))->get();
+    $endCutoffb = Biometrics::where('productionDate',$endCutoff->format('Y-m-d'))->get();
+
+
+
+
+    DB::connection()->disableQueryLog();
+    $leaves = DB::table('user_cws')->where([ 
+                  ['user_cws.biometrics_id','>=', $startCutoffb->first()->id],
+                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                  ])->join('users','users.id','=','user_cws.user_id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('biometrics','biometrics.id','=','user_cws.biometrics_id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_cws.isRD', 'user_cws.id as leaveID','biometrics.productionDate', 'user_cws.biometrics_id', 'user_cws.timeStart','user_cws.timeEnd','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.isApproved','user_cws.approver', 'user_cws.created_at', 'user_cws.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_cws.biometrics_id','<=',$endCutoffb->first()->id)->orderBy('user_cws.isApproved','ASC')->get();
+
+         
+
+   
+   
+    return $leaves;
+
+  }
+
   public function getLeaves($from, $to,$type)
   {
     

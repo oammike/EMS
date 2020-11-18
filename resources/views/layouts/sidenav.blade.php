@@ -593,7 +593,9 @@
 
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@finance_JPS')}}"><i class="fa fa-calculator"></i>JPS Templates </a></li>
 
-             <li style="padding-left:20px" @if ( Request::is('leave_management*') ) class="active" @endif ><a href="{{action('UserController@leaveMgt')}}"><i class="fa fa-calendar"></i> Leave Management</a></li>
+            <li style="padding-left:20px" @if ( Request::is('leave_management*') ) class="active" @endif ><a href="{{action('UserController@leaveMgt')}}"><i class="fa fa-calendar"></i> Leave Management</a></li>
+
+            <li style="padding-left:20px" @if ( Request::is('schedule_management*') ) class="active" @endif ><a href="{{action('UserController@schedMgt')}}"><i class="fa fa-history"></i> Schedule Management</a></li>
 
 
 
