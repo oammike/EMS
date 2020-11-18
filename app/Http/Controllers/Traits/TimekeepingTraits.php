@@ -499,7 +499,9 @@ trait TimekeepingTraits
 
                 $workSched = $hybridSched_WS_monthly;
 
-                (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly : $RDsched = $hybridSched_RD_fixed;
+                (count($hybridSched_RD_monthly) > 0) ? $RDsched = $hybridSched_RD_monthly->where('productionDate', $payday) : $RDsched = $hybridSched_RD_fixed;
+                //$RDsched = $hybridSched_RD_monthly->where('productionDate', $payday)->sortByDesc('created_at');
+
                 $isFixedSched = false;
                 $noWorkSched =false;
 
@@ -948,14 +950,35 @@ trait TimekeepingTraits
         }else
         {
           // know first kung anong meron, RD or workday
-          $rd = $RDsched->where('productionDate',$payday)->sortByDesc('id');
-          $wd = $workSched->where('productionDate',$payday)->sortByDesc('id');
+          $rd = $RDsched->where('productionDate',$payday)->sortByDesc('created_at');
+          $wd = $workSched->where('productionDate',$payday)->sortByDesc('created_at');
           if (count($rd) > 0 )
           {
-            $schedForToday = $rd->first();
-            $isRDToday = true;
-            $RDsched1 = $RDsched;
+            //but first, make sure kung mas updated yung RD kesa WD
+            if (count($wd) > 0)
+            {
+              if ($rd->first()->created_at > $wd->first()->created_at) //RD na talaga sya
+              {
+                $schedForToday = $rd->first();
+                $isRDToday = true;
+                $RDsched1 = $RDsched;
+              }
+              else //mas updated WS
+              {
+                $schedForToday = $wd->first();
+                $isRDToday = false;
+                $RDsched1 = $RDsched;
+              }
 
+            }else
+            {
+              $schedForToday = $rd->first();
+              $isRDToday = true;
+              $RDsched1 = $RDsched;
+
+
+            }
+            
           }else
           {
             $schedForToday = $wd->first();
@@ -980,10 +1003,14 @@ trait TimekeepingTraits
     $c->isFixedSched = $isFixedSched;
     $c->allRD = $RDsched;
 
-    // $c->check_fixed_WS = $check_fixed_WS;
-    // $c->check_fixed_RD = $check_fixed_RD;
-    // $c->check_monthly_RD = $check_monthly_RD;
-    // $c->check_monthly_WS = $check_monthly_WS;
+    
+    $c->workSched = $workSched;
+    $c->check_fixed_WS = $check_fixed_WS;
+    $c->check_fixed_RD = $check_fixed_RD;
+    $c->check_monthly_RD = $check_monthly_RD;
+    $c->check_monthly_WS = $check_monthly_WS;
+    $c->hybridSched_RD_monthly = $hybridSched_RD_monthly;
+    $c->hybridSched_RD_fixed = $hybridSched_RD_fixed;
     // $c->mc = $mc;$c->fc=$fc;
    
     return $c;

@@ -6088,10 +6088,10 @@ class DTRController extends Controller
 
                   $hybridSched_WS_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
                                           where('isRD',0)->groupBy('schedEffectivity');
-                  $hybridSched_WS_monthly = collect($monthlyScheds)->where('isRD',0);
+                  $hybridSched_WS_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',0);
                   $hybridSched_RD_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
                                           where('isRD',1)->groupBy('schedEffectivity');
-                  $hybridSched_RD_monthly = collect($monthlyScheds)->where('isRD',1);
+                  $hybridSched_RD_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',1);
 
                   $RDsched=null;
                   $workSched=null;
@@ -6223,6 +6223,14 @@ class DTRController extends Controller
                   $RDsched = $actualSchedToday->RDsched;
                   $isFixedSched =  $actualSchedToday->isFixedSched;
                   $allRD = $actualSchedToday->allRD;
+
+                  /*$workSched = $actualSchedToday->workSched;
+                  $check_fixed_WS = $actualSchedToday->check_fixed_WS;
+                   $check_fixed_RD =$actualSchedToday->check_fixed_RD;
+                   $check_monthly_RD =$actualSchedToday->check_monthly_RD;
+                   $check_monthly_WS =$actualSchedToday->check_monthly_WS;
+                   $hybridSched_RD_monthly = $actualSchedToday->hybridSched_RD_monthly;
+                   $hybridSched_RD_fixed = $actualSchedToday->hybridSched_RD_fixed;*/
 
                   //another check if part timer: FOR FOREIGN CONTRACTUAL. check if 4h > work hours
                   /*( Carbon::parse($schedForToday['timeStart'],'Asia/Manila')->diffInHours(Carbon::parse($schedForToday['timeEnd'],'Asia/Manila')) > 4) ? $isParttimer=false : $isParttimer=true;
@@ -6420,6 +6428,15 @@ class DTRController extends Controller
                               $myDTR->push([
 
                                   'allData'=>$data,
+                                  // 'workSched'=>$workSched,
+                                  // 'RDsched' => $allRD,
+                                  // 'check_fixed_WS'=> $check_fixed_WS,
+                                  // 'check_fixed_RD'=> $check_fixed_RD,
+                                  // 'check_monthly_RD'=> $check_monthly_RD,
+                                  // 'check_monthly_WS'=> $check_monthly_WS,
+                                  //  'hybridSched_RD_monthly' => $hybridSched_RD_monthly,
+                                  //  'hybridSched_RD_fixed' => $hybridSched_RD_fixed,
+
                                   'approvedOT' => $data[0]['approvedOT'],
                                   'billableForOT' => $data[0]['billableForOT'],
                                   'biometrics_id'=>$bioForTheDay->id,
@@ -6900,7 +6917,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Nov 17, 2020');
+            //return $myDTR->where('productionDate','Nov 10, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
