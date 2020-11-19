@@ -732,7 +732,7 @@ trait TimekeepingTraits
               {
                  //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
 
-                 if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
+                 /*if ((Carbon::parse($check_fixed_RD->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
                  {
                     $workSched = $hybridSched_WS_fixed;
                     $RDsched = $hybridSched_RD_fixed;
@@ -740,13 +740,13 @@ trait TimekeepingTraits
                     $noWorkSched = false;
                  }
                  else
-                 {
+                 {*/
                   //$noWorkSched = true;$workSched = null;$RDsched = null;$isFixedSched = false; $hasCWS=false;
                    $workSched = $hybridSched_WS_fixed;
                     $RDsched = $hybridSched_RD_fixed;
                     $isFixedSched = true;
                     $noWorkSched = false; $hasCWS=false;
-                 }
+                 /*}*/
 
 
               }
