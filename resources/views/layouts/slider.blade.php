@@ -42,7 +42,10 @@
                    </p>
 
                     
-                    <a class="btn btn-success btn-md" href="https://docs.google.com/forms/d/e/1FAIpQLSd_nEkQVr7yKVQy0vWzMVXFPwAO3QW1QAdqoFNMuBkVEZbdyg/viewform?usp=sf_link" target="_blank"> Pledge for Donation Now</a><br/>
+                    <a class="btn btn-success btn-md" href="https://docs.google.com/forms/d/e/1FAIpQLSd_nEkQVr7yKVQy0vWzMVXFPwAO3QW1QAdqoFNMuBkVEZbdyg/viewform?usp=sf_link" target="_blank"> Pledge for Donation Now</a><br/><br/>
+                     Or for those connecting via VPN portal, copy and paste this link:
+                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSd_nEkQVr7yKVQy0vWzMVXFPwAO3QW1QAdqoFNMuBkVEZbdyg/viewform?usp=sf_link" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
                     
                     
             </div>
