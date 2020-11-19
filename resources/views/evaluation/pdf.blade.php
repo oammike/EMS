@@ -1524,7 +1524,7 @@
                             <tr>
                               <td>
                                 @if ( file_exists('public/img/employees/'.$employee->id.'.jpg') )
-                                <?php $idpic = "../public/img/employees".$employee->id.".jpg"; ?>
+                                <?php $idpic = "../public/img/employees/".$employee->id.".jpg"; ?>
 
                                 <img src="{{$idpic}}" class="img-circle pull-left" style="margin-right:10px;" width="80" alt="User Image">
                                 @else
