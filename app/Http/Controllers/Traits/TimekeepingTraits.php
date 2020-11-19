@@ -1004,13 +1004,13 @@ trait TimekeepingTraits
     $c->allRD = $RDsched;
 
     
-    $c->workSched = $workSched;
-    $c->check_fixed_WS = $check_fixed_WS;
-    $c->check_fixed_RD = $check_fixed_RD;
-    $c->check_monthly_RD = $check_monthly_RD;
-    $c->check_monthly_WS = $check_monthly_WS;
-    $c->hybridSched_RD_monthly = $hybridSched_RD_monthly;
-    $c->hybridSched_RD_fixed = $hybridSched_RD_fixed;
+    // $c->workSched = $workSched;
+    // $c->check_fixed_WS = $check_fixed_WS;
+    // $c->check_fixed_RD = $check_fixed_RD;
+    // $c->check_monthly_RD = $check_monthly_RD;
+    // $c->check_monthly_WS = $check_monthly_WS;
+    // $c->hybridSched_RD_monthly = $hybridSched_RD_monthly;
+    // $c->hybridSched_RD_fixed = $hybridSched_RD_fixed;
     // $c->mc = $mc;$c->fc=$fc;
    
     return $c;
