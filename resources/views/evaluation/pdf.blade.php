@@ -1542,7 +1542,7 @@
 
                               </td>
                               <td align="right"><!-- asset('public/img/new-2018-logo.png') -->
-                                <h4 class="text-center"><img src="../../public/img/new-2018-logo.png" style="float:left; padding-left:40px"  />
+                                <h4 class="text-center"><img src="../public/img/new-2018-logo.png" style="float:left; padding-left:40px"  />
                                    {{$evalType->name}}<br/>
                                   <small>Evaluation Period: <strong> {{$startPeriod->format('M d')}} to  {{$endPeriod->format('M d, Y')}}  </strong> </small>
 
@@ -1837,7 +1837,7 @@
                                       <p style="font-size:0.8em; text-transform:uppercase"><br/>
                                   Employee : <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
                                   @if ( file_exists('public/img/employees/'.$employee->id.'-sign.png') ) <?php /*<img src="{{asset('public/img/employees/'.$employee->id.'-sign.png')}}" width="150" style="margin-bottom:-20px" /> */ ?><br/>
-                                  @else <img src="{{asset('public/img/employees/signature.png')}}" width="140" style="margin-bottom:-20px" /><br/> @endif _____________________________
+                                  @else <!-- <img src="{{asset('public/img/employees/signature.png')}}" width="140" style="margin-bottom:-20px" /> --><br/><br/><br/> @endif _____________________________
                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>{{$employee->firstname}} {{$employee->middlename}} {{$employee->lastname}}<br/>
                                   Date : {{date_format(date_create($evalForm->coachingTimestamp),"M d, Y") }}</p>
 
@@ -1863,7 +1863,8 @@
                                       @else
 
                                       <p style="font-size:0.8em; text-transform:uppercase"><br/>
-                                  Evaluator :<br/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><img width="150" src="{{asset('public/img/employees/signature.png')}}" width="150" style="margin-bottom:-20px"/> <br/>_____________________________
+                                  Evaluator :<br/>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><br/>
+                                  <!-- <img width="150" src="{{asset('public/img/employees/signature.png')}}" width="150" style="margin-bottom:-20px"/>  -->_____________________________
                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>{{$evaluator->firstname}} {{$evaluator->lastname}}<br/>
                                   Date :  {{date_format(date_create($evalForm->created_at),"M d, Y") }} </p>
 
