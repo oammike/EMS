@@ -1541,8 +1541,8 @@
                                
 
                               </td>
-                              <td align="right">
-                                <h4 class="text-center"><img src="{{asset('public/img/new-2018-logo.png')}}" style="float:left; padding-left:40px"  />
+                              <td align="right"><!-- asset('public/img/new-2018-logo.png') -->
+                                <h4 class="text-center"><img src="../../public/img/new-2018-logo.png" style="float:left; padding-left:40px"  />
                                    {{$evalType->name}}<br/>
                                   <small>Evaluation Period: <strong> {{$startPeriod->format('M d')}} to  {{$endPeriod->format('M d, Y')}}  </strong> </small>
 
