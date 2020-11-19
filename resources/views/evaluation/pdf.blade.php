@@ -1524,9 +1524,12 @@
                             <tr>
                               <td>
                                 @if ( file_exists('public/img/employees/'.$employee->id.'.jpg') )
-                                <img src="{{asset('public/img/employees/'.$employee->id.'.jpg')}}" class="img-circle pull-left" style="margin-right:10px;" width="80" alt="User Image">
+                                <?php $idpic = "../public/img/employees".$employee->id.".jpg"; ?>
+
+                                <img src="{{$idpic}}" class="img-circle pull-left" style="margin-right:10px;" width="80" alt="User Image">
                                 @else
-                                  <img src="{{asset('public/img/useravatar.png')}}" class="user-image pull-left" alt="Employee Image" width="80" style="margin-right:10px;">
+
+                                  <img src="../public/img/useravatar.png" class="user-image pull-left" alt="Employee Image" width="80" style="margin-right:10px;">
 
                                   @endif
 
