@@ -161,6 +161,51 @@ select:-webkit-autofill:focus {
                 <!-- /.box-info -->
 
 
+              <!-- ****** EVALUATIONS ****** -->
+               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Evaluations</h3>
+
+                      <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                      </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">{{ Form::open(['route' => 'evalForm.grabAllWhosUpFor', 'class'=>'', 'id'=> 'showAll' ]) }}
+                      <h2 class="text-center" style="color:#9c9fa0">Show all those who are up for :</h2>
+                               
+                               <select name="evalType_id" class="form-control pull-left"><!--  -->
+                                <option value="0"> --  Select One -- </option>
+                                
+                                @foreach ($evalTypes as $evalType)
+
+                                  @if( $evalType->id == 1 || $evalType->id == 2 ||$evalType->id == 5  )
+
+                                  @else
+                                     <option value="{{$evalType->id}}"><?php if ($evalType->id==1 ) echo date('Y'); else if($evalType->id==2){ if( date('m')>=7 && date('m')<=12 )echo date('Y'); else echo date('Y')-1;  } ?> {{$evalType->name}}</option>
+
+                                  @endif
+                               
+                                
+                                @endforeach
+                              </select>
+                        
+                       <p class="text-right"> 
+                      {{Form::submit(' Go ', ['class'=>'btn btn-md btn-primary', 'id'=>'showEvalBtn', 'style'=>"margin-top:20px;"])}}</p>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer"  style="background: rgba(35, 165, 220, 0.5)">
+                    
+                    </div>
+                    <!-- /.box-footer -->
+                     {{Form::close()}}
+              </div><!-- /.box -->
+
+
+
 
               @if($fromNDY && $trackerNDY[0]->activated)
 
@@ -201,50 +246,7 @@ select:-webkit-autofill:focus {
 
 
 
-                <!-- ****** EVALUATIONS ****** -->
-               <div class="box box-info" style="background: rgba(256, 256, 256, 0.6)">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Evaluations</h3>
-
-                      <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-                      </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">{{ Form::open(['route' => 'evalForm.grabAllWhosUpFor', 'class'=>'', 'id'=> 'showAll' ]) }}
-                      <h2 class="text-center" style="color:#9c9fa0">Show all those who are up for :</h2>
-                               
-                               <select name="evalType_id" class="form-control pull-left">
-                                <option value="0"> --  Select One -- </option>
-                                
-                                @foreach ($evalTypes as $evalType)
-
-                                  @if($evalType->id == 1 || $evalType->id == 2 ||$evalType->id == 5  )
-
-                                  @else
-                                     <option value="{{$evalType->id}}"><?php if ($evalType->id==1 ) echo date('Y'); else if($evalType->id==2){ if( date('m')>=7 && date('m')<=12 )echo date('Y'); else echo date('Y')-1;  } ?> {{$evalType->name}}</option>
-
-                                  @endif
-                               
-                                
-                                @endforeach
-                              </select>
-                        
-                       <p class="text-right"> 
-                      {{Form::submit(' Go ', ['class'=>'btn btn-md btn-primary', 'id'=>'showEvalBtn', 'style'=>"margin-top:20px;"])}}</p>
-
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer"  style="background: rgba(35, 165, 220, 0.5)">
-                    
-                    </div>
-                    <!-- /.box-footer -->
-                     {{Form::close()}}
-              </div><!-- /.box -->
-
-
+              
 
              
 

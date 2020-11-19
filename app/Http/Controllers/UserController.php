@@ -3883,7 +3883,11 @@ class UserController extends Controller
           $eval = $evs->unique('overAllScore');
           $evalT = EvalType::find($eval->first()->evalSetting_id);
           $evalY = date('Y', strtotime($eval->first()->startPeriod));
-          $evalTitle = $evalY.  " ". $evalT->name;
+
+          if($eval->first()->evalSetting_id==1 || $eval->first()->evalSetting_id==2)
+            $evalTitle = $evalY.  " ". $evalT->name;
+          else
+            $evalTitle =  $evalT->name;
           
           $tiel = ImmediateHead_Campaign::find($evs->first()->evaluatedBy)->immediateHeadInfo; 
           $tl = ImmediateHead::find($tiel->immediateHead_id);
@@ -3924,7 +3928,11 @@ class UserController extends Controller
             $finalGrade = 0;
             $daysCtr = 0;
 
-            foreach ($e as $ev) {
+
+            //don't do this for Annuals:
+            if ($setting->id !== 5 && $setting->id !== 6)
+            {
+              foreach ($e as $ev) {
 
               
                 $startP =Carbon::parse($ev['eval'][0]['startPeriod'],"Asia/Manila");
@@ -3954,7 +3962,7 @@ class UserController extends Controller
 
               }
               
-            else
+              else
              
               $userEvals->push([
                 'evalTitle'=> $ev['evalTitle'],
@@ -3974,7 +3982,11 @@ class UserController extends Controller
 
 
 
+              }
+
             }
+
+            
 
           }else 
           {
@@ -4001,34 +4013,86 @@ class UserController extends Controller
             $finalGrade = 0;
             $daysCtr = 0;
 
-            foreach ($e as $ev) 
+            //don't do this for Annuals:
+            if ($setting->id !== 5 && $setting->id !== 6)
             {
-
-              
-                $startP =Carbon::parse($ev['eval'][0]['startPeriod'],"Asia/Manila");
-                $endP = Carbon::parse($ev['eval'][0]['endPeriod'],"Asia/Manila");
-                $daysHandled = $startP->diffInDays($endP);
-
-                
-
-              //$end = Carbon::parse($e[0]['evalY']."-".$setting->endMonth."-".$setting->endDate,"Asia/Manila");
-
-              if ($totalDays !== 0){
-
-                //*** here we check kung may applicable movement ba
-                if(count($validMvt) > 0 && (($setting->id == 1) || ($setting->id == 2)) )
+                foreach ($e as $ev) 
                 {
-                  $mvtEffectivity = Carbon::parse($validMvt->first()->effectivity,'Asia/Manila');
-                  if ($mvtEffectivity->format('Y-m-d') >= $startP->format('Y-m-d') && $mvtEffectivity->format('Y-m-d')<= $endP->format('Y-m-d')  )
-                  {
 
+                  
+                    $startP =Carbon::parse($ev['eval'][0]['startPeriod'],"Asia/Manila");
+                    $endP = Carbon::parse($ev['eval'][0]['endPeriod'],"Asia/Manila");
+                    $daysHandled = $startP->diffInDays($endP);
 
-                    $totalDays = $mvtEffectivity->diffInDays($end);
                     
-                    if($totalDays !== 0) 
+
+                  //$end = Carbon::parse($e[0]['evalY']."-".$setting->endMonth."-".$setting->endDate,"Asia/Manila");
+
+                  if ($totalDays !== 0){
+
+                    //*** here we check kung may applicable movement ba
+                    if(count($validMvt) > 0 && (($setting->id == 1) || ($setting->id == 2)) )
                     {
-                       $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
-                       $userEvals->push([
+                      $mvtEffectivity = Carbon::parse($validMvt->first()->effectivity,'Asia/Manila');
+                      if ($mvtEffectivity->format('Y-m-d') >= $startP->format('Y-m-d') && $mvtEffectivity->format('Y-m-d')<= $endP->format('Y-m-d')  )
+                      {
+
+
+                        $totalDays = $mvtEffectivity->diffInDays($end);
+                        
+                        if($totalDays !== 0) 
+                        {
+                           $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
+                           $userEvals->push([
+                          'evalTitle'=> $ev['evalTitle'],
+                          'by'=>$ev['evalBy'],
+                          'start'=>$start->format('Y-m-d'),
+                          'end'=>$end->format('Y-m-d'),
+                          'totalDays'=>$totalDays, 
+                          'sP'=>$startP->format('Y-m-d'), 
+                          'eP'=> $endP->format('Y-m-d'), 
+                          'daysHandled'=>$daysHandled, 
+                          'percentage'=> $daysHandled/$totalDays,
+                          'grade'=> $g,
+                          'finalGrade'=> $finalGrade+=(float)$g,
+                          'daysCtr'=> $daysCtr+=$daysHandled,
+                          'missing'=> $totalDays-$daysCtr,
+                          'details'=>$ev['eval']]);
+                        }
+                         else {
+                          $g = number_format(($ev['eval']->first()->overAllScore),2);
+                          $userEvals->push([
+                          'evalTitle'=> $ev['evalTitle'],
+                          'by'=>$ev['evalBy'],
+                          'start'=>$start->format('Y-m-d'),
+                          'end'=>$end->format('Y-m-d'),
+                          'totalDays'=>$totalDays, 
+                          'sP'=>$startP->format('Y-m-d'), 
+                          'eP'=> $endP->format('Y-m-d'), 
+                          'daysHandled'=>$daysHandled, 
+                          'percentage'=> 100,
+                          'grade'=> $g,
+                          'finalGrade'=> $finalGrade+=(float)$g,
+                          'daysCtr'=> $daysCtr+=$daysHandled,
+                          'missing'=> $totalDays-$daysCtr,
+                          'details'=>$ev['eval']]);
+                         }
+                          
+                       
+                        
+
+                      }else
+                      {
+                        goto pushStuff;
+
+                      }
+
+                    } else
+                    {
+                      pushStuff:
+
+                      $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
+                      $userEvals->push([
                       'evalTitle'=> $ev['evalTitle'],
                       'by'=>$ev['evalBy'],
                       'start'=>$start->format('Y-m-d'),
@@ -4043,96 +4107,49 @@ class UserController extends Controller
                       'daysCtr'=> $daysCtr+=$daysHandled,
                       'missing'=> $totalDays-$daysCtr,
                       'details'=>$ev['eval']]);
+
                     }
-                     else {
-                      $g = number_format(($ev['eval']->first()->overAllScore),2);
-                      $userEvals->push([
-                      'evalTitle'=> $ev['evalTitle'],
-                      'by'=>$ev['evalBy'],
-                      'start'=>$start->format('Y-m-d'),
-                      'end'=>$end->format('Y-m-d'),
-                      'totalDays'=>$totalDays, 
-                      'sP'=>$startP->format('Y-m-d'), 
-                      'eP'=> $endP->format('Y-m-d'), 
-                      'daysHandled'=>$daysHandled, 
-                      'percentage'=> 100,
-                      'grade'=> $g,
-                      'finalGrade'=> $finalGrade+=(float)$g,
-                      'daysCtr'=> $daysCtr+=$daysHandled,
-                      'missing'=> $totalDays-$daysCtr,
-                      'details'=>$ev['eval']]);
-                     }
-                      
-                   
+
                     
 
-                  }else
-                  {
-                    goto pushStuff;
+                    
 
                   }
-
-                } else
-                {
-                  pushStuff:
-
-                  $g = number_format(($ev['eval']->first()->overAllScore * ($daysHandled/$totalDays)),2);
+                  
+                else
+                 
                   $userEvals->push([
-                  'evalTitle'=> $ev['evalTitle'],
-                  'by'=>$ev['evalBy'],
-                  'start'=>$start->format('Y-m-d'),
-                  'end'=>$end->format('Y-m-d'),
-                  'totalDays'=>$totalDays, 
-                  'sP'=>$startP->format('Y-m-d'), 
-                  'eP'=> $endP->format('Y-m-d'), 
-                  'daysHandled'=>$daysHandled, 
-                  'percentage'=> $daysHandled/$totalDays,
-                  'grade'=> $g,
-                  'finalGrade'=> $finalGrade+=(float)$g,
-                  'daysCtr'=> $daysCtr+=$daysHandled,
-                  'missing'=> $totalDays-$daysCtr,
-                  'details'=>$ev['eval']]);
+                    'evalTitle'=> $ev['evalTitle'],
+                    'by'=>$ev['evalBy'],
+                    'start'=>$start->format('Y-m-d'),
+                    'end'=>$end->format('Y-m-d'),
+                    'totalDays'=>$totalDays, 
+                    'sP'=>$startP->format('Y-m-d'), 
+                    'eP'=> $endP->format('Y-m-d'), 
+                    'daysHandled'=>$daysHandled, 
+                    'percentage'=> 0,
+                    'grade'=> $g,
+                    'finalGrade'=> $finalGrade+=$g,
+                    'daysCtr'=> $daysCtr+=$daysHandled,
+                    'missing'=>$totalDays-$daysCtr,
+                    'details'=>$ev['eval']]);
+
+
 
                 }
 
-                
-
-                
-
-              }
-              
-            else
-             
-              $userEvals->push([
-                'evalTitle'=> $ev['evalTitle'],
-                'by'=>$ev['evalBy'],
-                'start'=>$start->format('Y-m-d'),
-                'end'=>$end->format('Y-m-d'),
-                'totalDays'=>$totalDays, 
-                'sP'=>$startP->format('Y-m-d'), 
-                'eP'=> $endP->format('Y-m-d'), 
-                'daysHandled'=>$daysHandled, 
-                'percentage'=> 0,
-                'grade'=> $g,
-                'finalGrade'=> $finalGrade+=$g,
-                'daysCtr'=> $daysCtr+=$daysHandled,
-                'missing'=>$totalDays-$daysCtr,
-                'details'=>$ev['eval']]);
 
 
+            }//end if non-annual
 
-            }
-
+            
 
 
           } //END NO MULTIPLE EVALS$userEvals->push($e);
 
         }
 
-
-
-
-
+        
 
         $approvers = $user->approvers;
 

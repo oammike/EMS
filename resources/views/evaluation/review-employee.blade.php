@@ -169,8 +169,8 @@ sidebar-collapse
                             <div class="clearfix"></div>
                              <h1 style="line-height:0.8; margin-top:-10px" class="text-danger pull-right text-right" id="descriptions"></h1>
 
-                             <p class="pull-right" style="border:2px dotted #fff; padding:10px; background-color:#f39c12; font-weight:bold; font-size:0.9em; color:#fff"><em>I've already reviewed my evaluation, and understand that by clicking the button below will save all of my feedback and affix my digital signature to this evaluation.</em><br/>
-                             <a id="reviewBtn" href="#" class="btn btn-md btn-default pull-right" style="margin-top:5px"><i class="fa fa-check"></i> Affix Digital Signature </a></p><div class="clearfix"></div> <!-- onclick="window.print();return false;"  -->
+                             <p class="pull-right" style="border:2px dotted #fff; padding:10px; background-color:#f39c12; font-weight:bold; font-size:0.9em; color:#fff"><em>I've already reviewed my evaluation, and understand that by clicking the button below will save all of my feedback and agree to all the contents written in this evaluation.</em><br/>
+                             <a id="reviewBtn" href="#" class="btn btn-md btn-default pull-right" style="margin-top:5px"><i class="fa fa-check"></i> I Agree </a></p><div class="clearfix"></div> <!-- onclick="window.print();return false;"  -->
                              
                        
                           </div>

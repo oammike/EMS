@@ -78,10 +78,13 @@
                         <div class="nav-tabs-custom">
                           <ul class="nav nav-tabs">
                            
-                            <li @if($type==5) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>5])}}">
+                            <li @if($type==6) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>6])}}">
+                              <strong  @if($type==6) class="text-primary" @else class="text-default" @endif>2020 JAN - DEC<br/> <small>Annual</small></strong></a> </li>
+
+                              <li @if($type==5) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>5])}}">
                               <strong  @if($type==5) class="text-primary" @else class="text-default" @endif>2019 JAN - DEC<br/> <small>Annual</small></strong></a> </li>
 
-                              <li @if($type==1) class="active" @endif><a href="{{action('EvalFormController@index')}}">
+                              <li @if($type==1) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>1])}}">
                               <strong @if($type==1) class="text-primary" @else class="text-default" @endif>January-June <br/> <small>Semi-Annual</small> <span style="font-size:smaller" class="text-danger"></span></strong></a></li>
                             <li @if($type==2) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>2])}}">
                               <strong  @if($type==2) class="text-primary" @else class="text-default" @endif>July-December<br/> <small>Semi-Annual</small></strong></a> </li>
@@ -190,7 +193,7 @@
                         
                         { title: "Eval Type " ,defaultContent: "<i>empty</i>", data:'type',width:'180', render:function(data,type,full,meta){
                           var y = moment(full.year).format('YYYY');
-                          return y+' '+data;
+                          return data;
                         } }, // 2
                         // { title: "Date Evaluated " ,defaultContent: "<i>empty</i>", data:'dateEvaluated',width:'100'}, // 2
                         { title: "Date Evaluated " ,defaultContent: "<i>empty</i>", data:'created_at',width:'100'}, // 2

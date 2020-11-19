@@ -73,8 +73,11 @@ class EvalFormController extends Controller
           case '5': $type = 5;
             # code...
             break;
+          case '5': $type = 6;
+            # code...
+            break;
           
-          default: $type=1;
+          default: $type=6;
             # code...
             break;
         }
@@ -831,9 +834,10 @@ class EvalFormController extends Controller
     {
         $type = Input::get('type');
         DB::connection()->disableQueryLog();
+        $setting = EvalSetting::find($type);
        
 
-        switch ($type) {
+        /*switch ($type) {
           case 1: {
                     $setting = EvalSetting::find(1);
                     // $speriod = Carbon::parse(date('y')."-".$setting->startMonth."-".$setting->startDate)->format('Y-m-d H:i:s');
@@ -874,7 +878,7 @@ class EvalFormController extends Controller
                     // $eperiod = Carbon::parse(date('y')."-".$setting->endMonth."-".$setting->endDate)->format('Y-m-d H:i:s');
                   }break;
            
-        }
+        }*/
          //$allForms = EvalForm::where('evalSetting_id',$setting->id)->where('startPeriod','>=',$speriod)->where('endPeriod','<=',$eperiod)->where('overAllScore','!=','0')->orderBy('created_at','DESC')->get();->where('startPeriod','>=',$speriod)->where('endPeriod','<=',$eperiod)
 
          $evaluations = DB::table('evalForm')->where('evalSetting_id',$setting->id)->where('overAllScore','!=','0')->leftJoin('immediateHead_Campaigns','evalForm.evaluatedBy','=','immediateHead_Campaigns.id')->leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->leftJoin('evalSetting','evalForm.evalSetting_id','=','evalSetting.id')->leftJoin('users','evalForm.user_id','=','users.id')->leftJoin('team','evalForm.user_id','=','team.user_id')->leftJoin('campaign','team.campaign_id','=','campaign.id')->select('evalForm.user_id','evalForm.id','evalForm.startPeriod as year', 'evalSetting.name as type', 'users.lastname','users.firstname','campaign.name as camp','immediateHead.firstname as headFname','immediateHead.lastname as headLname', 'evalForm.overAllScore','evalForm.created_at')->orderBy('evalForm.created_at','DESC')->get(); //chunk(100, 
@@ -1923,7 +1927,237 @@ class EvalFormController extends Controller
                                         
 
                                           $evalBy = User::find($emp->id)->supervisor->immediateHead_Campaigns_id;
-                                          $existing = EvalForm::where('user_id', $emp->id)->where('evalSetting_id',5)->orderBy('id','DESC')->get();
+                                          $existing = EvalForm::where('user_id', $emp->id)->where('evalSetting_id',$request->evalType_id)->orderBy('id','DESC')->get();
+                                          $coll->push(['existing'=>$existing]);
+                                          
+
+
+                                          if (count($existing) == 0 ){
+
+                                             if ($doNotInclude) { /* do nothing */}
+                                              else { 
+                                                $doneEval[$emp->id] = ['evaluated'=>0,'isDraft'=>0, 'evalForm_id'=> null, 'score'=>null, 'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                                //$mySubordinates->push($emp);
+                                                $leadershipcheck = ImmediateHead::where('employeeNumber', $emp->employeeNumber)->get();
+                                                (count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) ? $isLead=true : $isLead=false;
+                                                $mySubordinates->push(['data'=>$emp, 'isLead'=>$isLead]);
+                                              } 
+
+                                          } 
+                                          else 
+                                          {
+                                              //$truegrade = 100-((100-(EvalForm::find( $existing->first()->id)->overAllScore))*0.5);
+                                              // *** VERIFICATION FIRST NA DAPAT INCLUDED OR NOT
+                                              if (!$doNotInclude)
+                                              {
+                                                $theeval = EvalForm::find( $existing->sortByDesc('id')->first()->id);
+                                                $truegrade = $theeval->overAllScore;
+
+                                                if ($theeval->isDraft == 1) 
+                                                  $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$fr->format('M d, Y'),'endPeriod'=>$to->format('M d, Y')];
+                                                else
+                                                  $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($existing->first()->startPeriod)), 'endPeriod'=>$endPeriod->format('M d, Y')];
+
+                                              
+                                              $leadershipcheck = ImmediateHead::where('employeeNumber', $emp->employeeNumber)->get();
+                                              (count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) ? $isLead=true : $isLead=false;
+                                              $mySubordinates->push(['data'=>$emp, 'isLead'=>$isLead]);
+
+                                              }
+
+                                              
+
+                                              
+                                          } 
+
+
+
+
+                                    //$coll->push(['emp'=>$emp->id, 'empMvt'=>$checkMovements]);
+                                  }//end foreach
+
+
+                                
+
+                                 
+                                  /* ---------------------------------------------------------------- 
+
+                                      GET PAST MEMBERS moved to you
+
+                                  /* ---------------------------------------------------------------- */
+
+
+                                  
+                                      $changedImmediateHeads = new Collection;
+                                      $doneMovedEvals = new Collection;
+                                      
+                                      $data = $this->getPastMemberEvals($mc, $evalSetting, $currentPeriod,$endPeriod,null);
+
+                                      $changedImmediateHeads = $data->first()['changedImmediateHeads'];//$data->first()['changedHeads'];//
+                                      
+
+                                      $doneMovedEvals = $data->first()['doneMovedEvals'];
+
+
+                                  
+                                  
+
+                                  return view('showThoseUpForAnnual', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
+
+
+
+
+                            } else {
+
+                                  $existing = EvalForm::where('user_id', $employee->id)->where('evalSetting_id',1)->where('startPeriod',$currentPeriod->startOfDay())->get();
+
+
+                                  if ($existing->isEmpty()) $doneEval[$employee->id] = ['evaluated'=>0, 'evalForm_id'=> null, 'score'=>null, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
+                                  else {
+                                      //$truegrade = 100-((100-(EvalForm::find( $existing->first()->id)->overAllScore))*0.5);
+
+                                              $theeval = EvalForm::find( $existing->sortByDesc('id')->first()->id);
+                                              $truegrade = $theeval->overAllScore;
+
+                                              if ($theeval->isDraft) 
+                                                $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->startOfDay()->format('M d, Y'), 'endPeriod'=>$endPeriod->startOfDay()->format('M d, Y')];
+                                              else
+                                              //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
+                                              $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($existing->first()->startPeriod)), 'endPeriod'=>$endPeriod->format('M d, Y')];
+
+
+
+                                  }
+                                  return view('agentView-showThoseUpFor', compact('employee', 'myCampaign', 'evalTypes', 'evalSetting', 'doneEval')); 
+
+
+                            }//end else an agent
+
+
+                      
+
+                        } break;
+
+                case 6: { //Jan-DEC annual
+
+                            $currentPeriod = Carbon::create(2020,1,1,0,0,0, 'Asia/Manila');
+                            $endPeriod = Carbon::create(2020,12,31,0,0,0, 'Asia/Manila');
+                           
+                            $coll = new Collection;
+
+
+                            if ($this->user->userType_id !== 4 && !($leadershipcheck->isEmpty())) //if not AGENT
+                            {
+                                  $mySubordinates1 =  $myActiveTeam->filter(function ($employee)
+                                                      {   // Contrctual [Foreign] || Regular or Consultant or Floating or Contractual extended
+                                                          return ($employee->status_id == 15 || $employee->status_id == 4 || $employee->status_id == 5 || $employee->status_id == 6 || $employee->status_id == 10 || $employee->status_id == 11 );
+                                                      });
+                                 
+                                  
+
+                                  foreach ($mySubordinates1->sortBy('lastname') as $emp) {
+
+
+                                          /* ------------
+
+                                          We need to check if this subordinate has just been moved to you
+
+                                          ---------------*/
+
+                                          // GET ALL his IH movements from latest to oldest
+                                          $checkMovements = Movement::where('user_id',$emp->id)->where('personnelChange_id','1')->where('isDone','1')->where('effectivity','>=',$currentPeriod->toDateString())->orderBy('effectivity','DESC')->get(); 
+
+
+                                         if (count($checkMovements)>0)
+                                         {
+                                              $checkMovement = $checkMovements->first();
+
+                                              // then isa-isahin mo yung movements, check mo kung ikaw ung latest TL
+                                              foreach ($checkMovements as $mvt) {
+                                                
+                                                if( $myIHCampaignIDs->contains($mvt->immediateHead_details->imHeadCampID_new))
+                                                {
+                                                  $effective = Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila');
+
+                                                      //pag yung movement from eh dateHired, meaning 1st time nya lang na-move..kunin mo yung effectivity start
+                                                      if ($mvt->fromPeriod == $emp->dateHired)
+                                                      {
+                                                        $fr = Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila');
+                                                      } 
+
+                                                      else if (date('Y-m-d',strtotime($mvt->fromPeriod)) > date('Y-m-d',strtotime($currentPeriod)) )
+                                                      { 
+
+                                                          
+                                                          if ( (date('Y-m-d',strtotime($mvt->effectivity)) <= date('Y-m-d',strtotime($endPeriod))) && (date('Y-m-d',strtotime($mvt->effectivity)) >= date('Y-m-d',strtotime($currentPeriod))))  
+                                                            { $fr =  Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila'); 
+                                                            $coll->push(['from'=>$fr, 'pasok'=>date('Y-m-d',strtotime($mvt->fromPeriod)), 'currentPeriod'=>date('Y-m-d',strtotime($currentPeriod))]);  }
+                                                          else
+                                                           {$fr = $currentPeriod->startOfDay(); $coll->push(['no'=>$mvt->immediateHead_details]);}
+
+                                                      } else  {  $coll->push(['from'=>date('Y-m-d',strtotime($mvt->fromPeriod)), 'currentPeriod'=>$currentPeriod->toDateString()]); $fr = Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila'); } //Carbon::createFromFormat('Y-m-d H:i:s', $checkMovement->fromPeriod, 'Asia/Manila'); 
+
+                                                      
+
+                                                      if($mvt->effectivity < $endPeriod->toDateString()){
+                                                          $to = $endPeriod->startOfDay(); // Carbon::createFromFormat('Y-m-d H:i:s', $tillWhen->first()->fromPeriod, 'Asia/Manila'); 
+
+                                                      } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila');     
+
+                                                      /* ------------------ 
+
+                                                          check if hindi sakop ng eval period yung pagkakamove ni employee sa yo
+                                                          
+                                                          ------------------ */
+
+
+                                                          $checkRegularization= DB::table('movement')->leftJoin('movement_statuses','movement.id','=','movement_statuses.movement_id')->where('movement.user_id',$emp->id)->where('movement.effectivity','>=',$currentPeriod->toDateString())->where('movement.effectivity','<=',$endPeriod->toDateString())->where('movement_statuses.status_id_new','4')->select('movement.effectivity')->get();
+
+                                                          if (count($checkRegularization) > 0)
+                                                              $fr = Carbon::parse($checkRegularization[0]->effectivity,"Asia/Manila")->startOfDay();
+
+                                                          if ($mvt->effectivity > $endPeriod->startOfDay())
+                                                          { //if effectivity ng movement eh hindi sakop
+                                                            $doNotInclude = true;
+
+                                                          } else $doNotInclude=false; 
+                                                          
+                                                           //$coll->push(['doNotInclude'=> $doNotInclude]);
+
+
+                                                  break;
+                                                  
+                                                } // else $coll->push(['no'=>$mvt->immediateHead_details]);
+                                                
+                                              }
+                                            
+
+
+                                          } else { 
+
+                                            //we now check first if there was STATUS MOVEMENT for newly regularized
+                                            // GET ALL his STATUS MVT from latest to oldest
+
+
+                                            $checkRegularization= DB::table('movement')->leftJoin('movement_statuses','movement.id','=','movement_statuses.movement_id')->where('movement.user_id',$emp->id)->where('movement.effectivity','>=',$currentPeriod->toDateString())->where('movement.effectivity','<=',$endPeriod->toDateString())->where('movement_statuses.status_id_new','4')->select('movement.effectivity')->get();
+
+                                            if (count($checkRegularization) > 0)
+                                            {
+                                              
+                                              $fr = Carbon::parse($checkRegularization[0]->effectivity,"Asia/Manila")->startOfDay();
+                                              $to = $endPeriod->startOfDay();
+                                              $doNotInclude = false;
+
+                                            } else {
+                                              $fr = $currentPeriod->startOfDay(); $to = $endPeriod->startOfDay(); $doNotInclude=false;
+                                            }
+
+                                          }
+
+                                        
+
+                                          $evalBy = User::find($emp->id)->supervisor->immediateHead_Campaigns_id;
+                                          $existing = EvalForm::where('user_id', $emp->id)->where('evalSetting_id',$request->evalType_id)->orderBy('id','DESC')->get();
                                           $coll->push(['existing'=>$existing]);
                                           
 
@@ -3357,8 +3591,16 @@ class EvalFormController extends Controller
 
                      }  else $rows = null;
 
-                     $summaryValue = PerformanceSummary::where('summary_id',$key->id)->where('evalForm_id',$evalForm->id)->first()->value;
-                     $summaries->push(['summaryID'=>$key->id,'summaryValue'=>$summaryValue,  'header'=>$key->heading,'details'=>$key->description, 'columns'=>$cols, 'rows'=>$rows]);
+                     $summaryValue1 = PerformanceSummary::where('summary_id',$key->id)->where('evalForm_id',$evalForm->id)->get();
+
+                     if (count($summaryValue1) > 0){
+                      $summaryValue = $summaryValue1->first()->value;
+                      $summaries->push(['summaryID'=>$key->id,'summaryValue'=>$summaryValue,  'header'=>$key->heading,'details'=>$key->description, 'columns'=>$cols, 'rows'=>$rows]);
+                     } 
+                     else
+                        $summaryValue = null;
+
+                     
                   }
 
                   $perfSum = PerformanceSummary::where('evalForm_id', $evalForm->id)->get();
@@ -3448,7 +3690,7 @@ class EvalFormController extends Controller
     {
         $evalForm = EvalForm::find($id);
 
-        if (count($evalForm)==0){
+        if (!$evalForm){
               return view('empty');
         } else { //check first if the one reviewing is the owner
 
