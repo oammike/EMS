@@ -6680,6 +6680,7 @@ class DTRController extends Controller
                                       $UT = $data[0]['UT'];
                                       $backOffice = $data[0]['isBackoffice'];
                                       $hdToday = $data[0]['hdToday'];
+
                                       
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
@@ -6776,6 +6777,9 @@ class DTRController extends Controller
                                         $hdToday = $data[0]['hdToday'];
 
 
+                                        //$VTOba = $$data[0]['VTO'];
+
+
                                               
                                       
 
@@ -6839,6 +6843,7 @@ class DTRController extends Controller
                                       // //'hybridSched_WS_fixed'=>$actualSchedToday1->hybridSched_WS_fixed,
                                       // 'RDsched'=>$actualSchedToday1->RDsched,
                                       // 'isFixedSched'=>$actualSchedToday1->isFixedSched,
+                                      //'VTOba'=>$data,
 
                                       'backOffice' => $backOffice,
                                       'billableForOT' => $billableForOT,
@@ -6917,7 +6922,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Nov 10, 2020');
+            //return $myDTR->where('productionDate','Nov 17, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();

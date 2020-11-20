@@ -5516,17 +5516,41 @@ trait TimekeepingTraits
               
               //$workedHours = $workedHours1[0]['workedHours'];
               //------- we need to fix yung over worked hours since  VTO naman --------
-              $UT = number_format($minsLate/60,2);
+              
 
               $shifthrs = $startOfShift->diffInHours($endOfShift);
-              if ($shifthrs > 4)
-                $workedHours = ($shifthrs-1) - $UT;
-              else
-                $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
 
-              $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
-              //$workedHours .= "<br/>". $shifthrs;
-              $workedHours .= "<small>( late IN )</small><br/>";
+
+
+              
+
+               // **** here we check kung yung VTO eh pre or post. Pag to cover preshift
+              // ang worked hours bale eh UT + worked hours
+              if (date('h',strtotime($vtoDeet->startTime)) == $startOfShift->format('h'))
+              {
+                $UT = 0; //number_format($minsLate/60,2);
+                 
+                if ($shifthrs > 4)
+                  $workedHours = ($shifthrs-1) - $UT;
+                else
+                  $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
+
+                $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
+
+              }else
+              {
+                $UT = number_format($minsLate/60,2);
+                if ($shifthrs > 4)
+                  $workedHours = ($shifthrs-1) - $UT;
+                else
+                  $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
+
+                $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
+                 
+                $workedHours .= "<small>( late IN ) </small><br/>";
+
+              }
+             
 
               //$UT = $workedHours1[0]['UT'];
               $actualHrs = $workedHours1[0]['actualHrs'];
