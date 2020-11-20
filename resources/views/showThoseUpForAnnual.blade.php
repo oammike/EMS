@@ -41,7 +41,11 @@
                  
                   @foreach ($evalTypes as $e)
 
-                      @if($e->id !== '5')
+                     
+
+                      @if( $e->id == '1' || $e->id == '2' || $e->id == '5')
+
+                      @else
                      
                        <option @if($evalSetting->id == $e->id) selected="selected" @endif value="{{$e->id}}"><?php if ($e->id==1 ) echo date('Y'); else if($e->id==2){ if( date('m')>=7 && date('m')<=12 )echo date('Y'); else echo date('Y')-1;  } ?> {{$e->name}}</option>
                       @endif

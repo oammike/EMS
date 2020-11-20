@@ -1609,7 +1609,7 @@ class EvalFormController extends Controller
                             //return (['doneMovedEvals'=>$doneMovedEvals, 'changedImmediateHeads'=>$changedImmediateHeads]);
 
                            //return $data;
-                            return view('showThoseUpFor', compact('mySubordinates', 'myCampaign', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
+                            return view('showThoseUpFor', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
 
 
                          } else {
@@ -1768,7 +1768,7 @@ class EvalFormController extends Controller
                             //$doneMovedEvals=null;
 
                            
-                            return view('showThoseUpFor', compact('mySubordinates', 'myCampaign', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
+                            return view('showThoseUpFor', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
 
 
                          } else {
