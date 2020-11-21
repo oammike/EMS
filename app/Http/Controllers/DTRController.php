@@ -3486,6 +3486,7 @@ class DTRController extends Controller
       DB::connection()->disableQueryLog();
       $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
       $cutoffEnd = Carbon::parse($request->cutoffend,'Asia/Manila');
+      $hasProdate=false;
 
       //------ Template type 1= OT | 2= Leaves | 3= CWS
       switch ($request->template) {
@@ -4166,7 +4167,12 @@ class DTRController extends Controller
                                       ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
                                       
-                                      ($j->productionDate) ? $lstart = Carbon::parse($j->productionDate,'Asia/Manila') : $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      if($j->productionDate){
+                                        $lstart = Carbon::parse($j->productionDate,'Asia/Manila');
+                                        $hasProdate=true;
+                                      }else{
+                                        $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      }
 
                                       if($isParttimer)
                                       {
@@ -4177,25 +4183,27 @@ class DTRController extends Controller
                                         {
                                           if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
                                           {
-                                            $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                            ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
 
                                           }
                                           else
                                           {
-                                            $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                            ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                           }
                                         }
                                         else //partime schedule nga sya for today
                                         {
-                                           $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                           
 
                                         }
                                       }
                                       
                                       else
                                       {
-                                         $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                        ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                         
                                          //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                       }
@@ -4407,7 +4415,15 @@ class DTRController extends Controller
                                     ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
                                     
-                                    ($jps['data'][0]->productionDate) ? $lstart =Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                    if($jps['data'][0]->productionDate)
+                                      {
+                                        $lstart =Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila');
+                                        $hasProdate=true;
+                                      }
+                                    else 
+                                      { 
+                                        $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                      }
 
                                     if($isParttimer)
                                     {
@@ -4418,25 +4434,28 @@ class DTRController extends Controller
                                       {
                                         if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
                                         {
-                                          $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                          
 
                                         }
                                         else
                                         {
-                                          $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                          
 
                                         }
                                       }
                                       else //partime schedule nga sya for today
                                       {
-                                         $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                         ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                       }
                                     }
 
                                     else
                                     {
-                                       $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                      ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                       
                                        //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                     }
