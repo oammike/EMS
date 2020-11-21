@@ -5648,6 +5648,7 @@ trait TimekeepingTraits
         {
             //$wh = Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
             $comp->push(['out'=>Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila"),'sched'=>Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")]);
+
             $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
             
              
@@ -5687,6 +5688,7 @@ trait TimekeepingTraits
 
               if ($hasLWOP)
               {
+                  $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")); //->addMinutes(60));
                   $workedHours1 = $this->processLeaves('LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
                   $workedHours .= $workedHours1[0]['workedHours'];
                   $UT = $workedHours1[0]['UT'];
@@ -6670,10 +6672,9 @@ trait TimekeepingTraits
                     //****** part time user
 
                 $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 1st Shift ".$l." </em></small></strong>".$icons;
-                if (!empty($ins) && !empty($outs)  ) { //&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
-                  $workedHours = number_format(($wh/60),2); //."<br/><small>[ *Late IN* ]</small>";
-
-                  
+                if (!empty($ins) && !empty($outs)  ) 
+                { //&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
+                    $workedHours = number_format(($wh/60),2); //."<br/><small>[ *Late IN* ]</small>";
 
                     if ($stat == 12 || $stat ==14)
                     $UT = round((240.0 - $wh)/60,2); 
@@ -6878,6 +6879,7 @@ trait TimekeepingTraits
                 if($leaveType=='LWOP') $workedHours  = 0.0;     
                 else $workedHours = 4 - $deet->totalCredits;
                 $WHcounter = 4 - $deet->totalCredits;
+
                 $workedHours .= "<br/>".$log;
             }
 
