@@ -3486,7 +3486,7 @@ class DTRController extends Controller
       DB::connection()->disableQueryLog();
       $cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
       $cutoffEnd = Carbon::parse($request->cutoffend,'Asia/Manila');
-      $hasProdate=false;
+      
 
       //------ Template type 1= OT | 2= Leaves | 3= CWS
       switch ($request->template) {
@@ -4103,6 +4103,7 @@ class DTRController extends Controller
                         $sheet->appendRow($headers);      
 
                         $arr = [];
+                        $hasProdate=false;
 
                         foreach($jpsData as $jps)
                         {
