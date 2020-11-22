@@ -260,7 +260,7 @@ class UserSLController extends Controller
                             else{
 
                                 $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
-
+                               
                                 //if 4HRs lang work nya, part timer sya or foreign na part timer
                                 //dapat half lang credit nila
                                 if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila')) > 4)

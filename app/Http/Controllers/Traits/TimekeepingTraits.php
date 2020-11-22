@@ -6162,7 +6162,7 @@ trait TimekeepingTraits
       $RDsched_fixed = collect(FixedSchedules::where('user_id',$user->id)->where('isRD',1)->orderBy('created_at','DESC')->get())->
                           groupBy('schedEffectivity');
 
-      // return (['workSched_monthly'=>$workSched_monthly,'RDsched_monthly'=>$RDsched_monthly, 'workSched_fixed'=>$workSched_fixed,'RDsched_fixed'=>$RDsched_fixed]);
+      //return (['workSched_monthly'=>$workSched_monthly,'RDsched_monthly'=>$RDsched_monthly, 'workSched_fixed'=>$workSched_fixed,'RDsched_fixed'=>$RDsched_fixed]);
 
       if (!is_null($RDsched_fixed)) //** understood na if no fixed RD, there's no fixed sched at all
       {
@@ -6296,7 +6296,19 @@ trait TimekeepingTraits
           {
 
             //check mo muna kung alin mas recent between the sched and cws
-            if ($cws->first()->created_at > $sched->created_at){
+            
+
+            //but before that, check mo kung manually set as null yung created at, if yes:CWS NA SYA
+            if( is_object($sched) ){
+              $cwsNa=true;
+              $s = $sched->created_at;
+            }else {
+              $cwsNa=false;
+              $s = $sched['created_at'];
+            }
+
+            if ($cwsNa || $cws->first()->created_at > $s){
+
               //check mo muna kung RD
 
               if ($cws->first()->timeStart == $cws->first()->timeEnd)
