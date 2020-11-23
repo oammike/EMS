@@ -60,15 +60,37 @@
                       <br/><br/>
                       Pag-IBIG members residing in the following calamity stricken areas may avail the said program:<br/><br/>
 
-                       
+                      Pagalungan, Maguindanao (Flooding)<br/><br/>
+                      Lopez, Quezon (Pepito)<br/><br/>
+                      Albay (Quinta)<br/><br/>
+                      Oriental Mindoro (Quinta)<br/><br/>
+                      Batangas (Quinta)<br/><br/>
+                      Occidental Mindoro (Quinta)<br/><br/>
+                      Cavite (Rolly)<br/><br/>
+                      Camarines Sur (Rolly)<br/><br/>
+                      Catanduanes (Rolly)<br/><br/>
+                      Montawal, Maguindanao (Ofel)<br/><br/>
+                      Corcuera, Romblon (Quinta)<br/><br/>
+                      Occidental Mindoro (Quinta)<br/><br/>
+                      Aurora (Ulysses)<br/><br/>
+                      Tuguegarao  (Ulysses)<br/><br/>
+                      Isabela ( Rolly, Siony, Ulysses)<br/><br/>
+                      San Mateo, Rizal (Ulysses)<br/><br/>
+                      Quezon (Rolly)<br/><br/>
+                      Cagayan (Ulysses)<br/><br/>
+                      Rodriguez, Rizal (Ulysses)<br/><br/>
+                      Marikina (Ulysses)<br/><br/>
+                      Entire Luzon (Uly, Quinta, Rolly)<br/><br/>
 
-                      * Entire Municipality of <strong>Pagalungan, Maguindanao</strong> -Flooding<br/><br/>
+                      <!--  
+
+                      * Entire Municipality of <strong>Pagalungan, Maguindanao</strong> -Flooding
                       * <strong>Lopez, Quezon</strong> – Typhoon Pepito<br/><br/>
                       * Province of <strong>Albay</strong> – Typhoon Quinta<br/><br/>
                       * Province of <strong>Oriental Mindoro</strong> – Typhoon Quinta<br/><br/>
                       * Province of <strong>Cavite</strong> – Typhoon Rolly<br/><br/>
                       * Province of <strong>Camarines Sur</strong> – Typhoon Rolly<br/><br/>
-                      * Province of <strong>Catanduanes</strong> – Typhoon Rolly<br/><br/><br/>
+                      * Province of <strong>Catanduanes</strong> – Typhoon Rolly<br/><br/><br/> -->
 
                       Head over to our <strong class="text-primary">Resources page >> HR Documents</strong> to view and download loan application form:
                      </p><a class="btn btn-success btn-md" target="_blank" href="{{action('ResourceController@index')}}#resource_2"> View Application Form</a><br/>
