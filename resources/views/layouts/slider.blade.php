@@ -1,4 +1,4 @@
-   
+
 
             <div class="item active text-center" >
                   <img src="storage/uploads/breastcancer-awareness2.jpg" width="100%" />
@@ -11,6 +11,25 @@
 
                       Join our lecturer Dr. Roel Tolentino with breast cancer survivors Cheche Reyes and Heidi Hocson at 6:00 PM over at <strong>https://meet.google.com/znm-sbht-vao</strong> as they talk about early detection, signs and symptoms and management of breast cancer.
                      </p><a class="btn btn-success btn-md" target="_blank" href="https://meet.google.com/znm-sbht-vao"><i class="fa fa-video-camera"></i> Join via Google Meet</a><br/>
+                    
+            </div>
+
+             <div class="item text-center" >
+                  <img src="storage/uploads/smallbusiness.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-shopping-cart"></i> Small Business Saturday<br/><small>November 28, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      It’s Small Business Saturday this week!<br/><br/>
+
+                      Is there any small business you’ve supported this pandemic that you want to promote here? It could also be something you started!<br/><br/>
+
+                      Post your entry and let’s support local and small businesses together.</p>
+
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',34)}}"> Check out our ECQonnection Wall</a><br/>
+                    
                     
             </div>
 
@@ -33,20 +52,7 @@
 
 
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/students.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-picture-o"></i> International Students Day<br/><small>November 17, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      What’s one thing you wish you knew as a student back then?<br/><br/>Post a throwback photo of your student days with your answer as we celebrate International Students Day this week.</p>
-
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',33)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
+           
 
 
           <div class="item text-center" >
