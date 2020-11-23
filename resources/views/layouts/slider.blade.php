@@ -2,7 +2,7 @@
 
             <div class="item active text-center" >
                   <img src="storage/uploads/breastcancer-awareness2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>TOMORROW Nov.24,2020 (Tue)</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>TONIGHT Nov.24,2020 (Tue)</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4> 
