@@ -1,54 +1,20 @@
    
 
             <div class="item active text-center" >
-                  <img src="storage/uploads/donation.png" style="margin:0 auto;" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-heart"></i> Typhoon <span class="text-primary">Donation Drive <i class="fa fa-heart"></i> <br/><small>November 18, 2020</small><br/>
+                  <img src="storage/uploads/breastcancer-awareness.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>TOMORROW Nov.23,2020 (Tue)</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
-                    </h4>
+                    </h4> 
                     <p  style="padding: 30px;" class="text-center">
-                     The recent strong typhoons Rolly and Ulysses have affected a lot of families in the Luzon area. As part of the community, Open Access BPO will be donating to the victims of this unfortunate event. We are accepting <strong>in-kind, points, and cash donations</strong>.<br/><br/>
+                      Open Access BPO and Maxicare Healthcare Corporation are going live tonight for a breast cancer awareness webinar.<br/><br/>
 
-                    <strong class="text-primary">Points & Cash Donations:</strong><br/><br/>
-                     - Feel free to donate any amount you wish to share. For those who will donate using their points, this will be deducted on Monday, Nov.23 2020. For those who will donate via salary deduction, this will be deducted from the Dec.10,2020 payout.<br/><br/>
-
-                   - The company will match the total amount that will be raised from the donor employees.<br/><br/>
-                   - All monetary donations received by Open Access BPO will be used to purchase additional in-kind donations.<br/><br/>
-                   - For points &amp; cash donations, click the button below.<br/><br/><br/><br/>
-
-                   <strong class="text-primary">In-kind donations:</strong><br/></p>
-
-                   <ul class="text-left" style="margin-left: 30px">
-                                <li>Bottled drinking water</li>
-                                <li>Easy open canned goods</li>
-                                <li>Cup noodles</li>
-                                <li>Biscuits</li>
-                                <li>3-in-1 coffee</li>
-                                <li>Hygiene products <em>(soap, shampoo, toothpaste, toothbrush, sanitary napkins, wet wipes, alcohol)</em></li>
-                                <li>Slippers (for children and/or adults)</li>
-                                <li>Blankets</li>
-                                <li>Mats</li>
-                                <li>Towels</li>
-                                <li>Diapers (baby and/or adult)</li>
-                                <li>Medicine (for headache, cough, colds, diarrhea, antiseptic solution)</li>
-                                <li>Cleaning materials and soaps</li>
-                                <li>Pet food</li>
-                                <li>Face masks and face shields</li>
-                    </ul>
-                    <p  style="padding: 30px;" class="text-center">
-                      Kindly confirm your donations by <strong class="text-danger">Friday, Nov.20</strong>.<br/>
-                      Thank you, Open Access BPO family!
-
-                   </p>
-
-                    
-                    <a class="btn btn-success btn-md" href="https://docs.google.com/forms/d/e/1FAIpQLSd_nEkQVr7yKVQy0vWzMVXFPwAO3QW1QAdqoFNMuBkVEZbdyg/viewform?usp=sf_link" target="_blank"> Pledge for Donation Now</a><br/><br/>
-                     Or for those connecting via VPN portal, copy and paste this link:
-                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSd_nEkQVr7yKVQy0vWzMVXFPwAO3QW1QAdqoFNMuBkVEZbdyg/viewform?usp=sf_link" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                    
+                      Join our lecturer Dr. Roel Tolentino with breast cancer survivors Cheche Reyes and Heidi Hocson at 6:00 PM over at <strong>https://meet.google.com/znm-sbht-vao</strong> as they talk about early detection, signs and symptoms and management of breast cancer.
+                     </p><a class="btn btn-success btn-md" target="_blank" href="https://meet.google.com/znm-sbht-vao"><i class="fa fa-video-camera"></i> Join via Google Meet</a><br/>
                     
             </div>
+
+
 
             <div class="item text-center" >
                   <img src="storage/uploads/students.jpg" width="100%" />
@@ -9374,23 +9340,57 @@ For interested participants and for any questions, please email us at our gmail 
                     
             </div>
 
-<div class="item active text-center" >
-                  <img src="storage/uploads/breastcancer-awareness.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>FRIDAY Nov.13,2020</small><br/>
+              <div class="item active text-center" >
+                  <img src="storage/uploads/donation.png" style="margin:0 auto;" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-heart"></i> Typhoon <span class="text-primary">Donation Drive <i class="fa fa-heart"></i> <br/><small>November 18, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
-                    </h4> 
+                    </h4>
                     <p  style="padding: 30px;" class="text-center">
-                      Open Access BPO and Maxicare Healthcare Corporation are going live tonight for a breast cancer awareness webinar.<br/><br/>
+                     The recent strong typhoons Rolly and Ulysses have affected a lot of families in the Luzon area. As part of the community, Open Access BPO will be donating to the victims of this unfortunate event. We are accepting <strong>in-kind, points, and cash donations</strong>.<br/><br/>
 
-                      Join our lecturer Dr. Roel Tolentino with breast cancer survivors Cheche Reyes and Heidi Hocson at 6:00 PM over at <strong>https://meet.google.com/esj-iyoa-kkj</strong> as they talk about early detection, signs and symptoms and management of breast cancer.
-                     </p><a class="btn btn-success btn-md" target="_blank" href="https://meet.google.com/esj-iyoa-kkj"><i class="fa fa-video-camera"></i> Join via Google Meet</a><br/>
+                    <strong class="text-primary">Points & Cash Donations:</strong><br/><br/>
+                     - Feel free to donate any amount you wish to share. For those who will donate using their points, this will be deducted on Monday, Nov.23 2020. For those who will donate via salary deduction, this will be deducted from the Dec.10,2020 payout.<br/><br/>
+
+                   - The company will match the total amount that will be raised from the donor employees.<br/><br/>
+                   - All monetary donations received by Open Access BPO will be used to purchase additional in-kind donations.<br/><br/>
+                   - For points &amp; cash donations, click the button below.<br/><br/><br/><br/>
+
+                   <strong class="text-primary">In-kind donations:</strong><br/></p>
+
+                   <ul class="text-left" style="margin-left: 30px">
+                                <li>Bottled drinking water</li>
+                                <li>Easy open canned goods</li>
+                                <li>Cup noodles</li>
+                                <li>Biscuits</li>
+                                <li>3-in-1 coffee</li>
+                                <li>Hygiene products <em>(soap, shampoo, toothpaste, toothbrush, sanitary napkins, wet wipes, alcohol)</em></li>
+                                <li>Slippers (for children and/or adults)</li>
+                                <li>Blankets</li>
+                                <li>Mats</li>
+                                <li>Towels</li>
+                                <li>Diapers (baby and/or adult)</li>
+                                <li>Medicine (for headache, cough, colds, diarrhea, antiseptic solution)</li>
+                                <li>Cleaning materials and soaps</li>
+                                <li>Pet food</li>
+                                <li>Face masks and face shields</li>
+                    </ul>
+                    <p  style="padding: 30px;" class="text-center">
+                      Kindly confirm your donations by <strong class="text-danger">Friday, Nov.20</strong>.<br/>
+                      Thank you, Open Access BPO family!
+
+                   </p>
 
                     
-                   
+                    <a class="btn btn-success btn-md" href="https://docs.google.com/forms/d/e/1FAIpQLSd_nEkQVr7yKVQy0vWzMVXFPwAO3QW1QAdqoFNMuBkVEZbdyg/viewform?usp=sf_link" target="_blank"> Pledge for Donation Now</a><br/><br/>
+                     Or for those connecting via VPN portal, copy and paste this link:
+                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSd_nEkQVr7yKVQy0vWzMVXFPwAO3QW1QAdqoFNMuBkVEZbdyg/viewform?usp=sf_link" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
                     
                     
             </div>
+
+
             
 
                           -->
