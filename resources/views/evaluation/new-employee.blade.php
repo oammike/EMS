@@ -102,7 +102,7 @@ sidebar-collapse
                                 <thead>
                                   <tr>
                                     <th class="text-center">Scale</th>
-                                    <th class="text-center">%</th>
+                                   <!--  <th class="text-center">%</th> -->
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Description</th>
                                   </tr>
@@ -111,7 +111,7 @@ sidebar-collapse
                                   @foreach ($ratingScale as $rs)
                                   <tr id="rating-{{$rs->percentage}}" class="ratingTable" data-salaryIncrease="{{$rs->increase}}">
                                     <td><h4>{{$rs->label}}</h4></td>
-                                    <td class="text-center">{{$rs->maxRange}}</td>
+                                    <!-- <td class="text-center">{{$rs->maxRange}}</td> -->
                                     <td class="text-center">{{$rs->status}} </td>
                                     <td class="text-left"><small>{{$rs->description}}</small> </td>
                                   </tr>

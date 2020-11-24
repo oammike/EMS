@@ -46,8 +46,8 @@
                         
                         <th class="col-xs-3">Eval Type</th>
                         <th class="col-xs-1">Overall Score</th>
-                        <th class="col-xs-1">Salary Increase</th>
-                        
+                       <!--  <th class="col-xs-1">Salary Increase</th>
+                         -->
                         <th class="col-xs-2">Eval Period</th>
                         <th class="col-xs-3">Evaluated By</th>
                        
@@ -65,11 +65,11 @@
                             <td>{{$eval['evalType']}}</td>
                             <td>{{$eval['overallScore']}}</td>
                             
-                            @if ($eval['overallScore'] == "DRAFT")
+                           <!--  @if ($eval['overallScore'] == "DRAFT")
                             <td>{{$eval['salaryIncrease']}}</td>
 
                             @else
-                            <td>{{$eval['salaryIncrease']}} %</td>
+                            <td>{{$eval['salaryIncrease']}} %</td> -->
 
                             @endif
                             
