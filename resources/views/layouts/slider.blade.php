@@ -1,20 +1,22 @@
 
 
-            <div class="item active text-center" >
-                  <img src="storage/uploads/breastcancer-awareness2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>TONIGHT Nov.24,2020 (Tue)</small><br/>
+              <div class="item active text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/><span class="text-primary"><i class="fa fa-exclamation-triangle"></i> All Affected Programs<br/><small>Nov.28 -  Dec.01,2020</small><br/><img src="storage/uploads/affected.png" width="100%" /><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4> 
                     <p  style="padding: 30px;" class="text-center">
-                      Open Access BPO and Maxicare Healthcare Corporation are going live tonight for a breast cancer awareness webinar.<br/><br/>
+                      Kindly be informed that there will be a Low Voltage Switch Gear (LVSG) Modernization maintenance that will happen in 6780 Jaka Delivery Site from <strong>1:00 PM of November 28, 2020, until December 1, 2020, at 1:00 PM</strong>. <br/><br/>
 
-                      Join our lecturer Dr. Roel Tolentino with breast cancer survivors Cheche Reyes and Heidi Hocson at 6:00 PM over at <strong>https://meet.google.com/znm-sbht-vao</strong> as they talk about early detection, signs and symptoms and management of breast cancer.
-                     </p><a class="btn btn-success btn-md" target="_blank" href="https://meet.google.com/znm-sbht-vao"><i class="fa fa-video-camera"></i> Join via Google Meet</a><br/>
+                      During the said activity, a temporary power interruption with a minimum of one (1) hour and a maximum of three (3) hours during the ingress and egress is expected. For your reference, here are the scheduled dates:<br/><br/>
+                      Ingress: November 28, 2020, at 1:00 PM<br/><br/>
+                      Egress: December 1, 2020, at 11:00 AM (schedule may vary much earlier than December 1, 2020)<br/><br/>
+                      In line with this event, it is recommended for the affected programs (Onsite workers and At-home workers)  to <strong class="text-danger"> change their VPN Gateway and IP Address temporarily to G2 VPN Gateway during the maintenance. </strong>
+                     </p><a class="btn btn-success btn-md" target="_blank" href="oampi-resources#resource_7"><i class="fa fa-book"></i> Check Out IT Docs >> How To Change Remote Gateway</a><br/>
                     
             </div>
-
-             <div class="item text-center" >
+            <div class="item text-center" >
                   <img src="storage/uploads/smallbusiness.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-shopping-cart"></i> Small Business Saturday<br/><small>November 28, 2020</small><br/>
                   
@@ -33,22 +35,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  
-                  <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/><span class="text-primary"><i class="fa fa-exclamation-triangle"></i> All Affected Programs<br/><small>Nov.23,2020</small><br/><img src="storage/uploads/affected.png" width="100%" /><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> 
-                    <p  style="padding: 30px;" class="text-center">
-                      Kindly be informed that there will be a Low Voltage Switch Gear (LVSG) Modernization maintenance that will happen in 6780 Jaka Delivery Site from <strong>1:00 PM of November 28, 2020, until December 1, 2020, at 1:00 PM</strong>. <br/><br/>
-
-                      During the said activity, a temporary power interruption with a minimum of one (1) hour and a maximum of three (3) hours during the ingress and egress is expected. For your reference, here are the scheduled dates:<br/><br/>
-                      Ingress: November 28, 2020, at 1:00 PM<br/><br/>
-                      Egress: December 1, 2020, at 11:00 AM (schedule may vary much earlier than December 1, 2020)<br/><br/>
-                      In line with this event, it is recommended for the affected programs (Onsite workers and At-home workers)  to <strong class="text-danger"> change their VPN Gateway and IP Address temporarily to G2 VPN Gateway during the maintenance. </strong>
-                     </p><a class="btn btn-success btn-md" target="_blank" href="oampi-resources#resource_7"><i class="fa fa-book"></i> Check Out IT Docs >> How To Change Remote Gateway</a><br/>
-                    
-            </div>
+          
 
 
 
@@ -9435,6 +9422,19 @@ For interested participants and for any questions, please email us at our gmail 
                     
             </div>
 
+              <div class="item active text-center" >
+                  <img src="storage/uploads/breastcancer-awareness2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" > Webinar: <br/><span class="text-primary"><i class="fa fa-user-md"></i> Breast Cancer Awareness<br/><small>TONIGHT Nov.24,2020 (Tue)</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                      Open Access BPO and Maxicare Healthcare Corporation are going live tonight for a breast cancer awareness webinar.<br/><br/>
+
+                      Join our lecturer Dr. Roel Tolentino with breast cancer survivors Cheche Reyes and Heidi Hocson at 6:00 PM over at <strong>https://meet.google.com/znm-sbht-vao</strong> as they talk about early detection, signs and symptoms and management of breast cancer.
+                     </p><a class="btn btn-success btn-md" target="_blank" href="https://meet.google.com/znm-sbht-vao"><i class="fa fa-video-camera"></i> Join via Google Meet</a><br/>
+                    
+            </div>
 
             
 
