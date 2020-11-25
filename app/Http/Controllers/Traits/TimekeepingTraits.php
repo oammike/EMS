@@ -420,7 +420,7 @@ trait TimekeepingTraits
     $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
 
     
-    $check_fixed_RD=null;$check_monthly_RD=null;$check_monthly_WS=null;$mc=null;$fc=null;
+    $check_fixed_RD=null;$check_monthly_RD=null;$check_monthly_WS=null;$mc=null;$fc=null;$rd=null;$wd=null;
 
     if ($hybridSched)
     {
@@ -437,7 +437,8 @@ trait TimekeepingTraits
         $check_fixed_WS_group = $hybridSched_WS_fixed; //collect($check_fixed_WS)->groupBy('schedEffectivity');
 
         //if (count($check_fixed_WS) > 0) //if may fixed WS, check mo kung ano mas updated vs monthly sched
-        if($check_fixed_WS['workday'] !== null)
+        if($check_fixed_WS['workday'] !== null && $check_fixed_WS['created_at'] !== null)
+        //if($check_fixed_WS !== null)
         {
           $check_monthly_WS = $hybridSched_WS_monthly->where('productionDate', $payday)->sortByDesc('created_at');
           //$coll->push(['check_monthly_WS'=>$check_monthly_WS]);
@@ -494,7 +495,9 @@ trait TimekeepingTraits
             }else
             {
 
-              if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
+              (is_object($check_fixed_WS)) ? $toparse = $check_fixed_WS->first()->created_at : $toparse = $check_fixed_WS['created_at'];
+
+              if( Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($toparse,'Asia/Manila')->format('Y-m-d H:i:s')  ) //mas bago si Monthly
               {
 
                 $workSched = $hybridSched_WS_monthly;
@@ -510,7 +513,9 @@ trait TimekeepingTraits
               }
               else //check mo muna validity nung WS na fixed. If no effectivity, then NO SCHED
               {
-                if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
+                (is_object($check_fixed_WS)) ? $toparse = $check_fixed_WS->first()->schedEffectivity : $toparse = $check_fixed_WS['schedEffectivity'];
+
+                if ((Carbon::parse($toparse)->startOfDay() <= $carbonPayday->startOfDay()) || $toparse == null)
                 {
                   $workSched = $hybridSched_WS_fixed;
                   $RDsched = $hybridSched_RD_fixed;
@@ -597,7 +602,9 @@ trait TimekeepingTraits
               $stat =  "fixed na talaga";
               //check mo muna validity nung WS na fixed. If not effective, then NO SCHED
 
-              if ((Carbon::parse($check_fixed_WS->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_WS->first()->schedEffectivity == null)
+              (is_object($check_fixed_WS)) ? $toparse = $check_fixed_WS->first()->schedEffectivity : $toparse = $check_fixed_WS['schedEffectivity'];
+
+              if ((Carbon::parse($toparse)->startOfDay() <= $carbonPayday->startOfDay()) || $toparse == null)
               {
                 $workSched = $hybridSched_WS_fixed;
                 $RDsched = $hybridSched_RD_fixed;
@@ -646,13 +653,13 @@ trait TimekeepingTraits
           
 
 
-        } else //baka RD
+        } else //baka RD or monthly sched sya
         {
           //$check_fixed_RD = $hybridSched_RD_fixed->where('workday',$dayToday)->sortByDesc('created_at');
           $check_fixed_RD = $this->getLatestFixedSchedGrouped($hybridSched_RD_fixed,$payday,$dayToday);
 
           //if (count($check_fixed_RD) > 0) //if may fixed RD, check mo kung ano mas updated vs monthly sched
-          if ( $check_fixed_RD['isRD'] )//$check_fixed_RD['workday'] == null || 
+          if ( $check_fixed_RD['isRD'] && $check_fixed_RD['created_at'] !== null )//$check_fixed_RD['workday'] == null || 
           {
             $stat =  "if may fixed RD, check mo kung ano mas updated vs monthly sched";
 
@@ -660,7 +667,9 @@ trait TimekeepingTraits
 
             if (count($check_monthly_RD) > 0) // if may monthly, compare it vs fixed
             {
-              if( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') ) //mas bago si Monthly
+              (is_object($check_fixed_RD)) ? $toparse = $check_fixed_RD->first()->created_at : $toparse = $check_fixed_RD['created_at'];
+
+              if( Carbon::parse($check_monthly_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($toparse,'Asia/Manila')->format('Y-m-d H:i:s') ) //mas bago si Monthly
               {
                 $workSched = $hybridSched_WS_monthly;
                 $RDsched = $hybridSched_RD_monthly;
@@ -672,7 +681,8 @@ trait TimekeepingTraits
               {
                 //check mo muna validity nung RD na fixed. If not effective, then NO SCHED
 
-                 if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
+                 (is_object($check_fixed_RD)) ? $toparse = $check_fixed_RD->first()->schedEffectivity : $toparse = $check_fixed_RD['schedEffectivity']; //$check_fixed_RD['schedEffectivity'];
+                 if ((Carbon::parse($toparse)->startOfDay() <= $carbonPayday->startOfDay()) || $toparse['schedEffectivity'] == null)
                  {
                   $workSched = $hybridSched_WS_fixed;
                   $RDsched = $hybridSched_RD_fixed;
@@ -699,8 +709,9 @@ trait TimekeepingTraits
 
               if (count($check_monthly_WS) > 0)
               {
-                /*if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )*/
-                if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($check_fixed_RD->created_at,'Asia/Manila')->format('Y-m-d H:i:s')  )
+                
+                (is_object($check_fixed_RD)) ? $toparse = $check_fixed_RD->created_at : $toparse = $check_fixed_RD['created_at'];
+                if(Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s') > Carbon::parse($toparse,'Asia/Manila')->format('Y-m-d H:i:s')  )
                 {
                   // $mc = Carbon::parse($check_monthly_WS->first()->created_at,'Asia/Manila')->format('Y-m-d H:i:s');
                   // $fc = Carbon::parse($check_fixed_RD->created_at,'Asia/Manila')->format('Y-m-d H:i:s');
@@ -713,7 +724,9 @@ trait TimekeepingTraits
                   {
                     //check mo muna validity nung RD na fixed. If not effective, then NO SCHED
 
-                     if ((Carbon::parse($check_fixed_RD->first()->schedEffectivity)->startOfDay() <= $carbonPayday->startOfDay()) || $check_fixed_RD->first()->schedEffectivity == null)
+                    (is_object($check_fixed_RD)) ? $toparse = $check_fixed_RD->schedEffectivity : $toparse = $check_fixed_RD['schedEffectivity'];
+
+                     if ((Carbon::parse($toparse)->startOfDay() <= $carbonPayday->startOfDay()) || $toparse == null)
                      {
 
                       $workSched = $hybridSched_WS_fixed;
@@ -1005,10 +1018,11 @@ trait TimekeepingTraits
 
     
     // $c->workSched = $workSched;
-    // $c->check_fixed_WS = $check_fixed_WS;
-    // $c->check_fixed_RD = $check_fixed_RD;
-    // $c->check_monthly_RD = $check_monthly_RD;
-    // $c->check_monthly_WS = $check_monthly_WS;
+    /*$c->check_fixed_WS = $check_fixed_WS;
+    $c->check_fixed_RD = $check_fixed_RD;
+    $c->check_monthly_RD = $check_monthly_RD;
+    $c->check_monthly_WS = $check_monthly_WS;
+    $c->rd = $rd; $c->wd = $wd;*/
     // $c->hybridSched_RD_monthly = $hybridSched_RD_monthly;
     // $c->hybridSched_RD_fixed = $hybridSched_RD_fixed;
     // $c->mc = $mc;$c->fc=$fc;
@@ -2419,7 +2433,7 @@ trait TimekeepingTraits
   {
     $thesched = null;
 
-    if (count($workSched) > 0)
+    if (  count((array)$workSched) > 0)
       foreach ($workSched as $w) {
       
         if( $w->first()->schedEffectivity <= $payday || is_null($w->first()->schedEffectivity))
@@ -2432,7 +2446,7 @@ trait TimekeepingTraits
     if (is_null($thesched))
     {
       //$sched = ['timeStart'=>null, 'timeEnd'=>'00:00:00','isFlexitime'=>false,'isRD'=>false, 'workday'=>null,'created_at'=>null ];
-      $sched = ['timeStart'=>null, 'timeEnd'=>'null','isFlexitime'=>false,'isRD'=>true, 'workday'=>null,'created_at'=>null ];
+      $sched = ['timeStart'=>null, 'timeEnd'=>'null','isFlexitime'=>false,'isRD'=>true, 'workday'=>null,'created_at'=>null,'schedEffectivity'=>null ];
       // *** null meaning either wala talga or di pa effective yung sched
 
     } else $sched = $thesched;

@@ -6244,12 +6244,14 @@ class DTRController extends Controller
                   $isFixedSched =  $actualSchedToday->isFixedSched;
                   $allRD = $actualSchedToday->allRD;
 
-                  /*$workSched = $actualSchedToday->workSched;
-                  $check_fixed_WS = $actualSchedToday->check_fixed_WS;
+                  //$workSched = $actualSchedToday->workSched;
+                  /*$check_fixed_WS = $actualSchedToday->check_fixed_WS;
                    $check_fixed_RD =$actualSchedToday->check_fixed_RD;
                    $check_monthly_RD =$actualSchedToday->check_monthly_RD;
                    $check_monthly_WS =$actualSchedToday->check_monthly_WS;
-                   $hybridSched_RD_monthly = $actualSchedToday->hybridSched_RD_monthly;
+                   $ard = $hybridSched;
+                   $wd = $actualSchedToday->wd;*/
+                   /*$hybridSched_RD_monthly = $actualSchedToday->hybridSched_RD_monthly;
                    $hybridSched_RD_fixed = $actualSchedToday->hybridSched_RD_fixed;*/
 
                   //another check if part timer: FOR FOREIGN CONTRACTUAL. check if 4h > work hours
@@ -6450,10 +6452,11 @@ class DTRController extends Controller
                                   'allData'=>$data,
                                   // 'workSched'=>$workSched,
                                   // 'RDsched' => $allRD,
-                                  // 'check_fixed_WS'=> $check_fixed_WS,
-                                  // 'check_fixed_RD'=> $check_fixed_RD,
-                                  // 'check_monthly_RD'=> $check_monthly_RD,
-                                  // 'check_monthly_WS'=> $check_monthly_WS,
+                                  /*'check_fixed_WS'=> $check_fixed_WS,
+                                  'check_fixed_RD'=> $check_fixed_RD,
+                                  'check_monthly_RD'=> $check_monthly_RD,
+                                  'check_monthly_WS'=> $check_monthly_WS,
+                                  'ard'=>$ard, 'wd'=>$wd,*/
                                   //  'hybridSched_RD_monthly' => $hybridSched_RD_monthly,
                                   //  'hybridSched_RD_fixed' => $hybridSched_RD_fixed,
 
@@ -6855,10 +6858,10 @@ class DTRController extends Controller
                                     $myDTR->push([
                                       'approvedOT' => $approvedOT,
                                       // 'actualSchedToday1'=>$actualSchedToday1->schedForToday,
-                                      // 'check_fixed_WS'=>$actualSchedToday1->check_fixed_WS,
-                                      // 'check_fixed_RD'=> $actualSchedToday1->check_fixed_RD,
-                                      // 'check_monthly_RD'=>$actualSchedToday1->check_monthly_RD,
-                                      // 'check_monthly_WS'=>$actualSchedToday1->check_monthly_WS,
+                                      /*'check_fixed_WS'=>$actualSchedToday1->check_fixed_WS,
+                                      'check_fixed_RD'=> $actualSchedToday1->check_fixed_RD,
+                                      'check_monthly_RD'=>$actualSchedToday1->check_monthly_RD,
+                                      'check_monthly_WS'=>$actualSchedToday1->check_monthly_WS,*/
                                       // 'mc'=>$actualSchedToday1->mc,'fc'=> $actualSchedToday1->fc,
                                       // //'hybridSched_WS_fixed'=>$actualSchedToday1->hybridSched_WS_fixed,
                                       // 'RDsched'=>$actualSchedToday1->RDsched,
@@ -6942,7 +6945,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Nov 17, 2020');
+            //return $myDTR->where('productionDate','Nov 23, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
