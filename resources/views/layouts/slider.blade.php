@@ -2,6 +2,20 @@
 
               <div class="item active text-center" >
                   
+                 <img src="storage/uploads/thanks2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" > Happy<span class="text-primary">Thanksgiving !!!<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      We hope you have a fun and safe time with your loved ones wherever you plan to spend Thanksgiving this year. <br/><br/> Happy #Thanksgiving!
+</p>
+
+                    
+                    
+            </div>
+            <div class="item text-center" >
+                  
                   <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/><span class="text-primary"><i class="fa fa-exclamation-triangle"></i> All Affected Programs<br/><small>Nov.28 -  Dec.01,2020</small><br/><img src="storage/uploads/affected.png" width="100%" /><br/>
                   
                     <img src="storage/uploads/divider.png" />
