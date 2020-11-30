@@ -1162,8 +1162,10 @@ trait TimekeepingTraits
        $ot = DB::table('user_ot')->where([ 
                     ['user_ot.biometrics_id',$p->id]
                     ])->join('users','users.id','=','user_ot.user_id')->
+                    leftJoin('team','team.user_id','=','user_ot.user_id')->
+                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
                     join('biometrics','user_ot.biometrics_id','=','biometrics.id')->
-                  select('biometrics.productionDate','user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                  select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->get();
       if (count($ot) > 0) {
         $allOTs->push($ot);
         $total += count($ot);
