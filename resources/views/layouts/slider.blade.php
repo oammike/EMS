@@ -48,22 +48,7 @@
             </div>
 
 
-            <div class="item text-center" >
-                  
-                  <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/><span class="text-primary"><i class="fa fa-exclamation-triangle"></i> All Affected Programs<br/><small>Nov.28 -  Dec.01,2020</small><br/><img src="storage/uploads/affected.png" width="100%" /><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> 
-                    <p  style="padding: 30px;" class="text-center">
-                      Kindly be informed that there will be a Low Voltage Switch Gear (LVSG) Modernization maintenance that will happen in 6780 Jaka Delivery Site from <strong>1:00 PM of November 28, 2020, until December 1, 2020, at 1:00 PM</strong>. <br/><br/>
-
-                      During the said activity, a temporary power interruption with a minimum of one (1) hour and a maximum of three (3) hours during the ingress and egress is expected. For your reference, here are the scheduled dates:<br/><br/>
-                      Ingress: November 28, 2020, at 1:00 PM<br/><br/>
-                      Egress: December 1, 2020, at 11:00 AM (schedule may vary much earlier than December 1, 2020)<br/><br/>
-                      In line with this event, it is recommended for the affected programs (Onsite workers and At-home workers)  to <strong class="text-danger"> change their VPN Gateway and IP Address temporarily to G2 VPN Gateway during the maintenance. </strong>
-                     </p><a class="btn btn-success btn-md" target="_blank" href="oampi-resources#resource_7"><i class="fa fa-book"></i> Check Out IT Docs >> How To Change Remote Gateway</a><br/>
-                    
-            </div>
+           
             <div class="item text-center" >
                   <img src="storage/uploads/smallbusiness.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-shopping-cart"></i> Small Business Saturday<br/><small>November 28, 2020</small><br/>
@@ -9496,6 +9481,23 @@ For interested participants and for any questions, please email us at our gmail 
 </p>
 
                     
+                    
+            </div>
+
+             <div class="item text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/><span class="text-primary"><i class="fa fa-exclamation-triangle"></i> All Affected Programs<br/><small>Nov.28 -  Dec.01,2020</small><br/><img src="storage/uploads/affected.png" width="100%" /><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                      Kindly be informed that there will be a Low Voltage Switch Gear (LVSG) Modernization maintenance that will happen in 6780 Jaka Delivery Site from <strong>1:00 PM of November 28, 2020, until December 1, 2020, at 1:00 PM</strong>. <br/><br/>
+
+                      During the said activity, a temporary power interruption with a minimum of one (1) hour and a maximum of three (3) hours during the ingress and egress is expected. For your reference, here are the scheduled dates:<br/><br/>
+                      Ingress: November 28, 2020, at 1:00 PM<br/><br/>
+                      Egress: December 1, 2020, at 11:00 AM (schedule may vary much earlier than December 1, 2020)<br/><br/>
+                      In line with this event, it is recommended for the affected programs (Onsite workers and At-home workers)  to <strong class="text-danger"> change their VPN Gateway and IP Address temporarily to G2 VPN Gateway during the maintenance. </strong>
+                     </p><a class="btn btn-success btn-md" target="_blank" href="oampi-resources#resource_7"><i class="fa fa-book"></i> Check Out IT Docs >> How To Change Remote Gateway</a><br/>
                     
             </div>
 
