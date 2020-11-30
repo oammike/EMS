@@ -73,7 +73,7 @@ sidebar-collapse
 
                               <ul class="nav nav-stacked">
                                 <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee->dateHired), "M d, Y")  }} </span></a></li>
-                                <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
+                               <!--  <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
                                 <li><a href="#">Tardiness <span class="pull-right badge bg-red">N/A</span></a></li>
                                 <li><a href="#">Received Disciplinary Actions <span class="pull-right badge bg-red">N/A</span></a></li>
 
@@ -83,7 +83,7 @@ sidebar-collapse
                                 <li><a href="#">Pending Tasks <span class="pull-right badge ">N/A</span></a></li>
                                 <li><a href="#">Delays <span class="pull-right badge ">N/A</span></a></li>
 
-                                @endif
+                                @endif -->
                                 
                               </ul>
                              <div class="clearfix"></div>
