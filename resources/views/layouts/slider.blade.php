@@ -1,19 +1,37 @@
 
 
-              <div class="item active text-center" >
-                  
-                 <img src="storage/uploads/thanks2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" > Happy<span class="text-primary">Thanksgiving !!!<br/>
+              
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   November 30, 2020 Holiday |<br/> Bonifacio Day <br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      We hope you have a fun and safe time with your loved ones wherever you plan to spend Thanksgiving this year. <br/><br/> Happy #Thanksgiving!
-</p>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>November 30, 2020</strong> is a regular holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
 
-                    
+                    <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
+                    Employees who are required to work during those holidays are eligible for the corresponding premium.<br/><br/>
+
+                    Below is a guide on how the special holiday pay is computed.</p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of Nov 30, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 200%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</pre>
+                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
+ 
                     
             </div>
+
+
             <div class="item text-center" >
                   
                   <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/><span class="text-primary"><i class="fa fa-exclamation-triangle"></i> All Affected Programs<br/><small>Nov.28 -  Dec.01,2020</small><br/><img src="storage/uploads/affected.png" width="100%" /><br/>
@@ -9450,7 +9468,20 @@ For interested participants and for any questions, please email us at our gmail 
                     
             </div>
 
-            
+            <div class="item active text-center" >
+                  
+                 <img src="storage/uploads/thanks2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" > Happy<span class="text-primary">Thanksgiving !!!<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                      We hope you have a fun and safe time with your loved ones wherever you plan to spend Thanksgiving this year. <br/><br/> Happy #Thanksgiving!
+</p>
+
+                    
+                    
+            </div>
 
                           -->
 
