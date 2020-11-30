@@ -2,7 +2,23 @@
 
               
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+             <div class="item active text-center" >
+                  <img src="storage/uploads/boni2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >November 30 is <br/><span class="text-primary"><i class="fa fa-calendar"></i> Bonifacio Day<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                     Today marks the 157th birth anniversary of the father of Philippine Revolution, Gat Andres Bonifacio.<br/><br/>
+
+                      Bonifacio displayed immense courage and love for the country in his search for independence. May his legacy continue to live on.<br/><br/>
+
+                      #WeSpeakYourLanguage #OACelebratesHeroes #BonifacioDay</p>
+
+               
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   November 30, 2020 Holiday |<br/> Bonifacio Day <br/>
                   
                     <img src="storage/uploads/divider.png" />
