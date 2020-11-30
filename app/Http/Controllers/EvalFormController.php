@@ -905,6 +905,10 @@ class EvalFormController extends Controller
         $coll = new Collection;
         $me = $mc->first();
         $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
+        $camp = Team::where('user_id',$this->user->id)->get();
+
+        $myCurrentTeam = ImmediateHead_Campaign::where('campaign_id',$camp->first()->campaign_id)->where('immediateHead_id',$me1->first()->id)->get();
+       
         
 
         if ($this->user->userType_id !== 4 && !($leadershipcheck->isEmpty())) //if not AGENT, therefore may mga subordinates
@@ -942,7 +946,7 @@ class EvalFormController extends Controller
         $evalSetting = EvalSetting::find($request->evalType_id);
         $doneEval = new Collection;
 
-
+        $colle = new Collection;
 
        /* -------- THIS IS A TEMPORARY SOLUTION TO HANDLE PERIODS ----- */
 
@@ -1837,6 +1841,7 @@ class EvalFormController extends Controller
                                           // GET ALL his IH movements from latest to oldest
                                           $checkMovements = Movement::where('user_id',$emp->id)->where('personnelChange_id','1')->where('isDone','1')->where('effectivity','>=',$currentPeriod->toDateString())->orderBy('effectivity','DESC')->get(); 
 
+                                         
 
                                          if (count($checkMovements)>0)
                                          {
@@ -2044,7 +2049,7 @@ class EvalFormController extends Controller
                             $endPeriod = Carbon::create(2020,12,31,0,0,0, 'Asia/Manila');
                            
                             $coll = new Collection;
-
+                            $colle = new Collection;
 
                             if ($this->user->userType_id !== 4 && !($leadershipcheck->isEmpty())) //if not AGENT
                             {
@@ -2067,6 +2072,8 @@ class EvalFormController extends Controller
                                           // GET ALL his IH movements from latest to oldest
                                           $checkMovements = Movement::where('user_id',$emp->id)->where('personnelChange_id','1')->where('isDone','1')->where('effectivity','>=',$currentPeriod->toDateString())->orderBy('effectivity','DESC')->get(); 
 
+                                          $currentPeriod = Carbon::create(2020,1,1,0,0,0, 'Asia/Manila');
+
 
                                          if (count($checkMovements)>0)
                                          {
@@ -2077,6 +2084,12 @@ class EvalFormController extends Controller
                                                 
                                                 if( $myIHCampaignIDs->contains($mvt->immediateHead_details->imHeadCampID_new))
                                                 {
+
+                                                  //check mo kung ikaw curent TL. If yes, then effective kung kelan na-transfer sayo == CURRENT PERIOD
+                                                  $currentTL = Team::where('user_id',$mvt->user_id)->first()->immediateHead_Campaigns_id;
+
+                                                  if ($myIHCampaignIDs->contains($currentTL)) $currentPeriod = Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila');
+
                                                   $effective = Carbon::createFromFormat('Y-m-d H:i:s', $mvt->effectivity, 'Asia/Manila');
 
                                                       //pag yung movement from eh dateHired, meaning 1st time nya lang na-move..kunin mo yung effectivity start
@@ -2121,6 +2134,8 @@ class EvalFormController extends Controller
                                                             $doNotInclude = true;
 
                                                           } else $doNotInclude=false; 
+
+                                                           //$colle->push(['mc'=>$mc, 'emp'=>$emp, 'checkMovements'=>$checkMovements,'currentPeriod'=>$currentPeriod, 'myIHCampaignIDs'=>$myIHCampaignIDs]);
                                                           
                                                            //$coll->push(['doNotInclude'=> $doNotInclude]);
 
@@ -2157,7 +2172,7 @@ class EvalFormController extends Controller
                                         
 
                                           $evalBy = User::find($emp->id)->supervisor->immediateHead_Campaigns_id;
-                                          $existing = EvalForm::where('user_id', $emp->id)->where('evalSetting_id',$request->evalType_id)->orderBy('id','DESC')->get();
+                                          $existing = EvalForm::where('user_id', $emp->id)->where('evalSetting_id',$request->evalType_id)->where('evaluatedBy',$evalBy)->orderBy('id','DESC')->get(); //$myCurrentTeam->first()->id
                                           $coll->push(['existing'=>$existing]);
                                           
 
@@ -2231,7 +2246,7 @@ class EvalFormController extends Controller
 
                                   
                                   
-
+                                  //return $colle;
                                   return view('showThoseUpForAnnual', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
 
 

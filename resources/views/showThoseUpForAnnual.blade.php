@@ -120,16 +120,16 @@
                             <div class="box-footer no-padding">
                               
                               <ul class="nav nav-stacked">
-                                <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee['data']->dateHired), "M d, Y")  }} </span></a></li>
-                                <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
+                                <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee['data']->dateHired), "M d, Y")  }} </span></a></li><br/><br/><br/><br/>
+                               <!--  <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
                                 <li><a href="#">Tardiness <span class="pull-right badge bg-red">N/A</span></a></li>
-                                <li><a href="#">Issued Disciplinary Actions <span class="pull-right badge bg-red">N/A</span></a></li>
+                                <li><a href="#">Issued Disciplinary Actions <span class="pull-right badge bg-red">N/A</span></a></li> -->
 
                                 
 
                                 @if ($doneEval[$employee['data']->id]['evaluated' ]&& $doneEval[$employee['data']->id]['score'] != 0 && !$doneEval[$employee['data']->id]['isDraft'])
                                 <li><a href="#">
-                                  <span class="pull-left"><strong>Current Rating</strong> <br/>
+                                  <span class="pull-left"><strong>Rating</strong> <br/>
                                     <small>{{$doneEval[$employee['data']->id]['startPeriod'] }} - {{$doneEval[$employee['data']->id]['endPeriod'] }} </small></span><h3 class="pull-right text-danger">{{$doneEval[$employee['data']->id]['score']}} %</h3></a></li>
                               
 
@@ -329,16 +329,16 @@
                                   <div class="box-footer no-padding">
                                     
                                     <ul class="nav nav-stacked">
-                                      <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee['dateHired']), "M d, Y")  }} </span></a></li>
-                                      <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
+                                      <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee['dateHired']), "M d, Y")  }} </span></a></li><br/><br/><br/><br/>
+                                      <!-- <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
                                       <li><a href="#">Tardiness <span class="pull-right badge bg-red">N/A</span></a></li>
-                                      <li><a href="#">Received Disciplinary Actions <span class="pull-right badge bg-red">N/A</span></a></li>
+                                      <li><a href="#">Received Disciplinary Actions <span class="pull-right badge bg-red">N/A</span></a></li> -->
 
                                      
 
                                       @if ($x->first()['evaluated' ]&& $x->first()['score'] != 0)
                                       <li><a href="#">
-                                        <span class="pull-left"><strong>Current Rating</strong> <br/>
+                                        <span class="pull-left"><strong>Rating</strong> <br/>
                                           <small>
                                          
                                             {{date('M d, Y',strtotime($x->first()['startPeriod']))  }} to  {{date('M d, Y',strtotime($x->first()['endPeriod']))  }}</small></span><h3 class="pull-right text-danger">{{$x->first()['score']}} %</h3></a></li>
