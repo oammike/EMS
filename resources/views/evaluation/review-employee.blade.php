@@ -71,7 +71,7 @@ sidebar-collapse
 
                               <ul class="nav nav-stacked">
                                 <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee->dateHired), "M d, Y")  }} </span></a></li>
-                                <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
+                               <!--  <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
                                 <li><a href="#">Tardiness <span class="pull-right badge bg-red">N/A</span></a></li>
                                 <li><a href="#">Received Disciplinary Actions <span class="pull-right badge bg-red">N/A</span></a></li>
 
@@ -82,7 +82,7 @@ sidebar-collapse
                                 <li><a href="#">Delays <span class="pull-right badge ">N/A</span></a></li>
 
                                 @endif
-
+ -->
                                
                                 <!-- <li><a href="#">
                                   <span class="pull-left">Previous Evaluation <br/>
@@ -116,7 +116,7 @@ sidebar-collapse
                                 <thead>
                                   <tr>
                                     <th class="text-center">Scale</th>
-                                    <th class="text-center">%</th>
+                                   <!--  <th class="text-center">%</th> -->
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Description</th>
                                   </tr>
@@ -125,7 +125,7 @@ sidebar-collapse
                                   @foreach ($ratingScale as $rs)
                                   <tr id="rating-{{$rs->percentage}}" class="ratingTable" data-salaryIncrease="{{$rs->increase}}">
                                     <td><h4>{{$rs->label}}</h4></td>
-                                    <td class="text-center">{{$rs->maxRange}}</td>
+                                    <!-- <td class="text-center">{{$rs->maxRange}}</td> -->
                                     <td class="text-center">{{$rs->status}} </td>
                                     <td class="text-left"><small>{{$rs->description}}</small> </td>
                                   </tr>

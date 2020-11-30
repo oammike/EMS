@@ -1614,7 +1614,7 @@
                              
                                             <tr>
                                               <td class="text-center">Rating</td>
-                                              <td class="text-center">%</td>
+                                              <td class="text-center">Range</td>
                                               <td class="text-center">Status</td>
                                               
                                             </tr>
