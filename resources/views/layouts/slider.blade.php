@@ -2,7 +2,27 @@
 
               
 
-             <div class="item active text-center" >
+               <div class="item active text-center" >
+                  <img src="storage/uploads/group2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Group Photos 2020<br/><small>December 01, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                     It’s the last month of 2020 today!<br/><br/>
+
+                    Share your group photos with your team taken this year – it could be pre-lockdown or your google meet/zoom photos!<br/><br/>
+
+                                          Post as many entries as you want and earn points.</p>
+
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',35)}}"> Check out our ECQonnection Wall</a><br/>
+                    
+                    
+            </div>
+
+
+            <div class="item text-center" >
                   <img src="storage/uploads/boni2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >November 30 is <br/><span class="text-primary"><i class="fa fa-calendar"></i> Bonifacio Day<br/>
                   
@@ -49,25 +69,7 @@
 
 
            
-            <div class="item text-center" >
-                  <img src="storage/uploads/smallbusiness.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-shopping-cart"></i> Small Business Saturday<br/><small>November 28, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                      It’s Small Business Saturday this week!<br/><br/>
-
-                      Is there any small business you’ve supported this pandemic that you want to promote here? It could also be something you started!<br/><br/>
-
-                      Post your entry and let’s support local and small businesses together.</p>
-
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',34)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
-
+          
           
 
 
