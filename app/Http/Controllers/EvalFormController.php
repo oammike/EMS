@@ -73,7 +73,7 @@ class EvalFormController extends Controller
           case '5': $type = 5;
             # code...
             break;
-          case '5': $type = 6;
+          case '6': $type = 6;
             # code...
             break;
           
@@ -881,7 +881,7 @@ class EvalFormController extends Controller
         }*/
          //$allForms = EvalForm::where('evalSetting_id',$setting->id)->where('startPeriod','>=',$speriod)->where('endPeriod','<=',$eperiod)->where('overAllScore','!=','0')->orderBy('created_at','DESC')->get();->where('startPeriod','>=',$speriod)->where('endPeriod','<=',$eperiod)
 
-         $evaluations = DB::table('evalForm')->where('evalSetting_id',$setting->id)->where('overAllScore','!=','0')->leftJoin('immediateHead_Campaigns','evalForm.evaluatedBy','=','immediateHead_Campaigns.id')->leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->leftJoin('evalSetting','evalForm.evalSetting_id','=','evalSetting.id')->leftJoin('users','evalForm.user_id','=','users.id')->leftJoin('team','evalForm.user_id','=','team.user_id')->leftJoin('campaign','team.campaign_id','=','campaign.id')->select('evalForm.user_id','evalForm.id','evalForm.startPeriod as year', 'evalSetting.name as type', 'users.lastname','users.firstname','campaign.name as camp','immediateHead.firstname as headFname','immediateHead.lastname as headLname', 'evalForm.overAllScore','evalForm.created_at')->orderBy('evalForm.created_at','DESC')->get(); //chunk(100, 
+         $evaluations = DB::table('evalForm')->where('evalSetting_id',$setting->id)->where('overAllScore','!=','0')->leftJoin('immediateHead_Campaigns','evalForm.evaluatedBy','=','immediateHead_Campaigns.id')->leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->leftJoin('evalSetting','evalForm.evalSetting_id','=','evalSetting.id')->leftJoin('users','evalForm.user_id','=','users.id')->leftJoin('team','evalForm.user_id','=','team.user_id')->leftJoin('campaign','team.campaign_id','=','campaign.id')->select('evalForm.user_id','evalForm.id','evalForm.startPeriod as year','evalForm.endPeriod as endPeriod', 'evalSetting.name as type', 'users.lastname','users.firstname','campaign.name as camp','immediateHead.firstname as headFname','immediateHead.lastname as headLname', 'evalForm.overAllScore','evalForm.created_at')->orderBy('evalForm.created_at','DESC')->get(); //chunk(100, 
 
         
          return response()->json(['data'=>$evaluations]);
