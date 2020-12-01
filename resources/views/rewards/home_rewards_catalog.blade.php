@@ -217,6 +217,7 @@
                     <?php $ct=1;?>
                     @forelse($donations as $key=>$donation)
 
+                      @if($donation->isActive)
                       <div class="col-lg-5 product" style="min-height: 370px;">
                           <span class="product-title"><span style="font-size: larger;">{{ $donation->name }}</span> </span>
 
@@ -244,6 +245,7 @@
                           </div>
                           <span class="product-excerpt">{{ $donation->description }}</span>
                       </div>
+                      @endif
 
                      <!--  @if ( $key!=0)
                           <div class="clearfix"><br/><br/></div>
