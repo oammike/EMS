@@ -2,7 +2,36 @@
 
               
 
-               <div class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Dec. 08, 2020 Holiday |<br/> Feast of Immaculate Conception <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>December 08, 2020</strong> is a special non-working holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
+
+                    <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
+                    Employees who are required to work during those holidays are eligible for the corresponding premium.<br/><br/>
+
+                    Below is a guide on how the special holiday pay is computed.</p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of Dec 08, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
+ 
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/group2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Group Photos 2020<br/><small>December 01, 2020</small><br/>
                   
@@ -22,21 +51,7 @@
             </div>
 
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/boni2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >November 30 is <br/><span class="text-primary"><i class="fa fa-calendar"></i> Bonifacio Day<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                     Today marks the 157th birth anniversary of the father of Philippine Revolution, Gat Andres Bonifacio.<br/><br/>
-
-                      Bonifacio displayed immense courage and love for the country in his search for independence. May his legacy continue to live on.<br/><br/>
-
-                      #WeSpeakYourLanguage #OACelebratesHeroes #BonifacioDay</p>
-
-               
-            </div>
+         
 
             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   November 30, 2020 Holiday |<br/> Bonifacio Day <br/>
@@ -69,7 +84,26 @@
 
 
            
-          
+         <div class="item text-center" >
+                  <img src="storage/uploads/donationposter.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Share Your Points <br/><span class="text-primary"> <small>A little compassion goes a long way</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                     For a minimum of <strong>50 points,</strong>you can help our healthcare providers and frontliners who have been called to serve in the fight against the spread of COVID-19 </p>
+
+                   
+                    <a class="btn btn-success btn-md" href="{{action('RewardsHomeController@rewards_catalog')}}#donatenow"> Donate Now</a>
+                    
+                    
+            </div>
+
+           
+            
+
+           
+              
           
 
 
@@ -152,116 +186,8 @@
                     
               </div>
 
-              <div class="item  text-center" >
-                  <img src="storage/uploads/winnersFrightful.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Congratulations to our Winners!<br/><small>November 09, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> <a class="btn btn-success btn-md" href="{{action('EngagementController@show',31)}}"> Check out Frightful Tales 2020</a><br/>
-                    <p  style="padding: 30px;" class="text-center">
-                     </p>
-
-                    
-                   
-                    
-                    
-            </div>
-
-
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> REMINDER TO ALL  <br/> <span class="text-primary">ONSITE EMPLOYEES: <br/>
-                    <small>Sep.16, 2020</small><br/><br/>
-                <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-                    
-
-                    Employees reporting to the office must follow the following protocols:<br/><br/>
-
-                    <strong class="text-primary"> Prior to entering the office premises: </strong><br/>
-                    <strong>1. Health Declaration Form - </strong> To be accomplished daily.  If you're sick, stay home. <br/>
-                    <strong>2. Thermal Scan -</strong> If temperature is more than 37.5C, you'll be sent home.<br/>
-                    <strong>3.  No Face Mask and Face Shield, No Entry.  - </strong>Face masks and face shields must be worn at all times except when eating/drinking.  Face masks and face shields are required to be worn while inside the shuttle service.<br/><br/>
-
-                    <strong class="text-primary"> While In the office:</strong><br/>
-                    <strong>1. Social Distancing - </strong>keep at least one (1) meter physical distance.<br/>
-                    <strong>2. Respiratory Etiquette -</strong> any act or behavior that may spread the virus or cause anxiety/concern related to COVID-19 is prohibited.<br/>
-                    <strong>3. Personal Hygiene - </strong> frequent handwashing/use of hand sanitizer is encouraged. <br/><br/>
-                    <br/>
-
-                    For strict compliance.
-                  </p>
-
-                    
-                    
-
-                    
-              </div>
 
               
-           
-
-         
-              
-
-            <div class="item text-center" >
-                  <img src="storage/uploads/donationposter.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Share Your Points <br/><span class="text-primary"> <small>A little compassion goes a long way</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> 
-                    <p  style="padding: 30px;" class="text-center">
-                     For a minimum of <strong>50 points,</strong>you can help our healthcare providers and frontliners who have been called to serve in the fight against the spread of COVID-19 </p>
-
-                   
-                    <a class="btn btn-success btn-md" href="{{action('RewardsHomeController@rewards_catalog')}}#donatenow"> Donate Now</a>
-                    
-                    
-            </div>
-
-           
-            
-
-           
-            
-
-            
-
-
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"> Your Payroll Help Desk is Here! <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4><img src="storage/uploads/payrollHelpdesk.jpg" width="98%" />
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Hello everyone,<br/><br/>
-
-                    We are officially introducing Payroll Help Desk today. Getting assistance on your payroll-related inquiries is now more convenient and systematic.<br/><br/>
-
-                    Please access the user guide here to find out how to use it:
-                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value=" https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                     <br/><br/>
-                     
-                    
-
-                   
-
-                   
-
-                    </p> 
-
-
- 
-                    
-            </div>
-
-           
-
-
               @if(count($firstYears) >= 1)
                             <!-- ******** FIRST YEAR ANNIV ******* -->
                             <div class="item  text-center">
@@ -341,6 +267,84 @@
                  
 
           
+
+            
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> REMINDER TO ALL  <br/> <span class="text-primary">ONSITE EMPLOYEES: <br/>
+                    <small>Sep.16, 2020</small><br/><br/>
+                <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                    
+
+                    Employees reporting to the office must follow the following protocols:<br/><br/>
+
+                    <strong class="text-primary"> Prior to entering the office premises: </strong><br/>
+                    <strong>1. Health Declaration Form - </strong> To be accomplished daily.  If you're sick, stay home. <br/>
+                    <strong>2. Thermal Scan -</strong> If temperature is more than 37.5C, you'll be sent home.<br/>
+                    <strong>3.  No Face Mask and Face Shield, No Entry.  - </strong>Face masks and face shields must be worn at all times except when eating/drinking.  Face masks and face shields are required to be worn while inside the shuttle service.<br/><br/>
+
+                    <strong class="text-primary"> While In the office:</strong><br/>
+                    <strong>1. Social Distancing - </strong>keep at least one (1) meter physical distance.<br/>
+                    <strong>2. Respiratory Etiquette -</strong> any act or behavior that may spread the virus or cause anxiety/concern related to COVID-19 is prohibited.<br/>
+                    <strong>3. Personal Hygiene - </strong> frequent handwashing/use of hand sanitizer is encouraged. <br/><br/>
+                    <br/>
+
+                    For strict compliance.
+                  </p>
+
+                    
+                    
+
+                    
+              </div>
+
+              
+           
+
+         
+              
+
+           
+
+            
+
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"> Your Payroll Help Desk is Here! <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/payrollHelpdesk.jpg" width="98%" />
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Hello everyone,<br/><br/>
+
+                    We are officially introducing Payroll Help Desk today. Getting assistance on your payroll-related inquiries is now more convenient and systematic.<br/><br/>
+
+                    Please access the user guide here to find out how to use it:
+                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value=" https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+                     
+                    
+
+                   
+
+                   
+
+                    </p> 
+
+
+ 
+                    
+            </div>
+
+           
+
+
           
            
 
@@ -9502,6 +9506,37 @@ For interested participants and for any questions, please email us at our gmail 
                      </p><a class="btn btn-success btn-md" target="_blank" href="oampi-resources#resource_7"><i class="fa fa-book"></i> Check Out IT Docs >> How To Change Remote Gateway</a><br/>
                     
             </div>
+
+               <div class="item text-center" >
+                  <img src="storage/uploads/boni2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >November 30 is <br/><span class="text-primary"><i class="fa fa-calendar"></i> Bonifacio Day<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                     Today marks the 157th birth anniversary of the father of Philippine Revolution, Gat Andres Bonifacio.<br/><br/>
+
+                      Bonifacio displayed immense courage and love for the country in his search for independence. May his legacy continue to live on.<br/><br/>
+
+                      #WeSpeakYourLanguage #OACelebratesHeroes #BonifacioDay</p>
+
+               
+            </div>
+              <div class="item  text-center" >
+                  <img src="storage/uploads/winnersFrightful.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Frightful Tales 2020: <br/><span class="text-primary"><i class="fa fa-user-secret"></i> Congratulations to our Winners!<br/><small>November 09, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> <a class="btn btn-success btn-md" href="{{action('EngagementController@show',31)}}"> Check out Frightful Tales 2020</a><br/>
+                    <p  style="padding: 30px;" class="text-center">
+                     </p>
+
+                    
+                   
+                    
+                    
+            </div>
+
 
                           -->
 
