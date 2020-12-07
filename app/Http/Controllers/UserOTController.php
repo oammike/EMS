@@ -555,8 +555,8 @@ class UserOTController extends Controller
         }
 
         /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." Over Time submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." OT_file ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
         
 

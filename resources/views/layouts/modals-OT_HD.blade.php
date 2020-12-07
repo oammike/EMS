@@ -13,11 +13,21 @@
       <input type="hidden" name="isRD" value="{{$data['isRD']}}" />
       <input type="hidden" name="approver" value="{{$approver}}" />
       <input type="hidden" name="billableHours" value="{{$data['billableForOT']}}" />
+
+      <?php $schedNgayon = \Carbon\Carbon::parse($data['productionDate']." ".$data['shiftStart'],'Asia/Manila')->format('Y-m-d H:i');
+            $nagIN = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->format('Y-m-d H:i');
+            ( $nagIN <= $schedNgayon ) ? $earlySya = true : $earlySya=false; ?>
+
+
       @if($data['shiftEnd'] == "* RD *")
       <input type="hidden" name="fromRD" value="1" />
       <input type="hidden" name="OTstart" value="{{$data['logIN']}}" />
       @else
-      <input type="hidden" name="OTstart" value="{{$data['logIN']}}" />
+        @if($earlySya)
+        <input type="hidden" name="OTstart" value="{{$schedNgayon}}" />
+        @else
+        <input type="hidden" name="OTstart" value="{{$data['logIN']}}" />
+        @endif
       @endif
       <input type="hidden" name="OTend" value="{{$data['logOUT']}}" />
       <div id="otmodal" class="modal-body-upload" style="padding:20px;">
@@ -48,6 +58,8 @@
                           $preventDupes = [];
                           $fractions = [];
 
+                         
+
                             for( $d=$distOT; $d >0; $d=$d-0.25)
                             {
                               $num = $d;// round($d,1,PHP_ROUND_HALF_DOWN);
@@ -77,14 +89,34 @@
                                 } 
                                 else 
                                 {
-                                  $start= \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
-                                  $t1 = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
-                                  $endOT = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addMinutes($num*60); 
+                                  //check if HD & backoffice; kung early in: get work sched; kung late: get timeIN as START
+                                  if($earlySya)
+                                  {
+                                    $start= \Carbon\Carbon::parse($data['productionDate']." ".$data['shiftStart'],'Asia/Manila');
+                                    $t1 = \Carbon\Carbon::parse($data['productionDate']." ".$data['shiftStart'],'Asia/Manila');
+                                    $endOT = $t1->addMinutes($num*60); 
+                                  }else
+                                  {
+                                    $start= \Carbon\Carbon::parse($data['logIN'],'Asia/Manila');
+                                    $t1 = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila'); 
+                                    $endOT = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addMinutes($num*60); 
+                                  }
+
+                                  
+                                  
                                 } 
                                 ?>
 
                                 @if ( $num < (float)$data['billableForOT'] && $num != '0')  
-                                <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
+
+                                  <!-- make adjustments kung more than 5hr work, less 1hr break na -->
+                                  @if( $num >= 5)
+                                    <?php $endOT->addHours(1); ?>
+                                      <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
+                                  @else
+                                      <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num}}"> &nbsp;&nbsp;{{$num}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
+                                  @endif
+                                
                                 @endif
                         <?php }      
 

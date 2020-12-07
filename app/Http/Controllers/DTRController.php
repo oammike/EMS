@@ -5931,7 +5931,7 @@ class DTRController extends Controller
                     where('users.status_id',"!=",9)->
                     where('users.status_id',"!=",13)->get())->pluck('user_id');
         $isWorkforce = in_array($this->user->id, $wfm->toArray());
-        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $employeeisBackoffice = $isBackoffice; // ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
         
        
@@ -6679,7 +6679,7 @@ class DTRController extends Controller
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
                                         $backOffice= null;
-                                        $hdToday=null;
+                                        ($hasHolidayToday) ?  $hdToday=$data[0]['hdToday'] : $hdToday=null;
                                         
                                         //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
@@ -6690,7 +6690,7 @@ class DTRController extends Controller
                                           $OTattribute = "-";
                                           $UT = "-";
                                           $backOffice=null;
-                                          $hdToday=null;
+                                          ($hasHolidayToday) ?  $hdToday=$data[0]['hdToday'] : $hdToday=null;
                                       }
                                       
 
@@ -6945,7 +6945,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Nov 23, 2020');
+            //return $myDTR->where('productionDate','Nov 01, 2020');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
