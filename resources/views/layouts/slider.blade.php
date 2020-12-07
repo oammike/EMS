@@ -2,51 +2,27 @@
 
               
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> DEC. 10, 2020</strong> PAYOUT <br/>
+              <div class="item active text-center" >
+                  <img src="storage/uploads/timetravel.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-clock-o"></i> Time Traveller Day<br/><small>December 08, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
+                    <p  style="padding: 30px;" class="text-center">
+                     In celebration of Pretend to be a Time Traveler Day on December 8,<br/>
+
+                      post a photo on where and when you’d like to go back in time!<br/><br/>
+
+                      Let’s leave 2020 for a short while and look back in time.<br/><br/>
+                    Visit the ECQ Wall on EMS now and earn 20 points for your entry! </p>
+
                     
-                    Please be informed that our cut-off for December 10 payout is on Dec. 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SUNDAY 12:00 noon of Dec. 06, 2020</strong>.<br/><br/>
-                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
-
-                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
-
-                    <!-- Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
-                    <table class="table">
-                      <tr>
-                        <th>Date of Holiday</th>
-                        <th class="text-center">File Holiday OT for</th>
-                      </tr>
-                      <tr>
-                        <td>Aug. 21</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 24</td>
-                        <td><strong>Davao</strong> Admin and Support Group only</td>
-                      </tr>
-                      <tr>
-                        <td>Aug. 31</td>
-                        <td>Admin and Support Group</td>
-                      </tr>
-                    </table>
-
- -->
-
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/></p>
-
- 
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',36)}}"> Check out our ECQonnection Wall</a><br/>
                     
-              </div>
+                    
+            </div>
+
+
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Dec. 08, 2020 Holiday |<br/> Feast of Immaculate Conception <br/>
@@ -77,26 +53,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/group2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-users"></i> Group Photos 2020<br/><small>December 01, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                     It’s the last month of 2020 today!<br/><br/>
-
-                    Share your group photos with your team taken this year – it could be pre-lockdown or your google meet/zoom photos!<br/><br/>
-
-                                          Post as many entries as you want and earn points.</p>
-
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',35)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
-
-
+           
          
 
             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
@@ -9582,6 +9539,32 @@ For interested participants and for any questions, please email us at our gmail 
                     
                     
             </div>
+
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> DEC. 10, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for December 10 payout is on Dec. 05, 2020. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SUNDAY 12:00 noon of Dec. 06, 2020</strong>.<br/><br/>
+                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
+
+                    
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
 
 
                           -->
