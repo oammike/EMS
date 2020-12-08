@@ -1329,7 +1329,7 @@
 
                                                                                      @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
 
-                                                                                        @if( $data['backOffice'] && count($data['hdToday']) > 0 )
+                                                                                        @if( $data['backOffice'] && count($data['hdToday']) > 0  && strlen($data['logIN']) < 100)
                                                                                           @include('layouts.modals-OT_HD', [
                                                                                           'modelRoute'=>'user_ot.store',
                                                                                           'modelID' => '_OT'.$data["payday"], 
@@ -1589,7 +1589,7 @@
                                                                 @else
 
                                                                      @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
-                                                                        @if( $data['backOffice'] && count($data['hdToday']) > 0 )
+                                                                        @if( $data['backOffice'] && count($data['hdToday']) > 0  && strlen($data['logIN']) < 100)
                                                                           @include('layouts.modals-OT_HD', [
                                                                           'modelRoute'=>'user_ot.store',
                                                                           'modelID' => '_OT'.$data["payday"], 
@@ -1627,7 +1627,7 @@
 
                                                               @if($data['shiftStart'] != null && $data['shiftEnd'] != null)
 
-                                                                @if( $data['backOffice'] && count($data['hdToday']) > 0 )
+                                                                @if( $data['backOffice'] && count($data['hdToday']) > 0 && strlen($data['logIN']) < 100 )
                                                                  @include('layouts.modals-OT_HD', [
                                                                     'modelRoute'=>'user_ot.store',
                                                                     'modelID' => '_OT'.$data["payday"], 
