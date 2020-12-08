@@ -1924,8 +1924,8 @@ class UserController extends Controller
     public function leaveMgt()
     {
       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
-      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-14)->format('m/d/Y'); 
-      (Input::get('to')) ? $to = Input::get('to') : $to = date('m/d/Y');
+      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-7)->format('m/d/Y'); 
+      (Input::get('to')) ? $to = Input::get('to') : $to = Carbon::now()->endOfMonth()->addDays(14)->format('m/d/Y'); //date('m/d/Y');
 
       (Input::get('type')) ? $type = Input::get('type') : $type = 'VL';
       $stamp = Carbon::now('GMT+8');
