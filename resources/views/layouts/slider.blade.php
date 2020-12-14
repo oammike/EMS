@@ -2,7 +2,75 @@
 
               
 
-              <div class="item active text-center" >
+              
+
+
+           <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-money"></i>   13th Month Pay Release <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   We are glad to announce that your 13th Month Pay will be <strong class="text-success"> released on December 15, 2020.</strong><br/><br/>
+
+                  <strong>IMPORTANT REMINDERS:</strong><br/><br/>
+
+                  All active employees as of December 15, 2020  who were hired on or before November 30, 2020 are eligible to receive the 13th month pay.<br/><br/>
+
+                  In the event of separation from the company on or before December 15, 2020, the 13th month pay shall be included in the employee's last pay.<br/><br/>
+
+                  The actual 13th month pay is computed where absences, tardiness, undertime and LWOP are deducted from your total earnings (basic pay + de minimis allowance) from January 10, 2020 payout to December 25, 2020 payout.  <br/><br/>
+
+
+                  The 1/2 advanced 13th month pay of employees who opted to avail it in April 2020 will be deducted from their actual 13th month pay.<br/><br/> 
+
+
+
+
+
+                  We will assume that your 13th month pay for December 25, 2020 payout will be paid in full. Any changes will be included for adjustment on January 10, 2021 payout.  Excess of 13th month pay from the Php 90,000.00 ceiling under Republic Act 10963 or TRAIN law will be subject to tax. <br/><br/>
+
+
+
+
+
+                  Please see the computation below.</p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Actual 13th Month = </strong><br/> </p>
+                    <pre>[Total Earnings (Basic +  De Minimis Allowance)  Less Absences, Tardiness, Undertime, LWOP] / 12months</pre>
+                   
+                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
+ 
+                    
+            </div>
+
+            <div class="item text-center" >
+                  <img src="storage/uploads/ECQCrossword.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-pencil-square-o"></i> Crossword Puzzle Day<br/><small>December 21, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">December 21 is Crossword Puzzle Day!<br/>
+
+                      Solve this puzzle and be 1 of the three winners of Php 1,000 Universal Giftaway voucher! <br/><br/>
+
+                      Send your answers to <strong>events@openaccessbpo.net</strong> on Zimbra</p>
+                               
+
+
+
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',37)}}"> Check out our ECQonnection Wall</a><br/>
+                    
+                    
+            </div>
+
+
+
+            <div class="item text-center" >
                   <img src="storage/uploads/hanuka2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-empire"></i> Hannukkah<br/><small>December 10-18, 2020</small><br/>
                   
@@ -21,30 +89,9 @@ The festivities begin tonight and end on the evening of December 18th. חנוכ�
                     
             </div>
 
-              <div class="item text-center" >
-                  <img src="storage/uploads/timetravel.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-clock-o"></i> Time Traveller Day<br/><small>December 08, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                     In celebration of Pretend to be a Time Traveler Day on December 8,<br/>
+           
 
-                      post a photo on where and when you’d like to go back in time!<br/><br/>
-
-                      Let’s leave 2020 for a short while and look back in time.<br/><br/>
-                    Visit the ECQ Wall on EMS now and earn 20 points for your entry! </p>
-
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',36)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
-
-
-
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Dec. 08, 2020 Holiday |<br/> Feast of Immaculate Conception <br/>
                   
                     <img src="storage/uploads/divider.png" />
