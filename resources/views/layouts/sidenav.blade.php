@@ -527,7 +527,7 @@
 
 
          <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ACCESS_SETTINGS') ){ ?>
-        <li class="treeview @if (Request::is('evalSetting') || Request::is('evalForm*')) active @endif">
+        <li class="treeview @if (Request::is('evalSetting') || Request::is('evalForm*') || Request::is('pendingEvals*')) active @endif">
           <a href="#">
             <i class="fa fa-check-square-o"></i> <span>Evaluation</span>
             <i class="fa fa-angle-left pull-right"></i>
@@ -537,6 +537,7 @@
           <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('VIEW_ALL_EVALS') ){ ?>
             <li style="padding-left:20px"><a href="{{action('EvalFormController@downloadReport')}} "><i class="fa fa-download"></i> Download Summary</a></li>
             <li  @if (Request::is('evalForm')) class="active" @endif  style="padding-left:20px"><a href="{{action('EvalFormController@index')}} "><i class="fa fa-file-o"></i> View All</a></li>
+             <li  @if (Request::is('pendingEvals')) class="active" @endif  style="padding-left:20px"><a href="{{action('EvalFormController@allPendings',['type'=>6])}}" class="text-yellow"><i class="fa fa-file-o"></i> For Approvals</a></li>
              <?php }  ?>
 
 

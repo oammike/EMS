@@ -165,7 +165,7 @@ sidebar-collapse
 
                         
                         
-                        <a data-isDraft="0" class="submitBtn btn btn-sm btn-success pull-right" style="margin-bottom:20px"><i class="fa fa-check"></i> Submit Evaluation</a>
+                        <a data-isDraft="0" class="submitBtn btn btn-sm btn-success pull-right" style="margin-bottom:20px"><i class="fa fa-check"></i> Submit for HR Approval</a>
                         <a data-isDraft="1" class="submitBtn btn btn-sm btn-default pull-right" style="margin-bottom:20px; margin-right:10px"><i class="fa fa-save"></i> Save Draft</a>
 
                         <div class="loader callout callout-info col-xs-12 pull-right" style="text-align:center"><p><i class="fa fa-download"></i><strong> Saving Evaluation Form...</strong> <i class="fa fa-spinner fa-spin"></i></p></div>

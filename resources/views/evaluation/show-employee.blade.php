@@ -204,6 +204,14 @@ sidebar-collapse
                              <h1 style="line-height:0.8" class="text-danger pull-right text-right" id="overallScore"  data-score="{{$evalForm->overAllScore}}"><br/><span style="font-size:0.6em;" class="text-gray"></h1>
                             <div class="clearfix"></div>
                              <h1 style="line-height:0.8; margin-top:-10px" class="text-danger pull-right text-right" id="descriptions"></h1>
+
+                             @if($evalForm->isApproved == '0')
+                             <div class="clearfix"></div>
+                               <div id="HRnotes">
+                                <p class="text-danger"><br/><br/><strong><i class="fa fa-exclamation-triangle"></i> HR notes:</strong></p>
+                                <pre style="background: #fbfd86;">{!! $reject->first()->notes !!} </pre>
+                               </div>
+                             @endif
                        
                           </div>
                         </div>

@@ -45,6 +45,7 @@ use OAMPI_Eval\EvalSetting;
 use OAMPI_Eval\Schedule;
 use OAMPI_Eval\FixedSchedules;
 use OAMPI_Eval\MonthlySchedules;
+use OAMPI_Eval\Movement;
 use OAMPI_Eval\Restday;
 use OAMPI_Eval\Biometrics;
 use OAMPI_Eval\User_VLcredits;
@@ -2139,16 +2140,69 @@ class UserController extends Controller
     {
         $personnel = $this->user;
         $evaluations = new Collection;
+        $hasFinal = false;
+        $finalEval = null;
 
         if (count($personnel->evals) > 0)
         {
+
+          //check kung may multiple annual eval
+          $multipleAnnuals = $personnel->evals->where('evalSetting_id',6)->where('isApproved',1);
+
+          if (count($multipleAnnuals) > 1)
+          {
+            //look for marked as Final
+            $markedFinal = $multipleAnnuals->where('isFinalEval',1);
+
+            if (count($markedFinal) > 0){
+              $hasFinal = true;
+              $finalEval = $markedFinal->first();
+            }
+
+          }else if(count($multipleAnnuals) > 0)
+          {
+            // kung may movement within the year: if movement > #of evals, no final yet
+            // if no movements within the year, yun na ang final nya
+
+            $hasMovements = Movement::where('user_id',$this->user->id)->where('personnelChange_id','1')->where('effectivity','>=','2020-01-01 00:00:00')->where('effectivity','<=','2020-12-31 00:00:00')->get();
+            if (count($hasMovements) > 0)
+            {
+              $markedFinal = $multipleAnnuals->where('isFinalEval',1);
+              if (count($markedFinal) > 0){
+                $hasFinal = true;
+                $finalEval = $markedFinal->first();
+              }
+
+            }else
+            {
+              $hasFinal = true;
+              $finalEval = $multipleAnnuals->first(); 
+            }
+
+          }
+
+
+          //return response()->json(['hasFinal'=>$hasFinal, 'finalEval'=>$finalEval]);
            
             foreach( $personnel->evals->sortByDesc('id') as $eval )
             {
                 if ($eval->overAllScore > 0) {
                      $head = ImmediateHead::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->immediateHead_id);
 
-                        if ($eval->isDraft)
+                     if($eval->evalSetting_id == '6') //2020 Annual Eval
+                     {
+
+                      if ($hasFinal && $eval->id == $finalEval->id)
+                        $evaluations->push(['id'=>$eval->id, 'evalType'=>EvalSetting::find($eval->evalSetting_id)->name, 
+                                            'coachingDone'=>$eval->coachingDone,
+                                            'overallScore'=> $eval->overAllScore, 'salaryIncrease' => ( $eval->evalSetting_id >= 3 ? 'N/A' : $eval->salaryIncrease ) ,
+                                            'evalPeriod' => date('M d, Y',strtotime($eval->startPeriod))." to ".  date('M d, Y',strtotime($eval->endPeriod)),
+                                            'evaluatedBy' => $head->firstname." ".$head->lastname ]);
+
+                     }else
+                     {
+
+                      if ($eval->isDraft)
                             $evaluations->push(['id'=>$eval->id, 'evalType'=>EvalSetting::find($eval->evalSetting_id)->name, 
                                             'coachingDone'=>$eval->coachingDone,
                                             'overallScore'=> "DRAFT", 'salaryIncrease' => "DRAFT" ,
@@ -2161,6 +2215,10 @@ class UserController extends Controller
                                             'overallScore'=> $eval->overAllScore, 'salaryIncrease' => ( $eval->evalSetting_id >= 3 ? 'N/A' : $eval->salaryIncrease ) ,
                                             'evalPeriod' => date('M d, Y',strtotime($eval->startPeriod))." to ".  date('M d, Y',strtotime($eval->endPeriod)),
                                             'evaluatedBy' => $head->firstname." ".$head->lastname ]);
+
+                     }
+
+                        
 
                 }
                

@@ -23,6 +23,7 @@ use OAMPI_Eval\Campaign;
 use OAMPI_Eval\Team;
 use OAMPI_Eval\ImmediateHead;
 use OAMPI_Eval\EvalType;
+use OAMPI_Eval\EvalForm_Feedback;
 use OAMPI_Eval\Movement;
 use OAMPI_Eval\RatingScale;
 use OAMPI_Eval\EvalSetting;
@@ -81,42 +82,6 @@ class EvalFormController extends Controller
             # code...
             break;
         }
-
-        /*switch ($type) {
-          case 1: {
-                    $setting = EvalSetting::find(1);
-                    $speriod = Carbon::parse(date('y')."-".$setting->startMonth."-".$setting->startDate)->format('Y-m-d H:i:s');
-                    $eperiod = Carbon::parse(date('y')."-".$setting->endMonth."-".$setting->endDate)->format('Y-m-d H:i:s');}break;
-                   
-          case 2: {
-                    $setting = EvalSetting::find(2);
-                    $speriod = Carbon::parse(date('y')."-".$setting->startMonth."-".$setting->startDate)->format('Y-m-d H:i:s');
-                    $eperiod = Carbon::parse(date('y')."-".$setting->endMonth."-".$setting->endDate." 00:00:00")->format('Y-m-d h:i:s');}break;
-                   
-          
-          case 3: {
-                    $setting = EvalSetting::find(3);
-                    $speriod = Carbon::parse("first day of January")->format('Y-m-d');
-                    $eperiod = Carbon::parse("last day of December")->format('Y-m-d');}break;
-
-                 
-
-          case 4: {
-                    $setting = EvalSetting::find(4);
-                    $speriod = Carbon::parse("first day of January")->format('Y-m-d');
-                    $eperiod = Carbon::parse("last day of December")->format('Y-m-d');}break;
-
-                 
-          
-          default: {
-                    $setting = EvalSetting::find(1);
-                    $speriod = Carbon::parse(date('y')."-".$setting->startMonth."-".$setting->startDate)->format('Y-m-d H:i:s');
-                    $eperiod = Carbon::parse(date('y')."-".$setting->endMonth."-".$setting->endDate)->format('Y-m-d H:i:s');}break;
-           
-        }
-         $allForms = EvalForm::where('evalSetting_id',$setting->id)->where('startPeriod','>=',$speriod)->where('endPeriod','<=',$eperiod)->where('overAllScore','!=','0')->orderBy('created_at','DESC')->take(100)->get();
-        //$users = User::all();
-        */
 
         
         $campaigns = Campaign::all();
@@ -221,6 +186,69 @@ class EvalFormController extends Controller
         }*/
        
         return view('evaluation.index', compact( 'type', 'campaigns'));
+    }
+
+
+    public function allApproved()
+    {
+        $t = Input::get('type'); 
+
+        (empty($t)) ? $type = 6 : $type = $t; 
+        
+        $campaigns = Campaign::all();
+       
+        return view('evaluation.allApproved', compact( 'type', 'campaigns'));
+    }
+
+    public function allDenied()
+    {
+        $t = Input::get('type'); 
+
+        (empty($t)) ? $type = 6 : $type = $t; 
+        
+        $campaigns = Campaign::all();
+       
+        return view('evaluation.allDenied', compact( 'type', 'campaigns'));
+    }
+
+    public function allPendings()
+    {
+        $t = Input::get('type'); 
+
+        (empty($t)) ? $type = 6 : $type = $t; 
+        
+        $campaigns = Campaign::all();
+       
+        return view('evaluation.allPendings', compact( 'type', 'campaigns'));
+    }
+
+
+    public function approveThisEval($id, Request $req)
+    {
+      $theEval = EvalForm::find($id);
+      $theEval->isApproved = true;
+
+      if ($req->makeFinal== "1")
+      {
+        $theEval->isFinalEval = true;
+        //look for other evals of the same type
+        $otherEvals = EvalForm::where('user_id',$theEval->user_id)->where('evalSetting_id',$theEval->evalSetting_id)->where('id','<>',$theEval->id)->get();
+
+        foreach($otherEvals as $o)
+        {
+          $o->isFinalEval=false;
+          $o->isApproved = true;
+          $o->push();
+
+
+        }
+
+      } 
+      $theEval->push();
+
+      //return response()->json(['others'=>$otherEvals]);
+      return redirect()->back();
+
     }
 
    
@@ -830,7 +858,7 @@ class EvalFormController extends Controller
 
 
 
-     public function getAllEval()
+    public function getAllEval()
     {
         $type = Input::get('type');
         DB::connection()->disableQueryLog();
@@ -882,6 +910,60 @@ class EvalFormController extends Controller
          //$allForms = EvalForm::where('evalSetting_id',$setting->id)->where('startPeriod','>=',$speriod)->where('endPeriod','<=',$eperiod)->where('overAllScore','!=','0')->orderBy('created_at','DESC')->get();->where('startPeriod','>=',$speriod)->where('endPeriod','<=',$eperiod)
 
          $evaluations = DB::table('evalForm')->where('evalSetting_id',$setting->id)->where('overAllScore','!=','0')->leftJoin('immediateHead_Campaigns','evalForm.evaluatedBy','=','immediateHead_Campaigns.id')->leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->leftJoin('evalSetting','evalForm.evalSetting_id','=','evalSetting.id')->leftJoin('users','evalForm.user_id','=','users.id')->leftJoin('team','evalForm.user_id','=','team.user_id')->leftJoin('campaign','team.campaign_id','=','campaign.id')->select('evalForm.user_id','evalForm.id','evalForm.startPeriod as year','evalForm.endPeriod as endPeriod', 'evalSetting.name as type', 'users.lastname','users.firstname','campaign.name as camp','immediateHead.firstname as headFname','immediateHead.lastname as headLname', 'evalForm.overAllScore','evalForm.created_at')->orderBy('evalForm.created_at','DESC')->get(); //chunk(100, 
+
+        
+         return response()->json(['data'=>$evaluations]);
+
+        
+       
+    }
+
+    public function getAllApprovedEvals()
+    {
+        $type = Input::get('type');
+        DB::connection()->disableQueryLog();
+        $setting = EvalSetting::find($type);
+       
+
+
+         $evaluations = DB::table('evalForm')->where('evalSetting_id',$setting->id)->where('overAllScore','!=','0')->leftJoin('immediateHead_Campaigns','evalForm.evaluatedBy','=','immediateHead_Campaigns.id')->leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->leftJoin('evalSetting','evalForm.evalSetting_id','=','evalSetting.id')->leftJoin('users','evalForm.user_id','=','users.id')->leftJoin('team','evalForm.user_id','=','team.user_id')->leftJoin('campaign','team.campaign_id','=','campaign.id')->
+         select('evalForm.isApproved','evalForm.isFinalEval', 'evalForm.user_id','evalForm.id','evalForm.startPeriod as year','evalForm.endPeriod as endPeriod', 'evalSetting.name as type', 'users.lastname','users.firstname','campaign.name as camp','immediateHead.firstname as headFname','immediateHead.lastname as headLname', 'evalForm.overAllScore','evalForm.created_at')->where('evalForm.isApproved',1)->orderBy('users.lastname','ASC')->get(); //chunk(100, 
+
+        
+         return response()->json(['data'=>$evaluations]);
+
+        
+       
+    }
+
+    public function getAllDeniedEvals()
+    {
+        $type = Input::get('type');
+        DB::connection()->disableQueryLog();
+        $setting = EvalSetting::find($type);
+       
+
+
+         $evaluations = DB::table('evalForm')->where('evalSetting_id',$setting->id)->where('overAllScore','!=','0')->leftJoin('immediateHead_Campaigns','evalForm.evaluatedBy','=','immediateHead_Campaigns.id')->leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->leftJoin('evalSetting','evalForm.evalSetting_id','=','evalSetting.id')->leftJoin('users','evalForm.user_id','=','users.id')->leftJoin('team','evalForm.user_id','=','team.user_id')->leftJoin('campaign','team.campaign_id','=','campaign.id')->
+         select('evalForm.isApproved','evalForm.isFinalEval', 'evalForm.user_id','evalForm.id','evalForm.startPeriod as year','evalForm.endPeriod as endPeriod', 'evalSetting.name as type', 'users.lastname','users.firstname','campaign.name as camp','immediateHead.firstname as headFname','immediateHead.lastname as headLname', 'evalForm.overAllScore','evalForm.created_at')->where('evalForm.isApproved',0)->orderBy('users.lastname','ASC')->get(); //chunk(100, 
+
+        
+         return response()->json(['data'=>$evaluations]);
+
+        
+       
+    }
+
+    public function getAllPendingEvals()
+    {
+        $type = Input::get('type');
+        DB::connection()->disableQueryLog();
+        $setting = EvalSetting::find($type);
+       
+
+
+         $evaluations = DB::table('evalForm')->where('evalSetting_id',$setting->id)->where('overAllScore','!=','0')->leftJoin('immediateHead_Campaigns','evalForm.evaluatedBy','=','immediateHead_Campaigns.id')->leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->leftJoin('evalSetting','evalForm.evalSetting_id','=','evalSetting.id')->leftJoin('users','evalForm.user_id','=','users.id')->leftJoin('team','evalForm.user_id','=','team.user_id')->leftJoin('campaign','team.campaign_id','=','campaign.id')->leftJoin('floor','team.floor_id','=','floor.id')->
+         select('evalForm.isApproved','evalForm.isFinalEval', 'evalForm.user_id','evalForm.id','evalForm.startPeriod as year','evalForm.endPeriod as endPeriod', 'evalSetting.name as type', 'users.lastname','users.firstname','campaign.name as camp','floor.name as location', 'immediateHead.firstname as headFname','immediateHead.lastname as headLname', 'evalForm.overAllScore','evalForm.created_at')->where('evalForm.isApproved',null)->orderBy('users.lastname','ASC')->get(); //chunk(100, 
 
         
          return response()->json(['data'=>$evaluations]);
@@ -3701,6 +3783,65 @@ class EvalFormController extends Controller
   
    
 
+     public function rejectThisEval($id, Request $req)
+    {
+      $theEval = EvalForm::find($id);
+      $theEval->isApproved = false;
+      $theEval->isFinalEval = false;
+        
+
+      
+      $theEval->push();
+
+      //return response()->json(['others'=>$otherEvals]);
+      $correct = Carbon::now('Asia/Manila');
+      //if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n RejectEval_[".$theEval->id."] on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+       // } 
+
+      if ($req->reason)
+      {
+        $feed = new EvalForm_Feedback;
+        $feed->eval_id = $theEval->id;
+        $feed->notes = $req->reason;
+        $feed->user_id = $this->user->id;
+        $feed->created_at = $correct->format('Y-m-d H:i:s');
+        $feed->updated_at = $correct->format('Y-m-d H:i:s');
+        $feed->save();
+
+        //------email TL
+        //return response()->json([]);
+
+        $theTL = User::where('employeeNumber',ImmediateHead_Campaign::find($theEval->evaluatedBy)->immediateHeadInfo->employeeNumber)->get();
+        if (count($theTL) > 0)
+        {
+              
+              Mail::send('emails.evalNotify', [ 'theEval'=>$theEval, 'evalSetting'=>$theEval->setting->name,'owner'=> $theEval->owner->lastname.", ".$theEval->owner->firstname,"notes"=>$req->reason], function ($m) use ($theTL,$theEval)
+              {
+                $m->from('EMS@openaccessbpo.net', 'EMS | Open Access BPO Employee Management System');
+                $m->to($theTL->first()->email, $theTL->first()->lastname.', '.$theTL->first()->firstname)->subject('REJECTED: '. $theEval->setting->name. 'for '. $theEval->owner->lastname.", ". $theEval->owner->firstname);  
+              }); //end mail
+
+               $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n RejectMail to TL[".$theTL->first()->id."] ".$theTL->first()->lastname." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+
+              // return response()->json(['theEval'=>$theEval->setting->name, 'owner'=>$theEval->owner->lastname.", ".$theEval->owner->firstname, 'TL'=>$theTL->first()->lastname.", ".$theTL->first()->firstname]);
+
+        }
+                       
+         
+
+        
+
+      }
+      
+      return redirect()->back();
+
+    }
+
     public function review($id)
     {
         $evalForm = EvalForm::find($id);
@@ -4219,7 +4360,12 @@ class EvalFormController extends Controller
 
                   //if ($isLead) return "true"; else return "false";
 
-                  return view('evaluation.show-employee', compact('canDoThis', 'updateStatus', 'allowed', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries','showPosition'));
+                  //------ we now check if Eval is REJECTED
+                  $reject = EvalForm_Feedback::where('eval_id',$evalForm->id)->get();
+                  
+
+
+                  return view('evaluation.show-employee', compact('reject', 'canDoThis', 'updateStatus', 'allowed', 'doneEval', 'evaluator', 'startPeriod', 'endPeriod', 'performanceSummary', 'evalType', 'employee', 'ratingScale', 'evalForm','evalSetting', 'formEntries','maxScore','summaries','showPosition'));
               }        
 
         } else {
@@ -4531,7 +4677,7 @@ class EvalFormController extends Controller
 
         $coll = new Collection;
              /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
 
          $ctr = 1;
          $var = null;
@@ -4561,104 +4707,123 @@ class EvalFormController extends Controller
                
            
         }
-            $evalForm->coachingDone = $request->coachingDone;
-            $evalForm->overAllScore = $request->overAllScore;
-            $evalForm->salaryIncrease = $request->salaryIncrease;
-            $evalForm->isDraft = $request->isDraft;
-            $evalForm->push();
+        $evalForm->coachingDone = $request->coachingDone;
+        $evalForm->overAllScore = $request->overAllScore;
+        $evalForm->salaryIncrease = $request->salaryIncrease;
+        $evalForm->isDraft = $request->isDraft;
+        
 
 
-            //save Performance Summary
-            $allSummaries = Summary::all();
-            $summaries = new Collection;
+        //save Performance Summary
+        $allSummaries = Summary::all();
+        $summaries = new Collection;
 
-            foreach ($allSummaries as $key ) {
-               if (!($key->columns->isEmpty()) ) 
-                {
-                    $cols = $key->columns;
-                } else $cols=null;
-               if (!($key->rows->isEmpty()) )
-               { 
-                    $rows = $key->rows;
+        foreach ($allSummaries as $key ) {
+           if (!($key->columns->isEmpty()) ) 
+            {
+                $cols = $key->columns;
+            } else $cols=null;
+           if (!($key->rows->isEmpty()) )
+           { 
+                $rows = $key->rows;
 
-               }  else $rows = null;
+           }  else $rows = null;
 
-               $summaries->push(['summaryID'=>$key->id, 'header'=>$key->heading,'details'=>$key->description, 'columns'=>$cols, 'rows'=>$rows]);
-            }
+           $summaries->push(['summaryID'=>$key->id, 'header'=>$key->heading,'details'=>$key->description, 'columns'=>$cols, 'rows'=>$rows]);
+        }
 
-            //$psum = new Collection;
+        //$psum = new Collection;
 
-            $ctrSummary=1; 
-            foreach ($summaries as $summary){
-                
-                                    if ( $summary['columns'] !== null)
-                                    { 
+        $ctrSummary=1; 
+        foreach ($summaries as $summary){
+            
+                                if ( $summary['columns'] !== null)
+                                { 
+                                
+                                   foreach ($summary['columns'] as $col)
+                                   {
                                     
-                                       foreach ($summary['columns'] as $col)
-                                       {
-                                        
-                                        $varname = 'val_'.$ctrSummary.'_'.$col->id;
-                                        $idvar = 'id_'.$ctrSummary.'_'.$col->id;
+                                    $varname = 'val_'.$ctrSummary.'_'.$col->id;
+                                    $idvar = 'id_'.$ctrSummary.'_'.$col->id;
 
-                                        $ps = PerformanceSummary::find((int)$request->$idvar);
+                                    $ps = PerformanceSummary::find((int)$request->$idvar);
 
-                                        if (!$ps->isEmpty){
-                                            if ($ps->value !== $request->$varname){
-                                            $ps->value = $request->$varname;
-                                            $ps->push();
-                                        }
-
-                                        }
-
-                                        
-                                        
-                                        
-
-                                       }
-                                      
-                                   }
-
-                                    if ( $summary['rows'] !== null) 
-                                    {
-                                        foreach ($summary['rows'] as $row)
-                                        { 
-                                            
-                                            $var2 = 'val_'.$ctrSummary.'_'.$row->id;
-                                            $idvar2 = 'id_'.$ctrSummary.'_'.$row->id;
-
-                                            $ps2 = PerformanceSummary::find((int)$request->$idvar2);
-                                            if (!empty($ps2)){
-                                                if ($ps2->value !== $request->$var2){
-                                                $ps2->value = $request->$var2;
-                                                $ps2->push();
-                                            }
-
-                                            }
-
-                                            
-
-                                           ;
-                                        }
-                                    
+                                    if (!$ps->isEmpty){
+                                        if ($ps->value !== $request->$varname){
+                                        $ps->value = $request->$varname;
+                                        $ps->push();
                                     }
-                                     
+
+                                    }
+
                                     
                                     
-                                    $ctrSummary++;
+                                    
 
-            }//end foreach summaries
+                                   }
+                                  
+                               }
 
+                                if ( $summary['rows'] !== null) 
+                                {
+                                    foreach ($summary['rows'] as $row)
+                                    { 
+                                        
+                                        $var2 = 'val_'.$ctrSummary.'_'.$row->id;
+                                        $idvar2 = 'id_'.$ctrSummary.'_'.$row->id;
+
+                                        $ps2 = PerformanceSummary::find((int)$request->$idvar2);
+                                        if (!empty($ps2)){
+                                            if ($ps2->value !== $request->$var2){
+                                            $ps2->value = $request->$var2;
+                                            $ps2->push();
+                                        }
+
+                                        }
+
+                                        
+
+                                       ;
+                                    }
+                                
+                                }
+                                 
+                                
+                                
+                                $ctrSummary++;
+
+        }//end foreach summaries
+
+   
+
+    
+        fwrite($file, "-------------------\n Update_Eval: ". $evalForm->id ." for: ". User::find($evalForm->user_id)->lastname.", ". User::find($evalForm->user_id)->firstname." updated ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+        
+
+         // *** if eval type is REGULARIZATION, we need to inform HR admin that a new regularization must be updated
        
 
-        
-            fwrite($file, "-------------------\n EvalID: ". $evalForm->id ." for: ". User::find($evalForm->user_id)->lastname.", ". User::find($evalForm->user_id)->firstname." updated ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
-            
+       
+        fclose($file);
 
-             // *** if eval type is REGULARIZATION, we need to inform HR admin that a new regularization must be updated
-           
+        //now check kung may REJECT feedback from HR:
+        $rejected = EvalForm_Feedback::where('eval_id',$evalForm->id)->get();
 
-           
-            fclose($file);
+        if(count($rejected) > 0)
+        {
+          //delete mo na yung feedback na yun and reset HR status review
+          $evalForm->isApproved = null;
+          $evalForm->isFinalEval = null;
+
+          foreach ($rejected as $r) {
+            $r->delete();
+            # code...
+          }
+          
+        }
+
+        $evalForm->push();
+
         
         return response()->json($evalForm);
 

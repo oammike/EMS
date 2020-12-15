@@ -980,6 +980,18 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     /*********** EVAL FORM ROUTES ************/
 
+      Route::get('/pendingEvals', array(
+      'as'=> 'allPendings',
+      'uses'=>'EvalFormController@allPendings') );
+
+      Route::get('/approvedEvals', array(
+      'as'=> 'allApproved',
+      'uses'=>'EvalFormController@allApproved') );
+
+      Route::get('/deniedEvals', array(
+      'as'=> 'allDenied',
+      'uses'=>'EvalFormController@allDenied') );
+
       Route::get('/evalForm/new/{user_id}/{evalType_id}', array(
       'as'=> 'newEvaluation',
       'uses'=>'EvalFormController@newEvaluation') );
@@ -997,6 +1009,15 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'EvalFormController@grabAllWhosUpFor') );
 
 
+      Route::post('/evalForm/approveThisEval/{id}', array(
+      'as'=> 'evalForm.approveThisEval',
+      'uses'=>'EvalFormController@approveThisEval') );
+
+      Route::post('/evalForm/rejectThisEval/{id}', array(
+      'as'=> 'evalForm.rejectThisEval',
+      'uses'=>'EvalFormController@rejectThisEval') );
+
+
       Route::post('/evalForm/deleteThisEval/{id}', array(
       'as'=> 'evalForm.deleteThisEval',
       'uses'=>'EvalFormController@deleteThisEval') );
@@ -1008,6 +1029,19 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::get('/getAllEval', array(
       'as'=> 'evalForm.getAllEval',
       'uses'=>'EvalFormController@getAllEval') );
+
+      Route::get('/getAllApprovedEvals', array(
+      'as'=> 'evalForm.getAllApprovedEvals',
+      'uses'=>'EvalFormController@getAllApprovedEvals') );
+
+      Route::get('/getAllDeniedEvals', array(
+      'as'=> 'evalForm.getAllDeniedEvals',
+      'uses'=>'EvalFormController@getAllDeniedEvals') );
+
+
+      Route::get('/getAllPendingEvals', array(
+      'as'=> 'evalForm.getAllPendingEvals',
+      'uses'=>'EvalFormController@getAllPendingEvals') );
 
       Route::post('/evalForm/updateReview/{id}', array(
       'as'=> 'evalForm.updateReview',
