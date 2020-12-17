@@ -1028,7 +1028,7 @@ class EvalFormController extends Controller
         $evalSetting = EvalSetting::find($request->evalType_id);
         $doneEval = new Collection;
 
-        $colle = new Collection;
+        $colle = new Collection; $changedImmediateHeads = null;
 
        /* -------- THIS IS A TEMPORARY SOLUTION TO HANDLE PERIODS ----- */
 
@@ -1900,6 +1900,7 @@ class EvalFormController extends Controller
                             $endPeriod = Carbon::create(2019,12,31,0,0,0, 'Asia/Manila');
                            
                             $coll = new Collection;
+                           
 
 
                             if ($this->user->userType_id !== 4 && !($leadershipcheck->isEmpty())) //if not AGENT
@@ -2263,7 +2264,7 @@ class EvalFormController extends Controller
 
                                              if ($doNotInclude) { /* do nothing */}
                                               else { 
-                                                $doneEval[$emp->id] = ['evaluated'=>0,'isDraft'=>0, 'evalForm_id'=> null, 'score'=>null, 'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                                $doneEval[$emp->id] = ['evaluated'=>0,'isDraft'=>0, 'evalForm_id'=> null, 'score'=>null, 'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>null];
                                                 //$mySubordinates->push($emp);
                                                 $leadershipcheck = ImmediateHead::where('employeeNumber', $emp->employeeNumber)->get();
                                                 (count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) ? $isLead=true : $isLead=false;
@@ -2281,9 +2282,9 @@ class EvalFormController extends Controller
                                                 $truegrade = $theeval->overAllScore;
 
                                                 if ($theeval->isDraft == 1) 
-                                                  $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$fr->format('M d, Y'),'endPeriod'=>$to->format('M d, Y')];
+                                                  $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$fr->format('M d, Y'),'endPeriod'=>$to->format('M d, Y'), 'theEval'=>$theeval];
                                                 else
-                                                  $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($existing->first()->startPeriod)), 'endPeriod'=>$endPeriod->format('M d, Y')];
+                                                  $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($existing->first()->startPeriod)), 'endPeriod'=>$endPeriod->format('M d, Y'), 'theEval'=>$theeval];
 
                                               
                                               $leadershipcheck = ImmediateHead::where('employeeNumber', $emp->employeeNumber)->get();
@@ -2329,6 +2330,7 @@ class EvalFormController extends Controller
                                   
                                   
                                   //return $colle;
+                                  //return response()->json(['doneEval'=>$doneEval,'doneMovedEvals'=>$doneMovedEvals,'changedImmediateHeads'=>$changedImmediateHeads]);
                                   return view('showThoseUpForAnnual', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
 
 
@@ -2347,10 +2349,10 @@ class EvalFormController extends Controller
                                               $truegrade = $theeval->overAllScore;
 
                                               if ($theeval->isDraft) 
-                                                $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->startOfDay()->format('M d, Y'), 'endPeriod'=>$endPeriod->startOfDay()->format('M d, Y')];
+                                                $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->startOfDay()->format('M d, Y'), 'endPeriod'=>$endPeriod->startOfDay()->format('M d, Y'), 'theEval'=>$theeval];
                                               else
                                               //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                              $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($existing->first()->startPeriod)), 'endPeriod'=>$endPeriod->format('M d, Y')];
+                                              $doneEval[$emp->id] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($existing->first()->startPeriod)), 'endPeriod'=>$endPeriod->format('M d, Y'),'theEval'=>$theeval];
 
 
 
@@ -2371,8 +2373,9 @@ class EvalFormController extends Controller
             }
             
             //return $coll;
+
             
-            return view('showThoseUpFor', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','changedImmediateHeads','doneMovedEvals', 'currentPeriod','endPeriod'));
+            //return view('showThoseUpFor', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','changedImmediateHeads','doneMovedEvals', 'currentPeriod','endPeriod'));
           
     }
 

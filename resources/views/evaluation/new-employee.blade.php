@@ -241,7 +241,7 @@ sidebar-collapse
                                                           <td class="text-center text-danger"><h4 id="score-{{$entry['id']}}" class="scores" value="0">0.0</h4></td>
 
                                                           <td>
-                                                            <select class="form-control text-center" name="rating" id="rating-{{$entry['id']}}" data-entryID="{{$entry['id']}} ">
+                                                            <select class="form-control text-center" name="rating" id="rating-{{$entry['id']}}" data-entryID="{{$entry['id']}} " data-commentBox="att_{{$entry['id']}}-1">
                                                               <option value="0" data-computedValue="0">Select</option>
                                                               @foreach ($ratingScale as $r)
                                                                 <option value="{{$r->id}}" title="{{$entry['id']}}" data-computedValue="<?php echo ($entry['percentage']*$r->label)/100; ?>" data-maxscore="{{$entry['percentage']}}" class="text-center">{{$r->label}} </option>
@@ -491,6 +491,30 @@ $('a.back-to-top, a.simple-back-to-top').click(function() {
            console.log("Rated: "+notYetRated);
            $('.loader').delay(2000).fadeOut(); return false;
          }
+
+
+          var mgareq = $('textarea').filter('[required]');
+          var ectr=0;
+              $.each(mgareq,function(i,val){
+
+                if($(this).val() == "") ectr++;
+                console.log("i: ");
+                console.log($(this).val());
+                
+              });
+
+          if (ectr > 0)
+          {
+              $('.loader').fadeIn();
+              $('.loader').html('');
+              $('.loader').html('<p><i class="fa fa-info-circle"></i><strong> Oops! You still have empty comment boxes to justify your selected rating. </strong><br/>Kindly fill them out first before submitting to HR. Thank you! </p>');
+               //console.log("Rated: "+notYetRated);
+               $('.loader').delay(8000).fadeOut(); return false;
+
+          }
+
+         
+
         
 
       } 
@@ -575,6 +599,7 @@ $('a.back-to-top, a.simple-back-to-top').click(function() {
 
           var selval = $(this).find(':selected').attr('data-computedValue'); // $(this).val();
           var id = $(this).attr('data-entryID');
+          var itemval = $(this).val();
 
           if (selval == 0)
           {
@@ -601,6 +626,35 @@ $('a.back-to-top, a.simple-back-to-top').click(function() {
           } else {
             var num = ($(this).find(':selected').attr('data-computedValue')/{{$maxScore}})*100; //($(this).val()/{{$maxScore}})*100;
             var overall = 0;
+
+            //-------- require justification if 5 | 4 | 2| 1 ----------------------
+            var cbid = $(this).attr('data-commentBox');
+            var commentBox = $('textarea[name="'+cbid+'"]');
+            
+
+            if(itemval !== '3' )
+            {
+              
+              commentBox.prop('required',true);
+
+              if (commentBox.val() == "")
+                alert('Don\'t forget to provide enough justification about this rating on the comment box provided.');
+
+              console.log("itemval: "+itemval);
+              console.log(commentBox);
+              console.log('REQUIRED:');
+
+
+              
+            }else{
+              
+              commentBox.prop('required',false);
+              console.log('REQUIRED:');
+
+              var mgareq = $('textarea[value=""]').filter('[required]'); //.find('textarea[value==""]');
+              console.log(mgareq);
+            } 
+              
 
              $("#evaluated-"+id).html('<i class="fa fa-check text-green"></i>');
 

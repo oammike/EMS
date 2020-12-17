@@ -250,7 +250,16 @@ trait EvaluationTraits
                                     } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $key->effectivity, 'Asia/Manila')->addDays(-1); //
 
 
-                                    //*** check mo na kung may status movement sya within the range
+
+
+                                   
+                                        $evalBy = $me->id;  
+                                        //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
+                                        //->where('evaluatedBy', $evalBy)
+
+                                        $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); 
+
+                                        //*** check mo na kung may status movement sya within the range
                                     //*** if that movement effectivity >= from && <= to, do not include him
 
                                     
@@ -265,20 +274,14 @@ trait EvaluationTraits
                                                         'lastname'=>$employ->lastname, 
                                                         'position'=>$mustPosition, 
                                                         'isLead'=>$isLead,
-                                                        'status'=>$employ->status->name]);
-
-                                   
-                                        $evalBy = $me->id;  
-                                        //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
-                                        //->where('evaluatedBy', $evalBy)
-
-                                        $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); 
+                                                        'status'=>$employ->status->name,
+                                                        'theEval'=> $evaluated ]);
                                     
                                      
 
                                         if ( count($evaluated) == 0)
                                         {
-                                            $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                            $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>null];
 
                                             
                                         } else {
@@ -292,14 +295,14 @@ trait EvaluationTraits
                                                 $truegrade = $theeval->overAllScore;
 
                                                 if ($theeval->isDraft) 
-                                                  $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
+                                                  $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod,'theEval' => $theeval];
                                                 else
-                                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id, 'evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod)),'theEval'=>$theeval];
 
 
                                             }else{
 
-                                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>null];
 
                                             } //$theeval = EvalForm::find( $evaluated->sortByDesc('id')->first()->id);
                                             
@@ -368,7 +371,7 @@ trait EvaluationTraits
 
                             if ( count($evaluated) == 0)
                             {
-                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>null];
 
                                 
                             } else {
@@ -377,10 +380,10 @@ trait EvaluationTraits
                                 $truegrade = $theeval->overAllScore;
 
                                 if ($theeval->isDraft) 
-                                  $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
+                                  $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod,'theEval'=>$theeval];
                                 else
                                 //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                $doneMovedEvals[$ctr] = ['evaluated'=>1, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod)), 'theEval'=>$theeval];
 
 
 
@@ -752,13 +755,13 @@ trait EvaluationTraits
                                                   $doneMovedEvals[$ctr] = ['evaluated'=>1,'user_id'=>$emp->user_id, 'isDraft'=>1, 'evalForm_id'=> $evaluated->first()->id, 'score'=>$truegrade, 'startPeriod'=>$theeval->startPeriod, 'endPeriod'=>$theeval->endPeriod];
                                                 else
                                                 //$doneEval[$emp->id] = ['evaluated'=>1, 'evalForm_id'=> $existing->first()->id, 'score'=>$truegrade, 'startPeriod'=>$currentPeriod->format('M d, Y'), 'endPeriod'=>$endPeriod->format('M d, Y')];
-                                                $doneMovedEvals[$ctr] = ['evaluated'=>1,'user_id'=>$emp->user_id, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod))];
+                                                $doneMovedEvals[$ctr] = ['evaluated'=>1,'user_id'=>$emp->user_id, 'isDraft'=>0, 'evalForm_id'=> $theeval->id, 'score'=>$truegrade, 'startPeriod'=>date('M d, Y', strtotime($theeval->startPeriod)), 'endPeriod'=>date('M d,Y',strtotime($theeval->endPeriod)),'theEval'=>$theeval];
 
 
                                                 
                                             } else {
 
-                                               $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y')];
+                                               $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>$theeval];
                                                 
                                             }
                                             /*---- END JULY 2018 fix ----- */

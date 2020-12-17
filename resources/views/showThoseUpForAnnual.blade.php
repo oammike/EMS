@@ -120,7 +120,7 @@
                             <div class="box-footer no-padding">
                               
                               <ul class="nav nav-stacked">
-                                <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee['data']->dateHired), "M d, Y")  }} </span></a></li><br/><br/><br/><br/>
+                                <li><a href="#">Date Hired <span class="pull-right badge bg-gray">{{ date_format(date_create($employee['data']->dateHired), "M d, Y")  }} </span></a></li><br/><br/>
                                <!--  <li><a href="#">Absences <span class="pull-right badge bg-red">N/A</span></a></li>
                                 <li><a href="#">Tardiness <span class="pull-right badge bg-red">N/A</span></a></li>
                                 <li><a href="#">Issued Disciplinary Actions <span class="pull-right badge bg-red">N/A</span></a></li> -->
@@ -128,13 +128,27 @@
                                 
 
                                 @if ($doneEval[$employee['data']->id]['evaluated' ]&& $doneEval[$employee['data']->id]['score'] != 0 && !$doneEval[$employee['data']->id]['isDraft'])
+
+                                  @if($doneEval[$employee['data']->id]['theEval'] !== null)
+
+                                    @if ($doneEval[$employee['data']->id]['theEval']['isApproved']=='1')
+                                    <h5 class="text-success text-center"><i class="fa fa-thumbs-up"></i> Approved by HR</h5> 
+                                    @elseif ($doneEval[$employee['data']->id]['theEval']['isApproved']=='0')
+                                    <h5 class="text-danger text-center"><i class="fa fa-thumbs-down"></i> Rejected by HR</h5> 
+                                    @else
+                                    <h5 class="text-warning text-center"><i class="fa fa-exclamation-triangle"></i> For HR Review</h5> 
+                                    @endif
+                                  @endif
+
                                 <li><a href="#">
                                   <span class="pull-left"><strong>Rating</strong> <br/>
+
                                     <small>{{$doneEval[$employee['data']->id]['startPeriod'] }} - {{$doneEval[$employee['data']->id]['endPeriod'] }} </small></span><h3 class="pull-right text-danger">{{$doneEval[$employee['data']->id]['score']}} %</h3></a></li>
+
                               
 
                                 @else
-
+                                <br/><br/><br/>
                                 <li><a href="#">
                                   <span class="pull-left">{{$evalSetting->name}} <br/>
                                     <small>
@@ -147,6 +161,8 @@
                               </ul>
                                 
                               @if ( $doneEval[$employee['data']->id]['evaluated'] && !$doneEval[$employee['data']->id]['isDraft']  && $doneEval[$employee['data']->id]['score'] > 0 )
+
+
                              
                                <p class="text-center"><a class="btn btn-md btn-default" href="{{action('EvalFormController@show',$doneEval[$employee['data']->id]['evalForm_id']) }} "><i class="fa fa-check"></i> See Evaluation</a></p>
                               
@@ -215,7 +231,24 @@
                         <td>{{$employee['data']->status->name}}</td>
                         <td>{{date('M d, Y',strtotime($doneEval[$employee['data']->id]['startPeriod']))  }}  to  {{date('M d, Y',strtotime($doneEval[$employee['data']->id]['endPeriod']))  }}  </td>
                         <td class="text-danger">
+
+                         
+
+                                  @if($doneEval[$employee['data']->id]['theEval'] !== null)
+
+                                    @if ($doneEval[$employee['data']->id]['theEval']['isApproved']=='1')
+                                    <small class="text-success text-center"><i class="fa fa-thumbs-up"></i> Approved by HR</small> 
+                                    @elseif ($doneEval[$employee['data']->id]['theEval']['isApproved']=='0')
+                                    <small class="text-danger text-center"><i class="fa fa-thumbs-down"></i> Rejected by HR</small> 
+                                    @else
+                                    <small class="text-warning text-center"><i class="fa fa-exclamation-triangle"></i> For HR Review</small> 
+                                    @endif
+                                  @endif
                           
+                          
+                        
+                         
+
                           @if ($doneEval[$employee['data']->id]['isDraft'] == '1' && $doneEval[$employee['data']->id]['evaluated'])
                           <h4 class="text-center">* Draft *</h4>
                           @else
@@ -337,6 +370,19 @@
                                      
 
                                       @if ($x->first()['evaluated' ]&& $x->first()['score'] != 0)
+
+                                          @if($x->first()['theEval'] !== null)
+
+                                              @if ($x->first()['theEval']['isApproved']=='1')
+                                              <h5 class="text-success text-center"><i class="fa fa-thumbs-up"></i> Approved by HR</h5> 
+                                              @elseif ($x->first()['theEval']['isApproved']=='0')
+                                              <h5 class="text-danger text-center"><i class="fa fa-thumbs-down"></i> Rejected by HR</h5> 
+                                              @else
+                                              <h5 class="text-warning text-center"><i class="fa fa-exclamation-triangle"></i> For HR Review</h5> 
+                                              @endif
+                                        @endif
+
+
                                       <li><a href="#">
                                         <span class="pull-left"><strong>Rating</strong> <br/>
                                           <small>
