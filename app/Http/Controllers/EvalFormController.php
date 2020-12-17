@@ -2598,6 +2598,8 @@ class EvalFormController extends Controller
             }
             
             $evalForm->isDraft = false;
+            $evalForm->created_at = Carbon::now('Asia/Manila')->format('Y-m-d H:i:s');
+            $evalForm->updated_at = Carbon::now('Asia/Manila')->format('Y-m-d H:i:s');
             $evalForm->save();
 
 
@@ -2832,6 +2834,8 @@ class EvalFormController extends Controller
             }
             
             $evalForm->isDraft = false;
+            $evalForm->created_at = Carbon::now('Asia/Manila')->format('Y-m-d H:i:s');
+            $evalForm->updated_at = Carbon::now('Asia/Manila')->format('Y-m-d H:i:s');
             $evalForm->save();
 
 
