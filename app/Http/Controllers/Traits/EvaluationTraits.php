@@ -761,7 +761,7 @@ trait EvaluationTraits
                                                 
                                             } else {
 
-                                               $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>$theeval];
+                                               $doneMovedEvals[$ctr] = ['user_id'=>$emp->user_id,'evaluated'=>0,'isDraft'=>0, 'coachingDone'=>false, 'evalForm_id'=> null, 'score'=>null,'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>null];
                                                 
                                             }
                                             /*---- END JULY 2018 fix ----- */
