@@ -49,55 +49,9 @@
 
 
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/hanuka2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-empire"></i> Hannukkah<br/><small>December 10-18, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p  style="padding: 30px;" class="text-center">
-                    #Hanukkah, also referred to as the "Festival of Lights," celebrates the rededication of the Second Temple in Jerusalem during the time of the Maccabean Revolt (c. 167-160 BC).<br/><br/>
-
-The festivities begin tonight and end on the evening of December 18th. חנוכה שמח!<br/><br/>
-
-#WeSpeakYourLanguage #OAHolidays </p>
-
-                    
-                   
-                    
-                    
-            </div>
+            
 
            
-
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Dec. 08, 2020 Holiday |<br/> Feast of Immaculate Conception <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong>December 08, 2020</strong> is a special non-working holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
-
-                    <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
-                    Employees who are required to work during those holidays are eligible for the corresponding premium.<br/><br/>
-
-                    Below is a guide on how the special holiday pay is computed.</p>
-
-
-                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of Dec 08, 2020</p>
-                    <pre>(Basic Pay + Allowance) x 100%</pre>
-                    <strong class="text-success">WORKED</strong>
-                    <pre>(Basic Pay + Allowance) x 150%</pre>
-                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
-                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
-                    <!-- <strong class="text-success">Additional pay for work done in excess of 8 hours, and falls on the employee's rest day</strong>
-                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre> -->
- 
-                    
-            </div>
 
            
          
@@ -133,61 +87,6 @@ The festivities begin tonight and end on the evening of December 18th. חנוכ�
            
 
 
-          <div class="item text-center" >
-                  <img src="storage/uploads/calamityloan.jpg" width="90%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Message from HR: <br/><span class="text-primary"><i class="fa fa-file-o"></i> Pag-IBIG Calamity Loan Program<br/><small>November 10, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> 
-                    <p  style="padding: 30px;" class="text-center">
-                      We would like to inform you that Pag-IBIG has an ongoing calamity loan program <strong>( with only 5.95 % interest rate).</strong>
-                      <br/><br/>
-                      Pag-IBIG members residing in the following calamity stricken areas may avail the said program:<br/><br/>
-
-                      Pagalungan, Maguindanao (Flooding)<br/><br/>
-                      Lopez, Quezon (Pepito)<br/><br/>
-                      Albay (Quinta)<br/><br/>
-                      Oriental Mindoro (Quinta)<br/><br/>
-                      Batangas (Quinta)<br/><br/>
-                      Occidental Mindoro (Quinta)<br/><br/>
-                      Cavite (Rolly)<br/><br/>
-                      Camarines Sur (Rolly)<br/><br/>
-                      Catanduanes (Rolly)<br/><br/>
-                      Montawal, Maguindanao (Ofel)<br/><br/>
-                      Corcuera, Romblon (Quinta)<br/><br/>
-                      Occidental Mindoro (Quinta)<br/><br/>
-                      Aurora (Ulysses)<br/><br/>
-                      Tuguegarao  (Ulysses)<br/><br/>
-                      Isabela ( Rolly, Siony, Ulysses)<br/><br/>
-                      San Mateo, Rizal (Ulysses)<br/><br/>
-                      Quezon (Rolly)<br/><br/>
-                      Cagayan (Ulysses)<br/><br/>
-                      Rodriguez, Rizal (Ulysses)<br/><br/>
-                      Marikina (Ulysses)<br/><br/>
-                      Entire Luzon (Uly, Quinta, Rolly)<br/><br/>
-
-                      <!--  
-
-                      * Entire Municipality of <strong>Pagalungan, Maguindanao</strong> -Flooding
-                      * <strong>Lopez, Quezon</strong> – Typhoon Pepito<br/><br/>
-                      * Province of <strong>Albay</strong> – Typhoon Quinta<br/><br/>
-                      * Province of <strong>Oriental Mindoro</strong> – Typhoon Quinta<br/><br/>
-                      * Province of <strong>Cavite</strong> – Typhoon Rolly<br/><br/>
-                      * Province of <strong>Camarines Sur</strong> – Typhoon Rolly<br/><br/>
-                      * Province of <strong>Catanduanes</strong> – Typhoon Rolly<br/><br/><br/> -->
-
-                      Head over to our <strong class="text-primary">Resources page >> HR Documents</strong> to view and download loan application form:
-                     </p><a class="btn btn-success btn-md" target="_blank" href="{{action('ResourceController@index')}}#resource_2"> View Application Form</a><br/>
-
-                    
-                   
-                    
-                    
-            </div>
-
-            
-
-       
            
 
 
@@ -9657,6 +9556,101 @@ For interested participants and for any questions, please email us at our gmail 
  
                     
             </div>
+            <div class="item text-center" >
+                  <img src="storage/uploads/hanuka2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-empire"></i> Hannukkah<br/><small>December 10-18, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p  style="padding: 30px;" class="text-center">
+                    #Hanukkah, also referred to as the "Festival of Lights," celebrates the rededication of the Second Temple in Jerusalem during the time of the Maccabean Revolt (c. 167-160 BC).<br/><br/>
+
+The festivities begin tonight and end on the evening of December 18th. חנוכה שמח!<br/><br/>
+
+#WeSpeakYourLanguage #OAHolidays </p>
+
+                    
+                   
+                    
+                    
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calculator"></i>   Dec. 08, 2020 Holiday |<br/> Feast of Immaculate Conception <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>December 08, 2020</strong> is a special non-working holiday as per Proclamation No. 845 by the President of the Philippines.<br/><br/>
+
+                    <strong class="text-success">For all Business Support Group, Admin Site Support, and Ops Support who worked on the holiday, please file it as overtime in EMS.</strong><br/><br/>
+                    Employees who are required to work during those holidays are eligible for the corresponding premium.<br/><br/>
+
+                    Below is a guide on how the special holiday pay is computed.</p>
+
+
+                    <p class="text-center"><strong class="text-primary" style="font-size: large;">Unworked </strong>,<br/> provided the employee was present or <br/>on leave with pay on the workday <br/>prior to the start of Dec 08, 2020</p>
+                    <pre>(Basic Pay + Allowance) x 100%</pre>
+                    <strong class="text-success">WORKED</strong>
+                    <pre>(Basic Pay + Allowance) x 150%</pre>
+                    <strong class="text-success">Additional pay for work done in excess of 8 hours</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    <strong class="text-success">Worked, and falls on the rest day of the employee</strong>
+                    <pre> [(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</pre>
+                    
+ 
+                    
+            </div>
+
+          <div class="item text-center" >
+                  <img src="storage/uploads/calamityloan.jpg" width="90%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Message from HR: <br/><span class="text-primary"><i class="fa fa-file-o"></i> Pag-IBIG Calamity Loan Program<br/><small>November 10, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                      We would like to inform you that Pag-IBIG has an ongoing calamity loan program <strong>( with only 5.95 % interest rate).</strong>
+                      <br/><br/>
+                      Pag-IBIG members residing in the following calamity stricken areas may avail the said program:<br/><br/>
+
+                      Pagalungan, Maguindanao (Flooding)<br/><br/>
+                      Lopez, Quezon (Pepito)<br/><br/>
+                      Albay (Quinta)<br/><br/>
+                      Oriental Mindoro (Quinta)<br/><br/>
+                      Batangas (Quinta)<br/><br/>
+                      Occidental Mindoro (Quinta)<br/><br/>
+                      Cavite (Rolly)<br/><br/>
+                      Camarines Sur (Rolly)<br/><br/>
+                      Catanduanes (Rolly)<br/><br/>
+                      Montawal, Maguindanao (Ofel)<br/><br/>
+                      Corcuera, Romblon (Quinta)<br/><br/>
+                      Occidental Mindoro (Quinta)<br/><br/>
+                      Aurora (Ulysses)<br/><br/>
+                      Tuguegarao  (Ulysses)<br/><br/>
+                      Isabela ( Rolly, Siony, Ulysses)<br/><br/>
+                      San Mateo, Rizal (Ulysses)<br/><br/>
+                      Quezon (Rolly)<br/><br/>
+                      Cagayan (Ulysses)<br/><br/>
+                      Rodriguez, Rizal (Ulysses)<br/><br/>
+                      Marikina (Ulysses)<br/><br/>
+                      Entire Luzon (Uly, Quinta, Rolly)<br/><br/>
+
+                     
+
+                      Head over to our <strong class="text-primary">Resources page >> HR Documents</strong> to view and download loan application form:
+                     </p><a class="btn btn-success btn-md" target="_blank" href="{{action('ResourceController@index')}}#resource_2"> View Application Form</a><br/>
+
+                    
+                   
+                    
+                    
+            </div>
+
+            
+
+       
+
 
 
                           -->
