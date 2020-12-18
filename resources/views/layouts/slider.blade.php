@@ -2,7 +2,31 @@
 
    
 
-            <div class="item active text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> DEC. 23, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for DEC.23 payout is still on Dec.20, 2020. Due to early payout, we will  be having an early cut-off time for the approval and locking of DTRs. Employee's DTR should be approved and locked in EMS on or before <strong class="text-danger"> 10:00 am of December 21, 2020 (MONDAY).</strong>.<br/><br/>
+                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
+
+                   
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
+              <div class="item text-center" >
                   <img src="storage/uploads/ECQCrossword.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-pencil-square-o"></i> Crossword Puzzle Day<br/><small>December 21, 2020</small><br/>
                   
