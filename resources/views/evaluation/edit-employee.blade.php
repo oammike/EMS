@@ -246,7 +246,7 @@ sidebar-collapse
                                                          
 
                                                           <td>
-                                                            <select class="form-control text-center" name="rating" id="rating-{{$entry['id']}}" data-entryID="{{$entry['id']}}" data-detailID="{{$entry['detailID']}}">
+                                                            <select class="form-control text-center" name="rating" id="rating-{{$entry['id']}}" data-entryID="{{$entry['id']}}" data-detailID="{{$entry['detailID']}}" data-commentBox="att_{{$entry['id']}}-1">
                                                              <!--  <option value="0" data-computedValue="0">Select</option> -->
                                                               @foreach ($ratingScale as $r)
                                                                 <option value="{{$r->id}}" title="{{$entry['id']}}" data-computedValue="<?php echo ($entry['percentage']*$r->label)/100; ?>" data-maxscore="{{$entry['percentage']}}" class="text-center" @if ($entry['rating']->label == $r->label) selected="selected" @endif>{{$r->label}} </option>
@@ -505,6 +505,29 @@ var rating = parseFloat($('#overallScore').attr('data-value'));
      
       var increasesal =  $('#salaryIncrease').val();
       console.log("ang increase: " + increasesal);
+
+
+      //-- check required comments
+      var mgareq = $('textarea').filter('[required]');
+          var ectr=0;
+              $.each(mgareq,function(i,val){
+
+                if($(this).val() == "") ectr++;
+                console.log("i: ");
+                console.log($(this).val());
+                
+              });
+
+          if (ectr > 0)
+          {
+              $('.loader').fadeIn();
+              $('.loader').html('');
+              $('.loader').html('<p><i class="fa fa-info-circle"></i><strong> Oops! You still have empty comment boxes to justify your selected rating. </strong><br/>Kindly fill them out first before submitting to HR. Thank you! </p>');
+               //console.log("Rated: "+notYetRated);
+               $('.loader').delay(8000).fadeOut(); return false;
+
+          }
+      //------- end check required comments
     
       $('.loader').fadeIn();
       $('.loader').html('');
@@ -609,162 +632,191 @@ var rating = parseFloat($('#overallScore').attr('data-value'));
    $('select[name="rating"]').change(function()
    {   
 
-    var selval = $(this).find(':selected').attr('data-computedValue'); // $(this).val();
-    var id = $(this).attr('data-entryID');
+      var selval = $(this).find(':selected').attr('data-computedValue'); // $(this).val();
+      var id = $(this).attr('data-entryID');
+      var itemval = $(this).val();
 
-    if (selval == 0)
-    {
-      $("#evaluated-"+id).html('<i class="fa fa-exclamation-circle text-gray"></i>');
-      $('#score-'+id).html("0%");
-      $('#score-'+id).attr("value",'0.0');
+      if (selval == 0)
+      {
+        $("#evaluated-"+id).html('<i class="fa fa-exclamation-circle text-gray"></i>');
+        $('#score-'+id).html("0%");
+        $('#score-'+id).attr("value",'0.0');
 
-      var overall = 0;
-
-      var grades = $(".scores");
-      console.log("The grades:");
-      console.log(grades);
-
-        for (var i=0; i< grades.length; i++){
-          overall += parseFloat($(grades[i]).attr("value"));
-          console.log('LOG GRADES: '+ parseFloat($(grades[i]).attr("value")));
-        }
-
-        
-        $('input#total').attr("value",overall.toPrecision(4));
-         //var finalScore = overall.toPrecision(4);
-        //$('input#total').attr("value",finalScore);
-        $('#overallScore').html(overall.toPrecision(4)+"%");
-
-
-    } else 
-    {
-      var num = ($(this).find(':selected').attr('data-computedValue')/{{$maxScore}})*100; //($(this).val()/{{$maxScore}})*100;
-      var overall = 0;
-
-       $("#evaluated-"+id).html('<i class="fa fa-check text-green"></i>');
-
-
-        $('#score-'+id).html(num.toPrecision(4)+"");
-        $('#score-'+id).attr("value",num.toPrecision(4));
-        var saved = $('#score-'+id).val();
-        console.log("max score: {{$maxScore}} ");
+        var overall = 0;
 
         var grades = $(".scores");
-        console.log("Ang grades: " + grades);
+        console.log("The grades:");
+        console.log(grades);
 
-        for (var i=0; i< grades.length; i++){
-          overall += parseFloat($(grades[i]).attr("value"));
-          console.log('add: '+ parseFloat($(grades[i]).attr("value")));
-        }
+          for (var i=0; i< grades.length; i++){
+            overall += parseFloat($(grades[i]).attr("value"));
+            console.log('LOG GRADES: '+ parseFloat($(grades[i]).attr("value")));
+          }
 
-        
-        
-
-        var trueGrade = 100-((100-overall)*0.5);
-        var finalScore = overall.toPrecision(4);
-        $('#overallScore').html('');
-
-        $('#overallScore').html(trueGrade.toPrecision(4)+"%"); 
-       //$('#overallScore').html(finalScore+"%");
-        //console.log('id: '+ id + 'num: '+ num);
-       // console.log('overall: '+ overall.toPrecision(4));
-
-       //$('input#total').attr("value",overall.toPrecision(4));
-       $('input#total').attr("value",trueGrade.toPrecision(4));
-       
-
-        console.log('TOTAL input val: '+ overall.toPrecision(4));
-
-    }
-
-    <?php $idxctr = 0; ?>
-    @foreach ($ratingScale as $rs)
-
-         @if( $idxctr == count($ratingScale))
           
-            if ( trueGrade.toPrecision(4) <= {{$rs->maxRange}} ){
+          $('input#total').attr("value",overall.toPrecision(4));
+           //var finalScore = overall.toPrecision(4);
+          //$('input#total').attr("value",finalScore);
+          $('#overallScore').html(overall.toPrecision(4)+"%");
 
-         @else
 
-            if (trueGrade.toPrecision(4) <= {{$rs->maxRange}} && trueGrade.toPrecision(4)>{{$rs->maxRange - $ratingScale[$idxctr]->maxRange }}){
-            $("#descriptions").html('<span style="font-size:0.6em;" class="text-gray">{{$rs->status}}  <i class="fa {{$rs->icon}} "></i> </span>');
+      } else 
+      {
+        var num = ($(this).find(':selected').attr('data-computedValue')/{{$maxScore}})*100; //($(this).val()/{{$maxScore}})*100;
+        var overall = 0;
+
+         $("#evaluated-"+id).html('<i class="fa fa-check text-green"></i>');
+
+
+          $('#score-'+id).html(num.toPrecision(4)+"");
+          $('#score-'+id).attr("value",num.toPrecision(4));
+          var saved = $('#score-'+id).val();
+          console.log("max score: {{$maxScore}} ");
+
+          var grades = $(".scores");
+          console.log("Ang grades: " + grades);
+
+          for (var i=0; i< grades.length; i++){
+            overall += parseFloat($(grades[i]).attr("value"));
+            console.log('add: '+ parseFloat($(grades[i]).attr("value")));
+          }
+
+        //-------- require justification if 5 | 4 | 2| 1 ----------------------
+          var cbid = $(this).attr('data-commentBox');
+          var commentBox = $('textarea[name="'+cbid+'"]');
+          
+
+          if(itemval !== '3' )
+          {
             
+            commentBox.prop('required',true);
 
-         @endif
+            if (commentBox.val() == "")
+              alert('Don\'t forget to provide enough justification about this rating on the comment box provided.');
+
+            console.log("itemval: "+itemval);
+            console.log(commentBox);
+            console.log('REQUIRED:');
+
+
+            
+          }else{
+            
+            commentBox.prop('required',false);
+            console.log('REQUIRED:');
+
+            var mgareq = $('textarea[value=""]').filter('[required]'); //.find('textarea[value==""]');
+            console.log(mgareq);
+          } 
 
           
-          $('.ratingTable').removeClass('bg-green');
-          $('#rating-'+"{{$rs->percentage}}").addClass('bg-green');
+          
+
+          var trueGrade = 100-((100-overall)*0.5);
+          var finalScore = overall.toPrecision(4);
+          $('#overallScore').html('');
+
+          $('#overallScore').html(trueGrade.toPrecision(4)+"%"); 
+         //$('#overallScore').html(finalScore+"%");
+          //console.log('id: '+ id + 'num: '+ num);
+         // console.log('overall: '+ overall.toPrecision(4));
+
+         //$('input#total').attr("value",overall.toPrecision(4));
+         $('input#total').attr("value",trueGrade.toPrecision(4));
+         
+
+          console.log('TOTAL input val: '+ overall.toPrecision(4));
+
+      }
+
+      <?php $idxctr = 0; ?>
+      @foreach ($ratingScale as $rs)
+
+           @if( $idxctr == count($ratingScale))
+            
+              if ( trueGrade.toPrecision(4) <= {{$rs->maxRange}} ){
+
+           @else
+
+              if (trueGrade.toPrecision(4) <= {{$rs->maxRange}} && trueGrade.toPrecision(4)>{{$rs->maxRange - $ratingScale[$idxctr]->maxRange }}){
+              $("#descriptions").html('<span style="font-size:0.6em;" class="text-gray">{{$rs->status}}  <i class="fa {{$rs->icon}} "></i> </span>');
+              
+
+           @endif
+
+            
+            $('.ratingTable').removeClass('bg-green');
+            $('#rating-'+"{{$rs->percentage}}").addClass('bg-green');
 
 
-                  
+                    
 
-              }
-          <?php $idxctr++;?>
+                }
+            <?php $idxctr++;?>
 
-    @endforeach
+      @endforeach
 
-     @if ($evalType->id !== 3) // REGULARIZATION
+       @if ($evalType->id !== 3) // REGULARIZATION
 
-         if ( (trueGrade.toPrecision(4) <= 101) && (trueGrade.toPrecision(4) >= 97.50))
-         {
-                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
-                $('input#salaryIncrease').attr("value",5);
+           if ( (trueGrade.toPrecision(4) <= 101) && (trueGrade.toPrecision(4) >= 97.50))
+           {
+                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>5 %</strong></span>');
+                  $('input#salaryIncrease').attr("value",5);
 
-         } else if ( (trueGrade.toPrecision(4) <= 97.49) && (trueGrade.toPrecision(4) >= 89.50) ){ 
-                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
-                $('input#salaryIncrease').attr("value",4);
+           } else if ( (trueGrade.toPrecision(4) <= 97.49) && (trueGrade.toPrecision(4) >= 89.50) ){ 
+                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>4 %</strong></span>');
+                  $('input#salaryIncrease').attr("value",4);
 
-         } else if ( trueGrade.toPrecision(4) <= 89.49 && trueGrade.toPrecision(4) >= 84.50 ){
-          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
-          $('input#salaryIncrease').attr("value",3);
-
-         } else if ( trueGrade.toPrecision(4) <= 84.49 && trueGrade.toPrecision(4) >= 80 ){
-          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
-          $('input#salaryIncrease').attr("value",2);
-
-         } else if ( trueGrade.toPrecision(4) <= 79.99 && trueGrade.toPrecision(4) >= 70 ){
-                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
-                $('input#salaryIncrease').attr("value",2);
-
-
-         } else {
-          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
-           $('input#salaryIncrease').attr("value",0);
-         }
-
-     @else
-
-         if ( (trueGrade.toPrecision(4) <= 101) && (trueGrade.toPrecision(4) >= 97.50))
-         {
-                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
-                $('input#salaryIncrease').attr("value",5);
-
-         } else if ( (trueGrade.toPrecision(4) <= 97.49) && (trueGrade.toPrecision(4) >= 89.50) ){ 
-                // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
-                $('input#salaryIncrease').attr("value",4);
-
-          } else if ( trueGrade.toPrecision(4) <= 89.49 && trueGrade.toPrecision(4) >= 84.50 ){
-            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+           } else if ( trueGrade.toPrecision(4) <= 89.49 && trueGrade.toPrecision(4) >= 84.50 ){
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>3 %</strong></span>');
             $('input#salaryIncrease').attr("value",3);
 
-          } else if ( trueGrade.toPrecision(4) <= 84.49 && trueGrade.toPrecision(4) >= 80 ){
-            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+           } else if ( trueGrade.toPrecision(4) <= 84.49 && trueGrade.toPrecision(4) >= 80 ){
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>2 %</strong></span>');
             $('input#salaryIncrease').attr("value",2);
 
-          } else if ( trueGrade.toPrecision(4) <= 79.99 && trueGrade.toPrecision(4) >= 70 ){
-                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+           } else if ( trueGrade.toPrecision(4) <= 79.99 && trueGrade.toPrecision(4) >= 70 ){
+                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>1 %</strong></span>');
                   $('input#salaryIncrease').attr("value",2);
 
 
-          } else {
-          // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
-           $('input#salaryIncrease').attr("value",0);
-         }
+           } else {
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>none</strong></span>');
+             $('input#salaryIncrease').attr("value",0);
+           }
 
-     @endif
+       @else
 
-     console.log("total overall: "+overall.toPrecision(4));
+           if ( (trueGrade.toPrecision(4) <= 101) && (trueGrade.toPrecision(4) >= 97.50))
+           {
+                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+                  $('input#salaryIncrease').attr("value",5);
+
+           } else if ( (trueGrade.toPrecision(4) <= 97.49) && (trueGrade.toPrecision(4) >= 89.50) ){ 
+                  // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+                  $('input#salaryIncrease').attr("value",4);
+
+            } else if ( trueGrade.toPrecision(4) <= 89.49 && trueGrade.toPrecision(4) >= 84.50 ){
+              // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+              $('input#salaryIncrease').attr("value",3);
+
+            } else if ( trueGrade.toPrecision(4) <= 84.49 && trueGrade.toPrecision(4) >= 80 ){
+              // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+              $('input#salaryIncrease').attr("value",2);
+
+            } else if ( trueGrade.toPrecision(4) <= 79.99 && trueGrade.toPrecision(4) >= 70 ){
+                    // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-danger"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+                    $('input#salaryIncrease').attr("value",2);
+
+
+            } else {
+            // $("#descriptions").append('<br/><span style="font-size:0.4em" class="text-gray"><i class="fa fa-money"></i> Salary Increase: <strong>* N/A *</strong></span>');
+             $('input#salaryIncrease').attr("value",0);
+           }
+
+       @endif
+
+       console.log("total overall: "+overall.toPrecision(4));
         
        
     });
