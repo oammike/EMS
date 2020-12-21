@@ -3,7 +3,7 @@
    
 
             <div class="item active text-center" >
-                  <img src="storage/uploads/holiday2020s.jpg" width="100%" />
+                  <img src="storage/uploads/holidays2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-gift"></i> Happy Holidays 2020<br/><small>December 21, 2020</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
