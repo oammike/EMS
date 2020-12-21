@@ -3,6 +3,34 @@
    
 
             <div class="item active text-center" >
+                  <img src="storage/uploads/answers.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-pencil"></i> Crossword Puzzle Day<br/><small>December 21, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">Thank you to all who submitted their answer keys. Find out if you are one of the 3 winners of Php 1,000 Universal Giftaway voucher!<br/><br/>
+
+                    Join the virtual raffle later! <strong class="text-success">Dec.21, 2020 6PM</strong></p>
+
+                    Zoom link:
+                    <input style="font-weight: bold" class="form-control text-center" type="text" id="bundylink" value="https://us02web.zoom.us/j/85409114116" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+                     
+                    
+
+                   
+
+                   
+
+                    </p> 
+
+
+ 
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/holidays2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-gift"></i> Happy Holidays 2020<br/><small>December 21, 2020</small><br/>
                   
