@@ -2,7 +2,22 @@
 
    
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+            <div class="item active text-center" >
+                  <img src="storage/uploads/holiday2020s.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-gift"></i> Happy Holidays 2020<br/><small>December 21, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">All gatherings this year have been different and will be one for the books.<br/><strong> How are you celebrating the holidays this year?</strong><br/><br/>
+
+                    Share your 2020 holiday experience and earn 25 points.</p>
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',38)}}"> Check out our ECQonnection Wall</a><br/>
+                    
+                    
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> DEC. 23, 2020</strong> PAYOUT <br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -26,39 +41,6 @@
  
                     
               </div>
-              <div class="item text-center" >
-                  <img src="storage/uploads/ECQCrossword.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-pencil-square-o"></i> Crossword Puzzle Day<br/><small>December 21, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">December 21 is Crossword Puzzle Day!<br/>
-
-                      Solve this puzzle and be 1 of the three winners of Php 1,000 Universal Giftaway voucher! <br/><br/>
-
-                      Send your answers to <strong>events@openaccessbpo.net</strong> on Zimbra</p>
-                               
-
-
-
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',37)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
-
-
-
-            
-
-           
-
-           
-         
-
-           
-
-
            
          <div class="item text-center" >
                   <img src="storage/uploads/donationposter.jpg" width="100%" />
