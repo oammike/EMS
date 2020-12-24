@@ -2330,7 +2330,7 @@ class EvalFormController extends Controller
                                   
                                   
                                   //return $colle;
-                                  //return response()->json(['doneEval'=>$doneEval,'doneMovedEvals'=>$doneMovedEvals,'changedImmediateHeads'=>$changedImmediateHeads]);
+                                  return response()->json(['doneEval'=>$doneEval,'doneMovedEvals'=>$doneMovedEvals,'changedImmediateHeads'=>$changedImmediateHeads]);
                                   return view('showThoseUpForAnnual', compact('mySubordinates', 'evalTypes', 'evalSetting', 'doneEval','doneMovedEvals','changedImmediateHeads','currentPeriod','endPeriod'));
 
 

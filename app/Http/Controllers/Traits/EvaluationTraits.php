@@ -426,9 +426,7 @@ trait EvaluationTraits
 
             $currentPeriod = $cur;
             $endPeriod = $endP;
-
-
-                /*** OLD --- foreach ($me->myCampaigns as $m) { */
+            /*** OLD --- foreach ($me->myCampaigns as $m) { */
             $changedImmediateHeads = new Collection;
             $doneMovedEvals = new Collection;
             $ctr = 0;
