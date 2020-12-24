@@ -347,7 +347,16 @@ trait EvaluationTraits
                                 $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //$endPeriod;
                             } else $to = Carbon::createFromFormat('Y-m-d H:i:s', $emp->effectivity, 'Asia/Manila'); //
 
-                            $changedImmediateHeads->push([
+
+
+                           
+                            $evalBy = $me->id;  
+                            //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
+
+                            $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evaluatedBy', $evalBy)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
+                            //$coll2->push(['evaluated'=>$evaluated]);
+
+                             $changedImmediateHeads->push([
                                                         'movement_id'=> $emp->id,
                                                         'id'=>$employ->id, 
                                                         'index'=> $ctr,
@@ -358,14 +367,8 @@ trait EvaluationTraits
                                                         'lastname'=>$employ->lastname, 
                                                         'position'=>$mustPosition, 
                                                         'isLead'=>$isLead,
+                                                        'theEval'=>$evaluated,
                                                         'status'=>$employ->status->name]);
-
-                           
-                            $evalBy = $me->id;  
-                            //$coll->push(['from: '=>$fr, 'to: '=>$to->startOfDay()]);
-
-                            $evaluated = EvalForm::where('user_id', $emp->user_id)->where('evaluatedBy', $evalBy)->where('evalSetting_id',$evalSetting->id)->where('startPeriod','>=',$fr)->where('endPeriod','<=', $to)->get(); //->where('endPeriod','<=', $to->startOfDay())->get(); //->get(); //where('startPeriod','>=',$currentPeriod)->where('endPeriod','<=',$endPeriod)->orderBy('id','DESC')->get();
-                            //$coll2->push(['evaluated'=>$evaluated]);
                         
                          
 
