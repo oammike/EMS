@@ -5,6 +5,21 @@
           
 
             <div class="item active text-center" >
+                  <img src="storage/uploads/happyholidays2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-gift"></i> Holidays 2020<br/><small>from your OpenAccessBPO family</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">Things may be a little different this year, but we hope for the best for you and your loved ones! Happy holidays from your Open Access BPO family.<br/><br/>
+
+                    #WeSpeakYourLanguage #OAHolidays</p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item  text-center" >
                   <img src="storage/uploads/holidays2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-gift"></i> Happy Holidays 2020<br/><small>December 21, 2020</small><br/>
                   
