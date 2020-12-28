@@ -5,6 +5,26 @@
           
 
             <div class="item active text-center" >
+                  <img src="storage/uploads/thanku2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Send Your <span class="text-primary">e-Card Greetings <i class="fa fa-gift"></i><br/><small>to your team!</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">As we are nearing the end of this one of a kind year, why don't we look back on the best memories we had with our teammates?<br/><br/>
+
+                    Pen your yearend message to your teammates and colleagues and visit this link:<br/>
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://www.openaccessbpo.com/goodbye-2020-hello-2021" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                   <br/><br/>
+
+                    It has been a great 2020, and wishing you all nothing but BETTER DAYS in 2021! </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/happyholidays2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-gift"></i> Holidays 2020<br/><small>from your OpenAccessBPO family</small><br/>
                   
