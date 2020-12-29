@@ -124,10 +124,10 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Happy <span class="text-orange"> CS Week 2020  </span> </strong><br/><small>Oct. 09, 2020</small></p>
+                      <p class="text-center"><strong class="text-primary">Happy <span class="text-orange"> Holiday Greetings  </span> </strong><br/><small> from your Open Access BPO Family</small></p>
 
                      
-                      <video id="teaser" src="storage/uploads/CSweek.mp4" width="100%" loop controls></video>
+                      <video id="teaser" src="storage/uploads/yearend2020.mp4" width="100%" loop controls></video>
                       <p style="padding:30px; font-size: smaller;"><br/><br/>
                       See all videos  <a href="{{action('HomeController@videogallery')}}" target="_blank"><strong>here</strong> </a></p>
                      
