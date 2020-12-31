@@ -1,8 +1,10 @@
 <?php $u = OAMPI_Eval\User::find(Auth::user()->id);
 
             $lengthOfservice = \Carbon\Carbon::parse($u->dateHired,"Asia/Manila")->diffInMonths();
-            $leave1 = \Carbon\Carbon::parse('first day of January '. date('Y'),"Asia/Manila")->format('Y-m-d');
-            $leave2 = \Carbon\Carbon::parse('last day of December '.date('Y'),"Asia/Manila")->format('Y-m-d');
+            //why?? because of the freaking server setting na di maayos ni IT
+            $phY = \Carbon\Carbon::now('GMT+8')->format('Y');
+            $leave1 = \Carbon\Carbon::parse('first day of January '. $phY,"Asia/Manila")->format('Y-m-d');
+            $leave2 = \Carbon\Carbon::parse('last day of December '.$phY,"Asia/Manila")->format('Y-m-d');
             $currentVLbalance ="N/A";
             $updatedVL = false;
             $currentSLbalance ="N/A";
@@ -11,18 +13,18 @@
 
             //if ($lengthOfservice > 6) //do this if only 6mos++
             //{
-              $today= date('m');//today();
+              $today= \Carbon\Carbon::now('GMT+8')->format('m'); //date('m');//today();
               $avail = $u->vlCredits;
               $avail2 = $u->slCredits;
 
               $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$u->id)->
                                join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
-                               select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',\Carbon\Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                               select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',\Carbon\Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->get();
               $totalVLearned = collect($vlEarnings)->sum('credits');
 
               $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$u->id)->
                                join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
-                               select('slupdate.credits','slupdate.period')->where('slupdate.period','>',\Carbon\Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                               select('slupdate.credits','slupdate.period')->where('slupdate.period','>',\Carbon\Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->get();
               $totalSLearned = collect($slEarnings)->sum('credits');
 
               $approvedVLs = OAMPI_Eval\User_VL::where('user_id',$u->id)->where('isApproved',1)->where('leaveStart','>=',$leave1)->where('leaveEnd','<=',$leave2)->get();
@@ -92,7 +94,7 @@
                 {
                   $sls = $u->slCredits->sortByDesc('creditYear');
 
-                  if($sls->contains('creditYear',date('Y')))
+                  if($sls->contains('creditYear',$phY))
                   {
                     $updatedSL=true;
 
@@ -104,12 +106,12 @@
                       $advancedSL += $a->total;
                     }
 
-                     $currentSLbalance= (($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
+                    $currentSLbalance= (($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
 
                   }
                   else{
 
-                   /* if (count($approvedSLs)>0)
+                    /*if (count($approvedSLs)>0)
                     {
                       $bal = 0.0;
                       foreach ($approvedSLs as $key) {

@@ -5677,10 +5677,11 @@ class DTRController extends Controller
         
 
         /*------- check first if user is entitled for a leave (Regualr employee or lengthOfService > 6mos) *********/
-        $today=Carbon::today();
+        $today=Carbon::now('GMT+8'); //today();
+        $phY = Carbon::now('GMT+8')->format('Y');
         $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
-        $hasVLCreditsAlready = DB::table('user_vlcredits')->where('user_id',$user->id)->where('creditYear',date('Y'))->get();
-        $hasSLCreditsAlready = DB::table('user_slcredits')->where('user_id',$user->id)->where('creditYear',date('Y'))->get();
+        $hasVLCreditsAlready = DB::table('user_vlcredits')->where('user_id',$user->id)->where('creditYear',$phY)->get();
+        $hasSLCreditsAlready = DB::table('user_slcredits')->where('user_id',$user->id)->where('creditYear',$phY)->get();
         ($lengthOfService >= 6 || count($hasVLCreditsAlready) > 0 || count($hasSLCreditsAlready) > 0 ) ? $entitledForLeaves=true : $entitledForLeaves=false;
 
 
@@ -5759,8 +5760,8 @@ class DTRController extends Controller
 
 
         /**************  LEAVE CREDITS ****************/
-        $leave1 = Carbon::parse('first day of January '. date('Y'),"Asia/Manila")->format('Y-m-d');
-        $leave2 = Carbon::parse('last day of December '.date('Y'),"Asia/Manila")->format('Y-m-d');
+        $leave1 = Carbon::parse('first day of January '. $today->format('Y'),"Asia/Manila")->format('Y-m-d');
+        $leave2 = Carbon::parse('last day of December '.$today->format('Y'),"Asia/Manila")->format('Y-m-d');
         $currentVLbalance ="N/A";
         $updatedVL = false;
         $currentSLbalance ="N/A";
@@ -5769,18 +5770,20 @@ class DTRController extends Controller
 
         /*if ($lengthOfService >= 6) //do this if only 6mos++
         {*/
-          $today= date('m');//today();
+          $today= Carbon::now('GMT+8')->format('m'); //date('m');//today();
           $avail = $user->vlCredits;
           $avail2 = $user->slCredits;
 
+          
+
           $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
-                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('vlupdate.period','DESC')->get(); 
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('vlupdate.period','DESC')->get(); 
           $totalVLearned = collect($vlEarnings)->sum('credits');
 
           $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
                               join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
-                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('slupdate.period','DESC')->get();
+                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('slupdate.period','DESC')->get();
 
           $totalSLearned = collect($slEarnings)->sum('credits');
 
@@ -5800,7 +5803,7 @@ class DTRController extends Controller
             if (count($avail)>0){
               $vls = $user->vlCredits->sortByDesc('creditYear');
 
-              if($vls->contains('creditYear',date('Y')))
+              if($vls->contains('creditYear',$phY))
               {
                 $updatedVL=true;
                 $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid - $totalVTO_vl;
@@ -5852,7 +5855,7 @@ class DTRController extends Controller
              {
               $sls = $user->slCredits->sortByDesc('creditYear');
 
-              if($sls->contains('creditYear',date('Y')))
+              if($sls->contains('creditYear',$phY))
               {
                 $updatedSL=true;
 
