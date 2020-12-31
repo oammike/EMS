@@ -5778,12 +5778,12 @@ class DTRController extends Controller
 
           $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
-                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>', Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('vlupdate.period','DESC')->get(); 
+                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>=', Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('vlupdate.period','DESC')->get(); 
           $totalVLearned = collect($vlEarnings)->sum('credits');
 
           $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
                               join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
-                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('slupdate.period','DESC')->get();
+                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>=', Carbon::parse($phY.'-01-01','Asia/Manila')->format('Y-m-d'))->orderBy('slupdate.period','DESC')->get();
 
           $totalSLearned = collect($slEarnings)->sum('credits');
 
