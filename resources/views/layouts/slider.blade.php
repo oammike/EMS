@@ -4,7 +4,26 @@
 
           
 
-            <div class="item active text-center" >
+             <div class="item active text-center">
+                  <img src="storage/uploads/newyear2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-gift"></i> New Year<br/><small>January 01, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">As we say goodbye to #2020, we thank our Open Access BPO family for your trust and support during a year of ups and downs that nobody had anticipated.<br/><br/>
+
+                    We hope you can also move past your fears and worries and stay hopeful for the infinite opportunities ahead.<br/><br/>
+
+                    Together, let us welcome #2021 with a grateful heart. Happy New Year!.<br/><br/>
+
+                    #WeSpeakYourLanguage #OAHolidays</p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/thanku2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Send Your <span class="text-primary">e-Card Greetings <i class="fa fa-gift"></i><br/><small>to your team!</small><br/>
                   
@@ -24,20 +43,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/happyholidays2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-gift"></i> Holidays 2020<br/><small>from your OpenAccessBPO family</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">Things may be a little different this year, but we hope for the best for you and your loved ones! Happy holidays from your Open Access BPO family.<br/><br/>
-
-                    #WeSpeakYourLanguage #OAHolidays</p>
-                    
-                   
-                    
-                    
-            </div>
+           
 
             <div class="item  text-center" >
                   <img src="storage/uploads/holidays2020.jpg" width="100%" />
