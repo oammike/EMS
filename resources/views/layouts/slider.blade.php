@@ -1,10 +1,51 @@
 
+          <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> JAN. 08, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for January 8 payout is Jan. 05, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before WEDNESDAY 10AM of Jan. 06, 2021</strong>.<br/><br/>
+                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
 
-   
+In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
 
-          
+                    <!-- Please be reminded that the Support and Admin Group who reported to work on the following holidays should file their overtime in EMS.<br/>
+                    <table class="table">
+                      <tr>
+                        <th>Date of Holiday</th>
+                        <th class="text-center">File Holiday OT for</th>
+                      </tr>
+                      <tr>
+                        <td>Aug. 21</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 24</td>
+                        <td><strong>Davao</strong> Admin and Support Group only</td>
+                      </tr>
+                      <tr>
+                        <td>Aug. 31</td>
+                        <td>Admin and Support Group</td>
+                      </tr>
+                    </table>
 
-             <div class="item active text-center">
+ -->
+
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
+
+              <div class="item text-center">
                   <img src="storage/uploads/newyear2021.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-gift"></i> New Year<br/><small>January 01, 2021</small><br/>
                   
