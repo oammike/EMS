@@ -1573,12 +1573,22 @@ class UserVLController extends Controller
                             select('user_advancedSL.id','user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
                             orderBy('user_advancedSL.periodEnd','DESC')->get(); //
 
+
         $allVTOs = DB::table('user_vto')->where('user_vto.user_id',$id)->where('user_vto.isApproved',1)->
                         where('user_vto.productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
                         where('user_vto.productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
                             select('user_vto.totalHours','user_vto.productionDate', 'user_vto.deductFrom')->
                             orderBy('user_vto.productionDate','DESC')->get(); //
-        //return $allVTOs;
+
+        $allPastVTOs = DB::table('user_vto')->where('user_vto.user_id',$id)->where('user_vto.isApproved',1)->
+                        where('user_vto.productionDate','<',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                        //where('user_vto.productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
+                            select('user_vto.totalHours','user_vto.productionDate', 'user_vto.deductFrom')->
+                            orderBy('user_vto.productionDate','DESC')->get(); //
+        //return $allPastVTOs;
+
+        $adv = collect($allAdvancedSL)->whereIn('periodStart',['2020-01-01','2021-12-30']);
+        //return $adv;
 
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
@@ -1591,7 +1601,7 @@ class UserVLController extends Controller
        //return $allEarnings_SL;
 
         if ($id == $this->user->id || ($isWorkforce && !$isBackoffice) || $canEditEmployees || $canUpdateLeaves )
-            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL','allVTOs','slUpdates_periods','slUpdates','vlUpdates_periods','vlUpdates'));
+            return view('timekeeping.show-VLcredits', compact('canEditEmployees','canUpdateLeaves','fromYr', 'approvers', 'myCampaign', 'personnel','allSLs', 'allVLs','allEarnings','allEarnings_SL','allAdvancedSL','allVTOs','slUpdates_periods','slUpdates','vlUpdates_periods','vlUpdates','allPastVTOs'));
         else return view('access-denied');
 
 

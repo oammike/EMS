@@ -339,10 +339,20 @@
                                           
                                         </td>
 
-                                        <!--VTO -->
+                                        <!--***** VTO ********* -->
                                         <td  class="text-center">
                                           
-                                          <?php $vtos = collect($allVTOs)->where('deductFrom','VL'); $earnVTO=0; $deets=""; 
+                                          <?php
+                                          if ($v->creditYear == date('Y'))
+                                          {
+                                            $vtos = collect($allVTOs)->where('deductFrom','VL'); $earnVTO=0; $deets=""; 
+                                          } 
+                                          else
+                                          {
+                                            $vtos = collect($allPastVTOs)->where('deductFrom','VL'); $earnVTO=0; $deets=""; 
+                                          }
+
+                                              
                                                 foreach ($vtos as $e){ 
                                                           $p =$e->totalHours*0.125;
                                                           $deets .= date('M d',strtotime($e->productionDate)).' : <strong>' . number_format($p,2).'</strong><br/>';
@@ -351,7 +361,7 @@
                                           @if ($earnVTO == 0) {{$earnVTO}} @else
 
                                           <!-- ******** collapsible box ********** -->
-                                          @if($v->creditYear == date('Y'))
+                                         
                                           <div class="box collapsed-box" style="margin-top: 0px">
                                             <div class="box-header">
                                               ({{ number_format($earnVTO,2) }}) &nbsp;&nbsp;&nbsp;
@@ -369,7 +379,7 @@
                                             <!-- /.box-body -->
                                           </div>
                                          <!-- ******** end collapsible box ********** -->
-                                          @endif
+                                         
                                          @endif
 
 
@@ -645,11 +655,24 @@
                                         </td>
 
                                         <!-- ****** ADVANCED ******* -->
-                                        @if (count($allAdvancedSL) > 0 && (date('Y') == $v->creditYear) )
-                                        <?php $advSL=0; $deetsadv=""; 
-                                                foreach ($allAdvancedSL as $e){ 
+                                        @if (count($allAdvancedSL) > 0 ) 
 
-                                                  if($canUpdateLeaves)
+                                        <!-- && (date('Y') == $v->creditYear) ) -->
+                                              <?php $advSL=0; $deetsadv=""; 
+
+                                              $startYr = \Carbon\Carbon::parse($v->creditYear."-01-01",'Asia/Manila');
+                                              $endYr = \Carbon\Carbon::parse($v->creditYear."-12-31",'Asia/Manila');
+
+                                              //$currAdvSL = collect($allAdvancedSL)->whereIn('period',[$startYr->format('Y-m-d'),$endYr->format('Y-m-d')]);
+                                                foreach ($allAdvancedSL as $e){ //allAdvancedSL
+
+                                                  $nagStart = \Carbon\Carbon::parse($e->periodStart,'Asia/Manila');
+                                                  $nagEnd = \Carbon\Carbon::parse($e->periodEnd,'Asia/Manila');
+
+                                                  //check if para sa year na itey
+                                                  if($nagStart->format('Y') == $v->creditYear)
+                                                  {
+                                                    if($canUpdateLeaves)
                                                      {
                                                       
 
@@ -665,8 +688,12 @@
                                                   
                                                           
                                                           $advSL += $e->total; 
-                                                        }
-                                                 ?>
+
+                                                  }
+
+                                                  
+                                                }
+                                              ?>
                                         <td  class="text-center">
 
                                           <!-- ******** collapsible box ********** -->
@@ -698,11 +725,25 @@
 
                                         @endif
 
-                                         <!-- ****** VTO ******* -->
+
+
+                                        <!-- ****** VTO ******* -->
                                         <td  class="text-center">
                                           
-                                          <?php $vtos = collect($allVTOs)->where('deductFrom','SL'); 
-                                                $vtos2 = collect($allVTOs)->where('deductFrom','AdvSL'); $earnVTO=0; $deets=""; 
+                                          <?php 
+                                          if(date('Y')==$v->creditYear)
+                                          {
+                                            $vtos = collect($allVTOs)->where('deductFrom','SL'); 
+                                            $vtos2 = collect($allVTOs)->where('deductFrom','AdvSL'); $earnVTO=0; $deets=""; 
+
+                                          }else
+                                          {
+                                            $vtos = collect($allPastVTOs)->where('deductFrom','SL'); 
+                                            $vtos2 = collect($allPastVTOs)->where('deductFrom','AdvSL'); $earnVTO=0; $deets=""; 
+
+                                          }
+
+                                                
                                                 foreach ($vtos as $e){ 
                                                           $p =$e->totalHours*0.125;
                                                           $deets .= date('M d',strtotime($e->productionDate)).' : <strong>' . number_format($p,2).'</strong><br/>';
@@ -713,34 +754,39 @@
                                                           $deets .= date('M d',strtotime($e->productionDate)).' : <strong>' . number_format($p,2).'</strong><br/>';
                                                           $earnVTO += $p; 
                                                 } ?>
-                                          @if ($earnVTO == 0) {{$earnVTO}} @else
+                                          @if ($earnVTO == 0) {{$earnVTO}} 
 
-                                          <!-- ******** collapsible box ********** -->
-                                          @if($v->creditYear == date('Y'))
-                                          <div class="box collapsed-box" style="margin-top: 0px">
-                                            <div class="box-header">
-                                              ({{ number_format($earnVTO,2) }}) &nbsp;&nbsp;&nbsp;
-                                              <div class="box-tools pull-right">
-                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                                                </button>
-                                              </div>
-                                              <!-- /.box-tools -->
-                                            </div>
-                                            <!-- /.box-header -->
-                                            <div class="box-body">
-                                              <p style="font-size: x-small;" class="text-right"> {!! $deets !!}</p>
+                                          @else
+
+                                              <!-- ******** collapsible box ********** -->
                                               
-                                            </div>
-                                            <!-- /.box-body -->
-                                          </div>
-                                         <!-- ******** end collapsible box ********** -->
-                                          @endif
+                                              <div class="box collapsed-box" style="margin-top: 0px">
+                                                <div class="box-header">
+                                                  ({{ number_format($earnVTO,2) }}) &nbsp;&nbsp;&nbsp;
+                                                  <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                    </button>
+                                                  </div>
+                                                  <!-- /.box-tools -->
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <div class="box-body">
+                                                  <p style="font-size: x-small;" class="text-right"> {!! $deets !!}</p>
+                                                  
+                                                </div>
+                                                <!-- /.box-body -->
+                                              </div>
+                                             <!-- ******** end collapsible box ********** -->
+                                              
                                          @endif
 
 
                                  
                                           
                                         </td>
+
+
+
 
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
                                           {{ number_format( ((($v->beginBalance - $v->used)-$v->paid)+ $earnSL - $advSL) - $earnVTO, 2) }}
@@ -794,7 +840,10 @@
 
                                       <?php $ctr++; ?>
                                       @endforeach
+
                                   @endif
+
+
                                   <tr><td colspan="8">
 
                                    
