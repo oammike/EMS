@@ -152,7 +152,7 @@ class DTRController extends Controller
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
            if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Viewed DTRsheets on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
             } 
@@ -677,7 +677,7 @@ class DTRController extends Controller
                                   // -------- TIME OUT -------------
                                    $tout = strip_tags($key->timeOUT);
 
-                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tout, "VTO") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false || strpos($tout, " N / A ") !== false  || strpos($tout, "N / A") !== false || strpos($tout, "N/A") !== false)
+                                  if ( strpos($tout, "SL") !== false || strpos($tout, "VL") !== false || strpos($tout, "VTO") !== false || strpos($tout, "RD") !== false || strpos($tout, "LWOP") !== false || strpos($tout, "OBT") !== false || strpos($tout, "ML") !== false || strpos($tout, "MC") !== false || strpos($tout, "PL") !== false || strpos($tout, "No IN") !== false || strpos($tout, "No OUT") !== false || strpos($tout, " N / A ") !== false  || strpos($tout, "N / A") !== false || strpos($tout, "N/A") !== false)
                                   {
                                     $arr[$i] = $tout; $i++;
                                   }
@@ -1276,7 +1276,7 @@ class DTRController extends Controller
                                     $arr[$i] = $deets->notes; $i++; 
                                     $arr[$i] = Carbon::parse($dData->first()->updated_at,'Asia/Manila')->format('Y-m-d H:i:s'); $i++;
                                   
-                                  } elseif ($dData->first()->leaveType == "PL" || $dData->first()->leaveType == "ML" || $dData->first()->leaveType == "SPL")
+                                  } elseif ($dData->first()->leaveType == "PL" || $dData->first()->leaveType == "ML"|| $dData->first()->leaveType == "MC" || $dData->first()->leaveType == "SPL")
                                   { 
                                     if (empty($dData->first()->leave_id))
                                     {
@@ -1429,7 +1429,7 @@ class DTRController extends Controller
       {
 
         if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n DL Billables cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
@@ -2865,7 +2865,7 @@ class DTRController extends Controller
       {
 
         if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n DL Billables cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
@@ -5504,7 +5504,7 @@ class DTRController extends Controller
                 //     $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New CWS request');     
 
                     
-                //          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                //          $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 //             fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
                 //             fclose($file);                      
                 
@@ -6956,7 +6956,7 @@ class DTRController extends Controller
          
 
            if($this->user->id !== 564 ) {
-              $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Viewed DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
             } 
