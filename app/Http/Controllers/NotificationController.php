@@ -248,7 +248,10 @@ class NotificationController extends Controller
                                   } break;
                         case '14': $fromData = null; break;
                         case '15': $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->approver)->id;break;
+
+                        //MATERNITY
                         case '16': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
+                        
                         case '17': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '18': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
                         case '19': $fromData = null; break;
@@ -274,6 +277,9 @@ class NotificationController extends Controller
                                     
 
                                   } break;
+
+                        // MAGNA CARTA
+                        case '22': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
 
                       }
                       
@@ -333,7 +339,8 @@ class NotificationController extends Controller
 
               }else{
 
-                    if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
+                    // PRESHIFT OT | ML | MAGNA | PL | SPL
+                    if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 22 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
                     {
                       $fromData= User::find($notif->detail->from);
                       $fromDataID = $fromData->id;
@@ -403,7 +410,7 @@ class NotificationController extends Controller
 
                      // TL requestor
 
-                      if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
+                      if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 22 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
                       {
                         
 
@@ -1078,6 +1085,36 @@ class NotificationController extends Controller
 
                           }break;
 
+                case 22: {
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            if (is_null($thereq)){
+                              $theBio = null;
+                              $message=" filed a <strong>Magna Carta for Women Leave</strong>";
+                              //$coll->push(['approved'=>"Data Not Found", 'thereq'=>$thereq,'bio'=>$theBio, 'id'=>$notif->id]);
+                            }
+                            else{
+
+                              if ($ownNotif){
+                                if ($thereq->isApproved){
+                                  $message = " <strong>approved</strong> your Magna Carta Leave request";
+                                }else $message = " <strong>denied</strong> your Magna Carta Leave request. I'm sorry. <strong><i class='fa fa-meh-o'></i></strong> ";
+                                
+                              }
+                              else{
+                                $theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->leaveStart)));
+                                $message = " filed a <strong>Magna Carta Leave</strong> for <span class='text-danger'> ". date('M d, Y', strtotime($thereq->leaveStart))."</span>";
+
+
+                              }
+
+
+                              
+                            }
+
+
+                          }break;
+
 
             }
 
@@ -1115,7 +1152,7 @@ class NotificationController extends Controller
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
        if($this->user->id !== 564 ) {
-          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+          $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n View All Notifs -- " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         } 

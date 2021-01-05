@@ -3775,6 +3775,7 @@ trait TimekeepingTraits
       {
         switch ($flDeet->leaveType) {
           case 'ML':{$leaveDetails->push(['type'=>"ML for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
+          case 'MC':{$leaveDetails->push(['type'=>"MC for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
           case 'PL':{$leaveDetails->push(['type'=>"PL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
           case 'SPL':{$leaveDetails->push(['type'=>"SPL for approval",'icon'=>'fa-info-circle', 'details'=>$flDeet]);}break;
              
@@ -3787,6 +3788,7 @@ trait TimekeepingTraits
         {
           switch ($flDeet->leaveType) {
             case 'ML':{$leaveDetails->push(['type'=>"ML",'icon'=>'fa-female', 'details'=>$flDeet]);}break;
+            case 'MC':{$leaveDetails->push(['type'=>"MC",'icon'=>'fa-female', 'details'=>$flDeet]);}break;
             case 'PL':{$leaveDetails->push(['type'=>"PL",'icon'=>'fa-male', 'details'=>$flDeet]);}break;
             case 'SPL':{$leaveDetails->push(['type'=>"SPL",'icon'=>'fa-street-view', 'details'=>$flDeet]);}break;       
           
@@ -3796,6 +3798,7 @@ trait TimekeepingTraits
         {
           switch ($flDeet->leaveType) {
             case 'ML':{$leaveDetails->push(['type'=>"ML denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
+            case 'MC':{$leaveDetails->push(['type'=>"MC denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
             case 'PL':{$leaveDetails->push(['type'=>"PL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;
             case 'SPL':{$leaveDetails->push(['type'=>"SPL denied",'icon'=>'fa-times', 'details'=>$flDeet]);}break;       
           
@@ -6563,6 +6566,15 @@ trait TimekeepingTraits
                                       $label = "Maternity Leave";
                         }break;
 
+
+
+                        case 'MC':{
+                                      $i = "fa-female";
+                                      $lTitle = "MC request";
+                                      $l = "MC";
+                                      $label = "Magna Carta Leave";
+                        }break;
+
                         case 'PL':{
                                       $i = "fa-male";
                                       $lTitle = "PL request";
@@ -6587,6 +6599,13 @@ trait TimekeepingTraits
                                       $lTitle = "ML request";
                                       $l = "ML";
                                       $label = "ML denied";
+                        }break;
+
+                        case 'MC':{
+                                      $i = "fa-info-circle";
+                                      $lTitle = "MC request";
+                                      $l = "MC";
+                                      $label = "MC denied";
                         }break;
 
                         case 'PL':{

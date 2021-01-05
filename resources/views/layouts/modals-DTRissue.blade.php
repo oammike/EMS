@@ -247,9 +247,11 @@
 
                         @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'ML'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-female"></i>&nbsp;&nbsp; Maternity Leave  <strong>(ML)</strong></a></strong><br/><br/>
+                         <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'for'=>$user->id,'type'=>'MC'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-female"></i>&nbsp;&nbsp; Magna Carta Leave  <strong>(MC)</strong></a></strong><br/><br/>
 
                         @else
                          <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'type'=>'ML'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-female"></i>&nbsp;&nbsp; Maternity Leave  <strong>(ML)</strong></a></strong><br/><br/>
+                        <a href="{{action('UserFamilyleaveController@create',['from'=>$DproductionDate, 'type'=>'MC'])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-female"></i>&nbsp;&nbsp; Magna Carta Leave  <strong>(MC)</strong></a></strong><br/><br/>
 
 
                         @endif

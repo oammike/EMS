@@ -122,11 +122,17 @@
                                         <input type="file" name="attachments" id="attachments" required="required" /> </label><br/>
                                       <p style="font-size: smaller">For EMS filing, simply attach a screenshot of any proof from immediate head confirming approval of this leave.<br/><br/>Make sure though to submit  the requirements needed to Finance department for your leave to be processed and properly credited.  <br/>
                                         <strong>Submit a copy of the following documents to Finance department:</strong> </p>
+                                        @if($type == 'MC')
+                                        <ol type="a"style="font-size: smaller">
+                                          <li>medical certificate issued by your doctor</li>
+                                        </ol>
+                                        @else
                                         <ol type="a"style="font-size: smaller">
                                           <li>NSO certified birth certificate(s) of your dependent(s)</li>
                                           <li>NSO certified marriage contract (for ML | PL)</li>
                                           <li>Single Parent validation from your baranggay</li>
                                         </ol>
+                                        @endif
 
                                        
                                       

@@ -122,7 +122,7 @@
                      <li @if($type =='VTO') class="active" @endif ><a <a href="{{action('UserController@leaveMgt',['type'=>'VTO','from'=>$from, 'to'=>$to])}}"><strong class="text-primary "><i class="fa fa-2x fa-history"></i> VTO
                       @if($pending_VTO)<span class="label label-warning" style="font-size: small;"> ({{$pending_VTO}}) </span> @endif </strong></a></li>
                     
-                    <li @if($type =='FL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'FL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-male"></i><i class="fa fa-2x fa-female"></i> ML | PL | SPL 
+                    <li @if($type =='FL') class="active" @endif ><a href="{{action('UserController@leaveMgt',['type'=>'FL','from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-male"></i><i class="fa fa-2x fa-female"></i> ML | PL | SPL | MC 
                       @if($pending_FL)<span class="label label-warning" style="font-size: small;"> ({{$pending_FL}}) </span> @endif</strong></a></li>
                      @if ($isAdmin) 
                      <!--  <a href="{{action('UserController@create')}} " class="btn btn-sm btn-primary  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
@@ -185,7 +185,9 @@
                                 <td style="font-size: x-small;">
                                   @if($type=='FL')
                                   <?php switch ($vl->FLtype) {
-                                    case 'ML': $l="Maternity Leave";break;case 'PL': $l="Paternity Leave";break;case 'SPL': $l="Single Parent Leave";break;
+                                    case 'ML': $l="Maternity Leave";break;
+                                    case 'MC': $l="Magna Carta Leave";break;
+                                    case 'PL': $l="Paternity Leave";break;case 'SPL': $l="Single Parent Leave";break;
                                   } ?>
                                   <strong>{{$l}} </strong><br/>
                                   {{date('M d h:i A', strtotime($vl->leaveStart))}} - {{date('M d h:i A', strtotime($vl->leaveEnd))}}  
@@ -381,6 +383,7 @@
                                           <?php if ($type=='FL'){
                                                   switch ($vl->FLtype) {
                                                     case 'ML': $typeid = 16; break;
+                                                    case 'MC': $typeid = 22; break;
                                                     case 'PL': $typeid = 17; break;
                                                     case 'SPL': $typeid = 18; break;
                                                   }
@@ -506,6 +509,7 @@
         case 'LWOP':  var processlink = "{{action('UserLWOPController@process')}}";break;
         case 'FL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
         case 'ML':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
+        case 'MC':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
         case 'PL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
         case 'SPL':  var processlink = "{{action('UserFamilyleaveController@process')}}";break;
       }

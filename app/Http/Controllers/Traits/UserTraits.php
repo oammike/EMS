@@ -88,7 +88,7 @@ trait UserTraits
        $forApprovals = new Collection;
 
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
-       $approvalTypes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,21];
+       $approvalTypes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22];
        /* -------- DONT FORGET TO UPDATE THIS AS WELL!!!! ------------ */
 
 
@@ -573,7 +573,30 @@ trait UserTraits
 
                                   }break;
                           
-                        
+                          case 22: //ML
+                                {
+                                  $vl = User_Familyleave::find($detail->relatedModelID);
+                                  if (count((array)$vl) > 0)
+                                  {
+                                    if (is_null($vl->isApproved) ){
+                                      //$bio = Biometrics::find($vl->biometrics_id);
+                                      $forApprovals->push(['user'=>$greeting . " ". $emp->lastname, 'icon'=>"fa-female",
+                                                  'requestor'=>$emp->id,
+                                                  'nickname'=>$nick,
+                                                  'program'=>$camp->name,
+                                                  'user_id'=>$notif->user_id, 'id'=>$notif->id, 
+                                                  'type'=>NotifType::find($detail->type)->title, 
+                                                  'typeID'=>$detail->type,
+                                                  'created_at'=> $detail->created_at->format('M d, Y'),
+                                                  'productionDate'=>date('M d, Y', strtotime($vl->leaveStart)),
+                                                  'productionDay'=>date('D', strtotime($vl->leaveStart)),
+                                                  'deets'=> $vl]);
+
+                                    }
+                                    
+
+                                  }
+                                }break;
                       }//end switch
                     }
                       

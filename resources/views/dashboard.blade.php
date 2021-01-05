@@ -1393,6 +1393,7 @@ select:-webkit-autofill:focus {
                                 case 18: icon="fa-street-view";break;
                                 case 19: icon="fa-unlock";break;
                                 case 21: icon="fa-history";break;
+                                case 22: icon="fa-female";break;
                               }
             
 
@@ -1951,7 +1952,48 @@ select:-webkit-autofill:focus {
 
 
                                 
-                                
+                                //MAGNA CARTA
+                                case 22: { 
+
+                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          
+
+                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                          else{
+
+                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                              else var totalcreds = full.deets.totalCredits;
+                                            }
+
+                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MAGNA CARTA FOR WOMEN LEAVE &nbsp;&nbsp;</strong>';
+                                         
+
+                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                               
+
+
+                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                  
+                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                            } break;
+
+                                  //PL
 
 
                               }
@@ -2466,6 +2508,39 @@ select:-webkit-autofill:focus {
                                                $.notify("Submitted VTO request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
                                                $.notify("Submitted VTO request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
+                                              //window.location = "{{action('HomeController@index')}}";
+                                               
+                                            }, error: function(res){
+                                              console.log("ERROR");
+                                              console.log(res);
+                                            }
+
+
+                                  });
+
+                              }break;
+
+                    case '22': { //ML
+                                  $.ajax({
+                                            url: "{{action('UserFamilyleaveController@process')}}",
+                                            type:'POST',
+                                            data:{ 
+
+                                              'id': id,
+                                              'isApproved': processAction,
+                                              '_token':_token
+                                            },
+
+                                           
+                                            success: function(res)
+                                            {
+                                              console.log(res);
+                                              $('#myModal_DTRP'+notif).modal('hide');
+
+                                              if (processAction == '1')
+                                               $.notify("Submitted MC request by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
+                                             else
+                                               $.notify("Submitted MC request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
                                                
                                             }, error: function(res){

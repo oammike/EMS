@@ -59,6 +59,8 @@
 
               <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'ML'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-female"></i> Maternity Leave  <br/><strong>(ML)</strong></a>
 
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'MC'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-female"></i> Magna Carta Leave  <br/><strong>(MC)</strong></a>
+
               <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'PL'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-male"></i> Paternity Leave  <br/><strong>(PL)</strong></a>
 
               <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'SPL'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-street-view"></i> Single-Parent Leave  <br/><strong>(SPL)</strong></a>
@@ -84,6 +86,8 @@
               <a  href="{{action('UserOBTController@create',['for'=>$user->id])}}" class="btn btn-sm bg-purple"><i class="fa fa-2x fa-briefcase"></i> Official Business Trip  <br/><strong>(OBT)</strong></a><br/><br/>
 
               <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'ML'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-female"></i> Maternity Leave  <br/><strong>(ML)</strong></a>
+
+              <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'MC'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-female"></i> Magna Carta Leave  <br/><strong>(MC)</strong></a>
 
               <a  href="{{action('UserFamilyleaveController@create',['for'=>$user->id,'type'=>'PL'])}}" class="btn btn-sm btn-default"><i class="fa fa-2x fa-male"></i> Paternity Leave  <br/><strong>(PL)</strong></a>
 
@@ -722,6 +726,53 @@
 
                                         } break;
 
+                            case '22': { /*------- MAGNA CARTA LEAVE --------*/
+
+                                          var deleteLink = "../user_fl/deleteThisSL/"+data_id;
+                                          var leaveStart = moment(full.details.leaveStart); //,"MM/D/YYYY h:m A");
+                                          var leaveEnd = moment(full.details.leaveEnd); //,"MM/D/YYYY h:m A");
+                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                          var hours = duration.asHours();
+                                          var halfFrom = full.details.halfdayFrom;
+                                          var halfTo = full.details.halfdayTo;
+
+                                           if (full.details.totalCredits % 1 === 0) var totalcreds = Math.floor(full.details.totalCredits);
+                                          else{
+                                                if(full.details.totalCredits == '0.50') var totalcreds = "half";
+                                                  else var totalcreds = full.details.totalCredits;
+
+                                          } 
+
+                                          modalcode += '<p class="text-left"><br/>';
+                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MAGNA CARTA for Women LEAVE &nbsp;&nbsp;</strong>' ;  
+                                          if (full.details.attachments != null)
+                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="../user_fl/requirements/'+full.details.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp; &nbsp; &nbsp;attached</a></span>';
+                                         
+                                          modalcode += ' <br/><br/><strong>Reason: </strong><em>'+full.details.notes+'</em></p>';
+                                          
+                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                          mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                          if (halfFrom == '1' && halfTo == '1')
+                                          {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd")+' (Whole day) </strong></p>';
+
+                                          } else {
+                                            mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+                                          }
+                                          
+                                          mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+
+                                          // if (halfTo == '1')
+                                          //   mc1 += '<p><strong>'+leaveEnd.format("MMM DD, YYYY")+' (Whole day) </strong></p></div>';
+                                          // else
+                                            mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+                                           
+
+                                        } break;
+
 
                                       
                          }
@@ -961,6 +1012,7 @@
                 case '17': {var requesttype="Paternity Leave (PL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
                 case '18': {var requesttype="Single-Parent Leave (SPL)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
                 case '21': {var requesttype="VTO"; var processlink = "{{action('UserVLController@processVTO')}}"; }break;
+                case '22': {var requesttype="Magna Carta Leave (MC)"; var processlink = "{{action('UserFamilyleaveController@process')}}"; }break;
               }
 
               $.ajax({

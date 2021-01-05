@@ -122,7 +122,7 @@ class UserFamilyleaveController extends Controller
             $correct = Carbon::now('GMT+8'); //->timezoneName();
 
                        if($this->user->id !== 564 ) {
-                          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                          $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                             fwrite($file, "-------------------\n Tried [".$type. "]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                             fclose($file);
                         } 
@@ -194,6 +194,9 @@ class UserFamilyleaveController extends Controller
                         switch ($type) 
                         {
                             case 'ML': { $leaveType = "Maternity Leave"; $icon="fa fa-female"; if( !is_null($user->gender) && $user->gender !== 'F' ) return view('access-denied'); $creditsLeft=105.0-1.0;} 
+                            break;
+
+                            case 'MC': { $leaveType = "Magna Carta Leave"; $icon="fa fa-female"; if( !is_null($user->gender) && $user->gender !== 'F' ) return view('access-denied'); $creditsLeft=60.0-1.0;} 
                             break;
 
                             case 'PL':{ $leaveType = "Paternity Leave"; $icon="fa fa-male"; if( !empty($user->gender) && $user->gender !== 'M' ) return view('access-denied'); $creditsLeft=7.0-1.0; }
@@ -489,7 +492,7 @@ class UserFamilyleaveController extends Controller
 
     public function process(Request $request)
     {
-        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+        $file = fopen('storage/uploads/logs.txt', 'a') or die("Unable to open logs");
         fwrite($file, "-------------------\n [". $request->id."] FL REQUEST \n");
         fclose($file);
 
@@ -521,6 +524,7 @@ class UserFamilyleaveController extends Controller
 
         switch ($vl->leaveType) {
             case 'ML':$t = 16;break;
+            case 'MC':$t = 22;break;
             case 'PL':$t = 17;break;
             case 'SPL':$t = 18;break;   
         }
@@ -539,7 +543,7 @@ class UserFamilyleaveController extends Controller
         $allUserNotifs = User_Notification::where('notification_id',$theNotif->id)->delete(); */
         
           /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n [". $vl->id."] ".$vl->leaveType." update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
             fclose($file);
 
@@ -556,9 +560,9 @@ class UserFamilyleaveController extends Controller
     {
 
         
-       $vl = new User_Familyleave;
-       $vl->user_id = $request->userid;
-       $vl->leaveType = $request->type;
+        $vl = new User_Familyleave;
+        $vl->user_id = $request->userid;
+        $vl->leaveType = $request->type;
         $vl->productionDate = $request->productionDate;
         $vl->leaveStart =  $request->leaveFrom;
         $vl->leaveEnd = $request->leaveTo;
@@ -615,7 +619,7 @@ class UserFamilyleaveController extends Controller
 
             
                 /* -------------- log updates made --------------------- */
-            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "\n-------------------\n New ".$vl->leaveType." req uploaded : ". $fileName ." ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
             
@@ -651,6 +655,7 @@ class UserFamilyleaveController extends Controller
 
             switch ($vl->leaveType) {
                 case 'ML':{$notification->type = 16; $heading = "Maternity Leave"; }break;
+                case 'MC':{$notification->type = 22; $heading = "Magna Carta Leave"; }break;
                 case 'PL':{$notification->type = 17; $heading = "Paternity Leave"; }break;
                 case 'SPL':{$notification->type = 18; $heading = "Single-Parent Leave"; }break;
             }
@@ -679,7 +684,7 @@ class UserFamilyleaveController extends Controller
                     $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New CWS request');     
 
                     
-                         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                             fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
                             fclose($file);                      
                 
@@ -726,7 +731,7 @@ class UserFamilyleaveController extends Controller
          
 
          /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." " .$vl->leaveType." submission ". $correct->format('M d h:i A'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
          
@@ -781,6 +786,7 @@ class UserFamilyleaveController extends Controller
         
         switch ($vl->leaveType) {
             case 'ML': $icon = "fa fa-female"; $leave = "Maternity Leave"; break;
+            case 'MC': $icon = "fa fa-female"; $leave = "Magna Carta Leave"; break;
             case 'PL': $icon = "fa fa-male"; $leave = "Paternity Leave"; break;
             case 'SPL': $icon = "fa fa-street-view"; $leave = "Single-Parent Leave"; break;
             

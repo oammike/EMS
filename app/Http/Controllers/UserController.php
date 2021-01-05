@@ -1092,6 +1092,7 @@ class UserController extends Controller
         $lwop = User_LWOP::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $obt = User_OBT::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
         $ml = User_Familyleave::where('user_id',$this->user->id)->where('leaveType','ML')->orderBy('updated_at','DESC')->get();
+        $mc = User_Familyleave::where('user_id',$this->user->id)->where('leaveType','MC')->orderBy('updated_at','DESC')->get();
         $pl = User_Familyleave::where('user_id',$this->user->id)->where('leaveType','PL')->orderBy('updated_at','DESC')->get();
         $spl = User_Familyleave::where('user_id',$this->user->id)->where('leaveType','SPL')->orderBy('updated_at','DESC')->get();
 
@@ -1111,6 +1112,7 @@ class UserController extends Controller
         $lwop = User_LWOP::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $obt = User_OBT::where('user_id',$user->id)->orderBy('updated_at','DESC')->get();
         $ml = User_Familyleave::where('user_id',$user->id)->where('leaveType','ML')->orderBy('updated_at','DESC')->get();
+        $mc = User_Familyleave::where('user_id',$user->id)->where('leaveType','MC')->orderBy('updated_at','DESC')->get();
         $pl = User_Familyleave::where('user_id',$user->id)->where('leaveType','PL')->orderBy('updated_at','DESC')->get();
         $spl = User_Familyleave::where('user_id',$user->id)->where('leaveType','SPL')->orderBy('updated_at','DESC')->get();
 
@@ -1385,6 +1387,28 @@ class UserController extends Controller
 
         $requests->push(['type'=>"Maternity Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'16','icon'=>"fa-female",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
+
+
+      /*------ ML  --------*/
+      foreach ($mc as $key) {
+        if (is_null($key->approver)) {$approver=null; $tlPic = asset('public/img/useravatar.png');}
+         else
+        {
+          $approver = User::where('employeeNumber', ImmediateHead_Campaign::find($key->approver)->immediateHeadInfo->employeeNumber)->select('id','firstname','nickname', 'lastname')->first();
+          if ( file_exists('public/img/employees/'.$approver->id.'.jpg') ) $tlPic = asset('public/img/employees/'.$approver->id.'.jpg');
+          else $tlPic = asset('public/img/useravatar.png');
+        }
+
+        $prod = $key->leaveStart; //Biometrics::find($key->biometrics_id)->productionDate;
+        $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
+        $prodDate = Carbon::parse($prod,"Asia/Manila");
+
+        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+
+        $requests->push(['type'=>"Magna Carta Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'22','icon'=>"fa-female",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
+      }
+
+
 
       /*------ PL  --------*/
       foreach ($pl as $key) {
@@ -1957,7 +1981,7 @@ class UserController extends Controller
         case 'VTO':{  $label = "Voluntary Time Off" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;} break;
         case 'SL':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
         case 'LWOP':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
-        case 'FL':{ $label = "ML / PL / SPL " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
+        case 'FL':{ $label = "ML / PL / SPL / MC " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
         default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
       }
 
@@ -4369,9 +4393,9 @@ class UserController extends Controller
         //log access
         if($this->user->id !== 564 ) {
                       
-                      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
-                        fclose($file);
+                      // $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                      //   fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
+                      //   fclose($file);
                     } 
 
 
