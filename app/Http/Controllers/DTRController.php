@@ -4320,7 +4320,7 @@ class DTRController extends Controller
 
                                 }//check mo muna kung pasok sa cutoff
                                 
-                                if($->format('Y-m-d') >= $cutoffStart->format('Y-m-d'))
+                                if( $s->format('Y-m-d') >= $cutoffStart->format('Y-m-d') && $e->format('Y-m-d') <= $cutoffEnd->format('Y-m-d'))
                                 {
                                   $arr[$c] = $j->accesscode; $c++;
                                   $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
