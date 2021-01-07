@@ -4089,6 +4089,8 @@ class DTRController extends Controller
                 fclose($file);
         } 
 
+        //return $jpsData;
+
         Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
               {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
@@ -4115,92 +4117,419 @@ class DTRController extends Controller
                             {
                               $c=0;
                               //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
-                              $arr[$c] = $j->accesscode; $c++;
-                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+                              //******* we need to check first yung mga more than 1day
+                              if( $jps['type'] == 'FL' &&  $j->totalCredits > 1)
+                              {
+                                //$c2 = $c;
+                                for($f=0; $f < $j->totalCredits; $f++)
+                                {
+                                  //***** verify first kung pasok pa sa cutoff yung date ng leave
+                                  $s = Carbon::parse($j->leaveStart,'Asia/Manila')->addDays($f);
+
+                                  if( $s->format('Y-m-d') < $cutoffStart->format('Y-m-d'))
+                                  {
+                                    //if start ng leave eh past na ng cutoff start, gawin mong start ung cutoff mismo
+                                    $s = Carbon::parse($cutoffStart->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f);
+                                    $e = Carbon::parse($cutoffStart->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f)->addHours(9);
+
+                                  }else
+                                  {
+                                    //pasok within the range yung leave sa cutoff period
+                                    $e = Carbon::parse($cutoffStart->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f)->addHours(9);
+                                    //$e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                  }
+                                  
+                                  $pd = $s->format('m/d/Y');
+
+
+                                  if( $s->format('Y-m-d H:i') <= $cutoffEnd->format('Y-m-d H:i'))
+                                  {
+                                    $arr[$c] = $j->accesscode; $c++;
+                                    $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                                    ($jps['type'] == 'FL') ? $leaveCode = $j->leaveType : $leaveCode = $jps['type'];
+                                    $qty = $j->totalCredits;
+
+                                    
+
+                                    //*** LeaveDate
+                                    $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
+
+                                    //*** LeaveCOde
+                                    $arr[$c] = $leaveCode; $c++;
+                                    
+
+                                    //*** Quantity
+                                    $arr[$c] = $qty; $c++;
+                                    
+
+                                    //*** Status
+                                    if($j->isApproved == '1') $stat = "Approved";
+                                    else if ($j->isApproved == '0') $stat = "Denied";
+                                    else $stat = "Pending Approval";
+
+                                    $arr[$c] = $stat; $c++;
+
+                                    //*** Comment
+                                    $arr[$c] = $j->notes; $c++;
+
+                                    //*** Date Files
+                                    $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
+
+                                    //remarks
+                                    $arr[$c] = $stat; $c++;
+                     
+
+                                    $sheet->appendRow($arr);
+                                    $c = 0;
+
+
+                                  }//end IF ONLY pasok pa sa cutoff
+
+                                  
+
+                                }//end forloop
+
+
+                              }else
+                              {
+                                $arr[$c] = $j->accesscode; $c++;
+                                $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+                                //-------- check if VTO
+                                if($jps['type'] == 'VTO')
+                                {
+                                  ($j->deductFrom == "AdvSL") ? $leaveCode = "SL" : $leaveCode = $j->deductFrom; 
+
+                                  // kunin mo muna worksched
+                                  $sched = $this->getUserWorksched($j->userID,$j->productionDate);
+                                  if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                                  {
+                                    $wsched = explode('-', $sched[0]->workshift);
+                                    $startShift = Carbon::parse($j->productionDate." ". $wsched[0])->addHours(9);
+
+                                    $s = Carbon::parse($startShift->format('Y-m-d')." ". $j->startTime,'Asia/Manila');
+                                    $e = Carbon::parse($startShift->format('Y-m-d')." ". $j->endTime,'Asia/Manila');
+
+                                  }
+                                  else //walang locked DTR sched
+                                  {
+                                    $s = Carbon::parse($j->productionDate." ". $j->startTime,'Asia/Manila');
+                                    $e = Carbon::parse($j->productionDate." ". $j->endTime,'Asia/Manila');
+
+                                  }
+
+                                  $qty = number_format((float)$j->totalHours*0.125,2);
+                                  $pd =  date('m/d/Y',strtotime($j->productionDate));
+                                  
+
+                                }
+                                else //VL | SL | LWOP | ML | SPL | PL | MC
+                                {
+                                  //establish leave COde
+                                  ($jps['type'] == 'FL') ? $leaveCode = $j->leaveType : $leaveCode = $jps['type'];
+                                  $qty = $j->totalCredits;
+
+                                  //gawin mo lang kapag halfday leaves
+                                  if ($j->totalCredits <= 0.5 )
+                                  {
+                                    $sched = $this->getUserWorksched($j->userID,date('Y-m-d',strtotime($j->leaveStart)));
+                                    if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                                    {
+                                      //need to check kung 1st half/2nd half of shift
+                                      $wsched = explode('-', $sched[0]->workshift);
+
+                                      if ($j->halfdayFrom == 3)
+                                      {
+                                        //if parttimer
+                                        $u = User::find($j->userID);
+                                        ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+
+                                        
+                                        if($j->productionDate){
+                                          $lstart = Carbon::parse($j->productionDate,'Asia/Manila');
+                                          $hasProdate=true;
+                                        }else{
+                                          $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                        }
+
+                                        if($isParttimer)
+                                        {
+                                          $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
+                                          
+
+                                          if (count($pt) > 0)
+                                          {
+                                            if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
+                                            {
+                                              ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+
+                                            }
+                                            else
+                                            {
+                                              ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+
+                                            }
+                                          }
+                                          else //partime schedule nga sya for today
+                                          {
+                                            ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                             
+
+                                          }
+                                        }
+                                        
+                                        else
+                                        {
+                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                           
+                                           //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+
+                                        }
+
+                                      }
+                                      else //hindi sya start ng 2nd half
+                                      {
+                                        ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                        
+                                        $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                      }
+
+                                    }
+                                    else 
+                                    {
+                                      ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      
+                                      $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+                                    }
+
+                                  }
+                                  
+                                  else //whole day leaves sya
+                                  {
+                                    $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                    $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                  }
+
+                                  $pd = $s->format('m/d/Y');
+
+                                  
+                                   
+
+                                }
+
+                               
+
+                                //*** LeaveDate
+                                $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
+
+                                //*** LeaveCOde
+                                $arr[$c] = $leaveCode; $c++;
+                                
+
+                                //*** Quantity
+                                $arr[$c] = $qty; $c++;
+                                
+
+                                //*** Status
+                                if($j->isApproved == '1') $stat = "Approved";
+                                else if ($j->isApproved == '0') $stat = "Denied";
+                                else $stat = "Pending Approval";
+
+                                $arr[$c] = $stat; $c++;
+
+                                //*** Comment
+                                $arr[$c] = $j->notes; $c++;
+
+                                //*** Date Files
+                                $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
+
+                                //remarks
+                                $arr[$c] = $stat; $c++;
+                 
+
+                                $sheet->appendRow($arr);
+
+                              }//end ng more than 1 day
+
+                              
+                              
+                            }
+
+                          }
+                          else
+                          {
+                            if( $jps['type']=='FL' && $jps['data'][0]->totalCredits > 1)
+                            {
+                              //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
+                              for($h=0; $h < $jps['data'][0]->totalCredits; $h++)
+                              {
+                                //($h==0) ? $i += $h : $i ++;
+                                $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila')->addDays($h);
+
+                                if( $s->format('Y-m-d') < $cutoffStart->format('Y-m-d'))
+                                {
+                                  //if start ng leave eh past na ng cutoff start, gawin mong start ung cutoff mismo
+                                  $s = Carbon::parse($cutoffStart->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f);
+                                  $e = Carbon::parse($cutoffStart->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f)->addHours(9);
+
+                                }else
+                                {
+                                  $e = Carbon::parse($cutoffStart->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f)->addHours(9);
+                                  //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+
+                                }
+                                
+
+                                $pd = $s->format('m/d/Y');
+
+                                if($s->format('Y-m-d H:i') <= $cutoffEnd->format('Y-m-d H:i'))
+                                {
+                                  $arr[$i] = $jps['data'][0]->accesscode; $i++;
+                                  $arr[$i] = $jps['data'][0]->lastname.", ".$jps['data'][0]->firstname; $i++;
+                                  
+                                  //establish leave COde
+
+                                  ($jps['type'] == 'FL') ? $leaveCode = $jps['data'][0]->leaveType : $leaveCode = $jps['type'];
+                                  $qty = $jps['data'][0]->totalCredits;
+
+                                  
+
+                                  //*** LeaveDate
+                                  $arr[$i] = $pd; $i++; // $s->format('m/d/Y'); $i++;
+
+                                  //*** LeaveCOde
+                                  $arr[$i] = $leaveCode; $i++;
+                                  
+
+                                  //*** Quantity
+                                  $arr[$i] = $qty; $i++;
+                                  
+
+                                  //*** Status
+                                  if($jps['data'][0]->isApproved == '1') $stat = "Approved";
+                                  else if ($jps['data'][0]->isApproved == '0') $stat = "Denied";
+                                  else $stat = "Pending Approval";
+
+                                  $arr[$i] = $stat; $i++;
+
+                                  //*** Comment
+                                  $arr[$i] = $jps['data'][0]->notes; $i++;
+
+                                  //*** Date Files
+                                  $arr[$i] = date('m/d/Y', strtotime($jps['data'][0]->created_at)); $i++;
+
+                                  //remarks
+                                  $arr[$i] = $stat; $i++;
+
+                                  $sheet->appendRow($arr);
+                                  $i = 0;
+
+                                }//end if pasok sa cutoff period
+                                
+
+                              }//end for loop
+                              
+
+                            }else
+                            {
+                              //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
+                              $arr[$i] = $jps['data'][0]->accesscode; $i++;
+                              $arr[$i] = $jps['data'][0]->lastname.", ".$jps['data'][0]->firstname; $i++;
 
                               //-------- check if VTO
                               if($jps['type'] == 'VTO')
                               {
-                                ($j->deductFrom == "AdvSL") ? $leaveCode = "SL" : $leaveCode = $j->deductFrom; 
+                                ($jps['data'][0]->deductFrom == "AdvSL") ? $leaveCode = "SL" : $leaveCode = $jps['data'][0]->deductFrom; 
 
                                 // kunin mo muna worksched
-                                $sched = $this->getUserWorksched($j->userID,$j->productionDate);
+                                $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->productionDate);
                                 if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
                                 {
                                   $wsched = explode('-', $sched[0]->workshift);
-                                  $startShift = Carbon::parse($j->productionDate." ". $wsched[0])->addHours(9);
+                                  $startShift = Carbon::parse($jps['data'][0]->productionDate." ". $wsched[0])->addHours(9);
 
-                                  $s = Carbon::parse($startShift->format('Y-m-d')." ". $j->startTime,'Asia/Manila');
-                                  $e = Carbon::parse($startShift->format('Y-m-d')." ". $j->endTime,'Asia/Manila');
+                                  $s = Carbon::parse($startShift->format('Y-m-d')." ". $jps['data'][0]->startTime,'Asia/Manila');
+                                  $e = Carbon::parse($startShift->format('Y-m-d')." ". $jps['data'][0]->endTime,'Asia/Manila');
 
                                 }
                                 else //walang locked DTR sched
                                 {
-                                  $s = Carbon::parse($j->productionDate." ". $j->startTime,'Asia/Manila');
-                                  $e = Carbon::parse($j->productionDate." ". $j->endTime,'Asia/Manila');
+                                  $s = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->startTime,'Asia/Manila');
+                                  $e = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->endTime,'Asia/Manila');
 
                                 }
 
-                                $qty = number_format((float)$j->totalHours*0.125,2);
-                                $pd =  date('m/d/Y',strtotime($j->productionDate));
+                                $qty = number_format((float)$jps['data'][0]->totalHours*0.125,2);
+                                $pd = date('m/d/Y',strtotime($jps['data'][0]->productionDate));
                                 
 
                               }
                               else //VL | SL | LWOP | ML | SPL | PL
                               {
                                 //establish leave COde
-                                ($jps['type'] == 'FL') ? $leaveCode = $j->leaveType : $leaveCode = $jps['type'];
-                                $qty = $j->totalCredits;
+
+                                ($jps['type'] == 'FL') ? $leaveCode = $jps['data'][0]->leaveType : $leaveCode = $jps['type'];
+                                $qty = $jps['data'][0]->totalCredits;
 
                                 //gawin mo lang kapag halfday leaves
-                                if ($j->totalCredits <= 0.5 )
+                                if ($jps['data'][0]->totalCredits <= 0.5 )
                                 {
-                                  $sched = $this->getUserWorksched($j->userID,date('Y-m-d',strtotime($j->leaveStart)));
+                                  $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->leaveStart);
                                   if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
                                   {
                                     //need to check kung 1st half/2nd half of shift
                                     $wsched = explode('-', $sched[0]->workshift);
 
-                                    if ($j->halfdayFrom == 3)
+                                    if ($jps['data'][0]->halfdayFrom == 3)
                                     {
                                       //if parttimer
-                                      $u = User::find($j->userID);
+                                      $u = User::find($jps['data'][0]->userID);
                                       ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
 
                                       
-                                      if($j->productionDate){
-                                        $lstart = Carbon::parse($j->productionDate,'Asia/Manila');
-                                        $hasProdate=true;
-                                      }else{
-                                        $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
-                                      }
+                                      if($jps['data'][0]->productionDate)
+                                        {
+                                          $lstart =Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila');
+                                          $hasProdate=true;
+                                        }
+                                      else 
+                                        { 
+                                          $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                        }
 
                                       if($isParttimer)
                                       {
                                         $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
                                         
-
+                                        
                                         if (count($pt) > 0)
                                         {
                                           if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
                                           {
                                             ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                            
 
                                           }
                                           else
                                           {
                                             ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                            
 
                                           }
                                         }
                                         else //partime schedule nga sya for today
                                         {
-                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
-                                           
+                                           ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
                                         }
                                       }
-                                      
+
                                       else
                                       {
                                         ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
@@ -4212,314 +4541,66 @@ class DTRController extends Controller
                                     }
                                     else //hindi sya start ng 2nd half
                                     {
-                                      ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
-                                      
-                                      $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+                                      ($jps['data'][0]->productionDate) ? $s = Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                      $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                     }
 
                                   }
                                   else 
                                   {
-                                    ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                    ($jps['data'][0]->productionDate) ? $s = Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
                                     
-                                    $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+                                    $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
                                   }
 
                                 }
                                 else //whole day leaves sya
                                 {
-                                  $s = Carbon::parse($j->leaveStart,'Asia/Manila');
-                                  $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+                                  $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
+                                  $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
 
                                 }
 
-                                $pd = $s->format('m/d/Y');
-
                                 
-                                 
+                                $pd = $s->format('m/d/Y');
 
                               }
 
                              
 
                               //*** LeaveDate
-                              $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
+                              $arr[$i] = $pd; $i++; // $s->format('m/d/Y'); $i++;
 
                               //*** LeaveCOde
-                              $arr[$c] = $leaveCode; $c++;
+                              $arr[$i] = $leaveCode; $i++;
                               
 
                               //*** Quantity
-                              $arr[$c] = $qty; $c++;
+                              $arr[$i] = $qty; $i++;
                               
 
                               //*** Status
-                              if($j->isApproved == '1') $stat = "Approved";
-                              else if ($j->isApproved == '0') $stat = "Denied";
+                              if($jps['data'][0]->isApproved == '1') $stat = "Approved";
+                              else if ($jps['data'][0]->isApproved == '0') $stat = "Denied";
                               else $stat = "Pending Approval";
 
-                              $arr[$c] = $stat; $c++;
+                              $arr[$i] = $stat; $i++;
 
                               //*** Comment
-                              $arr[$c] = $j->notes; $c++;
+                              $arr[$i] = $jps['data'][0]->notes; $i++;
 
                               //*** Date Files
-                              $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
+                              $arr[$i] = date('m/d/Y', strtotime($jps['data'][0]->created_at)); $i++;
 
                               //remarks
-                              $arr[$c] = $stat; $c++;
-
-
-
-
-                              //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
-                              /*$arr[$c] = $j->accesscode; $c++;
-                              $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
-
-                              if($jps['type'] == 'VTO')
-                              {
-                                $s = Carbon::parse($j->productionDate." ".$j->startTime,'Asia/Manila');
-                                $e = Carbon::parse($j->productionDate." ".$j->endTime,'Asia/Manila');
-
-                              }
-                              else
-                              {
-                                $s = Carbon::parse($j->leaveStart,'Asia/Manila');
-                                $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
-
-                              }
-
-                              
-
-                              //*** LeaveDate
-                              $arr[$c] = $s->format('m/d/Y'); $c++;
-
-                              //*** LeaveCOde
-                              
-
-                               //*** LeaveCOde
-                              if($jps['type'] == 'FL')
-                              {
-                                $arr[$c] = $jps['data'][0]->leaveType; $c++;
-
-                              }
-                              else if($jps['type'] == 'VTO')
-                              {
-                                if($j->deductFrom == "AdvSL")
-                                {
-                                  $arr[$c] = "SL"; $c++;
-
-                                }
-                                else
-                                {
-                                  $arr[$c] = $j->deductFrom; $c++;
-
-                                }
-                                
-
-                              }else
-                              {
-                                $arr[$c] = $jps['type']; $c++;
-
-                              }
-
-
-
-                              //*** Quantity
-                              if($jps['type'] == 'VTO')
-                              {
-                                $arr[$c] =  number_format((float)$j->totalHours*0.125,2); $c++;
-
-                              }
-                              else
-                              {
-                                $arr[$c] = $j->totalCredits; $c++;
-                              }
-                              
-
-                              //*** Status
-                              if($j->isApproved == '1') $stat = "Approved";
-                              else if ($j->isApproved == '0') $stat = "Denied";
-                              else $stat = "Pending Approval";
-
-                              $arr[$c] = $stat; $c++;
-
-                              //*** Comment
-                              $arr[$c] = $j->notes; $c++;
-
-                              //*** Date Files
-                              $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
-
-                              //remarks
-                              $arr[$c] = $stat; $c++;*/
+                              $arr[$i] = $stat; $i++;
 
                               $sheet->appendRow($arr);
-                              
-                            }
 
-                          }
-                          else
-                          {
-                            //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
-                            $arr[$i] = $jps['data'][0]->accesscode; $i++;
-                            $arr[$i] = $jps['data'][0]->lastname.", ".$jps['data'][0]->firstname; $i++;
+                            }//end more than 1 day
 
-                            //-------- check if VTO
-                            if($jps['type'] == 'VTO')
-                            {
-                              ($jps['data'][0]->deductFrom == "AdvSL") ? $leaveCode = "SL" : $leaveCode = $jps['data'][0]->deductFrom; 
-
-                              // kunin mo muna worksched
-                              $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->productionDate);
-                              if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
-                              {
-                                $wsched = explode('-', $sched[0]->workshift);
-                                $startShift = Carbon::parse($jps['data'][0]->productionDate." ". $wsched[0])->addHours(9);
-
-                                $s = Carbon::parse($startShift->format('Y-m-d')." ". $jps['data'][0]->startTime,'Asia/Manila');
-                                $e = Carbon::parse($startShift->format('Y-m-d')." ". $jps['data'][0]->endTime,'Asia/Manila');
-
-                              }
-                              else //walang locked DTR sched
-                              {
-                                $s = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->startTime,'Asia/Manila');
-                                $e = Carbon::parse($jps['data'][0]->productionDate." ". $jps['data'][0]->endTime,'Asia/Manila');
-
-                              }
-
-                              $qty = number_format((float)$jps['data'][0]->totalHours*0.125,2);
-                              $pd = date('m/d/Y',strtotime($jps['data'][0]->productionDate));
-                              
-
-                            }
-                            else //VL | SL | LWOP | ML | SPL | PL
-                            {
-                              //establish leave COde
-
-                              ($jps['type'] == 'FL') ? $leaveCode = $jps['data'][0]->leaveType : $leaveCode = $jps['type'];
-                              $qty = $jps['data'][0]->totalCredits;
-
-                              //gawin mo lang kapag halfday leaves
-                              if ($jps['data'][0]->totalCredits <= 0.5 )
-                              {
-                                $sched = $this->getUserWorksched($jps['data'][0]->userID,$jps['data'][0]->leaveStart);
-                                if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
-                                {
-                                  //need to check kung 1st half/2nd half of shift
-                                  $wsched = explode('-', $sched[0]->workshift);
-
-                                  if ($jps['data'][0]->halfdayFrom == 3)
-                                  {
-                                    //if parttimer
-                                    $u = User::find($jps['data'][0]->userID);
-                                    ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
-
-                                    
-                                    if($jps['data'][0]->productionDate)
-                                      {
-                                        $lstart =Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila');
-                                        $hasProdate=true;
-                                      }
-                                    else 
-                                      { 
-                                        $lstart =Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
-                                      }
-
-                                    if($isParttimer)
-                                    {
-                                      $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
-                                      
-                                      
-                                      if (count($pt) > 0)
-                                      {
-                                        if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
-                                        {
-                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
-                                          
-
-                                        }
-                                        else
-                                        {
-                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
-                                          
-
-                                        }
-                                      }
-                                      else //partime schedule nga sya for today
-                                      {
-                                         ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
-
-                                      }
-                                    }
-
-                                    else
-                                    {
-                                      ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
-                                       
-                                       //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
-
-                                    }
-
-                                  }
-                                  else //hindi sya start ng 2nd half
-                                  {
-                                    ($jps['data'][0]->productionDate) ? $s = Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
-                                    $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
-
-                                  }
-
-                                }
-                                else 
-                                {
-                                  ($jps['data'][0]->productionDate) ? $s = Carbon::parse($jps['data'][0]->productionDate,'Asia/Manila') : $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
-                                  
-                                  $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
-                                }
-
-                              }
-                              else //whole day leaves sya
-                              {
-                                $s = Carbon::parse($jps['data'][0]->leaveStart,'Asia/Manila');
-                                $e =  Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
-
-                              }
-
-                              
-                              $pd = $s->format('m/d/Y');
-
-                            }
-
-                           
-
-                            //*** LeaveDate
-                            $arr[$i] = $pd; $i++; // $s->format('m/d/Y'); $i++;
-
-                            //*** LeaveCOde
-                            $arr[$i] = $leaveCode; $i++;
                             
-
-                            //*** Quantity
-                            $arr[$i] = $qty; $i++;
-                            
-
-                            //*** Status
-                            if($jps['data'][0]->isApproved == '1') $stat = "Approved";
-                            else if ($jps['data'][0]->isApproved == '0') $stat = "Denied";
-                            else $stat = "Pending Approval";
-
-                            $arr[$i] = $stat; $i++;
-
-                            //*** Comment
-                            $arr[$i] = $jps['data'][0]->notes; $i++;
-
-                            //*** Date Files
-                            $arr[$i] = date('m/d/Y', strtotime($jps['data'][0]->created_at)); $i++;
-
-                            //remarks
-                            $arr[$i] = $stat; $i++;
-
-                            $sheet->appendRow($arr);
 
                           }
 

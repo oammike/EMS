@@ -1123,9 +1123,14 @@ trait TimekeepingTraits
                   
                 select('user_lwop.productionDate','user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
+   //allocate 1month for FLs
+    $startExt = Carbon::parse($startCutoff,'Asia/Manila')->addDays(-31);
+    $endExt = Carbon::parse($endCutoff,'Asia/Manila')->addDays(31);
     $FL = DB::table('user_familyleaves')->where([ 
-                  ['user_familyleaves.leaveStart','>=', $startCutoff." 00:00:00"],
-                  ['user_familyleaves.leaveEnd','<=', $endCutoff." 23:59:00"],
+                  ['user_familyleaves.leaveStart','>=', $startExt->format('Y-m-d H:i:s')],
+                  //['user_familyleaves.leaveEnd','<=', $endExt->format('Y-m-d H:i:s')],
+                  
+                  
                   ])->join('users','users.id','=','user_familyleaves.user_id')->
                   
                 select('user_familyleaves.productionDate', 'user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
