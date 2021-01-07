@@ -4151,7 +4151,7 @@ class DTRController extends Controller
 
 
                                     ($jps['type'] == 'FL') ? $leaveCode = $j->leaveType : $leaveCode = $jps['type'];
-                                    $qty = $j->totalCredits;
+                                    $qty = 1; //$j->totalCredits;
 
                                     
 
@@ -4396,7 +4396,7 @@ class DTRController extends Controller
                                   //establish leave COde
 
                                   ($jps['type'] == 'FL') ? $leaveCode = $jps['data'][0]->leaveType : $leaveCode = $jps['type'];
-                                  $qty = $jps['data'][0]->totalCredits;
+                                  $qty = 1; //$jps['data'][0]->totalCredits;
 
                                   
 
