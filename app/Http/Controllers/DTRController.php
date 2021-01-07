@@ -7036,11 +7036,11 @@ class DTRController extends Controller
 
          
 
-           if($this->user->id !== 564 ) {
+           /*if($this->user->id !== 564 ) {
               $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Viewed DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
-            } 
+            } */
 
 
             /*----------- check for available MEMOS --------------*/
