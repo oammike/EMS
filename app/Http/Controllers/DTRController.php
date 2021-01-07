@@ -4196,9 +4196,6 @@ class DTRController extends Controller
 
                               }else
                               {
-                                $arr[$c] = $j->accesscode; $c++;
-                                $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
-
                                 //-------- check if VTO
                                 if($jps['type'] == 'VTO')
                                 {
@@ -4321,45 +4318,55 @@ class DTRController extends Controller
                                   
                                    
 
-                                }
+                                }//check mo muna kung pasok sa cutoff
+                                
+                                if($->format('Y-m-d') >= $cutoffStart->format('Y-m-d'))
+                                {
+                                  $arr[$c] = $j->accesscode; $c++;
+                                  $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
 
-                               
+                                  
 
-                                //*** LeaveDate
-                                $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
+                                 
 
-                                //*** LeaveCOde
-                                $arr[$c] = $leaveCode; $c++;
+                                  //*** LeaveDate
+                                  $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
+
+                                  //*** LeaveCOde
+                                  $arr[$c] = $leaveCode; $c++;
+                                  
+
+                                  //*** Quantity
+                                  $arr[$c] = $qty; $c++;
+                                  
+
+                                  //*** Status
+                                  if($j->isApproved == '1') $stat = "Approved";
+                                  else if ($j->isApproved == '0') $stat = "Denied";
+                                  else $stat = "Pending Approval";
+
+                                  $arr[$c] = $stat; $c++;
+
+                                  //*** Comment
+                                  $arr[$c] = $j->notes; $c++;
+
+                                  //*** Date Files
+                                  $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
+
+                                  //remarks
+                                  $arr[$c] = $stat; $c++;
+                   
+
+                                  $sheet->appendRow($arr);
+
+                                }//end pasok sa cutoff
                                 
 
-                                //*** Quantity
-                                $arr[$c] = $qty; $c++;
-                                
-
-                                //*** Status
-                                if($j->isApproved == '1') $stat = "Approved";
-                                else if ($j->isApproved == '0') $stat = "Denied";
-                                else $stat = "Pending Approval";
-
-                                $arr[$c] = $stat; $c++;
-
-                                //*** Comment
-                                $arr[$c] = $j->notes; $c++;
-
-                                //*** Date Files
-                                $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
-
-                                //remarks
-                                $arr[$c] = $stat; $c++;
-                 
-
-                                $sheet->appendRow($arr);
-
-                              }//end ng more than 1 day
+                              }//end ng ifelse more than 1 day
 
                               
                               
-                            }
+                            }//end foreach jps as j
 
                           }
                           else
