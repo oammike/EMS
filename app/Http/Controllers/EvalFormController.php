@@ -2267,7 +2267,10 @@ class EvalFormController extends Controller
                                                 $doneEval[$emp->id] = ['evaluated'=>0,'isDraft'=>0, 'evalForm_id'=> null, 'score'=>null, 'startPeriod'=>$fr->format('M d, Y'), 'endPeriod'=>$to->format('M d, Y'),'theEval'=>null];
                                                 //$mySubordinates->push($emp);
                                                 $leadershipcheck = ImmediateHead::where('employeeNumber', $emp->employeeNumber)->get();
-                                                (count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) ? $isLead=true : $isLead=false;
+
+                                                if ((count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) && ($emp->leadOverride !== 1) ) $isLead=true;
+                                                else 
+                                                  $isLead=false;
                                                 $mySubordinates->push(['data'=>$emp, 'isLead'=>$isLead]);
                                               } 
 
@@ -2288,7 +2291,12 @@ class EvalFormController extends Controller
 
                                               
                                               $leadershipcheck = ImmediateHead::where('employeeNumber', $emp->employeeNumber)->get();
-                                              (count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) ? $isLead=true : $isLead=false;
+
+                                              if ((count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) && ($emp->leadOverride !== 1) ) $isLead=true;
+                                                else 
+                                                  $isLead=false;
+
+                                              //(count($leadershipcheck) > 0 || Position::find($emp->position_id)->leadershipRole) ? $isLead=true : $isLead=false;
                                               $mySubordinates->push(['data'=>$emp, 'isLead'=>$isLead]);
 
                                               }
