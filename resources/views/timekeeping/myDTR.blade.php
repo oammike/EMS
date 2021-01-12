@@ -162,7 +162,7 @@
 
                                                           @else
                                                           <td style="background: rgba(234, 0, 0, 0.1); font-size: smaller;color:#000;font-weight: bolder;" >
-                                                        <a href="{{action('UserVLController@showCredits',$user->id)}}#slpage"> <span class="text-black">{{$currentSLbalance}}</span> <i class="fa fa-external-link"></i>  <br/><em style="font-size: xx-small;">as of {{date('M d', strtotime($slEarnings[0]->period))}}  cutoff</em></small></td>
+                                                        <a href="{{action('UserVLController@showCredits',$user->id)}}#slpage"> <span class="text-black">{{$currentSLbalance}}</span> <i class="fa fa-external-link"></i>  <br/><em style="font-size: xx-small;">*temporary credits <br/> as of {{date('M d', strtotime($slEarnings[0]->period))}}  cutoff</em></small></td>
 
                                                           @endif
                                                           

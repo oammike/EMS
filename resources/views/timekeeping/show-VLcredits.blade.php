@@ -469,6 +469,7 @@
                                   <th class="text-center">Earnings</th>
                                   <th class="text-center text-danger">Used in <br/>Advance</th>
                                   <th class="text-center text-danger">VTOs</th>
+                                  <th class="text-center text-danger">Paid</th>
                                   <th class="text-center">Total Remaining</th>
                                   <th class="text-center">Actions</th>
                                 </thead>
@@ -786,11 +787,19 @@
                                         </td>
 
 
+                                        <!-- SL CONVERSION-->
+                                        <td class="text-center">
+                                          @if ($v->creditYear == date('Y'))
+                                          <small>Pending <br/>SL conversion</small>
+                                          @endif
+                                        </td>
+
+
 
 
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
                                           {{ number_format( ((($v->beginBalance - $v->used)-$v->paid)+ $earnSL - $advSL) - $earnVTO, 2) }}
-                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) <br/>cutoff </small>@endif
+                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">* temporary credits <br/>as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) <br/>cutoff </small>@endif
                                         </td>
                                         <td class="text-center">
                                          
