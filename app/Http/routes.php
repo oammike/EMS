@@ -1477,7 +1477,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/manage-voucher-claims/list/{show_redeemed}', 'RewardVoucherClaimsController@list_claims');
     Route::get('/export-voucher-claims', 'RewardVoucherClaimsController@export_claims');
     Route::post('/confirm-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@confirm_claim');
-    Route::post('/deny-voucher-claim', 'RewardVoucherClaimsController@deny_claim');
+    Route::post('/deny-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@deny_claim');
 
     Route::get('/manage-donations/list/{page?}', 'RewardDonationsController@list_donations');
     Route::resource('/manage-donations', 'RewardDonationsController');
