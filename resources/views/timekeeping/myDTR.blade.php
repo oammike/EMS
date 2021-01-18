@@ -249,7 +249,7 @@
                                                           <!-- ******** PRODUCTION DATE ******* -->
 
                                                           <!-- <small style="font-size:x-small;">[{{$data['biometrics_id']}}]</small> -->
-                                                          &nbsp;&nbsp; {{ $data['productionDate'] }} 
+                                                          <p class="pull-right">&nbsp;&nbsp; {{ $data['productionDate'] }} </p>
 
                                                           <input type="hidden" name="productionDate_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['productionDate'] }}">
 
@@ -260,12 +260,24 @@
                                                                  <strong>
 
                                                                   @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0 )
-                                                                  <a id="unlockPD_{{$data['biometrics_id']}}" style="font-size: larger;" title="Request to Unlock " class="unlockPD pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-lock"></i> </a>
+                                                                  <a id="unlockPD_{{$data['biometrics_id']}}" style="font-size: smaller;" title="Request to Unlock " class="unlockPD pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-lock"></i> </a>
 
                                                                   @else
 
-                                                                  <a style="font-size: larger;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
-                                                                  <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+                                                                  <a style="font-size: smaller;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+
+                                                                  <a style="font-size: smaller;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+
+                                                                  @if($canPreshift || $isWorkforce)
+
+                                                                    @if(count($data['preshift']) <= 0)
+                                                                    <a id="preshift_{{$data['biometrics_id']}}" style="font-size: x-small;" title="Use Pre-shift logs" class="preshift pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-history"></i> </a>
+                                                                    @else
+                                                                    <a id="preshiftD_{{$data['biometrics_id']}}" style="font-size: x-small;" title="Disable Pre-shift logs" class="preshiftD pull-left btn btn-xs btn-warning" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-times"></i> </a>
+
+                                                                    @endif
+                                                                  @endif
+
 
                                                                   @endif
                                                                     
@@ -2015,6 +2027,129 @@ $('select.end.form-control').on('change',function(){
 
 
 
+  /* - PRESHIFT option -*/
+  $('.preshift.pull-left.btn.btn-xs.btn-default').on('click', function(){
+    var productionDate = $(this).attr('data-production_date');
+    var biometrics_id = $(this).attr('data-biometrics_id');
+
+    var reply = confirm("\n\nThis will enable use of pre-shift Time IN and \nfiling of pre-shift OT (if applicable) on: "+productionDate+".\n\n ");
+
+    if (reply == true){
+      
+     
+    
+
+     var _token = "{{ csrf_token() }}";
+     var payrollPeriod = [];
+     
+        payrollPeriod.push(productionDate);
+    
+     $.ajax({
+                  url: "{{action('DTRController@usePreshift', $user->id)}}",
+                  type:'POST',
+                  data:{ 
+
+                    'payrollPeriod': payrollPeriod,
+                    '_token':_token
+
+                  },
+
+                 
+                  success: function(res)
+                  {
+                    console.log(res);
+
+                    $.notify(res.message,{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                    $('#unlock_'+biometrics_id).fadeOut();
+                    //$.notify(res.,{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                    location.reload(true);
+                    //window.location = "{{action('HomeController@index')}}";
+                     
+                  }, error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+                    $.notify(res.message,{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                  }
+
+
+        });
+
+     
+    
+
+
+
+     //console.log(dtrsheet);
+
+    }
+    else{
+      $.notify("Pre-shift logs and OT disabled for this date",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+    }
+
+  });
+
+  //disable preshift
+  $('.preshiftD.pull-left.btn.btn-xs.btn-warning').on('click', function(){
+    var productionDate = $(this).attr('data-production_date');
+    var biometrics_id = $(this).attr('data-biometrics_id');
+
+    var reply = confirm("\n\nThis will disable use of pre-shift Time IN and \nfiling of pre-shift OT (if applicable) on: "+productionDate+".\n\n ");
+
+    if (reply == true){
+      
+     
+    
+
+     var _token = "{{ csrf_token() }}";
+     var payrollPeriod = [];
+     
+        payrollPeriod.push(productionDate);
+    
+     $.ajax({
+                  url: "{{action('DTRController@disablePreshift', $user->id)}}",
+                  type:'POST',
+                  data:{ 
+
+                    'payrollPeriod': payrollPeriod,
+                    '_token':_token
+
+                  },
+
+                 
+                  success: function(res)
+                  {
+                    console.log(res);
+
+                    $.notify(res.message,{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                    $('#unlock_'+biometrics_id).fadeOut();
+                    //$.notify(res.,{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+
+                    location.reload(true);
+                    //window.location = "{{action('HomeController@index')}}";
+                     
+                  }, error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+                    $.notify(res.message,{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                  }
+
+
+        });
+
+     
+    
+
+
+
+     //console.log(dtrsheet);
+
+    }
+    else{
+      $.notify("Pre-shift logs and OT still enabled for this date",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+    }
+
+  });
 
  /* ---- DTR LOCKING ------ */
   $('#unlock').fadeOut();

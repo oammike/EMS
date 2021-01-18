@@ -5752,6 +5752,7 @@ class DTRController extends Controller
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
         $canViewOtherDTR =  ($roles->contains('VIEW_OTHER_DTR')) ? '1':'0';
         $canViewTeamDTR =  ($roles->contains('VIEW_SUBORDINATE_DTR')) ? '1':'0';
+        $canPreshift = ($roles->contains('UPLOAD_BIOMETRICS')) ? '1' : '0';
         $canChangeSched =  ($roles->contains('CHANGE_EMPLOYEE_SCHEDULE')) ? '1':'0';
 
         /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
@@ -6539,6 +6540,9 @@ class DTRController extends Controller
                             {
 
                               $data = $this->getRDinfo($id, $bioForTheDay,null,$payday,$schedKahapon,$isFixedSched,$isParttimer);
+
+                              //check for preshift
+                              $usePreshift = DB::table('user_preshiftOverride')->where('productionDate',$payday)->where('user_id',$user->id)->get();
                               $myDTR->push([
 
                                   'allData'=>$data,
@@ -6583,6 +6587,7 @@ class DTRController extends Controller
                                   'payday'=>$payday,
                                   'pendingDTRPin'=> $data[0]['pendingDTRPin'],
                                   'pendingDTRPout' => $data[0]['pendingDTRPout'],
+                                  'preshift'=>$usePreshift,
                                   'productionDate'=> date('M d, Y', strtotime($payday)),
                                   'shiftEnd'=>$data[0]['shiftEnd'],
                                   'shiftEnd2'=>$data[0]['shiftEnd'],
@@ -6901,6 +6906,8 @@ class DTRController extends Controller
                                   } //--- else not sameDayLog
 
 
+                                  //check for preshift
+                                  $usePreshift = DB::table('user_preshiftOverride')->where('productionDate',$payday)->where('user_id',$user->id)->get();
 
                                   if(is_null($schedForToday)) {
                                       
@@ -6923,6 +6930,7 @@ class DTRController extends Controller
                                                     'pendingDTRPin'=> null,
                                                     'hasPendingOUT' =>null, //$userLogOUT[0]['hasPendingDTRP'],
                                                     'pendingDTRPout' =>null, //$userLogOUT[0]['pendingDTRP'],
+                                                    'preshift'=>$usePreshift,
                                                     'hasLeave' => $userLogIN[0]['hasLeave'],
                                                     'leaveDetails'=>$userLogIN[0]['leave'],
                                                     'hasLWOP' => $userLogIN[0]['hasLWOP'],
@@ -6994,6 +7002,7 @@ class DTRController extends Controller
                                       'payday'=> $payday,
                                       'pendingDTRPin'=> $userLogIN[0]['pendingDTRP'],
                                       'pendingDTRPout' =>$userLogOUT[0]['pendingDTRP'],
+                                      'preshift'=>$usePreshift,
                                       'productionDate'=> date('M d, Y', strtotime($payday)),
                                       'sameDayLog'=>$sameDayLog,
                                       'schedForToday'=>$schedForToday,
@@ -7070,7 +7079,7 @@ class DTRController extends Controller
            $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
                 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isBackoffice','vlEarnings','slEarnings'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings'));
 
 
         } else return view('access-denied');
@@ -7220,6 +7229,83 @@ class DTRController extends Controller
       }
 
       
+    }
+
+
+    public function usePreshift($id, Request $request)
+    {
+      $user = User::find($id);
+      $payrollPeriod = $request->payrollPeriod;
+      $correct = Carbon::now('GMT+8');
+
+     
+
+      /*----------------------------
+      This is where you check if lagpas na ng sahod
+      If lagpas na ng sahod, only Finance can unlock. Else, approvers may still do
+
+      if ($payrollPeriod[0]) == 21 -> sahod is nextMonth 10th ==> cutoff
+      if ($payrollPeriod[0]) == 06 -> sahod is this month 25th ==> cutoff
+
+      if (date_today > $cutoff) -> only Finance can unlock, send notif to Finance admin only
+      else send notif to all approvers
+      ------------------------------*/
+
+      $dtr = DB::table('user_preshiftOverride')->where('productionDate',$payrollPeriod[0])->where('user_id',$user->id)->get();
+
+      if(count($dtr)<= 0)
+      {
+        DB::table('user_preshiftOverride')->insertGetId([
+          'user_id'=> $user->id,
+          'productionDate'=>$payrollPeriod[0] ]);
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Preshift: ".$payrollPeriod[0]."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+        return response()->json(['success'=>'0', 'message'=>"Pre-shift logs and OT enabled for this production date."]);
+      } else{
+        return response()->json(['success'=>'1', 'message'=>"Pre-shift logs already enabled", 'count'=>count($payrollPeriod)]);
+
+
+      }
+
+
+    }
+
+    public function disablePreshift($id, Request $request)
+    {
+      $user = User::find($id);
+      $payrollPeriod = $request->payrollPeriod;
+      $correct = Carbon::now('GMT+8');
+
+     
+
+      /*----------------------------
+      This is where you check if lagpas na ng sahod
+      If lagpas na ng sahod, only Finance can unlock. Else, approvers may still do
+
+      if ($payrollPeriod[0]) == 21 -> sahod is nextMonth 10th ==> cutoff
+      if ($payrollPeriod[0]) == 06 -> sahod is this month 25th ==> cutoff
+
+      if (date_today > $cutoff) -> only Finance can unlock, send notif to Finance admin only
+      else send notif to all approvers
+      ------------------------------*/
+
+      $dtr = DB::table('user_preshiftOverride')->where('productionDate',$payrollPeriod[0])->delete();
+     // if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Revoke Preshift: ".$payrollPeriod[0]."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+      //      }
+      return response()->json(['success'=>'1', 'message'=>"Pre-shift logs disabled for this production date.", 'count'=>count($payrollPeriod)]);
+
+
+      
+
+
     }
 
 

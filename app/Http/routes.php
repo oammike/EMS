@@ -907,6 +907,14 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.requestUnlock',
       'uses'=>'DTRController@requestUnlock') );
 
+      Route::post('/userPreshift/{id}', array(
+      'as'=> 'user_dtr.usePreshift',
+      'uses'=>'DTRController@usePreshift') );
+
+      Route::post('/disableUserPreshift/{id}', array(
+      'as'=> 'user_dtr.disablePreshift',
+      'uses'=>'DTRController@disablePreshift') );
+
       Route::get('/sheets', array(
       'as'=> 'user_dtr.dtrSheets',
       'uses'=>'DTRController@dtrSheets') );
