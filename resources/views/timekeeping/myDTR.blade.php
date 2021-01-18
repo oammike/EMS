@@ -268,15 +268,15 @@
 
                                                                   <a style="font-size: smaller;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
 
-                                                                  @if($canPreshift || $isWorkforce)
+                                                                    @if($canPreshift || $isWorkforce)
 
-                                                                    @if(count($data['preshift']) <= 0)
-                                                                    <a id="preshift_{{$data['biometrics_id']}}" style="font-size: x-small;" title="Use Pre-shift logs" class="preshift pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-history"></i> </a>
-                                                                    @else
-                                                                    <a id="preshiftD_{{$data['biometrics_id']}}" style="font-size: x-small;" title="Disable Pre-shift logs" class="preshiftD pull-left btn btn-xs btn-warning" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-times"></i> </a>
+                                                                      @if(count($data['preshift']) <= 0)
+                                                                      <a id="preshift_{{$data['biometrics_id']}}" style="font-size: x-small;" title="Use Pre-shift logs" class="preshift pull-left btn btn-xs btn-default" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-history"></i> </a>
+                                                                      @else
+                                                                      <a id="preshiftD_{{$data['biometrics_id']}}" style="font-size: x-small;" title="Disable Pre-shift logs" class="preshiftD pull-left btn btn-xs btn-warning" data-production_date="{{ $data['payday'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-times"></i> </a>
 
+                                                                      @endif
                                                                     @endif
-                                                                  @endif
 
 
                                                                   @endif
