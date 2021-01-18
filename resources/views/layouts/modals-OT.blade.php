@@ -86,7 +86,7 @@
                                 //   } 
                                   
 
-                                  $num = 15;?>
+                                  $num = 1;?>
 
                                   @while ( ($num/60) <= (float)$data['billableForOT'])
 
@@ -100,7 +100,7 @@
                                   
                                   <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num/60}}"> &nbsp;&nbsp;{{number_format($num/60,2)}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
 
-                                  <?php $num += 15; ?>
+                                  <?php $num += 1; ?>
                                   @endwhile
                                
 
@@ -112,7 +112,7 @@
                                     $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila'); 
                                     $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
 
-                                    $num = 15;
+                                    $num = 1;
                                     
 
                                     ?>
@@ -121,7 +121,7 @@
                                           <?php $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes($num); ?>
                                           <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num/60}}"> &nbsp;&nbsp;{{number_format($num/60,2)}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
 
-                                          <?php $num += 15; ?>
+                                          <?php $num += 1; ?>
                                           @endwhile
 
                            <?php }?>

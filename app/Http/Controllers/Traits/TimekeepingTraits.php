@@ -5630,11 +5630,44 @@ trait TimekeepingTraits
               
                 
                 //$totalbill = number_format($endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") )/60,2);
-                $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+
+                //**** we need to check first kung naka 8hrs of work na
+                //**** kaso pano kung part-timer lang??
+                if ( number_format($wh/60,2) > 8.0 )
+                {
+                  $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                }
+                else //need muna nya macomplete 8hrs of work
+                {
+                  if ($isPartTimer || $isPartTimerForeign)
+                  {
+                    ($ptOverride) ? $UT = round((480.0 - $wh )/60,2) : $UT = round((240.0 - $wh)/60,2); 
+
+                  }
+                  
+                  else
+                    {
+                      if ($is4x11)
+                        $UT = round((600.0 - $wh )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                      else
+                        $UT = round((480.0 - $wh )/60,2); 
+                    }
+
+
+                  $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2) - $UT;
+
+                }
+
+                
+
+                
+                  
+                
                 //$totalbill = 33.33;
                 
 
-                if ($totalbill > 0.25)
+                //if ($totalbill > 0.25)
+                if ($totalbill >= 0.01)
                 {
                   $billableForOT = $totalbill;
                   $OTattribute = $icons;
@@ -5881,7 +5914,7 @@ trait TimekeepingTraits
 
                   
 
-                  if ($totalbill >= 0.25)
+                  if ($totalbill >= 0.01)  //($totalbill >= 0.25)
                   {
                     $billableForOT = $totalbill;
                     $OTattribute = $icons;
@@ -5966,7 +5999,7 @@ trait TimekeepingTraits
 
                   
 
-                  if ($totalbill > 0.25)
+                  if ($totalbill >= 0.01) // ($totalbill > 0.25)
                   {
                     $billableForOT = $totalbill;
                     $OTattribute = $icons;
@@ -6776,7 +6809,7 @@ trait TimekeepingTraits
               $workedHours .= "<br/>".$log;
 
 
-               $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
+               //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
                $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
 
                     if ($totalbill > 0.5)
