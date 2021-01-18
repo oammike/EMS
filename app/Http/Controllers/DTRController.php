@@ -6454,6 +6454,7 @@ class DTRController extends Controller
                            'isRD'=>0,
                            'isFlexitime'=>$isFlexitime,
                            'productionDate'=> date('M d, Y', strtotime($payday)),
+                           'preshift'=>null,
                            'day'=> date('D',strtotime($payday)),
                            'shiftStart'=> null,
                            'shiftEnd'=>$shiftEnd,
