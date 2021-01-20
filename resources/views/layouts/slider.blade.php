@@ -1,7 +1,58 @@
 
           
 
-              <div class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> JAN. 25, 2021</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for January 25 payout is Jan. 20, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before THURSDAY 12NN of Jan. 21, 2021</strong>.<br/><br/>
+                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
+
+                    
+                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
+
+              
+
+
+               <div class="item text-center" >
+                  <img src="storage/uploads/mac.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >MAC <span class="text-primary">Masterclass <br/><small>Jan.28, 2021 5PM</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">DISCOVER THE BEAUTY OF TODAY WITH M·A·C COSMETICS <br/>IN PARTNERSHIP WITH OPEN ACCESS BPO
+                      <br/><br/>
+                      Learn pro tips on quick and easy to do looks to get you from zero to zoom ready for virtual work meetings to personal meetings and discover the mood-boosting power of little luxuries in the new normalJoin us for a virtual Masterclass over Zoom!<br/><br/>
+
+                    Masterclass will cover adapting to the New Normal – looks for work meetings to personal meetings online. <br/>
+                    Applicable for all employees.<br/>
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://macxopenaccessbporegistration.eventbrite.com/" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                   <br/><br/>
+
+                    @MACCOSMETICSPH #MACxOPENACCESSBPO #MACMASTERCLASS </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/thanku2020.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Send Your <span class="text-primary">e-Card Greetings <i class="fa fa-gift"></i><br/><small>to your team!</small><br/>
                   
@@ -21,26 +72,7 @@
                     
             </div>
             
-            <div class="item text-center">
-                  <img src="storage/uploads/newyear2021.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-gift"></i> New Year<br/><small>January 01, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">As we say goodbye to #2020, we thank our Open Access BPO family for your trust and support during a year of ups and downs that nobody had anticipated.<br/><br/>
-
-                    We hope you can also move past your fears and worries and stay hopeful for the infinite opportunities ahead.<br/><br/>
-
-                    Together, let us welcome #2021 with a grateful heart. Happy New Year!.<br/><br/>
-
-                    #WeSpeakYourLanguage #OAHolidays</p>
-                    
-                   
-                    
-                    
-            </div>
-
-            
+           
            
 
             <div class="item  text-center" >
@@ -9724,7 +9756,26 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     
               </div>
 
+ <div class="item text-center">
+                  <img src="storage/uploads/newyear2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <span class="text-primary"><i class="fa fa-gift"></i> New Year<br/><small>January 01, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">As we say goodbye to #2020, we thank our Open Access BPO family for your trust and support during a year of ups and downs that nobody had anticipated.<br/><br/>
 
+                    We hope you can also move past your fears and worries and stay hopeful for the infinite opportunities ahead.<br/><br/>
+
+                    Together, let us welcome #2021 with a grateful heart. Happy New Year!.<br/><br/>
+
+                    #WeSpeakYourLanguage #OAHolidays</p>
+                    
+                   
+                    
+                    
+            </div>
+
+            
 
                           -->
 
