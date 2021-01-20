@@ -4312,8 +4312,9 @@ class UserController extends Controller
         $employee->nickname = $request->nickname;
         $employee->gender = $request->gender;
         $employee->employeeNumber = $request->employeeNumber;
+        $employee->employeeCode = $request->employeeNumber;
         $employee->accesscode = $request->accesscode;
-        $employee->employeeCode = $request->employeeCode;
+        //$employee->employeeCode = $request->employeeCode;
         $employee->email = preg_replace('/\s+/', '', $request->email);
         $employee->password =  Hash::make($request->password);
         $employee->updatedPass = false;

@@ -25,8 +25,26 @@
 
         <br/><br/>
 
-         <h5 class='text-center'>File an OT for <br/><strong class="text-danger">
+        @if($data['hasLeave'])
+
+            @if(( $data['leaveDetails'][0]['type'] =='VL' || $data['leaveDetails'][0]['type'] =='SL' ) && ($data['leaveDetails'][0]['details']->totalCredits == '0.5' || $data['leaveDetails'][0]['details']->totalCredits == '0.25'))
+                 <h5 class='text-center'>File an OT for <br/><strong class="text-danger">
+                {{ $Dday }} {{ $DproductionDate }} {{$data['shiftEnd']}} <?php if ($data['shiftEnd'] == "* RD *") { ?><br/> <br/>{{$data['logIN']}} <?php } ?> - {{$data['logOUT']}}</strong><br/><br/><i class="fa fa-clock-o"></i> Total Hours worked: </h5>
+            @endif
+        
+
+        @elseif ($data['hasLWOP'] && ( $data['lwopDetails'][0]['details']->totalCredits == '0.5' || $data['lwopDetails'][0]['details']->totalCredits == '0.25'))
+
+                <h5 class='text-center'>File an overtime for <br/><strong class="text-danger">
+                {{ $Dday }} {{ $DproductionDate }} {{$data['shiftEnd']}} <?php if ($data['shiftEnd'] == "* RD *") { ?><br/> <br/>{{$data['logIN']}} <?php } ?> - {{$data['logOUT']}}</strong><br/><br/><i class="fa fa-clock-o"></i> Total Hours worked: </h5>
+
+        @else
+         <h5 class='text-center'>File overtime for <br/><strong class="text-danger">
           {{ $Dday }} {{ $DproductionDate }} {{$data['shiftEnd']}} <?php if ($data['shiftEnd'] == "* RD *") { ?><br/> <br/>{{$data['logIN']}} <?php } ?> - {{$data['logOUT']}}</strong><br/><br/><i class="fa fa-clock-o"></i> Total Hours worked: </h5>
+
+        @endif
+
+        
 
          <div class="row">
 
@@ -108,9 +126,56 @@
 
 
                          <?php }
-                           else { 
+                           else {
+                                  if
+                                    ( $data['hasLeave'] && (( $data['leaveDetails'][0]['type'] =='VL' || $data['leaveDetails'][0]['type'] =='SL' ) && ($data['leaveDetails'][0]['details']->totalCredits == '0.5' ) ) )
+                                  {
+                                    $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftStart'],'Asia/Manila')->addHours(5); 
+                                    $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+
+
+                                  }elseif
+                                    ( $data['hasLeave'] && (( $data['leaveDetails'][0]['type'] =='VL' || $data['leaveDetails'][0]['type'] =='SL' ) && ( $data['leaveDetails'][0]['details']->totalCredits == '0.25') ) )
+                                  {
+                                    $start= \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addHours(8); 
+                                    $t1 = \Carbon\Carbon::parse($data['logOUT'],'Asia/Manila'); 
+
+
+                                  }
+
+                                  elseif($data['hasLWOP'] && ($data['lwopDetails'][0]['details']->totalCredits == '0.5' ) )
+                                  {
+                                    $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftStart'],'Asia/Manila')->addHours(5); 
+                                    $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+
+                                  }
+                                  elseif($data['hasLWOP'] && ($data['lwopDetails'][0]['details']->totalCredits == '0.25') )
+                                  {
+                                    $start= \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addHours(8); 
+                                    $t1 = \Carbon\Carbon::parse($data['logOUT'],'Asia/Manila'); 
+
+                                  }
+
+                                  
+                                  elseif($isParttimer && strlen($data['logOUT']) < 30 )
+                                  {
+                                    $start= \Carbon\Carbon::parse($data['logOUT'],'Asia/Manila')->subMinutes(($data['billableForOT']*60));
+                                    $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+
+                                  }
+                                  elseif( (float)$data['UT'] > 0.0) //meaning di nya complete 8hr, so check kung nag extend from endshift to complete 8hr OT entitlement
+                                  {
+                                    $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftStart'],'Asia/Manila')->addHours(5); 
+                                    $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+
+                                  }
+                                  else
+                                  {
                                     $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila'); 
                                     $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+
+                                  }
+                                    
 
                                     $num = 1;
                                     
@@ -118,7 +183,44 @@
                                     ?>
                                     @while ( ($num/60) <= (float)$data['billableForOT'])  
 
-                                          <?php $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes($num); ?>
+                                          <?php 
+                                          if($data['hasLeave'] && (( $data['leaveDetails'][0]['type'] =='VL' || $data['leaveDetails'][0]['type'] =='SL' ) && ($data['leaveDetails'][0]['details']->totalCredits == '0.5') ) )
+                                          {
+                                            $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
+
+                                          }
+                                           elseif($data['hasLeave'] && (( $data['leaveDetails'][0]['type'] =='VL' || $data['leaveDetails'][0]['type'] =='SL' ) && ( $data['leaveDetails'][0]['details']->totalCredits == '0.25') ) )
+                                          {
+                                            $endOT = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addMinutes(480+$num);  //\Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
+
+                                          }
+
+                                          elseif($data['hasLWOP'] && ($data['lwopDetails'][0]['details']->totalCredits == '0.5' )  )
+                                          {
+                                            $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
+
+                                          }
+                                          elseif($data['hasLWOP'] && ( $data['lwopDetails'][0]['details']->totalCredits == '0.25')  )
+                                          {
+                                            $endOT = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addMinutes(480+$num);  //$endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
+
+                                          }
+
+                                          elseif($isParttimer && strlen($data['logOUT']) < 30)
+                                          { 
+                                            $endOT = \Carbon\Carbon::parse($data['logOUT'],'Asia/Manila')->subMinutes(($data['billableForOT']*60));
+                                            $endOT->addMinutes($num);
+                                          }
+
+                                           elseif( (float)$data['UT'] > 0.0)
+                                          {
+                                            $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
+                                          }
+
+                                          else
+                                          { 
+                                            $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes($num);
+                                          }?>
                                           <option data-proddate="{{ $DproductionDate }}" data-timestart="{{$start->format('M d,Y h:i A')}}" data-timeend="{{$endOT->format('M d,Y h:i A')}}"  value="{{$num/60}}"> &nbsp;&nbsp;{{number_format($num/60,2)}} hr. OT [ {{$endOT->format('h:i A')}} ] </option>
 
                                           <?php $num += 1; ?>

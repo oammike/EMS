@@ -7000,6 +7000,7 @@ class DTRController extends Controller
                                       'logOUT'=>$userLogOUT[0]['logTxt'],
                                       'lwopDetails'=>$userLogIN[0]['lwop'],
                                       'OTattribute'=> $OTattribute,
+                                      'outs'=>$userLogOUT[0],
                                       'payday'=> $payday,
                                       'pendingDTRPin'=> $userLogIN[0]['pendingDTRP'],
                                       'pendingDTRPout' =>$userLogOUT[0]['pendingDTRP'],
@@ -7047,7 +7048,7 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Dec 08, 2020');
+            //return $myDTR->where('productionDate','Jan 07, 2021');
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
@@ -7080,7 +7081,7 @@ class DTRController extends Controller
            $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
                 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer'));
 
 
         } else return view('access-denied');

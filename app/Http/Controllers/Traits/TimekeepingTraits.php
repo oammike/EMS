@@ -1697,6 +1697,7 @@ trait TimekeepingTraits
     /*$fix= Carbon::parse($payday." 23:59:00","Asia/Manila");*/
     // SINCE IT'S A COMPLICATED SCHED, MAKE THE STARTING POINT UP TILL END OF SHIFT
     $fix= Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(9);
+    $shiftStart = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
 
 
 
@@ -2099,7 +2100,7 @@ trait TimekeepingTraits
 
           if ($hasVL)
           {
-            $workedHours1 = $this->processLeaves('VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
             $workedHours .= $workedHours1[0]['workedHours'];
             $UT = $workedHours1[0]['UT'];
           }
@@ -2107,7 +2108,7 @@ trait TimekeepingTraits
 
           if ($hasOBT)
           {
-            $workedHours1 = $this->processLeaves('OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
             $workedHours .= $workedHours1[0]['workedHours'];
             $UT = $workedHours1[0]['UT'];
           }
@@ -2116,7 +2117,7 @@ trait TimekeepingTraits
 
           if ($hasSL)
           {
-            $workedHours1 = $this->processLeaves('SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
             $workedHours .= $workedHours1[0]['workedHours'];
             $UT = $workedHours1[0]['UT'];
           }
@@ -2124,7 +2125,7 @@ trait TimekeepingTraits
 
           if ($hasFL)
           {
-            $workedHours1 = $this->processLeaves('FL',false,0,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'FL',false,0,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
               $workedHours .= $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
           }
@@ -2132,7 +2133,7 @@ trait TimekeepingTraits
 
           if ($hasLWOP)
           {
-            $workedHours1 = $this->processLeaves('LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+            $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
             $workedHours .= $workedHours1[0]['workedHours'];
             $UT = $workedHours1[0]['UT'];
 
@@ -5029,7 +5030,7 @@ trait TimekeepingTraits
     }
     
 
-
+    $shiftStart = $startOfShift;
 
     $inTime = null;
     $outTime = null;$x=null;$y=null;
@@ -5268,41 +5269,259 @@ trait TimekeepingTraits
       if ($isEarlyOUT && $isLateIN)//use user's logs
       {
         $prod = Carbon::parse($userLogOUT[0]['timing'])->format('Y-m-d');
+        //we now check if agent has SL VL LWOP to correct the worked hours & UT
+        if($hasSL || $hasVL || $hasLWOP)
+        {
 
-        $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
-        $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
-        $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+          /*if($hasVL)
+          {
+            $lieoData = $this->processLeaveForLateInEarlyOut($vlDeet->totalCredits,$scheduleStart,$userLogOUT,$endOfShift,$isPartTimer,$isPartTimerForeign, $ptOverride,$is4x11);
+            $billableForOT = $lieoData['billableForOT'];
+            $UT = $lieoData['UT'];
+            $workedHours = $lieoData['workedHours'];
 
-        //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
-        
-        //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
-        ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+          }
 
-        //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
-        $billableForOT=0; //$userLogIN[0]['timing']/60;
+          if($hasSL)
+          {
+            $lieoData = $this->processLeaveForLateInEarlyOut($slDeet->totalCredits,$scheduleStart,$userLogOUT,$endOfShift,$isPartTimer,$isPartTimerForeign, $ptOverride, $is4x11);
+            //$billableForOT = $lieoData->billableForOT;
+            $UT = $lieoData['UT'];
+            $workedHours = $lieoData['workedHours'];
 
-        //$stat = User::find($user_id)->status_id;
-        //****** part time user
+          }*/
+            
 
-        if ($isPartTimer || $isPartTimerForeign) {
+          if($hasVL)
+          {
+              if($vlDeet->totalCredits == '0.5') {
+                $magStart = Carbon::parse($scheduleStart->format('Y-m-d H:i:s'),"Asia/Manila")->addHours(5);
+                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($magStart)+240;
 
-          ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+                //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+          
+                //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+                ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+                $billableForOT=0;
+                if ($isPartTimer || $isPartTimerForeign) {
+
+                  ($ptOverride) ? $UT = number_format((480.0 - (($wh) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                  
+                }
+                else {
+                  if ($is4x11)
+                    $UT = number_format((600.0 - (($wh) - ($minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                  else
+                    $UT = number_format( ($minsEarlyOut) /60,2); 
+                } 
+
+              }
+              else {
+                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+
+                 $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+                 $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+                //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+            
+                //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+                ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+                $billableForOT=0; 
+
+                if ($isPartTimer || $isPartTimerForeign) {
+
+                  ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                  
+                }
+                else {
+                  if ($is4x11)
+                    $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                  else
+                    $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+                } 
+              }
+
+              //$workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
+              //$workedHours  =  number_format($wh/60,2);//.= $workedHours1[0]['workedHours'];
+              //$minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+             
+
+              //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+              //$userLogIN[0]['timing']/60;
+
+              //$stat = User::find($user_id)->status_id;
+              //****** part time user
+
+
+
+
+
+              // $UT = $workedHours1[0]['UT'];
+              // $billableForOT = $workedHours1[0]['billableForOT'];
+              // $OTattribute = $workedHours1[0]['OTattribute'];
+
+          }
+
+          if($hasSL)
+          {
+              if($slDeet->totalCredits == '0.5') {
+                $magStart = Carbon::parse($scheduleStart->format('Y-m-d H:i:s'),"Asia/Manila")->addHours(5);
+                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($magStart)+240;
+
+                $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+                //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+          
+                //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+                ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+                $billableForOT=0;
+                if ($isPartTimer || $isPartTimerForeign) {
+
+                  ($ptOverride) ? $UT = number_format((480.0 - (($wh) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                  
+                }
+                else {
+                  if ($is4x11)
+                    $UT = number_format((600.0 - (($wh) - ($minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                  else
+                    $UT = number_format( ($minsEarlyOut) /60,2); 
+                } 
+
+              }
+              else {
+                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+
+                 $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+                 $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+                //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+            
+                //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+                ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+                $billableForOT=0; 
+
+                if ($isPartTimer || $isPartTimerForeign) {
+
+                  ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                  
+                }
+                else {
+                  if ($is4x11)
+                    $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                  else
+                    $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+                } 
+              }
+
+              
+
+          }
+
+          if($hasLWOP)
+          {
+              if($lwopDeet->totalCredits == '0.5') {
+                $magStart = Carbon::parse($scheduleStart->format('Y-m-d H:i:s'),"Asia/Manila")->addHours(5);
+                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($magStart);
+
+                $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+                //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+          
+                //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+                ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+                $billableForOT=0;
+                if ($isPartTimer || $isPartTimerForeign) {
+
+                  ($ptOverride) ? $UT = number_format((480.0 - (($wh) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                  
+                }
+                else {
+                  if ($is4x11)
+                    $UT = number_format((600.0 - (($wh) - ($minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                  else
+                    $UT = number_format( ($minsEarlyOut) /60,2); 
+                } 
+
+              }
+              else {
+                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+
+                 $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+                 $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+                //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+            
+                //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+                ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+                $billableForOT=0; 
+
+                if ($isPartTimer || $isPartTimerForeign) {
+
+                  ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                  
+                }
+                else {
+                  if ($is4x11)
+                    $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                  else
+                    $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+                } 
+              }
+
+              
+
+          }
+
+          
+
+         
           
         }
-        else {
-          if ($is4x11)
-            $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
-          else
-            $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+        else
+        {
+          $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+          $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+          $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+
+          //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+          
+          //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+          ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+          //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+          $billableForOT=0; //$userLogIN[0]['timing']/60;
+
+          //$stat = User::find($user_id)->status_id;
+          //****** part time user
+
+          if ($isPartTimer || $isPartTimerForeign) {
+
+            ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+            
+          }
+          else {
+            if ($is4x11)
+              $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+            else
+              $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+
+          }
 
         }
+
+        
 
         if ($hasVTO)
         {
-          $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+          $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+
+          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
           
           //$workedHours = $workedHours1[0]['workedHours'];
-          $UT = number_format($minsLate/60,2);
+          $UT = number_format($minsLate+$minsEarlyOut/60,2);
           $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
           $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
           $workedHours .= "<small>( late IN )</small><br/>";
@@ -5313,6 +5532,9 @@ trait TimekeepingTraits
           
 
         }//end if has VTO
+
+
+
         
 
       }
@@ -5382,9 +5604,7 @@ trait TimekeepingTraits
             
             //$noSec = Carbon::parse($schedForToday['timeStart'],'Asia/Manila');
             $wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->diffInMinutes($startOfShift);
-            //$wh = Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->diffInHours($startOfShift);
-            //$koll->push(['1'=> Carbon::parse($userLogOUT[0]['timing']->format('Y-m-d H:i'),"Asia/Manila")->format('Y-m-d H:i:s'), '2'=> $startOfShift->format('Y-m-d H:i:s'),'dh'=>$dh]);
-            //(Carbon::parse($payday." ".$noSec->format('H:i'),"Asia/Manila"));//->addHour());
+           
 
             if ($wh >= 300 ) $wh = $wh-60; 
 
@@ -5392,7 +5612,7 @@ trait TimekeepingTraits
 
             if ($hasSL)
             {
-              $workedHours1 = $this->processLeaves('SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
               $workedHours .= $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
 
@@ -5400,7 +5620,7 @@ trait TimekeepingTraits
            
            if ($hasVL)
             {
-              $workedHours1 = $this->processLeaves('VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
               $workedHours .= $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
 
@@ -5408,7 +5628,7 @@ trait TimekeepingTraits
 
             if ($hasVTO)
             {
-              $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
               $workedHours .= $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
 
@@ -5417,7 +5637,7 @@ trait TimekeepingTraits
 
              if ($hasOBT)
               {
-                $workedHours1 = $this->processLeaves('OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                 $workedHours .= $workedHours1[0]['workedHours'];
                 $UT = $workedHours1[0]['UT'];
                      
@@ -5427,7 +5647,7 @@ trait TimekeepingTraits
 
              if ($hasLWOP)
               {
-                $workedHours1 = $this->processLeaves('LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                 $workedHours .= $workedHours1[0]['workedHours'];
                 $UT = $workedHours1[0]['UT'];
 
@@ -5436,7 +5656,7 @@ trait TimekeepingTraits
 
               if ($hasFL)
               {
-                $workedHours1 = $this->processLeaves('FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                 $workedHours .= $workedHours1[0]['workedHours'];
                 $UT = $workedHours1[0]['UT'];
 
@@ -5488,9 +5708,10 @@ trait TimekeepingTraits
         if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) // Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
         {
           
-          if ($isPartTimer ) 
+          if ($isPartTimer || $isPartTimerForeign)
           {
-            $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
+            //$wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
+            $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
           } else
           {
             //$wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
@@ -5513,17 +5734,21 @@ trait TimekeepingTraits
               //$wh = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
               $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
 
-              $workedHours1 = $this->processLeaves('SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
               $workedHours .= $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
+              $billableForOT = $workedHours1[0]['billableForOT'];
+              $OTattribute = $workedHours1[0]['OTattribute'];
 
             }//end if has SL
 
             else if ($hasVL)
             {
-              $workedHours1 = $this->processLeaves('VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
               $workedHours .= $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
+              $billableForOT = $workedHours1[0]['billableForOT'];
+              $OTattribute = $workedHours1[0]['OTattribute'];
 
             }//end if has VL
 
@@ -5537,7 +5762,7 @@ trait TimekeepingTraits
 
             else if ($hasVTO)
             {
-              $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+              $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
               
               //$workedHours = $workedHours1[0]['workedHours'];
               //------- we need to fix yung over worked hours since  VTO naman --------
@@ -5588,7 +5813,7 @@ trait TimekeepingTraits
             else if ($hasOBT)
               {
 
-                  $workedHours1 = $this->processLeaves('OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                  $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                   $workedHours .= $workedHours1[0]['workedHours'];
                   $UT = $workedHours1[0]['UT'];
 
@@ -5597,16 +5822,22 @@ trait TimekeepingTraits
 
             else if ($hasLWOP)
               {
-                  $workedHours1 = $this->processLeaves('LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
-                  $workedHours .= $workedHours1[0]['workedHours'];
+                  $e1 = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->format('Y-m-d H:i');
+                  $timing = Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->format('Y-m-d H:i');
+
+                  $wh = Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')); 
+                  $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
+                  $workedHours = $workedHours1[0]['workedHours'];
                   $UT = $workedHours1[0]['UT'];
+                  $billableForOT = $workedHours1[0]['billableForOT'];
+                  $OTattribute = $workedHours1[0]['OTattribute'];
 
               }//end if has LWOP
 
 
             else if ($hasFL)
               {
-                  $workedHours1 = $this->processLeaves('FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                  $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                   $workedHours .= $workedHours1[0]['workedHours'];
                   $UT = $workedHours1[0]['UT'];
 
@@ -5635,26 +5866,49 @@ trait TimekeepingTraits
                 //**** kaso pano kung part-timer lang??
                 if ( number_format($wh/60,2) > 8.0 )
                 {
-                  $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                  if ($isPartTimer || $isPartTimerForeign)
+                  {
+                    if($ptOverride)  { $UT = round((480.0 - $wh )/60,2); $UT2 = 480.0 - $wh; }
+                    else { $UT = number_format($minsLate/60,2); } 
+
+                    $totalbill = number_format( ($userLogIN[0]['timing']->diffInMinutes($userLogOUT[0]['timing'] ) - 480) /60,2);
+                   
+
+                  }
+                  else $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
                 }
                 else //need muna nya macomplete 8hrs of work
                 {
                   if ($isPartTimer || $isPartTimerForeign)
                   {
-                    ($ptOverride) ? $UT = round((480.0 - $wh )/60,2) : $UT = round((240.0 - $wh)/60,2); 
+                    if($ptOverride)  { $UT = round((480.0 - $wh )/60,2); $UT2 = 480.0 - $wh; }
+                    else { $UT = number_format((240.0 - $wh)/60,2);$UT2 = 240.0 - $wh; } 
+
+                    if( number_format($wh/60,2) > 8.0 )
+                      $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    else
+                      $totalbill = 0;
 
                   }
                   
                   else
                     {
-                      if ($is4x11)
+                      if ($is4x11) {
                         $UT = round((600.0 - $wh )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
-                      else
+                        $UT2 = 600.0 - $wh;
+                      }
+                      else {
                         $UT = round((480.0 - $wh )/60,2); 
+                        $UT2 = 480.0 - $wh; 
+                      }
+
+                      $sSh = Carbon::parse($startOfShift->format('Y-m-d H:i'),'Asia/Manila')->addHours(5);
+
+                      $totalbill = number_format(($userLogOUT[0]['timing']->diffInMinutes($sSh)-480 )/ 60,2);   //$sSh->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
                     }
 
 
-                  $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2) - $UT;
+                  
 
                 }
 
@@ -5678,7 +5932,7 @@ trait TimekeepingTraits
                 //$stat = User::find($user_id)->status_id;
                 //****** part time user
 
-                if ($isPartTimer || $isPartTimerForeign)
+                /*if ($isPartTimer || $isPartTimerForeign)
                 {
                   ($ptOverride) ? $UT = round((480.0 - $wh )/60,2) : $UT = round((240.0 - $wh)/60,2); 
 
@@ -5690,7 +5944,7 @@ trait TimekeepingTraits
                       $UT = round((600.0 - $wh )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
                     else
                       $UT = round((480.0 - $wh )/60,2); 
-                  }
+                  }*/
 
                   
 
@@ -5712,7 +5966,7 @@ trait TimekeepingTraits
              
               if ($hasSL)
               {
-                $workedHours1 = $this->processLeaves('SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                 $workedHours .= $workedHours1[0]['workedHours'];
                 $UT = $workedHours1[0]['UT'];
 
@@ -5721,14 +5975,14 @@ trait TimekeepingTraits
 
                if ($hasVL)
               {
-                $workedHours1 = $this->processLeaves('VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VL',true,$wh,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                 $workedHours .= $workedHours1[0]['workedHours'];
                 $UT = $workedHours1[0]['UT'];
               }//end if has VL
 
               if ($hasVTO)
               {
-                $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                 $workedHours .= $workedHours1[0]['workedHours'];
                 $UT = $workedHours1[0]['UT'];
 
@@ -5737,7 +5991,7 @@ trait TimekeepingTraits
                if ($hasOBT)
               {
 
-                  $workedHours1 = $this->processLeaves('OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                  $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'OBT',true,$wh,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                   $workedHours .= $workedHours1[0]['workedHours'];
                   $UT = $workedHours1[0]['UT'];
 
@@ -5747,7 +6001,7 @@ trait TimekeepingTraits
               if ($hasLWOP)
               {
                   $wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")); //->addMinutes(60));
-                  $workedHours1 = $this->processLeaves('LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                  $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'LWOP',true,$wh,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                   $workedHours .= $workedHours1[0]['workedHours'];
                   $UT = $workedHours1[0]['UT'];
 
@@ -5756,7 +6010,7 @@ trait TimekeepingTraits
 
               if ($hasFL)
               {
-                $workedHours1 = $this->processLeaves('FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+                $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'FL',true,$wh,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
                 $workedHours .= $workedHours1[0]['workedHours'];
                 $UT = $workedHours1[0]['UT'];
               }//end if has FL
@@ -5847,10 +6101,10 @@ trait TimekeepingTraits
 
                 /* --- NOTE: shiftEnd is date('h:i A') --- */
 
-                if ($wh > 480)
+                if ($wh > 480) //more than 8hrwork
                 {
                   if($isPartTimer || $isPartTimerForeign )
-                    ($ptOverride) ? $workedHours = '8.00' : $workedHours = '4.00';
+                    ($ptOverride) ? $workedHours = '8.00' : $workedHours = '8.00 <br/>(PT)';
                   else 
                   {
                     if($hasHolidayToday && $isBackoffice)
@@ -5886,26 +6140,45 @@ trait TimekeepingTraits
                   // if ($hasHolidayToday && $isBackoffice) $icons="";
                   // ---------------------------------------------------
 
-                   if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
-                   {
-                    $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
+                 if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
+                 {
+                  $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
 
-                    if($hasHolidayToday && $isBackoffice)
-                      $totalbill = $workedHours; //number_format($wh/60,2);//number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
-                    else
-                      $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                  if($hasHolidayToday && $isBackoffice)
+                    $totalbill = $workedHours; //number_format($wh/60,2);//number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                  
+                  elseif ($isPartTimer || $isPartTimerForeign)
+                  {
+                        if($ptOverride)
+                          $totalbill = number_format(($wh - 480)/60,2);
+                        else
+                        {
+                          ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
+                        } 
+                  } else $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
 
-                   }
-                    
-                  else{ 
+                 } 
+                 else{ 
                     $t = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->format('H:i:s');
 
                     if($hasHolidayToday && $isBackoffice)
                       $totalbill = $workedHours; //number_format($wh/60,2);  //number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
-                    else
-                      $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    else 
+                    {
+                      if ($isPartTimer || $isPartTimerForeign)
+                      {
+                        if($ptOverride)
+                          $totalbill = number_format(($wh - 480)/60,2);
+                        else
+                        {
+                          ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
+                        } 
+                      }
+                      else
+                        $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    }
                     //$totalbill = 244.44;
-                  }
+                 }
 
                    //------ override for holiday ng backoffice ---------
                   // if ($hasHolidayToday && $isBackoffice) //$totalbill=0.0;
@@ -5932,7 +6205,7 @@ trait TimekeepingTraits
                       }
 
 
-                }else if($wh >= 240) 
+                }else if($wh >= 240) //more than 4hr work
                 {
                   if ($isPartTimer || $isPartTimerForeign)
                   {
@@ -5971,12 +6244,17 @@ trait TimekeepingTraits
                   }
                    
 
-                   if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
-                   {
+                  if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
+                  {
                       $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
                       if ($isPartTimer || $isPartTimerForeign)
                       {
-                        ($ptOverride) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill = number_format(($wh - 240)/60,2);
+                        if($ptOverride)
+                          $totalbill = number_format(($wh - 480)/60,2);
+                        else
+                        {
+                          ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
+                        } 
                       }
                       else if($hasHolidayToday && $isBackoffice)
                       {
@@ -5985,14 +6263,21 @@ trait TimekeepingTraits
                       }
                       else $totalbill = number_format(($wh - 480)/60,2);
                     
-                   }
-                    
-                  else{ 
+                  }else{ 
                     $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
                     if($hasHolidayToday && $isBackoffice)
                       $totalbill =$workedHours;
-                    else
-                      $totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
+                    else 
+                    {
+                      //check mo muna kung entitled ba talga o baka part timer lang
+                      if ($isPartTimer || $isPartTimerForeign)  {
+                        //($wh > 480) ? $totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2) : $totalbill=0.0;
+                        ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
+                      }
+                      else
+                        $totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2);
+
+                    }
                     
                   }
 
@@ -6018,7 +6303,7 @@ trait TimekeepingTraits
                       }
 
 
-                }
+                } //end 240
                 else 
                 {
                   if($hasHolidayToday && $isBackoffice)
@@ -6070,9 +6355,11 @@ trait TimekeepingTraits
 
       if ($hasVL)
       {
-          $workedHours1 = $this->processLeaves('VL',false,$WHcounter,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VL',false,$WHcounter,$vlDeet,$hasPendingVL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
           $workedHours .= $workedHours1[0]['workedHours'];
           $UT = $workedHours1[0]['UT'];
+          $billableForOT = $workedHours1[0]['billableForOT'];
+          $OTattribute = $workedHours1[0]['OTattribute'];
 
           
 
@@ -6080,7 +6367,7 @@ trait TimekeepingTraits
 
       if ($hasVTO)
       {
-          $workedHours1 = $this->processLeaves('VTO',false,$WHcounter,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VTO',false,$WHcounter,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
           $workedHours .= $workedHours1[0]['workedHours'];
           $UT = $workedHours1[0]['UT'];
 
@@ -6091,7 +6378,7 @@ trait TimekeepingTraits
 
       if ($hasOBT)
       {
-          $workedHours1 = $this->processLeaves('OBT',false,$WHcounter,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'OBT',false,$WHcounter,$obtDeet,$hasPendingOBT,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
           $workedHours .= $workedHours1[0]['workedHours'];
           $UT = $workedHours1[0]['UT'];
 
@@ -6103,7 +6390,7 @@ trait TimekeepingTraits
 
       if ($hasSL)
       {
-          $workedHours1 = $this->processLeaves('SL',false,$WHcounter,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'SL',false,$WHcounter,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
           $workedHours .= $workedHours1[0]['workedHours'];
           $UT = $workedHours1[0]['UT'];
 
@@ -6114,9 +6401,11 @@ trait TimekeepingTraits
 
       if ($hasLWOP)
       {
-          $workedHours1 = $this->processLeaves('LWOP',false,0,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'LWOP',false,0,$lwopDeet,$hasPendingLWOP,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
           $workedHours .= $workedHours1[0]['workedHours'];
           $UT = $workedHours1[0]['UT'];
+          $billableForOT = $workedHours1[0]['billableForOT'];
+          $OTattribute = $workedHours1[0]['OTattribute'];
 
          
 
@@ -6125,7 +6414,7 @@ trait TimekeepingTraits
 
       if ($hasFL)
       {
-          $workedHours1 = $this->processLeaves('FL',false,0,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
+          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'FL',false,0,$flDeet,$hasPendingFL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd, $shiftStart);
           $workedHours .= $workedHours1[0]['workedHours'];
           $UT = $workedHours1[0]['UT'];
 
@@ -6158,7 +6447,7 @@ trait TimekeepingTraits
                   'hdToday'=>$holidayToday,
                   'schedForToday'=>$schedForToday,
                   'OTattribute'=>$OTattribute, 
-                  //'checkLate'=>"nonComplicated", 
+                  
                   //'wh'=>$wh,'comp'=>$comp,
                   'isBackoffice'=>$isBackoffice,
                   'workedHours'=>$workedHours, //$koll, // $wh,// 
@@ -6505,8 +6794,72 @@ trait TimekeepingTraits
   }
 
 
+  public function processLeaveForLateInEarlyOut($totalCredits,$scheduleStart,$userLogOUT,$endOfShift,$isPartTimer,$isPartTimerForeign, $ptOverride, $is4x11)
+  {
+      $workedHours = null;
+      $billableForOT = 0;
 
-  public function processLeaves($leaveType,$withIssue,$wh, $deet,$hasPending,$icons,$ins,$outs,$shiftEnd)//$userLogIN[0]['logs'] || $userLogOUT[0]['logs']
+      if($totalCredits == '0.5') {
+        $magStart = Carbon::parse($scheduleStart->format('Y-m-d H:i:s'),"Asia/Manila")->addHours(5);
+        $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($magStart)+240;
+        //$workedHours = $wh;
+
+        $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+        //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+  
+        //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+        ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+        $billableForOT=0;
+        if ($isPartTimer || $isPartTimerForeign) {
+
+          ($ptOverride) ? $UT = number_format((480.0 - (($wh) - $minsEarlyOut) )/60,2) : $UT = number_format((240.0 - ($wh - $minsEarlyOut) )/60,2); //number_format((240.0 - $wh)/60,2);
+          
+        }
+        else {
+          if ($is4x11)
+            $UT = number_format((600.0 - (($wh) - ($minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+          else
+            $UT = number_format( ($minsEarlyOut) /60,2); 
+        } 
+
+      }
+      else {
+        $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+        //$workedHours = $wh;
+
+         $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+         $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+        //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+    
+        //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+        ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+        $billableForOT=0; 
+
+        if ($isPartTimer || $isPartTimerForeign) {
+
+          ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+          
+        }
+        else {
+          if ($is4x11)
+            $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+          else
+            $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+        } 
+      }
+
+      $d = new Collection;
+      $d->push(['workedHours'=>$workedHours,'billableForOT'=>$billableForOT,'UT'=>$UT]);
+
+      return $d;
+
+  }
+
+
+
+  public function processLeaves($payday, $leaveType,$withIssue,$wh, $deet,$hasPending,$icons,$ins,$outs,$shiftEnd, $shiftStart)//$userLogIN[0]['logs'] || $userLogOUT[0]['logs']
   {
     $log=null;
     switch ($leaveType) {
@@ -6549,7 +6902,7 @@ trait TimekeepingTraits
               # code...
               }break;
 
-     case 'SL':{$link = action('UserSLController@show',$deet->id);$lTitle = "SL request";
+      case 'SL':{$link = action('UserSLController@show',$deet->id);$lTitle = "SL request";
                     if($deet->isApproved)
                     {
 
@@ -6568,7 +6921,7 @@ trait TimekeepingTraits
               # code...
               }break;
 
-    case 'VL':{$link = action('UserVLController@show',$deet->id);$lTitle = "VL request";
+     case 'VL':{$link = action('UserVLController@show',$deet->id);$lTitle = "VL request";
                     if($deet->isApproved)
                     {
                       
@@ -6589,7 +6942,7 @@ trait TimekeepingTraits
               # code...
               }break;
 
-    case 'FL':{
+     case 'FL':{
                     $link = action('UserFamilyleaveController@show',$deet->id);
 
                     $theleave = User_Familyleave::find($deet->id);
@@ -6669,7 +7022,7 @@ trait TimekeepingTraits
               # code...
               }break;
 
-    case 'VTO':{$link = action('UserVLController@showVTO',$deet->id);$lTitle = "VTO request";
+     case 'VTO':{$link = action('UserVLController@showVTO',$deet->id);$lTitle = "VTO request";
                     if($deet->isApproved)
                     {
                       
@@ -6698,14 +7051,14 @@ trait TimekeepingTraits
 
       
       $icons .= "<a title=\"".$lTitle."\" class=\"pull-right text-primary\" target=\"_blank\" style=\"font-size:1em;\" href=\"$link\"><i class=\"fa fa-info-circle\"></i></a><div class='clearfix'></div>";
+      $OTicons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>";
       $coll = new Collection;
       $UT = 0;
       $actualHrs = null;
+      $billableForOT=null;$OTattribute=null;
 
-      if ($withIssue){
-
-        
-
+      if ($withIssue)
+      {
         if ($deet->totalCredits >= '1.0'){
 
           if($hasPending){
@@ -6724,9 +7077,12 @@ trait TimekeepingTraits
           $workedHours .= "<br/>".$log;
 
         }
-        else if ($deet->totalCredits == '0.50'){
+        else if ($deet->totalCredits == '0.50' || $deet->totalCredits == '0.25')
+        {
 
-            if($hasPending){
+            if($hasPending)
+            {
+
               if ($deet->halfdayFrom == 2){
                 $log="<strong><small><i class=\"fa ".$i." \"></i> <em> 1st Shift ".$l." (for approval) </em></small></strong>".$icons;
                 $workedHours = number_format(($wh/60),2)."<br/><small>[Late IN]</small>";$billableForOT=0;
@@ -6740,39 +7096,114 @@ trait TimekeepingTraits
                 $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
               }
               else
+              {
                 $log="<strong><small><i class=\"fa ".$i." \"></i> <em> Half-day ".$l." (for approval) </em></small></strong>".$icons;
+                $billableForOT=0;
+              }
               
               
                     //no logs, meaning halfday AWOL sya
                     if (count($ins) < 1 && count($outs) < 1) 
+                    {
                       $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
+                      $workedHours = "<strong class='text-danger'>AWOL</strong>";
+                      $workedHours .= "<br/>".$log;
+                    }
+              
 
-              $workedHours = "<strong class='text-danger'>AWOL</strong>";
-              $workedHours .= "<br/>".$log;
 
-            }else{
+              
+
+            }else
+            {
 
               if ($deet->halfdayFrom == 2){
 
-                 $stat = User::find($deet->user_id)->status_id;
+                  $stat = User::find($deet->user_id)->status_id;
                     //****** part time user
 
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 1st Shift ".$l." </em></small></strong>".$icons;
-                if (!empty($ins) && !empty($outs)  ) 
-                { //&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
-                    $workedHours = number_format(($wh/60),2); //."<br/><small>[ *Late IN* ]</small>";
 
-                    if ($stat == 12 || $stat ==14)
-                    $UT = round((240.0 - $wh)/60,2); 
-                    else
-                      $UT = round((480.0 - $wh)/60,2);  //full 8h work dapat
-                }
-                else {
-                  $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
-                  $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
-                }
 
-                $billableForOT=0;
+                  $log="<strong><small><i class=\"fa ".$i."\"></i> <em> 1st Shift ".$l." </em></small></strong>".$icons;
+                  if (!empty($ins) && !empty($outs)  ) 
+                  { //&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
+                      
+                      $workedHours = number_format(($wh/60),2); //."<br/><small>[ *Late IN* ]</small>";
+
+                      if ($stat == 12 || $stat ==14)
+                      {
+                        //$startTime = Carbon::parse($shiftStart->format('Y-m-d H:i:s'),'Asia/Manila')->addHours(5);
+                        //check mo muna kung entilted sya for OT
+                        if ($workedHours > 8.0)
+                        {
+                          $startTime = Carbon::parse($shiftStart->format('Y-m-d H:i:s'),'Asia/Manila')->addHours(5);
+                          $ending = Carbon::parse($outs['logTxt'],'Asia/Manila');
+
+                          $workedHours = number_format(($wh/60),2); //number_format($ending->diffInMinutes($startTime) / 60,2);
+                          $billableForOT = $workedHours - 8.0; $OTattribute = $OTicons;
+                          //elseif($workedHours <= 8.0){ $billableForOT = 0; $OTattribute=null; $workedHours=8.0; }
+
+                        }else
+                        {
+                          $workedHours += 2.0;
+                          $UT = round((240.0 - $wh)/60,2); 
+                          $billableForOT=0;
+
+                        }
+                        
+                      }
+                      else
+                      {//dagdagan mo ng 4hrs
+                        if($leaveType !== 'LWOP')
+                        {
+                          //$workedHours += 4.0;
+                          $startTime = Carbon::parse($shiftStart->format('Y-m-d H:i:s'),'Asia/Manila')->addHours(5);
+                          $ending = Carbon::parse($outs['logTxt'],'Asia/Manila');
+
+                          $workedHours = number_format($ending->diffInMinutes($startTime) / 60,2);
+
+                          if($workedHours > 8.0) {$billableForOT = $workedHours - 8.0; $OTattribute = $OTicons;}
+                          elseif($workedHours <= 8.0){ $billableForOT = 0; $OTattribute=null; $workedHours=8.0; }
+
+
+                          /*$UT = round((480.0 - $wh)/60,2);  //full 8h work dapat
+
+                          if($workedHours > 8.0) $billableForOT = $workedHours - 8.0;
+                          $OTattribute = $OTicons;*/
+
+
+                        }
+                        else //for cases na halfday LWOP pero nagOT at more than 8hrs na
+                        {
+                          $startTime = Carbon::parse($shiftStart->format('Y-m-d H:i:s'),'Asia/Manila')->addHours(5);
+                          $ending = Carbon::parse($outs['logTxt'],'Asia/Manila');
+
+                          $workedHours = number_format($ending->diffInMinutes($startTime) / 60,2);
+
+                          /*if($workedHours >= 5.0)//may 1hr break dapat
+                            $workedHours = number_format(($wh-60)/60 ,2);*/
+
+
+                          if($workedHours > 8.0) {$billableForOT = $workedHours - 8.0; $OTattribute = $OTicons;}
+                          elseif($workedHours <= 8.0){ $billableForOT = 0; $OTattribute=null; }
+
+                        }
+                        
+                        
+
+                        
+                      }
+                  }
+                  else {
+                    $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
+                    $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
+                    $billableForOT = 0;
+                    $OTattribute = $OTicons;
+                  }
+
+                  
+
+                  
                 
                 
               }
@@ -6782,7 +7213,11 @@ trait TimekeepingTraits
                 {
                   //add +1 kasi may minus sa break
                   //$workedHours = number_format(($wh/60)+1,2);
-                  $workedHours = number_format(($wh/60),2);//."<br/><small>[ *Late IN* ]</small>"
+                  if($leaveType == 'VL')
+                    $workedHours = 8.0; //number_format(($wh/60)+4,2);
+                  else
+                    $workedHours = number_format(($wh/60),2);
+                    //."<br/><small>[ *Late IN* ]</small>"
                   $UT = 0;
                 }
                 else
@@ -6795,38 +7230,38 @@ trait TimekeepingTraits
                 
               }
               else{
-                $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[  Half-day ".$l."  ]</em></small></strong>".$icons;
+                 $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[  Half-day ".$l."  ]</em></small></strong>".$icons;
                  $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";$billableForOT=0;
                  $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
+                 $billableForOT = 0;
                }
 
+
+
               
-                    if (count($ins) < 1 && count($outs) < 1) 
+                    /*if (count($ins) < 1 && count($outs) < 1) 
                       $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
               
 
               $WHcounter = 8.0;
-              $workedHours .= "<br/>".$log;
+              $workedHours .= "<br/>".$log;*/
+              //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
+              //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
 
+                    //if ($totalbill > 0.01)
+                    //{
+                      //$billableForOT = $totalbill;
+                      //$OTattribute = $OTicons;
+                    //}
+            } 
 
-               //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
-               $totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
-
-                    if ($totalbill > 0.5)
-                    {
-                      $billableForOT = $totalbill;
-                      $OTattribute = $icons;
-                    }
-            }
+            $workedHours .= "<br/>".$log;
                   
                     
                   
         }// end if 0.5 credits
 
-        
-       
-
-
+      
       }
       else
       {
@@ -6865,6 +7300,8 @@ trait TimekeepingTraits
               $workedHours .= "<br/>".$log;
 
             }
+            $billableForOT=0;
+            $OTattribute=null;
 
 
               
@@ -6873,6 +7310,8 @@ trait TimekeepingTraits
         {
           if ($deet->totalCredits >= '1.0')
           {
+            $billableForOT=0;
+            $OTattribute=null;
 
             if($hasPending){
               $workedHours = "<strong class='text-danger'>AWOL</strong><br/>";
@@ -6887,7 +7326,7 @@ trait TimekeepingTraits
             $workedHours .= "<br/>".$log;
 
           } 
-          else if ($deet->totalCredits == '0.50'){
+          else if ($deet->totalCredits == '0.50' || $deet->totalCredits == '0.25'){
 
               if($hasPending){
                 if ($deet->halfdayFrom == 2)
@@ -6914,14 +7353,48 @@ trait TimekeepingTraits
                 else
                   $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ Half-day ".$l."  ]</em></small></strong>".$icons;
 
+
+
+                 $stat = User::find($deet->user_id)->status_id;
+                    //****** part time user
+
+                  if (!empty($ins) && !empty($outs)  ) 
+                  { //&& ($leaveType !== 'OBT' && $leaveType !== 'VL')
+                      
+                      $workedHours = number_format(($wh/60),2); //."<br/><small>[ *Late IN* ]</small>";
+
+                      if ($stat == 12 || $stat ==14)
+                      {
+                        $workedHours += 2.0;
+                        $UT = round((240.0 - $wh)/60,2); 
+                        $billableForOT=0;
+                      }
+                      else
+                      {//dagdagan mo ng 4hrs
+                        $workedHours += 4.0;
+                        $UT = round((480.0 - $wh)/60,2);  //full 8h work dapat
+
+                        if($workedHours > 8.0) $billableForOT = $workedHours - 8.0;
+                      }
+                  }
+                  else {
+                    $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
+                    $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
+                    $billableForOT = 0;
+                  }
+
+
+
+
                 
                       if (count($ins) < 1 && count($outs) < 1) 
                         $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
 
-                if($leaveType=='LWOP') $workedHours  = 0.0;     
-                else $workedHours = '4.0';
-                $WHcounter = 4.0;
+                //if($leaveType=='LWOP') $workedHours  = 0.0;     
+                /*else $workedHours = '4.0';
+                $WHcounter = 4.0;*/
                 $workedHours .= "<br/>".$log;
+                $OTattribute = $OTicons;
               }
                     
                       
@@ -6976,7 +7449,7 @@ trait TimekeepingTraits
 
       }//end withIssue
 
-      $coll->push(['workedHours'=>$workedHours,'UT'=>$UT,'withIssue'=>$withIssue,'actualHrs'=>$actualHrs,'logDeets'=>$log]);
+      $coll->push(['workedHours'=>$workedHours,'UT'=>$UT,'withIssue'=>$withIssue,'actualHrs'=>$actualHrs,'logDeets'=>$log ,'billableForOT'=>$billableForOT,'OTattribute'=>$OTattribute]);
       return $coll;
 
 

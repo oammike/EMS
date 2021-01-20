@@ -771,7 +771,7 @@
 
                                                               @else
                                                                 <!-- **** new layout pag may 1st or 2nd shift leave -->
-                                                                @if ($data['leaveDetails'][0]['details']['totalCredits'] == "0.50")
+                                                                @if ($data['leaveDetails'][0]['details']['totalCredits'] == "0.50" || $data['leaveDetails'][0]['details']['totalCredits'] == "0.25")
 
                                                                   @if( $data['leaveDetails'][0]['details']['halfdayFrom'] == 2  )
 
@@ -838,7 +838,7 @@
 
                                                               @else
                                                               <!-- **** new layout pag may 1st or 2nd shift leave -->
-                                                                @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50")
+                                                                @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50" || $data['lwopDetails'][0]['details']['totalCredits'] == "0.25")
 
                                                                   @if( $data['lwopDetails'][0]['details']['halfdayFrom'] == 2  )
 
@@ -959,7 +959,7 @@
                                                               @else
 
                                                               <!-- **** new layout pag may 1st or 2nd shift leave -->
-                                                                @if ($data['leaveDetails'][0]['details']['totalCredits'] == "0.50")
+                                                                @if ($data['leaveDetails'][0]['details']['totalCredits'] == "0.50" || $data['leaveDetails'][0]['details']['totalCredits'] == "0.25")
 
                                                                   @if( $data['leaveDetails'][0]['details']['halfdayFrom'] == 3  )
 
@@ -1015,7 +1015,7 @@
 
                                                               <!-- **** new layout pag may 1st or 2nd shift leave -->
                                                               
-                                                                @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50")
+                                                                @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50" || $data['lwopDetails'][0]['details']['totalCredits'] == "0.25")
 
                                                                   @if( $data['lwopDetails'][0]['details']['halfdayFrom'] == 3  )
 
@@ -1219,7 +1219,7 @@
 
                                                         @if($data['hasLeave'])
 
-                                                             <td class="text-center"> 0 <br/>
+                                                             <td class="text-center"> {!! $data['billableForOT'] !!}{!! $data['OTattribute'] !!}   <br/>
                                                               
 
                                                               <!--  <td class="text-center"><a href="{{action('UserController@myRequests',$user->id)}}"><strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong></a> -->
@@ -1234,7 +1234,8 @@
 
                                                          @elseif ($data['hasLWOP'])
 
-                                                            <td class="text-center"> 0
+                                                            <td class="text-center"> {!! $data['billableForOT'] !!} 
+                                                              @if( $data['billableForOT'] !== 0) {!! $data['OTattribute'] !!}  @endif
 
                                                             <!--  <td class="text-center"><a href="{{action('UserController@myRequests',$user->id)}}"><strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong></a>
  -->
@@ -1512,7 +1513,7 @@
                                                           <td class="text-center">{{$data['UT']}}</td>
                                                           <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['UT']}}" />
                                                           @else
-                                                          <td class="text-center">N/A</td>
+                                                          <td class="text-center">{{$data['UT']}}</td> <!--N/A</td>-->
                                                           <input type="hidden" name="UT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="n/a" />
 
                                                           @endif
