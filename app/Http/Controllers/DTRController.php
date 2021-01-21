@@ -5888,6 +5888,8 @@ class DTRController extends Controller
           $totalVTO_sl2 = number_format(collect($vtoSL2)->sum('totalHours') * 0.125,2);
           $totalVTO_sl = $totalVTO_sl1 + $totalVTO_sl2;
 
+          $canVL = 0; $canSL = 0;
+
             /************ for VL ************/
             if (count($avail)>0){
               $vls = $user->vlCredits->sortByDesc('creditYear');
@@ -5895,7 +5897,10 @@ class DTRController extends Controller
               if($vls->contains('creditYear',$phY))
               {
                 $updatedVL=true;
-                $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid - $totalVTO_vl;
+                $currentVLbalance= number_format(($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid - $totalVTO_vl,2);
+
+                if($isParttimer) {if($currentVLbalance >= 0.25) $canVL=1;}
+                else  {if($currentVLbalance >= 0.5) $canVL=1;}
               }
               else
               {
@@ -5957,9 +5962,10 @@ class DTRController extends Controller
                     $advancedSL += $a->total;
                 }
 
-                $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
+                $currentSLbalance = number_format((($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL - $totalVTO_sl,2);
 
-
+                if($isParttimer) {if($currentSLbalance >= 0.25) $canSL=1;}
+                else{ if($currentSLbalance >= 0.5) $canSL=1;}
                                    
               }
               else
@@ -7080,8 +7086,9 @@ class DTRController extends Controller
            $ecq = ECQ_Workstatus::where('user_id',$user->id)->get();
            $wfhData = Logs::where('user_id',$user->id)->where('manual',1)->get();//->where('biometrics_id','>=',$startWFH->id)
                 
-           
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer'));
+           //return response()->json(['currentVLbalance'=>$currentVLbalance,'currentSLbalance'=>$currentSLbalance]);
+
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL'));
 
 
         } else return view('access-denied');

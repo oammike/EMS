@@ -199,20 +199,43 @@
                         @if($entitledForLeaves)
 
                             @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
-                          <a href="{{action('UserSLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}" style="margin-bottom: 5px">
-                            @else
-                            <a href="{{action('UserSLController@create',['from'=>$DproductionDate])}}" style="margin-bottom: 5px">
-                              @endif
 
-                          <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></a><br/><br/>
+                              @if($canSL)
+                                <a href="{{action('UserSLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}" style="margin-bottom: 5px">
+                                <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></a><br/><br/>
+                              @else
+                                <span style="margin-bottom: 5px; text-decoration: line-through">
+                                <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></span><small> *insufficient credits</small><br/><br/>
+                              @endif
+                            @else
+                                @if($canSL)
+                                <a href="{{action('UserSLController@create',['from'=>$DproductionDate])}}" style="margin-bottom: 5px">
+                                <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></a><br/><br/>
+                                @else
+                                 <span style="margin-bottom: 5px; text-decoration: line-through">
+                                <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></span><small> *insufficient credits</small><br/><br/>
+                                @endif
+
+                            @endif
+
+                          
 
 
 
                             @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
-                            <a style="margin-bottom: 5px" href="{{action('UserVLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></a><br/><br/>
+
+                              @if($canVL)
+                                <a style="margin-bottom: 5px" href="{{action('UserVLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></a><br/><br/>
+                              @else
+                                <span style="margin-bottom: 5px;text-decoration: line-through"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></span><small> * insufficient credits</small><br/><br/>
+                              @endif
 
                             @else
-                            <a style="margin-bottom: 5px" href="{{action('UserVLController@create',['from'=>$DproductionDate])}}"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></a><br/><br/>
+                              @if($canVL)
+                                <a style="margin-bottom: 5px" href="{{action('UserVLController@create',['from'=>$DproductionDate])}}"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></a><br/><br/>
+                              @else
+                                <span style="margin-bottom: 5px;text-decoration: line-through"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></span><small> * insufficient credits</small><br/><br/>
+                              @endif
 
                             @endif
 
@@ -236,7 +259,7 @@
 
 
                         @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
-                        <a href="{{action('UserOBTController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-briefcase"></i>&nbsp;&nbsp; Official Business Trip  <strong>(OBT)</strong></a></strong>
+                        <a href="{{action('UserOBTController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-briefcase"></i>&nbsp;&nbsp; Official Business Trip  <strong>(OBT)</strong></a></strong><br/><br/>
 
                         @else
                          <a href="{{action('UserOBTController@create',['from'=>$DproductionDate])}}"  style="margin-bottom: 5px"><i class="fa fa-2x fa-briefcase"></i>&nbsp;&nbsp; Official Business Trip  <strong>(OBT)</strong></a></strong><br/><br/>

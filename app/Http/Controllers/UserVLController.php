@@ -286,6 +286,18 @@ class UserVLController extends Controller
                               select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
                         $totalVLearned = collect($vlEarnings)->sum('credits');
 
+                        $allVTOs = DB::table('user_vto')->where('user_vto.user_id',$user->id)->where('user_vto.isApproved',1)->
+                                        where('user_vto.productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                        where('user_vto.productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
+                                            select('user_vto.totalHours','user_vto.productionDate', 'user_vto.deductFrom')->
+                                            orderBy('user_vto.productionDate','DESC')->get(); //
+
+                        $totalVTO = 0;
+                        foreach($allVTOs as $v)
+                        {
+                            $totalVTO += ($v->totalHours* 0.125);
+                        }
+
                         
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
@@ -296,7 +308,8 @@ class UserVLController extends Controller
                                 $used = '0.00'; //less 1 day assume wholeday initially
                                 if (count($savedCredits)>0){
                                      $hasSavedCredits = true;
-                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
+                                     $creditsLeft2 = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
                                  }else {
 
                                     //check muna kung may existing approved VLs
@@ -347,7 +360,8 @@ class UserVLController extends Controller
 
                                 if (count($savedCredits)>0){
                                     $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned;
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned - $totalVTO;
+                                     $creditsLeft2 = ($savedCredits->first()->beginBalance - $savedCredits->first()->used) + $totalVLearned - $totalVTO;
                                  }else 
                                  {
 
@@ -367,8 +381,14 @@ class UserVLController extends Controller
                             } 
 
                         
-                        //return (['creditsleft'=>$creditsLeft, 'vl_from'=>$vl_from]);
-                        return view('timekeeping.user-vl_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits'));
+                        //return (['creditsleft'=>$creditsLeft2, 'vl_from'=>$vl_from]);
+                        if ($isParttimer) {
+                            ($creditsLeft2 >= 0.25) ? $canVL=1 : $canVL=0;
+                        }else
+                        {
+                            ($creditsLeft2 >= 0.5) ? $canVL=1 : $canVL=0;
+                        }
+                        return view('timekeeping.user-vl_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
 
                     }else return view('access-denied');
 

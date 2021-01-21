@@ -141,8 +141,13 @@
 
                         <div class="clearfix"></div>
                       <a onclick="javascript:window.history.back();" class="back btn btn-flat pull-left" style="font-weight:bold;margin-top:0px; z-index:999"><i class="fa fa-angle-double-left"></i> &nbsp;Back</a>
-                      
-                      <a id="save" data-timestart_old="" data-timeend_old="" data-requesttype="VL" data-date="{{$vl_from->format('Y-m-d H:i:s')}}" data-userid="{{$user->id}}" class="btn btn-default btn-md pull-right" style="margin-right:25px" > <i class="fa fa-upload" ></i> Submit for Approval </a>
+
+                      @if($canVL)
+                        <a id="save" data-timestart_old="" data-timeend_old="" data-requesttype="VL" data-date="{{$vl_from->format('Y-m-d H:i:s')}}" data-userid="{{$user->id}}" class="btn btn-default btn-md pull-right" style="margin-right:25px" > <i class="fa fa-upload" ></i> Submit for Approval </a>
+
+                      @else
+                        <h4 class="text-center text-danger">Insufficient Credits. <br/><span style="font-size: x-small;">File leave as an LWOP instead, or submit leave request once enough leave credits are earned.</span></h4>
+                      @endif
                        <div class="clearfix"></div><br/><br/>
 
                       </div><!--end box-info -->
@@ -255,19 +260,29 @@
 
             var reason_vl = $('textarea[name="reason_vl"]').val();
             var totalcredits = $('#credits_vl').attr('data-credits');
+            var credsleft = $('#creditsleft').attr('data-left');
+
+            if ( credsleft < 0 ) {
+              $.notify("Insufficient leave credits. \nKindly file an LWOP instead, or submit leave once enough credits are earned. \n",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );return false; 
+            }
+
+            //alert("Credits left: " + credsleft);
 
             var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D');
             var twoweeks = moment(vl_from,"MM/D/YYYY").add(-14,'days');
 
             var forced = $('input[name="forced"]:checked').val();
 
-            /* ------- 2wk NOTICE on VL
+            /* ------- 2wk NOTICE on VL*/
             if ( twoweeks.format('YYYY-MM-DD') <= moment().format('YYYY-MM-DD')) {
               $.notify("Sorry, this VL period is already past the submisison deadline. \nNote that all vacation leaves must be filed 2-weeks in advance. \n(i.e. before "+twoweeks.format('MMM D, YYYY')+")",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );return false; 
-            }*/
+            }
 
             console.log("forced: "+ forced);
             console.log('two weeks');console.log(twoweeks);
+
+            //alert("OK");
+
 
             $.ajax({
                         url: "{{action('UserController@getWorkSchedForTheDay',$user->id)}}",
@@ -287,14 +302,14 @@
                           }
                           else
                           {
-                            /*if (totalcredits == '0' || totalcredits =='0.00')
-                             {
-                              $.notify("Indicated date is actually a holiday. No need to file for a single-day VL for non-ops personnel.\n\n For those in Operations, please file this as an LWOP instead.",{className:"success", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );return false;
+                            // if (totalcredits == '0' || totalcredits =='0.00')
+                            //  {
+                            //   $.notify("Indicated date is actually a holiday. No need to file for a single-day VL for non-ops personnel.\n\n For those in Operations, please file this as an LWOP instead.",{className:"success", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );return false;
                                 
-                             }
+                            //  }
                               
-                            else
-                            {*/
+                            // else
+                            // {
                               if (vl_to == "" || vl_to == vl_from) //one-day leave lang sya
                               {
                                   //check kung anong covered shift
@@ -479,6 +494,7 @@
                           
                         }
             });
+            
 
 
          

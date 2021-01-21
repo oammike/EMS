@@ -230,6 +230,30 @@ class UserSLController extends Controller
                               select('slupdate.credits','slupdate.period')->where('slupdate.period','>',Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
                         $totalVLearned = collect($vlEarnings)->sum('credits');
 
+                       
+
+                        $allAdvancedSL = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$user->id)->
+                                                    select('user_advancedSL.id','user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
+                                                    where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                                    orderBy('user_advancedSL.periodEnd','DESC')->get(); //
+                        $totalAdv = 0;
+                        foreach($allAdvancedSL as $a)
+                        {
+                            $totalAdv += $a->total;
+                        }
+
+
+                        $allVTOs = DB::table('user_vto')->where('user_vto.user_id',$user->id)->where('user_vto.isApproved',1)->
+                                        where('user_vto.productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                        where('user_vto.productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
+                                            select('user_vto.totalHours','user_vto.productionDate', 'user_vto.deductFrom')->
+                                            orderBy('user_vto.productionDate','DESC')->get(); //
+                        $totalVTO = 0;
+                        foreach($allVTOs as $v)
+                        {
+                            $totalVTO += ($v->totalHours* 0.125);
+                        }
+
                         
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
@@ -251,9 +275,12 @@ class UserSLController extends Controller
                                             $usedC += $key->totalCredits;
                                         }
                                         $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
+                                        $creditsLeft2 = (0.84 * $today->format('m')) - $usedC ;
                                     }
-                                    else
-                                    $creditsLeft = (0.84 * $today->format('m')) ;
+                                    else {
+                                        $creditsLeft = (0.84 * $today->format('m')) ;$creditsLeft2 = (0.84 * $today->format('m')) ;
+                                    }
+                                    
                                  }
 
                             }
@@ -274,7 +301,10 @@ class UserSLController extends Controller
 
                                 if (count($savedCredits)>0){
                                     $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned;
+                                     
+
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned - ($totalVTO + $totalAdv);
+                                     $creditsLeft2 = ($savedCredits->first()->beginBalance - $savedCredits->first()->used) + $totalVLearned - ($totalVTO + $totalAdv);
                                  }else 
                                  {
 
@@ -287,22 +317,26 @@ class UserSLController extends Controller
                                             $usedC += $key->totalCredits;
                                         }
                                         $creditsLeft =((0.84 * $today->format('m')) - $usedC) - $used ;
+                                        $creditsLeft2 =((0.84 * $today->format('m')) - $usedC);
                                     }
-                                    else
+                                    else {
                                         $creditsLeft = (0.84 * $today->format('m')) - $used ;
+                                        $creditsLeft2 = (0.84 * $today->format('m'));
+                                    }
                                 }
                             }  
 
 
 
-                            
+                        //($creditsLeft2 >= 0.25) ? $canSL=1 : $canSL=0;  //return (['creditsleft'=>$creditsLeft2, 'vl_from'=>$vl_from]);
+                        if ($isParttimer) {
+                            ($creditsLeft2 >= 0.25) ? $canSL=1 : $canSL=0;
+                        }else
+                        {
+                            ($creditsLeft2 >= 0.5) ? $canSL=1 : $canSL=0;
+                        }
 
-
-                            
-
-                        
-                        
-                        return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime'));
+                        return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime','canSL'));
 
                     }else return view('access-denied');
 

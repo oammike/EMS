@@ -46,7 +46,7 @@
                   if($vls->contains('creditYear',date('Y')))
                   {
                     $updatedVL=true;
-                    $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used) + $totalVLearned - $vls->first()->paid - $totalVTO_vl;
+                    $currentVLbalance= number_format(($vls->first()->beginBalance - $vls->first()->used) + $totalVLearned - $vls->first()->paid - $totalVTO_vl,2);
                   }
                   else{
                     $currentVLbalance = "N/A";
@@ -106,7 +106,7 @@
                       $advancedSL += $a->total;
                     }
 
-                    $currentSLbalance= (($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
+                    $currentSLbalance= number_format((($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL - $totalVTO_sl,2);
 
                   }
                   else{
