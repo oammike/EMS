@@ -4159,7 +4159,12 @@ class DTRController extends Controller
                                     $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
 
                                     //*** LeaveCOde
-                                    $arr[$c] = $leaveCode; $c++;
+                                    if($leaveCode == 'ML'){
+                                      $arr[$c] = "SSSML"; $c++;
+                                    }else{
+                                      $arr[$c] = $leaveCode; $c++;
+                                    }
+                                    
                                     
 
                                     //*** Quantity
@@ -4333,7 +4338,14 @@ class DTRController extends Controller
                                   $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
 
                                   //*** LeaveCOde
-                                  $arr[$c] = $leaveCode; $c++;
+                                  //$arr[$c] = $leaveCode; $c++;
+                                  //*** LeaveCOde
+                                    if($leaveCode == 'ML'){
+                                      $arr[$c] = "SSSML"; $c++;
+                                    }else{
+                                      $arr[$c] = $leaveCode; $c++;
+                                    }
+                                    
                                   
 
                                   //*** Quantity
@@ -4411,7 +4423,14 @@ class DTRController extends Controller
                                   $arr[$i] = $pd; $i++; // $s->format('m/d/Y'); $i++;
 
                                   //*** LeaveCOde
-                                  $arr[$i] = $leaveCode; $i++;
+                                  //$arr[$i] = $leaveCode; $i++;
+                                  //*** LeaveCOde
+                                    if($leaveCode == 'ML'){
+                                      $arr[$i] = "SSSML"; $i++;
+                                    }else{
+                                      $arr[$i] = $leaveCode; $i++;
+                                    }
+                                    
                                   
 
                                   //*** Quantity
@@ -4580,7 +4599,14 @@ class DTRController extends Controller
                               $arr[$i] = $pd; $i++; // $s->format('m/d/Y'); $i++;
 
                               //*** LeaveCOde
-                              $arr[$i] = $leaveCode; $i++;
+                              //$arr[$i] = $leaveCode; $i++;
+                              //*** LeaveCOde
+                                    if($leaveCode == 'ML'){
+                                      $arr[$i] = "SSSML"; $i++;
+                                    }else{
+                                      $arr[$i] = $leaveCode; $i++;
+                                    }
+                                    
                               
 
                               //*** Quantity
