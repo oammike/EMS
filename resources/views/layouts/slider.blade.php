@@ -1,35 +1,7 @@
 
           
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> JAN. 25, 2021</strong> PAYOUT <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that our cut-off for January 25 payout is Jan. 20, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before THURSDAY 12NN of Jan. 21, 2021</strong>.<br/><br/>
-                    All DTR  from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
-
-In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate superior to lock your DTR on your behalf.
-
-                    
-                    Whether the DTR is locked or not, the Finance Department will assume the current data reflecting as final for salary computation and crediting.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/></p>
-
- 
-                    
-              </div>
-
-              
-
-
-               <div class="item text-center" >
+               <div class="item active text-center" >
                   <img src="storage/uploads/mac.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >MAC <span class="text-primary">Masterclass <br/><small>Jan.28, 2021 5PM</small><br/>
                   
@@ -51,6 +23,25 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     
                     
             </div>
+
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   2021 SSS Contribution Update <br/><small > JAN. 20, 2021</small> 
+                  
+                    
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    In line with Republic Act No. 11199 (Social Security Act of 2018), please be informed that there will be changes in our SSS monthly contributions starting January 25, 2021 payout.<br/><br/>Please see the new SSS Contribution Table effective January 2021.<br/><br/>
+                    <a href="storage/uploads/sss.png" target="_blank"><img src="storage/uploads/sss.png" /></a><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
+
 
             <div class="item text-center" >
                   <img src="storage/uploads/thanku2020.jpg" width="100%" />
