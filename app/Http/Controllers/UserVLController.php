@@ -424,8 +424,8 @@ class UserVLController extends Controller
         
 
        if($this->user->id !== 564 ) {
-          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n Tried [VL]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+          $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n Tried [VTO]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         } 
 
@@ -618,10 +618,11 @@ class UserVLController extends Controller
                         // we now check which credits to use
                         $useCredits ="";
 
-                        if ($currentVLbalance > 0) $useCredits="VL";
-                        else if($currentSLbalance > 0) $useCredits="SL";
-                        else $useCredits="AdvSL";
+                        if (number_format($currentVLbalance,2) > 0.125) $useCredits="VL";
+                        else if(number_format($currentSLbalance,2) > 0.125) $useCredits="SL";
+                        else $useCredits="LWOP";
 
+                        
                         return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits'));
 
                     

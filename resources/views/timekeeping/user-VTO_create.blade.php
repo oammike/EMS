@@ -131,11 +131,18 @@
 
                                  <div class="col-lg-6" id="shift_choices">
 
-                                    <h4 class="text-primary"><i class="fa fa-plane"></i> VL credits: <strong>{{$currentVLbalance}} </strong> </h4>
-                                    <h4 class="text-danger"> <i class="fa fa-stethoscope"></i> SL credits: <strong>{{$currentSLbalance}} </strong> </h4>
+                                    <h4 class="text-primary"><i class="fa fa-plane"></i> VL credits: <strong>{{number_format($currentVLbalance,2) }} </strong> </h4>
+                                    <h4 class="text-danger"> <i class="fa fa-stethoscope"></i> SL credits: <strong>{{ number_format($currentSLbalance,2) }} </strong> </h4>
                                     <h5><br/><br/>Deduct Using:</h5>
+
+                                    @if(number_format($currentVLbalance,2) > 0.0 && $currentVLbalance !== "N/A")
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="VL" @if($useCredits=='VL') checked="checked" @endif> VL</label>
+                                    @endif
+
+                                    @if(number_format($currentSLbalance,2) > 0.0 && $currentSLbalance !== "N/A")
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="SL"  @if($useCredits=='SL') checked="checked" @endif> SL</label>
+                                    @endif
+
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="AdvSL"  @if($useCredits=='AdvSL') checked="checked" @endif> Advanced SL</label>
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="LWOP"  @if($useCredits=='LWOP') checked="checked" @endif> LWOP</label>
                                     <div id="deduct" style="margin-top: 20px"><i class="fa fa-exclamation-circle"></i> Total credits to be deducted: <strong></strong> </div>
@@ -315,36 +322,53 @@
 
                       }else
                       {
-                        console.log("Do ajax");
-                        $.ajax({
-                              url: "{{action('UserVLController@requestVTO')}}",
-                              type:'POST',
-                              data:{ 
-                                'id': user_id,
-                                'leaveFrom': leaveFrom,
-                                'reason_vl': reason_vl,
-                                'totalhours': totalhours,
-                                'timeStart': timestart+' '+amStart,
-                                'timeEnd':  timeend+' '+amEnd,
-                                'useCredits': useCredits,
-                                'forced': forced,
-                                '_token':_token
-                              },
-                              success: function(response2){
-                                
-                                $('#save').fadeOut();
 
-                                if (response2.success == '1')
-                                  $.notify("VTO saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                                  else
-                                    $.notify("VTO submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
-                                
-                                console.log(response2);
-                                window.setTimeout(function(){
-                                  window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                }, 2000);
-                              }
-                            });
+                         if( (totalhours*0.125) > parseFloat("{{$currentVLbalance}}") && useCredits=="VL" )
+                         {
+                          $.notify("insufficient VL credits. Please try submitting using LWOP. ",{className:"error", globalPosition:'right middle',autoHideDelay:5000, clickToHide:true} ); return false;
+                         } 
+                          
+                        else if( (totalhours*0.125) > parseFloat("{{$currentSLbalance}}") && useCredits=="SL" )
+                         {
+                          $.notify("insufficient SL credits. Please try submitting using LWOP. ",{className:"error", globalPosition:'right middle',autoHideDelay:5000, clickToHide:true} ); return false;
+                         }
+                         else
+                         {
+                            console.log("Do ajax");
+                            $.ajax({
+                                  url: "{{action('UserVLController@requestVTO')}}",
+                                  type:'POST',
+                                  data:{ 
+                                    'id': user_id,
+                                    'leaveFrom': leaveFrom,
+                                    'reason_vl': reason_vl,
+                                    'totalhours': totalhours,
+                                    'timeStart': timestart+' '+amStart,
+                                    'timeEnd':  timeend+' '+amEnd,
+                                    'useCredits': useCredits,
+                                    'forced': forced,
+                                    '_token':_token
+                                  },
+                                  success: function(response2){
+                                    
+                                    $('#save').fadeOut();
+
+                                    if (response2.success == '1')
+                                      $.notify("VTO saved successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                                      else
+                                        $.notify("VTO submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
+                                    
+                                    console.log(response2);
+                                    window.setTimeout(function(){
+                                      window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                    }, 2000);
+                                  }
+                                });
+
+                         }
+
+
+                       
 
                       }
 
@@ -419,11 +443,19 @@
      $('#totalhours').on('focusout',function(){
 
       var val = $(this).val();
+      var useCredits = $('input[name="useCredits"]:checked').val();
 
       if ( $.isNumeric(val) == false ) alert("Invalid number of hours indicated!");
       else
       {
         var creds = 0.125 * val;
+
+        
+
+        if( creds > parseFloat({{$currentVLbalance}}) && useCredits=="VL" ) 
+          alert("Note that you have insufficient VL leave credits."); 
+        else if( creds > parseFloat({{$currentSLbalance}}) && useCredits=="SL" )
+          alert("Note that you have insufficient SL leave credits."); 
 
         $('#deduct strong').html('');
         $('#deduct strong').html(creds);
