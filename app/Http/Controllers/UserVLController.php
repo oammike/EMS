@@ -217,7 +217,7 @@ class UserVLController extends Controller
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
        if($this->user->id !== 564 ) {
-          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+          $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n Tried [VL]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         } 
@@ -235,6 +235,8 @@ class UserVLController extends Controller
             /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+            $advent = Team::where('user_id',$user->id)->where('campaign_id',58)->get();
+            (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
 
 
             //check mo kung leave for himself or if for others and approver sya
@@ -388,7 +390,8 @@ class UserVLController extends Controller
                         {
                             ($creditsLeft2 >= 0.5) ? $canVL=1 : $canVL=0;
                         }
-                        return view('timekeeping.user-vl_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
+                        //return response()->json(['advent'=>$isAdvent]);
+                        return view('timekeeping.user-vl_create',compact('user','isAdvent', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
 
                     }else return view('access-denied');
 
@@ -1122,6 +1125,9 @@ class UserVLController extends Controller
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
         $success = 1; $msg = "VL saved successfully.";
+
+        $advent = Team::where('user_id',$employee->id)->where('campaign_id',58)->get();
+        (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
        
 
         
@@ -1134,6 +1140,7 @@ class UserVLController extends Controller
         
         if ( ($isWorkforce && ($this->user->id !== $employee->id) )
             || ($anApprover && $employeeisBackoffice) 
+            || ($anApprover && $isAdvent)
             || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
         {
             $vl->isApproved = true; $TLsubmitted=true; 
@@ -1180,7 +1187,7 @@ class UserVLController extends Controller
         
 
         //*** IF OPS || not approver & not workforce || not approver & backoffice
-        if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
+        if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice && !$isAdvent)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
         {
             /***** once saved, update your leave credits ***/
             $userVLs = User_VLcredits::where('user_id',$employee->id)->orderBy('creditYear','DESC')->get();
@@ -1197,7 +1204,7 @@ class UserVLController extends Controller
             $notification->from = $vl->user_id;
             $notification->save();
 
-            if ($employeeisBackoffice){
+            if ($employeeisBackoffice || $isAdvent){
 
                 foreach ($employee->approvers as $approver) {
                     $TL = ImmediateHead::find($approver->immediateHead_id);
@@ -1234,7 +1241,7 @@ class UserVLController extends Controller
             }
 
             //-- we now notify all WFM
-            if(!$employeeisBackoffice)
+            if(!$employeeisBackoffice && !$isAdvent)
             {
                 foreach ($wfm as $approver) {
                     //$TL = ImmediateHead::find($approver->immediateHead_id);
@@ -1267,7 +1274,7 @@ class UserVLController extends Controller
 
 
          /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." VL submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
          
