@@ -3209,6 +3209,7 @@ class UserController extends Controller
           }break;
 
           case 'BDAY': {
+                            $janelleMsg = " ";
 
                             foreach ($request->recipients as $r) {
 
@@ -3265,6 +3266,13 @@ class UserController extends Controller
 
                                   }
 
+                                  //get celebrator details
+                                  $celeb = User::find($r);
+                                  $dateHired = Carbon::parse($celeb->dateHired,'Asia/Manila');
+                                  $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'))+1;
+
+                                  $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->nickname."</td><td>".date('M d', $celeb->birthday)."</td><td>".$tenure." years </td></tr>";
+
 
                                   
                                   
@@ -3275,6 +3283,22 @@ class UserController extends Controller
                                         fwrite($file, "-------------------\n Bday ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                                         fclose($file);
                                 }
+
+                                //send email to Janelle
+                                $janelle = User::find(564);//User::find(222);
+                                 Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle) 
+                                     {
+                                        $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                        $m->to($janelle->email, $janelle->lastname.", ".$janelle->firstname)->subject('OAMPI Bday Celebrators: '.Carbon::now('GMT+8')->format('M d'));     
+
+                                        /* -------------- log updates made --------------------- */
+                                             $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                                fwrite($file, "-------------------\n Bday_EmailRemind sent to ". $janelle->email."\n");
+                                                //fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
+                                                fclose($file);                      
+                                    
+
+                                    }); //end mail
 
           }break;
 
