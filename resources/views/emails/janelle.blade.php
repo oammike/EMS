@@ -14,6 +14,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		{{$msg}}
+		{!! $msg !!}
 	</tbody>
 </table>
