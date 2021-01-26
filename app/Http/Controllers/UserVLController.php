@@ -235,8 +235,12 @@ class UserVLController extends Controller
             /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
             $advent = Team::where('user_id',$user->id)->where('campaign_id',58)->get();
             (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
+
+            $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
+            (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
 
 
             //check mo kung leave for himself or if for others and approver sya
@@ -391,7 +395,7 @@ class UserVLController extends Controller
                             ($creditsLeft2 >= 0.5) ? $canVL=1 : $canVL=0;
                         }
                         //return response()->json(['advent'=>$isAdvent]);
-                        return view('timekeeping.user-vl_create',compact('user','isAdvent', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
+                        return view('timekeeping.user-vl_create',compact('user','isAdvent','isDavao', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
 
                     }else return view('access-denied');
 

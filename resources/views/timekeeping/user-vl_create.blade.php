@@ -246,6 +246,7 @@
      $('#save').on('click',function(e){
             e.preventDefault(); e.stopPropagation();
             var isAdvent = "{{$isAdvent}}";
+            var isDavao = "{{$isDavao}}";
             var _token = "{{ csrf_token() }}";
             var shift = $('select.end.form-control :selected').val();
             var user_id = $(this).attr('data-userid');
