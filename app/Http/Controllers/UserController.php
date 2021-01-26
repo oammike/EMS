@@ -3273,7 +3273,12 @@ class UserController extends Controller
                                   $camp = Campaign::find(Team::where('user_id',$r)->first()->campaign_id)->name;
                                   $job = Position::find($celeb->position_id)->name;
 
-                                  $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->nickname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".date('M d', strtotime($celeb->birthday))."</td><td>".$tenure." years </td></tr>";
+                                  if($celeb->nickname !== null) {
+                                    $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->nickname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".date('M d', strtotime($celeb->birthday))."</td><td>".$tenure." years </td></tr>";
+                                  }else
+                                  {
+                                    $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->firstname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".date('M d', strtotime($celeb->birthday))."</td><td>".$tenure." years </td></tr>";
+                                  }
 
 
                                   
@@ -3317,7 +3322,8 @@ class UserController extends Controller
 
           case 'ANNIV': {
 
-                            $w = Reward_Waysto::where('name','Work Anniversary')->first();
+                             $janelleMsg = " ";
+                             $w = Reward_Waysto::where('name','Work Anniversary')->first();
                             foreach ($request->recipients as $r) {
 
                                   
@@ -3394,6 +3400,22 @@ class UserController extends Controller
 
                                     }); //end mail
 
+
+                                     //get celebrator details
+                                    //$celeb = User::find($r);
+                                    //$dateHired = Carbon::parse($celeb->dateHired,'Asia/Manila');
+                                    //$tenure = $dateHired->diffInYears(Carbon::now('GMT+8'))+1;
+                                    $camp = Campaign::find(Team::where('user_id',$r)->first()->campaign_id)->name;
+                                    $job = Position::find($awardee->position_id)->name;
+
+                                    if($awardee->nickname !== null) {
+                                      $janelleMsg .= "<tr><td>".$awardee->lastname.", ".$awardee->nickname."<br/><em>".$job."</em></td><td>".$camp."</td><td>". $dateHired->format('M d, Y')."</td><td>".$tenure." years </td></tr>";
+                                    }else
+                                    {
+                                      $janelleMsg .= "<tr><td>".$awardee->lastname.", ".$awardee->firstname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".$dateHired->format('M d, Y')."</td><td>".$tenure." years </td></tr>";
+                                    }
+
+
                                   }
 
 
@@ -3409,6 +3431,31 @@ class UserController extends Controller
                                         fwrite($file, "-------------------\n WORKanniv ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                                         fclose($file);
                                 }
+
+                                $janelle = User::find(222);//User::find(222);
+                                $mike = User::find(564);//User::find(222);
+                                 Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>2, 'greet'=>"Work Anniversary"], function ($m) use ($janelle,$mike) 
+                                     {
+                                        $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                        $m->to($janelle->email, $janelle->lastname.", ".$janelle->firstname)->subject('OAMPI Work Anniv Celebrators: '.Carbon::now('GMT+8')->format('M d'));     
+
+                                        /* -------------- log updates made --------------------- */
+                                             $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                                fwrite($file, "-------------------\n Anniv_EmailRemind sent to ". $janelle->email."\n");
+                                                //fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
+                                                fclose($file);                      
+                                    
+
+                                    }); //end mail
+                                  Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>2, 'greet'=>"Work Anniv"], function ($m) use ($janelle,$mike) 
+                                     {
+                                        $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                        $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('OAMPI Work Anniv Celebrators: '.Carbon::now('GMT+8')->format('M d'));     
+
+                                                  
+                                    
+
+                                    }); //end mail
 
 
           }break;
