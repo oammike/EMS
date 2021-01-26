@@ -275,7 +275,7 @@
             var forced = $('input[name="forced"]:checked').val();
 
             /* ------- 2wk NOTICE on VL*/
-            if(isAdvent !== '1')
+            if(isAdvent !== '1' && $isDavao !== '1')
             {
               //alert("deadline: " +isAdvent);
               if ( twoweeks.format('YYYY-MM-DD') <= moment().format('YYYY-MM-DD')) {
