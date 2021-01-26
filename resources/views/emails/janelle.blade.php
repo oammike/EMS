@@ -7,9 +7,9 @@
 	<thead>
 		<tr>
 			@if($type == '1')
-			<th>Employee</th><th>Birthday</th><th>Tenue</th>
+			<th>Employee</th><th>Program</th><th>Birthday</th><th>Tenue</th>
 			@else
-			<th>Employee</th><th>Tenure</th><th>Work Anniversary</th>
+			<th>Employee</th><th>Program</th><th>Tenure</th><th>Work Anniversary</th>
 			@endif
 		</tr>
 	</thead>

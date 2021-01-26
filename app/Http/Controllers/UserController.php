@@ -3270,8 +3270,10 @@ class UserController extends Controller
                                   $celeb = User::find($r);
                                   $dateHired = Carbon::parse($celeb->dateHired,'Asia/Manila');
                                   $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'))+1;
+                                  $camp = Campaign::find(Team::where('user_id',$r)->first()->campaign_id)->name;
+                                  $job = Position::find($celeb->position_id)->name;
 
-                                  $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->nickname."</td><td>".date('M d', $celeb->birthday)."</td><td>".$tenure." years </td></tr>";
+                                  $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->nickname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".date('M d', strtotime($celeb->birthday))."</td><td>".$tenure." years </td></tr>";
 
 
                                   
