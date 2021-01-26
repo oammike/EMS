@@ -246,7 +246,7 @@
      $('#save').on('click',function(e){
             e.preventDefault(); e.stopPropagation();
             var isAdvent = "{{$isAdvent}}";
-            var isDavao = "{{$isDavao}}";
+            var canOverrideRule = "{{$canOverrideRule}}";
             var _token = "{{ csrf_token() }}";
             var shift = $('select.end.form-control :selected').val();
             var user_id = $(this).attr('data-userid');
@@ -276,11 +276,11 @@
             var forced = $('input[name="forced"]:checked').val();
 
             /* ------- 2wk NOTICE on VL*/
-            if(isAdvent !== '1' && isDavao !== '1')
+            if(canOverrideRule !== '1')
             {
               //alert("deadline: " +isAdvent);
               if ( twoweeks.format('YYYY-MM-DD') <= moment().format('YYYY-MM-DD')) {
-                $.notify("Sorry, this VL period is already past the submisison deadline. \nNote that all vacation leaves must be filed 2-weeks in advance. \n(i.e. before "+twoweeks.format('MMM D, YYYY')+")",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );return false; 
+                $.notify("Sorry, this VL period is already past the submisison deadline. \nNote that all vacation leaves must be filed 2-weeks in advance. \n(i.e. before "+twoweeks.format('MMM D, YYYY')+")\n\nPre-approved VLs may be filed by the approver/immediate head for back office personnel,\n or by coordinating with WFM team for all Operations personnel.",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );return false; 
               }
 
             }
