@@ -3280,15 +3280,16 @@ class UserController extends Controller
                                   
                                 }
 
-                                if( \Auth::user()->id !== 564 ) {
+                               /* if( \Auth::user()->id !== 564 ) {
                                       $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                                         fwrite($file, "-------------------\n Bday ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                                         fclose($file);
-                                }
+                                }*/
 
                                 //send email to Janelle
-                                $janelle = User::find(564);//User::find(222);
-                                 Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle) 
+                                $janelle = User::find(222);//User::find(222);
+                                $mike = User::find(564);//User::find(222);
+                                 Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle,$mike) 
                                      {
                                         $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
                                         $m->to($janelle->email, $janelle->lastname.", ".$janelle->firstname)->subject('OAMPI Bday Celebrators: '.Carbon::now('GMT+8')->format('M d'));     
@@ -3298,6 +3299,15 @@ class UserController extends Controller
                                                 fwrite($file, "-------------------\n Bday_EmailRemind sent to ". $janelle->email."\n");
                                                 //fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
                                                 fclose($file);                      
+                                    
+
+                                    }); //end mail
+                                  Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle,$mike) 
+                                     {
+                                        $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                        $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('OAMPI Bday Celebrators: '.Carbon::now('GMT+8')->format('M d'));     
+
+                                                  
                                     
 
                                     }); //end mail
