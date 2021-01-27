@@ -24,6 +24,27 @@
                     
             </div>
 
+            <div class="item text-center" >
+                  <img src="storage/uploads/bookclub.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-book"></i> Calling all  <span class="text-primary">bookworms!!! <br/><small>Jan.27, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">Calling all boookworms out there! <br/><br/>You are all invited to join and register in the Open Acces BPO Book Club!
+                      <br/><br/>
+                      Register via the link below:<br/>
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSc0MXlt7Cd1C6HDeFUj492l6-DpYRur6fQOEELqhVpXWNxuQg/viewform?usp=sf_link
+" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                   <br/><br/>
+
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   2021 SSS Contribution Update <br/><small > JAN. 20, 2021</small> 
                   
