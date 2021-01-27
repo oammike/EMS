@@ -242,6 +242,9 @@ class UserVLController extends Controller
             $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
             (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
 
+            $ndy = Team::where('user_id',$user->id)->where('campaign_id',54)->get();
+            (count($ndy) > 0) ? $isNDY = 1 : $isNDY=0;
+
 
             //check mo kung leave for himself or if for others and approver sya
             $approvers = $user->approvers;
@@ -397,7 +400,7 @@ class UserVLController extends Controller
                         //return response()->json(['advent'=>$isAdvent]);
 
                         //*** override 2wk rule:
-                        ($isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
+                        ($isNDY || $isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
 
                         return view('timekeeping.user-vl_create',compact('user','isAdvent','isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
 
