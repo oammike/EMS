@@ -200,7 +200,7 @@
 
                             @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
 
-                              @if($canSL)
+                              @if($canSL || $isNDY)
                                 <a href="{{action('UserSLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}" style="margin-bottom: 5px">
                                 <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></a><br/><br/>
                               @else
@@ -208,7 +208,7 @@
                                 <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></span><small> *insufficient credits</small><br/><br/>
                               @endif
                             @else
-                                @if($canSL)
+                                @if($canSL || $isNDY)
                                 <a href="{{action('UserSLController@create',['from'=>$DproductionDate])}}" style="margin-bottom: 5px">
                                 <i class="fa fa-2x fa-stethoscope"></i>&nbsp;&nbsp;&nbsp; Sick Leave <strong>(SL)</strong></a><br/><br/>
                                 @else
@@ -224,14 +224,14 @@
 
                             @if(($anApprover && Auth::user()->id != $user->id) ||  ($isWorkforce && !$isBackoffice) )
 
-                              @if($canVL)
+                              @if($canVL || $isNDY)
                                 <a style="margin-bottom: 5px" href="{{action('UserVLController@create',['from'=>$DproductionDate, 'for'=>$user->id])}}"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></a><br/><br/>
                               @else
                                 <span style="margin-bottom: 5px;text-decoration: line-through"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></span><small> * insufficient credits</small><br/><br/>
                               @endif
 
                             @else
-                              @if($canVL)
+                              @if($canVL || $isNDY)
                                 <a style="margin-bottom: 5px" href="{{action('UserVLController@create',['from'=>$DproductionDate])}}"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></a><br/><br/>
                               @else
                                 <span style="margin-bottom: 5px;text-decoration: line-through"><i class="fa fa-2x fa-plane"></i> &nbsp;&nbsp;&nbsp;Vacation Leave <strong>(VL)</strong></span><small> * insufficient credits</small><br/><br/>

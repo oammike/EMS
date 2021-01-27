@@ -135,11 +135,11 @@
                                     <h4 class="text-danger"> <i class="fa fa-stethoscope"></i> SL credits: <strong>{{ number_format($currentSLbalance,2) }} </strong> </h4>
                                     <h5><br/><br/>Deduct Using:</h5>
 
-                                    @if(number_format($currentVLbalance,2) > 0.0 && $currentVLbalance !== "N/A")
+                                    @if(number_format($currentVLbalance,2) > 0.0 && $currentVLbalance !== "N/A" || ($isNDY && $currentVLbalance !== "N/A") )
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="VL" @if($useCredits=='VL') checked="checked" @endif> VL</label>
                                     @endif
 
-                                    @if(number_format($currentSLbalance,2) > 0.0 && $currentSLbalance !== "N/A")
+                                    @if(number_format($currentSLbalance,2) > 0.0 && $currentSLbalance !== "N/A" || ($isNDY && $currentSLbalance !== "N/A") )
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="SL"  @if($useCredits=='SL') checked="checked" @endif> SL</label>
                                     @endif
 
@@ -267,6 +267,7 @@
      $('#save').on('click',function(e){
             e.preventDefault(); e.stopPropagation();
             var _token = "{{ csrf_token() }}";
+            var isNDY = "{{$isNDY}}";
             var user_id = $(this).attr('data-userid');
             var selectedDate = $(this).attr('data-date');
             var requestType = $(this).attr('data-requesttype');
@@ -323,12 +324,12 @@
                       }else
                       {
 
-                         if( (totalhours*0.125) > parseFloat("{{$currentVLbalance}}") && useCredits=="VL" )
+                         if( (totalhours*0.125) > parseFloat("{{$currentVLbalance}}") && useCredits=="VL"  && (isNDY !== '1') )
                          {
                           $.notify("insufficient VL credits. Please try submitting using LWOP. ",{className:"error", globalPosition:'right middle',autoHideDelay:5000, clickToHide:true} ); return false;
                          } 
                           
-                        else if( (totalhours*0.125) > parseFloat("{{$currentSLbalance}}") && useCredits=="SL" )
+                        else if( (totalhours*0.125) > parseFloat("{{$currentSLbalance}}") && useCredits=="SL" && (isNDY !== '1') )
                          {
                           $.notify("insufficient SL credits. Please try submitting using LWOP. ",{className:"error", globalPosition:'right middle',autoHideDelay:5000, clickToHide:true} ); return false;
                          }
@@ -442,6 +443,8 @@
 
      $('#totalhours').on('focusout',function(){
 
+      var isNDY = "{{$isNDY}}";
+
       var val = $(this).val();
       var useCredits = $('input[name="useCredits"]:checked').val();
 
@@ -450,12 +453,16 @@
       {
         var creds = 0.125 * val;
 
-        
+        if(isNDY !== '1')
+        {
+           if( creds > parseFloat({{$currentVLbalance}}) && useCredits=="VL" ) 
+            alert("Note that you have insufficient VL leave credits."); 
+          else if( creds > parseFloat({{$currentSLbalance}}) && useCredits=="SL" )
+            alert("Note that you have insufficient SL leave credits."); 
 
-        if( creds > parseFloat({{$currentVLbalance}}) && useCredits=="VL" ) 
-          alert("Note that you have insufficient VL leave credits."); 
-        else if( creds > parseFloat({{$currentSLbalance}}) && useCredits=="SL" )
-          alert("Note that you have insufficient SL leave credits."); 
+        }
+
+       
 
         $('#deduct strong').html('');
         $('#deduct strong').html(creds);

@@ -142,7 +142,7 @@
                         <div class="clearfix"></div>
                       <a onclick="javascript:window.history.back();" class="back btn btn-flat pull-left" style="font-weight:bold;margin-top:0px; z-index:999"><i class="fa fa-angle-double-left"></i> &nbsp;Back</a>
 
-                      @if($canVL)
+                      @if($canVL || $isNDY)
                         <a id="save" data-timestart_old="" data-timeend_old="" data-requesttype="VL" data-date="{{$vl_from->format('Y-m-d H:i:s')}}" data-userid="{{$user->id}}" class="btn btn-default btn-md pull-right" style="margin-right:25px" > <i class="fa fa-upload" ></i> Submit for Approval </a>
 
                       @else
@@ -246,6 +246,7 @@
      $('#save').on('click',function(e){
             e.preventDefault(); e.stopPropagation();
             var isAdvent = "{{$isAdvent}}";
+            var isNDY = "{{$isNDY}}";
             var canOverrideRule = "{{$canOverrideRule}}";
             var _token = "{{ csrf_token() }}";
             var shift = $('select.end.form-control :selected').val();
@@ -264,9 +265,14 @@
             var totalcredits = $('#credits_vl').attr('data-credits');
             var credsleft = $('#creditsleft').attr('data-left');
 
-            if ( credsleft < 0 ) {
+            if(isNDY !== '1')
+            {
+              if ( credsleft < 0 ) {
               $.notify("Insufficient leave credits. \nKindly file an LWOP instead, or submit leave once enough credits are earned. \n",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );return false; 
+              }
+
             }
+            
 
             //alert("Credits left: " + credsleft);
 

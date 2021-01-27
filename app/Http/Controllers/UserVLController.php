@@ -402,7 +402,7 @@ class UserVLController extends Controller
                         //*** override 2wk rule:
                         ($isNDY || $isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
 
-                        return view('timekeeping.user-vl_create',compact('user','isAdvent','isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
+                        return view('timekeeping.user-vl_create',compact('user','isAdvent','isNDY', 'isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
 
                     }else return view('access-denied');
 
@@ -456,6 +456,9 @@ class UserVLController extends Controller
             /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+            $ndy = Team::where('user_id',$user->id)->where('campaign_id',54)->get();
+            (count($ndy) > 0) ? $isNDY = 1 : $isNDY=0;
 
 
             //check mo kung leave for himself or if for others and approver sya
@@ -637,7 +640,7 @@ class UserVLController extends Controller
                         else $useCredits="LWOP";
 
                         
-                        return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits'));
+                        return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits','isNDY'));
 
                     
 
