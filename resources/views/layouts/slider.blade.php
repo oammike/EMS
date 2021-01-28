@@ -1,30 +1,9 @@
 
           
 
-               <div class="item active text-center" >
-                  <img src="storage/uploads/mac.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >MAC <span class="text-primary">Masterclass <br/><small>Jan.28, 2021 5PM</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">DISCOVER THE BEAUTY OF TODAY WITH M·A·C COSMETICS <br/>IN PARTNERSHIP WITH OPEN ACCESS BPO
-                      <br/><br/>
-                      Learn pro tips on quick and easy to do looks to get you from zero to zoom ready for virtual work meetings to personal meetings and discover the mood-boosting power of little luxuries in the new normalJoin us for a virtual Masterclass over Zoom!<br/><br/>
+              
 
-                    Masterclass will cover adapting to the New Normal – looks for work meetings to personal meetings online. <br/>
-                    Applicable for all employees.<br/>
-                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://macxopenaccessbporegistration.eventbrite.com/" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                   <br/><br/>
-
-                    @MACCOSMETICSPH #MACxOPENACCESSBPO #MACMASTERCLASS </p>
-                    
-                   
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
+            <div class="item active text-center" >
                   <img src="storage/uploads/bookclub.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-book"></i> Calling all  <span class="text-primary">bookworms!!! <br/><small>Jan.27, 2021</small><br/>
                   
@@ -9781,6 +9760,28 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     Together, let us welcome #2021 with a grateful heart. Happy New Year!.<br/><br/>
 
                     #WeSpeakYourLanguage #OAHolidays</p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item active text-center" >
+                  <img src="storage/uploads/mac.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >MAC <span class="text-primary">Masterclass <br/><small>Jan.28, 2021 5PM</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">DISCOVER THE BEAUTY OF TODAY WITH M·A·C COSMETICS <br/>IN PARTNERSHIP WITH OPEN ACCESS BPO
+                      <br/><br/>
+                      Learn pro tips on quick and easy to do looks to get you from zero to zoom ready for virtual work meetings to personal meetings and discover the mood-boosting power of little luxuries in the new normalJoin us for a virtual Masterclass over Zoom!<br/><br/>
+
+                    Masterclass will cover adapting to the New Normal – looks for work meetings to personal meetings online. <br/>
+                    Applicable for all employees.<br/>
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://macxopenaccessbporegistration.eventbrite.com/" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                   <br/><br/>
+
+                    @MACCOSMETICSPH #MACxOPENACCESSBPO #MACMASTERCLASS </p>
                     
                    
                     
