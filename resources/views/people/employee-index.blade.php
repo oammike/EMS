@@ -4,54 +4,54 @@
 <title>All Employees | OAMPI Evaluation System</title>
 
 <style type="text/css">
-/* Sortable items */
+    /* Sortable items */
 
-#qr-code-container{
-  margin: 0 auto;
-  width: 480px;
-    height: 480px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-}
+    #qr-code-container{
+      margin: 0 auto;
+      width: 480px;
+        height: 480px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
 
-.sortable-list {
-  background: none; /* #fcedc6;*/
-  list-style: none;
-  margin: 0;
-  min-height: 60px;
-  padding: 10px;
-}
-.sortable-item {
-  background-color: #fcedc6;
-  
-  cursor: move;
-  
-  font-weight: bold;
-  margin: 2px;
-  padding: 10px 0;
-  text-align: center;
-}
+    .sortable-list {
+      background: none; /* #fcedc6;*/
+      list-style: none;
+      margin: 0;
+      min-height: 60px;
+      padding: 10px;
+    }
+    .sortable-item {
+      background-color: #fcedc6;
+      
+      cursor: move;
+      
+      font-weight: bold;
+      margin: 2px;
+      padding: 10px 0;
+      text-align: center;
+    }
 
-/* Containment area */
+    /* Containment area */
 
-#containment {
-  background-color: #FFA;
-  height: 230px;
-}
+    #containment {
+      background-color: #FFA;
+      height: 230px;
+    }
 
 
-/* Item placeholder (visual helper) */
+    /* Item placeholder (visual helper) */
 
-.placeholder {
-  background-color: #ccc;
-  border: 3px dashed #fcedc0;
-  min-height: 150px;
-  width: 180px;
-  float: left;
-  margin-bottom: 5px;
-  padding: 45px;
-}
+    .placeholder {
+      background-color: #ccc;
+      border: 3px dashed #fcedc0;
+      min-height: 150px;
+      width: 180px;
+      float: left;
+      margin-bottom: 5px;
+      padding: 45px;
+    }
 </style>
 @endsection
 
@@ -208,7 +208,7 @@
 
 <!-- Page script <small> '+full.employeeNumber+'</small> -->
 
- <?php if($hasUserAccess || $isWorkforce) { ?> 
+ <?php if($hasUserAccess || $isWorkforce || $canBIR) { ?> 
  <script type="text/javascript">
 
  $(function () {
@@ -220,7 +220,7 @@
                       "ajax": "{{ action('UserController@getAllActiveUsers') }}",
                       "deferRender": true,
                       "processing":true,
-                      "stateSave": false,
+                      "stateSave": true,
                       "order": [ 1, "asc" ],
                       "lengthMenu": [20, 100, 500],
                       "initComplete": function () {
@@ -326,29 +326,52 @@
                              modalcode += ' </div>';
                             modalcode += '</div>';
 
-                            @if ($hasUserAccess)
+                            /*we process BIR forms*/
+                            if(full.has2316){
+                              var has2316 = '<a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/>';
 
-                                if(full.claimedCard)
-                                {
-                                  if(full.isWFH)
-                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" checked="checked" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> WFH <i class="fa fa-home"></i> </label><br/><br/><label><input type="checkbox" class="claimedcard" checked="checked" disabled="disabled"> Claimed Rewards Card</label>'+modalcode;
-                                  else
-                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> WFH <i class="fa fa-home"></i> </label><br/><br/><label><input type="checkbox" class="claimedcard" checked="checked" disabled="disabled"> Claimed Rewards Card</label>'+modalcode;
-                                }
+                            }else{
 
-                                  
+                              var has2316 = '<a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-success"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/>';
 
-                                  
+                            }
 
-                                else
-                                {
-                                  if(full.isWFH)
-                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" checked="checked" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'">  WFH <i class="fa fa-home"></i></label><br/><br/><label><input type="checkbox" class="claimedcard" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Claimed Rewards Card</label>'+modalcode;
-                                  else
-                                    return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/><br/><label><input type="checkbox" class="wfh" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'">  WFH <i class="fa fa-home"></i></label><br/><br/><label><input type="checkbox" class="claimedcard" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Claimed Rewards Card</label>'+modalcode;
+                            if(full.hasSigned2316=='1') {
+                              var bir = has2316+'<a target="_blank" href="viewUserForm?s=1&f=BIR2316&u='+data+'" style="margin:3px" class="btn btn-xs btn-danger"><i class="fa fa-download"></i> Download Signed 2316</a> <br/><br/>';
+                            }
+                            else {
+                              var bir = has2316;
+                            }
 
-                                }
+                            if(full.isWFH)
+                            {
+                              var AHW = '<label><input type="checkbox" class="wfh" checked="checked" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> WFH <i class="fa fa-home"></i> </label><br/><br/>';
+                            }else {
+                              var AHW = '<label><input type="checkbox" class="wfh" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> WFH <i class="fa fa-home"></i> </label><br/><br/>';
 
+                            }
+
+
+                            if(full.claimedCard){
+                              var cC = '<label><input type="checkbox" class="claimedcard" checked="checked" disabled="disabled"> Claimed Rewards Card</label>';
+
+                            }else {
+                              var cC = '<label><input type="checkbox" class="claimedcard" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Claimed Rewards Card</label>';
+
+                            }
+
+
+
+                            @if ($canBIR && !$superAdmin)
+                             return '<a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/>'+bir+AHW+modalcode;
+
+
+
+                            @elseif ($hasUserAccess)
+
+                              return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/>'+bir+AHW+cC+modalcode;
+
+                               
                                  
                                 
 
@@ -359,6 +382,12 @@
                                 @if($wfAgent) 
 
                                 return '<a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a>'+modalcode;
+
+                                @elseif($canBIR) 
+
+                                return '<a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a>'+bir+modalcode;
+
+                                
 
                                 @else
 
