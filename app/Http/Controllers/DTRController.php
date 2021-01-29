@@ -6107,6 +6107,9 @@ class DTRController extends Controller
 
           }
 
+
+          //return $cData;
+
               
            $getday = explode('-',$currentPeriod[0]);
            if ($getday[2] < Cutoff::first()->second)
@@ -6132,7 +6135,7 @@ class DTRController extends Controller
             }
 
              $cutoff = date('M d, Y', strtotime($currentPeriod[0])). " - ". date('M d,Y', strtotime($currentPeriod[1])); 
-             //return $currentPeriod;
+             //return $cutoff;
 
 
              // ---------------------------
@@ -6144,7 +6147,7 @@ class DTRController extends Controller
              $noWorkSched = false;
 
              //Timekeeping Trait
-             $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+             $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd); //return response()->json(['s'=>$cutoffStart,'e'=>$cutoffEnd]); //$payrollPeriod;
             
 
              // ---------------------------  INITIALIZATIONS

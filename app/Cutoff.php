@@ -3,6 +3,7 @@
 namespace OAMPI_Eval;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Cutoff extends Model
 {
@@ -100,10 +101,12 @@ class Cutoff extends Model
 
     public function getCurrentPeriod(){
 
-        $today = date('d');
+        //$today = date('d');
+        $today = Carbon::now('GMT+8')->format('d');
+        $ngayon = Carbon::now('GMT+8');
 
         
-        if ($today <= ($this->first)){ // + $this->paydayInterval
+        if ($ngayon->format('d') <= ($this->first)){ // + $this->paydayInterval
             if (date('m') === "01"){
                 $from = (date('Y')-1)."-";
 
@@ -121,7 +124,7 @@ class Cutoff extends Model
             $to .= (date('m'))."-";
             $to .= ($this->first);
             
-        } else if (($today > $this->first)&&($today <= ($this->second)) || $today == ($this->first + $this->paydayInterval) ) //+ $this->paydayInterval
+        } else if (($today > $this->first)&&($today <= $this->second) || $today == ($this->first + $this->paydayInterval) ) //+ $this->paydayInterval
         {
             $from = date('Y')."-";
             $from .= (date('m'))."-";
@@ -138,29 +141,33 @@ class Cutoff extends Model
             
 
         } else {
-
+            $mo = $ngayon->format('m');
             $from = date('Y')."-";
-            $from .= (date('m'))."-";
+            $from .=  $mo."-";//(date('m'))."-";
             $from .= ($this->second+1);
 
-            if(date('m') == 12 ){
+            if($mo == 12 ){
                 $to = (date('Y')+1)."-";
-                $to .= date('m',strtotime("next month"))."-";
+                //$to .= date('m',strtotime("next month"))."-";
+                $to .= Carbon::now('GMT+8')->addMonth(1)->format('m')."-";
                 $to .= ($this->first);
             }
             else{
 
-                if(date('d')== '31')
+                if($ngayon->format('d')== '31')
                 {
                     $to = date('Y')."-";
-                    $m = date('m')+1;
+                    //$m = date('m')+1;
+                    $m = Carbon::now('GMT+8')->addMonth(1)->format('m');
                     $to .= $m."-";
                     $to .= ($this->first);
                 
                 }else
                 {
                     $to = date('Y')."-";
-                    $to .= date('m',strtotime("next month"))."-";
+                    $em = Carbon::now('GMT+8')->format('m')+1;
+                    //$to .= date('m',strtotime("next month"))."-";
+                    $to .= $em ."-";
                     $to .= ($this->first);
                 }
             }
