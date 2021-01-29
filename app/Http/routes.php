@@ -72,6 +72,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('survey','SurveyController');
     Route::resource('employeeEngagement','EngagementController');
     Route::resource('usergallery','GalleryController');
+    Route::resource('user_forms','UserFormController');
 
     Route::resource('task','TaskController');
 
@@ -137,6 +138,15 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
     /********** ------------ END NEW PA ------------  **************/
+
+
+    //********************** BIR FORMS -----------------------
+    Route::post('/user_forms/uploadFile', array(
+        'as'=> 'user_forms.uploadFile',
+        'uses'=>'UserFormController@uploadFile') );
+    Route::get('/viewUserForm', array(
+        'as'=> 'user_forms.viewUserForm',
+        'uses'=>'UserFormController@viewUserForm') );
 
 
 

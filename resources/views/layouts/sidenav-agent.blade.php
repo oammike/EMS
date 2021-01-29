@@ -263,8 +263,8 @@
         <?php $walls = OAMPI_Eval\Engagement::where('id','>',8)->orderBy('id','DESC')->get(); ?>
 
         <li class="treeview @if (Request::is('employeeEngagement*')) active @endif">
-         <a href="#" class="text-yellow"><i class="fa fa-2x fa-smile-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Activities </span>
-            <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>
+         <a href="#"><i class="fa fa-2x fa-smile-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Activities </span>
+            <!-- <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span> -->
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
 
@@ -361,9 +361,44 @@
 
         <li><a href="{{action('HomeController@healthForm')}}" ><i class="fa fa-2x fa-medkit"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Health Form</span></a></li>
 
-        <li @if (Request::is('user/'.Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" > <i class="fa fa-2x fa-address-card-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My Profile</span></a></li>
+        <li class="treeview @if (Request::is('user_forms*') ) active @endif">
+          <a href="#" class="text-yellow"><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My BIR 2316 </span>
+
+            <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+
+            @if($u->has2316)
+            
+            
+              @if($u->hasSigned2316)
+              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('UserFormController@viewUserForm',['u'=>$u->id, 'f'=>'BIR2316','s'=>1])}}"><i class="fa fa-download"></i> Download digital copy </a> </li>
+              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a href="#" style="text-decoration: line-through;"><i class="fa fa-check-square-o"></i> Upload Signed Copy </a> 
+
+              @else
+              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('UserFormController@viewUserForm',['u'=>$u->id, 'f'=>'BIR2316'])}}"><i class="fa fa-download"></i> Download digital copy </a> </li>
+              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a href="{{action('UserFormController@create',['s'=>1,'t'=>'BIR2316'])}}"><i class="fa fa-upload"></i> Upload Signed PDF </a> </li>
+              </li>
+
+              @endif
+
+            @else
+            <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a title="Not Yet Available" style="text-decoration: line-through;"  href="{{action('UserFormController@viewUserForm',['u'=>$u->id, 'f'=>'BIR2316'])}}"><i class="fa fa-download"></i> Download digital copy </a> </li>
+
+            @endif
+
+           
+           
+
+          </ul>
+        </li>
+
+
+
+        
 
         <li  data-step="3" data-intro="Or head over to your <br/><span style='font-weight:bold' class='text-danger'>'DTR Sheet'</span> and click on the push-pin icons to file a DTRP for that specific production date.<br/> <img src='public/img/dtr.jpg' /><br/><em> (assuming TL or WFM has already plotted your work schedule) </em><br/><br/><strong class='text-orange'><i class='fa fa-exclamation-triangle'></i> Reminder:</strong> If you're from Operations, coordinate with your immediate head and/or Workforce Management for leave application process." data-position='right' @if ( Request::is('user_dtr*') ) class="active" @endif ><a  @if ( Request::is('user_dtr*') ) class="active" @endif href="{{action('DTRController@show',Auth::user()->id)}}"><i class="fa fa-2x fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My DTR</a></li>
+
+        <li @if (Request::is('user/'.Auth::user()->id)) class="active" @endif><a href="{{action('UserController@show',Auth::user()->id)}}" > <i class="fa fa-2x fa-address-card-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My Profile</span></a></li>
 
          <li data-step="2" data-intro="..you may go to <br/><span style='font-weight:bold' class='text-danger'>'My Requests</span>' page and then select the type of request you want to submit. <br/><br/><strong>Note:</strong> Always include a brief reason when submitting requests." data-position='right'    @if ( Request::is('myRequests*') ) class="active" @endif ><a  @if ( Request::is('myRequests*') ) class="active" @endif href="{{action('UserController@myRequests',Auth::user()->id)}}"><i class="fa fa-2x fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  My Requests</a></li>
 

@@ -21,6 +21,7 @@ use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\Role;
 use OAMPI_Eval\User;
 use OAMPI_Eval\Cutoff;
+use OAMPI_Eval\UserForms;
 use OAMPI_Eval\User_Leader;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_DTRP;
@@ -90,12 +91,9 @@ class UserController extends Controller
       $today = Carbon::now('GMT+8');
 
 
-      ($this->user->userType_id == 11) ? $wfAgent=true : $wfAgent=false;
-      
-      (count($canDoThis)> 0 ) ? $hasUserAccess=1 : $hasUserAccess=0;
-      (count($wf) > 0) ? $isWorkforce=1 : $isWorkforce=0;
 
       $hr = Campaign::where('name','HR')->first();
+      $finance = Campaign::where('name','Finance')->first();
 
       $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
       if (in_array($this->user->id, $hrTeam))
@@ -103,6 +101,18 @@ class UserController extends Controller
         $isHR=1; $canAccessDir=1;
       }
       else { $isHR=false; $canAccessDir=false; }
+
+      $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+      
+
+      ($this->user->userType_id == 11) ? $wfAgent=true : $wfAgent=false;
+      ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+      
+      ($this->user->userType_id == 1) ? $superAdmin=1 : $superAdmin=0;
+
+      (count($canDoThis)> 0 ) ? $hasUserAccess=1 : $hasUserAccess=0;
+      (count($wf) > 0) ? $isWorkforce=1 : $isWorkforce=0;
 
 
 
@@ -164,14 +174,14 @@ class UserController extends Controller
         $correct = Carbon::now('GMT+8');
 
         if($this->user->id !== 564 ) {
-            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n Viewed all users - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n View ALL users - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         }
        
        //  return Datatables::collection($inactiveUsers)->make(true);
        //return $inactiveUsers;
-        return view('people.employee-index', compact('myCampaign', 'hasUserAccess','isWorkforce','wfAgent'));
+        return view('people.employee-index', compact('myCampaign','canBIR','superAdmin', 'hasUserAccess','isWorkforce','wfAgent'));
     }
 
     public function index_inactive()
@@ -820,8 +830,10 @@ class UserController extends Controller
                     leftJoin('statuses','users.status_id','=','statuses.id')->
                     leftJoin('userType','userType.id','=','users.userType_id')->
                     leftJoin('floor','team.floor_id','=','floor.id')->
+                    //leftJoin('user_forms','user_forms.user_id','=','users.id')->
+
                     
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard')->orderBy('users.lastname')->get();
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316')->orderBy('users.lastname')->get(); //'user_forms.filename as BIRform','user_forms.user_id as formOwner', 'user_forms.isSigned'
 
         } else {
 
@@ -838,11 +850,17 @@ class UserController extends Controller
                     leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
                     leftJoin('positions','users.position_id','=','positions.id')->
                     leftJoin('floor','team.floor_id','=','floor.id')->
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.has2316','users.hasSigned2316')->orderBy('users.lastname')->get();
         }
+
+        $allBIR = UserForms::where('formType','BIR2316')->get();
+
+        $allData = new Collection;
+        $allData->push(['data'=>$users,'BIR'=>$allBIR]);
         
 
-        return response()->json(['data'=>$users]);
+        //return response()->json(['data'=>$allData, 'BIR'=>$allBIR]);
+        return response()->json(['data'=>$users, 'BIR'=>$allBIR]);
 
          /* ------- faster method ----------- */        
 
