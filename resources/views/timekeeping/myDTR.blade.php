@@ -190,7 +190,7 @@
                                               <!-- ********** DTR BUTTONS ************** -->
                                               
                                               @if(count($payrollPeriod) > 1 && ( count($myDTR) >= count($payrollPeriod) ) )
-                                              <a id="lockDTR" class="btn btn-danger btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a>
+                                              <!-- <a id="lockDTR" class="btn btn-danger btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a> -->
                                               @endif
                                               <a id="unlock" class="btn btn-sm btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a>
                                               <a target="_blank" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-search"></i> View Uploaded Biometrics</a>
@@ -249,7 +249,8 @@
                                                           <!-- ******** PRODUCTION DATE ******* -->
 
                                                           <!-- <small style="font-size:x-small;">[{{$data['biometrics_id']}}]</small> -->
-                                                          <p class="pull-right">&nbsp;&nbsp; {{ $data['productionDate'] }} </p>
+                                                          <p class="pull-right">&nbsp;&nbsp; {{ $data['productionDate'] }}
+                                                            </p>
 
                                                           <input type="hidden" name="productionDate_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['productionDate'] }}">
 
@@ -264,7 +265,21 @@
 
                                                                   @else
 
+                                                                  <!-- *** WE RESTRICT LOCKING IF MAY PENDING ***  -->
+                                                                  @if( ($data['hasCWS'] && $data['usercws'][0]->isApproved == null) || $data['hasPendingIN'] || $data['hasPendingOUT'] || ($data['hasLeave'] && $data['leaveDetails'][0]['details']['isApproved'] == null)||
+                                                                  ($data['hasLWOP'] && $data['lwopDetails'][0]['details']['isApproved'] == null) ||
+                                                                  ($data['hasOT'] && $data['userOT'][0]->isApproved == null)  )
+                                                                  <a style="font-size: smaller;margin-right: 2px" title="Cannot Lock DTR " class="cannot pull-left btn btn-xs btn-danger" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-exclamation-triangle"></i> </a>
+
+
+                                                                  @else
+
                                                                   <a style="font-size: smaller;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+
+                                                                  @endif 
+
+
+                                                                  
 
                                                                   <a style="font-size: smaller;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
 
@@ -340,9 +355,24 @@
 
                                                                   @else
 
-                                                                  <a style="font-size: larger;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+                                                                      <!-- *** WE RESTRICT LOCKING IF MAY PENDING ***  -->
+                                                                      @if( ($data['hasCWS'] && $data['usercws'][0]->isApproved == null) || $data['hasPendingIN'] || $data['hasPendingOUT'] || ($data['hasLeave'] && $data['leaveDetails'][0]['details']['isApproved'] == null) ||
+                                                                      ($data['hasLWOP'] && $data['lwopDetails'][0]['details']['isApproved'] == null) ||
+                                                                      ($data['hasOT'] && $data['userOT'][0]->isApproved == null)  )
+                                                                      <a style="font-size: smaller;margin-right: 2px" title="Cannot Lock DTR " class="cannot pull-left btn btn-xs btn-danger" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-exclamation-triangle"></i> </a>
+
+
+
+                                                                      @else
+
+                                                                      <a style="font-size: smaller;margin-right: 2px" title="Lock DTR " class="lockDTR2 pull-left btn btn-xs btn-primary" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-unlock"></i> </a>
+
+                                                                      @endif 
+
+
+                                                                  
                                                                   <!-- <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a> -->
-                                                                  <a style="font-size: larger;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
+                                                                  <a style="font-size: smaller;" data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="reportDTRP text-red pull-left btn btn-xs btn-default" href="#" > <i class="fa fa-thumb-tack"></i></a>
 
                                                                   @include('layouts.modals-DTRissue', [
                                                                           'modelRoute'=>'user_cws.store',
@@ -2153,6 +2183,12 @@ $('select.end.form-control').on('change',function(){
   });
 
  /* ---- DTR LOCKING ------ */
+  $('.cannot').on('click', function(){
+
+    alert("Sorry, can't lock your DTR due to pending requests. \nKindly coordinate with your approver before proceeding with DTR locking.");
+
+  });
+
   $('#unlock').fadeOut();
   $('#lockDTR').on('click', function(){
 
