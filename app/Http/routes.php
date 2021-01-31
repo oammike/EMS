@@ -929,6 +929,16 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.dtrSheets',
       'uses'=>'DTRController@dtrSheets') );
 
+      Route::get('/DTRlockReport', array(
+      'as'=> 'user_dtr.lockReport',
+      'uses'=>'DTRController@lockReport') );
+
+      Route::post('/getAllNotLocked', array(
+      'as'=> 'user_dtr.getAllNotLocked',
+      'uses'=>'DTRController@getAllNotLocked') );
+
+      
+
       Route::post('/sheets/getValidated', array(
       'as'=> 'user_dtr.getValidatedDTRs',
       'uses'=>'DTRController@getValidatedDTRs') );

@@ -5385,6 +5385,45 @@ class DTRController extends Controller
 
     }
 
+    public function lockReport()
+    {
+      //Timekeeping trait getCutoffStartEnd()
+      $cutoffData = $this->getCutoffStartEnd();
+      $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
+      $cutoffEnd = $cutoffData['cutoffEnd'];
+
+       //Timekeeping Trait
+      $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+      $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
+
+      return view('timekeeping.dtrSheet-locks',compact('payrollPeriod','paycutoffs'));
+
+    }
+
+    public function getAllNotLocked(Request $request)
+    {
+
+
+
+      $cutoff = explode('_', $request->c);
+      DB::connection()->disableQueryLog();
+      $locks = new Collection;
+
+      $allDTR = collect(DB::table('user_dtr')->where('productionDate','>=',$cutoff[0])->where('productionDate','<=',$cutoff[1])->
+                join('users','users.id','=','user_dtr.user_id')->
+                join('team','team.user_id','=','users.id')->
+                join('campaign','campaign.id','=','team.campaign_id')->
+                select('user_dtr.user_id','users.lastname','users.firstname','campaign.name as program', 'user_dtr.productionDate')->
+                orderBy('users.lastname')->get())->groupBy('user_id');
+
+      foreach ($allDTR as $a) {
+        if(count($a) < 15)
+          $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1] ]);
+      }
+
+      return $locks; //[0]['deets']->program;
+    }
+
 
 
     public function getValidatedDTRs(Request $request)
