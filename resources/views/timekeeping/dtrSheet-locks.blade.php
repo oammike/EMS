@@ -22,7 +22,7 @@
 
 
           <div class="row">
-            <form id="dtrform" action="{{action('DTRController@downloadDTRsheet')}}" method="POST">
+            <form id="dtrform" action="{{action('DTRController@downloadDTRLockReport')}}" method="POST">
             <div class="col-lg-1"></div>
             <div class="col-lg-10" style="background: rgba(255, 255, 255, 0.4);"><BR/><BR/>
               <h3 class="text-primary">1. <span style="font-size: smaller;"> Select cutoff period :</span></h3>
@@ -49,9 +49,13 @@
               <div class="notes">
                
 
-              
+              <p class="text-center"> 
+                 <button type="submit" class="btn btn-md btn-success" id="dl"><i class="fa fa-save"></i> Download DTR Lock Report</button>
+                  
 
-                <table class="table table-striped" id="team">
+                </p>
+
+                <table class="table table-hover" id="team">
                   
                   
                 </table>
@@ -60,11 +64,7 @@
                   
                 
 
-                <p class="text-center"> 
-                 <!--  <button type="submit" class="btn btn-md btn-success" id="dl"><i class="fa fa-save"></i> Download DTR sheets</button>  -->
-                  
-
-                </p>
+                
               </div>
               
              
@@ -170,19 +170,20 @@
                       //var rdata = response.deets;
                       console.log(response);
                       var cutoffstart = response[0]['cutoffstart'];
-                      var cutoffend = response[0].cutoffend;
+                      var cutoffend = response[0]['cutoffend'];
+                      var totaldays = response[0]['totaldays'];
                       // var program = response.program;
                       // var members = response.users;
                       //console.log("array data:");
                       console.log(rdata);
 
                       //$('input[name="dtr"]').val(jQuery.param(rdata));
-                      // $('input[name="cutoffstart"]').val(cutoffstart);
-                      // $('input[name="cutoffend"]').val(cutoffend);
+                      $('input[name="cutoffstart"]').val(cutoffstart);
+                      $('input[name="cutoffend"]').val(cutoffend);
 
                       $('#team').html('');
 
-                      var htmltags="<tr><th>Employee</th><th>Program</th><th class='text-right'>Locked DTR entries</th><th></th></tr>";// "<tr>";
+                      var htmltags="<thead><th>Employee</th><th>Program</th><th class='text-right'>Locked DTR entries</th><th></th></thead>";// "<tr>";
 
                       if (response.length > 1)
                       {
@@ -199,8 +200,8 @@
 
                             htmltags += "<tr><td>"+(i+1)+". "+ deets['lastname']+", "+deets['firstname']+"</td>";
                             htmltags += "<td>"+ deets['program']+"</td>";
-                            htmltags += "<td class='text-right'>"+ count +" / " +"15</td>";
-                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+deets['user_id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+                            htmltags += "<td class='text-right'>"+ count +" / " + totaldays+"</td>";
+                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+deets['user_id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-primary'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
                           
 
                           

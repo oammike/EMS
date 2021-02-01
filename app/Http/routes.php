@@ -862,6 +862,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.downloadDTRsheet',
       'uses'=>'DTRController@downloadDTRsheet') );
 
+      Route::post('/downloadDTRLockReport', array(
+      'as'=> 'user_dtr.downloadDTRLockReport',
+      'uses'=>'DTRController@downloadDTRLockReport') );
+
       Route::post('/downloadLeaveSummary', array(
       'as'=> 'user_dtr.downloadLeaveSummary',
       'uses'=>'DTRController@downloadLeaveSummary') );

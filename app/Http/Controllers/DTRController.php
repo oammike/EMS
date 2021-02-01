@@ -1907,6 +1907,147 @@ class DTRController extends Controller
 
     }
 
+    public function downloadDTRLockReport(Request $request)
+    {
+      //$dtr = $request->dtr;
+      $cutoff = explode('_', $request->cutoff);
+      DB::connection()->disableQueryLog();
+      $locks = new Collection;
+
+    
+
+      $allDTR = collect(DB::table('user_dtr')->where('productionDate','>=',$cutoff[0])->where('productionDate','<=',$cutoff[1])->
+                join('users','users.id','=','user_dtr.user_id')->
+                join('team','team.user_id','=','users.id')->
+                join('campaign','campaign.id','=','team.campaign_id')->
+                select('user_dtr.user_id','users.employeeCode', 'users.lastname','users.firstname','campaign.name as program', 'user_dtr.productionDate')->
+                orderBy('users.lastname')->get())->groupBy('user_id');
+
+      foreach ($allDTR as $a) {
+        if(count($a) < 15)
+          $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1] ]);
+      }
+
+
+
+      $cutoffStart = Carbon::parse($cutoff[0],'Asia/Manila');
+      $cutoffEnd = Carbon::parse($cutoff[1],'Asia/Manila'); 
+      $totaldays = $cutoffStart->diffInDays($cutoffEnd);
+
+      DB::connection()->disableQueryLog();
+
+
+      $allDTRs = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      join('user_dtr', function ($join) use ($cutoff) {
+                          $join->on('users.id', '=', 'user_dtr.user_id')
+                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
+                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+                      })->
+
+                      
+                       select('users.accesscode','users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
+                      where([
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                      ])->orderBy('users.lastname')->get();
+      //return $result[0]['DTRs'];
+      $allDTR = collect($allDTRs)->groupBy('id');
+      //return $allDTR;
+      $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      
+                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      where([
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                      ])->orderBy('users.lastname')->get();
+
+      //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
+      
+      $headers = ['Employee Code', 'Formal Name','Program', 'Locked DTR entries'];
+      $description = "DTR Lock Report for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
+
+
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+      
+        // if($this->user->id !== 564 ) {
+        //       $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+        //         fwrite($file, "-------------------\n DL_FINANCE cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+        //         fclose($file);
+        // } 
+      Excel::create("DTR Lock Report_".$cutoffStart->format('M-d'),function($excel) use($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays) 
+              {
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d'));
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays) 
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+                        $hasProdate=false;
+
+                        foreach($locks as $jps)
+                        {
+                          $i = 0;
+
+                          //['Employee Code', 'Formal Name','Program', 'Locked DTR entries'];
+                          $arr[$i] = $jps['deets']->employeeCode; $i++;
+                          $arr[$i] = $jps['deets']->lastname.", ".$jps['deets']->firstname; $i++;
+
+                          $arr[$i] = $jps['deets']->program; $i++;
+                          $arr[$i] = $jps['count']." / ".$totaldays; $i++;
+
+                         
+
+                          $sheet->appendRow($arr);
+
+                          //end more than 1 day
+
+                            
+
+                          
+
+                        }//end foreach employee
+
+                        
+                      });//end sheet1
+
+              })->export('xls');return "Download";
+      
+
+      
+
+
+             
+
+      // return response()->json(['ok'=>true, 'dtr'=>$allDTR]);
+      // return view ('under-construction');
+
+    }
+
     public function downloadLeaveSummary(Request $request)
     {
       //$dtr = $request->dtr;
@@ -3342,6 +3483,8 @@ class DTRController extends Controller
       // return view ('under-construction');
 
     }
+
+
 
     public function financeReports()
     {
@@ -5408,6 +5551,9 @@ class DTRController extends Controller
       $cutoff = explode('_', $request->c);
       DB::connection()->disableQueryLog();
       $locks = new Collection;
+      $ps = Carbon::parse($cutoff[0],'Asia/Manila');
+      $pe = Carbon::parse($cutoff[1],'Asia/Manila');
+      $totaldays = $ps->diffInDays($pe);
 
       $allDTR = collect(DB::table('user_dtr')->where('productionDate','>=',$cutoff[0])->where('productionDate','<=',$cutoff[1])->
                 join('users','users.id','=','user_dtr.user_id')->
@@ -5418,7 +5564,7 @@ class DTRController extends Controller
 
       foreach ($allDTR as $a) {
         if(count($a) < 15)
-          $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1] ]);
+          $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1],'totaldays'=>$totaldays ]);
       }
 
       return $locks; //[0]['deets']->program;
