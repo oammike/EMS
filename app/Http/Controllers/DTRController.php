@@ -1940,31 +1940,7 @@ class DTRController extends Controller
       DB::connection()->disableQueryLog();
 
 
-      $allDTRs = DB::table('campaign')->where('campaign.id',$request->program)->
-                      join('team','team.campaign_id','=','campaign.id')->
-                      join('users','team.user_id','=','users.id')->
-                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                      leftJoin('positions','users.position_id','=','positions.id')->
-                      leftJoin('floor','team.floor_id','=','floor.id')->
-                      join('user_dtr', function ($join) use ($cutoff) {
-                          $join->on('users.id', '=', 'user_dtr.user_id')
-                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
-                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
-                      })->
-
-                      
-                       select('users.accesscode','users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
-                      where([
-                          ['users.status_id', '!=', 7],
-                          ['users.status_id', '!=', 8],
-                          ['users.status_id', '!=', 9],
-                          ['users.status_id', '!=', 13],
-                          ['users.status_id', '!=', 16],
-                      ])->orderBy('users.lastname')->get();
-      //return $result[0]['DTRs'];
-      $allDTR = collect($allDTRs)->groupBy('id');
-      //return $allDTR;
+      
       $allUsers = DB::table('users')->//where('campaign.id',$request->program)->
                       where([
                           ['users.status_id', '!=', 7],
@@ -1992,7 +1968,7 @@ class DTRController extends Controller
       //->first()->jobTitle; //[0]->jobTitle; //[0]->first()->jobTitle; //['leaderFname'];
       //return response()->json(['allLockedDTR'=>$allLockedDTR, 'noDTRs'=>$noDTRs,'diff'=>$calloutEmps->all()]);
       
-      $headers = ['Employee Code', 'Formal Name','Program', 'Locked DTR entries'];
+      $headers = ['Employee Code', 'Formal Name','Program','Immediate Head', 'Locked DTR entries'];
       $description = "DTR Lock Report for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
 
 
