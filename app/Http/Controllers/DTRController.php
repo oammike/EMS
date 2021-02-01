@@ -1913,6 +1913,7 @@ class DTRController extends Controller
       $cutoff = explode('_', $request->cutoff);
       DB::connection()->disableQueryLog();
       $locks = new Collection;
+      $allLocked = [];
 
     
 
@@ -1924,11 +1925,13 @@ class DTRController extends Controller
                 orderBy('users.lastname')->get())->groupBy('user_id');
 
       foreach ($allDTR as $a) {
-        if(count($a) < 15)
-          $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1] ]);
+        if(count($a) < 15){
+          array_push($allLocked, $a[0]->user_id);
+          $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1],'userID'=>$a[0]->user_id ]);
+        }
       }
 
-
+      $allLockedDTR = collect($locks->pluck('userID'));
 
       $cutoffStart = Carbon::parse($cutoff[0],'Asia/Manila');
       $cutoffEnd = Carbon::parse($cutoff[1],'Asia/Manila'); 
@@ -1962,24 +1965,32 @@ class DTRController extends Controller
       //return $result[0]['DTRs'];
       $allDTR = collect($allDTRs)->groupBy('id');
       //return $allDTR;
-      $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
-                      join('team','team.campaign_id','=','campaign.id')->
-                      join('users','team.user_id','=','users.id')->
-                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                      leftJoin('positions','users.position_id','=','positions.id')->
-                      leftJoin('floor','team.floor_id','=','floor.id')->
-                      
-                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+      $allUsers = DB::table('users')->//where('campaign.id',$request->program)->
                       where([
                           ['users.status_id', '!=', 7],
                           ['users.status_id', '!=', 8],
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
-                      ])->orderBy('users.lastname')->get();
+                      ])->
+                      //join('team','team.campaign_id','=','campaign.id')->
+                      join('team','team.user_id','=','users.id')->
+                      join('campaign','campaign.id','=','team.campaign_id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      
+                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      orderBy('users.lastname')->get();
+                      //select('users.id')->get();
+      $noDTRs = collect($allUsers)->pluck('id'); 
 
-      //return response()->json(['ok'=>true, 'dtr'=>$allDTRs]);
+      $calloutEmps = collect($noDTRs)->diff(collect($allLockedDTR));
+
+
+      //->first()->jobTitle; //[0]->jobTitle; //[0]->first()->jobTitle; //['leaderFname'];
+      //return response()->json(['allLockedDTR'=>$allLockedDTR, 'noDTRs'=>$noDTRs,'diff'=>$calloutEmps->all()]);
       
       $headers = ['Employee Code', 'Formal Name','Program', 'Locked DTR entries'];
       $description = "DTR Lock Report for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
@@ -1993,7 +2004,7 @@ class DTRController extends Controller
         //         fwrite($file, "-------------------\n DL_FINANCE cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
         //         fclose($file);
         // } 
-      Excel::create("DTR Lock Report_".$cutoffStart->format('M-d'),function($excel) use($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays) 
+      Excel::create("DTR Lock Report_".$cutoffStart->format('M-d'),function($excel) use($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays, $calloutEmps,$allUsers) 
               {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d'));
                       $excel->setCreator('Programming Team')
@@ -2002,7 +2013,7 @@ class DTRController extends Controller
                       // Call them separately
                       $excel->setDescription($description);
 
-                      $excel->sheet("Sheet1", function($sheet) use ($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays) 
+                      $excel->sheet("Sheet1", function($sheet) use ($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays,$allUsers) 
                       {
                         $sheet->appendRow($headers);      
 
@@ -2013,11 +2024,23 @@ class DTRController extends Controller
                         {
                           $i = 0;
 
-                          //['Employee Code', 'Formal Name','Program', 'Locked DTR entries'];
+                          //['Employee Code', 'Formal Name','Program', 'Immediate head', 'Locked DTR entries'];
                           $arr[$i] = $jps['deets']->employeeCode; $i++;
                           $arr[$i] = $jps['deets']->lastname.", ".$jps['deets']->firstname; $i++;
 
+                          //PROGRAM
                           $arr[$i] = $jps['deets']->program; $i++;
+
+                          //IMMEDIATE HEAD
+                          $ih = collect($allUsers)->where('id',$jps['deets']->user_id)->pluck('leaderFname','leaderLname'); //->all();
+                          foreach ($ih as $key => $value) {
+                            # code...
+                            $tl = $value." ".$key;
+                          }
+                          
+
+      
+                          $arr[$i] = $tl; $i++;
                           $arr[$i] = $jps['count']." / ".$totaldays; $i++;
 
                          
