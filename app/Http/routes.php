@@ -144,6 +144,26 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::post('/user_forms/uploadFile', array(
         'as'=> 'user_forms.uploadFile',
         'uses'=>'UserFormController@uploadFile') );
+
+    Route::post('/user_forms/bulkUploadFile', array(
+        'as'=> 'user_forms.bulkUploadFile',
+        'uses'=>'UserFormController@bulkUploadFile') );
+
+
+    Route::post('/user_forms/disqualifyForFiling', array(
+        'as'=> 'user_forms.disqualifyForFiling',
+        'uses'=>'UserFormController@disqualifyForFiling') );
+
+
+    Route::get('/bulkCreate', array(
+        'as'=> 'user_forms.bulkCreate',
+        'uses'=>'UserFormController@bulkCreate') );
+
+
+    Route::get('/downloadUserForm', array(
+        'as'=> 'user_forms.downloadUserForm',
+        'uses'=>'UserFormController@downloadUserForm') );
+
     Route::get('/viewUserForm', array(
         'as'=> 'user_forms.viewUserForm',
         'uses'=>'UserFormController@viewUserForm') );

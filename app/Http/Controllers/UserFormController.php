@@ -10,6 +10,7 @@ use \Mail;
 use \DB;
 use \App;
 use \Response;
+use ZipArchive;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
@@ -23,6 +24,7 @@ use OAMPI_Eval\User;
 use OAMPI_Eval\Cutoff;
 use OAMPI_Eval\UserForms;
 use OAMPI_Eval\UserForm_Access;
+use OAMPI_Eval\UserForm_DisqFiling;
 use OAMPI_Eval\User_Leader;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_DTRP;
@@ -82,6 +84,176 @@ class UserFormController extends Controller
         $this->initLoad =100;
     }
 
+    public function bulkCreate(Request $request)
+    {
+        $foreignPartime = null;
+        //check first kung may plotted sched and if approver submitted
+        if(is_null($request->for))
+            {
+                $user = $this->user;
+                $forSomeone = null;
+            }
+            else{
+
+                $user = User::find($request->for);
+                $forSomeone = $user;
+
+                
+            }
+
+        (is_null($request->t)) ? $formType = 'BIR2316' : $formType = $request->t;
+        (is_null($request->s)) ? $isSigned = 0 : $isSigned = $request->s;
+
+        $finance = Campaign::where('name','Finance')->first();
+        $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+        
+        ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+
+                
+            
+                 
+
+        if (count( (array)$user) <1) return view('empty');
+        else
+        {
+            ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 ) ? $isAllowed = true : $isAllowed=false;
+
+            $correct = Carbon::now('GMT+8'); 
+
+            $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+            /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+            $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+            $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+            $correct = Carbon::now('GMT+8');
+
+            //if($this->user->id !== 564 ) {
+                $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n UserForm create - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            //}
+
+            if(!$canBIR) return view('access-denied');
+            else
+                return view('forms.userForms_bulk',compact('user','isAllowed','isSigned','formType'));
+
+        }
+        
+         
+        
+    }
+
+    public function bulkUploadFile(Request $request)
+    {
+        
+        $attachments = $request->file('attachments');
+        
+
+        $today = Carbon::now('GMT+8')->format('Y-m-d_H_i_s');
+        $destinationPath = storage_path() . '/uploads/forms/finance';
+        //$destinationPath2 = storage_path() . '/uploads/forms/finance/bulk';
+        $extension = Input::file('attachments')->getClientOriginalExtension(); // getting image extension
+        if($request->isSigned)
+        $fileName = $today.'-user-'.$request->userid.'-'.$request->formType.'_signed.'.$extension; // renameing image
+        else
+        $fileName = $today.'-user-'.$request->userid.'-'.$request->formType.'.'.$extension; // renameing image
+
+        $attachments->move($destinationPath, $fileName); // uploading file to given path
+
+        $path = $destinationPath."/".$fileName;
+
+        $zip = new ZipArchive;
+        $zipped = new Collection;
+        $uploadedEmp = new Collection;
+
+        if ($zip->open($path) === true) {
+            for($i = 0; $i < $zip->numFiles; $i++) {
+                $filename = $zip->getNameIndex($i);
+                $fileinfo = pathinfo($filename);
+                $zipped->push($filename);
+
+                //process the files and associate it to corresponding employee
+                if ( strpos($filename, "__") === false )
+                {
+                    $e = explode(".", $filename);
+                    $emp = User::where('employeeCode',$e[0])->get();
+
+                    if(count($emp) > 0)
+                    {
+                        $employee = $emp->first();
+                        $uf = new UserForms;
+                        $uf->user_id = $employee->id;
+
+                        if($request->formType == "BIR2316_NQ")
+                        {
+                            $uf->formType = 'BIR2316';
+                            $employee->disqForFiling = 1;
+                        }else
+                        {
+                            $uf->formType = $request->formType;
+                        }
+                        
+                        $uf->isSigned = $request->isSigned;
+
+
+                        $uf->filename = $filename;
+                        $uf->userUploader = $this->user->id;
+                        $uf->save();
+
+                        //update User table
+                        //$u = User::find($request->userid);
+                        ($request->isSigned) ? $employee->hasSigned2316 = 1 : $employee->has2316 = 1;
+
+                        /*if($request->isSigned){
+
+                            if($request->formType == 'BIR2316') { $employee->hasSigned2316 = 1; } 
+                            if($request->formType == 'BIR2316') { $employee->hasSigned2316_NQ = 1; }
+
+
+                        }else{
+                            if($request->formType == 'BIR2316') { $employee->has2316 = 1; } 
+                            if($request->formType == 'BIR2316') { $employee->has2316_NQ = 1; }
+
+                           
+                        } */
+
+                       
+                        $employee->push();
+
+                        $uploadedEmp->push(['employee'=>$e, 'file'=>$filename]);
+
+                    }
+
+                    
+
+                }
+                //copy("zip://".$path."#".$filename, "/your/new/destination/".$fileinfo['basename']);
+            }
+
+            $zip->extractTo($destinationPath);
+            $zip->close();                  
+        }
+
+            
+              
+              
+
+            
+        /* -------------- log updates made --------------------- */
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "\n-------------------\n ".$request->formType." UP : ". $fileName ."  by [". $this->user->id."], ".$this->user->lastname."\n");
+        fclose($file);
+
+        
+
+        
+
+        return response()->json(['success'=>1,'zipped'=>$zipped, 'uploadedEmp'=>$uploadedEmp]);
+
+
+    }
+
     public function create(Request $request)
     {
         $foreignPartime = null;
@@ -133,6 +305,92 @@ class UserFormController extends Controller
         
          
         
+    }
+
+    public function disqualifyForFiling(Request $request)
+    {
+        $disqualify = new UserForm_DisqFiling;
+        $disqualify->user_id = $this->user->id;
+
+        /* REASONS
+        1 = Individuals deriving other non-business, non-profession-related income in addition to compensation not otherwise subject to final tax.
+        2 = Individuals deriving purely compensation income from a single employer, although the income of which has been correctly subjected to withholding tax, but whose spouse is not entitled to substituted filing. 
+        3 = Non-resident aliens engaged in trade or business in the Philippines deriving purely compensation income or compensation income and other business or profession related income.
+        */
+
+        $disqualify->reasonID = $request->reason;
+        $correct = Carbon::now('GMT+8'); 
+        $disqualify->created_at = $correct->format('Y-m-d H:i:s');
+        $disqualify->updated_at = $correct->format('Y-m-d H:i:s');
+        $disqualify->save();
+
+        //update employee user table
+        $u = User::find($this->user->id);
+        $u->disqForFiling = 1;
+        $u->push();
+
+        return response()->json(['success'=>1,'data'=>$disqualify]);
+
+
+    }
+
+    public function downloadUserForm(Request $request)
+    {
+        
+        ($request->u) ? $userID=$request->u : $userID= $this->user->id;
+        $user = User::find($userID);
+        ($request->f) ? $formType = $request->f : $formType = "BIR2316";
+        ($request->s) ? $signed=1 : $signed=0;
+        $correct = Carbon::now('GMT+8'); 
+
+        //
+        $finance = Campaign::where('name','Finance')->first();
+        $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+
+        ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 ) ? $isAllowed = true : $isAllowed=false;
+
+        if($isAllowed || $this->user->id == $userID || $isFinance)
+        {
+
+            $item = UserForms::where('user_id',$userID)->where('formType',$formType)->where('isSigned',$signed)->orderBy('id','DESC')->get();
+            if(count($item) > 0){
+
+                //log access
+                /*$l = new UserForm_Access;
+                $l->user_formID = $item->first()->id;
+                $l->accessedBy = $this->user->id;
+                $l->created_at = $correct->format('Y-m-d H:i:s');
+                $l->updated_at = $correct->format('Y-m-d H:i:s');
+                $l->save();*/
+                //return $l;
+                $employee = User::find($userID);
+
+                if($employee->disqForFiling)
+                    return view('forms.userForms_downloadDisq',compact('user','isAllowed','signed','formType'));
+                else
+                    return view('forms.userForms_download',compact('user','isAllowed','signed','formType'));
+                //return response()->file(storage_path('uploads/forms/finance/'.$item->first()->filename));
+            }
+            else return view('empty');
+
+        } 
+        else{
+
+
+            //if($this->user->id !== 564 ) {
+                $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Attempt UserForm View[".$userID."] - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            //}
+                return view('access-denied');
+        } 
+
+        
+        //return redirect(asset('storage/resources/'.$item->link)); //response()->json($item);
+        //return response()->download(storage_path('/resources/'.$item->link));
+        
+
     }
 
     public function uploadFile(Request $request)
@@ -216,7 +474,7 @@ class UserFormController extends Controller
 
 	        //if($this->user->id !== 564 ) {
 	            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-	            fwrite($file, "-------------------\n Attempt UserForm View - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+	            fwrite($file, "-------------------\n Attempt UserForm View[".$userID."] - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
 	            fclose($file);
 	        //}
 	            return view('access-denied');

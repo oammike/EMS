@@ -383,11 +383,11 @@
             
             
               @if($u->hasSigned2316)
-              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('UserFormController@viewUserForm',['u'=>$u->id, 'f'=>'BIR2316','s'=>1])}}"><i class="fa fa-download"></i> Download digital copy </a> </li>
-              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a href="#" style="text-decoration: line-through;"><i class="fa fa-check-square-o"></i> Upload Signed Copy </a> 
+              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('UserFormController@viewUserForm',['u'=>$u->id, 'f'=>'BIR2316', 's'=>1])}}"><i class="fa fa-download"></i> Download digital copy </a> </li>
+              <li @if (Request::is('downloadUserForm*')) class="active" @endif style="padding-left:20px"><a href="#" style="text-decoration: line-through;"><i class="fa fa-check-square-o"></i> Upload Signed Copy </a> 
 
               @else
-              <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('UserFormController@viewUserForm',['u'=>$u->id, 'f'=>'BIR2316'])}}"><i class="fa fa-download"></i> Download digital copy </a> </li>
+              <li @if (Request::is('downloadUserForm*')) class="active" @endif style="padding-left:20px"><a target="_blank" href="{{action('UserFormController@downloadUserForm',['u'=>$u->id, 'f'=>'BIR2316'])}}"><i class="fa fa-download"></i> Download digital copy </a> </li>
               <li @if (Request::is('viewUserForm*')) class="active" @endif style="padding-left:20px"><a href="{{action('UserFormController@create',['s'=>1,'t'=>'BIR2316'])}}"><i class="fa fa-upload"></i> Upload Signed PDF </a> </li>
               </li>
 
@@ -590,6 +590,19 @@
 
           </ul>
         </li>  <?php }  ?>
+
+
+        <!-- FINANCE FORMS -->
+        <li class="treeview @if (Request::is('bulkCreate')) active @endif">
+          <a href="#">
+            <i class="fa fa-calculator"></i> <span>Finance</span>
+            <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+            <li style="padding-left:20px"><a href="{{action('UserFormController@bulkCreate')}} "><i class="fa fa-upload"></i> Upload BIR Forms</a></li>
+           <!--  <li  @if (Request::is('evalForm')) class="active" @endif  style="padding-left:20px"><a href="{{action('EvalFormController@index')}} "><i class="fa fa-file-o"></i> View All</a></li> -->
+          </ul>
+        </li>  
 
 
 
