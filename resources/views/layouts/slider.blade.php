@@ -4,6 +4,24 @@
               
 
             <div class="item active text-center" >
+                  <img src="storage/uploads/2021goals.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-pencil"></i> Top 3 Goals for 2021 <br/><small>Feb.01, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Survey says 75% of us don’t stick with our New Year’s resolutions. <br/><br/>Rather than sharing what these resolutions are, how about sharing WHAT YOUR TOP 3 GOALS are for this year and earn 20 points!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',40)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/bookclub.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-book"></i> Calling all  <span class="text-primary">bookworms!!! <br/><small>Jan.27, 2021</small><br/>
                   
