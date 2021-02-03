@@ -4,6 +4,26 @@
               
 
             <div class="item active text-center" >
+                  <img src="storage/uploads/goalSetting.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Leadership Training<br/><span class="text-primary"><i class="fa fa-users"></i> Goal Setting &amp; Coaching <br/><small>Feb.03, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Whether you are new to the leadership role or a seasoned veteran - you'll find this e-learning pack as a helpful resource to either learn or revisit the fundamentals of goal setting and coaching<br/><br/>
+
+                      <strong>ENROLL NOW!</strong><br/>
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/catalog/" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/2021goals.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-pencil"></i> Top 3 Goals for 2021 <br/><small>Feb.01, 2021</small><br/>
                   
