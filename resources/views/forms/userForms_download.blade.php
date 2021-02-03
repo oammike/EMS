@@ -109,17 +109,17 @@
                                   </div>
 
                                   <div id="notqualified">
-                                    <h4>You are <strong>Not Qualified</strong> for substituted filing </h4>
-                                    You are not qualified for substituted filing due to the following reasons:
+                                    <h4>You are <strong>Not Qualified</strong> for substituted filing </h4><br/>
+                                    You are not qualified because you qualify under the criteria of number 1:<br/><br/>
 
-                                    <ul>
+                                    <ol>
                                       <li>an individual deriving compensation income from two or more employers, concurrently or successively at anytime during the taxable year</li>
                                       <li>an employee deriving compensation income, regardless of amount, whether from a single or several employers during the calendar year, the income tax of which has not been withheld correctly (i.e. tax due is not equal to the tax withheld) resulting to a collectible or refundable return</li>
                                       <li>an employee whose monthly gross compensation income does not exceed Five Thousand Pesos (P5,000) or the statutory minimum wage, whichever is higher, and opted for non-withholding of tax on said income</li>
                                       <li>an Individual deriving other non-business, non-profession-related income in addition to compensation not otherwise subject to final tax</li>
                                       <li>an Individual deriving purely compensation income from a single employer, although the income of which has been correctly subjected to withholding tax, but whose spouse is not entitled to substituted filing</li>
                                       <li>a Non-resident alien engaged in trade or business in the Philippines deriving purely compensation income or compensation income and other business or profession related income</li> 
-                                    </ul>
+                                    </ol>
 
                                     <p>As a taxpayer, it is your responsibility to file for your Annual Income Tax Return. However, you may opt to avail the company’s assistance in the computation, encoding, and filing of your Annual Income Tax Return.  Further instructions will be provided soon.  Any tax payable will be paid by the taxpayer/ employee to any accredited payment center by the BIR.</p>
 
