@@ -5904,7 +5904,13 @@ trait TimekeepingTraits
 
                       $sSh = Carbon::parse($startOfShift->format('Y-m-d H:i'),'Asia/Manila')->addHours(5);
 
-                      $totalbill = number_format(($userLogOUT[0]['timing']->diffInMinutes($sSh)-480 )/ 60,2);   //$sSh->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                      //kunin mo muna ilang hours bago sya nagOUT kung legit OT
+                      $bagoMagout = number_format( (($userLogOUT[0]['timing']->diffInMinutes($endOfShift))/60)-$UT,2);
+
+                      if ($bagoMagout > $UT)
+                        $totalbill = $bagoMagout;
+                      else
+                        $totalbill =  number_format(($userLogOUT[0]['timing']->diffInMinutes($sSh)-480 )/ 60,2);   //$sSh->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
                     }
 
 
