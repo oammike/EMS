@@ -121,6 +121,9 @@
                                       <li>a Non-resident alien engaged in trade or business in the Philippines deriving purely compensation income or compensation income and other business or profession related income</li> 
                                     </ul>
 
+                                    <p>As a taxpayer, it is your responsibility to file for your Annual Income Tax Return. However, you may opt to avail the company’s assistance in the computation, encoding, and filing of your Annual Income Tax Return.  Further instructions will be provided soon.  Any tax payable will be paid by the taxpayer/ employee to any accredited payment center by the BIR.</p>
+
+
                                     
 
                                      <p><br/><strong>Instructions:</strong><br/><br/>
