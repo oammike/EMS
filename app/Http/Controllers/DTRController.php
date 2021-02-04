@@ -1982,6 +1982,9 @@ class DTRController extends Controller
 
       $calloutEmps = collect($noDTRs)->diff(collect($allLockedDTR));
 
+      // $x = collect($allUsers)->where('id',564);
+
+      // return $x->first()->firstname;
 
       //->first()->jobTitle; //[0]->jobTitle; //[0]->first()->jobTitle; //['leaderFname'];
       //return response()->json(['allLockedDTR'=>$allLockedDTR, 'noDTRs'=>$noDTRs,'calloutEmps'=>$calloutEmps]);
@@ -2007,12 +2010,13 @@ class DTRController extends Controller
                       // Call them separately
                       $excel->setDescription($description);
 
-                      $excel->sheet("Sheet1", function($sheet) use ($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays,$allUsers) 
+                      $excel->sheet("Sheet1", function($sheet) use ($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays,$allUsers,$calloutEmps) 
                       {
                         $sheet->appendRow($headers);      
 
                         $arr = [];
                         $hasProdate=false;
+
 
                         foreach($locks as $jps)
                         {
@@ -2036,6 +2040,43 @@ class DTRController extends Controller
       
                           $arr[$i] = $tl; $i++;
                           $arr[$i] = $jps['count']." / ".$totaldays; $i++;
+
+                         
+
+                          $sheet->appendRow($arr);
+
+                          //end more than 1 day
+
+                            
+
+                          
+
+                        }//end foreach employee
+
+                        foreach($calloutEmps as $j)
+                        {
+                          $i = 0;
+
+                          //['Employee Code', 'Formal Name','Program', 'Immediate head', 'Locked DTR entries'];
+                          $jps = collect($allUsers)->where('id',$j); //->first();
+
+                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('employeeCode'); $i++;
+                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('lastname').", ".collect($allUsers)->where('id',$j)->pluck('firstname'); $i++;
+
+                          //PROGRAM
+                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('program'); $i++;
+
+                          //IMMEDIATE HEAD
+                          $ih = collect($allUsers)->where('id',$j)->pluck('leaderFname','leaderLname'); //->all();
+                          foreach ($ih as $key => $value) {
+                            # code...
+                            $tl = $value." ".$key;
+                          }
+
+                          
+      
+                          $arr[$i] = $tl; $i++;
+                          $arr[$i] = "0 / ".$totaldays; $i++;
 
                          
 
