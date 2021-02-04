@@ -465,7 +465,8 @@ class UserFormController extends Controller
 
     public function uploadFile(Request $request)
     {
-    	$uf = new UserForms;
+    	$correct = Carbon::now('GMT+8'); 
+        $uf = new UserForms;
     	$uf->user_id = $request->userid;
     	$uf->formType = $request->formType;
     	$uf->isSigned = $request->isSigned;
@@ -492,6 +493,8 @@ class UserFormController extends Controller
             fclose($file);
 
     	$uf->userUploader = $this->user->id;
+        $uf->created_at = $correct->format('Y-m-d H:i:s');
+        $uf->updated_at = $correct->format('Y-m-d H:i:s');
     	$uf->save();
 
     	//update User table
