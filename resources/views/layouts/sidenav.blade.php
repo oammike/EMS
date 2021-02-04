@@ -623,7 +623,7 @@
 
 
 
-         <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') ) active @endif ">
+         <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') || Request::is('DTRlockReport*') ) active @endif ">
           <a href="#">
             <i class="fa fa-clock-o"></i> <span>Timekeeping</span>
             <i class="fa fa-angle-left pull-right"></i>
@@ -648,6 +648,10 @@
 
 
             <hr /><!--  -->
+
+            <li style="padding-left:20px" @if ( Request::is('DTRlockReport*') ) class="active" @endif ><a href="{{action('DTRController@lockReport')}}"><i class="fa fa-lock"></i> DTR Lock Report</a></li>
+
+
             <li style="padding-left:20px" @if ( Request::is('user_dtr*') ) class="active" @endif ><a href="{{action('DTRController@dtrSheets')}}"><i class="fa fa-download"></i> DTR Sheets</a></li>
 
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@wfm_DTRsummary')}}"><i class="fa fa-file-o"></i>DTR Summary </a></li>

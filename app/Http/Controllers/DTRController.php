@@ -1975,11 +1975,11 @@ class DTRController extends Controller
       $correct = Carbon::now('GMT+8'); //->timezoneName();
 
       
-        // if($this->user->id !== 564 ) {
-        //       $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-        //         fwrite($file, "-------------------\n DL_FINANCE cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
-        //         fclose($file);
-        // } 
+        if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL_LockReport: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
       Excel::create("DTR Lock Report_".$cutoffStart->format('M-d'),function($excel) use($locks, $cutoffStart, $cutoffEnd, $headers,$description, $totaldays, $calloutEmps,$allUsers) 
               {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d'));
@@ -5533,12 +5533,34 @@ class DTRController extends Controller
       $cutoffData = $this->getCutoffStartEnd();
       $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
       $cutoffEnd = $cutoffData['cutoffEnd'];
+      $correct = Carbon::now('GMT+8'); 
 
        //Timekeeping Trait
       $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
       $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
 
-      return view('timekeeping.dtrSheet-locks',compact('payrollPeriod','paycutoffs'));
+      $financeDept = Campaign::where('name',"Finance")->first();
+      $finance = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+      (count($finance) > 0) ? $isFinance = 1 : $isFinance=0;
+
+      if ( $this->user->userType_id ==1 || $isFinance) {
+        
+        if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DTRLockReport on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+
+        return view('timekeeping.dtrSheet-locks',compact('payrollPeriod','paycutoffs'));
+      }
+      else {
+        if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Attempt LockReport on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+        return view('access-denied');
+      }
 
     }
 
