@@ -84,6 +84,27 @@ class UserFormController extends Controller
         $this->initLoad =100;
     }
 
+    public function index()
+    {
+        $correct = Carbon::now('GMT+8');
+        $finance = Campaign::where('name','Finance')->first();
+        $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+        
+        ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+
+        if($canBIR) {
+            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n IDXview BIR - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+
+            return view('forms.userForms-index');
+        } 
+        else
+            return view('access-denied');
+
+    }
+
     public function bulkCreate(Request $request)
     {
         $foreignPartime = null;
@@ -391,6 +412,34 @@ class UserFormController extends Controller
         //return response()->download(storage_path('/resources/'.$item->link));
         
 
+    }
+
+    public function getAllForms()
+    {
+        DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
+        $finance = Campaign::where('name','Finance')->first();
+        $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+        
+        ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+
+        if($canBIR)
+        $all = DB::table('user_forms')->
+                join('users','user_forms.user_id','=','users.id')->
+                leftJoin('team','team.user_id','=','user_forms.user_id')->
+                join('campaign','campaign.id','=','team.campaign_id')->
+                select('users.id','users.firstname','users.lastname','users.nickname', 'campaign.name as program','campaign.id as campID', 'user_forms.id as formID','users.has2316','users.hasSigned2316','users.disqForFiling','user_forms.isSigned', 'user_forms.filename','user_forms.created_at')->
+                where(
+                    'user_forms.isSigned',1
+                )->
+                // where(
+                //         ['users.hasSigned2316',1],
+                //         ['user_forms.isSigned',1])->
+                orderBy('user_forms.created_at','DESC')->get();
+        else $all=new Collection;
+        
+        return response()->json(['data'=>$all]);
     }
 
     public function uploadFile(Request $request)

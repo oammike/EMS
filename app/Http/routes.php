@@ -141,6 +141,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
     //********************** BIR FORMS -----------------------
+    Route::get('/getAllForms', array(
+        'as'=> 'user_forms.getAllForms',
+        'uses'=>'UserFormController@getAllForms') );
+
     Route::post('/user_forms/uploadFile', array(
         'as'=> 'user_forms.uploadFile',
         'uses'=>'UserFormController@uploadFile') );
