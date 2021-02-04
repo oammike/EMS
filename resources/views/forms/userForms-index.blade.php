@@ -215,7 +215,7 @@
                       "deferRender": true,
                       "processing":true,
                       "stateSave": true,
-                      "order": [ 1, "asc" ],
+                      "order": [ 0, "asc" ],
                       "lengthMenu": [20, 100, 500],
                       
                       "columns": [
@@ -225,8 +225,8 @@
                               
                                 return '<a style="font-weight:bolder" href="user/'+full.id+'" target="_blank">'+full.lastname.toUpperCase()+', '+full.firstname+'<br/><small><em>( '+full.nickname+' )</em></small></a>';}}, 
                             
-                            { title: "Program", defaultContent: " ", data:'jobTitle',width:'180', render:function(data, type, full, meta ){
-                              return'<small>'+data+'</small><br/><strong>'+full.program+' &nbsp;<a target="_blank" class="text-black" href="campaign/'+full.campID+'"><i class="fa fa-external-link"></i></a></strong>';
+                            { title: "Program", defaultContent: " ", data:'program',width:'180', render:function(data, type, full, meta ){
+                              return'<strong>'+data+' &nbsp;<a target="_blank" class="text-black" href="campaign/'+full.campID+'"><i class="fa fa-external-link"></i></a></strong>';
                             } }, // 1
 
                              { title: "Date Signed " ,defaultContent: "<i>empty</i>", data:'created_at',width:'130', render:function(data,type,full,meta){
@@ -242,7 +242,7 @@
                              { title: "Qualified For Subsituted Filing?", defaultContent: " ", data:'disqForFiling', render:function(data,type,full,meta){
                               if(data)
                                 return "YES";
-                              else return "NO";
+                              else return "Disqualified";
                             }}, // 1
                              
                             { title: "Actions", data:'id', class:'text-center',width:'55', sorting:false, render: function ( data, type, full, meta ) {

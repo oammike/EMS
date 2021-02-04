@@ -105,6 +105,11 @@ class UserFormController extends Controller
 
     }
 
+    public function auditTrail()
+    {
+        
+    }
+
     public function bulkCreate(Request $request)
     {
         $foreignPartime = null;
