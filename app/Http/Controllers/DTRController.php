@@ -1961,7 +1961,7 @@ class DTRController extends Controller
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
                           ['users.id','!=', 1], //Ben
-                          ['users.id','!=', 184] //Henry
+                          ['users.id','!=', 184], //Henry
                           ['floor.id', '!=', 10], //taipei
                           ['floor.id', '!=', 11], //xiamen
                       ])->
