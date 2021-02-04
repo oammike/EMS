@@ -1952,7 +1952,7 @@ class DTRController extends Controller
                       leftJoin('floor','team.floor_id','=','floor.id')->
                       
                       
-                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','floor.id as floorID')->
+                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','users.employeeCode', 'floor.name as location','floor.id as floorID')->
 
                       where([
                           ['users.status_id', '!=', 7],
@@ -2060,11 +2060,11 @@ class DTRController extends Controller
                           //['Employee Code', 'Formal Name','Program', 'Immediate head', 'Locked DTR entries'];
                           $jps = collect($allUsers)->where('id',$j); //->first();
 
-                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('employeeCode'); $i++;
-                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('lastname').", ".collect($allUsers)->where('id',$j)->pluck('firstname'); $i++;
+                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('employeeCode')->first(); $i++;
+                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('lastname')->first().", ".collect($allUsers)->where('id',$j)->pluck('firstname')->first(); $i++;
 
                           //PROGRAM
-                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('program'); $i++;
+                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('program')->first(); $i++;
 
                           //IMMEDIATE HEAD
                           $ih = collect($allUsers)->where('id',$j)->pluck('leaderFname','leaderLname'); //->all();
