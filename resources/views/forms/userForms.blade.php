@@ -108,7 +108,7 @@
                         </div><!--end pane vl-->
 
                         <div class="clearfix"></div>
-                        <a onclick="javascript:window.history.back();" class="back btn btn-default btn-lg pull-right" style="font-weight:bold;margin-top:0px; z-index:999"><i class="fa fa-angle-double-left"></i> &nbsp;Back</a>
+                        <a href="{{ action('HomeController@home') }}" class="back btn btn-default btn-lg pull-right" style="font-weight:bold;margin-top:0px; z-index:999"><i class="fa fa-angle-double-left"></i> &nbsp;Back</a>
                      
                       
 
