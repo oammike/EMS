@@ -107,6 +107,22 @@ class UserFormController extends Controller
 
     public function auditTrail()
     {
+        $correct = Carbon::now('GMT+8');
+        $finance = Campaign::where('name','Finance')->first();
+        $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+        
+        ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+
+        if($canBIR) {
+            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n IDXview BIR - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+
+            return view('forms.userForms-auditTrail');
+        } 
+        else
+            return view('access-denied');
         
     }
 

@@ -599,6 +599,8 @@
             <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
+            <li style="padding-left:20px"><a href="{{action('UserFormController@index')}} "><i class="fa fa-file-o"></i> View All Signed Forms</a></li>
+            <li style="padding-left:20px"><a href="{{action('UserFormController@auditTrail')}} "><i class="fa fa-search"></i> Audit Trail</a></li>
             <li style="padding-left:20px"><a href="{{action('UserFormController@bulkCreate')}} "><i class="fa fa-upload"></i> Upload BIR Forms</a></li>
            <!--  <li  @if (Request::is('evalForm')) class="active" @endif  style="padding-left:20px"><a href="{{action('EvalFormController@index')}} "><i class="fa fa-file-o"></i> View All</a></li> -->
           </ul>

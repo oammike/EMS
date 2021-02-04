@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>All Digital Forms | OAMPI Evaluation System</title>
+<title>Audit Trail Digital Forms | OAMPI Evaluation System</title>
 
 <style type="text/css">
     /* Sortable items */
@@ -65,7 +65,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        All Digital Forms
+        Audit Trail Digital Forms
         
       </h1>
       <ol class="breadcrumb">
@@ -90,7 +90,7 @@
                 <!-- Custom Tabs -->
                                               <div class="nav-tabs-custom">
                                                 <ul class="nav nav-tabs">
-                                                  <li class="active"><a href="#tab_1" data-toggle="tab"><strong class="text-primary ">Signed BIR 2316 <span id="actives"></span> </strong></a></li>
+                                                  <li class="active"><a href="#tab_1" data-toggle="tab"><strong class="text-primary ">All User Access to Signed BIR 2316 <span id="actives"></span> </strong></a></li>
                                                  <!--  <li><a href="{{action('UserController@index_inactive')}}" ><strong class="text-primary">All NON-QUALIFIED <span id="inactives"></span></strong></a></li>
                                                   <li><a href="{{action('UserController@index_floating')}}" ><strong class="text-primary">ALL QUALIFIED <span id="floating"></span></strong></a></li> -->
                                                  
@@ -231,7 +231,7 @@
 
                              { title: "Date Signed " ,defaultContent: "<i>empty</i>", data:'created_at',width:'130', render:function(data,type,full,meta){
 
-                              var m = moment(data).format('YYYY-MM-DD HH:mm:ss');
+                              var m = moment(data).format('YYYY-MM-DD');
                               if (m == "1970-01-01")
                                 return "N/A";
                               else 
