@@ -1935,7 +1935,7 @@ class DTRController extends Controller
 
       $cutoffStart = Carbon::parse($cutoff[0],'Asia/Manila');
       $cutoffEnd = Carbon::parse($cutoff[1],'Asia/Manila'); 
-      $totaldays = $cutoffStart->diffInDays($cutoffEnd);
+      $totaldays = ($cutoffStart->diffInDays($cutoffEnd) ) + 1;
 
       DB::connection()->disableQueryLog();
 
@@ -5633,7 +5633,7 @@ class DTRController extends Controller
       $locks = new Collection;
       $ps = Carbon::parse($cutoff[0],'Asia/Manila');
       $pe = Carbon::parse($cutoff[1],'Asia/Manila');
-      $totaldays = $ps->diffInDays($pe);
+      $totaldays = ($ps->diffInDays($pe))+1;
 
       $allDTR = collect(DB::table('user_dtr')->where('productionDate','>=',$cutoff[0])->where('productionDate','<=',$cutoff[1])->
                 join('users','users.id','=','user_dtr.user_id')->
