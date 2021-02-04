@@ -1924,8 +1924,12 @@ class DTRController extends Controller
                 select('user_dtr.user_id','users.employeeCode', 'users.lastname','users.firstname','campaign.name as program', 'user_dtr.productionDate')->
                 orderBy('users.lastname')->get())->groupBy('user_id');
 
+      $cutoffStart = Carbon::parse($cutoff[0],'Asia/Manila');
+      $cutoffEnd = Carbon::parse($cutoff[1],'Asia/Manila'); 
+      $totaldays = ($cutoffStart->diffInDays($cutoffEnd) ) + 1;
+
       foreach ($allDTR as $a) {
-        if(count($a) < 15){
+        if(count($a) <= $totaldays){
           array_push($allLocked, $a[0]->user_id);
           $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1],'userID'=>$a[0]->user_id ]);
         }
@@ -1933,9 +1937,7 @@ class DTRController extends Controller
 
       $allLockedDTR = collect($locks->pluck('userID'));
 
-      $cutoffStart = Carbon::parse($cutoff[0],'Asia/Manila');
-      $cutoffEnd = Carbon::parse($cutoff[1],'Asia/Manila'); 
-      $totaldays = ($cutoffStart->diffInDays($cutoffEnd) ) + 1;
+      
 
       DB::connection()->disableQueryLog();
 
@@ -5643,7 +5645,7 @@ class DTRController extends Controller
                 orderBy('users.lastname')->get())->groupBy('user_id');
 
       foreach ($allDTR as $a) {
-        if(count($a) < 15)
+        if(count($a) <= $totaldays)
           $locks->push(['deets'=>$a[0],'count'=>count($a),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1],'totaldays'=>$totaldays ]);
       }
 
