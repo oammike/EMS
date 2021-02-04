@@ -145,6 +145,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_forms.getAllForms',
         'uses'=>'UserFormController@getAllForms') );
 
+    Route::get('/getAllFormAccess', array(
+        'as'=> 'user_forms.getAllFormAccess',
+        'uses'=>'UserFormController@getAllFormAccess') );
+
     Route::get('/auditTrailForms', array(
         'as'=> 'user_forms.auditTrail',
         'uses'=>'UserFormController@auditTrail') );

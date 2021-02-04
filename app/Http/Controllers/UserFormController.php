@@ -116,10 +116,41 @@ class UserFormController extends Controller
 
         if($canBIR) {
             $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n IDXview BIR - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fwrite($file, "-------------------\n Trail BIR - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
 
-            return view('forms.userForms-auditTrail');
+            DB::connection()->disableQueryLog();
+            
+            $allAccessed = DB::table('user_formAccess')->
+            join('users','user_formAccess.accessedBy','=','users.id')->
+            leftJoin('team','team.user_id','=','user_formAccess.accessedBy')->
+            join('campaign','campaign.id','=','team.campaign_id')->
+            select('users.firstname','users.lastname','users.nickname', 'campaign.name as program','campaign.id as campID', 'user_formAccess.user_formID as formID','user_formAccess.accessedBy','user_formAccess.created_at')->
+            // where(
+            //     'user_forms.isSigned',1
+            // )->
+            // where(
+            //         ['users.hasSigned2316',1],
+            //         ['user_forms.isSigned',1])->
+            orderBy('user_formAccess.created_at','DESC')->get();
+            
+            $allForms = DB::table('user_forms')->
+            join('users','user_forms.user_id','=','users.id')->
+            leftJoin('team','team.user_id','=','user_forms.user_id')->
+            join('campaign','campaign.id','=','team.campaign_id')->
+            select('user_forms.id', 'users.id as ownerID','users.firstname as ownerFname','users.lastname as ownerLname','users.nickname as ownerNick',  'user_forms.filename')->get();
+            // where(
+            //     'user_forms.isSigned',1
+            // )->
+            // where(
+            //         ['users.hasSigned2316',1],
+            //         ['user_forms.isSigned',1])->
+            //orderBy('user_forms.created_at','DESC')->get();
+
+
+
+
+            return view('forms.userForms-auditTrail',compact('allForms','allAccessed'));
         } 
         else
             return view('access-denied');
@@ -433,6 +464,53 @@ class UserFormController extends Controller
         //return response()->download(storage_path('/resources/'.$item->link));
         
 
+    }
+
+    public function getAllFormAccess()
+    {
+        DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
+        $finance = Campaign::where('name','Finance')->first();
+        $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+        (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+        
+        ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+
+        if($canBIR){
+                $allAccessed = DB::table('user_formAccess')->
+                join('users','user_formAccess.accessedBy','=','users.id')->
+                leftJoin('team','team.user_id','=','user_formAccess.accessedBy')->
+                join('campaign','campaign.id','=','team.campaign_id')->
+                select('users.firstname','users.lastname','users.nickname', 'campaign.name as program','campaign.id as campID', 'user_formAccess.user_formID as formID','user_formAccess.accessedBy','user_formAccess.created_at')->
+                // where(
+                //     'user_forms.isSigned',1
+                // )->
+                // where(
+                //         ['users.hasSigned2316',1],
+                //         ['user_forms.isSigned',1])->
+                orderBy('user_formAccess.created_at','DESC')->get();
+                
+                $allForms = DB::table('user_forms')->
+                join('users','user_forms.user_id','=','users.id')->
+                leftJoin('team','team.user_id','=','user_forms.user_id')->
+                join('campaign','campaign.id','=','team.campaign_id')->
+                select('user_forms.id', 'users.id as ownerID','users.firstname as ownerFname','users.lastname as ownerLname','users.nickname as ownerNick',  'user_forms.filename')->get();
+                // where(
+                //     'user_forms.isSigned',1
+                // )->
+                // where(
+                //         ['users.hasSigned2316',1],
+                //         ['user_forms.isSigned',1])->
+                //orderBy('user_forms.created_at','DESC')->get();
+
+
+        }else $allAccessed=new Collection;
+
+        //return $allForms;
+
+       
+        
+        return response()->json(['data'=>$allAccessed,'forms'=>$allForms]);
     }
 
     public function getAllForms()
