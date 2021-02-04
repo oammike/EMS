@@ -1942,13 +1942,7 @@ class DTRController extends Controller
 
       
       $allUsers = DB::table('users')->//where('campaign.id',$request->program)->
-                      where([
-                          ['users.status_id', '!=', 7],
-                          ['users.status_id', '!=', 8],
-                          ['users.status_id', '!=', 9],
-                          ['users.status_id', '!=', 13],
-                          ['users.status_id', '!=', 16],
-                      ])->
+                      
                       //join('team','team.campaign_id','=','campaign.id')->
                       join('team','team.user_id','=','users.id')->
                       join('campaign','campaign.id','=','team.campaign_id')->
@@ -1957,7 +1951,31 @@ class DTRController extends Controller
                       leftJoin('positions','users.position_id','=','positions.id')->
                       leftJoin('floor','team.floor_id','=','floor.id')->
                       
-                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      
+                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','floor.id as floorID')->
+
+                      where([
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                          ['users.id','!=', 1], //Ben
+                          ['users.id','!=', 184] //Henry
+                          ['floor.id', '!=', 10], //taipei
+                          ['floor.id', '!=', 11], //xiamen
+                      ])->
+                      
+                      // where(
+                      //   ['floorID', '!=', 35], //Cebupac
+                      //   ['campaign.id', '!=', 26], //WV
+
+                      // )->
+                      // where(
+                      //   ['floorID', '!=', 10], //Cebupac
+                      //   ['floorID', '!=', 11], //WV
+
+                      // )->
                       orderBy('users.lastname')->get();
                       //select('users.id')->get();
       $noDTRs = collect($allUsers)->pluck('id'); 
@@ -1966,7 +1984,7 @@ class DTRController extends Controller
 
 
       //->first()->jobTitle; //[0]->jobTitle; //[0]->first()->jobTitle; //['leaderFname'];
-      //return response()->json(['allLockedDTR'=>$allLockedDTR, 'noDTRs'=>$noDTRs,'diff'=>$calloutEmps->all()]);
+      //return response()->json(['allLockedDTR'=>$allLockedDTR, 'noDTRs'=>$noDTRs,'calloutEmps'=>$calloutEmps]);
       
       $headers = ['Employee Code', 'Formal Name','Program','Immediate Head', 'Locked DTR entries'];
       $description = "DTR Lock Report for cutoff period: ".$cutoffStart->format('M d')." to ".$cutoffEnd->format('M d');
