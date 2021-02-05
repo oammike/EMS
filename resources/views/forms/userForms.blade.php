@@ -214,6 +214,11 @@
                     // window.setTimeout(function(){
                     //   window.location.href = "{{action('UserController@userRequests',$user->id)}}";
                     // }, 2000);
+                  },
+                  error: function(response){
+                    console.log(response);
+                    $.notify("Sorry, cannot process your request right now due to: \n(Error "+response.status+") "+ response.statusText,{className:"error", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );
+
                   }
                 });
 
