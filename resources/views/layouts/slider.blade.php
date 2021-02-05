@@ -87,84 +87,9 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/bookclub.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-book"></i> Calling all  <span class="text-primary">bookworms!!! <br/><small>Jan.27, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">Calling all boookworms out there! <br/><br/>You are all invited to join and register in the Open Acces BPO Book Club!
-                      <br/><br/>
-                      Register via the link below:<br/>
-                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSc0MXlt7Cd1C6HDeFUj492l6-DpYRur6fQOEELqhVpXWNxuQg/viewform?usp=sf_link
-" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                   <br/><br/>
-
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   2021 SSS Contribution Update <br/><small > JAN. 20, 2021</small> 
-                  
-                    
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    In line with Republic Act No. 11199 (Social Security Act of 2018), please be informed that there will be changes in our SSS monthly contributions starting January 25, 2021 payout.<br/><br/>Please see the new SSS Contribution Table effective January 2021.<br/><br/>
-                    <a href="storage/uploads/sss.png" target="_blank"><img src="storage/uploads/sss.png" /></a><br/>
-
-                    Thank you.<br/></p>
-
- 
-                    
-              </div>
-
-
-            <div class="item text-center" >
-                  <img src="storage/uploads/thanku2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Send Your <span class="text-primary">e-Card Greetings <i class="fa fa-gift"></i><br/><small>to your team!</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">As we are nearing the end of this one of a kind year, why don't we look back on the best memories we had with our teammates?<br/><br/>
-
-                    Pen your yearend message to your teammates and colleagues and visit this link:<br/>
-                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://www.openaccessbpo.com/goodbye-2020-hello-2021" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                   <br/><br/>
-
-                    It has been a great 2020, and wishing you all nothing but BETTER DAYS in 2021! </p>
-                    
-                   
-                    
-                    
-            </div>
-            
-           
            
 
-            <div class="item  text-center" >
-                  <img src="storage/uploads/holidays2020.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-gift"></i> Happy Holidays 2020<br/><small>December 21, 2020</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-center">All gatherings this year have been different and will be one for the books.<br/><strong> How are you celebrating the holidays this year?</strong><br/><br/>
-
-                    Share your 2020 holiday experience and earn 25 points.</p>
-                    
-                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',38)}}"> Check out our ECQonnection Wall</a><br/>
-                    
-                    
-            </div>
-
+             
            
            
          <div class="item text-center" >
@@ -9871,6 +9796,84 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     
                     
             </div>
+
+             <div class="item text-center" >
+                  <img src="storage/uploads/bookclub.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-book"></i> Calling all  <span class="text-primary">bookworms!!! <br/><small>Jan.27, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">Calling all boookworms out there! <br/><br/>You are all invited to join and register in the Open Acces BPO Book Club!
+                      <br/><br/>
+                      Register via the link below:<br/>
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSc0MXlt7Cd1C6HDeFUj492l6-DpYRur6fQOEELqhVpXWNxuQg/viewform?usp=sf_link
+" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                   <br/><br/>
+
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   2021 SSS Contribution Update <br/><small > JAN. 20, 2021</small> 
+                  
+                    
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    In line with Republic Act No. 11199 (Social Security Act of 2018), please be informed that there will be changes in our SSS monthly contributions starting January 25, 2021 payout.<br/><br/>Please see the new SSS Contribution Table effective January 2021.<br/><br/>
+                    <a href="storage/uploads/sss.png" target="_blank"><img src="storage/uploads/sss.png" /></a><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
+
+
+            <div class="item text-center" >
+                  <img src="storage/uploads/thanku2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Send Your <span class="text-primary">e-Card Greetings <i class="fa fa-gift"></i><br/><small>to your team!</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">As we are nearing the end of this one of a kind year, why don't we look back on the best memories we had with our teammates?<br/><br/>
+
+                    Pen your yearend message to your teammates and colleagues and visit this link:<br/>
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://www.openaccessbpo.com/goodbye-2020-hello-2021" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                   <br/><br/>
+
+                    It has been a great 2020, and wishing you all nothing but BETTER DAYS in 2021! </p>
+                    
+                   
+                    
+                    
+            </div>
+            
+           
+           
+
+            <div class="item  text-center" >
+                  <img src="storage/uploads/holidays2020.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >ECQonnection Wall: <br/><span class="text-primary"><i class="fa fa-gift"></i> Happy Holidays 2020<br/><small>December 21, 2020</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-center">All gatherings this year have been different and will be one for the books.<br/><strong> How are you celebrating the holidays this year?</strong><br/><br/>
+
+                    Share your 2020 holiday experience and earn 25 points.</p>
+                    
+                    <a class="btn btn-success btn-md" href="{{action('EngagementController@show',38)}}"> Check out our ECQonnection Wall</a><br/>
+                    
+                    
+            </div>
+
 
             
 
