@@ -118,8 +118,14 @@
                                                                   <br/><strong style="font-size: small">{{$a->program}}</strong>  </td>
 
                                                                 <?php $f = collect($allForms)->where('id',$a->formID); ?>
+                                                                @if(count($f) > 0)
                                                                 <td>{{$f->first()->ownerLname}}, {{$f->first()->ownerFname}} </td>
                                                                 <td>{{ date('Y-m-d, h:i A',strtotime($a->created_at))}} </td>
+                                                                @else
+                                                                <td></td>
+                                                                <td></td>
+
+                                                                @endif
                                                               </tr>
                                                               @endforeach
                                                             </tbody>
