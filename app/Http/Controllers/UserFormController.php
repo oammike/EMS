@@ -586,6 +586,19 @@ class UserFormController extends Controller
 
     }
 
+    public function userTriggered()
+    {
+        DB::connection()->disableQueryLog();
+        $allDisq = DB::table('user_formDisqFiling')->leftJoin('users','user_formDisqFiling.user_id','=','users.id')->
+                        leftJoin('positions','users.position_id','=','positions.id')->
+                        leftJoin('team','team.user_id','=','users.id')->
+                        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.id','users.lastname','users.firstname','users.nickname','campaign.name as program','positions.name as jobTitle', 'user_formDisqFiling.reasonID','user_formDisqFiling.created_at as dateSubmitted')->get();
+
+        return view('forms.userForms-disq',compact('allDisq')); 
+
+    }
+
     public function viewUserForm(Request $request)
     {
     	

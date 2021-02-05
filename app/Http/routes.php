@@ -153,6 +153,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_forms.auditTrail',
         'uses'=>'UserFormController@auditTrail') );
 
+     Route::get('/userDisqualified', array(
+        'as'=> 'user_forms.userTriggered',
+        'uses'=>'UserFormController@userTriggered') );
+
+
     Route::post('/user_forms/uploadFile', array(
         'as'=> 'user_forms.uploadFile',
         'uses'=>'UserFormController@uploadFile') );

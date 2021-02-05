@@ -91,8 +91,7 @@
                                               <div class="nav-tabs-custom">
                                                 <ul class="nav nav-tabs">
                                                   <li class="active"><a href="#tab_1" data-toggle="tab"><strong class="text-primary ">Signed BIR 2316 <span id="actives"></span> </strong></a></li>
-                                                 <!--  <li><a href="{{action('UserController@index_inactive')}}" ><strong class="text-primary">All NON-QUALIFIED <span id="inactives"></span></strong></a></li>
-                                                  <li><a href="{{action('UserController@index_floating')}}" ><strong class="text-primary">ALL QUALIFIED <span id="floating"></span></strong></a></li> -->
+                                                  <li><a href="{{action('UserFormController@userTriggered')}}" ><strong class="text-primary">User-specified Disqualifications <span id="inactives"></span></strong></a></li>
                                                  
 
 

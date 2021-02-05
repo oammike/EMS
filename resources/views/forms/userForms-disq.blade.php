@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>Audit Trail Digital Forms | OAMPI Evaluation System</title>
+<title>All Disqualified | OAMPI Evaluation System</title>
 
 <style type="text/css">
     /* Sortable items */
@@ -65,7 +65,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Audit Trail Digital Forms
+        All Disqualified Users 
         
       </h1>
       <ol class="breadcrumb">
@@ -90,10 +90,10 @@
                 <!-- Custom Tabs -->
                                               <div class="nav-tabs-custom">
                                                 <ul class="nav nav-tabs">
-                                                  <li class="active"><a href="#tab_1" data-toggle="tab"><strong class="text-primary ">All User Access to Signed BIR 2316 <span id="actives"></span> </strong></a></li>
-                                                 <!--  <li><a href="{{action('UserController@index_inactive')}}" ><strong class="text-primary">All NON-QUALIFIED <span id="inactives"></span></strong></a></li>
-                                                  <li><a href="{{action('UserController@index_floating')}}" ><strong class="text-primary">ALL QUALIFIED <span id="floating"></span></strong></a></li> -->
-                                                 
+                                                  <li><a href="{{action('UserFormController@index')}}"><strong class="text-primary ">Signed BIR 2316  </strong></a></li>
+
+                                                  <li class="active"><a href="{{action('UserFormController@userTriggered')}}" ><strong class="text-primary">User-specified Disqualifications <span id="inactives"></span></strong></a></li>
+                                                  
 
 
                                                 </ul>
@@ -104,28 +104,46 @@
                                                     <div class="row" style="margin-top:50px">
 
                                                        
-                                                          <table class="table no-margin table-bordered table-striped" id="active" width="95%" style="margin:0 auto;" >
+                                                           <table class="table no-margin table-bordered table-striped" id="active" width="95%" style="margin:0 auto;" >
 
                                                             <thead>
-                                                              <th>User who Accessed</th>
-                                                              <th>Form Owner</th>
-                                                              <th>Date Accessed</th>
+                                                              <th>Employee</th>
+                                                              <th>Program</th>
+                                                              <th>Reason for Disqualification</th>
+                                                              <th>Date Submitted</th>
+                                                              <th>Action</th>
                                                             </thead>
                                                             <tbody>
-                                                              @foreach($allAccessed as $a)
+                                                              @foreach($allDisq as $a)
                                                               <tr>
                                                                 <td>{{$a->lastname}}, {{$a->firstname}} <em>({{$a->nickname}} )</em>
-                                                                  <br/><strong style="font-size: small">{{$a->program}}</strong>  </td>
+                                                                   </td>
 
-                                                                <?php $f = collect($allForms)->where('id',$a->formID); ?>
-                                                                <td>{{$f->first()->ownerLname}}, {{$f->first()->ownerFname}} </td>
-                                                                <td>{{ date('Y-m-d, h:i A',strtotime($a->created_at))}} </td>
+                                                               
+                                                                <td><strong style="font-size: small">{{$a->program}}</strong> </td>
+                                                                <?php switch ($a->reasonID) {
+                                                                  case '1': $r ="Individual deriving other non-business, non-profession-related income in addition to compensation not otherwise subject to final tax.";
+                                                                    # code...
+                                                                    break;
+                                                                  
+                                                                  case '2': $r ="Individual deriving purely compensation income from a single employer, although the income of which has been correctly subjected to withholding tax, but whose spouse is not entitled to substituted filing.";
+                                                                    # code...
+                                                                    break;
+
+                                                                  case '3': $r ="Non-resident alien engaged in trade or business in the Philippines deriving purely compensation income or compensation income and other business or profession related income.";
+                                                                    # code...
+                                                                    break;
+                                                          
+                                                                }
+                                                                 ?>
+                                                                <td><strong>{{$a->reasonID}}:</strong> <em style="font-size: smaller;">{{$r}} </em>  </td>
+                                                                <td>{{ date('Y-m-d h:i A',strtotime($a->dateSubmitted)) }} </td>
+                                                                <td><a target="_blank" class="btn btn-sm btn-danger"  href="viewUserForm?s=1&f=BIR2316&u={{$a->id}}"><i class="fa fa-download"></i> Download Signed 2316</a> </td>
                                                               </tr>
                                                               @endforeach
                                                             </tbody>
                                                             
                                                           </table>
-
                                                          
 
                                                           
@@ -181,7 +199,6 @@
   
 
 
-
 @endsection
 
 
@@ -215,7 +232,6 @@
          "class": "pull-left"
        }
     });
-
   
   
 
