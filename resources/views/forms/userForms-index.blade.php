@@ -240,9 +240,9 @@
                              } }, // 2
 
                              { title: "Qualified For Subsituted Filing?", defaultContent: " ", data:'disqForFiling', render:function(data,type,full,meta){
-                              if(data)
-                                return "YES";
-                              else return "Disqualified";
+                              if(data == '1')
+                                return "Disqualified";
+                              else return "Yes";
                             }}, // 1
                              
                             { title: "Actions", data:'id', class:'text-center',width:'55', sorting:false, render: function ( data, type, full, meta ) {
