@@ -103,7 +103,8 @@
 
                     $advancedSL = 0;
                     foreach ($adv as $a) {
-                      $advancedSL += $a->total;
+                      if ( date('Y') == date('Y', strtotime($a->periodStart)) )
+                        $advancedSL += $a->total;
                     }
 
                     $currentSLbalance= number_format((($sls->first()->beginBalance - $sls->first()->used) + $totalSLearned - $sls->first()->paid)-$advancedSL - $totalVTO_sl,2);
