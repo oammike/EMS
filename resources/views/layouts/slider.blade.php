@@ -1,4 +1,25 @@
-             <div class="item active  text-center" >
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> FEB 10, 2020</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for Feb 10 payout is Feb 05, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SATURDAY 12:00 noon of Feb 06, 2021</strong>.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Invitation: <br/><span class="text-primary"><i class="fa fa-stethoscope"></i>  OAMPI Mental Health Awareness Webinar<br/> <small> Feb. 09, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
