@@ -3713,7 +3713,7 @@ class DTRController extends Controller
                       $type="ChangeShiftSchedules";
                       ($request->DTRsummary) ? $headers = ['AccessCode', 'EmployeeName','Program', 'ShiftDate','Old Schedule','New Schedule','Status','Notes','Approver'] : $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType'];  
                   } break; 
-        case '4': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="WorSchedules"; } break; 
+        case '4': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="WorkSchedules"; } break; 
 
         case '5': { $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','StartDate','StartTime','EndDate','EndTime','Status','HoursFiled', 'HoursApproved']; $type="Overtime"; } break;
       
@@ -5137,19 +5137,46 @@ class DTRController extends Controller
                               $arr[$c] = $stat; $c++;
 
                               //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
-                             if($j->workshift == "* RD * - * RD *")
-                             {
-                                 $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
-                                 $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
-                                 $arr[$c] = "Rest Day"; $c++;
-                                 $arr[$c] = "Rest Day"; $c++;
-                             }
-                             else{
-                               $arr[$c] = strip_tags($j->workshift); $c++;
-                               $arr[$c] = strip_tags($j->workshift); $c++; 
-                               $arr[$c] = "Regular Day"; $c++;
-                               $arr[$c] = "Regular Day"; $c++;
-                             }
+                              //check mo kung exempt employee
+                              $ex = DB::table('user_schedType')->where('user_schedType.user_id',$j->userID)->
+                                      join('schedType','schedType.id','=','user_schedType.schedType_id')->select('user_schedType.user_id','schedType.name')->get();
+
+                              if(count($ex) > 0)
+                              {
+                                //exempt employee
+                                if($j->workshift == "* RD * - * RD *")
+                                 {
+                                     $arr[$c] = $ex[0]->name; $c++; 
+                                     $arr[$c] = $ex[0]->name;$c++;
+                                     $arr[$c] = "Rest Day"; $c++;
+                                     $arr[$c] = "Rest Day"; $c++;
+                                 }
+                                 else{
+                                   $arr[$c] = $ex[0]->name; $c++;
+                                   $arr[$c] = $ex[0]->name; $c++; 
+                                   $arr[$c] = "Regular Day"; $c++;
+                                   $arr[$c] = "Regular Day"; $c++;
+                                 }
+                              }
+                              else
+                              {
+                                if($j->workshift == "* RD * - * RD *")
+                                 {
+                                     $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
+                                     $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                                     $arr[$c] = "Rest Day"; $c++;
+                                     $arr[$c] = "Rest Day"; $c++;
+                                 }
+                                 else{
+                                   $arr[$c] = strip_tags($j->workshift); $c++;
+                                   $arr[$c] = strip_tags($j->workshift); $c++; 
+                                   $arr[$c] = "Regular Day"; $c++;
+                                   $arr[$c] = "Regular Day"; $c++;
+                                 }
+
+                              }
+
+                             
 
                             
 
@@ -5177,21 +5204,52 @@ class DTRController extends Controller
 
                             $arr[$i] = $stat; $i++;
 
-                            //*** CurrentDailySchedule
-                            if($jps[0]->workshift == "* RD * - * RD *")
-                            {
-                                 $arr[$i] = "FLEXI-TIME 8 HOURS";$i++; 
-                                 $arr[$i] = "FLEXI-TIME 8 HOURS";$i++;
-                                 $arr[$i] = "Rest Day"; $i++;
-                                 $arr[$i] = "Rest Day"; $i++;
-                             }
-                            else {
-                             $arr[$i] = strip_tags($jps[0]->workshift); $i++;
-                             $arr[$i] = strip_tags($jps[0]->workshift); $i++;
-                             $arr[$i] = "Regular Day"; $i++;
-                            $arr[$i] = "Regular Day"; $i++;
-                            }
 
+                            //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
+                              //check mo kung exempt employee
+                              $ex = DB::table('user_schedType')->where('user_schedType.user_id',$jps[0]->userID)->
+                                      join('schedType','schedType.id','=','user_schedType.schedType_id')->select('user_schedType.user_id','schedType.name')->get();
+
+                              if(count($ex) > 0)
+                              {
+                                //exempt employee
+                                if($jps[0]->workshift == "* RD * - * RD *")
+                                 {
+                                     $arr[$c] = $ex[0]->name; $c++; 
+                                     $arr[$c] = $ex[0]->name;$c++;
+                                     $arr[$c] = "Rest Day"; $c++;
+                                     $arr[$c] = "Rest Day"; $c++;
+                                 }
+                                 else{
+                                   $arr[$c] = $ex[0]->name; $c++;
+                                   $arr[$c] = $ex[0]->name; $c++; 
+                                   $arr[$c] = "Regular Day"; $c++;
+                                   $arr[$c] = "Regular Day"; $c++;
+                                 }
+                              }
+                              else
+                              {
+                                  //*** CurrentDailySchedule
+                                  if($jps[0]->workshift == "* RD * - * RD *")
+                                  {
+                                       $arr[$i] = "FLEXI-TIME 8 HOURS";$i++; 
+                                       $arr[$i] = "FLEXI-TIME 8 HOURS";$i++;
+                                       $arr[$i] = "Rest Day"; $i++;
+                                       $arr[$i] = "Rest Day"; $i++;
+                                   }
+                                  else {
+                                   $arr[$i] = strip_tags($jps[0]->workshift); $i++;
+                                   $arr[$i] = strip_tags($jps[0]->workshift); $i++;
+                                   $arr[$i] = "Regular Day"; $i++;
+                                  $arr[$i] = "Regular Day"; $i++;
+                                  }
+
+                              }
+
+
+
+
+                            
                             $sheet->appendRow($arr);
 
                           }
