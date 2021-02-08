@@ -13,7 +13,7 @@
                       and will win Php 1,000 worth of Giftaway prizes each!<br/><br/>
                       All participants will also earn 20 reward points!<br/><br/>
 
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',41)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',41)}}"><i class="fa fa-th-large"></i> View Wall</a>
                      </p>
                     
                    
