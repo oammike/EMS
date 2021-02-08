@@ -182,24 +182,26 @@
                                 @endif
 
 
-                                <td style="font-size: x-small;">
+                                <td style="font-size: smaller;">
                                   @if($type=='FL')
                                   <?php switch ($vl->FLtype) {
                                     case 'ML': $l="Maternity Leave";break;
                                     case 'MC': $l="Magna Carta Leave";break;
                                     case 'PL': $l="Paternity Leave";break;case 'SPL': $l="Single Parent Leave";break;
                                   } ?>
-                                  <strong>{{$l}} </strong><br/>
-                                  {{date('M d h:i A', strtotime($vl->leaveStart))}} - {{date('M d h:i A', strtotime($vl->leaveEnd))}}  
+                                  
+                                  {{date('m/d h:i A', strtotime($vl->leaveStart))}} - {{date('m/d h:i A', strtotime($vl->leaveEnd))}} <br/>
+                                  <strong>{{$l}} </strong><br/> 
                                   @else
-                                  <small>{{$label}} </small><br/>
+                                  
 
                                       @if($type=='VTO')
-                                      <strong>{{date('M d', strtotime($vl->productionDate))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('M d', strtotime($vl->productionDate))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
+                                      <strong>{{date('m/d', strtotime($vl->productionDate))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('m/d', strtotime($vl->productionDate))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
                                       @else
-                                       <strong>{{date('M d', strtotime($vl->leaveStart))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('M d', strtotime($vl->leaveEnd))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
+                                       <strong>{{date('m/d', strtotime($vl->leaveStart))}}</strong> {{date('h:i A', strtotime($vl->leaveStart))}} - <strong>{{date('m/d', strtotime($vl->leaveEnd))}}  </strong>{{date('h:i A', strtotime($vl->leaveEnd))}}
 
                                       @endif
+                                      <br/><small>{{$label}} </small>
 
                                   @endif
 
