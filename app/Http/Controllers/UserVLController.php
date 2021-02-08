@@ -635,9 +635,18 @@ class UserVLController extends Controller
                         // we now check which credits to use
                         $useCredits ="";
 
-                        if (number_format($currentVLbalance,2) > 0.125) $useCredits="VL";
-                        else if(number_format($currentSLbalance,2) > 0.125) $useCredits="SL";
-                        else $useCredits="LWOP";
+                        
+                        if($currentVLbalance == "N/A" || $currentSLbalance == "N/A") $useCredits="LWOP";
+                        else
+                        {
+                            if (number_format($currentVLbalance,2) > 0.125) $useCredits="VL";
+                            else if(number_format($currentSLbalance,2) > 0.125) $useCredits="SL";
+                            else $useCredits="LWOP";
+
+                        }
+
+
+                        
 
                         
                         return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits','isNDY'));
