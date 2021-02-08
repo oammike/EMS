@@ -1,5 +1,5 @@
               <div class="item active text-center" >
-                  <img src="storage/uploads/vday_poster.jpg" width="100%" />
+                  <img src="storage/uploads/vday2021_poster.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 <br/><small>Feb.14, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
