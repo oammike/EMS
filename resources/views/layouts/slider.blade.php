@@ -35,7 +35,7 @@
 
                <div class="item text-center" >
                   <img src="storage/uploads/myth.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >DOLE Advisory:  <br/><span class="text-primary"><i class="fa fa-user-md"></i> COVID19 Vaccine Myths Debunked <br/><small>Feb.09, 2021</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >Message from Open Access Nurses:  <br/><span class="text-primary"><i class="fa fa-user-md"></i> COVID19 Vaccine Myths Debunked <br/><small>Feb.09, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
