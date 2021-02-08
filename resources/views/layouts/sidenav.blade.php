@@ -276,7 +276,8 @@
         <!-- **** GALLERY ******** <span class="label label-success" style="font-size:0.5em; margin-left:5px; margin-bottom: -5px"><strong> New! </strong></span>-->
 
         <!-- ******** OPEN WALL ****** -->
-        <?php $walls = OAMPI_Eval\Engagement::where('id','>',8)->orderBy('id','DESC')->get(); ?>
+        <?php $walls = OAMPI_Eval\Engagement::where('id','>',8)->where('created_at','>','2021-01-01 00:00:00')->orderBy('id','DESC')->get();
+              $pastwalls = OAMPI_Eval\Engagement::where('id','>',8)->where('created_at','<','2021-01-01 00:00:00')->orderBy('id','DESC')->get(); ?>
 
         <li class="treeview @if (Request::is('employeeEngagement*')) active @endif">
          <a href="#"><i class="fa fa-2x fa-smile-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Activities </span>
@@ -296,10 +297,33 @@
               @endif
 
             @endforeach
+           
+
+
+          </ul>
+
+          <br/>
+
+          <ul class="treeview-menu">
+            <p class="text-center text-gray">Past Activities</p>
+
+            @foreach($pastwalls as $w)
+
+              @if($w->active)
+              <li @if (Request::is('employeeEngagement*')) class="active" @endif style="padding-left:20px"><a href="{{action('EngagementController@show',$w->id)}}"><i class="fa fa-th-large"></i> {{$w->name}} </a></li>
+
+              @else
+              <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a  target="_blank"href="{{action('EngagementController@wall',$w->id)}}"><i class="fa fa-th-large"></i> {{$w->name}} </a> </li>
+
+              @endif
+
+            @endforeach
             <li @if (Request::is('userRewards/about')) class="active" @endif style="padding-left:20px"><a  target="_blank"href="{{action('EngagementController@wall',5)}}"><i class="fa fa-th-large"></i> WFH/Onsite Photo Wall </a> </li>
 
 
           </ul>
+
+
         </li>
 
         <li class="treeview @if ( Request::is('gallery') ) active @endif">
