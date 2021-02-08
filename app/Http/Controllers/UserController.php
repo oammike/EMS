@@ -3292,7 +3292,7 @@ class UserController extends Controller
                                   $job = Position::find($celeb->position_id)->name;
 
                                   if($celeb->nickname !== null) {
-                                    $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->nickname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".date('M d', strtotime($celeb->birthday))."</td><td>".$tenure." years </td></tr>";
+                                    $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->firstname." <em>(".$celeb->nickname.")</em><br/><em>".$job."</em></td><td>".$camp."</td><td>".date('M d', strtotime($celeb->birthday))."</td><td>".$tenure." years </td></tr>";
                                   }else
                                   {
                                     $janelleMsg .= "<tr><td>".$celeb->lastname.", ".$celeb->firstname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".date('M d', strtotime($celeb->birthday))."</td><td>".$tenure." years </td></tr>";
@@ -3427,7 +3427,7 @@ class UserController extends Controller
                                     $job = Position::find($awardee->position_id)->name;
 
                                     if($awardee->nickname !== null) {
-                                      $janelleMsg .= "<tr><td>".$awardee->lastname.", ".$awardee->nickname."<br/><em>".$job."</em></td><td>".$camp."</td><td>". $dateHired->format('M d, Y')."</td><td>".$tenure." years </td></tr>";
+                                      $janelleMsg .= "<tr><td>".$awardee->lastname.", ".$awardee->firstname." <em>(".$awardee->nickname.") </em><br/><em>".$job."</em></td><td>".$camp."</td><td>". $dateHired->format('M d, Y')."</td><td>".$tenure." years </td></tr>";
                                     }else
                                     {
                                       $janelleMsg .= "<tr><td>".$awardee->lastname.", ".$awardee->firstname."<br/><em>".$job."</em></td><td>".$camp."</td><td>".$dateHired->format('M d, Y')."</td><td>".$tenure." years </td></tr>";

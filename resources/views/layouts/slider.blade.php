@@ -33,10 +33,45 @@
                     
               </div>
 
+               <div class="item text-center" >
+                  <img src="storage/uploads/myth.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >DOLE Advisory:  <br/><span class="text-primary"><i class="fa fa-user-md"></i> COVID19 Vaccine Myths Debunked <br/><small>Feb.09, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                     <strong class="text-danger"> MYTH: Getting the COVID-19 vaccine means I can stop wearing my mask and taking coronavirus precautions.</strong><br/><br/>
+                      FACT: Individuals who get the COVID-19 vaccination still need to practice infection prevention precautions. Keep your mask on, and continue staying at least 6 feet from people outside your household, until further notice. Vaccines do not stop the coronavirus from entering your body; they only prevent you from developing moderate to severe COVID-19. It’s not yet clear if people vaccinated for COVID-19 can still carry and transmit the virus, even when they themselves don’t get sick<br/><br/>
+
+
+                      <strong class="text-danger">MYTH: The COVID-19 vaccine can affect women’s fertility.</strong><br/><br/>
+                      FACT: The COVID-19 vaccine will not affect fertility. The truth is that the COVID-19 vaccine encourages the body to create copies of the spike protein found on the coronavirus’s surface. This “teaches” the body’s immune system to fight the virus that has that specific spike protein on it.<br/><br/>
+
+
+
+                      <strong class="text-danger">MYTH: If I’ve already had COVID-19, I don’t need a vaccine.</strong><br/><br/>
+                      FACT: People who have gotten sick with COVID-19 may still benefit from getting vaccinated. Due to the severe health risks associated with COVID-19 and the fact that re-infection with COVID-19 is possible, people may be advised to get a COVID-19 vaccine even if they have been sick with COVID-19 before.<br/><br/>
+
+                      There is not enough information currently available to say if or for how long people are protected from getting COVID-19 after they have had it (natural immunity). Early evidence suggests natural immunity from COVID-19 may not last very long, but more studies are needed to better understand this. Several subjects in the Pfizer trial who were previously infected got vaccinated without ill effects. Some scientists believe the vaccine offers better protection for coronavirus than natural infection.<br/><br/>
+
+
+
+                      <strong class="text-danger">MYTH: Getting the COVID-19 vaccine gives you COVID-19.</strong><br/><br/>
+                      FACT: The vaccine for COVID-19 cannot and will not give you COVID-19. The two authorized mRNA vaccines instruct your cells to reproduce a protein that is part of the SARS-CoV-2 coronavirus, which helps your body recognize and fight the virus, if it comes along. The COVID-19 vaccine does not contain the SARS-Co-2 virus, so you cannot get COVID-19 from the vaccine. The protein that helps your immune system recognize and fight the virus does not cause infection of any sort.<br/><br/>
+
+                      <a class="btn btn-default btn-xs" target="_blank" href="https://www.hopkinsmedicine.org/health/conditions-and-diseases/coronavirus/covid-19-vaccines-myth-versus-fact"><i class="fa fa-book"></i> Reference</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
 
               <div class="item text-center" >
                   <img src="storage/uploads/vday2021_poster.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 <br/><small>Feb.14, 2021</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 <i class="fa fa-heart"></i><br/><small>Feb.14, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
