@@ -1,0 +1,770 @@
+* {
+  margin:0;
+  padding:0;
+}
+
+body {
+  margin: 0;
+  /*font-family: 'Gochi Hand', cursive;*/
+  font-family: 'Arial', sans-serif;
+
+}
+
+.text-primary{color: #33a9ff;}
+.text-orange{color: #f39c12;}
+
+.freedom-wall ul {
+  /*overflow:hidden;*/
+  padding:3em;
+}
+
+.freedom-wall ul,li {
+  list-style:none;
+}
+
+.freedom-wall ul li a {
+  text-decoration:none;
+  color:#000;
+  /*background:#ffc;*/
+  display:block;
+  height:10em;
+  width:10em;
+  padding:1em;
+  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+  -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  -moz-transition:-moz-transform .15s linear;
+  -o-transition:-o-transform .15s linear;
+  -webkit-transition:-webkit-transform .15s linear;
+}
+
+.freedom-wall ul li {
+  margin:1em;
+  float:left;
+}
+
+.freedom-wall ul li a {
+  -webkit-transform: rotate(-6deg);
+  -o-transform: rotate(-6deg);
+  -moz-transform:rotate(-6deg);
+}
+
+.freedom-wall ul li:nth-child(even) a {
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  position:relative;
+  top:5px;
+  background:#cfc;
+}
+
+.freedom-wall ul li:nth-child(3n) a {
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  position:relative;
+  top:-5px;
+  background:#ccf;
+}
+
+.freedom-wall ul li:nth-child(5n) a {
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+  position:relative;
+  top:-10px;
+}
+
+.freedom-wall ul li a:hover {
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  position:relative;
+  z-index:5;
+}
+
+/*CUSTOM*/
+.freedom-wall {
+  position: relative;
+  /*background-image: url('../img/banner.png');
+  background-image: url('../img/polaroid.jpg');*/
+  
+  background-image: url("../img/vday2021.jpg");
+  background-color: #f7d1d4;
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.freedom-wall::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  /*background-color: black;*/
+  background-image: url('../../public/img/vday2021.jpg') top fixed no-repeat;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: .5;
+}
+
+.freedom-wall ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px 3em;
+}
+
+.freedom-wall ul li {
+  margin: 10px;
+}
+
+.freedom-wall ul li.post-it.nohover {
+  pointer-events: none;
+}
+
+.freedom-wall ul li a {
+  background-repeat: no-repeat;
+  background-size: auto 100% !important;
+  background-position: center;
+  padding: 0.5em;
+  min-width: 211px;
+  min-height: 211px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../img/vday2021.jpg");
+}
+
+.freedom-wall ul li:nth-child(12n+1) a, .freedom-wall ul li:nth-child(12n+12) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #e3c01e;
+}
+
+.freedom-wall ul li:nth-child(12n+2) a, .freedom-wall ul li:nth-child(12n+11) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #d77a2a;
+}
+
+.freedom-wall ul li:nth-child(12n+3) a, .freedom-wall ul li:nth-child(12n+10) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #c6492b; /*2b86c6*/
+}
+
+.freedom-wall ul li:nth-child(12n+4) a, .freedom-wall ul li:nth-child(12n+9) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #8aad4f;
+}
+
+.freedom-wall ul li:nth-child(12n+5) a, .freedom-wall ul li:nth-child(12n+8) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #76b5e0;
+
+}
+
+.freedom-wall ul li:nth-child(12n+6) a, .freedom-wall ul li:nth-child(12n+7) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #613d87;
+}
+
+.freedom-wall ul li a p {
+  width: 100%;
+  padding: 0.5em 0.5em;
+  background-color: #00000099;
+  color: white;
+  font-size: 16px;
+}
+
+.freedom-wall {
+  transition: 500s all ease-out;
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+.full-message {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background-color: #00000057;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 300ms all ease-out;
+  opacity: 0;
+  pointer-events: none;
+  /*font-family: 'Gochi Hand', cursive;*/
+}
+
+.full-message.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.comments, .commentholder{
+  border: 1px dotted #666;
+  padding:20px;
+  margin-top:30px;
+  margin-left: 20px;
+  color: #dedede;
+  text-align: left;
+  float: left;
+  width: 90%;
+
+}
+.commentholder{ overflow-y: scroll; min-height:5%; font-size: small }
+
+.message {
+
+  z-index:2;
+  width: 70%; /*1200px;*/
+  height: auto;
+  overflow: hidden;
+  padding: 80px 20px;
+  /*background-color: white;*/
+  position: relative;
+  text-align: center;
+  transition: 300ms all ease-out;
+  /*margin-bottom: 0;*/
+  min-height: 50vh;
+  max-height: 70vh;
+  overflow: auto;
+  padding-left: 10px;
+  margin: 50px auto;
+
+  background-color: #333; /*ff7a75;*/
+  /*background-image: url("../img/textured-paper.png");*/
+}
+
+.message::before {
+  content: '';
+  width: 10px;
+  height: calc(100%);
+  /*border: 2px solid red;*/
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 75px;
+}
+
+.message.minimized {
+  margin-bottom: -100%;
+}
+
+.message .close {
+  position: absolute;
+  overflow: hidden;
+  top: 15px;
+  right: 15px;
+  z-index: 200; opacity: 100;
+}
+
+.message .close i {
+  color: #2b86c6;
+  font-size: 35px;
+  transition: 300ms all ease-out;
+
+}
+
+.message .close i:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.message img {
+  max-width: 60%;
+  max-height: 350px;
+  /*padding-left: 80px;*/
+  margin-bottom: 20px;
+  transition: all ease-out 300ms;
+  box-shadow: 0 0 20px 4px transparent;
+  display: inline-block; float:left;
+  margin: 0px 20px;
+}
+
+.message img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  box-shadow: 0 0 20px 4px black;
+}
+
+.message.hidden img {
+  display: none;
+}
+
+.message p {
+  text-align: left;
+  /*font-size: 25px;*/
+  line-height: 1.3em;
+  font-size: 1em;
+  color: #fff; /*black;*/
+  margin-left: 20px;
+  max-height: 310px;
+  overflow: auto;
+}
+
+.message .flag {
+  position: absolute;
+  overflow: hidden;
+  bottom: 2%; /*0px;*/
+  right: 20px;
+  font-family: 'Arial',sans-serif;
+}
+
+.message .like {
+  position: absolute;
+  overflow: hidden;
+  bottom: 2%; /*0px;*/
+  right: 130px;
+  font-family: 'Arial',sans-serif;
+}
+
+.message .flag i, .message .like i {
+  color: #2b86c6;
+  /*font-size: 35px;*/
+  transition: 300ms all ease-out;
+}
+
+.message .flag i:hover, .message .like i:hover {
+  color:#ff5959;
+  cursor: pointer;
+}
+
+.message .liked i{ color:#666; }
+
+.image-overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: #000000cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all ease-out 300ms;
+  z-index: 100;
+}
+
+.image-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.image-overlay .close-overlay {
+  top: 20px;
+  right: 20px;
+}
+
+.image-overlay img {
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.freedom-wall ul li:nth-child(12n+1) a, .freedom-wall ul li:nth-child(12n+8) a, .freedom-wall ul li:nth-child(12n+9) a {
+  -webkit-transform: rotate(-6deg);
+  -o-transform: rotate(-6deg);
+  -moz-transform:rotate(-6deg);
+}
+
+.freedom-wall ul li:nth-child(12n+2) a, .freedom-wall ul li:nth-child(12n+7) a, .freedom-wall ul li:nth-child(12n+10) a {
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  position:relative;
+  top:5px;
+}
+
+.freedom-wall ul li:nth-child(12n+3) a, .freedom-wall ul li:nth-child(12n+6) a, .freedom-wall ul li:nth-child(12n+11) a {
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  position:relative;
+  top:-5px;
+}
+
+.freedom-wall ul li:nth-child(12n+4) a, .freedom-wall ul li:nth-child(12n+5) a, .freedom-wall ul li:nth-child(12n+12) a {
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+  position:relative;
+  top:-10px;
+}
+
+.freedom-wall ul li a:hover {
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  position:relative;
+  z-index:5;
+}
+
+.freedom-wall ul li:nth-child(6n+1) a {
+  background-color: #e3c01e;
+  background-image: url("../img/vday2021.jpg");
+}
+
+.freedom-wall ul li:nth-child(6n+2) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #d77a2a;
+}
+
+.freedom-wall ul li:nth-child(6n+3) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #c6492b; /*#2b86c6;*/
+}
+
+.freedom-wall ul li:nth-child(6n+4) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #8aad4f;
+}
+
+.freedom-wall ul li:nth-child(6n+5) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #76b5e0;
+
+}
+
+.freedom-wall ul li:nth-child(6n+6) a {
+  background-image: url("../img/vday2021.jpg");
+  background-color: #613d87;
+}
+
+.freedom-wall ul li a:hover {
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  position:relative;
+  z-index:5;
+}
+
+.flagged {
+  width: 700px;
+  height: 300px;
+  background-color: #000000d4;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 20px;
+  left: calc(-100% - 740px);
+  transition: all ease-out 300ms;
+  z-index: 200;
+}
+
+.flagged.show {
+  left: 0;
+}
+
+.flagged label span, .flagged label textarea {
+  display: block;
+}
+
+.flagged label {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.flagged label span {
+  text-align: left;
+  color: white;
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.flagged label textarea {
+  width: calc(100% - 30px) !important;
+  height: calc(100% - 48px - 65px) !important;
+  border: none;
+  padding: 15px;
+  margin-bottom: 20px;
+  outline: none;
+  font-size: 13px;
+}
+
+.flagged label button {
+  float: right;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 50px;
+  background-color: #8c0000;
+  color: #ffff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 300ms all ease-out;
+  outline: none;
+}
+
+.flagged label button:hover {
+  background-color: #e60000;
+  cursor: pointer;
+}
+
+.close-flag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  color: #33a9ff; /*#8c0000;*/
+  transition: 300ms all ease-out;
+}
+
+.close-flag:hover {
+  color: #e60000;
+  cursor: pointer;
+}
+
+.pagination {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: all ease-out 300ms;
+  pointer-events: auto;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 1;
+}
+
+.pagination.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pagination .buttons {
+  display: flex;
+  
+  width: 10%;
+  margin: 0 auto; padding-top: 30px;
+  /*float: right; margin-right: 20px;*/
+}
+
+.pagination .buttons > * {
+  width: 50px;
+  height: 50px;
+  background-color: #2b86c6;
+  margin-right: 20px;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: white;
+  font-size: 26px;
+  line-height: 17px;
+  transition: all ease-out 300ms;
+  outline: none;
+  text-decoration: none;
+}
+
+.pagination .buttons > *:last-child {
+  margin-right: 0;
+}
+
+.pagination .buttons > *:hover {
+  cursor: pointer;
+  background-color: #dc3108;
+}
+
+.system-message {
+  width: 360px;
+  height: 50px;
+  background-color: #5c93cc; /*#ff006f;*/
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all ease-out 300ms;
+  top: -80px;
+}
+
+.system-message.show {
+  top: 20px;
+}
+
+.system-message p {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+}
+
+.freedom-wall {
+  justify-content: center;
+}
+
+.freedom-wall ul li {
+    margin: 15px 10px;
+}
+
+.freedom-wall ul li a {
+  overflow: visible;
+  position: relative;
+  padding: 1em;
+}
+
+.freedom-wall ul li a::after {
+    content: '';
+    width: 50px;
+    height: 49px;
+    background-color: #ffffff5c;
+    position: absolute;
+    top: -22px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.freedom-wall ul li a.polaroid {
+  background-image: url(../img/polaroid1.png);
+  justify-content: flex-start;
+}
+
+.freedom-wall ul li a.polaroid .img {
+  width: 100%;
+  height: 100%;
+  max-height: 140px;
+  background-position: center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  margin-bottom: 10px;
+}
+
+.freedom-wall ul li a p {
+  padding: 0.5em 1em;
+}
+
+.freedom-wall ul li a.polaroid p {
+  padding: 0;
+  color: black;
+  background-color: transparent;
+  font-size: 12px;
+}
+
+/*.message p {
+  text-align: left;
+  font-size: 22px;
+}*/
+
+
+
+
+
+
+
+
+.freedom-wall ul li.yellow a {
+  background-color: #e3c01e !important;
+}
+
+.freedom-wall ul li.orange a {
+  background-color: #d77a2a !important;
+}
+
+.freedom-wall ul li.red a {
+  background-color: #c6492b !important;
+}
+
+.freedom-wall ul li.green a {
+  background-color: #8aad4f !important;
+}
+
+.freedom-wall ul li.blue a {
+  background-color: #76b5e0 !important;
+}
+
+.freedom-wall ul li.purple a {
+  background-color: #613d87 !important;
+}
+
+
+
+
+
+.freedom-wall ul li a span {
+  width: 100%;
+  font-size: 12px;
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  font-weight: bold;
+  color: black;
+}
+
+.message p span {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.freedom-wall {
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+.preloader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 99;
+  opacity: 1;
+  transition: 300ms all ease-out;
+}
+
+.preloader.end {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+
+.freedom-wall ul {
+    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
+}

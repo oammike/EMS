@@ -1173,8 +1173,10 @@ class EngagementController extends Controller
         $user_id = $this->user->id;
         //return $posts;
 
-
-        return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+        if($id == 41)
+            return view('people.wallV',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+        else
+            return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
 
     }
 
