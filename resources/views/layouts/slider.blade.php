@@ -1,23 +1,27 @@
-             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> FEB 10, 2021</strong> PAYOUT <br/>
+              <div class="item active text-center" >
+                  <img src="storage/uploads/vday_poster.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 <br/><small>Feb.14, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Valentine's Day is just around the corner! <br/><br/>
+                      Share your <strong>ultimate dream Valentine date</strong>; <br/>who's the person you'd like to spend it with, <br/>or where you'd like to spend it.<br/><br/>
+                      <span style="font-size:larger">2 winners will be chosen:</span><br/>
+                      <em>(1 with most likes, and 1 by the judges)</em><br/><br/>
+                      and will win Php 1,000 worth of Giftaway prizes each!<br/><br/>
+                      All participants will also earn 20 reward points!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',41)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
                     
-                    Please be informed that our cut-off for Feb 10 payout is Feb 05, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SATURDAY 12:00 noon of Feb 06, 2021</strong>.<br/><br/>
-
-                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/>
-
- 
+                   
                     
-              </div>
+                    
+            </div>
+
+
 
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" >Invitation: <br/><span class="text-primary"><i class="fa fa-stethoscope"></i>  OAMPI Mental Health Awareness Webinar<br/> <small> Feb. 09, 2021</small><br/>
@@ -69,23 +73,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/2021goals.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-pencil"></i> Top 3 Goals for 2021 <br/><small>Feb.01, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Survey says 75% of us don’t stick with our New Year’s resolutions. <br/><br/>Rather than sharing what these resolutions are, how about sharing WHAT YOUR TOP 3 GOALS are for this year and earn 20 points!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',40)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+           
 
            
 
@@ -9873,6 +9861,27 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     
                     
             </div>
+
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> FEB 10, 2021</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for Feb 10 payout is Feb 05, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SATURDAY 12:00 noon of Feb 06, 2021</strong>.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
 
 
             
