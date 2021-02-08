@@ -1,4 +1,40 @@
-              <div class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   2020 Sick Leave Conversion  <br/><small>Feb.08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <ul style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that the Sick Leave Conversion will be released on <strong>February 10, 2021 payout</strong>.<br/><br/> 
+
+                    The Management has revised our Sick Leave Conversion Policy as announced last ECQ period.  <br/><br/>
+
+                    Please see below updates and guidelines:
+
+                    <ul style="padding: 30px;">
+                      <li>Any sick leave credits used during the ECQ period will not have an impact on the eligibility for SL conversion 2020. <br/></li>
+
+                      <li>At the end of each calendar year, if the employee has incurred less than 4 unscheduled absences, he/she will be entitled for SL conversion.<br/> </li>
+
+                      <li>The conversion is based on gross pay (basic pay plus non-taxable allowance) of an employee as of December 31, 2020 and will be entitled to cash out as much as 5 sick leave credits. <br/></li>   
+
+                      <li>The SL balance that will reflect on EMS as of February 5, 2021 is the net balance after the SL conversion which means that the converted sick leave credits had already been deducted from the balance as of said date. <br></li>
+
+                      <li>Please note that sick leave conversion or sick leaves that are converted to cash are taxable.This is with reference to the BIR ruling under RR No. 11-2018 and RR No. 2-98.  </li>
+                    </ul>
+
+                    <br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
+
+              <div class="item text-center" >
                   <img src="storage/uploads/vday2021_poster.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 <br/><small>Feb.14, 2021</small><br/>
                   
