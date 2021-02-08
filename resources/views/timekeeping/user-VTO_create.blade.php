@@ -131,16 +131,34 @@
 
                                  <div class="col-lg-6" id="shift_choices">
 
-                                    <h4 class="text-primary"><i class="fa fa-plane"></i> VL credits: <strong>{{number_format($currentVLbalance,2) }} </strong> </h4>
-                                    <h4 class="text-danger"> <i class="fa fa-stethoscope"></i> SL credits: <strong>{{ number_format($currentSLbalance,2) }} </strong> </h4>
+                                    <h4 class="text-primary">
+                                      @if($currentVLbalance !== "N/A" && $currentSLbalance !== "N/A")
+                                      <i class="fa fa-plane"></i> VL credits: <strong>{{number_format($currentVLbalance,2) }} </strong> </h4>
+
+                                      @else
+                                      <i class="fa fa-plane"></i> VL credits: <strong>N/A </strong> </h4>
+                                      @endif
+
+                                    <h4 class="text-danger"> 
+                                      @if($currentVLbalance !== "N/A" && $currentSLbalance !== "N/A")
+                                      <i class="fa fa-stethoscope"></i> SL credits: <strong>{{ number_format($currentSLbalance,2) }} </strong> </h4>
+                                      @else
+                                      <i class="fa fa-stethoscope"></i> SL credits: <strong>N/A </strong> </h4>
+                                      @endif
+
+
                                     <h5><br/><br/>Deduct Using:</h5>
 
-                                    @if(number_format($currentVLbalance,2) > 0.0 && $currentVLbalance !== "N/A" || ($isNDY && $currentVLbalance !== "N/A") )
-                                    <label style="margin-right: 15px"><input type="radio" name="useCredits" value="VL" @if($useCredits=='VL') checked="checked" @endif> VL</label>
+                                    @if($currentVLbalance !== "N/A")
+                                      @if(number_format($currentVLbalance,2) > 0.0 || ($isNDY && $currentVLbalance !== "N/A") )
+                                      <label style="margin-right: 15px"><input type="radio" name="useCredits" value="VL" @if($useCredits=='VL') checked="checked" @endif> VL</label>
+                                      @endif
                                     @endif
 
-                                    @if(number_format($currentSLbalance,2) > 0.0 && $currentSLbalance !== "N/A" || ($isNDY && $currentSLbalance !== "N/A") )
-                                    <label style="margin-right: 15px"><input type="radio" name="useCredits" value="SL"  @if($useCredits=='SL') checked="checked" @endif> SL</label>
+                                    @if($currentSLbalance !== "N/A")
+                                      @if(number_format($currentSLbalance,2) > 0.0 || ($isNDY && $currentSLbalance !== "N/A") )
+                                      <label style="margin-right: 15px"><input type="radio" name="useCredits" value="SL"  @if($useCredits=='SL') checked="checked" @endif> SL</label>
+                                      @endif
                                     @endif
 
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="AdvSL"  @if($useCredits=='AdvSL') checked="checked" @endif> Advanced SL</label>
