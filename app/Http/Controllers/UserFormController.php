@@ -380,6 +380,28 @@ class UserFormController extends Controller
         
     }
 
+    public function deleteSignedForm(Request $request)
+    {
+        $f = UserForms::where('user_id',$request->userID)->where('formType',$request->formType)->where('isSigned',$request->isSigned)->orderBy('id','DESC')->get();
+        
+
+        foreach ($f as $v) {
+            $a = UserForm_Access::where('user_formID',$v->id)->delete();
+
+            // foreach ($a as $k) {
+            //     $k->delete();
+            // }
+            $v->delete();
+        }
+
+        $u = User::find($request->userID);
+        $u->hasSigned2316 = null;
+        $u->push();
+
+        return redirect()->back();
+
+    }
+
     public function disqualifyForFiling(Request $request)
     {
         $disqualify = new UserForm_DisqFiling;
@@ -618,6 +640,7 @@ class UserFormController extends Controller
     	{
 
     		$item = UserForms::where('user_id',$userID)->where('formType',$type)->where('isSigned',$signed)->orderBy('id','DESC')->get();
+            //return $item;
     		if(count($item) > 0){
 
     			//log access

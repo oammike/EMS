@@ -328,39 +328,39 @@
 
                             /*we process BIR forms*/
                             if(full.has2316){
-                              var has2316 = '<a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/>';
+                              var has2316 = '<br/><br/><a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/>';
 
                             }else{
 
-                              var has2316 = '<a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-success"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/>';
+                              var has2316 = '<br/><br/><a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-success"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/>';
 
                             }
 
                             if(full.hasSigned2316=='1') {
-                              var bir = has2316+'<a target="_blank" href="viewUserForm?s=1&f=BIR2316&u='+data+'" style="margin:3px" class="btn btn-xs btn-danger"><i class="fa fa-download"></i> Download Signed 2316</a> <br/><br/>';
+                              var bir = has2316+'<a target="_blank" href="viewUserForm?s=1&f=BIR2316&u='+data+'" style="margin:3px" class="btn btn-xs btn-danger"><i class="fa fa-download"></i> Download Signed 2316</a> <br/><a data-toggle="modal" data-target="#myBIRModal'+full.id+'"  class="btn btn-xs btn-warning"><i class="fa fa-trash"></i> Delete Signed Form</a>';
 
-                                var deleteLink2 = "./user/deleteThisUser/"+full.id;
+                                var deleteLink2 = "user_forms/deleteSignedForm";
                                 var _token = "{{ csrf_token() }}";
-                              //    bir += '<div class="modal fade" id="myModal'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+                                 bir += '<div class="modal fade" id="myBIRModal'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
 
-                              //   bir += '<div class="modal-dialog">';
-                              //   bir += '  <div class="modal-content">';
-                              //   bir += '    <div class="modal-header">';
+                                bir += '<div class="modal-dialog">';
+                                bir += '  <div class="modal-content">';
+                                bir += '    <div class="modal-header">';
                                       
-                              //   bir += '        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-                              //   bir += '       <h4 class="modal-title" id="myModalLabel"> Delete Signed BIR 2316 Form: '+full.firstname+' '+full.lastname+'</h4>';
+                                bir += '        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
+                                bir += '       <h4 class="modal-title" id="myModalLabel"> Delete Signed BIR 2316 Form: '+full.firstname+' '+full.lastname+'</h4>';
                                       
-                              //   bir += '    </div>';
-                              //   bir += '    <div class="modal-body">Are you sure you want to delete Signed BIR 2316 Form of '+full.firstname+' '+full.lastname+'?';
+                                bir += '    </div>';
+                                bir += '    <div class="modal-body">Are you sure you want to delete Signed BIR 2316 Form of '+full.firstname+' '+full.lastname+'?';
                                      
-                              //   bir += '    </div>';
-                              //   bir += '    <div class="modal-footer no-border">';
-                              //   bir += '      <form action="'+deleteLink2+'" method="POST" class="btn-outline pull-right" id="deleteReq"><button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </form>';
+                                bir += '    </div>';
+                                bir += '    <div class="modal-footer no-border">';
+                                bir += '      <form action="'+deleteLink2+'" method="POST" class="btn-outline pull-right" id="deleteReq"><input type="hidden" name="formType" id="formType" value="BIR2316" /><input type="hidden" name="isSigned" id="isSigned" value="1" /><input type="hidden" name="userID" id="userID" value="'+full.id+'" /> <button type="submit" class="btn btn-primary "><i class="fa fa-check"></i> Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><input type="hidden" name="_token" value="'+_token+'" /> </form>';
                                
-                              //   bir += '   </div>';
-                              //   bir += ' </div>';
-                              //  bir += ' </div>';
-                              // bir += '</div>';
+                                bir += '   </div>';
+                                bir += ' </div>';
+                               bir += ' </div>';
+                              bir += '</div>';
 
 
                             }

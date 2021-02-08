@@ -176,6 +176,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_forms.bulkCreate',
         'uses'=>'UserFormController@bulkCreate') );
 
+    Route::post('/user_forms/deleteSignedForm', array(
+        'as'=> 'user_forms.deleteSignedForm',
+        'uses'=>'UserFormController@deleteSignedForm') );
+
 
     Route::get('/downloadUserForm', array(
         'as'=> 'user_forms.downloadUserForm',
