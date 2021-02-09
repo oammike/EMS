@@ -789,7 +789,7 @@
 
                                         <!-- SL CONVERSION-->
                                         <td class="text-center">
-                                          {{$v->paid}}
+                                          ({{$v->paid}})
                                         </td>
 
 
