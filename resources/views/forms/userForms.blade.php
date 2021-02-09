@@ -189,6 +189,8 @@
               $.notify("Please select PDF file to upload.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
 
            }else{
+
+              $('a#save').fadeOut();
               $.ajax({
                   url: "{{action('UserFormController@uploadFile')}}",
                   type:'POST',
@@ -203,10 +205,11 @@
                     $('#save').fadeOut();
                     if (response.success == '1'){
                       $.notify("Form uploaded successfully.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                      $('a#save').fadeOut();
+                      
                     }else {
                         $.notify("Something went wrong. Please try again later.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
-                        $('a#save').fadeOut();
+                         $('a#save').fadeIn();
+                        
                       }
                     
                     console.log(response);
@@ -218,6 +221,7 @@
                   error: function(response){
                     console.log(response);
                     $.notify("Sorry, cannot process your request right now due to: \n(Error "+response.status+") "+ response.statusText+"\n\nContact our IT team to ensure you are accessing EMS via secure link using FortiClient VPN instead of web portal.\n\nSend an email to: \nitgroup@openaccessbpo.com [for Makati employees]\n itdavao@openaccessbpo.com [for Davao employees]",{className:"error", globalPosition:'right middle',autoHideDelay:15000, clickToHide:true} );
+                    $('a#save').fadeIn();
 
                   }
                 });
