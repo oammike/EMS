@@ -789,9 +789,7 @@
 
                                         <!-- SL CONVERSION-->
                                         <td class="text-center">
-                                          @if ($v->creditYear == date('Y'))
-                                          <small>Pending <br/>SL conversion</small>
-                                          @endif
+                                          {{$v->paid}}
                                         </td>
 
 
