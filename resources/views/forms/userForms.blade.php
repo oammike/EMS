@@ -217,7 +217,7 @@
                   },
                   error: function(response){
                     console.log(response);
-                    $.notify("Sorry, cannot process your request right now due to: \n(Error "+response.status+") "+ response.statusText,{className:"error", globalPosition:'right middle',autoHideDelay:10000, clickToHide:true} );
+                    $.notify("Sorry, cannot process your request right now due to: \n(Error "+response.status+") "+ response.statusText+"\n\nContact our IT team to ensure you are accessing EMS via secure link using FortiClient VPN instead of web portal.\n\nSend an email to: \nitgroup@openaccessbpo.com [for Makati employees]\n itdavao@openaccessbpo.com [for Davao employees]",{className:"error", globalPosition:'right middle',autoHideDelay:15000, clickToHide:true} );
 
                   }
                 });
