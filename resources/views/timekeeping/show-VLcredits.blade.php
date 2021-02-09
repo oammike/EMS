@@ -797,7 +797,7 @@
 
                                         <td class="text-center @if($ctr==1) text-success" style="font-size: larger; font-weight: bold; @endif">
                                           {{ number_format( ((($v->beginBalance - $v->used)-$v->paid)+ $earnSL - $advSL) - $earnVTO, 2) }}
-                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">* temporary credits <br/>as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) <br/>cutoff </small>@endif
+                                          @if ($v->creditYear == date('Y'))<br/><small style="font-weight: normal;">* as of ({{date('M d,Y',strtotime($allEarnings_SL[0]->period))}}) <br/>cutoff </small>@endif
                                         </td>
                                         <td class="text-center">
                                          
