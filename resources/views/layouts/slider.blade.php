@@ -94,35 +94,7 @@
 
 
 
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >Invitation: <br/><span class="text-primary"><i class="fa fa-stethoscope"></i>  OAMPI Mental Health Awareness Webinar<br/> <small> Feb. 09, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4><img src="storage/uploads/mentalhealth2.jpg" width="100%" /><br/>
-                    <p  style="padding: 30px;" class="text-left" >
-                      The impact of Covid-19 pandemic goes well beyond the physical. In response to the challenges brought by the quarantine, working from home and adjustments to the new normal, we are inviting everyone to join our FREE WEBINAR. Please see the details below.<br/><br/>
-
-                      WHAT: <strong>Mental First Aid Webinar</strong><br/><br/>
-
-                      WHEN: <strong>Tuesday, February 9, 2021</strong><br/><br/>
-
-                      TIME: <strong>4:00PM-5:00PM</strong><br/><br/>
-
-                      WHERE: <strong>https://meet.google.com/wnf-xmwb-zdf</strong><br/><br/>
-
-                      For you to join, <strong>email our nurses at health@openaccessmarketing.com </strong>  with your name and program/department name.  <br/><br/>
-
-                      Do not let the pandemic deprive you of self-care. Tackle the issues, options, and fears related to Mental Health with Dr. Kenneth Javate.
-
-                      We hope that you can accommodate our invitation. We are looking forward to seeing you and your team's names on the list of attendees during our webinar.
-
-                      Should you have any concerns, please do not hesitate to get in touch with us nurses.</p>      
-                    
-                    
-            </div>
-          
-
-              
+             
 
             <div class="item text-center" >
                   <img src="storage/uploads/goalSetting.jpg" width="100%" />
@@ -9953,6 +9925,35 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
  
                     
               </div>
+               <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >Invitation: <br/><span class="text-primary"><i class="fa fa-stethoscope"></i>  OAMPI Mental Health Awareness Webinar<br/> <small> Feb. 09, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/mentalhealth2.jpg" width="100%" /><br/>
+                    <p  style="padding: 30px;" class="text-left" >
+                      The impact of Covid-19 pandemic goes well beyond the physical. In response to the challenges brought by the quarantine, working from home and adjustments to the new normal, we are inviting everyone to join our FREE WEBINAR. Please see the details below.<br/><br/>
+
+                      WHAT: <strong>Mental First Aid Webinar</strong><br/><br/>
+
+                      WHEN: <strong>Tuesday, February 9, 2021</strong><br/><br/>
+
+                      TIME: <strong>4:00PM-5:00PM</strong><br/><br/>
+
+                      WHERE: <strong>https://meet.google.com/wnf-xmwb-zdf</strong><br/><br/>
+
+                      For you to join, <strong>email our nurses at health@openaccessmarketing.com </strong>  with your name and program/department name.  <br/><br/>
+
+                      Do not let the pandemic deprive you of self-care. Tackle the issues, options, and fears related to Mental Health with Dr. Kenneth Javate.
+
+                      We hope that you can accommodate our invitation. We are looking forward to seeing you and your team's names on the list of attendees during our webinar.
+
+                      Should you have any concerns, please do not hesitate to get in touch with us nurses.</p>      
+                    
+                    
+            </div>
+          
+
+              
 
 
             
