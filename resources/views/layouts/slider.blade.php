@@ -1,4 +1,23 @@
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div class="item active text-center" >
+                  <img src="storage/uploads/newRewards.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Rewards:  <br/><span class="text-primary"><i class="fa fa-gift"></i> New Items for 2021 <i class="fa fa-gift"></i><br/><small>Feb.11, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      We couldn't thank you enough for continuing the AWESOME work do!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('RewardsHomeController@rewards_catalog') }}"><i class="fa fa-gift"></i> View Rewards Catalog</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   2020 Sick Leave Conversion  <br/><small>Feb.08, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -69,7 +88,7 @@
             </div>
 
 
-              <div class="item text-center" >
+            <div class="item text-center" >
                   <img src="storage/uploads/vday2021_poster.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 <i class="fa fa-heart"></i><br/><small>Feb.14, 2021</small><br/>
                   
