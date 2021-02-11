@@ -1,4 +1,22 @@
               <div class="item active text-center" >
+                  <img src="storage/uploads/cny2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-gift"></i> Open Access BPO <i class="fa fa-gift"></i><br/><small>Feb.12, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Open Access BPO wishes everyone a bountiful new year! May the Year of the Ox bring good fortunes and abundance to you and your family.<br/><br/>We hope you enjoy the #ChineseNewYear festivities with your loved ones safely and responsibly.<br/><br/>#WeSpeakYourLanguage #OAonCNY
+
+                     
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/newRewards.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Rewards:  <br/><span class="text-primary"><i class="fa fa-gift"></i> New Items for 2021 <i class="fa fa-gift"></i><br/><small>Feb.11, 2021</small><br/>
                   
