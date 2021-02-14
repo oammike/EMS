@@ -1,4 +1,49 @@
-              <div class="item active text-center" >
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="active item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   Deadline for Uploading Signed BIR 2316  <br/><small>Feb.15, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <ul style="padding: 30px;" class="text-left">
+                     
+                    A gentle reminder to everyone that the deadline of uploading the signed BIR form 2316 is until <strong class="text-danger"> February 15, 2021 (Monday). </strong>
+
+                    <br/><br/>
+                    You can now download your copy through EMS under MY TOOLS >MY BIR 2316>DOWNLOAD DIGITAL COPY. <br/><br/>
+                    When you click Download digital copy, a prompt message and further instructions will automatically appear. Upon completion, you may then be able to download the BIR 2316. Download a copy and accomplish the needed details below and save the file. <br/><br/>
+
+                    <strong>For employees who are qualified for SUBSTITUTED FILING.</strong><br/><br/>
+
+                    a. Affix your digital signature on boxes 52 and 54 of the form.<br/><br/>
+
+                    b. Indicate the date signed.<br/><br/>
+
+                    c. Fill-out the CTC or valid ID number (passport or driver's license)<br/><br/>
+
+                    d. Accomplish the place and date of issue CTC or valid ID.<br/><br/>
+
+                    e. Include the amount paid, if CTC.<br/><br/><br/><br/>
+
+                    <strong>For employees who are NOT QUALIFIED for SUBSTITUTED FILING.</strong>  <br/><br/>
+
+                    a. Affix your digital signature on box no. 52. <br/><br/>
+
+                    b. Indicate the date signed.<br/><br/>
+
+                    c. Fill-out the CTC or valid ID number (passport or driver's license) <br/><br/>
+
+                    d. Accomplish the place and date of issue CTC or valid ID.<br/><br/>
+
+                    e. Include the amount paid, if CTC.<br/><br/>
+
+                    Please ensure that all fields were properly filled out.  All of the employees whether qualified or not qualified for substituted filing are required to upload the signed BIR 2316. Once completed, click the Upload Signed PDF.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   <img src="storage/uploads/vday2021.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-heart"></i> Open Access BPO <i class="fa fa-heart"></i><br/><small>Feb.14, 2021</small><br/>
                   
@@ -53,40 +98,7 @@
             </div>
 
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   2020 Sick Leave Conversion  <br/><small>Feb.08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <ul style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that the Sick Leave Conversion will be released on <strong>February 10, 2021 payout</strong>.<br/><br/> 
-
-                    The Management has revised our Sick Leave Conversion Policy as announced last ECQ period.  <br/><br/>
-
-                    Please see below updates and guidelines:
-
-                    <ul style="padding: 30px;">
-                      <li>Any sick leave credits used during the ECQ period will not have an impact on the eligibility for SL conversion 2020. <br/></li>
-
-                      <li>At the end of each calendar year, if the employee has incurred less than 4 unscheduled absences, he/she will be entitled for SL conversion.<br/> </li>
-
-                      <li>The conversion is based on gross pay (basic pay plus non-taxable allowance) of an employee as of December 31, 2020 and will be entitled to cash out as much as 5 sick leave credits. <br/></li>   
-
-                      <li>The SL balance that will reflect on EMS as of February 5, 2021 is the net balance after the SL conversion which means that the converted sick leave credits had already been deducted from the balance as of said date. <br></li>
-
-                      <li>Please note that sick leave conversion or sick leaves that are converted to cash are taxable.This is with reference to the BIR ruling under RR No. 11-2018 and RR No. 2-98.  </li>
-                    </ul>
-
-                    <br/><br/>
-
-                    Thank you.<br/>
-
- 
-                    
-              </div>
+           
 
                <div class="item text-center" >
                   <img src="storage/uploads/myth.jpg" width="100%" />
