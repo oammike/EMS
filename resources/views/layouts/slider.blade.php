@@ -1,4 +1,22 @@
               <div class="item active text-center" >
+                  <img src="storage/uploads/vday2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-heart"></i> Open Access BPO <i class="fa fa-heart"></i><br/><small>Feb.14, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy Valentine's Day from your Open Access BPO Family!
+
+                     
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/cny2021.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-gift"></i> Open Access BPO <i class="fa fa-gift"></i><br/><small>Feb.12, 2021</small><br/>
                   
@@ -9990,7 +10008,23 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
             </div>
           
 
-              
+              <div class="item active text-center" >
+                  <img src="storage/uploads/cny2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-gift"></i> Open Access BPO <i class="fa fa-gift"></i><br/><small>Feb.12, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Open Access BPO wishes everyone a bountiful new year! May the Year of the Ox bring good fortunes and abundance to you and your family.<br/><br/>We hope you enjoy the #ChineseNewYear festivities with your loved ones safely and responsibly.<br/><br/>#WeSpeakYourLanguage #OAonCNY
+
+                     
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
 
 
             
