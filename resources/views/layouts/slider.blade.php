@@ -1,4 +1,23 @@
-             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="active item text-center" >
+              <div class="item active text-center" >
+                  <img src="storage/uploads/lovepet.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-github-alt"></i> Love Your Pet Day 2021 <i class="fa fa-github-alt"></i><br/><small>Feb.15, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      February 20 is Love Your Pet Day! Let’s fill this week’s wall by sharing the cutest photo of your pets! <br/><br/>
+                      All participants will also earn 20 reward points!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',42)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class=" item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   Deadline for Uploading Signed BIR 2316  <br/><small>Feb.15, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
@@ -136,28 +155,7 @@
             </div>
 
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/vday2021_poster.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 <i class="fa fa-heart"></i><br/><small>Feb.14, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Valentine's Day is just around the corner! <br/><br/>
-                      Share your <strong>ultimate dream Valentine date</strong>; <br/>who's the person you'd like to spend it with, <br/>or where you'd like to spend it.<br/><br/>
-                      <span style="font-size:larger">2 winners will be chosen:</span><br/>
-                      <em>(1 with most likes, and 1 by the judges)</em><br/><br/>
-                      and will win Php 1,000 worth of Giftaway prizes each!<br/><br/>
-                      All participants will also earn 20 reward points!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',41)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+           
 
 
 
