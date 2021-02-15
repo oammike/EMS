@@ -101,6 +101,11 @@
 		  background-color: #613d87;
 		}
 
+		.freedom-wall ul li a.polaroid {
+		  background-image: url("{{url('/')}}/public/css/wall/assets/img/polaroid1.png");
+		  justify-content: flex-start;
+		}
+
 		.message p{ white-space: pre-line; }
 	</style>
 
