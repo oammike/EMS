@@ -117,7 +117,7 @@ body {
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  background-image: url("../img/vday2021.jpg");
+  background-image: url("{{url('/')}}/public/css/wall/assets/img/openaccess.svg");
 }
 
 
