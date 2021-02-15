@@ -1114,7 +1114,7 @@ class EngagementController extends Controller
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     leftJoin('users','users.id','=','engagement_entry.user_id')->
-                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','ASC')->get();
+                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at','engagement.bg','engagement.bgcolor')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','ASC')->get(); 
 
 
         $allComments =  DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
@@ -1173,8 +1173,14 @@ class EngagementController extends Controller
         $user_id = $this->user->id;
         //return $posts;
 
-        if($id == 41)
-            return view('people.wallV',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+        // if($id == 41)
+        //     return view('people.wallV',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+        $bg = $post[0]->bg;
+        $bgcolor = $post[0]->bgcolor;
+
+        if  ($bg !== null)
+            return view('people.wallcustom',compact('id','user_id','bg','bgcolor', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+
         else
             return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
 
