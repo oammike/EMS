@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>All Disqualified | OAMPI Evaluation System</title>
+<title>All Pending Forms | OAMPI Evaluation System</title>
 
 <style type="text/css">
     /* Sortable items */
@@ -65,7 +65,7 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        All Disqualified Users 
+        All Users with Pending BIR 2316 forms 
         
       </h1>
       <ol class="breadcrumb">
@@ -92,9 +92,9 @@
                                                 <ul class="nav nav-tabs">
                                                   <li><a href="{{action('UserFormController@index')}}"><strong class="text-primary ">Signed BIR 2316  </strong></a></li>
 
-                                                  <li class="active"><a href="{{action('UserFormController@userTriggered')}}" ><strong class="text-primary">User-specified Disqualifications <span id="inactives"></span></strong></a></li>
+                                                  <li><a href="{{action('UserFormController@userTriggered')}}" ><strong class="text-primary">User-specified Disqualifications <span id="inactives"></span></strong></a></li>
 
-                                                   <li><a href="{{action('UserFormController@allPending')}}" ><strong class="text-primary">All Pendings <span id="inactives"></span> &nbsp;  </strong></a></li>
+                                                  <li class="active"><a href="{{action('UserFormController@allPending')}}" ><strong class="text-primary">All Pendings <span id="inactives"></span> &nbsp; <span class="label label-warning" style="font-size: small;"> ({{count($allDisq)}}) </span> </strong></a></li>
                                                   
 
 
@@ -111,36 +111,17 @@
                                                             <thead>
                                                               <th>Employee</th>
                                                               <th>Program</th>
-                                                              <th>Reason for Disqualification</th>
-                                                              <th>Date Submitted</th>
-                                                              <th>Action</th>
+                                                              
                                                             </thead>
                                                             <tbody>
                                                               @foreach($allDisq as $a)
                                                               <tr>
-                                                                <td>{{$a->lastname}}, {{$a->firstname}} <em>({{$a->nickname}} )</em>
+                                                                <td><a href="{{ action('UserController@show',['id'=>$a->userID] )}}" target="_blank"> {{$a->lastname}}, {{$a->firstname}} <em>({{$a->nickname}} )</em></a>
                                                                    </td>
 
                                                                
                                                                 <td><strong style="font-size: small">{{$a->program}}</strong> </td>
-                                                                <?php switch ($a->reasonID) {
-                                                                  case '1': $r ="Individual deriving other non-business, non-profession-related income in addition to compensation not otherwise subject to final tax.";
-                                                                    # code...
-                                                                    break;
-                                                                  
-                                                                  case '2': $r ="Individual deriving purely compensation income from a single employer, although the income of which has been correctly subjected to withholding tax, but whose spouse is not entitled to substituted filing.";
-                                                                    # code...
-                                                                    break;
-
-                                                                  case '3': $r ="Non-resident alien engaged in trade or business in the Philippines deriving purely compensation income or compensation income and other business or profession related income.";
-                                                                    # code...
-                                                                    break;
-                                                          
-                                                                }
-                                                                 ?>
-                                                                <td><strong>{{$a->reasonID}}:</strong> <em style="font-size: smaller;">{{$r}} </em>  </td>
-                                                                <td>{{ date('Y-m-d h:i A',strtotime($a->dateSubmitted)) }} </td>
-                                                                <td><a target="_blank" class="btn btn-sm btn-danger"  href="viewUserForm?s=1&f=BIR2316&u={{$a->id}}"><i class="fa fa-download"></i> Download Signed 2316</a> </td>
+                                                                
                                                               </tr>
                                                               @endforeach
                                                             </tbody>
@@ -223,10 +204,10 @@
    $("#active").DataTable({
       "responsive":true,
       "scrollX":true,
-      "stateSave": true,
+      "stateSave": false,
        "processing":true,
        "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
-      "order": [[ 2, "DESC" ]],
+      //"order": [[ 0, "desc" ]],
      
       "lengthChange": true,
       "oLanguage": {

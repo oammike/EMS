@@ -105,6 +105,35 @@ class UserFormController extends Controller
 
     }
 
+    public function allPending()
+    {
+        DB::connection()->disableQueryLog();
+        $allDisq = DB::table('users')->where('users.hasSigned2316',null)->
+                        leftJoin('team','team.user_id','=','users.id')->
+                        leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                        select('users.lastname','users.firstname','users.nickname', 'users.id as userID','campaign.name as program')->
+                        where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                          ['team.floor_id', '!=',10],
+                          ['team.floor_id', '!=',11],
+                        ])->orderBy('users.lastname','ASC')->get();
+
+        /*
+                        leftJoin('positions','users.position_id','=','positions.id')->
+                        leftJoin('team','team.user_id','=','users.id')->
+                        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.id','users.lastname','users.firstname','users.nickname','campaign.name as program','positions.name as jobTitle', 'user_formDisqFiling.reasonID','user_formDisqFiling.created_at as dateSubmitted')->get();*/
+        //return $allDisq;
+
+        return view('forms.userForms-pendings',compact('allDisq')); 
+
+    }
+
     public function auditTrail()
     {
         $correct = Carbon::now('GMT+8');

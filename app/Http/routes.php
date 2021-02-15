@@ -141,6 +141,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
     //********************** BIR FORMS -----------------------
+    Route::get('/allPendingForms', array(
+        'as'=> 'user_forms.allPending',
+        'uses'=>'UserFormController@allPending') );
+
     Route::get('/getAllForms', array(
         'as'=> 'user_forms.getAllForms',
         'uses'=>'UserFormController@getAllForms') );
@@ -153,7 +157,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'user_forms.auditTrail',
         'uses'=>'UserFormController@auditTrail') );
 
-     Route::get('/userDisqualified', array(
+    Route::get('/userDisqualified', array(
         'as'=> 'user_forms.userTriggered',
         'uses'=>'UserFormController@userTriggered') );
 
