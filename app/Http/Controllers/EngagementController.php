@@ -1175,11 +1175,11 @@ class EngagementController extends Controller
 
         // if($id == 41)
         //     return view('people.wallV',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
-        $bg = $post[0]->bg;
+        $background = $post[0]->bg;
         $bgcolor = $post[0]->bgcolor;
 
-        if  ($bg !== null)
-            return view('people.wallcustom',compact('id','user_id','bg','bgcolor', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+        if  ($background !== null)
+            return view('people.wallcustom',compact('id','user_id','background','bgcolor', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
 
         else
             return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));

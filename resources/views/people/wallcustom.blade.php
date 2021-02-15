@@ -15,7 +15,7 @@
 		  /*background-image: url('../img/banner.png');
 		  background-image: url('../img/polaroid.jpg');*/
 		  
-		  background-image: url("{{url('/')}}/storage/uploads/{{$bg}}");
+		  background-image: url("{{url('/')}}/storage/uploads/{{$background}}");
 		  background-color: {{$bgcolor}};
 		  background-size: 100% auto;
 		  background-position: top center;
@@ -31,7 +31,7 @@
 		  width: 100%;
 		  height: 100%;
 		  /*background-color: black;*/
-		  background-image: url("{{url('/')}}/storage/uploads/{{$bg}}") top fixed no-repeat;
+		  background-image: url("{{url('/')}}/storage/uploads/{{$background}}") top fixed no-repeat;
 		  background-color: transparent;
 		  position: absolute;
 		  top: 0;
