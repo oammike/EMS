@@ -1,4 +1,23 @@
               <div class="item active text-center" >
+                  <img src="storage/uploads/vwall_winners.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations  to our<br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 WINNERS<i class="fa fa-heart"></i><br/><small>Feb.15, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Thank you to all who posted their entries!<br/><br/>
+                      Hope you all had a weekend filled with love with your loved ones!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',41)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="storage/uploads/lovepet.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-github-alt"></i> Love Your Pet Day 2021 <i class="fa fa-github-alt"></i><br/><small>Feb.15, 2021</small><br/>
                   
