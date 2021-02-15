@@ -108,7 +108,7 @@ class UserFormController extends Controller
     public function allPending()
     {
         DB::connection()->disableQueryLog();
-        $allDisq = DB::table('users')->where('users.hasSigned2316',null)->
+        $allDisq = DB::table('users')->where('users.has2316',1)->where('users.hasSigned2316',null)->
                         leftJoin('team','team.user_id','=','users.id')->
                         leftJoin('campaign','campaign.id','=','team.campaign_id')->
                         select('users.lastname','users.firstname','users.nickname', 'users.id as userID','campaign.name as program')->
