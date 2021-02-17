@@ -1,4 +1,24 @@
-              <div class="item active text-center" >
+           
+
+            <div class="item active text-center" >
+                  <img src="storage/uploads/lovepet.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-github-alt"></i> Love Your Pet Day 2021 <i class="fa fa-github-alt"></i><br/><small>Feb.15, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      February 20 is Love Your Pet Day! Let’s fill this week’s wall by sharing the cutest photo of your pets! <br/><br/>
+                      All participants will also earn 20 reward points!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',42)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
                   <img src="storage/uploads/vwall_winners.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Congratulations  to our<br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 WINNERS<i class="fa fa-heart"></i><br/><small>Feb.15, 2021</small><br/>
                   
@@ -17,105 +37,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/lovepet.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-github-alt"></i> Love Your Pet Day 2021 <i class="fa fa-github-alt"></i><br/><small>Feb.15, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      February 20 is Love Your Pet Day! Let’s fill this week’s wall by sharing the cutest photo of your pets! <br/><br/>
-                      All participants will also earn 20 reward points!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',42)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class=" item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   Deadline for Uploading Signed BIR 2316  <br/><small>Feb.15, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <ul style="padding: 30px;" class="text-left">
-                     
-                    A gentle reminder to everyone that the deadline of uploading the signed BIR form 2316 is until <strong class="text-danger"> February 15, 2021 (Monday). </strong>
-
-                    <br/><br/>
-                    You can now download your copy through EMS under MY TOOLS >MY BIR 2316>DOWNLOAD DIGITAL COPY. <br/><br/>
-                    When you click Download digital copy, a prompt message and further instructions will automatically appear. Upon completion, you may then be able to download the BIR 2316. Download a copy and accomplish the needed details below and save the file. <br/><br/>
-
-                    <strong>For employees who are qualified for SUBSTITUTED FILING.</strong><br/><br/>
-
-                    a. Affix your digital signature on boxes 52 and 54 of the form.<br/><br/>
-
-                    b. Indicate the date signed.<br/><br/>
-
-                    c. Fill-out the CTC or valid ID number (passport or driver's license)<br/><br/>
-
-                    d. Accomplish the place and date of issue CTC or valid ID.<br/><br/>
-
-                    e. Include the amount paid, if CTC.<br/><br/><br/><br/>
-
-                    <strong>For employees who are NOT QUALIFIED for SUBSTITUTED FILING.</strong>  <br/><br/>
-
-                    a. Affix your digital signature on box no. 52. <br/><br/>
-
-                    b. Indicate the date signed.<br/><br/>
-
-                    c. Fill-out the CTC or valid ID number (passport or driver's license) <br/><br/>
-
-                    d. Accomplish the place and date of issue CTC or valid ID.<br/><br/>
-
-                    e. Include the amount paid, if CTC.<br/><br/>
-
-                    Please ensure that all fields were properly filled out.  All of the employees whether qualified or not qualified for substituted filing are required to upload the signed BIR 2316. Once completed, click the Upload Signed PDF.<br/><br/>
-
-                    Thank you.<br/>
-
- 
-                    
-              </div>
-
-              <div class="item text-center" >
-                  <img src="storage/uploads/vday2021.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-heart"></i> Open Access BPO <i class="fa fa-heart"></i><br/><small>Feb.14, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Happy Valentine's Day from your Open Access BPO Family!
-
-                     
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
-                  <img src="storage/uploads/cny2021.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-gift"></i> Open Access BPO <i class="fa fa-gift"></i><br/><small>Feb.12, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Open Access BPO wishes everyone a bountiful new year! May the Year of the Ox bring good fortunes and abundance to you and your family.<br/><br/>We hope you enjoy the #ChineseNewYear festivities with your loved ones safely and responsibly.<br/><br/>#WeSpeakYourLanguage #OAonCNY
-
-                     
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+           
 
             <div class="item text-center" >
                   <img src="storage/uploads/newRewards.jpg" width="100%" />
@@ -420,223 +342,6 @@
 
              
 
-              <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/newnormal_home.jpg" width="100%" /><br/>
-                    <img src="storage/uploads/newnormal_office.jpg" width="100%" /><br/>
-
-                    
-                    
- 
- 
-                    
-              </div>
-
-           
-
-              <div class="item text-center">
-                <img src="storage/uploads/oneforhealth_11.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>"With GCQ implemented and its loosened restrictions, my biggest fear is that all our efforts in protecting the health, safety, and livelihood of our employees in the last few months will all be for naught. I ask that each member of our Open Access BPO family restrict movements only for absolute essentials. Be responsible. Stay healthy and remain overly cautious. We will see this through, together.<br/><br/>
-                    Being a single mom, with 3 kids and 3 dogs, facing the changes since ECQ was quite the predicament I had to quickly accept. I needed to deal with these while leading our team to enable our employees to work from home, develop and deploy a shuttle service system, set up office-dwelling, house a subset of our employees in temporary accommodations while ensuring we get our clients to agree with flexible work arrangements and caring for the health, safety, and livelihood of our employees.<br/><br/>
-                    
-                    In between meetings and sometimes during one-on-ones with my team, I find myself multitasking to shop for groceries online or start preparing meals. Four months in, I have managed to and have actually enjoyed integrating work-life balance.”</em><br/><br/>
-
-                    Open Access BPO's Vice President Joy talks about her experience as a mother and a leader during quarantine and how she copes with the changes in her daily life brought by the pandemic.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-             
-              <div class="item text-center">
-                <img src="storage/uploads/oneforhealth_10.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>"Learning a painful lesson from the 2002 SARS outbreak, my family and I responded immediately to COVID-19. We regularly wear masks even when there are no new cases in our community. The company also provides employees with face masks and disinfectants to make sure we’re safe at work.<br/><br/>
-
-                    Before the pandemic, my teammates and I would spend our lunch break together, eating and chatting. But now, we eat separately and limit face-to-face meetings to practice social distancing. We mostly use Skype to communicate with each other and our TL.<br/><br/>
-
-                    Working in a tourism campaign is especially challenging during the pandemic. Once, there was a customer whose family was stranded in the Philippines asking for the earliest available flight. I couldn’t help them because all our flights were canceled. I researched for an alternative solution and found a charter flight for them.””</em><br/><br/>
-
-                    Taipei-based Customer Service Agent Julia talks about the immediate precautions she’s taken in order to protect herself and her family and her experience being in the customer service industry during a pandemic.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-
-              <div class="item text-center">
-                <img src="storage/uploads/oneforhealth_9.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>"I practiced self-isolation for 14 days to protect myself and others from COVID-19. I felt lonely because I couldn't be with my family and friends, but I did overcome it.<br/><br/>
-
-                    We practice contactless shopping in our community. There are volunteers who help buy our daily necessities and leave the items on the front door for pick up.<br/><br/>
-
-                    For two weeks, I worked at home and doubled my productivity to help as many customers as I can. This was also my way of adjusting to the changes of having to work from home.”</em><br/><br/>
-
-                    Xiamen-based Customer Service Agent Summer shares how she strictly self-isolated and provided quality customer support in the wake of a pandemic.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-
-
-             
-              
-
-              <div class="item text-center">
-                <img src="storage/uploads/oneforhealth_8.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>"There’s a constant fear of losing someone to this health crisis. That's why we need to stay healthy and safe for ourselves and our families. We must take our roles seriously to help slow the spread of infections in our communities.<br/><br/>
-
-                    I also try to understand how I can cope with stress. What keeps me going during this period is staying in touch with my family and friends.<br/><br/>
-
-                    The same goes as I take charge of my role in the company. My teammates and I provide our co-workers with necessary supplies and remind them to constantly observe the company's safety guidelines to help them stay safe and healthy as they report to work.”</em><br/><br/>
-
-                    Davao Operations Administrative and Accounting Assistant Joash shares about her perspective on the importance of taking preventive measures and coping with stress in the wake of a pandemic.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-              
-
-              <div class="item  text-center">
-                <img src="storage/uploads/oneforhealth_7.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>"Protecting yourself is also protecting others. All the policies and reminders won't be effective if we will not be responsible of our own health. Be honest when you know you are not feeling well. Whether you're working in the office or at home, reach out to us. The nurses' priority is your health and we will do our best to help you.<br/><br/>
-
-                    This may sound cliché but prevention is better than cure. Open Access BPO's efforts focuses on preventive measures with great regard to preparedness response. Our team worked on arranging our schedules so we can gradually become available 24/7 for employees reporting on-site. We are also continuously collaborating with other departments to keep our Open Access BPO family safe and healthy during this pandemic.<br/><br/>
-
-                    Personally, the abrupt change brought by this pandemic is a challenge. The shift from reporting on-site to working remotely is new to me. I felt scared at first but I was able to pull myself together. Two of my sisters are also nurses and both of them are on the front lines. Our profession makes our parents worried most of the time, but we do our best to let them know we practice all the precautionary measures needed to stay safe."</em><br/><br/>
-
-                    Nurse Manager Loraine shares her experience as a nurse in the wake of a pandemic and explains how protecting oneself can make a difference to ensure the safety of many.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-              <div class="item text-center">
-                <img src="storage/uploads/oneforhealth_6.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>“During this pandemic, I realized how important my job as an HR Officer is. To ensure the safety of our co-workers here in Davao, we regularly distribute disinfectant supplies and face masks. We also make sure that they wash their hands properly before entering the office and constantly practice physical distancing. We’re also provided with shuttle services and hotel accommodations. I’m thankful that I have my job and that through it, I help protect others.<br/><br/>
-
-                    My family’s in the province. I’m worried for them so I always call to make sure they’re safe and to remind them to stay home. I encourage everyone to do the same and follow their respective local government’s guidelines to protect themselves and their loved ones.”</em><br/><br/>
-
-                    HR Officer Mary Lord shares how she protects her family and her co-workers through her job during the pandemic.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-
-
-               <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Maxicare Member Guidelines:<br/><span class="text-primary">Physician Professional Fees, Screening Tests and Other Charges</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <img src="storage/uploads/maxicareGuidelines.jpg" width="100%" />
-                    
- 
- 
-                    
-              </div>
-
-              
-
-              <div class="item text-center">
-                <img src="storage/uploads/oneforhealth_5.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>“Stay home if there’s nothing important to do outside. By doing so, we're saving lives. My team delivered PCs and routers to many at-home workers as part of Open Access BPO's response to the ECQ. The company provided assistance so we can stay safe when working at home or in the office. It's our responsibility to take care of ourselves and follow safety measures.<br/><br/>
-
-                    I've been working from home since the quarantine started, and this changed my daily routine. I'm always a bit hesitant to go out for groceries because there are a lot of reported COVID-19 cases in our area. I have an 8-month old baby, and I don't want to risk infection.<br/><br/>
-
-                    To avoid this, I make sure to always being alcohol, wear a face mask, and observe physical distancing.”</em><br/><br/>
-
-                    IT Manager Arvie shares his strict precautions to protect himself and his family against COVID-19.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
 
 
               
@@ -692,31 +397,7 @@
                     
               </div>
 
-              <div class="item text-center">
-                <img src="storage/uploads/oneforhealth_4.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>“As someone who helps ensure that our workplace is safe, I’m happy that I can help others feel secure when they go to work. I hope everyone can find their work-life balance in these uncertain times and stay safe. Eating healthy food, washing up daily, wearing face masks when heading out, and limiting our time outside of home or the office can help minimize any risk of infection.<br/><br/>
-
-                    There are times when I work from home and when I need to supervise my team on-site. Together, we make sure that our workplace safety protocols such as installing table partitions to support physical distancing are being properly implemented. We’ve also significantly reduced overtime work to maintain work-life balance during quarantine.<br/><br/>
-
-                    While it’s difficult for many of us not to see our loved ones, having access to today’s technology makes it possible to spend time with them despite the distance.”</em><br/><br/>
-
-                    Facilities Manager Ronaldo, fondly called as “Engineer Ronald” by his workmates, talks about his role in ensuring safety within Open Access BPO’s office premises and how he protects himself against COVID-19 in his everyday life.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
+            
 
               <div class="item text-center" >
                 
@@ -733,193 +414,7 @@
               
              
 
-             
-
-              <div class="item text-center" >
-                <img src="storage/uploads/oneforhealth_3.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>“I almost lost my job amidst the pandemic. Our client's operations were hit by the crisis, so our company immediately endorsed me to a new program. I started training and began working with my new team—all while I was in the comfort of my home.<br/><br/>
-
-                    More than anything, the pandemic made me miss my mom so much. I usually visit her on my rest days, but we weren’t even able to celebrate her birthday last March.<br/><br/>
-
-                    For those who are away from their loved ones, I understand how much you long for them. But it’s really important for us to practice physical distancing to protect ourselves and those close to our hearts.” </em><br/><br/>
-
-                    Email Support agent Ann shares about how the pandemic affected her job and how she’s trying to cope despite the distance between her and her loved ones.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-
-              <div class="item text-center" >
-                  
-                  
-                  <img src="storage/uploads/oneforhealth_2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   <em>“Whenever I pass through the hallways, I carefully keep my distance from others. There are asymptomatic cases of COVID-19 and the risk of droplet transmission only increases if we do not properly observe physical distancing.<br/><br/>
-
-                    Notices around the office also help remind me to constantly practice physical distancing and to sanitize my hands.”<br/><br/></em>
-
-                    Japanese Content Moderation Analyst Nozawa shares his experience of working in the office during quarantine and how he personally observes protective measures against COVID-19.<br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-
-              <div class="item text-center" >
-                  
-                  
-                  <img src="storage/uploads/oneforhealth_1.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   Events Manager Jackie talks about the importance of following basic guidelines such as proper wearing of face masks/PPEs, hand sanitation, and respiratory hygiene in protecting ourselves and those around us against COVID-19:<br/><br/>
-
-                  <em>“There’s still very little that we know about this virus so I find it essential to protect myself and those around me at all times. These are the simplest things we can do and contribute to not spread the virus and get sick. That’s why I'm following these measures and always encouraging those around me to do the same, especially when going outside.
-
-                  We had a death of a loved one during this pandemic. Losing someone in a time like this is devastating. We didn’t even get to say our goodbyes. I don't want anyone to experience the same thing so let’s still be cautious even if we’re now on GCQ. We should strictly observe all safety guidelines in and out of our homes."</em><br/><br/>
-                    *******************************<br/><br/>
-                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
-
-                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
-                  </p>    
- 
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Transitioning to the New Normal <br/>
-                   
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear Open Access Family,<br/><br/>
-
- 
-
-                      Since GCQ has been declared (May 16 for Davao and June 1 for Manila), know that we are taking a very prudent stance in transitioning back to our workplace. While the business dictates what programs go back in phases, we will be as careful as we need to be. Employee health and safety are paramount, hence the primary focus of our efforts and basis of our decisions will be to balance these with business needs.
-                     <br/><br/>
-                       
-
-                      We take a guarded approach to continuing operations in Davao and G2 and reopening Jaka/6780.  While we will maintain part of our labor force working remotely and do so as long as we can, we are starting to proceed with the incremental increase of workers returning onsite.  Check with your program and department heads if and when your teams will be transitioning. We want everyone to be absolutely responsible and heedful while doing so.<br/><br/>
-
-                       
-
-                       
-
-                      <strong class="text-primary"> Recap ECQ</strong><br/>
-
-                      <strong>We have done all we can to ensure you were safe and productive during ECQ </strong><br/>
-
-                      While many U.S. companies have needed to reduce their workforces or completely shut down, we are very fortunate many of our clients have remained stable and operational. This put us in a position to be able to support everyone and remaining operational, while on community quarantine. From deploying multiple company assets to enable you to work sheltered from your homes and allowing flexibility with work hours and leaves where needed, to providing free near-site and onsite accommodation, including provisions for free food, free roundtrip door-to-door transportation, as well as quarantine incentives; to adopting new corporate policies and procedures for health and safety, to communication blitzes for education on disease prevention.<br/><br/>
-
-                       
-
-                      <strong class="text-primary"> On to the New Normal: GCQ Onward</strong><br/>
-
-                      <strong>Navigate through less restrictions and increased movement in GCQ with even more vigilance</strong><br/>
-
-                      Let us not waste all the efforts in keeping our team safe and healthy over the last three months, by carelessly exposing ourselves to undue risk. Stay home if you’re working from there. Limit movement strictly to essentials as if your life and work depended on doing so.
-                      <br/><br/>
-                       
-
-                      Let’s be grateful for all the company has done by committing to support our drive for personal accountability to protect our lives and our livelihood.  We need you to take responsibility for your own health and safety, be overly cautious and disciplined at all times, in and out of the office.<br/><br/>
-
-                       
-
-                      Please take time to read through our <a class="text-success" href="oampi-resources/item/67" target="_blank"><strong> transition strategy </strong></a> uploaded resource document. Thank you for your continued commitment.<br/><br/>
-
-                       
-
-                      In the meantime, be safe, team.  Be responsible. Be smart. Stay healthy<br/><br/>
-                      All the best,<br/>
-                      <strong>Joy</strong>
- 
-                    
-              </div>
-              
-
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-exclamation-triangle"></i> Updated Workplace <br/>Health and Safety Policy  <br/> <span class="text-primary">   for the prevention and <br/>control of COVID-19 <br/>
-                    <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    ATTENTION TO ALL:    <br/><br/>
-
-                    We are reminding everyone to comply with our health and safety protocols such as the requirement to: <br/><br/>
-                    Accomplish the Health Declaration Form prior to going to work.<strong class="text-primary">STAY HOME IF YOU ARE SICK. </strong> <br/><br/>
-                    Wear a face mask and have your temperature taken prior to entering the office premises. <br/><br/>
-                    Practice physical distancing and respiratory etiquette. <br/><br/>
-                    The maximum penalty for non-compliance with the health and safety protocols is termination. <br/><br/> <br/><br/>
-
-                    For guidance, we have outlined scenarios on how our health protocols will generally be implemented: <br/><br/>
-
-                    <strong class="text-primary"> 1. Building Lobby</strong><br/>
-                    If temperature is above 37.5C, you will no longer allowed by the building admin to proceed to the office. If necessary, the nurse will go to the lobby and confirm your temperature/assess before you sending home. <br/><br/>
-
-                    <strong class="text-primary"> 2.  At the office reception prior to entering the production area</strong><br/>
-                    Our guards will check your temperature. If above 37.5C or if you exhibit other symptoms, you will not be allowed to enter the office. The nurse will go to the reception area and assess before sending you home. <br/><br/>
-
-                    <strong class="text-primary"> 3. During work</strong> <br/>
-                    If you feel unwell during your shift, you are required to proceed to the  nearest designated area (isolation room or clinic) from your workstation. The nurse will  assess before sending you home.  <br/><br/>
-
-                    <strong class="text-primary"> 4. Emergency Room Transport, if necessary after Nurse assessment.</strong><br/>
-                    The nurse will explain and set expectations on the need for immediate ER transfer (nearest hospital is Makati Medical Center). You may notify a family member about the situation. No one can join in the elevator except for the nurse. Upon arrival in the ER, the nurse will properly endorse the patient to the hospital ER personnel. <br/><br/>
-                    Thank you.
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DTR Locking in EMS <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that we will strictly implement the 24-hour rule in locking your DTR in EMS. This is for the Timekeeping team to regularly upload your approved change work schedule, DTRPs, leaves, and overtime from EMS to Jeonsoft for payroll computation purposes.<br/><br/>
-                    <strong class="text-danger"> DTRs should be locked within 24 hours after your shift</strong>, except on the last working day of the cut-off which should be locked the following day on or before 12PM. The change work schedule, DTRPs, leaves, and overtime should be approved by the immediate head within the same date such filings were applied and filed. Once all the filings are approved and reflected, you may now lock your DTR.  We will then assume that your DTR is correct and reviewed by yourself.<br/><br/>
-
-                    If you have questions, please feel free to email salaryinquiry@openaccessbpo.com via Gmail or salaryinquiry@openaccessbpo.net via Zimbra.<br/><br/>
-
-                    Please be guided accordingly. Thank you.
- 
-                    
-              </div>
+       
 
               
 
@@ -1022,51 +517,7 @@
             
               
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/> <span class="text-primary"><i class="fa fa-users"></i> All Open Access BPO Leaders<br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Hello Open Access BPO Leaders,<br/><br/>
-
-                    Managing co-located teams is in itself a challenging task, so much more now that our teams have transitioned to a remote setup. We developed <strong class="text-primary"> ALERT,</strong> an eLearning course to help you lead your remote teams. It stands for <strong class="text-primary"> Adeptly Leading Effective Remote Teams</strong>. Part 1 will be released tomorrow. We hope that you'll find this learning resource helpful. Here's a peek at the topics covered:<br/><br/>
-                    - unique challenges of remote teams<br/>
-                    - remote team leader competencies<br/>
-                    - establishing team principles<br/>
-                    - establishing trust and accountability<br/><br/>
-                    Expect another email from <strong>system@open-access.training-online.eu</strong> tomorrow. This will be triggered once your Learning Management System (LMS) user accounts are created tomorrow. There will be a redirect link in the message. Once you are redirected to the LMS page, click on the login button to set your new password, as shown below.<br/>
-                    <img src="storage/uploads/trainingimg.png" width="95%" />
-                    <br/><br/> 
-
-                   
-
-                    </p> 
-
-
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Memo: <br/> <span class="text-primary"><i class="fa fa-file"></i> ASSET DEPLOYMENT PROCESS <br/>FOR AT-HOME-WORKERS<br/><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    <strong>Enabling WFH for Open Access Employees Procedures and User Guide</strong><br/><br/>
-                    This document outlines the policies and procedures for setting up employees to work from home utilizing company-issued equipment during the ECQ period.<br/><br/> 
-
-                    <a href="oampi-resources#resource_8" class="btn btn-sm btn-primary" target="_blank"><i class="fa fa-book"></i> Read Memo &amp; Guidelines </a>
-
-                    </p> 
-
-
- 
-                    
-              </div>
+             
 
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Reminders: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   Tips and Tricks on How to Stay Productive
@@ -1158,83 +609,6 @@
 
               
 
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > To all Onsite Employees: <br/> <span class="text-primary"><i class="fa fa-building"></i>   ECQ G2 Office Guidelines <br/><br/>
-                   <img src="storage/uploads/warning.png" width="98%" /><br/><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    To reiterate our previous email reminders, it is imperative to observe the following:<br/><br/>
-
-
-                    1. <strong class="text-danger"> NO LOITERING </strong>outside the office premises and building.<br/><br/>
-                    2. <strong class="text-danger">NO SMOKING</strong> in non-designated areas.  <br/><br/>
-                    3. <strong class="text-danger">AVOID going in and out</strong> of the office building.<br/><br/>
-                     <i class="fa fa-exclamation-triangle text-orange"></i> Stay inside the lobby while waiting for the shuttle service.<br/><br/>
-                    
-                    <i class="fa fa-exclamation-triangle text-orange"></i> ALWAYS wear a mask inside the office premises, going to/from office, or while outside or in public places.<br/><br/>
-                     <i class="fa fa-exclamation-triangle text-orange"></i> ALWAYS follow the physical distancing inside the office premises, outside the office, at shuttle service and public places.<br/><br/>
-                     
-
-                    In as much as BPO is one of the essential services that are open, it does not mean that we are at liberty of movement. During this ECQ period, movement of BPO employees are allowed only for the purpose of going to/from the office. .In order to address the Makati City Police PCP5 concerns on the volume of personnel loitering around Ayala Center, the G2 Building Admin will be issuing a limited number of passes to all BPO tenants.  For onsite employees, there will be an assigned Housekeeping Personnel with passes who can accommodate requests for emergency/urgent essential purchases within the office vicinity.  <br/><br/>
-
-                     
-
-                    The Ayala Center Estate Association (ACEA) will report all those who are found loitering, smoking or doing unnecessary activities within Ayala Center and the G2 Building Admin may prevent violators from returning to the G2 building until after the ECQ is lifted. Likewise, the City of Makati prohibits among others loitering in public places within the ECQ period.<br/><br/>
-
-                    Further, attached is the Makati City Ordinance No. 2020-089, requiring the mandatory wearing of face masks and other similar protective equipment penalizing its violation thereof.<br/><br/>
-
-                    Please be guided accordingly.
-
-
-                    
-
-                    </p>  
-                    
-              </div>
-
-            
-             
-
-              <div style="padding:0px" class="item text-center" >
-                 <!--  <h4 class="text-orange" style="line-height: 1.6em" > Happy<br/> <span class="text-primary">Easter!<br/> -->
-                   <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/doh.jpg" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                     DOH launched the DOH COVID-19 emergency hotlines 02-894-COVID (02-894-26843) and 1555 in partnership with the National Emergency Hotline of the DILG, and PLDT and its wireless subsidiary Smart Communications Inc.<br/><br/>
-
-                     Through the hotline, callers can ask questions if they suspect they are infected with COVID-19, or request assistance if they have symptoms and/or known exposure to confirmed cases of patients under investigation.<br/><br/>
-
-                    For more information, visit:  https://www.doh.gov.ph/doh-press-release/doh-launches-covid-19-hotline
-                    
-
-                    </p>  
-                    
-              </div>
-
-              <div style="padding:0px" class="item  text-center" >
-                  <h4 class="text-orange" style="line-height: 1.6em" > Message from <br/> <span class="text-primary"> Leadership Development</span><br/>
-                   <h4 class="text-orange" style="line-height: 1.6em" > 
-                    <img src="storage/uploads/elearning.png" width="100%"><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                     Please take a few minutes to go through this e-learning module: <strong><a href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P" target="_blank"> Remote Work: Tips and Tricks on How to Stay Productive</a></strong><br/><br/>
-
-                      It has been designed to guide at-home workers to effectively accomplish our jobs and manage our productivity in our new current workspace - our own homes. Many of these are useful also for those working as a skeletal workforce in the office. A host of practical tips and tools were consolidated here to help make self-management and working from home efficient, and even inspirational and fun while keeping safe and healthy.<br/><br/>
-
-                      <a target="_blank" href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P" class="btn btn-md btn-success"><i class="fa fa-book"></i> Read Now</a>.<br/><br/>
-                      Happy Learning!
-                    
-
-                    </p>  
-                    
-              </div>
 
              
 
@@ -1397,312 +771,11 @@
 
                
 
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>MANDATORY <br/>BASIC PROTECTIVE MEASURES FOR THE WORKPLACE <br/>
-                    <span style="font-size: small;">World Health Organization COVID19 Advice for the Public</span>
-
-                  <br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/who.png" width="60%" />
-                    </h4>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;" class="text-left"><br/>
-                     For workforce health and safety, it is critical that basic protective measures be taken at all times by our skeletal workforce, office dwellers, and temporary accommodation stayers.<br/></br/>
-
-
-                      <strong class="text-primary"> Wash your hands frequently</strong></br/>
-                      Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water.
-                      Why? Washing your hands with soap and water or using alcohol-based hand rub kills viruses that may be on your hands.<br/></br/>
-
-                      <strong class="text-primary"> Maintain social distancing</strong></br/>
-                      Maintain at least 1 meter (3 feet) distance between yourself and anyone who is coughing or sneezing.
-                      Why? When someone coughs or sneezes, they spray small liquid droplets from their nose or mouth which may contain virus. If you are too close, you can breathe in the droplets, including the COVID-19 virus if the person coughing has the disease.<br/></br/>
-
-                      <strong class="text-primary"> Avoid touching eyes, nose and mouth</strong></br/>
-                      Why? Hands touch many surfaces and can pick up viruses. Once contaminated, hands can transfer the virus to your eyes, nose or mouth. From there, the virus can enter your body and can make you sick.<br/></br/>
-
-                      <strong class="text-primary"> Practice respiratory hygiene</strong></br/>
-                      Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze. Then dispose of the used tissue immediately.
-                      Why? Droplets spread virus. By following good respiratory hygiene, you protect the people around you from viruses such as cold, flu and COVID-19.<br/></br/>
-
-                      <strong class="text-primary"> If you have fever, cough and difficulty breathing, seek medical care early</strong></br/>
-                      Stay home if you feel unwell. If you have a fever, cough and difficulty breathing, seek medical attention and call in advance. Follow the directions of your local health authority.
-                      Why? National and local authorities will have the most up to date information on the situation in your area. Calling in advance will allow your health care provider to quickly direct you to the right health facility. This will also protect you and help prevent spread of viruses and other infections.
-
-
-
-
-                    </p>
-
-                   
-                    
-                </div>
-
-               
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Note:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Updated Payroll Calendar 2020<br/>
-                 <br/>
-                    <img src="storage/uploads/payday.png" width="60%"> <br/><br/>
-                    <img src="storage/uploads/divider.png" /><br/><br/>
-
-                    
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <table class="table table-bordered text-center" style="font-size: smaller; width: 93%" align="center">
-                      <thead>
-                        <tr>
-                          <th>Month</th>
-                          <th class="bg-orange">New Cutoff</th>
-                          <th class="bg-green">New Payday</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>April</td>
-                          <td>Apr 03 (Fri)</td>
-                          <td>Apr 08 (Wed)</td>
-                        </tr>
-
-                        <tr>
-                          <td>May</td>
-                          <td>May 03 (Sun)</td>
-                          <td>May 08 (Fri)</td>
-                        </tr>
-
-                        <tr>
-                          <td>October</td>
-                          <td>Oct 18 (Sun)</td>
-                          <td>Oct 23 (Fri)</td>
-                        </tr>
-
-                        <tr>
-                          <td>December</td>
-                          <td>Dec 18 (Fri)</td>
-                          <td>Dec 23 (Wed)</td>
-                        </tr>
-
-                        <tr>
-                          <td>January 2021</td>
-                          <td>Jan 03, 2021 (Sun)</td>
-                          <td>Jan 08, 2021 (Fri)</td>
-                        </tr>
-
-
-                      </tbody>
-                    </table>
-
-                    <p style="padding: 50px;font-size: x-small;line-height: 1.2em" class="text-left">
-
-                      Please take note of the following changes in our cutoff and payout dates for the following months:<br/><br/>
-                      <em> * note that our regular cutoff period is every 5th and 20th day of the month, and every 10th &amp; 25th for our payout dates)</em> 
-                      <br/><br/><br/>
-                    </p>
-
-
-                    
-                </div>
                 
 
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Onsite Employees &amp; Office Dwellers<br/>
-                 <br/>
-                    <img src="storage/uploads/companynurse.jpg" width="80%" /> <br/><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-
-                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
-                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
-                      had history of exposure, compliance with the procedures is mandatory:</p>
-
-                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-                      <li>The employee must promptly notify the Nurse on duty. If no nurse is onsite, the employee is directed
-                           immediately call the Nurses (contact information found in Section V)<br/><br/></li>
-                      <li>The Nurse will assess the employee and, if necessary, transfer the employee to the designated holding
-                           area or isolation room. The Immediate Head has the authority to transfer the employee to the designated
-                           isolation room pending the assessment of the Nurse.<br/><br/></li>
-                      <li>If symptoms are mild, the employee will be advised to seek medical consult via Maxicare TeleConsult.
-                           If there are notable symptoms like fever, difficulty of breathing or prolonged cough, the employee will
-                           be advised to immediately seek hospital consult. In either case, the employee will be required to go
-                           home or stay at the designated temporary housing.<br/><br/></li>
-                      <li> If self-quarantine has been advised, the employee must isolate for 14 days. If hospitalization is
-                           recommended, employee is required to be confined.
-                            The employee must provide daily updates to the Nurse (oamnurse@openaccessbpo.com or call/SMS
-                           09178960634).<br/><br/></li>
-                      <li>After 14 days of quarantine or discharge from hospitalization, the employee must seek post
-                           quarantine/post-admission medical consult and submit a medical certificate/fit to work certificate. Post
-                           consultation may be via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent to
-                           the Nurses. <br/>(note: Teleconsultations provide email reports and may be requested by the patient before
-                           ending the call.)<br/><br/></li>
-                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
-                          and will send the appropriate report.</li>
-
-
-                    </ol>
-
-                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
-
-
-                    
-                </div>
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Office Dwellers:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Shower Room Etiquette<br/>
-                 <br/>
-                   <img src="storage/uploads/shower.png" width="50%" /><br/><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-
-                      Since the Men's Shower Room may no longer be used, office dwellers may take turns using the Ladies Shower Room. To be able to accommodate everyone, the allocated shower time is <strong class="text-danger">strictly 20 minutes per user</strong><br/><br/>
-                      As a courtesy to all the other users, please stick to the time, return the key to the reception guard on time and CAYG.<br/><br/>
-                      Let's take good care of our office facilities as this provides a safe dwelling for us during this ECC period. Thank you.
-                      <br/><br/><br/>
-                    Open Access BPO Management</p>
-
-
-                    
-                </div>
-
-                
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Using CARPOOL/ SHUTTLE SERVICE FOR WORK<br/>
-                 <br/>
-                    <img src="storage/uploads/carpool.png" width="80%" /> <br/><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-
-                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
-                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
-                      had history of exposure, compliance with the procedures is mandatory:</p>
-
-                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-                      <li>  The employee should stay at home and immediately notify the Nurse two hours prior to the scheduled
-                        shift. (contact information found in Section V)<br/><br/></li>
-                      <li>After assessment, the employee will be required to seek medical consult.<br/><br/></li>
-                      <li>If self-quarantine has been advised, the employee should stay home for the 14-days.<br/><br/></li>
-                      <li>If hospitalization is recommended, employee is required to be confined.<br/><br/></li>
-                      <li>The employee must provide daily updates to the Nurse (oamnurse@openaccessbpo.com or call/SMS
-                         09178960634).<br/><br/></li>
-                      <li>After 14 days of quarantine or discharge from hospital, the employee must seek post-quarantine/post-
-                         admission medical consult and submit a medical certificate/fit to work certificate. Consultation may be
-                         via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent to the Nurses. (note:
-                         Teleconsultations provide email reports and may be requested by the patient before ending the call.)<br/><br/></li>
-                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
-                         and will send the appropriate report.  </li>
-
-
-                    </ol>
-
-                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
-
-
-                    
-                </div>
-
                
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" > Supporting our Employees <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> through Enhanced Community <br/>Quarantine Period<br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;" class="text-left">Team,<br/><br/>
-
-                        Thank you for the flexibility in adapting to the ever-changing government response and restrictions to help keep our teams and families safe, while enabling us to continue with business operations.<br/><br/>
-                        We are permitted to operate a skeletal workforce within our office premises so we can continue service delivery by providing Program Hours of Operations & critical lines of business coverage as deemed necessary by our clients.<br/><br/>
-                        <strong class="text-primary"> Check out the following posts about our efforts to help support our employees: <i class="fa fa-arrow-right"></i></strong>
-                    </p>
-
-                    
-                </div>
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" > Office Dwelling<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> <span style="font-size: smaller;"> Employee Registration</span><br/>
-                 <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="storage/uploads/officedwell.jpg" width="80%" />
-                    <p style="padding: 50px;font-size: smaller;" class="text-left">Team,<br/><br/>
-
-                        To support those who will comprise our skeletal workforce during ECQ, we are offering employees to <strong>temporarily live in our G2 Makati site. </strong><br/><br/>
-                        To register, click the button below:<BR/><BR/>
-
-
-                        <a class="btn btn-lg btn-primary text-center" href="https://docs.google.com/forms/d/e/1FAIpQLSd3PxXcHzD2mFl6BOaMAtmA0GGEdupjBoc23Wvpsvp5ilbWig/viewform?usp=sf_link" target="_blank"><i class="fa fa-home"></i> Register Here</a>
-                        <br/><br/>Please note this is an alternative living accommodation option and is not mandatory. 
-                    </p>
-
-                    
-                </div>
-
-               
-
-               
-
-                
-
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" > Reminder to Practice: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>SOCIAL DISTANCING <br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    <img src="storage/uploads/distancing.png" width="100%" /></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
-
-                        We are implementing strict SOCIAL DISTANCING at our G2 and 6780 sites.  Everyone should maintain a distance of <strong class="text-danger">at least one (1) meter radius apart</strong> during essential work-related meetings and activities.<br/><br/>
-
-                         
-
-                        In general, we can all practice social distancing by:<br/><br/>
-
-                         
-
-                        - Practicing good hand and sneeze/cough hygiene.<br/><br/>
-                        - Wearing a facemask if sick.<br/><br/>
-                        - Regularly using hand sanitizers or alcohol.<br/><br/>
-                        - Holding meetings via video or phone call.<br/><br/>
-                        - Reconsidering non-essential travel.<br/><br/>
-                         
-
-                        Stay healthy and be safe.<br/><br/><br/><br/>
-
-
-
-                        <strong>From HR Department</strong></p>
-                </div>
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" > Attention: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>EMPLOYEES USING COMPANY’S COMPUTERS AND PERSONAL/ISSUED LAPTOPS FOR WORK FROM HOME USE AS PERMITTED <br/><img src="storage/uploads/divider.png" /></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px" class="text-left">For your information and guidance.<br /><br/>
-
-                    Please be informed that there is an urgent need to set your computer time to PH TIME effective immediately for timekeeping purposes.<br /><br/>
-
-                    Check out the IT resource document on <strong>how to set the date and time on your computer and laptop</strong> for your reference. Should there be concerns, please email IT Team at itgroup@openaccessbpo.com.</p>
-                    <a href="oampi-resources#resource_7" target="_blank" class="btn btn-success btn-md"><i class="fa fa-book"></i> See How to Change PC clock Settings</a>
-                </div>
 
               
-
-                <div class="item  text-center" >
-                  <h4 class="text-orange" >Take the COVID-19 <span class="text-primary"> PREVENTION TRAINING </span></h4>
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <img src="./storage/uploads/covid19.jpg" style="z-index: 2" />
-                    <br/><br/>
-                    <a target="_blank" class="btn btn-md btn-primary" href="https://rise.articulate.com/share/HL1HpxI4bcOo6j0gE16afeNey4gx-ySk"><i class="fa fa-info-circle"></i> LAUNCH TRAINING  </a><br /><br/>
-                </div>
 
 
              
@@ -1825,102 +898,7 @@
 
 
 
-                      <div class="item  text-center" >
-                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
-                              
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
-                                <a target="_blank" href="user/262">
-                                  <img src="./public/img/employees/262.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
-                                  <h4 style="padding-top: 30px">Jomar Domingo <br/><small>(domingo@openaccessbpo.com / jdomingo@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
-                                  
-
-                                  <ul class="text-left" style="margin-left: 60px">
-                                    <li>Admin (Facilities,Finance,HR,Recruitment)</li>
-                                    <li>Operation (Jomar's team and Ms. Joy's team)</li>
-                                    <li>EDTrainingCenter</li>
-                                    <li>IT</li>
-                                    <li>Lebua</li>
-                                    <li>Marketing</li>
-                                    <li>QA & Performance (Reports team)</li>
-                                    <li>SKUVantage</li>
-                                    <li>Training Department</li>
-                                    <li>TurnTo Networks</li>
-                                    <li>Leave credits by campaigns</li>
-                                  </ul></p><br/><br/><br/><br/>          
-
-                      </div>
-
-                      <div class="item  text-center" >
-                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
-                              
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
-                                <a target="_blank" href="user/716">
-                                  <img src="./public/img/employees/716.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
-                                  <h4 style="padding-top: 30px">Lealyn Tiraña  <br/><small>(ltirana@openaccessbpo.com / ltirana@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
-                                  
-
-                                  <ul class="text-left" style="margin-left: 60px">
-                                    <li>Circles.Life</li>
-                                    <li>Datascan</li>
-                                    <li>Digicast</li>
-                                    <li>NDY</li>
-                                    <li>SheerID</li>
-                                    <li>Workforce</li>
-                                    <li>WorldVentures</li>
-                                    <li>Zenefits <br/><br/></li>
-                                    <li><strong class="text-danger">SSS</strong></li>
-                                    <li><strong class="text-danger">Pag-ibig</strong></li>
-                                    <li><strong class="text-danger">PhilHealth</strong></li>
-                                  </ul></p><br/><br/><br/><br/>          
-
-                      </div>
-
-                      <div class="item  text-center" >
-                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
-                              
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
-                                <a target="_blank" href="user/1540">
-                                  <img src="./public/img/employees/1540.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
-                                  <h4 style="padding-top: 30px">Ronalyn Ambrocio <br/><small>(roambrocio@openaccessbpo.com / roambrocio@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/><br/><br/>
-                                  
-
-                                  <ul class="text-left" style="margin-left: 60px">
-                                    <li>Adoreme</li>
-                                    <li>Advance Wellness</li>
-                                    <li>Avawomen</li>
-                                    <li>Bird</li>
-                                    <li>Mayo Clinic</li>
-                                    <li>Mous</li>
-                                    <li>Postmates</li>
-                                    <li>Quora</li>
-                                    <li>UiPath</li>
-                                    
-                                  </ul></p><br/><br/><br/><br/>          
-
-                      </div>
-
-                      <div class="item  text-center" >
-                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
-                              
-                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
-                                <a target="_blank" href="user/3044">
-                                  <img src="./public/img/employees/3044.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
-                                  <h4 style="padding-top: 30px">Marjorie Arias<br/><small>(marias@openaccessbpo.com / marias@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
-                                  
-
-                                  <ul class="text-left" style="margin-left: 60px">
-                                    <li>Glassdoor</li>
-                                    <li>IMO</li>
-                                    <li>Patch</li>
-                                    <li>TaskRabbit</li>
-                                    <li>HR (Davao)</li>
-                                    <li>IT (Davao)</li>
-                                    <li>Facilities (Davao)</li>
-                                    
-                                    
-                                  </ul></p><br/><br/><br/><br/>          
-
-                      </div>
+                    
 
                       <div style="padding:0px" class="item  text-center" >
                         <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
@@ -10055,6 +9033,1046 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     
             </div>
 
+             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class=" item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>   Deadline for Uploading Signed BIR 2316  <br/><small>Feb.15, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <ul style="padding: 30px;" class="text-left">
+                     
+                    A gentle reminder to everyone that the deadline of uploading the signed BIR form 2316 is until <strong class="text-danger"> February 15, 2021 (Monday). </strong>
+
+                    <br/><br/>
+                    You can now download your copy through EMS under MY TOOLS >MY BIR 2316>DOWNLOAD DIGITAL COPY. <br/><br/>
+                    When you click Download digital copy, a prompt message and further instructions will automatically appear. Upon completion, you may then be able to download the BIR 2316. Download a copy and accomplish the needed details below and save the file. <br/><br/>
+
+                    <strong>For employees who are qualified for SUBSTITUTED FILING.</strong><br/><br/>
+
+                    a. Affix your digital signature on boxes 52 and 54 of the form.<br/><br/>
+
+                    b. Indicate the date signed.<br/><br/>
+
+                    c. Fill-out the CTC or valid ID number (passport or driver's license)<br/><br/>
+
+                    d. Accomplish the place and date of issue CTC or valid ID.<br/><br/>
+
+                    e. Include the amount paid, if CTC.<br/><br/><br/><br/>
+
+                    <strong>For employees who are NOT QUALIFIED for SUBSTITUTED FILING.</strong>  <br/><br/>
+
+                    a. Affix your digital signature on box no. 52. <br/><br/>
+
+                    b. Indicate the date signed.<br/><br/>
+
+                    c. Fill-out the CTC or valid ID number (passport or driver's license) <br/><br/>
+
+                    d. Accomplish the place and date of issue CTC or valid ID.<br/><br/>
+
+                    e. Include the amount paid, if CTC.<br/><br/>
+
+                    Please ensure that all fields were properly filled out.  All of the employees whether qualified or not qualified for substituted filing are required to upload the signed BIR 2316. Once completed, click the Upload Signed PDF.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  <img src="storage/uploads/vday2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-heart"></i> Open Access BPO <i class="fa fa-heart"></i><br/><small>Feb.14, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy Valentine's Day from your Open Access BPO Family!
+
+                     
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+                  <img src="storage/uploads/cny2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Greetings from  <br/><span class="text-primary"><i class="fa fa-gift"></i> Open Access BPO <i class="fa fa-gift"></i><br/><small>Feb.12, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Open Access BPO wishes everyone a bountiful new year! May the Year of the Ox bring good fortunes and abundance to you and your family.<br/><br/>We hope you enjoy the #ChineseNewYear festivities with your loved ones safely and responsibly.<br/><br/>#WeSpeakYourLanguage #OAonCNY
+
+                     
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+
+              <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/newnormal_home.jpg" width="100%" /><br/>
+                    <img src="storage/uploads/newnormal_office.jpg" width="100%" /><br/>
+
+                    
+                    
+ 
+ 
+                    
+              </div>
+
+           
+
+              <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_11.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"With GCQ implemented and its loosened restrictions, my biggest fear is that all our efforts in protecting the health, safety, and livelihood of our employees in the last few months will all be for naught. I ask that each member of our Open Access BPO family restrict movements only for absolute essentials. Be responsible. Stay healthy and remain overly cautious. We will see this through, together.<br/><br/>
+                    Being a single mom, with 3 kids and 3 dogs, facing the changes since ECQ was quite the predicament I had to quickly accept. I needed to deal with these while leading our team to enable our employees to work from home, develop and deploy a shuttle service system, set up office-dwelling, house a subset of our employees in temporary accommodations while ensuring we get our clients to agree with flexible work arrangements and caring for the health, safety, and livelihood of our employees.<br/><br/>
+                    
+                    In between meetings and sometimes during one-on-ones with my team, I find myself multitasking to shop for groceries online or start preparing meals. Four months in, I have managed to and have actually enjoyed integrating work-life balance.”</em><br/><br/>
+
+                    Open Access BPO's Vice President Joy talks about her experience as a mother and a leader during quarantine and how she copes with the changes in her daily life brought by the pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+             
+              <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_10.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"Learning a painful lesson from the 2002 SARS outbreak, my family and I responded immediately to COVID-19. We regularly wear masks even when there are no new cases in our community. The company also provides employees with face masks and disinfectants to make sure we’re safe at work.<br/><br/>
+
+                    Before the pandemic, my teammates and I would spend our lunch break together, eating and chatting. But now, we eat separately and limit face-to-face meetings to practice social distancing. We mostly use Skype to communicate with each other and our TL.<br/><br/>
+
+                    Working in a tourism campaign is especially challenging during the pandemic. Once, there was a customer whose family was stranded in the Philippines asking for the earliest available flight. I couldn’t help them because all our flights were canceled. I researched for an alternative solution and found a charter flight for them.””</em><br/><br/>
+
+                    Taipei-based Customer Service Agent Julia talks about the immediate precautions she’s taken in order to protect herself and her family and her experience being in the customer service industry during a pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_9.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"I practiced self-isolation for 14 days to protect myself and others from COVID-19. I felt lonely because I couldn't be with my family and friends, but I did overcome it.<br/><br/>
+
+                    We practice contactless shopping in our community. There are volunteers who help buy our daily necessities and leave the items on the front door for pick up.<br/><br/>
+
+                    For two weeks, I worked at home and doubled my productivity to help as many customers as I can. This was also my way of adjusting to the changes of having to work from home.”</em><br/><br/>
+
+                    Xiamen-based Customer Service Agent Summer shares how she strictly self-isolated and provided quality customer support in the wake of a pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+
+             
+              
+
+              <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_8.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"There’s a constant fear of losing someone to this health crisis. That's why we need to stay healthy and safe for ourselves and our families. We must take our roles seriously to help slow the spread of infections in our communities.<br/><br/>
+
+                    I also try to understand how I can cope with stress. What keeps me going during this period is staying in touch with my family and friends.<br/><br/>
+
+                    The same goes as I take charge of my role in the company. My teammates and I provide our co-workers with necessary supplies and remind them to constantly observe the company's safety guidelines to help them stay safe and healthy as they report to work.”</em><br/><br/>
+
+                    Davao Operations Administrative and Accounting Assistant Joash shares about her perspective on the importance of taking preventive measures and coping with stress in the wake of a pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+              
+
+              <div class="item  text-center">
+                <img src="storage/uploads/oneforhealth_7.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>"Protecting yourself is also protecting others. All the policies and reminders won't be effective if we will not be responsible of our own health. Be honest when you know you are not feeling well. Whether you're working in the office or at home, reach out to us. The nurses' priority is your health and we will do our best to help you.<br/><br/>
+
+                    This may sound cliché but prevention is better than cure. Open Access BPO's efforts focuses on preventive measures with great regard to preparedness response. Our team worked on arranging our schedules so we can gradually become available 24/7 for employees reporting on-site. We are also continuously collaborating with other departments to keep our Open Access BPO family safe and healthy during this pandemic.<br/><br/>
+
+                    Personally, the abrupt change brought by this pandemic is a challenge. The shift from reporting on-site to working remotely is new to me. I felt scared at first but I was able to pull myself together. Two of my sisters are also nurses and both of them are on the front lines. Our profession makes our parents worried most of the time, but we do our best to let them know we practice all the precautionary measures needed to stay safe."</em><br/><br/>
+
+                    Nurse Manager Loraine shares her experience as a nurse in the wake of a pandemic and explains how protecting oneself can make a difference to ensure the safety of many.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+              <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_6.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“During this pandemic, I realized how important my job as an HR Officer is. To ensure the safety of our co-workers here in Davao, we regularly distribute disinfectant supplies and face masks. We also make sure that they wash their hands properly before entering the office and constantly practice physical distancing. We’re also provided with shuttle services and hotel accommodations. I’m thankful that I have my job and that through it, I help protect others.<br/><br/>
+
+                    My family’s in the province. I’m worried for them so I always call to make sure they’re safe and to remind them to stay home. I encourage everyone to do the same and follow their respective local government’s guidelines to protect themselves and their loved ones.”</em><br/><br/>
+
+                    HR Officer Mary Lord shares how she protects her family and her co-workers through her job during the pandemic.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+
+               <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Maxicare Member Guidelines:<br/><span class="text-primary">Physician Professional Fees, Screening Tests and Other Charges</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/maxicareGuidelines.jpg" width="100%" />
+                    
+ 
+ 
+                    
+              </div>
+
+              
+
+              <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_5.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“Stay home if there’s nothing important to do outside. By doing so, we're saving lives. My team delivered PCs and routers to many at-home workers as part of Open Access BPO's response to the ECQ. The company provided assistance so we can stay safe when working at home or in the office. It's our responsibility to take care of ourselves and follow safety measures.<br/><br/>
+
+                    I've been working from home since the quarantine started, and this changed my daily routine. I'm always a bit hesitant to go out for groceries because there are a lot of reported COVID-19 cases in our area. I have an 8-month old baby, and I don't want to risk infection.<br/><br/>
+
+                    To avoid this, I make sure to always being alcohol, wear a face mask, and observe physical distancing.”</em><br/><br/>
+
+                    IT Manager Arvie shares his strict precautions to protect himself and his family against COVID-19.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+                <div class="item text-center">
+                <img src="storage/uploads/oneforhealth_4.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“As someone who helps ensure that our workplace is safe, I’m happy that I can help others feel secure when they go to work. I hope everyone can find their work-life balance in these uncertain times and stay safe. Eating healthy food, washing up daily, wearing face masks when heading out, and limiting our time outside of home or the office can help minimize any risk of infection.<br/><br/>
+
+                    There are times when I work from home and when I need to supervise my team on-site. Together, we make sure that our workplace safety protocols such as installing table partitions to support physical distancing are being properly implemented. We’ve also significantly reduced overtime work to maintain work-life balance during quarantine.<br/><br/>
+
+                    While it’s difficult for many of us not to see our loved ones, having access to today’s technology makes it possible to spend time with them despite the distance.”</em><br/><br/>
+
+                    Facilities Manager Ronaldo, fondly called as “Engineer Ronald” by his workmates, talks about his role in ensuring safety within Open Access BPO’s office premises and how he protects himself against COVID-19 in his everyday life.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+
+
+              <div class="item text-center" >
+                <img src="storage/uploads/oneforhealth_3.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“I almost lost my job amidst the pandemic. Our client's operations were hit by the crisis, so our company immediately endorsed me to a new program. I started training and began working with my new team—all while I was in the comfort of my home.<br/><br/>
+
+                    More than anything, the pandemic made me miss my mom so much. I usually visit her on my rest days, but we weren’t even able to celebrate her birthday last March.<br/><br/>
+
+                    For those who are away from their loved ones, I understand how much you long for them. But it’s really important for us to practice physical distancing to protect ourselves and those close to our hearts.” </em><br/><br/>
+
+                    Email Support agent Ann shares about how the pandemic affected her job and how she’s trying to cope despite the distance between her and her loved ones.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
+                  
+                  <img src="storage/uploads/oneforhealth_2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   <em>“Whenever I pass through the hallways, I carefully keep my distance from others. There are asymptomatic cases of COVID-19 and the risk of droplet transmission only increases if we do not properly observe physical distancing.<br/><br/>
+
+                    Notices around the office also help remind me to constantly practice physical distancing and to sanitize my hands.”<br/><br/></em>
+
+                    Japanese Content Moderation Analyst Nozawa shares his experience of working in the office during quarantine and how he personally observes protective measures against COVID-19.<br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
+                  
+                  
+                  <img src="storage/uploads/oneforhealth_1.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >We are #OneForHealth<br/><span class="text-primary">on staying safe</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   Events Manager Jackie talks about the importance of following basic guidelines such as proper wearing of face masks/PPEs, hand sanitation, and respiratory hygiene in protecting ourselves and those around us against COVID-19:<br/><br/>
+
+                  <em>“There’s still very little that we know about this virus so I find it essential to protect myself and those around me at all times. These are the simplest things we can do and contribute to not spread the virus and get sick. That’s why I'm following these measures and always encouraging those around me to do the same, especially when going outside.
+
+                  We had a death of a loved one during this pandemic. Losing someone in a time like this is devastating. We didn’t even get to say our goodbyes. I don't want anyone to experience the same thing so let’s still be cautious even if we’re now on GCQ. We should strictly observe all safety guidelines in and out of our homes."</em><br/><br/>
+                    *******************************<br/><br/>
+                    We are #OneForHealth is a series from Open Access BPO that tackles how our employees keep themselves and those around them healthy and safe during the pandemic. We hope this can serve as a reminder for everyone to take an active role as we combat COVID-19.<br/><br/>
+
+                    Understand more about health and safety guidelines, visit World Health Organization (WHO)’s website: https://tinyurl.com/whohealthmeasures.
+                  </p>    
+ 
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-info-circle"></i> GCQ: <br/><span class="text-primary">Transitioning to the New Normal <br/>
+                   
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear Open Access Family,<br/><br/>
+
+ 
+
+                      Since GCQ has been declared (May 16 for Davao and June 1 for Manila), know that we are taking a very prudent stance in transitioning back to our workplace. While the business dictates what programs go back in phases, we will be as careful as we need to be. Employee health and safety are paramount, hence the primary focus of our efforts and basis of our decisions will be to balance these with business needs.
+                     <br/><br/>
+                       
+
+                      We take a guarded approach to continuing operations in Davao and G2 and reopening Jaka/6780.  While we will maintain part of our labor force working remotely and do so as long as we can, we are starting to proceed with the incremental increase of workers returning onsite.  Check with your program and department heads if and when your teams will be transitioning. We want everyone to be absolutely responsible and heedful while doing so.<br/><br/>
+
+                       
+
+                       
+
+                      <strong class="text-primary"> Recap ECQ</strong><br/>
+
+                      <strong>We have done all we can to ensure you were safe and productive during ECQ </strong><br/>
+
+                      While many U.S. companies have needed to reduce their workforces or completely shut down, we are very fortunate many of our clients have remained stable and operational. This put us in a position to be able to support everyone and remaining operational, while on community quarantine. From deploying multiple company assets to enable you to work sheltered from your homes and allowing flexibility with work hours and leaves where needed, to providing free near-site and onsite accommodation, including provisions for free food, free roundtrip door-to-door transportation, as well as quarantine incentives; to adopting new corporate policies and procedures for health and safety, to communication blitzes for education on disease prevention.<br/><br/>
+
+                       
+
+                      <strong class="text-primary"> On to the New Normal: GCQ Onward</strong><br/>
+
+                      <strong>Navigate through less restrictions and increased movement in GCQ with even more vigilance</strong><br/>
+
+                      Let us not waste all the efforts in keeping our team safe and healthy over the last three months, by carelessly exposing ourselves to undue risk. Stay home if you’re working from there. Limit movement strictly to essentials as if your life and work depended on doing so.
+                      <br/><br/>
+                       
+
+                      Let’s be grateful for all the company has done by committing to support our drive for personal accountability to protect our lives and our livelihood.  We need you to take responsibility for your own health and safety, be overly cautious and disciplined at all times, in and out of the office.<br/><br/>
+
+                       
+
+                      Please take time to read through our <a class="text-success" href="oampi-resources/item/67" target="_blank"><strong> transition strategy </strong></a> uploaded resource document. Thank you for your continued commitment.<br/><br/>
+
+                       
+
+                      In the meantime, be safe, team.  Be responsible. Be smart. Stay healthy<br/><br/>
+                      All the best,<br/>
+                      <strong>Joy</strong>
+ 
+                    
+              </div>
+              
+
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-exclamation-triangle"></i> Updated Workplace <br/>Health and Safety Policy  <br/> <span class="text-primary">   for the prevention and <br/>control of COVID-19 <br/>
+                    <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    ATTENTION TO ALL:    <br/><br/>
+
+                    We are reminding everyone to comply with our health and safety protocols such as the requirement to: <br/><br/>
+                    Accomplish the Health Declaration Form prior to going to work.<strong class="text-primary">STAY HOME IF YOU ARE SICK. </strong> <br/><br/>
+                    Wear a face mask and have your temperature taken prior to entering the office premises. <br/><br/>
+                    Practice physical distancing and respiratory etiquette. <br/><br/>
+                    The maximum penalty for non-compliance with the health and safety protocols is termination. <br/><br/> <br/><br/>
+
+                    For guidance, we have outlined scenarios on how our health protocols will generally be implemented: <br/><br/>
+
+                    <strong class="text-primary"> 1. Building Lobby</strong><br/>
+                    If temperature is above 37.5C, you will no longer allowed by the building admin to proceed to the office. If necessary, the nurse will go to the lobby and confirm your temperature/assess before you sending home. <br/><br/>
+
+                    <strong class="text-primary"> 2.  At the office reception prior to entering the production area</strong><br/>
+                    Our guards will check your temperature. If above 37.5C or if you exhibit other symptoms, you will not be allowed to enter the office. The nurse will go to the reception area and assess before sending you home. <br/><br/>
+
+                    <strong class="text-primary"> 3. During work</strong> <br/>
+                    If you feel unwell during your shift, you are required to proceed to the  nearest designated area (isolation room or clinic) from your workstation. The nurse will  assess before sending you home.  <br/><br/>
+
+                    <strong class="text-primary"> 4. Emergency Room Transport, if necessary after Nurse assessment.</strong><br/>
+                    The nurse will explain and set expectations on the need for immediate ER transfer (nearest hospital is Makati Medical Center). You may notify a family member about the situation. No one can join in the elevator except for the nurse. Upon arrival in the ER, the nurse will properly endorse the patient to the hospital ER personnel. <br/><br/>
+                    Thank you.
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DTR Locking in EMS <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that we will strictly implement the 24-hour rule in locking your DTR in EMS. This is for the Timekeeping team to regularly upload your approved change work schedule, DTRPs, leaves, and overtime from EMS to Jeonsoft for payroll computation purposes.<br/><br/>
+                    <strong class="text-danger"> DTRs should be locked within 24 hours after your shift</strong>, except on the last working day of the cut-off which should be locked the following day on or before 12PM. The change work schedule, DTRPs, leaves, and overtime should be approved by the immediate head within the same date such filings were applied and filed. Once all the filings are approved and reflected, you may now lock your DTR.  We will then assume that your DTR is correct and reviewed by yourself.<br/><br/>
+
+                    If you have questions, please feel free to email salaryinquiry@openaccessbpo.com via Gmail or salaryinquiry@openaccessbpo.net via Zimbra.<br/><br/>
+
+                    Please be guided accordingly. Thank you.
+ 
+                    
+              </div>
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Attention: <br/> <span class="text-primary"><i class="fa fa-users"></i> All Open Access BPO Leaders<br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Hello Open Access BPO Leaders,<br/><br/>
+
+                    Managing co-located teams is in itself a challenging task, so much more now that our teams have transitioned to a remote setup. We developed <strong class="text-primary"> ALERT,</strong> an eLearning course to help you lead your remote teams. It stands for <strong class="text-primary"> Adeptly Leading Effective Remote Teams</strong>. Part 1 will be released tomorrow. We hope that you'll find this learning resource helpful. Here's a peek at the topics covered:<br/><br/>
+                    - unique challenges of remote teams<br/>
+                    - remote team leader competencies<br/>
+                    - establishing team principles<br/>
+                    - establishing trust and accountability<br/><br/>
+                    Expect another email from <strong>system@open-access.training-online.eu</strong> tomorrow. This will be triggered once your Learning Management System (LMS) user accounts are created tomorrow. There will be a redirect link in the message. Once you are redirected to the LMS page, click on the login button to set your new password, as shown below.<br/>
+                    <img src="storage/uploads/trainingimg.png" width="95%" />
+                    <br/><br/> 
+
+                   
+
+                    </p> 
+
+
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Memo: <br/> <span class="text-primary"><i class="fa fa-file"></i> ASSET DEPLOYMENT PROCESS <br/>FOR AT-HOME-WORKERS<br/><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    <strong>Enabling WFH for Open Access Employees Procedures and User Guide</strong><br/><br/>
+                    This document outlines the policies and procedures for setting up employees to work from home utilizing company-issued equipment during the ECQ period.<br/><br/> 
+
+                    <a href="oampi-resources#resource_8" class="btn btn-sm btn-primary" target="_blank"><i class="fa fa-book"></i> Read Memo &amp; Guidelines </a>
+
+                    </p> 
+
+
+ 
+                    
+              </div>
+
+
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > To all Onsite Employees: <br/> <span class="text-primary"><i class="fa fa-building"></i>   ECQ G2 Office Guidelines <br/><br/>
+                   <img src="storage/uploads/warning.png" width="98%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    To reiterate our previous email reminders, it is imperative to observe the following:<br/><br/>
+
+
+                    1. <strong class="text-danger"> NO LOITERING </strong>outside the office premises and building.<br/><br/>
+                    2. <strong class="text-danger">NO SMOKING</strong> in non-designated areas.  <br/><br/>
+                    3. <strong class="text-danger">AVOID going in and out</strong> of the office building.<br/><br/>
+                     <i class="fa fa-exclamation-triangle text-orange"></i> Stay inside the lobby while waiting for the shuttle service.<br/><br/>
+                    
+                    <i class="fa fa-exclamation-triangle text-orange"></i> ALWAYS wear a mask inside the office premises, going to/from office, or while outside or in public places.<br/><br/>
+                     <i class="fa fa-exclamation-triangle text-orange"></i> ALWAYS follow the physical distancing inside the office premises, outside the office, at shuttle service and public places.<br/><br/>
+                     
+
+                    In as much as BPO is one of the essential services that are open, it does not mean that we are at liberty of movement. During this ECQ period, movement of BPO employees are allowed only for the purpose of going to/from the office. .In order to address the Makati City Police PCP5 concerns on the volume of personnel loitering around Ayala Center, the G2 Building Admin will be issuing a limited number of passes to all BPO tenants.  For onsite employees, there will be an assigned Housekeeping Personnel with passes who can accommodate requests for emergency/urgent essential purchases within the office vicinity.  <br/><br/>
+
+                     
+
+                    The Ayala Center Estate Association (ACEA) will report all those who are found loitering, smoking or doing unnecessary activities within Ayala Center and the G2 Building Admin may prevent violators from returning to the G2 building until after the ECQ is lifted. Likewise, the City of Makati prohibits among others loitering in public places within the ECQ period.<br/><br/>
+
+                    Further, attached is the Makati City Ordinance No. 2020-089, requiring the mandatory wearing of face masks and other similar protective equipment penalizing its violation thereof.<br/><br/>
+
+                    Please be guided accordingly.
+
+
+                    
+
+                    </p>  
+                    
+              </div>
+
+            
+             
+
+              <div style="padding:0px" class="item text-center" >
+                 
+                   <h4 class="text-orange" style="line-height: 1.6em" > <img src="storage/uploads/doh.jpg" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     DOH launched the DOH COVID-19 emergency hotlines 02-894-COVID (02-894-26843) and 1555 in partnership with the National Emergency Hotline of the DILG, and PLDT and its wireless subsidiary Smart Communications Inc.<br/><br/>
+
+                     Through the hotline, callers can ask questions if they suspect they are infected with COVID-19, or request assistance if they have symptoms and/or known exposure to confirmed cases of patients under investigation.<br/><br/>
+
+                    For more information, visit:  https://www.doh.gov.ph/doh-press-release/doh-launches-covid-19-hotline
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="padding:0px" class="item  text-center" >
+                  <h4 class="text-orange" style="line-height: 1.6em" > Message from <br/> <span class="text-primary"> Leadership Development</span><br/>
+                   <h4 class="text-orange" style="line-height: 1.6em" > 
+                    <img src="storage/uploads/elearning.png" width="100%"><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                     Please take a few minutes to go through this e-learning module: <strong><a href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P" target="_blank"> Remote Work: Tips and Tricks on How to Stay Productive</a></strong><br/><br/>
+
+                      It has been designed to guide at-home workers to effectively accomplish our jobs and manage our productivity in our new current workspace - our own homes. Many of these are useful also for those working as a skeletal workforce in the office. A host of practical tips and tools were consolidated here to help make self-management and working from home efficient, and even inspirational and fun while keeping safe and healthy.<br/><br/>
+
+                      <a target="_blank" href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P" class="btn btn-md btn-success"><i class="fa fa-book"></i> Read Now</a>.<br/><br/>
+                      Happy Learning!
+                    
+
+                    </p>  
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Reminders: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>MANDATORY <br/>BASIC PROTECTIVE MEASURES FOR THE WORKPLACE <br/>
+                    <span style="font-size: small;">World Health Organization COVID19 Advice for the Public</span>
+
+                  <br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/who.png" width="60%" />
+                    </h4>
+                    
+                   
+                    <p style="padding: 50px;" class="text-left"><br/>
+                     For workforce health and safety, it is critical that basic protective measures be taken at all times by our skeletal workforce, office dwellers, and temporary accommodation stayers.<br/></br/>
+
+
+                      <strong class="text-primary"> Wash your hands frequently</strong></br/>
+                      Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water.
+                      Why? Washing your hands with soap and water or using alcohol-based hand rub kills viruses that may be on your hands.<br/></br/>
+
+                      <strong class="text-primary"> Maintain social distancing</strong></br/>
+                      Maintain at least 1 meter (3 feet) distance between yourself and anyone who is coughing or sneezing.
+                      Why? When someone coughs or sneezes, they spray small liquid droplets from their nose or mouth which may contain virus. If you are too close, you can breathe in the droplets, including the COVID-19 virus if the person coughing has the disease.<br/></br/>
+
+                      <strong class="text-primary"> Avoid touching eyes, nose and mouth</strong></br/>
+                      Why? Hands touch many surfaces and can pick up viruses. Once contaminated, hands can transfer the virus to your eyes, nose or mouth. From there, the virus can enter your body and can make you sick.<br/></br/>
+
+                      <strong class="text-primary"> Practice respiratory hygiene</strong></br/>
+                      Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze. Then dispose of the used tissue immediately.
+                      Why? Droplets spread virus. By following good respiratory hygiene, you protect the people around you from viruses such as cold, flu and COVID-19.<br/></br/>
+
+                      <strong class="text-primary"> If you have fever, cough and difficulty breathing, seek medical care early</strong></br/>
+                      Stay home if you feel unwell. If you have a fever, cough and difficulty breathing, seek medical attention and call in advance. Follow the directions of your local health authority.
+                      Why? National and local authorities will have the most up to date information on the situation in your area. Calling in advance will allow your health care provider to quickly direct you to the right health facility. This will also protect you and help prevent spread of viruses and other infections.
+
+
+
+
+                    </p>
+
+                   
+                    
+                </div>
+
+               
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Note:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Updated Payroll Calendar 2020<br/>
+                 <br/>
+                    <img src="storage/uploads/payday.png" width="60%"> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/><br/>
+
+                    
+                    
+                   
+                    <table class="table table-bordered text-center" style="font-size: smaller; width: 93%" align="center">
+                      <thead>
+                        <tr>
+                          <th>Month</th>
+                          <th class="bg-orange">New Cutoff</th>
+                          <th class="bg-green">New Payday</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>April</td>
+                          <td>Apr 03 (Fri)</td>
+                          <td>Apr 08 (Wed)</td>
+                        </tr>
+
+                        <tr>
+                          <td>May</td>
+                          <td>May 03 (Sun)</td>
+                          <td>May 08 (Fri)</td>
+                        </tr>
+
+                        <tr>
+                          <td>October</td>
+                          <td>Oct 18 (Sun)</td>
+                          <td>Oct 23 (Fri)</td>
+                        </tr>
+
+                        <tr>
+                          <td>December</td>
+                          <td>Dec 18 (Fri)</td>
+                          <td>Dec 23 (Wed)</td>
+                        </tr>
+
+                        <tr>
+                          <td>January 2021</td>
+                          <td>Jan 03, 2021 (Sun)</td>
+                          <td>Jan 08, 2021 (Fri)</td>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+
+                    <p style="padding: 50px;font-size: x-small;line-height: 1.2em" class="text-left">
+
+                      Please take note of the following changes in our cutoff and payout dates for the following months:<br/><br/>
+                      <em> * note that our regular cutoff period is every 5th and 20th day of the month, and every 10th &amp; 25th for our payout dates)</em> 
+                      <br/><br/><br/>
+                    </p>
+
+
+                    
+                </div>
+                
+
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Onsite Employees &amp; Office Dwellers<br/>
+                 <br/>
+                    <img src="storage/uploads/companynurse.jpg" width="80%" /> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
+                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
+                      had history of exposure, compliance with the procedures is mandatory:</p>
+
+                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                      <li>The employee must promptly notify the Nurse on duty. If no nurse is onsite, the employee is directed
+                           immediately call the Nurses (contact information found in Section V)<br/><br/></li>
+                      <li>The Nurse will assess the employee and, if necessary, transfer the employee to the designated holding
+                           area or isolation room. The Immediate Head has the authority to transfer the employee to the designated
+                           isolation room pending the assessment of the Nurse.<br/><br/></li>
+                      <li>If symptoms are mild, the employee will be advised to seek medical consult via Maxicare TeleConsult.
+                           If there are notable symptoms like fever, difficulty of breathing or prolonged cough, the employee will
+                           be advised to immediately seek hospital consult. In either case, the employee will be required to go
+                           home or stay at the designated temporary housing.<br/><br/></li>
+                      <li> If self-quarantine has been advised, the employee must isolate for 14 days. If hospitalization is
+                           recommended, employee is required to be confined.
+                            The employee must provide daily updates to the Nurse (oamnurse@openaccessbpo.com or call/SMS
+                           09178960634).<br/><br/></li>
+                      <li>After 14 days of quarantine or discharge from hospitalization, the employee must seek post
+                           quarantine/post-admission medical consult and submit a medical certificate/fit to work certificate. Post
+                           consultation may be via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent to
+                           the Nurses. <br/>(note: Teleconsultations provide email reports and may be requested by the patient before
+                           ending the call.)<br/><br/></li>
+                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
+                          and will send the appropriate report.</li>
+
+
+                    </ol>
+
+                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
+
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Office Dwellers:<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>Shower Room Etiquette<br/>
+                 <br/>
+                   <img src="storage/uploads/shower.png" width="50%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                   
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      Since the Men's Shower Room may no longer be used, office dwellers may take turns using the Ladies Shower Room. To be able to accommodate everyone, the allocated shower time is <strong class="text-danger">strictly 20 minutes per user</strong><br/><br/>
+                      As a courtesy to all the other users, please stick to the time, return the key to the reception guard on time and CAYG.<br/><br/>
+                      Let's take good care of our office facilities as this provides a safe dwelling for us during this ECC period. Thank you.
+                      <br/><br/><br/>
+                    Open Access BPO Management</p>
+
+
+                    
+                </div>
+
+                
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Workplace Health and Safety Policy<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>for: Employees Using CARPOOL/ SHUTTLE SERVICE FOR WORK<br/>
+                 <br/>
+                    <img src="storage/uploads/carpool.png" width="80%" /> <br/><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                   
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+
+                      All employees should practice social responsibility by monitoring their health condition. If an employee is sick or has flu-like
+                      symptoms such as fever, cough, shortness of breath, fatigue, sore throat, headache, chills, nausea or nasal congestion, or has
+                      had history of exposure, compliance with the procedures is mandatory:</p>
+
+                    <ol type="1"style="padding-left: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                      <li>  The employee should stay at home and immediately notify the Nurse two hours prior to the scheduled
+                        shift. (contact information found in Section V)<br/><br/></li>
+                      <li>After assessment, the employee will be required to seek medical consult.<br/><br/></li>
+                      <li>If self-quarantine has been advised, the employee should stay home for the 14-days.<br/><br/></li>
+                      <li>If hospitalization is recommended, employee is required to be confined.<br/><br/></li>
+                      <li>The employee must provide daily updates to the Nurse (oamnurse@openaccessbpo.com or call/SMS
+                         09178960634).<br/><br/></li>
+                      <li>After 14 days of quarantine or discharge from hospital, the employee must seek post-quarantine/post-
+                         admission medical consult and submit a medical certificate/fit to work certificate. Consultation may be
+                         via Maxicare Teleconsult/Clinic consult. Report or documentation should be sent to the Nurses. (note:
+                         Teleconsultations provide email reports and may be requested by the patient before ending the call.)<br/><br/></li>
+                      <li>After medical certificate/fit to work verification, the Nurse will notify the employee’s Immediate Head
+                         and will send the appropriate report.  </li>
+
+
+                    </ol>
+
+                    <a href="resource#resource_6" class="btn btn-success btn-md"><i class="fa fa-book"></i> Read More</a>
+
+
+                    
+                </div>
+
+                  <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > Supporting our Employees <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> through Enhanced Community <br/>Quarantine Period<br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    
+                    <p style="padding: 50px;font-size: smaller;" class="text-left">Team,<br/><br/>
+
+                        Thank you for the flexibility in adapting to the ever-changing government response and restrictions to help keep our teams and families safe, while enabling us to continue with business operations.<br/><br/>
+                        We are permitted to operate a skeletal workforce within our office premises so we can continue service delivery by providing Program Hours of Operations & critical lines of business coverage as deemed necessary by our clients.<br/><br/>
+                        <strong class="text-primary"> Check out the following posts about our efforts to help support our employees: <i class="fa fa-arrow-right"></i></strong>
+                    </p>
+
+                    
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > Office Dwelling<span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/> <span style="font-size: smaller;"> Employee Registration</span><br/>
+                 <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    
+                    <img src="storage/uploads/officedwell.jpg" width="80%" />
+                    <p style="padding: 50px;font-size: smaller;" class="text-left">Team,<br/><br/>
+
+                        To support those who will comprise our skeletal workforce during ECQ, we are offering employees to <strong>temporarily live in our G2 Makati site. </strong><br/><br/>
+                        To register, click the button below:<BR/><BR/>
+
+
+                        <a class="btn btn-lg btn-primary text-center" href="https://docs.google.com/forms/d/e/1FAIpQLSd3PxXcHzD2mFl6BOaMAtmA0GGEdupjBoc23Wvpsvp5ilbWig/viewform?usp=sf_link" target="_blank"><i class="fa fa-home"></i> Register Here</a>
+                        <br/><br/>Please note this is an alternative living accommodation option and is not mandatory. 
+                    </p>
+
+                    
+                </div>
+
+               
+
+               
+
+                
+
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" > Reminder to Practice: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>SOCIAL DISTANCING <br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    <img src="storage/uploads/distancing.png" width="100%" /></h4>
+                    
+                    <p style="padding: 50px" class="text-left">Dear All,<br/><br/>
+
+                        We are implementing strict SOCIAL DISTANCING at our G2 and 6780 sites.  Everyone should maintain a distance of <strong class="text-danger">at least one (1) meter radius apart</strong> during essential work-related meetings and activities.<br/><br/>
+
+                         
+
+                        In general, we can all practice social distancing by:<br/><br/>
+
+                         
+
+                        - Practicing good hand and sneeze/cough hygiene.<br/><br/>
+                        - Wearing a facemask if sick.<br/><br/>
+                        - Regularly using hand sanitizers or alcohol.<br/><br/>
+                        - Holding meetings via video or phone call.<br/><br/>
+                        - Reconsidering non-essential travel.<br/><br/>
+                         
+
+                        Stay healthy and be safe.<br/><br/><br/><br/>
+
+
+
+                        <strong>From HR Department</strong></p>
+                </div>
+
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" > Attention: <span class="text-primary"> <i class="fa fa-info-circle-o"></i><br/>EMPLOYEES USING COMPANY’S COMPUTERS AND PERSONAL/ISSUED LAPTOPS FOR WORK FROM HOME USE AS PERMITTED <br/><img src="storage/uploads/divider.png" /></h4>
+                  
+                    <p style="padding: 50px" class="text-left">For your information and guidance.<br /><br/>
+
+                    Please be informed that there is an urgent need to set your computer time to PH TIME effective immediately for timekeeping purposes.<br /><br/>
+
+                    Check out the IT resource document on <strong>how to set the date and time on your computer and laptop</strong> for your reference. Should there be concerns, please email IT Team at itgroup@openaccessbpo.com.</p>
+                    <a href="oampi-resources#resource_7" target="_blank" class="btn btn-success btn-md"><i class="fa fa-book"></i> See How to Change PC clock Settings</a>
+                </div>
+
+              
+
+                <div class="item  text-center" >
+                  <h4 class="text-orange" >Take the COVID-19 <span class="text-primary"> PREVENTION TRAINING </span></h4>
+                   
+                    <img src="./storage/uploads/covid19.jpg" style="z-index: 2" />
+                    <br/><br/>
+                    <a target="_blank" class="btn btn-md btn-primary" href="https://rise.articulate.com/share/HL1HpxI4bcOo6j0gE16afeNey4gx-ySk"><i class="fa fa-info-circle"></i> LAUNCH TRAINING  </a><br /><br/>
+                </div>
+
+                  <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/262">
+                                  <img src="./public/img/employees/262.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Jomar Domingo <br/><small>(domingo@openaccessbpo.com / jdomingo@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Admin (Facilities,Finance,HR,Recruitment)</li>
+                                    <li>Operation (Jomar's team and Ms. Joy's team)</li>
+                                    <li>EDTrainingCenter</li>
+                                    <li>IT</li>
+                                    <li>Lebua</li>
+                                    <li>Marketing</li>
+                                    <li>QA & Performance (Reports team)</li>
+                                    <li>SKUVantage</li>
+                                    <li>Training Department</li>
+                                    <li>TurnTo Networks</li>
+                                    <li>Leave credits by campaigns</li>
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
+
+                      <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/716">
+                                  <img src="./public/img/employees/716.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Lealyn Tiraña  <br/><small>(ltirana@openaccessbpo.com / ltirana@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Circles.Life</li>
+                                    <li>Datascan</li>
+                                    <li>Digicast</li>
+                                    <li>NDY</li>
+                                    <li>SheerID</li>
+                                    <li>Workforce</li>
+                                    <li>WorldVentures</li>
+                                    <li>Zenefits <br/><br/></li>
+                                    <li><strong class="text-danger">SSS</strong></li>
+                                    <li><strong class="text-danger">Pag-ibig</strong></li>
+                                    <li><strong class="text-danger">PhilHealth</strong></li>
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
+
+                      <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/1540">
+                                  <img src="./public/img/employees/1540.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Ronalyn Ambrocio <br/><small>(roambrocio@openaccessbpo.com / roambrocio@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Adoreme</li>
+                                    <li>Advance Wellness</li>
+                                    <li>Avawomen</li>
+                                    <li>Bird</li>
+                                    <li>Mayo Clinic</li>
+                                    <li>Mous</li>
+                                    <li>Postmates</li>
+                                    <li>Quora</li>
+                                    <li>UiPath</li>
+                                    
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
+
+                      <div class="item  text-center" >
+                      <h4 class="text-orange">Timekeeping &amp; Government Concerns<br/><small>Point of Contact</small></h4>
+                              
+                               <p class="text-left" style="padding-left: 50px;"><br/><br/>
+                                <a target="_blank" href="user/3044">
+                                  <img src="./public/img/employees/3044.jpg" class="img-circle pull-left" width="150" style="margin-left: 5px" />
+                                  <h4 style="padding-top: 30px">Marjorie Arias<br/><small>(marias@openaccessbpo.com / marias@openaccessbpo.net)</small></h4></a><br/><br/><br/><br/>
+                                  
+
+                                  <ul class="text-left" style="margin-left: 60px">
+                                    <li>Glassdoor</li>
+                                    <li>IMO</li>
+                                    <li>Patch</li>
+                                    <li>TaskRabbit</li>
+                                    <li>HR (Davao)</li>
+                                    <li>IT (Davao)</li>
+                                    <li>Facilities (Davao)</li>
+                                    
+                                    
+                                  </ul></p><br/><br/><br/><br/>          
+
+                      </div>
 
             
 
