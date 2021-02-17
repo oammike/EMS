@@ -78,7 +78,12 @@
 
                                               </div>
                                           </td>
-                                          <td><a href="../storage/uploads/{{$e[1]->value}}" target="_blank"><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                          @if($engagement[0]->id >= 41) <!--valentines 2021 onwards -->
+                                            <td><a href="https://internal.openaccess.bpo/EMS/public/storage/uploads/{{$e[1]->value}}" target="_blank"><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                          @else
+                                            <td><a href="../storage/uploads/{{$e[1]->value}}" target="_blank"><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+
+                                          @endif
                                           <td>{{$e[0]->created_at}} </td>
                                           
                                           @if($e[0]->disqualified)
@@ -99,7 +104,7 @@
                                           
                                           <td class="text-center">
                                             
-                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
+                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> <br/>
                                             <label style="margin-top: 20px"><input type="checkbox" @if($e[0]->disqualified) checked="checked" @endif class="flag" data-entryid="{{$e[0]->entryID}}"> Flag as Inappropriate</label>
                                           </td>
                                           
@@ -132,7 +137,7 @@
 
                                           <td class="text-center">
                                             
-                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> 
+                                            <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#adminModal{{$e[0]->entryID}}"><i class="fa fa-trash"></i> Delete </a> <br/>
 
                                             <label style="margin-top: 20px"><input type="checkbox" @if($e[0]->disqualified) checked="checked" @endif class="flag" data-entryid="{{$e[0]->entryID}}"> Flag as Inappropriate</label>
                                           </td>
@@ -227,7 +232,11 @@
                                       @if(count($e) > 1)
 
                                         <tr>
-                                          <td><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                          @if($engagement[0]->id >= 41) <!--valentines 2021 onwards -->
+                                            <td><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                          @else
+                                            <td><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                          @endif
                                           <td>
                                             <div class="editable" style="margin:20px; white-space: pre-wrap; font-size: smaller">{!! $e[0]->value !!}
 

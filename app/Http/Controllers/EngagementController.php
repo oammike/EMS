@@ -658,6 +658,8 @@ class EngagementController extends Controller
                   fclose($file);
                 }
 
+                //return $engagement[0]->id;
+
                 return view('people.empEngagement-show_wall',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','canAward', 'userEntries','itemTypes','uniqueUsers','waysto'));
 
             }
@@ -666,7 +668,7 @@ class EngagementController extends Controller
                 if($this->user->id !== 564 )
                  {
                     $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                    fwrite($file, "-------------------\n View Frightful2020 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
+                    fwrite($file, "-------------------\n View Engage[".$id."] by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
                  }
 
                  //return $engagement;
