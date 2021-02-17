@@ -790,14 +790,14 @@ class EngagementController extends Controller
 
                         }
 
-                        $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
-                        $storagePath = '/home/EMS/public/storage';
-                        $destinationPath = $storagePath . '/uploads/';
-                        $image->move($destinationPath, $new_name);
-
                         // $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
-                        // $destinationPath = storage_path() . '/uploads/';
+                        // $storagePath = '/home/EMS/public/storage';
+                        // $destinationPath = $storagePath . '/uploads/';
                         // $image->move($destinationPath, $new_name);
+
+                        $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
+                        $destinationPath = storage_path() . '/uploads/';
+                        $image->move($destinationPath, $new_name);
 
                         //copy to new /home/EMS location
                         /*$new_name2 = $filen.$this->user->id."_".rand() .'.' . $image2->getClientOriginalExtension();
