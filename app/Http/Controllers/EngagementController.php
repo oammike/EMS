@@ -795,7 +795,7 @@ class EngagementController extends Controller
                         $image->move($destinationPath, $new_name);
 
                         //copy to new /home/EMS location
-                        $new_name2 = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
+                        $new_name2 = $filen.$this->user->id."_".rand() .'.' . $image2->getClientOriginalExtension();
                         $storagePath = '/home/EMS/public/storage';
                         $destinationPath2 = $storagePath . '/uploads/';
                         $image2->move($destinationPath2, $new_name2);
