@@ -233,7 +233,7 @@
 
                                         <tr>
                                           @if($engagement[0]->id >= 41) <!--valentines 2021 onwards -->
-                                            <td><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                            <td><img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/{{$e[1]->value}}" width="120" /></td>
                                           @else
                                             <td><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
                                           @endif
