@@ -5670,7 +5670,8 @@ class DTRController extends Controller
                 fclose($file);
             } 
 
-        return view('timekeeping.dtrSheet-locks',compact('payrollPeriod','paycutoffs'));
+        $sp = storage_path();
+        return view('timekeeping.dtrSheet-locks',compact('payrollPeriod','paycutoffs','sp'));
       }
       else {
         if($this->user->id !== 564 ) {
