@@ -5710,7 +5710,7 @@ trait TimekeepingTraits
         if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) // Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
         {
           
-          if ($isPartTimer || $isPartTimerForeign)
+          if ($isPartTimer || $ptSched || $isPartTimerForeign)
           {
             //$wh = $endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
             $wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
@@ -5754,13 +5754,7 @@ trait TimekeepingTraits
 
             }//end if has VL
 
-            // else if ($hasVTO)
-            // {
-            //   $workedHours1 = $this->processLeaves('VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd);
-            //   $workedHours .= $workedHours1[0]['workedHours'];
-            //   $UT = $workedHours1[0]['UT'];
-           
-            // }//end if has VTO
+            
 
             else if ($hasVTO)
             {
@@ -5868,7 +5862,7 @@ trait TimekeepingTraits
                 //**** kaso pano kung part-timer lang??
                 if ( number_format($wh/60,2) > 8.0 )
                 {
-                  if ($isPartTimer || $isPartTimerForeign)
+                  if ($isPartTimer || $ptSched || $isPartTimerForeign)
                   {
                     if($ptOverride)  { $UT = round((480.0 - $wh )/60,2); $UT2 = 480.0 - $wh; }
                     else { $UT = number_format($minsLate/60,2); } 
@@ -5881,7 +5875,7 @@ trait TimekeepingTraits
                 }
                 else //need muna nya macomplete 8hrs of work
                 {
-                  if ($isPartTimer || $isPartTimerForeign)
+                  if ($isPartTimer || $ptSched || $isPartTimerForeign)
                   {
                     if($ptOverride)  { $UT = round((480.0 - $wh )/60,2); $UT2 = 480.0 - $wh; }
                     else { $UT = number_format((240.0 - $wh)/60,2);$UT2 = 240.0 - $wh; } 
@@ -6032,7 +6026,7 @@ trait TimekeepingTraits
                   //$stat = User::find($user->id)->status_id;
                   //****** part time user
 
-                  if ($isPartTimer) 
+                  if ($isPartTimer || $ptSched) 
                   {
                     ($ptOverride) ? $UT = round((480.0 - $wh )/60,2) : $UT = round((240.0 - $wh)/60,2); //33.33; //
                   }
