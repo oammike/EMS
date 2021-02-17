@@ -790,14 +790,14 @@ class EngagementController extends Controller
 
                         }
 
-                        // $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
-                        // $storagePath = '/home/EMS/public/storage';
-                        // $destinationPath = $storagePath . '/uploads/';
-                        // $image->move($destinationPath, $new_name);
-
                         $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
-                        $destinationPath = storage_path() . '/uploads/';
+                        $storagePath = '/home/EMS/public/storage';
+                        $destinationPath = $storagePath . '/uploads/';
                         $image->move($destinationPath, $new_name);
+
+                        // $new_name = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
+                        // $destinationPath = storage_path() . '/uploads/';
+                        // $image->move($destinationPath, $new_name);
 
                         //copy to new /home/EMS location
                         /*$new_name2 = $filen.$this->user->id."_".rand() .'.' . $image2->getClientOriginalExtension();
@@ -1151,7 +1151,15 @@ class EngagementController extends Controller
         $idArray = [];
         foreach ($allPosts as $p) {
 
-            (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
+            if($id >=41) //valentines 2021 and beyond, new location na
+            {
+                (count($p) > 1) ? $img="https://internal.openaccess.bpo/EMS/public/storage/uploads/".$p[1]->value : $img=null;
+
+            }else{
+                (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
+
+            }
+            
 
             if ($p[0]->anonymous){
                 $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified,

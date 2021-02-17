@@ -15,7 +15,8 @@
 		  /*background-image: url('../img/banner.png');
 		  background-image: url('../img/polaroid.jpg');*/
 		  
-		  background-image: url("{{url('/')}}/storage/uploads/{{$background}}");
+		  /*background-image: url("{{url('/')}}/storage/uploads/{{$background}}");*/
+		  background-image: url("https://internal.openaccess.bpo/EMS/public/storage/uploads/{{$background}}");
 		  background-color: {{$bgcolor}};
 		  background-size: 100% auto;
 		  background-position: top center;
