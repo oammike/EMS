@@ -79,7 +79,8 @@
                                               </div>
                                           </td>
                                           @if($engagement[0]->id >= 41) <!--valentines 2021 onwards -->
-                                            <td><a href="https://internal.openaccess.bpo/EMS/public/storage/uploads/{{$e[1]->value}}" target="_blank"><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
+                                            <td><a href="https://internal.openaccess.bpo/EMS/public/storage/uploads/{{$e[1]->value}}" target="_blank">
+                                              <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/{{$e[1]->value}}" width="120" /></td>
                                           @else
                                             <td><a href="../storage/uploads/{{$e[1]->value}}" target="_blank"><img src="../storage/uploads/{{$e[1]->value}}" width="120" /></td>
 
