@@ -772,6 +772,7 @@ class EngagementController extends Controller
                     {
                         $image_code = '';
                         $image = $request->file('file');
+                        $image2 = $request->file('file');
                         switch ($request->engagement_id) {
                             case '2':$filen = "valentines2020_"; break;
                             case '3':$filen = "painting2020_"; break;
@@ -797,7 +798,7 @@ class EngagementController extends Controller
                         $new_name2 = $filen.$this->user->id."_".rand() .'.' . $image->getClientOriginalExtension();
                         $storagePath = '/home/EMS/public/storage';
                         $destinationPath2 = $storagePath . '/uploads/';
-                        $image->move($destinationPath2, $new_name2);
+                        $image2->move($destinationPath2, $new_name2);
 
 
 
