@@ -4969,6 +4969,8 @@ trait TimekeepingTraits
     if($checkSShift->format('H:i:s') > '15:00:00')$checkEndShift->addHours(24);
 
     $diffHours = $checkEndShift->diffInHours($checkSShift);
+
+    ($diffHours <= 4) ? $ptSched = 1 : $ptSched = false;
     ($diffHours > 9) ? $is4x11 = true : $is4x11=false;
     ($diffHours <= 4 && $employee->status_id == 15 ) ? $isPartTimerForeign = true :  $isPartTimerForeign =false; 
     
@@ -5006,7 +5008,7 @@ trait TimekeepingTraits
     {
       $startOfShift = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
       $ptOverride = null;
-      if ($isPartTimer) {
+      if ($isPartTimer || $ptSched) {
 
         // ----- we now have to check kung may PT-override
         $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
@@ -6084,7 +6086,7 @@ trait TimekeepingTraits
 
         normalProcess:
 
-        if ($isPartTimer || $isPartTimerForeign ) {
+        if ($isPartTimer || $ptSched || $isPartTimerForeign ) {
           $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
         }
         else
@@ -6213,7 +6215,7 @@ trait TimekeepingTraits
 
                 }else if($wh >= 240) //more than 4hr work
                 {
-                  if ($isPartTimer || $isPartTimerForeign)
+                  if ($isPartTimer || $ptSched || $isPartTimerForeign)
                   {
                       ($ptOverride) ? $workedHours ="8.00": $workedHours ="4.00"; $UT = 0;// number_format(240 - $wh,2);
                   }else
@@ -6253,7 +6255,7 @@ trait TimekeepingTraits
                   if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                   {
                       $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
-                      if ($isPartTimer || $isPartTimerForeign)
+                      if ($isPartTimer || $ptSched || $isPartTimerForeign)
                       {
                         if($ptOverride)
                           $totalbill = number_format(($wh - 480)/60,2);
@@ -6276,7 +6278,7 @@ trait TimekeepingTraits
                     else 
                     {
                       //check mo muna kung entitled ba talga o baka part timer lang
-                      if ($isPartTimer || $isPartTimerForeign)  {
+                      if ($isPartTimer || $ptSched || $isPartTimerForeign)  {
                         //($wh > 480) ? $totalbill = number_format( $endOfShift->diffInMinutes($t)/60,2) : $totalbill=0.0;
                         ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
                       }
@@ -6347,7 +6349,7 @@ trait TimekeepingTraits
     } //end if may login and logout
     else
     {
-      if($isPartTimer || $isPartTimerForeign)
+      if($isPartTimer || $ptSched || $isPartTimerForeign)
         ($ptOverride) ? $WHcounter = 8.0 : $WHcounter = 4.0;
       else {
         ($is4x11) ? $WHcounter = 10.0 : $WHcounter = 8.0; 
