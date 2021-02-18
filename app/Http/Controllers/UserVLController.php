@@ -400,7 +400,7 @@ class UserVLController extends Controller
                         //*** override 2wk rule:
                         ($isNDY || $isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
 
-                        return view('timekeeping.user-vl_create',compact('user','isAdvent','isNDY', 'isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL'));
+                        return view('timekeeping.user-vl_create',compact('user','isAdvent','isNDY', 'isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL','totalVTO'));
 
                     }else return view('access-denied');
 

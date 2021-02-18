@@ -146,7 +146,7 @@
                         <a id="save" data-timestart_old="" data-timeend_old="" data-requesttype="VL" data-date="{{$vl_from->format('Y-m-d H:i:s')}}" data-userid="{{$user->id}}" class="btn btn-default btn-md pull-right" style="margin-right:25px" > <i class="fa fa-upload" ></i> Submit for Approval </a>
 
                       @else
-                        <h4 class="text-center text-danger">Insufficient Credits. <br/><span style="font-size: x-small;">File leave as an LWOP instead, or submit leave request once enough leave credits are earned.</span></h4>
+                        <h4 class="text-center text-danger">Insufficient Credits. <br/><span style="font-size: x-small;">File leave as an LWOP instead, or submit leave request once enough leave credits are earned.</span></h4><br/><small>{{$totalVTO}} </small>
                       @endif
                        <div class="clearfix"></div><br/><br/>
 
