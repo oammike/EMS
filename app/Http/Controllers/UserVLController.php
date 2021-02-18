@@ -288,7 +288,7 @@ class UserVLController extends Controller
                         
                         $hasSavedCredits=false;
 
-                        $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
+                        $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->orderBy('creditYear','DESC')->get();
                         
                         $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
                               join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
@@ -369,23 +369,21 @@ class UserVLController extends Controller
 
                                 if (count($savedCredits)>0){
                                     $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned - $totalVTO;
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used) + $totalVLearned - $totalVTO - $used;
                                      $creditsLeft2 = ($savedCredits->first()->beginBalance - $savedCredits->first()->used) + $totalVLearned - $totalVTO;
-                                 }else 
-                                 {
-
-                                    //check muna kung may existing approved VLs
-                                    $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                    if (count($approvedVLs) > 0 )
-                                    {
-                                        $usedC = 0;
-                                        foreach ($approvedVLs as $key) {
-                                            $usedC += $key->totalCredits;
+                                 }
+                                 else{  //check muna kung may existing approved VLs
+                                        $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                        if (count($approvedVLs) > 0 )
+                                        {
+                                            $usedC = 0;
+                                            foreach ($approvedVLs as $key) {
+                                                $usedC += $key->totalCredits;
+                                            }
+                                            $creditsLeft =((0.84 * $today->format('m')) - $usedC) - $used ;
                                         }
-                                        $creditsLeft =((0.84 * $today->format('m')) - $usedC) - $used ;
-                                    }
-                                    else
-                                        $creditsLeft = (0.84 * $today->format('m')) - $used ;
+                                        else
+                                            $creditsLeft = (0.84 * $today->format('m')) - $used ;
                                 }
                             } 
 
