@@ -111,7 +111,7 @@ class UserFormController extends Controller
         $allDisq = DB::table('users')->where('users.has2316',1)->where('users.hasSigned2316',null)->
                         leftJoin('team','team.user_id','=','users.id')->
                         leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                        select('users.lastname','users.firstname','users.nickname', 'users.id as userID','campaign.name as program')->
+                        select('users.employeeCode', 'users.lastname','users.firstname','users.nickname', 'users.id as userID','campaign.name as program')->
                         where([
                           ['users.status_id', '!=', 6],
                           ['users.status_id', '!=', 7],

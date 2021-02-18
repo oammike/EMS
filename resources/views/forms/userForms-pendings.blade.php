@@ -109,13 +109,15 @@
                                                            <table class="table no-margin table-bordered table-striped" id="active" width="95%" style="margin:0 auto;" >
 
                                                             <thead>
-                                                              <th>Employee</th>
+                                                              <th>EmployeeCode</th>
+                                                              <th>Employee Name</th>
                                                               <th>Program</th>
                                                               
                                                             </thead>
                                                             <tbody>
                                                               @foreach($allDisq as $a)
                                                               <tr>
+                                                                <td>{{$a->employeeCode}} </td>
                                                                 <td><a href="{{ action('UserController@show',['id'=>$a->userID] )}}" target="_blank"> {{$a->lastname}}, {{$a->firstname}} <em>({{$a->nickname}} )</em></a>
                                                                    </td>
 
