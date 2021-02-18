@@ -557,6 +557,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     /*********** DTRP  ROUTES ************/
 
+      Route::get('new_DTRP',array(
+        'as'=> 'user_dtr.newDTRP',
+        'uses'=>'UserDTRPController@newDTRP'
+      ));
+
       Route::post('/user_dtr/manage', array(
       'as'=> 'user_dtr.manage',
       'uses'=>'DTRController@manage') );

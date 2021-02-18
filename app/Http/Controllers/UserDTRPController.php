@@ -88,6 +88,17 @@ class UserDTRPController extends Controller
         
     }
 
+    public function newDTRP()
+    {
+        $u = Input::get('u'); $isSigned=false;
+
+        ($u) ?  $user = User::find(Input::get('u')) : $user = $this->user ;
+       // return $user;
+
+        return view('timekeeping.new_DTRP', compact('user','isSigned'));
+
+    }
+
     public function process(Request $request)
     {
         //return $request;

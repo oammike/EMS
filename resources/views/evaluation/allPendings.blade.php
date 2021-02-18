@@ -203,13 +203,13 @@
                             var increase = "N/A";
                           else if (full.overAllScore > 69.99 && full.overAllScore <= 79.99)
                             var increase = "2%";
-                          else if (full.overAllScore > 79.99 && full.overAllScore <= 84.4)
+                          else if (full.overAllScore > 79.99 && full.overAllScore <= 84.49)
                             var increase = "4%";
-                          else if (full.overAllScore > 84.4 && full.overAllScore <= 89.4)
+                          else if (full.overAllScore > 84.40 && full.overAllScore <= 89.49)
                             var increase = "6%";
-                          else if (full.overAllScore > 89.4 && full.overAllScore <= 97.4)
+                          else if (full.overAllScore > 89.40 && full.overAllScore <= 97.49)
                             var increase = "8%";
-                          else if (full.overAllScore > 97.4 && full.overAllScore <= 100.0)
+                          else if (full.overAllScore > 97.49 && full.overAllScore <= 100.0)
                             var increase = "10%"
 
 
