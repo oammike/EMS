@@ -296,6 +296,7 @@ class UserVLController extends Controller
                         $totalVLearned = collect($vlEarnings)->sum('credits');
 
                         $allVTOs = DB::table('user_vto')->where('user_vto.user_id',$user->id)->where('user_vto.isApproved',1)->
+                                        where('user_vto.deductFrom','VL')->
                                         where('user_vto.productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
                                         where('user_vto.productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
                                             select('user_vto.totalHours','user_vto.productionDate', 'user_vto.deductFrom')->
