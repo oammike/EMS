@@ -7414,7 +7414,14 @@ class DTRController extends Controller
              }//END foreach payrollPeriod
 
             //return $myDTR;
-            //return $myDTR->where('productionDate','Jan 28, 2021');
+
+            if(Input::get('debug'))
+            {
+              $d = Carbon::parse(Input::get('debug'),'Asia/Manila')->format('M d, Y');
+              //return $d;
+              return $myDTR->where('productionDate',$d);
+            }
+            
 
 
             $correct = Carbon::now('GMT+8'); //->timezoneName();
