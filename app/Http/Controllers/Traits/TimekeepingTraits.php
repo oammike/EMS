@@ -6207,7 +6207,7 @@ trait TimekeepingTraits
                       }
 
 
-                }else if($wh >= 240) //more than 4hr work
+                }else if($wh >= 240 && $wh < 300) //more than 4hr work
                 {
                   if ($isPartTimer || $ptSched || $isPartTimerForeign)
                   {
