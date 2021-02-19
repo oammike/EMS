@@ -93,9 +93,16 @@ class UserDTRPController extends Controller
         $u = Input::get('u'); $isSigned=false;
 
         ($u) ?  $user = User::find(Input::get('u')) : $user = $this->user ;
+
+        $dtrpCategories = DB::table('user_dtrpReasons')->leftJoin('user_dtrpCategory','user_dtrpCategory.id','=','user_dtrpReasons.category_id')->
+                                leftJoin('user_dtrpSubcategory','user_dtrpReasons.subcat_id','=','user_dtrpSubcategory.id')->
+                                select('user_dtrpCategory.label as category','user_dtrpCategory.description','user_dtrpSubcategory.label as subCat','user_dtrpReasons.id','user_dtrpSubcategory.id as subcatID','user_dtrpCategory.id as catID', 'user_dtrpSubcategory.ordering','user_dtrpSubcategory.message as warning','user_dtrpReasons.name as reason','user_dtrpReasons.flag_HR','user_dtrpReasons.flag_DA')->get();
+        $allCat = collect($dtrpCategories)->groupBy('category');
+        $allSubcat = collect($dtrpCategories)->groupBy('subcatID');
+        //return response()->json(['category'=>$allCat, 'subcat'=>$allSubcat]);
        // return $user;
 
-        return view('timekeeping.new_DTRP', compact('user','isSigned'));
+        return view('timekeeping.new_DTRP', compact('user','isSigned','allCat','allSubcat','dtrpCategories'));
 
     }
 

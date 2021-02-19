@@ -78,17 +78,35 @@
 
                               <div class="row">
                                   <div class="col-lg-4">
-                                    <h4>Type of Form: </h4>
+                                    <h4>Type of DTR Problem:</h4>
 
-                                    <label ><input type="radio" name="formType" value="BIR2316" checked="checked" /> &nbsp; &nbsp;<i class="fa fa-hourglass"></i> BIR Form 2316</label>
+                                    <label ><input type="radio" name="formType" value="IN" checked="checked" /> &nbsp; &nbsp;<i class="fa fa-sign-in"></i>Time IN</label>
+
+                                    <label ><input type="radio" name="formType" value="OUT" /> &nbsp; &nbsp;<i class="fa fa-sign-out"></i>Time OUT</label>
                                    
 
                                  </div>
 
                                  <div class="col-lg-8">
                                     <div id="vl_more">
+                                      <h4>Reason:</h4>
                                      
-                                      <p style="font-size: smaller">Make sure you upload the digitally signed copy of the PDF file that you downloaded from EMS.</p>
+                                      <p style="font-size: smaller">Select a reason why you're filing a DTRP:</p>
+                                      
+                                        @foreach($allCat as $a) 
+                                        
+                                        <a class="btn btn-lg btn-default"> {{$a[0]->category}} </a>
+                                        <div class="col-lg-6">
+                                          <?php $subs = collect($dtrpCategories)->where('subcatID',$a[0]->catID); ?>
+                                          
+                                          @foreach($subs as $s)
+                                            <h5>{{$s->subCat}} </h5>
+                                          @endforeach
+                                          
+                                        </div>
+                                        @endforeach
+                                        
+                                     
                                      
                                       <input style="margin-top: 20px" type="file" name="attachments" id="attachments" required="required" />
                                     </div>

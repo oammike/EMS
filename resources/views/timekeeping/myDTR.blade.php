@@ -266,10 +266,10 @@
                                                                   @else
 
                                                                   <!-- *** WE RESTRICT LOCKING IF MAY PENDING ***  -->
-                                                                  @if( ($data['hasCWS'] && $data['usercws'][0]->isApproved == null) || $data['hasPendingIN'] || $data['hasPendingOUT'] || ($data['hasLeave'] && $data['leaveDetails'][0]['details']['isApproved'] == null)||
-                                                                  ($data['hasLWOP'] && $data['lwopDetails'][0]['details']['isApproved'] == null) ||
+                                                                  @if( ($data['hasCWS'] && $data['usercws'][0]->isApproved == null) || $data['hasPendingIN'] || $data['hasPendingOUT'] || ($data['hasLeave'] && is_null($data['leaveDetails'][0]['details']['isApproved']) )||
+                                                                  ($data['hasLWOP'] && is_null($data['lwopDetails'][0]['details']['isApproved']) ) ||
                                                                   ($data['hasOT'] && $data['userOT'][0]->isApproved == null)  )
-                                                                  <a style="font-size: smaller;margin-right: 2px" title="Cannot Lock DTR " class="cannot pull-left btn btn-xs btn-danger" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-exclamation-triangle"></i> </a>
+                                                                  <a style="font-size: smaller;margin-right: 2px" title="Cannot Lock DTR " class="cannot pull-left btn btn-xs btn-danger" data-production_date="{{ $data['productionDate'] }} " data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-exclamation-triangle"></i> </a>
 
 
                                                                   @else
@@ -355,9 +355,10 @@
 
                                                                   @else
 
-                                                                      <!-- *** WE RESTRICT LOCKING IF MAY PENDING ***  -->
-                                                                      @if( ($data['hasCWS'] && $data['usercws'][0]->isApproved == null) || $data['hasPendingIN'] || $data['hasPendingOUT'] || ($data['hasLeave'] && $data['leaveDetails'][0]['details']['isApproved'] == null) ||
-                                                                      ($data['hasLWOP'] && $data['lwopDetails'][0]['details']['isApproved'] == null) ||
+                                                                      <!-- *** WE RESTRICT LOCKING IF MAY PENDING ***  && $data['leaveDetails'][0]['details']['isApproved'] !=='0'-->
+                                                                      @if( ($data['hasCWS'] && $data['usercws'][0]->isApproved == null) || $data['hasPendingIN'] || $data['hasPendingOUT'] || 
+                                                                      ($data['hasLeave'] && is_null($data['leaveDetails'][0]['details']['isApproved']) ) ||
+                                                                      ($data['hasLWOP'] && is_null($data['lwopDetails'][0]['details']['isApproved']) ) ||
                                                                       ($data['hasOT'] && $data['userOT'][0]->isApproved == null)  )
                                                                       <a style="font-size: smaller;margin-right: 2px" title="Cannot Lock DTR " class="cannot pull-left btn btn-xs btn-danger" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-exclamation-triangle"></i> </a>
 
