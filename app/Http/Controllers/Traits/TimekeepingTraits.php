@@ -3675,9 +3675,9 @@ trait TimekeepingTraits
                          if (count($hasApprovedDTRP) > 0){
                             //$log = date('h:i:s A',strtotime($userLog->logTime));
                             switch ($logType_id) {
-                              case 1:{ $dtrpIN = true; $dtrpIN_id = $userLog->first()->id; }break;
+                              case 1:{ $dtrpIN = true; $dtrpIN_id = $hasApprovedDTRP->first()->id; /*$userLog->first()->id;*/ }break;
                               
-                              case 2:{ $dtrpOUT = true; $dtrpOUT_id = $userLog->first()->id; }break;
+                              case 2:{ $dtrpOUT = true; $dtrpOUT_id = $hasApprovedDTRP->first()->id; /*$userLog->first()->id; */ }break;
                             }
 
                          }else {

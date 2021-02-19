@@ -1107,10 +1107,23 @@
                                                                 <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logOUT']}}" />
 
                                                               @if ($data['dtrpOUT'] == true  ||  $data['hasPendingOUT']== true)
-                                                              <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpOUT_id']}}">
 
-                                                                 <strong>
-                                                                  <a data-toggle="modal" title="View Details" @if($data['hasPendingOUT']) class="text-purple pull-right" data-target="#myModal_dtrpDetail{{$data['pendingDTRPout'][0]['id']}}" @else data-target="#myModal_dtrpDetail{{$data['dtrpOUT_id']}}" class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+                                                                @if($data['hasPendingOUT']== true)
+                                                                  <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['pendingDTRPout'][0]['id']}}">
+                                                                  <strong>
+                                                                      <a data-toggle="modal" title="View Details"  class="text-purple pull-right" data-target="#myModal_dtrpDetail{{$data['pendingDTRPout'][0]['id']}}" href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                                @else
+
+                                                                  <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpOUT_id']}}">
+                                                                   <strong>
+                                                                      <a data-toggle="modal" title="View Details"  data-target="#myModal_dtrpDetail{{$data['dtrpOUT_id']}}" class="text-green pull-right"  href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                                @endif
+
+                                                                  
+
+                                                                    
 
                                                               @else
                                                                <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
