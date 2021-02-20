@@ -268,7 +268,7 @@
                                                                   <!-- *** WE RESTRICT LOCKING IF MAY PENDING ***  -->
                                                                   @if( ($data['hasCWS'] && is_null($data['usercws'][0]->isApproved)) || $data['hasPendingIN'] || $data['hasPendingOUT'] || ($data['hasLeave'] && is_null($data['leaveDetails'][0]['details']['isApproved']) )||
                                                                   ($data['hasLWOP'] && is_null($data['lwopDetails'][0]['details']['isApproved']) ) ||
-                                                                  ($data['hasOT'] && $data['userOT'][0]->isApproved == null)  )
+                                                                  ($data['hasOT'] && is_null($data['userOT'][0]->isApproved))  )
                                                                   <a style="font-size: smaller;margin-right: 2px" title="Cannot Lock DTR " class="cannot pull-left btn btn-xs btn-danger" data-production_date="{{ $data['productionDate'] }} " data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-exclamation-triangle"></i> </a>
 
 
@@ -359,7 +359,7 @@
                                                                       @if( ($data['hasCWS'] && is_null($data['usercws'][0]->isApproved)) || $data['hasPendingIN'] || $data['hasPendingOUT'] || 
                                                                       ($data['hasLeave'] && is_null($data['leaveDetails'][0]['details']['isApproved']) ) ||
                                                                       ($data['hasLWOP'] && is_null($data['lwopDetails'][0]['details']['isApproved']) ) ||
-                                                                      ($data['hasOT'] && $data['userOT'][0]->isApproved == null)  )
+                                                                      ($data['hasOT'] && is_null($data['userOT'][0]->isApproved))  )
                                                                       <a style="font-size: smaller;margin-right: 2px" title="Cannot Lock DTR " class="cannot pull-left btn btn-xs btn-danger" data-production_date="{{ $data['productionDate'] }}" data-biometrics_id="{{$data['biometrics_id']}}"> <i class="fa fa-exclamation-triangle"></i> </a>
 
 
