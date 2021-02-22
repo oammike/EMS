@@ -2,7 +2,7 @@
 
 
               <div class="item active text-center" >
-                  <img src="storage/uploads/feb20wall.jpg" width="100%" />
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/feb20wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-cc"></i> Pandemic Movies &amp; Series <i class="fa fa-cc"></i><br/><small>Feb.22, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
