@@ -330,89 +330,97 @@ class UserDTRPController extends Controller
 
     public function newDTRP_validate(Request $request)
     {
-        $dtrpInfo = User_DTRPinfo::find($request->infoID);
-        $dtrpInfo->isCleared = $request->isApproved;
-        $dtrpInfo->clearedBy = $this->user->id;
-        $dtrpInfo->push();
-        $correct=Carbon::now('GMT+7');
+        //*** we need to check first if OLD Processs or not
+        //    if old process, make manual overrides and that's it
 
-        $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
-        if($request->isApproved)
-            fwrite($file, "-------------------\n [". $dtrpInfo->id."] DTRPinfo - Validated ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
-        else fwrite($file, "-------------------\n [". $dtrpInfo->id."] DTRPinfo - Rejected ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
-                fclose($file);
 
-        // we now check if approver still hasnt approved it
-        // if pending, apply the same action from DTRPinfo
+            $dtrpInfo = User_DTRPinfo::find($request->infoID);
+            $dtrpInfo->isCleared = $request->isApproved;
+            $dtrpInfo->clearedBy = $this->user->id;
+            $dtrpInfo->push();
+            $correct=Carbon::now('GMT+7');
 
-        $dtrp = User_DTRP::find($dtrpInfo->dtrp_id);
+            $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+            if($request->isApproved)
+                fwrite($file, "-------------------\n [". $dtrpInfo->id."] DTRPinfo - Validated ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+            else fwrite($file, "-------------------\n [". $dtrpInfo->id."] DTRPinfo - Rejected ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+                    fclose($file);
+
+            // we now check if approver still hasnt approved it
+            // if pending, apply the same action from DTRPinfo
+
+            $dtrp = User_DTRP::find($dtrpInfo->dtrp_id);
+            
+            if( is_null($dtrp->isApproved)) {
+                $dtrp->isApproved = $request->isApproved;
+
+                if ($dtrp->logType_id == 1) {
+                    $theNotif = Notification::where('relatedModelID', $dtrp->id)->where('type',8)->get();
+                    //then remove those sent notifs to the approvers since it has already been approved/denied
+                    if (count($theNotif) > 0)
+                        DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
+
+                    //$unotif = $this->notifySender($DTRP,$theNotif->first(),8);
+                }
+                else {
+                    $theNotif = Notification::where('relatedModelID', $dtrp->id)->where('type',9)->get();
+                    //then remove those sent notifs to the approvers since it has already been approved/denied
+                    if (count($theNotif) > 0)
+                        DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
+                }
+
+                $dtrp->push();
+
+            }
+
+            //we now create manual overrides if it is marked VALID
+            if($request->isApproved) {
+                $o = new User_LogOverride;
+                $o->user_id = $dtrp->user_id;
+                $pd = Biometrics::find($dtrp->biometrics_id);
+                $o->productionDate = $pd->productionDate;
+                (is_null($dtrp->actualLogdate)) ? $o->affectedBio = $pd->id : $o->affectedBio = Biometrics::where('productionDate',$dtrp->actualLogdate)->first()->id;
+                
+                $o->logTime = $dtrp->logTime;
+                $o->logType_id = $dtrp->logType_id;
+                $o->created_at = $correct->format('Y-m-d H:i:s');
+                $o->updated_at = $correct->format('Y-m-d H:i:s');
+                $o->save();
+
+                
+
+            }
+
+            //**** we now record those who's DTRP are invalid
+            if($request->isApproved == 0 && $dtrp->isApproved)
+            {
+                $report = new User_DTRPreport;
+                $report->user_id = $dtrp->user_id;
+                $pd = Biometrics::find($dtrp->biometrics_id);
+                $report->productionDate = $pd->productionDate;
+                if(is_null($dtrp->actualLogdate)) {
+                    $report->actualLog = $pd->productionDate." ".$dtrp->logTime;
+                }else{
+                    $report->actualLog = $dtrp->actualLogdate." ".$dtrp->logTime;
+                }
+
+                $report->approvedBy = $dtrp->approvedBy;
+                $report->dateApproved = $dtrp->updated_at;
+                $report->logType_id = $dtrp->logType_id;
+                $report->notes = $dtrp->notes;
+                $report->verifiedBy = $this->user->id;
+                $report->remarks = $request->remarks;
+                $report->attachments = $dtrpInfo->attachments;
+                $report->created_at = $correct->format('Y-m-d H:i:s');
+                $report->updated_at = $correct->format('Y-m-d H:i:s');
+                $report->save();
+
+
+            }
+
+
+       
         
-        if( is_null($dtrp->isApproved)) {
-            $dtrp->isApproved = $request->isApproved;
-
-            if ($dtrp->logType_id == 1) {
-                $theNotif = Notification::where('relatedModelID', $dtrp->id)->where('type',8)->get();
-                //then remove those sent notifs to the approvers since it has already been approved/denied
-                if (count($theNotif) > 0)
-                    DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
-
-                //$unotif = $this->notifySender($DTRP,$theNotif->first(),8);
-            }
-            else {
-                $theNotif = Notification::where('relatedModelID', $dtrp->id)->where('type',9)->get();
-                //then remove those sent notifs to the approvers since it has already been approved/denied
-                if (count($theNotif) > 0)
-                    DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
-            }
-
-            $dtrp->push();
-
-        }
-
-        //we now create manual overrides if it is marked VALID
-        if($request->isApproved) {
-            $o = new User_LogOverride;
-            $o->user_id = $dtrp->user_id;
-            $pd = Biometrics::find($dtrp->biometrics_id);
-            $o->productionDate = $pd->productionDate;
-            (is_null($dtrp->actualLogdate)) ? $o->affectedBio = $pd->id : $o->affectedBio = Biometrics::where('productionDate',$dtrp->actualLogdate)->first()->id;
-            
-            $o->logTime = $dtrp->logTime;
-            $o->logType_id = $dtrp->logType_id;
-            $o->created_at = $correct->format('Y-m-d H:i:s');
-            $o->updated_at = $correct->format('Y-m-d H:i:s');
-            $o->save();
-
-            
-
-        }
-
-        //**** we now record those who's DTRP are invalid
-        if($request->isApproved == 0 && $dtrp->isApproved)
-        {
-            $report = new User_DTRPreport;
-            $report->user_id = $dtrp->user_id;
-            $pd = Biometrics::find($dtrp->biometrics_id);
-            $report->productionDate = $pd->productionDate;
-            if(is_null($dtrp->actualLogdate)) {
-                $report->actualLog = $pd->productionDate." ".$dtrp->logTime;
-            }else{
-                $report->actualLog = $dtrp->actualLogdate." ".$dtrp->logTime;
-            }
-
-            $report->approvedBy = $dtrp->approvedBy;
-            $report->dateApproved = $dtrp->updated_at;
-            $report->logType_id = $dtrp->logType_id;
-            $report->notes = $dtrp->notes;
-            $report->verifiedBy = $this->user->id;
-            $report->remarks = $request->remarks;
-            $report->attachments = $dtrpInfo->attachments;
-            $report->created_at = $correct->format('Y-m-d H:i:s');
-            $report->updated_at = $correct->format('Y-m-d H:i:s');
-            $report->save();
-
-
-        }
 
         return response()->json(['success'=>1,'dtrp'=>$dtrp]);
 

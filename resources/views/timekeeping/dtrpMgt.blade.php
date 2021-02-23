@@ -234,12 +234,10 @@
                                 @else
                                   <td>
                                   
-                                  @if(is_null($vl->isApproved))
-                                  <a class="btn btn-xs btn-success" data-toggle="modal" data-target="#leaveModal{{$vl->id}}"><i class="fa fa-check"></i> Validate </a>
-                                  @else
+                                  
                                   <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#leaveModal{{$vl->id}}"><i class="fa fa-info-circle"></i> Details </a>
 
-                                  @endif
+                                 
                                   <a target="_blank" class="btn btn-xs btn-default" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> DTR </a>
                                   <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete "><i class="fa fa-trash"></i> </a>
                                     
@@ -292,7 +290,8 @@
                                                       <div class="col-sm-8">
 
                                                        @if($type == "OLD")
-                                                          <p>{{$vl->notes}} </p>
+                                                          <?php ($vl->logType_id == '1') ? $lt = "[ IN ]" : $lt="[ OUT ]"; ?>
+                                                          <p>{{$lt}} {{$vl->notes}} </p>
                                                        @else
                                                           <p><strong>{{$vl->reason}}</strong><br/> <em>{{$vl->notes}} </em></p>
                                                           <?php $link = $storageLoc."/".$vl->attachments; ?>
@@ -332,7 +331,8 @@
                                            @if($type == "OLD")
 
                                               @if($vl->isApproved)
-                                                <h4 class="text-success pull-right"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h4>
+                                                <h4 class="text-success pull-left"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h4>
+                                                <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a> 
                                                    
                                               @elseif($vl->isApproved=='0')
                                                <h4 class="text-danger pull-right"><br/><br/><i class="fa fa-thumbs-down"></i> Rejected</h4>
@@ -341,8 +341,9 @@
                                               
                                                   <button type="button" class="btn btn-default btn-md pull-right" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-times" ></i> Close </button>
                                                   
-                                                  <a href="#" class="process btn btn-danger btn-md pull-right" data-leaveType="{{$label}}" data-action="0" data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-down" ></i> Reject </a>
-                                                  <a href="#" class="process btn btn-success btn-md pull-right" data-leaveType="{{$label}}" data-action="1"  data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-up" ></i> Approve & Validate </a>
+                                                 <!--  <a href="#" class="process btn btn-danger btn-md pull-right" data-leaveType="{{$label}}" data-action="0" data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-down" ></i> Reject </a>
+                                                  <a href="#" class="process btn btn-success btn-md pull-right" data-leaveType="{{$label}}" data-action="1"  data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-up" ></i> Approve & Validate </a> -->
+                                                  <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a> 
 
                                               @endif
 
@@ -533,7 +534,7 @@
      
 
       switch(t){
-        case 'OLD': var processlink = "{{action('UserCWSController@process')}}";  break;
+        case 'OLD': var processlink = "{{action('UserDTRPController@process')}}";  break;
         case 'IN':  var processlink = "{{action('UserDTRPController@newDTRP_validate')}}"; break;
         case 'OUT':  var processlink = "{{action('UserDTRPController@newDTRP_validate')}}"; break;
       }

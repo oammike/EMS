@@ -6910,66 +6910,121 @@ class DTRController extends Controller
 
                               //check for preshift
                               $usePreshift = DB::table('user_preshiftOverride')->where('productionDate',$payday)->where('user_id',$user->id)->get();
-                              $myDTR->push([
 
-                                  'allData'=>$data,
-                                  // 'workSched'=>$workSched,
-                                  // 'RDsched' => $allRD,
-                                  /*'check_fixed_WS'=> $check_fixed_WS,
-                                  'check_fixed_RD'=> $check_fixed_RD,
-                                  'check_monthly_RD'=> $check_monthly_RD,
-                                  'check_monthly_WS'=> $check_monthly_WS,
-                                  'ard'=>$ard, 'wd'=>$wd,*/
-                                  //  'hybridSched_RD_monthly' => $hybridSched_RD_monthly,
-                                  //  'hybridSched_RD_fixed' => $hybridSched_RD_fixed,
+                              //*** pang-check kung locked na, dapat ang ipakita mo eh kung ano yung na-lock
+                              $lockedNa = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
+                              if (count($lockedNa) > 0)
+                              {
+                                  $myDTR->push([
 
-                                  'approvedOT' => $data[0]['approvedOT'],
-                                  'billableForOT' => $data[0]['billableForOT'],
-                                  'biometrics_id'=>$bioForTheDay->id,
-                                  'day'=> date('D',strtotime($payday)),
-                                  'dtrpIN'=>$data[0]['dtrpIN'],
-                                  'dtrpOUT'=>$data[0]['dtrpOUT'],
-                                  'dtrpIN_id'=>$data[0]['dtrpIN_id'],
-                                  'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
-                                  'hasApprovedCWS'=> $hasApprovedCWS,
-                                  'hasApprovedOT'=>$hasApprovedOT,
-                                  'hasCWS'=>$hasCWS,
-                                  'hasLeave' => null,
-                                  'hasLWOP' => null,
-                                  'hasVTO'=>null,
-                                  'hasOT'=>$hasOT,
-                                  'hasPendingIN' => $data[0]['hasPendingIN'],
-                                  'hasPendingOUT' => $data[0]['hasPendingOUT'],
-                                  'isRDToday'=>$isRDToday, 
-                                  'isRD'=>$isRDToday,
-                                  'isFixedSched'=>$isFixedSched,
-                                  'isFlexitime'=> $isFlexitime,
-                                  'isWFH'=>$isWFH,
-                                  'isOnsite' =>$isOnsite,
-                                  'leaveDetails'=>null,
-                                  'logIN' => $data[0]['logIN'],
-                                  'logOUT'=>$data[0]['logOUT'],
-                                  'lwopDetails'=>null,
-                                  'OTattribute' => $data[0]['OTattribute'],
-                                  'payday'=>$payday,
-                                  'pendingDTRPin'=> $data[0]['pendingDTRPin'],
-                                  'pendingDTRPout' => $data[0]['pendingDTRPout'],
-                                  'preshift'=>$usePreshift,
-                                  'productionDate'=> date('M d, Y', strtotime($payday)),
-                                  'shiftEnd'=>$data[0]['shiftEnd'],
-                                  'shiftEnd2'=>$data[0]['shiftEnd'],
-                                  'shiftStart'=> $data[0]['shiftStart'],
-                                  'shiftStart2'=>  $data[0]['shiftStart'],
-                                  'UT'=>$data[0]['UT'],
-                                  'usercws'=>$usercws,
-                                  'userOT'=>$userOT,
-                                  'workedHours'=> $data[0]['workedHours'],
-                                  'hdToday'=>null,
-                                  'backOffice' =>null
-                                   
-                                   
-                                   ]);
+                                      'allData'=>$data,
+                                      'approvedOT' => $data[0]['approvedOT'],
+                                      'billableForOT' => $data[0]['billableForOT'],
+                                      'biometrics_id'=>$bioForTheDay->id,
+                                      'day'=> date('D',strtotime($payday)),
+                                      'dtrpIN'=>$data[0]['dtrpIN'],
+                                      'dtrpOUT'=>$data[0]['dtrpOUT'],
+                                      'dtrpIN_id'=>$data[0]['dtrpIN_id'],
+                                      'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
+                                      'hasApprovedCWS'=> $hasApprovedCWS,
+                                      'hasApprovedOT'=>$hasApprovedOT,
+                                      'hasCWS'=>$hasCWS,
+                                      'hasLeave' => null,
+                                      'hasLWOP' => null,
+                                      'hasVTO'=>null,
+                                      'hasOT'=>$hasOT,
+                                      'hasPendingIN' => $data[0]['hasPendingIN'],
+                                      'hasPendingOUT' => $data[0]['hasPendingOUT'],
+                                      'isRDToday'=>$isRDToday, 
+                                      'isRD'=>$isRDToday,
+                                      'isFixedSched'=>$isFixedSched,
+                                      'isFlexitime'=> $isFlexitime,
+                                      'isWFH'=>$isWFH,
+                                      'isOnsite' =>$isOnsite,
+                                      'leaveDetails'=>null,
+                                      
+                                      'logIN' => $lockedNa->first()->timeIN,
+                                      'logOUT'=>$lockedNa->first()->timeOUT,
+                                      'lwopDetails'=>null,
+                                      'OTattribute' => $data[0]['OTattribute'],
+                                      'payday'=>$payday,
+                                      'pendingDTRPin'=> $data[0]['pendingDTRPin'],
+                                      'pendingDTRPout' => $data[0]['pendingDTRPout'],
+                                      'preshift'=>$usePreshift,
+                                      'productionDate'=> date('M d, Y', strtotime($payday)),
+                                      'shiftEnd'=>$data[0]['shiftEnd'],
+                                      'shiftEnd2'=>$data[0]['shiftEnd'],
+                                      'shiftStart'=> $data[0]['shiftStart'],
+                                      'shiftStart2'=>  $data[0]['shiftStart'],
+                                      'UT'=>$lockedNa->first()->UT,
+                                      'usercws'=>$usercws,
+                                      'userOT'=>$userOT,
+                                      'workedHours'=> $lockedNa->first()->hoursWorked,
+                                      'hdToday'=>null,
+                                      'backOffice' =>null
+                                       
+                                       
+                                       ]);
 
+                               
+
+                              }else
+                              {
+                                  $myDTR->push([
+
+                                    'allData'=>$data,
+                                    'approvedOT' => $data[0]['approvedOT'],
+                                    'billableForOT' => $data[0]['billableForOT'],
+                                    'biometrics_id'=>$bioForTheDay->id,
+                                    'day'=> date('D',strtotime($payday)),
+                                    'dtrpIN'=>$data[0]['dtrpIN'],
+                                    'dtrpOUT'=>$data[0]['dtrpOUT'],
+                                    'dtrpIN_id'=>$data[0]['dtrpIN_id'],
+                                    'dtrpOUT_id'=>$data[0]['dtrpOUT_id'],
+                                    'hasApprovedCWS'=> $hasApprovedCWS,
+                                    'hasApprovedOT'=>$hasApprovedOT,
+                                    'hasCWS'=>$hasCWS,
+                                    'hasLeave' => null,
+                                    'hasLWOP' => null,
+                                    'hasVTO'=>null,
+                                    'hasOT'=>$hasOT,
+                                    'hasPendingIN' => $data[0]['hasPendingIN'],
+                                    'hasPendingOUT' => $data[0]['hasPendingOUT'],
+                                    'isRDToday'=>$isRDToday, 
+                                    'isRD'=>$isRDToday,
+                                    'isFixedSched'=>$isFixedSched,
+                                    'isFlexitime'=> $isFlexitime,
+                                    'isWFH'=>$isWFH,
+                                    'isOnsite' =>$isOnsite,
+                                    'leaveDetails'=>null,
+                                    'logIN' => $data[0]['logIN'],
+                                    'logOUT'=>$data[0]['logOUT'],
+                                    'lwopDetails'=>null,
+                                    'OTattribute' => $data[0]['OTattribute'],
+                                    'payday'=>$payday,
+                                    'pendingDTRPin'=> $data[0]['pendingDTRPin'],
+                                    'pendingDTRPout' => $data[0]['pendingDTRPout'],
+                                    'preshift'=>$usePreshift,
+                                    'productionDate'=> date('M d, Y', strtotime($payday)),
+                                    'shiftEnd'=>$data[0]['shiftEnd'],
+                                    'shiftEnd2'=>$data[0]['shiftEnd'],
+                                    'shiftStart'=> $data[0]['shiftStart'],
+                                    'shiftStart2'=>  $data[0]['shiftStart'],
+                                    'UT'=>$data[0]['UT'],
+                                    'usercws'=>$usercws,
+                                    'userOT'=>$userOT,
+                                    'workedHours'=> $data[0]['workedHours'],
+                                    'hdToday'=>null,
+                                    'backOffice' =>null
+                                     
+                                     
+                                     ]);
+
+                             
+
+                              }//end RD if locked na
+
+                              
                             }//end if isRDToday
 
 
@@ -7322,19 +7377,74 @@ class DTRController extends Controller
 
                                     if(count($userLogIN[0]['leave']) > 0  )$hasLeave=true; else $hasLeave=false;
 
-                                    $myDTR->push([
-                                      'approvedOT' => $approvedOT,
-                                      // 'actualSchedToday1'=>$actualSchedToday1->schedForToday,
-                                      /*'check_fixed_WS'=>$actualSchedToday1->check_fixed_WS,
-                                      'check_fixed_RD'=> $actualSchedToday1->check_fixed_RD,
-                                      'check_monthly_RD'=>$actualSchedToday1->check_monthly_RD,
-                                      'check_monthly_WS'=>$actualSchedToday1->check_monthly_WS,*/
-                                      // 'mc'=>$actualSchedToday1->mc,'fc'=> $actualSchedToday1->fc,
-                                      // //'hybridSched_WS_fixed'=>$actualSchedToday1->hybridSched_WS_fixed,
-                                      // 'RDsched'=>$actualSchedToday1->RDsched,
-                                      // 'isFixedSched'=>$actualSchedToday1->isFixedSched,
-                                      //'VTOba'=>$data,
 
+                                    //*** pang-check kung locked na, dapat ang ipakita mo eh kung ano yung na-lock
+                                    $lockedNa = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
+                                    if (count($lockedNa) > 0)
+                                    {
+                                      $myDTR->push([
+                                      'approvedOT' => $approvedOT,
+
+                                      'backOffice' => $backOffice,
+                                      'billableForOT' => $lockedNa->first()->OT_billable,
+                                      'biometrics_id'=>$bioForTheDay->id,
+                                      'day'=> date('D',strtotime($payday)),
+                                      'dtrpIN'=>$userLogIN[0]['dtrpIN'],
+                                      'dtrpIN_id'=>$userLogIN[0]['dtrpIN_id'],
+                                      'dtrpOUT'=> $userLogOUT[0]['dtrpOUT'],
+                                      'dtrpOUT_id'=> $userLogOUT[0]['dtrpOUT_id'],
+                                      'hasCWS'=>$hasCWS,
+                                      'hasLWOP' => $userLogIN[0]['hasLWOP'],
+                                      'hasOT'=>$hasOT,
+                                      'hasVTO' => $userLogOUT[0]['hasVTO'],
+                                      'hasApprovedCWS'=>$hasApprovedCWS,
+                                      'hasApprovedOT'=>$hasApprovedOT,
+                                      'hasLeave' => $hasLeave, //$userLogIN[0]['hasLeave'],
+                                      'hasPendingIN' => $userLogIN[0]['hasPendingDTRP'],
+                                      'hasPendingOUT' => $userLogOUT[0]['hasPendingDTRP'],
+                                      'hdToday'=>$hdToday,
+
+                                      'isAproblemShift'=>$isAproblemShift,
+                                      'isFixedSched'=>$isFixedSched,
+                                      'isFlexitime'=>$schedForToday['isFlexitime'],
+                                      'isRDToday'=>$isRDToday,  
+                                      'isRD'=> 0,
+                                      'isWFH'=>$isWFH,
+                                      'isOnsite'=>$isOnsite,
+                                      'leaveDetails'=>$userLogIN[0]['leave'],
+                                      'logIN' => $lockedNa->first()->timeIN,
+                                      'logOUT'=>$lockedNa->first()->timeOUT,
+                                      'lwopDetails'=>$userLogIN[0]['lwop'],
+                                      'OTattribute'=> $OTattribute,
+                                      'outs'=>$userLogOUT[0],
+                                      'payday'=> $payday,
+                                      'pendingDTRPin'=> $userLogIN[0]['pendingDTRP'],
+                                      'pendingDTRPout' =>$userLogOUT[0]['pendingDTRP'],
+                                      'preshift'=>$usePreshift,
+                                      'productionDate'=> date('M d, Y', strtotime($payday)),
+                                      'sameDayLog'=>$sameDayLog,
+                                      'schedForToday'=>$schedForToday,
+                                      'shiftStart'=> $shiftStart,
+                                      'shiftEnd'=>$shiftEnd,
+                                      'shiftStart2'=> $shiftStart2,
+                                      'shiftEnd2'=>$shiftEnd2,
+                                      'usercws'=>$usercws,
+                                      'userOT'=>$userOT,
+                                      'UT'=>$lockedNa->first()->UT,
+                                      'wholeIN' => $userLogIN,
+                                      'wholeOUT' =>$userLogOUT,
+                                      'workedHours'=> $lockedNa->first()->hoursWorked,
+                                      //'wh' => $wh,
+                                      //'alldata'=>$data
+
+                                     ]);
+
+
+
+                                    }else
+                                    {
+                                      $myDTR->push([
+                                      'approvedOT' => $approvedOT,
                                       'backOffice' => $backOffice,
                                       'billableForOT' => $billableForOT,
                                       'biometrics_id'=>$bioForTheDay->id,
@@ -7390,6 +7500,10 @@ class DTRController extends Controller
                                      ]);
 
 
+
+                                    }//end if locked na
+
+                                    
                                   } 
 
 
