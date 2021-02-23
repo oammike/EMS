@@ -103,9 +103,9 @@
 
                     <table class="pull-right table  table-bordered table-striped" style="width: 95%">
                       <thead>
-                        <th>Conditions</th>
-                        <th>Special Holiday</th>
-                        <th>Regular Holiday</th>
+                        <th  class="text-center">Conditions</th>
+                        <th class="text-center">Special Holiday</th>
+                        <th class="text-center">Regular Holiday</th>
                       </thead>
                       <tbody style="font-size: x-small;">
                         <tr>
