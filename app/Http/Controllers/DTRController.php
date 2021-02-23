@@ -6915,6 +6915,7 @@ class DTRController extends Controller
                               $lockedNa = User_DTR::where('productionDate',$payday)->where('user_id',$user->id)->get();
                               if (count($lockedNa) > 0)
                               {
+                                  $lockedSched = explode('-', $lockedNa->first()->workshift);
                                   $myDTR->push([
 
                                       'allData'=>$data,
@@ -6952,10 +6953,10 @@ class DTRController extends Controller
                                       'pendingDTRPout' => $data[0]['pendingDTRPout'],
                                       'preshift'=>$usePreshift,
                                       'productionDate'=> date('M d, Y', strtotime($payday)),
-                                      'shiftEnd'=>$data[0]['shiftEnd'],
-                                      'shiftEnd2'=>$data[0]['shiftEnd'],
-                                      'shiftStart'=> $data[0]['shiftStart'],
-                                      'shiftStart2'=>  $data[0]['shiftStart'],
+                                      'shiftEnd'=>$lockedSched[1],
+                                      'shiftEnd2'=>$lockedSched[1],
+                                      'shiftStart'=> $lockedSched[0],
+                                      'shiftStart2'=>  $lockedSched[1],
                                       'UT'=>$lockedNa->first()->UT,
                                       'usercws'=>$usercws,
                                       'userOT'=>$userOT,
