@@ -2720,17 +2720,23 @@ trait TimekeepingTraits
             $hasApprovedDTRP = $hasApprovedDTRP1;
           elseif (is_null($dtrpForValidation->first()->isCleared)){
             $pendingDTRP = $hasApprovedDTRP1;
-            $hasApprovedDTRP = null;
+            //$hasApprovedDTRP = null;
+            $hasApprovedDTRP = User_DTRP::where('user_id',1)->get();
           }
-          else
-            $hasApprovedDTRP = null;
+          else{
+            //$hasApprovedDTRP = null;
+             $hasApprovedDTRP = User_DTRP::where('user_id',1)->get();
+             $pendingDTRP = User_DTRP::where('user_id',1)->get();
+          }
 
 
 
         }
         else
         {
-          $hasApprovedDTRP = null;
+          //gawan na natin ng entry para mareview
+         
+          $hasApprovedDTRP = User_DTRP::where('user_id',1)->get();//wala lang, masabi lang na empty record null;// $collDTRP;
           $pendingDTRP = $hasApprovedDTRP1;
 
         }
@@ -2745,6 +2751,7 @@ trait TimekeepingTraits
     ($beginShift->format('Y-m-d') == $endShift->format('Y-m-d')) ? $sameDayShift = true : $sameDayShift=false;
     $bioEnd=null;
 
+    //if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
     if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
     else 
     {
