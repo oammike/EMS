@@ -2745,7 +2745,7 @@ trait TimekeepingTraits
     ($beginShift->format('Y-m-d') == $endShift->format('Y-m-d')) ? $sameDayShift = true : $sameDayShift=false;
     $bioEnd=null;
 
-    if(count( (array)$hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
+    if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
     else 
     {
 
