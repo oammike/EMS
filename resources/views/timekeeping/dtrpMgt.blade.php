@@ -240,7 +240,7 @@
                                   <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#leaveModal{{$vl->id}}"><i class="fa fa-info-circle"></i> Details </a>
 
                                   @endif
-                                  <a target="_blank" class="btn btn-xs btn-default" href="{{url('/')}}/user_dtr/}}"><i class="fa fa-calendar"></i> DTR </a>
+                                  <a target="_blank" class="btn btn-xs btn-default" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> DTR </a>
                                   <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#delete "><i class="fa fa-trash"></i> </a>
                                     
                                   </td>
