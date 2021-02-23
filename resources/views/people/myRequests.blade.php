@@ -813,6 +813,10 @@
                             modalcode += '        <div class="direct-chat-text bg-green" >'; 
                             modalcode += '<h5><i class="fa fa-thumbs-up"></i> Approved</h5></div>';
 
+                            if(full.vMessage){
+                              modalcode += '<p style="padding:10px"><br/><br/><i class="fa fa-exclamation-triangle"></i> '+full.vMessage+'</p>';
+                            }
+
                           } else if(full.details.isApproved == 0){
                             modalcode += '        <div class="direct-chat-text bg-red" >'; 
                             modalcode += '<h5><i class="fa fa-thumbs-down"></i> Denied</h5></div>';

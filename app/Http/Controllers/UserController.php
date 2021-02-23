@@ -25,6 +25,7 @@ use OAMPI_Eval\UserForms;
 use OAMPI_Eval\User_Leader;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_DTRP;
+use OAMPI_Eval\User_DTRPinfo;
 use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_SL;
@@ -1221,7 +1222,24 @@ class UserController extends Controller
 
         ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
 
-        $requests->push(['type'=>"DTR Problem - TIME IN", 'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'8','approver'=>$approver, 'tlPic'=>$tlPic, 'icon'=>"fa-sign-in",'nickname'=>$nickname,  'details'=>$key]);
+        //we check if validated
+        if($key->isApproved)
+        {
+          $validated = User_DTRPinfo::where('dtrp_id',$key->id)->get();
+          if(count($validated) > 0)
+          {
+            if($validated->first()->isCleared)
+              $vMessage = "Marked <strong class='text-success'>VALID</strong> by Data Management team.";
+            elseif ($validated->first()->isCleared == 0)
+              $vMessage = "Marked <strong class='text-danger'>INVALID</strong> by Data Management team.";
+            else
+              $vMessage = "<strong>PENDING VALIDATION</strong> by Data Management team.";
+
+          } else $vMessage = null;
+        }else $vMessage=null;
+        
+
+        $requests->push(['type'=>"DTR Problem - TIME IN", 'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'8','approver'=>$approver, 'tlPic'=>$tlPic, 'icon'=>"fa-sign-in",'nickname'=>$nickname,  'details'=>$key,'vMessage'=>$vMessage]);
       }
 
 
@@ -1244,7 +1262,23 @@ class UserController extends Controller
 
         ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
 
-        $requests->push(['type'=>"DTR Problem - TIME OUT",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'9','approver'=>$approver, 'tlPic'=>$tlPic, 'icon'=>"fa-sign-out",'nickname'=>$nickname,  'details'=>$key]);
+         //we check if validated
+        if($key->isApproved)
+        {
+          $validated = User_DTRPinfo::where('dtrp_id',$key->id)->get();
+          if(count($validated) > 0)
+          {
+            if($validated->first()->isCleared)
+              $vMessage = "Marked <strong class='text-success'>VALID</strong> by Data Management team.";
+            elseif ($validated->first()->isCleared == 0)
+              $vMessage = "Marked <strong class='text-danger'>INVALID</strong> by Data Management team.";
+            else
+              $vMessage = "<strong>PENDING VALIDATION</strong> by Data Management team.";
+
+          } else $vMessage = null;
+        }else $vMessage=null;
+
+        $requests->push(['type'=>"DTR Problem - TIME OUT",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'9','approver'=>$approver, 'tlPic'=>$tlPic, 'icon'=>"fa-sign-out",'nickname'=>$nickname,  'details'=>$key,'vMessage'=>$vMessage]);
       }
 
 
@@ -2715,12 +2749,12 @@ class UserController extends Controller
 
         $correct = Carbon::now('GMT+8');
         //log access
-        if($this->user->id !== 564 ) {
+        // if($this->user->id !== 564 ) {
                       
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                        fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
-                        fclose($file);
-                    } 
+        //               $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+        //                 fwrite($file, "-------------------\n Viewed REQUESTS [". $this->user->id."] ".$this->user->lastname." of [".$user->id."] on ". $correct->format('M d h:i A').  "\n");
+        //                 fclose($file);
+        //             } 
 
 
       if (is_null($user)) return view('empty');

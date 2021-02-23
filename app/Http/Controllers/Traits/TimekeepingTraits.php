@@ -40,6 +40,7 @@ use OAMPI_Eval\LogType;
 use OAMPI_Eval\TempUpload;
 use OAMPI_Eval\User_DTR;
 use OAMPI_Eval\User_DTRP;
+use OAMPI_Eval\User_DTRPinfo;
 use OAMPI_Eval\User_CWS;
 use OAMPI_Eval\User_Notification;
 use OAMPI_Eval\Notification;
@@ -1658,17 +1659,7 @@ trait TimekeepingTraits
 
   }
 
-  public function getUserWorksched($userID,$productionDate)
-  {
-   
-    $allSched = DB::table('user_dtr')->where('user_dtr.user_id',$userID)->where([ 
-                    ['user_dtr.productionDate',$productionDate]
-                    ])->join('users','users.id','=','user_dtr.user_id')->
-                    
-                  select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
-    return $allSched;
-
-  }
+  
 
   
 
@@ -2202,6 +2193,69 @@ trait TimekeepingTraits
     return collect(['currentPeriod'=>$currentPeriod, 'cutoffStart'=>$cutoffStart,'cutoffEnd'=>$cutoffEnd,'cutoffID'=>$cutoffID]);
   }
 
+
+  public function getDTRPs($from,$to,$type)
+  {
+    $f = Biometrics::where('productionDate',date('Y-m-d', strtotime($from)))->get();
+    $t = Biometrics::where('productionDate',date('Y-m-d', strtotime($to)))->get();
+
+    switch ($type) {
+      case 'IN':{
+                  $b = Carbon::parse($from,'Asia/Manila')->addDay(-1);
+                  $b2 = Carbon::parse($to,'Asia/Manila');
+                  $all = DB::table('user_dtrp')->where('user_dtrp.actualLogdate','>=',$b->format('Y-m-d'))->
+                  where('user_dtrp.actualLogdate','<=',$b2->format('Y-m-d'))->
+                  join('user_dtrpInfo','user_dtrpInfo.dtrp_id','=','user_dtrp.id')->
+                  join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                  leftJoin('user_dtrpReasons','user_dtrpInfo.reasonID','=','user_dtrpReasons.id')->
+                  leftJoin('users','user_dtrp.user_id','=','users.id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                  select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrpInfo.id as infoID', 'user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname', 'users.firstname','users.lastname','campaign.name as program','campaign.id as programID', 'user_dtrpInfo.attachments','user_dtrpReasons.name as reason','user_dtrpInfo.reasonID','user_dtrpInfo.clearedBy','user_dtrpInfo.created_at','biometrics.productionDate','user_dtrpInfo.isCleared as validated','user_dtrp.isApproved')->
+                  where('user_dtrp.logType_id','1')->get();
+
+        }break;
+
+      case 'OUT':{
+                    $b = Carbon::parse($from,'Asia/Manila')->addDay(-1);
+                    $b2 = Carbon::parse($to,'Asia/Manila');
+                    $all = DB::table('user_dtrp')->where('user_dtrp.actualLogdate','>=',$b->format('Y-m-d'))->
+                    //where('user_dtrp.actualLogdate','<=',$b2->format('Y-m-d'))->
+                    join('user_dtrpInfo','user_dtrpInfo.dtrp_id','=','user_dtrp.id')->
+                    join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                    leftJoin('user_dtrpReasons','user_dtrpInfo.reasonID','=','user_dtrpReasons.id')->
+                    leftJoin('users','user_dtrp.user_id','=','users.id')->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                    select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrpInfo.id as infoID', 'user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','user_dtrpInfo.attachments','user_dtrpReasons.name as reason','user_dtrpInfo.reasonID','user_dtrpInfo.clearedBy','user_dtrpInfo.created_at','biometrics.productionDate','user_dtrpInfo.isCleared as validated','user_dtrp.isApproved')->
+                    where('user_dtrp.logType_id','2')->get();
+
+      }
+        # code...
+        break;
+
+      case 'OLD': {
+                    $all = DB::table('user_dtrp')->where('user_dtrp.biometrics_id','>=',$f->first()->id)->
+                    where('user_dtrp.biometrics_id','<=',$t->first()->id)->
+                    join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                    leftJoin('users','user_dtrp.user_id','=','users.id')->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                    select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved')->get();
+      }
+        # code...
+        break;
+      
+      default:
+        # code...
+        break;
+    }
+
+    
+    return $all;
+
+  }
+
   public function getFixedSchedules($startingPoint,$RDsched,$workSched,$coll,$counter) //USED FORR DTR
   {
         $dt  = $startingPoint->dayOfWeek;
@@ -2652,9 +2706,37 @@ trait TimekeepingTraits
 
     if (count($holidayToday) > 0) $hasHolidayToday = true;
 
-    $hasApprovedDTRP = User_DTRP::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('updated_at','DESC')->get();
+    $hasApprovedDTRP1 = User_DTRP::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('updated_at','DESC')->get();
 
     $pendingDTRP = User_DTRP::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->where('isApproved',null)->orderBy('id','DESC')->get();
+
+    //***** but not yet, we reworked DTRP so check mo muna kung may pending DTRPinfo to be screened by Data Mgt:
+    if (count($hasApprovedDTRP1) > 0)
+    {
+        $dtrpForValidation = User_DTRPinfo::where('dtrp_id',$hasApprovedDTRP1->first()->id)->get();
+        if (count($dtrpForValidation) > 0)
+        {
+          if($dtrpForValidation->first()->isCleared)
+            $hasApprovedDTRP = $hasApprovedDTRP1;
+          elseif (is_null($dtrpForValidation->first()->isCleared)){
+            $pendingDTRP = $hasApprovedDTRP1;
+            $hasApprovedDTRP = null;
+          }
+          else
+            $hasApprovedDTRP = null;
+
+
+
+        }
+        else
+        {
+          $hasApprovedDTRP = null;
+          $pendingDTRP = $hasApprovedDTRP1;
+
+        }
+
+    }else $hasApprovedDTRP = $hasApprovedDTRP1;
+
 
     ( count($pendingDTRP) > 0  ) ? $hasPendingDTRP=true : $hasPendingDTRP=false;
 
@@ -2663,7 +2745,7 @@ trait TimekeepingTraits
     ($beginShift->format('Y-m-d') == $endShift->format('Y-m-d')) ? $sameDayShift = true : $sameDayShift=false;
     $bioEnd=null;
 
-    if(count($hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
+    if(count( (array)$hasApprovedDTRP) > 0){ $userLog = $hasApprovedDTRP; } 
     else 
     {
 
@@ -3829,7 +3911,10 @@ trait TimekeepingTraits
         $userLog = new Collection;
         $userLog->push(['id'=>$logOverride->id,'biometrics_id'=>$bioOverride->id,'user_id'=>$id, 'logTime'=>$logOverride->logTime,'logType_id',$logOverride->logType_id,'manual'=>null,'created_at'=>$logOverride->created_at, 'updated_at'=>$logOverride->updated_at]);
 
-        $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
+        if($hasApprovedDTRP)
+        {
+
+          $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
                     
                     'dtrp'=>$hasApprovedDTRP->first(),
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
@@ -3857,12 +3942,46 @@ trait TimekeepingTraits
                     'CHECKER'=>''//$userLog, //$alldaysVL,
                     
                     ]);
+        }else
+        {
+          $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
+                    
+                    'dtrp'=>$hasApprovedDTRP,
+                    'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
+                    'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
+                    'endShift'=> $endShift,
+                    'isAproblemShift'=>$isAproblemShift,
+                    'isRDYest'=>$isRDYest,
+                    'finishShift'=>$finishShift,
+                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL, 'hasVTO'=>$hasVTO,
+                    'hasPendingDTRP' => $hasPendingDTRP,
+                    'leave'=>$leaveDetails,
+                    //'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    'leaveStart'=>$beginShift->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    'logPalugit'=>$logPalugit,
+                    'logs'=>$userLog,'lwop'=>$lwopDetails, 
+                    'logTxt'=>$log,
+                    'maxIn'=>$maxIn,
+                    'maxOut'=> $maxOut,
+                    'palugitDate' =>$palugitDate,
+                    'pendingDTRP' => $pendingDTRP,
+                    'sl'=>$slDeet,
+                    'timing'=>$timing,'UT'=>$UT,
+                    'vl'=>$vl,
+                    'pal'=>$pal,
+                    'CHECKER'=>''//$userLog, //$alldaysVL,
+                    
+                    ]);
+
+        }
 
        
 
       }else
       {
-        $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
+        if($hasApprovedDTRP)
+        {
+          $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
                     
                     'dtrp'=>$hasApprovedDTRP->first(),
                     'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
@@ -3890,6 +4009,37 @@ trait TimekeepingTraits
                     'CHECKER'=>$ob //$ulog1 //$vacationLeave->query, //$alldaysVL,
                     
                     ]);
+
+        }else
+          $data->push(['beginShift'=> $beginShift,'biometrics_id'=>$biometrics_id,
+                    
+                    'dtrp'=>$hasApprovedDTRP,
+                    'dtrpIN'=>$dtrpIN, 'dtrpIN_id'=>$dtrpIN_id, 
+                    'dtrpOUT'=>$dtrpOUT, 'dtrpOUT_id'=> $dtrpOUT_id,
+                    'endShift'=> $endShift,
+                    'isAproblemShift'=>$isAproblemShift,
+                    'isRDYest'=>$isRDYest,
+                    'finishShift'=>$finishShift,
+                    'hasLeave'=>$hasLeave,'hasLWOP'=>$hasLWOP, 'hasSL'=>$hasSL,'hasVTO'=>$hasVTO,
+                    'hasPendingDTRP' => $hasPendingDTRP,
+                    'leave'=>$leaveDetails,
+                    //'leaveStart'=>$fix->format('Y-m-d H:i:s'),'leaveEnd'=>$theDay->format('Y-m-d H:i:s'),
+                    'leaveStart'=>$beginShift->format('Y-m-d H:i:s'),'leaveEnd'=>$endShift->format('Y-m-d H:i:s'),
+                    'logPalugit'=>$logPalugit,
+                    'logs'=>$userLog,'lwop'=>$lwopDetails, 
+                    'logTxt'=>$log,
+                    'maxIn'=>$maxIn,
+                    'maxOut'=> $maxOut,
+                    'palugitDate' =>$palugitDate,
+                    'pendingDTRP' => $pendingDTRP,
+                    'sl'=>$slDeet,
+                    'timing'=>$timing,'UT'=>$UT,
+                    'vl'=>$vl,
+                    'pal'=>$pal,
+                    'CHECKER'=>$ob //$ulog1 //$vacationLeave->query, //$alldaysVL,
+                    
+                    ]);
+        
 
        
 
@@ -4895,6 +5045,19 @@ trait TimekeepingTraits
     return $TLapprover;
     //return $coll;
     
+  }
+
+
+  public function getUserWorksched($userID,$productionDate)
+  {
+   
+    $allSched = DB::table('user_dtr')->where('user_dtr.user_id',$userID)->where([ 
+                    ['user_dtr.productionDate',$productionDate]
+                    ])->join('users','users.id','=','user_dtr.user_id')->
+                    
+                  select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+    return $allSched;
+
   }
 
 

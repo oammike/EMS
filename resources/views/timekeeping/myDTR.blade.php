@@ -956,19 +956,25 @@
                                                                       'dataid'=>$data_id,
                                                                       'modelID' => $data["dtrpIN_id"], 
                                                                       'modalTitle'=>'View DTRP Details', 
+                                                                      'extra'=> null,
                                                                       'icon'=>'glyphicon-up' ])
 
                                                          @elseif ($data['hasPendingIN'] == true )
                                                           <?php  $data_notifType = '8'; 
                                                                 $data_notifID = $data["payday"]; 
-                                                                $data_id = $data['pendingDTRPin']['0']['id']; ?>
+                                                                $data_id = $data['pendingDTRPin']['0']['id']; 
+
+                                                                if($data["pendingDTRPin"][0]['isApproved']=='1')
+                                                                    $extra = "Processing DTRP IN validation by Data Management team.";
+                                                                else $extra = ""; ?>
 
                                                               @include('layouts.modals-detailsDTRP', [
                                                                       'data-notifType'=> $data_notifType,
                                                                       'data-notifID'=> $data_notifID,
                                                                       'dataid'=>$data_id, 
                                                                       'modelID' => $data["pendingDTRPin"][0]['id'], 
-                                                                      'modalTitle'=>'View DTRP Details', 
+                                                                      'modalTitle'=>'Pending DTRP IN Validation',
+                                                                      'extra'=> $extra,
                                                                       'icon'=>'glyphicon-up' ])
 
                                                          @endif
@@ -1148,22 +1154,28 @@
                                                                           'data-notifID'=> $data_notifID,
                                                                           'dataid'=>$data_id, 
                                                                           'modelID' => $data["dtrpOUT_id"], 
-                                                                          'modalTitle'=>'View DTRP Details', 
+                                                                          'modalTitle'=>'View DTRP Details',
+                                                                          'extra' => null, 
                                                                           'icon'=>'glyphicon-up' ]); 
                                                             
 
                                                         @elseif ($data['hasPendingOUT'] == true )
                                                             <?php  $data_notifType = '9'; 
-                                                                    $data_notifID = $data["payday"]; 
-                                                                   $data_id = $data['pendingDTRPout']['0']['id']; ?>
+                                                                   $data_notifID = $data["payday"]; 
+                                                                   $data_id = $data['pendingDTRPout']['0']['id'];
+                                                                   if($data["pendingDTRPout"][0]['isApproved']=='1')
+                                                                    $extra = "Processing DTRP OUT validation by Data Management team.";
+                                                                   else $extra = "";
+                                                                   ?>
 
                                                                   @include('layouts.modals-detailsDTRP', [
                                                                            'data-notifType'=> $data_notifType,
-                                                                          'data-notifID'=> $data_notifID,
-                                                                          'dataid'=>$data_id, 
-                                                                          'modelID' => $data["pendingDTRPout"][0]['id'], 
-                                                                          'modalTitle'=>'View DTRP Details', 
-                                                                          'icon'=>'glyphicon-up' ]);
+                                                                            'data-notifID'=> $data_notifID,
+                                                                            'dataid'=>$data_id, 
+                                                                            'modelID' => $data["pendingDTRPout"][0]['id'],
+                                                                            'extra' => $extra,
+                                                                            'modalTitle'=>'Pending DTRP OUT Validation', 
+                                                                            'icon'=>'glyphicon-up' ]);
 
                                                         @endif
 

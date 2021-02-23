@@ -562,6 +562,21 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'uses'=>'UserDTRPController@newDTRP'
       ));
 
+      Route::get('DTRP_management',array(
+        'as'=> 'user_dtr.manage',
+        'uses'=>'UserDTRPController@manage'
+      ));
+
+      Route::post('process_DTRP',array(
+        'as'=> 'user_dtr.newDTRP_process',
+        'uses'=>'UserDTRPController@newDTRP_process'
+      ));
+
+      Route::post('validate_DTRP',array(
+        'as'=> 'user_dtr.newDTRP_validate',
+        'uses'=>'UserDTRPController@newDTRP_validate'
+      ));
+
       Route::post('/user_dtr/manage', array(
       'as'=> 'user_dtr.manage',
       'uses'=>'DTRController@manage') );

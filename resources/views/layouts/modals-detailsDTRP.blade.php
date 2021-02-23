@@ -9,6 +9,9 @@
       </div> 
       <div class="modal-body-upload" style="padding:20px;">
        
+       @if($extra)
+       <p class="text-danger" style="font-style: italic; font-size: small;"><i class="fa fa-exclamation-triangle"></i> {{$extra}} </p>
+       @endif
 
         <br/><br/>
          <div class="row">

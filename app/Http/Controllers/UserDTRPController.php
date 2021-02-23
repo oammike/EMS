@@ -21,6 +21,9 @@ use Yajra\Datatables\Facades\Datatables;
 
 use OAMPI_Eval\Http\Requests;
 use OAMPI_Eval\User;
+use OAMPI_Eval\User_DTRPinfo;
+use OAMPI_Eval\User_DTRPreport;
+use OAMPI_Eval\User_LogOverride;
 use OAMPI_Eval\Campaign;
 use OAMPI_Eval\Status;
 use OAMPI_Eval\Team;
@@ -51,7 +54,7 @@ use OAMPI_Eval\User_Notification;
 class UserDTRPController extends Controller
 {
     protected $user;
-   	protected $user_dtrp;
+    protected $user_dtrp;
     use Traits\TimekeepingTraits;
     use Traits\UserTraits;
 
@@ -66,7 +69,8 @@ class UserDTRPController extends Controller
 
     public function deleteThisDTRP($id,Request $request)
     {
-        $theDTRP = User_DTRP::find($id);
+        $theDTRP = User_DTRP::find($id); $stamp = Carbon::now('GMT+8');
+        $owner = User::find($theDTRP->user_id);
         if (is_null($theDTRP)) return view('empty');
 
         $deletedID = $theDTRP->id;
@@ -78,6 +82,12 @@ class UserDTRPController extends Controller
         if (count($theNotif) > 0)
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
+        $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Delete DTRP of [".$owner->id."] on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        
+
+
 
         $theDTRP->delete();
         if ($request->redirect == '1')
@@ -88,21 +98,325 @@ class UserDTRPController extends Controller
         
     }
 
+     public function manage()
+    {
+      $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+      (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-7)->format('m/d/Y'); 
+      (Input::get('to')) ? $to = Input::get('to') : $to = Carbon::now()->endOfMonth()->addDays(14)->format('m/d/Y'); //date('m/d/Y');
+
+      (Input::get('type')) ? $type = Input::get('type') : $type = 'IN';
+      $stamp = Carbon::now('GMT+8');
+
+      /*$isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
+      $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';*/
+      $canManage =  ($roles->contains('UPLOAD_BIOMETRICS')) ? '1':'0';
+
+      if(!$canManage){
+        $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Tried DTRP MGT on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);return view('access-denied');
+      } 
+
+      $allDTRP = $this->getDTRPs($from,$to,$type);
+      
+      $allOld = $this->getDTRPs($from,$to,"OLD");
+
+      if($type=="IN") { 
+            $allPendings = count(collect($allDTRP)->where('validated',null)); 
+            $allDTRPOut = $this->getDTRPs($from,$to,"OUT");
+            $allIns = count(collect($allDTRP)->where('validated',null));
+            $allOuts = count(collect($allDTRPOut)->where('validated',null));
+       }
+      else if($type=="OUT"){ 
+            //$allPendings = count(collect($allDTRP)->where('isApproved',null)); 
+            $allPendings = count(collect($allDTRP)->where('validated',null)); 
+            $allDTRPIn = $this->getDTRPs($from,$to,"IN"); 
+            $allDTRPOut = $this->getDTRPs($from,$to,"OUT"); 
+            $allIns = count(collect($allDTRPIn)->where('validated',null));
+            $allOuts =count(collect($allDTRP)->where('validated',null)); 
+        }
+       else
+        {
+            $allPendings = count(collect($allDTRP)->where('isApproved',null)); 
+            $allIns = count(collect($this->getDTRPs($from,$to,"IN"))->where('validated',null));
+            $allOuts =count(collect($this->getDTRPs($from,$to,"OUT"))->where('validated',null));
+
+        }
+      
+      
+      
+      $allOlds = count(collect($allOld)->where('isApproved',null));
+
+      //return response()->json(['type'=>$type,'allDTRP'=>$allDTRP, 'allDTRPout'=>$allDTRPOut]);
+
+      switch ($type) {
+        case 'IN':{  $label = "DTRP IN" ;  $deleteLink = url('/')."/user_dtrp/deleteThisDTRP/"; $notifType = 8; } break;
+        case 'OUT':{  $label = "DTRP OUT" ;  $deleteLink = url('/')."/user_dtrp/deleteThisDTRP/"; $notifType = 9; } break;
+        case 'OLD':{  $label = "OLD DTRP PROCESS" ;  $deleteLink = url('/')."/user_dtrp/deleteThisDTRP/"; $notifType = 10; } break;
+        default: { $label = "DTRP IN";   $deleteLink = url('/')."/user_dtrp/deleteThisDTRP/"; $notifType = 8;} break;
+      }
+
+      $storageLoc = url('/') . '/storage/uploads';
+
+      //return $allPendings;
+      //return response()->json(['type'=>$type, 'from'=>$from,'to'=>$to,'allDTRP'=>$allDTRP]);
+
+      if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DTRPMGT on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            }
+
+
+            $leaders = DB::table('immediateHead_Campaigns')->
+                join('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                join('campaign','immediateHead_Campaigns.campaign_id','=','campaign.id')->
+                leftJoin('users','immediateHead.employeeNumber','=', 'users.employeeNumber')->
+                join('positions','positions.id','=','users.position_id')->
+                select('immediateHead_Campaigns.id','positions.name as position','users.lastname','users.firstname','campaign.name as program','campaign.id as campaign_id','immediateHead_Campaigns.disabled')->
+                orderBy('users.lastname','ASC')->
+                where('users.status_id','!=',7)->
+                where('users.status_id','!=',8)->
+                where('users.status_id','!=',9)->
+                where('immediateHead_Campaigns.disabled',null)->
+                get(); 
+                          
+
+      return view('timekeeping.dtrpMgt',compact('canManage', 'from','to','type','label', 'deleteLink','notifType','allDTRP','allPendings','allIns', 'allOuts','allOlds','storageLoc','leaders'));
+
+    }
+
     public function newDTRP()
     {
         $u = Input::get('u'); $isSigned=false;
+        $p = Input::get('p');
+        $a = Input::get('a');
+
+        ($p) ? $productionDate=$p : $productionDate= Carbon::now('GMT+8')->format('Y-m-d');
+        ($a) ? $actualDate=$a : $actualDate= Carbon::now('GMT+8')->format('Y-m-d');
+
 
         ($u) ?  $user = User::find(Input::get('u')) : $user = $this->user ;
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+        // $advent = Team::where('user_id',$user->id)->where('campaign_id',58)->get();
+        // (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
+
+        // $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
+        // (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
+
+        // $ndy = Team::where('user_id',$user->id)->where('campaign_id',54)->get();
+        // (count($ndy) > 0) ? $isNDY = 1 : $isNDY=0;
+
+
+        //check mo kung leave for himself or if for others and approver sya
+        $approvers = $user->approvers;
+        //Timekeeping Trait
+        $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+
+        if(!is_null($u) && !$anApprover && !$isWorkforce ) return view('access-denied'); //  || ($isWorkforce && $isBackoffice)
+
+
 
         $dtrpCategories = DB::table('user_dtrpReasons')->leftJoin('user_dtrpCategory','user_dtrpCategory.id','=','user_dtrpReasons.category_id')->
                                 leftJoin('user_dtrpSubcategory','user_dtrpReasons.subcat_id','=','user_dtrpSubcategory.id')->
                                 select('user_dtrpCategory.label as category','user_dtrpCategory.description','user_dtrpSubcategory.label as subCat','user_dtrpReasons.id','user_dtrpSubcategory.id as subcatID','user_dtrpCategory.id as catID', 'user_dtrpSubcategory.ordering','user_dtrpSubcategory.message as warning','user_dtrpReasons.name as reason','user_dtrpReasons.flag_HR','user_dtrpReasons.flag_DA')->get();
         $allCat = collect($dtrpCategories)->groupBy('category');
         $allSubcat = collect($dtrpCategories)->groupBy('subcatID');
-        //return response()->json(['category'=>$allCat, 'subcat'=>$allSubcat]);
-       // return $user;
+        
+        $correct=Carbon::now('GMT+7');
 
-        return view('timekeeping.new_DTRP', compact('user','isSigned','allCat','allSubcat','dtrpCategories'));
+        $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+        
+        fwrite($file, "-------------------\n New_DTRP on ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+                fclose($file);
+
+        return view('timekeeping.new_DTRP', compact('user','isSigned','allCat','allSubcat','dtrpCategories','productionDate','actualDate'));
+
+    }
+
+    public function newDTRP_process(Request $request)
+    {
+        $attachments = $request->attachments;
+        $userID = $request->userid;
+        $productionDate = Carbon::parse($request->productionDate,'Asia/Manila');
+        $actualDate = $request->actualDate;
+        $log = Carbon::parse($actualDate.' '.$request->hour.":".$request->minute." ".$request->ampm,'Asia/Manila');
+        $notes = $request->notes;
+        $reason = $request->reason;
+        $correct = Carbon::now('GMT+8');
+
+
+
+        $b = Biometrics::where('productionDate',$productionDate->format('Y-m-d'))->get();
+        $u = User::find($userID);
+        $approvers = $u->approvers;
+        //Timekeeping Trait
+        $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+       
+
+        //save the DTRP
+        $dtrp = new User_DTRP;
+        $dtrp->user_id = $userID;
+        $dtrp->biometrics_id = $b->first()->id;
+        $dtrp->actualLogdate = $log->format('Y-m-d');
+        $dtrp->logTime = $log->format('H:i:s');
+        $dtrp->logType_id = $request->logType;
+        $dtrp->notes = $notes;
+        ($anApprover) ? $dtrp->isApproved =1 : $dtrp->isApproved = null;
+        $dtrp->approvedBy = $this->getTLapprover($u->id, $this->user->id);
+        $dtrp->created_at = $correct->format('Y-m-d H:i:s');
+        $dtrp->updated_at = $correct->format('Y-m-d H:i:s');
+        $dtrp->save();
+
+        
+        if(empty($attachments) || $attachments=="null") $fileName=null;
+        else
+        {
+            $destinationPath = storage_path() . '/uploads';
+            $extension = Input::file('attachments')->getClientOriginalExtension(); // getting image extension
+            $fileName = $correct->format('Y-m-d_H_i_s').'-user-'.$request->userid.'_DTRP_'.$request->logType.'.'.$extension; // renameing image
+            $attachments->move($destinationPath, $fileName); // uploading file to given path
+
+        }
+        
+      
+        $dtrpInfo = new User_DTRPinfo;
+        $dtrpInfo->dtrp_id = $dtrp->id;
+        $dtrpInfo->reasonID = $reason;
+        $dtrpInfo->attachments = $fileName;
+        $dtrpInfo->clearedBy = $this->user->id;
+        $dtrpInfo->created_at = $correct->format('Y-m-d H:i:s');
+        $dtrpInfo->updated_at = $correct->format('Y-m-d H:i:s');
+        $dtrpInfo->save();
+
+        if($dtrp->logType_id == 1) $notifType=8;
+        else if($dtrp->logType_id == 2) $notifType=9;
+
+        //***** notifications
+        $notif = new Notification;
+        $notif->relatedModelID = $dtrp->id;
+        $notif->type = $notifType;
+        $notif->from = $userID;
+        $notif->save();
+
+        foreach ($approvers as $key) {
+              $TL = ImmediateHead::find($key->immediateHead_id)->userData;
+              //$coll->push(['dtrp'=>$dtrp, 'tl'=>$TL]);
+              $tlNotif = new User_Notification;
+              $tlNotif->user_id = $TL->id;
+              $tlNotif->notification_id = $notif->id;
+              $tlNotif->seen = false;
+              $tlNotif->save();
+
+               # code...
+         }
+
+
+        $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n DTRP_".$request->logType." for [".$u->id."] on ". $correct->format('Y M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+        fclose($file);
+        
+
+
+        return response()->json(['success'=>1,'dtrp'=>$dtrp,'dtrpInfo'=>$dtrpInfo]);
+          
+
+    }
+
+    public function newDTRP_validate(Request $request)
+    {
+        $dtrpInfo = User_DTRPinfo::find($request->infoID);
+        $dtrpInfo->isCleared = $request->isApproved;
+        $dtrpInfo->clearedBy = $this->user->id;
+        $dtrpInfo->push();
+        $correct=Carbon::now('GMT+7');
+
+        $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+        if($request->isApproved)
+            fwrite($file, "-------------------\n [". $dtrpInfo->id."] DTRPinfo - Validated ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+        else fwrite($file, "-------------------\n [". $dtrpInfo->id."] DTRPinfo - Rejected ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+                fclose($file);
+
+        // we now check if approver still hasnt approved it
+        // if pending, apply the same action from DTRPinfo
+
+        $dtrp = User_DTRP::find($dtrpInfo->dtrp_id);
+        
+        if( is_null($dtrp->isApproved)) {
+            $dtrp->isApproved = $request->isApproved;
+
+            if ($dtrp->logType_id == 1) {
+                $theNotif = Notification::where('relatedModelID', $dtrp->id)->where('type',8)->get();
+                //then remove those sent notifs to the approvers since it has already been approved/denied
+                if (count($theNotif) > 0)
+                    DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
+
+                //$unotif = $this->notifySender($DTRP,$theNotif->first(),8);
+            }
+            else {
+                $theNotif = Notification::where('relatedModelID', $dtrp->id)->where('type',9)->get();
+                //then remove those sent notifs to the approvers since it has already been approved/denied
+                if (count($theNotif) > 0)
+                    DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
+            }
+
+            $dtrp->push();
+
+        }
+
+        //we now create manual overrides if it is marked VALID
+        if($request->isApproved) {
+            $o = new User_LogOverride;
+            $o->user_id = $dtrp->user_id;
+            $pd = Biometrics::find($dtrp->biometrics_id);
+            $o->productionDate = $pd->productionDate;
+            (is_null($dtrp->actualLogdate)) ? $o->affectedBio = $pd->id : $o->affectedBio = Biometrics::where('productionDate',$dtrp->actualLogdate)->first()->id;
+            
+            $o->logTime = $dtrp->logTime;
+            $o->logType_id = $dtrp->logType_id;
+            $o->created_at = $correct->format('Y-m-d H:i:s');
+            $o->updated_at = $correct->format('Y-m-d H:i:s');
+            $o->save();
+
+            
+
+        }
+
+        //**** we now record those who's DTRP are invalid
+        if($request->isApproved == 0 && $dtrp->isApproved)
+        {
+            $report = new User_DTRPreport;
+            $report->user_id = $dtrp->user_id;
+            $pd = Biometrics::find($dtrp->biometrics_id);
+            $report->productionDate = $pd->productionDate;
+            if(is_null($dtrp->actualLogdate)) {
+                $report->actualLog = $pd->productionDate." ".$dtrp->logTime;
+            }else{
+                $report->actualLog = $dtrp->actualLogdate." ".$dtrp->logTime;
+            }
+
+            $report->approvedBy = $dtrp->approvedBy;
+            $report->dateApproved = $dtrp->updated_at;
+            $report->logType_id = $dtrp->logType_id;
+            $report->notes = $dtrp->notes;
+            $report->verifiedBy = $this->user->id;
+            $report->remarks = $request->remarks;
+            $report->attachments = $dtrpInfo->attachments;
+            $report->created_at = $correct->format('Y-m-d H:i:s');
+            $report->updated_at = $correct->format('Y-m-d H:i:s');
+            $report->save();
+
+
+        }
+
+        return response()->json(['success'=>1,'dtrp'=>$dtrp]);
+
+
 
     }
 
@@ -110,6 +424,7 @@ class UserDTRPController extends Controller
     {
         //return $request;
         $DTRP = User_DTRP::find($request->id);
+        $correct = Carbon::now('GMT+8');
         if(count((array)$DTRP)>0)
         {
             $DTRP->approvedBy = $this->getTLapprover($DTRP->user_id, $this->user->id);
@@ -125,10 +440,10 @@ class UserDTRPController extends Controller
 
             /* -------------- log updates made --------------------- */
 
-             $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+             $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
                 if($DTRP->isApproved)
-            fwrite($file, "-------------------\n [". $DTRP->id."] DTRP ".LogType::find($DTRP->logType_id)->name." - Approved ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
-            else fwrite($file, "-------------------\n [". $DTRP->id."] DTRP ".LogType::find($DTRP->logType_id)->name." - Denied ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+            fwrite($file, "-------------------\n [". $DTRP->id."] DTRP ".LogType::find($DTRP->logType_id)->name." - Approved ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+            else fwrite($file, "-------------------\n [". $DTRP->id."] DTRP ".LogType::find($DTRP->logType_id)->name." - Denied ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
                 fclose($file);
 
 
@@ -214,7 +529,7 @@ class UserDTRPController extends Controller
 
     public function store(Request $request)
     {
-    	/**** look for Timekeeping trait: $this->saveDTRP instead *****/
+        /**** look for Timekeeping trait: $this->saveDTRP instead *****/
     }
 
     public function update($id, Request $request)
