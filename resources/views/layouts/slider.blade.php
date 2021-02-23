@@ -1,7 +1,153 @@
            
 
 
-              <div class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calendar"></i>   2021 Regular and Special <br/>Non-Working Holidays <br/>(Proclamation Order No. 986)<br/><small>Feb.23, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please see below the special and regular holidays from February 25, 2021 to December 31, 2021. Employees who are required to work during these holidays are eligible for the corresponding premium.<br/><br/>
+
+                    <strong class="text-success text-center" style="font-size: larger;"> Special (Non-Working) Days</strong></p>
+
+                    <table class="table  table-bordered table-striped pull-right" style="width: 95%">
+                      <tbody>
+                        <tr>
+                          <td>February 25, 2021</td>
+                          <td>EDSA People Power Revolution Anniversary</td>
+                        </tr>
+                        <tr>
+                          <td>April 3, 2021  </td>
+                          <td>Black Saturday </td>
+                        </tr>
+                        <tr>
+                          <td>August 21, 2021 </td>
+                          <td> Ninoy Aquino Day</td>
+                        </tr>
+                        <tr>
+                          <td>November 1, 2021</td>
+                          <td>All Saints' Day </td>
+                        </tr>
+                        <tr>
+                          <td>November 2, 2021 </td>
+                          <td>All Souls' Day  </td>
+                        </tr>
+                        <tr>
+                          <td>December 8, 2021</td>
+                          <td>Feast of the Immaculate Conception of Mary</td>
+                        </tr>
+                        <tr>
+                          <td>December 24, 2021</td>
+                          <td>Additional Special (Non-Working) Day</td>
+                        </tr>
+                        <tr>
+                          <td>December 31, 2021</td>
+                          <td>Last Day of the Year </td>
+                        </tr>
+                      </tbody>
+                      
+                    </table>
+
+                     
+
+                    <p><strong class="text-danger text-left" style="font-size: larger;"> Regular Holidays</strong></p>
+                    <table class="table  table-bordered table-striped pull-right" style="width: 95%">
+                      <tbody>
+                        <tr>
+                          <td>April 1, 2021</td>
+                          <td>Maundy Thursday</td>
+                        </tr>
+                        <tr>
+                          <td>April 2, 2021</td>
+                          <td>Good Friday </td>
+                        </tr>
+                        <tr>
+                          <td>April 9, 2021</td>
+                          <td> Araw ng Kagitingan </td>
+                        </tr>
+                        <tr>
+                          <td>May 1, 2021</td>
+                          <td>Labor Day </td>
+                        </tr>
+                        <tr>
+                          <td>June 12, 2021</td>
+                          <td>Philippine Independence Day </td>
+                        </tr>
+                        <tr>
+                          <td>August 30, 2021</td>
+                          <td>National Heroes Day</td>
+                        </tr>
+                        <tr>
+                          <td>November 30, 2021</td>
+                          <td>Bonifacio Day</td>
+                        </tr>
+                        <tr>
+                          <td>December 25, 2021</td>
+                          <td>Christmas Day </td>
+                        </tr>
+                        <tr>
+                          <td>December 30, 2021</td>
+                          <td>Rizal Day </td>
+                        </tr>
+                      </tbody>
+                      
+                    </table>
+
+                             
+
+                     <p>Below is a guide on how it is computed.  <br/> <br/> </p>
+
+                    <table class="pull-right table  table-bordered table-striped" style="width: 95%">
+                      <thead>
+                        <th>Conditions</th>
+                        <th>Special Holiday</th>
+                        <th>Regular Holiday</th>
+                      </thead>
+                      <tbody style="font-size: x-small;">
+                        <tr>
+                          <td>Unworked, provided the employee was present or on leave with pay on the workday prior to the start of holiday </td>
+                          <td>(Basic Pay + Allowance) x 100%</td>
+                          <td>(Basic Pay + Allowance) x 100%</td>
+                        </tr>
+                        <tr>
+                          <td>Worked</td>
+                          <td>(Basic Pay + Allowance) x 150%</td>
+                          <td>(Basic Pay + Allowance) x 200%</td>
+                        </tr>
+                        <tr>
+                          <td>Additional pay for work done in excess of 8 hours</td>
+                          <td>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</td>
+                          <td>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</td>
+                        </tr>
+                        <tr>
+                          <td>Worked, and falls on the rest day of the employee</td>
+                          <td>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  150% x 150%</td>
+                          <td>[(Basic Pay + Allowance) ÷ 22 days ÷ 8 hours] x [number of hours worked] x  200% x 150%</td>
+                        </tr>
+                        
+                      </tbody>
+                      
+                    </table>
+
+ 
+
+                    <p style="padding: 30px;" class="text-left">If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank"> http://ticketing.openaccess.bpo/.</a>  For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.<br/><br/>
+
+                    Please access the user guide here to find out how to use it: https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26  <br/><br/>
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/></p>
+
+ 
+                    
+              </div>
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/feb20wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-cc"></i> Pandemic Movies &amp; Series <i class="fa fa-cc"></i><br/><small>Feb.22, 2021</small><br/>
                   
