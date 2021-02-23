@@ -1644,6 +1644,7 @@
 
                                                         <!-- ******** hindi basta basta pwede magfile ng OT. Check muna kung
                                                                       may pending CWS, if Yes show alert ****** -->
+                                                          @if($data['lockedNa'] == '0')
 
                                                             @if($data['hasCWS'])
 
@@ -1729,6 +1730,8 @@
 
 
                                                             @endif
+
+                                                          @endif <!--end if locked na-->
 
                                                             
                                                         @endif
