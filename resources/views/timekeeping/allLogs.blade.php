@@ -98,7 +98,7 @@
             "lengthMenu": [10, 50, 100],//[5, 20, 50, -1],
             "columns": [
                  
-                  { title: "Bio AccessCode", defaultContent: "<i>none</i>" , data:'accesscode', width:'150', render:function( data, type, full, meta ){return data;}}, // width:'180'},  
+                  { title: "EmployeeCode", defaultContent: "<i>none</i>" , data:'employeeCode', width:'150', render:function( data, type, full, meta ){return data;}}, // width:'180'},  
                   { title: "Lastname", defaultContent: "<i>none</i>" , data:'lastname', width:'180', render:function( data, type, full, meta ){return '<span style="text-transform:uppercase">'+data+'</span>';}}, // width:'180'},  
                   { title: "Firstname", defaultContent: " ", width:'180',data:'firstname',render:function(data){
                         //return moment(data,"M d, Y").format('MMM DD, YYYY - ddd')

@@ -121,7 +121,7 @@ class LogsController extends Controller
                     leftJoin('users','logs.user_id','=','users.id')->
                     leftJoin('team','users.id','=','team.user_id')->
                     leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                    select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType','logs.manual')->
+                    select('users.id', 'users.accesscode','users.employeeCode', 'users.firstname','users.lastname','campaign.name as program', 'logs.logTime','logs.created_at as serverTime', 'logType.name as logType','logs.manual')->
                     orderBy('users.lastname')->get();
 
             $activeUsers = DB::table('campaign')->where('campaign.hidden',NULL)->
@@ -132,7 +132,7 @@ class LogsController extends Controller
                           ])->
                             join('team','team.campaign_id','=','campaign.id')->
                             join('users','team.user_id','=','users.id')->
-                            select('users.id','users.accesscode','users.lastname','users.firstname','campaign.name as program')->
+                            select('users.id','users.accesscode','users.employeeCode', 'users.lastname','users.firstname','campaign.name as program')->
                             where('users.status_id','!=',6)->
                             where('users.status_id','!=',7)->
                             where('users.status_id','!=',8)->
@@ -147,7 +147,7 @@ class LogsController extends Controller
             $allECQ = DB::table('eqc_workstatus')->join('biometrics','biometrics.id','=','eqc_workstatus.biometrics_id')->
                       join('users','users.id','=','eqc_workstatus.user_id')->
                       join('ecq_statuses','ecq_statuses.id','=','eqc_workstatus.workStatus')->
-                      select('biometrics.productionDate','eqc_workstatus.biometrics_id','eqc_workstatus.workStatus as ecqID','ecq_statuses.name as ecqStatus','users.firstname','users.lastname','users.id as user_id','eqc_workstatus.created_at')->
+                      select('biometrics.productionDate','eqc_workstatus.biometrics_id','eqc_workstatus.workStatus as ecqID','ecq_statuses.name as ecqStatus','users.firstname','users.lastname','users.id as user_id','users.employeeCode', 'eqc_workstatus.created_at')->
                       where('biometrics.productionDate',$bio->first()->productionDate)->
                       orderBy('eqc_workstatus.created_at','DESC')->get(); 
 
@@ -162,22 +162,22 @@ class LogsController extends Controller
                         leftJoin('users','user_dtrp.user_id','=','users.id')->
                         leftJoin('team','users.id','=','team.user_id')->
                         leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                        select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program', 'user_dtrp.logTime','logType.name as logType','user_dtrp.isApproved','user_dtrp.notes', 'user_dtrp.created_at as submitted','user_dtrp.updated_at as updated' )->
+                        select('users.id', 'users.accesscode','users.employeeCode', 'users.firstname','users.lastname','campaign.name as program', 'user_dtrp.logTime','logType.name as logType','user_dtrp.isApproved','user_dtrp.notes', 'user_dtrp.created_at as submitted','user_dtrp.updated_at as updated' )->
                         orderBy('users.lastname')->get();
         
             $allUnlocks = DB::table('user_unlocks')->where('user_unlocks.productionDate',$bio->first()->productionDate)-> 
                         leftJoin('users','user_unlocks.user_id','=','users.id')->
                         leftJoin('team','users.id','=','team.user_id')->
                         leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                        select('users.id', 'users.accesscode', 'users.firstname','users.lastname','campaign.name as program','user_unlocks.created_at as submitted' )->
+                        select('users.id', 'users.accesscode','users.employeeCode', 'users.firstname','users.lastname','campaign.name as program','user_unlocks.created_at as submitted' )->
                         orderBy('users.lastname')->get();
 
 
         
-            $headers = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
-            $headers2 = array("AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted","Updated");
-            $headers3 = array("AccessCode", "Last Name","First Name","Program","Requested");
-            $headers4 = array("AccessCode", "Last Name","First Name","Program");
+            $headers = array("EmployeeCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
+            $headers2 = array("EmployeeCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted","Updated");
+            $headers3 = array("EmployeeCode", "Last Name","First Name","Program","Requested");
+            $headers4 = array("EmployeeCode", "Last Name","First Name","Program");
             $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
             $description = " ". $sheetTitle;
 
@@ -224,7 +224,7 @@ class LogsController extends Controller
 
                         
                         
-                        $arr = array($item->accesscode, 
+                        $arr = array($item->employeeCode, 
                                      $item->lastname,
                                      $item->firstname,
                                      $item->program, //ID
@@ -256,7 +256,7 @@ class LogsController extends Controller
                             $a="Yes";
                        else $a="No";
                         
-                        $arr = array($item->accesscode, 
+                        $arr = array($item->employeeCode, 
                                      $item->lastname,
                                      $item->firstname,
                                      $item->program, //ID
@@ -285,7 +285,7 @@ class LogsController extends Controller
 
                       
                         
-                        $arr = array($item->accesscode, 
+                        $arr = array($item->employeeCode, 
                                      $item->lastname,
                                      $item->firstname,
                                      $item->program, //ID
@@ -307,7 +307,7 @@ class LogsController extends Controller
 
                       
                         
-                        $arr = array($look->accesscode, 
+                        $arr = array($look->employeeCode, 
                                      $look->lastname,
                                      $look->firstname,
                                      $look->program, //ID
@@ -348,7 +348,7 @@ class LogsController extends Controller
             leftJoin('users','logs.user_id','=','users.id')->
             leftJoin('team','team.user_id','=','users.id')->
             leftJoin('campaign','team.campaign_id','=','campaign.id')->
-            select('users.id as userID','users.accesscode',  'users.lastname','users.firstname','campaign.name as program','logs.logType_id','logs.logTime','logs.created_at')->orderBy('users.lastname','ASC')->get();
+            select('users.id as userID','users.accesscode','users.employeeCode',  'users.lastname','users.firstname','campaign.name as program','logs.logType_id','logs.logTime','logs.created_at')->orderBy('users.lastname','ASC')->get();
 
         }else
         {
