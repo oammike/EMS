@@ -7575,7 +7575,8 @@ class DTRController extends Controller
                 
            //return response()->json(['currentVLbalance'=>$currentVLbalance,'currentSLbalance'=>$currentSLbalance]);
 
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL','isNDY'));
+           $cp0 =$currentPeriod[0]; $cp1 = $currentPeriod[1];
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL','isNDY','cp0','cp1'));
 
 
         } else return view('access-denied');
