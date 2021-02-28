@@ -111,11 +111,11 @@ class Cutoff extends Model
                 $from = (date('Y')-1)."-";
 
             }  else { 
-                $from = date('Y')."-";
+                $from = $ngayon->format('Y')."-"; //date('Y')."-";
 
             }
             
-            $from .= date('m',strtotime("last month"))."-";
+            $from .=  Carbon::now('GMT+8')->subMonth()->format('m')."-";; //date('m',strtotime("last month"))."-";
             $from .= ($this->second+1);
 
 
@@ -126,14 +126,14 @@ class Cutoff extends Model
             
         } else if (($today > $this->first)&&($today <= $this->second) || $today == ($this->first + $this->paydayInterval) ) //+ $this->paydayInterval
         {
-            $from = date('Y')."-";
-            $from .= (date('m'))."-";
+            $from = $ngayon->format('Y')."-"; //date('Y')."-";
+            $from .= $ngayon->format('m')."-"; //(date('m'))."-";
             $from .= ($this->first+1);
 
 
             
-            $to = date('Y')."-";
-            $to .= (date('m'))."-";
+            $to = $ngayon->format('Y')."-"; //date('Y')."-";
+            $to .= $ngayon->format('m')."-"; //(date('m'))."-";
             $to .= ($this->second);
             
             
