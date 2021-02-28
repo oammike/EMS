@@ -256,6 +256,7 @@
 
 
               <div class="clearfix"></div>
+              <p><small><?php $n = \Carbon\Carbon::now('GMT+8'); ?>{{$n}} </small></p>
           </div><!--end row-->
 
        
