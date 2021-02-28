@@ -174,10 +174,10 @@ class LogsController extends Controller
 
 
         
-            $headers = array("EmployeeCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
-            $headers2 = array("EmployeeCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted","Updated");
-            $headers3 = array("EmployeeCode", "Last Name","First Name","Program","Requested");
-            $headers4 = array("EmployeeCode", "Last Name","First Name","Program");
+            $headers = array("EmployeeCode","AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Server Timestamp","Onsite | WFH");
+            $headers2 = array("EmployeeCode","AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted","Updated");
+            $headers3 = array("EmployeeCode","AccessCode", "Last Name","First Name","Program","Requested");
+            $headers4 = array("EmployeeCode","AccessCode", "Last Name","First Name","Program");
             $sheetTitle = "All EMS User Logs Tracker [".$daystart->format('M d l')."]";
             $description = " ". $sheetTitle;
 
@@ -225,6 +225,7 @@ class LogsController extends Controller
                         
                         
                         $arr = array($item->employeeCode, 
+                                     $item->accesscode, 
                                      $item->lastname,
                                      $item->firstname,
                                      $item->program, //ID
@@ -256,7 +257,8 @@ class LogsController extends Controller
                             $a="Yes";
                        else $a="No";
                         
-                        $arr = array($item->employeeCode, 
+                        $arr = array($item->employeeCode,
+                                     $item->accesscode, 
                                      $item->lastname,
                                      $item->firstname,
                                      $item->program, //ID
@@ -286,6 +288,7 @@ class LogsController extends Controller
                       
                         
                         $arr = array($item->employeeCode, 
+                                     $item->accesscode,
                                      $item->lastname,
                                      $item->firstname,
                                      $item->program, //ID
@@ -308,6 +311,7 @@ class LogsController extends Controller
                       
                         
                         $arr = array($look->employeeCode, 
+                                     $look->accesscode, 
                                      $look->lastname,
                                      $look->firstname,
                                      $look->program, //ID
