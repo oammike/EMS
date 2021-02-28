@@ -1,7 +1,71 @@
            
 
 
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from HR: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Dress Code<br/>Company Policy<br/><small>Mar. 01, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                    <strong>REMINDER TO ALL ONSITE EMPLOYEES:</strong><br/>
+                    Effective March 01, 2021, please be advised that we will revert to our standard Dress Code policy.<br/><br/>
+                    
+                    <strong class="text-primary">Brief </strong><br/>This dress code policy defines how we as employees are expected to dress at work. We should be aware that our  appearance matters and contributes to shaping the overall image of the company. Besides our performance, our  appearance is included in representing our business to clients and other parties. We, therefore, should be mindful to  dress in a manner that is respectful of others and creates a positive impression and reflection of the Open Access  culture. <br/><br/>
+
+                    <strong class="text-primary">Scope  </strong><br/><br/>
+                    This policy applies to all our employees. <br/><br/><br/><br/>
+                   
+                    <strong class="text-primary">Casual Dress Code  </strong><br/><br/>
+                    Our company’s official dress code is Casual. See the policy elements and guidelines below for what casual office  dressing comprises. For special events, we may prescribe employees to wear attire with varying degrees of formality  or style. An employee’s position and function may additionally inform their dress code. If they frequently meet with  clients or prospects, they should dress appropriately to represent Open Access BPO positively.  <br/><br/><br/><br/>
+
+                    <strong class="text-primary">Policy Elements  </strong><br/><br/>
+                    Enumerated below are specific parameters to help us understand and follow our dress code rules. These guidelines  will always apply: 
+                    <br/><br/>
+
+                    <strong>All employees must be clean and tidy.</strong> <br/><br/>
+                    ● We as employees must maintain basic grooming and hygiene as these ensure personal and workplace safety and  sanitation. <br/><br/>
+                    ● Dressing styles dictated by ethnicity and religion are not restricted. <br/><br/><br/><br/>
+
+                    <strong>All clothes must project professionalism.</strong> <br/><br/>
+                    ● Clothes not appropriate to a place of business are not allowed. <br/><br/>
+                    ● Guidelines for what are considered unsuitable or indecorous: <br/><br/>
+
+                    Clothing articles whose design and/or material overly expose skin, or the form of the body are prohibited. (e.g.: forearms, upper thighs, cleavage, lower back, navel, etc.) <br/><br/><br/><br/>
+
+                    <strong>All clothes must be office appropriate.</strong> <br/><br/>
+                    ● Clothing pieces containing profanity and offensive language are not allowed. <br/><br/>
+                    ● Overly informal or form-fitting outfits and gym gear are not permitted, even on weekends.  
+                     (e.g.: shorts, sleeveless jerseys, crop or open-back tops, cutout or mesh leggings, etc.) <br/><br/>
+                    ● During bad weather, bring a change of clothes if you anticipate your commute to be particularly rough, then change  in the office. <br/><br/>
+
+                    Examples of inadmissible office clothing:  <br/><br/>
+                    slippers, flip flops, shorts, sleeveless tops, cropped tops. miniskirts, etc. <br/><br/>
+                    All clothes must be well-kept and in *good condition. <br/><br/>
+
+                    *Ripped jeans and other similar items (causing no undue skin exposure) are allowed for style expression, as long as  the overall look is still dressed up and office appropriate. 
+                    <br/><br/>
+
+                    <strong class="text-primary"> Disciplinary Consequences  </strong><br/>
+                    Employees are required to respect and follow our dress code. When an employee disregards these dress code  regulations and guidelines, their immediate head must remind, reprimand or coach for behavior improvement, and  report for *appropriate disciplinary action. In some cases, management may ask employees to return home to  change.  <br/><br/>
+
+                    Employees may face more severe consequences up to and including termination, if: <br/>
+                    • Their appearance causes irreparable damage, like the loss of a business or client. <br/><br/>
+                    • Violations are repeated. <br/><br/><br/><br/>
+
+                    Nonadherence to this policy will result in disciplinary action which may lead up to termination: Schedule of Discipline - Office Protocol and Decorum Rule VIII Section 1  <br/><br/>
+                    1st offense: Verbal Warning <br/><br/>
+                    2nd offense: Written Warning <br/><br/>
+                    3rd offense: Final Warning <br/><br/>
+                    4th offense: Termination 
+
+                  </p>
+
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calendar"></i>   2021 Regular and Special <br/>Non-Working Holidays <br/>(Proclamation Order No. 986)<br/><small>Feb.23, 2021</small><br/>
 
                     <img src="storage/uploads/divider.png" />
@@ -164,24 +228,7 @@
                     
                     
             </div>
-             <div class="item text-center" >
-                  <img src="storage/uploads/vwall_winners.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations  to our<br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 WINNERS<i class="fa fa-heart"></i><br/><small>Feb.15, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Thank you to all who posted their entries!<br/><br/>
-                      Hope you all had a weekend filled with love with your loved ones!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',41)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+             
 
            
 
@@ -10246,6 +10293,25 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
  
                     
               </div>
+
+              <div class="item text-center" >
+                  <img src="storage/uploads/vwall_winners.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Congratulations  to our<br/><span class="text-primary"><i class="fa fa-heart"></i> Valentine's Day 2021 WINNERS<i class="fa fa-heart"></i><br/><small>Feb.15, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Thank you to all who posted their entries!<br/><br/>
+                      Hope you all had a weekend filled with love with your loved ones!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@wall',41)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
 
             
 
