@@ -181,7 +181,7 @@ class UserDTRPController extends Controller
                 where('immediateHead_Campaigns.disabled',null)->
                 get(); 
                           
-
+                //return $allDTRP;
       return view('timekeeping.dtrpMgt',compact('canManage', 'from','to','type','label', 'deleteLink','notifType','allDTRP','allPendings','allIns', 'allOuts','allOlds','storageLoc','leaders'));
 
     }
@@ -333,12 +333,14 @@ class UserDTRPController extends Controller
         //*** we need to check first if OLD Processs or not
         //    if old process, make manual overrides and that's it
 
+        $correct=Carbon::now('GMT+7');
+        if($request->logType !== 'OLD'){
 
             $dtrpInfo = User_DTRPinfo::find($request->infoID);
             $dtrpInfo->isCleared = $request->isApproved;
             $dtrpInfo->clearedBy = $this->user->id;
             $dtrpInfo->push();
-            $correct=Carbon::now('GMT+7');
+            
 
             $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
             if($request->isApproved)
@@ -346,13 +348,29 @@ class UserDTRPController extends Controller
             else fwrite($file, "-------------------\n [". $dtrpInfo->id."] DTRPinfo - Rejected ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
                     fclose($file);
 
+            $dtrp = User_DTRP::find($dtrpInfo->dtrp_id);
+        }
+        else 
+        { 
+            $dtrp = User_DTRP::find($request->id);
+            if($request->actualDate){
+                $dtrp->actualLogdate = Carbon::parse($request->actualDate,'Asia/Manila')->format('Y-m-d');
+            }
+            $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+            if($request->isApproved)
+                fwrite($file, "-------------------\n [". $dtrp->id."] DTRPold - Validated ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+            else fwrite($file, "-------------------\n [". $dtrp->id."] DTRPold - Rejected ". $correct->format('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
+                    fclose($file);
+        }
+
             // we now check if approver still hasnt approved it
             // if pending, apply the same action from DTRPinfo
 
-            $dtrp = User_DTRP::find($dtrpInfo->dtrp_id);
+            
             
             if( is_null($dtrp->isApproved)) {
                 $dtrp->isApproved = $request->isApproved;
+                $dtrp->reviewed = 1;
 
                 if ($dtrp->logType_id == 1) {
                     $theNotif = Notification::where('relatedModelID', $dtrp->id)->where('type',8)->get();
@@ -371,7 +389,11 @@ class UserDTRPController extends Controller
 
                 $dtrp->push();
 
-            }
+            }else {
+
+                    $dtrp->reviewed=1; 
+                    $dtrp->push();
+                }
 
             //we now create manual overrides if it is marked VALID
             if($request->isApproved) {
@@ -410,7 +432,11 @@ class UserDTRPController extends Controller
                 $report->notes = $dtrp->notes;
                 $report->verifiedBy = $this->user->id;
                 $report->remarks = $request->remarks;
-                $report->attachments = $dtrpInfo->attachments;
+
+                if($request->logType !== 'OLD')
+                        $report->attachments = $dtrpInfo->attachments;
+                    else $report->attachments = null;
+
                 $report->created_at = $correct->format('Y-m-d H:i:s');
                 $report->updated_at = $correct->format('Y-m-d H:i:s');
                 $report->save();
@@ -436,6 +462,10 @@ class UserDTRPController extends Controller
         if(count((array)$DTRP)>0)
         {
             $DTRP->approvedBy = $this->getTLapprover($DTRP->user_id, $this->user->id);
+
+            if($request->actualDate){
+                $DTRP->actualLogdate = Carbon::parse($request->actualDate,'Asia/Manila')->format('Y-m-d');
+            }
         
             if ($request->isApproved == 1){
                 $DTRP->isApproved = true;

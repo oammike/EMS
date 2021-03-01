@@ -964,7 +964,7 @@
                                                                 $data_notifID = $data["payday"]; 
                                                                 $data_id = $data['pendingDTRPin']['0']['id']; 
 
-                                                                if($data["pendingDTRPin"][0]['isApproved']=='1')
+                                                                if($data["pendingDTRPin"][0]['isApproved']=='1' && is_null($data["pendingDTRPin"][0]['reviewed']) )
                                                                     $extra = "Processing DTRP IN validation by Data Management team.";
                                                                 else $extra = ""; ?>
 
@@ -1163,7 +1163,7 @@
                                                             <?php  $data_notifType = '9'; 
                                                                    $data_notifID = $data["payday"]; 
                                                                    $data_id = $data['pendingDTRPout']['0']['id'];
-                                                                   if($data["pendingDTRPout"][0]['isApproved']=='1')
+                                                                   if($data["pendingDTRPout"][0]['isApproved']=='1' && is_null($data["pendingDTRPout"][0]['reviewed']))
                                                                     $extra = "Processing DTRP OUT validation by Data Management team.";
                                                                    else $extra = "";
                                                                    ?>

@@ -234,8 +234,11 @@
                                 @else
                                   <td>
                                   
-                                  
-                                  <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#leaveModal{{$vl->id}}"><i class="fa fa-info-circle"></i> Details </a>
+                                  @if($vl->reviewed)
+                                      <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#leaveModal{{$vl->id}}"><i class="fa fa-info-circle"></i> Details </a>
+                                  @else
+                                      <a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#leaveModal{{$vl->id}}"><i class="fa fa-info-circle"></i> Review </a>
+                                  @endif
 
                                  
                                   <a target="_blank" class="btn btn-xs btn-default" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> DTR </a>
@@ -290,8 +293,8 @@
                                                       <div class="col-sm-8">
 
                                                        @if($type == "OLD")
-                                                          <?php ($vl->logType_id == '1') ? $lt = "[ IN ]" : $lt="[ OUT ]"; ?>
-                                                          <p>{{$lt}} {{$vl->notes}} </p>
+                                                          <?php ($vl->logType_id == '1') ? $lt = "[ DTRP IN ]" : $lt="[ DTRP OUT ]"; ?>
+                                                          <p><strong class="text-danger"> {{$lt}}</strong> <br/>{{$vl->notes}} </p>
                                                        @else
                                                           <p><strong>{{$vl->reason}}</strong><br/> <em>{{$vl->notes}} </em></p>
                                                           <?php $link = $storageLoc."/".$vl->attachments; ?>
@@ -330,20 +333,104 @@
 
                                            @if($type == "OLD")
 
+
+
                                               @if($vl->isApproved)
-                                                <h4 class="text-success pull-left"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h4>
-                                                <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a> 
+
+                                                  @if($vl->reviewed)
+
+                                                      <div class="row">
+                                                        <div class="col-lg-6"> <h5 class="text-success pull-left"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h5>
+                                                        
+                                                       </div>
+                                                        <div class="col-lg-6">
+                                                          <br/><br/><a target="_blank" class="btn btn-xs btn-default pull-right" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> View DTR Page </a>
+                                                          
+                                                          
+
+                                                         
+
+                                                         
+
+                                                          <!-- <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a>  -->
+                                                        </div>
+                                                      </div> 
+
+                                                  @else
+
+                                                      <div class="row">
+                                                        <div class="col-lg-6"> <h5 class="text-success pull-left"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h5>
+                                                         <div class="clearfix"></div>
+                                                         <a target="_blank" class="btn btn-xs btn-default pull-left" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> View DTR Page </a>
+                                                       </div>
+                                                        <div class="col-lg-6">
+                                                          <br/><br/>
+                                                          <label>Specify Actual Log Date:<br/><small style="font-style: italic; font-weight: normal;">for manual override</small></label>
+                                                          <input id="actualDate_{{$vl->id}}"  type="text" name="actualDate" placeholder="{{date('m/d/Y', strtotime($vl->productionDate))}}" value="{{date('m/d/Y', strtotime($vl->productionDate))}}" class="datepicker form-control" />
+
+                                                          <label class="text-primary">Reviewer Remarks:</label><br/>
+                                                          <textarea class="form-control" id="remarks_{{$vl->id}}" name="remarks_{{$vl->id}}"></textarea> 
+
+                                                           <a href="#" class="process btn btn-danger btn-md pull-right" data-leaveType="{{$label}}" data-action="0" data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-down" ></i> Reject </a>
+                                                        <a href="#" class="process btn btn-success btn-md pull-right" data-leaveType="{{$label}}" data-action="1"  data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-up" ></i> Approve & Validate </a>
+
+                                                          <!-- <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a>  -->
+                                                        </div>
+                                                      </div> 
+
+                                                  @endif
+
+                                                
+
+                                               
+
+                                                
                                                    
                                               @elseif($vl->isApproved=='0')
                                                <h4 class="text-danger pull-right"><br/><br/><i class="fa fa-thumbs-down"></i> Rejected</h4>
 
                                               @else
+
+                                                 @if($vl->reviewed)
+
+                                                      <div class="row">
+                                                        <div class="col-lg-6"> <h5 class="text-success pull-left"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h5>
+                                                        
+                                                       </div>
+                                                        <div class="col-lg-6">
+                                                          <br/><br/><a target="_blank" class="btn btn-xs btn-default pull-right" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> View DTR Page </a>
+                                                        </div>
+                                                      </div> 
+
+                                                  @else
+
+                                                      <div class="row">
+                                                        <div class="col-lg-6"> <h5 class="text-success pull-left"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h5>
+                                                         <div class="clearfix"></div>
+                                                         <a target="_blank" class="btn btn-xs btn-default pull-left" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> View DTR Page </a>
+                                                       </div>
+                                                        <div class="col-lg-6">
+                                                          <br/><br/>
+                                                          <label>Specify Actual Log Date:<br/><small style="font-style: italic; font-weight: normal;">for manual override</small></label>
+                                                          <input id="actualDate_{{$vl->id}}"  type="text" name="actualDate" placeholder="{{date('m/d/Y', strtotime($vl->productionDate))}}" value="{{date('m/d/Y', strtotime($vl->productionDate))}}" class="datepicker form-control" />
+
+                                                          <label class="text-primary">Reviewer Remarks:</label><br/>
+                                                          <textarea class="form-control" id="remarks_{{$vl->id}}" name="remarks_{{$vl->id}}"></textarea> 
+
+                                                           <a href="#" class="process btn btn-danger btn-md pull-right" data-leaveType="{{$label}}" data-action="0" data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-down" ></i> Reject </a>
+                                                        <a href="#" class="process btn btn-success btn-md pull-right" data-leaveType="{{$label}}" data-action="1"  data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-up" ></i> Approve & Validate </a>
+
+                                                          <!-- <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a>  -->
+                                                        </div>
+                                                      </div> 
+
+                                                  @endif
+
                                               
-                                                  <button type="button" class="btn btn-default btn-md pull-right" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-times" ></i> Close </button>
+                                                 <!--  <button type="button" class="btn btn-default btn-md pull-right" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-times" ></i> Close </button>
                                                   
-                                                 <!--  <a href="#" class="process btn btn-danger btn-md pull-right" data-leaveType="{{$label}}" data-action="0" data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-down" ></i> Reject </a>
-                                                  <a href="#" class="process btn btn-success btn-md pull-right" data-leaveType="{{$label}}" data-action="1"  data-id="{{$vl->id}}" data-infoID="{{$vl->id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-up" ></i> Approve & Validate </a> -->
-                                                  <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a> 
+                                                
+                                                  <a class="btn btn-md btn-primary pull-right" href="{{action('LogsController@viewRawBiometricsData', $vl->user_id)}}" target="_blank" style="margin-right:5px; margin-top:50px"><i class="fa fa-clock-o"></i> Manual Log Override</a>  -->
 
                                               @endif
 
@@ -527,6 +614,7 @@
       var to = $('#to').val();
       var remarks = $('#remarks_'+infoID).val();
       var _token = "{{ csrf_token() }}";
+      var actualDate=null;
 
       if(isApproved=='1')
         var appr="Valid";
@@ -534,7 +622,7 @@
      
 
       switch(t){
-        case 'OLD': var processlink = "{{action('UserDTRPController@process')}}";  break;
+        case 'OLD': {var processlink = "{{action('UserDTRPController@newDTRP_validate')}}"; actualDate = $('#actualDate_'+dataid).val(); }  break;
         case 'IN':  var processlink = "{{action('UserDTRPController@newDTRP_validate')}}"; break;
         case 'OUT':  var processlink = "{{action('UserDTRPController@newDTRP_validate')}}"; break;
       }
@@ -547,10 +635,11 @@
           data.append('isApproved',isApproved);
           data.append('logType',t);
           data.append('remarks',remarks);
+          data.append('actualDate',actualDate);
           data.append('_token',_token);
 
 
-      confirm('You are about to set this DTRP '+t +' as: '+appr);
+      confirm('You are about to set this DTRP request as: '+appr);
 
       $.ajax({
                 url: processlink,
