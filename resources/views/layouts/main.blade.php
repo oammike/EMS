@@ -369,7 +369,7 @@ function validateRequired(param, availability, defaultval) {
                 data: {'action': '14'},
                 success: function(response){
                           console.log(response);
-                          window.open('http://172.17.0.2/HR/hrms/dashboard', '_blank');
+                          window.open('https://internal.openaccess.bpo/HR/hrms/', '_blank');
 
               }
 

@@ -115,7 +115,7 @@ class Cutoff extends Model
 
             }
             
-            $from .=  Carbon::now('GMT+8')->subMonth()->format('m')."-";; //date('m',strtotime("last month"))."-";
+            $from .=  Carbon::now('GMT+8')->subMonth()->format('m')."-"; //date('m',strtotime("last month"))."-";
             $from .= ($this->second+1);
 
 
