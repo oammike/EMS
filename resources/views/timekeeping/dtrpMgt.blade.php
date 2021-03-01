@@ -109,7 +109,7 @@
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
                   <a class="pull-right btn btn-primary btn-md" style="margin-left: 5px" href="{{action('UserController@schedMgt',['type'=>'CWS','from'=>$from, 'to'=>$to])}}"><i class="fa fa-history"></i> Schedule Management</a>
-                   <a class="pull-right btn btn-primary btn-md" href="{{action('UserController@schedMgt',['type'=>'VL','from'=>$from, 'to'=>$to])}}"><i class="fa fa-plane"></i> Leave Management</a>
+                   <a class="pull-right btn btn-primary btn-md" href="{{action('UserController@leaveMgt',['type'=>'VL','from'=>$from, 'to'=>$to])}}"><i class="fa fa-plane"></i> Leave Management</a>
                   <ul class="nav nav-tabs">
 
 
