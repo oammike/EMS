@@ -65,6 +65,24 @@
                     
               </div>
 
+              <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_01_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"> Work From Home Look &amp; Setup<br/><small>Mar. 01, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      It’s almost a year since we’ve been out of the office! <br/>Last year, we asked you to share a snapshot of your WFH setup. <br/>This year, we want you to share your updated WFH setup with YOU wearing your office look! <br/>Because we all miss dressing up for work right? <br/><br/>Visit our EMS wall now and earn 20 points!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',44)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calendar"></i>   2021 Regular and Special <br/>Non-Working Holidays <br/>(Proclamation Order No. 986)<br/><small>Feb.23, 2021</small><br/>
 
@@ -211,23 +229,7 @@
                     
               </div>
 
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/feb20wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"><i class="fa fa-cc"></i> Pandemic Movies &amp; Series <i class="fa fa-cc"></i><br/><small>Feb.22, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      <strong>What’s the best series/movie released during the pandemic for you?</strong><br/><br/>Let us know why and earn 20 points by visiting our EMS wall now!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',43)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+            
              
 
            
