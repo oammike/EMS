@@ -363,6 +363,40 @@ class UserDTRPController extends Controller
                     fclose($file);
         }
 
+
+        //**** we now record those who's DTRP are invalid
+        if($request->isApproved == 0 && $dtrp->isApproved)
+        {
+            $report = new User_DTRPreport;
+            $report->user_id = $dtrp->user_id;
+            $pd = Biometrics::find($dtrp->biometrics_id);
+            $report->productionDate = $pd->productionDate;
+            if(is_null($dtrp->actualLogdate)) {
+                $report->actualLog = $pd->productionDate." ".$dtrp->logTime;
+            }else{
+                $report->actualLog = $dtrp->actualLogdate." ".$dtrp->logTime;
+            }
+
+            $report->approvedBy = $dtrp->approvedBy;
+            $report->dateApproved = $dtrp->updated_at;
+            $report->logType_id = $dtrp->logType_id;
+            $report->notes = $dtrp->notes;
+            $report->verifiedBy = $this->user->id;
+            $report->remarks = $request->remarks;
+
+            if($request->logType !== 'OLD')
+                    $report->attachments = $dtrpInfo->attachments;
+                else $report->attachments = null;
+
+            $report->created_at = $correct->format('Y-m-d H:i:s');
+            $report->updated_at = $correct->format('Y-m-d H:i:s');
+            $report->save();
+
+
+        }
+
+            
+
             // we now check if approver still hasnt approved it
             // if pending, apply the same action from DTRPinfo
 
@@ -413,36 +447,7 @@ class UserDTRPController extends Controller
 
             }
 
-            //**** we now record those who's DTRP are invalid
-            if($request->isApproved == 0 && $dtrp->isApproved)
-            {
-                $report = new User_DTRPreport;
-                $report->user_id = $dtrp->user_id;
-                $pd = Biometrics::find($dtrp->biometrics_id);
-                $report->productionDate = $pd->productionDate;
-                if(is_null($dtrp->actualLogdate)) {
-                    $report->actualLog = $pd->productionDate." ".$dtrp->logTime;
-                }else{
-                    $report->actualLog = $dtrp->actualLogdate." ".$dtrp->logTime;
-                }
-
-                $report->approvedBy = $dtrp->approvedBy;
-                $report->dateApproved = $dtrp->updated_at;
-                $report->logType_id = $dtrp->logType_id;
-                $report->notes = $dtrp->notes;
-                $report->verifiedBy = $this->user->id;
-                $report->remarks = $request->remarks;
-
-                if($request->logType !== 'OLD')
-                        $report->attachments = $dtrpInfo->attachments;
-                    else $report->attachments = null;
-
-                $report->created_at = $correct->format('Y-m-d H:i:s');
-                $report->updated_at = $correct->format('Y-m-d H:i:s');
-                $report->save();
-
-
-            }
+            
 
 
        

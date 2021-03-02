@@ -356,7 +356,7 @@
                                                                   @else
 
                                                                       <!-- *** WE RESTRICT LOCKING IF MAY PENDING ***  && $data['leaveDetails'][0]['details']['isApproved'] !=='0'-->
-                                                                      @if( ($data['hasCWS'] && is_null($data['usercws'][0]->isApproved)) || $data['hasPendingIN'] || $data['hasPendingOUT'] || 
+                                                                      @if( ($data['hasCWS'] && is_null($data['usercws'][0]->isApproved)) || ($data['hasPendingIN'] && $data['pendingDTRPin'][0]['reviewed']!='1' ) || ($data['hasPendingOUT'] && $data['pendingDTRPout'][0]['reviewed']!='1' ) || 
                                                                       ($data['hasLeave'] && is_null($data['leaveDetails'][0]['details']['isApproved']) ) ||
                                                                       ($data['hasLWOP'] && is_null($data['lwopDetails'][0]['details']['isApproved']) ) ||
                                                                       ($data['hasOT'] && is_null($data['userOT'][0]->isApproved))  )
@@ -821,6 +821,25 @@
                                                                     
                                                                   @endif
 
+
+                                                                  @if ($data['dtrpIN'] == true || $data['hasPendingIN']== true)
+                                                                  <input type="hidden" name="isDTRPin_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpIN_id']}}">
+
+                                                                  <?php /*if ($data['hasPendingIN'])
+                                                                          ($data['pendingDTRPin'][0]['reviewed']!='1') ? $instat = "text-green" : $instat = "text-purple"; 
+                                                                        else
+                                                                          $instat = "text-purple";*/
+                                                                        ?>
+
+                                                                   <strong><a data-toggle="modal" title="View Details" @if($data['hasPendingIN']) data-target="#myModal_dtrpDetail{{$data['pendingDTRPin']['0']['id']}}"  class="text-purple pull-right" @else data-target="#myModal_dtrpDetail{{$data['dtrpIN_id']}}"  class="text-green pull-right" @endif href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                                  @else
+                                                                   <input type="hidden" name="isDTRPin_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
+
+                                                                  @endif
+
+
+
                                                                 @else
 
                                                                   <!-- new if has VTO -->
@@ -974,7 +993,13 @@
                                                                   {
                                                                     $extra = "Processing DTRP IN validation.";
                                                                     $mt = "Pending DTRP IN Validation";
-                                                                  } else{
+                                                                  }
+                                                                  elseif(is_null($data["pendingDTRPin"][0]['isApproved']) && is_null($data["pendingDTRPin"][0]['reviewed']) )
+                                                                  {
+                                                                    $extra = "Pending approval.";
+                                                                    $mt = "Pending DTRP IN Request";
+                                                                  } 
+                                                                  else{
                                                                     $extra = ""; $mt="DTRP IN Details";
                                                                   } ?>
 
@@ -1022,6 +1047,33 @@
 
                                                                   @endif
 
+
+                                                                  @if ($data['dtrpOUT'] == true  ||  $data['hasPendingOUT']== true)
+
+                                                                      @if($data['hasPendingOUT']== true)
+                                                                        <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['pendingDTRPout'][0]['id']}}">
+                                                                        <strong>
+                                                                            <a data-toggle="modal" title="View Details"  class="text-purple pull-right" data-target="#myModal_dtrpDetail{{$data['pendingDTRPout'][0]['id']}}" href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                                      @else
+
+                                                                        <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpOUT_id']}}">
+                                                                         <strong>
+                                                                            <a data-toggle="modal" title="View Details"  data-target="#myModal_dtrpDetail{{$data['dtrpOUT_id']}}" class="text-green pull-right"  href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                                      @endif
+
+                                                                        
+
+                                                                          
+
+                                                                    @else
+                                                                     <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
+
+                                                                  @endif <!--end pag leave with pending DTRP-->
+
+
+
                                                                 @else
 
                                                                   <!-- new if has VTO -->
@@ -1040,7 +1092,33 @@
 
                                                                   <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
 
-                                                                @endif
+                                                                  @if ($data['dtrpOUT'] == true  ||  $data['hasPendingOUT']== true)
+
+                                                                      @if($data['hasPendingOUT']== true)
+                                                                        <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['pendingDTRPout'][0]['id']}}">
+                                                                        <strong>
+                                                                            <a data-toggle="modal" title="View Details"  class="text-purple pull-right" data-target="#myModal_dtrpDetail{{$data['pendingDTRPout'][0]['id']}}" href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                                      @else
+
+                                                                        <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['dtrpOUT_id']}}">
+                                                                         <strong>
+                                                                            <a data-toggle="modal" title="View Details"  data-target="#myModal_dtrpDetail{{$data['dtrpOUT_id']}}" class="text-green pull-right"  href="#" > <i class="fa fa-info-circle"></i> &nbsp;&nbsp;</a></strong> 
+
+                                                                      @endif
+
+                                                                        
+
+                                                                          
+
+                                                                    @else
+                                                                     <input type="hidden" name="isDTRPout_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="0">
+
+                                                                  @endif <!--end pag leave with pending DTRP-->
+
+
+
+                                                                @endif <!--end else -->
                                                              
                                                               @endif
                                                             
@@ -1176,6 +1254,11 @@
                                                                    if($data["pendingDTRPout"][0]['isApproved']=='1' && is_null($data["pendingDTRPout"][0]['reviewed'])){
                                                                     $extra = "Processing DTRP OUT validation.";
                                                                     $mtout ="Pending DTRP OUT Validation";
+                                                                  }
+                                                                  elseif(is_null($data["pendingDTRPout"][0]['isApproved']) && is_null($data["pendingDTRPout"][0]['reviewed'])){
+                                                                    $extra = "Pending Approval";
+                                                                    $mtout ="Pending DTRP OUT request";
+
                                                                   }
                                                                   else {
                                                                     $extra = "";

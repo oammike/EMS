@@ -2,7 +2,64 @@
 
 
               
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from OA Transport: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Critical Reminders<br/><small>Mar. 02, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                    <strong>We would like to reiterate the following REQUIRED daily protocols if you are taking the shuttle service:</strong><br/>
+                    <br/><br/>
+                    
+                    <strong class="text-primary">BRING YOUR OWN PEN  </strong><br/>
+                    Before you enter the company shuttle, (along with your face mask and shield, and completing the HDF) be sure to bring your own pen for signing the official Passenger Log to confirm the start and completion of your ride. This is to limit the possible transmission of germs and viruses from shared pens. This is also in compliance with our HR Health and Safety Protocols. Starting March 5, our drivers will no longer lend pens to shuttlers.<br/><br/>
+
+                     <strong class="text-primary">DON’T TALK ON THE PHONE IN PUBLIC TRANSPORT </strong> <br/>
+                    Not only is it polite to wait until you’re in a more private area before engaging in a call, but it also limits the spread of droplets in an enclosed space. This applies in public transport as well as in our company vehicles. Stay courteous as well as safe. Don’t make or receive phone calls while in our company vehicles.<br/><br/>
+                      
+                     <strong class="text-primary">5-MINUTE GRACE PERIOD   </strong><br/>
+                    In keeping with courtesy, professionalism, and punctuality, please be in your designated pickup place early or on time (early is of course better).  As ours is a rideshare transport model, our drivers have trip queues and schedules they need to critically maintain. Do not wait for an SMS message as drivers are not obligated to send these because your official ride confirmation is sent via your Trip Notification Email. Your ride details are specified there and confirms both your home and office pickup. As a courtesy to your co-passengers and driver, please be prompt. Lateness is tracked and may negatively affect shuttler privilege status.<br/><br/>
+
+                    Please do not cause delays, as these may negatively impact your and others' attendance status as well our trip queue and business operations.<br/><br/>
+
+                    <strong class="text-primary">KNOW THE OA TRANSPORT PROTOCOLS  </strong><br/>
+                    The OA Company Shuttle is a free transport service and passenger support process Open Access BPO has graciously provided for you, our onsite workers.  The transport service provider is a fleet of professional drivers outsourced by the company to meet your transport needs during this pandemic.  They deliver competent and licensed service and are answerable to the company, hence they are not to be treated as personal chauffeurs or Grab drivers. Please do your part by knowing and observing our policies and procedures, and respecting our drivers, your co-riders, and our process.<br/><br/>
+
+                    For your compliance. Thank you.
+
+                  </p>
+
+ 
+                    
+              </div>
+
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from OA Transport: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  STRICTER IMPLEMENTATION <br/>OF 5-MINUTE WAITING PERIOD<br/><small>Mar. 02, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">Starting last month, Ayala traffic management has been stricter with the vehicles' holding period in the un/loading slot by the ADP entrance along West Street. They actively send away cars if they are caught waiting for several minutes, sometimes even less than 5 minutes. <br/><br/>
+
+
+
+                    <strong class="text-primary">Less than 5 Minutes and Car Asked to Leave = Proceed to Landmark Palm Drive Parking Slot </strong><br/>
+                    If traffic patrol directs the driver to leave the waiting area before the grace period is due, the driver will have to leave ADP but will wait for you for the remaining duration of the waiting period in the Landmark Parking Slot along Palm Drive cor West St. Please head there as soon as you can because when 5 minutes is up, the driver will have to leave for the next pickup.<br/><br/>
+
+
+                    <strong class="text-primary">After 5 Minutes = Leave Without Warning: No Show</strong><br/>
+                    To comply with this new zone procedure, we will more stringently keep to our 5-minute grace period prescribed in our transport guidelines, and no longer grant exceptions.  As stated in our policy, if you are not in the vehicle within 5 minutes, the driver may leave without warning and you will be penalized as a No Show and which will cause your shuttle privilege status to be red flagged.<br/><br/>
+
+
+                    For your guidance. Thank you.
+
+                  </p>
+
+ 
+                    
+              </div>
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from HR: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Dress Code<br/>Company Policy<br/><small>Mar. 01, 2021</small><br/>
 
                     <img src="storage/uploads/divider.png" />
