@@ -264,6 +264,7 @@ class UserSLController extends Controller
                                 if (count($savedCredits)>0){
                                      $hasSavedCredits = true;
                                      $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+                                     $creditsLeft2 = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
                                  }else 
                                  {
                                     //check muna kung may existing approved VLs
