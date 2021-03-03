@@ -29,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
  .skin-blue .main-header .navbar, .skin-blue .main-header .logo{background-color: #1a8fcb;}
  .content-wrapper{
 
-   background:url("{{ asset('public/img/bg_swish.png')}}") bottom right fixed no-repeat;
+   background:url("{{ asset('public/img/bg_swish.png')}}") bottom right fixed repeat-x;
    background-color: #fdfdfd; /*#f5f9fc;*/
 
    }
