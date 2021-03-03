@@ -5594,8 +5594,20 @@ trait TimekeepingTraits
           if($hasLWOP)
           {
               if($lwopDeet->totalCredits == '0.5') {
-                $magStart = Carbon::parse($scheduleStart->format('Y-m-d H:i:s'),"Asia/Manila")->addHours(5);
-                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($magStart);
+
+                //if halfday 2nd half
+                if($lwopDeet->halfdayFrom == '3')
+                {
+                  $magStart = Carbon::parse($userLogIN[0]['timing'],"Asia/Manila");//->addHours(5);
+                  $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($magStart);
+
+                }else
+                {
+                  $magStart = Carbon::parse($scheduleStart->format('Y-m-d H:i:s'),"Asia/Manila")->addHours(5);
+                  $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($magStart);
+
+                }
+                
 
                 $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
                 //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
