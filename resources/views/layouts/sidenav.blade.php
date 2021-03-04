@@ -399,7 +399,7 @@
         <li><a href="{{action('HomeController@healthForm')}}" ><i class="fa fa-2x fa-medkit"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Health Form</span></a></li>
 
         <li class="treeview @if (Request::is('user_forms*') ) active @endif">
-          <a href="#" class="text-yellow" ><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My BIR 2316 </span>
+          <a href="#"><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My BIR 2316 </span>
 
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
@@ -651,7 +651,7 @@
 
 
          <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') || Request::is('DTRlockReport*') ) active @endif ">
-          <a href="#">
+          <a href="#" class="text-yellow">
             <i class="fa fa-clock-o"></i> <span>Timekeeping</span>
             <i class="fa fa-angle-left pull-right"></i>
           </a>
@@ -667,6 +667,8 @@
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@financeReports')}}"><i class="fa fa-clipboard"></i> Finance Reports</a></li>
 
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@finance_JPS')}}"><i class="fa fa-calculator"></i>JPS Templates </a></li>
+
+            <li style="padding-left:20px" @if ( Request::is('DTRP_management*') ) class="active" @endif ><a href="{{action('UserDTRPController@manage')}}" class="text-yellow"><i class="fa fa-info-circle"></i> DTRP Management</a></li>
 
             <li style="padding-left:20px" @if ( Request::is('leave_management*') ) class="active" @endif ><a href="{{action('UserController@leaveMgt')}}"><i class="fa fa-calendar"></i> Leave Management</a></li>
 
