@@ -254,13 +254,24 @@ class UserSLController extends Controller
                             $totalVTO += ($v->totalHours* 0.125);
                         }
 
+
+
                         
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                             $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
                             if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
                             {
-                                $used = '0.00';
+                                //check mo muna kung Davao holiday at taga Davao sya
+                                if($holiday->first()->holidayType_id == '4' && $user->floor->first()->id == '9')
+                                    $used = 0.00;
+                                elseif($holiday->first()->holidayType_id != '4')
+                                    $used = 0.00;
+                                else
+                                    $used = 1.00;
+
+
+                                
                                 if (count($savedCredits)>0){
                                      $hasSavedCredits = true;
                                      $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
@@ -492,7 +503,17 @@ class UserSLController extends Controller
                         //** means mag credit ka lang pag sched na wala nang approval at hindi RD
                     }
 
-                    if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) $holidays++;
+                    $mayHD = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
+
+                    if (count($mayHD) > 0)
+                    {
+                        //check mo muna kung Davao holiday sya at taga Davao
+                        if ($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9')
+                            $holidays++;
+                        else if($mayHD->first()->holidayType_id != '4' && $isBackoffice)
+                            $holidays++;
+
+                    } 
 
                     //$colldates->push(['ct'=>$ct, 'credits'=>$credits, 'isRD'=>$schedForTheDay->isRD,'schedForTheDay'=>$schedForTheDay]);
 
@@ -565,11 +586,16 @@ class UserSLController extends Controller
 
                 //if ($shift_from == '2' || $shift_from=='3') $credits -= 0.5;
 
+                $mayHD = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
                 switch ($shift_from) {
                     case '2':{ 
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                if (count($mayHD) > 0 && $isBackoffice)
                                 {
-                                    $credits = 0;
+                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' && $isBackoffice))
+                                        $credits = 0;
+                                    else{
+                                        ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
+                                    }
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -584,9 +610,13 @@ class UserSLController extends Controller
                     
                     case '3':{ 
                                 
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                if (count($mayHD) > 0 && $isBackoffice)
                                 {
-                                    $credits = 0;
+                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' && $isBackoffice))
+                                        $credits = 0;
+                                    else{
+                                        ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
+                                    }
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -599,12 +629,16 @@ class UserSLController extends Controller
                              }break;
                     default:{
                                 
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                if (count($mayHD) > 0 && $isBackoffice)
                                 {
-                                    $credits = 0;
+                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' && $isBackoffice))
+                                        $credits = 0;
+                                    else{
+                                        ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.0; 
+                                    }
                                 } else 
                                 {
-                                    ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.00; 
+                                    ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.0; 
                                 }
 
                                 $displayShift =  Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A'). " - ". Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
