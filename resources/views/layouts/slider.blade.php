@@ -3,6 +3,36 @@
 
               
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Income Tax Return (ITR) Assistance<br/><small>Mar. 04, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                    We are glad to announce that the company has arranged for ITR assistance to our employees who are NOT qualified for substituted filing.  An engagement with a third-party vendor has been done to make this possible.<br/><br/>
+
+If you opt to avail of this service, please submit your BIR Form 2316 and other pertinent details (see attached flowchart) to employeeitr@openaccessbpo.com as a starting point for the computation of your annual income tax return.  The assistance of the third-party vendor is up to the filing of ITR only.  It is the responsibility of the employee to pay his income tax if he has tax payable.<br/><br/>
+
+Please be informed that the assistance of our third-party vendor is until April 15, 2021.  You can send questions or clarifications up to that date only.<br/><br/>
+
+Below is the summary of activities:<br/><br/>
+
+1.  The employee will send the 2316 and other pertinent details to the third-party vendor (see attached flowchart).<br/><br/>
+2.  Upon receipt of 2316, the third-party vendor will compute and send the income tax computation to the employee.<br/><br/>
+3.  If the employee confirms and agrees to the computation, the third-party vendor will proceed to file the ITR (BIR Form 1700) via eBIRForms.  BIR will send a Confirmation Receipt once the filed ITR was received.  Afterwards, the third-party vendor will send the ITR (BIR Form 1700) and Confirmation Receipt to the employee. On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
+If with tax payable, the employee will print the ITR (BIR Form 1700) and its Confirmation Receipt and pay the corresponding amount to any payment accredited center (e.g. bank, GCash, etc.) on or before April 15, 2021.  End of process.<br/><br/>
+If no tax payable, the third-party vendor will bring the printed ITR (BIR Form 1700)  to the BIR for stamping on or before April 15, 2021.  The finance department will distribute these hard copies (stamped BIR Form 1700) to employees.  Please wait for further communication.  End of process.<br/><br/>
+4.  On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
+
+                    <a class="btn btn-sm btn-success" target="_blank" href="https://internal.openaccess.bpo/EMS/public/storage/uploads/ITR_assistance.pdf">View Process Flowchart</a>
+
+                  </p>
+
+ 
+                    
+              </div>
+
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from OA Transport: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Critical Reminders<br/><small>Mar. 02, 2021</small><br/>
 
                     <img src="storage/uploads/divider.png" />
@@ -32,6 +62,7 @@
  
                     
               </div>
+
 
 
                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
