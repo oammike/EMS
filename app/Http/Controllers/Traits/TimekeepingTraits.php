@@ -2556,9 +2556,40 @@ trait TimekeepingTraits
     ($employee->status_id == 12 || $employee->status_id == 14 ) ? $isPartTimer = true : $isPartTimer=false;
 
     //$beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->format('Y-m-d H:i:s');
-    $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
 
-    ($isPartTimer) ? $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) : $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+    //*** check mo muna kung exempt employee
+    $isExempt = null;
+    $exemptEmp = DB::table('user_schedType')->where('user_id',$id)->join('schedType','schedType.id','=','user_schedType.schedType_id')->orderBy('user_schedType.created_at','DESC')->get();
+    if (count($exemptEmp) > 0)
+    {
+      //$workSchedule = $
+      $isExempt=1;
+      
+    }
+
+    if($isExempt)
+      {
+        $u = Logs::where('user_id',$id)->where('biometrics_id',$biometrics_id)->where('logType_id','1')->orderBy('biometrics_id','ASC')->get();
+        if(count($u) > 0)
+        {
+          $beginShift = Carbon::parse($thisPayrollDate." ".$u->first()->logTime,"Asia/Manila");
+          $endShift =  Carbon::parse($thisPayrollDate." ".$u->first()->logTime,"Asia/Manila")->addHour(9);
+
+        }
+        else{
+          $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+          $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
+        }
+        
+      }
+    else{
+      $beginShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila");
+      ($isPartTimer) ? $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(5) : $endShift = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
+    } 
+
+    
 
     $tommorow = Carbon::parse($thisPayrollDate)->addDay();
 
@@ -2762,47 +2793,65 @@ trait TimekeepingTraits
               {
 
                 //kunin mo yung bio id ng log 9HRs from shiftstart or 5hrs if parttime
-                (!$isPartTimer) ? $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9) : $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);
-                  
-
-                $bioEnd = Biometrics::where('productionDate',$bEnd->format('Y-m-d'))->get();
-
-                if (count($bioEnd) > 0)
+                if(!$isPartTimer)
                 {
-
-                  //*** dito tayo maglagay ng RD kahapon & midnight sched checker
-                  //*** if it's true, LOGOUT eh from today
-                  /*if ($isRDYest && $isAproblemShift)
+                  if($isExempt)
                   {
-                   
-                    $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-                  }
-                  else if($isAproblemShift)
-                  {
-                    $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
-                    
-                  }
-                  else*/
-                    $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                     $bex = Biometrics::where('productionDate',$endShift->format('Y-m-d'))->first();
+                     $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bex->id)->where('logType_id','2')->orderBy('biometrics_id','ASC')->get();
 
-                }else
+                    $bEnd = $endShift; //Carbon::parse($endShift->format('Y-m-d')." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+                  }
+                  else{
+                    $bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(9);
+
+                  }
+                }
+                else{$bEnd = Carbon::parse($thisPayrollDate." ".$schedForToday['timeStart'],"Asia/Manila")->addHour(4);}
+
+
+                if(!$isExempt) //gawin mo lang to pag hindi exempt employee
                 {
-                  //******** HIDE MUNA TO CHECKOUT 
-                  /*
-                  //check mo muna kung RD nya and 12MN shart ng shift
-                  if ($isRDYest && ($beginshift->format('H:i') == Carbon::now()->startOfDay()->format('H:i')))
-                  {
-                    //check mo kung end shift eh for today, else
-                    array_push($col, "check RDyest");
-                    if ($endShift->format('Y-m-d') == $thisPayrollDate) {  goto proceedToLogTomorrow; } 
-                    else
-                      goto theUsual;
-                    
-                  } else goto proceedWithBlank;
-                  */
+                   $bioEnd = Biometrics::where('productionDate',$bEnd->format('Y-m-d'))->get();
 
-                  goto proceedWithBlank;
+                    if (count($bioEnd) > 0)
+                    {
 
+                      //*** dito tayo maglagay ng RD kahapon & midnight sched checker
+                      //*** if it's true, LOGOUT eh from today
+                      /*if ($isRDYest && $isAproblemShift)
+                      {
+                       
+                        $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                      }
+                      else if($isAproblemShift)
+                      {
+                        $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+                        
+                      }
+                      else*/
+                        $userLog = Logs::where('user_id',$id)->where('biometrics_id',$bioEnd->first()->id)->where('logType_id',$logType_id)->orderBy('biometrics_id','ASC')->get();
+
+                    }else
+                    {
+                      //******** HIDE MUNA TO CHECKOUT 
+                      /*
+                      //check mo muna kung RD nya and 12MN shart ng shift
+                      if ($isRDYest && ($beginshift->format('H:i') == Carbon::now()->startOfDay()->format('H:i')))
+                      {
+                        //check mo kung end shift eh for today, else
+                        array_push($col, "check RDyest");
+                        if ($endShift->format('Y-m-d') == $thisPayrollDate) {  goto proceedToLogTomorrow; } 
+                        else
+                          goto theUsual;
+                        
+                      } else goto proceedWithBlank;
+                      */
+
+                      goto proceedWithBlank;
+
+
+                    }
 
                 }
 
@@ -5126,23 +5175,95 @@ trait TimekeepingTraits
     $theDay = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila");
     $fix= Carbon::parse($payday." 23:59:00","Asia/Manila");
 
+    //*** we now determine if EXEMPT employee for the work sched
+    $isExempt = null;
+    $exemptEmp = DB::table('user_schedType')->where('user_id',$user->id)->join('schedType','schedType.id','=','user_schedType.schedType_id')->orderBy('user_schedType.created_at','DESC')->get();
+    if (count($exemptEmp) > 0) $isExempt=1;
+
+    
+    /*if ($isExempt)
+    {
+      $ptSched=false;
+      $is4x11=false;
+      $isPartTimerForeign=false;
+      if(is_null($userLogIN[0]['timing']))
+      {
+        $bb = Biometrics::where('productionDate',$payday)->first();
+        $exIn = Logs::where('user_id',$user->id)->where('biometrics_id',$bb->id)->where('logType_id','1')->get();
+        if (count($exIn) > 0)
+        {
+          $in2 = Carbon::parse($payday." ".$exIn->first()->logTime,'Asia/Manila');
+          $o2 = Carbon::parse($payday." ".$exIn->first()->logTime,'Asia/Manila')->addHour(8);
+          $bb2 = Biometrics::where('productionDate',$o2->format('Y-m-d'))->first();
+          $exOut = Logs::where('user_id',$user->id)->where('biometrics_id',$bb2->id)->where('logType_id','2')->get();
+
+          if(count($exOut) > 0)
+          {
+            $out2 = Carbon::parse($o2->format('Y-m-d')." ".$exOut->first()->logTime,'Asia/Manila');
+
+            $diffHours = $in2->diffInHours($out2);
+            $checkSShift = $in2;
+            $checkEndShift = Carbon::parse($in2->format('Y-m-d H:i:s'),"Asia/Manila")->addHour(9);
+
+          }
+          else{
+            $diffHours = $in2->diffInHours(Carbon::parse($schedForToday['timeEnd'],"Asia/Manila"));
+            $checkSShift = $in2;
+            $checkEndShift = Carbon::parse($payday." ".$exIn->first()->logTime,'Asia/Manila')->addHour(8);
+
+          }
+
+          
+
+        }else{
+                $checkEndShift = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila");
+
+                //pangcheck pag 12MN end ng shift
+                if ($checkEndShift->format('H:i:s') == '00:00:00') $checkEndShift->addHours(24);
+                
+                //check mo kung begin shift eh today tapos bukas na end ng shift: 3PM min
+
+                $checkSShift = Carbon::parse($schedForToday['timeStart'],"Asia/Manila");
+                if($checkSShift->format('H:i:s') > '15:00:00')$checkEndShift->addHours(24);
+
+                $diffHours = $checkEndShift->diffInHours($checkSShift);
+
+        }
+
+      }else{
+        $diffHours = $userLogIN[0]['timing']->diffInHours($userLogOUT[0]['timing']);
+        $checkSShift = Carbon::parse($userLogIN[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila");
+        $checkEndShift = Carbon::parse($userLogIN[0]['timing']->format('Y-m-d H:i:s'),"Asia/Manila")->addHour(9);
+
+      }
+      
+
+
+    }else
+    {*/
+     
+          //**** for checking Foreigners na contractual == kasi tagged lang sila as CONTRACTUAL [FOREIGN] :id=15
+          $checkEndShift = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila");
+
+          //pangcheck pag 12MN end ng shift
+          if ($checkEndShift->format('H:i:s') == '00:00:00') $checkEndShift->addHours(24);
+          
+          //check mo kung begin shift eh today tapos bukas na end ng shift: 3PM min
+
+          $checkSShift = Carbon::parse($schedForToday['timeStart'],"Asia/Manila");
+          if($checkSShift->format('H:i:s') > '15:00:00')$checkEndShift->addHours(24);
+
+          $diffHours = $checkEndShift->diffInHours($checkSShift);
+
+          ($diffHours <= 4) ? $ptSched = 1 : $ptSched = false;
+          ($diffHours > 9) ? $is4x11 = true : $is4x11=false;
+          ($diffHours <= 4 && $employee->status_id == 15 ) ? $isPartTimerForeign = true :  $isPartTimerForeign =false; 
+
+    //}
+
     
 
-    //**** for checking Foreigners na contractual == kasi tagged lang sila as CONTRACTUAL [FOREIGN] :id=15
-    $checkEndShift = Carbon::parse($schedForToday['timeEnd'],"Asia/Manila");
-
-    //pangcheck pag 12MN end ng shift
-    if ($checkEndShift->format('H:i:s') == '00:00:00') $checkEndShift->addHours(24);
     
-    //check mo kung begin shift eh today tapos bukas na end ng shift: 3PM min
-    $checkSShift = Carbon::parse($schedForToday['timeStart'],"Asia/Manila");
-    if($checkSShift->format('H:i:s') > '15:00:00')$checkEndShift->addHours(24);
-
-    $diffHours = $checkEndShift->diffInHours($checkSShift);
-
-    ($diffHours <= 4) ? $ptSched = 1 : $ptSched = false;
-    ($diffHours > 9) ? $is4x11 = true : $is4x11=false;
-    ($diffHours <= 4 && $employee->status_id == 15 ) ? $isPartTimerForeign = true :  $isPartTimerForeign =false; 
     
 
     // ------- 10-15-2020 update: Check if there's user_preshift override
@@ -5368,15 +5489,7 @@ trait TimekeepingTraits
       // if ($checkEarlyOut > 1)  $isEarlyOUT = true; else $isEarlyOUT= false;
 
 
-      //*** we now determine if EXEMPT employee for the work sched
-      $isExempt = null;
-      $exemptEmp = DB::table('user_schedType')->where('user_id',$user->id)->join('schedType','schedType.id','=','user_schedType.schedType_id')->orderBy('user_schedType.created_at','DESC')->get();
-      if (count($exemptEmp) > 0)
-       {
-          //$workSchedule = $
-          $isExempt=1;
-          
-       }
+      
 
       $inTime = $userLogIN[0]['timing'];// Carbon::parse($payday." ".$t,'Asia/Manila');
       $outTime = $userLogOUT[0]['timing']; //Carbon::parse($payday." ".$t2,'Asia/Manila');
@@ -5462,7 +5575,8 @@ trait TimekeepingTraits
 
 
         }
-        else { $isLateIN=false; $isEarlyOUT=false; }
+        else { $isLateIN=false; $isEarlyOUT=false; $startOfShift = Carbon::parse($userLogIN[0]['timing'],"Asia/Manila");
+              $endOfShift =  Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addHour(9); }
 
       }else
       {
@@ -6330,21 +6444,33 @@ trait TimekeepingTraits
 
         normalProcess:
 
-        if ($isPartTimer || $ptSched || $isPartTimerForeign ) {
-          $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+        if($isExempt)
+        {
+          $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes( Carbon::parse($userLogIN[0]['logTxt'],"Asia/Manila")->addHour(1) );
+
         }
         else
         {
 
-          //fix Mochow case na 3.02HR instead of 4
-          if ($diffHours <= 4){
-            $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
-          }
-          else{
-            $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
-          }
+            if ($isPartTimer || $ptSched || $isPartTimerForeign ) {
+              $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+            }
+            else
+            {
+
+              //fix Mochow case na 3.02HR instead of 4
+              if ($diffHours <= 4){
+                $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+              }
+              else{
+                $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHour());
+              }
+
+            }
 
         }
+
+        
           
 
 
@@ -6368,7 +6494,12 @@ trait TimekeepingTraits
 
                     }else
                     {
-                      ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00;
+                      if($isExempt) $workedHours = number_format($wh/60,2);//Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes( Carbon::parse($userLogIN[0]['logTxt'],"Asia/Manila")->addHour(1) );//
+                      else
+                      {
+                        ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00;
+                      }
+                      
 
                     }
                      
@@ -6407,7 +6538,12 @@ trait TimekeepingTraits
                         {
                           ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
                         } 
-                  } else $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                  } else{
+
+                    if($isExempt) $totalbill = 0;
+                    else
+                      $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                  } 
 
                  } 
                  else{ 
@@ -6426,8 +6562,11 @@ trait TimekeepingTraits
                           ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
                         } 
                       }
-                      else
-                        $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                      else{
+                        if($isExempt) $totalbill = 0;
+                        else
+                          $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                      }
                     }
                     //$totalbill = 244.44;
                  }
