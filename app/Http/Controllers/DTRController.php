@@ -6607,7 +6607,15 @@ class DTRController extends Controller
                 }
              }
 
-             //return (['hybridSched_WS_fixed' => $hybridSched_WS_fixed, 'hybridSched_WS_monthly' => $hybridSched_WS_monthly, 'hybridSched_RD_fixed' => $hybridSched_RD_fixed,'hybridSched_RD_monthly' => $hybridSched_RD_monthly]);
+             //*** we now determine if EXEMPT employee for the work sched
+             $isExempt = null;
+             $exemptEmp = DB::table('user_schedType')->where('user_id',$user->id)->join('schedType','schedType.id','=','user_schedType.schedType_id')->orderBy('user_schedType.created_at','DESC')->get();
+             if (count($exemptEmp) > 0)
+             {
+                //$workSchedule = $
+                $isExempt=1;
+                
+             }
 
              // ---------------------------
              // Start Payroll generation
@@ -7044,12 +7052,19 @@ class DTRController extends Controller
                                   //}
                                   
 
-                                  // *********************************************************
+                                  /* *******************************************************
 
-                                  //**-- here we check if user is PART TIMER (5hr work ) only
-                                  // 12: Part Time 14:Regular Part time
+                                  here we check if user is PART TIMER (5hr work ) only
+                                  12: Part Time 14:Regular Part time
 
-                                  // *********************************************************
+                                  BUT!! we need to verify if employee is EXEMPT/flexi sched
+                                  if (flexi ANYTIME) = no lates, just get IN & OUT: dapat 45hrs total in a week
+                                  if (flexi 8hr) = get nearest 15min IN and OUT. Dapat naka >= 8hr sya
+
+
+                                     ******************************************************** */
+
+                                  
 
                                   $shiftStart = date('h:i A',strtotime($schedForToday['timeStart']));
 
@@ -7093,7 +7108,55 @@ class DTRController extends Controller
                                    
                                   }else
                                   {
-                                    $shiftEnd = date('h:i A',strtotime($schedForToday['timeEnd']));
+                                    if ($isExempt)
+                                    {
+                                      $exemptIN = Logs::where('user_id',$user->id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',1)->orderBy('id','DESC')->get();
+
+                                      if($exemptEmp[0]->schedType_id == '1') //ANYTIME
+                                      {
+                                        if(count($exemptIN) > 0) { 
+                                          $shiftStart = date('h:i A',strtotime($exemptIN->first()->logTime)); 
+                                          $shiftEnd = Carbon::parse($bioForTheDay->productionDate." ".$exemptIN->first()->logTime,'Asia/Manila')->addHour(9)->format('h:i A');
+                                        }
+                                        else $shiftEnd = date('h:i A',strtotime($schedForToday['timeEnd']));
+
+                                      }
+                                      elseif($exemptEmp[0]->schedType_id == '2') //FLEXI 8
+                                      {
+                                        if(count($exemptIN) > 0) 
+                                        { 
+
+                                          $dt = date('h:i A',strtotime($exemptIN->first()->logTime));
+                                          $ds = explode(':', $exemptIN->first()->logTime);
+                                          if($ds[1] == '00') {
+
+                                            $shiftStart = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":00".":".$ds[2],'Asia/Manila')->format('h:i A');
+                                            $shiftEnd = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":00".":".$ds[2],'Asia/Manila')->addHour(9)->format('h:i A');
+                                          }
+                                          elseif($ds[1] > '00' && $ds[1] <= '15'){
+                                            $shiftStart = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":15".":".$ds[2],'Asia/Manila')->format('h:i A');
+                                            $shiftEnd = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":15".":".$ds[2],'Asia/Manila')->addHour(9)->format('h:i A');
+                                          }
+                                          elseif($ds[1] > 15 && $ds[1] <=30){
+                                            $shiftStart = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":30".":".$ds[2],'Asia/Manila')->format('h:i A');
+                                            $shiftEnd = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":30".":".$ds[2],'Asia/Manila')->addHour(9)->format('h:i A');
+                                          }
+                                          elseif($ds[1] > 30 && $ds[1] <=45){
+                                            $shiftStart = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":45".":".$ds[2],'Asia/Manila')->format('h:i A');
+                                            $shiftEnd = Carbon::parse($bioForTheDay->productionDate." ".$ds[0].":45".":".$ds[2],'Asia/Manila')->addHour(9)->format('h:i A');
+                                          }
+                                          elseif($ds[1] > 45){
+                                            $shiftStart = Carbon::parse($bioForTheDay->productionDate." ".($ds[0]+1).":00:".$ds[2],'Asia/Manila')->format('h:i A');
+                                            $shiftEnd = Carbon::parse($bioForTheDay->productionDate." ".($ds[0]+1).":00:".$ds[2],'Asia/Manila')->addHour(9)->format('h:i A');
+                                          }
+                                        }
+                                        else $shiftEnd = date('h:i A',strtotime($schedForToday['timeEnd']));
+
+                                      }
+                                      else $shiftEnd = date('h:i A',strtotime($schedForToday['timeEnd']));
+
+                                    }
+                                    else $shiftEnd = date('h:i A',strtotime($schedForToday['timeEnd']));
                                   }
                                   
                                   //Morning: #c7b305 bcaa0f
@@ -7182,13 +7245,10 @@ class DTRController extends Controller
 
                                     $userLogIN = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 1, $schedForToday, $UT,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon,$isBackoffice);
                                     $userLogOUT = $this->getLogDetails('WORK', $id, $bioForTheDay->id, 2, $schedForToday,0,$problemArea,$isAproblemShift,$isRDYest,$schedKahapon,$isBackoffice);
-                                    
-
-                                    
 
 
 
-
+                                    //**** we now process WORKED HOURS *******
 
                                     if (empty($userLogOUT[0]['timing']))
                                     {
@@ -7230,15 +7290,7 @@ class DTRController extends Controller
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
                                     } 
-                                    //$coll->push($data);
-                                    // //$coll->push(['payday'=>$payday, 'userLogIN'=>$userLogIN, 'userLogOUT'=>$userLogOUT]);
-                                    
                                    
-                                      
-
-                                      // $VLs = $data[0]['VL'];
-                                      // $LWOPs = $data[0]['LWOP'];
-
                                 
 
                                   } //--- end sameDayLog
@@ -7576,7 +7628,7 @@ class DTRController extends Controller
            //return response()->json(['currentVLbalance'=>$currentVLbalance,'currentSLbalance'=>$currentSLbalance]);
 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL','isNDY','cp0','cp1'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp'));
 
 
         } else return view('access-denied');

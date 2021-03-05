@@ -5086,7 +5086,7 @@ trait TimekeepingTraits
     $campName = User::find($user->id)->campaign->first()->name;
     $isBackoffice = Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice;
 
-    $hasHolidayToday = false;
+    $hasHolidayToday = false;$flexedWH=null;
     $hasLWOP = null; $lwopDetails = new Collection; $hasPendingLWOP=false;
     $hasVL = null; $vlDetails = new Collection; $hasPendingVL=false;
     $hasVTO = null; $vtoDetails = new Collection; $hasPendingVTO=false;
@@ -5367,6 +5367,17 @@ trait TimekeepingTraits
       // $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeEnd'],"Asia/Manila"));
       // if ($checkEarlyOut > 1)  $isEarlyOUT = true; else $isEarlyOUT= false;
 
+
+      //*** we now determine if EXEMPT employee for the work sched
+      $isExempt = null;
+      $exemptEmp = DB::table('user_schedType')->where('user_id',$user->id)->join('schedType','schedType.id','=','user_schedType.schedType_id')->orderBy('user_schedType.created_at','DESC')->get();
+      if (count($exemptEmp) > 0)
+       {
+          //$workSchedule = $
+          $isExempt=1;
+          
+       }
+
       $inTime = $userLogIN[0]['timing'];// Carbon::parse($payday." ".$t,'Asia/Manila');
       $outTime = $userLogOUT[0]['timing']; //Carbon::parse($payday." ".$t2,'Asia/Manila');
 
@@ -5405,32 +5416,89 @@ trait TimekeepingTraits
         goto proceedWithNormal;
       }
 
-      if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
+
+      // If exempt, check mo lang kung nakatotal of 8hrs si flexi 8hr;
+      // if flexi anytime naman, basta total of 45hrs in a week
+
+      if ($isExempt)
       {
-        //$checkLate = $userLogIN[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeStart'], "Asia/Manila"));
-        $checkLate = $inTime->diffInMinutes($scheduleStart);
-        //---- MARKETING TEAM CHECK: 15mins grace period
-          
-          
-            if ($checkLate > 2) $isLateIN = true; else $isLateIN= false;
-            $isLateIN=true;
-          
+        if($exemptEmp[0]->schedType_id == '2') //flexi 8hr
+        {
+            $flexedWH = number_format( ($outTime->diffInMinutes($inTime) )/60,2);
+            if ($flexedWH < 9.0)
+            {
+              $isLateIN=false; $isEarlyOUT=true;
+            }else{
+              $isLateIN=false; $isEarlyOUT=false;
+            }
 
-        
-      } else $isLateIN= false;
+            $dt = Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->format('H:i:s');
+            $ds = explode(':', $dt);
+            if($ds[1] == '00') {
+
+              $startOfShift = Carbon::parse($payday." ".$ds[0].":00:00",'Asia/Manila');
+              $endOfShift = Carbon::parse($payday." ".$ds[0].":00:00",'Asia/Manila')->addHour(9);
+             
+            }
+            elseif($ds[1] > '00' && $ds[1] <= '15'){
+              $startOfShift = Carbon::parse($payday." ".$ds[0].":15:00",'Asia/Manila');
+              $endOfShift = Carbon::parse($payday." ".$ds[0].":15:00",'Asia/Manila')->addHour(9);
+
+            }
+            elseif($ds[1] > 15 && $ds[1] <=30){
+              $startOfShift = Carbon::parse($payday." ".$ds[0].":30:00",'Asia/Manila');
+              $endOfShift = Carbon::parse($payday." ".$ds[0].":30:00",'Asia/Manila')->addHour(9);
+
+            }
+            elseif($ds[1] > 30 && $ds[1] <=45){
+              $startOfShift = Carbon::parse($payday." ".$ds[0].":45:00",'Asia/Manila');
+              $endOfShift = Carbon::parse($payday." ".$ds[0].":45:00",'Asia/Manila')->addHour(9);
+            }
+            elseif($ds[1] > 45){
+              $startOfShift = Carbon::parse($payday." ".($ds[0]+1).":00:00",'Asia/Manila');
+              $endOfShift = Carbon::parse($payday." ".($ds[0]+1).":00:00",'Asia/Manila')->addHour(9);
+
+            }
 
 
-      if ($userLogOUT[0]['timing']->format('Y-m-d H:i:s') < $endOfShift->format('Y-m-d H:i:s')) //Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s'))
+        }
+        else { $isLateIN=false; $isEarlyOUT=false; }
+
+      }else
       {
+          $flexedWH = 33.33;
 
-        $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"));
-        //---- MARKETING TEAM CHECK: 15mins grace period
-          
-             if ($checkEarlyOut > 1) $isEarlyOUT = true; else $isEarlyOUT= false;
-          
-            //$koll->push(['keme'=>$isEarlyOUT]);
-        
-      } else $isEarlyOUT= false;
+          if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
+          {
+            //$checkLate = $userLogIN[0]['timing']->diffInMinutes(Carbon::parse($schedForToday['timeStart'], "Asia/Manila"));
+            $checkLate = $inTime->diffInMinutes($scheduleStart);
+            //---- MARKETING TEAM CHECK: 15mins grace period
+              
+              
+                if ($checkLate > 2) $isLateIN = true; else $isLateIN= false;
+                $isLateIN=true;
+              
+
+            
+          } else $isLateIN= false;
+
+
+          if ($userLogOUT[0]['timing']->format('Y-m-d H:i:s') < $endOfShift->format('Y-m-d H:i:s')) //Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila")->format('Y-m-d H:i:s'))
+          {
+
+            $checkEarlyOut = $userLogOUT[0]['timing']->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeEnd'],"Asia/Manila"));
+            //---- MARKETING TEAM CHECK: 15mins grace period
+              
+                 if ($checkEarlyOut > 1) $isEarlyOUT = true; else $isEarlyOUT= false;
+              
+                //$koll->push(['keme'=>$isEarlyOUT]);
+            
+          } else $isEarlyOUT= false;
+
+      }//else ng hindi exempt
+
+
+      
 
 
       
