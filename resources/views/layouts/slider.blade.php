@@ -2,7 +2,7 @@
 
 
               
-               <div class="item active text-center" >
+            <div class="item active text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_08_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
                   
@@ -14,6 +14,127 @@
                       <br/> You and your friend can win P1000 worth of prizes! P700 for you and P300 for your friend. There will be 2 winners (1 with most votes &amp; 1 by the judges). All participants will also earn 20 points, visit our wall now!<br/><br/>
 
                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_1.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_3.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_4.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_5.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_6.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
                      </p>
                     
                    
