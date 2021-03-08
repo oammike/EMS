@@ -2,28 +2,26 @@
 
 
               
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> MAR. 10, 2021</strong> PAYOUT <br/>
+               <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_08_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Today is International Women’s Day. <br/>As we celebrate in the entire world, how about we celebrate the <strong class="text-purple" style="font-size:larger">women of Open Access BPO</strong> this year? <br/> <strong>Post a photo of a woman colleague you admire who #ChooseToChallenge in this dynamic world and why.</strong><br/>
+                      <br/> You and your friend can win P1000 worth of prizes! P700 for you and P300 for your friend. There will be 2 winners (1 with most votes &amp; 1 by the judges). All participants will also earn 20 points, visit our wall now!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
                     
-                    Please be informed that our cut-off for Mar. 10 payout is Mar 05, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SATURDAY 12:00 noon of Mar 06, 2021</strong>.<br/><br/>
-
-                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
-
-                    If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank">http://ticketing.openaccess.bpo/</a>. You may also access it via EMS. For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.
-
-                    Please be guided accordingly.<br/><br/>
-
-                    Thank you.<br/>
-
- 
+                   
                     
-              </div>
+                    
+            </div>
+
+
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Income Tax Return (ITR) Assistance<br/><small>Mar. 04, 2021</small><br/>
@@ -176,23 +174,7 @@ If no tax payable, the third-party vendor will bring the printed ITR (BIR Form 1
                     
               </div>
 
-              <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_01_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/><span class="text-primary"> Work From Home Look &amp; Setup<br/><small>Mar. 01, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      It’s almost a year since we’ve been out of the office! <br/>Last year, we asked you to share a snapshot of your WFH setup. <br/>This year, we want you to share your updated WFH setup with YOU wearing your office look! <br/>Because we all miss dressing up for work right? <br/><br/>Visit our EMS wall now and earn 20 points!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',44)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+             
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calendar"></i>   2021 Regular and Special <br/>Non-Working Holidays <br/>(Proclamation Order No. 986)<br/><small>Feb.23, 2021</small><br/>
@@ -10425,6 +10407,28 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     
                     
             </div>
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> MAR. 10, 2021</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for Mar. 10 payout is Mar 05, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SATURDAY 12:00 noon of Mar 06, 2021</strong>.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+                    If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank">http://ticketing.openaccess.bpo/</a>. You may also access it via EMS. For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
 
             
 
