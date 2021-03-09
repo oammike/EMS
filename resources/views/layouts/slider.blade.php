@@ -3,6 +3,28 @@
 
               
             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/vaccineSurvey.png" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Pulse Survey:  <br/> <span class="text-primary"> <i class="fa fa-medkit"></i> COVID-19 Vaccine 2021 <i class="fa fa-medkit"></i><br/><small>Mar. 09, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Dear All,<br/><br/>
+
+                      Vaccines for COVID-19 are critical tools for helping bring the pandemic under control combined with existing prevention measures. With this, we would like to know each one's thoughts and feelings by going through the pulse survey.
+
+                      Please click on the link below to access:<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://docs.google.com/forms/d/1okZcFF3FsuMvDe0lROdwcGJlMijJ43k-qomWpHqaCKk/viewform?edit_requested=true" target="_blank"><i class="fa fa-external-link"></i> View Survey</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_08_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
                   
