@@ -80,7 +80,22 @@
                         <tr>
                           <td style="font-size:larger;" class="text-primary"><i class="fa fa-check text-success"></i> &nbsp;{{$comp[0]->componentName}} </td><td> </td>
                           <td><strong class="text-success" style="font-size:larger">{{$comp[0]->componentWeight}} % </strong></td>
-                          <td></td>
+                          @if($comp[0]->componentName == "Professionalism")
+                              <td>
+                                <label>Rating</label>
+                                <select name="rating_professionalism" class="rating_professionalism form-control" data-goalweight="{{$goal[0]->goalWeight}}" data-componentweight="{{$comp[0]->componentWeight}}" data-goalID="{{$goal[0]->goalID}}">
+                                    <option value="0">* select rating *</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                  </select>
+                              </td>
+                              <td style="text-align: right;"><span class="goal_points" id="points_{{$goal[0]->goalID}}" style="font-weight: bold;">0.00</td>
+                          @else
+                              <td></td>
+                          @endif
                         </tr>
 
                           @if($comp[0]->componentName == "Goals & Objectives" )
@@ -114,6 +129,85 @@
                                 <td style="text-align: right;"><span class="goal_points" id="points_{{$goal[0]->goalID}}" style="font-weight: bold;">0.00</td>
                               </tr>
                               @endforeach
+
+                          @elseif( $comp[0]->componentName == "Professionalism" )
+                          <tr>
+                            <td colspan="3" class="bg-gray" style="padding-left: 50px;" >
+                              <div class="row">
+                               
+                                <div class="col-lg-1" style="font-weight: bold;">Rating</div>
+                                <div class="col-lg-4 text-center" style="font-weight: bold;">Guidelines</div>
+                                <div class="col-lg-4 text-center" style="font-weight: bold;">Qty Infractions by yearend</div>
+                                <div class="col-lg-3" style="font-weight: bold;">Penalty category by yearend</div>
+                              </div>
+
+                              <div class="row">
+                                
+                                <div class="col-lg-1"><br/>5</div>
+                                <div class="col-lg-4"><br/>
+                                    <strong>OUTSTANDING PERFORMANCE</strong><br/><br/>
+
+                                    <em style="font-size: small;">Behavior consistently exceeds the standards outstandingly
+                                    Performance effects program-wide or companywide impact</em>
+                                </div>
+                                <div class="col-lg-4 text-center">0</div>
+                                <div class="col-lg-3">None</div>
+                              </div>
+                              <div class="row">
+                                
+                                <div class="col-lg-1"><br/>4</div>
+                                <div class="col-lg-4"><br/>
+                                  <strong>EXCEEDS EXPECTATIONS </strong><br/><br/>
+
+                                    <em style="font-size: small;"> Consistently exhibits behavior  and encourages others to do so impacting members even outside their immediate scope<br/>
+                                    Drives impact within team<br/>
+                                    Advocates and promotes core values by encouraging others</em>
+                                </div>
+                                <div class="col-lg-4 text-center">1-2 <br/>
+                                  1 minor offense or 1 cleansed DA
+                                </div>
+                                <div class="col-lg-3">MINOR [VERBAL]</div>
+                              </div>
+                              <div class="row">
+                                
+                                <div class="col-lg-1"><br/>3</div>
+                                <div class="col-lg-4"><br/><strong>MEETS EXPECTATIONS</strong><br/><br/>
+
+                                    <em style="font-size: small;"> Exhibits behavior consistently<br/>
+                                    Regularly demonstrates the competency
+                                </div>
+                                <div class="col-lg-4 text-center">3-4 <br/>
+                                      Two Level 1 offenses or Two instances (repeated) of the same Level 1 offense
+                                </div>
+                                <div class="col-lg-3">MINOR [WRITTEN]</div>
+                              </div>
+                              <div class="row">
+                                
+                                <div class="col-lg-1"><br/>2</div>
+                                <div class="col-lg-4"><br/><strong>IMPROVEMENT NEEDED</strong><br/><br/>
+                                      <em style="font-size: small;">Exhibits behavior inconsistently<br/>
+                                      Needs improvement for Performance Improvement or<br/>
+                                        Performance Development (for those new to current        
+                                        position)</em></div>
+                                <div class="col-lg-4 text-center">Three or more Level 1offenses and/or One Level 2 offense</div>
+                                <div class="col-lg-3">SERIOUS [FINAL WRITTEN]</div>
+                              </div>
+                              <div class="row">
+                                
+                                <div class="col-lg-1"><br/>1</div>
+                                <div class="col-lg-4"><br/><strong>UNSATISFACTORY PERFORMANCE</strong><br/><br/>
+                                    <em style="font-size: small;">Never or almost never exhibits behavior</em></div>
+                                <div class="col-lg-4 text-center">5 or more <br/>
+                                Two or more Level 2 offenses and or at least 1 level 3 offense</div>
+                                <div class="col-lg-3">SERIOUS/GRAVE [FINAL WRITTEN or SUSPENSION]</div>
+                              </div>
+                              
+                            </td>
+                            
+                       
+                            
+                            
+                          </tr>
 
                           @endif
 
@@ -197,8 +291,8 @@
                                       <label>Strengths </label><textarea rows="7" id="strengths_{{$comp[0]->competencyID}}" class="form-control"></textarea><br/><br/>
                                       <label>Areas For Improvement </label><textarea rows="7" id="afi_{{$comp[0]->competencyID}}" class="form-control"></textarea>
                                     </td>
-                                    <td>{{$comp[0]->competencyWeight}} %</td>
-                                    <td>
+                                    <td valign="top">{{$comp[0]->competencyWeight}} %</td>
+                                    <td valign="top">
                                       <select name="ratingComp_{{$comp[0]->competencyID}}" class="rating_comp form-control" data-compID="{{$comp[0]->competencyID}}" data-componentweight="{{$comp[0]->competencyWeight}}">
                                               <option value="0">* select rating *</option>
                                               <option value="1">1</option>
@@ -293,6 +387,66 @@
    //  });
 
    $('.rating_goal.form-control').on('change',function(){
+
+      var rate = $(this).find(':selected').val();
+      var componentWeight = $(this).attr('data-componentweight');
+      var goalWeight = $(this).attr('data-goalweight');
+      var goalID = $(this).attr('data-goalID');
+
+      var overallscore = 0;
+      var allgoal= 0;
+      var allcomp = 0;
+
+      var totalpoint = rate * (((componentWeight/100) * goalWeight)/100);
+
+      $('#points_'+goalID).html("");
+      $('#points_'+goalID).append(totalpoint.toFixed(2));
+      $('#points_'+goalID).attr('data-point', totalpoint.toFixed(2));
+
+
+      var allGoalPoints = $('.goal_points');//.attr('data-point');
+      var allCompPoints = $('.comp_points.col-lg-1'); //.attr('data-point');
+
+      
+
+      $.each( allGoalPoints, function(key,val){
+
+        allgoal += parseFloat(val.innerText);
+
+      });
+      
+
+      $.each( allCompPoints, function(key,val){
+
+        allcomp += parseFloat(val.innerText);
+
+      });
+      
+      overallscore = allgoal+allcomp;
+      if (overallscore > 5.0) overallscore=5.00
+
+      
+      $('#overall').html("");
+      $('#overall').append(overallscore.toFixed(2));
+
+      if(overallscore > 4.5){
+        $('#overall').css('background-color',"#1a8fcb");
+      }else if(overallscore >= 4.0){
+         $('#overall').css('background-color',"#64d254");
+      }else if(overallscore >= 3.1){
+        $('#overall').css('background-color',"#666");
+      }else if(overallscore >= 2.0){
+        $('#overall').css('background-color',"#ea8f1b");
+      }else{
+        $('#overall').css('background-color',"#ff1212");
+      }
+
+
+
+
+   });
+
+   $('.rating_professionalism.form-control').on('change',function(){
 
       var rate = $(this).find(':selected').val();
       var componentWeight = $(this).attr('data-componentweight');

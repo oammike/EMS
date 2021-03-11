@@ -3,6 +3,43 @@
 
               
             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/clutch.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO named <br/> <span class="text-primary"> <i class="fa fa-trophy"></i> top BPO company <i class="fa fa-trophy"></i><br/><small>Mar. 12, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Open Access BPO has been recognized as one of the best BPO companies and voice service providers in the recent Clutch Leader Awards 2021.<br/><br/>
+
+                      Market research and B2B review agency Clutch named Open Access BPO in its Top BPO Companies list, having bagged recognitions in multiple categories:<br/><br/>
+
+                      <strong class="text-success"> Best Back Office<br/>
+                      Best Data Entry<br/>
+                      Best Writing &amp; Content Creation<br/><br/><br/></strong>
+
+                      As a Top Voice Services Providers awardee, the BPO company was also acknowledged for:<br/><br/>
+
+                      <strong class="text-success"> Best Outsourced Customer Support<br/>
+                      Best Inbound Call Center<br/><br/></strong>
+
+                      Clutch evaluates companies in their platform based on the outsourcing services, client satisfaction ratings, quality of completed projects, and market presence.<br/><br/>
+
+                      In addition to these awards, Clutch's sister site, The Manifest, features Open Access BPO in various categories such as Top 40 Call Center Services in Southeast Asia and Top 100 BPO companies.<br/><br/>
+
+                      Open Access BPO's rankings reflect its commitment to seamless multichannel solutions to businesses of all sizes across industries. These solutions are delivered by teams of multilingual professionals from its US and Asia offices.
+                      <br/><br/>
+                      <strong>Read More: </strong>https://www.openaccessbpo.com/blog/open-access-bpo-named-top-bpo-company/<br/>
+                      
+                      <a class="btn btn-primary btn-external-link" href="https://www.openaccessbpo.com/blog/open-access-bpo-named-top-bpo-company/" target="_blank"><i class="fa fa-external-link"></i> View Blog Post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/vaccineSurvey.png" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Pulse Survey:  <br/> <span class="text-primary"> <i class="fa fa-medkit"></i> COVID-19 Vaccine 2021 <i class="fa fa-medkit"></i><br/><small>Mar. 09, 2021</small><br/>
                   
