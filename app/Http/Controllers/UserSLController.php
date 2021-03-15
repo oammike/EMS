@@ -315,8 +315,8 @@ class UserSLController extends Controller
                                     $hasSavedCredits = true;
                                      
 
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned - ($totalVTO + $totalAdv);
-                                     $creditsLeft2 = ($savedCredits->first()->beginBalance - $savedCredits->first()->used) + $totalVLearned - ($totalVTO + $totalAdv);
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned - ($totalVTO + $totalAdv) - $savedCredits->first()->paid;
+                                     $creditsLeft2 = ($savedCredits->first()->beginBalance - $savedCredits->first()->used) + $totalVLearned - ($totalVTO + $totalAdv) - $savedCredits->first()->paid;
                                  }else 
                                  {
 
