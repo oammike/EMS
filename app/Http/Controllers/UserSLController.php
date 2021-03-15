@@ -323,7 +323,7 @@ class UserSLController extends Controller
                                  {
 
                                     //check muna kung may existing approved VLs
-                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->get();
+                                    $approvedVLs = User_SL::where('user_id',$user->id)->where('isApproved',true)->where('productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->get();
                                     if (count($approvedVLs) > 0 )
                                     {
                                         $usedC = 0;
