@@ -350,7 +350,10 @@ class UserSLController extends Controller
                             ($creditsLeft2 >= 0.5) ? $canSL=1 : $canSL=0;
                         }
 
-                        return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime','canSL'));
+                        if($request->debug)
+                            return response()->json(['creditsLeft2'=>$creditsLeft2, 'creditsLeft'=>$creditsLeft,'savedCredits'=>$savedCredits->first(),'totalVLearned'=>$totalVLearned,'totalAdv'=>$totalAdv,'canSL'=>$canSL ]);
+                        else
+                            return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime','canSL'));
 
                     }else return view('access-denied');
 
