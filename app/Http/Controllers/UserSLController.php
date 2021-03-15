@@ -233,6 +233,8 @@ class UserSLController extends Controller
                        
 
                         $allAdvancedSL = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$user->id)->
+                                        where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                        where('user_advancedSL.periodEnd','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
                                                     select('user_advancedSL.id','user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
                                                     where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
                                                     orderBy('user_advancedSL.periodEnd','DESC')->get(); //
